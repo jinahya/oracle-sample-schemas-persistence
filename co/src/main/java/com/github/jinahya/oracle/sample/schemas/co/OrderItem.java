@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
+import com.github.jinahya.oracle.sample.schemas.__MappedSuperclass;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 
 @Entity
 @Table(name = OrderItem.TABLE_NAME)
-public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
+public class OrderItem extends __MappedSuperclass<OrderItem, OrderItemId> {
 
     @Serial
     private static final long serialVersionUID = -834208923628903482L;

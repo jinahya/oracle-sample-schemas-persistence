@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
+import com.github.jinahya.oracle.sample.schemas.__MappedSuperclass;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,7 +28,7 @@ import java.io.Serial;
                 )
         }
 )
-public class Inventory extends __MappedEntity<Inventory, Long> {
+public class Inventory extends __MappedSuperclass<Inventory, Long> {
 
     @Serial
     private static final long serialVersionUID = 8267162929628231890L;

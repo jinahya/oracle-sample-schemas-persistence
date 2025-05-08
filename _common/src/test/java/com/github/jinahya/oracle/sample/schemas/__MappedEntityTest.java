@@ -2,7 +2,7 @@ package com.github.jinahya.oracle.sample.schemas;
 
 import java.util.Objects;
 
-public abstract class __MappedEntityTest<ENTITY extends __MappedEntity<ENTITY, ID>, ID extends java.io.Serializable> {
+public abstract class __MappedEntityTest<ENTITY extends __MappedSuperclass<ENTITY, ID>, ID extends java.io.Serializable> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     protected __MappedEntityTest(final Class<ENTITY> entityClass, final Class<ID> idClass) {
