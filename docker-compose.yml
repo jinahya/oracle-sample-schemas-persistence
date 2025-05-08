@@ -1,0 +1,14 @@
+services:
+  oracle-sample-schemas:
+    image: container-registry.oracle.com/database/free:latest-lite
+    container_name: oracle-latest-lite
+    privileged: true
+    ports:
+      - "1521:1521"
+    environment:
+      ORACLE_PWD: password
+    volumes:
+      - ./db-sample-schemas:/db-sample-schemas
+#      - /opt/oracle/oradata
+      - ./opt/oracle/oradata:/opt/oracle/oradata
+      
