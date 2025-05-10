@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas._MappedEntity_Test;
+import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Test;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 import org.junit.jupiter.api.Test;
 
@@ -9,10 +9,10 @@ import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.List;
 
-class Order_Test extends _MappedEntity_Test<Order> {
+class Order_Test extends __MappedEntity_Test<Order, Long> {
 
     Order_Test() {
-        super(Order.class);
+        super(Order.class, Long.class);
     }
 
     @Override

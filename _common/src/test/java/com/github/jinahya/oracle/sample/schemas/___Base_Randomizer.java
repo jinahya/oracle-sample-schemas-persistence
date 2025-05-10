@@ -1,11 +1,13 @@
 package com.github.jinahya.oracle.sample.schemas;
 
+import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 import uk.co.jemos.podam.api.RandomDataProviderStrategyImpl;
 
 import java.util.Objects;
+import java.util.Optional;
 
 abstract class ___Base_Randomizer<T> {
 
@@ -22,18 +24,22 @@ abstract class ___Base_Randomizer<T> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    protected DataProviderStrategy strategy() {
+    protected DataProviderStrategy dataProviderStrategy() {
         return new RandomDataProviderStrategyImpl();
     }
 
-    protected PodamFactory factory() {
-        return new PodamFactoryImpl(strategy());
+    protected PodamFactory podamFactory() {
+        final var factory = new PodamFactoryImpl(dataProviderStrategy());
+        Optional.ofNullable(classInfoStrategy()).ifPresent(factory::setClassStrategy);
+        return factory;
     }
 
-    protected T get() {
-        final var value = factory().manufacturePojo(valueClass);
-        BeanValidationTestUtils.requireValid(value);
-        return value;
+    protected ClassInfoStrategy classInfoStrategy() {
+        return null;
+    }
+
+    protected T manufacturePojo() {
+        return podamFactory().manufacturePojo(valueClass);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

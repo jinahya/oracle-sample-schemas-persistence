@@ -1,11 +1,12 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas._MappedEntity;
+import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -17,9 +18,37 @@ import java.io.Serial;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@NamedQuery(
+        name = "Customer.findAllByFullNameLike",
+        query = """
+                SELECT e
+                FROM Customer AS e
+                WHERE e.fullName LIKE :fullNamePattern"""
+)
+@NamedQuery(
+        name = "Customer.findAllByFullName",
+        query = """
+                SELECT e
+                FROM Customer AS e
+                WHERE e.fullName = :fullName"""
+)
+@NamedQuery(
+        name = "Customer.findAllByEmailAddressLike",
+        query = """
+                SELECT e
+                FROM Customer AS e
+                WHERE e.emailAddress LIKE :emailAddressPattern"""
+)
+@NamedQuery(
+        name = "Customer.findByEmailAddress",
+        query = """
+                SELECT e
+                FROM Customer AS e
+                WHERE e.emailAddress = :emailAddress"""
+)
 @Entity
 @Table(name = Customer.TABLE_NAME)
-public class Customer extends _MappedEntity<Customer> {
+public class Customer extends __MappedEntity<Customer, Long> {
 
     @Serial
     private static final long serialVersionUID = 8488065550644505527L;
@@ -91,7 +120,10 @@ public class Customer extends _MappedEntity<Customer> {
     // -----------------------------------------------------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false,
+//            insertable = false,
+            insertable = true, // EclipseLink
+            updatable = false)
     private Long customerId;
 
     @Size(max = 255)

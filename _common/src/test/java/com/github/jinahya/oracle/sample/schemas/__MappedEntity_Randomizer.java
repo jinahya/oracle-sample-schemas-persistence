@@ -1,5 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas;
 
+import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
@@ -7,7 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 //abstract class __MappedEntity_Randomizer<T extends __MappedEntity<T, ?>> {
-abstract class __MappedEntity_Randomizer<ENTITY extends __MappedEntity<ENTITY, ?>> extends ___Base_Randomizer<ENTITY> {
+public abstract class __MappedEntity_Randomizer<ENTITY extends __MappedEntity<ENTITY, ?>>
+        extends ___Base_Randomizer<ENTITY> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -16,25 +18,30 @@ abstract class __MappedEntity_Randomizer<ENTITY extends __MappedEntity<ENTITY, ?
      *
      * @param entityClass the entity class.
      */
-    __MappedEntity_Randomizer(final Class<ENTITY> entityClass) {
+    protected __MappedEntity_Randomizer(final Class<ENTITY> entityClass) {
         super(entityClass);
         this.entityClass = valueClass;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    protected DataProviderStrategy strategy() {
-        return super.strategy();
+    protected DataProviderStrategy dataProviderStrategy() {
+        return super.dataProviderStrategy();
     }
 
     @Override
-    protected PodamFactory factory() {
-        return super.factory();
+    protected PodamFactory podamFactory() {
+        return super.podamFactory();
     }
 
     @Override
-    protected ENTITY get() {
-        return super.get();
+    protected ClassInfoStrategy classInfoStrategy() {
+        return super.classInfoStrategy();
+    }
+
+    @Override
+    protected ENTITY manufacturePojo() {
+        return super.manufacturePojo();
     }
 
     // ----------------------------------------------------------------------------------------------------- entityClass

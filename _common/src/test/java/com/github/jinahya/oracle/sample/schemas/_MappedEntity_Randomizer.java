@@ -1,11 +1,13 @@
 package com.github.jinahya.oracle.sample.schemas;
 
+import uk.co.jemos.podam.api.ClassInfoStrategy;
+import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
 @SuppressWarnings({
         "java:S119" // Type parameter names should comply with a naming convention
 })
-abstract class _MappedEntity_Randomizer<ENTITY extends _MappedEntity<ENTITY>>
+public abstract class _MappedEntity_Randomizer<ENTITY extends _MappedEntity<ENTITY>>
         extends __MappedEntity_Randomizer<ENTITY> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
@@ -15,23 +17,28 @@ abstract class _MappedEntity_Randomizer<ENTITY extends _MappedEntity<ENTITY>>
      *
      * @param entityClass the entity class.
      */
-    _MappedEntity_Randomizer(final Class<ENTITY> entityClass) {
+    protected _MappedEntity_Randomizer(final Class<ENTITY> entityClass) {
         super(entityClass);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    protected PodamFactory factory() {
-        return super.factory();
+    protected DataProviderStrategy dataProviderStrategy() {
+        return super.dataProviderStrategy();
     }
 
     @Override
-    protected ENTITY get() {
-        return super.get();
+    protected PodamFactory podamFactory() {
+        return super.podamFactory();
     }
 
     @Override
-    Class<? super ENTITY> superclassDeclaring(String attributeName) {
-        return super.superclassDeclaring(attributeName);
+    protected ClassInfoStrategy classInfoStrategy() {
+        return super.classInfoStrategy();
+    }
+
+    @Override
+    protected ENTITY manufacturePojo() {
+        return super.manufacturePojo();
     }
 }

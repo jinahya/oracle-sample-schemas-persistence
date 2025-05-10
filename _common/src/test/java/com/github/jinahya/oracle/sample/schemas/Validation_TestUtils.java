@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
 
-public final class BeanValidationTestUtils {
+public final class Validation_TestUtils {
 
     public static <T> Set<ConstraintViolation<T>> validate(Validator validator, final T object,
                                                            final Class<?>... groups) {
@@ -51,7 +51,7 @@ public final class BeanValidationTestUtils {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    private BeanValidationTestUtils() {
+    private Validation_TestUtils() {
         throw new AssertionError("instantiation is not allowed");
     }
 }

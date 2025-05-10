@@ -64,7 +64,7 @@ public final class _MappedEntity_Randomizer_Utils {
     public static <T extends _MappedEntity<T>> Optional<T> newRandomizedInstanceOf(final Class<T> entityClass) {
         Objects.requireNonNull(entityClass, "entityClass is null");
         return getRandomizerInstance(entityClass)
-                .map(_MappedEntity_Randomizer::get);
+                .map(_MappedEntity_Randomizer::manufacturePojo);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

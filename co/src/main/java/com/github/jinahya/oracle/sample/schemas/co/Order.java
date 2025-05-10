@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas._MappedEntity;
+import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +27,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = Order.TABLE_NAMe)
-public class Order extends _MappedEntity<Order> {
+public class Order extends __MappedEntity<Order, Long> {
 
     @Serial
     private static final long serialVersionUID = 6871992783901039564L;

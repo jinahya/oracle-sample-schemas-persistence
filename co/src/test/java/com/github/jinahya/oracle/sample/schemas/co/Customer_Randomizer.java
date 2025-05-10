@@ -1,0 +1,39 @@
+package com.github.jinahya.oracle.sample.schemas.co;
+
+import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer;
+import lombok.extern.slf4j.Slf4j;
+import uk.co.jemos.podam.api.ClassInfoStrategy;
+import uk.co.jemos.podam.api.DataProviderStrategy;
+import uk.co.jemos.podam.api.PodamFactory;
+
+@Slf4j
+class Customer_Randomizer extends __MappedEntity_Randomizer<Customer> {
+
+    Customer_Randomizer() {
+        super(Customer.class);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Override
+    protected DataProviderStrategy dataProviderStrategy() {
+        return super.dataProviderStrategy()
+                .addOrReplaceAttributeStrategy(entityClass, "customerId", (t, a) -> {
+                    return null;
+                });
+    }
+
+    @Override
+    protected PodamFactory podamFactory() {
+        return super.podamFactory();
+    }
+
+    @Override
+    protected ClassInfoStrategy classInfoStrategy() {
+        return super.classInfoStrategy();
+    }
+
+    @Override
+    protected Customer manufacturePojo() {
+        return super.manufacturePojo();
+    }
+}

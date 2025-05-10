@@ -196,7 +196,10 @@ public class Product implements Serializable {
     @Positive
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_PRODUCT_ID, nullable = false,
+//            insertable = false,
+            insertable = true, // EclipseLInk
+            updatable = false)
     private Long productId;
 
     @Size(max = 255)

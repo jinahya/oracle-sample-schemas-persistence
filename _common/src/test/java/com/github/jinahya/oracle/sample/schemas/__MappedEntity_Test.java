@@ -9,28 +9,49 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.mockito.Mockito;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Objects;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assumptions.assumeThat;
 import static org.junit.jupiter.api.Assumptions.assumeFalse;
-import static org.mockito.Mockito.spy;
 
 @Slf4j
-public abstract class __MappedEntity_Test<ENTITY extends __MappedEntity<ENTITY, ID>, ID extends Serializable> {
+public abstract class __MappedEntity_Test<ENTITY extends __MappedEntity<ENTITY, ID>, ID extends Serializable>
+        extends ___MappedEntity_TestBase<ENTITY, ID> {
+
+//    private static class ExtendedFetchGroup extends FetchGroup {
+//
+//        @Override
+//        public boolean equals(final Object obj) {
+//            return false;
+//        }
+//
+//        @Override
+//        public int hashCode() {
+//            return super.hashCode();
+//        }
+//    }
+//
+//    private static class ExtendedEntityFetchGroup extends EntityFetchGroup {
+//
+//        @Override
+//        public boolean equals(final Object obj) {
+//            return false;
+//        }
+//
+//        @Override
+//        public int hashCode() {
+//            return super.hashCode();
+//        }
+//    }
 
     protected __MappedEntity_Test(final Class<ENTITY> entityClass, final Class<ID> idClass) {
-        super();
-        this.entityClass = Objects.requireNonNull(entityClass, "entityClass is null");
-        this.idClass = Objects.requireNonNull(idClass, "idClass is null");
+        super(entityClass, idClass);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -74,6 +95,18 @@ public abstract class __MappedEntity_Test<ENTITY extends __MappedEntity<ENTITY, 
         return EqualsVerifier.forClass(entityClass)
                 .suppress(Warning.SURROGATE_KEY)
                 .suppress(Warning.STRICT_HASHCODE)
+//                // Eclipselink
+//                .withPrefabValues(
+//                        FetchGroup.class,
+//                        new ExtendedFetchGroup(),
+//                        new ExtendedFetchGroup()
+//                )
+//                // Eclipselink
+//                .withPrefabValues( // Eclipselink
+//                                   EntityFetchGroup.class,
+//                                   new ExtendedEntityFetchGroup(),
+//                                   new ExtendedEntityFetchGroup()
+//                )
                 ;
     }
 
@@ -131,27 +164,7 @@ public abstract class __MappedEntity_Test<ENTITY extends __MappedEntity<ENTITY, 
         }
     }
 
-    // ----------------------------------------------------------------------------------------------------- entityClass
-    protected ENTITY newEntityInstance() {
-        return __MappedEntity_Test_Utils.newEntityInstanceOf(entityClass);
-    }
+    // ----------------------------------------------------------------------------------------------- super.entityClass
 
-    protected ENTITY newEntitySpy() {
-        return spy(newEntityInstance());
-    }
-
-    protected Optional<ENTITY> newRandomizedEntityInstance() {
-        return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOf(entityClass);
-    }
-
-    protected Optional<ENTITY> newRandomizedEntitySpy() {
-        return newRandomizedEntityInstance().map(Mockito::spy);
-    }
-
-    // --------------------------------------------------------------------------------------------------------- idClass
-
-    // -----------------------------------------------------------------------------------------------------------------
-    protected final Class<ENTITY> entityClass;
-
-    protected final Class<ID> idClass;
+    // --------------------------------------------------------------------------------------------------- super.idClass
 }
