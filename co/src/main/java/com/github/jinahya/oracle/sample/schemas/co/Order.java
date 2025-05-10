@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedSuperclass;
+import com.github.jinahya.oracle.sample.schemas._MappedEntity;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
@@ -26,7 +27,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = Order.TABLE_NAMe)
-public class Order extends __MappedSuperclass<Order, Long> {
+public class Order extends _MappedEntity<Order> {
 
     @Serial
     private static final long serialVersionUID = 6871992783901039564L;
@@ -91,17 +92,21 @@ public class Order extends __MappedSuperclass<Order, Long> {
     // ------------------------------------------------------------------------------------------------------ super._id_
     @Override
     protected final Long _id_() {
-        return orderId;
+        return getOrderId();
     }
 
     @Override
     protected final void _id_(final Long _id_) {
-        orderId = _id_;
+        setOrderId(_id_);
     }
 
     // --------------------------------------------------------------------------------------------------------- orderId
     public Long getOrderId() {
         return orderId;
+    }
+
+    protected void setOrderId(final Long orderId) {
+        this.orderId = orderId;
     }
 
     // -------------------------------------------------------------------------------------------------------- orderTms
@@ -180,6 +185,7 @@ public class Order extends __MappedSuperclass<Order, Long> {
      *
      * @return the total price of all order items
      */
+    @Transient
     public BigDecimal getOrderItemsTotalPrice() {
         return orderItems.stream()
                 .map(OrderItem::getTotalPrice)

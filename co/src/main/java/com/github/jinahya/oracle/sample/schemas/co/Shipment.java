@@ -2,7 +2,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.github.jinahya.oracle.sample.schemas.__AttributeEnum;
 import com.github.jinahya.oracle.sample.schemas.__AttributeEnumConverter;
-import com.github.jinahya.oracle.sample.schemas.__MappedSuperclass;
+import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Converter;
 import jakarta.persistence.Entity;
@@ -21,7 +21,7 @@ import java.util.Optional;
 
 @Entity
 @Table(name = Shipment.TABLE_NAME)
-public class Shipment extends __MappedSuperclass<Shipment, Long> {
+public class Shipment extends __MappedEntity<Shipment, Long> {
 
     @Serial
     private static final long serialVersionUID = -9090927980604439764L;

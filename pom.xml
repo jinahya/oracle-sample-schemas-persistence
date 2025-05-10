@@ -11,7 +11,7 @@
 
   <name>${project.artifactId}</name>
   <description>Persistence for MySQL Employees Sample Database</description>
-  <url>https://github.com/jinahya/$project.artifactId}</url>
+  <url>https://github.com/jinahya/${project.artifactId}</url>
   <inceptionYear>2024</inceptionYear>
   <organization>
     <name>Jinahya, Inc.</name>
@@ -176,6 +176,14 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <scope>provided</scope>
+    </dependency>
+    <dependency><!-- https://github.com/mtedone/podam/releases -->
+      <!-- https://central.sonatype.com/artifact/uk.co.jemos.podam/podam/versions -->
+      <groupId>uk.co.jemos.podam</groupId>
+      <artifactId>podam</artifactId>
+      <!--      <version>7.2.11.RELEASE</version>-->
+      <version>8.0.2.RELEASE</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

@@ -1,20 +1,8 @@
 # Links
 
-## ibm.com
+## oracle.com
 
-* [The SAMPLE database](https://www.ibm.com/docs/en/db2/12.1.0?topic=samples-sample-database)
-    * [CATALOG table](https://www.ibm.com/docs/en/db2/12.1.0?topic=samples-sample-database#r0001094__custtab__title__1)
-        * [catalog.xsd](https://www.ibm.com/docs/en/db2/12.1.0?topic=SSEPGG_12.1.0/com.ibm.db2.luw.apdv.sample.doc/doc/db2sampl/s-catalog-xsd.htm)
-    * [CUSTOMER table](https://www.ibm.com/docs/en/db2/12.1.0?topic=samples-sample-database#r0001094__custtab__title__1)
-        * [customer.xsd](https://www.ibm.com/docs/en/db2/12.1.0?topic=SSEPGG_12.1.0/com.ibm.db2.luw.apdv.sample.doc/doc/db2sampl/s-customer-xsd.htm)
-    * [ORG table](https://www.ibm.com/docs/en/db2/12.1.0?topic=samples-sample-database#r0001094__os2org__title__1)
-    * [PRODUCT table](https://www.ibm.com/docs/en/db2/12.1.0?topic=samples-sample-database#r0001094__prodtab__title__1)
-        * [product.xsd](https://www.ibm.com/docs/en/SSEPGG_12.1.0/com.ibm.db2.luw.apdv.sample.doc/doc/db2sampl/s-product-xsd.html) 
-    * [PURCHASEORDER table](https://www.ibm.com/docs/en/db2/12.1.0?topic=samples-sample-database#r0001094__potab__title__1)
-        * [porder.xsd](https://www.ibm.com/docs/en/db2/12.1.0?topic=SSEPGG_12.1.0/com.ibm.db2.luw.apdv.sample.doc/doc/db2sampl/s-porder-xsd.htm)
-    * [STAFF table](https://www.ibm.com/docs/en/db2/12.1.0?topic=samples-sample-database#r0001094__os2staf__title__1)
-    * [SUPPLIERS table](https://www.ibm.com/docs/en/db2/12.1.0?topic=samples-sample-database#r0001094__suptab__title__1)
-        * [supplier.xsd](https://www.ibm.com/docs/en/db2/12.1.0?topic=SSEPGG_12.1.0/com.ibm.db2.luw.apdv.sample.doc/doc/db2sampl/s-supplier-xsd.htm)
+* [SQL Developer](https://www.oracle.com/database/sqldeveloper/)
 
 ## docs.hibernate.org
 

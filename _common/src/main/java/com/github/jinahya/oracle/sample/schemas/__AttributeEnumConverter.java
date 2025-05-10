@@ -32,7 +32,7 @@ public abstract class __AttributeEnumConverter<E extends Enum<E> & __AttributeEn
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     protected __AttributeEnumConverter(final Class<E> enumClass) {
         super();
         this.enumClass = Objects.requireNonNull(enumClass, "enumClass is null");

@@ -2,21 +2,26 @@ package com.github.jinahya.oracle.sample.schemas;
 
 import jakarta.persistence.MappedSuperclass;
 
+import java.io.Serial;
+
 /**
- * An abstract mapped superclass with an id of {@code Long} type.
+ * An abstract mapped-superclass with an id of {@code Long} type.
  *
  * @param <SELF> self type parameter
  */
 @MappedSuperclass
-public abstract class _MappedSuperclass<SELF extends _MappedSuperclass<SELF>>
-        extends __MappedSuperclass<SELF, Long> {
+public abstract class _MappedEntity<SELF extends _MappedEntity<SELF>>
+        extends __MappedEntity<SELF, Long> {
+
+    @Serial
+    private static final long serialVersionUID = 8657726971456566178L;
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
      */
-    protected _MappedSuperclass() {
+    protected _MappedEntity() {
         super();
     }
 

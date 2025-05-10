@@ -117,6 +117,13 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
+      <groupId>com.github.jinahya</groupId>
+      <artifactId>_common</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <classifier>tests</classifier>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>com.oracle.database.jdbc</groupId>
       <artifactId>ojdbc11</artifactId>
       <version>23.7.0.25.01</version>

@@ -7,13 +7,13 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * An abstract mapped superclass with an id of a specific type.
+ * An abstract mapped-superclass with an id of a specific type.
  *
  * @param <SELF> self type parameter
  * @param <ID>   id type parameter
  */
 @MappedSuperclass
-public abstract class __MappedSuperclass<SELF extends __MappedSuperclass<SELF, ID>, ID extends java.io.Serializable>
+public abstract class __MappedEntity<SELF extends __MappedEntity<SELF, ID>, ID extends java.io.Serializable>
         implements Serializable {
 
     @Serial
@@ -24,7 +24,7 @@ public abstract class __MappedSuperclass<SELF extends __MappedSuperclass<SELF, I
     /**
      * Creates a new instance.
      */
-    protected __MappedSuperclass() {
+    protected __MappedEntity() {
         super();
     }
 
@@ -40,12 +40,15 @@ public abstract class __MappedSuperclass<SELF extends __MappedSuperclass<SELF, I
     // https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof __MappedSuperclass<?, ?>)) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof __MappedEntity<?, ?>)) {
             return false;
         }
         return Objects.equals(
                 _id_(),
-                ((__MappedSuperclass<?, ?>) obj)._id_()
+                ((__MappedEntity<?, ?>) obj)._id_()
         );
     }
 

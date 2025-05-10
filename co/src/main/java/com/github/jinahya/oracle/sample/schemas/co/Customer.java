@@ -1,5 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
+import com.github.jinahya.oracle.sample.schemas._MappedEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,7 +10,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.util.Objects;
+import java.io.Serial;
 
 /**
  * An entity class maps to {@value Customer#TABLE_NAME} table.
@@ -18,13 +19,22 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = Customer.TABLE_NAME)
-public class Customer {
+public class Customer extends _MappedEntity<Customer> {
+
+    @Serial
+    private static final long serialVersionUID = 8488065550644505527L;
 
     // -----------------------------------------------------------------------------------------------------------------
-    static final String TABLE_NAME = "CUSTOMERS";
+    public static final String TABLE_NAME = "CUSTOMERS";
 
     // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
     public static final String COLUMN_NAME_CUSTOMER_ID = "CUSTOMER_ID";
+
+    // --------------------------------------------------------------------------------------------------- EMAIL_ADDRESS
+    public static final String COLUMN_NAME_EMAIL_ADDRESS = "EMAIL_ADDRESS";
+
+    // ------------------------------------------------------------------------------------------------------- FULL_NAME
+    public static final String COLUMN_NAME_FULL_NAME = "FULL_NAME";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -40,22 +50,15 @@ public class Customer {
                 '}';
     }
 
+    // ------------------------------------------------------------------------------------------------------ super._id_
     @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof Customer)) {
-            return false;
-        }
-        return Objects.equals(
-                getCustomerId(),
-                ((Customer) obj).getCustomerId()
-        );
+    protected final Long _id_() {
+        return getCustomerId();
     }
 
     @Override
-    public final int hashCode() {
-        return Objects.hash(
-                getCustomerId()
-        );
+    protected final void _id_(final Long _id_) {
+        setCustomerId(_id_);
     }
 
     // ------------------------------------------------------------------------------------------------------ customerId
@@ -63,7 +66,11 @@ public class Customer {
         return customerId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- emailAddress
+    protected void setCustomerId(final Long customerId) {
+        this.customerId = customerId;
+    }
+
+    // ---------------------------------------------------------------------------------------------------- emailAddress
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -72,7 +79,7 @@ public class Customer {
         this.emailAddress = emailAddress;
     }
 
-    // ------------------------------------------------------------------------------------------------------- fullName
+    // -------------------------------------------------------------------------------------------------------- fullName
     public String getFullName() {
         return fullName;
     }
@@ -89,7 +96,7 @@ public class Customer {
 
     @Size(max = 255)
     @NotNull
-    @Column(name = "EMAIL_ADDRESS", nullable = false, insertable = true, updatable = true, unique = true)
+    @Column(name = COLUMN_NAME_EMAIL_ADDRESS, nullable = false, insertable = true, updatable = true, unique = true)
     private String emailAddress;
 
     @Size(max = 255)
