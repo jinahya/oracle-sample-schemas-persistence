@@ -1,5 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas;
 
+import jakarta.annotation.Nonnull;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -61,7 +62,7 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
      *
      * @param entity the instance of {@link #entityClass} found in the database
      */
-    protected void randomFound__(final ENTITY entity) {
+    protected void randomFound__(@Nonnull final ENTITY entity) {
         log.debug("found entity: {}", entity);
         Validation_TestUtils.requireValid(entity);
     }

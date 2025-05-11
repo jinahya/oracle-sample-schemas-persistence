@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.mockito.Mockito;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
@@ -92,22 +93,41 @@ public abstract class __MappedEntity_Test<ENTITY extends __MappedEntity<ENTITY, 
     }
 
     protected SingleTypeEqualsVerifierApi<ENTITY> equalsVerifier() {
-        return EqualsVerifier.forClass(entityClass)
+        final var verifier = EqualsVerifier.forClass(entityClass)
                 .suppress(Warning.SURROGATE_KEY)
                 .suppress(Warning.STRICT_HASHCODE)
-//                // Eclipselink
-//                .withPrefabValues(
-//                        FetchGroup.class,
-//                        new ExtendedFetchGroup(),
-//                        new ExtendedFetchGroup()
-//                )
-//                // Eclipselink
-//                .withPrefabValues( // Eclipselink
-//                                   EntityFetchGroup.class,
-//                                   new ExtendedEntityFetchGroup(),
-//                                   new ExtendedEntityFetchGroup()
-//                )
+//                .suppress(Warning.NULL_FIELDS)
                 ;
+//        try {
+//            final var c = Class.forName("org.eclipse.persistence.annotations.FetchGroup");
+//            verifier.withIgnoredAnnotations(c);
+//            EqualsVerifier_TestUtils.withPrefabValues(verifier, c, Mockito.mock(c), Mockito.mock(c));
+////            EqualsVerifier_TestUtils.withGenericPrefabValues(verifier, c, Mockito.mock(c));
+//        } catch (final ClassNotFoundException cnfe) {
+//            // empty
+//        }
+//        try {
+//            final var c = Class.forName("org.eclipse.persistence.internal.queries.EntityFetchGroup");
+//            EqualsVerifier_TestUtils.withPrefabValues(verifier, c, Mockito.mock(c), Mockito.mock(c));
+////            EqualsVerifier_TestUtils.withGenericPrefabValues(verifier, c, Mockito.mock(c));
+//        } catch (final ClassNotFoundException cnfe) {
+//            // empty
+//        }
+//        try {
+//            final var c = Class.forName("org.eclipse.persistence.core.queries.CoreAttributeGroup");
+//            EqualsVerifier_TestUtils.withPrefabValues(verifier, c, Mockito.mock(c), Mockito.mock(c));
+////            EqualsVerifier_TestUtils.withGenericPrefabValues(verifier, c, Mockito.mock(c));
+//        } catch (final ClassNotFoundException cnfe) {
+//            // empty
+//        }
+//        try {
+//            final var c = Class.forName("org.eclipse.persistence.queries.FetchGroupTracker");
+//            EqualsVerifier_TestUtils.withPrefabValues(verifier, c, Mockito.mock(c), Mockito.mock(c));
+////            EqualsVerifier_TestUtils.withGenericPrefabValues(verifier, c, Mockito.mock(c));
+//        } catch (final ClassNotFoundException cnfe) {
+//            // empty
+//        }
+        return verifier;
     }
 
     // ------------------------------------------------------------------------------------------------- getters/setters

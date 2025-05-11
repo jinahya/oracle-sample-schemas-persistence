@@ -9,7 +9,7 @@ import uk.co.jemos.podam.api.RandomDataProviderStrategyImpl;
 import java.util.Objects;
 import java.util.Optional;
 
-abstract class ___Base_Randomizer<T> {
+public abstract class ___Base_Randomizer<T> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -18,7 +18,7 @@ abstract class ___Base_Randomizer<T> {
      *
      * @param valueClass the entity class.
      */
-    ___Base_Randomizer(final Class<T> valueClass) {
+    protected ___Base_Randomizer(final Class<T> valueClass) {
         super();
         this.valueClass = Objects.requireNonNull(valueClass, "valueClass is null");
     }

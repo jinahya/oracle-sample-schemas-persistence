@@ -299,8 +299,8 @@ public class Store extends __MappedEntity<Store, Long> {
     private String physicalAddress;
 
     @jakarta.annotation.Nullable
-    @DecimalMax(value = "+90.0000000", inclusive = true)
-    @DecimalMin(value = "-90.0000000", inclusive = true)
+    @DecimalMax(value = "+090.0000000", inclusive = true)
+    @DecimalMin(value = "-090.0000000", inclusive = true)
     @Basic(optional = true)
     @Column(name = "LATITUDE", nullable = true, insertable = true, updatable = true, precision = 9, scale = 6)
     private BigDecimal latitude;

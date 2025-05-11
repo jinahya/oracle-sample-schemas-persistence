@@ -27,6 +27,7 @@
     <description>Persistence Unit for Oracle Customer Orders Schema</description>
     <provider>${persistence.provider}</provider>
     <class>com.github.jinahya.oracle.sample.schemas.co.Customer</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.Product</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Store</class>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
