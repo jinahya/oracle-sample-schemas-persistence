@@ -6,20 +6,22 @@ import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @Slf4j
 class Store_Randomizer extends __MappedEntity_Randomizer<Store> {
 
     Store_Randomizer() {
-        super(Store.class);
+        super(Store.class,
+              "storeId",
+              "logo", "logoMimeType", "logoFilename", "logoCharset", "logiLastUpdated"
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     protected DataProviderStrategy dataProviderStrategy() {
-        return super.dataProviderStrategy()
-                .addOrReplaceAttributeStrategy(entityClass, "storeId", (t, a) -> {
-                    return null;
-                });
+        return super.dataProviderStrategy();
     }
 
     @Override
@@ -30,17 +32,12 @@ class Store_Randomizer extends __MappedEntity_Randomizer<Store> {
     @Override
     protected ClassInfoStrategy classInfoStrategy() {
         return super.classInfoStrategy();
-//        return new AbstractClassInfoStrategy() {
-//            // https://github.com/mtedone/podam/pull/84
-//            @Override
-//            public boolean approve(final ClassAttribute attribute) {
-//                return !Objects.equals(attribute.getName(), "storeId");
-//            }
-//        };
     }
 
     @Override
     protected Store manufacturePojo() {
-        return super.manufacturePojo();
+        final var pojo = super.manufacturePojo();
+        assertThat(pojo.getStoreId()).isNull();
+        return pojo;
     }
 }

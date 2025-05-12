@@ -17,6 +17,8 @@ public abstract class __MappedEntity_Persister<ENTITY extends __MappedEntity<ENT
         return entityInstance;
     }
 
+    // ------------------------------------------------------------------------------------------------------- entityClass
+
     // -----------------------------------------------------------------------------------------------------------------
     protected final Class<ENTITY> entityClass;
 }

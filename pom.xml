@@ -51,7 +51,7 @@
     <groupId.querydsl>com.querydsl</groupId.querydsl>
     <version.querydsl>5.1.0</version.querydsl>
     <!--    <version.lombok>1.18.30</version.lombok>-->
-    <version.lombok>1.18.32</version.lombok>
+    <version.lombok>1.18.38</version.lombok>
     <version.maven-failsafe>${version.maven-surefire}</version.maven-failsafe>
     <!--    <version.maven-surefire>3.2.5</version.maven-surefire>-->
     <version.maven-surefire>3.5.3</version.maven-surefire>
@@ -128,7 +128,7 @@
     <dependency>
       <groupId>com.oracle.database.jdbc</groupId>
       <artifactId>ojdbc11</artifactId>
-      <version>23.7.0.25.01</version>
+      <version>23.8.0.25.04</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
@@ -159,7 +159,7 @@
     <dependency>
       <groupId>nl.jqno.equalsverifier</groupId>
       <artifactId>equalsverifier-nodep</artifactId>
-      <version>3.16.1</version>
+      <version>4.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>

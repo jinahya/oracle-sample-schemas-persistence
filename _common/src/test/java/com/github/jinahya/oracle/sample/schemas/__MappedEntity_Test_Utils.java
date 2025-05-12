@@ -1,8 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas;
 
-import java.math.BigDecimal;
-import java.util.concurrent.ThreadLocalRandom;
-
 public final class __MappedEntity_Test_Utils {
 
     public static <ENTITY extends __MappedEntity<ENTITY, ?>>

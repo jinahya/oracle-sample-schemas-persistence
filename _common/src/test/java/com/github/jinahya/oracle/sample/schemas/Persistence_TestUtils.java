@@ -29,7 +29,7 @@ public final class Persistence_TestUtils {
             return result;
         } catch (final Exception e) {
             transaction.rollback();
-            throw new RuntimeException(e);
+            throw new RuntimeException("failed to apply " + function + " and rollback: " + rollback, e);
         }
     }
 

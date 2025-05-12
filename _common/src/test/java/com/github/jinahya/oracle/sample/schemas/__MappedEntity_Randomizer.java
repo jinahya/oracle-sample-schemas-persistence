@@ -16,10 +16,11 @@ public abstract class __MappedEntity_Randomizer<ENTITY extends __MappedEntity<EN
     /**
      * Creates a new instance for generating randomized instance of specified entity class.
      *
-     * @param entityClass the entity class.
+     * @param entityClass             the entity class.
+     * @param attributeNamesToExclude attribute names to exclude from randomization.
      */
-    protected __MappedEntity_Randomizer(final Class<ENTITY> entityClass) {
-        super(entityClass);
+    protected __MappedEntity_Randomizer(final Class<ENTITY> entityClass, final String... attributeNamesToExclude) {
+        super(entityClass, attributeNamesToExclude);
         this.entityClass = valueClass;
     }
 
@@ -45,19 +46,19 @@ public abstract class __MappedEntity_Randomizer<ENTITY extends __MappedEntity<EN
     }
 
     // ----------------------------------------------------------------------------------------------------- entityClass
-    Class<? super ENTITY> superclassDeclaring(final String attributeName) {
-        return declaringClasses.computeIfAbsent(attributeName, k -> {
-            for (Class<? super ENTITY> c = valueClass; c != null; c = c.getSuperclass()) {
-                try {
-                    c.getDeclaredField(k);
-                    return c;
-                } catch (final NoSuchFieldException nsfe) {
-                    continue;
-                }
-            }
-            throw new IllegalArgumentException("no declaring class for '" + attributeName + "'");
-        });
-    }
+//    Class<? super ENTITY> superclassDeclaring(final String attributeName) {
+//        return declaringClasses.computeIfAbsent(attributeName, k -> {
+//            for (Class<? super ENTITY> c = valueClass; c != null; c = c.getSuperclass()) {
+//                try {
+//                    c.getDeclaredField(k);
+//                    return c;
+//                } catch (final NoSuchFieldException nsfe) {
+//                    continue;
+//                }
+//            }
+//            throw new IllegalArgumentException("no declaring class for '" + attributeName + "'");
+//        });
+//    }
 
     // -----------------------------------------------------------------------------------------------------------------
     protected final Class<ENTITY> entityClass;

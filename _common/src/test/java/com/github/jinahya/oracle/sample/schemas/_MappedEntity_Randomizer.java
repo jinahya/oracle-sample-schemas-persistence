@@ -15,9 +15,10 @@ public abstract class _MappedEntity_Randomizer<ENTITY extends _MappedEntity<ENTI
     /**
      * Creates a new instance for generating randomized instance of specified entity class.
      *
-     * @param entityClass the entity class.
+     * @param entityClass             the entity class.
+     * @param attributeNamesToExclude attribute names to exclude from randomization.
      */
-    protected _MappedEntity_Randomizer(final Class<ENTITY> entityClass) {
+    protected _MappedEntity_Randomizer(final Class<ENTITY> entityClass, final String... attributeNamesToExclude) {
         super(entityClass);
     }
 

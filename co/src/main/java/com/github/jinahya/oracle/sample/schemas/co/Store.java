@@ -92,6 +92,9 @@ public class Store extends __MappedEntity<Store, Long> {
     public static final String COLUMN_NAMES_LOGO_LAST_UPDATED = "LOGO_LAST_UPDATED";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    static Store of(final Long storeId) {
+        return __MappedEntity.of(Store::new, storeId);
+    }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -155,7 +158,9 @@ public class Store extends __MappedEntity<Store, Long> {
      *
      * @param storeId new value for the {@link Store_#storeId storeId} attribute.
      */
-    protected void setStoreId(final Long storeId) {
+    public // Podam
+//    protected
+    void setStoreId(final Long storeId) {
         this.storeId = storeId;
     }
 

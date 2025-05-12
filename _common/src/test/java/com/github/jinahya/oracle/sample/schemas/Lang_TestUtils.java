@@ -3,8 +3,9 @@ package com.github.jinahya.oracle.sample.schemas;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Objects;
+import java.util.concurrent.ThreadLocalRandom;
 
-final class Lang_TestUtils {
+public final class Lang_TestUtils {
 
     private static Method AUTO_CLOSEABLE_CLOSE;
 
@@ -29,6 +30,15 @@ final class Lang_TestUtils {
                     return m.invoke(closeable, a);
                 }
         );
+    }
+
+    public static <E extends Enum<E>> E randomEnumConstant(final Class<E> enumClass) {
+        Objects.requireNonNull(enumClass, "enumClass is null");
+        final var values = enumClass.getEnumConstants();
+        if (values.length == 0) {
+            throw new IllegalArgumentException("no enum constant, of " + enumClass);
+        }
+        return values[ThreadLocalRandom.current().nextInt(values.length)];
     }
 
     private Lang_TestUtils() {

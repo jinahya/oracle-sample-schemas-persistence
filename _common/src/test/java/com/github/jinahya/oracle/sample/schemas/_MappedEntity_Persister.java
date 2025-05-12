@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManager;
 public abstract class _MappedEntity_Persister<ENTITY extends _MappedEntity<ENTITY>>
         extends __MappedEntity_Persister<ENTITY> {
 
-protected     _MappedEntity_Persister(final Class<ENTITY> entityClass) {
+    protected _MappedEntity_Persister(final Class<ENTITY> entityClass) {
         super(entityClass);
     }
 

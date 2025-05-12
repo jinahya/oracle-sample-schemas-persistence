@@ -127,7 +127,8 @@ FROM PRODUCTS p,
      JSON_TABLE(p.PRODUCT_DETAILS, '$.reviews[*]'
                 COLUMNS (review_text VARCHAR2(4000) PATH '$.review')
      ) j
-WHERE j.review_text IS NULL OR LENGTH(j.review_text) = 0
+WHERE j.review_text IS NULL
+   OR LENGTH(j.review_text) = 0
 ;
 
 SELECT COUNT(CASE WHEN j.review_text IS NULL THEN 1 END)     as null_reviews,

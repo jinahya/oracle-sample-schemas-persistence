@@ -37,8 +37,7 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
         applyEntityManagerInTransactionAndRollback(em -> {
             __MappedEntity_Persister_Utils.newPersistedInstanceOf(entityClass, entityManager()).ifPresent(e -> {
                 log.debug("persisted entity: {}", e);
-                entityManager().flush();
-//            entityManager().clear();
+                em.flush();
                 log.debug("e._id_: {}", e._id_());
                 final var found = entityManager.find(entityClass, e._id_());
                 assertThat(found).isEqualTo(e);

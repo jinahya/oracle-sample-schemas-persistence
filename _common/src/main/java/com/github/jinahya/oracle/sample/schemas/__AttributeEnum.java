@@ -65,6 +65,7 @@ public interface __AttributeEnum<E extends Enum<E> & __AttributeEnum<E, ATTRIBUT
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * Returns the attribute value of this enum constant.
      *

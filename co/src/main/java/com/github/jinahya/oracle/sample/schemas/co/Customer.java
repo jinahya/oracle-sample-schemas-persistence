@@ -66,6 +66,9 @@ public class Customer extends __MappedEntity<Customer, Long> {
     public static final String COLUMN_NAME_FULL_NAME = "FULL_NAME";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    static Customer of(final Long customerId) {
+        return __MappedEntity.of(Customer::new, customerId);
+    }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -95,7 +98,8 @@ public class Customer extends __MappedEntity<Customer, Long> {
         return customerId;
     }
 
-    protected void setCustomerId(final Long customerId) {
+    public // Podam
+    void setCustomerId(final Long customerId) {
         this.customerId = customerId;
     }
 

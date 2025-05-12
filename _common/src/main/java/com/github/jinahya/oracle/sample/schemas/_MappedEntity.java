@@ -3,6 +3,7 @@ package com.github.jinahya.oracle.sample.schemas;
 import jakarta.persistence.MappedSuperclass;
 
 import java.io.Serial;
+import java.util.function.Supplier;
 
 /**
  * An abstract mapped-superclass with an id of {@code Long} type.
@@ -15,6 +16,11 @@ public abstract class _MappedEntity<SELF extends _MappedEntity<SELF>>
 
     @Serial
     private static final long serialVersionUID = 8657726971456566178L;
+
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    protected static <T extends _MappedEntity<T>> T of(final Supplier<? extends T> supplier, final Long id) {
+        return __MappedEntity.of(supplier, id);
+    }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 

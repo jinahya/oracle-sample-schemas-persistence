@@ -12,6 +12,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ import jakarta.validation.constraints.Positive;
 
 import java.io.Serial;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -67,30 +69,40 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
     // ------------------------------------------------------------------------------------------------------ super._id_
     @Override
     protected final OrderItemId _id_() {
-        return null;
-//        return orderId;
+        return getId();
     }
 
     @Override
     protected final void _id_(final OrderItemId _id_) {
+        setId(_id_);
+    }
 
+    // ------------------------------------------------------------------------------------------------- Bean-Validation
+    @AssertTrue
+    private boolean isSShipmentCustomerValid() {
+        return shipment == null || Objects.equals(shipment.getCustomer(), order.getCustomer());
+    }
+
+    @AssertTrue
+    private boolean isShipmentStoreValid() {
+        return shipment == null || Objects.equals(shipment.getStore(), order.getStore());
     }
 
     // ----------------------------------------------------------------------------------------------------- orderItemId
-    public OrderItemId getOrderItemId() {
-        return orderItemId;
+    public OrderItemId getId() {
+        return id;
     }
 
-    public OrderItemId getOrderItemId(final Supplier<? extends OrderItemId> supplier) {
+    public OrderItemId getId(final Supplier<? extends OrderItemId> supplier) {
         Objects.requireNonNull(supplier, "supplier is null");
-        return Optional.ofNullable(orderItemId).orElseGet(() -> {
-            setOrderItemId(Objects.requireNonNull(supplier.get(), "null supplied from " + supplier));
-            return getOrderItemId();
+        return Optional.ofNullable(getId()).orElseGet(() -> {
+            setId(Objects.requireNonNull(supplier.get(), "null supplied from " + supplier));
+            return getId();
         });
     }
 
-    void setOrderItemId(final OrderItemId orderItemId) {
-        this.orderItemId = orderItemId;
+    void setId(final OrderItemId id) {
+        this.id = id;
     }
 
     // ----------------------------------------------------------------------------------------------------------- order
@@ -100,8 +112,8 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
 
     public void setOrder(final Order order) {
         this.order = order;
-        if (false) { // @MapsId
-            getOrderItemId(OrderItemId::new).setOrderId(
+        if (true) { // @MapsId
+            getId(OrderItemId::new).setOrderId(
                     Optional.ofNullable(this.order)
                             .map(Order::getOrderId)
                             .orElse(null)
@@ -119,7 +131,6 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
     }
 
     // ------------------------------------------------------------------------------------------------------- unitPrice
-
     public BigDecimal getUnitPrice() {
         return unitPrice;
     }
@@ -150,13 +161,14 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @EmbeddedId
-    private OrderItemId orderItemId;
+    private OrderItemId id;
 
     @MapsId("orderId")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_ORDER_ID, nullable = false, insertable = false, updatable = false)
     private Order order;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = true, updatable = false)
@@ -176,8 +188,9 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
     @Column(name = COLUMN_NAME_QUANTITY, nullable = false, insertable = true, updatable = false)
     private Long quantity;
 
-    @Nullable
-    @ManyToOne(fetch = FetchType.LAZY)
+    // -----------------------------------------------------------------------------------------------------------------
+    @jakarta.annotation.Nullable
+    @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_SHIPMENT_ID, insertable = true, updatable = true)
     private Shipment shipment;
 
@@ -185,5 +198,9 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
     @Transient
     public BigDecimal getTotalPrice() {
         return unitPrice.multiply(BigDecimal.valueOf(quantity));
+    }
+
+    public BigDecimal getTotalPrice(final MathContext mc) {
+        return unitPrice.multiply(BigDecimal.valueOf(quantity), mc);
     }
 }

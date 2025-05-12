@@ -17,7 +17,7 @@ public final class __MappedEntity_Randomizer_Utils {
             "unchecked"
     })
     static <T extends __MappedEntity<T, ?>>
-    Optional<__MappedEntity_Randomizer<T>> getRandomizerInstance(final Class<T> entityClass) {
+    Optional<__MappedEntity_Randomizer<T>> getRandomizerInstanceOf(final Class<T> entityClass) {
         Objects.requireNonNull(entityClass, "entityClass is null");
         return Optional.ofNullable(
                 (__MappedEntity_Randomizer<T>) RANDOMIZER_INSTANCES.computeIfAbsent(entityClass, k -> {
@@ -53,8 +53,12 @@ public final class __MappedEntity_Randomizer_Utils {
 
     public static <T extends __MappedEntity<T, ?>> Optional<T> newRandomizedInstanceOf(final Class<T> entityClass) {
         Objects.requireNonNull(entityClass, "entityClass is null");
-        return getRandomizerInstance(entityClass)
+        return getRandomizerInstanceOf(entityClass)
                 .map(__MappedEntity_Randomizer::manufacturePojo);
+    }
+
+    public static <T extends __MappedEntity<T, ?>> T newRandomizedInstanceOfOrElseThrow(final Class<T> entityClass) {
+        return newRandomizedInstanceOf(entityClass).orElseThrow();
     }
 
     // -----------------------------------------------------------------------------------------------------------------

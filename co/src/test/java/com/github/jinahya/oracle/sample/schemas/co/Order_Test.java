@@ -15,6 +15,7 @@ class Order_Test extends __MappedEntity_Test<Order, Long> {
         super(Order.class, Long.class);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Override
     protected SingleTypeEqualsVerifierApi<Order> equalsVerifier() {
         return super.equalsVerifier()
