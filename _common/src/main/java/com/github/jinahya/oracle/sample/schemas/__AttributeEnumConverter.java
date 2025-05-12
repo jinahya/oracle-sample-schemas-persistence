@@ -14,6 +14,18 @@ public abstract class __AttributeEnumConverter<E extends Enum<E> & __AttributeEn
         protected __OfInteger(final Class<E> enumClass) {
             super(enumClass);
         }
+
+        // TODO: remove!
+        @Override
+        public Integer convertToDatabaseColumn(final E attribute) {
+            return super.convertToDatabaseColumn(attribute);
+        }
+
+        // TODO: remove!
+        @Override
+        public E convertToEntityAttribute(final Integer dbData) {
+            return super.convertToEntityAttribute(dbData);
+        }
     }
 
     public static abstract class __OfLong<E extends Enum<E> & __AttributeEnum.__OfLong<E>>
@@ -33,6 +45,13 @@ public abstract class __AttributeEnumConverter<E extends Enum<E> & __AttributeEn
     }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    /**
+     * Creates a new instance for specified enum class.
+     *
+     * @param enumClass the enum class.
+     * @see #enumClass
+     */
     protected __AttributeEnumConverter(final Class<E> enumClass) {
         super();
         this.enumClass = Objects.requireNonNull(enumClass, "enumClass is null");
@@ -56,5 +75,9 @@ public abstract class __AttributeEnumConverter<E extends Enum<E> & __AttributeEn
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * The enum class.
+     */
     protected final Class<? extends E> enumClass;
 }
