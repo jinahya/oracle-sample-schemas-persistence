@@ -32,4 +32,6 @@
   <!-- https://stackoverflow.com/a/1713464/330457 -->
   <logger name="org.hibernate.orm.jdbc.bind" level="TRACE"/>
   <logger name="uk.co.jemos.podam.api" level="INFO"/>
+<!--  <logger name="uk.co.jemos.podam." level="ERROR"/>-->
+<!--  <logger name="uk.co.jemos.podam.api" level="ERROR"/>-->
 </configuration>

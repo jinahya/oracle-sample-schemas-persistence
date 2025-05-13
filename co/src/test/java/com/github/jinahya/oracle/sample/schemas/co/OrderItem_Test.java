@@ -16,8 +16,9 @@ class OrderItem_Test extends __MappedEntity_Test<OrderItem, OrderItemId> {
     @Override
     protected SingleTypeEqualsVerifierApi<OrderItem> equalsVerifier() {
         return super.equalsVerifier()
-                .withPrefabValues(
-                        List.class, Arrays.asList(1, 2, 3), Arrays.asList(4, 5, 6)
-                );
+//                .withPrefabValues(
+//                        List.class, Arrays.asList(1, 2, 3), Arrays.asList(4, 5, 6)
+//                )
+                ;
     }
 }

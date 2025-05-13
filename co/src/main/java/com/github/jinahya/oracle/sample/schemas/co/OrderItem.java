@@ -66,6 +66,18 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
+    @Override
+    public String toString() {
+        return super.toString() + '{' +
+                "id=" + id +
+//                ",order=" + order +
+//                ",product=" + product +
+                ",unitPrice=" + unitPrice +
+                ",quantity=" + quantity +
+//                ",shipment=" + shipment +
+                '}';
+    }
+
     // ------------------------------------------------------------------------------------------------------ super._id_
     @Override
     protected final OrderItemId _id_() {

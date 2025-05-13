@@ -2,14 +2,14 @@ package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer;
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer_Utils;
+import lombok.extern.slf4j.Slf4j;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-import java.time.LocalDateTime;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Slf4j
 class Order_Randomizer extends __MappedEntity_Randomizer<Order> {
 
     Order_Randomizer() {
@@ -51,8 +51,11 @@ class Order_Randomizer extends __MappedEntity_Randomizer<Order> {
 
     @Override
     protected Order manufacturePojo() {
+        log.debug("manufacturing order...");
         final var pojo = super.manufacturePojo();
+        log.debug("order: {}", pojo);
         assertThat(pojo.getOrderId()).isNull();
+        assertThat(pojo.getOrderStatus()).isSameAs(Order.OrderStatus.OPEN);
         return pojo;
     }
 }

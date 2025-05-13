@@ -47,7 +47,9 @@ class Customer_Randomizer extends __MappedEntity_Randomizer<Customer> {
 
     @Override
     protected Customer manufacturePojo() {
+        log.debug("manufacturing customer...");
         final var pojo = super.manufacturePojo();
+        log.debug("customer: {}", pojo);
         assertThat(pojo.getCustomerId()).isNull();
         return pojo;
     }

@@ -42,8 +42,8 @@ public abstract class ___Base_Randomizer<T> {
 
     protected PodamFactory podamFactory() {
         final var factory = new PodamFactoryImpl(dataProviderStrategy());
-        factory.getStrategy().addOrReplaceTypeManufacturer(List.class, (s, m, c) -> Collections.emptyList());
-        factory.getStrategy().addOrReplaceTypeManufacturer(Class.class, (s, m, c) -> null);
+//        factory.getStrategy().addOrReplaceTypeManufacturer(List.class, (s, m, c) -> Collections.emptyList());
+//        factory.getStrategy().addOrReplaceTypeManufacturer(Class.class, (s, m, c) -> null);
         Optional.ofNullable(classInfoStrategy()).ifPresent(factory::setClassStrategy);
         return factory;
     }

@@ -2,15 +2,20 @@ package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer;
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer_Utils;
+import lombok.extern.slf4j.Slf4j;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+@Slf4j
 class OrderItem_Randomizer extends __MappedEntity_Randomizer<OrderItem> {
 
     OrderItem_Randomizer() {
         super(OrderItem.class,
-//              "order", // TODO: 왜!
+              "order", // TODO: 왜!
+//              "product",
               "shipment"
         );
     }
@@ -28,10 +33,10 @@ class OrderItem_Randomizer extends __MappedEntity_Randomizer<OrderItem> {
                         Product.class,
                         (s, m, c) -> __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(Product.class)
                 )
-//                .addOrReplaceTypeManufacturer(
-//                        Shipment.class,
-//                        (s, m, c) -> __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(Shipment.class)
-//                )
+                .addOrReplaceTypeManufacturer(
+                        Shipment.class,
+                        (s, m, c) -> __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(Shipment.class)
+                )
                 ;
     }
 
@@ -47,8 +52,10 @@ class OrderItem_Randomizer extends __MappedEntity_Randomizer<OrderItem> {
 
     @Override
     protected OrderItem manufacturePojo() {
-        final var pojo = super.manufacturePojo();
-//        assertThat(pojo.getId()).isNull();
-        return pojo;
+        log.debug("manufacturing orderItem...");
+        final var orderItem = super.manufacturePojo();
+        log.debug("orderItem manufactured: {}", orderItem);
+        assertThat(orderItem.getShipment()).isNull();
+        return orderItem;
     }
 }

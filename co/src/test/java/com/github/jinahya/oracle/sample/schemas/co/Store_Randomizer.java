@@ -6,6 +6,7 @@ import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
@@ -36,8 +37,15 @@ class Store_Randomizer extends __MappedEntity_Randomizer<Store> {
 
     @Override
     protected Store manufacturePojo() {
+        log.debug("manufacturing store...");
         final var pojo = super.manufacturePojo();
+        log.debug("store: {}", pojo);
         assertThat(pojo.getStoreId()).isNull();
+        assertThat(pojo.getLogo()).isNull();
+        assertThat(pojo.getLogoMimeType()).isNull();
+        assertThat(pojo.getLogoFilename()).isNull();
+        assertThat(pojo.getLogoCharset()).isNull();
+        assertThat(pojo.getLogoLastUpdated()).isNull();
         return pojo;
     }
 }

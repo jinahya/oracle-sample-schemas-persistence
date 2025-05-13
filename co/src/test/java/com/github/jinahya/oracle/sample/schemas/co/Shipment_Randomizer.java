@@ -3,12 +3,15 @@ package com.github.jinahya.oracle.sample.schemas.co;
 import com.github.jinahya.oracle.sample.schemas.Lang_TestUtils;
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer;
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer_Utils;
+import lombok.extern.slf4j.Slf4j;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.linesOf;
 
+@Slf4j
 class Shipment_Randomizer extends __MappedEntity_Randomizer<Shipment> {
 
     Shipment_Randomizer() {
@@ -42,12 +45,14 @@ class Shipment_Randomizer extends __MappedEntity_Randomizer<Shipment> {
 
     @Override
     protected Shipment manufacturePojo() {
-        final var pojo = super.manufacturePojo();
-        assertThat(pojo.getShipmentId()).isNull();
-        assertThat(pojo.getShipmentStatus()).isNull();
-        pojo.setShipmentStatus(
+        log.debug("manufacturing shipment...");
+        final var shipment = super.manufacturePojo();
+        log.debug("shipment manufactured: {}", shipment);
+        assertThat(shipment.getShipmentId()).isNull();
+        assertThat(shipment.getShipmentStatus()).isNull();
+        shipment.setShipmentStatus(
                 Lang_TestUtils.randomEnumConstant(Shipment._ShipmentStatus.class)
         );
-        return pojo;
+        return shipment;
     }
 }
