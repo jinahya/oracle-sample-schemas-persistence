@@ -38,14 +38,14 @@ class Store_Randomizer extends __MappedEntity_Randomizer<Store> {
     @Override
     protected Store manufacturePojo() {
         log.debug("manufacturing store...");
-        final var pojo = super.manufacturePojo();
-        log.debug("store: {}", pojo);
-        assertThat(pojo.getStoreId()).isNull();
-        assertThat(pojo.getLogo()).isNull();
-        assertThat(pojo.getLogoMimeType()).isNull();
-        assertThat(pojo.getLogoFilename()).isNull();
-        assertThat(pojo.getLogoCharset()).isNull();
-        assertThat(pojo.getLogoLastUpdated()).isNull();
-        return pojo;
+        final var store = super.manufacturePojo();
+        log.debug("store manufactured: {}", store);
+        assertThat(store.getStoreId()).isNull();
+        assertThat(store.getLogo()).isNull();
+        assertThat(store.getLogoMimeType()).isNull();
+        assertThat(store.getLogoFilename()).isNull();
+        assertThat(store.getLogoCharset()).isNull();
+        assertThat(store.getLogoLastUpdated()).isNull();
+        return store;
     }
 }

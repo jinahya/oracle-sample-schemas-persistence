@@ -8,13 +8,11 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 import uk.co.jemos.podam.api.RandomDataProviderStrategyImpl;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.stream.Collectors;
 
 public abstract class ___Base_Randomizer<T> {
 
@@ -28,24 +26,16 @@ public abstract class ___Base_Randomizer<T> {
     protected ___Base_Randomizer(final Class<T> valueClass, final String... attributeNamesToExclude) {
         super();
         this.valueClass = Objects.requireNonNull(valueClass, "valueClass is null");
-        this.attributeNamesToExclude = Set.of(
-                Objects.requireNonNull(attributeNamesToExclude, "attributeNamesToExclude is null")
-        );
+        this.attributeNamesToExclude = Arrays.stream(
+                        Objects.requireNonNull(attributeNamesToExclude, "attributeNamesToExclude is null"))
+                .collect(Collectors.toCollection(HashSet::new));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     protected DataProviderStrategy dataProviderStrategy() {
         final var strategy = new RandomDataProviderStrategyImpl();
-//        strategy.setMaxDepth(Integer.MAX_VALUE);
+//        strategy.setMaxDepth(10);
         return strategy;
-    }
-
-    protected PodamFactory podamFactory() {
-        final var factory = new PodamFactoryImpl(dataProviderStrategy());
-//        factory.getStrategy().addOrReplaceTypeManufacturer(List.class, (s, m, c) -> Collections.emptyList());
-//        factory.getStrategy().addOrReplaceTypeManufacturer(Class.class, (s, m, c) -> null);
-        Optional.ofNullable(classInfoStrategy()).ifPresent(factory::setClassStrategy);
-        return factory;
     }
 
     protected ClassInfoStrategy classInfoStrategy() {
@@ -61,6 +51,12 @@ public abstract class ___Base_Randomizer<T> {
         };
     }
 
+    protected PodamFactory podamFactory() {
+        final var factory = new PodamFactoryImpl(dataProviderStrategy());
+        factory.setClassStrategy(classInfoStrategy());
+        return factory;
+    }
+
     protected T manufacturePojo() {
         return podamFactory().manufacturePojo(valueClass);
     }
@@ -68,5 +64,5 @@ public abstract class ___Base_Randomizer<T> {
     // -----------------------------------------------------------------------------------------------------------------
     final Class<T> valueClass;
 
-    private final Set<String> attributeNamesToExclude;
+    final Set<String> attributeNamesToExclude;
 }

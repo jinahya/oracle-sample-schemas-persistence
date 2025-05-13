@@ -29,11 +29,6 @@ class Customer_Randomizer extends __MappedEntity_Randomizer<Customer> {
     }
 
     @Override
-    protected PodamFactory podamFactory() {
-        return super.podamFactory();
-    }
-
-    @Override
     protected ClassInfoStrategy classInfoStrategy() {
 //        return super.classInfoStrategy();
         return new AbstractClassInfoStrategy() {
@@ -46,11 +41,16 @@ class Customer_Randomizer extends __MappedEntity_Randomizer<Customer> {
     }
 
     @Override
+    protected PodamFactory podamFactory() {
+        return super.podamFactory();
+    }
+
+    @Override
     protected Customer manufacturePojo() {
         log.debug("manufacturing customer...");
-        final var pojo = super.manufacturePojo();
-        log.debug("customer: {}", pojo);
-        assertThat(pojo.getCustomerId()).isNull();
-        return pojo;
+        final var customer = super.manufacturePojo();
+        log.debug("customer: {}", customer);
+        assertThat(customer.getCustomerId()).isNull();
+        return customer;
     }
 }

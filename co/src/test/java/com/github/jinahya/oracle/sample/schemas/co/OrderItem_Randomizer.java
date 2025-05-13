@@ -3,9 +3,12 @@ package com.github.jinahya.oracle.sample.schemas.co;
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer;
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer_Utils;
 import lombok.extern.slf4j.Slf4j;
+import uk.co.jemos.podam.api.AttributeMetadata;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
+import uk.co.jemos.podam.common.ManufacturingContext;
+import uk.co.jemos.podam.typeManufacturers.TypeTypeManufacturerImpl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,9 +17,8 @@ class OrderItem_Randomizer extends __MappedEntity_Randomizer<OrderItem> {
 
     OrderItem_Randomizer() {
         super(OrderItem.class,
-              "order", // TODO: 왜!
-//              "product",
-              "shipment"
+              "order" // TODO: 왜!
+//              "shipment"
         );
     }
 
@@ -24,25 +26,57 @@ class OrderItem_Randomizer extends __MappedEntity_Randomizer<OrderItem> {
 
     @Override
     protected DataProviderStrategy dataProviderStrategy() {
-        return super.dataProviderStrategy()
-                .addOrReplaceTypeManufacturer(
-                        Order.class,
-                        (s, m, c) -> __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(Order.class)
-                )
-                .addOrReplaceTypeManufacturer(
-                        Product.class,
-                        (s, m, c) -> __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(Product.class)
-                )
-                .addOrReplaceTypeManufacturer(
-                        Shipment.class,
-                        (s, m, c) -> __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(Shipment.class)
-                )
-                ;
+        return super.dataProviderStrategy();
     }
 
     @Override
     protected PodamFactory podamFactory() {
-        return super.podamFactory();
+        final var factory = super.podamFactory();
+        final var strategy = factory.getStrategy();
+        strategy.addOrReplaceTypeManufacturer(
+                        Order.class,
+                        new TypeTypeManufacturerImpl() {
+                            @Override
+                            public Object getType(final DataProviderStrategy s, final AttributeMetadata m,
+                                                  final ManufacturingContext c) {
+                                if (m.getAttributeName().equals("order")) {
+                                    return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(
+                                            Order.class);
+                                }
+                                return super.getType(s, m, c);
+                            }
+                        }
+                )
+                .addOrReplaceTypeManufacturer(
+                        Product.class,
+                        new TypeTypeManufacturerImpl() {
+                            @Override
+                            public Object getType(final DataProviderStrategy s, final AttributeMetadata m,
+                                                  final ManufacturingContext c) {
+                                if (m.getAttributeName().equals("product")) {
+                                    return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(
+                                            Product.class);
+                                }
+                                return super.getType(s, m, c);
+                            }
+                        }
+                )
+                .addOrReplaceTypeManufacturer(
+                        Shipment.class,
+                        new TypeTypeManufacturerImpl() {
+                            @Override
+                            public Object getType(final DataProviderStrategy s, final AttributeMetadata m,
+                                                  final ManufacturingContext c) {
+                                if (m.getAttributeName().equals("shipment")) {
+                                    return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(
+                                            Shipment.class);
+                                }
+                                return super.getType(s, m, c);
+                            }
+                        }
+                )
+        ;
+        return factory;
     }
 
     @Override

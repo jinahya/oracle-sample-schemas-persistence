@@ -21,6 +21,7 @@ public abstract class __MappedEntity_Randomizer<ENTITY extends __MappedEntity<EN
      */
     protected __MappedEntity_Randomizer(final Class<ENTITY> entityClass, final String... attributeNamesToExclude) {
         super(entityClass, attributeNamesToExclude);
+        super.attributeNamesToExclude.add("_id_");
         this.entityClass = valueClass;
     }
 
@@ -31,13 +32,13 @@ public abstract class __MappedEntity_Randomizer<ENTITY extends __MappedEntity<EN
     }
 
     @Override
-    protected PodamFactory podamFactory() {
-        return super.podamFactory();
+    protected ClassInfoStrategy classInfoStrategy() {
+        return super.classInfoStrategy();
     }
 
     @Override
-    protected ClassInfoStrategy classInfoStrategy() {
-        return super.classInfoStrategy();
+    protected PodamFactory podamFactory() {
+        return super.podamFactory();
     }
 
     @Override

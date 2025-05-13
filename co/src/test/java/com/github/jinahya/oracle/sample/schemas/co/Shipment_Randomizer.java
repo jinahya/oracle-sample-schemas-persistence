@@ -4,12 +4,14 @@ import com.github.jinahya.oracle.sample.schemas.Lang_TestUtils;
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer;
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer_Utils;
 import lombok.extern.slf4j.Slf4j;
+import uk.co.jemos.podam.api.AttributeMetadata;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
+import uk.co.jemos.podam.common.ManufacturingContext;
+import uk.co.jemos.podam.typeManufacturers.TypeTypeManufacturerImpl;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.linesOf;
 
 @Slf4j
 class Shipment_Randomizer extends __MappedEntity_Randomizer<Shipment> {
@@ -24,13 +26,32 @@ class Shipment_Randomizer extends __MappedEntity_Randomizer<Shipment> {
         return super.dataProviderStrategy()
                 .addOrReplaceTypeManufacturer(
                         Store.class,
-                        (s, m, c) -> __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(Store.class)
+                        new TypeTypeManufacturerImpl() {
+                            @Override
+                            public Object getType(DataProviderStrategy strategy, AttributeMetadata attributeMetadata,
+                                                  ManufacturingContext manufacturingCtx) {
+                                if (attributeMetadata.getAttributeName().equals("store")) {
+                                    return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(
+                                            Store.class);
+                                }
+                                return super.getType(strategy, attributeMetadata, manufacturingCtx);
+                            }
+                        }
                 )
                 .addOrReplaceTypeManufacturer(
                         Customer.class,
-                        (s, m, c) -> __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(Customer.class)
-                )
-                ;
+                        new TypeTypeManufacturerImpl() {
+                            @Override
+                            public Object getType(DataProviderStrategy strategy, AttributeMetadata attributeMetadata,
+                                                  ManufacturingContext manufacturingCtx) {
+                                if (attributeMetadata.getAttributeName().equals("customer")) {
+                                    return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(
+                                            Customer.class);
+                                }
+                                return super.getType(strategy, attributeMetadata, manufacturingCtx);
+                            }
+                        }
+                );
     }
 
     @Override

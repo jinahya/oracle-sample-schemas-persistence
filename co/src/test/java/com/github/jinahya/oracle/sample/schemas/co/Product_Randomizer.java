@@ -33,26 +33,28 @@ class Product_Randomizer extends __MappedEntity_Randomizer<Product> {
     }
 
     @Override
-    protected PodamFactory podamFactory() {
-        return super.podamFactory();
-    }
-
-    @Override
     protected ClassInfoStrategy classInfoStrategy() {
         return super.classInfoStrategy();
     }
 
     @Override
+    protected PodamFactory podamFactory() {
+        return super.podamFactory();
+    }
+
+    @Override
     protected Product manufacturePojo() {
-        final var pojo = super.manufacturePojo();
-        assertThat(pojo.getProductId()).isNull();
-//        assertThat(pojo.getUnitPrice()).isNull();
-        pojo.setUnitPrice(
+        log.debug("manufacturing product...");
+        final var product = super.manufacturePojo();
+        log.debug("product manufactured: {}", product);
+        assertThat(product.getProductId()).isNull();
+//        assertThat(product.getUnitPrice()).isNull();
+        product.setUnitPrice(
                 ThreadLocalRandom.current().nextBoolean()
                 ? null
                 : BigDecimal.valueOf(ThreadLocalRandom.current().nextDouble(.0d, 10000.d))
         );
-        pojo.setProductDetails(
+        product.setProductDetails(
                 ThreadLocalRandom.current().nextBoolean()
                 ? null
                 : ___Base_Randomizer_Utils.newRandomizedInstanceOf(ProductDetails.class).map(v -> {
@@ -64,6 +66,6 @@ class Product_Randomizer extends __MappedEntity_Randomizer<Product> {
                         })
                         .orElse(null)
         );
-        return pojo;
+        return product;
     }
 }
