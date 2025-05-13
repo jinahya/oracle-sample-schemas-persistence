@@ -54,6 +54,24 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
     public static final String COLUMN_NAME_SHIPMENT_ID = "SHIPMENT_ID";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    static OrderItem from(final Order order, final Long lineItemId, final Inventory inventory,
+                          final BigDecimal unitPrice,
+                          final long quantity) {
+        Objects.requireNonNull(order, "order is null");
+        Objects.requireNonNull(inventory, "inventory is null");
+        if (!Objects.equals(order.getStore(), inventory.getStore())) {
+            throw new IllegalArgumentException(
+                    "order.store(" + inventory.getStore() + ") != inventory.store(" + inventory.getStore() + ")");
+        }
+        final var instance = new OrderItem();
+        instance.setOrder(order);
+        instance.getId().setLineItemId(lineItemId);
+        instance.setProduct(inventory.getProduct());
+        instance.setUnitPrice(unitPrice);
+        instance.setQuantity(quantity);
+        instance.setShipment(null);
+        return instance;
+    }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -90,12 +108,12 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
-    @AssertTrue
+    @AssertTrue(message = "shipment's customer should be equal to the order's customer")
     private boolean isSShipmentCustomerValid() {
         return shipment == null || Objects.equals(shipment.getCustomer(), order.getCustomer());
     }
 
-    @AssertTrue
+    @AssertTrue(message = "shipment's store should be equal to the order's store")
     private boolean isShipmentStoreValid() {
         return shipment == null || Objects.equals(shipment.getStore(), order.getStore());
     }
@@ -161,7 +179,6 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
     }
 
     // -------------------------------------------------------------------------------------------------------- shipment
-
     @Nullable
     public Shipment getShipment() {
         return shipment;

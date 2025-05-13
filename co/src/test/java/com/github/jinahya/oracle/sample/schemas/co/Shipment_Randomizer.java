@@ -28,13 +28,14 @@ class Shipment_Randomizer extends __MappedEntity_Randomizer<Shipment> {
                         Store.class,
                         new TypeTypeManufacturerImpl() {
                             @Override
-                            public Object getType(DataProviderStrategy strategy, AttributeMetadata attributeMetadata,
-                                                  ManufacturingContext manufacturingCtx) {
-                                if (attributeMetadata.getAttributeName().equals("store")) {
+                            public Object getType(final DataProviderStrategy s, final AttributeMetadata m,
+                                                  final ManufacturingContext c) {
+                                if (Shipment.class.isAssignableFrom(m.getPojoClass())
+                                        && m.getAttributeName().equals("store")) {
                                     return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(
                                             Store.class);
                                 }
-                                return super.getType(strategy, attributeMetadata, manufacturingCtx);
+                                return super.getType(s, m, c);
                             }
                         }
                 )
@@ -42,13 +43,14 @@ class Shipment_Randomizer extends __MappedEntity_Randomizer<Shipment> {
                         Customer.class,
                         new TypeTypeManufacturerImpl() {
                             @Override
-                            public Object getType(DataProviderStrategy strategy, AttributeMetadata attributeMetadata,
-                                                  ManufacturingContext manufacturingCtx) {
-                                if (attributeMetadata.getAttributeName().equals("customer")) {
+                            public Object getType(final DataProviderStrategy s, final AttributeMetadata m,
+                                                  final ManufacturingContext c) {
+                                if (Shipment.class.isAssignableFrom(m.getPojoClass())
+                                        && m.getAttributeName().equals("customer")) {
                                     return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(
                                             Customer.class);
                                 }
-                                return super.getType(strategy, attributeMetadata, manufacturingCtx);
+                                return super.getType(s, m, c);
                             }
                         }
                 );

@@ -17,10 +17,8 @@ class OrderItem_Randomizer extends __MappedEntity_Randomizer<OrderItem> {
 
     OrderItem_Randomizer() {
         super(OrderItem.class
-//                ,
-//              "order"
-//                ,
-//              "shipment"
+                , "order"
+                , "shipment"
         );
     }
 
@@ -42,7 +40,8 @@ class OrderItem_Randomizer extends __MappedEntity_Randomizer<OrderItem> {
                             @Override
                             public Object getType(final DataProviderStrategy s, final AttributeMetadata m,
                                                   final ManufacturingContext c) {
-                                if (m.getAttributeName().equals("order")) {
+                                if (OrderItem.class.isAssignableFrom(m.getPojoClass())
+                                        && m.getAttributeName().equals("order")) {
                                     return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(
                                             Order.class);
                                 }
@@ -50,27 +49,14 @@ class OrderItem_Randomizer extends __MappedEntity_Randomizer<OrderItem> {
                             }
                         }
                 )
-//                .addOrReplaceTypeManufacturer(
-//                        Product.class,
-//                        new TypeTypeManufacturerImpl() {
-//                            @Override
-//                            public Object getType(final DataProviderStrategy s, final AttributeMetadata m,
-//                                                  final ManufacturingContext c) {
-//                                if (m.getAttributeName().equals("product")) {
-//                                    return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(
-//                                            Product.class);
-//                                }
-//                                return super.getType(s, m, c);
-//                            }
-//                        }
-//                )
                 .addOrReplaceTypeManufacturer(
                         Shipment.class,
                         new TypeTypeManufacturerImpl() {
                             @Override
                             public Object getType(final DataProviderStrategy s, final AttributeMetadata m,
                                                   final ManufacturingContext c) {
-                                if (m.getAttributeName().equals("shipment")) {
+                                if (OrderItem.class.isAssignableFrom(m.getPojoClass())
+                                        && m.getAttributeName().equals("shipment")) {
                                     return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(
                                             Shipment.class);
                                 }

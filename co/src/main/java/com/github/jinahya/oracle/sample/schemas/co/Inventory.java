@@ -15,7 +15,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
 
 import java.io.Serial;
 import java.util.Optional;
@@ -204,7 +203,6 @@ public class Inventory extends __MappedEntity<Inventory, Long> {
                 insertable = true, updatable = false)
     private Product product;
 
-    @PositiveOrZero
     @NotNull
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PRODUCT_INVENTORY, nullable = false, insertable = true, updatable = true)
