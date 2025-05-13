@@ -16,8 +16,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 class OrderItem_Randomizer extends __MappedEntity_Randomizer<OrderItem> {
 
     OrderItem_Randomizer() {
-        super(OrderItem.class,
-              "order" // TODO: 왜!
+        super(OrderItem.class
+//                ,
+//              "order"
+//                ,
 //              "shipment"
         );
     }
@@ -33,7 +35,8 @@ class OrderItem_Randomizer extends __MappedEntity_Randomizer<OrderItem> {
     protected PodamFactory podamFactory() {
         final var factory = super.podamFactory();
         final var strategy = factory.getStrategy();
-        strategy.addOrReplaceTypeManufacturer(
+        strategy
+                .addOrReplaceTypeManufacturer(
                         Order.class,
                         new TypeTypeManufacturerImpl() {
                             @Override
@@ -47,20 +50,20 @@ class OrderItem_Randomizer extends __MappedEntity_Randomizer<OrderItem> {
                             }
                         }
                 )
-                .addOrReplaceTypeManufacturer(
-                        Product.class,
-                        new TypeTypeManufacturerImpl() {
-                            @Override
-                            public Object getType(final DataProviderStrategy s, final AttributeMetadata m,
-                                                  final ManufacturingContext c) {
-                                if (m.getAttributeName().equals("product")) {
-                                    return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(
-                                            Product.class);
-                                }
-                                return super.getType(s, m, c);
-                            }
-                        }
-                )
+//                .addOrReplaceTypeManufacturer(
+//                        Product.class,
+//                        new TypeTypeManufacturerImpl() {
+//                            @Override
+//                            public Object getType(final DataProviderStrategy s, final AttributeMetadata m,
+//                                                  final ManufacturingContext c) {
+//                                if (m.getAttributeName().equals("product")) {
+//                                    return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(
+//                                            Product.class);
+//                                }
+//                                return super.getType(s, m, c);
+//                            }
+//                        }
+//                )
                 .addOrReplaceTypeManufacturer(
                         Shipment.class,
                         new TypeTypeManufacturerImpl() {

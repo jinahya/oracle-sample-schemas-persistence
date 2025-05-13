@@ -35,6 +35,7 @@ public abstract class ___Base_Randomizer<T> {
     protected DataProviderStrategy dataProviderStrategy() {
         final var strategy = new RandomDataProviderStrategyImpl();
 //        strategy.setMaxDepth(10);
+//        strategy.setMemoization(false);
         return strategy;
     }
 
