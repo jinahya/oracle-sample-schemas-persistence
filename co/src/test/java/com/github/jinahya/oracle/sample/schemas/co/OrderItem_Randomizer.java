@@ -10,10 +10,9 @@ class OrderItem_Randomizer extends __MappedEntity_Randomizer<OrderItem> {
 
     OrderItem_Randomizer() {
         super(OrderItem.class,
-//              "id",
-              "order",
-//              "unitPrice",
-              "shipment", "totalPrice");
+//              "order", // TODO: 왜!
+              "shipment"
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -23,15 +22,16 @@ class OrderItem_Randomizer extends __MappedEntity_Randomizer<OrderItem> {
         return super.dataProviderStrategy()
                 .addOrReplaceTypeManufacturer(
                         Order.class,
-                        (s, m, c) -> __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(Order.class))
+                        (s, m, c) -> __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(Order.class)
+                )
                 .addOrReplaceTypeManufacturer(
                         Product.class,
                         (s, m, c) -> __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(Product.class)
                 )
-                .addOrReplaceTypeManufacturer(
-                        Shipment.class,
-                        (s, m, c) -> __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(Shipment.class)
-                )
+//                .addOrReplaceTypeManufacturer(
+//                        Shipment.class,
+//                        (s, m, c) -> __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(Shipment.class)
+//                )
                 ;
     }
 

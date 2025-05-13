@@ -8,9 +8,13 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 import uk.co.jemos.podam.api.RandomDataProviderStrategyImpl;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public abstract class ___Base_Randomizer<T> {
 
@@ -38,6 +42,8 @@ public abstract class ___Base_Randomizer<T> {
 
     protected PodamFactory podamFactory() {
         final var factory = new PodamFactoryImpl(dataProviderStrategy());
+        factory.getStrategy().addOrReplaceTypeManufacturer(List.class, (s, m, c) -> Collections.emptyList());
+        factory.getStrategy().addOrReplaceTypeManufacturer(Class.class, (s, m, c) -> null);
         Optional.ofNullable(classInfoStrategy()).ifPresent(factory::setClassStrategy);
         return factory;
     }

@@ -14,11 +14,13 @@ class Order_Randomizer extends __MappedEntity_Randomizer<Order> {
 
     Order_Randomizer() {
         super(Order.class,
-              "orderId", "orderTms", "orderStatus",
-              "orderItems",
-              "orderItemsTotalPrice1",
-              "orderItemsTotalPrice2",
-              "orderItemsTotalPrice3"
+              "orderId",
+              "orderStatus"
+//                ,
+//              "orderItems",
+//              "orderItemsTotalPrice1",
+//              "orderItemsTotalPrice2",
+//              "orderItemsTotalPrice3"
         );
     }
 
@@ -51,9 +53,6 @@ class Order_Randomizer extends __MappedEntity_Randomizer<Order> {
     protected Order manufacturePojo() {
         final var pojo = super.manufacturePojo();
         assertThat(pojo.getOrderId()).isNull();
-        assertThat(pojo.getOrderTms()).isNull();
-        pojo.setOrderTms(LocalDateTime.now());
-//        assertThat(pojo.getOrderItems()).isNull();
         return pojo;
     }
 }

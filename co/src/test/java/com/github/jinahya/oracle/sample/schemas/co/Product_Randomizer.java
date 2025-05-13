@@ -18,8 +18,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 class Product_Randomizer extends __MappedEntity_Randomizer<Product> {
 
     Product_Randomizer() {
-        super(Product.class, "productId", "unitPrice", "productDetails", "productImage", "productMimeType",
-              "productFilename", "productCharset", "imageLastUpdated");
+        super(Product.class,
+              "productId",
+//              "unitPrice",
+              "productDetails",
+              "productImage", "productMimeType", "productFilename", "productCharset", "imageLastUpdated"
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -42,7 +46,7 @@ class Product_Randomizer extends __MappedEntity_Randomizer<Product> {
     protected Product manufacturePojo() {
         final var pojo = super.manufacturePojo();
         assertThat(pojo.getProductId()).isNull();
-        assertThat(pojo.getUnitPrice()).isNull();
+//        assertThat(pojo.getUnitPrice()).isNull();
         pojo.setUnitPrice(
                 ThreadLocalRandom.current().nextBoolean()
                 ? null
