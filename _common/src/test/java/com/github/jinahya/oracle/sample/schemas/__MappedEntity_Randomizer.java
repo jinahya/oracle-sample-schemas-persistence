@@ -7,7 +7,6 @@ import uk.co.jemos.podam.api.PodamFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-//abstract class __MappedEntity_Randomizer<T extends __MappedEntity<T, ?>> {
 public abstract class __MappedEntity_Randomizer<ENTITY extends __MappedEntity<ENTITY, ?>>
         extends ___Base_Randomizer<ENTITY> {
 
@@ -28,7 +27,9 @@ public abstract class __MappedEntity_Randomizer<ENTITY extends __MappedEntity<EN
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     protected DataProviderStrategy dataProviderStrategy() {
-        return super.dataProviderStrategy();
+        final var strategy = super.dataProviderStrategy();
+//        strategy.addOrReplaceTypeManufacturer(Locale.class, JavaUtilLocaleTypeManufacturer.getInstance());
+        return strategy;
     }
 
     @Override

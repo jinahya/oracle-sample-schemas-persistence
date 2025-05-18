@@ -19,6 +19,7 @@
   <modules>
     <module>_common</module>
     <module>co</module>
+    <module>hr</module>
   </modules>
 
   <scm>

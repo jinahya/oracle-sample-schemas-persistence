@@ -58,18 +58,15 @@ public final class __MappedEntity_Persister_Utils {
         Objects.requireNonNull(entityManager, "entityManager is null");
         Objects.requireNonNull(entityInstance, "entityInstance is null");
         return getPersisterInstance(entityClass)
-                .map(p -> p.persist(entityManager, entityInstance));
+                .map(p -> p.persist(entityManager, entityInstance))
+                ;
     }
 
     public static <T extends __MappedEntity<T, ?>>
     Optional<T> newPersistedInstanceOf(final Class<T> entityClass, final EntityManager entityManager) {
-        return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOf(entityClass).flatMap(
-                ei -> newPersistedInstanceOf(
-                        entityClass,
-                        entityManager,
-                        ei
-                )
-        );
+        return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOf(entityClass)
+                .flatMap(i -> newPersistedInstanceOf(entityClass, entityManager, i))
+                ;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

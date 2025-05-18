@@ -24,32 +24,6 @@ import static org.junit.jupiter.api.Assumptions.assumeFalse;
 public abstract class __MappedEntity_Test<ENTITY extends __MappedEntity<ENTITY, ID>, ID extends Serializable>
         extends ___MappedEntity_TestBase<ENTITY, ID> {
 
-//    private static class ExtendedFetchGroup extends FetchGroup {
-//
-//        @Override
-//        public boolean equals(final Object obj) {
-//            return false;
-//        }
-//
-//        @Override
-//        public int hashCode() {
-//            return super.hashCode();
-//        }
-//    }
-//
-//    private static class ExtendedEntityFetchGroup extends EntityFetchGroup {
-//
-//        @Override
-//        public boolean equals(final Object obj) {
-//            return false;
-//        }
-//
-//        @Override
-//        public int hashCode() {
-//            return super.hashCode();
-//        }
-//    }
-
     protected __MappedEntity_Test(final Class<ENTITY> entityClass, final Class<ID> idClass) {
         super(entityClass, idClass);
     }
@@ -94,38 +68,7 @@ public abstract class __MappedEntity_Test<ENTITY extends __MappedEntity<ENTITY, 
     protected SingleTypeEqualsVerifierApi<ENTITY> equalsVerifier() {
         final var verifier = EqualsVerifier.forClass(entityClass)
                 .suppress(Warning.SURROGATE_KEY)
-                .suppress(Warning.STRICT_HASHCODE)
-//                .suppress(Warning.NULL_FIELDS)
-                ;
-//        try {
-//            final var c = Class.forName("org.eclipse.persistence.annotations.FetchGroup");
-//            verifier.withIgnoredAnnotations(c);
-//            EqualsVerifier_TestUtils.withPrefabValues(verifier, c, Mockito.mock(c), Mockito.mock(c));
-////            EqualsVerifier_TestUtils.withGenericPrefabValues(verifier, c, Mockito.mock(c));
-//        } catch (final ClassNotFoundException cnfe) {
-//            // empty
-//        }
-//        try {
-//            final var c = Class.forName("org.eclipse.persistence.internal.queries.EntityFetchGroup");
-//            EqualsVerifier_TestUtils.withPrefabValues(verifier, c, Mockito.mock(c), Mockito.mock(c));
-////            EqualsVerifier_TestUtils.withGenericPrefabValues(verifier, c, Mockito.mock(c));
-//        } catch (final ClassNotFoundException cnfe) {
-//            // empty
-//        }
-//        try {
-//            final var c = Class.forName("org.eclipse.persistence.core.queries.CoreAttributeGroup");
-//            EqualsVerifier_TestUtils.withPrefabValues(verifier, c, Mockito.mock(c), Mockito.mock(c));
-////            EqualsVerifier_TestUtils.withGenericPrefabValues(verifier, c, Mockito.mock(c));
-//        } catch (final ClassNotFoundException cnfe) {
-//            // empty
-//        }
-//        try {
-//            final var c = Class.forName("org.eclipse.persistence.queries.FetchGroupTracker");
-//            EqualsVerifier_TestUtils.withPrefabValues(verifier, c, Mockito.mock(c), Mockito.mock(c));
-////            EqualsVerifier_TestUtils.withGenericPrefabValues(verifier, c, Mockito.mock(c));
-//        } catch (final ClassNotFoundException cnfe) {
-//            // empty
-//        }
+                .suppress(Warning.STRICT_HASHCODE);
         return verifier;
     }
 
@@ -155,6 +98,9 @@ public abstract class __MappedEntity_Test<ENTITY extends __MappedEntity<ENTITY, 
                 }
                 if (!writer.canAccess(entityInstance)) {
                     writer.setAccessible(true);
+                }
+                if (writer.isAnnotationPresent(Transient.class)) {
+                    continue;
                 }
                 assertThatCode(() -> {
                     writer.invoke(entityInstance, value);
