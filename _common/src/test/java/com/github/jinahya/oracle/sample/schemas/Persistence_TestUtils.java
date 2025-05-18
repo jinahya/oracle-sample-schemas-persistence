@@ -1,0 +1,94 @@
+package com.github.jinahya.oracle.sample.schemas;
+
+import jakarta.persistence.EntityManager;
+import lombok.extern.slf4j.Slf4j;
+
+import java.sql.Connection;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Function;
+
+@Slf4j
+public final class Persistence_TestUtils {
+
+    public static <R> R applyEntityManagerInTransaction(final EntityManager entityManager,
+                                                        final Function<? super EntityManager, ? extends R> function,
+                                                        final boolean rollback) {
+        Objects.requireNonNull(entityManager, "entityManager is null");
+        Objects.requireNonNull(function, "function is null");
+        final var transaction = entityManager.getTransaction();
+        transaction.begin();
+        try {
+            final R result = function.apply(entityManager);
+            if (rollback) {
+                transaction.rollback();
+            } else {
+                transaction.commit();
+            }
+            return result;
+        } catch (final Exception e) {
+            transaction.rollback();
+            throw new RuntimeException("failed to apply " + function + " and rollback: " + rollback, e);
+        }
+    }
+
+    public static <R> R applyConnection(final EntityManager entityManager,
+                                        final Function<? super Connection, ? extends R> function,
+                                        final boolean rollback) {
+        Objects.requireNonNull(entityManager, "entityManager is null");
+        Objects.requireNonNull(function, "function is null");
+        final var transaction = entityManager.getTransaction();
+        transaction.begin();
+        try {
+            final var connection = entityManager.unwrap(Connection.class);
+            final R result = function.apply(connection);
+            if (rollback) {
+                transaction.rollback();
+            } else {
+                transaction.commit();
+            }
+            return result;
+        } catch (final Exception e) {
+            transaction.rollback();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static long count(final EntityManager entityManager, final Class<?> entityClass) {
+        final var builder = entityManager.getCriteriaBuilder();
+        final var query = builder.createQuery(Long.class);
+        final var root = query.from(entityClass);
+        query.select(builder.count(root));
+        final var typed = entityManager.createQuery(query);
+        return typed.getSingleResult();
+    }
+
+    public static <T> Optional<T> findRandom(final EntityManager entityManager, final Class<T> entityClass) {
+        final long firstResult;
+        {
+            final var count = count(entityManager, entityClass);
+            if (count == 0L) {
+                return Optional.empty();
+            }
+            firstResult = ThreadLocalRandom.current().nextLong(count);
+        }
+        final var builder = entityManager.getCriteriaBuilder();
+        final var query = builder.createQuery(entityClass);
+        query.from(entityClass);
+        return Optional.of(
+                entityManager.createQuery(query)
+                        .setFirstResult(Math.toIntExact(firstResult))
+                        .setMaxResults(1)
+                        .getSingleResult()
+        );
+    }
+
+    public static String entityName(final EntityManager entityManager, final Class<?> entityClass) {
+        return entityManager.getMetamodel().entity(entityClass).getName();
+    }
+
+    private Persistence_TestUtils() {
+        throw new AssertionError("instantiation is not allowed");
+    }
+}

@@ -1,0 +1,7 @@
+#!/bin/sh
+#dirname="$(dirname "$0")"
+#echo $dirname
+#sh $dirname/.mvn.test.persistence-eclipselink.sh
+#sh $dirname/.mvn.test.persistence-hibernate.sh
+sh ./.mvn.test.persistence-eclipselink.sh
+sh ./.mvn.test.persistence-hibernate.sh

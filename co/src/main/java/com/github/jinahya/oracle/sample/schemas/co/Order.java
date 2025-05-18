@@ -4,7 +4,6 @@ import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
@@ -13,17 +12,35 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serial;
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
+/// An entity class for mapping {@value Order#TABLE_NAMe} table.
+///
+/// @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+@NamedQuery(
+        name = "Order.findAllByStore",
+        query = """
+                SELECT e
+                FROM Order AS e
+                WHERE e.store = :store"""
+)
+@NamedQuery(
+        name = "Order.findAllByCustomer",
+        query = """
+                SELECT e
+                FROM Order AS e
+                WHERE e.customer = :customer"""
+)
 @Entity
 @Table(name = Order.TABLE_NAMe)
 public class Order extends __MappedEntity<Order, Long> {
@@ -46,19 +63,59 @@ public class Order extends __MappedEntity<Order, Long> {
     // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
     public static final String COLUMN_NAME_ORDER_STATUS = "ORDER_STATUS";
 
+    public static final String COLUMN_VALUE_ORDER_STATUS_CANCELLED = "CANCELLED";
+
+    public static final String COLUMN_VALUE_ORDER_STATUS_COMPLETED = "COMPLETE";
+
+    public static final String COLUMN_VALUE_ORDER_STATUS_OPEN = "OPEN";
+
+    public static final String COLUMN_VALUE_ORDER_STATUS_PAID = "PAID";
+
+    public static final String COLUMN_VALUE_ORDER_STATUS_REFUNDED = "REFUNDED";
+
+    public static final String COLUMN_VALUE_ORDER_STATUS_SHIPPED = "SHIPPED";
+
+    /// An enum for {@link Order_#orderStatus orderStatus} attribute.
+    ///
+    /// @author Jin Kwon &lt;onacit_at_gmail.com&gt;
     public enum OrderStatus {
 
-        CANCELLED,
-
-        COMPLETE,
-
+        /// .
         OPEN,
 
+        /// .
+        // 취소?
+        CANCELLED,
+
+        /// .
+        // 지불됨?
         PAID,
 
+        /// .
+        // (지불) 반환딤?
         REFUNDED,
 
-        SHIPPED;
+        /// .
+        // 출고됨?
+        SHIPPED,
+
+        /// .
+        // 완료?
+        COMPLETE;
+    }
+
+    static final Map<OrderStatus, Set<OrderStatus>> TRANSITIONS = Map.of(
+            OrderStatus.OPEN, Collections.unmodifiableSet(EnumSet.of(OrderStatus.PAID, OrderStatus.CANCELLED)),
+            OrderStatus.CANCELLED, Collections.unmodifiableSet(EnumSet.noneOf(OrderStatus.class)),
+            OrderStatus.PAID, Collections.unmodifiableSet(EnumSet.of(OrderStatus.REFUNDED, OrderStatus.SHIPPED)),
+            OrderStatus.REFUNDED, Collections.unmodifiableSet(EnumSet.noneOf(OrderStatus.class)),
+            OrderStatus.SHIPPED, Collections.unmodifiableSet(EnumSet.of(OrderStatus.COMPLETE)),
+            OrderStatus.COMPLETE, Collections.unmodifiableSet(EnumSet.noneOf(OrderStatus.class))
+    );
+
+    static boolean isFinalStage(final OrderStatus orderStatus) {
+        Objects.requireNonNull(orderStatus, "orderStatus is null");
+        return TRANSITIONS.get(orderStatus).isEmpty();
     }
 
     // -------------------------------------------------------------------------------------------------------- STORE_ID
@@ -85,18 +142,19 @@ public class Order extends __MappedEntity<Order, Long> {
 //                ",customer=" + customer +
                 ", orderStatus=" + orderStatus +
 //                ",store=" + store +
+//                ",orderItems=" + orderItems +
                 '}';
     }
 
     // ------------------------------------------------------------------------------------------------------ super._id_
     @Override
     protected final Long _id_() {
-        return orderId;
+        return getOrderId();
     }
 
     @Override
     protected final void _id_(final Long _id_) {
-        orderId = _id_;
+        setOrderId(_id_);
     }
 
     // --------------------------------------------------------------------------------------------------------- orderId
@@ -104,12 +162,16 @@ public class Order extends __MappedEntity<Order, Long> {
         return orderId;
     }
 
+    void setOrderId(final Long orderId) {
+        this.orderId = orderId;
+    }
+
     // -------------------------------------------------------------------------------------------------------- orderTms
-    public Instant getOrderTms() {
+    public LocalDateTime getOrderTms() {
         return orderTms;
     }
 
-    public void setOrderTms(final Instant orderTms) {
+    public void setOrderTms(final LocalDateTime orderTms) {
         this.orderTms = orderTms;
     }
 
@@ -128,6 +190,13 @@ public class Order extends __MappedEntity<Order, Long> {
     }
 
     public void setOrderStatus(final OrderStatus orderStatus) {
+        if (this.orderStatus != null && orderStatus != null && this.orderStatus != orderStatus) {
+            final var transitions = TRANSITIONS.get(this.orderStatus);
+            if (!transitions.contains(orderStatus)) {
+                throw new IllegalArgumentException(
+                        "invalid transition from " + this.orderStatus + " to " + orderStatus);
+            }
+        }
         this.orderStatus = orderStatus;
     }
 
@@ -149,7 +218,8 @@ public class Order extends __MappedEntity<Order, Long> {
     @NotNull
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_ORDER_TMS, nullable = false, insertable = true, updatable = true)
-    private Instant orderTms;
+//    private Instant orderTms;
+    private LocalDateTime orderTms;
 
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -158,8 +228,9 @@ public class Order extends __MappedEntity<Order, Long> {
 
     @NotNull
     @Enumerated(EnumType.STRING)
+    @Basic(optional = false)
     @Column(name = COLUMN_NAME_ORDER_STATUS, nullable = false, insertable = true, updatable = true, length = 10)
-    private OrderStatus orderStatus;
+    private OrderStatus orderStatus = OrderStatus.OPEN;
 
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -167,51 +238,62 @@ public class Order extends __MappedEntity<Order, Long> {
     private Store store;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @OneToMany(
-            mappedBy = "order",
-            fetch = FetchType.LAZY,
-            cascade = {
-            }
-    )
-    private List<@Valid @NotNull OrderItem> orderItems;
-
-    /**
-     * Returns the total price of all order items.
-     *
-     * @return the total price of all order items
-     */
-    public BigDecimal getOrderItemsTotalPrice() {
-        return orderItems.stream()
-                .map(OrderItem::getTotalPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
-
-    public BigDecimal getOrderItemsTotalPrice1(final EntityManager entityManager) {
-        Objects.requireNonNull(entityManager, "entityManager is null");
-        return entityManager.createQuery(
-                        """
-                                SELECT SUM(oi.unitPrice * oi.quantity)
-                                FROM OrderItem AS oi
-                                WHERE oi.order = :order""",
-                        BigDecimal.class
-                )
-                .setParameter("order", this)
-                .getSingleResult();
-    }
-
-    public BigDecimal getOrderItemsTotalPrice2(final EntityManager entityManager) {
-        final var builder = entityManager.getCriteriaBuilder();
-        final var query = builder.createQuery(BigDecimal.class);
-        final var root = query.from(OrderItem.class);
-        query.select(
-                builder.sum(
-                        builder.prod(
-                                root.get(OrderItem_.unitPrice),
-                                builder.toBigDecimal(root.get(OrderItem_.quantity))
-                        )
-                )
-        );
-        query.where(builder.equal(root.get(OrderItem_.order), this));
-        return entityManager.createQuery(query).getSingleResult();
-    }
+////    public List<OrderItem> getOrderItems() {
+////        return orderItems;
+////    }
+////
+////    public void setOrderItems(final List<OrderItem> orderItems) {
+////        this.orderItems = orderItems;
+////    }
+//
+//    @OneToMany(
+//            mappedBy = "order",
+//            fetch = FetchType.LAZY,
+//            cascade = {
+//                    CascadeType.ALL
+//            },
+//            orphanRemoval = true
+//    )
+//    private List<@Valid @NotNull OrderItem> orderItems;
+//
+//    /**
+//     * Returns the total price of all order items.
+//     *
+//     * @return the total price of all order items
+//     */
+//    @Transient
+//    public BigDecimal getOrderItemsTotalPrice1() {
+//        return orderItems.stream()
+//                .map(OrderItem::getTotalPrice)
+//                .reduce(BigDecimal.ZERO, BigDecimal::add);
+//    }
+//
+//    public BigDecimal getOrderItemsTotalPrice1(final EntityManager entityManager) {
+//        Objects.requireNonNull(entityManager, "entityManager is null");
+//        return entityManager.createQuery(
+//                        """
+//                                SELECT SUM(oi.unitPrice * oi.quantity)
+//                                FROM OrderItem AS oi
+//                                WHERE oi.order = :order""",
+//                        BigDecimal.class
+//                )
+//                .setParameter("order", this)
+//                .getSingleResult();
+//    }
+//
+//    public BigDecimal getOrderItemsTotalPrice3(final EntityManager entityManager) {
+//        final var b = entityManager.getCriteriaBuilder();
+//        final var q = b.createQuery(BigDecimal.class);
+//        final var r = q.from(OrderItem.class);
+//        q.select(
+//                b.sum(
+//                        b.prod(
+//                                r.get(OrderItem_.unitPrice),
+//                                b.toBigDecimal(r.get(OrderItem_.quantity))
+//                        )
+//                )
+//        );
+//        q.where(b.equal(r.get(OrderItem_.order), this));
+//        return entityManager.createQuery(q).getSingleResult();
+//    }
 }

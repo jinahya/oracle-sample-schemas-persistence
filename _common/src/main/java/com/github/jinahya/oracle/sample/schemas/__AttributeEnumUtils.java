@@ -27,6 +27,7 @@ public final class __AttributeEnumUtils {
         );
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     private __AttributeEnumUtils() {
         throw new AssertionError("instantiation is not allowed");
     }

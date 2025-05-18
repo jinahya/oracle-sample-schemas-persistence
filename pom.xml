@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.github.jinahya</groupId>
@@ -8,10 +7,9 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-
   <name>${project.artifactId}</name>
   <description>Persistence for MySQL Employees Sample Database</description>
-  <url>https://github.com/jinahya/$project.artifactId}</url>
+  <url>https://github.com/jinahya/${project.artifactId}</url>
   <inceptionYear>2024</inceptionYear>
   <organization>
     <name>Jinahya, Inc.</name>
@@ -21,6 +19,7 @@
   <modules>
     <module>_common</module>
     <module>co</module>
+    <module>hr</module>
   </modules>
 
   <scm>
@@ -48,20 +47,15 @@
     <maven.compiler.testTarget>${maven.compiler.testSource}</maven.compiler.testTarget>
     <maven.compiler.testRelease>${maven.compiler.testTarget}</maven.compiler.testRelease>
     <doclint>none</doclint>
-    <mysql.host>127.0.0.1</mysql.host>
-    <mysql.port>33306</mysql.port>
-    <mysql.database>employees</mysql.database>
-    <mysql.user>root</mysql.user>
-    <mysql.password>root</mysql.password>
     <sonar.organization>jinahya-github</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     <groupId.querydsl>com.querydsl</groupId.querydsl>
     <version.querydsl>5.1.0</version.querydsl>
     <!--    <version.lombok>1.18.30</version.lombok>-->
-    <version.lombok>1.18.32</version.lombok>
+    <version.lombok>1.18.38</version.lombok>
     <version.maven-failsafe>${version.maven-surefire}</version.maven-failsafe>
     <!--    <version.maven-surefire>3.2.5</version.maven-surefire>-->
-    <version.maven-surefire>3.3.0</version.maven-surefire>
+    <version.maven-surefire>3.5.3</version.maven-surefire>
     <version.mysql-connector-j>8.3.0</version.mysql-connector-j>
     <!-- https://search.maven.org/artifact/org.eclipse.persistence/eclipselink -->
     <version.org.eclipse.persistence>4.0.2</version.org.eclipse.persistence>
@@ -80,10 +74,17 @@
 
   <dependencyManagement>
     <dependencies>
-      <dependency><!-- https://search.maven.org/artifact/jakarta.platform/jakarta.jakartaee-bom -->
+      <dependency><!-- https://central.sonatype.com/artifact/com.fasterxml.jackson/jackson-bom/versions -->
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>2.19.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency><!-- https://central.sonatype.com/artifact/jakarta.platform/jakarta.jakartaee-bom/versions -->
         <groupId>jakarta.platform</groupId>
         <artifactId>jakarta.jakartaee-bom</artifactId>
-        <version>10.0.0</version>
+        <version>11.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -91,6 +92,21 @@
         <groupId>${groupId.querydsl}</groupId>
         <artifactId>querydsl-apt</artifactId>
         <version>${version.querydsl}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish.expressly</groupId>
+        <artifactId>expressly</artifactId>
+        <version>5.0.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate.validator</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>${version.org.hibernate.validator}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate.validator</groupId>
+        <artifactId>hibernate-validator-test-utils</artifactId>
+        <version>${version.org.hibernate.validator}</version>
       </dependency>
       <dependency><!-- https://search.maven.org/artifact/org.junit/junit-bom -->
         <groupId>org.junit</groupId>
@@ -113,7 +129,7 @@
     <dependency>
       <groupId>com.oracle.database.jdbc</groupId>
       <artifactId>ojdbc11</artifactId>
-      <version>23.7.0.25.01</version>
+      <version>23.8.0.25.04</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
@@ -144,7 +160,7 @@
     <dependency>
       <groupId>nl.jqno.equalsverifier</groupId>
       <artifactId>equalsverifier-nodep</artifactId>
-      <version>3.16.1</version>
+      <version>4.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -152,6 +168,21 @@
       <artifactId>assertj-core</artifactId>
       <!--      ;<version>3.25.3</version>-->
       <version>3.26.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.expressly</groupId>
+      <artifactId>expressly</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator-test-utils</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -177,9 +208,28 @@
       <artifactId>slf4j-api</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency><!-- https://github.com/mtedone/podam/releases -->
+      <!-- https://central.sonatype.com/artifact/uk.co.jemos.podam/podam/versions -->
+      <groupId>uk.co.jemos.podam</groupId>
+      <artifactId>podam</artifactId>
+      <version>8.0.2.RELEASE</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>${project.basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>${project.basedir}/src/test/resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -195,13 +245,12 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.13.0</version>
+          <version>3.14.0</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <!--          <version>3.6.3</version>-->
-          <version>3.7.0</version>
+          <version>3.11.2</version>
           <configuration>
             <additionalOptions>
               <additionalOption>-Xdoclint:${doclint}</additionalOption>
@@ -237,12 +286,12 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>3.6.0</version>
+          <version>3.9.0</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
-          <version>4.0.0-M15</version>
+          <version>4.0.0-M16</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -252,7 +301,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>versions-maven-plugin</artifactId>
-          <version>2.16.2</version>
+          <version>2.18.0</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -263,7 +312,7 @@
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.12</version>
+          <version>0.8.13</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -301,7 +350,7 @@
         <configuration>
           <archive>
             <manifestEntries>
-              <Automatic-Module-Name>com.github.jinahya.mysql.employees.persistence</Automatic-Module-Name>
+              <Automatic-Module-Name>com.github.jinahya.oracle.employees.persistence</Automatic-Module-Name>
             </manifestEntries>
           </archive>
         </configuration>
@@ -369,7 +418,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>license-maven-plugin</artifactId>
-        <version>2.4.0</version>
+        <version>2.5.0</version>
         <configuration>
           <licenseName>apache_v2</licenseName>
         </configuration>
@@ -400,12 +449,12 @@
       <plugin>
         <groupId>com.github.spotbugs</groupId>
         <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>4.8.6.0</version>
+        <version>4.9.3.0</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
-        <version>3.4.0</version>
+        <version>3.6.0</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -414,12 +463,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>3.4.0</version>
+        <version>3.6.0</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.23.0</version>
+        <version>3.26.0</version>
         <configuration>
           <!-- Unsupported targetJdk value '21'. -->
           <skip>true</skip>
@@ -614,7 +663,7 @@
         <persistence.provider>org.eclipse.persistence.jpa.PersistenceProvider</persistence.provider>
         <!-- https://stackoverflow.com/a/65283669/330457 -->
         <argLine>
-          -javaagent:${settings.localRepository}/org/eclipse/persistence/eclipselink/${version.org.eclipse.persistence}/eclipselink-${version.org.eclipse.persistence}.jar
+<!--          -javaagent:${settings.localRepository}/org/eclipse/persistence/eclipselink/${version.org.eclipse.persistence}/eclipselink-${version.org.eclipse.persistence}.jar-->
         </argLine>
         <eclipselink.woven>true</eclipselink.woven>
       </properties>
@@ -631,6 +680,68 @@
           <scope>test</scope>
         </dependency>
       </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>add-source-persistence-eclipselink</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>add-source</goal>
+                </goals>
+                <configuration>
+                  <sources>
+                    <source>${project.basedir}/src/main/java-persistence-eclipselink</source>
+                  </sources>
+                </configuration>
+              </execution>
+              <execution>
+                <id>add-resource-persistence-eclipselink</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>add-resource</goal>
+                </goals>
+                <configuration>
+                  <resources>
+                    <resource>
+                      <directory>${project.basedir}/src/main/resources-persistence-eclipselink</directory>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+              <execution>
+                <id>add-test-source-persistence-eclipselink</id>
+                <phase>generate-test-sources</phase>
+                <goals>
+                  <goal>add-test-source</goal>
+                </goals>
+                <configuration>
+                  <sources>
+                    <source>${project.basedir}/src/test/java-persistence-eclipselink</source>
+                  </sources>
+                </configuration>
+              </execution>
+              <execution>
+                <id>add-test-resource-persistence-eclipselink</id>
+                <phase>generate-test-resources</phase>
+                <goals>
+                  <goal>add-test-resource</goal>
+                </goals>
+                <configuration>
+                  <resources>
+                    <resource>
+                      <directory>${project.basedir}/src/test/resources-persistence-eclipselink</directory>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
     <!--    <profile>-->
     <!--      <id>persistence-eclipselink-weaving</id>-->
@@ -664,6 +775,68 @@
           <scope>test</scope>
         </dependency>
       </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>add-source-persistence-hibernate</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>add-source</goal>
+                </goals>
+                <configuration>
+                  <sources>
+                    <source>${project.basedir}/src/main/java-persistence-hibernate</source>
+                  </sources>
+                </configuration>
+              </execution>
+              <execution>
+                <id>add-resource-persistence-hibernate</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>add-resource</goal>
+                </goals>
+                <configuration>
+                  <resources>
+                    <resource>
+                      <directory>${project.basedir}/src/main/resources-persistence-hibernate</directory>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+              <execution>
+                <id>add-test-source-persistence-hibernate</id>
+                <phase>generate-test-sources</phase>
+                <goals>
+                  <goal>add-test-source</goal>
+                </goals>
+                <configuration>
+                  <sources>
+                    <source>${project.basedir}/src/test/java-persistence-hibernate</source>
+                  </sources>
+                </configuration>
+              </execution>
+              <execution>
+                <id>add-test-resource-persistence-hibernate</id>
+                <phase>generate-test-resources</phase>
+                <goals>
+                  <goal>add-test-resource</goal>
+                </goals>
+                <configuration>
+                  <resources>
+                    <resource>
+                      <directory>${project.basedir}/src/test/resources-persistence-hibernate</directory>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
     <profile>
       <!-- http://querydsl.com/static/querydsl/latest/reference/html/ch02.html#jpa_integration -->
