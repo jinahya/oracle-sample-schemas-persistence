@@ -1,3 +1,0 @@
-[submodule "db-sample-schemas"]
-	path = db-sample-schemas
-	url = git@github.com:oracle-samples/db-sample-schemas.git
