@@ -4,7 +4,6 @@ import jakarta.annotation.Nonnull;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EnumType;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -70,21 +69,6 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
 
     // --------------------------------------------------------------------------------------------------- super.idClass
 
-    // ------------------------------------------------------------------------------------------------------ entityName
-
-    /**
-     * Returns {@link EnumType#name() name} of the {@link #entityClass}.
-     *
-     * @return {@link EnumType#name() name} of the {@link #entityClass}.
-     */
-    protected String entityName() {
-        var entityName_ = entityName;
-        if (entityName_ == null) {
-            entityName_ = entityName = Persistence_TestUtils.entityName(entityManager(), entityClass);
-        }
-        return entityName_;
-    }
-
     // -------------------------------------------------------------------------------------------- entityManagerFactory
 
     /**
@@ -148,9 +132,6 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
         }
         return proxy;
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    private String entityName;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Inject

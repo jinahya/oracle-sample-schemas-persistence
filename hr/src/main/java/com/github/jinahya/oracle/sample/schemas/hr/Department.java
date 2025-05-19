@@ -28,7 +28,7 @@ public class Department extends __MappedEntity<Department, Integer> {
     // -----------------------------------------------------------------------------------------------------------------
     public static final String TABLE_NAME = "DEPARTMENTS";
 
-    // ------------------------------------------------------------------------------------------------- DEPARTMENT_ID
+    // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
 
     public static final int COLUMN_PRECISION_DEPARTMENT_ID = 4;

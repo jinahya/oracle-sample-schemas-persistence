@@ -8,6 +8,10 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
+import java.util.function.LongConsumer;
+import java.util.function.LongFunction;
+
+import static org.assertj.core.api.Assumptions.assumeThat;
 
 @Slf4j
 public final class Persistence_TestUtils {
@@ -55,6 +59,7 @@ public final class Persistence_TestUtils {
         }
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     public static long count(final EntityManager entityManager, final Class<?> entityClass) {
         final var builder = entityManager.getCriteriaBuilder();
         final var query = builder.createQuery(Long.class);
@@ -64,23 +69,41 @@ public final class Persistence_TestUtils {
         return typed.getSingleResult();
     }
 
+    public static <R> R applyCountAndRandomIndex(final EntityManager entityManager, final Class<?> entityClass,
+                                                 final LongFunction<? extends LongFunction<? extends R>> function) {
+        final var count = count(entityManager, entityClass);
+        assumeThat(count)
+                .as("count of %1$s", entityClass)
+                .isPositive();
+        final var index = ThreadLocalRandom.current().nextLong(count);
+        return function.apply(count).apply(index);
+    }
+
+    public static void acceptCountAndRandomIndex(final EntityManager entityManager, final Class<?> entityClass,
+                                                 final LongFunction<? extends LongConsumer> function) {
+        applyCountAndRandomIndex(entityManager, entityClass, c -> i -> {
+            function.apply(c).accept(i);
+            return null;
+        });
+    }
+
     public static <T> Optional<T> selectRandom(final EntityManager entityManager, final Class<T> entityClass) {
-        final long firstResult;
-        {
-            final var count = count(entityManager, entityClass);
-            if (count == 0L) {
-                return Optional.empty();
-            }
-            firstResult = ThreadLocalRandom.current().nextLong(count);
-        }
-        final var builder = entityManager.getCriteriaBuilder();
-        final var query = builder.createQuery(entityClass);
-        query.from(entityClass);
-        return Optional.of(
-                entityManager.createQuery(query)
-                        .setFirstResult(Math.toIntExact(firstResult))
-                        .setMaxResults(1)
-                        .getSingleResult()
+        Objects.requireNonNull(entityManager, "entityManager is null");
+        Objects.requireNonNull(entityClass, "entityClass is null");
+        return applyCountAndRandomIndex(
+                entityManager,
+                entityClass,
+                c -> i -> {
+                    final var builder = entityManager.getCriteriaBuilder();
+                    final var query = builder.createQuery(entityClass);
+                    query.from(entityClass);
+                    return Optional.of(
+                            entityManager.createQuery(query)
+                                    .setFirstResult(Math.toIntExact(i))
+                                    .setMaxResults(1)
+                                    .getSingleResult()
+                    );
+                }
         );
     }
 
@@ -88,6 +111,7 @@ public final class Persistence_TestUtils {
         return entityManager.getMetamodel().entity(entityClass).getName();
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     private Persistence_TestUtils() {
         throw new AssertionError("instantiation is not allowed");
     }

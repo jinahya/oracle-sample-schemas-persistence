@@ -11,6 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Embeddable
 public class JobHistoryId implements Serializable {
@@ -30,6 +31,19 @@ public class JobHistoryId implements Serializable {
                 "employeeId=" + employeeId +
                 ",startDate=" + startDate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == null || getClass() != obj.getClass()) return false;
+        JobHistoryId that = (JobHistoryId) obj;
+        return Objects.equals(employeeId, that.employeeId) &&
+                Objects.equals(startDate, that.startDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(employeeId, startDate);
     }
 
     // ------------------------------------------------------------------------------------------------------ employeeId

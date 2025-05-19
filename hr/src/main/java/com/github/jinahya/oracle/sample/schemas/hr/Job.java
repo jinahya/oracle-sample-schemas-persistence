@@ -32,6 +32,7 @@ public class Job extends __MappedEntity<Job, String> {
     public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
     // ------------------------------------------------------------------------------------------------------- JOB_TITLE
+    public static final String COLUMN_NAME_JOB_TITLE = "JOB_TITLE";
 
     // ------------------------------------------------------------------------------------------------------ MIN_SALARY
     public static final String COLUMN_NAME_MIN_SALARY = "MIN_SALARY";

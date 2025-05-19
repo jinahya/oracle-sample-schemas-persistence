@@ -35,9 +35,10 @@ public abstract class __MappedEntity_Test<ENTITY extends __MappedEntity<ENTITY, 
         @Test
         void _NotBlank_NewEntityInstance() {
             // --------------------------------------------------------------------------------------------------- given
-            final ENTITY entityInstance = newEntityInstance();
+            final ENTITY instance = newEntityInstance();
             // ---------------------------------------------------------------------------------------------------- when
-            final var string = entityInstance.toString();
+            final var string = instance.toString();
+            log.debug("string: {}", string);
             // ---------------------------------------------------------------------------------------------------- then
             assertThat(string).isNotBlank();
         }
@@ -45,14 +46,15 @@ public abstract class __MappedEntity_Test<ENTITY extends __MappedEntity<ENTITY, 
         @Test
         void _NotBlank_NewRandomizedEntityInstance() {
             // --------------------------------------------------------------------------------------------------- given
-            final ENTITY randomizedEntityInstance = newRandomizedEntityInstance().orElse(null);
-            assumeThat(randomizedEntityInstance).isNotNull();
+            final ENTITY instance = newRandomizedEntityInstance().orElse(null);
+            assumeThat(instance).isNotNull();
             assumeFalse(
-                    randomizedEntityInstance == null,
-                    () -> String.format("randomizedEntityInstance(%s) is null", randomizedEntityInstance)
+                    instance == null,
+                    () -> String.format("instance(%s) is null", instance)
             );
             // ---------------------------------------------------------------------------------------------------- when
-            final var string = randomizedEntityInstance.toString();
+            final var string = instance.toString();
+            log.debug("string: {}", string);
             // ---------------------------------------------------------------------------------------------------- then
             assertThat(string).isNotBlank();
         }
