@@ -45,11 +45,11 @@ public class Employee extends __MappedEntity<Employee, Integer> {
 
     public static final int COLUMN_PRECISION_EMPLOYEE_ID = 4;
 
-    public static final int COLUMN_VALUE_EMPLOYEE_ID = 0x0000;
+    public static final int COLUMN_VALUE_MIN_EMPLOYEE_ID = 0x0000;
 
     public static final int COLUMN_VALUE_MAX_EMPLOYEE_ID = 0x270F; // 9999
 
-    public static final int MIN_EMPLOYEE_ID = COLUMN_VALUE_EMPLOYEE_ID;
+    public static final int MIN_EMPLOYEE_ID = COLUMN_VALUE_MIN_EMPLOYEE_ID;
 
     public static final int MAX_EMPLOYEE_ID = COLUMN_VALUE_MAX_EMPLOYEE_ID;
 

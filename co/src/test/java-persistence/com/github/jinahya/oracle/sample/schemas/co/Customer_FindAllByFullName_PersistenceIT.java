@@ -14,7 +14,7 @@ class Customer_FindAllByFullName_PersistenceIT extends Customer__PersistenceIT {
     void __NativeQuery() {
         // --------------------------------------------------------------------------------------------------- given
         final var fullName =
-                Persistence_TestUtils.findRandom(entityManager(), entityClass)
+                Persistence_TestUtils.selectRandom(entityManager(), entityClass)
                         .map(Customer::getFullName)
                         .orElse(null);
         assumeThat(fullName)
@@ -34,7 +34,7 @@ class Customer_FindAllByFullName_PersistenceIT extends Customer__PersistenceIT {
     void __DirectQuery() {
         // --------------------------------------------------------------------------------------------------- given
         final var fullName =
-                Persistence_TestUtils.findRandom(entityManager(), entityClass)
+                Persistence_TestUtils.selectRandom(entityManager(), entityClass)
                         .map(Customer::getFullName)
                         .orElse(null);
         assumeThat(fullName)
@@ -60,7 +60,7 @@ class Customer_FindAllByFullName_PersistenceIT extends Customer__PersistenceIT {
     void __CriteriaApi() {
         // --------------------------------------------------------------------------------------------------- given
         final var fullName =
-                Persistence_TestUtils.findRandom(entityManager(), entityClass)
+                Persistence_TestUtils.selectRandom(entityManager(), entityClass)
                         .map(Customer::getFullName)
                         .orElse(null);
         assumeThat(fullName)

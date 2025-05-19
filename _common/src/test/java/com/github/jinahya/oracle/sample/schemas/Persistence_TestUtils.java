@@ -64,7 +64,7 @@ public final class Persistence_TestUtils {
         return typed.getSingleResult();
     }
 
-    public static <T> Optional<T> findRandom(final EntityManager entityManager, final Class<T> entityClass) {
+    public static <T> Optional<T> selectRandom(final EntityManager entityManager, final Class<T> entityClass) {
         final long firstResult;
         {
             final var count = count(entityManager, entityClass);

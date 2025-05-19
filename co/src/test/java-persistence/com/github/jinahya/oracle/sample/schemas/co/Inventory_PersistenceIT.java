@@ -36,7 +36,7 @@ class Inventory_PersistenceIT extends __MappedEntity_PersistenceIT<Inventory, Lo
         @Test
         void __NamedQuery() {
             // ------------------------------------------------------------------------------------------------------- given
-            final var randomStore = Persistence_TestUtils.findRandom(entityManager(), Store.class);
+            final var randomStore = Persistence_TestUtils.selectRandom(entityManager(), Store.class);
             assumeThat(randomStore).isNotEmpty();
             final var store = randomStore.get();
             // -------------------------------------------------------------------------------------------------------- when
@@ -59,7 +59,7 @@ class Inventory_PersistenceIT extends __MappedEntity_PersistenceIT<Inventory, Lo
         @Test
         void __TypedQuery() {
             // --------------------------------------------------------------------------------------------------- given
-            final var randomStore = Persistence_TestUtils.findRandom(entityManager(), Store.class);
+            final var randomStore = Persistence_TestUtils.selectRandom(entityManager(), Store.class);
             assumeThat(randomStore).isNotEmpty();
             final var store = randomStore.get();
             // ---------------------------------------------------------------------------------------------------- when
@@ -87,7 +87,7 @@ class Inventory_PersistenceIT extends __MappedEntity_PersistenceIT<Inventory, Lo
         @Test
         void __CriteriaApi() {
             // --------------------------------------------------------------------------------------------------- given
-            final var randomStore = Persistence_TestUtils.findRandom(entityManager(), Store.class);
+            final var randomStore = Persistence_TestUtils.selectRandom(entityManager(), Store.class);
             assumeThat(randomStore).isNotEmpty();
             final var store = randomStore.get();
             // ---------------------------------------------------------------------------------------------------- when
@@ -112,12 +112,12 @@ class Inventory_PersistenceIT extends __MappedEntity_PersistenceIT<Inventory, Lo
         @Test
         void __NamedQuery() {
             // --------------------------------------------------------------------------------------------------- given
-            var randomStore = Persistence_TestUtils.findRandom(entityManager(), Store.class);
+            var randomStore = Persistence_TestUtils.selectRandom(entityManager(), Store.class);
             assumeThat(randomStore).isNotEmpty();
-            var randomProduct = Persistence_TestUtils.findRandom(entityManager(), Product.class);
+            var randomProduct = Persistence_TestUtils.selectRandom(entityManager(), Product.class);
             assumeThat(randomProduct).isNotEmpty();
             if (ThreadLocalRandom.current().nextBoolean()) {
-                final var randomInventory = Persistence_TestUtils.findRandom(entityManager(), Inventory.class);
+                final var randomInventory = Persistence_TestUtils.selectRandom(entityManager(), Inventory.class);
                 assumeThat(randomInventory).isNotEmpty();
                 randomStore = Optional.of(randomInventory.get().getStore());
                 randomProduct = Optional.of(randomInventory.get().getProduct());
@@ -145,12 +145,12 @@ class Inventory_PersistenceIT extends __MappedEntity_PersistenceIT<Inventory, Lo
         @Test
         void __CriteriaApi() {
             // --------------------------------------------------------------------------------------------------- given
-            var randomStore = Persistence_TestUtils.findRandom(entityManager(), Store.class);
+            var randomStore = Persistence_TestUtils.selectRandom(entityManager(), Store.class);
             assumeThat(randomStore).isNotEmpty();
-            var randomProduct = Persistence_TestUtils.findRandom(entityManager(), Product.class);
+            var randomProduct = Persistence_TestUtils.selectRandom(entityManager(), Product.class);
             assumeThat(randomProduct).isNotEmpty();
             if (ThreadLocalRandom.current().nextBoolean()) {
-                final var randomInventory = Persistence_TestUtils.findRandom(entityManager(), Inventory.class);
+                final var randomInventory = Persistence_TestUtils.selectRandom(entityManager(), Inventory.class);
                 assumeThat(randomInventory).isNotEmpty();
                 randomStore = Optional.of(randomInventory.get().getStore());
                 randomProduct = Optional.of(randomInventory.get().getProduct());

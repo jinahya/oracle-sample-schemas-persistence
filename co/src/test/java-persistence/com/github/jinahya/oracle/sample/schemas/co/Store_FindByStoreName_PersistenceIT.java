@@ -14,7 +14,7 @@ class Store_FindByStoreName_PersistenceIT extends Store__PersistenceIT {
     void __NativeQuery() {
         // --------------------------------------------------------------------------------------------------- given
         final var storeName =
-                Persistence_TestUtils.findRandom(entityManager(), entityClass)
+                Persistence_TestUtils.selectRandom(entityManager(), entityClass)
                         .map(Store::getStoreName)
                         .orElse(null);
         assumeThat(storeName)
@@ -34,7 +34,7 @@ class Store_FindByStoreName_PersistenceIT extends Store__PersistenceIT {
     void __DirectQuery() {
         // --------------------------------------------------------------------------------------------------- given
         final var storeName =
-                Persistence_TestUtils.findRandom(entityManager(), entityClass)
+                Persistence_TestUtils.selectRandom(entityManager(), entityClass)
                         .map(Store::getStoreName)
                         .orElse(null);
         assumeThat(storeName)
@@ -54,7 +54,7 @@ class Store_FindByStoreName_PersistenceIT extends Store__PersistenceIT {
     void __CriteriaApi() {
         // --------------------------------------------------------------------------------------------------- given
         final var storeName =
-                Persistence_TestUtils.findRandom(entityManager(), entityClass)
+                Persistence_TestUtils.selectRandom(entityManager(), entityClass)
                         .map(Store::getStoreName)
                         .orElse(null);
         assumeThat(storeName)

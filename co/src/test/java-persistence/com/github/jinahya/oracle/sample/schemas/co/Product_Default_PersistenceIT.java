@@ -20,8 +20,8 @@ class Product_Default_PersistenceIT extends Product__PersistenceIT {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    protected void randomFound__(@Nonnull final Product entity) {
-        super.randomFound__(entity);
+    protected void randomSelected__(@Nonnull final Product entity) {
+        super.randomSelected__(entity);
         final var productDetails = entity.getProductDetails();
         assumeThat(productDetails).isNotNull();
         try {

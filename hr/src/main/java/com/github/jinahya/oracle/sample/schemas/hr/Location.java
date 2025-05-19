@@ -224,7 +224,6 @@ public class Location extends __MappedEntity<Location, Integer> {
 
     @jakarta.annotation.Nonnull
     @Size(max = SIZE_MAX_STREET_PROVINCE)
-    @NotNull
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_STATE_PROVINCE, nullable = true, insertable = true, updatable = true,
             length = COLUMN_LENGTH_STREET_PROVINCE)

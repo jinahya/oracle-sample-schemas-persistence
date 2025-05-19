@@ -49,11 +49,11 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
     /**
      * Finds an entity from the database.
      */
-    @DisplayName("find a random entity")
+    @DisplayName("select an entity")
     @Test
-    protected void findRandom() {
-        Persistence_TestUtils.findRandom(entityManager(), entityClass)
-                .ifPresent(this::randomFound__);
+    protected void selectRandom() {
+        Persistence_TestUtils.selectRandom(entityManager(), entityClass)
+                .ifPresent(this::randomSelected__);
     }
 
     /**
@@ -61,8 +61,8 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
      *
      * @param entity the instance of {@link #entityClass} found in the database
      */
-    protected void randomFound__(@Nonnull final ENTITY entity) {
-        log.debug("found entity: {}", entity);
+    protected void randomSelected__(@Nonnull final ENTITY entity) {
+        log.debug("selected entity: {}", entity);
         Validation_TestUtils.requireValid(entity);
     }
 

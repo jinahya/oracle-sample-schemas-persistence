@@ -30,6 +30,7 @@
     <class>com.github.jinahya.oracle.sample.schemas.hr.Department</class>
     <class>com.github.jinahya.oracle.sample.schemas.hr.Employee</class>
     <class>com.github.jinahya.oracle.sample.schemas.hr.Job</class>
+    <class>com.github.jinahya.oracle.sample.schemas.hr.JobHistory</class>
     <class>com.github.jinahya.oracle.sample.schemas.hr.Location</class>
     <class>com.github.jinahya.oracle.sample.schemas.hr.Region</class>
     <shared-cache-mode>NONE</shared-cache-mode>

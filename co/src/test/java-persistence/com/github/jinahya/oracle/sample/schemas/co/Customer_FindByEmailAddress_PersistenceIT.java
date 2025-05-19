@@ -14,7 +14,7 @@ class Customer_FindByEmailAddress_PersistenceIT extends Customer__PersistenceIT 
     void __NativeQuery() {
         // --------------------------------------------------------------------------------------------------- given
         final var emailAddress =
-                Persistence_TestUtils.findRandom(entityManager(), entityClass)
+                Persistence_TestUtils.selectRandom(entityManager(), entityClass)
                         .map(Customer::getEmailAddress)
                         .orElse(null);
         assumeThat(emailAddress)
@@ -34,7 +34,7 @@ class Customer_FindByEmailAddress_PersistenceIT extends Customer__PersistenceIT 
     void __DirectQuery() {
         // --------------------------------------------------------------------------------------------------- given
         final var emailAddress =
-                Persistence_TestUtils.findRandom(entityManager(), entityClass)
+                Persistence_TestUtils.selectRandom(entityManager(), entityClass)
                         .map(Customer::getEmailAddress)
                         .orElse(null);
         assumeThat(emailAddress)
@@ -60,7 +60,7 @@ class Customer_FindByEmailAddress_PersistenceIT extends Customer__PersistenceIT 
     void __CriteriaApi() {
         // --------------------------------------------------------------------------------------------------- given
         final var emailAddress =
-                Persistence_TestUtils.findRandom(entityManager(), entityClass)
+                Persistence_TestUtils.selectRandom(entityManager(), entityClass)
                         .map(Customer::getEmailAddress)
                         .orElse(null);
         assumeThat(emailAddress)
