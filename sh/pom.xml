@@ -8,10 +8,10 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>co</artifactId>
+  <artifactId>sh</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <description>customer_orders</description>
+  <description>human_resources</description>
 
   <dependencies>
     <dependency>

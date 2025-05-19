@@ -20,6 +20,7 @@
     <module>_common</module>
     <module>co</module>
     <module>hr</module>
+    <module>sh</module>
   </modules>
 
   <scm>
