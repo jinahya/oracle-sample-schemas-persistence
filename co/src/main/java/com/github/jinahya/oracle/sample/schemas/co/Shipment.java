@@ -9,6 +9,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Converter;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -115,9 +116,9 @@ public class Shipment extends __MappedEntity<Shipment, Long> {
     }
 
     @Converter(autoApply = true)
-    static class _ShipmentAttributeConverter extends __AttributeEnumConverter.__OfString<_ShipmentStatus> {
+    public static class _ShipmentStatusConverter extends __AttributeEnumConverter.__OfString<_ShipmentStatus> {
 
-        _ShipmentAttributeConverter() {
+        _ShipmentStatusConverter() {
             super(_ShipmentStatus.class);
         }
     }
@@ -253,7 +254,8 @@ public class Shipment extends __MappedEntity<Shipment, Long> {
     @jakarta.annotation.Nonnull
 //    @Size(max = 100)
     @NotNull
-    @Convert(converter = _ShipmentAttributeConverter.class)
+//    @Convert(converter = _ShipmentStatusConverter.class)
+    @Enumerated(jakarta.persistence.EnumType.STRING) // EclipseLink
     @Column(name = COLUMN_NAME_SHIPMENT_STATUS, nullable = false, insertable = true, updatable = true)
     private _ShipmentStatus shipmentStatus;
 }

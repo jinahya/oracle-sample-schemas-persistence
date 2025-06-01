@@ -61,8 +61,13 @@ public class OrderItemId implements Serializable {
         return orderId;
     }
 
-    void setOrderId(final Long orderId) {
+    public void setOrderId(final Long orderId) {
         this.orderId = orderId;
+    }
+
+    public OrderItemId orderId(final Long orderId) {
+        setOrderId(orderId);
+        return this;
     }
 
     // ------------------------------------------------------------------------------------------------------ lineItemId
@@ -72,6 +77,11 @@ public class OrderItemId implements Serializable {
 
     public void setLineItemId(final Long lineItemId) {
         this.lineItemId = lineItemId;
+    }
+
+    public OrderItemId lineItemId(final Long lineItemId) {
+        setLineItemId(lineItemId);
+        return this;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

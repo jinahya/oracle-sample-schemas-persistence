@@ -25,7 +25,7 @@ import java.util.Optional;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @NamedQuery(
-        name = "Inventory.findAllByProduct",
+        name = "Inventory.selectListByProduct",
         query = """
                 SELECT e
                 FROM Inventory AS e
@@ -33,7 +33,7 @@ import java.util.Optional;
                 """
 )
 @NamedQuery(
-        name = "Inventory.findByStoreAndProduct",
+        name = "Inventory.selectSingleByStoreAndProduct",
         query = """
                 SELECT e
                 FROM Inventory AS e
@@ -41,7 +41,7 @@ import java.util.Optional;
                 """
 )
 @NamedQuery(
-        name = "Inventory.findAllByStore",
+        name = "Inventory.selectListByStore",
         query = """
                 SELECT e
                 FROM Inventory AS e
@@ -103,7 +103,7 @@ public class Inventory extends __MappedEntity<Inventory, Long> {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
     @Override
     public String toString() {
-        return "Inventory{" +
+        return super.toString() + '{' +
                 "inventoryId=" + inventoryId +
 //                ",store=" + store +
 //                ",product=" + product +
@@ -112,7 +112,6 @@ public class Inventory extends __MappedEntity<Inventory, Long> {
     }
 
     // ------------------------------------------------------------------------------------------------------ super._id_
-
     @Override
     protected final Long _id_() {
         return getInventoryId();

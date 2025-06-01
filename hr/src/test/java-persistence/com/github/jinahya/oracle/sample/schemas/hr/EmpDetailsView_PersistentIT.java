@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.hr;
 
-import com.github.jinahya.oracle.sample.schemas.Persistence_TestUtils;
+import com.github.jinahya.oracle.sample.schemas.__Persistence_Test_Utils;
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_PersistenceIT;
 import lombok.extern.slf4j.Slf4j;
 import org.jboss.weld.junit5.auto.AddBeanClasses;
@@ -49,7 +49,7 @@ class EmpDetailsView_PersistentIT extends __MappedEntity_PersistenceIT<EmpDetail
             root.fetch(EmpDetailsView_.country);
         }
         final var typedQuery = entityManager.createQuery(criteriaQuery);
-        Persistence_TestUtils.acceptCountAndRandomIndex(entityManager(), entityClass, c -> i -> {
+        __Persistence_Test_Utils.acceptCountAndRandomIndex(entityManager(), entityClass, c -> i -> {
             typedQuery.setFirstResult(Math.toIntExact(i));
             typedQuery.setMaxResults(1);
         });

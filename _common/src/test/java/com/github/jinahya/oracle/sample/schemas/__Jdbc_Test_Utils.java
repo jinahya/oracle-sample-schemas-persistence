@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class Jdbc_TestUtils {
+public class __Jdbc_Test_Utils {
 
     private static final String CATALOG = "dev1_prime";
 

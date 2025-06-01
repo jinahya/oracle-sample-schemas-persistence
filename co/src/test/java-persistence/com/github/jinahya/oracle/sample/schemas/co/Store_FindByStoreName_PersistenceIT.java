@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.Persistence_TestUtils;
+import com.github.jinahya.oracle.sample.schemas.__Persistence_Test_Utils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ class Store_FindByStoreName_PersistenceIT extends Store__PersistenceIT {
     void __NativeQuery() {
         // --------------------------------------------------------------------------------------------------- given
         final var storeName =
-                Persistence_TestUtils.selectRandom(entityManager(), entityClass)
+                __Persistence_Test_Utils.selectRandom(entityManager(), entityClass)
                         .map(Store::getStoreName)
                         .orElse(null);
         assumeThat(storeName)
@@ -34,7 +34,7 @@ class Store_FindByStoreName_PersistenceIT extends Store__PersistenceIT {
     void __DirectQuery() {
         // --------------------------------------------------------------------------------------------------- given
         final var storeName =
-                Persistence_TestUtils.selectRandom(entityManager(), entityClass)
+                __Persistence_Test_Utils.selectRandom(entityManager(), entityClass)
                         .map(Store::getStoreName)
                         .orElse(null);
         assumeThat(storeName)
@@ -54,7 +54,7 @@ class Store_FindByStoreName_PersistenceIT extends Store__PersistenceIT {
     void __CriteriaApi() {
         // --------------------------------------------------------------------------------------------------- given
         final var storeName =
-                Persistence_TestUtils.selectRandom(entityManager(), entityClass)
+                __Persistence_Test_Utils.selectRandom(entityManager(), entityClass)
                         .map(Store::getStoreName)
                         .orElse(null);
         assumeThat(storeName)

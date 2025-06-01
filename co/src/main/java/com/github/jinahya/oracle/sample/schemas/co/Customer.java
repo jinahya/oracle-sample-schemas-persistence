@@ -19,28 +19,28 @@ import java.io.Serial;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @NamedQuery(
-        name = "Customer.findAllByFullNameLike",
+        name = "Customer.selectListWhereFullNameLike",
         query = """
                 SELECT e
                 FROM Customer AS e
                 WHERE e.fullName LIKE :fullNamePattern"""
 )
 @NamedQuery(
-        name = "Customer.findAllByFullName",
+        name = "Customer.selectSingleWhereFullNameEqual",
         query = """
                 SELECT e
                 FROM Customer AS e
                 WHERE e.fullName = :fullName"""
 )
 @NamedQuery(
-        name = "Customer.findAllByEmailAddressLike",
+        name = "Customer.selectListWhereEmailAddressLike",
         query = """
                 SELECT e
                 FROM Customer AS e
                 WHERE e.emailAddress LIKE :emailAddressPattern"""
 )
 @NamedQuery(
-        name = "Customer.findByEmailAddress",
+        name = "Customer.selectSingleWhereEmailAddressEqual",
         query = """
                 SELECT e
                 FROM Customer AS e
@@ -54,23 +54,46 @@ public class Customer extends __MappedEntity<Customer, Long> {
     private static final long serialVersionUID = 8488065550644505527L;
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * The name of the database table to which this entity class maps. The value is {@value}.
+     */
     public static final String TABLE_NAME = "CUSTOMERS";
 
     // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
+
+    /**
+     * The name of the table column to which the {@link Customer_#customerId customerId} attribute maps. The value is
+     * {@value}.
+     */
     public static final String COLUMN_NAME_CUSTOMER_ID = "CUSTOMER_ID";
 
     // --------------------------------------------------------------------------------------------------- EMAIL_ADDRESS
+
+    /**
+     * The name of the table column to which the {@link Customer_#emailAddress emailAddress} attribute maps. The value
+     * is {@value}.
+     */
     public static final String COLUMN_NAME_EMAIL_ADDRESS = "EMAIL_ADDRESS";
 
     // ------------------------------------------------------------------------------------------------------- FULL_NAME
+
+    /**
+     * The name of the table column to which the {@link Customer_#fullName fullName} attribute maps. The value is
+     * {@value}.
+     */
     public static final String COLUMN_NAME_FULL_NAME = "FULL_NAME";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
-    static Customer of(final Long customerId) {
-        return __MappedEntity.of(Customer::new, customerId);
-    }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    /**
+     * Creates a new instance.
+     */
+    protected Customer() {
+        super();
+    }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
     @Override
@@ -98,7 +121,6 @@ public class Customer extends __MappedEntity<Customer, Long> {
         return customerId;
     }
 
-    public // Podam
     void setCustomerId(final Long customerId) {
         this.customerId = customerId;
     }
@@ -132,11 +154,13 @@ public class Customer extends __MappedEntity<Customer, Long> {
 
     @Size(max = 255)
     @NotNull
-    @Column(name = COLUMN_NAME_EMAIL_ADDRESS, nullable = false, insertable = true, updatable = true, unique = true)
+    @Column(name = COLUMN_NAME_EMAIL_ADDRESS, nullable = false, insertable = true, updatable = true,
+            unique = true, // !!!
+            length = 255)
     private String emailAddress;
 
     @Size(max = 255)
     @NotNull
-    @Column(name = "FULL_NAME", nullable = false, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_FULL_NAME, nullable = false, insertable = true, updatable = true, length = 255)
     private String fullName;
 }

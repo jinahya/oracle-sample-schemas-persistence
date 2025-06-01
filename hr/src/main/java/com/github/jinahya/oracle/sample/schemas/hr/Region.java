@@ -55,7 +55,6 @@ public class Region extends _MappedEntity<Region> {
     }
 
     // -------------------------------------------------------------------------------------------------------- regionId
-
     public Long getRegionId() {
         return regionId;
     }

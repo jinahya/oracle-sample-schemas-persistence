@@ -14,7 +14,7 @@ import java.util.function.LongFunction;
 import static org.assertj.core.api.Assumptions.assumeThat;
 
 @Slf4j
-public final class Persistence_TestUtils {
+public final class __Persistence_Test_Utils {
 
     public static <R> R applyEntityManagerInTransaction(final EntityManager entityManager,
                                                         final Function<? super EntityManager, ? extends R> function,
@@ -62,10 +62,10 @@ public final class Persistence_TestUtils {
     // -----------------------------------------------------------------------------------------------------------------
     public static long count(final EntityManager entityManager, final Class<?> entityClass) {
         final var builder = entityManager.getCriteriaBuilder();
-        final var query = builder.createQuery(Long.class);
-        final var root = query.from(entityClass);
-        query.select(builder.count(root));
-        final var typed = entityManager.createQuery(query);
+        final var criteria = builder.createQuery(Long.class);
+        final var root = criteria.from(entityClass);
+        criteria.select(builder.count(root));
+        final var typed = entityManager.createQuery(criteria);
         return typed.getSingleResult();
     }
 
@@ -112,7 +112,7 @@ public final class Persistence_TestUtils {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    private Persistence_TestUtils() {
+    private __Persistence_Test_Utils() {
         throw new AssertionError("instantiation is not allowed");
     }
 }

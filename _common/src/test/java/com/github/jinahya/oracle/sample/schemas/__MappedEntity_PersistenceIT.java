@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,28 +31,28 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
     /**
      * Persists a randomized instance of {@link #entityClass}.
      */
-    @DisplayName("persist a random entity instance")
+    @DisplayName("persist an entity with randomized attributes")
     @Test
     protected void persistRandom() {
-        applyEntityManagerInTransactionAndRollback(em -> {
-            __MappedEntity_Persister_Utils.newPersistedInstanceOf(entityClass, entityManager()).ifPresent(e -> {
+        acceptEntityManagerInTransactionAndRollback(em -> {
+            __MappedEntity_Persister_Utils.newPersistedInstanceOf(entityClass, em).ifPresent(e -> {
                 log.debug("persisted entity: {}", e);
                 em.flush();
-                log.debug("e._id_: {}", e._id_());
-                final var found = entityManager.find(entityClass, e._id_());
+                final var _id_ = e._id_();
+                log.debug("_id_: {}", _id_);
+                final var found = em.find(entityClass, _id_);
                 assertThat(found).isEqualTo(e);
             });
-            return null;
         });
     }
 
     /**
      * Finds an entity from the database.
      */
-    @DisplayName("select an entity")
+    @DisplayName("select an entity of random index")
     @Test
     protected void selectRandom() {
-        Persistence_TestUtils.selectRandom(entityManager(), entityClass)
+        __Persistence_Test_Utils.selectRandom(entityManager(), entityClass)
                 .ifPresent(this::randomSelected__);
     }
 
@@ -62,7 +63,7 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
      */
     protected void randomSelected__(@Nonnull final ENTITY entity) {
         log.debug("selected entity: {}", entity);
-        Validation_TestUtils.requireValid(entity);
+        __Validation_Test_Utils.requireValid(entity);
     }
 
     // ----------------------------------------------------------------------------------------------- super.entityClass
@@ -94,6 +95,14 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
         return function.apply(entityManagerFactory());
     }
 
+    protected void acceptEntityManagerFactory(final Consumer<? super EntityManagerFactory> consumer) {
+        Objects.requireNonNull(consumer, "consumer is null");
+        applyEntityManagerFactory(emf -> {
+            consumer.accept(emf);
+            return null;
+        });
+    }
+
     // --------------------------------------------------------------------------------------------------- entityManager
     protected EntityManager entityManager() {
         return entityManagerProxy();
@@ -104,9 +113,28 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
         return function.apply(entityManager());
     }
 
+    protected void acceptEntityManager(final Consumer<? super EntityManager> consumer) {
+        Objects.requireNonNull(consumer, "consumer is null");
+        applyEntityManager(em -> {
+            consumer.accept(em);
+            return null;
+        });
+    }
+
     protected <R> R applyEntityManagerInTransaction(final Function<? super EntityManager, ? extends R> function,
                                                     final boolean rollback) {
-        return Persistence_TestUtils.applyEntityManagerInTransaction(entityManager(), function, rollback);
+        return __Persistence_Test_Utils.applyEntityManagerInTransaction(entityManager(), function, rollback);
+    }
+
+    protected void acceptEntityManagerInTransaction(final Consumer<? super EntityManager> consumer,
+                                                    final boolean rollback) {
+        applyEntityManagerInTransaction(
+                em -> {
+                    consumer.accept(em);
+                    return null;
+                },
+                rollback
+        );
     }
 
     protected <R> R applyEntityManagerInTransactionAndRollback(
@@ -114,12 +142,20 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
         return applyEntityManagerInTransaction(function, true);
     }
 
+    protected void acceptEntityManagerInTransactionAndRollback(
+            final Consumer<? super EntityManager> consumer) {
+        applyEntityManagerInTransactionAndRollback(rm -> {
+            consumer.accept(rm);
+            return null;
+        });
+    }
+
     // --------------------------------------------------------------------------------------- entityManagerFactoryProxy
     private EntityManagerFactory entityManagerFactoryProxy() {
         var proxy = entityManagerFactoryProxy;
         if (proxy == null) {
             proxy = entityManagerFactoryProxy =
-                    Lang_TestUtils.unclosable(EntityManagerFactory.class, entityManagerFactory);
+                    __Lang_Test_Utils.unclosable(EntityManagerFactory.class, entityManagerFactory);
         }
         return proxy;
     }
@@ -128,7 +164,7 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
     private EntityManager entityManagerProxy() {
         var proxy = entityManagerProxy;
         if (proxy == null) {
-            proxy = entityManagerProxy = Lang_TestUtils.unclosable(EntityManager.class, entityManager);
+            proxy = entityManagerProxy = __Lang_Test_Utils.unclosable(EntityManager.class, entityManager);
         }
         return proxy;
     }

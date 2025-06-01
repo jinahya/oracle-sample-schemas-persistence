@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.Lang_TestUtils;
+import com.github.jinahya.oracle.sample.schemas.__Lang_Test_Utils;
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer;
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer_Utils;
 import lombok.extern.slf4j.Slf4j;
@@ -72,9 +72,9 @@ class Shipment_Randomizer extends __MappedEntity_Randomizer<Shipment> {
         final var shipment = super.manufacturePojo();
         log.debug("shipment manufactured: {}", shipment);
         assertThat(shipment.getShipmentId()).isNull();
-        assertThat(shipment.getShipmentStatus()).isNull();
+//        assertThat(shipment.getShipmentStatus()).isNull();
         shipment.setShipmentStatus(
-                Lang_TestUtils.randomEnumConstant(Shipment._ShipmentStatus.class)
+                __Lang_Test_Utils.randomEnumConstant(Shipment._ShipmentStatus.class)
         );
         return shipment;
     }

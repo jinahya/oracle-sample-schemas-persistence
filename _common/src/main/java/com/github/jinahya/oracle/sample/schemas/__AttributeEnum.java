@@ -10,37 +10,7 @@ import java.util.Objects;
 })
 public interface __AttributeEnum<E extends Enum<E> & __AttributeEnum<E, ATTRIBUTE>, ATTRIBUTE> {
 
-    interface __OfInteger<E extends Enum<E> & __OfInteger<E>> extends __AttributeEnum<E, Integer> {
-
-        // TODO: deprecate
-        static <E extends Enum<E> & __OfInteger<E>> E valueOfAttributeValue(
-                final Class<? extends E> enumClass, final Integer attributeValue) {
-//            Objects.requireNonNull(enumClass, "enumClass is null");
-//            Objects.requireNonNull(attributeValue, "attributeValue is null");
-            return __AttributeEnum.valueOfAttributeValue(enumClass, attributeValue);
-        }
-    }
-
-    interface __OfLong<E extends Enum<E> & __OfLong<E>> extends __AttributeEnum<E, Long> {
-
-        // TODO: deprecate
-        static <E extends Enum<E> & __OfLong<E>> E valueOfAttributeValue(
-                final Class<? extends E> enumClass, final Long attributeValue) {
-//            Objects.requireNonNull(enumClass, "enumClass is null");
-//            Objects.requireNonNull(attributeValue, "attributeValue is null");
-            return __AttributeEnum.valueOfAttributeValue(enumClass, attributeValue);
-        }
-    }
-
     interface __OfString<E extends Enum<E> & __OfString<E>> extends __AttributeEnum<E, String> {
-
-        // TODO: deprecate
-        static <E extends Enum<E> & __OfString<E>> E valueOfAttributeValue(
-                final Class<? extends E> enumClass, final String attributeValue) {
-//            Objects.requireNonNull(enumClass, "enumClass is null");
-//            Objects.requireNonNull(attributeValue, "attributeValue is null");
-            return __AttributeEnum.valueOfAttributeValue(enumClass, attributeValue);
-        }
 
         @Override
         @SuppressWarnings({"unchecked"})

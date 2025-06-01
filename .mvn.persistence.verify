@@ -1,0 +1,3 @@
+#!/bin/sh
+mvn -Ppersistence,persistence-eclipselink clean verify
+mvn -Ppersistence,persistence-hibernate clean verify

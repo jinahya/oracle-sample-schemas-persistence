@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.Persistence_TestUtils;
+import com.github.jinahya.oracle.sample.schemas.__Persistence_Test_Utils;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,7 @@ class Domain_PersistenceIT {
     @Disabled
     @Test
     void __() {
-        Persistence_TestUtils.applyConnection(
+        __Persistence_Test_Utils.applyConnection(
                 entityManager,
                 c -> {
                     final DatabaseMetaData metaData;

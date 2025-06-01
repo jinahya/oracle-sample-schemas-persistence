@@ -5,7 +5,7 @@ import java.lang.reflect.Proxy;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
-public final class Lang_TestUtils {
+public final class __Lang_Test_Utils {
 
     private static Method AUTO_CLOSEABLE_CLOSE;
 
@@ -34,6 +34,7 @@ public final class Lang_TestUtils {
 
     public static <E extends Enum<E>> E randomEnumConstant(final Class<E> enumClass) {
         Objects.requireNonNull(enumClass, "enumClass is null");
+
         final var values = enumClass.getEnumConstants();
         if (values.length == 0) {
             throw new IllegalArgumentException("no enum constant, of " + enumClass);
@@ -41,7 +42,7 @@ public final class Lang_TestUtils {
         return values[ThreadLocalRandom.current().nextInt(values.length)];
     }
 
-    private Lang_TestUtils() {
+    private __Lang_Test_Utils() {
         throw new AssertionError("instantiation is not allowed");
     }
 }

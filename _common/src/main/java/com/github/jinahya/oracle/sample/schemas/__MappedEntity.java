@@ -5,7 +5,6 @@ import jakarta.persistence.MappedSuperclass;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.function.Supplier;
 
 /**
  * An abstract mapped-superclass with an id of a specific type.
@@ -14,20 +13,13 @@ import java.util.function.Supplier;
  * @param <ID>   id type parameter
  */
 @MappedSuperclass
-public abstract class __MappedEntity<SELF extends __MappedEntity<SELF, ID>, ID extends java.io.Serializable>
+public abstract class __MappedEntity<SELF extends __MappedEntity<SELF, ID>, ID extends Serializable>
         implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 5479115049307251838L;
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
-    protected static <T extends __MappedEntity<T, U>, U extends Serializable> T of(final Supplier<? extends T> supplier,
-                                                                                   final U id) {
-        Objects.requireNonNull(supplier, "supplier is null");
-        final var instance = Objects.requireNonNull(supplier.get(), "null supplied from " + supplier);
-        instance._id_(id);
-        return instance;
-    }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -92,5 +84,5 @@ public abstract class __MappedEntity<SELF extends __MappedEntity<SELF, ID>, ID e
             "java:S100", // Method names should comply with a naming convention
             "java:S117" // Local variable and method parameter names should comply with a naming convention
     })
-    protected abstract void _id_(final ID _id_);
+    protected abstract void _id_(ID _id_);
 }

@@ -11,6 +11,7 @@
   <artifactId>hr</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
+
   <description>human_resources</description>
 
   <dependencies>

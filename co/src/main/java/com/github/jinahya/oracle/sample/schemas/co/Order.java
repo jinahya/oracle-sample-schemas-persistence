@@ -212,7 +212,9 @@ public class Order extends __MappedEntity<Order, Long> {
     // -----------------------------------------------------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = COLUMN_NAME_ORDER_ID, nullable = false, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_ORDER_ID, nullable = false,
+            insertable = true, // EclipseLink
+            updatable = false)
     private Long orderId;
 
     @NotNull

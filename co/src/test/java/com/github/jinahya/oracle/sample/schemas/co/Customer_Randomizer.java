@@ -15,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 class Customer_Randomizer extends __MappedEntity_Randomizer<Customer> {
 
+    // ----------------------------------------------------------------------------------------------------- CONSTRUCTOR
     Customer_Randomizer() {
         super(Customer.class);
     }

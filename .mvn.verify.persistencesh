@@ -1,7 +1,0 @@
-#!/bin/sh
-#dirname="$(dirname "$0")"
-#echo $dirname
-#sh $dirname/.mvn.verify.persistence-eclipselink.sh
-#sh $dirname/.mvn.verify.persistence-hibernate.sh
-sh ./.mvn.verify.persistence-eclipselink.sh
-sh ./.mvn.verify.persistence-hibernate.sh

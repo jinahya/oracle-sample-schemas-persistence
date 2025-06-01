@@ -1,6 +1,7 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Test;
+import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Test_Utils;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
 class Shipment_Test extends __MappedEntity_Test<Shipment, Long> {
@@ -13,8 +14,16 @@ class Shipment_Test extends __MappedEntity_Test<Shipment, Long> {
     @Override
     protected SingleTypeEqualsVerifierApi<Shipment> equalsVerifier() {
         return super.equalsVerifier()
-                .withPrefabValues(Store.class, Store.of(1L), Store.of(2L))
-                .withPrefabValues(Customer.class, Customer.of(1L), Customer.of(2L))
+                .withPrefabValues(
+                        Store.class,
+                        __MappedEntity_Test_Utils.newEntityInstanceOf(Store.class, 1L),
+                        __MappedEntity_Test_Utils.newEntityInstanceOf(Store.class, 2L)
+                )
+                .withPrefabValues(
+                        Customer.class,
+                        __MappedEntity_Test_Utils.newEntityInstanceOf(Customer.class, 1L),
+                        __MappedEntity_Test_Utils.newEntityInstanceOf(Customer.class, 2L)
+                )
                 ;
     }
 }

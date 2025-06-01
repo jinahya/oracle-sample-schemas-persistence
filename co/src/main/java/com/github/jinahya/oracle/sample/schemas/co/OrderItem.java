@@ -12,7 +12,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
-import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -108,17 +107,17 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
-    @AssertTrue(message = "shipment's customer should be equal to the order's customer")
+//    @AssertTrue(message = "shipment's customer should be equal to the order's customer")
     private boolean isSShipmentCustomerValid() {
         return shipment == null || Objects.equals(shipment.getCustomer(), order.getCustomer());
     }
 
-    @AssertTrue(message = "shipment's store should be equal to the order's store")
+    //    @AssertTrue(message = "shipment's store should be equal to the order's store")
     private boolean isShipmentStoreValid() {
         return shipment == null || Objects.equals(shipment.getStore(), order.getStore());
     }
 
-    // ----------------------------------------------------------------------------------------------------- orderItemId
+    // -------------------------------------------------------------------------------------------------------------- id
     public OrderItemId getId() {
         return id;
     }
@@ -142,7 +141,7 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
 
     public void setOrder(final Order order) {
         this.order = order;
-        if (true) { // @MapsId
+        if (false) { // @MapsId
             getId(OrderItemId::new).setOrderId(
                     Optional.ofNullable(this.order)
                             .map(Order::getOrderId)
@@ -194,7 +193,9 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
 
     @MapsId("orderId")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_ORDER_ID, nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_ORDER_ID, nullable = false,
+                insertable = true, // EclipseLink
+                updatable = false)
     private Order order;
 
     // -----------------------------------------------------------------------------------------------------------------

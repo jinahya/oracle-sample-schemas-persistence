@@ -20,7 +20,9 @@ class OrderItem_Persister extends __MappedEntity_Persister<OrderItem> {
         entityInstance.setProduct(
                 __MappedEntity_Persister_Utils.newPersistedInstanceOf(Product.class, entityManager).orElseThrow()
         );
-        entityInstance.setShipment(null);
+        entityInstance.setShipment(
+                __MappedEntity_Persister_Utils.newPersistedInstanceOf(Shipment.class, entityManager).orElseThrow()
+        );
         return super.persist(entityManager, entityInstance);
     }
 }

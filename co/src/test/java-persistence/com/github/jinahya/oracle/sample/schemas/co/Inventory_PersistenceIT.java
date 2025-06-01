@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.Persistence_TestUtils;
+import com.github.jinahya.oracle.sample.schemas.__Persistence_Test_Utils;
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_PersistenceIT;
 import jakarta.persistence.NoResultException;
 import lombok.extern.slf4j.Slf4j;
@@ -10,9 +10,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
-import java.util.Optional;
-import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assumptions.assumeThat;
@@ -29,28 +26,24 @@ class Inventory_PersistenceIT extends __MappedEntity_PersistenceIT<Inventory, Lo
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @DisplayName("findAllByStore")
+    @DisplayName("selectListByStore")
     @Nested
     class FindAllByStore_Test {
 
         @Test
         void __NamedQuery() {
-            // ------------------------------------------------------------------------------------------------------- given
-            final var randomStore = Persistence_TestUtils.selectRandom(entityManager(), Store.class);
-            assumeThat(randomStore).isNotEmpty();
+            // --------------------------------------------------------------------------------------------------- given
+            final var randomStore = __Persistence_Test_Utils.selectRandom(entityManager(), Store.class);
+            assumeThat(randomStore).as("random store").isNotEmpty();
             final var store = randomStore.get();
-            // -------------------------------------------------------------------------------------------------------- when
+            // ---------------------------------------------------------------------------------------------------- when
             final var result = entityManager()
-                    .createNamedQuery("Inventory.findAllByStore", Inventory.class)
+                    .createNamedQuery("Inventory.selectListByStore", Inventory.class)
                     .setParameter("store", store)
+                    .setMaxResults(1)
                     .getResultList();
-            // -------------------------------------------------------------------------------------------------------- then
-            assertThat(result).satisfiesAnyOf(
-                    r -> assertThat(r).isEmpty(),
-                    r -> assertThat(r).allSatisfy(e -> {
-                        assertThat(e.getStore()).isEqualTo(store);
-                    })
-            );
+            // ---------------------------------------------------------------------------------------------------- then
+            assumeThat(result).isNotEmpty();
             assertThat(result)
                     .extracting(Inventory::getStore)
                     .containsOnly(store);
@@ -59,8 +52,8 @@ class Inventory_PersistenceIT extends __MappedEntity_PersistenceIT<Inventory, Lo
         @Test
         void __TypedQuery() {
             // --------------------------------------------------------------------------------------------------- given
-            final var randomStore = Persistence_TestUtils.selectRandom(entityManager(), Store.class);
-            assumeThat(randomStore).isNotEmpty();
+            final var randomStore = __Persistence_Test_Utils.selectRandom(entityManager(), Store.class);
+            assumeThat(randomStore).as("random store").isNotEmpty();
             final var store = randomStore.get();
             // ---------------------------------------------------------------------------------------------------- when
             final var result = entityManager().createQuery(
@@ -71,14 +64,10 @@ class Inventory_PersistenceIT extends __MappedEntity_PersistenceIT<Inventory, Lo
                             Inventory.class
                     )
                     .setParameter("store", store)
+                    .setMaxResults(1)
                     .getResultList();
             // ---------------------------------------------------------------------------------------------------- then
-            assertThat(result).satisfiesAnyOf(
-                    r -> assertThat(r).isEmpty(),
-                    r -> assertThat(r).allSatisfy(e -> {
-                        assertThat(e.getStore()).isEqualTo(store);
-                    })
-            );
+            assumeThat(result).isNotEmpty();
             assertThat(result)
                     .extracting(Inventory::getStore)
                     .containsOnly(store);
@@ -87,17 +76,21 @@ class Inventory_PersistenceIT extends __MappedEntity_PersistenceIT<Inventory, Lo
         @Test
         void __CriteriaApi() {
             // --------------------------------------------------------------------------------------------------- given
-            final var randomStore = Persistence_TestUtils.selectRandom(entityManager(), Store.class);
-            assumeThat(randomStore).isNotEmpty();
+            final var randomStore = __Persistence_Test_Utils.selectRandom(entityManager(), Store.class);
+            assumeThat(randomStore).as("random store").isNotEmpty();
             final var store = randomStore.get();
             // ---------------------------------------------------------------------------------------------------- when
-            final var b = entityManager().getCriteriaBuilder();
-            final var q = b.createQuery(Inventory.class);
-            final var r = q.from(Inventory.class);
-            q.select(r);
-            q.where(b.equal(r.get(Inventory_.store), store));
-            final var result = entityManager().createQuery(q).getResultList();
+            final var builder = entityManager().getCriteriaBuilder();
+            final var criteria = builder.createQuery(Inventory.class);
+            final var root = criteria.from(Inventory.class);
+            criteria.select(root);
+            criteria.where(builder.equal(root.get(Inventory_.store), store));
+            final var result = entityManager()
+                    .createQuery(criteria)
+                    .setMaxResults(1)
+                    .getResultList();
             // ---------------------------------------------------------------------------------------------------- then
+            assumeThat(result).isNotEmpty();
             assertThat(result)
                     .extracting(Inventory::getStore)
                     .containsOnly(store);
@@ -105,75 +98,58 @@ class Inventory_PersistenceIT extends __MappedEntity_PersistenceIT<Inventory, Lo
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @DisplayName("findByStoreAndProduct")
+    @DisplayName("selectSingleByStoreAndProduct")
     @Nested
     class FindByStoreAndProduct_Test {
 
         @Test
-        void __NamedQuery() {
+        void __NamedQuery() throws NoResultException {
             // --------------------------------------------------------------------------------------------------- given
-            var randomStore = Persistence_TestUtils.selectRandom(entityManager(), Store.class);
-            assumeThat(randomStore).isNotEmpty();
-            var randomProduct = Persistence_TestUtils.selectRandom(entityManager(), Product.class);
-            assumeThat(randomProduct).isNotEmpty();
-            if (ThreadLocalRandom.current().nextBoolean()) {
-                final var randomInventory = Persistence_TestUtils.selectRandom(entityManager(), Inventory.class);
-                assumeThat(randomInventory).isNotEmpty();
-                randomStore = Optional.of(randomInventory.get().getStore());
-                randomProduct = Optional.of(randomInventory.get().getProduct());
-            }
-            final var store = randomStore.get();
-            final var product = randomProduct.get();
+            final var randomInventory = __Persistence_Test_Utils.selectRandom(entityManager(), Inventory.class);
+            assumeThat(randomInventory).isNotEmpty();
+            final var inventory = randomInventory.get();
+            final var store = inventory.getStore();
+            final var product = inventory.getProduct();
             // ---------------------------------------------------------------------------------------------------- when
-            final Inventory result;
-            try {
-                result = entityManager()
-                        .createNamedQuery("Inventory.findByStoreAndProduct", Inventory.class)
-                        .setParameter("store", store)
-                        .setParameter("product", product)
-                        .getSingleResult();
-                log.debug("result: {}", result);
-            } catch (final NoResultException nre) {
-                log.warn("no result for {}, {}", store, product);
-                return;
-            }
+            final var result = entityManager()
+                    .createNamedQuery("Inventory.selectSingleByStoreAndProduct", Inventory.class)
+                    .setParameter("store", store)
+                    .setParameter("product", product)
+                    .getSingleResult();
             // ---------------------------------------------------------------------------------------------------- then
+            assertThat(result).isEqualTo(inventory);
             assertThat(result.getStore()).isEqualTo(store);
             assertThat(result.getProduct()).isEqualTo(product);
         }
 
         @Test
-        void __CriteriaApi() {
+        void __QueryLanguage() throws NoResultException {
+            // TODO: implement!
+        }
+
+        @Test
+        void __CriteriaApi() throws NoResultException {
             // --------------------------------------------------------------------------------------------------- given
-            var randomStore = Persistence_TestUtils.selectRandom(entityManager(), Store.class);
-            assumeThat(randomStore).isNotEmpty();
-            var randomProduct = Persistence_TestUtils.selectRandom(entityManager(), Product.class);
-            assumeThat(randomProduct).isNotEmpty();
-            if (ThreadLocalRandom.current().nextBoolean()) {
-                final var randomInventory = Persistence_TestUtils.selectRandom(entityManager(), Inventory.class);
-                assumeThat(randomInventory).isNotEmpty();
-                randomStore = Optional.of(randomInventory.get().getStore());
-                randomProduct = Optional.of(randomInventory.get().getProduct());
-            }
-            final var store = randomStore.get();
-            final var product = randomProduct.get();
+            final var randomInventory = __Persistence_Test_Utils.selectRandom(entityManager(), Inventory.class);
+            assumeThat(randomInventory).isNotEmpty();
+            final var inventory = randomInventory.get();
+            final var store = inventory.getStore();
+            final var product = inventory.getProduct();
             // ---------------------------------------------------------------------------------------------------- when
-            final var b = entityManager().getCriteriaBuilder();
-            final var q = b.createQuery(Inventory.class);
-            final var r = q.from(Inventory.class);
-            q.select(r);
-            q.where(b.and(
-                    b.equal(r.get(Inventory_.store), store),
-                    b.equal(r.get(Inventory_.product), product)
+            final var builder = entityManager().getCriteriaBuilder();
+            final var criteria = builder.createQuery(Inventory.class);
+            // FROM Inventory AS e
+            final var root = criteria.from(Inventory.class);
+            // SELECT e
+            criteria.select(root);
+            // WHERE e.store = :store AND e.product = :product
+            criteria.where(builder.and(
+                    builder.equal(root.get(Inventory_.store), store),
+                    builder.equal(root.get(Inventory_.product), product)
             ));
-            final Inventory result;
-            try {
-                result = entityManager().createQuery(q).getSingleResult();
-            } catch (final NoResultException nre) {
-                log.warn("no result for {}, {}", store, product);
-                return;
-            }
+            final var result = entityManager().createQuery(criteria).getSingleResult();
             // ---------------------------------------------------------------------------------------------------- then
+            assertThat(result).isEqualTo(inventory);
             assertThat(result.getStore()).isEqualTo(store);
             assertThat(result.getProduct()).isEqualTo(product);
         }

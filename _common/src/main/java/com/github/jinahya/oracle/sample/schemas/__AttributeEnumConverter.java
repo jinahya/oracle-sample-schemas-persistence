@@ -8,34 +8,6 @@ public abstract class __AttributeEnumConverter<E extends Enum<E> & __AttributeEn
         implements AttributeConverter<E, A> {
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static abstract class __OfInteger<E extends Enum<E> & __AttributeEnum.__OfInteger<E>>
-            extends __AttributeEnumConverter<E, Integer> {
-
-        protected __OfInteger(final Class<E> enumClass) {
-            super(enumClass);
-        }
-
-        // TODO: remove!
-        @Override
-        public Integer convertToDatabaseColumn(final E attribute) {
-            return super.convertToDatabaseColumn(attribute);
-        }
-
-        // TODO: remove!
-        @Override
-        public E convertToEntityAttribute(final Integer dbData) {
-            return super.convertToEntityAttribute(dbData);
-        }
-    }
-
-    public static abstract class __OfLong<E extends Enum<E> & __AttributeEnum.__OfLong<E>>
-            extends __AttributeEnumConverter<E, Long> {
-
-        protected __OfLong(final Class<E> enumClass) {
-            super(enumClass);
-        }
-    }
-
     public static abstract class __OfString<E extends Enum<E> & __AttributeEnum.__OfString<E>>
             extends __AttributeEnumConverter<E, String> {
 
@@ -47,7 +19,7 @@ public abstract class __AttributeEnumConverter<E extends Enum<E> & __AttributeEn
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
-     * Creates a new instance for specified enum class.
+     * Creates a new instance for converting specified enum class.
      *
      * @param enumClass the enum class.
      * @see #enumClass

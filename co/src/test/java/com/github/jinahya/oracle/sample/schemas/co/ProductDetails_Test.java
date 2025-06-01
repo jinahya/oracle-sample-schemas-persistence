@@ -1,7 +1,7 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.jinahya.oracle.sample.schemas.Validation_TestUtils;
+import com.github.jinahya.oracle.sample.schemas.__Validation_Test_Utils;
 import com.github.jinahya.oracle.sample.schemas.___Base_Randomizer_Utils;
 import lombok.extern.slf4j.Slf4j;
 import nl.jqno.equalsverifier.EqualsVerifier;
@@ -140,7 +140,7 @@ class ProductDetails_Test {
                         .isNotNull();
                 final var value = ProductDetails_TestUtils.from(resource, new ObjectMapper());
                 log.debug("value: {}", value);
-                Validation_TestUtils.requireValid(value);
+                __Validation_Test_Utils.requireValid(value);
             }
         }
     }
