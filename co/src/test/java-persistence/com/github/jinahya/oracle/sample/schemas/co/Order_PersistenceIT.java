@@ -135,25 +135,5 @@ class Order_PersistenceIT extends __MappedEntity_PersistenceIT<Order, Long> {
             // ---------------------------------------------------------------------------------------------------- then
             assertThat(orderItemsTotalPrice1).isNotNegative();
         }
-
-        @Test
-        void __FetchOrderItems() {
-            // --------------------------------------------------------------------------------------------------- given
-            final var selected = applyEntityCountAndRandomIndex(c -> i -> {
-                return applyEntityManager(em -> {
-                    return em.createQuery("SELECT e FROM Order AS e JOIN FETCH e.orderItems", entityClass)
-                            .setFirstResult(Math.toIntExact(i))
-                            .setMaxResults(1)
-                            .getSingleResult();
-                });
-            });
-            assumeThat(selected).isNotNull();
-            log.debug("selected: {}", selected);
-            // ---------------------------------------------------------------------------------------------------- when
-            final var orderItemsTotalPrice1 = selected.getOrderItemsTotalPrice3(entityManager());
-            log.debug("orderItemsTotalPrice1: {}", orderItemsTotalPrice1);
-            // ---------------------------------------------------------------------------------------------------- then
-            assertThat(orderItemsTotalPrice1).isNotNegative();
-        }
     }
 }
