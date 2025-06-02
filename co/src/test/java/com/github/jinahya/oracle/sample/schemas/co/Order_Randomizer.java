@@ -18,9 +18,9 @@ class Order_Randomizer extends __MappedEntity_Randomizer<Order> {
     Order_Randomizer() {
         super(Order.class,
               "orderId",
-              "orderStatus"
+              "orderStatus",
+              "orderItems"
 //                ,
-//              "orderItems",
 //              "orderItemsTotalPrice1",
 //              "orderItemsTotalPrice2",
 //              "orderItemsTotalPrice3"

@@ -227,6 +227,12 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
     // -----------------------------------------------------------------------------------------------------------------
     @Transient
     public BigDecimal getTotalPrice() {
+        if (unitPrice == null) {
+            throw new IllegalStateException("unitPrice is null");
+        }
+        if (quantity == null) {
+            throw new IllegalStateException("quantity is null");
+        }
         return unitPrice.multiply(BigDecimal.valueOf(quantity));
     }
 

@@ -1,9 +1,13 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
@@ -13,13 +17,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serial;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -240,62 +250,64 @@ public class Order extends __MappedEntity<Order, Long> {
     private Store store;
 
     // -----------------------------------------------------------------------------------------------------------------
-////    public List<OrderItem> getOrderItems() {
-////        return orderItems;
-////    }
-////
-////    public void setOrderItems(final List<OrderItem> orderItems) {
-////        this.orderItems = orderItems;
-////    }
-//
-//    @OneToMany(
-//            mappedBy = "order",
-//            fetch = FetchType.LAZY,
-//            cascade = {
-//                    CascadeType.ALL
-//            },
-//            orphanRemoval = true
-//    )
-//    private List<@Valid @NotNull OrderItem> orderItems;
-//
-//    /**
-//     * Returns the total price of all order items.
-//     *
-//     * @return the total price of all order items
-//     */
-//    @Transient
-//    public BigDecimal getOrderItemsTotalPrice1() {
-//        return orderItems.stream()
-//                .map(OrderItem::getTotalPrice)
-//                .reduce(BigDecimal.ZERO, BigDecimal::add);
-//    }
-//
-//    public BigDecimal getOrderItemsTotalPrice1(final EntityManager entityManager) {
-//        Objects.requireNonNull(entityManager, "entityManager is null");
-//        return entityManager.createQuery(
-//                        """
-//                                SELECT SUM(oi.unitPrice * oi.quantity)
-//                                FROM OrderItem AS oi
-//                                WHERE oi.order = :order""",
-//                        BigDecimal.class
-//                )
-//                .setParameter("order", this)
-//                .getSingleResult();
-//    }
-//
-//    public BigDecimal getOrderItemsTotalPrice3(final EntityManager entityManager) {
-//        final var b = entityManager.getCriteriaBuilder();
-//        final var q = b.createQuery(BigDecimal.class);
-//        final var r = q.from(OrderItem.class);
-//        q.select(
-//                b.sum(
-//                        b.prod(
-//                                r.get(OrderItem_.unitPrice),
-//                                b.toBigDecimal(r.get(OrderItem_.quantity))
-//                        )
-//                )
-//        );
-//        q.where(b.equal(r.get(OrderItem_.order), this));
-//        return entityManager.createQuery(q).getSingleResult();
-//    }
+    public List<OrderItem> getOrderItems() {
+        if (orderItems == null) {
+            orderItems = new ArrayList<>();
+        }
+        return orderItems;
+    }
+
+    @OneToMany(
+            mappedBy = "order",
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.ALL
+            },
+            orphanRemoval = true
+    )
+    private List<@Valid @NotNull OrderItem> orderItems;
+
+    /**
+     * Returns the total price of all order items.
+     *
+     * @return the total price of all order items
+     */
+    @Nonnull
+    @Transient
+    public BigDecimal getOrderItemsTotalPrice1() {
+        return getOrderItems().stream()
+                .map(OrderItem::getTotalPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    @Nullable
+    public BigDecimal getOrderItemsTotalPrice2(@Nonnull final EntityManager entityManager) {
+        Objects.requireNonNull(entityManager, "entityManager is null");
+        return entityManager.createQuery(
+                        """
+                                SELECT SUM(e.unitPrice * e.quantity)
+                                FROM OrderItem AS e
+                                WHERE e.order = :order""",
+                        BigDecimal.class
+                )
+                .setParameter("order", this)
+                .getSingleResult(); // NoResultException
+    }
+
+    @Nullable
+    public BigDecimal getOrderItemsTotalPrice3(@Nonnull final EntityManager entityManager) {
+        final var builder = entityManager.getCriteriaBuilder();
+        final var criteria = builder.createQuery(BigDecimal.class);
+        final var root = criteria.from(OrderItem.class);
+        criteria.select(
+                builder.sum(
+                        builder.prod(
+                                root.get(OrderItem_.unitPrice),
+                                builder.toBigDecimal(root.get(OrderItem_.quantity))
+                        )
+                )
+        );
+        criteria.where(builder.equal(root.get(OrderItem_.order), this));
+        return entityManager.createQuery(criteria).getSingleResult(); // NoResultException
+    }
 }

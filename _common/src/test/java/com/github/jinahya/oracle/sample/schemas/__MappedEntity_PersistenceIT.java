@@ -10,8 +10,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.LongFunction;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -67,6 +69,30 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
     }
 
     // ----------------------------------------------------------------------------------------------- super.entityClass
+
+    /**
+     * Returns new persisted instance of {@link #entityClass}.
+     *
+     * @return new persisted instance of {@link #entityClass}.
+     * @see __MappedEntity_Persister_Utils#newPersistedInstanceOf(Class, EntityManager)
+     */
+    protected ENTITY newPersistedEntityInstance() {
+        return __MappedEntity_Persister_Utils.newPersistedInstanceOf(entityClass, entityManager()).orElseThrow();
+    }
+
+    /**
+     * Returns new persisted instance of {@link #entityClass}.
+     *
+     * @return new persisted instance of {@link #entityClass}.
+     * @see __MappedEntity_Persister_Utils#newPersistedInstanceOf(Class, EntityManager)
+     */
+    protected Optional<ENTITY> selectRandomEntityInstance() {
+        return __Persistence_Test_Utils.selectRandom(entityManager(), entityClass);
+    }
+
+    protected <R> R applyEntityCountAndRandomIndex(final LongFunction<? extends LongFunction<? extends R>> function) {
+        return __Persistence_Test_Utils.applyCountAndRandomIndex(entityManager(), entityClass, function);
+    }
 
     // --------------------------------------------------------------------------------------------------- super.idClass
 

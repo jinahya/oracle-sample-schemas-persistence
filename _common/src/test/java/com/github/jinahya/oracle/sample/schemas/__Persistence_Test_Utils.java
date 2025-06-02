@@ -11,8 +11,6 @@ import java.util.function.Function;
 import java.util.function.LongConsumer;
 import java.util.function.LongFunction;
 
-import static org.assertj.core.api.Assumptions.assumeThat;
-
 @Slf4j
 public final class __Persistence_Test_Utils {
 
@@ -69,12 +67,19 @@ public final class __Persistence_Test_Utils {
         return typed.getSingleResult();
     }
 
+    public static <R> R applyCount(final EntityManager entityManager, final Class<?> entityClass,
+                                   final LongFunction<? extends R> function) {
+        Objects.requireNonNull(function, "function is null");
+        return function.apply(count(entityManager, entityClass));
+    }
+
     public static <R> R applyCountAndRandomIndex(final EntityManager entityManager, final Class<?> entityClass,
                                                  final LongFunction<? extends LongFunction<? extends R>> function) {
         final var count = count(entityManager, entityClass);
-        assumeThat(count)
-                .as("count of %1$s", entityClass)
-                .isPositive();
+        if (count == 0L) {
+            return null;
+        }
+        assert count > 0L;
         final var index = ThreadLocalRandom.current().nextLong(count);
         return function.apply(count).apply(index);
     }
