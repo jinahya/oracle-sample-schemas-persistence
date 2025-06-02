@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assumptions.assumeThat;
 
-@DisplayName("findByStoreName")
-class Store_FindByStoreName_PersistenceIT extends Store__PersistenceIT {
+@DisplayName("selectSingleWhereStoreNameEqual")
+class Store_selectSingleWhereStoreNameEqual_PersistenceIT extends Store__PersistenceIT {
 
     @Test
     void __NativeQuery() {
@@ -22,7 +22,7 @@ class Store_FindByStoreName_PersistenceIT extends Store__PersistenceIT {
                 .isNotNull();
         // ---------------------------------------------------------------------------------------------------- when
         final var found = entityManager()
-                .createNamedQuery("Store.findByStoreName", Store.class)
+                .createNamedQuery("Store.selectSingleWhereStoreNameEqual", Store.class)
                 .setParameter("storeName", storeName)
                 .getSingleResult();
         // ---------------------------------------------------------------------------------------------------- then

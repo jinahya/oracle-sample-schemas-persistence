@@ -28,4 +28,25 @@ public abstract class _MappedEntity<SELF extends _MappedEntity<SELF>>
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
+
+    // ------------------------------------------------------------------------------------------------------ super._id_
+//    @Override
+//    @SuppressWarnings({"unchecked"})
+//    protected Long _id_() {
+//        try {
+//            return _MappedEntityUtils.getId((SELF) this);
+//        } catch (final IllegalArgumentException iae) {
+//            return null;
+//        }
+//    }
+//
+//    @Override
+//    @SuppressWarnings({"unchecked"})
+//    protected void _id_(Long _id_) {
+//        try {
+//            _MappedEntityUtils.setId((SELF) this, _id_);
+//        } catch (final IllegalArgumentException iae) {
+//            // empty
+//        }
+//    }
 }

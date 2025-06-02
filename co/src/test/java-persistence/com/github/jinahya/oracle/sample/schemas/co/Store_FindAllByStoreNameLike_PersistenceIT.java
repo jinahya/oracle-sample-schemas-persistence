@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("findByStoreNameLike")
+@DisplayName("selectListWhereStoreNameLink")
 class Store_FindAllByStoreNameLike_PersistenceIT extends Store__PersistenceIT {
 
     @Test

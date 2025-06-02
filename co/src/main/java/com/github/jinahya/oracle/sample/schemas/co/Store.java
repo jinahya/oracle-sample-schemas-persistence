@@ -1,6 +1,8 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
+import com.github.jinahya.oracle.sample.schemas.__MappedEntityConstants;
+import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -17,9 +19,15 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.io.IOException;
 import java.io.Serial;
 import java.math.BigDecimal;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * An entity class maps to {@value Store#TABLE_NAME} table.
@@ -34,7 +42,7 @@ import java.time.LocalDate;
                 WHERE e.storeName LIKE :storeNamePattern"""
 )
 @NamedQuery(
-        name = "Store.findByStoreName",
+        name = "Store.selectSingleWhereStoreNameEqual",
         query = """
                 SELECT e
                 FROM Store AS e
@@ -64,23 +72,47 @@ public class Store extends __MappedEntity<Store, Long> {
     // ------------------------------------------------------------------------------------------------------ STORE_NAME
     public static final String COLUMN_NAME_STORE_NAME = "STORE_NAME";
 
+    public static final int COLUMN_LENGTH_STORE_NAME = 255;
+
+    public static final int SIZE_MAX_STORE_NAME = COLUMN_LENGTH_STORE_NAME;
+
     // ----------------------------------------------------------------------------------------------------- WEB_ADDRESS
     public static final String COLUMN_NAME_WEB_ADDRESS = "WEB_ADDRESS";
+
+    public static final int COLUMN_LENGTH_WEB_ADDRESS = 100;
+
+    public static final int SIZE_MAXH_WEB_ADDRESS = COLUMN_LENGTH_WEB_ADDRESS;
 
     // ------------------------------------------------------------------------------------------------ PHYSICAL_ADDRESS
     public static final String COLUMN_NAME_PHYSICAL_ADDRESS = "PHYSICAL_ADDRESS";
 
+    public static final int COLUMN_LENGTH_PHYSICAL_ADDRESS = 512;
+
+    public static final int SIZE_MAXH_PHYSICAL_ADDRESS = COLUMN_LENGTH_PHYSICAL_ADDRESS;
+
     // -------------------------------------------------------------------------------------------------------- LATITUDE
     public static final String COLUMN_NAME_LATITUDE = "LATITUDE";
 
+    public static final int COLUMN_PRECISION_LATITUDE = 9;
+
+    public static final int COLUMN_SCALE_LATITUDE = 6;
+
     // ------------------------------------------------------------------------------------------------------- LONGITUDE
     public static final String COLUMN_NAME_LONGITUDE = "LONGITUDE";
+
+    public static final int COLUMN_PRECISION_LONGITUDE = 9;
+
+    public static final int COLUMN_SCALE_LONGITUDE = 6;
 
     // ------------------------------------------------------------------------------------------------------------ LOGO
     public static final String COLUMN_NAME_LOGO = "LOGO";
 
     // -------------------------------------------------------------------------------------------------- LOGO_MIME_TYPE
     public static final String COLUMN_NAME_LOGO_MIME_TYPE = "LOGO_MIME_TYPE";
+
+    public static final int COLUMN_LENGTH_LOGO_MIME_TYPE = 512;
+
+    public static final int SIZE_MAX_LOGO_MIME_TYPE = COLUMN_LENGTH_LOGO_MIME_TYPE;
 
     // --------------------------------------------------------------------------------------------------- LOGO_FILENAME
     public static final String COLUMN_NAME_LOGO_FILENAME = "LOGO_FILENAME";
@@ -113,6 +145,7 @@ public class Store extends __MappedEntity<Store, Long> {
                 ",physicalAddress=" + physicalAddress +
                 ",latitude=" + latitude +
                 ",longitude=" + longitude +
+//                ",logo=" + Arrays.toString(logo) +
                 ",logoMimeType=" + logoMimeType +
                 ",logoFilename=" + logoFilename +
                 ",logoCharset=" + logoCharset +
@@ -279,65 +312,114 @@ public class Store extends __MappedEntity<Store, Long> {
     private Long storeId;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Size(max = 255)
+    @Size(max = SIZE_MAX_STORE_NAME)
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_STORE_NAME, nullable = false, insertable = true, updatable = true, unique = true)
+    @Column(name = COLUMN_NAME_STORE_NAME, nullable = false, insertable = true, updatable = true,
+            length = COLUMN_LENGTH_STORE_NAME, unique = true)
     private String storeName;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @jakarta.annotation.Nullable
-    @Size(max = 100)
+    @Nullable
+    @Size(max = SIZE_MAXH_WEB_ADDRESS)
     @Basic(optional = true)
-    @Column(name = "WEB_ADDRESS", nullable = true, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_WEB_ADDRESS, nullable = true, insertable = true, updatable = true,
+            length = COLUMN_LENGTH_WEB_ADDRESS)
     private String webAddress;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Size(max = 512)
     @Basic(optional = true)
     @Column(name = "PHYSICAL_ADDRESS", nullable = true, insertable = true, updatable = true)
     private String physicalAddress;
 
-    @jakarta.annotation.Nullable
-    @DecimalMax(value = "+090.0000000", inclusive = true)
-    @DecimalMin(value = "-090.0000000", inclusive = true)
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
+    @DecimalMax(value = __MappedEntityConstants.DECIMAL_MAX_LATITUDE, inclusive = true)
+    @DecimalMin(value = __MappedEntityConstants.DECIMAL_MIN_LATITUDE, inclusive = true)
     @Basic(optional = true)
-    @Column(name = "LATITUDE", nullable = true, insertable = true, updatable = true, precision = 9, scale = 6)
+    @Column(name = COLUMN_NAME_LATITUDE, nullable = true, insertable = true, updatable = true,
+            precision = COLUMN_PRECISION_LATITUDE, scale = COLUMN_SCALE_LATITUDE)
     private BigDecimal latitude;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @DecimalMax(value = "+180.0000000", inclusive = true)
     @DecimalMin(value = "-180.0000000", inclusive = true)
     @Basic(optional = true)
     @Column(name = "LONGITUDE", nullable = true, insertable = true, updatable = true, precision = 9, scale = 6)
     private BigDecimal longitude;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
     @Lob
     @Basic(optional = true)
     @Column(name = "LOGO", nullable = true, insertable = true, updatable = true)
     private byte[] logo;
 
-    @jakarta.annotation.Nullable
-    @Size(max = 512)
+    @Nullable
+    @Size(max = SIZE_MAX_LOGO_MIME_TYPE)
     @Basic(optional = true)
-    @Column(name = "LOGO_MIME_TYPE", nullable = true, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_LOGO_MIME_TYPE, nullable = true, insertable = true, updatable = true,
+            length = COLUMN_LENGTH_LOGO_MIME_TYPE)
     private String logoMimeType;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Size(max = 512)
     @Basic(optional = true)
     @Column(name = "LOGO_FILENAME", nullable = true, insertable = true, updatable = true)
     private String logoFilename;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Size(max = 512)
     @Basic(optional = true)
     @Column(name = "LOGO_CHARSET", nullable = true, insertable = true, updatable = true)
     private String logoCharset;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Basic(optional = true)
-    @Column(name = "LOGO_LAST_UPDATED", nullable = true, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAMES_LOGO_LAST_UPDATED, nullable = true, insertable = true, updatable = true)
     private LocalDate logoLastUpdated;
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Resets {@link Store_#logo logo} attribute, {@link Store_#logoMimeType logoMimeType} attribute,
+     * {@link Store_#logoFilename logoFilename} attribute, and {@link Store_#logoCharset logoCharset} attribute, while
+     * updating {@link Store_#logoLastUpdated logoLastUpdated} attribute with {@link LocalDate#now() now}.
+     */
+    public void removeLogo() {
+        setLogo(null);
+        setLogoMimeType(null);
+        setLogoCharset(null);
+        setLogoLastUpdated(LocalDate.now());
+    }
+
+    /**
+     * Updates logo information from the specified file.
+     *
+     * @param path    the path to the file to read.
+     * @param charset a value for {@link Store#logoCharset logoCharset} attribute.
+     * @param options an array of options specifying how symbolic links are handled for the search.
+     * @throws IOException              if an I/O error occurs.
+     * @throws IllegalArgumentException if {@code path} is not a regular file checked with {@code options}.
+     */
+    public void setLogoFromFile(@Nonnull final Path path, @Nullable final String charset,
+                                @Nonnull final LinkOption... options)
+            throws IOException {
+        Objects.requireNonNull(path, "path is null");
+        Objects.requireNonNull(options, "options is null");
+        if (!Files.isRegularFile(path, options)) {
+            throw new IllegalArgumentException(
+                    "not a regular file; path: " + path + ", options: " + Arrays.toString(options)
+            );
+        }
+        setLogo(Files.readAllBytes(path));
+        setLogoMimeType(Files.probeContentType(path));
+        setLogoCharset(charset);
+        setLogoLastUpdated(LocalDate.now());
+    }
+
+    public void setLogoFromFile(@Nonnull final Path path, @Nonnull final LinkOption... options) throws IOException {
+        setLogoFromFile(path, null, options);
+    }
 }
