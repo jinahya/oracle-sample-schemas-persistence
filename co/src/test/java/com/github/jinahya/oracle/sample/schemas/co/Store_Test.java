@@ -1,12 +1,12 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Test;
+import com.github.jinahya.oracle.sample.schemas._MappedEntity_Test;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
-class Store_Test extends __MappedEntity_Test<Store, Long> {
+class Store_Test extends _MappedEntity_Test<Store> {
 
     Store_Test() {
-        super(Store.class, Long.class);
+        super(Store.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

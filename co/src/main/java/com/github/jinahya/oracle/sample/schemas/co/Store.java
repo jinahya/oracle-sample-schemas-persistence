@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
+import com.github.jinahya.oracle.sample.schemas._MappedEntity;
 import com.github.jinahya.oracle.sample.schemas.__MappedEntityConstants;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -35,7 +35,14 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @NamedQuery(
-        name = "Store.findAllByStoreNameLike",
+        name = "Store.selectListWhereStoreNameIn",
+        query = """
+                SELECT e
+                FROM Store AS e
+                WHERE e.storeName IN :storeNames"""
+)
+@NamedQuery(
+        name = "Store.selectListWhereStoreNameLike",
         query = """
                 SELECT e
                 FROM Store AS e
@@ -50,7 +57,7 @@ import java.util.Objects;
 )
 @Entity
 @Table(name = Store.TABLE_NAME)
-public class Store extends __MappedEntity<Store, Long> {
+public class Store extends _MappedEntity<Store> {
 
     @Serial
     private static final long serialVersionUID = 5174571093186516676L;

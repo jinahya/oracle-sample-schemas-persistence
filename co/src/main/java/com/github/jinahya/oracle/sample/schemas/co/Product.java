@@ -19,13 +19,9 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
-import java.io.IOException;
 import java.io.Serial;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -60,8 +56,20 @@ public class Product extends __MappedEntity<Product, Long> {
     // ---------------------------------------------------------------------------------------------------- PRODUCT_NAME
     public static final String COLUMN_NAME_PRODUCT_NAME = "PRODUCT_NAME";
 
+    public static final int COLUMN_LENGTH_PRODUCT_NAME = 255;
+
+    public static final int SIZE_MAX_PRODUCT_NAME = COLUMN_LENGTH_PRODUCT_NAME;
+
     // ------------------------------------------------------------------------------------------------------ UNIT_PRICE
     public static final String COLUMN_NAME_UNIT_PRICE = "UNIT_PRICE";
+
+    public static final int COLUMN_PRECISION_UNIT_PRICE = 10;
+
+    public static final int COLUMN_SCALE_UNIT_PRICE = 2;
+
+    public static final String DECIMAL_MAX_UNIT_PRICE = "99999999.99";
+
+    public static final String DECIMAL_MIN_UNIT_PRICE = "00000000.00";
 
     // ------------------------------------------------------------------------------------------------- PRODUCT_DETAILS
     public static final String COLUMN_NAME_PRODUCT_DETAILS = "PRODUCT_DETAILS";
@@ -72,11 +80,23 @@ public class Product extends __MappedEntity<Product, Long> {
     // ------------------------------------------------------------------------------------------------- IMAGE_MIME_TYPE
     public static final String COLUMN_NAME_IMAGE_MIME_TYPE = "IMAGE_MIME_TYPE";
 
+    public static final int COLUMN_LENGTH_IMAGE_MIME_TYPE = 512;
+
+    public static final int SIZE_MAX_IMAGE_MIME_TYPE = COLUMN_LENGTH_IMAGE_MIME_TYPE;
+
     // -------------------------------------------------------------------------------------------------- IMAGE_FILENAME
     public static final String COLUMN_NAME_IMAGE_FILENAME = "IMAGE_FILENAME";
 
+    public static final int COLUMN_LENGTH_IMAGE_FILENAME = 512;
+
+    public static final int SIZE_MAX_IMAGE_FILENAME = COLUMN_LENGTH_IMAGE_FILENAME;
+
     // --------------------------------------------------------------------------------------------------- IMAGE_CHARSET
     public static final String COLUMN_NAME_IMAGE_CHARSET = "IMAGE_CHARSET";
+
+    public static final int COLUMN_LENGTH_IMAGE_CHARSET = 512;
+
+    public static final int SIZE_MAX_IMAGE_CHARSET = COLUMN_LENGTH_IMAGE_CHARSET;
 
     // ---------------------------------------------------------------------------------------------- IMAGE_LAST_UPDATED
     public static final String COLUMN_NAME_IMAGE_LAST_UPDATED = "IMAGE_LAST_UPDATED";
@@ -168,150 +188,6 @@ public class Product extends __MappedEntity<Product, Long> {
         this.productDetails = productDetails;
     }
 
-//    /**
-//     * Returns current value of {@link Product_#productDetails productDetails} attribute as a {@link JsonNode}
-//     *
-//     * @param objectReader an object reader for deserializing the value of
-//     *                     {@link Product_#productDetails productDetails} attribute.
-//     * @return current value of {@link Product_#productDetails productDetails} attribute deserialized as a
-//     * {@link JsonNode}.
-//     * @see ObjectReader#readTree(byte[])
-//     */
-//    @Nullable
-//    public JsonNode getProductDetailsAsJsonNode(final ObjectReader objectReader) {
-//        Objects.requireNonNull(objectReader, "objectReader is null");
-//        return Optional.ofNullable(getProductDetails())
-//                .map(pd -> {
-//                    try {
-//                        return objectReader.readTree(pd);
-//                    } catch (final IOException ioe) {
-//                        throw new RuntimeException("failed to read tree from current value of productImage", ioe);
-//                    }
-//                })
-//                .orElse(null);
-//    }
-//
-//    /**
-//     * Replaces current value of {@link Product_#productDetails productDetails} attribute with specified value.
-//     *
-//     * @param objectWriter       an object writer for serializing the specified value.
-//     * @param productDetailsNode the value to be set.
-//     * @see #getProductDetailsAsJsonNode(ObjectReader)
-//     * @see ObjectWriter#writeValueAsBytes(Object)
-//     * @see #setProductDetails(byte[])
-//     */
-//    public void setProductDetailsAsJsonNode(final ObjectWriter objectWriter,
-//                                            @Nullable final JsonNode productDetailsNode) {
-//        Objects.requireNonNull(objectWriter, "objectWriter is null");
-//        setProductDetails(
-//                Optional.ofNullable(productDetailsNode)
-//                        .map(pdn -> {
-//                            try {
-//                                return objectWriter.writeValueAsBytes(pdn);
-//                            } catch (final JsonProcessingException jpe) {
-//                                throw new RuntimeException("failed to write " + productDetailsNode + " as bytes", jpe);
-//                            }
-//                        })
-//                        .orElse(null)
-//        );
-//    }
-//
-//    /**
-//     * Returns current value of {@link Product_#productDetails productDetails} attribute as a {@link ObjectNode}.
-//     *
-//     * @param objectReader an object reader for deserializing the value of
-//     *                     {@link Product_#productDetails productDetails} attribute.
-//     * @return current value of {@link Product_#productDetails productDetails} attribute deserialized as a
-//     * {@link ObjectNode}.
-//     * @see #getProductDetailsAsJsonNode(ObjectReader)
-//     * @see JsonNode#isObject()
-//     */
-//    @Nullable
-//    public ObjectNode getProductDetailsAsObjectNode(final ObjectReader objectReader) {
-//        Objects.requireNonNull(objectReader, "objectReader is null");
-//        if (false) {
-//            return Optional.ofNullable(getProductDetailsAsJsonNode(objectReader))
-//                    .map(jn -> {
-//                        assert jn.isObject();
-//                        return (ObjectNode) jn;
-//                    })
-//                    .orElse(null);
-//        }
-//        // TODO: implement
-//        throw new UnsupportedOperationException("not yet implemented");
-//    }
-//
-//    /**
-//     * Replaces current value of {@link Product_#productDetails productDetails} attribute with specified value.
-//     *
-//     * @param objectWriter       an object writer for serializing the specified value.
-//     * @param productDetailsNode the value to be set.
-//     * @see #setProductDetailsAsJsonNode(ObjectWriter, JsonNode)
-//     */
-//    public void setProductDetailsAsObjectNode(final ObjectWriter objectWriter,
-//                                              @Nullable final ObjectNode productDetailsNode) {
-//        Objects.requireNonNull(objectWriter, "objectWriter is null");
-//        if (false) {
-//            setProductDetailsAsJsonNode(objectWriter, productDetailsNode);
-//        }
-//        // TODO: implement
-//        throw new UnsupportedOperationException("not yet implemented");
-//    }
-//
-//    /**
-//     * Returns current value of {@link Product_#productDetails productDetails} attribute as a {@link ProductDetails}
-//     * object.
-//     *
-//     * @param objectMapper an object mapper for deserializing the value of
-//     *                     {@link Product_#productDetails productDetails} attribute.
-//     * @return current value of {@link Product_#productDetails productDetails} attribute deserialized as a
-//     * {@link ProductDetails} object.
-//     * @see ObjectMapper#reader()
-//     * @see #getProductDetailsAsObjectNode(ObjectReader)
-//     * @see ObjectMapper#treeToValue(TreeNode, Class)
-//     */
-//    @Nullable
-//    public ProductDetails getProductDetailsAsMapped(final ObjectMapper objectMapper) {
-//        Objects.requireNonNull(objectMapper, "objectMapper is null");
-//        if (false) {
-//            return Optional.ofNullable(getProductDetailsAsObjectNode(objectMapper.reader()))
-//                    .map(on -> {
-//                        try {
-//                            return objectMapper.treeToValue(on, ProductDetails.class);
-//                        } catch (final JsonProcessingException jpe) {
-//                            throw new RuntimeException("failed to deserialize productDetails node", jpe);
-//                        }
-//                    })
-//                    .orElse(null);
-//        }
-//        // TODO: implement
-//        throw new UnsupportedOperationException("not yet implemented");
-//    }
-//
-//    /**
-//     * Replaces current value of {@link Product_#productDetails productDetails} attribute with specified value.
-//     *
-//     * @param objectMapper         an object mapper for serializing the specified value.
-//     * @param productDetailsObject the value to be set.
-//     * @see ObjectMapper#writer()
-//     * @see ObjectMapper#valueToTree(Object)
-//     * @see #setProductDetailsAsObjectNode(ObjectWriter, ObjectNode)
-//     */
-//    public void setProductDetailsAsMapped(final ObjectMapper objectMapper,
-//                                          @Nullable final ProductDetails productDetailsObject) {
-//        Objects.requireNonNull(objectMapper, "objectMapper is null");
-//        if (false) {
-//            setProductDetailsAsObjectNode(
-//                    objectMapper.writer(),
-//                    Optional.ofNullable(productDetailsObject)
-//                            .<ObjectNode>map(pdm -> objectMapper.valueToTree(productDetailsObject))
-//                            .orElse(null)
-//            );
-//        }
-//        // TODO: implement
-//        throw new UnsupportedOperationException("not yet implemented");
-//    }
-
     // ---------------------------------------------------------------------------------------------------- productImage
     @Nullable
     public byte[] getProductImage() {
@@ -388,71 +264,57 @@ public class Product extends __MappedEntity<Product, Long> {
             updatable = false)
     private Long productId;
 
-    @Size(max = 255)
+    @Size(max = SIZE_MAX_PRODUCT_NAME)
     @NotNull
-    @Column(name = COLUMN_NAME_PRODUCT_NAME, nullable = false, insertable = true, updatable = true, length = 255)
+    @Column(name = COLUMN_NAME_PRODUCT_NAME, nullable = false, insertable = true, updatable = true,
+            length = COLUMN_LENGTH_PRODUCT_NAME)
     private String productName;
 
-    @jakarta.annotation.Nullable
-    @DecimalMax(value = "99999999.99", inclusive = true)
-    @DecimalMin(value = "00000000.00", inclusive = true)
+    @Nullable
+    @DecimalMax(value = DECIMAL_MAX_UNIT_PRICE, inclusive = true)
+    @DecimalMin(value = DECIMAL_MIN_UNIT_PRICE, inclusive = true)
     @PositiveOrZero // redundant?
     @Basic(optional = true)
-    @Column(name = "UNIT_PRICE", nullable = true, insertable = true, updatable = true, precision = 10, scale = 2)
+    @Column(name = COLUMN_NAME_UNIT_PRICE, nullable = true, insertable = true, updatable = true,
+            precision = COLUMN_PRECISION_UNIT_PRICE, scale = COLUMN_SCALE_UNIT_PRICE)
     private BigDecimal unitPrice;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Lob
     @Basic(optional = true, fetch = FetchType.LAZY)
-    @Column(name = "PRODUCT_DETAILS", nullable = true, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_PRODUCT_DETAILS, nullable = true, insertable = true, updatable = true)
     private byte[] productDetails;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
     @Lob
     @Basic(optional = true, fetch = FetchType.LAZY)
-    @Column(name = "PRODUCT_IMAGE", nullable = true, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_PRODUCT_IMAGE, nullable = true, insertable = true, updatable = true)
     private byte[] productImage;
 
-    @jakarta.annotation.Nullable
-    @Size(max = 512)
+    @Nullable
+    @Size(max = SIZE_MAX_IMAGE_MIME_TYPE)
     @Basic(optional = true)
-    @Column(name = "IMAGE_MIME_TYPE", nullable = true, insertable = true, updatable = true, length = 512)
+    @Column(name = COLUMN_NAME_IMAGE_MIME_TYPE, nullable = true, insertable = true, updatable = true,
+            length = COLUMN_LENGTH_IMAGE_MIME_TYPE)
     private String imageMimeType;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Size(max = 512)
     @Basic(optional = true)
     @Column(name = "IMAGE_FILENAME", nullable = true, insertable = true, updatable = true, length = 512)
     private String imageFilename;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Size(max = 512)
     @Basic(optional = true)
     @Column(name = "IMAGE_CHARSET", nullable = true, insertable = true, updatable = true, length = 512)
     private String imageCharset;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Basic(optional = true)
     @Column(name = "IMAGE_LAST_UPDATED", insertable = true, updatable = true)
     private LocalDate imageLastUpdated;
 
     // -----------------------------------------------------------------------------------------------------------------
-    public void setImage(@Nullable final Path path, final LinkOption... options) throws IOException {
-        if (path == null) {
-            setProductImage(null);
-            setImageMimeType(null);
-            setImageFilename(null);
-            setImageCharset(null);
-            setImageLastUpdated(LocalDate.now());
-            return;
-        }
-        if (!Files.isRegularFile(path, options)) {
-            throw new IllegalArgumentException("not a regular file: " + path);
-        }
-        setProductImage(Files.readAllBytes(path));
-        setImageMimeType(Files.probeContentType(path));
-        setImageFilename(path.getFileName().toString());
-        setImageCharset(null);
-        setImageLastUpdated(LocalDate.now());
-    }
 }

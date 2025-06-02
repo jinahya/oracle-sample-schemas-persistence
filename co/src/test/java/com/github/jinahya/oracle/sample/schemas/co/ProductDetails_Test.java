@@ -69,6 +69,7 @@ class ProductDetails_Test {
                 .forClass(ProductDetails.class)
 //                .suppress(Warning.INHERITED_DIRECTLY_FROM_OBJECT)
                 .withIgnoredFields("reviews")
+                .withIgnoredFields("unknownProperties")
                 ;
     }
 

@@ -5,6 +5,8 @@ import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
+import java.util.List;
+
 class ProductDetails_Randomizer extends ___Base_Randomizer<ProductDetails> {
 
     ProductDetails_Randomizer() {
@@ -29,6 +31,8 @@ class ProductDetails_Randomizer extends ___Base_Randomizer<ProductDetails> {
 
     @Override
     protected ProductDetails manufacturePojo() {
-        return super.manufacturePojo();
+        final var manufacturedPojo = super.manufacturePojo();
+        manufacturedPojo.setSizes(List.of(1, 2));
+        return manufacturedPojo;
     }
 }
