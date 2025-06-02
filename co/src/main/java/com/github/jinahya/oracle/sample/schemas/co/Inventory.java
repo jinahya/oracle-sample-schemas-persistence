@@ -1,6 +1,7 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,7 +26,7 @@ import java.util.Optional;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @NamedQuery(
-        name = "Inventory.selectListByProduct",
+        name = "Inventory.selectListWhereProductEqual",
         query = """
                 SELECT e
                 FROM Inventory AS e
@@ -33,20 +34,27 @@ import java.util.Optional;
                 """
 )
 @NamedQuery(
-        name = "Inventory.selectSingleByStoreAndProduct",
+        name = "Inventory.selectSingleWhereStoreEqualAndProductEqual",
         query = """
                 SELECT e
                 FROM Inventory AS e
-                WHERE e.store = :store AND e.product = :product
-                """
+                WHERE e.store = :store AND e.product = :product"""
 )
 @NamedQuery(
-        name = "Inventory.selectListByStore",
+        name = "Inventory.selectListWhereStoreEqualOrderByProductInventoryAsc",
         query = """
                 SELECT e
                 FROM Inventory AS e
                 WHERE e.store = :store
+                ORDER BY e.productInventory ASC
                 """
+)
+@NamedQuery(
+        name = "Inventory.selectListWhereStoreEqual",
+        query = """
+                SELECT e
+                FROM Inventory AS e
+                WHERE e.store = :store"""
 )
 @Entity
 @Table(
@@ -96,7 +104,7 @@ public class Inventory extends __MappedEntity<Inventory, Long> {
     /**
      * Creates a new instance.
      */
-    public Inventory() {
+    protected Inventory() {
         super();
     }
 
@@ -132,29 +140,32 @@ public class Inventory extends __MappedEntity<Inventory, Long> {
     }
 
     // ----------------------------------------------------------------------------------------------------------- store
+    @Nonnull
     public Store getStore() {
         return store;
     }
 
-    public void setStore(final Store store) {
+    public void setStore(@Nonnull final Store store) {
         this.store = store;
     }
 
     // --------------------------------------------------------------------------------------------------------- product
+    @Nonnull
     public Product getProduct() {
         return product;
     }
 
-    public void setProduct(final Product product) {
+    public void setProduct(@Nonnull final Product product) {
         this.product = product;
     }
 
     // ------------------------------------------------------------------------------------------------ productInventory
+    @Nonnull
     public Long getProductInventory() {
         return productInventory;
     }
 
-    public void setProductInventory(final Long productInventory) {
+    public void setProductInventory(@Nonnull final Long productInventory) {
         this.productInventory = productInventory;
     }
 
@@ -188,6 +199,7 @@ public class Inventory extends __MappedEntity<Inventory, Long> {
             updatable = false)
     private Long inventoryId;
 
+    @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -195,6 +207,7 @@ public class Inventory extends __MappedEntity<Inventory, Long> {
                 insertable = true, updatable = false)
     private Store store;
 
+    @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -202,6 +215,7 @@ public class Inventory extends __MappedEntity<Inventory, Long> {
                 insertable = true, updatable = false)
     private Product product;
 
+    @Nonnull
     @NotNull
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PRODUCT_INVENTORY, nullable = false, insertable = true, updatable = true)

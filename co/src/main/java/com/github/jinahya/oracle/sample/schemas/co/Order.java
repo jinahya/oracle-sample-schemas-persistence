@@ -267,6 +267,7 @@ public class Order extends __MappedEntity<Order, Long> {
     )
     private List<@Valid @NotNull OrderItem> orderItems;
 
+    // -----------------------------------------------------------------------------------------------------------------
     /**
      * Returns the total price of all order items.
      *

@@ -38,7 +38,7 @@ class Inventory_PersistenceIT extends __MappedEntity_PersistenceIT<Inventory, Lo
             final var store = randomStore.get();
             // ---------------------------------------------------------------------------------------------------- when
             final var result = entityManager()
-                    .createNamedQuery("Inventory.selectListByStore", Inventory.class)
+                    .createNamedQuery("Inventory.selectListWhereStoreEqual", Inventory.class)
                     .setParameter("store", store)
                     .setMaxResults(1)
                     .getResultList();
@@ -112,7 +112,7 @@ class Inventory_PersistenceIT extends __MappedEntity_PersistenceIT<Inventory, Lo
             final var product = inventory.getProduct();
             // ---------------------------------------------------------------------------------------------------- when
             final var result = entityManager()
-                    .createNamedQuery("Inventory.selectSingleByStoreAndProduct", Inventory.class)
+                    .createNamedQuery("Inventory.selectSingleWhereStoreEqualAndProductEqual", Inventory.class)
                     .setParameter("store", store)
                     .setParameter("product", product)
                     .getSingleResult();
