@@ -63,24 +63,6 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
     public static final String COLUMN_NAME_SHIPMENT_ID = "SHIPMENT_ID";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
-//    static OrderItem from(final Order order, final Long lineItemId, final Inventory inventory,
-//                          final BigDecimal unitPrice,
-//                          final long quantity) {
-//        Objects.requireNonNull(order, "order is null");
-//        Objects.requireNonNull(inventory, "inventory is null");
-//        if (!Objects.equals(order.getStore(), inventory.getStore())) {
-//            throw new IllegalArgumentException(
-//                    "order.store(" + inventory.getStore() + ") != inventory.store(" + inventory.getStore() + ")");
-//        }
-//        final var instance = new OrderItem();
-//        instance.setOrder(order);
-//        instance.getId().setLineItemId(lineItemId);
-//        instance.setProduct(inventory.getProduct());
-//        instance.setUnitPrice(unitPrice);
-//        instance.setQuantity(quantity);
-//        instance.setShipment(null);
-//        return instance;
-//    }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -159,7 +141,7 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
 
     public void setOrder(final Order order) {
         this.order = order;
-        if (false) {
+        if (false) { // <<<<<<<< @MapsId("orderId")
             getIdOrElseSetNewAndGet().setOrderId(
                     Optional.ofNullable(this.order)
                             .map(Order::getOrderId)
