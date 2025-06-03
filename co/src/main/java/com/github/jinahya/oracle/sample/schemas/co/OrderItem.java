@@ -175,6 +175,27 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
 
     public void setQuantity(final Long quantity) {
         this.quantity = quantity;
+        if (this.quantity != null && this.quantity <= 0L && order != null) {
+            order.getOrderItems().remove(this);
+        }
+    }
+
+    public void adjustQuantityBy(final int delta) {
+        setQuantity(Optional.ofNullable(getQuantity()).orElse(0L) + delta);
+    }
+
+    public void increaseQuantityBy(final int delta) {
+        if (delta <= 0L) {
+            throw new IllegalArgumentException("non-positive delta: " + delta);
+        }
+        adjustQuantityBy(delta);
+    }
+
+    public void decreaseQuantityBy(final int delta) {
+        if (delta <= 0L) {
+            throw new IllegalArgumentException("non-positive delta: " + delta);
+        }
+        adjustQuantityBy(-delta);
     }
 
     // -------------------------------------------------------------------------------------------------------- shipment

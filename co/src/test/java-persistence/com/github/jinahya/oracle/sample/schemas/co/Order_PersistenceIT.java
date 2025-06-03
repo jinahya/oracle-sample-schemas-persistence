@@ -1,6 +1,7 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_PersistenceIT;
+import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Persister_Utils;
 import com.github.jinahya.oracle.sample.schemas.__Persistence_Test_Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.jboss.weld.junit5.auto.AddBeanClasses;
@@ -29,13 +30,15 @@ class Order_PersistenceIT extends __MappedEntity_PersistenceIT<Order, Long> {
 
         @Test
         void _Zero_New() {
-            // --------------------------------------------------------------------------------------------------- given
-            final var persisted = newPersistedEntityInstance();
-            // ---------------------------------------------------------------------------------------------------- when
-            final var orderItemsTotalPrice1 = persisted.getOrderItemsTotalPrice1();
-            log.debug("orderItemsTotalPrice1: {}", orderItemsTotalPrice1);
-            // ---------------------------------------------------------------------------------------------------- then
-            assertThat(orderItemsTotalPrice1).isZero();
+            acceptEntityManagerInTransactionAndRollback(em -> {
+                // --------------------------------------------------------------------------------------------------- given
+                final var persisted =
+                        __MappedEntity_Persister_Utils.newPersistedInstanceOf(entityClass, em).orElseThrow();
+                // ---------------------------------------------------------------------------------------------------- when
+                final var orderItemsTotalPrice1 = persisted.getOrderItemsTotalPrice1();
+                // ---------------------------------------------------------------------------------------------------- then
+                assertThat(orderItemsTotalPrice1).isZero();
+            });
         }
 
         @Test
