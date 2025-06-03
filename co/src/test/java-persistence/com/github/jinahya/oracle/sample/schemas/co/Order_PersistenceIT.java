@@ -41,9 +41,12 @@ class Order_PersistenceIT extends __MappedEntity_PersistenceIT<Order, Long> {
         @Test
         void __() {
             // --------------------------------------------------------------------------------------------------- given
-            final var orderOptional = __Persistence_Test_Utils.selectRandom(entityManager(), entityClass);
-            assumeThat(orderOptional).isNotEmpty();
-            final var order = orderOptional.get();
+            final var order = applyEntityCountAndRandomIndex(em -> c -> i -> {
+                return em.createQuery("SELECT e FROM Order AS e JOIN FETCH e.orderItems", entityClass)
+                        .setFirstResult(Math.toIntExact(i))
+                        .setMaxResults(1)
+                        .getSingleResult();
+            });
             log.debug("order: {}", order);
             // ---------------------------------------------------------------------------------------------------- when
             final var orderItemsTotalPrice1 = order.getOrderItemsTotalPrice1();
@@ -72,36 +75,36 @@ class Order_PersistenceIT extends __MappedEntity_PersistenceIT<Order, Long> {
 
         @Test
         void __() {
-            // --------------------------------------------------------------------------------------------------- given
-            final var orderOptional = __Persistence_Test_Utils.selectRandom(entityManager(), entityClass);
-            assumeThat(orderOptional).isNotEmpty();
-            final var order = orderOptional.get();
-            log.debug("order: {}", order);
-            // ---------------------------------------------------------------------------------------------------- when
-            final var orderItemsTotalPrice1 = order.getOrderItemsTotalPrice2(entityManager());
-            log.debug("orderItemsTotalPrice1: {}", orderItemsTotalPrice1);
-            // ---------------------------------------------------------------------------------------------------- then
-            assertThat(orderItemsTotalPrice1).isNotNegative();
+            acceptEntityManagerInTransactionAndRollback(em -> {
+                // ----------------------------------------------------------------------------------------------- given
+                final var orderOptional = __Persistence_Test_Utils.selectRandom(em, entityClass);
+                assumeThat(orderOptional).isNotEmpty();
+                final var order = orderOptional.get();
+                log.debug("order: {}", order);
+                // ------------------------------------------------------------------------------------------------ when
+                final var orderItemsTotalPrice1 = order.getOrderItemsTotalPrice2(em);
+                log.debug("orderItemsTotalPrice1: {}", orderItemsTotalPrice1);
+                // ------------------------------------------------------------------------------------------------ then
+                assertThat(orderItemsTotalPrice1).isNotNegative();
+            });
         }
 
         @Test
         void __FetchOrderItems() {
-            // --------------------------------------------------------------------------------------------------- given
-            final var selected = applyEntityCountAndRandomIndex(c -> i -> {
-                return applyEntityManager(em -> {
-                    return em.createQuery("SELECT e FROM Order AS e JOIN FETCH e.orderItems", entityClass)
-                            .setFirstResult(Math.toIntExact(i))
-                            .setMaxResults(1)
-                            .getSingleResult();
-                });
+            acceptEntityCountAndRandomIndex(em -> c -> i -> {
+                // ----------------------------------------------------------------------------------------------- given
+                final var selected = em.createQuery("SELECT e FROM Order AS e JOIN FETCH e.orderItems", entityClass)
+                        .setFirstResult(Math.toIntExact(i))
+                        .setMaxResults(1)
+                        .getSingleResult();
+                assumeThat(selected).isNotNull();
+                log.debug("selected: {}", selected);
+                // ------------------------------------------------------------------------------------------------ when
+                final var orderItemsTotalPrice1 = selected.getOrderItemsTotalPrice1();
+                log.debug("orderItemsTotalPrice1: {}", orderItemsTotalPrice1);
+                // ------------------------------------------------------------------------------------------------ then
+                assertThat(orderItemsTotalPrice1).isNotNegative();
             });
-            assumeThat(selected).isNotNull();
-            log.debug("selected: {}", selected);
-            // ---------------------------------------------------------------------------------------------------- when
-            final var orderItemsTotalPrice1 = selected.getOrderItemsTotalPrice1();
-            log.debug("orderItemsTotalPrice1: {}", orderItemsTotalPrice1);
-            // ---------------------------------------------------------------------------------------------------- then
-            assertThat(orderItemsTotalPrice1).isNotNegative();
         }
     }
 
@@ -112,7 +115,7 @@ class Order_PersistenceIT extends __MappedEntity_PersistenceIT<Order, Long> {
         @Test
         void _Zero_New() {
             acceptEntityManagerInTransactionAndRollback(em -> {
-                // --------------------------------------------------------------------------------------------------- given
+                // -------------------------------------------------------------------------------------------------- given
                 final var persisted = newPersistedEntityInstance();
                 // ------------------------------------------------------------------------------------------------ when
                 final var orderItemsTotalPrice1 = persisted.getOrderItemsTotalPrice3(em);
@@ -124,16 +127,18 @@ class Order_PersistenceIT extends __MappedEntity_PersistenceIT<Order, Long> {
 
         @Test
         void __() {
-            // --------------------------------------------------------------------------------------------------- given
-            final var orderOptional = __Persistence_Test_Utils.selectRandom(entityManager(), entityClass);
-            assumeThat(orderOptional).isNotEmpty();
-            final var order = orderOptional.get();
-            log.debug("order: {}", order);
-            // ---------------------------------------------------------------------------------------------------- when
-            final var orderItemsTotalPrice1 = order.getOrderItemsTotalPrice3(entityManager());
-            log.debug("orderItemsTotalPrice1: {}", orderItemsTotalPrice1);
-            // ---------------------------------------------------------------------------------------------------- then
-            assertThat(orderItemsTotalPrice1).isNotNegative();
+            acceptEntityManagerInTransactionAndRollback(em -> {
+                // ----------------------------------------------------------------------------------------------- given
+                final var orderOptional = __Persistence_Test_Utils.selectRandom(em, entityClass);
+                assumeThat(orderOptional).isNotEmpty();
+                final var order = orderOptional.get();
+                log.debug("order: {}", order);
+                // ------------------------------------------------------------------------------------------------ when
+                final var orderItemsTotalPrice1 = order.getOrderItemsTotalPrice3(em);
+                log.debug("orderItemsTotalPrice1: {}", orderItemsTotalPrice1);
+                // ------------------------------------------------------------------------------------------------ then
+                assertThat(orderItemsTotalPrice1).isNotNegative();
+            });
         }
     }
 }

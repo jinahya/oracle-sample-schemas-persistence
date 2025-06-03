@@ -17,7 +17,7 @@
 ### [oracle-samples/db-sample-schemas](https://github.com/oracle-samples/db-sample-schemas)
 
 * [issues/30 Populate customer_orders/STORES/logo data](https://github.com/oracle-samples/db-sample-schemas/issues/30)
-* oracle-samples/db-sample-schemas#30
+* [issues/31 What are relationships ORDER_ITEMS.SHIPMENTS.CUSTOMER and SHIPMENTS.CUSTOMER?](https://github.com/oracle-samples/db-sample-schemas/issues/31)
 
 ### spring-projects/spring-data-jpa
 

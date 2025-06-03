@@ -18,8 +18,8 @@ public class OrderItemId implements Serializable {
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
     public static OrderItemId of(final Long orderId, final Long lineItemId) {
         final var instance = new OrderItemId();
-        instance.orderId = orderId;
-        instance.lineItemId = lineItemId;
+        instance.setOrderId(orderId);
+        instance.setLineItemId(lineItemId);
         return instance;
     }
 
@@ -61,13 +61,8 @@ public class OrderItemId implements Serializable {
         return orderId;
     }
 
-    public void setOrderId(final Long orderId) {
+    void setOrderId(final Long orderId) {
         this.orderId = orderId;
-    }
-
-    public OrderItemId orderId(final Long orderId) {
-        setOrderId(orderId);
-        return this;
     }
 
     // ------------------------------------------------------------------------------------------------------ lineItemId
@@ -75,13 +70,8 @@ public class OrderItemId implements Serializable {
         return lineItemId;
     }
 
-    public void setLineItemId(final Long lineItemId) {
+    void setLineItemId(final Long lineItemId) {
         this.lineItemId = lineItemId;
-    }
-
-    public OrderItemId lineItemId(final Long lineItemId) {
-        setLineItemId(lineItemId);
-        return this;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

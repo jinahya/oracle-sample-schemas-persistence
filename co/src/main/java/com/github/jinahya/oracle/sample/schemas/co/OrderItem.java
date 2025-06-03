@@ -1,6 +1,7 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
+import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -12,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -46,6 +48,14 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
     // ------------------------------------------------------------------------------------------------------ UNIT_PRICE
     public static final String COLUMN_NAME_UNIT_PRICE = "UNIT_PRICE";
 
+    public static final int COLUMN_PRECISION_UNIT_PRICE = 10;
+
+    public static final int COLUMN_SCALE_UNIT_PRICE = 2;
+
+    public static final String DECIMAL_MIN_UNIT_PRICE = "00000000.00";
+
+    public static final String DECIMAL_MAX_UNIT_PRICE = "99999999.99";
+
     // ------------------------------------------------------------------------------------------------------- QUANTITY
     public static final String COLUMN_NAME_QUANTITY = "QUANTITY";
 
@@ -53,24 +63,24 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
     public static final String COLUMN_NAME_SHIPMENT_ID = "SHIPMENT_ID";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
-    static OrderItem from(final Order order, final Long lineItemId, final Inventory inventory,
-                          final BigDecimal unitPrice,
-                          final long quantity) {
-        Objects.requireNonNull(order, "order is null");
-        Objects.requireNonNull(inventory, "inventory is null");
-        if (!Objects.equals(order.getStore(), inventory.getStore())) {
-            throw new IllegalArgumentException(
-                    "order.store(" + inventory.getStore() + ") != inventory.store(" + inventory.getStore() + ")");
-        }
-        final var instance = new OrderItem();
-        instance.setOrder(order);
-        instance.getId().setLineItemId(lineItemId);
-        instance.setProduct(inventory.getProduct());
-        instance.setUnitPrice(unitPrice);
-        instance.setQuantity(quantity);
-        instance.setShipment(null);
-        return instance;
-    }
+//    static OrderItem from(final Order order, final Long lineItemId, final Inventory inventory,
+//                          final BigDecimal unitPrice,
+//                          final long quantity) {
+//        Objects.requireNonNull(order, "order is null");
+//        Objects.requireNonNull(inventory, "inventory is null");
+//        if (!Objects.equals(order.getStore(), inventory.getStore())) {
+//            throw new IllegalArgumentException(
+//                    "order.store(" + inventory.getStore() + ") != inventory.store(" + inventory.getStore() + ")");
+//        }
+//        final var instance = new OrderItem();
+//        instance.setOrder(order);
+//        instance.getId().setLineItemId(lineItemId);
+//        instance.setProduct(inventory.getProduct());
+//        instance.setUnitPrice(unitPrice);
+//        instance.setQuantity(quantity);
+//        instance.setShipment(null);
+//        return instance;
+//    }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -107,14 +117,18 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
-//    @AssertTrue(message = "shipment's customer should be equal to the order's customer")
+    @AssertTrue(message = "shipment's customer should be equal to the order's customer")
     private boolean isSShipmentCustomerValid() {
-        return shipment == null || Objects.equals(shipment.getCustomer(), order.getCustomer());
+        return shipment == null ||
+                order == null ||
+                Objects.equals(shipment.getCustomer(), order.getCustomer());
     }
 
-    //    @AssertTrue(message = "shipment's store should be equal to the order's store")
+    @AssertTrue(message = "shipment's store should be equal to the order's store")
     private boolean isShipmentStoreValid() {
-        return shipment == null || Objects.equals(shipment.getStore(), order.getStore());
+        return shipment == null ||
+                order == null ||
+                Objects.equals(shipment.getStore(), order.getStore());
     }
 
     // -------------------------------------------------------------------------------------------------------------- id
@@ -122,7 +136,11 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
         return id;
     }
 
-    public OrderItemId getId(final Supplier<? extends OrderItemId> supplier) {
+    void setId(final OrderItemId id) {
+        this.id = id;
+    }
+
+    public OrderItemId getIdOrElseSetSuppliedAndGet(final Supplier<? extends OrderItemId> supplier) {
         Objects.requireNonNull(supplier, "supplier is null");
         return Optional.ofNullable(getId()).orElseGet(() -> {
             setId(Objects.requireNonNull(supplier.get(), "null supplied from " + supplier));
@@ -130,8 +148,8 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
         });
     }
 
-    void setId(final OrderItemId id) {
-        this.id = id;
+    public OrderItemId getIdOrElseSetNewAndGet() {
+        return getIdOrElseSetSuppliedAndGet(OrderItemId::new);
     }
 
     // ----------------------------------------------------------------------------------------------------------- order
@@ -141,8 +159,8 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
 
     public void setOrder(final Order order) {
         this.order = order;
-        if (false) { // @MapsId
-            getId(OrderItemId::new).setOrderId(
+        if (false) {
+            getIdOrElseSetNewAndGet().setOrderId(
                     Optional.ofNullable(this.order)
                             .map(Order::getOrderId)
                             .orElse(null)
@@ -185,12 +203,17 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
 
     public void setShipment(@Nullable final Shipment shipment) {
         this.shipment = shipment;
+        Optional.ofNullable(this.shipment).ifPresent(s -> {
+            s.setStore(order.getStore());
+            s.setCustomer(order.getCustomer());
+        });
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @EmbeddedId
     private OrderItemId id;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @MapsId("orderId")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_ORDER_ID, nullable = false,
@@ -199,27 +222,30 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
     private Order order;
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = true, updatable = false)
     private Product product;
 
-    @DecimalMax("99999999.99")
-    @DecimalMin("00000000.00")
+    @Nonnull
+    @DecimalMax(DECIMAL_MAX_UNIT_PRICE)
+    @DecimalMin(DECIMAL_MIN_UNIT_PRICE)
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_UNIT_PRICE, nullable = false, insertable = true, updatable = false, precision = 10,
-            scale = 2)
+    @Column(name = COLUMN_NAME_UNIT_PRICE, nullable = false, insertable = true, updatable = false,
+            precision = COLUMN_PRECISION_UNIT_PRICE, scale = COLUMN_SCALE_UNIT_PRICE)
     private BigDecimal unitPrice;
 
+    @Nonnull
     @Positive
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_QUANTITY, nullable = false, insertable = true, updatable = false)
+    @Column(name = COLUMN_NAME_QUANTITY, nullable = false, insertable = true, updatable = true)
     private Long quantity;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @jakarta.annotation.Nullable
+    @Nullable
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_SHIPMENT_ID, insertable = true, updatable = true)
     private Shipment shipment;
@@ -237,6 +263,7 @@ public class OrderItem extends __MappedEntity<OrderItem, OrderItemId> {
     }
 
     public BigDecimal getTotalPrice(final MathContext mc) {
+        Objects.requireNonNull(mc, "mc is null");
         return unitPrice.multiply(BigDecimal.valueOf(quantity), mc);
     }
 }

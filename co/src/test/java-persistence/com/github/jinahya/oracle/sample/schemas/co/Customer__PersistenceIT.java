@@ -30,7 +30,7 @@ class Customer__PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Lon
             // --------------------------------------------------------------------------------------------------- given
             final var emailAddress = "tammy.bryant@internalmail";
             // ---------------------------------------------------------------------------------------------------- when
-            final var single = applyEntityManager(em -> {
+            final var single = applyEntityManagerInTransactionAndRollback(em -> {
                 return em
                         .createNamedQuery("Customer.selectSingleWhereEmailAddressEqual", Customer.class)
                         .setParameter("emailAddress", emailAddress)
@@ -46,7 +46,7 @@ class Customer__PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Lon
             // --------------------------------------------------------------------------------------------------- given
             final var emailAddress = "tammy.bryant@internalmail";
             // ---------------------------------------------------------------------------------------------------- when
-            final var selected = applyEntityManager(em -> {
+            final var selected = applyEntityManagerInTransactionAndRollback(em -> {
                 return em.createQuery(
                                 "SELECT e FROM Customer AS e WHERE e.emailAddress = :emailAddress",
                                 Customer.class
@@ -64,7 +64,7 @@ class Customer__PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Lon
             // --------------------------------------------------------------------------------------------------- given
             final var emailAddress = "tammy.bryant@internalmail";
             // ---------------------------------------------------------------------------------------------------- when
-            final var single = applyEntityManager(em -> {
+            final var single = applyEntityManagerInTransactionAndRollback(em -> {
                 final var builder = em.getCriteriaBuilder();
                 final var criteria = builder.createQuery(Customer.class);
                 // FROM Customer AS e
@@ -90,7 +90,7 @@ class Customer__PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Lon
             // --------------------------------------------------------------------------------------------------- given
             final var emailAddressPattern = "%a%";
             // ---------------------------------------------------------------------------------------------------- when
-            final var list = applyEntityManager(em -> {
+            final var list = applyEntityManagerInTransactionAndRollback(em -> {
                 return em.createNamedQuery("Customer.selectListWhereEmailAddressLike", Customer.class)
                         .setParameter("emailAddressPattern", emailAddressPattern)
                         .getResultList();
@@ -106,7 +106,7 @@ class Customer__PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Lon
             // --------------------------------------------------------------------------------------------------- given
             final var emailAddressPattern = "%a%";
             // ---------------------------------------------------------------------------------------------------- when
-            final var list = applyEntityManager(em -> {
+            final var list = applyEntityManagerInTransactionAndRollback(em -> {
                 return em.createQuery(
                                 "SELECT e FROM Customer e WHERE e.emailAddress LIKE :emailAddressPattern",
                                 Customer.class
@@ -125,7 +125,7 @@ class Customer__PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Lon
             // --------------------------------------------------------------------------------------------------- given
             final var emailAddressPattern = "%a%";
             // ---------------------------------------------------------------------------------------------------- when
-            final var list = applyEntityManager(em -> {
+            final var list = applyEntityManagerInTransactionAndRollback(em -> {
                 final var builder = em.getCriteriaBuilder();
                 final var criteria = builder.createQuery(Customer.class);
                 // FROM Customer AS e
@@ -157,7 +157,7 @@ class Customer__PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Lon
             // --------------------------------------------------------------------------------------------------- given
             final var fullName = "Tammy Bryant";
             // ---------------------------------------------------------------------------------------------------- when
-            final var single = applyEntityManager(em -> {
+            final var single = applyEntityManagerInTransactionAndRollback(em -> {
                 return em.createNamedQuery("Customer.selectSingleWhereFullNameEqual", Customer.class)
                         .setParameter("fullName", fullName)
                         .getSingleResult(); // NoResultException, NonUniqueResultException
@@ -173,7 +173,7 @@ class Customer__PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Lon
             // --------------------------------------------------------------------------------------------------- given
             final var fullName = "Tammy Bryant";
             // ---------------------------------------------------------------------------------------------------- when
-            final var single = applyEntityManager(em -> {
+            final var single = applyEntityManagerInTransactionAndRollback(em -> {
                 return em.createQuery(
                                 "SELECT e FROM Customer e WHERE e.fullName = :fullName",
                                 Customer.class
@@ -191,7 +191,7 @@ class Customer__PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Lon
             // --------------------------------------------------------------------------------------------------- given
             final var fullName = "Tammy Bryant";
             // ---------------------------------------------------------------------------------------------------- when
-            final var single = applyEntityManager(em -> {
+            final var single = applyEntityManagerInTransactionAndRollback(em -> {
                 final var builder = em.getCriteriaBuilder();
                 final var criteria = builder.createQuery(Customer.class);
                 // FROM Customer AS e
@@ -217,7 +217,7 @@ class Customer__PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Lon
             // --------------------------------------------------------------------------------------------------- given
             final var fullNamePattern = "%a%";
             // ---------------------------------------------------------------------------------------------------- when
-            final var list = applyEntityManager(em -> {
+            final var list = applyEntityManagerInTransactionAndRollback(em -> {
                 return em.createNamedQuery("Customer.selectListWhereFullNameLike", Customer.class)
                         .setParameter("fullNamePattern", fullNamePattern)
                         .getResultList();
@@ -236,7 +236,7 @@ class Customer__PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Lon
             // --------------------------------------------------------------------------------------------------- given
             final var fullNamePattern = "%a%";
             // ---------------------------------------------------------------------------------------------------- when
-            final var list = applyEntityManager(em -> {
+            final var list = applyEntityManagerInTransactionAndRollback(em -> {
                 return em.createQuery(
                                 "SELECT e FROM Customer e WHERE e.fullName LIKE :fullNamePattern",
                                 Customer.class
@@ -258,7 +258,7 @@ class Customer__PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Lon
             // --------------------------------------------------------------------------------------------------- given
             final var fullNamePattern = "%a%";
             // ---------------------------------------------------------------------------------------------------- when
-            final var list = applyEntityManager(em -> {
+            final var list = applyEntityManagerInTransactionAndRollback(em -> {
                 final var builder = em.getCriteriaBuilder();
                 final var criteria = builder.createQuery(Customer.class);
                 // FROM Customer AS e

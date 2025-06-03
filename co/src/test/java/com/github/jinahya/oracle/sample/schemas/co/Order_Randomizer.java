@@ -18,6 +18,12 @@ class Order_Randomizer extends __MappedEntity_Randomizer<Order> {
     Order_Randomizer() {
         super(Order.class,
               "orderId",
+              "orderTmsAsZonedDateTime",
+              "orderTmsFromZonedDateTime",
+              "orderTmsAsOffsetDateTime",
+              "orderTmsFromOffsetDateTime",
+              "orderTmsAsInstant",
+              "orderTmsFromInstant",
               "orderStatus",
               "orderItems"
 //                ,
@@ -80,7 +86,7 @@ class Order_Randomizer extends __MappedEntity_Randomizer<Order> {
         final var order = super.manufacturePojo();
         log.debug("order: {}", order);
         assertThat(order.getOrderId()).isNull();
-        assertThat(order.getOrderStatus()).isSameAs(Order.OrderStatus.OPEN);
+        order.setOrderStatus(Order.OrderStatus.OPEN);
         return order;
     }
 }

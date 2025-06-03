@@ -1,5 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.core.ResolvableType;
@@ -35,6 +36,7 @@ public abstract class __MappedEntityRepository_DataJpaTest<
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @DisplayName("don't bother, just an initial check")
     @Test
     void _DontBother_() {
     }

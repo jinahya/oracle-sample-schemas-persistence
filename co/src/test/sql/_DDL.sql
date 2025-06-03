@@ -315,26 +315,22 @@ create index INVENTORY_PRODUCT_ID_I
 /
 
 create view CUSTOMER_ORDER_PRODUCTS as
-SELECT o.order_id,
-       o.order_tms,
-       o.order_status,
-       c.customer_id,
-       c.email_address,
-       c.full_name,
-       SUM(oi.quantity * oi.unit_price)            order_total,
-       LISTAGG(
+SELECT o.order_id, o.order_tms, o.order_status,
+       c.customer_id, c.email_address, c.full_name,
+       SUM ( oi.quantity * oi.unit_price ) order_total,
+       LISTAGG (
                p.product_name, ', '
                ON OVERFLOW TRUNCATE '...' WITH COUNT
        ) WITHIN GROUP ( ORDER BY oi.line_item_id ) items
-FROM orders o
-         JOIN order_items oi
-              ON o.order_id = oi.order_id
-         JOIN customers c
-              ON o.customer_id = c.customer_id
-         JOIN products p
-              ON oi.product_id = p.product_id
-GROUP BY o.order_id, o.order_tms, o.order_status,
-         c.customer_id, c.email_address, c.full_name
+FROM   orders o
+           JOIN   order_items oi
+                  ON     o.order_id = oi.order_id
+           JOIN   customers c
+                  ON     o.customer_id = c.customer_id
+           JOIN   products p
+                  ON     oi.product_id = p.product_id
+GROUP  BY o.order_id, o.order_tms, o.order_status,
+          c.customer_id, c.email_address, c.full_name
 /
 
 comment on table CUSTOMER_ORDER_PRODUCTS is 'A summary of who placed each order and what they bought'
@@ -366,26 +362,25 @@ comment on column CUSTOMER_ORDER_PRODUCTS.ITEMS is 'A comma-separated list namin
 
 create view STORE_ORDERS as
 SELECT CASE
-           grouping_id(store_name, order_status)
+           grouping_id ( store_name, order_status )
            WHEN 1 THEN 'STORE TOTAL'
            WHEN 2 THEN 'STATUS TOTAL'
            WHEN 3 THEN 'GRAND TOTAL'
-           END                                     total,
+           END total,
        s.store_name,
-       COALESCE(s.web_address, s.physical_address) address,
-       s.latitude,
-       s.longitude,
+       COALESCE ( s.web_address, s.physical_address ) address,
+       s.latitude, s.longitude,
        o.order_status,
-       COUNT(DISTINCT o.order_id)                  order_count,
-       SUM(oi.quantity * oi.unit_price)            total_sales
-FROM stores s
-         JOIN orders o
-              ON s.store_id = o.store_id
-         JOIN order_items oi
-              ON o.order_id = oi.order_id
-GROUP BY GROUPING SETS (
-    ( s.store_name, COALESCE(s.web_address, s.physical_address), s.latitude, s.longitude ),
-    ( s.store_name, COALESCE(s.web_address, s.physical_address), s.latitude, s.longitude, o.order_status ),
+       COUNT ( DISTINCT o.order_id ) order_count,
+       SUM ( oi.quantity * oi.unit_price ) total_sales
+FROM   stores s
+           JOIN   orders o
+                  ON     s.store_id = o.store_id
+           JOIN   order_items oi
+                  ON     o.order_id = oi.order_id
+GROUP  BY GROUPING SETS (
+    ( s.store_name, COALESCE ( s.web_address, s.physical_address ), s.latitude, s.longitude ),
+    ( s.store_name, COALESCE ( s.web_address, s.physical_address ), s.latitude, s.longitude, o.order_status ),
       o.order_status,
     ()
     )
@@ -419,26 +414,25 @@ comment on column STORE_ORDERS.TOTAL_SALES is 'The total value of orders placed'
 /
 
 create view PRODUCT_REVIEWS as
-SELECT p.product_name,
-       r.rating,
-       ROUND(
-               AVG(r.rating) over (
+SELECT p.product_name, r.rating,
+       ROUND (
+               AVG ( r.rating ) over (
                    PARTITION BY product_name
                    ),
                2
        ) avg_rating,
        r.review
-FROM products p,
-     JSON_TABLE(
-             p.product_details, '$'
-             COLUMNS (
-                 NESTED PATH '$.reviews[*]'
-                     COLUMNS (
-                         rating INTEGER PATH '$.rating',
-                         review VARCHAR2(4000) PATH '$.review'
-                         )
-                 )
-     ) r
+FROM   products p,
+       JSON_TABLE (
+               p.product_details, '$'
+               COLUMNS (
+                   NESTED PATH '$.reviews[*]'
+                       COLUMNS (
+                           rating INTEGER PATH '$.rating',
+                           review VARCHAR2(4000) PATH '$.review'
+                           )
+                   )
+       ) r
 /
 
 comment on table PRODUCT_REVIEWS is 'A relational view of the reviews stored in the JSON for each product'
@@ -457,18 +451,17 @@ comment on column PRODUCT_REVIEWS.REVIEW is 'The text of the review'
 /
 
 create view PRODUCT_ORDERS as
-SELECT p.product_name,
-       o.order_status,
-       SUM(oi.quantity * oi.unit_price) total_sales,
-       COUNT(*)                         order_count
-FROM orders o
-         JOIN order_items oi
-              ON o.order_id = oi.order_id
-         JOIN customers c
-              ON o.customer_id = c.customer_id
-         JOIN products p
-              ON oi.product_id = p.product_id
-GROUP BY p.product_name, o.order_status
+SELECT p.product_name, o.order_status,
+       SUM ( oi.quantity * oi.unit_price ) total_sales,
+       COUNT (*) order_count
+FROM   orders o
+           JOIN   order_items oi
+                  ON     o.order_id = oi.order_id
+           JOIN   customers c
+                  ON     o.customer_id = c.customer_id
+           JOIN   products p
+                  ON     oi.product_id = p.product_id
+GROUP  BY p.product_name, o.order_status
 /
 
 comment on table PRODUCT_ORDERS is 'A summary of the state of the orders placed for each product'

@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.hr;
 
-import com.github.jinahya.oracle.sample.schemas.__JavaUtilLocale_Test_Utils;
+import com.github.jinahya.oracle.sample.schemas.__Util_Locale_Test_Utils;
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer;
 import uk.co.jemos.podam.api.AttributeMetadata;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
@@ -25,7 +25,7 @@ class Country_Randomizer extends __MappedEntity_Randomizer<Country> {
                                   ManufacturingContext manufacturingCtx) {
                 if (Country.class.isAssignableFrom(attributeMetadata.getPojoClass()) &&
                         attributeMetadata.getAttributeName().equals("countryId")) {
-                    return __JavaUtilLocale_Test_Utils.randomLocale().getCountry();
+                    return __Util_Locale_Test_Utils.randomLocale().getCountry();
                 }
                 return super.getType(strategy, attributeMetadata, manufacturingCtx);
             }

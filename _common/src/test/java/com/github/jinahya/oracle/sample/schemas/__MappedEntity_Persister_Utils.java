@@ -58,7 +58,11 @@ public final class __MappedEntity_Persister_Utils {
         Objects.requireNonNull(entityManager, "entityManager is null");
         Objects.requireNonNull(entityInstance, "entityInstance is null");
         return getPersisterInstance(entityClass)
-                .map(p -> p.persist(entityManager, entityInstance))
+                .map(p -> {
+                    final var persisted = p.persist(entityManager, entityInstance);
+                    entityManager.flush();
+                    return persisted;
+                })
                 ;
     }
 

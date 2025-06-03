@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Test;
 
 import java.io.Serializable;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.LongConsumer;
 import java.util.function.LongFunction;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -80,18 +80,38 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
         return __MappedEntity_Persister_Utils.newPersistedInstanceOf(entityClass, entityManager()).orElseThrow();
     }
 
-    /**
-     * Returns new persisted instance of {@link #entityClass}.
-     *
-     * @return new persisted instance of {@link #entityClass}.
-     * @see __MappedEntity_Persister_Utils#newPersistedInstanceOf(Class, EntityManager)
-     */
-    protected Optional<ENTITY> selectRandomEntityInstance() {
-        return __Persistence_Test_Utils.selectRandom(entityManager(), entityClass);
+//    /**
+//     * Returns new persisted instance of {@link #entityClass}.
+//     *
+//     * @return new persisted instance of {@link #entityClass}.
+//     * @see __MappedEntity_Persister_Utils#newPersistedInstanceOf(Class, EntityManager)
+//     */
+//    protected Optional<ENTITY> selectRandomEntityInstance() {
+//        return applyEntityManagerInTransactionAndRollback(em -> {
+//            return __Persistence_Test_Utils.selectRandom(em, entityClass);
+//        });
+//    }
+
+    protected <R> R applyEntityCountAndRandomIndex(
+            final Function<? super EntityManager, ? extends LongFunction<? extends LongFunction<? extends R>>> function) {
+        Objects.requireNonNull(function, "function is null");
+        return applyEntityManagerInTransactionAndRollback(em -> {
+            return __Persistence_Test_Utils.applyCountAndRandomIndex(
+                    em,
+                    entityClass,
+                    c -> i -> {
+                        return function.apply(em).apply(c).apply(i);
+                    }
+            );
+        });
     }
 
-    protected <R> R applyEntityCountAndRandomIndex(final LongFunction<? extends LongFunction<? extends R>> function) {
-        return __Persistence_Test_Utils.applyCountAndRandomIndex(entityManager(), entityClass, function);
+    protected void acceptEntityCountAndRandomIndex(
+            final Function<? super EntityManager, ? extends LongFunction<? extends LongConsumer>> function) {
+        applyEntityCountAndRandomIndex(em -> c -> i -> {
+            function.apply(em).apply(c).accept(i);
+            return null;
+        });
     }
 
     // --------------------------------------------------------------------------------------------------- super.idClass
@@ -121,7 +141,7 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
         return function.apply(entityManagerFactory());
     }
 
-    protected void acceptEntityManagerFactory(final Consumer<? super EntityManagerFactory> consumer) {
+    private void acceptEntityManagerFactory(final Consumer<? super EntityManagerFactory> consumer) {
         Objects.requireNonNull(consumer, "consumer is null");
         applyEntityManagerFactory(emf -> {
             consumer.accept(emf);
@@ -130,16 +150,18 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
     }
 
     // --------------------------------------------------------------------------------------------------- entityManager
-    protected EntityManager entityManager() {
+    private EntityManager entityManager() {
         return entityManagerProxy();
     }
 
-    protected <R> R applyEntityManager(final Function<? super EntityManager, ? extends R> function) {
+    //    protected
+    private <R> R applyEntityManager(final Function<? super EntityManager, ? extends R> function) {
         Objects.requireNonNull(function, "function is null");
         return function.apply(entityManager());
     }
 
-    protected void acceptEntityManager(final Consumer<? super EntityManager> consumer) {
+    //    protected
+    private void acceptEntityManager(final Consumer<? super EntityManager> consumer) {
         Objects.requireNonNull(consumer, "consumer is null");
         applyEntityManager(em -> {
             consumer.accept(em);
@@ -147,13 +169,15 @@ public abstract class __MappedEntity_PersistenceIT<ENTITY extends __MappedEntity
         });
     }
 
-    protected <R> R applyEntityManagerInTransaction(final Function<? super EntityManager, ? extends R> function,
-                                                    final boolean rollback) {
+    //    protected
+    private <R> R applyEntityManagerInTransaction(final Function<? super EntityManager, ? extends R> function,
+                                                  final boolean rollback) {
         return __Persistence_Test_Utils.applyEntityManagerInTransaction(entityManager(), function, rollback);
     }
 
-    protected void acceptEntityManagerInTransaction(final Consumer<? super EntityManager> consumer,
-                                                    final boolean rollback) {
+    //    protected
+    private void acceptEntityManagerInTransaction(final Consumer<? super EntityManager> consumer,
+                                                  final boolean rollback) {
         applyEntityManagerInTransaction(
                 em -> {
                     consumer.accept(em);

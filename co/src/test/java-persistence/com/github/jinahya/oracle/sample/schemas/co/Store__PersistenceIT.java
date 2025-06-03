@@ -37,7 +37,7 @@ class Store__PersistenceIT extends _MappedEntity_PersistenceIT<Store> {
                 // --------------------------------------------------------------------------------------------------- given
                 final var storeName = "unknown";
                 // ----------------------------------------------------------------------------------------------- when/then
-                acceptEntityManager(em -> {
+                acceptEntityManagerInTransactionAndRollback(em -> {
                     assertThatThrownBy(() -> {
                         em.createNamedQuery("Store.selectSingleWhereStoreNameEqual", Store.class)
                                 .setParameter("storeName", storeName)
@@ -51,7 +51,7 @@ class Store__PersistenceIT extends _MappedEntity_PersistenceIT<Store> {
                 // --------------------------------------------------------------------------------------------------- given
                 final var storeName = "Online";
                 // ---------------------------------------------------------------------------------------------------- when
-                final var single = applyEntityManager(em -> {
+                final var single = applyEntityManagerInTransactionAndRollback(em -> {
                     return em.createNamedQuery("Store.selectSingleWhereStoreNameEqual", Store.class)
                             .setParameter("storeName", storeName)
                             .getSingleResult();
@@ -69,7 +69,7 @@ class Store__PersistenceIT extends _MappedEntity_PersistenceIT<Store> {
                 // ----------------------------------------------------------------------------------------------- given
                 final var storeName = "unknown";
                 // ------------------------------------------------------------------------------------------------ when
-                acceptEntityManager(em -> {
+                acceptEntityManagerInTransactionAndRollback(em -> {
                     assertThatThrownBy(() -> {
                         em.createQuery("SELECT e FROM Store AS e WHERE e.storeName = :storeName", Store.class)
                                 .setParameter("storeName", storeName)
@@ -83,7 +83,7 @@ class Store__PersistenceIT extends _MappedEntity_PersistenceIT<Store> {
                 // ----------------------------------------------------------------------------------------------- given
                 final var storeName = "Online";
                 // ------------------------------------------------------------------------------------------------ when
-                final var single = applyEntityManager(em -> {
+                final var single = applyEntityManagerInTransactionAndRollback(em -> {
                     return em.createQuery("SELECT e FROM Store AS e WHERE e.storeName = :storeName", Store.class)
                             .setParameter("storeName", storeName)
                             .getSingleResult();
@@ -101,7 +101,7 @@ class Store__PersistenceIT extends _MappedEntity_PersistenceIT<Store> {
                 // ----------------------------------------------------------------------------------------------- given
                 final var storeName = "unknown";
                 // -------------------------------------------------------------------------------------------- when/then
-                acceptEntityManager(em -> {
+                acceptEntityManagerInTransactionAndRollback(em -> {
                     final var builder = em.getCriteriaBuilder();
                     final var criteria = builder.createQuery(Store.class);
                     final var root = criteria.from(Store.class);
@@ -118,7 +118,7 @@ class Store__PersistenceIT extends _MappedEntity_PersistenceIT<Store> {
                 // ----------------------------------------------------------------------------------------------- given
                 final var storeName = "Online";
                 // ------------------------------------------------------------------------------------------------ when
-                final var single = applyEntityManager(em -> {
+                final var single = applyEntityManagerInTransactionAndRollback(em -> {
                     final var builder = em.getCriteriaBuilder();
                     final var criteria = builder.createQuery(Store.class);
                     final var root = criteria.from(Store.class);
@@ -143,7 +143,7 @@ class Store__PersistenceIT extends _MappedEntity_PersistenceIT<Store> {
                 // ----------------------------------------------------------------------------------------------- given
                 final var storeNamePattern = "%a%";
                 // ------------------------------------------------------------------------------------------------ when
-                final var list = applyEntityManager(em -> {
+                final var list = applyEntityManagerInTransactionAndRollback(em -> {
                     return em.createNamedQuery("Store.selectListWhereStoreNameLike", Store.class)
                             .setParameter("storeNamePattern", storeNamePattern)
                             .getResultList();
@@ -170,7 +170,7 @@ class Store__PersistenceIT extends _MappedEntity_PersistenceIT<Store> {
                 // ----------------------------------------------------------------------------------------------- given
                 final var storeNamePattern = "%a%";
                 // ------------------------------------------------------------------------------------------------ when
-                final var list = applyEntityManager(em -> {
+                final var list = applyEntityManagerInTransactionAndRollback(em -> {
                     return em.createQuery("SELECT e FROM Store AS e WHERE e.storeName LIKE :storeNamePattern",
                                           Store.class)
                             .setParameter("storeNamePattern", storeNamePattern)
@@ -198,7 +198,7 @@ class Store__PersistenceIT extends _MappedEntity_PersistenceIT<Store> {
                 // ----------------------------------------------------------------------------------------------- given
                 final var storeNamePattern = "%a%";
                 // ------------------------------------------------------------------------------------------------ when
-                final var list = applyEntityManager(em -> {
+                final var list = applyEntityManagerInTransactionAndRollback(em -> {
                     final var builder = em.getCriteriaBuilder();
                     final var criteria = builder.createQuery(Store.class);
                     final var root = criteria.from(Store.class);
@@ -235,7 +235,7 @@ class Store__PersistenceIT extends _MappedEntity_PersistenceIT<Store> {
                         "San Francisco"
                 );
                 // ------------------------------------------------------------------------------------------------ when
-                final var list = applyEntityManager(em -> {
+                final var list = applyEntityManagerInTransactionAndRollback(em -> {
                     return em.createNamedQuery("Store.selectListWhereStoreNameIn", Store.class)
                             .setParameter("storeNames", storeNames)
                             .getResultList();
@@ -258,7 +258,7 @@ class Store__PersistenceIT extends _MappedEntity_PersistenceIT<Store> {
                         "San Francisco"
                 );
                 // ------------------------------------------------------------------------------------------------ when
-                final var list = applyEntityManager(em -> {
+                final var list = applyEntityManagerInTransactionAndRollback(em -> {
                     return em.createQuery("SELECT e FROM Store AS e WHERE e.storeName IN :storeNames",
                                           Store.class)
                             .setParameter("storeNames", storeNames)
@@ -282,7 +282,7 @@ class Store__PersistenceIT extends _MappedEntity_PersistenceIT<Store> {
                         "San Francisco"
                 );
                 // ------------------------------------------------------------------------------------------------ when
-                final var list = applyEntityManager(em -> {
+                final var list = applyEntityManagerInTransactionAndRollback(em -> {
                     final var builder = em.getCriteriaBuilder();
                     final var criteria = builder.createQuery(Store.class);
                     final var root = criteria.from(Store.class);

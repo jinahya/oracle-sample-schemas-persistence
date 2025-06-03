@@ -1,11 +1,14 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
+import com.github.jinahya.oracle.sample.schemas.__AttributeEnum;
+import com.github.jinahya.oracle.sample.schemas.__AttributeEnumConverter;
 import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Converter;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EnumType;
@@ -25,16 +28,18 @@ import jakarta.validation.constraints.NotNull;
 
 import java.io.Serial;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
+import java.util.Optional;
 
-/// An entity class for mapping {@value Order#TABLE_NAMe} table.
+/// An entity class for mapping {@value Order#TABLE_NAME} table.
 ///
 /// @author Jin Kwon &lt;onacit_at_gmail.com&gt;
 @NamedQuery(
@@ -52,20 +57,30 @@ import java.util.Set;
                 WHERE e.customer = :customer"""
 )
 @Entity
-@Table(name = Order.TABLE_NAMe)
+@Table(name = Order.TABLE_NAME)
 public class Order extends __MappedEntity<Order, Long> {
 
     @Serial
     private static final long serialVersionUID = 6871992783901039564L;
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static final String TABLE_NAMe = "ORDERS";
+
+    /**
+     * The name of the database table to which this entity class maps. The value is {@value}.
+     */
+    public static final String TABLE_NAME = "ORDERS";
 
     // -------------------------------------------------------------------------------------------------------- ORDER_ID
+
+    /**
+     * The name of the table column to which the {@link Order_#orderId orderId} attribute maps. The value is {@value}.
+     */
     public static final String COLUMN_NAME_ORDER_ID = "ORDER_ID";
 
     // ------------------------------------------------------------------------------------------------------- ORDER_TMS
     public static final String COLUMN_NAME_ORDER_TMS = "ORDER_TMS";
+
+    public static final int FRACTIONAL_SECONDS_PRECISION_ORDER_TMS = 6;
 
     // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
     public static final String COLUMN_NAME_CUSTOMER_ID = "CUSTOMER_ID";
@@ -73,9 +88,11 @@ public class Order extends __MappedEntity<Order, Long> {
     // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
     public static final String COLUMN_NAME_ORDER_STATUS = "ORDER_STATUS";
 
+    public static final int COLUMN_LENGTH_ORDER_STATUS = 10;
+
     public static final String COLUMN_VALUE_ORDER_STATUS_CANCELLED = "CANCELLED";
 
-    public static final String COLUMN_VALUE_ORDER_STATUS_COMPLETED = "COMPLETE";
+    public static final String COLUMN_VALUE_ORDER_STATUS_COMPLETE = "COMPLETE";
 
     public static final String COLUMN_VALUE_ORDER_STATUS_OPEN = "OPEN";
 
@@ -88,7 +105,7 @@ public class Order extends __MappedEntity<Order, Long> {
     /// An enum for {@link Order_#orderStatus orderStatus} attribute.
     ///
     /// @author Jin Kwon &lt;onacit_at_gmail.com&gt;
-    public enum OrderStatus {
+    public enum OrderStatus implements __AttributeEnum.__OfString<OrderStatus> {
 
         /// .
         OPEN,
@@ -112,21 +129,34 @@ public class Order extends __MappedEntity<Order, Long> {
         /// .
         // 완료?
         COMPLETE;
+
+        // -------------------------------------------------------------------------------------------------------------
+        public static OrderStatus valueOfAttributeValue(final String attributeValue) {
+            return __OfString.valueOfAttributeValue(OrderStatus.class, attributeValue);
+        }
     }
 
-    static final Map<OrderStatus, Set<OrderStatus>> TRANSITIONS = Map.of(
-            OrderStatus.OPEN, Collections.unmodifiableSet(EnumSet.of(OrderStatus.PAID, OrderStatus.CANCELLED)),
-            OrderStatus.CANCELLED, Collections.unmodifiableSet(EnumSet.noneOf(OrderStatus.class)),
-            OrderStatus.PAID, Collections.unmodifiableSet(EnumSet.of(OrderStatus.REFUNDED, OrderStatus.SHIPPED)),
-            OrderStatus.REFUNDED, Collections.unmodifiableSet(EnumSet.noneOf(OrderStatus.class)),
-            OrderStatus.SHIPPED, Collections.unmodifiableSet(EnumSet.of(OrderStatus.COMPLETE)),
-            OrderStatus.COMPLETE, Collections.unmodifiableSet(EnumSet.noneOf(OrderStatus.class))
-    );
+    @Converter(autoApply = true)
+    public class OrderStatusConverter extends __AttributeEnumConverter.__OfString<OrderStatus> {
 
-    static boolean isFinalStage(final OrderStatus orderStatus) {
-        Objects.requireNonNull(orderStatus, "orderStatus is null");
-        return TRANSITIONS.get(orderStatus).isEmpty();
+        OrderStatusConverter() {
+            super(OrderStatus.class);
+        }
     }
+
+//    static final Map<OrderStatus, Set<OrderStatus>> TRANSITIONS = Map.of(
+//            OrderStatus.OPEN, Collections.unmodifiableSet(EnumSet.of(OrderStatus.PAID, OrderStatus.CANCELLED)),
+//            OrderStatus.CANCELLED, Collections.unmodifiableSet(EnumSet.noneOf(OrderStatus.class)),
+//            OrderStatus.PAID, Collections.unmodifiableSet(EnumSet.of(OrderStatus.REFUNDED, OrderStatus.SHIPPED)),
+//            OrderStatus.REFUNDED, Collections.unmodifiableSet(EnumSet.noneOf(OrderStatus.class)),
+//            OrderStatus.SHIPPED, Collections.unmodifiableSet(EnumSet.of(OrderStatus.COMPLETE)),
+//            OrderStatus.COMPLETE, Collections.unmodifiableSet(EnumSet.noneOf(OrderStatus.class))
+//    );
+//
+//    static boolean isFinalStage(final OrderStatus orderStatus) {
+//        Objects.requireNonNull(orderStatus, "orderStatus is null");
+//        return TRANSITIONS.get(orderStatus).isEmpty();
+//    }
 
     // -------------------------------------------------------------------------------------------------------- STORE_ID
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
@@ -177,45 +207,121 @@ public class Order extends __MappedEntity<Order, Long> {
     }
 
     // -------------------------------------------------------------------------------------------------------- orderTms
+    @Nonnull
     public LocalDateTime getOrderTms() {
         return orderTms;
     }
 
-    public void setOrderTms(final LocalDateTime orderTms) {
+    public void setOrderTms(@Nonnull final LocalDateTime orderTms) {
         this.orderTms = orderTms;
     }
 
+    public ZonedDateTime getOrderTmsAsZonedDatetime(final ZoneId zone) {
+        return Optional.ofNullable(getOrderTms())
+                .map(ot -> ot.atZone(Objects.requireNonNull(zone, "zone is null")))
+                .orElse(null);
+    }
+
+    @Transient
+    public void setOrderTmsFromZonedDateTime(final ZonedDateTime zonedDateTime) {
+        setOrderTms(
+                Optional.ofNullable(zonedDateTime)
+                        .map(ZonedDateTime::toLocalDateTime)
+                        .orElse(null)
+        );
+    }
+
+    public OffsetDateTime getOrderTmsAsOffsetDatetime(final ZoneOffset offset) {
+        return Optional.ofNullable(getOrderTms())
+                .map(ot -> ot.atOffset(Objects.requireNonNull(offset, "offset is null")))
+                .orElse(null);
+    }
+
+    @Transient
+    public void setOrderTmsFromOffsetDateTime(final OffsetDateTime offsetDateTime) {
+        setOrderTms(
+                Optional.ofNullable(offsetDateTime)
+                        .map(OffsetDateTime::toLocalDateTime)
+                        .orElse(null)
+        );
+    }
+
+    /**
+     * Returns current value of {@link Order_#orderTms orderTms} attribute as an {@link Instant instant} at specified
+     * zone.
+     *
+     * @param zone the zone.
+     * @return {@link Order_#orderTms orderTms} attribute as an {@link Instant instant} at {@code zone}.
+     */
+    public Instant getOrderTmsAsInstant(final ZoneId zone) {
+        return Optional.ofNullable(getOrderTmsAsZonedDatetime(zone))
+                .map(ZonedDateTime::toInstant)
+                .orElse(null);
+    }
+
+    /**
+     * Replaces current value of {@link Order_#orderTms orderTms} attribute with specified instant at specified zone.
+     *
+     * @param instant the instant.
+     * @param zone    the zone.
+     */
+    public void setOrderTmsFromInstant(final Instant instant, final ZoneId zone) {
+        setOrderTmsFromZonedDateTime(
+                Optional.ofNullable(instant)
+                        .map(v -> v.atZone(Objects.requireNonNull(zone, "zone is null")))
+                        .orElse(null)
+        );
+    }
+
+    @Transient
+    public Instant getOrderTmsAsInstant(final ZoneOffset offset) {
+        return Optional.ofNullable(getOrderTmsAsOffsetDatetime(offset))
+                .map(OffsetDateTime::toInstant)
+                .orElse(null);
+    }
+
+    public void setOrderTmsFromInstant(final Instant instant, final ZoneOffset offset) {
+        setOrderTmsFromOffsetDateTime(
+                Optional.ofNullable(instant)
+                        .map(v -> v.atOffset(Objects.requireNonNull(offset, "offset is null")))
+                        .orElse(null)
+        );
+    }
+
     // -------------------------------------------------------------------------------------------------------- customer
+    @Nonnull
     public Customer getCustomer() {
         return customer;
     }
 
-    public void setCustomer(final Customer customer) {
+    public void setCustomer(@Nonnull final Customer customer) {
         this.customer = customer;
     }
 
     // ----------------------------------------------------------------------------------------------------- orderStatus
+    @Nonnull
     public OrderStatus getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(final OrderStatus orderStatus) {
-        if (this.orderStatus != null && orderStatus != null && this.orderStatus != orderStatus) {
-            final var transitions = TRANSITIONS.get(this.orderStatus);
-            if (!transitions.contains(orderStatus)) {
-                throw new IllegalArgumentException(
-                        "invalid transition from " + this.orderStatus + " to " + orderStatus);
-            }
-        }
+    public void setOrderStatus(@Nonnull final OrderStatus orderStatus) {
+//        if (this.orderStatus != null && orderStatus != null && this.orderStatus != orderStatus) {
+//            final var transitions = TRANSITIONS.get(this.orderStatus);
+//            if (!transitions.contains(orderStatus)) {
+//                throw new IllegalArgumentException(
+//                        "invalid transition from " + this.orderStatus + " to " + orderStatus);
+//            }
+//        }
         this.orderStatus = orderStatus;
     }
 
     // --------------------------------------------------------------------------------------------------------- storeId
+    @Nonnull
     public Store getStore() {
         return store;
     }
 
-    public void setStore(final Store store) {
+    public void setStore(@Nonnull final Store store) {
         this.store = store;
     }
 
@@ -227,23 +333,27 @@ public class Order extends __MappedEntity<Order, Long> {
             updatable = false)
     private Long orderId;
 
+    @Nonnull
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_ORDER_TMS, nullable = false, insertable = true, updatable = true)
-//    private Instant orderTms;
+    @Column(name = COLUMN_NAME_ORDER_TMS, nullable = false, insertable = true, updatable = false)
     private LocalDateTime orderTms;
 
+    @Nonnull
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
     private Customer customer;
 
+    @Nonnull
     @NotNull
     @Enumerated(EnumType.STRING)
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_ORDER_STATUS, nullable = false, insertable = true, updatable = true, length = 10)
-    private OrderStatus orderStatus = OrderStatus.OPEN;
+    @Column(name = COLUMN_NAME_ORDER_STATUS, nullable = false, insertable = true, updatable = true,
+            length = COLUMN_LENGTH_ORDER_STATUS)
+    private OrderStatus orderStatus;
 
+    @Nonnull
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
@@ -268,6 +378,7 @@ public class Order extends __MappedEntity<Order, Long> {
     private List<@Valid @NotNull OrderItem> orderItems;
 
     // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * Returns the total price of all order items.
      *

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
-public final class __JavaUtilLocale_Test_Utils {
+public final class __Util_Locale_Test_Utils {
 
     private static final List<Locale> AVAILABLE_LOCALES = Locale.availableLocales().toList();
 
@@ -16,7 +16,7 @@ public final class __JavaUtilLocale_Test_Utils {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    private __JavaUtilLocale_Test_Utils() {
+    private __Util_Locale_Test_Utils() {
         throw new AssertionError("instantiation is not allowed");
     }
 }

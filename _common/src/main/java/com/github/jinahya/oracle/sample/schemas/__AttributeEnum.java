@@ -12,6 +12,11 @@ public interface __AttributeEnum<E extends Enum<E> & __AttributeEnum<E, ATTRIBUT
 
     interface __OfString<E extends Enum<E> & __OfString<E>> extends __AttributeEnum<E, String> {
 
+        static <E extends Enum<E> & __OfString<E>> E valueOfAttributeValue(
+                final Class<? extends E> enumClass, final String attributeValue) {
+            return __AttributeEnum.valueOfAttributeValue(enumClass, attributeValue);
+        }
+
         @Override
         @SuppressWarnings({"unchecked"})
         default String getAttributeValue() {

@@ -1,4 +1,5 @@
 --
+
 -- ------------------------------------------------------------------------------------------------------------ ORDER_ID
 
 -- -------------------------------------------------------------------------------------------------------- LINE_ITEM_ID
@@ -53,4 +54,18 @@ FROM (SELECT oi.SHIPMENT_ID oisi, s.SHIPMENT_ID ssi, s.SHIPMENT_STATUS sss
       FROM ORDER_ITEMS oi
                LEFT OUTER JOIN SHIPMENTS s ON oi.SHIPMENT_ID = s.SHIPMENT_ID
       WHERE oi.SHIPMENT_ID IS NOT NULL) sub
+;
+
+SELECT oi.SHIPMENT_ID, o.ORDER_ID, o.CUSTOMER_ID, s.SHIPMENT_ID, s.SHIPMENT_STATUS, s.CUSTOMER_ID
+FROM ORDER_ITEMS oi
+         LEFT OUTER JOIN ORDERS o ON oi.ORDER_ID = o.ORDER_ID
+         LEFT OUTER JOIN SHIPMENTS s ON oi.SHIPMENT_ID = s.SHIPMENT_ID
+WHERE o.CUSTOMER_ID <> s.CUSTOMER_ID
+;
+
+SELECT oi.SHIPMENT_ID, o.ORDER_ID, o.STORE_ID, s.SHIPMENT_ID, s.SHIPMENT_STATUS, s.STORE_ID
+FROM ORDER_ITEMS oi
+         LEFT OUTER JOIN ORDERS o ON oi.ORDER_ID = o.ORDER_ID
+         LEFT OUTER JOIN SHIPMENTS s ON oi.SHIPMENT_ID = s.SHIPMENT_ID
+WHERE o.STORE_ID <> s.STORE_ID
 ;
