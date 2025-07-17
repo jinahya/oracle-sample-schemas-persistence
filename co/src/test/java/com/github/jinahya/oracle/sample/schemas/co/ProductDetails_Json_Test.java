@@ -2,7 +2,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.jinahya.oracle.sample.schemas.__Validation_Test_Utils;
+import com.github.jinahya.persistence.mapped.test.___JakartaValidationTestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -32,7 +32,7 @@ class ProductDetails_Json_Test {
                 }
                 final var value = objectMapper.readValue(json, ProductDetails.class);
                 log.debug("value: {}", value);
-                __Validation_Test_Utils.requireValid(value);
+                ___JakartaValidationTestUtils.requireValid(value);
                 assertThat(value.unknownProperties()).isEmpty();
                 Optional.ofNullable(value.getReviews()).ifPresent(l -> {
                     l.forEach(e -> {
@@ -60,7 +60,7 @@ class ProductDetails_Json_Test {
                         .isNotNull();
                 final var value = ProductDetails_TestUtils.from(resource, new ObjectMapper());
                 log.debug("value: {}", value);
-                __Validation_Test_Utils.requireValid(value);
+                ___JakartaValidationTestUtils.requireValid(value);
             }
         }
     }

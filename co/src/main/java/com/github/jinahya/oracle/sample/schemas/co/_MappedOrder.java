@@ -39,7 +39,7 @@ import java.util.Optional;
 @MappedSuperclass
 public class _MappedOrder<
         SELF extends _MappedOrder<SELF, ORDER_ITEM, ORDER_ITEM_ID>,
-        ORDER_ITEM extends _MappedOrderItem<ORDER_ITEM, ORDER_ITEM_ID>,
+        ORDER_ITEM extends _MappedOrderItem<ORDER_ITEM, ORDER_ITEM_ID, ?, ?, ?>,
         ORDER_ITEM_ID extends _MappedOrderItemId<ORDER_ITEM_ID>
         >
         extends __MappedEntity<SELF, Long> {
@@ -165,7 +165,7 @@ public class _MappedOrder<
 
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof _MappedOrder<?> that)) {
+        if (!(obj instanceof _MappedOrder<?, ?, ?>)) {
             return false;
         }
         return super.equals(obj);

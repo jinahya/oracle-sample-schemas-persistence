@@ -1,38 +1,38 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.___Base_Randomizer;
+import com.github.jinahya.persistence.mapped.test.___Randomizer;
+import jakarta.annotation.Nonnull;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-import java.util.List;
-
-class ProductDetails_Randomizer extends ___Base_Randomizer<ProductDetails> {
+class ProductDetails_Randomizer extends ___Randomizer<ProductDetails> {
 
     ProductDetails_Randomizer() {
         super(ProductDetails.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
     @Override
-    protected DataProviderStrategy dataProviderStrategy() {
-        return super.dataProviderStrategy();
+    protected DataProviderStrategy getDataProviderStrategy() {
+        return super.getDataProviderStrategy();
+    }
+
+    @Nonnull
+    @Override
+    protected PodamFactory getPodamFactory() {
+        return super.getPodamFactory();
     }
 
     @Override
-    protected PodamFactory podamFactory() {
-        return super.podamFactory();
+    protected ClassInfoStrategy getClassInfoStrategy() {
+        return super.getClassInfoStrategy();
     }
 
+    @Nonnull
     @Override
-    protected ClassInfoStrategy classInfoStrategy() {
-        return super.classInfoStrategy();
-    }
-
-    @Override
-    protected ProductDetails manufacturePojo() {
-        final var manufacturedPojo = super.manufacturePojo();
-        manufacturedPojo.setSizes(List.of(1, 2));
-        return manufacturedPojo;
+    public ProductDetails get() {
+        return super.get();
     }
 }

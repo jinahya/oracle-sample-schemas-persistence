@@ -5,7 +5,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = _MappedOrderItem.TABLE_NAME)
-public class OrderItem extends _MappedOrderItem<OrderItem, OrderItemId> {
+public class OrderItem extends _MappedOrderItem<OrderItem, OrderItemId, Order, Product, Shipment> {
 
     protected OrderItem() {
         super();

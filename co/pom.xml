@@ -21,13 +21,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.github.jinahya</groupId>
-      <artifactId>_common</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-      <classifier>tests</classifier>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>io.github.jinahya</groupId>
       <artifactId>jinahya-persistence-mapped</artifactId>
       <scope>compile</scope>

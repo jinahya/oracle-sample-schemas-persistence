@@ -23,6 +23,6 @@ import jakarta.persistence.Table;
 )
 @Entity
 @Table(name = _MappedOrder.TABLE_NAME)
-public class Order extends _MappedOrder<Order, OrderItem> {
+public class Order extends _MappedOrder<Order, OrderItem, OrderItemId> {
 
 }

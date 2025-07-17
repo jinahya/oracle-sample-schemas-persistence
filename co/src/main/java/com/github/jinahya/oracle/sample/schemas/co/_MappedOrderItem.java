@@ -29,9 +29,11 @@ import java.util.function.Supplier;
 @Entity
 @Table(name = _MappedOrderItem.TABLE_NAME)
 abstract class _MappedOrderItem<
-        SELF extends _MappedOrderItem<SELF, ID, ORDER>,
+        SELF extends _MappedOrderItem<SELF, ID, ORDER, PRODUCT, SHIPMENT>,
         ID extends _MappedOrderItemId<ID>,
-        ORDER extends _MappedOrder<ORDER, SELF, ID>
+        ORDER extends _MappedOrder<ORDER, SELF, ID>,
+        PRODUCT extends _MappedProduct<PRODUCT>,
+        SHIPMENT extends _MappedShipment<SHIPMENT>
         >
         extends __MappedEntity<SELF, ID> {
 
@@ -91,7 +93,7 @@ abstract class _MappedOrderItem<
 
     @Override
     public boolean equals(final Object obj) {
-        if (!(obj instanceof _MappedOrderItem<?, ?, ?>)) {
+        if (!(obj instanceof _MappedOrderItem<?, ?, ?, ?, ?>)) {
             return false;
         }
         return super.equals(obj);
@@ -147,20 +149,20 @@ abstract class _MappedOrderItem<
 
     // ----------------------------------------------------------------------------------------------------------- order
     @Nonnull
-    public Order getOrder() {
+    public ORDER getOrder() {
         return order;
     }
 
-    public void setOrder(@Nonnull final Order order) {
+    public void setOrder(@Nonnull final ORDER order) {
         this.order = order;
     }
 
     // --------------------------------------------------------------------------------------------------------- product
-    public Product getProduct() {
+    public PRODUCT getProduct() {
         return product;
     }
 
-    public void setProduct(final Product product) {
+    public void setProduct(final PRODUCT product) {
         this.product = product;
     }
 
@@ -205,11 +207,11 @@ abstract class _MappedOrderItem<
 
     // -------------------------------------------------------------------------------------------------------- shipment
     @Nullable
-    public Shipment getShipment() {
+    public SHIPMENT getShipment() {
         return shipment;
     }
 
-    public void setShipment(@Nullable final Shipment shipment) {
+    public void setShipment(@Nullable final SHIPMENT shipment) {
         this.shipment = shipment;
         Optional.ofNullable(this.shipment).ifPresent(s -> {
             s.setStore(order.getStore());
@@ -228,14 +230,14 @@ abstract class _MappedOrderItem<
     @MapsId(_MappedOrderItemId.ATTRIBUTE_NAME_ORDER_ID)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_ORDER_ID, nullable = false, insertable = true /* EclipseLink */, updatable = false)
-    private Order order;
+    private ORDER order;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = true, updatable = false)
-    private Product product;
+    private PRODUCT product;
 
     @Nonnull
     @DecimalMax(DECIMAL_MAX_UNIT_PRICE)
@@ -257,7 +259,7 @@ abstract class _MappedOrderItem<
     @Nullable
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_SHIPMENT_ID, insertable = true, updatable = true)
-    private Shipment shipment;
+    private SHIPMENT shipment;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Transient

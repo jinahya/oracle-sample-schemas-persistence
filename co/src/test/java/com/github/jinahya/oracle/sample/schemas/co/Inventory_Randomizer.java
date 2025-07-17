@@ -1,38 +1,33 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer;
-import uk.co.jemos.podam.api.ClassInfoStrategy;
+import com.github.jinahya.persistence.mapped.test.__MappedEntityRandomizer;
+import jakarta.annotation.Nonnull;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-class Inventory_Randomizer extends __MappedEntity_Randomizer<Inventory> {
+class Inventory_Randomizer extends __MappedEntityRandomizer<Inventory, Long> {
 
     Inventory_Randomizer() {
-        super(Inventory.class, "inventoryId");
+        super(Inventory.class, Long.class, "inventoryId");
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    @Nonnull
     @Override
-    protected DataProviderStrategy dataProviderStrategy() {
-        return super.dataProviderStrategy();
+    protected DataProviderStrategy getDataProviderStrategy() {
+        return super.getDataProviderStrategy();
     }
 
+    @Nonnull
     @Override
-    protected PodamFactory podamFactory() {
-        return super.podamFactory();
+    protected PodamFactory getPodamFactory() {
+        return super.getPodamFactory();
     }
 
+    @Nonnull
     @Override
-    protected ClassInfoStrategy classInfoStrategy() {
-        return super.classInfoStrategy();
-    }
-
-    @Override
-    protected Inventory manufacturePojo() {
-        final var pojo = super.manufacturePojo();
-        assertThat(pojo.getInventoryId()).isNull();
-        return pojo;
+    public Inventory get() {
+        return super.get();
     }
 }

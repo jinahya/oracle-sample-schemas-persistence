@@ -1,8 +1,8 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.jinahya.oracle.sample.schemas.__Validation_Test_Utils;
-import com.github.jinahya.oracle.sample.schemas.___Base_Randomizer_Utils;
+import com.github.jinahya.persistence.mapped.test.___JakartaValidationTestUtils;
+import com.github.jinahya.persistence.mapped.test.___RandomizerUtils;
 import lombok.extern.slf4j.Slf4j;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
@@ -43,7 +43,7 @@ class ProductDetails_Test {
         @Test
         void _NotBlank_NewRandomizedEntityInstance() {
             // --------------------------------------------------------------------------------------------------- given
-            final var randomizedInstance = ___Base_Randomizer_Utils.newRandomizedInstanceOf(ProductDetails.class);
+            final var randomizedInstance = ___RandomizerUtils.newRandomizedInstanceOf(ProductDetails.class);
             assumeThat(randomizedInstance).isNotNull();
             assumeFalse(
                     randomizedInstance == null,
@@ -113,8 +113,7 @@ class ProductDetails_Test {
         void accessors__NewRandomizedEntityInstance()
                 throws IntrospectionException, InvocationTargetException, IllegalAccessException {
             final var randomizedInstance =
-                    ___Base_Randomizer_Utils.newRandomizedInstanceOf(ProductDetails.class)
-                            .orElse(null);
+                    ___RandomizerUtils.newRandomizedInstanceOf(ProductDetails.class).orElse(null);
             assumeThat(randomizedInstance).isNotNull();
             assumeFalse(
                     randomizedInstance == null,
@@ -141,7 +140,7 @@ class ProductDetails_Test {
                         .isNotNull();
                 final var value = ProductDetails_TestUtils.from(resource, new ObjectMapper());
                 log.debug("value: {}", value);
-                __Validation_Test_Utils.requireValid(value);
+                ___JakartaValidationTestUtils.requireValid(value);
             }
         }
     }
