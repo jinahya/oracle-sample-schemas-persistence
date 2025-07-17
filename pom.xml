@@ -18,7 +18,6 @@
   </organization>
 
   <modules>
-    <module>_common</module>
     <module>co</module>
     <module>hr</module>
     <module>sh</module>
@@ -58,6 +57,7 @@
     <version.maven-failsafe>${version.maven-surefire}</version.maven-failsafe>
     <!--    <version.maven-surefire>3.2.5</version.maven-surefire>-->
     <version.maven-surefire>3.5.3</version.maven-surefire>
+    <version.jinahya-persistence>0.0.2-SNAPSHOT</version.jinahya-persistence>
     <version.mysql-connector-j>8.3.0</version.mysql-connector-j>
     <!-- https://search.maven.org/artifact/org.eclipse.persistence/eclipselink -->
     <!-- https://central.sonatype.com/artifact/org.eclipse.persistence/eclipselink/versions -->
@@ -86,6 +86,26 @@
         <version>2.19.0</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.github.jinahya</groupId>
+        <artifactId>jinahya-persistence-mapped</artifactId>
+        <version>${version.jinahya-persistence}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.jinahya</groupId>
+        <artifactId>jinahya-persistence-mapped-test</artifactId>
+        <version>${version.jinahya-persistence}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.jinahya</groupId>
+        <artifactId>jinahya-persistence-more</artifactId>
+        <version>${version.jinahya-persistence}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.jinahya</groupId>
+        <artifactId>jinahya-persistence-more-test</artifactId>
+        <version>${version.jinahya-persistence}</version>
       </dependency>
       <dependency><!-- https://central.sonatype.com/artifact/jakarta.platform/jakarta.jakartaee-bom/versions -->
         <groupId>jakarta.platform</groupId>
@@ -132,13 +152,13 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
-<!--    <dependency>-->
-<!--      <groupId>com.oracle.database.jdbc</groupId>-->
-<!--      <artifactId>ojdbc11</artifactId>-->
-<!--      &lt;!&ndash; https://central.sonatype.com/artifact/com.oracle.database.jdbc/ojdbc11/versions &ndash;&gt;-->
-<!--      <version>23.8.0.25.04</version>-->
-<!--      <scope>runtime</scope>-->
-<!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>com.oracle.database.jdbc</groupId>-->
+    <!--      <artifactId>ojdbc11</artifactId>-->
+    <!--      &lt;!&ndash; https://central.sonatype.com/artifact/com.oracle.database.jdbc/ojdbc11/versions &ndash;&gt;-->
+    <!--      <version>23.8.0.25.04</version>-->
+    <!--      <scope>runtime</scope>-->
+    <!--    </dependency>-->
     <dependency>
       <groupId>com.oracle.database.jdbc</groupId>
       <artifactId>ojdbc17</artifactId>
@@ -349,12 +369,12 @@
               <artifactId>hibernate-jpamodelgen</artifactId>
               <version>${version.org.hibernate.orm}</version>
             </path>
-<!--            <path>-->
-<!--              <groupId>${groupId.querydsl}</groupId>-->
-<!--              <artifactId>querydsl-apt</artifactId>-->
-<!--              <version>${version.querydsl}</version>-->
-<!--              <classifier>jakarta</classifier>-->
-<!--            </path>-->
+            <!--            <path>-->
+            <!--              <groupId>${groupId.querydsl}</groupId>-->
+            <!--              <artifactId>querydsl-apt</artifactId>-->
+            <!--              <version>${version.querydsl}</version>-->
+            <!--              <classifier>jakarta</classifier>-->
+            <!--            </path>-->
           </annotationProcessorPaths>
           <compilerArgs>
             <arg>-Xlint</arg>

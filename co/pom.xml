@@ -24,13 +24,27 @@
       <groupId>com.github.jinahya</groupId>
       <artifactId>_common</artifactId>
       <version>0.0.1-SNAPSHOT</version>
+      <classifier>tests</classifier>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.github.jinahya</groupId>
+      <artifactId>jinahya-persistence-mapped</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>com.github.jinahya</groupId>
-      <artifactId>_common</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-      <classifier>tests</classifier>
+      <groupId>io.github.jinahya</groupId>
+      <artifactId>jinahya-persistence-mapped-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.github.jinahya</groupId>
+      <artifactId>jinahya-persistence-more</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.github.jinahya</groupId>
+      <artifactId>jinahya-persistence-more-test</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

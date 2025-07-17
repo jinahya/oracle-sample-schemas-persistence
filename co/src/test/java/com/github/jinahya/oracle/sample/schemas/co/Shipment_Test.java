@@ -19,11 +19,11 @@ class Shipment_Test extends __MappedEntity_Test<Shipment, Long> {
                         __MappedEntity_Test_Utils.newEntityInstanceOf(Store.class, 1L),
                         __MappedEntity_Test_Utils.newEntityInstanceOf(Store.class, 2L)
                 )
-                .withPrefabValues(
-                        Customer.class,
-                        __MappedEntity_Test_Utils.newEntityInstanceOf(Customer.class, 1L),
-                        __MappedEntity_Test_Utils.newEntityInstanceOf(Customer.class, 2L)
-                )
+//                .withPrefabValues(
+//                        Customer.class,
+//                        __MappedEntity_Test_Utils.newEntityInstanceOf(Customer.class, 1L),
+//                        __MappedEntity_Test_Utils.newEntityInstanceOf(Customer.class, 2L)
+//                )
                 ;
     }
 }

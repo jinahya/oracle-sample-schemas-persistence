@@ -1,7 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas._MappedEntity;
-import com.github.jinahya.oracle.sample.schemas.__MappedEntityConstants;
+import com.github.jinahya.persistence.mapped.__MappedEntity;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
@@ -57,7 +56,7 @@ import java.util.Objects;
 )
 @Entity
 @Table(name = Store.TABLE_NAME)
-public class Store extends _MappedEntity<Store> {
+public class Store extends __MappedEntity<Store> {
 
     @Serial
     private static final long serialVersionUID = 5174571093186516676L;
