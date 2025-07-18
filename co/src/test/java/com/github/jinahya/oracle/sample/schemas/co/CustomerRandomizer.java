@@ -11,7 +11,7 @@ class CustomerRandomizer extends __MappedEntityRandomizer<Customer, Long> {
 
     // ----------------------------------------------------------------------------------------------------- CONSTRUCTOR
     CustomerRandomizer() {
-        super(Customer.class, Long.class);
+        super(Customer.class, Long.class, "customerId");
     }
 
     // -----------------------------------------------------------------------------------------------------------------

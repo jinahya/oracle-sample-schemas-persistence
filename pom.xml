@@ -62,13 +62,14 @@
     <!-- https://search.maven.org/artifact/org.eclipse.persistence/eclipselink -->
     <!-- https://central.sonatype.com/artifact/org.eclipse.persistence/eclipselink/versions -->
     <!-- https://central.sonatype.com/artifact/org.eclipse.persistence/org.eclipse.persistence.jpa/versions -->
-    <version.org.eclipse.persistence>4.0.7</version.org.eclipse.persistence>
-    <version.org.glassfish.expressly>5.0.0</version.org.glassfish.expressly>
+<!--    <version.org.eclipse.persistence>4.0.7</version.org.eclipse.persistence>-->
+    <version.org.eclipse.persistence>5.0.0-B09</version.org.eclipse.persistence>
+    <!-- https://central.sonatype.com/artifact/org.glassfish.expressly/expressly/versions -->
+    <version.org.glassfish.expressly>6.0.0</version.org.glassfish.expressly>
     <!-- https://central.sonatype.com/artifact/org.hibernate.orm/hibernate-platform/versions -->
-    <!--    <version.org.hibernate.orm>6.2.2.Final</version.org.hibernate.orm>-->
     <version.org.hibernate.orm>7.0.6.Final</version.org.hibernate.orm>
-    <!--    <version.org.hibernate.orm>7.0.0.CR2</version.org.hibernate.orm>-->
-    <version.org.hibernate.validator>8.0.1.Final</version.org.hibernate.validator>
+    <!-- https://central.sonatype.com/artifact/org.hibernate.validator/hibernate-validator/versions -->
+    <version.org.hibernate.validator>9.0.1.Final</version.org.hibernate.validator>
     <!--    <version.org.jboss.weld>4.0.2.Final</version.org.jboss.weld>-->
     <version.org.jboss.weld>5.0.1.Final</version.org.jboss.weld>
     <version.org.jooq>3.19.5</version.org.jooq>
@@ -83,6 +84,12 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <!-- https://central.sonatype.com/artifact/ch.qos.logback/logback-classic/versions -->
+        <version>1.5.18</version>
+      </dependency>
       <dependency>
         <groupId>com.h2database</groupId>
         <artifactId>h2</artifactId>
@@ -118,8 +125,7 @@
       <dependency><!-- https://central.sonatype.com/artifact/jakarta.platform/jakarta.jakartaee-bom/versions -->
         <groupId>jakarta.platform</groupId>
         <artifactId>jakarta.jakartaee-bom</artifactId>
-        <!--        <version>11.0.0</version>-->
-        <version>10.0.0</version>
+        <version>11.0.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -131,7 +137,7 @@
       <dependency>
         <groupId>org.glassfish.expressly</groupId>
         <artifactId>expressly</artifactId>
-        <version>5.0.0</version>
+        <version>${version.org.glassfish.expressly}</version>
       </dependency>
       <dependency>
         <groupId>org.hibernate.orm</groupId>
@@ -253,7 +259,7 @@
     <dependency>
       <groupId>org.glassfish.expressly</groupId>
       <artifactId>expressly</artifactId>
-      <version>6.0.0</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
