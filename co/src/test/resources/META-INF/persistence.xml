@@ -76,16 +76,16 @@
       <!-- eclipselink -->
       <!-- https://wiki.eclipse.org/EclipseLink/Examples/JPA/Logging -->
       <!--      <property name="eclipselink.logging.level" value="FINE"/>-->
+      <property name="eclipselink.ddl-generation" value="none"/>
       <property name="eclipselink.logging.level.sql" value="FINE"/>
       <property name="eclipselink.logging.parameters" value="true"/>
       <!--      <property name="eclipselink.weaving" value="true"/>-->
       <!-- https://wiki.eclipse.org/EclipseLink/Examples/JPA/DDL -->
       <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.OraclePlatform"/>
-      <property name="eclipselink.ddl-generation" value="create-tables"/>
       <!-- hibernate -->
       <!--      <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>-->
       <property name="hibernate.format_sql" value="true"/>
-      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+      <property name="hibernate.hbm2ddl.auto" value="none"/>
       <property name="hibernate.highlight_sql" value="true"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.use_sql_comment" value="true"/>
