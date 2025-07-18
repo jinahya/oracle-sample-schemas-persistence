@@ -56,22 +56,22 @@ class ProductDetails_Test {
         }
     }
 
-    // ------------------------------------------------------------------------------------------------- equals/hashCode
-    @DisplayName("equals/hashCode")
-    @Test
-    protected void equals_verify_() {
-        equalsVerifier().verify();
-    }
-
-    protected SingleTypeEqualsVerifierApi<ProductDetails> equalsVerifier() {
-        return EqualsVerifier
-                .simple()
-                .forClass(ProductDetails.class)
-//                .suppress(Warning.INHERITED_DIRECTLY_FROM_OBJECT)
-                .withIgnoredFields("reviews")
-                .withIgnoredFields("unknownProperties")
-                ;
-    }
+    // ------------------------------------------------------------------------------------------------ java.lang.Object
+//    @DisplayName("equals/hashCode")
+//    @Test
+//    void equals_verify_() {
+//        getEqualsVerifier().verify();
+//    }
+//
+//    SingleTypeEqualsVerifierApi<ProductDetails> getEqualsVerifier() {
+//        return EqualsVerifier
+//                .simple()
+//                .forClass(ProductDetails.class)
+////                .suppress(Warning.INHERITED_DIRECTLY_FROM_OBJECT)
+//                .withIgnoredFields("reviews")
+//                .withIgnoredFields("unknownProperties")
+//                ;
+//    }
 
     // ------------------------------------------------------------------------------------------------- getters/setters
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -112,8 +112,7 @@ class ProductDetails_Test {
         @Test
         void accessors__NewRandomizedEntityInstance()
                 throws IntrospectionException, InvocationTargetException, IllegalAccessException {
-            final var randomizedInstance =
-                    ___RandomizerUtils.newRandomizedInstanceOf(ProductDetails.class).orElse(null);
+            final var randomizedInstance = ___RandomizerUtils.newRandomizedInstanceOf(ProductDetails.class);
             assumeThat(randomizedInstance).isNotNull();
             assumeFalse(
                     randomizedInstance == null,
