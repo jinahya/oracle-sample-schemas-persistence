@@ -30,6 +30,12 @@
     <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
     <class>com.github.jinahya.oracle.sample.schemas.co.Customer</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.Inventory</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.Order</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.OrderItem</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.Product</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.Shipment</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.Store</class>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
     <properties>
@@ -65,6 +71,12 @@
     <!--    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
     <class>com.github.jinahya.oracle.sample.schemas.co.Customer</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.Inventory</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.Order</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.OrderItem</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.Product</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.Shipment</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.Store</class>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
     <properties>

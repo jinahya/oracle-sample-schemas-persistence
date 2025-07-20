@@ -8,20 +8,22 @@ import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Converter;
+import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 import java.util.Optional;
 
-@MappedSuperclass
+@Entity
+@Table(name = Shipment.TABLE_NAME)
 public class Shipment extends __MappedEntity<Shipment, Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -47,6 +49,10 @@ public class Shipment extends __MappedEntity<Shipment, Long> {
 
     // ------------------------------------------------------------------------------------------------ DELIVERY_ADDRESS
     public static final String COLUMN_NAME_DELIVERY_ADDRESS = "DELIVERY_ADDRESS";
+
+    public static final int COLUMN_LENGTH_DELIVERY_ADDRESS = 512;
+
+    public static final int SIZE_MAX_DELIVERY_ADDRESS = COLUMN_LENGTH_DELIVERY_ADDRESS;
 
     // ------------------------------------------------------------------------------------------------- SHIPMENT_STATUS
     public static final String COLUMN_NAME_SHIPMENT_STATUS = "SHIPMENT_STATUS";
@@ -241,10 +247,11 @@ public class Shipment extends __MappedEntity<Shipment, Long> {
     private Customer customer;
 
     @Nonnull
-    @Size(max = 512)
+    @Size(max = SIZE_MAX_DELIVERY_ADDRESS)
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_DELIVERY_ADDRESS, nullable = false, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_DELIVERY_ADDRESS, nullable = false, insertable = true, updatable = true,
+            length = COLUMN_LENGTH_DELIVERY_ADDRESS)
     private String deliveryAddress;
 
     @Nonnull

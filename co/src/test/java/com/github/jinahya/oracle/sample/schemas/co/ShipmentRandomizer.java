@@ -1,10 +1,13 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.github.jinahya.persistence.mapped.test.__MappedEntityRandomizer;
+import com.github.jinahya.persistence.more.test.__AttributeEnumTestUtils;
 import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
+
+import java.util.Optional;
 
 @Slf4j
 class ShipmentRandomizer extends __MappedEntityRandomizer<Shipment, Long> {
@@ -30,6 +33,12 @@ class ShipmentRandomizer extends __MappedEntityRandomizer<Shipment, Long> {
     @Nonnull
     @Override
     public Shipment get() {
-        return super.get();
+        final var value = super.get();
+        value.setShipmentStatus(
+                Optional.ofNullable(
+                        __AttributeEnumTestUtils.getRandomAttributeValue(Shipment._ShipmentStatus.class)
+                ).orElseThrow()
+        );
+        return value;
     }
 }

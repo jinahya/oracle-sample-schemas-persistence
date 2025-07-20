@@ -3,23 +3,23 @@ package com.github.jinahya.oracle.sample.schemas.co;
 import com.github.jinahya.persistence.mapped.__MappedEntity;
 import com.github.jinahya.persistence.more.__AttributeEnum;
 import com.github.jinahya.persistence.more.__AttributeEnumConverter;
+import com.github.jinahya.persistence.more.__AttributeEnumUtils;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Converter;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -36,7 +36,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@MappedSuperclass
+@Entity
+@Table(name = Order.TABLE_NAME)
 public class Order extends __MappedEntity<Order, Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -78,10 +79,16 @@ public class Order extends __MappedEntity<Order, Long> {
 
     public static final String COLUMN_VALUE_ORDER_STATUS_SHIPPED = "SHIPPED";
 
-    /// An enum for {@link Order_#orderStatus orderStatus} attribute.
-    ///
-    /// @author Jin Kwon &lt;onacit_at_gmail.com&gt;
-    public enum OrderStatus implements __AttributeEnum.__OfString<OrderStatus> {
+    public interface __OrderStatus<E extends Enum<E> & __OrderStatus<E>> extends __AttributeEnum.__OfString<E> {
+
+    }
+
+    /**
+     * An enum for {@link Order_#orderStatus orderStatus} attribute.
+     *
+     * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+     */
+    public enum _OrderStatus implements __OrderStatus<_OrderStatus> {
 
         /// .
         OPEN,
@@ -107,11 +114,19 @@ public class Order extends __MappedEntity<Order, Long> {
         COMPLETE;
     }
 
-    @Converter(autoApply = true)
-    public class OrderStatusConverter extends __AttributeEnumConverter.__OfString<OrderStatus> {
+    public abstract static class __OrderStatusConverter<E extends Enum<E> & __OrderStatus<E>>
+            extends __AttributeEnumConverter.__OfString<E> {
 
-        OrderStatusConverter() {
-            super(OrderStatus.class);
+        __OrderStatusConverter(final Class<E> enumClass) {
+            super(enumClass);
+        }
+    }
+
+    @Converter(autoApply = true)
+    public static class _OrderStatusConverter extends __OrderStatusConverter<_OrderStatus> {
+
+        _OrderStatusConverter() {
+            super(_OrderStatus.class);
         }
     }
 
@@ -284,20 +299,29 @@ public class Order extends __MappedEntity<Order, Long> {
     }
 
     // ----------------------------------------------------------------------------------------------------- orderStatus
+
     @Nonnull
-    public OrderStatus getOrderStatus() {
+    public String getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(@Nonnull final OrderStatus orderStatus) {
-//        if (this.orderStatus != null && orderStatus != null && this.orderStatus != orderStatus) {
-//            final var transitions = TRANSITIONS.get(this.orderStatus);
-//            if (!transitions.contains(orderStatus)) {
-//                throw new IllegalArgumentException(
-//                        "invalid transition from " + this.orderStatus + " to " + orderStatus);
-//            }
-//        }
+    public void setOrderStatus(@Nonnull final String orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public <E extends Enum<E> & __OrderStatus<E>> E getOrderStatusFrom(final Class<E> enumClass) {
+        return Optional.ofNullable(getOrderStatus())
+                .map(v -> __AttributeEnumUtils.valueOfAttributeValue(enumClass, v))
+                .orElse(null);
+    }
+
+    @Transient
+    public void setOrderStatusFrom(final _OrderStatus enumInstance) {
+        setOrderStatus(
+                Optional.ofNullable(enumInstance)
+                        .map(__AttributeEnum::attributeValue)
+                        .orElse(null)
+        );
     }
 
     // --------------------------------------------------------------------------------------------------------- storeId
@@ -332,11 +356,10 @@ public class Order extends __MappedEntity<Order, Long> {
 
     @Nonnull
     @NotNull
-    @Enumerated(EnumType.STRING)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_ORDER_STATUS, nullable = false, insertable = true, updatable = true,
             length = COLUMN_LENGTH_ORDER_STATUS)
-    private OrderStatus orderStatus;
+    private String orderStatus;
 
     @Nonnull
     @NotNull

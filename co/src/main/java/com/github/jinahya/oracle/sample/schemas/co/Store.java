@@ -303,25 +303,27 @@ public class Store extends __MappedEntity<Store, Long> {
     private String webAddress;
 
     @Nullable
-    @Size(max = 512)
+    @Size(max = SIZE_MAXH_PHYSICAL_ADDRESS)
     @Basic(optional = true)
-    @Column(name = "PHYSICAL_ADDRESS", nullable = true, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_PHYSICAL_ADDRESS, nullable = true, insertable = true, updatable = true,
+            length = COLUMN_LENGTH_PHYSICAL_ADDRESS)
     private String physicalAddress;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-//    @DecimalMax(value = __MappedEntityConstants.DECIMAL_MAX_LATITUDE, inclusive = true)
-//    @DecimalMin(value = __MappedEntityConstants.DECIMAL_MIN_LATITUDE, inclusive = true)
+    @DecimalMax(value = _DomainConstants.DECIMAL_MAX_LATITUDE, inclusive = true)
+    @DecimalMin(value = _DomainConstants.DECIMAL_MIN_LATITUDE, inclusive = true)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LATITUDE, nullable = true, insertable = true, updatable = true,
             precision = COLUMN_PRECISION_LATITUDE, scale = COLUMN_SCALE_LATITUDE)
     private BigDecimal latitude;
 
     @Nullable
-    @DecimalMax(value = "+180.0000000", inclusive = true)
-    @DecimalMin(value = "-180.0000000", inclusive = true)
+    @DecimalMax(value = _DomainConstants.DECIMAL_MAX_LONGITUDE, inclusive = true)
+    @DecimalMin(value = _DomainConstants.DECIMAL_MIN_LONGITUDE, inclusive = true)
     @Basic(optional = true)
-    @Column(name = "LONGITUDE", nullable = true, insertable = true, updatable = true, precision = 9, scale = 6)
+    @Column(name = COLUMN_NAME_LONGITUDE, nullable = true, insertable = true, updatable = true, precision = 9,
+            scale = 6)
     private BigDecimal longitude;
 
     // -----------------------------------------------------------------------------------------------------------------

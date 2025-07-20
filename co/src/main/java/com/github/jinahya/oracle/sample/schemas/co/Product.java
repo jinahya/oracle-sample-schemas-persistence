@@ -276,7 +276,7 @@ class Product extends __MappedEntity<Product, Long> {
     @Nullable
     @DecimalMax(value = DECIMAL_MAX_UNIT_PRICE, inclusive = true)
     @DecimalMin(value = DECIMAL_MIN_UNIT_PRICE, inclusive = true)
-    @PositiveOrZero // redundant?
+//    @PositiveOrZero // redundant?
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_UNIT_PRICE, nullable = true, insertable = true, updatable = true,
             precision = COLUMN_PRECISION_UNIT_PRICE, scale = COLUMN_SCALE_UNIT_PRICE)
