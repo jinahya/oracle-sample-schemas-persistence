@@ -128,6 +128,19 @@ public class Store extends __MappedEntity<Store, Long> {
                 '}';
     }
 
+    @Override
+    public final boolean equals(final Object obj) {
+        if (false && !(obj instanceof Store)) {
+            return false;
+        }
+        return super.equals(obj);
+    }
+
+    @Override
+    public final int hashCode() {
+        return super.hashCode();
+    }
+
     // ------------------------------------------------------------------------------------------------------ super.id__
     @Override
     protected final Long getId__() {

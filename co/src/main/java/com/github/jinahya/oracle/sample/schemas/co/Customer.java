@@ -78,9 +78,9 @@ class Customer extends __MappedEntity<Customer, Long> {
 
     @Override
     public final boolean equals(final Object obj) {
-//        if (!(obj instanceof Customer)) {
-//            return false;
-//        }
+        if (false && !(obj instanceof Customer)) {
+            return false;
+        }
         return super.equals(obj);
     }
 

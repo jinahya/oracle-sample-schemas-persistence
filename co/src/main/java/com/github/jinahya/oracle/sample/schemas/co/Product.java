@@ -16,7 +16,6 @@ import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
@@ -38,8 +37,8 @@ class Product extends __MappedEntity<Product, Long> {
     // ------------------------------------------------------------------------------------------------------ PRODUCT_ID
 
     /**
-     * The name of the table column to which the {@link _MappedProduct_#productId productId} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@link Product_#productId productId} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_ID = "PRODUCT_ID";
 

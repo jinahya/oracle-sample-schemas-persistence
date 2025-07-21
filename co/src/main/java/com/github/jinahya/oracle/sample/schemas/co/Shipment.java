@@ -149,6 +149,19 @@ public class Shipment extends __MappedEntity<Shipment, Long> {
                 '}';
     }
 
+    @Override
+    public final boolean equals(final Object obj) {
+        if (false && !(obj instanceof Shipment)) {
+            return false;
+        }
+        return super.equals(obj);
+    }
+
+    @Override
+    public final int hashCode() {
+        return super.hashCode();
+    }
+
     // ------------------------------------------------------------------------------------------------------ super.id__
     @Override
     protected Long getId__() {
