@@ -1,5 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
+import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -9,6 +10,7 @@ import jakarta.validation.constraints.DecimalMin;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Objects;
 import java.util.Optional;
 
 public abstract class _MappedLocation {
@@ -22,6 +24,10 @@ public abstract class _MappedLocation {
 
     public static final String ATTRIBUTE_NAME_LATITUDE = "latitude";
 
+    public static final String DECIMAL_MIN_LATITUDE = _DomainConstants.DECIMAL_MIN_LATITUDE;
+
+    public static final String DECIMAL_MAX_LATITUDE = _DomainConstants.DECIMAL_MAX_LATITUDE;
+
     // ------------------------------------------------------------------------------------------- LONGITUDE / longitude
     public static final String COLUMN_NAME_LONGITUDE = "LONGITUDE";
 
@@ -31,9 +37,22 @@ public abstract class _MappedLocation {
 
     public static final String ATTRIBUTE_NAME_LONGITUDE = "longitude";
 
-    // -----------------------------------------------------------------------------------------------------------------
+    public static final String DECIMAL_MIN_LONGITUDE = _DomainConstants.DECIMAL_MIN_LONGITUDE;
+
+    public static final String DECIMAL_MAX_LONGITUDE = _DomainConstants.DECIMAL_MAX_LONGITUDE;
+
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     protected _MappedLocation() {
         super();
+    }
+
+    protected _MappedLocation(@Nonnull final _MappedLocationBuilder<?, ?> builder) {
+        super();
+        Objects.requireNonNull(builder, "builder is null");
+        latitude = builder.latitude();
+        longitude = builder.lLongitude();
     }
 
     // -------------------------------------------------------------------------------------------------------- latitude
@@ -90,8 +109,8 @@ public abstract class _MappedLocation {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @DecimalMax(value = _DomainConstants.DECIMAL_MAX_LATITUDE, inclusive = true)
-    @DecimalMin(value = _DomainConstants.DECIMAL_MIN_LATITUDE, inclusive = true)
+    @DecimalMax(value = DECIMAL_MAX_LATITUDE, inclusive = true)
+    @DecimalMin(value = DECIMAL_MIN_LATITUDE, inclusive = true)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LATITUDE,
             nullable = true,
@@ -103,8 +122,8 @@ public abstract class _MappedLocation {
     private BigDecimal latitude;
 
     @Nullable
-    @DecimalMax(value = _DomainConstants.DECIMAL_MAX_LONGITUDE, inclusive = true)
-    @DecimalMin(value = _DomainConstants.DECIMAL_MIN_LONGITUDE, inclusive = true)
+    @DecimalMax(value = DECIMAL_MAX_LONGITUDE, inclusive = true)
+    @DecimalMin(value = DECIMAL_MIN_LONGITUDE, inclusive = true)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LONGITUDE,
             nullable = true,

@@ -30,16 +30,16 @@ class Product extends MappedProduct {
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof Product that)) {
-            return false;
-        }
-        return Objects.equals(getProductId(), that.getProductId());
-    }
-
-    @Override
-    public final int hashCode() {
-        return Objects.hash(getProductId());
-    }
+//    @Override
+//    public final boolean equals(final Object obj) {
+//        if (!(obj instanceof Product that)) {
+//            return false;
+//        }
+//        return Objects.equals(getProductId(), that.getProductId());
+//    }
+//
+//    @Override
+//    public final int hashCode() {
+//        return Objects.hash(getProductId());
+//    }
 }

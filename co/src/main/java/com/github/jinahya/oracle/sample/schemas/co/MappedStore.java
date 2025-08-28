@@ -174,6 +174,19 @@ public abstract class MappedStore extends __MappedEntity<Long> {
                 '}';
     }
 
+    @Override
+    public final boolean equals(final Object obj) {
+        if (!(obj instanceof MappedStore that)) {
+            return false;
+        }
+        return Objects.equals(storeName, that.storeName);
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hashCode(storeName);
+    }
+
     // ------------------------------------------------------------------------------------------------- Bean-Validation
     // constraint STORE_AT_LEAST_ONE_ADDRESS_C
     //        check (web_address IS NOT NULL or physical_address IS NOT NULL)

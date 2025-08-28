@@ -19,6 +19,7 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @MappedSuperclass
 public abstract class MappedProduct extends __MappedEntity<Long> {
@@ -141,6 +142,19 @@ public abstract class MappedProduct extends __MappedEntity<Long> {
                 ",imageCharset=" + imageCharset +
                 ",imageLastUpdated=" + imageLastUpdated +
                 '}';
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        if (!(obj instanceof MappedProduct that)) {
+            return false;
+        }
+        return Objects.equals(productId, that.productId);
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hashCode(productId);
     }
 
     // ------------------------------------------------------------------------------------------------------- productId
