@@ -1,37 +1,83 @@
 # oracle-sample-schemas-persistence
 
-## dependencies alignments
+## Installing schemas
 
-|                                | jakarta.persistence-api | hibernate-core | querydsl-jpa |
-|--------------------------------|-------------------------|----------------|--------------|
-| [jakarta.jakartaee-bom:10.0.0] | `3.1.0`                 |                |              |
-| [jakarta.jakartaee-bom:11.0.0] | `3.2.0`                 |                |              |
-| [spring-boot 3.4]              | `3.1.0`                 | `6.6.15.Final` | `5.1.0`      |
-| [spring-boot 3.5]              | `3.1.0`                 | `6.6.15.Final` | `5.1.0`      |
+Init and update the submodule.
 
-## profiles
+```shell
+$ git submodule init
+$ git submodule update
+$ ls -l db-sample-schemas
+```
 
-|                         | eclipselink | hibernate | querydsl-5 | querydsl-6 | jakarta-ee | spring-boot |
-|-------------------------|-------------|-----------|------------|------------|------------|-------------|
-| persistence             | ✓           | ✓         |            |            |            |             |
-| persistence-eclipselink | ✓           |           |            |            |            |             |
-| persistence-hibernate   |             | ✓         |            |            |            |             |
-| querydsl                |             |           | ✓          | ✓          |            |             |
-| querydsl-5              |             |           | ✓          |            |            |             |
-| querydsl-6              |             |           |            | ✓          |            |             |
-| application             |             |           |            |            | ✓          | ✓           |
-| application-jakarta-ee  |             |           |            |            | ✓          |             |
-| application-spring-boot |             |           |            |            |            | ✓           |
+Run docker container.
 
-`@MappedSuperclass`es and `@NoRepositoryBean`s interfaces for the SAMPLE database.
+```shell
+$ docker-compose up -d
+```
 
-https://www.ibm.com/docs/en/iodgfdfz/11.7.0?topic=introduction-sample-database
+Connect to the container.
 
+```shell
+$ docker exec -it oracle-sample-schemas sh
+```
 
-[jakarta.jakartaee-bom:10.0.0]: https://central.sonatype.com/artifact/jakarta.platform/jakarta.jakartaee-bom/10.0.0
+```shell
+$ cd /db-sample-schemas
+```
 
-[jakarta.jakartaee-bom:11.0.0]: https://central.sonatype.com/artifact/jakarta.platform/jakarta.jakartaee-bom/11.0.0
+Install the co schema.
 
-[spring-boot 3.4]: https://docs.spring.io/spring-boot/3.4/appendix/dependency-versions/coordinates.html
+```shell
+sh-x.y$ sqlplus / as sysdba
+SQL> alter session set container=freepdb1;
+SQL> @customer_orders/co_install.sql
+...
+Enter a password for the user CO: password
 
-[spring-boot 3.5]: https://docs.spring.io/spring-boot/3.5/appendix/dependency-versions/coordinates.html
+Enter a tablespace for CO [SYSTEM]: <Enter>
+Do you want to overwrite the schema, if it already exists? (Y) [N]: <Enter>
+...
+
+sh-x.y$ 
+```
+
+Install the hr schema.
+
+```shell
+sh-x.y$ sqlplus / as sysdba
+SQL> alter session set container=freepdb1;
+SQL> @human_resources/hr_install.sql
+...
+Enter a password for the user HR: password
+
+Enter a tablespace for HR [SYSTEM]: <Enter>
+Do you want to overwrite the schema, if it already exists? (Y) [N]: <Enter>
+...
+
+sh-x.y$ 
+```
+
+Install the sh schema.
+
+```shell
+sh-x.y$ sqlplus / as sysdba
+SQL> alter session set container=freepdb1;
+SQL> @sales_history/sh_install.sql
+...
+Enter a password for the user SH: password
+
+Enter a tablespace for SH [SYSTEM]: <Enter>
+Do you want to overwrite the schema, if it already exists? (Y) [N]: <Enter>
+...
+
+sh-x.y$ 
+```
+
+## JDBC URLs
+
+| Schema | Host      | Port | Service  | Driver | User | Password   | JDBC URL                                    |
+|--------|-----------|------|----------|--------|------|------------|---------------------------------------------|
+| CO     | localhost | 1521 | freepdb1 | THIN   | `co` | `password` | jdbc:oracle:thin:@//localhost:1521/freepdb1 |
+| HR     |           |      |          |        | `hr` | `password` | jdbc:oracle:thin:@//localhost:1521/freepdb1 |
+| SH     |           |      |          |        | `sh` | `password` | jdbc:oracle:thin:@//localhost:1521/freepdb1 |

@@ -10,9 +10,9 @@ import uk.co.jemos.podam.api.PodamFactory;
 import java.util.Optional;
 
 @Slf4j
-class ShipmentRandomizer extends __MappedEntityRandomizer<Shipment, Long> {
+class Shipment_Randomizer extends __MappedEntityRandomizer<Shipment, Long> {
 
-    ShipmentRandomizer() {
+    Shipment_Randomizer() {
         super(Shipment.class, Long.class, "shipmentId", "shipmentStatus");
     }
 

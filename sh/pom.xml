@@ -20,18 +20,5 @@
       <artifactId>jackson-databind</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.github.jinahya</groupId>
-      <artifactId>_common</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.github.jinahya</groupId>
-      <artifactId>_common</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-      <classifier>tests</classifier>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 </project>

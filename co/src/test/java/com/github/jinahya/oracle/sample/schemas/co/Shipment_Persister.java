@@ -5,21 +5,23 @@ import com.github.jinahya.persistence.mapped.test.__MappedEntityPersisterUtils;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-class ShipmentPersister extends __MappedEntityPersister<Shipment, Long> {
+import javax.annotation.Nonnull;
 
-    ShipmentPersister() {
+@Slf4j
+class Shipment_Persister extends __MappedEntityPersister<Shipment, Long> {
+
+    Shipment_Persister() {
         super(Shipment.class, Long.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public void persist(final EntityManager entityManager, final Shipment entityInstance) {
-        entityInstance.setCustomer(
-                __MappedEntityPersisterUtils.newPersistedInstanceOf(entityManager, Customer.class)
-        );
+    public void persist(@Nonnull final EntityManager entityManager, @Nonnull final Shipment entityInstance) {
         entityInstance.setStore(
                 __MappedEntityPersisterUtils.newPersistedInstanceOf(entityManager, Store.class)
+        );
+        entityInstance.setCustomer(
+                __MappedEntityPersisterUtils.newPersistedInstanceOf(entityManager, Customer.class)
         );
         super.persist(entityManager, entityInstance);
     }
