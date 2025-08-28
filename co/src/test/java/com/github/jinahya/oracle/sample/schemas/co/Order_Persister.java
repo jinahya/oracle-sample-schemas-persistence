@@ -6,9 +6,9 @@ import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-class OrderPersister extends __MappedEntityPersister<Order, Long> {
+class Order_Persister extends __MappedEntityPersister<Order, Long> {
 
-    OrderPersister() {
+    Order_Persister() {
         super(Order.class, Long.class);
     }
 

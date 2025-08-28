@@ -10,19 +10,19 @@ import uk.co.jemos.podam.api.PodamFactory;
 import java.util.Optional;
 
 @Slf4j
-class OrderRandomizer extends __MappedEntityRandomizer<Order, Long> {
+class Order_Randomizer extends __MappedEntityRandomizer<Order, Long> {
 
-    OrderRandomizer() {
+    Order_Randomizer() {
         super(Order.class, Long.class,
-              "orderId",
-              "orderTmsAsZonedDateTime",
-              "orderTmsFromZonedDateTime",
-              "orderTmsAsOffsetDateTime",
-              "orderTmsFromOffsetDateTime",
-              "orderTmsAsInstant",
-              "orderTmsFromInstant",
-              "orderStatus",
-              "orderItems"
+                "orderId",
+                "orderTmsAsZonedDateTime",
+                "orderTmsFromZonedDateTime",
+                "orderTmsAsOffsetDateTime",
+                "orderTmsFromOffsetDateTime",
+                "orderTmsAsInstant",
+                "orderTmsFromInstant",
+                "orderStatus",
+                "orderItems"
 //                ,
 //              "orderItemsTotalPrice1",
 //              "orderItemsTotalPrice2",

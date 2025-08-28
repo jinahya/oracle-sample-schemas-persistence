@@ -3,8 +3,6 @@ package com.github.jinahya.oracle.sample.schemas.co;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
-import java.util.Objects;
-
 @Entity
 @Table(name = Product.TABLE_NAME)
 class Product extends MappedProduct {

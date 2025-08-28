@@ -68,25 +68,25 @@ WHERe JSON_VALUE(PRODUCT_DETAILS, '$.description') IS NULL
 ;
 
 WITH size_categories AS (SELECT j.size_value,
-                                COUNT(*) as count,
-                                CASE
-                                    WHEN REGEXP_LIKE(j.size_value, '^\d+\s*YR', 'i') THEN 'Age-Based (Years)'
-                                    WHEN REGEXP_LIKE(j.size_value, '^(XXS|XS|S|M|L|XL|XXL|XXXL)$', 'i')
-                                        THEN 'Standard Letter Size'
-                                    WHEN REGEXP_LIKE(j.size_value, '^\d+$') THEN 'Numeric Size'
-                                    WHEN REGEXP_LIKE(j.size_value, '^\d+[\.-]\d+$') THEN 'Decimal/Range Size'
-                                    ELSE 'Other'
-                                    END  as size_category
+                                COUNT(*) as count, CASE
+    WHEN REGEXP_LIKE(j.size_value, '^\d+\s*YR', 'i') THEN 'Age-Based (Years)'
+    WHEN REGEXP_LIKE(j.size_value, '^(XXS|XS|S|M|L|XL|XXL|XXXL)$', 'i')
+    THEN 'Standard Letter Size'
+    WHEN REGEXP_LIKE(j.size_value, '^\d+$') THEN 'Numeric Size'
+    WHEN REGEXP_LIKE(j.size_value, '^\d+[\.-]\d+$') THEN 'Decimal/Range Size'
+    ELSE 'Other'
+END
+as size_category
                          FROM PRODUCTS p,
                               JSON_TABLE(p.PRODUCT_DETAILS, '$.sizes[*]'
                                          COLUMNS (size_value VARCHAR2(20) PATH '$')
                               ) j
                          GROUP BY j.size_value)
 SELECT size_category,
-       COUNT(DISTINCT size_value)                 as unique_sizes,
-       SUM(count)                                 as total_occurrences,
+       COUNT(DISTINCT size_value) as unique_sizes,
+       SUM(count)                 as total_occurrences,
        LISTAGG(size_value || ' (' || count || ')', ', ')
-               WITHIN GROUP (ORDER BY count DESC) as size_breakdown
+                                     WITHIN GROUP (ORDER BY count DESC) as size_breakdown
 FROM size_categories
 GROUP BY size_category
 ORDER BY total_occurrences DESC
@@ -95,14 +95,14 @@ ORDER BY total_occurrences DESC
 SELECT DISTINCT j.rating
 FROM PRODUCTS p,
      JSON_TABLE(p.PRODUCT_DETAILS, '$.reviews[*]'
-                COLUMNS (rating NUMBER PATH '$.rating')) j
+         COLUMNS (rating NUMBER PATH '$.rating')) j
 WHERE j.rating IS NOT NULL
 ORDER BY j.rating ASC
 ;
 SELECT COUNT(1)
 FROM PRODUCTS p,
      JSON_TABLE(p.PRODUCT_DETAILS, '$.reviews[*]'
-                COLUMNS (rating NUMBER PATH '$.rating')) j
+         COLUMNS (rating NUMBER PATH '$.rating')) j
 WHERE j.rating IS NULL
 ;
 
@@ -110,7 +110,7 @@ SELECT MIN(j.rating) as min_rating,
        MAX(j.rating) as max_rating
 FROM PRODUCTS p,
      JSON_TABLE(p.PRODUCT_DETAILS, '$.reviews[*]'
-                COLUMNS (rating NUMBER PATH '$.rating')
+         COLUMNS (rating NUMBER PATH '$.rating')
      ) j
 ;
 
@@ -118,14 +118,14 @@ FROM PRODUCTS p,
 SELECT j.review_text
 FROM PRODUCTS p,
      JSON_TABLE(p.PRODUCT_DETAILS, '$.reviews[*]'
-                COLUMNS (review_text VARCHAR2(4000) PATH '$.review')
+         COLUMNS (review_text VARCHAR2(4000) PATH '$.review')
      ) j
 WHERE j.review_text IS NOT NULL
 ;
 SELECT COUNT(1)
 FROM PRODUCTS p,
      JSON_TABLE(p.PRODUCT_DETAILS, '$.reviews[*]'
-                COLUMNS (review_text VARCHAR2(4000) PATH '$.review')
+         COLUMNS (review_text VARCHAR2(4000) PATH '$.review')
      ) j
 WHERE j.review_text IS NULL
    OR LENGTH(j.review_text) = 0
@@ -135,7 +135,7 @@ SELECT COUNT(CASE WHEN j.review_text IS NULL THEN 1 END)     as null_reviews,
        COUNT(CASE WHEN j.review_text IS NOT NULL THEN 1 END) as not_null_reviews
 FROM PRODUCTS p,
      JSON_TABLE(p.PRODUCT_DETAILS, '$.reviews[*]'
-                COLUMNS (review_text VARCHAR2(4000) PATH '$.review')
+         COLUMNS (review_text VARCHAR2(4000) PATH '$.review')
      ) j
 ;
 

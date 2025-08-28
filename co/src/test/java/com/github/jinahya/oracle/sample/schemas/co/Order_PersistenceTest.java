@@ -4,10 +4,10 @@ import com.github.jinahya.persistence.mapped.test.__MappedEntityPersistenceTest;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-class OrderPersistenceTest extends __MappedEntityPersistenceTest<Order, Long> {
+class Order_PersistenceTest extends __MappedEntityPersistenceTest<Order, Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
-    OrderPersistenceTest() {
+    Order_PersistenceTest() {
         super(Order.class, Long.class);
     }
 }

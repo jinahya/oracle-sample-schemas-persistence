@@ -11,8 +11,8 @@ class Store_Randomizer extends __MappedEntityRandomizer<Store, Long> {
 
     Store_Randomizer() {
         super(Store.class, Long.class,
-              "storeId",
-              "logo", "logoMimeType", "logoFilename", "logoCharset", "logoLastUpdated"
+                "storeId",
+                "logo", "logoMimeType", "logoFilename", "logoCharset", "logoLastUpdated"
         );
     }
 

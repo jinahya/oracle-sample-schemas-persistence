@@ -129,8 +129,8 @@ public class ProductDetails {
 //                brand,
 //                description,
 //                sizes
-////                ,
-////                reviews
+
+    /// /                , /                reviews
 //        );
 //    }
 

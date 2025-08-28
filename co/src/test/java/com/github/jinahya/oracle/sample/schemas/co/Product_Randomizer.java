@@ -11,11 +11,11 @@ class Product_Randomizer extends __MappedEntityRandomizer<Product, Long> {
 
     Product_Randomizer() {
         super(Product.class,
-              Long.class,
-              "productId",
+                Long.class,
+                "productId",
 //              "unitPrice",
-              "productDetails",
-              "productImage", "productMimeType", "productFilename", "productCharset", "imageLastUpdated"
+                "productDetails",
+                "productImage", "productMimeType", "productFilename", "productCharset", "imageLastUpdated"
         );
     }
 

@@ -1,19 +1,16 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = OrderItem.TABLE_NAME)
-public class OrderItem extends MappedOrderItem<OrderItemId, Order, Product, Shipment> {
+class OrderItemBuilder extends MappedOrderItemBuilder<
+        OrderItemBuilder,
+        OrderItem,
+        OrderItemId,
+        Order,
+        Product,
+        Shipment> {
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-
-    /**
-     * Creates a new instance.
-     */
-    protected OrderItem() {
-        super();
+    OrderItemBuilder() {
+        super(OrderItem.class);
     }
 }

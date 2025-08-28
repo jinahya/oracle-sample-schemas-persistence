@@ -2,15 +2,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.github.jinahya.persistence.mapped.__MappedEntity;
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
@@ -177,10 +169,10 @@ public abstract class MappedInventory<
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_STORE_ID,
-                referencedColumnName = MappedStore.COLUMN_NAME_STORE_ID,
-                nullable = false,
-                insertable = false,
-                updatable = false
+            referencedColumnName = MappedStore.COLUMN_NAME_STORE_ID,
+            nullable = false,
+            insertable = false,
+            updatable = false
     )
     private STORE store;
 
@@ -200,10 +192,10 @@ public abstract class MappedInventory<
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_PRODUCT_ID,
-                referencedColumnName = MappedProduct.COLUMN_NAME_PRODUCT_ID,
-                nullable = false,
-                insertable = false,
-                updatable = false
+            referencedColumnName = MappedProduct.COLUMN_NAME_PRODUCT_ID,
+            nullable = false,
+            insertable = false,
+            updatable = false
     )
     private PRODUCT product;
 
