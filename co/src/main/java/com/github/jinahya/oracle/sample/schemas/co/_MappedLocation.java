@@ -13,6 +13,9 @@ import java.math.RoundingMode;
 import java.util.Objects;
 import java.util.Optional;
 
+@SuppressWarnings({
+        "java:S101" // Class names should comply with a naming convention
+})
 public abstract class _MappedLocation {
 
     // --------------------------------------------------------------------------------------------- LATITUDE / latitude

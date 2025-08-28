@@ -29,7 +29,6 @@ public abstract class _MappedLocationBuilder<
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     // -------------------------------------------------------------------------------------------------------- latitude
-
     public BigDecimal latitude() {
         return latitude;
     }

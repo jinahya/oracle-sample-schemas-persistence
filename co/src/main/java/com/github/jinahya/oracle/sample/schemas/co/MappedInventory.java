@@ -34,13 +34,15 @@ public abstract class MappedInventory<
      */
     public static final String TABLE_NAME = "INVENTORY";
 
-    // ---------------------------------------------------------------------------------------------------- INVENTORY_ID
+    // -------------------------------------------------------------------------------------- INVENTORY_ID / inventoryId
 
     /**
      * The name of the table column to which the {@link MappedInventory_#inventoryId inventoryId} attribute maps. The
      * value is {@value}.
      */
     public static final String COLUMN_NAME_INVENTORY_ID = "INVENTORY_ID";
+
+    public static final String ATTRIBUTE_NAME_INVENTORY_ID = "inventoryId";
 
     // -------------------------------------------------------------------------------------- STORE_ID / storeId / store
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
@@ -121,7 +123,9 @@ public abstract class MappedInventory<
 
     void setStore(@Nonnull final STORE store) {
         this.store = store;
-        storeId = Optional.ofNullable(this.store).map(MappedStore::getStoreId).orElse(null);
+        storeId = Optional.ofNullable(this.store)
+                .map(MappedStore::getStoreId)
+                .orElse(null);
     }
 
     // --------------------------------------------------------------------------------------------------------- product
@@ -132,7 +136,9 @@ public abstract class MappedInventory<
 
     void setProduct(@Nonnull final PRODUCT product) {
         this.product = product;
-        productId = Optional.ofNullable(this.product).map(MappedProduct::getProductId).orElse(null);
+        productId = Optional.ofNullable(this.product)
+                .map(MappedProduct::getProductId)
+                .orElse(null);
     }
 
     // ------------------------------------------------------------------------------------------------ productInventory
