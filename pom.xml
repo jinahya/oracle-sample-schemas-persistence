@@ -50,14 +50,14 @@
     <doclint>none</doclint>
     <sonar.organization>jinahya-github</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-    <groupId.querydsl>com.querydsl</groupId.querydsl>
-    <version.querydsl>5.1.0</version.querydsl>
+<!--    <groupId.querydsl>com.querydsl</groupId.querydsl>-->
+<!--    <version.querydsl>5.1.0</version.querydsl>-->
     <!--    <version.lombok>1.18.30</version.lombok>-->
     <version.lombok>1.18.38</version.lombok>
     <version.maven-failsafe>${version.maven-surefire}</version.maven-failsafe>
     <!--    <version.maven-surefire>3.2.5</version.maven-surefire>-->
     <version.maven-surefire>3.5.3</version.maven-surefire>
-    <version.jinahya-persistence>0.0.2-SNAPSHOT</version.jinahya-persistence>
+    <version.jinahya-persistence>0.0.9-SNAPSHOT</version.jinahya-persistence>
     <version.mysql-connector-j>8.3.0</version.mysql-connector-j>
     <!-- https://search.maven.org/artifact/org.eclipse.persistence/eclipselink -->
     <!-- https://central.sonatype.com/artifact/org.eclipse.persistence/eclipselink/versions -->
@@ -129,11 +129,11 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <dependency>
-        <groupId>${groupId.querydsl}</groupId>
-        <artifactId>querydsl-apt</artifactId>
-        <version>${version.querydsl}</version>
-      </dependency>
+<!--      <dependency>-->
+<!--        <groupId>${groupId.querydsl}</groupId>-->
+<!--        <artifactId>querydsl-apt</artifactId>-->
+<!--        <version>${version.querydsl}</version>-->
+<!--      </dependency>-->
       <dependency>
         <groupId>org.glassfish.expressly</groupId>
         <artifactId>expressly</artifactId>
@@ -188,7 +188,7 @@
       <artifactId>ojdbc17</artifactId>
       <!-- https://central.sonatype.com/artifact/com.oracle.database.jdbc/ojdbc17/versions -->
       <version>23.8.0.25.04</version>
-      <scope>runtime</scope>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>jakarta.annotation</groupId>
@@ -216,63 +216,6 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>nl.jqno.equalsverifier</groupId>
-      <artifactId>equalsverifier-nodep</artifactId>
-      <version>4.0.6</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency><!-- https://central.sonatype.com/artifact/org.assertj/assertj-core/versions -->
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <!--      ;<version>3.25.3</version>-->
-      <!--      <version>3.26.0</version>-->
-      <version>3.27.3</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.persistence</groupId>
-      <artifactId>org.eclipse.persistence.jpa</artifactId>
-      <version>${version.org.eclipse.persistence}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.persistence</groupId>
-      <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
-      <version>${version.org.eclipse.persistence}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate.orm</groupId>
-      <artifactId>hibernate-platform</artifactId>
-      <version>${version.org.hibernate.orm}</version>
-      <type>pom</type>
-      <scope>import</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate.validator</groupId>
-      <artifactId>hibernate-validator</artifactId>
-      <version>${version.org.hibernate.validator}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate.validator</groupId>
-      <artifactId>hibernate-validator-test-utils</artifactId>
-      <version>${version.org.hibernate.validator}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.expressly</groupId>
-      <artifactId>expressly</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-junit-jupiter</artifactId>
-      <version>${version.org.mockito}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <version>${version.lombok}</version>
@@ -281,13 +224,6 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency><!-- https://github.com/mtedone/podam/releases -->
-      <!-- https://central.sonatype.com/artifact/uk.co.jemos.podam/podam/versions -->
-      <groupId>uk.co.jemos.podam</groupId>
-      <artifactId>podam</artifactId>
-      <version>8.0.2.RELEASE</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

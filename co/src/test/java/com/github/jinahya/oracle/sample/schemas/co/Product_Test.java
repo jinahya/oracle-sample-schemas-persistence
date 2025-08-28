@@ -2,10 +2,10 @@ package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.github.jinahya.persistence.mapped.test.__MappedEntityTest;
 
-class ShipmentTest extends __MappedEntityTest<Shipment, Long> {
+class Product_Test extends __MappedEntityTest<Product, Long> {
 
-    ShipmentTest() {
-        super(Shipment.class, Long.class);
+    Product_Test() {
+        super(Product.class, Long.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

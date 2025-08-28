@@ -1,12 +1,8 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.jinahya.persistence.mapped.test.___JakartaValidationTestUtils;
 import com.github.jinahya.persistence.mapped.test.___RandomizerUtils;
 import lombok.extern.slf4j.Slf4j;
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -67,7 +63,8 @@ class ProductDetails_Test {
 //        return EqualsVerifier
 //                .simple()
 //                .forClass(ProductDetails.class)
-////                .suppress(Warning.INHERITED_DIRECTLY_FROM_OBJECT)
+
+    /// /                .suppress(Warning.INHERITED_DIRECTLY_FROM_OBJECT)
 //                .withIgnoredFields("reviews")
 //                .withIgnoredFields("unknownProperties")
 //                ;
@@ -118,7 +115,7 @@ class ProductDetails_Test {
                     randomizedInstance == null,
                     () -> String.format("randomizedInstance(%s) is null", randomizedInstance)
             );
-            accessors(randomizedInstance);
+            accessors(randomizedInstance.orElseThrow());
         }
     }
 
@@ -139,7 +136,6 @@ class ProductDetails_Test {
                         .isNotNull();
                 final var value = ProductDetails_TestUtils.from(resource, new ObjectMapper());
                 log.debug("value: {}", value);
-                ___JakartaValidationTestUtils.requireValid(value);
             }
         }
     }

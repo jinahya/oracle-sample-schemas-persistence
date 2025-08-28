@@ -24,7 +24,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
              version="3.2">
-  <persistence-unit name="unitPU" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="__testPU" transaction-type="RESOURCE_LOCAL">
     <description>Persistence Unit for an In-Memory DB</description>
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
@@ -61,11 +61,11 @@
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.use_sql_comment" value="true"/>
       <!-- jinahya.persistence -->
-      <property name="jinahya.persistence.default_catalog" value="UNNAMED"/>
-      <property name="jinahya.persistence.default_schema" value="PUBLIC"/>
+      <property name="jinahya.persistence.table_catalog" value="UNNAMED"/>
+      <property name="jinahya.persistence.talbe_schema" value="PUBLIC"/>
     </properties>
   </persistence-unit>
-  <persistence-unit name="integrationPU" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="__itPU" transaction-type="RESOURCE_LOCAL">
     <description>Persistence Unit for a Physical Database</description>
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
@@ -102,8 +102,8 @@
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.use_sql_comment" value="true"/>
       <!-- jinahya.persistence -->
-      <property name="jinahya.persistence.default_catalog" value=""/>
-      <property name="jinahya.persistence.default_schema" value="CO"/>
+      <property name="jinahya.persistence.table_catalog" value=""/>
+      <property name="jinahya.persistence.table_schema" value="CO"/>
     </properties>
   </persistence-unit>
 </persistence>
