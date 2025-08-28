@@ -16,7 +16,7 @@ import java.util.Optional;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public abstract class _MappedLocation {
+public abstract class _MappedCoLocation {
 
     // --------------------------------------------------------------------------------------------- LATITUDE / latitude
     public static final String COLUMN_NAME_LATITUDE = "LATITUDE";
@@ -47,15 +47,15 @@ public abstract class _MappedLocation {
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-    protected _MappedLocation() {
+    protected _MappedCoLocation() {
         super();
     }
 
-    protected _MappedLocation(@Nonnull final _MappedLocationBuilder<?, ?> builder) {
+    protected _MappedCoLocation(@Nonnull final _MappedCoLocationBuilder<?, ?> builder) {
         super();
         Objects.requireNonNull(builder, "builder is null");
         latitude = builder.latitude();
-        longitude = builder.lLongitude();
+        longitude = builder.longitude();
     }
 
     // -------------------------------------------------------------------------------------------------------- latitude

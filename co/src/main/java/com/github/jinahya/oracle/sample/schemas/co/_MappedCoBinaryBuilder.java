@@ -17,16 +17,16 @@ import java.util.function.Supplier;
         "java:S101", // Class names should comply with a naming convention
         "java:S119"  // Type parameter names should comply with a naming convention
 })
-public abstract class _MappedBinaryBuilder<
-        SELF extends _MappedBinaryBuilder<SELF, TARGET>,
-        TARGET extends _MappedBinary
+public abstract class _MappedCoBinaryBuilder<
+        SELF extends _MappedCoBinaryBuilder<SELF, TARGET>,
+        TARGET extends _MappedCoBinary
         >
         extends __Builder<SELF, TARGET> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
-    protected static <B extends _MappedBinaryBuilder<B, ?>> B from(@Nonnull final Supplier<? extends B> instantiator,
-                                                                   @Nonnull final Path path,
-                                                                   @Nonnull final LinkOption... options)
+    protected static <B extends _MappedCoBinaryBuilder<B, ?>> B from(@Nonnull final Supplier<? extends B> instantiator,
+                                                                     @Nonnull final Path path,
+                                                                     @Nonnull final LinkOption... options)
             throws IOException {
         Objects.requireNonNull(instantiator, "instantiator is null");
         Objects.requireNonNull(path, "path is null");
@@ -49,7 +49,7 @@ public abstract class _MappedBinaryBuilder<
     /**
      * Creates a new instance.
      */
-    protected _MappedBinaryBuilder(final Class<TARGET> targetClass) {
+    protected _MappedCoBinaryBuilder(final Class<TARGET> targetClass) {
         super(targetClass);
     }
 

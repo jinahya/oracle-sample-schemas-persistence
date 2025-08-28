@@ -9,9 +9,9 @@ import java.math.BigDecimal;
         "java:S101", // Class names should comply with a naming convention
         "java:S119"  // Type parameter names should comply with a naming convention
 })
-public abstract class _MappedLocationBuilder<
-        SELF extends _MappedLocationBuilder<SELF, TARGET>,
-        TARGET extends _MappedLocation
+public abstract class _MappedCoLocationBuilder<
+        SELF extends _MappedCoLocationBuilder<SELF, TARGET>,
+        TARGET extends _MappedCoLocation
         >
         extends __Builder<SELF, TARGET> {
 
@@ -22,7 +22,7 @@ public abstract class _MappedLocationBuilder<
     /**
      * Creates a new instance.
      */
-    protected _MappedLocationBuilder(final Class<TARGET> targetClass) {
+    protected _MappedCoLocationBuilder(final Class<TARGET> targetClass) {
         super(targetClass);
     }
 
@@ -39,11 +39,11 @@ public abstract class _MappedLocationBuilder<
     }
 
     // ------------------------------------------------------------------------------------------------------- longitude
-    public BigDecimal lLongitude() {
+    public BigDecimal longitude() {
         return longitude;
     }
 
-    public SELF lLongitude(final BigDecimal longitude) {
+    public SELF longitude(final BigDecimal longitude) {
         this.longitude = longitude;
         return (SELF) this;
     }

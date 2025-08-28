@@ -26,8 +26,8 @@ public abstract class MappedCustomer extends __MappedEntity<Long> {
     // ---------------------------------------------------------------------------------------- CUSTOMER_ID / customerId
 
     /**
-     * The name of the table column to which the {@link Customer_#customerId customerId} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@link MappedCustomer_#customerId customerId} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_CUSTOMER_ID = "CUSTOMER_ID";
 
@@ -36,8 +36,8 @@ public abstract class MappedCustomer extends __MappedEntity<Long> {
     // ------------------------------------------------------------------------------------ EMAIL_ADDRESS / emailAddress
 
     /**
-     * The name of the table column to which the {@link Customer_#emailAddress emailAddress} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@link MappedCustomer_#emailAddress emailAddress} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_EMAIL_ADDRESS = "EMAIL_ADDRESS";
 
@@ -50,7 +50,7 @@ public abstract class MappedCustomer extends __MappedEntity<Long> {
     // -------------------------------------------------------------------------------------------- FULL_NAME / fullName
 
     /**
-     * The name of the table column to which the {@link Customer_#fullName fullName} attribute maps. The value is
+     * The name of the table column to which the {@link MappedCustomer_#fullName fullName} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_FULL_NAME = "FULL_NAME";

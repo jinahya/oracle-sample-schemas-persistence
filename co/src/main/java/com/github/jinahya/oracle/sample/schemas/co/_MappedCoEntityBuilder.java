@@ -4,6 +4,10 @@ import com.github.jinahya.persistence.mapped.__MappedEntityWithGeneratedIdentity
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
+@SuppressWarnings({
+        "java:S101", // Class names should comply with a naming convention
+        "java:S119"  // Type parameter names should comply with a naming convention
+})
 public abstract class _MappedCoEntityBuilder<
         SELF extends _MappedCoEntityBuilder<SELF, ENTITY>,
         ENTITY extends _MappedCoEntity

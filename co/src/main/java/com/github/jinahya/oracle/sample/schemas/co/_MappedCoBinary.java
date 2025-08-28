@@ -12,7 +12,7 @@ import java.util.Objects;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public abstract class _MappedBinary {
+public abstract class _MappedCoBinary {
 
     // --------------------------------------------------------------------------------------------------- BYTES / bytes
     public static final String COLUMN_NAME_BYTES = "BYTES";
@@ -36,11 +36,11 @@ public abstract class _MappedBinary {
     /**
      * Creates a new instance.
      */
-    protected _MappedBinary() {
+    protected _MappedCoBinary() {
         super();
     }
 
-    protected _MappedBinary(final _MappedBinaryBuilder<?, ?> builder) {
+    protected _MappedCoBinary(final _MappedCoBinaryBuilder<?, ?> builder) {
         super();
         Objects.requireNonNull(builder, "builder is null");
         bytes = builder.bytes();
