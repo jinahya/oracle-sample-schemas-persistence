@@ -32,7 +32,7 @@ public class EmpDetailsView extends __MappedEntity<Integer> {
     public static final String COLUMN_NAME_EMPLOYEE_ID = Employee.COLUMN_NAME_EMPLOYEE_ID;
 
     // ---------------------------------------------------------------------------------------------------------- JOB_ID
-    public static final String COLUMN_NAME_JOB_ID = Job.COLUMN_NAME_JOB_ID;
+    public static final String COLUMN_NAME_JOB_ID = MappedJob.COLUMN_NAME_JOB_ID;
 
     // ------------------------------------------------------------------------------------------------------ MANAGER_ID
     public static final String COLUMN_NAME_MANAGER_ID = Employee.COLUMN_NAME_MANAGER_ID;
@@ -127,7 +127,7 @@ public class EmpDetailsView extends __MappedEntity<Integer> {
 
     // ------------------------------------------------------------------------------------------------------------- job
     @Nonnull
-    public Job getJob() {
+    public MappedJob getJob() {
         return job;
     }
 
@@ -265,9 +265,9 @@ public class EmpDetailsView extends __MappedEntity<Integer> {
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_JOB_ID, referencedColumnName = Job.COLUMN_NAME_JOB_ID, nullable = false,
+    @JoinColumn(name = COLUMN_NAME_JOB_ID, referencedColumnName = MappedJob.COLUMN_NAME_JOB_ID, nullable = false,
                 insertable = false, updatable = false)
-    private Job job;
+    private MappedJob job;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
@@ -346,7 +346,7 @@ public class EmpDetailsView extends __MappedEntity<Integer> {
     @Nonnull
     @NotNull
     @Basic(optional = false)
-    @Column(name = Job.COLUMN_NAME_JOB_TITLE, nullable = false, insertable = false, updatable = false)
+    @Column(name = MappedJob.COLUMN_NAME_JOB_TITLE, nullable = false, insertable = false, updatable = false)
     private String jobTitle;
 
     @Nonnull

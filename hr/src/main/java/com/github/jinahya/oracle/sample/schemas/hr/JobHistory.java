@@ -179,15 +179,15 @@ public class JobHistory extends __MappedEntity<JobHistoryId> {
 
     // ------------------------------------------------------------------------------------------------------------- job
     @Nonnull
-    public Job getJob() {
+    public MappedJob getJob() {
         return job;
     }
 
-    public void setJob(@Nonnull final Job job) {
+    public void setJob(@Nonnull final MappedJob job) {
         this.job = job;
         setJobId(
                 Optional.ofNullable(this.job)
-                        .map(Job::getJobId)
+                        .map(MappedJob::getJobId)
                         .orElse(null)
         );
     }
@@ -253,7 +253,7 @@ public class JobHistory extends __MappedEntity<JobHistoryId> {
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_JOB_ID, nullable = false, insertable = false, updatable = false)
-    private Job job;
+    private MappedJob job;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Deprecated(forRemoval = true)

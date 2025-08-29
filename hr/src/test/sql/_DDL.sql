@@ -1,17 +1,14 @@
 create sequence LOCATIONS_SEQ
     increment by 100
-    maxvalue 9900
-    nocache
+    maxvalue 9900 nocache
 /
 
 create sequence DEPARTMENTS_SEQ
     increment by 10
-    maxvalue 9990
-    nocache
+    maxvalue 9990 nocache
 /
 
-create sequence EMPLOYEES_SEQ
-    nocache
+create sequence EMPLOYEES_SEQ nocache
 /
 
 create table REGIONS
@@ -22,8 +19,7 @@ create table REGIONS
         constraint REGION_ID_NN
             check ("REGION_ID" IS NOT NULL),
     REGION_NAME VARCHAR2(25)
-)
-/
+) /
 
 comment on table REGIONS is 'Regions table that contains region numbers and names. references with the Countries table.'
 /
@@ -45,8 +41,7 @@ create table COUNTRIES
     REGION_ID    NUMBER
         constraint COUNTR_REG_FK
             references REGIONS
-)
-    organization index
+) organization index
 /
 
 comment on table COUNTRIES is 'country table. References with locations table.'
@@ -75,8 +70,7 @@ create table LOCATIONS
     COUNTRY_ID     CHAR(2)
         constraint LOC_C_ID_FK
             references COUNTRIES
-)
-/
+) /
 
 comment on table LOCATIONS is 'Locations table that contains specific address of a specific office,
 warehouse, and/or production site of a company. Does not store addresses /
@@ -108,15 +102,15 @@ located. Foreign key to country_id column of the countries table.'
 
 create index LOC_CITY_IX
     on LOCATIONS (CITY)
-/
+    /
 
 create index LOC_STATE_PROVINCE_IX
     on LOCATIONS (STATE_PROVINCE)
-/
+    /
 
 create index LOC_COUNTRY_IX
     on LOCATIONS (COUNTRY_ID)
-/
+    /
 
 create table DEPARTMENTS
 (
@@ -130,8 +124,7 @@ create table DEPARTMENTS
     LOCATION_ID     NUMBER(4)
         constraint DEPT_LOC_FK
             references LOCATIONS
-)
-/
+) /
 
 comment on table DEPARTMENTS is 'Departments table that shows details of departments where employees
 work. references with locations, employees, and job_history tables.'
@@ -153,7 +146,7 @@ comment on column DEPARTMENTS.LOCATION_ID is 'Location id where a department is 
 
 create index DEPT_LOCATION_IX
     on DEPARTMENTS (LOCATION_ID)
-/
+    /
 
 create table JOBS
 (
@@ -165,8 +158,7 @@ create table JOBS
             check ("JOB_TITLE" IS NOT NULL),
     MIN_SALARY NUMBER(6),
     MAX_SALARY NUMBER(6)
-)
-/
+) /
 
 comment on table JOBS is 'jobs table with job titles and salary ranges.
 References with employees and job_history table.'
@@ -199,7 +191,7 @@ create table EMPLOYEES
         constraint EMP_EMAIL_NN
             check ("EMAIL" IS NOT NULL),
     PHONE_NUMBER   VARCHAR2(20),
-    HIRE_DATE      DATE         not null
+    HIRE_DATE      DATE not null
         constraint EMP_HIRE_DATE_NN
             check ("HIRE_DATE" IS NOT NULL),
     JOB_ID         VARCHAR2(10) not null
@@ -217,8 +209,7 @@ create table EMPLOYEES
     DEPARTMENT_ID  NUMBER(4)
         constraint EMP_DEPT_FK
             references DEPARTMENTS
-)
-/
+) /
 
 comment on table EMPLOYEES is 'employees table. References with departments,
 jobs, job_history tables. Contains a self reference.'
@@ -265,28 +256,29 @@ column of the departments table'
 
 alter table DEPARTMENTS
     add constraint DEPT_MGR_FK
-        foreign key (MANAGER_ID) references EMPLOYEES
-/
+        foreign key (MANAGER_ID) references EMPLOYEES /
 
 create index EMP_DEPARTMENT_IX
     on EMPLOYEES (DEPARTMENT_ID)
-/
+    /
 
 create index EMP_JOB_IX
     on EMPLOYEES (JOB_ID)
-/
+    /
 
 create index EMP_MANAGER_IX
     on EMPLOYEES (MANAGER_ID)
-/
+    /
 
 create index EMP_NAME_IX
     on EMPLOYEES (LAST_NAME, FIRST_NAME)
-/
+    /
 
 create trigger SECURE_EMPLOYEES
-    before insert or update or delete
-    on EMPLOYEES
+    before insert or
+update or
+delete
+on EMPLOYEES
 BEGIN
     secure_dml;
 END secure_employees;
@@ -309,10 +301,10 @@ create table JOB_HISTORY
             references EMPLOYEES
         constraint JHIST_EMPLOYEE_NN
             check ("EMPLOYEE_ID" IS NOT NULL),
-    START_DATE    DATE         not null
+    START_DATE    DATE not null
         constraint JHIST_START_DATE_NN
             check ("START_DATE" IS NOT NULL),
-    END_DATE      DATE         not null
+    END_DATE      DATE not null
         constraint JHIST_END_DATE_NN
             check ("END_DATE" IS NOT NULL),
     JOB_ID        VARCHAR2(10) not null
@@ -327,8 +319,7 @@ create table JOB_HISTORY
         primary key (EMPLOYEE_ID, START_DATE),
     constraint JHIST_DATE_INTERVAL
         check (end_date > start_date)
-)
-/
+) /
 
 comment on table JOB_HISTORY is 'Table that stores job history of the employees. If an employee
 changes departments within the job or changes jobs within the department,
@@ -360,72 +351,69 @@ comment on column JOB_HISTORY.DEPARTMENT_ID is 'Department id in which the emplo
 
 create index JHIST_JOB_IX
     on JOB_HISTORY (JOB_ID)
-/
+    /
 
 create index JHIST_EMPLOYEE_IX
     on JOB_HISTORY (EMPLOYEE_ID)
-/
+    /
 
 create index JHIST_DEPARTMENT_IX
     on JOB_HISTORY (DEPARTMENT_ID)
-/
+    /
 
 create view EMP_DETAILS_VIEW as
-SELECT
-    e.employee_id,
-    e.job_id,
-    e.manager_id,
-    e.department_id,
-    d.location_id,
-    l.country_id,
-    e.first_name,
-    e.last_name,
-    e.salary,
-    e.commission_pct,
-    d.department_name,
-    j.job_title,
-    l.city,
-    l.state_province,
-    c.country_name,
-    r.region_name
-FROM
-    employees e,
-    departments d,
-    jobs j,
-    locations l,
-    countries c,
-    regions r
+SELECT e.employee_id,
+       e.job_id,
+       e.manager_id,
+       e.department_id,
+       d.location_id,
+       l.country_id,
+       e.first_name,
+       e.last_name,
+       e.salary,
+       e.commission_pct,
+       d.department_name,
+       j.job_title,
+       l.city,
+       l.state_province,
+       c.country_name,
+       r.region_name
+FROM employees e,
+     departments d,
+     jobs j,
+     locations l,
+     countries c,
+     regions r
 WHERE e.department_id = d.department_id
   AND d.location_id = l.location_id
   AND l.country_id = c.country_id
   AND c.region_id = r.region_id
   AND j.job_id = e.job_id
 WITH READ ONLY
-/
+        /
 
 create PROCEDURE secure_dml
     IS
 BEGIN
-    IF TO_CHAR (SYSDATE, 'HH24:MI') NOT BETWEEN '08:00' AND '18:00'
+    IF
+TO_CHAR (SYSDATE, 'HH24:MI') NOT BETWEEN '08:00' AND '18:00'
         OR TO_CHAR (SYSDATE, 'DY') IN ('SAT', 'SUN') THEN
         RAISE_APPLICATION_ERROR (-20205,
                                  'You may only make changes during normal office hours');
-    END IF;
+END IF;
 END secure_dml;
 /
 
-create PROCEDURE add_job_history
-(  p_emp_id          job_history.employee_id%type
-, p_start_date      job_history.start_date%type
-, p_end_date        job_history.end_date%type
-, p_job_id          job_history.job_id%type
-, p_department_id   job_history.department_id%type
+create PROCEDURE add_job_history(p_emp_id job_history.employee_id% type
+, p_start_date job_history.start_date% type
+, p_end_date job_history.end_date% type
+, p_job_id job_history.job_id% type
+, p_department_id job_history.department_id% type
 )
     IS
 BEGIN
-    INSERT INTO job_history (employee_id, start_date, end_date,
-                             job_id, department_id)
-    VALUES(p_emp_id, p_start_date, p_end_date, p_job_id, p_department_id);
+INSERT INTO job_history (employee_id, start_date, end_date,
+                         job_id, department_id)
+VALUES (p_emp_id, p_start_date, p_end_date, p_job_id, p_department_id);
 END add_job_history;
 /
-
