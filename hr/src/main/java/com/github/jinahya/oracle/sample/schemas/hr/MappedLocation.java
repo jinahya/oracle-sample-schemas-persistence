@@ -19,7 +19,7 @@ import jakarta.validation.constraints.Size;
 import java.util.Optional;
 
 /**
- * An entity class for mapping {@value MappedLocation#TABLE_NAME} table.
+ * An abstract mapped superclass for mapping {@value MappedLocation#TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -34,9 +34,9 @@ public abstract class MappedLocation<COUNTRY extends MappedCountry<?>> extends _
 
     public static final int COLUMN_PRECISION_LOCATION_ID = 4;
 
-    public static final int COLUMN_VALUE_MAX_LOCATION_ID = 0x270F; // 9999
-
     public static final int COLUMN_VALUE_MIN_LOCATION_ID = 0x0000;
+
+    public static final int COLUMN_VALUE_MAX_LOCATION_ID = 0x270F; // 9999
 
     // -------------------------------------------------------------------------------------------------- STREET_ADDRESS
     public static final String COLUMN_NAME_STREET_ADDRESS = "STREET_ADDRESS";
