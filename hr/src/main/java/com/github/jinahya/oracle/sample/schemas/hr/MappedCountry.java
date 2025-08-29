@@ -10,28 +10,43 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @MappedSuperclass
-public class MappedCountry<REGION extends MappedRegion> extends __MappedEntity<String> {
+public class MappedCountry<REGION extends MappedRegion, LOCATION extends MappedLocation<?>>
+        extends __MappedEntity<String> {
 
     // -----------------------------------------------------------------------------------------------------------------
     public static final String TABLE_NAME = "COUNTRIES";
 
-    // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
+    // ------------------------------------------------------------------------------------------ COUNTRY_ID / countryId
     public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
 
-    // ---------------------------------------------------------------------------------------------------- COUNTRY_NAME
+    public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
+
+    // -------------------------------------------------------------------------------------- COUNTRY_NAME / countryName
     public static final String COLUMN_NAME_COUNTRY_NAME = "COUNTRY_NAME";
 
-    // ------------------------------------------------------------------------------------------------------- REGION_ID
+    public static final int COLUMN_LENGTH_COUNTRY_NAME = 60;
+
+    public static final String ATTRIBUTE_NAME_COUNTRY_NAME = "countryName";
+
+    public static final int SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
+
+    // ----------------------------------------------------------------------------------- REGION_ID / regionId / region
     public static final String COLUMN_NAME_REGION_ID = "REGION_ID";
+
+    public static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
+
+    public static final String ATTRIBUTE_NAME_REGION = "region";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -63,7 +78,7 @@ public class MappedCountry<REGION extends MappedRegion> extends __MappedEntity<S
 
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedCountry<?> that)) {
+        if (!(obj instanceof MappedCountry<?, ?> that)) {
             return false;
         }
         return Objects.equals(getCountryId(), that.getCountryId());
@@ -138,12 +153,11 @@ public class MappedCountry<REGION extends MappedRegion> extends __MappedEntity<S
     @Nullable
     @Size(max = 60)
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_COUNTRY_NAME, insertable = true, updatable = true, length = 60)
+    @Column(name = COLUMN_NAME_COUNTRY_NAME, insertable = true, updatable = true, length = COLUMN_LENGTH_COUNTRY_NAME)
     private String countryName;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @NotNull
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_REGION_ID, nullable = true, insertable = true, updatable = true)
     private Long regionId;
@@ -155,5 +169,6 @@ public class MappedCountry<REGION extends MappedRegion> extends __MappedEntity<S
     private REGION region;
 
     // -----------------------------------------------------------------------------------------------------------------
-    // TODO: map locations by Location#country
+    @OneToMany(mappedBy = MappedLocation.ATTRIBUTE_NAME_COUNTRY)
+    private List<@Valid @NotNull LOCATION> locations;
 }

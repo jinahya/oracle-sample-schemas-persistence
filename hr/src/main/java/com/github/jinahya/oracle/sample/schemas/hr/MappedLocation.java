@@ -24,7 +24,7 @@ import java.util.Optional;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedLocation<COUNTRY extends MappedCountry<?>> extends __MappedEntity<Integer> {
+public abstract class MappedLocation<COUNTRY extends MappedCountry<?, ?>> extends __MappedEntity<Integer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     public static final String TABLE_NAME = "LOCATIONS";
@@ -66,12 +66,16 @@ public abstract class MappedLocation<COUNTRY extends MappedCountry<?>> extends _
 
     public static final int SIZE_MAX_STREET_PROVINCE = COLUMN_LENGTH_STREET_PROVINCE;
 
-    // ----------------------------------------------------------------------------------------------------- LOCATION_ID
+    // -------------------------------------------------------------------------------- COUNTRY_ID / countryId / country
     public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
 
     public static final int COLUMN_LENGTH_COUNTRY_ID = 2;
 
+    public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
+
     public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
+
+    public static final String ATTRIBUTE_NAME_COUNTRY = "country";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -82,6 +86,17 @@ public abstract class MappedLocation<COUNTRY extends MappedCountry<?>> extends _
      */
     protected MappedLocation() {
         super();
+    }
+
+    protected MappedLocation(final MappedLocationBuilder<?, ?, COUNTRY> builder) {
+        super(builder);
+        locationId = builder.locationId();
+        streetAddress = builder.streetAddress();
+        postalCode = builder.postalCode();
+        city = builder.city();
+        stateProvince = builder.stateProvince();
+        countryId = builder.countryId();
+        country = builder.country();
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -160,7 +175,7 @@ public abstract class MappedLocation<COUNTRY extends MappedCountry<?>> extends _
 
     // --------------------------------------------------------------------------------------------------------- country
     @Nullable
-    public MappedCountry getCountry() {
+    public COUNTRY getCountry() {
         return country;
     }
 
@@ -208,16 +223,24 @@ public abstract class MappedLocation<COUNTRY extends MappedCountry<?>> extends _
     @Nullable
     @Size(max = SIZE_MAX_STREET_PROVINCE)
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_STATE_PROVINCE, nullable = true, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_STREET_PROVINCE)
+    @Column(name = COLUMN_NAME_STATE_PROVINCE,
+            nullable = true,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_STREET_PROVINCE
+    )
     private String stateProvince;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Size(max = SIZE_MAX_COUNTRY_ID)
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = true, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_COUNTRY_ID)
+    @Column(name = COLUMN_NAME_COUNTRY_ID,
+            nullable = true,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_COUNTRY_ID
+    )
     private String countryId;
 
     @Nullable

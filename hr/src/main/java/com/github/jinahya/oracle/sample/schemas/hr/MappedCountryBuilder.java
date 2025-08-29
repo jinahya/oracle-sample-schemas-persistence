@@ -8,7 +8,7 @@ import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
 })
 public abstract class MappedCountryBuilder<
         SELF extends MappedCountryBuilder<SELF, COUNTRY, REGION>,
-        COUNTRY extends MappedCountry<REGION>,
+        COUNTRY extends MappedCountry<REGION, ?>,
         REGION extends MappedRegion
         >
         extends __MappedEntityBuilder<SELF, COUNTRY> {
