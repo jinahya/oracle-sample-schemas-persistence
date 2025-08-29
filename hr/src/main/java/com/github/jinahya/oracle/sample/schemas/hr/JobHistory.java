@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.hr;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
+import com.github.jinahya.persistence.mapped.__MappedEntity;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -29,7 +29,7 @@ import java.util.function.Supplier;
  */
 @Entity
 @Table(name = JobHistory.TABLE_NAME)
-public class JobHistory extends __MappedEntity<JobHistory, JobHistoryId> {
+public class JobHistory extends __MappedEntity<JobHistoryId> {
 
     @Serial
     private static final long serialVersionUID = -6473751636008005001L;
@@ -109,17 +109,6 @@ public class JobHistory extends __MappedEntity<JobHistory, JobHistoryId> {
                 ",departmentId=" + departmentId +
 //                ",department=" + department +
                 '}';
-    }
-
-    // ------------------------------------------------------------------------------------------------------ super._id_
-    @Override
-    protected final JobHistoryId _id_() {
-        return getId();
-    }
-
-    @Override
-    protected final void _id_(final JobHistoryId _id_) {
-        setId(_id_);
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation

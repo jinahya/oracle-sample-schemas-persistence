@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.hr;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
+import com.github.jinahya.persistence.mapped.__MappedEntity;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = EmpDetailsView.VIEW_NAME)
-public class EmpDetailsView extends __MappedEntity<EmpDetailsView, Integer> {
+public class EmpDetailsView extends __MappedEntity<Integer> {
 
     @Serial
     private static final long serialVersionUID = 6927019108269489324L;
@@ -44,7 +44,7 @@ public class EmpDetailsView extends __MappedEntity<EmpDetailsView, Integer> {
     public static final String COLUMN_NAME_LOCATION_ID = Department.COLUMN_NAME_LOCATION_ID;
 
     // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
-    public static final String COLUMN_NAME_COUNTRY_ID = Location.COLUMN_NAME_COUNTRY_ID;
+    public static final String COLUMN_NAME_COUNTRY_ID = MappedLocation.COLUMN_NAME_COUNTRY_ID;
 
     // ------------------------------------------------------------------------------------------------------ FIRST_NAME
 
@@ -105,17 +105,6 @@ public class EmpDetailsView extends __MappedEntity<EmpDetailsView, Integer> {
                 '}';
     }
 
-    // ------------------------------------------------------------------------------------------------------ super._id_
-    @Override
-    protected final Integer _id_() {
-        return getEmployeeId();
-    }
-
-    @Override
-    protected final void _id_(final Integer _id_) {
-        throw new UnsupportedOperationException("not supported; you're working on a read-only view");
-    }
-
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -174,7 +163,7 @@ public class EmpDetailsView extends __MappedEntity<EmpDetailsView, Integer> {
 
     // -------------------------------------------------------------------------------------------------------- location
     @Nullable
-    public Location getLocation() {
+    public MappedLocation getLocation() {
         return location;
     }
 
@@ -186,7 +175,7 @@ public class EmpDetailsView extends __MappedEntity<EmpDetailsView, Integer> {
 
     // --------------------------------------------------------------------------------------------------------- country
     @Nullable
-    public Country getCountry() {
+    public MappedCountry getCountry() {
         return country;
     }
 
@@ -313,7 +302,7 @@ public class EmpDetailsView extends __MappedEntity<EmpDetailsView, Integer> {
     @Nullable
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_LOCATION_ID, nullable = true, insertable = false, updatable = false)
-    private Location location;
+    private MappedLocation location;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
@@ -324,7 +313,7 @@ public class EmpDetailsView extends __MappedEntity<EmpDetailsView, Integer> {
     @Nullable
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_COUNTRY_ID, nullable = true, insertable = false, updatable = false)
-    private Country country;
+    private MappedCountry country;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
@@ -363,21 +352,21 @@ public class EmpDetailsView extends __MappedEntity<EmpDetailsView, Integer> {
     @Nonnull
     @NotNull
     @Basic(optional = false)
-    @Column(name = Location.COLUMN_NAME_CITY, nullable = false, insertable = false, updatable = false)
+    @Column(name = MappedLocation.COLUMN_NAME_CITY, nullable = false, insertable = false, updatable = false)
     private String city;
 
     @Nullable
     @Basic(optional = true)
-    @Column(name = Location.COLUMN_NAME_STATE_PROVINCE, nullable = true, insertable = false, updatable = false)
+    @Column(name = MappedLocation.COLUMN_NAME_STATE_PROVINCE, nullable = true, insertable = false, updatable = false)
     private String stateProvince;
 
     @Nullable
     @Basic(optional = true)
-    @Column(name = Country.COLUMN_NAME_COUNTRY_NAME, nullable = true, insertable = false, updatable = false)
+    @Column(name = MappedCountry.COLUMN_NAME_COUNTRY_NAME, nullable = true, insertable = false, updatable = false)
     private String countryName;
 
     @Nullable
     @Basic(optional = true)
-    @Column(name = Region.COLUMN_NAME_REGION_NAME, nullable = true, insertable = false, updatable = false)
+    @Column(name = MappedRegion.COLUMN_NAME_REGION_NAME, nullable = true, insertable = false, updatable = false)
     private String regionName;
 }

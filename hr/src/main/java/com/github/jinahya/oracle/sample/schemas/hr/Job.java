@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.hr;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
+import com.github.jinahya.persistence.mapped.__MappedEntity;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +16,7 @@ import java.io.Serial;
 
 @Entity
 @Table(name = Job.TABLE_NAME)
-public class Job extends __MappedEntity<Job, String> {
+public class Job extends __MappedEntity<String> {
 
     @Serial
     private static final long serialVersionUID = -3918037798759237986L;
@@ -81,17 +81,6 @@ public class Job extends __MappedEntity<Job, String> {
                 ",minSalary=" + minSalary +
                 ",maxSalary=" + maxSalary +
                 '}';
-    }
-
-    // ------------------------------------------------------------------------------------------------------ super._id_
-    @Override
-    protected final String _id_() {
-        return getJobId();
-    }
-
-    @Override
-    protected final void _id_(final String _id_) {
-        setJobId(_id_);
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation

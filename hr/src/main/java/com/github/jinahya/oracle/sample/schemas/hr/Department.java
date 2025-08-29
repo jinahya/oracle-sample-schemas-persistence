@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.hr;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
+import com.github.jinahya.persistence.mapped.__MappedEntity;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Entity
 @Table(name = Department.TABLE_NAME)
-public class Department extends __MappedEntity<Department, Integer> {
+public class Department extends __MappedEntity<Integer> {
 
     @Serial
     private static final long serialVersionUID = 713808132457900386L;
@@ -82,17 +82,6 @@ public class Department extends __MappedEntity<Department, Integer> {
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
-
-    // ------------------------------------------------------------------------------------------------------ super._id_
-    @Override
-    protected final Integer _id_() {
-        return getDepartmentId();
-    }
-
-    @Override
-    protected final void _id_(final Integer _id_) {
-        setDepartmentId(_id_);
-    }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
@@ -157,15 +146,15 @@ public class Department extends __MappedEntity<Department, Integer> {
 
     // -------------------------------------------------------------------------------------------------------- location
     @Nullable
-    public Location getLocation() {
+    public MappedLocation getLocation() {
         return location;
     }
 
-    public void setLocation(@Nullable final Location location) {
+    public void setLocation(@Nullable final MappedLocation location) {
         this.location = location;
         setLocationId(
                 Optional.ofNullable(this.location)
-                        .map(Location::getLocationId)
+                        .map(MappedLocation::getLocationId)
                         .orElse(null)
         );
     }
@@ -218,5 +207,5 @@ public class Department extends __MappedEntity<Department, Integer> {
     @Valid
     @ManyToOne(optional = true)
     @JoinColumn(name = COLUMN_NAME_LOCATION_ID, nullable = true, insertable = false, updatable = false)
-    private Location location;
+    private MappedLocation location;
 }
