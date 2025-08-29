@@ -16,4 +16,8 @@ public class OrderItem extends MappedOrderItem<OrderItemId, Order, Product, Ship
     protected OrderItem() {
         super();
     }
+
+    OrderItem(final OrderItemBuilder builder) {
+        super(builder);
+    }
 }

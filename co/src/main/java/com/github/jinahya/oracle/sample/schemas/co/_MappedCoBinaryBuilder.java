@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.__Builder;
+import com.github.jinahya.persistence.mapped.__MappedBuilder;
 import jakarta.annotation.Nonnull;
 
 import java.io.IOException;
@@ -18,10 +18,10 @@ import java.util.function.Supplier;
         "java:S119"  // Type parameter names should comply with a naming convention
 })
 public abstract class _MappedCoBinaryBuilder<
-        SELF extends _MappedCoBinaryBuilder<SELF, TARGET>,
-        TARGET extends _MappedCoBinary
+        SELF extends _MappedCoBinaryBuilder<SELF, MAPPED>,
+        MAPPED extends _MappedCoBinary
         >
-        extends __Builder<SELF, TARGET> {
+        extends __MappedBuilder<SELF, MAPPED> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
     protected static <B extends _MappedCoBinaryBuilder<B, ?>> B from(@Nonnull final Supplier<? extends B> instantiator,
@@ -49,8 +49,8 @@ public abstract class _MappedCoBinaryBuilder<
     /**
      * Creates a new instance.
      */
-    protected _MappedCoBinaryBuilder(final Class<TARGET> targetClass) {
-        super(targetClass);
+    protected _MappedCoBinaryBuilder(final Class<MAPPED> mappedClass) {
+        super(mappedClass);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object

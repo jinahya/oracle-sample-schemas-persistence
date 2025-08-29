@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.__Builder;
+import com.github.jinahya.persistence.mapped.__MappedBuilder;
 
 import java.math.BigDecimal;
 
@@ -10,10 +10,10 @@ import java.math.BigDecimal;
         "java:S119"  // Type parameter names should comply with a naming convention
 })
 public abstract class _MappedCoLocationBuilder<
-        SELF extends _MappedCoLocationBuilder<SELF, TARGET>,
-        TARGET extends _MappedCoLocation
+        SELF extends _MappedCoLocationBuilder<SELF, MAPPED>,
+        MAPPED extends _MappedCoLocation
         >
-        extends __Builder<SELF, TARGET> {
+        extends __MappedBuilder<SELF, MAPPED> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -22,8 +22,8 @@ public abstract class _MappedCoLocationBuilder<
     /**
      * Creates a new instance.
      */
-    protected _MappedCoLocationBuilder(final Class<TARGET> targetClass) {
-        super(targetClass);
+    protected _MappedCoLocationBuilder(final Class<MAPPED> mappedClass) {
+        super(mappedClass);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object

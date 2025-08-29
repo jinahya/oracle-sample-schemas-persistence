@@ -1,5 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
+import com.github.jinahya.persistence.mapped.__Mapped;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
@@ -16,7 +17,7 @@ import java.util.Optional;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public abstract class _MappedCoLocation {
+public abstract class _MappedCoLocation extends __Mapped {
 
     // --------------------------------------------------------------------------------------------- LATITUDE / latitude
     public static final String COLUMN_NAME_LATITUDE = "LATITUDE";

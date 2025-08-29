@@ -1,5 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
+import com.github.jinahya.persistence.mapped.__Mapped;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -12,7 +13,7 @@ import java.util.Objects;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public abstract class _MappedCoBinary {
+public abstract class _MappedCoBinary extends __Mapped {
 
     // --------------------------------------------------------------------------------------------------- BYTES / bytes
     public static final String COLUMN_NAME_BYTES = "BYTES";
