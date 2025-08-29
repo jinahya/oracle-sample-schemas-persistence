@@ -33,6 +33,7 @@
     <class>com.github.jinahya.oracle.sample.schemas.co.Inventory</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Order</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.OrderItem</class>
+<!--    <class>com.github.jinahya.oracle.sample.schemas.co.OrderItemId</class>-->
     <class>com.github.jinahya.oracle.sample.schemas.co.Product</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Shipment</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Store</class>
@@ -40,11 +41,11 @@
     <validation-mode>CALLBACK</validation-mode>
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
-      <!-- https://github.com/eclipse-ee4j/eclipselink/issues/1393 -->
+      <!-- ///////////////////////////////////////////////// https://github.com/eclipse-ee4j/eclipselink/issues/1393 -->
       <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:;database_to_upper=false;MODE=LEGACY"/>
       <property name="jakarta.persistence.jdbc.user" value="sa"/>
       <property name="jakarta.persistence.jdbc.password" value="password"/>
-      <!-- eclipselink -->
+      <!-- ///////////////////////////////////////////////////////////////////////////////////////////// eclipselink -->
       <!-- https://wiki.eclipse.org/EclipseLink/Examples/JPA/Logging -->
       <!--      <property name="eclipselink.logging.level" value="FINE"/>-->
       <property name="eclipselink.logging.level.sql" value="FINE"/>
@@ -53,16 +54,17 @@
       <!-- https://wiki.eclipse.org/EclipseLink/Examples/JPA/DDL -->
       <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.H2Platform"/>
       <property name="eclipselink.ddl-generation" value="create-tables"/>
-      <!-- hibernate -->
+      <!-- /////////////////////////////////////////////////////////////////////////////////////////////// hibernate -->
       <!--      <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>-->
       <property name="hibernate.format_sql" value="true"/>
       <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
       <property name="hibernate.highlight_sql" value="true"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.use_sql_comment" value="true"/>
-      <!-- jinahya.persistence -->
+      <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// jinahya -->
       <property name="jinahya.persistence.table_catalog" value="UNNAMED"/>
-      <property name="jinahya.persistence.talbe_schema" value="PUBLIC"/>
+      <property name="jinahya.persistence.table_schema" value="PUBLIC"/>
+      <property name="jinahya.persistence.table_types" value=""/>
     </properties>
   </persistence-unit>
   <persistence-unit name="__itPU" transaction-type="RESOURCE_LOCAL">
@@ -74,6 +76,7 @@
     <class>com.github.jinahya.oracle.sample.schemas.co.Inventory</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Order</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.OrderItem</class>
+<!--    <class>com.github.jinahya.oracle.sample.schemas.co.OrderItemId</class>-->
     <class>com.github.jinahya.oracle.sample.schemas.co.Product</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Shipment</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Store</class>
@@ -85,7 +88,7 @@
       <property name="jakarta.persistence.jdbc.url" value="jdbc:oracle:thin:@//localhost:1521/freepdb1"/>
       <property name="jakarta.persistence.jdbc.user" value="co"/>
       <property name="jakarta.persistence.jdbc.password" value="password"/>
-      <!-- eclipselink -->
+      <!-- ///////////////////////////////////////////////////////////////////////////////////////////// eclipselink -->
       <!-- https://wiki.eclipse.org/EclipseLink/Examples/JPA/Logging -->
       <!--      <property name="eclipselink.logging.level" value="FINE"/>-->
       <property name="eclipselink.ddl-generation" value="none"/>
@@ -94,16 +97,17 @@
       <!--      <property name="eclipselink.weaving" value="true"/>-->
       <!-- https://wiki.eclipse.org/EclipseLink/Examples/JPA/DDL -->
       <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.OraclePlatform"/>
-      <!-- hibernate -->
+      <!-- /////////////////////////////////////////////////////////////////////////////////////////////// hibernate -->
       <!--      <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>-->
       <property name="hibernate.format_sql" value="true"/>
       <property name="hibernate.hbm2ddl.auto" value="none"/>
       <property name="hibernate.highlight_sql" value="true"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.use_sql_comment" value="true"/>
-      <!-- jinahya.persistence -->
+      <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// jinahya -->
       <property name="jinahya.persistence.table_catalog" value=""/>
       <property name="jinahya.persistence.table_schema" value="CO"/>
+      <property name="jinahya.persistence.table_types" value=""/>
     </properties>
   </persistence-unit>
 </persistence>

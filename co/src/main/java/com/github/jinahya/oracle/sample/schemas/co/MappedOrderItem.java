@@ -13,6 +13,7 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.Transient;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -27,7 +28,7 @@ import java.util.function.Supplier;
 @SuppressWarnings({
         "java:S119" // Type parameter names should comply with a naming convention
 })
-public class MappedOrderItem<
+public abstract class MappedOrderItem<
         ID extends MappedOrderItemId,
         ORDER extends MappedOrder<?, ?, ?>,
         PRODUCT extends MappedProduct,
@@ -126,18 +127,44 @@ public class MappedOrderItem<
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
-//    @AssertTrue(message = "shipment.customer should be equal to the order.customer")
-    private boolean isSShipmentCustomerValid() {
-        return shipment == null
-                || order == null
-                || Objects.equals(shipment.getCustomer(), order.getCustomer());
+    @AssertTrue(message = "shipment.customer should be equal to the order.customer")
+    // 일단 DB 상으로는 다 맞다.
+    private boolean isShipmentCustomerEqualToOrderCustomer() {
+        if (shipment == null) {
+            return true;
+        }
+        final var shipmentCustomer = shipment.getCustomer();
+        if (shipmentCustomer == null) {
+            return true;
+        }
+        if (order == null) {
+            return true;
+        }
+        final var orderCustomer = order.getCustomer();
+        if (orderCustomer == null) {
+            return true;
+        }
+        return Objects.equals(shipmentCustomer, orderCustomer);
     }
 
-    //    @AssertTrue(message = "shipment.store should be equal to the order.store")
-    private boolean isShipmentStoreValid() {
-        return shipment == null
-                || order == null
-                || Objects.equals(shipment.getStore(), order.getStore());
+    @AssertTrue(message = "shipment.store should be equal to the order.store")
+    // 일단 DB 상으로는 다 맞다.
+    private boolean isShipmentStoreEqualToOrderStore() {
+        if (shipment == null) {
+            return true;
+        }
+        final var shipmentStore = shipment.getStore();
+        if (shipmentStore == null) {
+            return true;
+        }
+        if (order == null) {
+            return true;
+        }
+        final var orderStore = order.getStore();
+        if (orderStore == null) {
+            return true;
+        }
+        return Objects.equals(shipmentStore, orderStore);
     }
 
     // -------------------------------------------------------------------------------------------------------------- id
@@ -150,7 +177,7 @@ public class MappedOrderItem<
         this.id = id;
     }
 
-    public ID getIdOrElseSetAndGet(@Nonnull final Supplier<? extends ID> instantiator) {
+    protected ID getIdOrElseSetAndGet(@Nonnull final Supplier<? extends ID> instantiator) {
         Objects.requireNonNull(instantiator, "instantiator is null");
         return Optional.ofNullable(getId())
                 .orElseGet(() -> {
@@ -180,11 +207,12 @@ public class MappedOrderItem<
     }
 
     // --------------------------------------------------------------------------------------------------------- product
+    @Nonnull
     public PRODUCT getProduct() {
         return product;
     }
 
-    void setProduct(final PRODUCT product) {
+    void setProduct(@Nonnull final PRODUCT product) {
         this.product = product;
         setProductId(
                 Optional.ofNullable(this.product)

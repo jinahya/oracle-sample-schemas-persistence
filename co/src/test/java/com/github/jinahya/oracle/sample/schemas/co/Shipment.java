@@ -5,9 +5,9 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = MappedShipment.TABLE_NAME)
-public class Shipment extends MappedShipment<Store, Customer> {
+class Shipment extends MappedShipment<Store, Customer> {
 
-    public static MappedShipmentBuilder<?, Shipment, ?, ?> builder() {
+    static MappedShipmentBuilder<?, Shipment, ?, ?> builder() {
         return new ShipmentBuilder();
     }
 

@@ -7,6 +7,7 @@ class OrderItemBuilder extends MappedOrderItemBuilder<
         Order,
         Product,
         Shipment> {
+
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS

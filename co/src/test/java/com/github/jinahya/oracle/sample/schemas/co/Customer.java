@@ -6,10 +6,10 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = MappedCustomer.TABLE_NAME)
-public class Customer extends MappedCustomer {
+class Customer extends MappedCustomer {
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static MappedCustomerBuilder<?, Customer> builder() {
+    static MappedCustomerBuilder<?, Customer> builder() {
         return new CustomerBuilder();
     }
 

@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 @Table(name = Inventory.TABLE_NAME)
 class Inventory extends MappedInventory<Store, Product> {
 
-    public static MappedInventoryBuilder<?, Inventory, Store, Product> builder() {
+    static MappedInventoryBuilder<?, Inventory, Store, Product> builder() {
         return new InventoryBuilder();
     }
 

@@ -4,8 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = OrderItem.TABLE_NAME)
-public class OrderItem extends MappedOrderItem<OrderItemId, Order, Product, Shipment> {
+@Table(name = MappedOrderItem.TABLE_NAME)
+class OrderItem extends MappedOrderItem<OrderItemId, Order, Product, Shipment> {
+
+    static MappedOrderItemBuilder<?, OrderItem, OrderItemId, Order, Product, Shipment> builder() {
+        return new OrderItemBuilder();
+    }
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS

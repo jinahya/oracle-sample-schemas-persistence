@@ -11,15 +11,15 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @MappedSuperclass
-abstract class MappedOrderItemId implements Serializable {
+public abstract class MappedOrderItemId implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 2149145063300672899L;
 
     // -----------------------------------------------------------------------------------------------------------------
-    static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
+    public static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
 
-    static final String ATTRIBUTE_NAME_LINE_ITEM_ID = "lineItemId";
+    public static final String ATTRIBUTE_NAME_LINE_ITEM_ID = "lineItemId";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -52,8 +52,8 @@ abstract class MappedOrderItemId implements Serializable {
         if (!(obj instanceof MappedOrderItemId that)) {
             return false;
         }
-        return Objects.equals(orderId, that.orderId) &&
-                Objects.equals(lineItemId, that.lineItemId);
+        return Objects.equals(orderId, that.orderId)
+                && Objects.equals(lineItemId, that.lineItemId);
     }
 
     @Override

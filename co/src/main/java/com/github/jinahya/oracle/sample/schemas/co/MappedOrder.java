@@ -34,6 +34,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 @MappedSuperclass
+@SuppressWarnings({
+        "java:S119" // Type parameter names should comply with a naming convention
+})
 public abstract class MappedOrder<
         CUSTOMER extends MappedCustomer,
         STORE extends MappedStore,

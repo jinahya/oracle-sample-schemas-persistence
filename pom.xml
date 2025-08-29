@@ -534,6 +534,7 @@
         <dependency>
           <groupId>org.eclipse.persistence</groupId>
           <artifactId>eclipselink</artifactId>
+          <version>${version.org.eclipse.persistence}</version>
           <scope>test</scope>
         </dependency>
       </dependencies>

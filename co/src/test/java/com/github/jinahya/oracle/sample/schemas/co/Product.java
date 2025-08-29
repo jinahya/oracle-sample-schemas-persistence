@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 class Product extends MappedProduct {
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static MappedProductBuilder<?, Product> builder() {
+    static MappedProductBuilder<?, Product> builder() {
         return new ProductBuilder();
     }
 

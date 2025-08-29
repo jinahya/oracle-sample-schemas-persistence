@@ -6,7 +6,7 @@ import com.github.jinahya.persistence.mapped.__Builder;
         "unchecked",
         "java:S119" // Type parameter names should comply with a naming convention
 })
-abstract class MappedOrderItemIdBuilder<
+public abstract class MappedOrderItemIdBuilder<
         SELF extends MappedOrderItemIdBuilder<SELF, ORDER_ITEM_ID>,
         ORDER_ITEM_ID extends MappedOrderItemId
         >

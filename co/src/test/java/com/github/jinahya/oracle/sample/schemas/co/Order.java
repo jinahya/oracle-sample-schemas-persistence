@@ -5,7 +5,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = MappedOrder.TABLE_NAME)
-public class Order extends MappedOrder<Customer, Store, OrderItem> {
+class Order extends MappedOrder<Customer, Store, OrderItem> {
 
     public static MappedOrderBuilder<?, Order, ?, ?> builder() {
         return new OrderBuilder();
