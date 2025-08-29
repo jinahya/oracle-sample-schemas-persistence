@@ -10,10 +10,10 @@ import java.math.BigDecimal;
         "java:S119"  // Type parameter names should comply with a naming convention
 })
 public abstract class _MappedCoLocationBuilder<
-        SELF extends _MappedCoLocationBuilder<SELF, MAPPED>,
-        MAPPED extends _MappedCoLocation
+        SELF extends _MappedCoLocationBuilder<SELF, LOCATION>,
+        LOCATION extends _MappedCoLocation
         >
-        extends __MappedBuilder<SELF, MAPPED> {
+        extends __MappedBuilder<SELF, LOCATION> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -22,7 +22,7 @@ public abstract class _MappedCoLocationBuilder<
     /**
      * Creates a new instance.
      */
-    protected _MappedCoLocationBuilder(final Class<MAPPED> mappedClass) {
+    protected _MappedCoLocationBuilder(final Class<LOCATION> mappedClass) {
         super(mappedClass);
     }
 

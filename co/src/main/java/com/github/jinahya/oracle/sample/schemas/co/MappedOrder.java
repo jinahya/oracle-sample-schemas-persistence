@@ -5,11 +5,30 @@ import com.github.jinahya.persistence.more.__AttributeEnum;
 import com.github.jinahya.persistence.more.__AttributeEnumConverter;
 import com.github.jinahya.persistence.more.__AttributeEnumUtils;
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.*;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Converter;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Transient;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
-import java.time.*;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -162,6 +181,19 @@ public abstract class MappedOrder<
                 ",orderStatus=" + orderStatus +
                 ",storeId=" + storeId +
                 '}';
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (!(obj instanceof MappedOrder<?, ?, ?> that)) {
+            return false;
+        }
+        return Objects.equals(getOrderId(), that.getOrderId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getOrderId());
     }
 
     // --------------------------------------------------------------------------------------------------------- orderId
@@ -366,4 +398,16 @@ public abstract class MappedOrder<
             fetch = FetchType.LAZY
     )
     private List<@Valid @NotNull ORDER_ITEM> orderItems;
+
+    /**
+     * Returns the total price of this order.
+     *
+     * @param mc a math context to use.
+     * @return the total price of this order.
+     * @see MappedOrderItem#getTotalPrice(MathContext)
+     */
+    public BigDecimal getTotalPrice(@Nullable final MathContext mc) {
+        // TODO: implement!
+        throw new UnsupportedOperationException("not yet implemented");
+    }
 }

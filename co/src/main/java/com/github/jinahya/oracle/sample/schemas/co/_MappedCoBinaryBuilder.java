@@ -18,38 +18,38 @@ import java.util.function.Supplier;
         "java:S119"  // Type parameter names should comply with a naming convention
 })
 public abstract class _MappedCoBinaryBuilder<
-        SELF extends _MappedCoBinaryBuilder<SELF, MAPPED>,
-        MAPPED extends _MappedCoBinary
+        SELF extends _MappedCoBinaryBuilder<SELF, BINARY>,
+        BINARY extends _MappedCoBinary
         >
-        extends __MappedBuilder<SELF, MAPPED> {
+        extends __MappedBuilder<SELF, BINARY> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
-    protected static <B extends _MappedCoBinaryBuilder<B, ?>> B from(@Nonnull final Supplier<? extends B> instantiator,
-                                                                     @Nonnull final Path path,
-                                                                     @Nonnull final LinkOption... options)
-            throws IOException {
-        Objects.requireNonNull(instantiator, "instantiator is null");
-        Objects.requireNonNull(path, "path is null");
-        Objects.requireNonNull(options, "options is null");
-        if (Files.isRegularFile(path, options)) {
-            throw new IllegalArgumentException(
-                    "not a regular file"
-                            + "; path: " + path
-                            + "; options: " + Arrays.toString(options)
-            );
-        }
-        final var instance = Objects.requireNonNull(instantiator.get(), "null instantiated from " + instantiator);
-        instance.bytes(Files.readAllBytes(path));
-        instance.filename(path.getFileName().toString());
-        return instance;
-    }
+//    protected static <B extends _MappedCoBinaryBuilder<B, ?>> B from(@Nonnull final Supplier<? extends B> instantiator,
+//                                                                     @Nonnull final Path path,
+//                                                                     @Nonnull final LinkOption... options)
+//            throws IOException {
+//        Objects.requireNonNull(instantiator, "instantiator is null");
+//        Objects.requireNonNull(path, "path is null");
+//        Objects.requireNonNull(options, "options is null");
+//        if (Files.isRegularFile(path, options)) {
+//            throw new IllegalArgumentException(
+//                    "not a regular file"
+//                            + "; path: " + path
+//                            + "; options: " + Arrays.toString(options)
+//            );
+//        }
+//        final var instance = Objects.requireNonNull(instantiator.get(), "null instantiated from " + instantiator);
+//        instance.bytes(Files.readAllBytes(path));
+//        instance.filename(path.getFileName().toString());
+//        return instance;
+//    }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
      */
-    protected _MappedCoBinaryBuilder(final Class<MAPPED> mappedClass) {
+    protected _MappedCoBinaryBuilder(final Class<BINARY> mappedClass) {
         super(mappedClass);
     }
 

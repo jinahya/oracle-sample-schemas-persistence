@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 
 @MappedSuperclass
 @SuppressWarnings({
-        "unchecked"
+        "unchecked",
+        "java:S119" // Type parameter names should comply with a naming convention
 })
 public abstract class MappedOrderBuilder<
         SELF extends MappedOrderBuilder<SELF, ORDER, CUSTOMER, STORE>,

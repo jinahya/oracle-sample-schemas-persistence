@@ -6,6 +6,7 @@ import jakarta.persistence.MappedSuperclass;
 @MappedSuperclass
 @SuppressWarnings({
         "unchecked",
+        "java:S119", // Type parameter names should comply with a naming convention
         "java:S2637" // "" values should not be set to null
 })
 public abstract class MappedShipmentBuilder<
@@ -16,7 +17,7 @@ public abstract class MappedShipmentBuilder<
         >
         extends __MappedEntityBuilder<SELF, SHIPMENT> {
 
-    // ------------------------------------------------------------------------------------------------------ CONSTRUCTORS
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     protected MappedShipmentBuilder(final Class<SHIPMENT> entityClass) {
         super(entityClass);
     }

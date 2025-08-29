@@ -7,13 +7,13 @@ import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
         "java:S119" // Type parameter names should comply with a naming convention
 })
 public abstract class MappedCustomerBuilder<
-        SELF extends MappedCustomerBuilder<SELF, ENTITY>,
-        ENTITY extends MappedCustomer
+        SELF extends MappedCustomerBuilder<SELF, CUSTOMER>,
+        CUSTOMER extends MappedCustomer
         >
-        extends __MappedEntityBuilder<SELF, ENTITY> {
+        extends __MappedEntityBuilder<SELF, CUSTOMER> {
 
     // -----------------------------------------------------------------------------------------------------------------
-    protected MappedCustomerBuilder(final Class<ENTITY> entityClass) {
+    protected MappedCustomerBuilder(final Class<CUSTOMER> entityClass) {
         super(entityClass);
     }
 

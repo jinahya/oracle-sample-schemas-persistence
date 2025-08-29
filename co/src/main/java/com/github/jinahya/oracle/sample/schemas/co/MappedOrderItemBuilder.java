@@ -5,7 +5,8 @@ import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
 import java.math.BigDecimal;
 
 @SuppressWarnings({
-        "unchecked"
+        "unchecked",
+        "java:S119" // Type parameter names should comply with a naming convention
 })
 public abstract class MappedOrderItemBuilder<
         SELF extends MappedOrderItemBuilder<SELF, ORDER_ITEM, ID, ORDER, PRODUCT, SHIPMENT>,

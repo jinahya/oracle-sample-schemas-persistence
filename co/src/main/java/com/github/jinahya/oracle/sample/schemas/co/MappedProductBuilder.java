@@ -10,13 +10,13 @@ import java.time.LocalDate;
         "java:S119" // Type parameter names should comply with a naming convention
 })
 public abstract class MappedProductBuilder<
-        SELF extends MappedProductBuilder<SELF, ENTITY>,
-        ENTITY extends MappedProduct
+        SELF extends MappedProductBuilder<SELF, PRODUCT>,
+        PRODUCT extends MappedProduct
         >
-        extends __MappedEntityBuilder<SELF, ENTITY> {
+        extends __MappedEntityBuilder<SELF, PRODUCT> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-    protected MappedProductBuilder(final Class<ENTITY> entityClass) {
+    protected MappedProductBuilder(final Class<PRODUCT> entityClass) {
         super(entityClass);
     }
 

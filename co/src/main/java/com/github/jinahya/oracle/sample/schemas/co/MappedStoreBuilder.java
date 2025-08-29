@@ -5,18 +5,31 @@ import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * An abstract class for building instance of a specific subclass of {@link MappedStore} class.
+ *
+ * @param <SELF>  self type parameter
+ * @param <STORE> entity type parameter
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 @SuppressWarnings({
         "unchecked",
         "java:S119" // Type parameter names should comply with a naming convention
 })
 public abstract class MappedStoreBuilder<
-        SELF extends MappedStoreBuilder<SELF, ENTITY>,
-        ENTITY extends MappedStore
+        SELF extends MappedStoreBuilder<SELF, STORE>,
+        STORE extends MappedStore
         >
-        extends __MappedEntityBuilder<SELF, ENTITY> {
+        extends __MappedEntityBuilder<SELF, STORE> {
 
     // -----------------------------------------------------------------------------------------------------------------
-    protected MappedStoreBuilder(final Class<ENTITY> entityClass) {
+
+    /**
+     * Creates a new instance for building the specified entity class.
+     *
+     * @param entityClass the entity class.
+     */
+    protected MappedStoreBuilder(final Class<STORE> entityClass) {
         super(entityClass);
     }
 
@@ -25,6 +38,12 @@ public abstract class MappedStoreBuilder<
         return storeName;
     }
 
+    /**
+     * Replaces current value of {@code storeName} property with specified value, and returns this builder.
+     *
+     * @param storeName the value for the {@code storeName} property.
+     * @return this builder.
+     */
     public SELF storeName(final String storeName) {
         this.storeName = storeName;
         return (SELF) this;

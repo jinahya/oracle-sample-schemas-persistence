@@ -3,6 +3,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
 import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
 
 @SuppressWarnings({
+        "unchecked",
         "java:S119" // Type parameter names should comply with a naming convention
 })
 public abstract class MappedInventoryBuilder<
@@ -27,8 +28,9 @@ public abstract class MappedInventoryBuilder<
         return store;
     }
 
-    public void store(final STORE store) {
+    public SELF store(final STORE store) {
         this.store = store;
+        return (SELF) this;
     }
 
     // --------------------------------------------------------------------------------------------------------- product
@@ -36,8 +38,9 @@ public abstract class MappedInventoryBuilder<
         return product;
     }
 
-    protected void product(final PRODUCT product) {
+    public SELF product(final PRODUCT product) {
         this.product = product;
+        return (SELF) this;
     }
 
     // ------------------------------------------------------------------------------------------------ productInventory
@@ -45,8 +48,9 @@ public abstract class MappedInventoryBuilder<
         return productInventory;
     }
 
-    public void productInventory(final Long productInventory) {
+    public SELF productInventory(final Long productInventory) {
         this.productInventory = productInventory;
+        return (SELF) this;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

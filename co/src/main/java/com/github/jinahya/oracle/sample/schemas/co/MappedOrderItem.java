@@ -3,7 +3,15 @@ package com.github.jinahya.oracle.sample.schemas.co;
 import com.github.jinahya.persistence.mapped.__MappedEntity;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
-import jakarta.persistence.*;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.Transient;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -16,6 +24,9 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 @MappedSuperclass
+@SuppressWarnings({
+        "java:S119" // Type parameter names should comply with a naming convention
+})
 public class MappedOrderItem<
         ID extends MappedOrderItemId,
         ORDER extends MappedOrder<?, ?, ?>,
@@ -101,6 +112,19 @@ public class MappedOrderItem<
                 '}';
     }
 
+    @Override
+    public boolean equals(final Object obj) {
+        if (!(obj instanceof MappedOrderItem<?, ?, ?, ?> that)) {
+            return false;
+        }
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 //    @AssertTrue(message = "shipment.customer should be equal to the order.customer")
     private boolean isSShipmentCustomerValid() {
@@ -126,7 +150,7 @@ public class MappedOrderItem<
         this.id = id;
     }
 
-    public ID getIdOrElseGet(@Nonnull final Supplier<? extends ID> instantiator) {
+    public ID getIdOrElseSetAndGet(@Nonnull final Supplier<? extends ID> instantiator) {
         Objects.requireNonNull(instantiator, "instantiator is null");
         return Optional.ofNullable(getId())
                 .orElseGet(() -> {
@@ -279,19 +303,25 @@ public class MappedOrderItem<
     private SHIPMENT shipment;
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns the total price of this item which is {@link #getUnitPrice() unitPrice} multiplied by
+     * {@link #getQuantity() quantity}.
+     *
+     * @param mc a math context to use.
+     * @return the total price of this item.
+     */
     @Transient
-    public BigDecimal getTotalPrice() {
+    public BigDecimal getTotalPrice(@Nullable final MathContext mc) {
         if (unitPrice == null) {
             throw new IllegalStateException("unitPrice is null");
         }
         if (quantity == null) {
             throw new IllegalStateException("quantity is null");
         }
-        return unitPrice.multiply(BigDecimal.valueOf(quantity));
-    }
-
-    public BigDecimal getTotalPrice(final MathContext mc) {
-        Objects.requireNonNull(mc, "mc is null");
+        if (mc == null) {
+            return unitPrice.multiply(BigDecimal.valueOf(quantity));
+        }
         return unitPrice.multiply(BigDecimal.valueOf(quantity), mc);
     }
 }
