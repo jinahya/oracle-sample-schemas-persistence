@@ -53,22 +53,6 @@ class ProductDetails_Test {
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
-//    @DisplayName("equals/hashCode")
-//    @Test
-//    void equals_verify_() {
-//        getEqualsVerifier().verify();
-//    }
-//
-//    SingleTypeEqualsVerifierApi<ProductDetails> getEqualsVerifier() {
-//        return EqualsVerifier
-//                .simple()
-//                .forClass(ProductDetails.class)
-
-    /// /                .suppress(Warning.INHERITED_DIRECTLY_FROM_OBJECT)
-//                .withIgnoredFields("reviews")
-//                .withIgnoredFields("unknownProperties")
-//                ;
-//    }
 
     // ------------------------------------------------------------------------------------------------- getters/setters
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)

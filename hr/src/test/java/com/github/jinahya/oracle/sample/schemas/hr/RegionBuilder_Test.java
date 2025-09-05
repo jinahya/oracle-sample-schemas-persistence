@@ -1,8 +1,8 @@
 package com.github.jinahya.oracle.sample.schemas.hr;
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntityBuilderTest;
+import com.github.jinahya.persistence.mapped.test.__MappedEntityBuilder_Test;
 
-class RegionBuilder_Test extends __MappedEntityBuilderTest<RegionBuilder, Region, Long> {
+class RegionBuilder_Test extends __MappedEntityBuilder_Test<RegionBuilder, Region, Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
 

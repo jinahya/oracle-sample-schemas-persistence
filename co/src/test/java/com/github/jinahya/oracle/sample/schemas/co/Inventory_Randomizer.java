@@ -1,11 +1,11 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntityRandomizer;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
 import jakarta.annotation.Nonnull;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-class Inventory_Randomizer extends __MappedEntityRandomizer<Inventory, Long> {
+class Inventory_Randomizer extends __MappedEntity_Randomizer<Inventory, Long> {
 
     Inventory_Randomizer() {
         super(Inventory.class, Long.class, "inventoryId");

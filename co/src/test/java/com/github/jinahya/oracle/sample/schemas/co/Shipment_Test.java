@@ -1,35 +1,29 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntityTest;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Test;
 import jakarta.annotation.Nonnull;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-import org.junit.jupiter.api.Test;
 
-class Shipment_Test extends __MappedEntityTest<Shipment, Long> {
+class Shipment_Test extends __MappedEntity_Test<Shipment, Long> {
 
     Shipment_Test() {
         super(Shipment.class, Long.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Test
+
+    @Nonnull
     @Override
-    protected void equals_Verify_() {
-        super.equals_Verify_();
+    protected SingleTypeEqualsVerifierApi<Shipment> equals_Verify_Create() {
+        return super.equals_Verify_Create();
     }
 
     @Nonnull
     @Override
-    protected SingleTypeEqualsVerifierApi<Shipment> createEqualsVerifier() {
-        return super.createEqualsVerifier();
-    }
-
-    @Nonnull
-    @Override
-    protected SingleTypeEqualsVerifierApi<Shipment> configureEqualsVerifier(
+    protected SingleTypeEqualsVerifierApi<Shipment> equals_Verify_Configure(
             @Nonnull final SingleTypeEqualsVerifierApi<Shipment> equalsVerifier) {
-        return super.configureEqualsVerifier(equalsVerifier)
+        return super.equals_Verify_Configure(equalsVerifier)
 //                .withOnlyTheseFields(MappedShipment.ATTRIBUTE_NAME_SHIPMENT_ID)
                 .suppress(Warning.SURROGATE_KEY)
                 ;

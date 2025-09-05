@@ -1,18 +1,19 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntityRandomizer;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
 import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
+import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
 @Slf4j
-class Store_Randomizer extends __MappedEntityRandomizer<Store, Long> {
+class Store_Randomizer extends __MappedEntity_Randomizer<Store, Long> {
 
     Store_Randomizer() {
         super(Store.class, Long.class,
-                "storeId",
-                "logo", "logoMimeType", "logoFilename", "logoCharset", "logoLastUpdated"
+              "storeId",
+              "logo", "logoMimeType", "logoFilename", "logoCharset", "logoLastUpdated"
         );
     }
 
@@ -21,6 +22,12 @@ class Store_Randomizer extends __MappedEntityRandomizer<Store, Long> {
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();
+    }
+
+    @Nonnull
+    @Override
+    protected ClassInfoStrategy getClassInfoStrategy() {
+        return super.getClassInfoStrategy();
     }
 
     @Nonnull

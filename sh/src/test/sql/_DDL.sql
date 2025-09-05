@@ -537,27 +537,27 @@ create index SUP_TEXT_IDX
 create materialized view CAL_MONTH_SALES_MV
     refresh force on demand
 as
-SELECT   t.calendar_month_desc,
-         SUM(s.amount_sold) AS dollars
-FROM     sh.sales s,
-         sh.times t
-WHERE    s.time_id = t.time_id
+SELECT t.calendar_month_desc,
+       SUM(s.amount_sold) AS dollars
+FROM sh.sales s,
+     sh.times t
+WHERE s.time_id = t.time_id
 GROUP BY t.calendar_month_desc
 /
 
 create materialized view FWEEK_PSCAT_SALES_MV
     refresh force on demand
 as
-SELECT   t.week_ending_day,
-         p.prod_subcategory,
-         SUM(s.amount_sold) AS dollars,
-         s.channel_id,
-         s.promo_id
-FROM     sh.sales s,
-         sh.times t,
-         sh.products p
-WHERE    s.time_id = t.time_id
-  AND   s.prod_id = p.prod_id
+SELECT t.week_ending_day,
+       p.prod_subcategory,
+       SUM(s.amount_sold) AS dollars,
+       s.channel_id,
+       s.promo_id
+FROM sh.sales s,
+     sh.times t,
+     sh.products p
+WHERE s.time_id = t.time_id
+  AND s.prod_id = p.prod_id
 GROUP BY t.week_ending_day,
          p.prod_subcategory,
          s.channel_id,
@@ -565,22 +565,20 @@ GROUP BY t.week_ending_day,
 /
 
 create view PROFITS as
-SELECT
-    s.channel_id,
-    s.cust_id,
-    s.prod_id,
-    s.promo_id,
-    s.time_id,
-    c.unit_cost,
-    c.unit_price,
-    s.amount_sold,
-    s.quantity_sold,
-    c.unit_cost * s.quantity_sold TOTAL_COST
-FROM
-    costs c, sales s
+SELECT s.channel_id,
+       s.cust_id,
+       s.prod_id,
+       s.promo_id,
+       s.time_id,
+       c.unit_cost,
+       c.unit_price,
+       s.amount_sold,
+       s.quantity_sold,
+       c.unit_cost * s.quantity_sold TOTAL_COST
+FROM costs c,
+     sales s
 WHERE c.prod_id = s.prod_id
   AND c.time_id = s.time_id
   AND c.channel_id = s.channel_id
   AND c.promo_id = s.promo_id
 /
-

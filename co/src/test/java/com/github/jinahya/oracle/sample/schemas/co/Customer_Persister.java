@@ -1,10 +1,10 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntityPersister;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Persister;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityManager;
 
-class Customer_Persister extends __MappedEntityPersister<Customer, Long> {
+class Customer_Persister extends __MappedEntity_Persister<Customer, Long> {
 
     Customer_Persister() {
         super(Customer.class, Long.class);

@@ -1,11 +1,11 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntityPersister;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Persister;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-class Product_Persister extends __MappedEntityPersister<Product, Long> {
+class Product_Persister extends __MappedEntity_Persister<Product, Long> {
 
     Product_Persister() {
         super(Product.class, Long.class);

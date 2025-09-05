@@ -1,11 +1,11 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntityPersister;
-import com.github.jinahya.persistence.mapped.test.__MappedEntityPersisterUtils;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Persister;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersisterUtils;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityManager;
 
-class Inventory_Persister extends __MappedEntityPersister<Inventory, Long> {
+class Inventory_Persister extends __MappedEntity_Persister<Inventory, Long> {
 
     Inventory_Persister() {
         super(Inventory.class, Long.class);
@@ -15,10 +15,10 @@ class Inventory_Persister extends __MappedEntityPersister<Inventory, Long> {
     @Override
     public void persist(@Nonnull final EntityManager entityManager, @Nonnull final Inventory entityInstance) {
         entityInstance.setStore(
-                __MappedEntityPersisterUtils.newPersistedInstanceOf(entityManager, Store.class)
+                __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Store.class)
         );
         entityInstance.setProduct(
-                __MappedEntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class)
+                __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Product.class)
         );
         super.persist(entityManager, entityInstance);
     }

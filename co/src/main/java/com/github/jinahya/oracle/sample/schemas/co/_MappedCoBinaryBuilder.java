@@ -1,16 +1,8 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.github.jinahya.persistence.mapped.__MappedBuilder;
-import jakarta.annotation.Nonnull;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.function.Supplier;
 
 @SuppressWarnings({
         "unchecked",

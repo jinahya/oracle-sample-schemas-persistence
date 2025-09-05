@@ -1,14 +1,13 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntityTest;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Test;
 import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-import org.junit.jupiter.api.Test;
 
 @Slf4j
-class Order_Test extends __MappedEntityTest<Order, Long> {
+class Order_Test extends __MappedEntity_Test<Order, Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
     Order_Test() {
@@ -16,23 +15,18 @@ class Order_Test extends __MappedEntityTest<Order, Long> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Test
+
+    @Nonnull
     @Override
-    protected void equals_Verify_() {
-        super.equals_Verify_();
+    protected SingleTypeEqualsVerifierApi<Order> equals_Verify_Create() {
+        return super.equals_Verify_Create();
     }
 
     @Nonnull
     @Override
-    protected SingleTypeEqualsVerifierApi<Order> createEqualsVerifier() {
-        return super.createEqualsVerifier();
-    }
-
-    @Nonnull
-    @Override
-    protected SingleTypeEqualsVerifierApi<Order> configureEqualsVerifier(
-            @Nonnull final SingleTypeEqualsVerifierApi<Order> equalsVerifier) {
-        return super.configureEqualsVerifier(equalsVerifier)
+    protected SingleTypeEqualsVerifierApi<Order> equals_Verify_Configure(
+            @Nonnull SingleTypeEqualsVerifierApi<Order> equalsVerifier) {
+        return super.equals_Verify_Configure(equalsVerifier)
                 .suppress(Warning.SURROGATE_KEY)
                 ;
     }

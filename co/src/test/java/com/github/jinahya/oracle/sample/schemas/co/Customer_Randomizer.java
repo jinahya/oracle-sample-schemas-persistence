@@ -1,13 +1,13 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntityRandomizer;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
 import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
 @Slf4j
-class Customer_Randomizer extends __MappedEntityRandomizer<Customer, Long> {
+class Customer_Randomizer extends __MappedEntity_Randomizer<Customer, Long> {
 
     // ----------------------------------------------------------------------------------------------------- CONSTRUCTOR
     Customer_Randomizer() {

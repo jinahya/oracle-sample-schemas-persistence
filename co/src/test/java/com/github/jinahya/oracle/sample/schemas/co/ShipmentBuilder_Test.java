@@ -1,8 +1,8 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntityBuilderTest;
+import com.github.jinahya.persistence.mapped.test.__MappedEntityBuilder_Test;
 
-class ShipmentBuilder_Test extends __MappedEntityBuilderTest<ShipmentBuilder, Shipment, Long> {
+class ShipmentBuilder_Test extends __MappedEntityBuilder_Test<ShipmentBuilder, Shipment, Long> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     ShipmentBuilder_Test() {

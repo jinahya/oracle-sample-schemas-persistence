@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.hr;
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntityBuilderTest;
+import com.github.jinahya.persistence.mapped.test.__MappedEntityBuilder_Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Locale;
 
-class CountryBuilder_Test extends __MappedEntityBuilderTest<CountryBuilder, Country, String> {
+class CountryBuilder_Test extends __MappedEntityBuilder_Test<CountryBuilder, Country, String> {
 
     CountryBuilder_Test() {
         super(CountryBuilder.class, Country.class, String.class);

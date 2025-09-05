@@ -1,16 +1,17 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntityRandomizer;
-import com.github.jinahya.persistence.more.test.__AttributeEnumTestUtils;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
+import com.github.jinahya.persistence.more.test.__AttributeEnum_TestUtils;
 import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
+import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.Optional;
 
 @Slf4j
-class Shipment_Randomizer extends __MappedEntityRandomizer<Shipment, Long> {
+class Shipment_Randomizer extends __MappedEntity_Randomizer<Shipment, Long> {
 
     Shipment_Randomizer() {
         super(Shipment.class, Long.class, "shipmentId", "shipmentStatus");
@@ -26,6 +27,12 @@ class Shipment_Randomizer extends __MappedEntityRandomizer<Shipment, Long> {
 
     @Nonnull
     @Override
+    protected ClassInfoStrategy getClassInfoStrategy() {
+        return super.getClassInfoStrategy();
+    }
+
+    @Nonnull
+    @Override
     protected PodamFactory getPodamFactory() {
         return super.getPodamFactory();
     }
@@ -36,7 +43,7 @@ class Shipment_Randomizer extends __MappedEntityRandomizer<Shipment, Long> {
         final var value = super.get();
         value.setShipmentStatus(
                 Optional.ofNullable(
-                        __AttributeEnumTestUtils.getRandomAttributeValue(Shipment._ShipmentStatus.class)
+                        __AttributeEnum_TestUtils.getRandomAttributeValue(Shipment._ShipmentStatus.class)
                 ).orElseThrow()
         );
         return value;

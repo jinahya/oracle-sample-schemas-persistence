@@ -1,12 +1,12 @@
 package com.github.jinahya.oracle.sample.schemas.hr;
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntityRandomizer;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
 import jakarta.annotation.Nonnull;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-class Region_Randomizer extends __MappedEntityRandomizer<Region, Long> {
+class Region_Randomizer extends __MappedEntity_Randomizer<Region, Long> {
 
     Region_Randomizer() {
         super(Region.class, Long.class);

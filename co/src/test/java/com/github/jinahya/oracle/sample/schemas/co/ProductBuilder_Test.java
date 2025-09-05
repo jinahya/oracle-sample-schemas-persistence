@@ -1,8 +1,8 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntityBuilderTest;
+import com.github.jinahya.persistence.mapped.test.__MappedEntityBuilder_Test;
 
-class ProductBuilder_Test extends __MappedEntityBuilderTest<ProductBuilder, Product, Long> {
+class ProductBuilder_Test extends __MappedEntityBuilder_Test<ProductBuilder, Product, Long> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
