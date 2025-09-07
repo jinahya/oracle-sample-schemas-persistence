@@ -18,15 +18,9 @@ class Order_Test extends __MappedEntity_Test<Order, Long> {
 
     @Nonnull
     @Override
-    protected SingleTypeEqualsVerifierApi<Order> equals_Verify_Create() {
-        return super.equals_Verify_Create();
-    }
-
-    @Nonnull
-    @Override
-    protected SingleTypeEqualsVerifierApi<Order> equals_Verify_Configure(
+    protected SingleTypeEqualsVerifierApi<Order> equals_Verify_(
             @Nonnull SingleTypeEqualsVerifierApi<Order> equalsVerifier) {
-        return super.equals_Verify_Configure(equalsVerifier)
+        return super.equals_Verify_(equalsVerifier)
                 .suppress(Warning.SURROGATE_KEY)
                 ;
     }

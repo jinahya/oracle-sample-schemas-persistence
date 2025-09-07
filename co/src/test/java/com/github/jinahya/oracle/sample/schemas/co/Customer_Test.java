@@ -13,14 +13,8 @@ class Customer_Test extends __MappedEntity_Test<Customer, Long> {
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Override
-    protected SingleTypeEqualsVerifierApi<Customer> equals_Verify_Create() {
-        return super.equals_Verify_Create();
-    }
-
-    @Nonnull
-    @Override
-    protected SingleTypeEqualsVerifierApi<Customer> equals_Verify_Configure(
+    protected SingleTypeEqualsVerifierApi<Customer> equals_Verify_(
             @Nonnull final SingleTypeEqualsVerifierApi<Customer> equalsVerifier) {
-        return super.equals_Verify_Configure(equalsVerifier);
+        return super.equals_Verify_(equalsVerifier);
     }
 }

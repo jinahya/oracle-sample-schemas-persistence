@@ -14,15 +14,9 @@ class OrderItem_Test extends __MappedEntity_Test<OrderItem, OrderItemId> {
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Override
-    protected SingleTypeEqualsVerifierApi<OrderItem> equals_Verify_Create() {
-        return super.equals_Verify_Create();
-    }
-
-    @Nonnull
-    @Override
-    protected SingleTypeEqualsVerifierApi<OrderItem> equals_Verify_Configure(
+    protected SingleTypeEqualsVerifierApi<OrderItem> equals_Verify_(
             @Nonnull SingleTypeEqualsVerifierApi<OrderItem> equalsVerifier) {
-        return super.equals_Verify_Configure(equalsVerifier)
+        return super.equals_Verify_(equalsVerifier)
                 .suppress(Warning.SURROGATE_KEY)
                 ;
     }

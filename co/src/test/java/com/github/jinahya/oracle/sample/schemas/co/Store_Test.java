@@ -11,18 +11,11 @@ class Store_Test extends __MappedEntity_Test<Store, Long> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
     @Nonnull
     @Override
-    protected SingleTypeEqualsVerifierApi<Store> equals_Verify_Create() {
-        return super.equals_Verify_Create();
-    }
-
-    @Nonnull
-    @Override
-    protected SingleTypeEqualsVerifierApi<Store> equals_Verify_Configure(
-            @Nonnull SingleTypeEqualsVerifierApi<Store> equalsVerifier) {
-        return super.equals_Verify_Configure(equalsVerifier)
+    protected SingleTypeEqualsVerifierApi<Store> equals_Verify_(
+            @Nonnull final SingleTypeEqualsVerifierApi<Store> equalsVerifier) {
+        return super.equals_Verify_(equalsVerifier)
                 .withOnlyTheseFields(MappedStore.ATTRIBUTE_NAME_STORE_NAME)
                 ;
     }
