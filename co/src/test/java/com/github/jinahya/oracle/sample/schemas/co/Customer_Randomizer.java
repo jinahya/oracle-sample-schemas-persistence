@@ -3,6 +3,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
 import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
+import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
@@ -23,6 +24,12 @@ class Customer_Randomizer extends __MappedEntity_Randomizer<Customer, Long> {
 
     @Nonnull
     @Override
+    protected ClassInfoStrategy getClassInfoStrategy() {
+        return super.getClassInfoStrategy();
+    }
+
+    @Nonnull
+    @Override
     protected PodamFactory getPodamFactory() {
         return super.getPodamFactory();
     }
@@ -30,6 +37,10 @@ class Customer_Randomizer extends __MappedEntity_Randomizer<Customer, Long> {
     @Nonnull
     @Override
     public Customer get() {
-        return super.get();
+        final var value = super.get();
+        {
+            value.setEmailAddress(System.nanoTime() + "@" + System.nanoTime() + ".com");
+        }
+        return value;
     }
 }

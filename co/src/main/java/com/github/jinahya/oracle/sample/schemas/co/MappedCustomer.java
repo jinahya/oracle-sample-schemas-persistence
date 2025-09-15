@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -144,6 +145,7 @@ public abstract class MappedCustomer extends __MappedEntity<Long> {
     private Long customerId;
 
     @Nonnull
+    @Email
     @Size(max = SIZE_MAX_NAME_EMAIL_ADDRESS)
     @NotNull
     @Column(name = COLUMN_NAME_EMAIL_ADDRESS,

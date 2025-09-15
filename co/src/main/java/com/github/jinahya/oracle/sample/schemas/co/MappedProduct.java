@@ -149,12 +149,12 @@ public abstract class MappedProduct extends __MappedEntity<Long> {
         if (!(obj instanceof MappedProduct that)) {
             return false;
         }
-        return Objects.equals(productId, that.productId);
+        return Objects.equals(getProductId(), that.getProductId());
     }
 
     @Override
     public final int hashCode() {
-        return Objects.hashCode(productId);
+        return Objects.hashCode(getProductId());
     }
 
     // ------------------------------------------------------------------------------------------------------- productId
