@@ -125,8 +125,42 @@ class Customer_PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Long
 
             @Test
             void __() {
-                applyEntityManager(em -> {
-                    return ___JakartaPersistence_TestUtils.applyCountRandomIndexAndSelected(
+                applyEntityManager(em -> ___JakartaPersistence_TestUtils.applyCountIndexAndEntity(
+                        em,
+                        entityClass,
+                        c -> i -> e -> {
+                            final var customerId = e.getCustomerId();
+                            final var firstResult = ThreadLocalRandom.current().nextInt(Math.toIntExact(c - i));
+                            final var maxResults = ThreadLocalRandom.current().nextInt(128) + 1;
+                            log.debug("count: {}, firstResult: {}, maxResults: {}", c, firstResult, maxResults);
+                            final var list = em
+                                    .createNamedQuery(
+                                            "Customer.selectListOrderByCustomerIdAscCustomerIdGt",
+                                            entityClass
+                                    )
+                                    .setParameter("customerIdMinExclusive", customerId)
+                                    .setFirstResult(firstResult)
+                                    .setMaxResults(maxResults)
+                                    .getResultList();
+                            log.debug("list.size: {}", list.size());
+                            assertThat(list)
+                                    .hasSizeLessThanOrEqualTo(maxResults)
+                                    .isSortedAccordingTo(Comparator.comparing(MappedCustomer::getCustomerId))
+                                    .extracting(MappedCustomer::getCustomerId)
+                                    .allSatisfy(ci -> {
+                                        assertThat(ci).isGreaterThan(customerId);
+                                    });
+                            return null;
+                        })
+                );
+            }
+
+            @Nested
+            class QueryLanguage_Test {
+
+                @Test
+                void __() {
+                    applyEntityManager(em -> ___JakartaPersistence_TestUtils.applyCountIndexAndEntity(
                             em,
                             entityClass,
                             c -> i -> e -> {
@@ -135,8 +169,14 @@ class Customer_PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Long
                                 final var maxResults = ThreadLocalRandom.current().nextInt(128) + 1;
                                 log.debug("count: {}, firstResult: {}, maxResults: {}", c, firstResult, maxResults);
                                 final var list = em
-                                        .createNamedQuery("Customer.selectListOrderByCustomerIdAscCustomerIdGt",
-                                                          entityClass)
+                                        .createQuery(
+                                                """
+                                                        SELECT e
+                                                        FROM Customer e
+                                                        WHERE e.customerId > :customerIdMinExclusive
+                                                        ORDER By e.customerId ASC""",
+                                                entityClass
+                                        )
                                         .setParameter("customerIdMinExclusive", customerId)
                                         .setFirstResult(firstResult)
                                         .setMaxResults(maxResults)
@@ -150,15 +190,8 @@ class Customer_PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Long
                                             assertThat(ci).isGreaterThan(customerId);
                                         });
                                 return null;
-                            });
-                });
-            }
-
-            @Nested
-            class QueryLanguage_Test {
-
-                @Test
-                void __() {
+                            })
+                    );
                 }
             }
 
@@ -167,6 +200,39 @@ class Customer_PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Long
 
                 @Test
                 void __() {
+                    applyEntityManager(em -> ___JakartaPersistence_TestUtils.applyCountIndexAndEntity(
+                            em,
+                            entityClass,
+                            c -> i -> e -> {
+                                assert c >= 0L;
+                                assert i >= 0L;
+                                assert e != null;
+                                final var customerId = e.getCustomerId();
+                                final var firstResult = ThreadLocalRandom.current().nextInt(Math.toIntExact(c - i));
+                                final var maxResults = ThreadLocalRandom.current().nextInt(128) + 1;
+                                log.debug("count: {}, firstResult: {}, maxResults: {}", c, firstResult, maxResults);
+                                final var builder = em.getCriteriaBuilder();
+                                final var query = builder.createQuery(entityClass);
+                                final var root = query.from(entityClass);
+                                query.select(root);
+                                query.where(builder.gt(root.get(MappedCustomer_.customerId), customerId));
+                                query.orderBy(builder.asc(root.get(MappedCustomer_.customerId)));
+                                final var list = em
+                                        .createQuery(query)
+                                        .setFirstResult(firstResult)
+                                        .setMaxResults(maxResults)
+                                        .getResultList();
+                                log.debug("list.size: {}", list.size());
+                                assertThat(list)
+                                        .hasSizeLessThanOrEqualTo(maxResults)
+                                        .isSortedAccordingTo(Comparator.comparing(MappedCustomer::getCustomerId))
+                                        .extracting(MappedCustomer::getCustomerId)
+                                        .allSatisfy(ci -> {
+                                            assertThat(ci).isGreaterThan(customerId);
+                                        });
+                                return null;
+                            }
+                    ));
                 }
             }
         }
