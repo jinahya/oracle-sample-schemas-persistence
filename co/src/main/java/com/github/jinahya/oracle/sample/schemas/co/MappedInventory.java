@@ -37,18 +37,30 @@ public abstract class MappedInventory<
     // -------------------------------------------------------------------------------------- INVENTORY_ID / inventoryId
 
     /**
-     * The name of the table column to which the {@link MappedInventory_#inventoryId inventoryId} attribute maps. The
-     * value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_INVENTORY_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_INVENTORY_ID = "INVENTORY_ID";
 
+    /**
+     * The name of the entity attribute from which the {@value #COLUMN_NAME_INVENTORY_ID} column maps. The value is
+     * {@value}.
+     */
     public static final String ATTRIBUTE_NAME_INVENTORY_ID = "inventoryId";
 
     // -------------------------------------------------------------------------------------- STORE_ID / storeId / store
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
+    /**
+     * The name of the entity attribute, of {@link Basic} mapping, from which the {@value #COLUMN_NAME_INVENTORY_ID}
+     * column maps. The value is {@value}.
+     */
     public static final String ATTRIBUTE_NAME_STORE_ID = "storeId";
 
+    /**
+     * The name of the entity attribute, of {@link ManyToOne} mapping, from which the {@value #COLUMN_NAME_INVENTORY_ID}
+     * column maps. The value is {@value}.
+     */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
     // -------------------------------------------------------------------------------- PRODUCT_ID / productId / product
@@ -74,7 +86,9 @@ public abstract class MappedInventory<
 
     protected MappedInventory(final MappedInventoryBuilder<?, ?, STORE, PRODUCT> builder) {
         super(builder);
+        setStoreId(builder.storeId());
         setStore(builder.store());
+        setProductId(builder.productId());
         setProduct(builder.product());
         productInventory = builder.productInventory();
     }
@@ -115,17 +129,39 @@ public abstract class MappedInventory<
         this.inventoryId = inventoryId;
     }
 
+    // --------------------------------------------------------------------------------------------------------- storeId
+    @Nonnull
+    public final Long getStoreId() {
+        return storeId;
+    }
+
+    final void setStoreId(@Nonnull final Long storeId) {
+        this.storeId = storeId;
+    }
+
     // ----------------------------------------------------------------------------------------------------------- store
     @Nonnull
     public STORE getStore() {
         return store;
     }
 
-    void setStore(@Nonnull final STORE store) {
+    protected void setStore(@Nonnull final STORE store) {
         this.store = store;
-        storeId = Optional.ofNullable(this.store)
-                .map(MappedStore::getStoreId)
-                .orElse(null);
+        setStoreId(
+                Optional.ofNullable(this.store)
+                        .map(MappedStore::getStoreId)
+                        .orElse(null)
+        );
+    }
+
+    // --------------------------------------------------------------------------------------------------------- productId
+    @Nonnull
+    public final Long getProductId() {
+        return productId;
+    }
+
+    final void setProductId(@Nonnull final Long productId) {
+        this.productId = productId;
     }
 
     // --------------------------------------------------------------------------------------------------------- product
@@ -134,11 +170,13 @@ public abstract class MappedInventory<
         return product;
     }
 
-    void setProduct(@Nonnull final PRODUCT product) {
+    protected void setProduct(@Nonnull final PRODUCT product) {
         this.product = product;
-        productId = Optional.ofNullable(this.product)
-                .map(MappedProduct::getProductId)
-                .orElse(null);
+        setProductId(
+                Optional.ofNullable(this.product)
+                        .map(MappedProduct::getProductId)
+                        .orElse(null)
+        );
     }
 
     // ------------------------------------------------------------------------------------------------ productInventory
@@ -149,6 +187,39 @@ public abstract class MappedInventory<
 
     public void setProductInventory(@Nonnull final Long productInventory) {
         this.productInventory = productInventory;
+    }
+
+    /**
+     * Adjusts current value of {@link #getProductInventory() productInventory} attribute by the specified delta.
+     *
+     * @param delta the delta to adjust.
+     */
+    public void adjustProductInventory(final int delta) {
+        setProductInventory(getProductInventory() + delta);
+    }
+
+    /**
+     * Increases current value of {@link #getProductInventory() productInventory} attribute by the specified delta.
+     *
+     * @param delta the delta to adjust which should be non-negative.
+     */
+    public void increaseProductInventoryBy(final int delta) {
+        if (delta < 0) {
+            throw new IllegalArgumentException("negative delta: " + delta);
+        }
+        adjustProductInventory(delta);
+    }
+
+    /**
+     * Decreases current value of {@link #getProductInventory() productInventory} attribute by the specified delta.
+     *
+     * @param delta the delta to adjust which should be non-negative.
+     */
+    public void decreaseProductInventoryBy(final int delta) {
+        if (delta < 0) {
+            throw new IllegalArgumentException("non-positive delta: " + delta);
+        }
+        adjustProductInventory(-delta);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
