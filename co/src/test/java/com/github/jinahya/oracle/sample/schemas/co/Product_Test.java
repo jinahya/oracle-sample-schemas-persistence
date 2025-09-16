@@ -17,8 +17,9 @@ class Product_Test extends __MappedEntity_Test<Product, Long> {
     @Nonnull
     @Override
     protected SingleTypeEqualsVerifierApi<Product> equals_Verify_(
-            @Nonnull SingleTypeEqualsVerifierApi<Product> equalsVerifier) {
+            @Nonnull final SingleTypeEqualsVerifierApi<Product> equalsVerifier) {
         return super.equals_Verify_(equalsVerifier)
-                .suppress(Warning.SURROGATE_KEY);
+                .suppress(Warning.SURROGATE_KEY)
+                ;
     }
 }

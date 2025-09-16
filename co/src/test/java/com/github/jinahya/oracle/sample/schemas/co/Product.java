@@ -1,8 +1,24 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
+@NamedQuery(
+        name = "Product.selectListOrderByProductIdAscProductIdGt",
+        query = """
+                SELECT e
+                FROM Product e
+                WHERE e.productId > :productIdMinExclusive
+                ORDER BY e.productId ASC"""
+)
+@NamedQuery(
+        name = "Product.selectListOrderByProductIdAsc",
+        query = """
+                SELECT e
+                FROM Product e
+                ORDER BY e.productId ASC"""
+)
 @Entity
 @Table(name = Product.TABLE_NAME)
 class Product extends MappedProduct {

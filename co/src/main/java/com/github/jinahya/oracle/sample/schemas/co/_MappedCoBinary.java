@@ -8,7 +8,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Lob;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
@@ -41,9 +40,13 @@ public abstract class _MappedCoBinary extends __Mapped {
         super();
     }
 
+    /**
+     * Creates a new instance built from the specified builder.
+     *
+     * @param builder the builder to build from.
+     */
     protected _MappedCoBinary(final _MappedCoBinaryBuilder<?, ?> builder) {
-        super();
-        Objects.requireNonNull(builder, "builder is null");
+        super(builder);
         bytes = builder.bytes();
         mimeType = builder.mimeType();
         filename = builder.filename();
@@ -52,6 +55,17 @@ public abstract class _MappedCoBinary extends __Mapped {
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
+
+    @Override
+    public String toString() {
+        return super.toString() + '{' +
+//                "bytes=" + Arrays.toString(bytes) +
+                "mimeType=" + mimeType +
+                ",filename=" + filename +
+                ",charset=" + charset +
+                ",lastUpdated=" + lastUpdated +
+                '}';
+    }
 
     // ----------------------------------------------------------------------------------------------------------- bytes
     @Nullable

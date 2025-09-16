@@ -126,7 +126,7 @@ public abstract class MappedStore extends __MappedEntity<Long> {
 
     public static final int COLUMN_LENGTH_LOGO_LAST_UPDATED = 512;
 
-    public static final String ATTRIBUTE_LOGO_LAST_UPDATED = "logoLastUpdated";
+    public static final String ATTRIBUTE_NAME_LOGO_LAST_UPDATED = "logoLastUpdated";
 
     public static final int SIZE_MAX_LOGO_LAST_UPDATED = COLUMN_LENGTH_LOGO_LAST_UPDATED;
 
@@ -141,6 +141,11 @@ public abstract class MappedStore extends __MappedEntity<Long> {
         super();
     }
 
+    /**
+     * Creates a new instance built from the specified builder.
+     *
+     * @param builder the builder to build from.
+     */
     protected MappedStore(@Nonnull final MappedStoreBuilder<?, ?> builder) {
         super(builder);
         storeName = builder.storeName();
@@ -266,9 +271,10 @@ public abstract class MappedStore extends __MappedEntity<Long> {
     }
 
     /**
-     * .
+     * Returns current value of {@link #getLatitude() latitude} attribute as a {@code double} value.
      *
-     * @return .
+     * @return current value of {@link #getLatitude() latitude} attribute as a {@code double} value.
+     * @see #getLatitude()
      * @see BigDecimal#doubleValue()
      */
     @Nullable
@@ -280,14 +286,14 @@ public abstract class MappedStore extends __MappedEntity<Long> {
     }
 
     /**
-     * .
+     * Replaces current value of {@link #setLatitude) latitude} attribute with specified value.
      *
-     * @param latitude     .
-     * @param roundingMode .
+     * @param latitude     new value for the {@link #setLatitude(BigDecimal) latitude} attribute.
+     * @param roundingMode a rounding mode.
      * @see BigDecimal#valueOf(double)
      * @see BigDecimal#setScale(int, RoundingMode)
+     * @see #setLatitude(BigDecimal)
      */
-    @Transient
     public void setLatitudeFromDouble(@Nullable final Double latitude, @Nullable final RoundingMode roundingMode) {
         setLatitude(
                 Optional.ofNullable(latitude)
@@ -435,15 +441,25 @@ public abstract class MappedStore extends __MappedEntity<Long> {
     private String logoMimeType;
 
     @Nullable
-    @Size(max = 512) // TODO: define constant
+    @Size(max = SIZE_MAX_LOGO_FILENAME)
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_LOGO_FILENAME, nullable = true, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_LOGO_FILENAME,
+            nullable = true,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_LOGO_FILENAME
+    )
     private String logoFilename;
 
     @Nullable
-    @Size(max = 512) // TODO: define constant
+    @Size(max = SIZE_MAX_LOGO_CHARSET)
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_LOGO_CHARSET, nullable = true, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_LOGO_CHARSET,
+            nullable = true,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_LOGO_CHARSET
+    )
     private String logoCharset;
 
     @Nullable
@@ -469,10 +485,25 @@ public abstract class MappedStore extends __MappedEntity<Long> {
     /**
      * Updates logo information from the specified file.
      *
+     * @param path the path to the file to read.
+     * @throws IOException if an I/O error occurs.
+     * @see Files#probeContentType(Path)
+     */
+    public void setLogoFromFile(@Nonnull final Path path) throws IOException {
+        Objects.requireNonNull(path, "path is null");
+        setLogo(Files.readAllBytes(path));
+        setLogoMimeType(Files.probeContentType(path));
+        setLogoLastUpdated(LocalDate.now());
+    }
+
+    /**
+     * Updates logo information from the specified file.
+     *
      * @param path    the path to the file to read.
      * @param options an array of options specifying how symbolic links are handled for the search.
      * @throws IOException              if an I/O error occurs.
      * @throws IllegalArgumentException if {@code path} is not a regular file checked with {@code options}.
+     * @see Files#probeContentType(Path)
      */
     public void setLogoFromFile(@Nonnull final Path path, @Nonnull final LinkOption... options)
             throws IOException {
@@ -486,5 +517,33 @@ public abstract class MappedStore extends __MappedEntity<Long> {
         setLogo(Files.readAllBytes(path));
         setLogoMimeType(Files.probeContentType(path));
         setLogoLastUpdated(LocalDate.now());
+    }
+
+    public void setLogoFrom(@Nullable final _MappedCoBinary coBinary) {
+        setLogo(
+                Optional.ofNullable(coBinary)
+                        .map(_MappedCoBinary::getBytes)
+                        .orElse(null)
+        );
+        setLogoMimeType(
+                Optional.ofNullable(coBinary)
+                        .map(_MappedCoBinary::getMimeType)
+                        .orElse(null)
+        );
+        setLogoFilename(
+                Optional.ofNullable(coBinary)
+                        .map(_MappedCoBinary::getFilename)
+                        .orElse(null)
+        );
+        setLogoCharset(
+                Optional.ofNullable(coBinary)
+                        .map(_MappedCoBinary::getCharset)
+                        .orElse(null)
+        );
+        setLogoLastUpdated(
+                Optional.ofNullable(coBinary)
+                        .map(_MappedCoBinary::getLastUpdated)
+                        .orElseGet(LocalDate::now)
+        );
     }
 }

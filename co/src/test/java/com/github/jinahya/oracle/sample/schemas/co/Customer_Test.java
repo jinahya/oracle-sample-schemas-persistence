@@ -18,7 +18,7 @@ class Customer_Test extends __MappedEntity_Test<Customer, Long> {
     protected SingleTypeEqualsVerifierApi<Customer> equals_Verify_(
             @Nonnull final SingleTypeEqualsVerifierApi<Customer> equalsVerifier) {
         return super.equals_Verify_(equalsVerifier)
-                .withOnlyTheseFields("emailAddress")
+                .withOnlyTheseFields(MappedCustomer.ATTRIBUTE_NAME_EMAIL_ADDRESS)
                 ;
     }
 }
