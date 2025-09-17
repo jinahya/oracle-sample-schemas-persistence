@@ -7,8 +7,7 @@ create table CUSTOMERS
         constraint CUSTOMERS_EMAIL_U
             unique,
     FULL_NAME     VARCHAR2(255 char) not null
-)
-/
+) /
 
 comment on table CUSTOMERS is 'Details of the people placing orders'
 /
@@ -45,8 +44,7 @@ create table STORES
     LOGO_LAST_UPDATED DATE,
     constraint STORE_AT_LEAST_ONE_ADDRESS_C
         check (web_address IS NOT NULL or physical_address IS NOT NULL)
-)
-/
+) /
 
 comment on table STORES is 'Physical and virtual locations where people can purchase products'
 /
@@ -99,8 +97,7 @@ create table PRODUCTS
     IMAGE_FILENAME     VARCHAR2(512 char),
     IMAGE_CHARSET      VARCHAR2(512 char),
     IMAGE_LAST_UPDATED DATE
-)
-/
+) /
 
 comment on table PRODUCTS is 'Details of goods that customers can purchase'
 /
@@ -148,8 +145,7 @@ create table ORDERS
     STORE_ID     NUMBER            not null
         constraint ORDERS_STORE_ID_FK
             references STORES
-)
-/
+) /
 
 comment on table ORDERS is 'Details of who made purchases where'
 /
@@ -199,8 +195,7 @@ create table SHIPMENTS
         constraint SHIPMENT_STATUS_C
             check (shipment_status in
                    ('CREATED', 'SHIPPED', 'IN-TRANSIT', 'DELIVERED'))
-)
-/
+) /
 
 comment on table SHIPMENTS is 'Details of where ordered goods will be delivered'
 /
@@ -250,8 +245,7 @@ create table ORDER_ITEMS
         primary key (ORDER_ID, LINE_ITEM_ID),
     constraint ORDER_ITEMS_PRODUCT_U
         unique (PRODUCT_ID, ORDER_ID)
-)
-/
+) /
 
 comment on table ORDER_ITEMS is 'Details of which products the customer has purchased in an order'
 /
@@ -292,8 +286,7 @@ create table INVENTORY
     PRODUCT_INVENTORY NUMBER not null,
     constraint INVENTORY_STORE_PRODUCT_U
         unique (STORE_ID, PRODUCT_ID)
-)
-/
+) /
 
 comment on table INVENTORY is 'Details of the quantity of stock available for products at each location'
 /
@@ -383,13 +376,12 @@ FROM stores s
               ON s.store_id = o.store_id
          JOIN order_items oi
               ON o.order_id = oi.order_id
-GROUP BY GROUPING SETS (
-    ( s.store_name, COALESCE(s.web_address, s.physical_address), s.latitude, s.longitude ),
-    ( s.store_name, COALESCE(s.web_address, s.physical_address), s.latitude, s.longitude, o.order_status ),
-      o.order_status,
+GROUP BY GROUPING SETS ( (s.store_name, COALESCE(s.web_address, s.physical_address), s.latitude, s.longitude),
+    ( s.store_name, COALESCE(s.web_address, s.physical_address), s.latitude, s.longitude,
+                          o.order_status),
+                          o.order_status,
     ()
-    )
-/
+    ) /
 
 comment on table STORE_ORDERS is 'A summary of what was purchased at each location, including summaries each store, order status and overall total'
 /
@@ -438,8 +430,7 @@ FROM products p,
                          review VARCHAR2(4000) PATH '$.review'
                          )
                  )
-     ) r
-/
+     ) r /
 
 comment on table PRODUCT_REVIEWS is 'A relational view of the reviews stored in the JSON for each product'
 /
@@ -468,9 +459,9 @@ FROM orders o
               ON o.customer_id = c.customer_id
          JOIN products p
               ON oi.product_id = p.product_id
-GROUP BY p.product_name, o.order_status
+GROUP BY p.product_name,
+         o.order_status
 /
-
 comment on table PRODUCT_ORDERS is 'A summary of the state of the orders placed for each product'
 /
 
@@ -485,4 +476,3 @@ comment on column PRODUCT_ORDERS.TOTAL_SALES is 'The total value of orders place
 
 comment on column PRODUCT_ORDERS.ORDER_COUNT is 'The total number of orders placed'
 /
-

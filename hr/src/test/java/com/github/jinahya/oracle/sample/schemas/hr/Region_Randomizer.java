@@ -1,34 +1,39 @@
 package com.github.jinahya.oracle.sample.schemas.hr;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
+import jakarta.annotation.Nonnull;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-class Region_Randomizer extends __MappedEntity_Randomizer<Region> {
+class Region_Randomizer extends __MappedEntity_Randomizer<Region, Long> {
 
     Region_Randomizer() {
-        super(Region.class);
+        super(Region.class, Long.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
     @Override
-    protected DataProviderStrategy dataProviderStrategy() {
-        return super.dataProviderStrategy();
+    protected DataProviderStrategy getDataProviderStrategy() {
+        return super.getDataProviderStrategy();
     }
 
+    @Nonnull
     @Override
-    protected ClassInfoStrategy classInfoStrategy() {
-        return super.classInfoStrategy();
+    protected PodamFactory getPodamFactory() {
+        return super.getPodamFactory();
     }
 
+    @Nonnull
     @Override
-    protected PodamFactory podamFactory() {
-        return super.podamFactory();
+    protected ClassInfoStrategy getClassInfoStrategy() {
+        return super.getClassInfoStrategy();
     }
 
+    @Nonnull
     @Override
-    protected Region manufacturePojo() {
-        return super.manufacturePojo();
+    public Region get() {
+        return super.get();
     }
 }

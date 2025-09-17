@@ -1,51 +1,48 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
+import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.assertj.core.api.Assertions.assertThat;
-
 @Slf4j
-class Store_Randomizer extends __MappedEntity_Randomizer<Store> {
+class Store_Randomizer extends __MappedEntity_Randomizer<Store, Long> {
 
     Store_Randomizer() {
-        super(Store.class,
-              "storeId",
-              "logo", "logoMimeType", "logoFilename", "logoCharset", "logoLastUpdated"
+        super(Store.class, Long.class,
+              MappedStore.ATTRIBUTE_NAME_STORE_ID,
+              MappedStore.ATTRIBUTE_NAME_LOGO,
+              MappedStore.ATTRIBUTE_NAME_LOGO_MIME_TYPE,
+              MappedStore.ATTRIBUTE_NAME_LOGO_FILENAME,
+              MappedStore.ATTRIBUTE_NAME_LOGO_CHARSET,
+              MappedStore.ATTRIBUTE_NAME_LOGO_LAST_UPDATED
         );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
     @Override
-    protected DataProviderStrategy dataProviderStrategy() {
-        return super.dataProviderStrategy();
+    protected DataProviderStrategy getDataProviderStrategy() {
+        return super.getDataProviderStrategy();
     }
 
+    @Nonnull
     @Override
-    protected PodamFactory podamFactory() {
-        return super.podamFactory();
+    protected ClassInfoStrategy getClassInfoStrategy() {
+        return super.getClassInfoStrategy();
     }
 
+    @Nonnull
     @Override
-    protected ClassInfoStrategy classInfoStrategy() {
-        return super.classInfoStrategy();
+    protected PodamFactory getPodamFactory() {
+        return super.getPodamFactory();
     }
 
+    @Nonnull
     @Override
-    protected Store manufacturePojo() {
-        log.debug("manufacturing store...");
-        final var store = super.manufacturePojo();
-        log.debug("store manufactured: {}", store);
-        assertThat(store.getStoreId()).isNull();
-        assertThat(store.getLogo()).isNull();
-        assertThat(store.getLogoMimeType()).isNull();
-        assertThat(store.getLogoFilename()).isNull();
-        assertThat(store.getLogoCharset()).isNull();
-        assertThat(store.getLogoLastUpdated()).isNull();
-        return store;
+    public Store get() {
+        return super.get();
     }
 }

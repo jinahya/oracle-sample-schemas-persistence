@@ -1,6 +1,8 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Test;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Test;
+import jakarta.annotation.Nonnull;
+import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
 class Product_Test extends __MappedEntity_Test<Product, Long> {
@@ -10,8 +12,12 @@ class Product_Test extends __MappedEntity_Test<Product, Long> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
     @Override
-    protected SingleTypeEqualsVerifierApi<Product> equalsVerifier() {
-        return super.equalsVerifier();
+    protected SingleTypeEqualsVerifierApi<Product> equals_Verify_(
+            @Nonnull final SingleTypeEqualsVerifierApi<Product> equalsVerifier) {
+        return super.equals_Verify_(equalsVerifier)
+                .suppress(Warning.SURROGATE_KEY)
+                ;
     }
 }

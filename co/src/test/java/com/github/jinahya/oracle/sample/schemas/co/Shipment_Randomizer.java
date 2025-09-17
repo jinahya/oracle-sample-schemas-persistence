@@ -1,81 +1,51 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.Lang_TestUtils;
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer;
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer_Utils;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
+import com.github.jinahya.persistence.more.test.__AttributeEnum_TestUtils;
+import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
-import uk.co.jemos.podam.api.AttributeMetadata;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
-import uk.co.jemos.podam.common.ManufacturingContext;
-import uk.co.jemos.podam.typeManufacturers.TypeTypeManufacturerImpl;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.Optional;
 
 @Slf4j
-class Shipment_Randomizer extends __MappedEntity_Randomizer<Shipment> {
+class Shipment_Randomizer extends __MappedEntity_Randomizer<Shipment, Long> {
 
     Shipment_Randomizer() {
-        super(Shipment.class, "shipmentId", "shipmentStatus");
+        super(Shipment.class, Long.class, "shipmentId", "shipmentStatus");
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    @Nonnull
     @Override
-    protected DataProviderStrategy dataProviderStrategy() {
-        return super.dataProviderStrategy()
-                .addOrReplaceTypeManufacturer(
-                        Store.class,
-                        new TypeTypeManufacturerImpl() {
-                            @Override
-                            public Object getType(final DataProviderStrategy s, final AttributeMetadata m,
-                                                  final ManufacturingContext c) {
-                                if (Shipment.class.isAssignableFrom(m.getPojoClass())
-                                        && m.getAttributeName().equals("store")) {
-                                    return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(
-                                            Store.class);
-                                }
-                                return super.getType(s, m, c);
-                            }
-                        }
-                )
-                .addOrReplaceTypeManufacturer(
-                        Customer.class,
-                        new TypeTypeManufacturerImpl() {
-                            @Override
-                            public Object getType(final DataProviderStrategy s, final AttributeMetadata m,
-                                                  final ManufacturingContext c) {
-                                if (Shipment.class.isAssignableFrom(m.getPojoClass())
-                                        && m.getAttributeName().equals("customer")) {
-                                    return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(
-                                            Customer.class);
-                                }
-                                return super.getType(s, m, c);
-                            }
-                        }
-                );
+    protected DataProviderStrategy getDataProviderStrategy() {
+        return super.getDataProviderStrategy();
     }
 
+    @Nonnull
     @Override
-    protected PodamFactory podamFactory() {
-        return super.podamFactory();
+    protected ClassInfoStrategy getClassInfoStrategy() {
+        return super.getClassInfoStrategy();
     }
 
+    @Nonnull
     @Override
-    protected ClassInfoStrategy classInfoStrategy() {
-        return super.classInfoStrategy();
+    protected PodamFactory getPodamFactory() {
+        return super.getPodamFactory();
     }
 
+    @Nonnull
     @Override
-    protected Shipment manufacturePojo() {
-        log.debug("manufacturing shipment...");
-        final var shipment = super.manufacturePojo();
-        log.debug("shipment manufactured: {}", shipment);
-        assertThat(shipment.getShipmentId()).isNull();
-        assertThat(shipment.getShipmentStatus()).isNull();
-        shipment.setShipmentStatus(
-                Lang_TestUtils.randomEnumConstant(Shipment._ShipmentStatus.class)
+    public Shipment get() {
+        final var value = super.get();
+        value.setShipmentStatus(
+                Optional.ofNullable(
+                        __AttributeEnum_TestUtils.getRandomAttributeValue(Shipment._ShipmentStatus.class)
+                ).orElseThrow()
         );
-        return shipment;
+        return value;
     }
 }

@@ -1,6 +1,9 @@
 package com.github.jinahya.oracle.sample.schemas.hr;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Test;
+import com.github.jinahya.persistence.mapped.test.__Configure_EqualsVerifier;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Test;
+import jakarta.annotation.Nonnull;
+import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
 class Region_Test extends __MappedEntity_Test<Region, Long> {
@@ -10,8 +13,12 @@ class Region_Test extends __MappedEntity_Test<Region, Long> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
     @Override
-    protected SingleTypeEqualsVerifierApi<Region> equalsVerifier() {
-        return super.equalsVerifier();
+    protected SingleTypeEqualsVerifierApi<Region> equals_Verify_(
+            @Nonnull final SingleTypeEqualsVerifierApi<Region> equalsVerifier) {
+        return super.equals_Verify_(equalsVerifier)
+                .suppress(Warning.SURROGATE_KEY)
+                ;
     }
 }

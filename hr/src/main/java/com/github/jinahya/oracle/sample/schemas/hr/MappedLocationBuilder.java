@@ -1,0 +1,114 @@
+package com.github.jinahya.oracle.sample.schemas.hr;
+
+import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
+
+@SuppressWarnings({
+        "java:S119" // Type parameter names should comply with a naming convention
+})
+public abstract class MappedLocationBuilder<
+        SELF extends MappedLocationBuilder<SELF, LOCATION, COUNTRY>,
+        LOCATION extends MappedLocation<COUNTRY>,
+        COUNTRY extends MappedCountry<?, ?>
+        >
+        extends __MappedEntityBuilder<SELF, LOCATION> {
+
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    protected MappedLocationBuilder(final Class<LOCATION> entityClass) {
+        super(entityClass);
+    }
+
+    // ------------------------------------------------------------------------------------------------ java.lang.Object
+
+    // ------------------------------------------------------------------------------------------------------ locationId
+
+    public Integer locationId() {
+        return locationId;
+    }
+
+    public SELF locationId(final Integer locationId) {
+        this.locationId = locationId;
+        return (SELF) this;
+    }
+
+    // --------------------------------------------------------------------------------------------------- streetAddress
+    public String streetAddress() {
+        return streetAddress;
+    }
+
+    public SELF streetAddress(final String streetAddress) {
+        this.streetAddress = streetAddress;
+        return (SELF) this;
+    }
+
+    // ------------------------------------------------------------------------------------------------------ postalCode
+    public String postalCode() {
+        return postalCode;
+    }
+
+    public SELF postalCode(final String postalCode) {
+        this.postalCode = postalCode;
+        return (SELF) this;
+    }
+
+    // ------------------------------------------------------------------------------------------------------------ city
+    public String city() {
+        return city;
+    }
+
+    public SELF city(final String city) {
+        this.city = city;
+        return (SELF) this;
+    }
+
+    // --------------------------------------------------------------------------------------------------- stateProvince
+    public String stateProvince() {
+        return stateProvince;
+    }
+
+    public SELF stateProvince(final String stateProvince) {
+        this.stateProvince = stateProvince;
+        return (SELF) this;
+    }
+
+    // ------------------------------------------------------------------------------------------------------- countryId
+    @Deprecated(forRemoval = true)
+    public String countryId() {
+        return countryId;
+    }
+
+    @Deprecated(forRemoval = true)
+    public SELF countryId(final String countryId) {
+        this.countryId = countryId;
+        return (SELF) this;
+    }
+
+    // --------------------------------------------------------------------------------------------------------- country
+    public COUNTRY country() {
+        return country;
+    }
+
+    public SELF country(final COUNTRY country) {
+        this.country = country;
+        return (SELF) this;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    private Integer locationId;
+
+    // -----------------------------------------------------------------------------------------------------------------
+    private String streetAddress;
+
+    private String postalCode;
+
+    private String city;
+
+    private String stateProvince;
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Deprecated(forRemoval = true)
+    private String countryId;
+
+    private COUNTRY country;
+}

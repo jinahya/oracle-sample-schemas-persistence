@@ -1,56 +1,46 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
+import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
-import uk.co.jemos.podam.api.AbstractClassInfoStrategy;
-import uk.co.jemos.podam.api.ClassAttribute;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-import java.util.Objects;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 @Slf4j
-class Customer_Randomizer extends __MappedEntity_Randomizer<Customer> {
+class Customer_Randomizer extends __MappedEntity_Randomizer<Customer, Long> {
 
+    // ----------------------------------------------------------------------------------------------------- CONSTRUCTOR
     Customer_Randomizer() {
-        super(Customer.class);
+        super(Customer.class, Long.class, "customerId");
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
     @Override
-    protected DataProviderStrategy dataProviderStrategy() {
-        return super.dataProviderStrategy()
-                .addOrReplaceAttributeStrategy(entityClass, "customerId", (t, a) -> {
-                    return null;
-                });
+    protected DataProviderStrategy getDataProviderStrategy() {
+        return super.getDataProviderStrategy();
     }
 
+    @Nonnull
     @Override
-    protected ClassInfoStrategy classInfoStrategy() {
-//        return super.classInfoStrategy();
-        return new AbstractClassInfoStrategy() {
-            // https://github.com/mtedone/podam/pull/84
-            @Override
-            public boolean approve(final ClassAttribute attribute) {
-                return !Objects.equals(attribute.getName(), "customerId");
-            }
-        };
+    protected ClassInfoStrategy getClassInfoStrategy() {
+        return super.getClassInfoStrategy();
     }
 
+    @Nonnull
     @Override
-    protected PodamFactory podamFactory() {
-        return super.podamFactory();
+    protected PodamFactory getPodamFactory() {
+        return super.getPodamFactory();
     }
 
+    @Nonnull
     @Override
-    protected Customer manufacturePojo() {
-        log.debug("manufacturing customer...");
-        final var customer = super.manufacturePojo();
-        log.debug("customer: {}", customer);
-        assertThat(customer.getCustomerId()).isNull();
-        return customer;
+    public Customer get() {
+        final var value = super.get();
+        {
+            value.setEmailAddress(System.nanoTime() + "@" + System.nanoTime() + ".com");
+        }
+        return value;
     }
 }

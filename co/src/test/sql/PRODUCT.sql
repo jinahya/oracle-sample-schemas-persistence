@@ -76,7 +76,8 @@ WITH size_categories AS (SELECT j.size_value,
                                     WHEN REGEXP_LIKE(j.size_value, '^\d+$') THEN 'Numeric Size'
                                     WHEN REGEXP_LIKE(j.size_value, '^\d+[\.-]\d+$') THEN 'Decimal/Range Size'
                                     ELSE 'Other'
-                                    END  as size_category
+                                    END
+                                         as size_category
                          FROM PRODUCTS p,
                               JSON_TABLE(p.PRODUCT_DETAILS, '$.sizes[*]'
                                          COLUMNS (size_value VARCHAR2(20) PATH '$')

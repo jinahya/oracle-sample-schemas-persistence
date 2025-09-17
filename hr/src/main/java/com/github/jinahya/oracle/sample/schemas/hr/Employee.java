@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.hr;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity;
+import com.github.jinahya.persistence.mapped.__MappedEntity;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
@@ -32,7 +32,7 @@ import java.util.Optional;
 
 @Entity
 @Table(name = Employee.TABLE_NAME)
-public class Employee extends __MappedEntity<Employee, Integer> {
+public class Employee extends __MappedEntity<Integer> {
 
     @Serial
     private static final long serialVersionUID = -9109661411050742306L;
@@ -45,11 +45,11 @@ public class Employee extends __MappedEntity<Employee, Integer> {
 
     public static final int COLUMN_PRECISION_EMPLOYEE_ID = 4;
 
-    public static final int COLUMN_VALUE_EMPLOYEE_ID = 0x0000;
+    public static final int COLUMN_VALUE_MIN_EMPLOYEE_ID = 0x0000;
 
     public static final int COLUMN_VALUE_MAX_EMPLOYEE_ID = 0x270F; // 9999
 
-    public static final int MIN_EMPLOYEE_ID = COLUMN_VALUE_EMPLOYEE_ID;
+    public static final int MIN_EMPLOYEE_ID = COLUMN_VALUE_MIN_EMPLOYEE_ID;
 
     public static final int MAX_EMPLOYEE_ID = COLUMN_VALUE_MAX_EMPLOYEE_ID;
 
@@ -170,17 +170,6 @@ public class Employee extends __MappedEntity<Employee, Integer> {
                 '}';
     }
 
-    // ------------------------------------------------------------------------------------------------------ super._id_
-    @Override
-    protected final Integer _id_() {
-        return getEmployeeId();
-    }
-
-    @Override
-    protected final void _id_(final Integer _id_) {
-        setEmployeeId(_id_);
-    }
-
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     // ------------------------------------------------------------------------------------------------------ employeeId
@@ -257,15 +246,15 @@ public class Employee extends __MappedEntity<Employee, Integer> {
 
     // ------------------------------------------------------------------------------------------------------------- job
     @Nonnull
-    public Job getJob() {
+    public MappedJob getJob() {
         return job;
     }
 
-    public void setJob(@Nonnull final Job job) {
+    public void setJob(@Nonnull final MappedJob job) {
         this.job = job;
         setJobId(
                 Optional.ofNullable(this.job)
-                        .map(Job::getJobId)
+                        .map(MappedJob::getJobId)
                         .orElse(null)
         );
     }
@@ -417,7 +406,7 @@ public class Employee extends __MappedEntity<Employee, Integer> {
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_JOB_ID, nullable = false, insertable = false, updatable = false)
-    private Job job;
+    private MappedJob job;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable

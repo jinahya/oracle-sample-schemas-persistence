@@ -1,47 +1,26 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Test;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Test;
+import jakarta.annotation.Nonnull;
+import lombok.extern.slf4j.Slf4j;
+import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Arrays;
-import java.util.List;
-
+@Slf4j
 class Order_Test extends __MappedEntity_Test<Order, Long> {
 
+    // -----------------------------------------------------------------------------------------------------------------
     Order_Test() {
         super(Order.class, Long.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
     @Override
-    protected SingleTypeEqualsVerifierApi<Order> equalsVerifier() {
-        return super.equalsVerifier()
-                .withPrefabValues(
-                        List.class, Arrays.asList(1, 2, 3), Arrays.asList(4, 5, 6)
-                );
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Test
-    void __() {
-        List<BigDecimal> numbers = Arrays.asList(
-                new BigDecimal("10.123"),
-                new BigDecimal("20.45"),
-                new BigDecimal("30.6")
-        );
-
-        BigDecimal sum = numbers.stream()
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-
-        System.out.println("Sum without adjusting scale: " + sum);
-
-        BigDecimal sumWithScale = numbers.stream()
-                .reduce(BigDecimal.ZERO, BigDecimal::add)
-                .setScale(2, RoundingMode.HALF_UP);
-
-        System.out.println("Sum with adjusted scale: " + sumWithScale);
+    protected SingleTypeEqualsVerifierApi<Order> equals_Verify_(
+            @Nonnull SingleTypeEqualsVerifierApi<Order> equalsVerifier) {
+        return super.equals_Verify_(equalsVerifier)
+                .suppress(Warning.SURROGATE_KEY)
+                ;
     }
 }

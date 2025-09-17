@@ -1,26 +1,29 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer;
-import com.github.jinahya.oracle.sample.schemas.__MappedEntity_Randomizer_Utils;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
+import com.github.jinahya.persistence.more.test.__AttributeEnum_TestUtils;
+import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
-import uk.co.jemos.podam.api.AttributeMetadata;
-import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
-import uk.co.jemos.podam.common.ManufacturingContext;
-import uk.co.jemos.podam.typeManufacturers.TypeTypeManufacturerImpl;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.Optional;
 
 @Slf4j
-class Order_Randomizer extends __MappedEntity_Randomizer<Order> {
+class Order_Randomizer extends __MappedEntity_Randomizer<Order, Long> {
 
     Order_Randomizer() {
-        super(Order.class,
+        super(Order.class, Long.class,
               "orderId",
-              "orderStatus"
+              "orderTmsAsZonedDateTime",
+              "orderTmsFromZonedDateTime",
+              "orderTmsAsOffsetDateTime",
+              "orderTmsFromOffsetDateTime",
+              "orderTmsAsInstant",
+              "orderTmsFromInstant",
+              "orderStatus",
+              "orderItems"
 //                ,
-//              "orderItems",
 //              "orderItemsTotalPrice1",
 //              "orderItemsTotalPrice2",
 //              "orderItemsTotalPrice3"
@@ -28,59 +31,28 @@ class Order_Randomizer extends __MappedEntity_Randomizer<Order> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    @Nonnull
     @Override
-    protected DataProviderStrategy dataProviderStrategy() {
-        return super.dataProviderStrategy()
-                .addOrReplaceTypeManufacturer(
-                        Customer.class,
-                        new TypeTypeManufacturerImpl() {
-                            @Override
-                            public Object getType(final DataProviderStrategy s, final AttributeMetadata m,
-                                                  final ManufacturingContext c) {
-                                if (Order.class.isAssignableFrom(m.getPojoClass())
-                                        && m.getAttributeName().equals("customer")) {
-                                    return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(
-                                            Customer.class);
-                                }
-                                return super.getType(s, m, c);
-                            }
-                        }
-                )
-                .addOrReplaceTypeManufacturer(
-                        Store.class,
-                        new TypeTypeManufacturerImpl() {
-                            @Override
-                            public Object getType(final DataProviderStrategy s, final AttributeMetadata m,
-                                                  final ManufacturingContext c) {
-                                if (Order.class.isAssignableFrom(m.getPojoClass()) &&
-                                        m.getAttributeName().equals("store")) {
-                                    return __MappedEntity_Randomizer_Utils.newRandomizedInstanceOfOrElseThrow(
-                                            Store.class);
-                                }
-                                return super.getType(s, m, c);
-                            }
-                        }
-                )
-                ;
+    protected DataProviderStrategy getDataProviderStrategy() {
+        return super.getDataProviderStrategy();
     }
 
+    @Nonnull
     @Override
-    protected PodamFactory podamFactory() {
-        return super.podamFactory();
+    protected PodamFactory getPodamFactory() {
+        return super.getPodamFactory();
     }
 
+    @Nonnull
     @Override
-    protected ClassInfoStrategy classInfoStrategy() {
-        return super.classInfoStrategy();
-    }
-
-    @Override
-    protected Order manufacturePojo() {
-        log.debug("manufacturing order...");
-        final var order = super.manufacturePojo();
-        log.debug("order: {}", order);
-        assertThat(order.getOrderId()).isNull();
-        assertThat(order.getOrderStatus()).isSameAs(Order.OrderStatus.OPEN);
-        return order;
+    public Order get() {
+        final var value = super.get();
+        value.setOrderStatus(
+                Optional.ofNullable(
+                        __AttributeEnum_TestUtils.getRandomAttributeValue(Order._OrderStatus.class)
+                ).orElseThrow()
+        );
+        return value;
     }
 }

@@ -16,8 +16,9 @@
 
 ### [oracle-samples/db-sample-schemas](https://github.com/oracle-samples/db-sample-schemas)
 
-* [issues/30 Populate customer_orders/STORES/logo data](https://github.com/oracle-samples/db-sample-schemas/issues/30)
-* oracle-samples/db-sample-schemas#30
+* [ORA-65096: common user or role name must start with prefix C## #27](https://github.com/oracle-samples/db-sample-schemas/issues/27)
+* [Populate customer_orders/STORES/logo data #30](https://github.com/oracle-samples/db-sample-schemas/issues/30)
+* [What are relationships ORDER_ITEMS.SHIPMENTS.CUSTOMER and SHIPMENTS.CUSTOMER? #31](https://github.com/oracle-samples/db-sample-schemas/issues/31)
 
 ### spring-projects/spring-data-jpa
 
@@ -32,9 +33,10 @@
 * [How to have docker compose init a SQL Server database](https://stackoverflow.com/questions/69941444/how-to-have-docker-compose-init-a-sql-server-database)
 
 
+## iancarpenter.dev
 
-https://github.com/oracle-samples/db-sample-schemas/issues/27
-https://community.rsa.com/s/article/How-to-switch-from-Container-Databases-CDB-to-Pluggable-Databases-PDB-and-vice-versa-in-Oracle-12c-Database-in-RSA-Identity-Governance-and-Lifecycle
-https://iancarpenter.dev/2023/09/13/getting-started-with-oracle-database-running-on-docker/#:~:text=Installation%20of%20the%20sample%20schemas,install%20the%20other%20sample%20schemas.&text=The%20next%20step%20is%20to,this%20article%20by%20Tim%20Hall.&text=Follow%20the%20on%20screen%20prompts,required%20and%20can%20be%20deleted.
+* [Getting started with Oracle Database running on Docker](https://iancarpenter.dev/2023/09/13/getting-started-with-oracle-database-running-on-docker/#:~:text=Installation%20of%20the%20sample%20schemas,install%20the%20other%20sample%20schemas.&text=The%20next%20step%20is%20to,this%20article%20by%20Tim%20Hall.&text=Follow%20the%20on%20screen%20prompts,required%20and%20can%20be%20deleted)
 
-https://www.baeldung.com/java-sql-blob-jackson-serialize-deserialize
+## www.baeldung.com
+
+* [How to Serialize and Deserialize java.sql.Blob With Jackson](https://www.baeldung.com/java-sql-blob-jackson-serialize-deserialize)
