@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.__MappedEntity;
 import com.github.jinahya.persistence.more.__AttributeEnum;
 import com.github.jinahya.persistence.more.__AttributeEnumConverter;
 import com.github.jinahya.persistence.more.__AttributeEnumUtils;
@@ -24,10 +23,13 @@ import java.util.Optional;
 
 @MappedSuperclass
 @SuppressWarnings({
+        "java:S101", // Class names should comply with a naming convention
+        "java:S114", // Interface names should comply with a naming convention
+        "java:S119", // Type parameter names should comply with a naming convention
         "java:S2637" // "@NonNull" values should not be set to null
 })
 public abstract class MappedShipment<STORE extends MappedStore, CUSTOMER extends MappedCustomer>
-        extends __MappedEntity<Long> {
+        extends _MappedCoEntity<Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -161,9 +163,9 @@ public abstract class MappedShipment<STORE extends MappedStore, CUSTOMER extends
         return super.toString() + '{' +
                 "shipmentId=" + shipmentId +
                 ",storeId=" + storeId +
-//                ",store=" + store + // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//                ",store=" + store +
                 ",customerId=" + customerId +
-//                ",customer=" + customer + // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//                ",customer=" + customer +
                 ",deliveryAddress=" + deliveryAddress +
                 ",shipmentStatus=" + shipmentStatus +
                 '}';

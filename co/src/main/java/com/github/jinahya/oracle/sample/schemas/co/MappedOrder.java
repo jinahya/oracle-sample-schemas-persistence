@@ -163,13 +163,18 @@ public abstract class MappedOrder<
     }
 
     protected MappedOrder(final MappedOrderBuilder<?, ?, CUSTOMER, STORE> builder) {
-        super();
+        super(builder);
         orderId = builder.orderId();
         orderTms = builder.orderTms();
-        customerId = builder.customerId();
+        {
+            customerId = builder.customerId();
+            setCustomer(builder.customer());
+        }
         orderStatus = builder.orderStatus();
-        storeId = builder.storeId();
-        store = builder.store();
+        {
+            storeId = builder.storeId();
+            setStore(builder.store());
+        }
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -224,9 +229,9 @@ public abstract class MappedOrder<
     }
 
     @Transient
-    public void setOrderTmsFromZonedDateTime(final ZonedDateTime zonedDateTime) {
+    public void setOrderTmsFromZonedDateTime(final ZonedDateTime orderTms) {
         setOrderTms(
-                Optional.ofNullable(zonedDateTime)
+                Optional.ofNullable(orderTms)
                         .map(ZonedDateTime::toLocalDateTime)
                         .orElse(null)
         );
@@ -239,9 +244,9 @@ public abstract class MappedOrder<
     }
 
     @Transient
-    public void setOrderTmsFromOffsetDateTime(final OffsetDateTime offsetDateTime) {
+    public void setOrderTmsFromOffsetDateTime(final OffsetDateTime orderTms) {
         setOrderTms(
-                Optional.ofNullable(offsetDateTime)
+                Optional.ofNullable(orderTms)
                         .map(OffsetDateTime::toLocalDateTime)
                         .orElse(null)
         );
@@ -261,8 +266,8 @@ public abstract class MappedOrder<
     }
 
     /**
-     * Replaces current value of {@link MappedOrder_#orderTms orderTms} attribute with specified instant at specified
-     * zone.
+     * Replaces current value of {@link MappedOrder_#orderTms orderTms} attribute with the specified instant at
+     * specified zone.
      *
      * @param instant the instant.
      * @param zone    the zone.
@@ -275,16 +280,15 @@ public abstract class MappedOrder<
         );
     }
 
-    @Transient
     public Instant getOrderTmsAsInstant(final ZoneOffset offset) {
         return Optional.ofNullable(getOrderTmsAsOffsetDatetime(offset))
                 .map(OffsetDateTime::toInstant)
                 .orElse(null);
     }
 
-    public void setOrderTmsFromInstant(final Instant instant, final ZoneOffset offset) {
+    public void setOrderTmsFromInstant(final Instant orderTms, final ZoneOffset offset) {
         setOrderTmsFromOffsetDateTime(
-                Optional.ofNullable(instant)
+                Optional.ofNullable(orderTms)
                         .map(v -> v.atOffset(Objects.requireNonNull(offset, "offset is null")))
                         .orElse(null)
         );
@@ -296,7 +300,7 @@ public abstract class MappedOrder<
         return customer;
     }
 
-    void setCustomer(@Nonnull final CUSTOMER customer) {
+    protected void setCustomer(@Nonnull final CUSTOMER customer) {
         this.customer = customer;
         customerId = Optional.ofNullable(this.customer)
                 .map(MappedCustomer::getCustomerId)
@@ -304,7 +308,6 @@ public abstract class MappedOrder<
     }
 
     // ----------------------------------------------------------------------------------------------------- orderStatus
-
     @Nonnull
     public String getOrderStatus() {
         return orderStatus;
@@ -335,7 +338,7 @@ public abstract class MappedOrder<
         return store;
     }
 
-    void setStore(@Nonnull final STORE store) {
+    protected void setStore(@Nonnull final STORE store) {
         this.store = store;
         storeId = Optional.ofNullable(this.store)
                 .map(MappedStore::getStoreId)

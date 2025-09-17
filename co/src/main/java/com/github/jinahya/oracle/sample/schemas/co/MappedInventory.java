@@ -83,7 +83,7 @@ public abstract class MappedInventory<
         super();
     }
 
-    protected MappedInventory(final MappedInventoryBuilder<?, ?, STORE, PRODUCT> builder) {
+    protected MappedInventory(final MappedInventoryBuilder<?, ?, ? extends STORE, ? extends PRODUCT> builder) {
         super(builder);
         setStoreId(builder.storeId());
         setStore(builder.store());
@@ -222,11 +222,12 @@ public abstract class MappedInventory<
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @Column(name = COLUMN_NAME_INVENTORY_ID,
             nullable = false,
-            /* insertable = false,*/ insertable = true, // EclipseLink
+//             insertable = false,
+            insertable = true, /* EclipseLink */
             updatable = false
     )
     private Long inventoryId;

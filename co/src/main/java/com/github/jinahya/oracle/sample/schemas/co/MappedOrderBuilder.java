@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
 import jakarta.persistence.MappedSuperclass;
 
 import java.time.LocalDateTime;
@@ -16,7 +15,7 @@ public abstract class MappedOrderBuilder<
         CUSTOMER extends MappedCustomer,
         STORE extends MappedStore
         >
-        extends __MappedEntityBuilder<SELF, ORDER> {
+        extends _MappedCoEntityBuilder<SELF, ORDER> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 

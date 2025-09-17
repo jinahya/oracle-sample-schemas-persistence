@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
@@ -15,7 +14,7 @@ public abstract class MappedShipmentBuilder<
         STORE extends MappedStore,
         CUSTOMER extends MappedCustomer
         >
-        extends __MappedEntityBuilder<SELF, SHIPMENT> {
+        extends _MappedCoEntityBuilder<SELF, SHIPMENT> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     protected MappedShipmentBuilder(final Class<SHIPMENT> entityClass) {

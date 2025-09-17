@@ -14,7 +14,6 @@ import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
 @MappedSuperclass
-//public abstract class MappedCustomer extends __MappedEntity<Long> {
 public abstract class MappedCustomer extends _MappedCoEntity<Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -75,7 +74,6 @@ public abstract class MappedCustomer extends _MappedCoEntity<Long> {
 
     MappedCustomer(@Nonnull final MappedCustomerBuilder<?, ?> builder) {
         super(builder);
-        Objects.requireNonNull(builder, "builder is null");
         emailAddress = builder.emailAddress();
         fullName = builder.fullName();
     }
@@ -92,10 +90,10 @@ public abstract class MappedCustomer extends _MappedCoEntity<Long> {
 
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedCustomer customer)) {
+        if (!(obj instanceof MappedCustomer that)) {
             return false;
         }
-        return Objects.equals(emailAddress, customer.emailAddress);
+        return Objects.equals(emailAddress, that.emailAddress);
     }
 
     @Override
