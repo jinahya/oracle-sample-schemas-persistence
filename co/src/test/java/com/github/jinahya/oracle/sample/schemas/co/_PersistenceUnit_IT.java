@@ -1,21 +1,18 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.test.__Database_TestUtils;
 import com.github.jinahya.persistence.mapped.test.__PersistenceUnit_IT;
-import com.github.jinahya.persistence.mapped.test.___JakartaPersistence_TestUtils;
 import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.util.Collection;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 @SuppressWarnings({
-        "java:S119" // Type parameter names should comply with a naming convention
+        "java:S117", // Local variable and method parameter names should comply with a naming convention
+        "java:S119", // Type parameter names should comply with a naming convention
+        "java:S3577" // Test classes should comply with a naming convention
 })
 class _PersistenceUnit_IT
         extends __PersistenceUnit_IT {
@@ -26,41 +23,11 @@ class _PersistenceUnit_IT
 
     // -----------------------------------------------------------------------------------------------------------------
     @BeforeEach
-    protected void a() {
-        applyEntityManager(em -> ___JakartaPersistence_TestUtils.applyConnectionAndRollback(
-                em,
-                c -> {
-                    try {
-                        final var userSysPrivs_Privileges =
-                                __Database_TestUtils.Oracle.USER_SYS_PRIVS__PRIVILEGES(c);
-                        log.debug("USER_SYS_PRIVS__PRIVILEGES: {}", userSysPrivs_Privileges);
-                        userSysPrivs_Privileges.remove("CREATE SESSION");
-                        userSysPrivs_Privileges.forEach(p -> {
-                            assertThat(p).doesNotContain("CREATE", "ALTER", "DROP");
-                        });
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                    return null;
-                }
-        ));
-        applyEntityManager(em -> ___JakartaPersistence_TestUtils.applyConnectionAndRollback(
-                em,
-                c -> {
-                    try {
-                        final var userSysPrivs_Privileges =
-                                __Database_TestUtils.Oracle.USER_TAB_PRIVS__PRIVILEGES(c);
-                        log.debug("USER_TAB_PRIVS__PRIVILEGES: {}", userSysPrivs_Privileges);
-                        userSysPrivs_Privileges.remove("CREATE SESSION");
-                        userSysPrivs_Privileges.forEach(p -> {
-                            assertThat(p).doesNotContain("CREATE", "ALTER", "DROP");
-                        });
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                    return null;
-                }
-        ));
+    void assumeNoDestructivePrivileges() {
+        applyEntityManager(em -> {
+            _PersistenceUnit_IT_Utils.assumeNoDestructivePrivileges(em);
+            return null;
+        });
     }
 
     // -----------------------------------------------------------------------------------------------------------------

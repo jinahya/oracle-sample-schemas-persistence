@@ -1,7 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.__MappedBuilder;
-
 import java.math.BigDecimal;
 
 @SuppressWarnings({
@@ -13,7 +11,7 @@ public abstract class _MappedCoLocationBuilder<
         SELF extends _MappedCoLocationBuilder<SELF, LOCATION>,
         LOCATION extends _MappedCoLocation
         >
-        extends __MappedBuilder<SELF, LOCATION> {
+        extends _MappedCoBuilder<SELF, LOCATION> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 

@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.test.__Configure_EqualsVerifier;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_Test;
 import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +15,6 @@ class Order_Test extends __MappedEntity_Test<Order, Long> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @__Configure_EqualsVerifier
     @Nonnull
     @Override
     protected SingleTypeEqualsVerifierApi<Order> equals_Verify_(

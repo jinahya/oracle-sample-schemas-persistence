@@ -19,6 +19,8 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Function;
 
 @MappedSuperclass
 public abstract class MappedProduct extends _MappedCoEntity<Long> {
@@ -204,6 +206,21 @@ public abstract class MappedProduct extends _MappedCoEntity<Long> {
 
     public void setProductDetails(@Nullable final byte[] productDetails) {
         this.productDetails = productDetails;
+    }
+
+    public <R> R getProductDetailsAsMapped(final Function<? super byte[], ? extends R> mapper) {
+        return Optional.ofNullable(getProductDetails())
+                .map(Objects.requireNonNull(mapper, "mapper is null"))
+                .orElse(null);
+    }
+
+    public <T> void setProductDetailsFromMapped(final T productDetails,
+                                                final Function<? super T, ? extends byte[]> mapper) {
+        setProductDetails(
+                Optional.ofNullable(productDetails)
+                        .map(Objects.requireNonNull(mapper, "mapper is null"))
+                        .orElse(null)
+        );
     }
 
     // ---------------------------------------------------------------------------------------------------- productImage

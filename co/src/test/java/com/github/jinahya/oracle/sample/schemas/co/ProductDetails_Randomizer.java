@@ -6,9 +6,9 @@ import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-class ProductDetailsRandomizer extends ___Randomizer<ProductDetails> {
+class ProductDetails_Randomizer extends ___Randomizer<ProductDetails> {
 
-    ProductDetailsRandomizer() {
+    ProductDetails_Randomizer() {
         super(ProductDetails.class);
     }
 

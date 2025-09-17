@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 @Table(name = MappedStore.TABLE_NAME)
 class Store extends MappedStore {
 
-    public static MappedStoreBuilder<?, Store> builder() {
+    static MappedStoreBuilder<?, Store> builder() {
         return new StoreBuilder();
     }
 

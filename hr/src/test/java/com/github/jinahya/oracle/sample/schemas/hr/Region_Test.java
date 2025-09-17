@@ -13,7 +13,6 @@ class Region_Test extends __MappedEntity_Test<Region, Long> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @__Configure_EqualsVerifier
     @Nonnull
     @Override
     protected SingleTypeEqualsVerifierApi<Region> equals_Verify_(

@@ -1,7 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.__MappedBuilder;
-
 import java.time.LocalDate;
 
 @SuppressWarnings({
@@ -10,10 +8,10 @@ import java.time.LocalDate;
         "java:S119"  // Type parameter names should comply with a naming convention
 })
 public abstract class _MappedCoBinaryBuilder<
-        SELF extends _MappedCoBinaryBuilder<SELF, MAPPED_CO_BINARY>,
-        MAPPED_CO_BINARY extends _MappedCoBinary
+        SELF extends _MappedCoBinaryBuilder<SELF, MAPPED>,
+        MAPPED extends _MappedCoBinary
         >
-        extends __MappedBuilder<SELF, MAPPED_CO_BINARY> {
+        extends _MappedCoBuilder<SELF, MAPPED> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -22,7 +20,7 @@ public abstract class _MappedCoBinaryBuilder<
     /**
      * Creates a new instance.
      */
-    protected _MappedCoBinaryBuilder(final Class<MAPPED_CO_BINARY> mappedClass) {
+    protected _MappedCoBinaryBuilder(final Class<MAPPED> mappedClass) {
         super(mappedClass);
     }
 

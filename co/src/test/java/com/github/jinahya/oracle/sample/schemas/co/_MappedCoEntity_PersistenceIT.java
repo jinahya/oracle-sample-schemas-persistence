@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.test.__Database_TestUtils;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersistenceIT;
 import com.github.jinahya.persistence.mapped.test.___JakartaPersistence_TestUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -23,39 +22,15 @@ abstract class _MappedCoEntity_PersistenceIT<ENTITY extends _MappedCoEntity<ID>,
 
     // -----------------------------------------------------------------------------------------------------------------
     @BeforeEach
-    protected void a() {
-        applyEntityManager(em -> ___JakartaPersistence_TestUtils.applyConnectionAndRollback(
-                em,
-                c -> {
-                    try {
-                        final var privileges = __Database_TestUtils.Oracle.USER_SYS_PRIVS__PRIVILEGES(c);
-                        log.debug("USER_SYS_PRIVS__PRIVILEGES: {}", privileges);
-                        privileges.remove("CREATE SESSION");
-                        privileges.forEach(p -> {
-                            assertThat(p).doesNotContain("CREATE", "ALTER", "DROP");
-                        });
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                    return null;
-                }
-        ));
-        applyEntityManager(em -> ___JakartaPersistence_TestUtils.applyConnectionAndRollback(
-                em,
-                c -> {
-                    try {
-                        final var privileges = __Database_TestUtils.Oracle.USER_TAB_PRIVS__PRIVILEGES(c);
-                        log.debug("USER_TAB_PRIVS__PRIVILEGES: {}", privileges);
-                        privileges.remove("CREATE SESSION");
-                        privileges.forEach(p -> {
-                            assertThat(p).doesNotContain("CREATE", "ALTER", "DROP");
-                        });
-                    } catch (SQLException e) {
-                        throw new RuntimeException(e);
-                    }
-                    return null;
-                }
-        ));
+    void assumeNoDestructivePrivileges() {
+        applyEntityManager(em -> {
+            _PersistenceUnit_IT_Utils.assumeNoDestructivePrivileges(em);
+            return null;
+        });
+    }
+
+    @BeforeEach
+    void setCurrentSchema() {
         final var usePreparedStatement = false;
         if (usePreparedStatement) {
             // TODO: 이건 왜 안될까?
