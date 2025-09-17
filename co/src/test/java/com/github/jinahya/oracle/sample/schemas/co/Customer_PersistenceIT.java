@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersistenceIT;
 import com.github.jinahya.persistence.mapped.test.___JakartaPersistence_TestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Nested;
@@ -12,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
-class Customer_PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Long> {
+class Customer_PersistenceIT extends _MappedCoEntity_PersistenceIT<Customer, Long> {
 
     Customer_PersistenceIT() {
         super(Customer.class, Long.class);
@@ -29,7 +28,7 @@ class Customer_PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Long
                 applyEntityManager(em -> {
                     final var count = ___JakartaPersistence_TestUtils.count(em, entityClass);
                     if (count == 0) {
-                        log.info("table is empty: {}", getTableName());
+                        log.info("table is empty: {}", tableName());
                         return null;
                     }
                     final var firstResult = ThreadLocalRandom.current().nextInt(Math.toIntExact(count));
@@ -57,7 +56,7 @@ class Customer_PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Long
                 applyEntityManager(em -> {
                     final var count = ___JakartaPersistence_TestUtils.count(em, entityClass);
                     if (count == 0) {
-                        log.info("table is empty: {}", getTableName());
+                        log.info("table is empty: {}", tableName());
                         return null;
                     }
                     final var firstResult = ThreadLocalRandom.current().nextInt(Math.toIntExact(count));
@@ -91,7 +90,7 @@ class Customer_PersistenceIT extends __MappedEntity_PersistenceIT<Customer, Long
                 applyEntityManager(em -> {
                     final var count = ___JakartaPersistence_TestUtils.count(em, entityClass);
                     if (count == 0) {
-                        log.info("table is empty: {}", getTableName());
+                        log.info("table is empty: {}", tableName());
                         return null;
                     }
                     final var firstResult = ThreadLocalRandom.current().nextInt(Math.toIntExact(count));

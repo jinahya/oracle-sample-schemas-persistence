@@ -1,7 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
-
 @SuppressWarnings({
         "unchecked",
         "java:S119" // Type parameter names should comply with a naming convention
@@ -12,7 +10,7 @@ public abstract class MappedInventoryBuilder<
         STORE extends MappedStore,
         PRODUCT extends MappedProduct
         >
-        extends __MappedEntityBuilder<SELF, INVENTORY> {
+        extends _MappedCoEntityBuilder<SELF, INVENTORY> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 

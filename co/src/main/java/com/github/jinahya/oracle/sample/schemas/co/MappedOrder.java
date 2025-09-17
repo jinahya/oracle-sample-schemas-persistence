@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.__MappedEntity;
 import com.github.jinahya.persistence.more.__AttributeEnum;
 import com.github.jinahya.persistence.more.__AttributeEnumConverter;
 import com.github.jinahya.persistence.more.__AttributeEnumUtils;
@@ -42,7 +41,7 @@ public abstract class MappedOrder<
         STORE extends MappedStore,
         ORDER_ITEM extends MappedOrderItem<?, ?, ?, ?>
         >
-        extends __MappedEntity<Long> {
+        extends _MappedCoEntity<Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
 

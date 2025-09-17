@@ -1,7 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
-
 import java.math.BigDecimal;
 
 @SuppressWarnings({
@@ -16,7 +14,7 @@ public abstract class MappedOrderItemBuilder<
         PRODUCT extends MappedProduct,
         SHIPMENT extends MappedShipment<?, ?>
         >
-        extends __MappedEntityBuilder<SELF, ORDER_ITEM> {
+        extends _MappedCoEntityBuilder<SELF, ORDER_ITEM> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 

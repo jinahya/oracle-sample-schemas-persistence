@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.__MappedEntity;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -25,7 +24,7 @@ public abstract class MappedInventory<
         STORE extends MappedStore,
         PRODUCT extends MappedProduct
         >
-        extends __MappedEntity<Long> {
+        extends _MappedCoEntity<Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
 

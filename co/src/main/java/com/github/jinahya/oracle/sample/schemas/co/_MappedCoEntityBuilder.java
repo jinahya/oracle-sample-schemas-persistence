@@ -1,6 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.__MappedEntityWithGeneratedIdentityBuilder;
+import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
@@ -10,9 +10,9 @@ import jakarta.persistence.MappedSuperclass;
 })
 public abstract class _MappedCoEntityBuilder<
         SELF extends _MappedCoEntityBuilder<SELF, ENTITY>,
-        ENTITY extends _MappedCoEntity
+        ENTITY extends _MappedCoEntity<?>
         >
-        extends __MappedEntityWithGeneratedIdentityBuilder<SELF, ENTITY> {
+        extends __MappedEntityBuilder<SELF, ENTITY> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     protected _MappedCoEntityBuilder(final Class<ENTITY> entityClass) {

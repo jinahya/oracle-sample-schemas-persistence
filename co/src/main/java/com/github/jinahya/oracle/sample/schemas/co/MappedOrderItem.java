@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.__MappedEntity;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
@@ -34,7 +33,7 @@ public abstract class MappedOrderItem<
         PRODUCT extends MappedProduct,
         SHIPMENT extends MappedShipment<?, ?>
         >
-        extends __MappedEntity<ID> {
+        extends _MappedCoEntity<ID> {
 
     // -----------------------------------------------------------------------------------------------------------------
     public static final String TABLE_NAME = "ORDER_ITEMS";

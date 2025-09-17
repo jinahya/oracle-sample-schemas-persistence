@@ -1,7 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -13,7 +11,7 @@ public abstract class MappedProductBuilder<
         SELF extends MappedProductBuilder<SELF, PRODUCT>,
         PRODUCT extends MappedProduct
         >
-        extends __MappedEntityBuilder<SELF, PRODUCT> {
+        extends _MappedCoEntityBuilder<SELF, PRODUCT> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     protected MappedProductBuilder(final Class<PRODUCT> entityClass) {

@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.__MappedEntity;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
@@ -22,7 +21,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @MappedSuperclass
-public abstract class MappedProduct extends __MappedEntity<Long> {
+public abstract class MappedProduct extends _MappedCoEntity<Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
 

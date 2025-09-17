@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.persistence.mapped.__MappedEntity;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -15,7 +14,8 @@ import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
 @MappedSuperclass
-public abstract class MappedCustomer extends __MappedEntity<Long> {
+//public abstract class MappedCustomer extends __MappedEntity<Long> {
+public abstract class MappedCustomer extends _MappedCoEntity<Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
