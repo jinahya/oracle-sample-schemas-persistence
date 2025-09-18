@@ -30,4 +30,6 @@ public abstract class _MappedCoEntityBuilder<
     protected _MappedCoEntityBuilder(final Class<ENTITY> entityClass) {
         super(entityClass);
     }
+
+    // ------------------------------------------------------------------------------------------------ java.lang.Object
 }

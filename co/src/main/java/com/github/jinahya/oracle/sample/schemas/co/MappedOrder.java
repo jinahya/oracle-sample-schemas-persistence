@@ -31,6 +31,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 @MappedSuperclass
 @SuppressWarnings({
@@ -222,33 +223,42 @@ public abstract class MappedOrder<
         this.orderTms = orderTms;
     }
 
-    public ZonedDateTime getOrderTmsAsZonedDatetime(final ZoneId zone) {
+    public <R> R getOrderTmsAsMapped(final Function<? super LocalDateTime, ? extends R> mapper) {
         return Optional.ofNullable(getOrderTms())
-                .map(ot -> ot.atZone(Objects.requireNonNull(zone, "zone is null")))
+                .map(v -> Objects.requireNonNull(mapper, "mapper is null").apply(v))
                 .orElse(null);
     }
 
-    @Transient
-    public void setOrderTmsFromZonedDateTime(final ZonedDateTime orderTms) {
+    public <T> void setOrderTmsFromMapped(final T orderTms, final Function<? super T, LocalDateTime> mapper) {
         setOrderTms(
                 Optional.ofNullable(orderTms)
-                        .map(ZonedDateTime::toLocalDateTime)
+                        .map(v -> Objects.requireNonNull(mapper, "mapper is null").apply(v))
                         .orElse(null)
         );
     }
 
+    public ZonedDateTime getOrderTmsAsZonedDatetime(final ZoneId zone) {
+        return getOrderTmsAsMapped(
+                v -> v.atZone(Objects.requireNonNull(zone, "zone is null"))
+        );
+    }
+
+    @Transient
+    public void setOrderTmsFromZonedDateTime(final ZonedDateTime orderTms) {
+        setOrderTmsFromMapped(orderTms, ZonedDateTime::toLocalDateTime);
+    }
+
     public OffsetDateTime getOrderTmsAsOffsetDatetime(final ZoneOffset offset) {
-        return Optional.ofNullable(getOrderTms())
-                .map(ot -> ot.atOffset(Objects.requireNonNull(offset, "offset is null")))
-                .orElse(null);
+        return getOrderTmsAsMapped(
+                v -> v.atOffset(Objects.requireNonNull(offset, "offset is null"))
+        );
     }
 
     @Transient
     public void setOrderTmsFromOffsetDateTime(final OffsetDateTime orderTms) {
-        setOrderTms(
-                Optional.ofNullable(orderTms)
-                        .map(OffsetDateTime::toLocalDateTime)
-                        .orElse(null)
+        setOrderTmsFromMapped(
+                orderTms,
+                OffsetDateTime::toLocalDateTime
         );
     }
 
@@ -317,18 +327,45 @@ public abstract class MappedOrder<
         this.orderStatus = orderStatus;
     }
 
-    public <E extends Enum<E> & __OrderStatus<E>> E getOrderStatusFrom(final Class<E> enumClass) {
+    public <R> R getOrderStatusAsMapped(final Function<? super String, ? extends R> mapper) {
         return Optional.ofNullable(getOrderStatus())
-                .map(v -> __AttributeEnumUtils.valueOfAttributeValue(enumClass, v))
+                .map(v -> Objects.requireNonNull(mapper, "mapper is null").apply(v))
                 .orElse(null);
     }
 
-    @Transient
-    public void setOrderStatusFrom(final _OrderStatus orderStatusEnum) {
+    public <T> void setOrderStatusFromMapped(final T orderStatus,
+                                             final Function<? super T, ? extends CharSequence> mapper) {
         setOrderStatus(
-                Optional.ofNullable(orderStatusEnum)
-                        .map(__AttributeEnum::attributeValue)
+                Optional.ofNullable(orderStatus)
+                        .map(v -> Objects.requireNonNull(mapper, "mapper is null").apply(v))
+                        .map(CharSequence::toString)
                         .orElse(null)
+        );
+    }
+
+    /**
+     * Returns current value of {@link MappedOrder_#orderStatus orderStatus} attribute as an enum value of the specified
+     * enum class.
+     *
+     * @param enumClass the enum class.
+     * @param <E>       enum type parameter.
+     * @return current value of {@link MappedOrder_#orderStatus orderStatus} attribute as an enum value of
+     * {@code enumClass}; {@code null} if the attribute value is currently {@code null}.
+     * @throws NullPointerException     if {@code enumClass} is {@code null}.
+     * @throws IllegalArgumentException when no value mapped for the {@code enumClass}
+     * @see __AttributeEnumUtils#valueOfAttributeValue(Class, Object)
+     */
+    public <E extends Enum<E> & __OrderStatus<E>> E getOrderStatusAsEnum(final Class<E> enumClass) {
+        return getOrderStatusAsMapped(
+                v -> __AttributeEnumUtils.valueOfAttributeValue(enumClass, v)
+        );
+    }
+
+    @Transient
+    public void setOrderStatusFromEnum(final __OrderStatus<?> enumValue) {
+        setOrderStatusFromMapped(
+                enumValue,
+                __AttributeEnum::attributeValue
         );
     }
 
