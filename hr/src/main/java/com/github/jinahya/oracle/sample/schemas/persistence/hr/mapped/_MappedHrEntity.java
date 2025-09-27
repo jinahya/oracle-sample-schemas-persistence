@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.schemas.co;
+package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
 import com.github.jinahya.persistence.mapped.__MappedEntity;
 import jakarta.persistence.MappedSuperclass;
@@ -14,14 +14,14 @@ import jakarta.persistence.MappedSuperclass;
         "java:S101", // Class names should comply with a naming convention
         "java:S119"  // Type parameter names should comply with a naming convention
 })
-abstract class _MappedCoEntity<ID> implements __MappedEntity<ID> {
+abstract class _MappedHrEntity<ID> implements __MappedEntity<ID> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
      */
-    protected _MappedCoEntity() {
+    protected _MappedHrEntity() {
         super();
     }
 
@@ -30,8 +30,7 @@ abstract class _MappedCoEntity<ID> implements __MappedEntity<ID> {
      *
      * @param builder the builder to build from.
      */
-    _MappedCoEntity(final _MappedCoEntityBuilder<?, ?> builder) {
-//        super(builder);
+    _MappedHrEntity(final _MappedHrEntityBuilder<?, ?> builder) {
         super();
     }
 }

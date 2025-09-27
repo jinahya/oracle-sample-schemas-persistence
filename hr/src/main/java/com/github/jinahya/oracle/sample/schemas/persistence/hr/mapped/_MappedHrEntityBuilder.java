@@ -1,9 +1,9 @@
-package com.github.jinahya.oracle.sample.schemas.co;
+package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
 import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
 
 /**
- * An abstract builder class for {@link _MappedCoEntity}s.
+ * An abstract builder class for {@link _MappedHrEntity}s.
  *
  * @param <SELF>   self type parameter
  * @param <TARGET> entity type parameter
@@ -13,9 +13,9 @@ import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
         "java:S101", // Class names should comply with a naming convention
         "java:S119"  // Type parameter names should comply with a naming convention
 })
-public abstract class _MappedCoEntityBuilder<
-        SELF extends _MappedCoEntityBuilder<SELF, TARGET>,
-        TARGET extends _MappedCoEntity<?>
+public abstract class _MappedHrEntityBuilder<
+        SELF extends _MappedHrEntityBuilder<SELF, TARGET>,
+        TARGET extends _MappedHrEntity<?>
         >
         extends __MappedEntityBuilder<SELF, TARGET> {
 
@@ -27,9 +27,7 @@ public abstract class _MappedCoEntityBuilder<
      * @param targetClass the entity class to build.
      * @see #targetClass
      */
-    protected _MappedCoEntityBuilder(final Class<TARGET> targetClass) {
+    protected _MappedHrEntityBuilder(final Class<TARGET> targetClass) {
         super(targetClass);
     }
-
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
 }

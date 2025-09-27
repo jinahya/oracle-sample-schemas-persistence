@@ -396,8 +396,8 @@ public abstract class MappedStore extends _MappedCoEntity<Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @DecimalMax(value = _DomainConstants.DECIMAL_MAX_LATITUDE, inclusive = true)
-    @DecimalMin(value = _DomainConstants.DECIMAL_MIN_LATITUDE, inclusive = true)
+    @DecimalMax(value = __MappedCoConstants.DECIMAL_MAX_LATITUDE, inclusive = true)
+    @DecimalMin(value = __MappedCoConstants.DECIMAL_MIN_LATITUDE, inclusive = true)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LATITUDE,
             nullable = true,
@@ -409,8 +409,8 @@ public abstract class MappedStore extends _MappedCoEntity<Long> {
     private BigDecimal latitude;
 
     @Nullable
-    @DecimalMax(value = _DomainConstants.DECIMAL_MAX_LONGITUDE, inclusive = true)
-    @DecimalMin(value = _DomainConstants.DECIMAL_MIN_LONGITUDE, inclusive = true)
+    @DecimalMax(value = __MappedCoConstants.DECIMAL_MAX_LONGITUDE, inclusive = true)
+    @DecimalMin(value = __MappedCoConstants.DECIMAL_MIN_LONGITUDE, inclusive = true)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LONGITUDE,
             nullable = true,

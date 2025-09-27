@@ -27,9 +27,9 @@ public abstract class _MappedCoLocation extends _MappedCo {
 
     public static final String ATTRIBUTE_NAME_LATITUDE = "latitude";
 
-    public static final String DECIMAL_MIN_LATITUDE = _DomainConstants.DECIMAL_MIN_LATITUDE;
+    public static final String DECIMAL_MIN_LATITUDE = __MappedCoConstants.DECIMAL_MIN_LATITUDE;
 
-    public static final String DECIMAL_MAX_LATITUDE = _DomainConstants.DECIMAL_MAX_LATITUDE;
+    public static final String DECIMAL_MAX_LATITUDE = __MappedCoConstants.DECIMAL_MAX_LATITUDE;
 
     // ------------------------------------------------------------------------------------------- LONGITUDE / longitude
     public static final String COLUMN_NAME_LONGITUDE = "LONGITUDE";
@@ -40,9 +40,9 @@ public abstract class _MappedCoLocation extends _MappedCo {
 
     public static final String ATTRIBUTE_NAME_LONGITUDE = "longitude";
 
-    public static final String DECIMAL_MIN_LONGITUDE = _DomainConstants.DECIMAL_MIN_LONGITUDE;
+    public static final String DECIMAL_MIN_LONGITUDE = __MappedCoConstants.DECIMAL_MIN_LONGITUDE;
 
-    public static final String DECIMAL_MAX_LONGITUDE = _DomainConstants.DECIMAL_MAX_LONGITUDE;
+    public static final String DECIMAL_MAX_LONGITUDE = __MappedCoConstants.DECIMAL_MAX_LONGITUDE;
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 

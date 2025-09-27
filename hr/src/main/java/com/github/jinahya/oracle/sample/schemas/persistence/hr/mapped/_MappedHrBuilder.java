@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.schemas.co;
+package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
 import com.github.jinahya.persistence.mapped.__MappedBuilder;
 
@@ -6,9 +6,9 @@ import com.github.jinahya.persistence.mapped.__MappedBuilder;
         "java:S101", // Class names should comply with a naming convention
         "java:S119"  // Type parameter names should comply with a naming convention
 })
-public abstract class _MappedCoBuilder<
-        SELF extends _MappedCoBuilder<SELF, TARGET>,
-        TARGET extends _MappedCo
+public abstract class _MappedHrBuilder<
+        SELF extends _MappedHrBuilder<SELF, TARGET>,
+        TARGET extends _MappedHr
         >
         extends __MappedBuilder<SELF, TARGET> {
 
@@ -19,7 +19,7 @@ public abstract class _MappedCoBuilder<
     /**
      * Creates a new instance.
      */
-    protected _MappedCoBuilder(final Class<TARGET> targetClass) {
+    protected _MappedHrBuilder(final Class<TARGET> targetClass) {
         super(targetClass);
     }
 
