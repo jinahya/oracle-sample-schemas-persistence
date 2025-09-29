@@ -23,9 +23,11 @@
       <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -%kvp- %msg%n</pattern>
     </encoder>
   </appender>
-  <root level="debug">
+  <root level="info">
     <appender-ref ref="CONSOLE"/>
   </root>
+  <logger name="io.github.jinahya" level="debug"/>
+  <logger name="com.github.jinahya" level="debug"/>
   <logger name="org.jboss.weld" level="WARN"/>
   <logger name="org.hibernate" level="WARN"/>
   <!--  <logger name="org.hibernate.SQL" level="DEBUG"/>-->

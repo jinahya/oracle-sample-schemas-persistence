@@ -50,16 +50,16 @@
     <doclint>none</doclint>
     <sonar.organization>jinahya-github</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-<!--    <groupId.querydsl>com.querydsl</groupId.querydsl>-->
-<!--    <version.querydsl>5.1.0</version.querydsl>-->
+    <!--    <groupId.querydsl>com.querydsl</groupId.querydsl>-->
+    <!--    <version.querydsl>5.1.0</version.querydsl>-->
     <!--    <version.lombok>1.18.30</version.lombok>-->
     <version.lombok>1.18.38</version.lombok>
     <version.maven-failsafe>${version.maven-surefire}</version.maven-failsafe>
     <!--    <version.maven-surefire>3.2.5</version.maven-surefire>-->
     <version.maven-surefire>3.5.3</version.maven-surefire>
-<!--    <version.jinahya-persistence>0.1.4</version.jinahya-persistence>-->
-<!--    <version.jinahya-persistence>0.1.8-SNAPSHOT</version.jinahya-persistence>-->
-<!--    <version.jinahya-persistence>0.1.9</version.jinahya-persistence>-->
+    <!--    <version.jinahya-persistence>0.1.4</version.jinahya-persistence>-->
+    <!--    <version.jinahya-persistence>0.1.8-SNAPSHOT</version.jinahya-persistence>-->
+    <!--    <version.jinahya-persistence>0.1.9</version.jinahya-persistence>-->
     <version.jinahya-persistence>0.2.1</version.jinahya-persistence>
     <version.mysql-connector-j>8.3.0</version.mysql-connector-j>
     <!-- https://search.maven.org/artifact/org.eclipse.persistence/eclipselink -->
@@ -132,11 +132,11 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-<!--      <dependency>-->
-<!--        <groupId>${groupId.querydsl}</groupId>-->
-<!--        <artifactId>querydsl-apt</artifactId>-->
-<!--        <version>${version.querydsl}</version>-->
-<!--      </dependency>-->
+      <!--      <dependency>-->
+      <!--        <groupId>${groupId.querydsl}</groupId>-->
+      <!--        <artifactId>querydsl-apt</artifactId>-->
+      <!--        <version>${version.querydsl}</version>-->
+      <!--      </dependency>-->
       <dependency>
         <groupId>org.glassfish.expressly</groupId>
         <artifactId>expressly</artifactId>
@@ -423,7 +423,7 @@
         <configuration>
           <excludes>
             <exclude>**/*IT.java</exclude> <!-- 이게 왜 필요한지 확인 필요 -->
-            <exclude>**/*IT</exclude> <!-- 이게 왜 필요한지 확인 필요 -->
+            <!--            <exclude>**/*IT</exclude> &lt;!&ndash; 이게 왜 필요한지 확인 필요 &ndash;&gt;-->
           </excludes>
           <trimStackTrace>false</trimStackTrace>
           <systemPropertyVariables>
@@ -523,6 +523,11 @@
                 </goals>
               </execution>
             </executions>
+            <configuration>
+              <includes>
+                <include>**/*IT.java</include>
+              </includes>
+            </configuration>
           </plugin>
         </plugins>
       </build>
