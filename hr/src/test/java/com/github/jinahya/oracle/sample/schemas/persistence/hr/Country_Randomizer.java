@@ -6,12 +6,10 @@ import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-class Region_Randomizer extends __MappedEntity_Randomizer<Region, Long> {
+class Country_Randomizer extends __MappedEntity_Randomizer<Country, String> {
 
-    Region_Randomizer() {
-        super(Region.class, Long.class,
-              "countries"
-        );
+    Country_Randomizer() {
+        super(Country.class, String.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -35,7 +33,7 @@ class Region_Randomizer extends __MappedEntity_Randomizer<Region, Long> {
 
     @Nonnull
     @Override
-    public Region get() {
+    public Country get() {
         final var value = super.get();
         return value;
     }

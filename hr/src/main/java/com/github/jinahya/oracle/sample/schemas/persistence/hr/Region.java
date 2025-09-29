@@ -6,11 +6,14 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -76,6 +79,7 @@ public class Region implements __MappedEntity<Long> {
         return super.toString() + '{' +
                 "regionId=" + regionId +
                 ",regionName=" + regionName +
+//                ",countries=" + countries +
                 '}';
     }
 
@@ -112,6 +116,15 @@ public class Region implements __MappedEntity<Long> {
         this.regionName = regionName;
     }
 
+    // ------------------------------------------------------------------------------------------------------- countries
+    private List<Country> getCountries() {
+        return countries;
+    }
+
+    private void setCountries(final List<Country> countries) {
+        this.countries = countries;
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @NotNull
@@ -119,9 +132,20 @@ public class Region implements __MappedEntity<Long> {
     @Column(name = COLUMN_NAME_REGION_ID, nullable = false, insertable = true, updatable = false)
     private Long regionId;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Size(max = SIZE_MAX_REGION_NAME)
     @Column(name = COLUMN_NAME_REGION_NAME, nullable = true, insertable = true, updatable = true,
             length = COLUMN_LENGTH_REGION_NAME)
     private String regionName;
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @OneToMany(
+            mappedBy = "region",
+            fetch = FetchType.LAZY,
+            cascade = {
+            },
+            orphanRemoval = false
+    )
+    private List<Country> countries;
 }

@@ -179,18 +179,13 @@
       <artifactId>h2</artifactId>
       <scope>test</scope>
     </dependency>
-    <!--    <dependency>-->
-    <!--      <groupId>com.oracle.database.jdbc</groupId>-->
-    <!--      <artifactId>ojdbc11</artifactId>-->
-    <!--      &lt;!&ndash; https://central.sonatype.com/artifact/com.oracle.database.jdbc/ojdbc11/versions &ndash;&gt;-->
-    <!--      <version>23.8.0.25.04</version>-->
-    <!--      <scope>runtime</scope>-->
-    <!--    </dependency>-->
     <dependency>
+      <!-- https://www.oracle.com/kr/database/technologies/appdev/jdbc-downloads.html -->
       <groupId>com.oracle.database.jdbc</groupId>
       <artifactId>ojdbc17</artifactId>
       <!-- https://central.sonatype.com/artifact/com.oracle.database.jdbc/ojdbc17/versions -->
-      <version>23.8.0.25.04</version>
+<!--      <version>23.8.0.25.04</version>-->
+      <version>23.9.0.25.07</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
