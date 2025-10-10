@@ -11,6 +11,7 @@ public abstract class _MappedHrEntityBuilder_Test<
         >
         extends __MappedBuilder_Test<BUILDER, TARGET> {
 
+    // -----------------------------------------------------------------------------------------------------------------
     protected _MappedHrEntityBuilder_Test(final Class<BUILDER> builderClass, final Class<TARGET> targetClass) {
         super(builderClass, targetClass);
     }

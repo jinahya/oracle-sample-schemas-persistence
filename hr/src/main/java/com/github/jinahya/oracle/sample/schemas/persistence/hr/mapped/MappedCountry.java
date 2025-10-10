@@ -9,8 +9,13 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+/**
+ * An abstract mapped-superclass for mapping the {@value MappedCountry#TABLE_NAME} table.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 @MappedSuperclass
-public class MappedCountry extends _MappedHrEntity<String> {
+public abstract class MappedCountry extends _MappedHrEntity<String> {
 
     // -----------------------------------------------------------------------------------------------------------------
     public static final String TABLE_NAME = "COUNTRIES";
@@ -47,8 +52,8 @@ public class MappedCountry extends _MappedHrEntity<String> {
     public static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
 
     /**
-     * The name of the entity attribute from which the {@value #COLUMN_NAME_REGION_ID} column maps. The value is
-     * {@value}.
+     * The name of the entity attribute, of a subclass of the {@link MappedRegion}, from which the
+     * {@value #COLUMN_NAME_REGION_ID} column maps. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_REGION = "region";
 
@@ -118,24 +123,26 @@ public class MappedCountry extends _MappedHrEntity<String> {
     }
 
     // -------------------------------------------------------------------------------------------------------- regionId
-    @Nonnull
+    @Nullable
     public Long getRegionId() {
         return regionId;
     }
 
-    protected void setRegionId(@Nonnull final Long regionId) {
+    protected void setRegionId(@Nullable final Long regionId) {
         this.regionId = regionId;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Size(max = SIZE_MAX_COUNTRY_NAME)
+    @Size(max = SIZE_MAX_COUNTRY_ID)
     @NotNull
     @Id
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = false, insertable = true, updatable = false, length = 2)
+    @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = false, insertable = true, updatable = false,
+            length = COLUMN_LENGTH_COUNTRY_ID)
     private String countryId;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Size(max = SIZE_MAX_COUNTRY_NAME)
     @Basic(optional = true)
@@ -143,9 +150,8 @@ public class MappedCountry extends _MappedHrEntity<String> {
     private String countryName;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = COLUMN_NAME_REGION_ID, nullable = false, insertable = true, updatable = true)
+    @Nullable
+    @Basic(optional = true)
+    @Column(name = COLUMN_NAME_REGION_ID, nullable = true, insertable = true, updatable = true)
     private Long regionId;
 }

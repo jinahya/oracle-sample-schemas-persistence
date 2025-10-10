@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.hr;
+package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._PersistenceUnit_ITUtils;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersistenceIT;
 import com.github.jinahya.persistence.mapped.test.___JakartaPersistence_TestUtils;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.sql.SQLException;
@@ -10,13 +10,38 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class Country_PersistenceIT extends __MappedEntity_PersistenceIT<Country, String> {
+/**
+ * An abstract class for integration-testing persistence of a specific subclass of the {@link _MappedHrEntity} class.
+ *
+ * @param <ENTITY> entity type parameter
+ * @param <ID>     id type parameter
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+@SuppressWarnings({
+        "java:S119" // Type parameter names should comply with a naming convention
+})
+public abstract class _MappedHrEntity_PersistenceIT<ENTITY extends _MappedHrEntity<ID>, ID>
+        extends __MappedEntity_PersistenceIT<ENTITY, ID> {
 
-    Country_PersistenceIT() {
-        super(Country.class, String.class);
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    /**
+     * Creates a new instance for testing specified entity class.
+     *
+     * @param entityClass the entity class to test.
+     * @param idClass     the id class of the {@code entityClass}.
+     */
+    protected _MappedHrEntity_PersistenceIT(final Class<ENTITY> entityClass, final Class<ID> idClass) {
+        super(entityClass, idClass);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Assumes no destructive privileges.
+     *
+     * @see _PersistenceUnit_ITUtils#assumeNoDestructivePrivileges(EntityManager)
+     */
     @BeforeEach
     final void assumeNoDestructivePrivileges() {
         applyEntityManager(em -> {

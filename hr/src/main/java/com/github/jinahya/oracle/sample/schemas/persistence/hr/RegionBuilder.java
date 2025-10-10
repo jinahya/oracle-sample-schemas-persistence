@@ -3,7 +3,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
 import jakarta.annotation.Nonnull;
 
-class RegionBuilder extends __MappedEntityBuilder<RegionBuilder, Region> {
+public class RegionBuilder extends __MappedEntityBuilder<RegionBuilder, Region> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 

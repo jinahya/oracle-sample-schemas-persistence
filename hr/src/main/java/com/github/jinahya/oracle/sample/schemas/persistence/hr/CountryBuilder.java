@@ -5,7 +5,7 @@ import jakarta.annotation.Nonnull;
 
 import java.util.Optional;
 
-class CountryBuilder extends __MappedEntityBuilder<CountryBuilder, Country> {
+public class CountryBuilder extends __MappedEntityBuilder<CountryBuilder, Country> {
 
     // -----------------------------------------------------------------------------------------------------------------
     CountryBuilder() {
@@ -21,7 +21,7 @@ class CountryBuilder extends __MappedEntityBuilder<CountryBuilder, Country> {
         return new Country(this);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------------- countryId
     public String countryId() {
         return countryId;
     }
@@ -31,7 +31,7 @@ class CountryBuilder extends __MappedEntityBuilder<CountryBuilder, Country> {
         return this;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------------------- countryName
     public String countryName() {
         return countryName;
     }
@@ -70,10 +70,8 @@ class CountryBuilder extends __MappedEntityBuilder<CountryBuilder, Country> {
     // -----------------------------------------------------------------------------------------------------------------
     private String countryId;
 
-    // -----------------------------------------------------------------------------------------------------------------
     private String countryName;
 
-    // -----------------------------------------------------------------------------------------------------------------
     @Deprecated(forRemoval = true)
     private Long regionId;
 

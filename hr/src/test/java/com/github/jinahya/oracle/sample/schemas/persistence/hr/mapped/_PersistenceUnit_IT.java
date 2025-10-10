@@ -14,8 +14,7 @@ import java.util.Collection;
         "java:S119", // Type parameter names should comply with a naming convention
         "java:S3577" // Test classes should comply with a naming convention
 })
-class _PersistenceUnit_IT
-        extends __PersistenceUnit_IT {
+class _PersistenceUnit_IT extends __PersistenceUnit_IT {
 
     _PersistenceUnit_IT() {
         super();
@@ -23,9 +22,9 @@ class _PersistenceUnit_IT
 
     // -----------------------------------------------------------------------------------------------------------------
     @BeforeEach
-    void assumeNoDestructivePrivileges() {
+    final void assumeNoDestructivePrivileges() {
         applyEntityManager(em -> {
-            _PersistenceUnit_IT_Utils.assumeNoDestructivePrivileges(em);
+            _PersistenceUnit_ITUtils.assumeNoDestructivePrivileges(em);
             return null;
         });
     }

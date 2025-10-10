@@ -11,6 +11,7 @@ public abstract class _MappedHrEntity_Test<
         >
         extends __MappedEntity_Test<ENTITY, ID> {
 
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     protected _MappedHrEntity_Test(final Class<ENTITY> entityClass, final Class<ID> idClass) {
         super(entityClass, idClass);
     }

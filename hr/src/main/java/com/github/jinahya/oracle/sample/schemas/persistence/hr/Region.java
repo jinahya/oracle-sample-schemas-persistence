@@ -1,13 +1,13 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 import com.github.jinahya.persistence.mapped.__MappedEntity;
-import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -21,6 +21,34 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@NamedQuery(
+        name = "Region.selectListWhereRegionNameIsNull",
+        query = """
+                SELECT e
+                FROM Region AS e
+                WHERE e.regionName IS NULL"""
+)
+@NamedQuery(
+        name = "Region.selectListWhereRegionNameIsNotNull",
+        query = """
+                SELECT e
+                FROM Region AS e
+                WHERE e.regionName IS NOT NULL"""
+)
+@NamedQuery(
+        name = "Region.selectListWhereRegionNameLike",
+        query = """
+                SELECT e
+                FROM Region AS e
+                WHERE e.regionName LIKE :regionNamePattern"""
+)
+@NamedQuery(
+        name = "Region.selectListWhereRegionNameEqual",
+        query = """
+                SELECT e
+                FROM Region AS e
+                WHERE e.regionName = :regionName"""
+)
 @Entity
 @Table(name = Region.TABLE_NAME)
 public class Region implements __MappedEntity<Long> {
@@ -49,7 +77,7 @@ public class Region implements __MappedEntity<Long> {
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // --------------------------------------------------------------------------------------------------------- BUILDER
-    public static __MappedEntityBuilder<?, Region> builder() {
+    public static RegionBuilder builder() {
         return new RegionBuilder();
     }
 
@@ -141,7 +169,7 @@ public class Region implements __MappedEntity<Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(
-            mappedBy = "region",
+            mappedBy = Country.ATTRIBUTE_NAME_REGION,
             fetch = FetchType.LAZY,
             cascade = {
             },

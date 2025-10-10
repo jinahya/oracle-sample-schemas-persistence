@@ -178,12 +178,12 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
     }
 
     // ------------------------------------------------------------------------------------------------------- countryId
-    @Nonnull
+    @Nullable
     public String getCountryId() {
         return countryId;
     }
 
-    protected void setCountryId(@Nonnull final String countryId) {
+    protected void setCountryId(@Nullable final String countryId) {
         this.countryId = countryId;
     }
 
@@ -231,12 +231,11 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
     private String stateProvince;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
+    @Nullable
     @Size(max = SIZE_MAX_COUNTRY_ID)
-    @NotNull
-    @Basic(optional = false, fetch = FetchType.EAGER)
+    @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_COUNTRY_ID,
-            nullable = false,
+            nullable = true,
             insertable = true,
             updatable = true,
             length = COLUMN_LENGTH_COUNTRY_ID

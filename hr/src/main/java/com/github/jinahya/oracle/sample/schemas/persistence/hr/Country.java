@@ -22,7 +22,39 @@ import java.util.Optional;
 @Table(name = "COUNTRIES")
 public class Country implements __MappedEntity<String> {
 
+    // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
+    public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
+
+    public static final int COLUMN_LENGTH_COUNTRY_ID = 2;
+
+    public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
+
+    public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
+
+    // ---------------------------------------------------------------------------------------------------- COUNTRY_NAME
+    public static final String COLUMN_NAME_COUNTRY_NAME = "COUNTRY_NAME";
+
+    public static final int COLUMN_LENGTH_COUNTRY_NAME = 60;
+
+    public static final String ATTRIBUTE_NAME_COUNTRY_NAME = "countryName";
+
+    public static final int SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
+
+    // ------------------------------------------------------------------------------------------------------- REGION_ID
+    public static final String COLUMN_NAME_REGION_ID = "REGION_ID";
+
+    public static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
+
+    public static final String ATTRIBUTE_NAME_REGION = "region";
+
     // -----------------------------------------------------------------------------------------------------------------
+    public static CountryBuilder builder() {
+        return new CountryBuilder();
+    }
+
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     protected Country() {
         super();
     }
@@ -49,7 +81,9 @@ public class Country implements __MappedEntity<String> {
 
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof Country country)) return false;
+        if (!(obj instanceof Country country)) {
+            return false;
+        }
         return Objects.equals(getCountryId(), country.getCountryId());
     }
 
@@ -58,7 +92,7 @@ public class Country implements __MappedEntity<String> {
         return Objects.hashCode(getCountryId());
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------------- countryId
     @Nonnull
     public String getCountryId() {
         return countryId;
@@ -68,13 +102,13 @@ public class Country implements __MappedEntity<String> {
         this.countryId = countryId;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
+    // ----------------------------------------------------------------------------------------------------- countryName
+    @Nullable
     public String getCountryName() {
         return countryName;
     }
 
-    public void setCountryName(@Nonnull final String countryName) {
+    public void setCountryName(@Nullable final String countryName) {
         this.countryName = countryName;
     }
 
@@ -107,26 +141,27 @@ public class Country implements __MappedEntity<String> {
     @Nonnull
     @NotNull
     @Id
-    @Size(max = 2)
-    @Column(name = "COUNTRY_ID", nullable = false, length = 2)
+    @Size(max = SIZE_MAX_COUNTRY_ID)
+    @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = false, length = COLUMN_LENGTH_COUNTRY_ID)
     private String countryId;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @Size(max = 60)
+    @Size(max = SIZE_MAX_COUNTRY_NAME)
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = "COUNTRY_NAME", nullable = true, insertable = true, updatable = true, length = 60)
+    @Column(name = COLUMN_NAME_COUNTRY_NAME, nullable = true, insertable = true, updatable = true,
+            length = COLUMN_LENGTH_COUNTRY_NAME)
     private String countryName;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = "REGION_ID", nullable = true, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_REGION_ID, nullable = true, insertable = false, updatable = false)
     private Long regionId;
 
     @Nullable
     @Valid
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = "REGION_ID", nullable = true, insertable = true, updatable = true)
+    @ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = {})
+    @JoinColumn(name = COLUMN_NAME_REGION_ID, nullable = true, insertable = true, updatable = true)
     private Region region;
 }

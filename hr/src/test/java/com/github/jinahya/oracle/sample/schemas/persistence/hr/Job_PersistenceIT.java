@@ -6,14 +6,13 @@ import com.github.jinahya.persistence.mapped.test.___JakartaPersistence_TestUtil
 import org.junit.jupiter.api.BeforeEach;
 
 import java.sql.SQLException;
-import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class Country_PersistenceIT extends __MappedEntity_PersistenceIT<Country, String> {
+class Job_PersistenceIT extends __MappedEntity_PersistenceIT<Job, String> {
 
-    Country_PersistenceIT() {
-        super(Country.class, String.class);
+    Job_PersistenceIT() {
+        super(Job.class, String.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -25,29 +24,13 @@ class Country_PersistenceIT extends __MappedEntity_PersistenceIT<Country, String
         });
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * ({@code dmlonly} 가 바라보는) current schema 를 {@code HR} 로 변경한다.
      */
     @BeforeEach
     final void setCurrentSchema() {
-        if (ThreadLocalRandom.current().nextBoolean()) {
-            applyEntityManager(em -> ___JakartaPersistence_TestUtils.applyConnection(
-                    em,
-                    c -> {
-                        try (var statement = c.createStatement()) {
-                            final var result = statement.execute(
-                                    "ALTER SESSION SET CURRENT_SCHEMA = " + tableSchema()
-                            );
-                            assertThat(result).isFalse(); // not a ResultSet
-                        } catch (final SQLException sqle) {
-                            throw new RuntimeException(sqle);
-                        }
-                        return null;
-                    },
-                    false
-            ));
-            return;
-        }
         applyEntityManager(em -> ___JakartaPersistence_TestUtils.applyConnection(
                 em,
                 c -> {

@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.schemas.sh;
+package com.github.jinahya.oracle.sample.schemas.sh.mapped;
 
 import com.github.jinahya.persistence.mapped.test.__Mapped_Test;
 

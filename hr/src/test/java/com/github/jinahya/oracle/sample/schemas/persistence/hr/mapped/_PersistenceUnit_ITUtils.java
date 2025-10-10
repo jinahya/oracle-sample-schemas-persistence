@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SuppressWarnings({
         "java:S119" // Type parameter names should comply with a naming convention
 })
-public final class _PersistenceUnit_IT_Utils {
+public final class _PersistenceUnit_ITUtils {
 
     // -----------------------------------------------------------------------------------------------------------------
     public static void assumeNoDestructivePrivileges(@Nonnull final EntityManager entityManager) {
@@ -53,7 +53,7 @@ public final class _PersistenceUnit_IT_Utils {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    private _PersistenceUnit_IT_Utils() {
+    private _PersistenceUnit_ITUtils() {
         throw new AssertionError("instantiation is not allowed");
     }
 }

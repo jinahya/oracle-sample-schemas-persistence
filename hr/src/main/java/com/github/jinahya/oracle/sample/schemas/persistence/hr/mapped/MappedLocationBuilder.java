@@ -1,5 +1,12 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
+/**
+ * An abstract class for building instance of a specific subclass of the {@link MappedLocation} class.
+ *
+ * @param <SELF>   self type parameter
+ * @param <TARGET> target type parameter
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 @SuppressWarnings({
         "unchecked",
         "java:S119" // Type parameter names should comply with a naming convention

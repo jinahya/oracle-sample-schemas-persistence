@@ -2,7 +2,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
@@ -108,8 +110,10 @@ public abstract class MappedRegion extends _MappedHrEntity<Long> {
     @Column(name = COLUMN_NAME_REGION_ID, nullable = false, insertable = true, updatable = false)
     private Long regionId;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Size(max = SIZE_MAX_REGION_NAME)
+    @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_REGION_NAME, nullable = true, insertable = true, updatable = true,
             length = COLUMN_LENGTH_REGION_NAME)
     private String regionName;
