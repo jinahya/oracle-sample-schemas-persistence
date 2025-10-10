@@ -11,3 +11,5 @@ services:
       - ./db-sample-schemas:/db-sample-schemas
       - ./db-sample-schemas-local:/db-sample-schemas-local
       - ./opt/oracle/oradata:/opt/oracle/oradata
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/etc/timezone:/etc/timezone:ro"
