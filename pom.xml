@@ -60,8 +60,8 @@
     <!--    <version.jinahya-persistence>0.1.4</version.jinahya-persistence>-->
     <!--    <version.jinahya-persistence>0.1.8-SNAPSHOT</version.jinahya-persistence>-->
     <!--    <version.jinahya-persistence>0.1.9</version.jinahya-persistence>-->
-<!--    <version.jinahya-persistence>0.2.1</version.jinahya-persistence>-->
-    <version.jinahya-persistence>0.2.4-SNAPSHOT</version.jinahya-persistence>
+    <!--    <version.jinahya-persistence>0.2.1</version.jinahya-persistence>-->
+    <version.jinahya-persistence>0.2.4</version.jinahya-persistence>
     <version.mysql-connector-j>8.3.0</version.mysql-connector-j>
     <!-- https://search.maven.org/artifact/org.eclipse.persistence/eclipselink -->
     <!-- https://central.sonatype.com/artifact/org.eclipse.persistence/eclipselink/versions -->
@@ -185,7 +185,7 @@
       <groupId>com.oracle.database.jdbc</groupId>
       <artifactId>ojdbc17</artifactId>
       <!-- https://central.sonatype.com/artifact/com.oracle.database.jdbc/ojdbc17/versions -->
-<!--      <version>23.8.0.25.04</version>-->
+      <!--      <version>23.8.0.25.04</version>-->
       <version>23.9.0.25.07</version>
       <scope>provided</scope>
     </dependency>

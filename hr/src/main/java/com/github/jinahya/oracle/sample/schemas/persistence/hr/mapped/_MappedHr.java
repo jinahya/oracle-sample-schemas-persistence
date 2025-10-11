@@ -3,6 +3,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 import com.github.jinahya.persistence.mapped.__Mapped;
 import jakarta.annotation.Nonnull;
 
+import java.util.Objects;
+
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
@@ -24,5 +26,6 @@ public abstract class _MappedHr implements __Mapped {
      */
     protected _MappedHr(@Nonnull final _MappedHrBuilder<?, ?> builder) {
         super();
+        Objects.requireNonNull(builder, "builder is null");
     }
 }

@@ -3,13 +3,21 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._PersistenceUnit_ITUtils;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersistenceIT;
 import com.github.jinahya.persistence.mapped.test.___JakartaPersistence_TestUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Slf4j
 class Country_PersistenceIT extends __MappedEntity_PersistenceIT<Country, String> {
 
     Country_PersistenceIT() {
@@ -63,5 +71,25 @@ class Country_PersistenceIT extends __MappedEntity_PersistenceIT<Country, String
                 },
                 false
         ));
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @DisplayName("java.util.Locale#getISOCountries()")
+    @Test
+    void __JavaUtilsLocaleIsoCountries() {
+        final var countries = applyEntityManager(em -> {
+            return em.createQuery("SELECT e FROM Country e", Country.class)
+                    .getResultList()
+                    .stream()
+                    .collect(Collectors.toMap(Country::getCountryId, Function.identity()));
+        });
+        Arrays.stream(Locale.getISOCountries()).forEach(isoc -> {
+            final var country = countries.remove(isoc);
+            if (country == null) {
+                log.debug("missing; iso: {}", isoc);
+            } else {
+                log.debug("found; iso: {}, country: {}", isoc, country);
+            }
+        });
     }
 }

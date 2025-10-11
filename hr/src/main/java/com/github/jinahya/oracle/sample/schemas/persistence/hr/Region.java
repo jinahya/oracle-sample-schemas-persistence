@@ -105,10 +105,10 @@ public class Region implements __MappedEntity<Long> {
     @Override
     public String toString() {
         return super.toString() + '{' +
-                "regionId=" + regionId +
-                ",regionName=" + regionName +
+               "regionId=" + regionId +
+               ",regionName=" + regionName +
 //                ",countries=" + countries +
-                '}';
+               '}';
     }
 
     @Override
@@ -145,10 +145,16 @@ public class Region implements __MappedEntity<Long> {
     }
 
     // ------------------------------------------------------------------------------------------------------- countries
+    @SuppressWarnings({
+            "java:S114" // Unused "private" methods should be removed
+    })
     private List<Country> getCountries() {
         return countries;
     }
 
+    @SuppressWarnings({
+            "java:S114" // Unused "private" methods should be removed
+    })
     private void setCountries(final List<Country> countries) {
         this.countries = countries;
     }

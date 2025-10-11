@@ -28,11 +28,13 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
     public static final String COLUMN_NAME_EMPLOYEE_ID = "EMPLOYEE_ID";
 
-    public static final int COLUMN_PRECISION_EMPLOYEE_ID = 4;
+    public static final int COLUMN_PRECISION_EMPLOYEE_ID = 6;
 
-    public static final int COLUMN_VALUE_MIN_EMPLOYEE_ID = 0x0000;
+    public static final int COLUMN_VALUE_MIN_EMPLOYEE_ID = 0xFF_F0_BD_C1; // -999999
 
-    public static final int COLUMN_VALUE_MAX_EMPLOYEE_ID = 0x270F; // 9999
+    public static final int COLUMN_VALUE_MAX_EMPLOYEE_ID = 0x00_0F_42_3F; // +999999
+
+    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
 
     public static final int MIN_EMPLOYEE_ID = COLUMN_VALUE_MIN_EMPLOYEE_ID;
 
@@ -179,18 +181,18 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     @Override
     public String toString() {
         return super.toString() + '{' +
-                "employeeId=" + employeeId +
-                ",firstName=" + firstName +
-                ",lastName=" + lastName +
-                ",email=" + email +
-                ",phoneNumber=" + phoneNumber +
-                ",hireDate=" + hireDate +
-                ",jobId=" + jobId +
-                ",salary=" + salary +
-                ",commissionPct=" + commissionPct +
-                ",managerId=" + managerId +
-                ",departmentId=" + departmentId +
-                '}';
+               "employeeId=" + employeeId +
+               ",firstName=" + firstName +
+               ",lastName=" + lastName +
+               ",email=" + email +
+               ",phoneNumber=" + phoneNumber +
+               ",hireDate=" + hireDate +
+               ",jobId=" + jobId +
+               ",salary=" + salary +
+               ",commissionPct=" + commissionPct +
+               ",managerId=" + managerId +
+               ",departmentId=" + departmentId +
+               '}';
     }
 
     // TODO: add equals/hashCode
@@ -314,8 +316,9 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     @Nonnull
     @Max(MAX_EMPLOYEE_ID)
     @Min(MIN_EMPLOYEE_ID)
+    @NotNull
     @Id
-    @Basic(optional = false)
+//    @Basic(optional = false)
     @Column(
             name = COLUMN_NAME_EMPLOYEE_ID,
             nullable = false,
