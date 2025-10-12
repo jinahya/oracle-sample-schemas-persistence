@@ -419,8 +419,7 @@
         <version>${version.maven-surefire}</version>
         <configuration>
           <excludes>
-            <exclude>**/*IT.java</exclude> <!-- 이게 왜 필요한지 확인 필요 -->
-            <!--            <exclude>**/*IT</exclude> &lt;!&ndash; 이게 왜 필요한지 확인 필요 &ndash;&gt;-->
+<!--            <exclude>**/*IT.java</exclude> &lt;!&ndash; 이게 왜 필요한지 확인 필요 &ndash;&gt;-->
           </excludes>
           <trimStackTrace>false</trimStackTrace>
           <systemPropertyVariables>
