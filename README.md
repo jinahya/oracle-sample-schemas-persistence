@@ -6,8 +6,15 @@ Init and update the submodule.
 
 ```shell
 $ git submodule init
-$ git submodule update
+$ git submodule update --remote
 $ ls -l db-sample-schemas
+total NN
+........................................... HH:mm .
+........................................... HH:mm ..
+........................................... HH:mm .git
+...
+........................................... HH:mm sh_install.log
+
 ```
 
 Run docker container.
@@ -16,7 +23,7 @@ Run docker container.
 $ docker-compose up -d
 ```
 
-Connect to the container.
+(Wait some, and) connect to the container.
 
 ```shell
 $ docker exec -it oracle-sample-schemas sh
@@ -26,7 +33,7 @@ $ docker exec -it oracle-sample-schemas sh
 $ cd /db-sample-schemas
 ```
 
-Install the co schema.
+Install the `CO` schema.
 
 ```shell
 sh-x.y$ sqlplus / as sysdba
@@ -42,7 +49,7 @@ Do you want to overwrite the schema, if it already exists? (Y) [N]: <Enter>
 sh-x.y$ 
 ```
 
-Install the hr schema.
+Install the `HR` schema.
 
 ```shell
 sh-x.y$ sqlplus / as sysdba
@@ -58,7 +65,7 @@ Do you want to overwrite the schema, if it already exists? (Y) [N]: <Enter>
 sh-x.y$ 
 ```
 
-Install the sh schema.
+Install the `SH` schema.
 
 ```shell
 sh-x.y$ sqlplus / as sysdba
@@ -73,6 +80,29 @@ Do you want to overwrite the schema, if it already exists? (Y) [N]: <Enter>
 
 sh-x.y$ 
 ```
+
+### Creating and granting the `dmlonly` user
+
+A user, with no destructive privileges, is required for running integration tests.
+
+```shell
+$ cd /db-sample-schemas-local
+
+$ sqlplus / as sysdba
+
+SQL> alter session set container=freepdb1;
+
+SQL> @create_dmlonly_user.sql
+
+...
+
+Grant succeeded.
+
+SQL> quit
+
+$ 
+```
+
 
 ## JDBC URLs
 

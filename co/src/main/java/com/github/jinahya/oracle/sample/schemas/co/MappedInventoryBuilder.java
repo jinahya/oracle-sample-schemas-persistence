@@ -20,6 +20,16 @@ public abstract class MappedInventoryBuilder<
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
+    @Override
+    public String toString() {
+        return super.toString() + '{' +
+                "storeId=" + storeId +
+                ",store=" + store +
+                ",productId=" + productId +
+                ",product=" + product +
+                ",productInventory=" + productInventory +
+                '}';
+    }
 
     // --------------------------------------------------------------------------------------------------------- storeId
     @Deprecated(forRemoval = true)

@@ -31,6 +31,7 @@
 SELECT COUNTRY_ID
 FROM COUNTRIES
 ORDER BY COUNTRY_ID ASC
+OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY
 ;
 
 -- -------------------------------------------------------------------------------------------------------- COUNTRY_NAME

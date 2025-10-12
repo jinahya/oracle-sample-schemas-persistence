@@ -29,7 +29,9 @@
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
-    <class>com.github.jinahya.oracle.sample.schemas.hr.Region</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Country</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Job</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Region</class>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
     <properties>
@@ -65,14 +67,16 @@
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
-    <class>com.github.jinahya.oracle.sample.schemas.hr.Region</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Country</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Job</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Region</class>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver"/>
       <!-- https://github.com/eclipse-ee4j/eclipselink/issues/1393 -->
       <property name="jakarta.persistence.jdbc.url" value="jdbc:oracle:thin:@//localhost:1521/freepdb1"/>
-      <property name="jakarta.persistence.jdbc.user" value="hr"/>
+      <property name="jakarta.persistence.jdbc.user" value="dmlonly"/>
       <property name="jakarta.persistence.jdbc.password" value="password"/>
       <!-- ///////////////////////////////////////////////////////////////////////////////////////////// eclipselink -->
       <!-- https://wiki.eclipse.org/EclipseLink/Examples/JPA/Logging -->

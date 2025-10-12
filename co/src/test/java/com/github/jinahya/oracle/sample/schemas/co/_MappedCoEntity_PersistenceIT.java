@@ -24,7 +24,7 @@ abstract class _MappedCoEntity_PersistenceIT<ENTITY extends _MappedCoEntity<ID>,
     @BeforeEach
     void assumeNoDestructivePrivileges() {
         applyEntityManager(em -> {
-            _PersistenceUnit_IT_Utils.assumeNoDestructivePrivileges(em);
+            _PersistenceUnit_ITUtils.assumeNoDestructivePrivileges(em);
             return null;
         });
     }

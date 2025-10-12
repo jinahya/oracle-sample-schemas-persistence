@@ -8,10 +8,10 @@ import java.time.LocalDate;
         "java:S119"  // Type parameter names should comply with a naming convention
 })
 public abstract class _MappedCoBinaryBuilder<
-        SELF extends _MappedCoBinaryBuilder<SELF, MAPPED>,
-        MAPPED extends _MappedCoBinary
+        SELF extends _MappedCoBinaryBuilder<SELF, TARGET>,
+        TARGET extends _MappedCoBinary
         >
-        extends _MappedCoBuilder<SELF, MAPPED> {
+        extends _MappedCoBuilder<SELF, TARGET> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -20,8 +20,8 @@ public abstract class _MappedCoBinaryBuilder<
     /**
      * Creates a new instance.
      */
-    protected _MappedCoBinaryBuilder(final Class<MAPPED> mappedClass) {
-        super(mappedClass);
+    protected _MappedCoBinaryBuilder(final Class<TARGET> targetClass) {
+        super(targetClass);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object

@@ -2,6 +2,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersistenceTest;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersisterUtils;
+import com.github.jinahya.persistence.mapped.test.__Use_Cached_EntityManager;
 import com.github.jinahya.persistence.mapped.test.___JakartaPersistence_TestUtils;
 import jakarta.persistence.NoResultException;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import java.util.stream.IntStream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@__Use_Cached_EntityManager
 @Slf4j
 class Customer_PersistenceTest extends __MappedEntity_PersistenceTest<Customer, Long> {
 
@@ -149,9 +151,11 @@ class Customer_PersistenceTest extends __MappedEntity_PersistenceTest<Customer, 
                             entityClass,
                             c -> i -> e -> {
                                 final var customerId = e.getCustomerId();
-                                final var firstResult = ThreadLocalRandom.current().nextInt(Math.toIntExact(c - i));
+                                final var firstResult =
+                                        ThreadLocalRandom.current().nextInt(Math.toIntExact(c - i));
                                 final var maxResults = ThreadLocalRandom.current().nextInt(128) + 1;
-                                log.debug("count: {}, firstResult: {}, maxResults: {}", c, firstResult, maxResults);
+                                log.debug("count: {}, firstResult: {}, maxResults: {}", c, firstResult,
+                                          maxResults);
                                 final var list = em
                                         .createNamedQuery(
                                                 "Customer.selectListOrderByCustomerIdAscCustomerIdGt",
@@ -164,7 +168,8 @@ class Customer_PersistenceTest extends __MappedEntity_PersistenceTest<Customer, 
                                 log.debug("list.size: {}", list.size());
                                 assertThat(list)
                                         .hasSizeLessThanOrEqualTo(maxResults)
-                                        .isSortedAccordingTo(Comparator.comparing(MappedCustomer::getCustomerId))
+                                        .isSortedAccordingTo(
+                                                Comparator.comparing(MappedCustomer::getCustomerId))
                                         .extracting(MappedCustomer::getCustomerId)
                                         .allSatisfy(ci -> {
                                             assertThat(ci).isGreaterThan(customerId);
@@ -246,7 +251,8 @@ class Customer_PersistenceTest extends __MappedEntity_PersistenceTest<Customer, 
                                     final var firstResult =
                                             ThreadLocalRandom.current().nextInt(Math.toIntExact(c - i));
                                     final var maxResults = ThreadLocalRandom.current().nextInt(128) + 1;
-                                    log.debug("count: {}, firstResult: {}, maxResults: {}", c, firstResult, maxResults);
+                                    log.debug("count: {}, firstResult: {}, maxResults: {}", c, firstResult,
+                                              maxResults);
                                     final var builder = em.getCriteriaBuilder();
                                     final var query = builder.createQuery(entityClass);
                                     final var root = query.from(entityClass);
@@ -296,19 +302,22 @@ class Customer_PersistenceTest extends __MappedEntity_PersistenceTest<Customer, 
 
             @Test
             void __EmailAddressKnown() {
-                applyEntityManagerInTransactionAndRollback(em -> {
-                    final var persisted = __MappedEntity_PersisterUtils.newPersistedInstanceOf(em, entityClass);
-                    em.flush();
-                    em.detach(persisted);
-                    em.clear();
-                    final var emailAddress = persisted.getEmailAddress();
-                    final var found = em
-                            .createNamedQuery("Customer.selectSingleByEmailAddress", entityClass)
-                            .setParameter("emailAddress", emailAddress)
-                            .getSingleResult();
-                    assertThat(found.getEmailAddress()).isEqualTo(emailAddress);
-                    return null;
-                });
+                applyEntityManagerInTransaction(
+                        em -> {
+                            final var persisted = __MappedEntity_PersisterUtils.newPersistedInstanceOf(em, entityClass);
+                            em.flush();
+                            em.detach(persisted);
+                            em.clear();
+                            final var emailAddress = persisted.getEmailAddress();
+                            final var found = em
+                                    .createNamedQuery("Customer.selectSingleByEmailAddress", entityClass)
+                                    .setParameter("emailAddress", emailAddress)
+                                    .getSingleResult();
+                            assertThat(found.getEmailAddress()).isEqualTo(emailAddress);
+                            return null;
+                        },
+                        true
+                );
             }
         }
 

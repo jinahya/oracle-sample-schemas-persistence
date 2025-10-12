@@ -50,15 +50,14 @@
     <doclint>none</doclint>
     <sonar.organization>jinahya-github</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-<!--    <groupId.querydsl>com.querydsl</groupId.querydsl>-->
-<!--    <version.querydsl>5.1.0</version.querydsl>-->
+    <!--    <groupId.querydsl>com.querydsl</groupId.querydsl>-->
+    <!--    <version.querydsl>5.1.0</version.querydsl>-->
     <!--    <version.lombok>1.18.30</version.lombok>-->
-    <version.lombok>1.18.38</version.lombok>
+    <version.lombok>1.18.42</version.lombok>
     <version.maven-failsafe>${version.maven-surefire}</version.maven-failsafe>
     <!--    <version.maven-surefire>3.2.5</version.maven-surefire>-->
     <version.maven-surefire>3.5.3</version.maven-surefire>
-<!--    <version.jinahya-persistence>0.1.4</version.jinahya-persistence>-->
-    <version.jinahya-persistence>0.1.8-SNAPSHOT</version.jinahya-persistence>
+    <version.jinahya-persistence>0.2.5</version.jinahya-persistence>
     <version.mysql-connector-j>8.3.0</version.mysql-connector-j>
     <!-- https://search.maven.org/artifact/org.eclipse.persistence/eclipselink -->
     <!-- https://central.sonatype.com/artifact/org.eclipse.persistence/eclipselink/versions -->
@@ -67,8 +66,10 @@
     <version.org.eclipse.persistence>5.0.0-B09</version.org.eclipse.persistence>
     <!-- https://central.sonatype.com/artifact/org.glassfish.expressly/expressly/versions -->
     <version.org.glassfish.expressly>6.0.0</version.org.glassfish.expressly>
+    <!-- https://hibernate.org/orm/releases/ -->
     <!-- https://central.sonatype.com/artifact/org.hibernate.orm/hibernate-platform/versions -->
-    <version.org.hibernate.orm>7.0.6.Final</version.org.hibernate.orm>
+    <!--    <version.org.hibernate.orm>7.0.6.Final</version.org.hibernate.orm>-->
+    <version.org.hibernate.orm>7.1.4.Final</version.org.hibernate.orm>
     <!-- https://central.sonatype.com/artifact/org.hibernate.validator/hibernate-validator/versions -->
     <version.org.hibernate.validator>9.0.1.Final</version.org.hibernate.validator>
     <!--    <version.org.jboss.weld>4.0.2.Final</version.org.jboss.weld>-->
@@ -76,10 +77,11 @@
     <version.org.jooq>3.19.5</version.org.jooq>
     <!-- https://search.maven.org/search?q=g:org.junit -->
     <!-- https://search.maven.org/search?q=g:org.junit.jupiter -->
-    <!-- https://search.maven.org/artifact/org.junit/junit-bom -->
-    <version.org.junit>5.13.0</version.org.junit>
+    <!-- https://central.sonatype.com/artifact/org.junit/junit-bom/versions -->
+    <version.org.junit>5.14.0</version.org.junit>
     <!-- https://search.maven.org/artifact/org.mockito/mockito-junit-jupiter -->
-    <version.org.mockito>5.18.0</version.org.mockito>
+    <!-- https://central.sonatype.com/artifact/org.mockito/mockito-junit-jupiter/versions -->
+    <version.org.mockito>5.20.0</version.org.mockito>
     <eclipselink.woven>false</eclipselink.woven>
   </properties>
 
@@ -89,17 +91,18 @@
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
         <!-- https://central.sonatype.com/artifact/ch.qos.logback/logback-classic/versions -->
-        <version>1.5.18</version>
+        <version>1.5.19</version>
       </dependency>
       <dependency>
         <groupId>com.h2database</groupId>
         <artifactId>h2</artifactId>
-        <version>2.3.232</version>
+        <!--        <version>2.3.232</version>-->
+        <version>2.4.240</version>
       </dependency>
       <dependency><!-- https://central.sonatype.com/artifact/com.fasterxml.jackson/jackson-bom/versions -->
         <groupId>com.fasterxml.jackson</groupId>
         <artifactId>jackson-bom</artifactId>
-        <version>2.19.0</version>
+        <version>2.20.0</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -130,11 +133,11 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-<!--      <dependency>-->
-<!--        <groupId>${groupId.querydsl}</groupId>-->
-<!--        <artifactId>querydsl-apt</artifactId>-->
-<!--        <version>${version.querydsl}</version>-->
-<!--      </dependency>-->
+      <!--      <dependency>-->
+      <!--        <groupId>${groupId.querydsl}</groupId>-->
+      <!--        <artifactId>querydsl-apt</artifactId>-->
+      <!--        <version>${version.querydsl}</version>-->
+      <!--      </dependency>-->
       <dependency>
         <groupId>org.glassfish.expressly</groupId>
         <artifactId>expressly</artifactId>
@@ -177,18 +180,13 @@
       <artifactId>h2</artifactId>
       <scope>test</scope>
     </dependency>
-    <!--    <dependency>-->
-    <!--      <groupId>com.oracle.database.jdbc</groupId>-->
-    <!--      <artifactId>ojdbc11</artifactId>-->
-    <!--      &lt;!&ndash; https://central.sonatype.com/artifact/com.oracle.database.jdbc/ojdbc11/versions &ndash;&gt;-->
-    <!--      <version>23.8.0.25.04</version>-->
-    <!--      <scope>runtime</scope>-->
-    <!--    </dependency>-->
     <dependency>
+      <!-- https://www.oracle.com/kr/database/technologies/appdev/jdbc-downloads.html -->
       <groupId>com.oracle.database.jdbc</groupId>
       <artifactId>ojdbc17</artifactId>
       <!-- https://central.sonatype.com/artifact/com.oracle.database.jdbc/ojdbc17/versions -->
-      <version>23.8.0.25.04</version>
+      <!--      <version>23.8.0.25.04</version>-->
+      <version>23.9.0.25.07</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -316,6 +314,9 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>versions-maven-plugin</artifactId>
           <version>2.18.0</version>
+          <configuration>
+            <processDependencyManagementTransitive>false</processDependencyManagementTransitive>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -420,8 +421,7 @@
         <version>${version.maven-surefire}</version>
         <configuration>
           <excludes>
-            <exclude>**/*IT.java</exclude> <!-- 이게 왜 필요한지 확인 필요 -->
-            <exclude>**/*IT</exclude> <!-- 이게 왜 필요한지 확인 필요 -->
+            <!--            <exclude>**/*IT.java</exclude> &lt;!&ndash; 이게 왜 필요한지 확인 필요 &ndash;&gt;-->
           </excludes>
           <trimStackTrace>false</trimStackTrace>
           <systemPropertyVariables>
@@ -505,8 +505,6 @@
   <profiles>
     <profile>
       <id>failsafe</id>
-      <dependencies>
-      </dependencies>
       <build>
         <plugins>
           <plugin>
@@ -521,6 +519,11 @@
                 </goals>
               </execution>
             </executions>
+            <configuration>
+              <includes>
+                <include>**/*IT.java</include>
+              </includes>
+            </configuration>
           </plugin>
         </plugins>
       </build>
