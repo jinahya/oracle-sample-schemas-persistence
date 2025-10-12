@@ -1,15 +1,15 @@
-package com.github.jinahya.oracle.sample.schemas.sh;
+package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
+import com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped._MappedShEntity_Randomizer;
 import jakarta.annotation.Nonnull;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-class Channel_Randomizer extends __MappedEntity_Randomizer<Channel, Long> {
+class Country_Randomizer extends _MappedShEntity_Randomizer<Country, Long> {
 
-    Channel_Randomizer() {
-        super(Channel.class, Long.class);
+    Country_Randomizer() {
+        super(Country.class, Long.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -33,7 +33,7 @@ class Channel_Randomizer extends __MappedEntity_Randomizer<Channel, Long> {
 
     @Nonnull
     @Override
-    public Channel get() {
+    public Country get() {
         return super.get();
     }
 }

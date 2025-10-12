@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
+//@Disabled // TODO: why this class runs while test?
 @Slf4j
 class Region_PersistenceIT extends __MappedEntity_PersistenceIT<Region, Long> {
 
@@ -31,6 +32,7 @@ class Region_PersistenceIT extends __MappedEntity_PersistenceIT<Region, Long> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * ({@code dmlonly} 가 바라보는) current schema 를 {@code HR} 로 변경한다.
      */
