@@ -29,7 +29,9 @@ import java.time.LocalDate;
  * @param <TARGET> target type parameter
  * @param <ID>     id type parameter
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ * @deprecated no longer used
  */
+@Deprecated(forRemoval = true)
 @SuppressWarnings({
         "unchecked",
         "java:S119" // Type parameter names should comply with a naming convention

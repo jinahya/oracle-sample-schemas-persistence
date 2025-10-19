@@ -23,7 +23,15 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/**
+ * An abstract builder class for building instances of a specific subclass of the {@link MappedEmployee} class.
+ *
+ * @param <SELF>   self type parameter
+ * @param <TARGET> target type parameter
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 @SuppressWarnings({
+        "unchecked",
         "java:S119" // Type parameter names should comply with a naming convention
 })
 public abstract class MappedEmployeeBuilder<
@@ -46,10 +54,22 @@ public abstract class MappedEmployeeBuilder<
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     // ------------------------------------------------------------------------------------------------------ employeeId
+
+    /**
+     * Returns current value of {@code #employeeId} property.
+     *
+     * @return current value of the {@code #employeeId} property.
+     */
     public Integer employeeId() {
         return employeeId;
     }
 
+    /**
+     * Replaces current value of {@code #employeeId} property with specified value, and returns this builder instance.
+     *
+     * @param employeeId new value for the {@code #employeeId} property.
+     * @return this builder instance
+     */
     public SELF employeeId(final Integer employeeId) {
         this.employeeId = employeeId;
         return (SELF) this;

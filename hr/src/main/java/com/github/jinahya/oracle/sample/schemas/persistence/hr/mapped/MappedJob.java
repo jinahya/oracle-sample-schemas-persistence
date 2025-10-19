@@ -24,6 +24,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Max;
@@ -46,7 +47,9 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
 
     public static final String ATTRIBUTE_NAME_JOB_ID = "jobId";
 
-    public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
+    public static final int ATTRIBUTE_SIZE_MIN_JOB_ID = 0;
+
+    public static final int ATTRIBUTE_SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
     // -------------------------------------------------------------------------------------------- JOB_TITLE / jobTitle
     public static final String COLUMN_NAME_JOB_TITLE = "JOB_TITLE";
@@ -55,37 +58,43 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
 
     public static final String ATTRIBUTE_NAME_JOB_TITLE = "jobTitle";
 
-    public static final int SIZE_MAX_JOB_TITLE = COLUMN_LENGTH_JOB_TITLE;
+    public static final int ATTRIBUTE_SIZE_MIN_JOB_TITLE = 0;
+
+    public static final int ATTRIBUTE_SIZE_MAX_JOB_TITLE = COLUMN_LENGTH_JOB_TITLE;
 
     // ------------------------------------------------------------------------------------------ MIN_SALARY / minSalary
     public static final String COLUMN_NAME_MIN_SALARY = "MIN_SALARY";
 
     public static final int COLUMN_PRECISION_MIN_SALARY = 6;
 
-    public static final int COLUMN_MIN_MIN_SALARY = 0x000000;
+    public static final int COLUMN_SCALE_MIN_SALARY = 0;
 
-    public static final int COLUMN_MAX_MIN_SALARY = 0x0F423F; // 999999
+    public static final int COLUMN_MIN_MIN_SALARY = -999999;
+
+    public static final int COLUMN_MAX_MIN_SALARY = +999999;
 
     public static final String ATTRIBUTE_NAME_MIN_SALARY = "minSalary";
 
-    public static final int MIN_MIN_SALARY = COLUMN_MIN_MIN_SALARY;
+    public static final int ATTRIBUTE_MIN_MIN_SALARY = COLUMN_MIN_MIN_SALARY;
 
-    public static final int MAX_MIN_SALARY = COLUMN_MAX_MIN_SALARY;
+    public static final int ATTRIBUTE_MAX_MIN_SALARY = COLUMN_MAX_MIN_SALARY;
 
     // ------------------------------------------------------------------------------------------ MAX_SALARY / maxSalary
     public static final String COLUMN_NAME_MAX_SALARY = "MAX_SALARY";
 
     public static final int COLUMN_PRECISION_MAX_SALARY = 6;
 
-    public static final int COLUMN_VALUE_MIN_MAX_SALARY = 0x000000;
+    public static final int COLUMN_SCALE_MAX_SALARY = 0;
 
-    public static final int COLUMN_VALUE_MAX_MAX_SALARY = 0x0F423F; // 999999
+    public static final int COLUMN_VALUE_MIN_MAX_SALARY = -999999;
+
+    public static final int COLUMN_VALUE_MAX_MAX_SALARY = +999999;
 
     public static final String ATTRIBUTE_NAME_MAX_SALARY = "maxSalary";
 
-    public static final int MIN_MAX_SALARY = COLUMN_VALUE_MIN_MAX_SALARY;
+    public static final int ATTRIBUTE_MIN_MAX_SALARY = COLUMN_VALUE_MIN_MAX_SALARY;
 
-    public static final int MAX_MAX_SALARY = COLUMN_VALUE_MAX_MAX_SALARY;
+    public static final int ATTRIBUTE_MAX_MAX_SALARY = COLUMN_VALUE_MAX_MAX_SALARY;
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -132,7 +141,20 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
-//    @AssertTrue(message = "the minSalary should be less than or equals to the maxSalary")
+    protected boolean isMinSalaryPositive() {
+        if (minSalary == null) {
+            return true;
+        }
+        return minSalary > 0;
+    }
+
+    protected boolean isMaxSalaryPositive() {
+        if (maxSalary == null) {
+            return true;
+        }
+        return maxSalary > 0;
+    }
+
     protected boolean isMinSalaryIsLessThanOrEqualToMaxSalary() {
         if (minSalary == null) {
             return true;
@@ -185,50 +207,34 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Size(max = SIZE_MAX_JOB_ID)
+    @Size(min = ATTRIBUTE_SIZE_MIN_JOB_ID, max = ATTRIBUTE_SIZE_MAX_JOB_ID)
     @NotNull
     @Id
-    @Column(name = COLUMN_NAME_JOB_ID,
-            nullable = false,
-            insertable = true,
-            updatable = false,
-            length = COLUMN_LENGTH_JOB_ID
-    )
+    @Column(name = COLUMN_NAME_JOB_ID, nullable = false, insertable = true, updatable = false,
+            length = COLUMN_LENGTH_JOB_ID)
     private String jobId;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Size(max = SIZE_MAX_JOB_TITLE)
+    @Size(min = ATTRIBUTE_SIZE_MIN_JOB_TITLE, max = ATTRIBUTE_SIZE_MAX_JOB_TITLE)
     @NotNull
-    @Column(name = COLUMN_NAME_JOB_TITLE,
-            nullable = false,
-            insertable = true,
-            updatable = true,
-            length = COLUMN_LENGTH_JOB_TITLE
-    )
+    @Column(name = COLUMN_NAME_JOB_TITLE, nullable = false, insertable = true, updatable = true,
+            length = COLUMN_LENGTH_JOB_TITLE)
     private String jobTitle;
 
     @Nullable
-    @Max(MAX_MIN_SALARY)
-    @Min(MIN_MIN_SALARY)
+    @Max(ATTRIBUTE_MAX_MIN_SALARY)
+    @Min(ATTRIBUTE_MIN_MIN_SALARY)
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_MIN_SALARY,
-            nullable = true,
-            insertable = true,
-            updatable = true,
-            precision = COLUMN_PRECISION_MIN_SALARY
-    )
+    @Column(name = COLUMN_NAME_MIN_SALARY, nullable = true, insertable = true, updatable = true,
+            precision = COLUMN_PRECISION_MIN_SALARY, scale = COLUMN_SCALE_MIN_SALARY)
     private Integer minSalary;
 
     @Nullable
-    @Max(MAX_MAX_SALARY)
-    @Min(MIN_MAX_SALARY)
-    @Basic(optional = true)
-    @Column(name = COLUMN_NAME_MAX_SALARY,
-            nullable = true,
-            insertable = true,
-            updatable = true,
-            precision = COLUMN_PRECISION_MAX_SALARY
-    )
+    @Max(ATTRIBUTE_MAX_MAX_SALARY)
+    @Min(ATTRIBUTE_MIN_MAX_SALARY)
+    @Basic(optional = true, fetch = FetchType.EAGER)
+    @Column(name = COLUMN_NAME_MAX_SALARY, nullable = true, insertable = true, updatable = true,
+            precision = COLUMN_PRECISION_MAX_SALARY, scale = COLUMN_SCALE_MAX_SALARY)
     private Integer maxSalary;
 }

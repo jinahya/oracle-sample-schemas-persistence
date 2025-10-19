@@ -27,7 +27,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -47,54 +50,64 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
 
     public static final String TABLE_NAME = "JOB_HISTORY";
 
-    // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
+    // ----------------------------------------------------------------------------- EMPLOYEE_ID / employeeId / employee
     public static final String COLUMN_NAME_EMPLOYEE_ID = "EMPLOYEE_ID";
 
     public static final int COLUMN_PRECISION_EMPLOYEE_ID = 6;
 
     public static final int COLUMN_SCALE_EMPLOYEE_ID = 0;
 
+    public static final int COLUMN_MIN_EMPLOYEE_ID = -999999;
+
+    public static final int COLUMN_MAX_EMPLOYEE_ID = +999999;
+
     public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
 
-    public static final int MIN_EMPLOYEE_ID = -999999;
+    public static final int ATTRIBUTE_MIN_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
 
-    public static final int MAX_EMPLOYEE_ID = +999999;
+    public static final int ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
 
     public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
 
-    // ------------------------------------------------------------------------------------------------------ START_DATE
+    // ------------------------------------------------------------------------------------------ START_DATE / startDate
     public static final String COLUMN_NAME_START_DATE = "START_DATE";
 
     public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
 
-    // -------------------------------------------------------------------------------------------------------- END_DATE
+    // ---------------------------------------------------------------------------------------------- END_DATE / endDate
     public static final String COLUMN_NAME_END_DATE = "END_DATE";
 
     public static final String ATTRIBUTE_NAME_END_DATE = "endDate";
 
-    // ---------------------------------------------------------------------------------------------------------- JOB_ID
+    // -------------------------------------------------------------------------------------------- JOB_ID / jobId / job
     public static final String COLUMN_NAME_JOB_ID = "JOB_ID";
 
     public static final int COLUMN_LENGTH_JOB_ID = 20;
 
     public static final String ATTRIBUTE_NAME_JOB_ID = "jobId";
 
-    public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
+    public static final int ATTRIBUTE_SIZE_MIN_JOB_ID = 0;
+
+    public static final int ATTRIBUTE_SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
     public static final String ATTRIBUTE_NAME_JOB = "job";
 
-    // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
+    // ------------------------------------------------------------------------------------ DEPARTMENT_ID / departmentId
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
 
     public static final int COLUMN_PRECISION_DEPARTMENT_ID = 4;
 
     public static final int COLUMN_SCALE_DEPARTMENT_ID = 0;
 
+    public static final int COLUMN_MIN_DEPARTMENT_ID = -9999;
+
+    public static final int COLUMN_MAX_DEPARTMENT_ID = +9999;
+
     public static final String ATTRIBUTE_NAME_DEPARTMENT_ID = "departmentId";
 
-    public static final int MIN_DEPARTMENT_ID = -9999;
+    public static final int ATTRIBUTE_MIN_DEPARTMENT_ID = COLUMN_MIN_DEPARTMENT_ID;
 
-    public static final int MAX_DEPARTMENT_ID = +9999;
+    public static final int ATTRIBUTE_MAX_DEPARTMENT_ID = COLUMN_MAX_DEPARTMENT_ID;
 
     public static final String ATTRIBUTE_NAME_DEPARTMENT = "department";
 
@@ -205,31 +218,18 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
     private LocalDate endDate;
 
     @Nonnull
-//    @Size(max = SIZE_MAX_JOB_ID)
+    @Size(min = ATTRIBUTE_SIZE_MIN_JOB_ID, max = ATTRIBUTE_SIZE_MAX_JOB_ID)
     @NotNull
     @Basic(optional = false)
-    @Column(
-            name = COLUMN_NAME_JOB_ID,
-            nullable = false,
-            insertable = false,
-            updatable = false
-//            ,
-//            length = COLUMN_LENGTH_JOB_ID
-            )
+    @Column(name = COLUMN_NAME_JOB_ID, nullable = false, insertable = false, updatable = false,
+            length = COLUMN_LENGTH_JOB_ID)
     private String jobId;
 
     @Nullable
-//    @Max(MAX_DEPARTMENT_ID)
-//    @Min(MIN_DEPARTMENT_ID)
+    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
+    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
     @Basic(optional = true)
-    @Column(
-            name = COLUMN_NAME_DEPARTMENT_ID,
-            nullable = true,
-            insertable = false,
-            updatable = false
-//            ,
-//            precision = COLUMN_PRECISION_DEPARTMENT_ID,
-//            scale = COLUMN_SCALE_DEPARTMENT_ID
-            )
+    @Column(name = COLUMN_NAME_DEPARTMENT_ID, nullable = true, insertable = false, updatable = false,
+            precision = COLUMN_PRECISION_DEPARTMENT_ID, scale = COLUMN_SCALE_DEPARTMENT_ID)
     private Integer departmentId;
 }

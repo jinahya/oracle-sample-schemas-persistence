@@ -23,7 +23,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 import java.time.LocalDate;
 
 @SuppressWarnings({
-        "unchecked"
+        "unchecked",
+        "java:S119" // Type parameter names should comply with a naming convention
 })
 public abstract class MappedJobHistoryIdBuilder<
         SELF extends MappedJobHistoryIdBuilder<SELF, TARGET>,
@@ -34,7 +35,7 @@ public abstract class MappedJobHistoryIdBuilder<
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-    MappedJobHistoryIdBuilder(final Class<TARGET> targetClass) {
+    protected MappedJobHistoryIdBuilder(final Class<TARGET> targetClass) {
         super(targetClass);
     }
 
@@ -63,5 +64,6 @@ public abstract class MappedJobHistoryIdBuilder<
     // -----------------------------------------------------------------------------------------------------------------
     private Integer employeeId;
 
+    // -----------------------------------------------------------------------------------------------------------------
     private LocalDate startDate;
 }

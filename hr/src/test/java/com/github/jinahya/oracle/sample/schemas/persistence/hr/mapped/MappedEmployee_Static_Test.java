@@ -28,11 +28,11 @@ class MappedEmployee_Static_Test {
 
     @Test
     void __COLUMN_VALUE_MIN_EMPLOYEE_ID() {
-        assertThat(MappedEmployee.COLUMN_VALUE_MIN_EMPLOYEE_ID).isEqualTo(-999999);
+        assertThat(MappedEmployee.COLUMN_MIN_EMPLOYEE_ID).isEqualTo(-999999);
     }
 
     @Test
     void __COLUMN_VALUE_MAX_EMPLOYEE_ID() {
-        assertThat(MappedEmployee.COLUMN_VALUE_MAX_EMPLOYEE_ID).isEqualTo(+999999);
+        assertThat(MappedEmployee.COLUMN_MAX_EMPLOYEE_ID).isEqualTo(+999999);
     }
 }

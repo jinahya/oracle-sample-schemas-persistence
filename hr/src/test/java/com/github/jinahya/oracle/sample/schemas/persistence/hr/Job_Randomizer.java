@@ -71,7 +71,7 @@ class Job_Randomizer extends __MappedEntity_Randomizer<Job, String> {
                 value.setMaxSalary(
                         ThreadLocalRandom.current().nextInt(
                                 99999,
-                                MappedJob.MAX_MAX_SALARY
+                                MappedJob.ATTRIBUTE_MAX_MAX_SALARY
                         ) + 1
                 );
             }
