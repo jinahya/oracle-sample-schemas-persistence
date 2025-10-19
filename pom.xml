@@ -9,7 +9,7 @@
   <packaging>pom</packaging>
 
   <name>${project.artifactId}</name>
-  <description>Persistence for MySQL Employees Sample Database</description>
+  <description>Persistence for Oracle Sample Databases</description>
   <url>https://github.com/jinahya/${project.artifactId}</url>
   <inceptionYear>2024</inceptionYear>
   <organization>
@@ -50,15 +50,13 @@
     <doclint>none</doclint>
     <sonar.organization>jinahya-github</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-    <!--    <groupId.querydsl>com.querydsl</groupId.querydsl>-->
-    <!--    <version.querydsl>5.1.0</version.querydsl>-->
-    <!--    <version.lombok>1.18.30</version.lombok>-->
     <version.lombok>1.18.42</version.lombok>
     <version.maven-failsafe>${version.maven-surefire}</version.maven-failsafe>
     <!--    <version.maven-surefire>3.2.5</version.maven-surefire>-->
-    <version.maven-surefire>3.5.3</version.maven-surefire>
-    <version.jinahya-persistence>0.2.5</version.jinahya-persistence>
-    <version.mysql-connector-j>8.3.0</version.mysql-connector-j>
+    <version.maven-surefire>3.5.4</version.maven-surefire>
+    <version.jakarta.jakartaee-api>11.0.0</version.jakarta.jakartaee-api>
+    <version.jinahya-persistence>0.2.6</version.jinahya-persistence>
+    <!--    <version.mysql-connector-j>8.3.0</version.mysql-connector-j>-->
     <!-- https://search.maven.org/artifact/org.eclipse.persistence/eclipselink -->
     <!-- https://central.sonatype.com/artifact/org.eclipse.persistence/eclipselink/versions -->
     <!-- https://central.sonatype.com/artifact/org.eclipse.persistence/org.eclipse.persistence.jpa/versions -->
@@ -129,15 +127,10 @@
       <dependency><!-- https://central.sonatype.com/artifact/jakarta.platform/jakarta.jakartaee-bom/versions -->
         <groupId>jakarta.platform</groupId>
         <artifactId>jakarta.jakartaee-bom</artifactId>
-        <version>11.0.0</version>
+        <version>${version.jakarta.jakartaee-api}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <!--      <dependency>-->
-      <!--        <groupId>${groupId.querydsl}</groupId>-->
-      <!--        <artifactId>querydsl-apt</artifactId>-->
-      <!--        <version>${version.querydsl}</version>-->
-      <!--      </dependency>-->
       <dependency>
         <groupId>org.glassfish.expressly</groupId>
         <artifactId>expressly</artifactId>
@@ -256,18 +249,23 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <!-- https://central.sonatype.com/artifact/org.apache.maven.plugins/maven-compiler-plugin/versions -->
-          <version>3.14.0</version>
+          <version>3.14.1</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
-          <version>3.11.2</version>
+          <!-- https://central.sonatype.com/artifact/org.apache.maven.plugins/maven-javadoc-plugin/versions -->
+          <version>3.12.0</version>
           <configuration>
             <additionalOptions>
               <additionalOption>-Xdoclint:${doclint}</additionalOption>
             </additionalOptions>
             <links>
-              <link>https://javadoc.io/doc/jakarta.platform/jakarta.jakartaee-api/latest</link>
+              <link>https://javadoc.io/static/jakarta.platform/jakarta.jakartaee-api/${version.jakarta.jakartaee-api}</link>
+              <link>https://javadoc.io/static/io.github.jinahya/jinahya-persistence-mapped/${version.jinahya-persistence}</link>
+              <link>https://javadoc.io/static/io.github.jinahya/jinahya-persistence-mapped-test/${version.jinahya-persistence}</link>
+              <link>https://javadoc.io/static/io.github.jinahya/jinahya-persistence-more/${version.jinahya-persistence}</link>
+              <link>https://javadoc.io/static/io.github.jinahya/jinahya-persistence-more-test/${version.jinahya-persistence}</link>
             </links>
             <release>${maven.compiler.testRelease}</release>
             <tags>
@@ -298,12 +296,14 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-project-info-reports-plugin</artifactId>
+          <!-- https://central.sonatype.com/artifact/org.apache.maven.plugins/maven-project-info-reports-plugin/versions -->
           <version>3.9.0</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
-          <version>4.0.0-M16</version>
+          <!-- https://central.sonatype.com/artifact/org.apache.maven.plugins/maven-site-plugin/versions -->
+          <version>3.21.0</version>
         </plugin>
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
@@ -313,7 +313,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>versions-maven-plugin</artifactId>
-          <version>2.18.0</version>
+          <version>2.19.1</version>
           <configuration>
             <processDependencyManagementTransitive>false</processDependencyManagementTransitive>
           </configuration>
@@ -327,7 +327,7 @@
         <plugin>
           <groupId>org.jacoco</groupId>
           <artifactId>jacoco-maven-plugin</artifactId>
-          <version>0.8.13</version>
+          <version>0.8.14</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -347,12 +347,6 @@
               <artifactId>hibernate-jpamodelgen</artifactId>
               <version>${version.org.hibernate.orm}</version>
             </path>
-            <!--            <path>-->
-            <!--              <groupId>${groupId.querydsl}</groupId>-->
-            <!--              <artifactId>querydsl-apt</artifactId>-->
-            <!--              <version>${version.querydsl}</version>-->
-            <!--              <classifier>jakarta</classifier>-->
-            <!--            </path>-->
           </annotationProcessorPaths>
           <compilerArgs>
             <arg>-Xlint</arg>
@@ -373,7 +367,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.5.0</version>
+        <version>3.6.2</version>
         <executions>
           <execution>
             <id>enforce-dependency-convergence</id>
@@ -432,7 +426,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>license-maven-plugin</artifactId>
-        <version>2.6.0</version>
+        <version>2.7.0</version>
         <configuration>
           <licenseName>apache_v2</licenseName>
         </configuration>
@@ -461,11 +455,6 @@
   <reporting>
     <plugins>
       <plugin>
-        <groupId>com.github.spotbugs</groupId>
-        <artifactId>spotbugs-maven-plugin</artifactId>
-        <version>4.9.3.0</version>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jxr-plugin</artifactId>
         <version>3.6.0</version>
@@ -482,7 +471,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
-        <version>3.26.0</version>
+        <version>3.28.0</version>
         <configuration>
           <!-- Unsupported targetJdk value '21'. -->
           <skip>true</skip>

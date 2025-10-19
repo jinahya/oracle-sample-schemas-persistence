@@ -1,5 +1,25 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
+/*-
+ * #%L
+ * hr
+ * %%
+ * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 /**
  * An abstract class for building instance of a specific subclass of the {@link MappedLocation} class.
  *
@@ -77,10 +97,12 @@ public abstract class MappedLocationBuilder<
     }
 
     // ------------------------------------------------------------------------------------------------------- countryId
+    @Deprecated(forRemoval = true)
     public String countryId() {
         return countryId;
     }
 
+    @Deprecated(forRemoval = true)
     public SELF countryId(final String countryId) {
         this.countryId = countryId;
         return (SELF) this;
@@ -99,5 +121,6 @@ public abstract class MappedLocationBuilder<
     private String stateProvince;
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Deprecated(forRemoval = true)
     private String countryId;
 }

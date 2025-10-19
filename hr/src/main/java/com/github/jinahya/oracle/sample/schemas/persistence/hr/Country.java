@@ -1,54 +1,44 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
-import com.github.jinahya.persistence.mapped.__MappedEntity;
+/*-
+ * #%L
+ * hr
+ * %%
+ * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountry;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountryBuilder;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
-import java.util.Objects;
 import java.util.Optional;
 
 @Entity
-@Table(name = "COUNTRIES")
-public class Country implements __MappedEntity<String> {
-
-    // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
-    public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
-
-    public static final int COLUMN_LENGTH_COUNTRY_ID = 2;
-
-    public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
-
-    public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
-
-    // ---------------------------------------------------------------------------------------------------- COUNTRY_NAME
-    public static final String COLUMN_NAME_COUNTRY_NAME = "COUNTRY_NAME";
-
-    public static final int COLUMN_LENGTH_COUNTRY_NAME = 60;
-
-    public static final String ATTRIBUTE_NAME_COUNTRY_NAME = "countryName";
-
-    public static final int SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
-
-    // ------------------------------------------------------------------------------------------------------- REGION_ID
-    public static final String COLUMN_NAME_REGION_ID = "REGION_ID";
-
-    public static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
-
-    public static final String ATTRIBUTE_NAME_REGION = "region";
+@Table(name = MappedCountry.TABLE_NAME)
+public class Country extends MappedCountry {
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static CountryBuilder builder() {
+    public static MappedCountryBuilder<?, Country> builder() {
         return new CountryBuilder();
     }
 
@@ -60,67 +50,17 @@ public class Country implements __MappedEntity<String> {
     }
 
     Country(@Nonnull final CountryBuilder builder) {
-        this();
-        countryId = Objects.requireNonNull(builder, "builder is null").countryId();
-        countryName = builder.countryName();
-        regionId = builder.regionId();
+        super(builder);
         setRegion(builder.getRegion());
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------ java.lang.Object
 
-    @Override
-    public String toString() {
-        return super.toString() + '{' +
-                "countryId=" + countryId +
-                ",countryName=" + countryName +
-                ",regionId=" + regionId +
-//                ",region=" + region +
-                '}';
-    }
+    // ------------------------------------------------------------------------------------------------- super.countryId
 
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof Country country)) {
-            return false;
-        }
-        return Objects.equals(getCountryId(), country.getCountryId());
-    }
+    // ----------------------------------------------------------------------------------------------- super.countryName
 
-    @Override
-    public final int hashCode() {
-        return Objects.hashCode(getCountryId());
-    }
-
-    // ------------------------------------------------------------------------------------------------------- countryId
-    @Nonnull
-    public String getCountryId() {
-        return countryId;
-    }
-
-    public void setCountryId(@Nonnull final String countryId) {
-        this.countryId = countryId;
-    }
-
-    // ----------------------------------------------------------------------------------------------------- countryName
-    @Nullable
-    public String getCountryName() {
-        return countryName;
-    }
-
-    public void setCountryName(@Nullable final String countryName) {
-        this.countryName = countryName;
-    }
-
-    // -------------------------------------------------------------------------------------------------------- regionId
-    @Nullable
-    private Long getRegionId() {
-        return regionId;
-    }
-
-    private void setRegionId(@Nullable final Long regionId) {
-        this.regionId = regionId;
-    }
+    // -------------------------------------------------------------------------------------------------- super.regionId
 
     // ---------------------------------------------------------------------------------------------------------- region
     @Nullable
@@ -138,30 +78,9 @@ public class Country implements __MappedEntity<String> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @NotNull
-    @Id
-    @Size(max = SIZE_MAX_COUNTRY_ID)
-    @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = false, length = COLUMN_LENGTH_COUNTRY_ID)
-    private String countryId;
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nullable
-    @Size(max = SIZE_MAX_COUNTRY_NAME)
-    @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_COUNTRY_NAME, nullable = true, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_COUNTRY_NAME)
-    private String countryName;
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nullable
-    @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_REGION_ID, nullable = true, insertable = false, updatable = false)
-    private Long regionId;
-
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = {})
-    @JoinColumn(name = COLUMN_NAME_REGION_ID, nullable = true, insertable = true, updatable = true)
+    @JoinColumn(name = COLUMN_NAME_REGION_ID, nullable = true, insertable = false, updatable = false)
     private Region region;
 }

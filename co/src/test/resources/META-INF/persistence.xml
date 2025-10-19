@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   #%L
-  jinahya-persistence-mapped-test
+  co
   %%
   Copyright (C) 2024 - 2025 Jinahya, Inc.
   %%
@@ -86,7 +86,7 @@
       <property name="jakarta.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver"/>
       <!-- https://github.com/eclipse-ee4j/eclipselink/issues/1393 -->
       <property name="jakarta.persistence.jdbc.url" value="jdbc:oracle:thin:@//localhost:1521/freepdb1"/>
-<!--      <property name="jakarta.persistence.jdbc.user" value="co"/>-->
+      <!--      <property name="jakarta.persistence.jdbc.user" value="co"/>-->
       <property name="jakarta.persistence.jdbc.user" value="dmlonly"/>
       <property name="jakarta.persistence.jdbc.password" value="password"/>
       <!-- ///////////////////////////////////////////////////////////////////////////////////////////// eclipselink -->

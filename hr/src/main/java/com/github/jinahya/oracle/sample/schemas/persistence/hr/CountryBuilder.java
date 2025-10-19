@@ -1,11 +1,31 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
-import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
+/*-
+ * #%L
+ * hr
+ * %%
+ * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountryBuilder;
 import jakarta.annotation.Nonnull;
 
 import java.util.Optional;
 
-public class CountryBuilder extends __MappedEntityBuilder<CountryBuilder, Country> {
+class CountryBuilder extends MappedCountryBuilder<CountryBuilder, Country> {
 
     // -----------------------------------------------------------------------------------------------------------------
     CountryBuilder() {
@@ -21,37 +41,11 @@ public class CountryBuilder extends __MappedEntityBuilder<CountryBuilder, Countr
         return new Country(this);
     }
 
-    // ------------------------------------------------------------------------------------------------------- countryId
-    public String countryId() {
-        return countryId;
-    }
+    // ------------------------------------------------------------------------------------------------- super.countryId
 
-    public CountryBuilder countryId(final String countryId) {
-        this.countryId = countryId;
-        return this;
-    }
+    // ----------------------------------------------------------------------------------------------- super.countryName
 
-    // ----------------------------------------------------------------------------------------------------- countryName
-    public String countryName() {
-        return countryName;
-    }
-
-    public CountryBuilder countryName(final String countryName) {
-        this.countryName = countryName;
-        return this;
-    }
-
-    // -------------------------------------------------------------------------------------------------------- regionId
-    @Deprecated(forRemoval = true)
-    public Long regionId() {
-        return regionId;
-    }
-
-    @Deprecated(forRemoval = true)
-    public CountryBuilder regionId(final Long regionId) {
-        this.regionId = regionId;
-        return this;
-    }
+    // -------------------------------------------------------------------------------------------------- super.regionId
 
     // ---------------------------------------------------------------------------------------------------------- region
     public Region getRegion() {
@@ -68,12 +62,5 @@ public class CountryBuilder extends __MappedEntityBuilder<CountryBuilder, Countr
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    private String countryId;
-
-    private String countryName;
-
-    @Deprecated(forRemoval = true)
-    private Long regionId;
-
     private Region region;
 }
