@@ -55,8 +55,8 @@
     <!--    <version.maven-surefire>3.2.5</version.maven-surefire>-->
     <version.maven-surefire>3.5.4</version.maven-surefire>
     <version.jakarta.jakartaee-api>11.0.0</version.jakarta.jakartaee-api>
-    <version.jinahya-persistence>0.2.6</version.jinahya-persistence>
-<!--    <version.jinahya-persistence>0.2.7-SNAPSHOT</version.jinahya-persistence>-->
+<!--    <version.jinahya-persistence>0.2.6</version.jinahya-persistence>-->
+    <version.jinahya-persistence>0.2.7-SNAPSHOT</version.jinahya-persistence>
     <!--    <version.mysql-connector-j>8.3.0</version.mysql-connector-j>-->
     <!-- https://search.maven.org/artifact/org.eclipse.persistence/eclipselink -->
     <!-- https://central.sonatype.com/artifact/org.eclipse.persistence/eclipselink/versions -->
@@ -430,6 +430,9 @@
         <version>2.7.0</version>
         <configuration>
           <licenseName>apache_v2</licenseName>
+          <excludes>
+            <exclude>**/*.json</exclude>
+          </excludes>
         </configuration>
       </plugin>
       <plugin>
