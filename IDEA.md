@@ -4,7 +4,7 @@
 
 ### Remove all annotations
 
-* `@\w+(\([^=)]+\)){0,1}`
+* `@[\n\w]+(\([^\n)]+\)){0,1}`
 * None
 
 ### Replace `<TYPE> getXxxYyy` into `<TYPE> xxxYyy`
