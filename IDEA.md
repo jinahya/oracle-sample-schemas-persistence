@@ -1,6 +1,11 @@
 # IntelliJ IDEA
 
-## Replace getters and setters for Builders
+## Regular expressions for Builders
+
+### Remove all annotations
+
+* `@\w+(\([^=)]+\)){0,1}`
+* None
 
 ### Replace `<TYPE> getXxxYyy` into `<TYPE> xxxYyy`
 
