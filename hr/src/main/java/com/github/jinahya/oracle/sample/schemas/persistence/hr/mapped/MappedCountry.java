@@ -56,6 +56,8 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
 
     public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
 
+    public static final int SIZE_MIN_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
+
     public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
     // ---------------------------------------------------------------------------------------------------- COUNTRY_NAME
@@ -186,7 +188,7 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Size(max = SIZE_MAX_COUNTRY_ID)
+    @Size(min = SIZE_MIN_COUNTRY_ID, max = SIZE_MAX_COUNTRY_ID)
     @NotNull
     @Id
     @Basic(optional = false)
