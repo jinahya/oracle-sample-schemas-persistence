@@ -28,7 +28,7 @@ import java.util.Objects;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public abstract class _MappedSh implements __Mapped {
+public abstract class _MappedSh extends  __Mapped {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 

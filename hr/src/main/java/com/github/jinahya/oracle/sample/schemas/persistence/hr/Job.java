@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = Job.TABLE_NAME)
-public class Job implements __MappedEntity<String> {
+public class Job extends  __MappedEntity<String> {
 
     // -----------------------------------------------------------------------------------------------------------------
     public static final String TABLE_NAME = "JOBS";

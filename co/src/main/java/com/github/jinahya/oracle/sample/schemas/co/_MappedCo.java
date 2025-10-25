@@ -30,7 +30,7 @@ import com.github.jinahya.persistence.mapped.__Mapped;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public abstract class _MappedCo implements __Mapped {
+public abstract class _MappedCo extends  __Mapped {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 

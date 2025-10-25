@@ -56,7 +56,7 @@
     <version.maven-surefire>3.5.4</version.maven-surefire>
     <version.jakarta.jakartaee-api>11.0.0</version.jakarta.jakartaee-api>
 <!--    <version.jinahya-persistence>0.2.6</version.jinahya-persistence>-->
-    <version.jinahya-persistence>0.2.7-SNAPSHOT</version.jinahya-persistence>
+    <version.jinahya-persistence>0.3.3</version.jinahya-persistence>
     <!--    <version.mysql-connector-j>8.3.0</version.mysql-connector-j>-->
     <!-- https://search.maven.org/artifact/org.eclipse.persistence/eclipselink -->
     <!-- https://central.sonatype.com/artifact/org.eclipse.persistence/eclipselink/versions -->
@@ -322,7 +322,7 @@
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>sonar-maven-plugin</artifactId>
-          <!--          <version>3.11.0.3922</version>-->
+          <!--          <version>3.11.922</version>-->
           <version>4.0.0.4121</version>
         </plugin>
         <plugin>
