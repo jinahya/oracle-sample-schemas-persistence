@@ -103,17 +103,11 @@ public class Region extends MappedRegion {
     // ------------------------------------------------------------------------------------------------ super.regionName
 
     // ------------------------------------------------------------------------------------------------------- countries
-    @SuppressWarnings({
-            "java:S114" // Unused "private" methods should be removed
-    })
-    private List<Country> getCountries() {
+    protected List<Country> getCountries() {
         return countries;
     }
 
-    @SuppressWarnings({
-            "java:S114" // Unused "private" methods should be removed
-    })
-    private void setCountries(final List<Country> countries) {
+    protected void setCountries(final List<Country> countries) {
         this.countries = countries;
     }
 

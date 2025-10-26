@@ -35,7 +35,13 @@ import java.util.List;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedGenericRegion<COUNTRY extends MappedGenericCountry<?, ?>> extends MappedRegion {
+@SuppressWarnings({
+        "java:S119" // Type parameter names should comply with a naming convention
+})
+public abstract class MappedGenericRegion<
+        COUNTRY extends MappedGenericCountry<?, ?>
+        >
+        extends MappedRegion {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -53,7 +59,7 @@ public abstract class MappedGenericRegion<COUNTRY extends MappedGenericCountry<?
         return countries;
     }
 
-    public void setCountries(final List<COUNTRY> countries) {
+    protected void setCountries(final List<COUNTRY> countries) {
         this.countries = countries;
     }
 

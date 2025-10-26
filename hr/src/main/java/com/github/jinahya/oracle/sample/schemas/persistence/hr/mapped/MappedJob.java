@@ -75,7 +75,7 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
 
     public static final String ATTRIBUTE_NAME_MIN_SALARY = "minSalary";
 
-    public static final int ATTRIBUTE_MIN_MIN_SALARY = COLUMN_MIN_MIN_SALARY;
+    public static final int ATTRIBUTE_MIN_MIN_SALARY = 1000;
 
     public static final int ATTRIBUTE_MAX_MIN_SALARY = COLUMN_MAX_MIN_SALARY;
 
@@ -86,15 +86,15 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
 
     public static final int COLUMN_SCALE_MAX_SALARY = 0;
 
-    public static final int COLUMN_VALUE_MIN_MAX_SALARY = -999999;
+    public static final int COLUMN_MIN_MAX_SALARY = -999999;
 
-    public static final int COLUMN_VALUE_MAX_MAX_SALARY = +999999;
+    public static final int COLUMN_MAX_MAX_SALARY = +999999;
 
     public static final String ATTRIBUTE_NAME_MAX_SALARY = "maxSalary";
 
-    public static final int ATTRIBUTE_MIN_MAX_SALARY = COLUMN_VALUE_MIN_MAX_SALARY;
+    public static final int ATTRIBUTE_MIN_MAX_SALARY = 1000;
 
-    public static final int ATTRIBUTE_MAX_MAX_SALARY = COLUMN_VALUE_MAX_MAX_SALARY;
+    public static final int ATTRIBUTE_MAX_MAX_SALARY = COLUMN_MAX_MAX_SALARY;
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -107,12 +107,13 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
         super();
     }
 
-    protected MappedJob(final MappedJobBuilder<?, ?> builder) {
-        super();
-        jobId = builder.jobId();
-        jobTitle = builder.jobTitle();
-        minSalary = builder.minSalary();
-        maxSalary = builder.maxSalary();
+    /**
+     * Creates a new instance built from the specified builder.
+     *
+     * @param builder the builder to build from.
+     */
+    protected MappedJob(final _MappedHrEntityBuilder<?, ?> builder) {
+        super(builder);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -128,7 +129,7 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public final boolean equals(final Object obj) {
         if (!(obj instanceof MappedJob that)) {
             return false;
         }
@@ -136,11 +137,13 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hashCode(getJobId());
     }
 
-    // ------------------------------------------------------------------------------------------------- Bean-Validation
+    // --------------------------------------------------------------------------------------------- Jakarta-Persistence
+
+    // ---------------------------------------------------------------------------------------------- Jakarta-Validation
     protected boolean isMinSalaryPositive() {
         if (minSalary == null) {
             return true;
@@ -171,7 +174,7 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
         return jobId;
     }
 
-    public void setJobId(@Nonnull final String jobId) {
+    protected void setJobId(@Nonnull final String jobId) {
         this.jobId = jobId;
     }
 

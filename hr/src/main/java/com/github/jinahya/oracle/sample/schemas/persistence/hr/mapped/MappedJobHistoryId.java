@@ -27,6 +27,7 @@ import jakarta.persistence.FetchType;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -51,10 +52,9 @@ public abstract class MappedJobHistoryId extends _MappedHr implements Serializab
         super();
     }
 
+    @Deprecated(forRemoval = true)
     protected MappedJobHistoryId(@Nonnull final MappedJobHistoryIdBuilder<?, ?> builder) {
         super(builder);
-        employeeId = builder.employeeId();
-        startDate = builder.startDate();
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -71,8 +71,8 @@ public abstract class MappedJobHistoryId extends _MappedHr implements Serializab
         if (!(obj instanceof MappedJobHistoryId that)) {
             return false;
         }
-        return Objects.equals(employeeId, that.employeeId)
-               && Objects.equals(startDate, that.startDate);
+        return Objects.equals(employeeId, that.employeeId) &&
+               Objects.equals(startDate, that.startDate);
     }
 
     @Override
@@ -86,6 +86,7 @@ public abstract class MappedJobHistoryId extends _MappedHr implements Serializab
         return employeeId;
     }
 
+    @Deprecated(forRemoval = true)
     protected void setEmployeeId(@Nonnull final Integer employeeId) {
         this.employeeId = employeeId;
     }
@@ -96,6 +97,7 @@ public abstract class MappedJobHistoryId extends _MappedHr implements Serializab
         return startDate;
     }
 
+    @Deprecated(forRemoval = true)
     protected void setStartDate(@Nonnull final LocalDate startDate) {
         this.startDate = startDate;
     }
@@ -113,6 +115,7 @@ public abstract class MappedJobHistoryId extends _MappedHr implements Serializab
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
+    @PastOrPresent
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = MappedJobHistory.COLUMN_NAME_START_DATE, nullable = false, insertable = false, updatable = false)

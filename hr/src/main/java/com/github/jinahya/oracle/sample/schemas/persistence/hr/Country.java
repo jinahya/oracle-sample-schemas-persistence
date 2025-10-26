@@ -21,16 +21,19 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountry;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountryBuilder;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntityBuilder;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
 import java.util.Optional;
 
 @Entity
@@ -44,7 +47,7 @@ public class Country extends MappedCountry {
     public static final String ATTRIBUTE_NAME_REGION = "region";
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static MappedCountryBuilder<?, Country> builder() {
+    public static _MappedHrEntityBuilder<?, Country> builder() {
         return new CountryBuilder();
     }
 
@@ -94,10 +97,22 @@ public class Country extends MappedCountry {
         );
     }
 
+    // ------------------------------------------------------------------------------------------------------- locations
+    protected List<Location> getLocations() {
+        return locations;
+    }
+
+    protected void setLocations(final List<Location> countries) {
+        this.locations = countries;
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = {})
     @JoinColumn(name = COLUMN_NAME_REGION_ID, nullable = true, insertable = false, updatable = false)
     private Region region;
+
+    @OneToMany(mappedBy = Location.ATTRIBUTE_NAME_COUNTRY, fetch = FetchType.LAZY, cascade = {}, orphanRemoval = false)
+    private List<@Valid @NotNull Location> locations;
 }

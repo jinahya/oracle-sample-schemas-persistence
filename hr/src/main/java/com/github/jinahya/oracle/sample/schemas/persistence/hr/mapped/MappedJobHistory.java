@@ -25,16 +25,17 @@ import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.function.Supplier;
 
 /**
  * An abstract mapped-superclass for mapping the {@value MappedJobHistory#TABLE_NAME} table.
@@ -109,34 +110,18 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
 
     public static final int ATTRIBUTE_MAX_DEPARTMENT_ID = COLUMN_MAX_DEPARTMENT_ID;
 
-    public static final String ATTRIBUTE_NAME_DEPARTMENT = "department";
-
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
-    @Deprecated(forRemoval = true)
-    @Nonnull
-    protected static <
-            BUILDER extends MappedJobHistoryBuilder<BUILDER, ENTITY, ID>,
-            ENTITY extends MappedJobHistory<ID>,
-            ID extends MappedJobHistoryId
-            >
-    BUILDER builder(@Nonnull final Supplier<? extends BUILDER> supplier) {
-        return Objects.requireNonNull(
-                Objects.requireNonNull(supplier, "supplier is null").get(),
-                "null supplied from " + supplier
-        );
-    }
+
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     protected MappedJobHistory() {
         super();
     }
 
+    @Deprecated(forRemoval = true)
     protected MappedJobHistory(final MappedJobHistoryBuilder<?, ?, ID> builder) {
         super(builder);
-        id = builder.id();
-        endDate = builder.endDate();
-        jobId = builder.jobId();
-        departmentId = builder.departmentId();
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -155,12 +140,37 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
         if (!(obj instanceof MappedJobHistory<?> that)) {
             return false;
         }
-        return Objects.equals(id, that.id);
+        return Objects.equals(getId(), that.getId());
     }
 
     @Override
     public final int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getJobId());
+    }
+
+    // --------------------------------------------------------------------------------------------- Jakarta-Persistence
+
+    // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+
+    /**
+     * Tests whether {@link MappedJobHistoryId#getStartDate() id.startDate} attribute is not after the
+     * {@link #ATTRIBUTE_NAME_END_DATE endDate} attribute.
+     *
+     * @return true if {@link MappedJobHistoryId#getStartDate() id.startDate} is not after
+     * {@link #ATTRIBUTE_NAME_END_DATE endDate}; {@code false} otherwise.
+     */
+    protected boolean isIdStartDateNotAfterEndDate() {
+        if (id == null) {
+            return true;
+        }
+        final var idStartDate = id.getStartDate();
+        if (idStartDate == null) {
+            return true;
+        }
+        if (endDate == null) {
+            return true;
+        }
+        return !idStartDate.isAfter(endDate);
     }
 
     // -------------------------------------------------------------------------------------------------------------- id
@@ -169,6 +179,7 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
         return id;
     }
 
+    @Deprecated(forRemoval = true)
     protected void setId(@Nonnull final ID id) {
         this.id = id;
     }
@@ -179,6 +190,7 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
         return endDate;
     }
 
+    @Deprecated(forRemoval = true)
     protected void setEndDate(@Nonnull final LocalDate endDate) {
         this.endDate = endDate;
     }
@@ -189,6 +201,7 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
         return jobId;
     }
 
+    @Deprecated(forRemoval = true)
     protected void setJobId(@Nonnull final String jobId) {
         this.jobId = jobId;
     }
@@ -199,6 +212,7 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
         return departmentId;
     }
 
+    @Deprecated(forRemoval = true)
     protected void setDepartmentId(@Nullable final Integer departmentId) {
         this.departmentId = departmentId;
     }
@@ -212,23 +226,26 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
+    @PastOrPresent
     @NotNull
-    @Basic(optional = false)
+    @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_END_DATE, nullable = false, insertable = false, updatable = false)
     private LocalDate endDate;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Size(min = ATTRIBUTE_SIZE_MIN_JOB_ID, max = ATTRIBUTE_SIZE_MAX_JOB_ID)
     @NotNull
-    @Basic(optional = false)
+    @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_JOB_ID, nullable = false, insertable = false, updatable = false,
             length = COLUMN_LENGTH_JOB_ID)
     private String jobId;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
     @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
-    @Basic(optional = true)
+    @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_DEPARTMENT_ID, nullable = true, insertable = false, updatable = false,
             precision = COLUMN_PRECISION_DEPARTMENT_ID, scale = COLUMN_SCALE_DEPARTMENT_ID)
     private Integer departmentId;

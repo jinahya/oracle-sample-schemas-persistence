@@ -146,7 +146,7 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public final boolean equals(final Object obj) {
         if (!(obj instanceof MappedLocation that)) {
             return false;
         }
@@ -154,7 +154,7 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hashCode(locationId);
     }
 
@@ -225,7 +225,7 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
         return countryId;
     }
 
-    protected void setCountryId(@Nullable final String countryId) {
+    public void setCountryId(@Nullable final String countryId) {
         this.countryId = countryId;
     }
 

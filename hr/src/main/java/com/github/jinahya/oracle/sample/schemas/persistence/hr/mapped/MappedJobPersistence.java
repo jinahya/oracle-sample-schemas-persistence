@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.hr;
+package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
 /*-
  * #%L
@@ -20,19 +20,13 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedRegionBuilder;
-import jakarta.annotation.Nonnull;
+public abstract class MappedJobPersistence<ENTITY extends MappedJob>
+        extends _MappedHrEntityPersistence<ENTITY, String> {
 
-class RegionBuilder extends MappedRegionBuilder<RegionBuilder, Region> {
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
-    RegionBuilder() {
-        super(Region.class);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @Override
-    public Region build() {
-        return new Region(this);
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    protected MappedJobPersistence(final Class<ENTITY> entityClass) {
+        super(entityClass, String.class);
     }
 }
