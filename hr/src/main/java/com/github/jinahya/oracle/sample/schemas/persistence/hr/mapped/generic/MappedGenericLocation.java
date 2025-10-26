@@ -34,6 +34,9 @@ import jakarta.validation.Valid;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
+@SuppressWarnings({
+        "java:S119" // Type parameter names should comply with a naming convention
+})
 public abstract class MappedGenericLocation<COUNTRY extends MappedGenericCountry<?, ?>> extends MappedLocation {
 
     public static final String ATTRIBUTE_NAME_COUNTRY = "country";
@@ -62,6 +65,23 @@ public abstract class MappedGenericLocation<COUNTRY extends MappedGenericCountry
     // --------------------------------------------------------------------------------------------- super.stateProvince
 
     // ------------------------------------------------------------------------------------------------- super.countryId
+    @Nullable
+    @Override
+    public String getCountryId() {
+        return super.getCountryId();
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param countryId {@inheritDoc}
+     * @deprecated Use {@link #setCountry(MappedGenericCountry)} instead.
+     */
+    @Deprecated(forRemoval = true)
+    @Override
+    public void setCountryId(@Nullable final String countryId) {
+        super.setCountryId(countryId);
+    }
 
     // --------------------------------------------------------------------------------------------------------- country
     @Nullable

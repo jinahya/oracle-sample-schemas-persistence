@@ -20,12 +20,12 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Test;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_Test;
 import jakarta.annotation.Nonnull;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
-class Job_Test extends __MappedEntity_Test<Job, String> {
+class Job_Test extends _MappedHrEntity_Test<Job, String> {
 
     Job_Test() {
         super(Job.class, String.class);

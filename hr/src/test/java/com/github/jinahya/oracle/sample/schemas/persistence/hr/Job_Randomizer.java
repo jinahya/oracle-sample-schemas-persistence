@@ -21,7 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_Randomizer;
 import jakarta.annotation.Nonnull;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
@@ -29,7 +29,7 @@ import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-class Job_Randomizer extends __MappedEntity_Randomizer<Job, String> {
+class Job_Randomizer extends _MappedHrEntity_Randomizer<Job, String> {
 
     Job_Randomizer() {
         super(Job.class, String.class);

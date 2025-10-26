@@ -20,19 +20,21 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__MappedBuilder_Test;
+import com.github.jinahya.persistence.mapped.test.__MappedEntityBuilder_Test;
 
 @SuppressWarnings({
         "java:S119" // Type parameter names should comply with a naming convention
 })
 public abstract class _MappedHrEntityBuilder_Test<
         BUILDER extends _MappedHrEntityBuilder<BUILDER, TARGET>,
-        TARGET extends _MappedHrEntity<?>
+        TARGET extends _MappedHrEntity<ID>,
+        ID
         >
-        extends __MappedBuilder_Test<BUILDER, TARGET> {
+        extends __MappedEntityBuilder_Test<BUILDER, TARGET, ID> {
 
     // -----------------------------------------------------------------------------------------------------------------
-    protected _MappedHrEntityBuilder_Test(final Class<BUILDER> builderClass, final Class<TARGET> targetClass) {
-        super(builderClass, targetClass);
+    protected _MappedHrEntityBuilder_Test(final Class<BUILDER> builderClass, final Class<TARGET> targetClass,
+                                          final Class<ID> idClass) {
+        super(builderClass, targetClass, idClass);
     }
 }

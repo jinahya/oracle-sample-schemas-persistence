@@ -20,10 +20,10 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobBuilder;
 
-public class JobBuilder
-        extends __MappedEntityBuilder<JobBuilder, Job> {
+class JobBuilder
+        extends MappedJobBuilder<JobBuilder, Job> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -34,55 +34,13 @@ public class JobBuilder
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
-    // ------------------------------------------------------------------------------------------------- Bean-Validation
+    // ----------------------------------------------------------------------------------------------------- super.jobId
 
-    // ----------------------------------------------------------------------------------------------------------- jobId
-    public String jobId() {
-        return jobId;
-    }
+    // -------------------------------------------------------------------------------------------------- super.jobTitle
 
-    public JobBuilder jobId(final String jobId) {
-        this.jobId = jobId;
-        return this;
-    }
-
-    // -------------------------------------------------------------------------------------------------------- jobTitle
-    public String jobTitle() {
-        return jobTitle;
-    }
-
-    public JobBuilder jobTitle(final String jobTitle) {
-        this.jobTitle = jobTitle;
-        return this;
-    }
-
-    // ------------------------------------------------------------------------------------------------------- minSalary
-    public Integer minSalary() {
-        return minSalary;
-    }
-
-    public JobBuilder minSalary(final Integer minSalary) {
-        this.minSalary = minSalary;
-        return this;
-    }
+    // ------------------------------------------------------------------------------------------------- super.minSalary
 
     // ------------------------------------------------------------------------------------------------------- maxSalary
-    public Integer maxSalary() {
-        return maxSalary;
-    }
-
-    public JobBuilder maxSalary(final Integer maxSalary) {
-        this.maxSalary = maxSalary;
-        return this;
-    }
 
     // -----------------------------------------------------------------------------------------------------------------
-    private String jobId;
-
-    // -----------------------------------------------------------------------------------------------------------------
-    private String jobTitle;
-
-    private Integer minSalary;
-
-    private Integer maxSalary;
 }
