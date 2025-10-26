@@ -1,12 +1,21 @@
 # oracle-sample-schemas-persistence
 
+Persistence units for the [Oracle Database Sample Schemas](https://github.com/oracle-samples/db-sample-schemas).
+
 ## Installing schemas
 
-Init and update the submodule.
+Init the submodule once and only.
+and update the submodule. (the `init` is required once and only.)
 
 ```shell
 $ git submodule init
+```
+
+Update the submodule, whenever possible, for the up-to-date data.
+
+```shell
 $ git submodule update --remote
+
 $ ls -l db-sample-schemas
 total NN
 ........................................... HH:mm .
@@ -14,7 +23,6 @@ total NN
 ........................................... HH:mm .git
 ...
 ........................................... HH:mm sh_install.log
-
 ```
 
 Run docker container.
@@ -86,23 +94,15 @@ sh-x.y$
 A user, with no destructive privileges, is required for running integration tests.
 
 ```shell
-$ cd /db-sample-schemas-local
-
-$ sqlplus / as sysdba
-
+sh-x.y$ cd /db-sample-schemas-local
+sh-x.y$ sqlplus / as sysdba
 SQL> alter session set container=freepdb1;
-
 SQL> @create_dmlonly_user.sql
-
 ...
-
 Grant succeeded.
-
 SQL> quit
-
-$ 
+sh-x.y$ 
 ```
-
 
 ## JDBC URLs
 

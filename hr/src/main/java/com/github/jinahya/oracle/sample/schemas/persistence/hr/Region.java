@@ -1,20 +1,36 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
-import com.github.jinahya.persistence.mapped.__MappedEntity;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-import jakarta.persistence.Column;
+/*-
+ * #%L
+ * hr
+ * %%
+ * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedRegion;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedRegionBuilder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * An entity class for mapping the {@value Region#TABLE_NAME} table.
@@ -50,34 +66,15 @@ import java.util.Objects;
                 WHERE e.regionName = :regionName"""
 )
 @Entity
-@Table(name = Region.TABLE_NAME)
-public class Region implements __MappedEntity<Long> {
+@Table(name = MappedRegion.TABLE_NAME)
+public class Region extends MappedRegion {
 
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * The name of the database table to which this entity class maps. The value is {@value}.
-     */
-    public static final String TABLE_NAME = "REGIONS";
-
-    // -------------------------------------------------------------------------------------------- REGION_ID / regionId
-    public static final String COLUMN_NAME_REGION_ID = "REGION_ID";
-
-    public static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
-
-    // ---------------------------------------------------------------------------------------- REGION_NAME / regionName
-    public static final String COLUMN_NAME_REGION_NAME = "REGION_NAME";
-
-    public static final int COLUMN_LENGTH_REGION_NAME = 25;
-
-    public static final String ATTRIBUTE_NAME_REGION_NAME = "regionName";
-
-    public static final int SIZE_MAX_REGION_NAME = COLUMN_LENGTH_REGION_NAME;
+    public static final String ATTRIBUTE_NAME_COUNTRIES = "countries";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // --------------------------------------------------------------------------------------------------------- BUILDER
-    public static RegionBuilder builder() {
+    public static MappedRegionBuilder<?, Region> builder() {
         return new RegionBuilder();
     }
 
@@ -96,53 +93,14 @@ public class Region implements __MappedEntity<Long> {
      * @param builder the builder to build from.
      */
     Region(final RegionBuilder builder) {
-        this();
-        regionId = builder.regionId();
-        regionName = builder.regionName();
+        super(builder);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
-    @Override
-    public String toString() {
-        return super.toString() + '{' +
-               "regionId=" + regionId +
-               ",regionName=" + regionName +
-//                ",countries=" + countries +
-               '}';
-    }
 
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof Region that)) {
-            return false;
-        }
-        return Objects.equals(getRegionId(), that.getRegionId());
-    }
+    // -------------------------------------------------------------------------------------------------- super.regionId
 
-    @Override
-    public final int hashCode() {
-        return Objects.hashCode(getRegionId());
-    }
-
-    // -------------------------------------------------------------------------------------------------------- regionId
-    @Nonnull
-    public Long getRegionId() {
-        return regionId;
-    }
-
-    public void setRegionId(@Nonnull final Long regionId) {
-        this.regionId = regionId;
-    }
-
-    // ------------------------------------------------------------------------------------------------------ regionName
-    @Nullable
-    public String getRegionName() {
-        return regionName;
-    }
-
-    public void setRegionName(@Nullable final String regionName) {
-        this.regionName = regionName;
-    }
+    // ------------------------------------------------------------------------------------------------ super.regionName
 
     // ------------------------------------------------------------------------------------------------------- countries
     @SuppressWarnings({
@@ -160,20 +118,6 @@ public class Region implements __MappedEntity<Long> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @NotNull
-    @Id
-    @Column(name = COLUMN_NAME_REGION_ID, nullable = false, insertable = true, updatable = false)
-    private Long regionId;
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nullable
-    @Size(max = SIZE_MAX_REGION_NAME)
-    @Column(name = COLUMN_NAME_REGION_NAME, nullable = true, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_REGION_NAME)
-    private String regionName;
-
-    // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(
             mappedBy = Country.ATTRIBUTE_NAME_REGION,
             fetch = FetchType.LAZY,
@@ -181,5 +125,5 @@ public class Region implements __MappedEntity<Long> {
             },
             orphanRemoval = false
     )
-    private List<Country> countries;
+    private List<@Valid @NotNull Country> countries;
 }

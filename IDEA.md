@@ -1,11 +1,16 @@
 # IntelliJ IDEA
 
-## Replace getters and setters for Builders
+## Regular expressions for Builders
+
+### Remove all annotations
+
+* `@[\n\w]+(\([^\))]+\)){0,1}`
+* None
 
 ### Replace `<TYPE> getXxxYyy` into `<TYPE> xxxYyy`
 
 * `public (?<type>\w+) get(?<name>\w+)`
-* `public ${type} ${name}`
+* `public ${type} \l${name}`
     * with ***Preserve case*** on
 
 ### Replace `void setXxxYyy` into `SELF xxxYyy`

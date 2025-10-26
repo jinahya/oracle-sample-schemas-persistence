@@ -1,5 +1,25 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
+/*-
+ * #%L
+ * co
+ * %%
+ * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
 import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
@@ -37,9 +57,9 @@ public abstract class MappedProductDetails<REVIEW extends MappedProductDetails.M
         @Override
         public String toString() {
             return super.toString() + '{' +
-                    "rating=" + rating +
-                    ",review=" + review +
-                    '}';
+                   "rating=" + rating +
+                   ",review=" + review +
+                   '}';
         }
 
         @Override
@@ -49,7 +69,7 @@ public abstract class MappedProductDetails<REVIEW extends MappedProductDetails.M
             }
             MappedReview review1 = (MappedReview) obj;
             return Objects.equals(rating, review1.rating)
-                    && Objects.equals(review, review1.review);
+                   && Objects.equals(review, review1.review);
         }
 
         @Override
@@ -99,13 +119,13 @@ public abstract class MappedProductDetails<REVIEW extends MappedProductDetails.M
     @Override
     public String toString() {
         return super.toString() + '{' +
-                "colour=" + colour +
-                ",gender=" + gender +
-                ",brand=" + brand +
-                ",description=" + description +
-                ",sizes=" + sizes +
+               "colour=" + colour +
+               ",gender=" + gender +
+               ",brand=" + brand +
+               ",description=" + description +
+               ",sizes=" + sizes +
 //                ",reviews=" + reviews +
-                '}';
+               '}';
     }
 
     @Override
@@ -114,11 +134,11 @@ public abstract class MappedProductDetails<REVIEW extends MappedProductDetails.M
             return false;
         }
         return Objects.equals(colour, that.colour)
-                && Objects.equals(gender, that.gender)
-                && Objects.equals(brand, that.brand)
-                && Objects.equals(description, that.description)
-                && Objects.equals(sizes, that.sizes)
-                && Objects.equals(reviews, that.reviews);
+               && Objects.equals(gender, that.gender)
+               && Objects.equals(brand, that.brand)
+               && Objects.equals(description, that.description)
+               && Objects.equals(sizes, that.sizes)
+               && Objects.equals(reviews, that.reviews);
     }
 
     @Override
