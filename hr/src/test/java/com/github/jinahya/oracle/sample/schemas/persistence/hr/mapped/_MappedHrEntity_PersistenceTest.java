@@ -20,7 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersistenceIT;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersistenceTest;
 
 /**
  * An abstract class for unit-testing persistence of a specific subclass of the {@link _MappedHrEntity} class.
@@ -33,7 +33,7 @@ import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersistenceIT;
         "java:S119" // Type parameter names should comply with a naming convention
 })
 public abstract class _MappedHrEntity_PersistenceTest<ENTITY extends _MappedHrEntity<ID>, ID>
-        extends __MappedEntity_PersistenceIT<ENTITY, ID> {
+        extends __MappedEntity_PersistenceTest<ENTITY, ID> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 

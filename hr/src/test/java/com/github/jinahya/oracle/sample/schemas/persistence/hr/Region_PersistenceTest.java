@@ -21,7 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedRegion;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersistenceTest;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_PersistenceTest;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersisterUtils;
 import com.github.jinahya.persistence.mapped.test.___JakartaPersistence_TestUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 
-class Region_PersistenceTest extends __MappedEntity_PersistenceTest<Region, Long> {
+class Region_PersistenceTest extends _MappedHrEntity_PersistenceTest<Region, Long> {
 
     Region_PersistenceTest() {
         super(Region.class, Long.class);

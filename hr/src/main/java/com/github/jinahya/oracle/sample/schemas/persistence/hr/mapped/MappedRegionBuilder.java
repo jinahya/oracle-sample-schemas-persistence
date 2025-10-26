@@ -21,7 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  */
 
 /**
- * An abstract class for building a specific subclass of {@link MappedRegion} class.
+ * An abstract class for building instances of a specific subclass of {@link MappedRegion} class.
  *
  * @param <SELF>   self type parameter
  * @param <TARGET> target type parameter
@@ -55,18 +55,18 @@ public abstract class MappedRegionBuilder<
     // -------------------------------------------------------------------------------------------------------- regionId
 
     /**
-     * Returns current value of the property for the {@link MappedRegion_#regionId regionId} attribute.
+     * Returns current value of the {@link MappedRegion_#regionId regionId} property.
      *
-     * @return the current value of the property for the {@link MappedRegion_#regionId regionId} attribute.
+     * @return the current value of the {@link MappedRegion_#regionId regionId} property.
      */
     public Long regionId() {
         return regionId;
     }
 
     /**
-     * Replaces current value of the property for the {@link MappedRegion_#regionId regionId} attribute with specified
+     * Replaces current value of {@link MappedRegion_#regionId regionId} property with specified
      *
-     * @param regionId new value for the property for the {@link MappedRegion_#regionId regionId} attribute.
+     * @param regionId new value for the {@link MappedRegion_#regionId regionId} property.
      * @return this builder instance.
      */
     public SELF regionId(final Long regionId) {

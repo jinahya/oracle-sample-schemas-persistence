@@ -24,6 +24,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
@@ -56,9 +57,9 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
 
     public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
 
-    public static final int SIZE_MIN_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
+    public static final int ATTRIBUTE_SIZE_MIN_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
-    public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
+    public static final int ATTRIBUTE_SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
     // ---------------------------------------------------------------------------------------------------- COUNTRY_NAME
     public static final String COLUMN_NAME_COUNTRY_NAME = "COUNTRY_NAME";
@@ -67,7 +68,9 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
 
     public static final String ATTRIBUTE_NAME_COUNTRY_NAME = "countryName";
 
-    public static final int SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
+    public static final int ATTRIBUTE_SIZE_NIN_COUNTRY_NAME = 0;
+
+    public static final int ATTRIBUTE_SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
 
     // ------------------------------------------------------------------------------------------------------- REGION_ID
 
@@ -81,12 +84,6 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
      * The name of the entity attribute from which the {@value #COLUMN_NAME_REGION_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
-
-    /**
-     * The name of the entity attribute, of a subclass of the {@link MappedRegion}, from which the
-     * {@value #COLUMN_NAME_REGION_ID} column maps. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_REGION = "region";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -105,10 +102,7 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
      * @param builder the builder.
      */
     protected MappedCountry(final MappedCountryBuilder<?, ?> builder) {
-        super();
-        countryId = builder.countryId();
-        countryName = builder.countryName();
-        regionId = builder.regionId();
+        super(builder);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -172,7 +166,7 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
      *
      * @param countryName new value for the {@link MappedCountry_#countryName countryName} attribute.
      */
-    protected void setCountryName(@Nullable final String countryName) {
+    public void setCountryName(@Nullable final String countryName) {
         this.countryName = countryName;
     }
 
@@ -182,13 +176,13 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
         return regionId;
     }
 
-    protected void setRegionId(@Nullable final Long regionId) {
+    public void setRegionId(@Nullable final Long regionId) {
         this.regionId = regionId;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Size(min = SIZE_MIN_COUNTRY_ID, max = SIZE_MAX_COUNTRY_ID)
+    @Size(min = ATTRIBUTE_SIZE_MIN_COUNTRY_ID, max = ATTRIBUTE_SIZE_MAX_COUNTRY_ID)
     @NotNull
     @Id
     @Basic(optional = false)
@@ -198,15 +192,15 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @Size(max = SIZE_MAX_COUNTRY_NAME)
-    @Basic(optional = true)
+    @Size(min = ATTRIBUTE_SIZE_NIN_COUNTRY_NAME, max = ATTRIBUTE_SIZE_MAX_COUNTRY_NAME)
+    @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_COUNTRY_NAME, nullable = true, insertable = true, updatable = true,
             length = COLUMN_LENGTH_COUNTRY_NAME)
     private String countryName;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @Basic(optional = true)
+    @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_REGION_ID, nullable = true, insertable = true, updatable = true)
     private Long regionId;
 }

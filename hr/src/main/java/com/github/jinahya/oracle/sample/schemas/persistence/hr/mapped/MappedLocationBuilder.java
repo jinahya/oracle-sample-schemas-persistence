@@ -97,12 +97,10 @@ public abstract class MappedLocationBuilder<
     }
 
     // ------------------------------------------------------------------------------------------------------- countryId
-    @Deprecated(forRemoval = true)
     public String countryId() {
         return countryId;
     }
 
-    @Deprecated(forRemoval = true)
     public SELF countryId(final String countryId) {
         this.countryId = countryId;
         return (SELF) this;
@@ -121,6 +119,5 @@ public abstract class MappedLocationBuilder<
     private String stateProvince;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Deprecated(forRemoval = true)
     private String countryId;
 }

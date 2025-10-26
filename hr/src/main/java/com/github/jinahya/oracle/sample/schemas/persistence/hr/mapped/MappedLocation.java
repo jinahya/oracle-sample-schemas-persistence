@@ -128,13 +128,7 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
      * @param builder the builder to build from.
      */
     protected MappedLocation(final MappedLocationBuilder<?, ?> builder) {
-        super();
-        locationId = builder.locationId();
-        streetAddress = builder.streetAddress();
-        postalCode = builder.postalCode();
-        city = builder.city();
-        stateProvince = builder.stateProvince();
-        countryId = builder.countryId();
+        super(builder);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -181,7 +175,7 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
      *
      * @param locationId new value for the {@link MappedLocation_#locationId locationId} attribute.
      */
-    void setLocationId(@Nonnull final Integer locationId) {
+    protected void setLocationId(@Nonnull final Integer locationId) {
         this.locationId = locationId;
     }
 

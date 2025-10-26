@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.hr;
+package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.generic;
 
 /*-
  * #%L
@@ -21,42 +21,43 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountry;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountryBuilder;
-import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
-import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
 import java.util.Optional;
 
-@Entity
-@Table(name = MappedCountry.TABLE_NAME)
-public class Country extends MappedCountry {
+/**
+ * An abstract mapped-superclass for mapping the {@value MappedGenericCountry#TABLE_NAME} table.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+@MappedSuperclass
+public abstract class MappedGenericCountry<
+        REGION extends MappedGenericRegion<?>,
+        LOCATION extends MappedGenericLocation<?>
+        >
+        extends MappedCountry {
 
-    /**
-     * The name of the entity attribute, of  {@link Region}, from which the {@value #COLUMN_NAME_REGION_ID} column maps.
-     * The value is {@value}.
-     */
     public static final String ATTRIBUTE_NAME_REGION = "region";
 
-    // -----------------------------------------------------------------------------------------------------------------
-    public static MappedCountryBuilder<?, Country> builder() {
-        return new CountryBuilder();
-    }
+    public static final String ATTRIBUTE_NAME_LOCATIONS = "locations";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-    protected Country() {
-        super();
-    }
 
-    Country(@Nonnull final CountryBuilder builder) {
-        super(builder);
+    /**
+     * Creates a new instance.
+     */
+    protected MappedGenericCountry() {
+        super();
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -81,17 +82,26 @@ public class Country extends MappedCountry {
 
     // ---------------------------------------------------------------------------------------------------------- region
     @Nullable
-    public Region getRegion() {
+    public REGION getRegion() {
         return region;
     }
 
-    public void setRegion(@Nullable final Region region) {
+    public void setRegion(@Nullable final REGION region) {
         this.region = region;
         setRegionId(
                 Optional.ofNullable(this.region)
-                        .map(Region::getRegionId)
+                        .map(MappedGenericRegion::getRegionId)
                         .orElse(null)
         );
+    }
+
+    // ------------------------------------------------------------------------------------------------------- locations
+    public List<LOCATION> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(final List<LOCATION> locations) {
+        this.locations = locations;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -99,5 +109,9 @@ public class Country extends MappedCountry {
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = {})
     @JoinColumn(name = COLUMN_NAME_REGION_ID, nullable = true, insertable = false, updatable = false)
-    private Region region;
+    private REGION region;
+
+    @OneToMany(mappedBy = MappedGenericLocation.ATTRIBUTE_NAME_COUNTRY, fetch = FetchType.LAZY, cascade = {},
+               orphanRemoval = false)
+    private List<@Valid @NotNull LOCATION> locations;
 }

@@ -20,11 +20,11 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Persister;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_Persister;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityManager;
 
-class Region_Persister extends __MappedEntity_Persister<Region, Long> {
+class Region_Persister extends _MappedHrEntity_Persister<Region, Long> {
 
     Region_Persister() {
         super(Region.class, Long.class);

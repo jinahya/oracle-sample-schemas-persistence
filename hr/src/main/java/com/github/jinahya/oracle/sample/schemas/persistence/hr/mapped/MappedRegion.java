@@ -62,13 +62,35 @@ public abstract class MappedRegion extends _MappedHrEntity<Long> {
     public static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
 
     // ---------------------------------------------------------------------------------------- REGION_NAME / regionName
+
+    /**
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute maps. The value is
+     * {@value}.
+     */
     public static final String COLUMN_NAME_REGION_NAME = "REGION_NAME";
 
+    /**
+     * The length of the {@value #COLUMN_NAME_REGION_NAME} column. The value is {@value}.
+     */
     public static final int COLUMN_LENGTH_REGION_NAME = 25;
 
+    /**
+     * The name of the entity attribute from which the {@value #COLUMN_NAME_REGION_NAME} column maps. The value is
+     * {@value}.
+     */
     public static final String ATTRIBUTE_NAME_REGION_NAME = "regionName";
 
-    public static final int SIZE_MAX_REGION_NAME = COLUMN_LENGTH_REGION_NAME;
+    /**
+     * The value for the {@link Size#min()} of the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_SIZE_MIN_REGION_NAME = 0;
+
+    /**
+     * The value for the {@link Size#max()} of the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_SIZE_MAX_REGION_NAME = COLUMN_LENGTH_REGION_NAME;
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -87,9 +109,7 @@ public abstract class MappedRegion extends _MappedHrEntity<Long> {
      * @param builder the builder from which a new instance is built.
      */
     protected MappedRegion(final MappedRegionBuilder<?, ?> builder) {
-        super();
-        regionId = builder.regionId();
-        regionName = builder.regionName();
+        super(builder);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -131,16 +151,27 @@ public abstract class MappedRegion extends _MappedHrEntity<Long> {
      *
      * @param regionId new value for the {@link MappedRegion_#regionId regionId} attribute.
      */
-    void setRegionId(@Nonnull final Long regionId) {
+    protected void setRegionId(@Nonnull final Long regionId) {
         this.regionId = regionId;
     }
 
     // ------------------------------------------------------------------------------------------------------ regionName
+
+    /**
+     * Returns current value of {@link #regionName} attribute.
+     *
+     * @return current value of {@link #regionName} attribute.
+     */
     @Nullable
     public String getRegionName() {
         return regionName;
     }
 
+    /**
+     * Replaces current value of {@link #regionName} attribute with specified value.
+     *
+     * @param regionName new value for {@link #regionName} attribute.
+     */
     public void setRegionName(@Nullable final String regionName) {
         this.regionName = regionName;
     }
@@ -154,7 +185,7 @@ public abstract class MappedRegion extends _MappedHrEntity<Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @Size(max = SIZE_MAX_REGION_NAME)
+    @Size(min = ATTRIBUTE_SIZE_MIN_REGION_NAME, max = ATTRIBUTE_SIZE_MAX_REGION_NAME)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_REGION_NAME, nullable = true, insertable = true, updatable = true,
             length = COLUMN_LENGTH_REGION_NAME)

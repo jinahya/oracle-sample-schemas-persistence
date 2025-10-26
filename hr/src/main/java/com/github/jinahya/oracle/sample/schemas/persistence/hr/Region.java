@@ -27,6 +27,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
@@ -66,6 +68,8 @@ import java.util.List;
 @Entity
 @Table(name = MappedRegion.TABLE_NAME)
 public class Region extends MappedRegion {
+
+    public static final String ATTRIBUTE_NAME_COUNTRIES = "countries";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -121,5 +125,5 @@ public class Region extends MappedRegion {
             },
             orphanRemoval = false
     )
-    private List<Country> countries;
+    private List<@Valid @NotNull Country> countries;
 }

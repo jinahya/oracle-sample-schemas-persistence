@@ -46,6 +46,17 @@ class CountryBuilder extends MappedCountryBuilder<CountryBuilder, Country> {
     // ----------------------------------------------------------------------------------------------- super.countryName
 
     // -------------------------------------------------------------------------------------------------- super.regionId
+    @Deprecated(forRemoval = true)
+    @Override
+    public Long regionId() {
+        return super.regionId();
+    }
+
+    @Deprecated(forRemoval = true)
+    @Override
+    public CountryBuilder regionId(final Long regionId) {
+        return super.regionId(regionId);
+    }
 
     // ---------------------------------------------------------------------------------------------------------- region
     public Region getRegion() {

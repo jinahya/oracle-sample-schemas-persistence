@@ -30,7 +30,7 @@ class Region_Randomizer extends __MappedEntity_Randomizer<Region, Long> {
 
     Region_Randomizer() {
         super(Region.class, Long.class,
-              "countries"
+              Region.ATTRIBUTE_NAME_COUNTRIES
         );
     }
 
@@ -56,7 +56,6 @@ class Region_Randomizer extends __MappedEntity_Randomizer<Region, Long> {
     @Nonnull
     @Override
     public Region get() {
-        final var value = super.get();
-        return value;
+        return super.get();
     }
 }

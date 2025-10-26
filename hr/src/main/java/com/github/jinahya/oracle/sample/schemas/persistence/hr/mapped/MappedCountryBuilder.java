@@ -20,11 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.__MappedEntityBuilder;
 import jakarta.annotation.Nonnull;
 
-import java.util.Locale;
-import java.util.Optional;
 import java.util.regex.Pattern;
 
 @SuppressWarnings({
@@ -35,7 +32,7 @@ public abstract class MappedCountryBuilder<
         SELF extends MappedCountryBuilder<SELF, TARGET>,
         TARGET extends MappedCountry
         >
-        extends __MappedEntityBuilder<SELF, TARGET> {
+        extends _MappedHrEntityBuilder<SELF, TARGET> {
 
     // -----------------------------------------------------------------------------------------------------------------
     public static final String ISO_3166_1_ALPHA_2_REGEXP = "[A-Z]{2}";
@@ -67,15 +64,6 @@ public abstract class MappedCountryBuilder<
         return (SELF) this;
     }
 
-    public SELF countryId(final Locale locale) {
-        return countryId(
-                Optional.ofNullable(locale)
-                        .map(Locale::getCountry)
-                        .filter(v -> ISO_3166_1_ALPHA_2_PATTERN.matcher(v).matches())
-                        .orElse(null)
-        );
-    }
-
     // ----------------------------------------------------------------------------------------------------- countryName
     public String countryName() {
         return countryName;
@@ -87,12 +75,10 @@ public abstract class MappedCountryBuilder<
     }
 
     // -------------------------------------------------------------------------------------------------------- regionId
-    @Deprecated(forRemoval = true)
     public Long regionId() {
         return regionId;
     }
 
-    @Deprecated(forRemoval = true)
     public SELF regionId(final Long regionId) {
         this.regionId = regionId;
         return (SELF) this;
@@ -103,6 +89,5 @@ public abstract class MappedCountryBuilder<
 
     private String countryName;
 
-    @Deprecated(forRemoval = true)
     private Long regionId;
 }
