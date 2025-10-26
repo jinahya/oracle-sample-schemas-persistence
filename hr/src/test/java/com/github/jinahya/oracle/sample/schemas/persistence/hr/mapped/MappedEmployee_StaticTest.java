@@ -24,15 +24,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class MappedEmployee_Static_Test {
+class MappedEmployee_StaticTest {
 
     @Test
-    void __COLUMN_VALUE_MIN_EMPLOYEE_ID() {
+    void __COLUMN_MIN_EMPLOYEE_ID() {
         assertThat(MappedEmployee.COLUMN_MIN_EMPLOYEE_ID).isEqualTo(-999999);
     }
 
     @Test
-    void __COLUMN_VALUE_MAX_EMPLOYEE_ID() {
+    void __COLUMN_MAX_EMPLOYEE_ID() {
         assertThat(MappedEmployee.COLUMN_MAX_EMPLOYEE_ID).isEqualTo(+999999);
     }
 }

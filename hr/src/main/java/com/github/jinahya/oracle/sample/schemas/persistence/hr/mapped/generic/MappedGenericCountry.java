@@ -39,12 +39,16 @@ import java.util.Optional;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
+@SuppressWarnings({
+        "java:S119" // Type parameter names should comply with a naming convention
+})
 public abstract class MappedGenericCountry<
         REGION extends MappedGenericRegion<?>,
         LOCATION extends MappedGenericLocation<?>
         >
         extends MappedCountry {
 
+    // -----------------------------------------------------------------------------------------------------------------
     public static final String ATTRIBUTE_NAME_REGION = "region";
 
     public static final String ATTRIBUTE_NAME_LOCATIONS = "locations";
@@ -67,7 +71,6 @@ public abstract class MappedGenericCountry<
     // ----------------------------------------------------------------------------------------------- super.countryName
 
     // -------------------------------------------------------------------------------------------------- super.regionId
-    @Deprecated(forRemoval = true)
     @Nullable
     @Override
     public Long getRegionId() {
@@ -96,11 +99,11 @@ public abstract class MappedGenericCountry<
     }
 
     // ------------------------------------------------------------------------------------------------------- locations
-    public List<LOCATION> getLocations() {
+    protected List<LOCATION> getLocations() {
         return locations;
     }
 
-    public void setLocations(final List<LOCATION> locations) {
+    protected void setLocations(final List<LOCATION> locations) {
         this.locations = locations;
     }
 

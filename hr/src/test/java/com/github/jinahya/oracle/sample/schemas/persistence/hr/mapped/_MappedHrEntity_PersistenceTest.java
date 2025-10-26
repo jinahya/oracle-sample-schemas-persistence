@@ -21,6 +21,10 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  */
 
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersistenceTest;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersisterUtils;
+import jakarta.annotation.Nonnull;
+
+import java.util.Objects;
 
 /**
  * An abstract class for unit-testing persistence of a specific subclass of the {@link _MappedHrEntity} class.
@@ -45,5 +49,32 @@ public abstract class _MappedHrEntity_PersistenceTest<ENTITY extends _MappedHrEn
      */
     protected _MappedHrEntity_PersistenceTest(final Class<ENTITY> entityClass, final Class<ID> idClass) {
         super(entityClass, idClass);
+    }
+
+    // ------------------------------------------------------------------------------- super.(entityManager|entityClass)
+
+    /**
+     * Returns a new persisted instance of the specified entity class.
+     *
+     * @param entityClass the entity class whose instance is to be returned.
+     * @param <T>         entity type parameter
+     * @return a new persisted instance of the specified entity class.
+     * @see #newPersistedEntityInstance()
+     */
+    protected final <T extends _MappedHrEntity<?>> T newPersistedEntityInstanceOf(@Nonnull final Class<T> entityClass) {
+        Objects.requireNonNull(entityClass, "entityClass is null");
+        return applyEntityManager(em -> {
+            return __MappedEntity_PersisterUtils.newPersistedInstanceOf(em, entityClass);
+        });
+    }
+
+    /**
+     * Returns a new persisted instance of the {@link #entityClass}.
+     *
+     * @return a new persisted instance of the {@link #entityClass}.
+     * @see #newPersistedEntityInstanceOf(Class)
+     */
+    protected final ENTITY newPersistedEntityInstance() {
+        return newPersistedEntityInstanceOf(entityClass);
     }
 }

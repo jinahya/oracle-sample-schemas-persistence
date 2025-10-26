@@ -27,7 +27,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Max;
@@ -35,12 +34,17 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 
 @MappedSuperclass
 public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
+
+    private static final System.Logger logger = System.getLogger(MethodHandles.lookup().lookupClass().getName());
 
     // -----------------------------------------------------------------------------------------------------------------
     public static final String TABLE_NAME = "EMPLOYEES";
@@ -131,22 +135,15 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     public static final int COLUMN_SCALE_SALARY = 2;
 
-    public static final double COLUMN_MIN_SALARY_EXCLUSIVE = 000000.00d;
+    public static final double COLUMN_MIN_SALARY = -999999.99d;
 
-    public static final double COLUMN_MAX_SALARY_INCLUSIVE = +999999.99d;
+    public static final double COLUMN_MAX_SALARY = +999999.99d;
 
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
 
-    public static final String ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE = "000000.00";
+    public static final String ATTRIBUTE_DECIMAL_MIN_SALARY = "-999999.99";
 
-    public static final String ATTRIBUTE_DECIMAL_MAX_SALARY_INCLUSIVE = "+999999.99";
-
-    static {
-        assert new BigDecimal(ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE)
-                       .compareTo(BigDecimal.valueOf(COLUMN_MIN_SALARY_EXCLUSIVE)) == 0;
-        assert new BigDecimal(ATTRIBUTE_DECIMAL_MAX_SALARY_INCLUSIVE)
-                       .compareTo(BigDecimal.valueOf(COLUMN_MAX_SALARY_INCLUSIVE)) == 0;
-    }
+    public static final String ATTRIBUTE_DECIMAL_MAX_SALARY = "+999999.99";
 
     // ---------------------------------------------------------------------------------- COMMISSION_PCT / commissionPct
     public static final String COLUMN_NAME_COMMISSION_PCT = "COMMISSION_PCT";
@@ -164,13 +161,6 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     public static final String ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT = "-0.99";
 
     public static final String ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT = "+0.99";
-
-    static {
-        assert new BigDecimal(ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT)
-                       .compareTo(BigDecimal.valueOf(COLUMN_MIN_COMMISSION_PCT)) == 0;
-        assert new BigDecimal(ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT)
-                       .compareTo(BigDecimal.valueOf(COLUMN_MAX_COMMISSION_PCT)) == 0;
-    }
 
     // ------------------------------------------------------------------------------------------- MANAGER_ID / manageId
     public static final String COLUMN_NAME_MANAGER_ID = "MANAGER_ID";
@@ -215,18 +205,13 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
         super();
     }
 
+    /**
+     * Creates a new instance built from the specified builder.
+     *
+     * @param builder the builder from which a new instance is built.
+     */
     protected MappedEmployee(@Nonnull final MappedEmployeeBuilder<?, ?> builder) {
-        employeeId = builder.employeeId();
-        firstName = builder.firstName();
-        lastName = builder.lLastName();
-        email = builder.email();
-        phoneNumber = builder.phoneNumber();
-        hireDate = builder.hireDate();
-        jobId = builder.jobId();
-        salary = builder.salary();
-        commissionPct = builder.commissionPct();
-        managerId = builder.managerId();
-        departmentId = builder.departmentId();
+        super(builder);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -248,16 +233,16 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     }
 
     @Override
-    public boolean equals(final Object obj) {
+    public final boolean equals(final Object obj) {
         if (!(obj instanceof MappedEmployee that)) {
             return false;
         }
-        return Objects.equals(employeeId, that.employeeId);
+        return Objects.equals(getEmployeeId(), that.getEmployeeId());
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hashCode(employeeId);
+    public final int hashCode() {
+        return Objects.hashCode(getEmployeeId());
     }
 
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
@@ -270,13 +255,96 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
         return employeeId >= 0;
     }
 
-    @Deprecated(forRemoval = true)
-    @AssertTrue
-    protected final boolean isSalaryPositive() {
+    protected final boolean isSalaryNonNegative() {
         if (salary == null) {
             return true;
         }
-        return salary.signum() == 1;
+        return salary.signum() != -1;
+    }
+
+    /**
+     * Tests whether current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is greater than or equal to the
+     * result of a method of {@code getJobMinSalary()Number}.
+     *
+     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is greater than or
+     * equal to the result of the {@code getJobMinSalary()Number} method; {@code false} otherwise.
+     */
+    protected boolean isSalaryGreaterThanOrEqualToJobMinSalary() {
+        if (salary == null) {
+            return true;
+        }
+        Method method = null;
+        for (Class<?> c = getClass(); c != null; c = c.getSuperclass()) {
+            try {
+                method = getClass().getDeclaredMethod("getJobMinSalary");
+                break;
+            } catch (final NoSuchMethodException nsme) {
+                // empty
+            }
+        }
+        if (method == null) {
+            return true;
+        }
+        if (!Number.class.isAssignableFrom(method.getReturnType())) {
+            return true;
+        }
+        if (!method.canAccess(this)) {
+            method.setAccessible(true);
+        }
+        BigDecimal jobMinSalary = null;
+        try {
+            jobMinSalary =
+                    Optional.ofNullable((Number) method.invoke(this))
+                            .map(Number::longValue)
+                            .map(BigDecimal::valueOf)
+                            .orElse(null);
+        } catch (final ReflectiveOperationException roe) {
+            return true;
+        }
+        if (jobMinSalary == null) {
+            return true;
+        }
+        assert salary != null;
+        return salary.compareTo(jobMinSalary) >= 0;
+    }
+
+    protected boolean isSalaryLessThanOrEqualToJobMaxSalary() {
+        if (salary == null) {
+            return true;
+        }
+        Method method = null;
+        for (Class<?> c = getClass(); c != null; c = c.getSuperclass()) {
+            try {
+                method = getClass().getDeclaredMethod("getJobMaxSalary");
+                break;
+            } catch (final NoSuchMethodException nsme) {
+                // empty
+            }
+        }
+        if (method == null) {
+            return true;
+        }
+        if (!Number.class.isAssignableFrom(method.getReturnType())) {
+            return true;
+        }
+        if (!method.canAccess(this)) {
+            method.setAccessible(true);
+        }
+        BigDecimal jobMaxSalary = null;
+        try {
+            jobMaxSalary =
+                    Optional.ofNullable((Number) method.invoke(this))
+                            .map(Number::longValue)
+                            .map(BigDecimal::valueOf)
+                            .orElse(null);
+        } catch (final ReflectiveOperationException roe) {
+            return true;
+        }
+        if (jobMaxSalary == null) {
+            return true;
+        }
+        assert salary != null;
+        return salary.compareTo(jobMaxSalary) <= 0;
     }
 
     protected boolean isCommissionPctNonNegative() {
@@ -430,27 +498,28 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
     @NotNull
     @Id
-//    @Basic(optional = false, fetch = FetchType.EAGER) // not required, redundant
     @Column(
             name = COLUMN_NAME_EMPLOYEE_ID,
             nullable = false,
             insertable = true,
             updatable = false,
-            precision = COLUMN_PRECISION_EMPLOYEE_ID
+            precision = COLUMN_PRECISION_EMPLOYEE_ID,
+            scale = COLUMN_SCALE_EMPLOYEE_ID
     )
     private Integer employeeId;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @Size(max = ATTRIBUTE_SIZE_MAX_FIRST_NAME)
+    @Size(min = ATTRIBUTE_SIZE_MIN_FIRST_NAME, max = ATTRIBUTE_SIZE_MAX_FIRST_NAME)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_FIRST_NAME, nullable = true, insertable = true, updatable = true,
             length = COLUMN_LENGTH_FIRST_NAME)
     private String firstName;
 
     @Nonnull
-    @Size(max = ATTRIBUTE_SIZE_MAX_LAST_NAME)
+    @Size(min = ATTRIBUTE_SIZE_MIN_LAST_NAME, max = ATTRIBUTE_SIZE_MAX_LAST_NAME)
     @NotNull
-    @Basic(optional = false)
+    @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_LAST_NAME, nullable = false, insertable = true, updatable = true,
             length = COLUMN_LENGTH_LAST_NAME)
     private String lastName;
@@ -458,14 +527,14 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     @Nonnull
     @Size(max = ATTRIBUTE_SIZE_MAX_EMAIL)
     @NotNull
-    @Basic(optional = false)
+    @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_EMAIL, nullable = false, insertable = true, updatable = false,
             length = COLUMN_LENGTH_EMAIL, unique = true)
     private String email;
 
     @Nullable
     @Size(max = ATTRIBUTE_SIZE_MAX_PHONE_NUMBER)
-    @Basic(optional = true)
+    @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_PHONE_NUMBER, nullable = true, insertable = true, updatable = true,
             length = COLUMN_LENGTH_PHONE_NUMBER)
     private String phoneNumber;
@@ -473,23 +542,23 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     @Nonnull
     //    @PastOrPresent // ???
     @NotNull
-    @Basic(optional = false)
+    @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_HIRE_DATE, nullable = false, insertable = true, updatable = true)
     private LocalDate hireDate;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Size(min = ATTRIBUTE_SIZE_MIN_JOB_ID, max = ATTRIBUTE_SIZE_MAX_JOB_ID)
+    @Size(min = ATTRIBUTE_SIZE_MIN_JOB_ID, max = ATTRIBUTE_SIZE_MAX_JOB_ID) // TODO: comment-out!
     @NotNull
-    @Basic(optional = false)
+    @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_JOB_ID, nullable = false, insertable = true, updatable = true,
             length = COLUMN_LENGTH_JOB_ID)
     private String jobId;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY_INCLUSIVE, inclusive = true)
-    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false)
+    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
+    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY, inclusive = true)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_SALARY, nullable = true, insertable = true, updatable = true,
             precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY)
@@ -498,15 +567,15 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     @Nullable
     @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT, inclusive = true)
     @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT, inclusive = true)
-    @Basic(optional = true)
+    @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_COMMISSION_PCT, nullable = true, insertable = true, updatable = true,
             precision = COLUMN_PRECISION_COMMISSION_PCT, scale = COLUMN_SCALE_COMMISSION_PCT)
     private BigDecimal commissionPct;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @Max(ATTRIBUTE_MAX_MANAGER_ID) // TODO: comment-out
-    @Min(ATTRIBUTE_MIN_MANAGER_ID) // TODO: comment-out
+    @Max(ATTRIBUTE_MAX_MANAGER_ID) // TODO: comment-out!
+    @Min(ATTRIBUTE_MIN_MANAGER_ID) // TODO: comment-out!
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_MANAGER_ID, nullable = true, insertable = true, updatable = true,
             precision = COLUMN_PRECISION_MANAGER_ID)
@@ -514,8 +583,8 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID) // TODO: comment-out
-    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID) // TODO: comment-out
+    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID) // TODO: comment-out!
+    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID) // TODO: comment-out!
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_DEPARTMENT_ID, nullable = true, insertable = true, updatable = true,
             precision = COLUMN_PRECISION_DEPARTMENT_ID)

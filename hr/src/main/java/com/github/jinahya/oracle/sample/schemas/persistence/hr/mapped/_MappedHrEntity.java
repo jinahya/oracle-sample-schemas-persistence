@@ -34,7 +34,7 @@ import jakarta.persistence.MappedSuperclass;
         "java:S101", // Class names should comply with a naming convention
         "java:S119"  // Type parameter names should comply with a naming convention
 })
-abstract class _MappedHrEntity<ID> extends  __MappedEntity<ID> {
+public abstract class _MappedHrEntity<ID> extends __MappedEntity<ID> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -50,7 +50,7 @@ abstract class _MappedHrEntity<ID> extends  __MappedEntity<ID> {
      *
      * @param builder the builder to build from.
      */
-    _MappedHrEntity(final _MappedHrEntityBuilder<?, ?> builder) {
+    protected _MappedHrEntity(final _MappedHrEntityBuilder<?, ?> builder) {
         super();
     }
 }

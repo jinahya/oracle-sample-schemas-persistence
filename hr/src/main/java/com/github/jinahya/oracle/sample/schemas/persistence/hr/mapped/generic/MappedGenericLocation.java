@@ -37,7 +37,10 @@ import jakarta.validation.Valid;
 @SuppressWarnings({
         "java:S119" // Type parameter names should comply with a naming convention
 })
-public abstract class MappedGenericLocation<COUNTRY extends MappedGenericCountry<?, ?>> extends MappedLocation {
+public abstract class MappedGenericLocation<
+        COUNTRY extends MappedGenericCountry<?, ?>
+        >
+        extends MappedLocation {
 
     public static final String ATTRIBUTE_NAME_COUNTRY = "country";
 
@@ -97,6 +100,6 @@ public abstract class MappedGenericLocation<COUNTRY extends MappedGenericCountry
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_COUNTRY_ID, nullable = true, insertable = true, updatable = true)
+    @JoinColumn(name = COLUMN_NAME_COUNTRY_ID, nullable = true, insertable = false, updatable = false)
     private COUNTRY country;
 }

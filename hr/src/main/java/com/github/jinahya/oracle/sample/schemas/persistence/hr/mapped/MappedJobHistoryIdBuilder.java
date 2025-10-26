@@ -22,6 +22,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
 import java.time.LocalDate;
 
+@Deprecated(forRemoval = true)
 @SuppressWarnings({
         "unchecked",
         "java:S119" // Type parameter names should comply with a naming convention
