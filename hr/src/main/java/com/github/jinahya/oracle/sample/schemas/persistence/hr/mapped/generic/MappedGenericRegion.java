@@ -48,7 +48,7 @@ public abstract class MappedGenericRegion<COUNTRY extends MappedGenericCountry<?
         super();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------------- countries
     protected List<COUNTRY> getCountries() {
         return countries;
     }

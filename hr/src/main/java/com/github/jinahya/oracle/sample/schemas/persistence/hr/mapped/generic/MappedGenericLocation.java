@@ -63,6 +63,16 @@ public abstract class MappedGenericLocation<COUNTRY extends MappedGenericCountry
 
     // ------------------------------------------------------------------------------------------------- super.countryId
 
+    // --------------------------------------------------------------------------------------------------------- country
+    @Nullable
+    public COUNTRY getCountry() {
+        return country;
+    }
+
+    public void setCountry(@Nullable final COUNTRY country) {
+        this.country = country;
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Valid
