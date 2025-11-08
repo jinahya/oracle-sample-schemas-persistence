@@ -1,5 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedDepartment;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedLocation;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
@@ -7,9 +8,12 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
+import java.util.List;
 import java.util.Optional;
 
 @NamedQuery(
@@ -58,8 +62,6 @@ import java.util.Optional;
 @Entity
 @Table(name = MappedLocation.TABLE_NAME)
 public class Location extends MappedLocation {
-
-    public static final String ATTRIBUTE_NAME_COUNTRY = "country";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -125,4 +127,21 @@ public class Location extends MappedLocation {
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = MappedLocation.COLUMN_NAME_COUNTRY_ID, nullable = true, insertable = false, updatable = false)
     private Country country;
+
+    List<Department> getDepartments() {
+        return departments;
+    }
+
+    void setDepartments(List<Department> departments) {
+        this.departments = departments;
+    }
+
+    @OneToMany(
+            mappedBy = MappedDepartment.ATTRIBUTE_NAME_LOCATION,
+            fetch = FetchType.LAZY,
+            cascade = {
+            },
+            orphanRemoval = false
+    )
+    private List<@Valid @NotNull Department> departments;
 }

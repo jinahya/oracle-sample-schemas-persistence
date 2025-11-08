@@ -111,6 +111,8 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
 
     public static final String ATTRIBUTE_NAME_COUNTRY = "country";
 
+    public static final String ATTRIBUTE_NAME_DEPARTMENTS = "departments";
+
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
