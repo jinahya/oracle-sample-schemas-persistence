@@ -32,8 +32,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
         "java:S119" // Type parameter names should comply with a naming convention
 })
 public abstract class MappedDepartmentBuilder<
-        SELF extends _MappedHrEntityBuilder<SELF, TARGET>,
-        TARGET extends MappedLocation
+        SELF extends MappedDepartmentBuilder<SELF, TARGET>,
+        TARGET extends MappedDepartment
         >
         extends _MappedHrEntityBuilder<SELF, TARGET> {
 
@@ -96,10 +96,12 @@ public abstract class MappedDepartmentBuilder<
     }
 
     // ------------------------------------------------------------------------------------------------------ locationId
+    @Deprecated(forRemoval = true)
     public Integer locationId() {
         return locationId;
     }
 
+    @Deprecated(forRemoval = true)
     public SELF locationId(final Integer locationId) {
         this.locationId = locationId;
         return (SELF) this;
@@ -115,5 +117,6 @@ public abstract class MappedDepartmentBuilder<
     private Integer managerId;
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Deprecated(forRemoval = true)
     private Integer locationId;
 }

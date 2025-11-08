@@ -33,6 +33,7 @@
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Job</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Location</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Region</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Department</class>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
     <properties>
@@ -72,6 +73,7 @@
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Job</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Location</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Region</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Department</class>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
     <properties>

@@ -1,19 +1,15 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedLocation;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Test;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_Randomizer;
 import jakarta.annotation.Nonnull;
-import nl.jqno.equalsverifier.Warning;
-import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-class Location_Randomizer extends __MappedEntity_Randomizer<Location, Integer> {
+class Department_Randomizer extends _MappedHrEntity_Randomizer<Department, Integer> {
 
-    Location_Randomizer() {
-        super(Location.class, Integer.class, MappedLocation.ATTRIBUTE_NAME_DEPARTMENTS);
+    Department_Randomizer() {
+        super(Department.class, Integer.class);
     }
 
     @Nonnull
@@ -36,9 +32,8 @@ class Location_Randomizer extends __MappedEntity_Randomizer<Location, Integer> {
 
     @Nonnull
     @Override
-    public Location get() {
-        final var value = super.get();
-        value.setPostalCode(null);
-        return value;
+    public Department get() {
+        final var department = super.get();
+        return department;
     }
 }
