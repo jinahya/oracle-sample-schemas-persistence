@@ -50,7 +50,7 @@ class Customer_PersistenceIT extends _MappedCoEntity_PersistenceIT<Customer, Lon
                 applyEntityManager(em -> {
                     final var count = ___JakartaPersistence_TestUtils.count(em, entityClass);
                     if (count == 0) {
-                        log.info("table is empty: {}", tableName());
+                        log.info("table is empty: {}", getEntityColumnNames());
                         return null;
                     }
                     final var firstResult = ThreadLocalRandom.current().nextInt(Math.toIntExact(count));
@@ -78,7 +78,7 @@ class Customer_PersistenceIT extends _MappedCoEntity_PersistenceIT<Customer, Lon
                 applyEntityManager(em -> {
                     final var count = ___JakartaPersistence_TestUtils.count(em, entityClass);
                     if (count == 0) {
-                        log.info("table is empty: {}", tableName());
+                        log.info("table is empty: {}", getEntityColumnNames());
                         return null;
                     }
                     final var firstResult = ThreadLocalRandom.current().nextInt(Math.toIntExact(count));
@@ -112,7 +112,7 @@ class Customer_PersistenceIT extends _MappedCoEntity_PersistenceIT<Customer, Lon
                 applyEntityManager(em -> {
                     final var count = ___JakartaPersistence_TestUtils.count(em, entityClass);
                     if (count == 0) {
-                        log.info("table is empty: {}", tableName());
+                        log.info("table is empty: {}", getEntityColumnNames());
                         return null;
                     }
                     final var firstResult = ThreadLocalRandom.current().nextInt(Math.toIntExact(count));

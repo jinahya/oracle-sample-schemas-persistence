@@ -34,7 +34,7 @@ import jakarta.persistence.MappedSuperclass;
         "java:S101", // Class names should comply with a naming convention
         "java:S119"  // Type parameter names should comply with a naming convention
 })
-abstract class _MappedCoEntity<ID> extends  __MappedEntity<ID> {
+abstract class _MappedCoEntity<ID> extends __MappedEntity<ID> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 

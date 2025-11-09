@@ -20,7 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.__Builder;
+//import com.github.jinahya.persistence.mapped.__Builder;
+
+import com.github.jinahya.persistence.mapped.___Builder;
 
 @SuppressWarnings({
         "unchecked",
@@ -30,7 +32,7 @@ public abstract class MappedOrderItemIdBuilder<
         SELF extends MappedOrderItemIdBuilder<SELF, ORDER_ITEM_ID>,
         ORDER_ITEM_ID extends MappedOrderItemId
         >
-        extends __Builder<SELF, ORDER_ITEM_ID> {
+        extends ___Builder<SELF, ORDER_ITEM_ID> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 

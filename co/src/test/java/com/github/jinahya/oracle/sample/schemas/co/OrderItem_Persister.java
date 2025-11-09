@@ -20,9 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__Builder_TestUtils;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_Persister;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersisterUtils;
+import com.github.jinahya.persistence.mapped.test.___Builder_TestUtils;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
@@ -49,7 +49,7 @@ class OrderItem_Persister extends __MappedEntity_Persister<OrderItem, OrderItemI
             entityInstance.setProduct(product);
         }
         {
-            final var builder = __Builder_TestUtils.newBuilderInstanceFromRandomizedInstanceOf(
+            final var builder = ___Builder_TestUtils.newBuilderInstanceFromRandomizedInstanceOf(
                     ShipmentBuilder.class,
                     Shipment.class
             ).orElseThrow();

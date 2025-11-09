@@ -9,9 +9,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -56,7 +56,7 @@ public abstract class _MappedShEntity_PersistenceIT<ENTITY extends _MappedShEnti
                     c -> {
                         try (var statement = c.createStatement()) {
                             final var result = statement.execute(
-                                    "ALTER SESSION SET CURRENT_SCHEMA = " + tableSchema()
+                                    "ALTER SESSION SET CURRENT_SCHEMA = " + getEntityTableName()
                             );
                             assertThat(result).isFalse(); // not a ResultSet
                         } catch (final SQLException sqle) {
@@ -73,7 +73,7 @@ public abstract class _MappedShEntity_PersistenceIT<ENTITY extends _MappedShEnti
                 c -> {
                     try (var statement = c.createStatement()) {
                         final var result = statement.execute(
-                                "ALTER SESSION SET CURRENT_SCHEMA = " + tableSchema()
+                                "ALTER SESSION SET CURRENT_SCHEMA = " + getEntityTableName()
                         );
                         assertThat(result).isFalse(); // not a ResultSet
                     } catch (final SQLException sqle) {

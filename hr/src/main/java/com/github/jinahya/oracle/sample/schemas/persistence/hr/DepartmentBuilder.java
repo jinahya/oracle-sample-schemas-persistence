@@ -3,8 +3,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedDepartmentBuilder;
 import jakarta.annotation.Nullable;
 
-import java.util.Optional;
-
 public class DepartmentBuilder extends MappedDepartmentBuilder<DepartmentBuilder, Department> {
 
     protected DepartmentBuilder() {

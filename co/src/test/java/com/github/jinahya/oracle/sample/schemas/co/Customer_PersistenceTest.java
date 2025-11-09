@@ -59,7 +59,7 @@ class Customer_PersistenceTest extends __MappedEntity_PersistenceTest<Customer, 
                     });
                     final var count = ___JakartaPersistence_TestUtils.count(em, entityClass);
                     if (count == 0) {
-                        log.info("table is empty: {}", tableName());
+                        log.info("table is empty: {}", getEntityTableName());
                         return null;
                     }
                     final var firstResult = ThreadLocalRandom.current().nextInt(Math.toIntExact(count));
@@ -90,7 +90,7 @@ class Customer_PersistenceTest extends __MappedEntity_PersistenceTest<Customer, 
                     });
                     final var count = ___JakartaPersistence_TestUtils.count(em, entityClass);
                     if (count == 0) {
-                        log.info("table is empty: {}", tableName());
+                        log.info("table is empty: {}", getEntityTableName());
                         return null;
                     }
                     final var firstResult = ThreadLocalRandom.current().nextInt(Math.toIntExact(count));
@@ -127,7 +127,7 @@ class Customer_PersistenceTest extends __MappedEntity_PersistenceTest<Customer, 
                     });
                     final var count = ___JakartaPersistence_TestUtils.count(em, entityClass);
                     if (count == 0) {
-                        log.info("table is empty: {}", tableName());
+                        log.info("table is empty: {}", getEntityTableName());
                         return null;
                     }
                     final var firstResult = ThreadLocalRandom.current().nextInt(Math.toIntExact(count));

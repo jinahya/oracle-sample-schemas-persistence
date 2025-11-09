@@ -36,7 +36,7 @@ class Location_PersistenceIT extends __MappedEntity_PersistenceIT<Location, Inte
                     c -> {
                         try (var statement = c.createStatement()) {
                             final var result = statement.execute(
-                                    "ALTER SESSION SET CURRENT_SCHEMA = " + tableSchema()
+                                    "ALTER SESSION SET CURRENT_SCHEMA = " + getEntityTableName()
                             );
                             assertThat(result).isFalse(); // not a ResultSet
                         } catch (final SQLException sqle) {
@@ -53,7 +53,7 @@ class Location_PersistenceIT extends __MappedEntity_PersistenceIT<Location, Inte
                 c -> {
                     try (var statement = c.createStatement()) {
                         final var result = statement.execute(
-                                "ALTER SESSION SET CURRENT_SCHEMA = " + tableSchema()
+                                "ALTER SESSION SET CURRENT_SCHEMA = " + getEntityTableName()
                         );
                         assertThat(result).isFalse(); // not a ResultSet
                     } catch (final SQLException sqle) {

@@ -30,10 +30,7 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
-
-import java.util.Objects;
 
 /**
  * An abstract mapped-superclass for mapping the {@value MappedDepartment#TABLE_NAME} table.

@@ -20,9 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__Builder_Test;
+import com.github.jinahya.persistence.mapped.test.___Builder_Test;
 
-class OrderItemIdBuilder_Test extends __Builder_Test<OrderItemIdBuilder, OrderItemId> {
+class OrderItemIdBuilder_Test extends ___Builder_Test<OrderItemIdBuilder, OrderItemId> {
 
     OrderItemIdBuilder_Test() {
         super(OrderItemIdBuilder.class, OrderItemId.class);
