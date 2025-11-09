@@ -56,7 +56,7 @@ public abstract class _MappedShEntity_PersistenceIT<ENTITY extends _MappedShEnti
                     c -> {
                         try (var statement = c.createStatement()) {
                             final var result = statement.execute(
-                                    "ALTER SESSION SET CURRENT_SCHEMA = " + getEntityTableName()
+                                    "ALTER SESSION SET CURRENT_SCHEMA = " + getJinahyaTableSchema()
                             );
                             assertThat(result).isFalse(); // not a ResultSet
                         } catch (final SQLException sqle) {
@@ -73,7 +73,7 @@ public abstract class _MappedShEntity_PersistenceIT<ENTITY extends _MappedShEnti
                 c -> {
                     try (var statement = c.createStatement()) {
                         final var result = statement.execute(
-                                "ALTER SESSION SET CURRENT_SCHEMA = " + getEntityTableName()
+                                "ALTER SESSION SET CURRENT_SCHEMA = " + getJinahyaTableSchema()
                         );
                         assertThat(result).isFalse(); // not a ResultSet
                     } catch (final SQLException sqle) {

@@ -74,7 +74,7 @@ abstract class _MappedCoEntity_PersistenceIT<ENTITY extends _MappedCoEntity<ID>,
                     c -> {
                         try (var statement = c.createStatement()) {
                             final boolean result = statement.execute(
-                                    "ALTER SESSION SET CURRENT_SCHEMA = " + getEntityTableName()
+                                    "ALTER SESSION SET CURRENT_SCHEMA = " + getJinahyaTableSchema()
                             );
                             assertThat(result).isFalse(); // not a ResultSet
                         } catch (final SQLException sqle) {
