@@ -592,7 +592,8 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     @Nullable
     @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
     @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY, inclusive = true)
-    @Basic(optional = true)
+    // TODO: @Positive?
+    @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_SALARY, nullable = true, insertable = true, updatable = true,
             precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY)
     private BigDecimal salary;
