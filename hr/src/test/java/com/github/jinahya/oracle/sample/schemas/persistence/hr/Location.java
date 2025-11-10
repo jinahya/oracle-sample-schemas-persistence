@@ -86,6 +86,13 @@ public class Location extends MappedLocation {
      */
     private Location(final LocationBuilder builder) {
         super(builder);
+        if (getCountryId() == null) { // TODO: remove when builder#countryId gone
+            if (builder.countryId() != null) {
+                setCountryId(builder.countryId());
+            } else {
+                setCountry(builder.country());
+            }
+        }
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -121,20 +128,21 @@ public class Location extends MappedLocation {
         );
     }
 
+    // ----------------------------------------------------------------------------------------------------- departments
+    private List<Department> getDepartments() {
+        return departments;
+    }
+
+    private void setDepartments(final List<Department> departments) {
+        this.departments = departments;
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = MappedLocation.COLUMN_NAME_COUNTRY_ID, nullable = true, insertable = false, updatable = false)
     private Country country;
-
-    List<Department> getDepartments() {
-        return departments;
-    }
-
-    void setDepartments(List<Department> departments) {
-        this.departments = departments;
-    }
 
     @OneToMany(
             mappedBy = MappedDepartment.ATTRIBUTE_NAME_LOCATION,

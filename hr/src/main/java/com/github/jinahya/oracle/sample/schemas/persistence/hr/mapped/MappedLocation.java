@@ -227,7 +227,7 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
         return countryId;
     }
 
-    public void setCountryId(@Nullable final String countryId) {
+    protected void setCountryId(@Nullable final String countryId) {
         this.countryId = countryId;
     }
 

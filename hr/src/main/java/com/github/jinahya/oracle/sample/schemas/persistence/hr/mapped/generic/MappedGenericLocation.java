@@ -75,6 +75,12 @@ public abstract class MappedGenericLocation<
     // --------------------------------------------------------------------------------------------- super.stateProvince
 
     // ------------------------------------------------------------------------------------------------- super.countryId
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}}
+     */
     @Nullable
     @Override
     public String getCountryId() {

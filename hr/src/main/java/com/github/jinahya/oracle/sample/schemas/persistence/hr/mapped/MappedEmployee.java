@@ -210,6 +210,9 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     public static final String ATTRIBUTE_NAME_DEPARTMENT = "department";
 
+    // -----------------------------------------------------------------------------------------------------------------
+    public static final String ATTRIBUTE_NAME_EMPLOYEES = "employees";
+
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
