@@ -20,14 +20,16 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.generic;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedEmployee;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedRegion;
-import jakarta.persistence.FetchType;
+import jakarta.annotation.Nullable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.OneToMany;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
-import java.util.List;
+import static jakarta.persistence.FetchType.LAZY;
 
 /**
  * An abstract mapped-superclass for mapping the {@value MappedGenericEmployee#TABLE_NAME} table.
@@ -40,10 +42,10 @@ import java.util.List;
 })
 public abstract class MappedGenericEmployee<
         JOB extends MappedGenericJob,
-        MANAGER extends MappedGenericEmployee<JOB, MANAGER, DEPARTMENT>,
-        DEPARTMENT extends MappedGenericDepartment<MANAGER, ?>
+        EMPLOYEE extends MappedGenericEmployee<JOB, EMPLOYEE, DEPARTMENT>,
+        DEPARTMENT extends MappedGenericDepartment<EMPLOYEE, ?>
         >
-        extends MappedRegion {
+        extends MappedEmployee {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -56,17 +58,22 @@ public abstract class MappedGenericEmployee<
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------------- countries
-    protected List<JOB> getCountries() {
-        return countries;
-    }
-
-    protected void setCountries(final List<JOB> countries) {
-        this.countries = countries;
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
-    @OneToMany(mappedBy = MappedGenericCountry.ATTRIBUTE_NAME_REGION, fetch = FetchType.LAZY, cascade = {},
-               orphanRemoval = false)
-    private List<@Valid @NotNull JOB> countries;
+    @Valid
+    @NotNull
+    @ManyToOne(optional = false, fetch = LAZY)
+    @JoinColumn(name = MappedEmployee.COLUMN_NAME_JOB_ID, nullable = false, insertable = false, updatable = false)
+    private JOB job;
+
+    @Nullable
+    @Valid
+    @ManyToOne(optional = true, fetch = LAZY)
+    @JoinColumn(name = MappedEmployee.COLUMN_NAME_MANAGER_ID, nullable = true, insertable = false, updatable = false)
+    private EMPLOYEE manager;
+
+    @Nullable
+    @Valid
+    @ManyToOne(optional = true, fetch = LAZY)
+    @JoinColumn(name = MappedEmployee.COLUMN_NAME_DEPARTMENT_ID, nullable = true, insertable = false, updatable = false)
+    private DEPARTMENT department;
 }

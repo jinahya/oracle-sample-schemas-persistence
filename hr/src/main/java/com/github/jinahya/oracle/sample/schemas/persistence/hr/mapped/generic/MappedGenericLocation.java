@@ -20,13 +20,19 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.generic;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountry;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedLocation;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * An abstract mapped superclass for mapping {@value MappedGenericLocation#TABLE_NAME} table.
@@ -38,7 +44,8 @@ import jakarta.validation.Valid;
         "java:S119" // Type parameter names should comply with a naming convention
 })
 public abstract class MappedGenericLocation<
-        COUNTRY extends MappedGenericCountry<?, ?>
+        COUNTRY extends MappedGenericCountry<?, ?>,
+        DEPARTMENT extends MappedGenericDepartment<?, ?>
         >
         extends MappedLocation {
 
@@ -94,6 +101,11 @@ public abstract class MappedGenericLocation<
 
     public void setCountry(@Nullable final COUNTRY country) {
         this.country = country;
+        setCountryId(
+                Optional.ofNullable(this.country)
+                        .map(MappedCountry::getCountryId)
+                        .orElse(null)
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -102,4 +114,12 @@ public abstract class MappedGenericLocation<
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_COUNTRY_ID, nullable = true, insertable = false, updatable = false)
     private COUNTRY country;
+
+    @OneToMany(mappedBy = MappedGenericDepartment.ATTRIBUTE_NAME_LOCATION,
+               fetch = FetchType.LAZY,
+               cascade = {
+               },
+               orphanRemoval = false
+    )
+    private List<@Valid @NotNull DEPARTMENT> departments;
 }

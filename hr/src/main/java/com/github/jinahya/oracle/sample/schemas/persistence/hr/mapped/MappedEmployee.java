@@ -208,6 +208,8 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     // TODO: assign COLUMN_MAX_DEPARTMENT_ID
     public static final long ATTRIBUTE_MAX_DEPARTMENT_ID = 0x00_00_00_00_00_00_270_FL; // +9999L
 
+    public static final String ATTRIBUTE_NAME_DEPARTMENT = "department";
+
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**

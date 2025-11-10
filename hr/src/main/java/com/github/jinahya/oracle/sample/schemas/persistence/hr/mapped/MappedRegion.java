@@ -92,6 +92,9 @@ public abstract class MappedRegion extends _MappedHrEntity<Long> {
      */
     public static final int ATTRIBUTE_SIZE_MAX_REGION_NAME = COLUMN_LENGTH_REGION_NAME;
 
+    // -----------------------------------------------------------------------------------------------------------------
+    public static final String ATTRIBUTE_NAME_COUNTRIES = "countries";
+
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS

@@ -44,14 +44,9 @@ import java.util.Optional;
 })
 public abstract class MappedGenericCountry<
         REGION extends MappedGenericRegion<?>,
-        LOCATION extends MappedGenericLocation<?>
+        LOCATION extends MappedGenericLocation<?, ?>
         >
         extends MappedCountry {
-
-    // -----------------------------------------------------------------------------------------------------------------
-    public static final String ATTRIBUTE_NAME_REGION = "region";
-
-    public static final String ATTRIBUTE_NAME_LOCATIONS = "locations";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 

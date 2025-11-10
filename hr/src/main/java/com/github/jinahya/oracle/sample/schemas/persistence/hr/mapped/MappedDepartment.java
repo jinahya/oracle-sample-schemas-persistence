@@ -138,6 +138,11 @@ public abstract class MappedDepartment extends _MappedHrEntity<Integer> {
 
     public static final String ATTRIBUTE_NAME_LOCATION = "location";
 
+    // -----------------------------------------------------------------------------------------------------------------
+    public static final String ATTRIBUTE_NAME_EMPLOYEES = "employees";
+
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
+
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
