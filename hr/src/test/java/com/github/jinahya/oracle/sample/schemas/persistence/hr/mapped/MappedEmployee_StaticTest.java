@@ -20,19 +20,97 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MappedEmployee_StaticTest {
 
-    @Test
-    void __COLUMN_MIN_EMPLOYEE_ID() {
-        assertThat(MappedEmployee.COLUMN_MIN_EMPLOYEE_ID).isEqualTo(-999999);
+    @DisplayName("..._EMPLOYEE_ID")
+    @Nested
+    class _EMPLOYEE_ID_TEST {
+
+        @Test
+        void __COLUMN_MIN_EMPLOYEE_ID() {
+            assertThat(MappedEmployee.COLUMN_MIN_EMPLOYEE_ID).isEqualTo(-999999);
+        }
+
+        @Test
+        void __COLUMN_MAX_EMPLOYEE_ID() {
+            assertThat(MappedEmployee.COLUMN_MAX_EMPLOYEE_ID).isEqualTo(+999999);
+        }
+
+        @Test
+        void __ATTRIBUTE_MIN_EMPLOYEE_ID() {
+            assertThat(MappedEmployee.ATTRIBUTE_MIN_EMPLOYEE_ID).isEqualTo(-999999L);
+        }
+
+        @Test
+        void __ATTRIBUTE_MAX_EMPLOYEE_ID() {
+            assertThat(MappedEmployee.ATTRIBUTE_MAX_EMPLOYEE_ID).isEqualTo(+999999L);
+        }
     }
 
-    @Test
-    void __COLUMN_MAX_EMPLOYEE_ID() {
-        assertThat(MappedEmployee.COLUMN_MAX_EMPLOYEE_ID).isEqualTo(+999999);
+    @DisplayName("..._SALARY")
+    @Nested
+    class _SALARY_TEST {
+
+        @Test
+        void __ATTRIBUTE_DECIMAL_MIN_SALARY() {
+            assertThat(new BigDecimal(MappedEmployee.ATTRIBUTE_DECIMAL_MIN_SALARY).doubleValue())
+                    .isEqualTo(MappedEmployee.COLUMN_MIN_SALARY);
+        }
+
+        @Test
+        void __ATTRIBUTE_DECIMAL_MAX_SALARY() {
+            assertThat(new BigDecimal(MappedEmployee.ATTRIBUTE_DECIMAL_MAX_SALARY).doubleValue())
+                    .isEqualTo(MappedEmployee.COLUMN_MAX_SALARY);
+        }
+    }
+
+    @DisplayName("..._COMMISSION_PCT")
+    @Nested
+    class _COMMISSION_PCT_TEST {
+
+        @Test
+        void __ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT() {
+            assertThat(new BigDecimal(MappedEmployee.ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT).doubleValue())
+                    .isEqualTo(MappedEmployee.COLUMN_MIN_COMMISSION_PCT);
+        }
+
+        @Test
+        void __ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT() {
+            assertThat(new BigDecimal(MappedEmployee.ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT).doubleValue())
+                    .isEqualTo(MappedEmployee.COLUMN_MAX_COMMISSION_PCT);
+        }
+    }
+
+    @DisplayName("..._DEPARTMENT_ID")
+    @Nested
+    class _DEPARTMENT_ID_TEST {
+
+        @Test
+        void __COLUMN_MIN_DEPARTMENT_ID() {
+            assertThat(MappedEmployee.COLUMN_MIN_DEPARTMENT_ID).isEqualTo(-9999);
+        }
+
+        @Test
+        void __COLUMN_MAX_DEPARTMENT_ID() {
+            assertThat(MappedEmployee.COLUMN_MAX_DEPARTMENT_ID).isEqualTo(+9999);
+        }
+
+        @Test
+        void __ATTRIBUTE_MIN_DEPARTMENT_ID() {
+            assertThat(MappedEmployee.ATTRIBUTE_MIN_DEPARTMENT_ID).isEqualTo(-9999L);
+        }
+
+        @Test
+        void __ATTRIBUTE_MAX_DEPARTMENT_ID() {
+            assertThat(MappedEmployee.ATTRIBUTE_MAX_DEPARTMENT_ID).isEqualTo(+9999L);
+        }
     }
 }
