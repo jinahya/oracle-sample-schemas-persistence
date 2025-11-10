@@ -61,7 +61,7 @@ FROM EMPLOYEES
 SELECT *
 FROM EMPLOYEES
 ORDER BY HIRE_DATE ASC
-FETCH FIRST 10 ROWS ONLY
+    FETCH FIRST 10 ROWS ONLY
 ;
 
 -- -------------------------------------------------------------------------------------------------------------- JOB_ID
@@ -134,14 +134,14 @@ FROM EMPLOYEES
 ;
 
 -- 가장 많은 사람을을 manage 하는
-SELECT m.superordinate_count, e.*
+SELECT m.SUBORDINATE_COUNT, e.*
 FROM EMPLOYEES e
-         JOIN (SELECT MANAGER_ID, COUNT(MANAGER_ID) as superordinate_count
+         JOIN (SELECT MANAGER_ID, COUNT(MANAGER_ID) as SUBORDINATE_COUNT
                FROM EMPLOYEES
                GROUP BY MANAGER_ID
-               ORDER BY superordinate_count DESC) m
+               ORDER BY SUBORDINATE_COUNT DESC) m
               ON e.EMPLOYEE_ID = m.MANAGER_ID
-ORDER BY m.superordinate_count DESC
+ORDER BY m.SUBORDINATE_COUNT DESC
 ;
 
 -- ------------------------------------------------------------------------------------------------------- DEPARTMENT_ID
@@ -150,12 +150,12 @@ FROM EMPLOYEES
 ;
 
 -- 가장 많은 employee 가 소속된
-SELECT e.member_count, d.*
+SELECT e.MEMBER_COUNT, d.*
 FROM DEPARTMENTS d
-         JOIN (SELECT DEPARTMENT_ID, COUNT(DEPARTMENT_ID) as member_count
+         JOIN (SELECT DEPARTMENT_ID, COUNT(DEPARTMENT_ID) as MEMBER_COUNT
                FROM EMPLOYEES
                GROUP BY DEPARTMENT_ID
-               ORDER BY member_count DESC) e
+               ORDER BY MEMBER_COUNT DESC) e
               ON e.DEPARTMENT_ID = d.DEPARTMENT_ID
-ORDER BY e.member_count DESC
+ORDER BY e.MEMBER_COUNT DESC
 ;

@@ -37,9 +37,7 @@ import jakarta.validation.constraints.Size;
 
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -144,13 +142,13 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     public static final int COLUMN_SCALE_SALARY = 2;
 
-    public static final double COLUMN_MIN_SALARY = -999999.99d;
+    public static final double COLUMN_MIN_SALARY = -999999.99d; // TODO: check the checks/EMP_SALARY_MIN
 
     public static final double COLUMN_MAX_SALARY = +999999.99d;
 
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
 
-    public static final String ATTRIBUTE_DECIMAL_MIN_SALARY = "-999999.99";
+    public static final String ATTRIBUTE_DECIMAL_MIN_SALARY = "-999999.99"; // TODO: check the checks/EMP_SALARY_MIN
 
     public static final String ATTRIBUTE_DECIMAL_MAX_SALARY = "+999999.99";
 
@@ -250,18 +248,18 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
                '}';
     }
 
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedEmployee that)) {
-            return false;
-        }
-        return Objects.equals(getEmployeeId(), that.getEmployeeId());
-    }
-
-    @Override
-    public final int hashCode() {
-        return Objects.hashCode(getEmployeeId());
-    }
+//    @Override
+//    public final boolean equals(final Object obj) {
+//        if (!(obj instanceof MappedEmployee that)) {
+//            return false;
+//        }
+//        return Objects.equals(getEmployeeId(), that.getEmployeeId());
+//    }
+//
+//    @Override
+//    public final int hashCode() {
+//        return Objects.hashCode(getEmployeeId());
+//    }
 
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
@@ -276,7 +274,9 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
      *
      * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is positive.
      * {@code false} otherwise.
+     * @deprecated just don't use.
      */
+    @Deprecated(forRemoval = true)
     protected boolean isSalaryPositive() {
         return salary == null || salary.signum() == 1;
     }
@@ -379,6 +379,12 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
         return salary.compareTo(jobMaxSalary) <= 0;
     }
 
+    /**
+     * Tests whether current value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is non-negative.
+     *
+     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is
+     * non-negative; {@code false} otherwise.
+     */
     protected boolean isCommissionPctNonNegative() {
         if (commissionPct == null) {
             return true;
@@ -497,22 +503,22 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
         this.commissionPct = commissionPct;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute with specified value rounded with
-     * specified rounding mode.
-     *
-     * @param commissionPct the new value for the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute.
-     * @param roundingMode  the rounding mode to be applied; should be not {@code null} when the {@code commissionPct}
-     *                      argument is not {@code null}.
-     */
-    public void setCommissionPct(final BigDecimal commissionPct, final RoundingMode roundingMode) {
-        setCommissionPct(
-                Optional.ofNullable(commissionPct)
-                        .map(v -> v.setScale(COLUMN_SCALE_COMMISSION_PCT,
-                                             Objects.requireNonNull(roundingMode, "roundingMode is null")))
-                        .orElse(null)
-        );
-    }
+//    /**
+//     * Replaces current value of {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute with specified value rounded with
+//     * specified rounding mode.
+//     *
+//     * @param commissionPct the new value for the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute.
+//     * @param roundingMode  the rounding mode to be applied; should be not {@code null} when the {@code commissionPct}
+//     *                      argument is not {@code null}.
+//     */
+//    public void setCommissionPct(final BigDecimal commissionPct, final java.math.RoundingMode roundingMode) {
+//        setCommissionPct(
+//                Optional.ofNullable(commissionPct)
+//                        .map(v -> v.setScale(COLUMN_SCALE_COMMISSION_PCT,
+//                                             Objects.requireNonNull(roundingMode, "roundingMode is null")))
+//                        .orElse(null)
+//        );
+//    }
 
     // ------------------------------------------------------------------------------------------------------- managerId
     @Nullable
