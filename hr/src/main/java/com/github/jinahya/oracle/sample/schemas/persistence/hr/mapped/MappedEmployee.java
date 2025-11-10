@@ -37,6 +37,7 @@ import jakarta.validation.constraints.Size;
 
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
@@ -494,9 +495,23 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     public void setCommissionPct(@Nullable final BigDecimal commissionPct) {
         this.commissionPct = commissionPct;
-//        if (this.commissionPct != null) {
-//            this.commissionPct = this.commissionPct.setScale(COLUMN_SCALE_COMMISSION_PCT, RoundingMode.HALF_UP);
-//        }
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute with specified value rounded with
+     * specified rounding mode.
+     *
+     * @param commissionPct the new value for the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute.
+     * @param roundingMode  the rounding mode to be applied; should be not {@code null} when the {@code commissionPct}
+     *                      argument is not {@code null}.
+     */
+    public void setCommissionPct(final BigDecimal commissionPct, final RoundingMode roundingMode) {
+        setCommissionPct(
+                Optional.ofNullable(commissionPct)
+                        .map(v -> v.setScale(COLUMN_SCALE_COMMISSION_PCT,
+                                             Objects.requireNonNull(roundingMode, "roundingMode is null")))
+                        .orElse(null)
+        );
     }
 
     // ------------------------------------------------------------------------------------------------------- managerId
