@@ -29,6 +29,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -265,13 +266,13 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     }
 
     /**
-     * Tests whether current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is non-negative.
+     * Tests whether current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is positive.
      *
-     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is non-negative;
+     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is positive.
      * {@code false} otherwise.
      */
-    protected boolean isSalaryNonNegative() {
-        return salary == null || salary.signum() != -1;
+    protected boolean isSalaryPositive() {
+        return salary == null || salary.signum() == 1;
     }
 
     /**
@@ -281,6 +282,9 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
      * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is greater than or
      * equal to the result of a method of {@code getJobMinSalary()Number}; {@code false} otherwise.
      */
+    @SuppressWarnings({
+            "java:S3011" // Reflection should not be used to increase accessibility of classes, methods, or fields
+    })
     protected boolean isSalaryGreaterThanOrEqualToJobMinSalary() {
         if (salary == null) {
             return true;
@@ -327,6 +331,9 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
      * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is greater than or
      * equal to the result of a method of {@code getJobMaxSalary()Number}; {@code false} otherwise.
      */
+    @SuppressWarnings({
+            "java:S3011" // Reflection should not be used to increase accessibility of classes, methods, or fields
+    })
     protected boolean isSalaryLessThanOrEqualToJobMaxSalary() {
         if (salary == null) {
             return true;
@@ -549,7 +556,8 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     private String lastName;
 
     @Nonnull
-    @Size(max = ATTRIBUTE_SIZE_MAX_EMAIL)
+    @Email
+    @Size(min = ATTRIBUTE_SIZE_MIN_EMAIL, max = ATTRIBUTE_SIZE_MAX_EMAIL)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_EMAIL,
@@ -590,9 +598,9 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
+//    @Positive // @@?
     @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
     @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY, inclusive = true)
-    // TODO: @Positive?
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_SALARY, nullable = true, insertable = true, updatable = true,
             precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY)
