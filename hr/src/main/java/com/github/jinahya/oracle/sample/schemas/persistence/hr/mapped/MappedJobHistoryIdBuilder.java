@@ -22,7 +22,12 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
 import java.time.LocalDate;
 
-@Deprecated(forRemoval = true)
+/**
+ * An abstract class for building instances of a specific subclas of {@link MappedJobHistoryId} class.
+ *
+ * @param <SELF>   self type parameter
+ * @param <TARGET> target type parameter
+ */
 @SuppressWarnings({
         "unchecked",
         "java:S119" // Type parameter names should comply with a naming convention
@@ -36,6 +41,12 @@ public abstract class MappedJobHistoryIdBuilder<
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    /**
+     * Creates a new instance for building instances of the specified target class.
+     *
+     * @param targetClass the target class to build.
+     */
     protected MappedJobHistoryIdBuilder(final Class<TARGET> targetClass) {
         super(targetClass);
     }

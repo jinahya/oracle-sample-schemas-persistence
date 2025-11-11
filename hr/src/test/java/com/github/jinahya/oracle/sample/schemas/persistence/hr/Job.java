@@ -21,71 +21,83 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobBuilder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.AssertTrue;
 
-@NamedQuery(
-        name = "Job.select_WhereMaxSalaryIsNotNull_OrderByMaxSalaryDesc",
-        query = """
-                SELECT e
-                FROM Job AS e
-                WHERE e.maxSalary IS NOT NULL
-                ORDER BY e.maxSalary DESC"""
+import java.util.Objects;
+
+//@NamedQuery(
+//        name = "Job.select_WhereMaxSalaryIsNotNull_OrderByMaxSalaryDesc",
+//        query = """
+//                SELECT e
+//                FROM Job AS e
+//                WHERE e.maxSalary IS NOT NULL
+//                ORDER BY e.maxSalary DESC"""
+//)
+//@NamedQuery(
+//        name = "Job.select_WhereMinSalaryIsNotNull_OrderByMinSalaryAsc",
+//        query = """
+//                SELECT e
+//                FROM Job AS e
+//                WHERE e.minSalary IS NOT NULL
+//                ORDER BY e.minSalary ASC"""
+//)
+//@NamedQuery(
+//        name = "Job.select_OrderByMaxSalaryDesc",
+//        query = """
+//                SELECT e
+//                FROM Job AS e
+//                ORDER BY e.maxSalary DESC"""
+//)
+//@NamedQuery(
+//        name = "Job.select_OrderByMinSalaryAsc",
+//        query = """
+//                SELECT e
+//                FROM Job AS e
+//                ORDER BY e.minSalary ASC"""
+//)
+//@NamedQuery(
+//        name = "Job.select_WhereMaxSalaryIsNull_OrderByJobTitleAsc",
+//        query = """
+//                SELECT e
+//                FROM Job AS e
+//                WHERE e.maxSalary IS NULL
+//                ORDER BY e.jobTitle ASC"""
+//)
+//@NamedQuery(
+//        name = "Job.select_WhereMinSalaryIsNull_OrderByJobTitleAsc",
+//        query = """
+//                SELECT e
+//                FROM Job AS e
+//                WHERE e.minSalary IS NULL
+//                ORDER BY e.jobTitle ASC"""
+//)
+//@NamedQuery( // no indices
+//             name = "Job.select_OrderByJobTitleAsc",
+//             query = """
+//                     SELECT e
+//                     FROM Job AS e
+//                     ORDER BY e.jobTitle ASC"""
+//)
+@NamedQuery(name = "Job.Select__OrderByMaxSalaryDescNullsLast",
+            query = """
+                    SELECT e
+                    FROM Job e 
+                    ORDER BY e.maxSalary DESC NULLS LAST"""
 )
-@NamedQuery(
-        name = "Job.select_WhereMinSalaryIsNotNull_OrderByMinSalaryAsc",
-        query = """
-                SELECT e
-                FROM Job AS e
-                WHERE e.minSalary IS NOT NULL
-                ORDER BY e.minSalary ASC"""
-)
-@NamedQuery(
-        name = "Job.select_OrderByMaxSalaryDesc",
-        query = """
-                SELECT e
-                FROM Job AS e
-                ORDER BY e.maxSalary DESC"""
-)
-@NamedQuery(
-        name = "Job.select_OrderByMinSalaryAsc",
-        query = """
-                SELECT e
-                FROM Job AS e
-                ORDER BY e.minSalary ASC"""
-)
-@NamedQuery(
-        name = "Job.select_WhereMaxSalaryIsNull_OrderByJobTitleAsc",
-        query = """
-                SELECT e
-                FROM Job AS e
-                WHERE e.maxSalary IS NULL
-                ORDER BY e.jobTitle ASC"""
-)
-@NamedQuery(
-        name = "Job.select_WhereMinSalaryIsNull_OrderByJobTitleAsc",
-        query = """
-                SELECT e
-                FROM Job AS e
-                WHERE e.minSalary IS NULL
-                ORDER BY e.jobTitle ASC"""
-)
-@NamedQuery( // no indices
-             name = "Job.select_OrderByJobTitleAsc",
-             query = """
-                     SELECT e
-                     FROM Job AS e
-                     ORDER BY e.jobTitle ASC"""
+@NamedQuery(name = "Job.Select__OrderByMinSalaryAscNullsFirst",
+            query = """
+                    SELECT e
+                    FROM Job e
+                    ORDER BY e.minSalary ASC NULLS FIRST"""
 )
 @Entity
 @Table(name = MappedJob.TABLE_NAME)
 public class Job extends MappedJob {
 
-    // -----------------------------------------------------------------------------------------------------------------
-    public static MappedJobBuilder<?, Job> builder() {
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
+    public static JobBuilder builder() {
         return new JobBuilder();
     }
 
@@ -100,30 +112,32 @@ public class Job extends MappedJob {
         super();
     }
 
+    /**
+     * Creates a new instance built from the specified builder.
+     *
+     * @param builder the builder to build from.
+     */
     private Job(final JobBuilder builder) {
         super(builder);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
-
-    // ------------------------------------------------------------------------------------------------- Bean-Validation
-    @AssertTrue
     @Override
-    protected boolean isMinSalaryPositive() {
-        return super.isMinSalaryPositive();
+    public final boolean equals(final Object obj) {
+        if (!(obj instanceof MappedJob that)) {
+            return false;
+        }
+        return Objects.equals(getJobId(), that.getJobId());
     }
 
-    @AssertTrue
     @Override
-    protected boolean isMaxSalaryPositive() {
-        return super.isMaxSalaryPositive();
+    public final int hashCode() {
+        return Objects.hashCode(getJobId());
     }
 
-    @AssertTrue
-    @Override
-    protected boolean isMinSalaryIsLessThanOrEqualToMaxSalary() {
-        return super.isMinSalaryIsLessThanOrEqualToMaxSalary();
-    }
+    // --------------------------------------------------------------------------------------------- Jakarta-Persistence
+
+    // ---------------------------------------------------------------------------------------------- Jakarta-Validation
 
     // ----------------------------------------------------------------------------------------------------- super.jobId
 

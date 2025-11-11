@@ -21,6 +21,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  */
 
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_Persister;
+import jakarta.annotation.Nonnull;
+import jakarta.persistence.EntityManager;
 
 @SuppressWarnings({
         "java:S119" // Type parameter names should comply with a naming convention
@@ -34,5 +36,11 @@ public abstract class _MappedHrEntity_Persister<
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     protected _MappedHrEntity_Persister(final Class<ENTITY> entityClass, final Class<ID> idClass) {
         super(entityClass, idClass);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Override
+    public void persist(@Nonnull EntityManager entityManager, @Nonnull ENTITY entityInstance) {
+        super.persist(entityManager, entityInstance);
     }
 }

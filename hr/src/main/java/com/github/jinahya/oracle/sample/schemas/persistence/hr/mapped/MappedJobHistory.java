@@ -28,14 +28,16 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * An abstract mapped-superclass for mapping the {@value MappedJobHistory#TABLE_NAME} table.
@@ -49,25 +51,59 @@ import java.util.Objects;
 })
 public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _MappedHrEntity<ID> {
 
+    /**
+     * The name of the database table to which this entity class maps. The value is {@value}.
+     */
     public static final String TABLE_NAME = "JOB_HISTORY";
 
-    // ----------------------------------------------------------------------------- EMPLOYEE_ID / employeeId / employee
+    // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
+
+    /**
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute maps. The value is
+     * {@value}.
+     */
     public static final String COLUMN_NAME_EMPLOYEE_ID = "EMPLOYEE_ID";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
+     */
     public static final int COLUMN_PRECISION_EMPLOYEE_ID = 6;
 
+    /**
+     * The scale of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
+     */
     public static final int COLUMN_SCALE_EMPLOYEE_ID = 0;
 
+    /**
+     * The minimum value of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
+     */
     public static final int COLUMN_MIN_EMPLOYEE_ID = -999999;
 
+    /**
+     * The maximum value of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
+     */
     public static final int COLUMN_MAX_EMPLOYEE_ID = +999999;
 
+    /**
+     * The name of the entity attribute from which the {@value #COLUMN_NAME_EMPLOYEE_ID} column maps. The value is
+     * {@value}.
+     */
     public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
 
-    public static final int ATTRIBUTE_MIN_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
 
-    public static final int ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
 
+    /**
+     * The name of the entity attribute, of a subclass of {@link MappedEmployee}, from which the
+     * {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute maps. The value {@value}
+     */
     public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
 
     // ------------------------------------------------------------------------------------------ START_DATE / startDate
@@ -83,7 +119,11 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
     // -------------------------------------------------------------------------------------------- JOB_ID / jobId / job
     public static final String COLUMN_NAME_JOB_ID = "JOB_ID";
 
-    public static final int COLUMN_LENGTH_JOB_ID = 20;
+    public static final int COLUMN_LENGTH_JOB_ID = 10;
+
+    static {
+        assert COLUMN_LENGTH_JOB_ID == MappedJob.COLUMN_LENGTH_JOB_ID;
+    }
 
     public static final String ATTRIBUTE_NAME_JOB_ID = "jobId";
 
@@ -106,9 +146,13 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
 
     public static final String ATTRIBUTE_NAME_DEPARTMENT_ID = "departmentId";
 
-    public static final int ATTRIBUTE_MIN_DEPARTMENT_ID = COLUMN_MIN_DEPARTMENT_ID;
+    public static final long ATTRIBUTE_MIN_DEPARTMENT_ID = COLUMN_MIN_DEPARTMENT_ID;
 
-    public static final int ATTRIBUTE_MAX_DEPARTMENT_ID = COLUMN_MAX_DEPARTMENT_ID;
+    public static final long ATTRIBUTE_MAX_DEPARTMENT_ID = COLUMN_MAX_DEPARTMENT_ID;
+
+    public static final String ATTRIBUTE_NAME_DEPARTMENT = "department";
+
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -135,31 +179,19 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
                '}';
     }
 
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedJobHistory<?> that)) {
-            return false;
-        }
-        return Objects.equals(getId(), that.getId());
-    }
-
-    @Override
-    public final int hashCode() {
-        return Objects.hashCode(getJobId());
-    }
-
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
 
     /**
-     * Tests whether {@link MappedJobHistoryId#getStartDate() id.startDate} attribute is not after the
-     * {@link #ATTRIBUTE_NAME_END_DATE endDate} attribute.
+     * Tests whether {@value #ATTRIBUTE_NAME_START_DATE} attribute is before the {@value #ATTRIBUTE_NAME_END_DATE}
+     * attribute.
      *
-     * @return true if {@link MappedJobHistoryId#getStartDate() id.startDate} is not after
-     * {@link #ATTRIBUTE_NAME_END_DATE endDate}; {@code false} otherwise.
+     * @return true if {@value #ATTRIBUTE_NAME_START_DATE} is before the {@value #ATTRIBUTE_NAME_END_DATE};
+     * {@code false} otherwise.
      */
-    protected boolean isIdStartDateNotAfterEndDate() {
+    @AssertTrue
+    protected boolean isIdStartDateBeforeEndDate() {
         if (id == null) {
             return true;
         }
@@ -170,7 +202,7 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
         if (endDate == null) {
             return true;
         }
-        return !idStartDate.isAfter(endDate);
+        return idStartDate.isBefore(endDate);
     }
 
     // -------------------------------------------------------------------------------------------------------------- id
@@ -182,6 +214,15 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
     @Deprecated(forRemoval = true)
     protected void setId(@Nonnull final ID id) {
         this.id = id;
+    }
+
+    // TODO: remove!
+    ID getIdOrSetAndGet(final Supplier<? extends ID> idSupplier) {
+        return Optional.ofNullable(getId())
+                .orElseGet(() -> {
+                    setId(Objects.requireNonNull(idSupplier, "idSupplier is null").get());
+                    return getId();
+                });
     }
 
     // --------------------------------------------------------------------------------------------------------- endDate
@@ -226,7 +267,7 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @PastOrPresent
+//    @PastOrPresent // @@?
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_END_DATE, nullable = false, insertable = false, updatable = false)

@@ -59,35 +59,30 @@ class Job_Randomizer extends _MappedHrEntity_Randomizer<Job, String> {
     public Job get() {
         final var value = super.get();
         {
+            // randomly set minSalary to null
             if (ThreadLocalRandom.current().nextBoolean()) {
                 value.setMinSalary(null);
             }
+            // randomly set maxSalary to null
             if (ThreadLocalRandom.current().nextBoolean()) {
                 value.setMaxSalary(null);
             }
         }
         {
-            if (value.getMaxSalary() != null && value.getMaxSalary() == 1) {
+            // adjust maxSalary when it's less than minSalary
+            if (value.getMinSalary() != null
+                && value.getMaxSalary() != null
+                && value.getMaxSalary() < value.getMinSalary()) {
                 value.setMaxSalary(
                         ThreadLocalRandom.current().nextInt(
-                                99999,
-                                MappedJob.ATTRIBUTE_MAX_MAX_SALARY
-                        ) + 1
-                );
-            }
-            if (value.getMinSalary() != null &&
-                value.getMaxSalary() != null &&
-                value.getMinSalary() > value.getMaxSalary()) {
-                value.setMinSalary(
-                        ThreadLocalRandom.current().nextInt(
-                                0,
-                                value.getMaxSalary() + 1
+                                value.getMinSalary(),
+                                Math.toIntExact(MappedJob.ATTRIBUTE_MAX_MAX_SALARY) + 1
                         )
                 );
             }
             assert value.getMinSalary() == null
                    || value.getMaxSalary() == null
-                   || value.getMinSalary() <= value.getMaxSalary();
+                   || value.getMaxSalary() >= value.getMinSalary();
         }
         return value;
     }

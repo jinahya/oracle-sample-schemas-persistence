@@ -21,6 +21,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  */
 
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_Test;
+import jakarta.annotation.Nonnull;
+import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
 @SuppressWarnings({
         "java:S119" // Type parameter names should comply with a naming convention
@@ -34,5 +36,13 @@ public abstract class _MappedHrEntity_Test<
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     protected _MappedHrEntity_Test(final Class<ENTITY> entityClass, final Class<ID> idClass) {
         super(entityClass, idClass);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
+    @Override
+    protected SingleTypeEqualsVerifierApi<ENTITY> equals_Verify_(
+            @Nonnull final SingleTypeEqualsVerifierApi<ENTITY> equalsVerifier) {
+        return super.equals_Verify_(equalsVerifier);
     }
 }

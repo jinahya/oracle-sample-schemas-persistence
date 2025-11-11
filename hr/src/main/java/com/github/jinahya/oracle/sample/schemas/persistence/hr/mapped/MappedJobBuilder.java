@@ -42,10 +42,22 @@ public abstract class MappedJobBuilder<
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     // ----------------------------------------------------------------------------------------------------------- jobId
+
+    /**
+     * Returns current value of {@code jobId} property.
+     *
+     * @return current value of the {@code jobId} property.
+     */
     public String jobId() {
         return jobId;
     }
 
+    /**
+     * Replaces current value of {@code jobId} property with specified value, and returns this builder instance.
+     *
+     * @param jobId new value for the {@code jobId} property.
+     * @return this builder instance.
+     */
     public SELF jobId(final String jobId) {
         this.jobId = jobId;
         return (SELF) this;

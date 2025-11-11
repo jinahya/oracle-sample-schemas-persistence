@@ -24,6 +24,7 @@ import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -34,6 +35,12 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+// org.hibernate.AnnotationException:
+//     Embeddable class 'com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId'
+//     may not be used as an '@EmbeddedId'
+//     by 'com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistory.id'
+//     because it has no properties
+@MappedSuperclass
 public abstract class MappedJobHistoryId extends _MappedHr implements Serializable {
 
     @Serial
@@ -52,7 +59,11 @@ public abstract class MappedJobHistoryId extends _MappedHr implements Serializab
         super();
     }
 
-    @Deprecated(forRemoval = true)
+    /**
+     * Creates a new instance built from the specified builder.
+     *
+     * @param builder the builder from which a new instance is built.
+     */
     protected MappedJobHistoryId(@Nonnull final MappedJobHistoryIdBuilder<?, ?> builder) {
         super(builder);
     }
@@ -104,13 +115,17 @@ public abstract class MappedJobHistoryId extends _MappedHr implements Serializab
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Max(MappedJobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID) // TODO: comment-out
-    @Min(MappedJobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID) // TODO: comment-out
+    @Max(MappedJobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
+    @Min(MappedJobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID, nullable = false, insertable = false, updatable = false,
+    @Column(name = MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,
+            nullable = false,
+            insertable = false,
+            updatable = false,
             precision = MappedJobHistory.COLUMN_PRECISION_EMPLOYEE_ID,
-            scale = MappedJobHistory.COLUMN_SCALE_EMPLOYEE_ID)
+            scale = MappedJobHistory.COLUMN_SCALE_EMPLOYEE_ID
+    )
     private Integer employeeId;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -118,6 +133,10 @@ public abstract class MappedJobHistoryId extends _MappedHr implements Serializab
     @PastOrPresent
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = MappedJobHistory.COLUMN_NAME_START_DATE, nullable = false, insertable = false, updatable = false)
+    @Column(name = MappedJobHistory.COLUMN_NAME_START_DATE,
+            nullable = false,
+            insertable = false,
+            updatable = false
+    )
     private LocalDate startDate;
 }
