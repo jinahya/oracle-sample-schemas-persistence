@@ -4,9 +4,8 @@ import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobH
 import jakarta.annotation.Nonnull;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-import org.junit.jupiter.api.Disabled;
 
-@Disabled
+//@org.junit.jupiter.api.Disabled
 class JobHistoryWithIdClass_Test extends MappedJobHistory_Test<JobHistoryWithIdClass> {
 
     JobHistoryWithIdClass_Test() {
