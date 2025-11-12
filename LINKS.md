@@ -26,6 +26,7 @@
 * [Populate customer_orders/STORES/logo data #30](https://github.com/oracle-samples/db-sample-schemas/issues/30)
 * [What are relationships ORDER_ITEMS.SHIPMENTS.CUSTOMER and SHIPMENTS.CUSTOMER? #31](https://github.com/oracle-samples/db-sample-schemas/issues/31)
 * [issues/34 Add more checks for HR.JOB](https://github.com/oracle-samples/db-sample-schemas/issues/34)
+    * [Fix \[#34\] #35](https://github.com/oracle-samples/db-sample-schemas/pull/35)
 
 ### spring-projects/spring-data-jpa
 
