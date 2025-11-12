@@ -20,14 +20,13 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -36,20 +35,14 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Supplier;
 
 /**
  * An abstract mapped-superclass for mapping the {@value MappedJobHistory#TABLE_NAME} table.
  *
- * @param <ID> id type parameter
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-@SuppressWarnings({
-        "java:S119" // Type parameter names should comply with a naming convention
-})
-public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _MappedHrEntity<ID> {
+public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -58,65 +51,14 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_EMPLOYEE_ID = "EMPLOYEE_ID";
+    // ------------------------------------------------------------------------------------------------------ START_DATE
 
-    /**
-     * The precision of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_PRECISION_EMPLOYEE_ID = 6;
-
-    /**
-     * The scale of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_SCALE_EMPLOYEE_ID = 0;
-
-    /**
-     * The minimum value of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_MIN_EMPLOYEE_ID = -999999;
-
-    /**
-     * The maximum value of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_MAX_EMPLOYEE_ID = +999999;
-
-    /**
-     * The name of the entity attribute from which the {@value #COLUMN_NAME_EMPLOYEE_ID} column maps. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
-
-    /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is {@value}.
-     */
-    public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
-
-    /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is {@value}.
-     */
-    public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
-
-    /**
-     * The name of the entity attribute, of a subclass of {@link MappedEmployee}, from which the
-     * {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute maps. The value {@value}
-     */
-    public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
-
-    // ------------------------------------------------------------------------------------------ START_DATE / startDate
-    public static final String COLUMN_NAME_START_DATE = "START_DATE";
-
-    public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
-
-    // ---------------------------------------------------------------------------------------------- END_DATE / endDate
+    // -------------------------------------------------------------------------------------------------------- END_DATE
     public static final String COLUMN_NAME_END_DATE = "END_DATE";
 
     public static final String ATTRIBUTE_NAME_END_DATE = "endDate";
 
-    // -------------------------------------------------------------------------------------------- JOB_ID / jobId / job
+    // ---------------------------------------------------------------------------------------------------------- JOB_ID
     public static final String COLUMN_NAME_JOB_ID = "JOB_ID";
 
     public static final int COLUMN_LENGTH_JOB_ID = 10;
@@ -133,7 +75,7 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
 
     public static final String ATTRIBUTE_NAME_JOB = "job";
 
-    // ------------------------------------------------------------------------------------ DEPARTMENT_ID / departmentId
+    // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
 
     public static final int COLUMN_PRECISION_DEPARTMENT_ID = 4;
@@ -143,6 +85,13 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
     public static final int COLUMN_MIN_DEPARTMENT_ID = -9999;
 
     public static final int COLUMN_MAX_DEPARTMENT_ID = +9999;
+
+    static {
+        assert COLUMN_PRECISION_DEPARTMENT_ID == MappedDepartment.COLUMN_PRECISION_DEPARTMENT_ID;
+        assert COLUMN_SCALE_DEPARTMENT_ID == MappedDepartment.COLUMN_SCALE_DEPARTMENT_ID;
+        assert COLUMN_MIN_DEPARTMENT_ID == MappedDepartment.COLUMN_MIN_DEPARTMENT_ID;
+        assert COLUMN_MAX_DEPARTMENT_ID == MappedDepartment.COLUMN_MAX_DEPARTMENT_ID;
+    }
 
     public static final String ATTRIBUTE_NAME_DEPARTMENT_ID = "departmentId";
 
@@ -156,24 +105,16 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
-    // -------------------------------------------------------------------------------------------------------- BUILDERS
-
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-    protected MappedJobHistory() {
+    MappedJobHistory() {
         super();
-    }
-
-    @Deprecated(forRemoval = true)
-    protected MappedJobHistory(final MappedJobHistoryBuilder<?, ?, ID> builder) {
-        super(builder);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + id +
-               ",endDate=" + endDate +
+               "endDate=" + endDate +
                ",jobId=" + jobId +
                ",departmentId=" + departmentId +
                '}';
@@ -182,48 +123,58 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
-
-    /**
-     * Tests whether {@value #ATTRIBUTE_NAME_START_DATE} attribute is before the {@value #ATTRIBUTE_NAME_END_DATE}
-     * attribute.
-     *
-     * @return true if {@value #ATTRIBUTE_NAME_START_DATE} is before the {@value #ATTRIBUTE_NAME_END_DATE};
-     * {@code false} otherwise.
-     */
     @AssertTrue
-    protected boolean isIdStartDateBeforeEndDate() {
-        if (id == null) {
-            return true;
-        }
-        final var idStartDate = id.getStartDate();
-        if (idStartDate == null) {
+    protected boolean isStartDateBeforeEndDate() {
+        final var startDate = getStartDate();
+        if (startDate == null) {
             return true;
         }
         if (endDate == null) {
             return true;
         }
-        return idStartDate.isBefore(endDate);
+        return startDate.isBefore(endDate);
     }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        if (!(obj instanceof MappedJobHistory that)) {
+            return false;
+        }
+        return Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(getId());
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns current value of the attribute maps to the {@value JobHistoryId#COLUMN_NAME_EMPLOYEE_ID} column.
+     *
+     * @return current value of the attribute maps to the {@value JobHistoryId#COLUMN_NAME_EMPLOYEE_ID} column.
+     */
+    public abstract Integer getEmployeeId();
+
+    /**
+     * Returns current value of the attribute maps to the {@value JobHistoryId#COLUMN_NAME_START_DATE} column.
+     *
+     * @return current value of the attribute maps to the {@value JobHistoryId#COLUMN_NAME_START_DATE} column.
+     */
+    public abstract LocalDate getStartDate();
 
     // -------------------------------------------------------------------------------------------------------------- id
     @Nonnull
-    public ID getId() {
-        return id;
+    public JobHistoryId getId() {
+        return JobHistoryId.builder()
+                .employeeId(getEmployeeId())
+                .startDate(getStartDate())
+                .build();
     }
 
-    @Deprecated(forRemoval = true)
-    protected void setId(@Nonnull final ID id) {
-        this.id = id;
-    }
-
-    // TODO: remove!
-    ID getIdOrSetAndGet(final Supplier<? extends ID> idSupplier) {
-        return Optional.ofNullable(getId())
-                .orElseGet(() -> {
-                    setId(Objects.requireNonNull(idSupplier, "idSupplier is null").get());
-                    return getId();
-                });
-    }
+//    @Deprecated(forRemoval = true)
+//    abstract void setId(@Nonnull final JobHistoryId id);
 
     // --------------------------------------------------------------------------------------------------------- endDate
     @Nonnull
@@ -257,13 +208,6 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
     protected void setDepartmentId(@Nullable final Integer departmentId) {
         this.departmentId = departmentId;
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @Valid
-    @NotNull
-    @EmbeddedId
-    private ID id;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull

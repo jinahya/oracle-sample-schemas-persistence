@@ -1,21 +1,22 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_Persister;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory_Persister;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersisterUtils;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityManager;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-class JobHistory_Persister extends _MappedHrEntity_Persister<JobHistory, JobHistoryId> {
+class JobHistoryWithIdClass_Persister extends MappedJobHistory_Persister<JobHistoryWithIdClass> {
 
-    JobHistory_Persister() {
-        super(JobHistory.class, JobHistoryId.class);
+    JobHistoryWithIdClass_Persister() {
+        super(JobHistoryWithIdClass.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public void persist(@Nonnull final EntityManager entityManager, @Nonnull final JobHistory entityInstance) {
+    public void persist(@Nonnull final EntityManager entityManager,
+                        @Nonnull final JobHistoryWithIdClass entityInstance) {
         // TODO: set employee
         entityInstance.setJob(
                 __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Job.class)

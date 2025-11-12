@@ -20,52 +20,46 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId;
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Objects;
 
-// org.hibernate.AnnotationException:
-//     Embeddable class 'com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId'
-//     may not be used as an '@EmbeddedId'
-//     by 'com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistory.id'
-//     because it has no properties
+/**
+ * An abstract mapped-superclass for mapping the {@value MappedJobHistory#TABLE_NAME} table which uses
+ * {@link JobHistoryId} as its {@link IdClass}.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+@IdClass(JobHistoryId.class)
 @MappedSuperclass
-public abstract class MappedJobHistoryId extends _MappedHr implements Serializable {
+public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
 
-    @Serial
-    private static final long serialVersionUID = -537237161047866359L;
+    // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------------ START_DATE
+
+    // -------------------------------------------------------------------------------------------------------- END_DATE
+
+    // ---------------------------------------------------------------------------------------------------------- JOB_ID
+
+    // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
+
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-
-    /**
-     * Creates a new instance.
-     */
-    protected MappedJobHistoryId() {
+    protected MappedJobHistoryWithIdClass() {
         super();
-    }
-
-    /**
-     * Creates a new instance built from the specified builder.
-     *
-     * @param builder the builder from which a new instance is built.
-     */
-    protected MappedJobHistoryId(@Nonnull final MappedJobHistoryIdBuilder<?, ?> builder) {
-        super(builder);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -77,54 +71,50 @@ public abstract class MappedJobHistoryId extends _MappedHr implements Serializab
                '}';
     }
 
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedJobHistoryId that)) {
-            return false;
-        }
-        return Objects.equals(employeeId, that.employeeId) &&
-               Objects.equals(startDate, that.startDate);
-    }
+    // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
-    @Override
-    public final int hashCode() {
-        return Objects.hash(employeeId, startDate);
-    }
+    // ---------------------------------------------------------------------------------------------- Jakarta-Validation
 
     // ------------------------------------------------------------------------------------------------------ employeeId
     @Nonnull
+    @Override
     public Integer getEmployeeId() {
         return employeeId;
     }
 
-    @Deprecated(forRemoval = true)
-    protected void setEmployeeId(@Nonnull final Integer employeeId) {
+    public void setEmployeeId(@Nonnull final Integer employeeId) {
         this.employeeId = employeeId;
     }
 
     // ------------------------------------------------------------------------------------------------------- startDate
     @Nonnull
+    @Override
     public LocalDate getStartDate() {
         return startDate;
     }
 
-    @Deprecated(forRemoval = true)
-    protected void setStartDate(@Nonnull final LocalDate startDate) {
+    public void setStartDate(@Nonnull final LocalDate startDate) {
         this.startDate = startDate;
     }
 
+    // --------------------------------------------------------------------------------------------------- super.endDate
+
+    // ----------------------------------------------------------------------------------------------------- super.jobId
+
+    // ---------------------------------------------------------------------------------------------- super.departmentId
+
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Max(MappedJobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
-    @Min(MappedJobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
+    @Max(JobHistoryId.ATTRIBUTE_MAX_EMPLOYEE_ID)
+    @Min(JobHistoryId.ATTRIBUTE_MIN_EMPLOYEE_ID)
     @NotNull
-    @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,
+    @Id // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    @Column(name = JobHistoryId.COLUMN_NAME_EMPLOYEE_ID,
             nullable = false,
             insertable = false,
             updatable = false,
-            precision = MappedJobHistory.COLUMN_PRECISION_EMPLOYEE_ID,
-            scale = MappedJobHistory.COLUMN_SCALE_EMPLOYEE_ID
+            precision = JobHistoryId.COLUMN_PRECISION_EMPLOYEE_ID,
+            scale = JobHistoryId.COLUMN_SCALE_EMPLOYEE_ID
     )
     private Integer employeeId;
 
@@ -132,8 +122,8 @@ public abstract class MappedJobHistoryId extends _MappedHr implements Serializab
     @Nonnull
     @PastOrPresent
     @NotNull
-    @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = MappedJobHistory.COLUMN_NAME_START_DATE,
+    @Id // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    @Column(name = JobHistoryId.COLUMN_NAME_START_DATE,
             nullable = false,
             insertable = false,
             updatable = false

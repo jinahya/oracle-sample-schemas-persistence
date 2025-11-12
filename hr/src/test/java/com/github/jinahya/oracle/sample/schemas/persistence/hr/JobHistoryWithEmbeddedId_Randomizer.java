@@ -1,15 +1,15 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_Randomizer;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory_Randomizer;
 import jakarta.annotation.Nonnull;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-class JobHistory_Randomizer extends _MappedHrEntity_Randomizer<JobHistory, JobHistoryId> {
+class JobHistoryWithEmbeddedId_Randomizer extends MappedJobHistory_Randomizer<JobHistoryWithEmbeddedId> {
 
-    JobHistory_Randomizer() {
-        super(JobHistory.class, JobHistoryId.class);
+    JobHistoryWithEmbeddedId_Randomizer() {
+        super(JobHistoryWithEmbeddedId.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -33,7 +33,7 @@ class JobHistory_Randomizer extends _MappedHrEntity_Randomizer<JobHistory, JobHi
 
     @Nonnull
     @Override
-    public JobHistory get() {
+    public JobHistoryWithEmbeddedId get() {
         return super.get();
     }
 }

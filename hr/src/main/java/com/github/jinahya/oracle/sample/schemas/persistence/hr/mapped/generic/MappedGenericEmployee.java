@@ -21,7 +21,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.generic;
  */
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedEmployee;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedRegion;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;

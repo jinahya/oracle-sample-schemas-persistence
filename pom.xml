@@ -55,8 +55,8 @@
     <!--    <version.maven-surefire>3.2.5</version.maven-surefire>-->
     <version.maven-surefire>3.5.4</version.maven-surefire>
     <version.jakarta.jakartaee-api>11.0.0</version.jakarta.jakartaee-api>
-<!--    <version.jinahya-persistence>0.2.6</version.jinahya-persistence>-->
-<!--    <version.jinahya-persistence>0.3.4</version.jinahya-persistence>-->
+    <!--    <version.jinahya-persistence>0.2.6</version.jinahya-persistence>-->
+    <!--    <version.jinahya-persistence>0.3.4</version.jinahya-persistence>-->
     <version.jinahya-persistence>0.3.9</version.jinahya-persistence>
     <!--    <version.mysql-connector-j>8.3.0</version.mysql-connector-j>-->
     <!-- https://search.maven.org/artifact/org.eclipse.persistence/eclipselink -->
@@ -419,10 +419,11 @@
           <excludes>
             <!--            <exclude>**/*IT.java</exclude> &lt;!&ndash; 이게 왜 필요한지 확인 필요 &ndash;&gt;-->
           </excludes>
-          <trimStackTrace>false</trimStackTrace>
+          <skipAfterFailureCount>1</skipAfterFailureCount>
           <systemPropertyVariables>
             <eclipselink.woven>${eclipselink.woven}</eclipselink.woven>
           </systemPropertyVariables>
+          <trimStackTrace>false</trimStackTrace>
         </configuration>
       </plugin>
       <plugin>
@@ -517,6 +518,8 @@
               <includes>
                 <include>**/*IT.java</include>
               </includes>
+              <skipAfterFailureCount>1</skipAfterFailureCount>
+              <trimStackTrace>false</trimStackTrace>
             </configuration>
           </plugin>
         </plugins>

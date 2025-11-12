@@ -2,7 +2,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedDepartment;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithEmbeddedId;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,44 +12,22 @@ import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
-import java.util.Objects;
 import java.util.Optional;
 
 @Entity
-@Table(name = MappedJobHistory.TABLE_NAME)
-class JobHistory extends MappedJobHistory<JobHistoryId> {
+@Table(name = MappedJobHistoryWithEmbeddedId.TABLE_NAME)
+class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
-    @Deprecated(forRemoval = true)
-    public static JobHistoryIdBuilder builder() {
-        return new JobHistoryIdBuilder();
-    }
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-    protected JobHistory() {
+    protected JobHistoryWithEmbeddedId() {
         super();
     }
 
-    @Deprecated(forRemoval = true)
-    private JobHistory(final JobHistoryBuilder builder) {
-        super(builder);
-    }
-
     // ------------------------------------------------------------------------------------------------ java.lang.Object
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedJobHistory<?> that)) {
-            return false;
-        }
-        return Objects.equals(getId(), that.getId());
-    }
-
-    @Override
-    public final int hashCode() {
-        return Objects.hashCode(getId());
-    }
 
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
@@ -96,17 +74,18 @@ class JobHistory extends MappedJobHistory<JobHistoryId> {
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = MappedJobHistory.COLUMN_NAME_JOB_ID,
+    @JoinColumn(name = MappedJobHistoryWithEmbeddedId.COLUMN_NAME_JOB_ID,
                 nullable = false,
                 insertable = false,
                 updatable = false
     )
     private Job job;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = MappedJobHistory.COLUMN_NAME_DEPARTMENT_ID,
+    @JoinColumn(name = MappedJobHistoryWithEmbeddedId.COLUMN_NAME_DEPARTMENT_ID,
                 nullable = true,
                 insertable = false,
                 updatable = false
