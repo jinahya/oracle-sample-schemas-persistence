@@ -5,7 +5,6 @@ import jakarta.annotation.Nonnull;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
-//@org.junit.jupiter.api.Disabled
 class JobHistoryWithIdClass_Test extends MappedJobHistory_Test<JobHistoryWithIdClass> {
 
     JobHistoryWithIdClass_Test() {
@@ -18,6 +17,7 @@ class JobHistoryWithIdClass_Test extends MappedJobHistory_Test<JobHistoryWithIdC
     protected SingleTypeEqualsVerifierApi<JobHistoryWithIdClass> equals_Verify_(
             @Nonnull final SingleTypeEqualsVerifierApi<JobHistoryWithIdClass> equalsVerifier) {
         return super.equals_Verify_(equalsVerifier)
-                .suppress(Warning.SURROGATE_KEY);
+                .suppress(Warning.SURROGATE_KEY)
+                ;
     }
 }
