@@ -32,6 +32,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * An abstract mapped-superclass for mapping the {@value MappedJobHistory#TABLE_NAME} table which uses
@@ -71,7 +72,20 @@ public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
                '}';
     }
 
-    // --------------------------------------------------------------------------------------------- Jakarta-Persistence
+    @Override
+    public boolean equals(final Object obj) {
+        if (!(obj instanceof MappedJobHistoryWithIdClass that)) {
+            return false;
+        }
+        return Objects.equals(employeeId, that.employeeId) &&
+               Objects.equals(startDate, that.startDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(employeeId, startDate);
+    }
+// --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
 

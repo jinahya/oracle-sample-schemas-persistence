@@ -20,7 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHr;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
@@ -129,6 +128,8 @@ public class JobHistoryId extends _MappedHr implements Serializable {
         if (!(obj instanceof JobHistoryId that)) {
             return false;
         }
+//        return (employeeId != null && Objects.equals(employeeId, that.employeeId)) &&
+//               (startDate != null && Objects.equals(startDate, that.startDate));
         return Objects.equals(employeeId, that.employeeId) &&
                Objects.equals(startDate, that.startDate);
     }

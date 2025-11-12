@@ -34,7 +34,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 /**
  * An abstract mapped-superclass for mapping the {@value MappedJobHistory#TABLE_NAME} table.
@@ -133,19 +132,6 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
             return true;
         }
         return startDate.isBefore(endDate);
-    }
-
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedJobHistory that)) {
-            return false;
-        }
-        return Objects.equals(getId(), that.getId());
-    }
-
-    @Override
-    public final int hashCode() {
-        return Objects.hash(getId());
     }
 
     // -----------------------------------------------------------------------------------------------------------------

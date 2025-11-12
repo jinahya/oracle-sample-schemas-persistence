@@ -17,6 +17,7 @@ class JobHistoryWithEmbeddedId_Test extends MappedJobHistory_Test<JobHistoryWith
     protected SingleTypeEqualsVerifierApi<JobHistoryWithEmbeddedId> equals_Verify_(
             @Nonnull final SingleTypeEqualsVerifierApi<JobHistoryWithEmbeddedId> equalsVerifier) {
         return super.equals_Verify_(equalsVerifier)
-                .suppress(Warning.SURROGATE_KEY);
+                .suppress(Warning.SURROGATE_KEY)
+                ;
     }
 }

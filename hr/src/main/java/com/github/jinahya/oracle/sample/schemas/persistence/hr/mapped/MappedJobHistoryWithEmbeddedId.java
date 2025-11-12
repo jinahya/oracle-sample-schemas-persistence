@@ -28,6 +28,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -68,6 +69,20 @@ public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
         return super.toString() + '{' +
                "id=" + id +
                '}';
+    }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        if (!(obj instanceof MappedJobHistoryWithEmbeddedId that)) {
+            return false;
+        }
+//        if (!super.equals(obj)) return false;
+        return Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(getId());
     }
 
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
