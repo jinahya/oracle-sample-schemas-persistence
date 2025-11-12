@@ -8,7 +8,13 @@
 
 ### [Hibernate ORM User Guide](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html)
 
-* [3.2.41. XML mapping](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#basic-mapping-xml)
+#### [3.2.41. XML mapping](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#basic-mapping-xml)
+
+### [A Guide to Hibernate Query Language](https://docs.hibernate.org/orm/current/querylanguage/html_single/)
+
+#### [1.4. Type system](https://docs.hibernate.org/orm/current/querylanguage/html_single/#type-system)
+
+>Going further, an expression like `local datetime - document.created` is assigned the Java type `java.time.Duration`, a type which doesn’t appear anywhere in the JPA specification.
 
 ### [Hibernate Javadoc](https://docs.jboss.org/hibernate/orm/current/javadocs/)
 
