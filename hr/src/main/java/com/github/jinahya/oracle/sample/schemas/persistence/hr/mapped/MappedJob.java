@@ -179,7 +179,19 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
         return minSalary <= 0;
     }
 
-    // TODO: javadoc
+    /**
+     * Tests whether current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is positive.
+     *
+     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is positive;
+     * {@code false} otherwise.
+     */
+    protected boolean isMinSalaryPositive() {
+        if (minSalary == null) {
+            return true;
+        }
+        return minSalary > 0;
+    }
+
     protected boolean isMaxSalaryNonNegative() {
         if (maxSalary == null) {
             return true;
@@ -187,12 +199,19 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
         return maxSalary <= 0;
     }
 
+    protected boolean isMaxSalaryPositive() {
+        if (maxSalary == null) {
+            return true;
+        }
+        return maxSalary > 0;
+    }
+
     /**
-     * Tests whether current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or equal to the
+     * Tests whether current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or equal to that of
      * {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute.
      *
      * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or
-     * {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute; {@code false} otherwise.
+     * equal to that of the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute; {@code false} otherwise.
      */
     protected boolean isMinSalaryIsLessThanOrEqualToMaxSalary() {
         if (minSalary == null) {

@@ -5,6 +5,7 @@ import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithEmbeddedId;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithIdClass;
+import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -43,12 +44,13 @@ class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass {
     // ----------------------------------------------------------------------------------------------------- super.jobId
 
     // ------------------------------------------------------------------------------------------------------------- job
+    @Nonnull
     public Job getJob() {
         return job;
     }
 
     @Deprecated(forRemoval = true)
-    protected void setJob(Job job) {
+    protected void setJob(final @Nonnull Job job) {
         this.job = job;
         setJobId(
                 Optional.ofNullable(this.job)
@@ -79,6 +81,7 @@ class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass {
     // -----------------------------------------------------------------------------------------------------------------
     // TODO: map Employee
 
+    @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

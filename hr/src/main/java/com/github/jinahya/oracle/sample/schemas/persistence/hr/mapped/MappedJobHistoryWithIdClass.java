@@ -33,10 +33,11 @@ import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
- * An abstract mapped-superclass for mapping the {@value MappedJobHistory#TABLE_NAME} table which uses
- * {@link JobHistoryId} as its {@link IdClass}.
+ * An abstract mapped-superclass, maps the {@value MappedJobHistory#TABLE_NAME} table, uses {@link JobHistoryId} as its
+ * {@link IdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -45,8 +46,12 @@ import java.util.Objects;
 public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
+    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = JobHistoryId.ATTRIBUTE_NAME_EMPLOYEE_ID;
+
+    public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
 
     // ------------------------------------------------------------------------------------------------------ START_DATE
+    public static final String ATTRIBUTE_NAME_START_DATE = JobHistoryId.ATTRIBUTE_NAME_START_DATE;
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
 
@@ -85,9 +90,37 @@ public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
     public int hashCode() {
         return Objects.hash(employeeId, startDate);
     }
-// --------------------------------------------------------------------------------------------- Jakarta-Persistence
+
+    // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+
+    // -------------------------------------------------------------------------------------------------------- super.id
+    @Override
+    public JobHistoryId getId() {
+        return super.getId();
+    }
+
+    @Deprecated(forRemoval = true)
+    @Override
+    protected void setId(final JobHistoryId id) {
+        setEmployeeId(
+                Optional.ofNullable(id)
+                        .map(JobHistoryId::getEmployeeId)
+                        .orElse(null)
+        );
+        setStartDate(
+                Optional.ofNullable(id)
+                        .map(JobHistoryId::getStartDate)
+                        .orElse(null)
+        );
+    }
+
+    // --------------------------------------------------------------------------------------------------- super.endDate
+
+    // ----------------------------------------------------------------------------------------------------- super.jobId
+
+    // ---------------------------------------------------------------------------------------------- super.departmentId
 
     // ------------------------------------------------------------------------------------------------------ employeeId
     @Nonnull
@@ -110,12 +143,6 @@ public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
     public void setStartDate(@Nonnull final LocalDate startDate) {
         this.startDate = startDate;
     }
-
-    // --------------------------------------------------------------------------------------------------- super.endDate
-
-    // ----------------------------------------------------------------------------------------------------- super.jobId
-
-    // ---------------------------------------------------------------------------------------------- super.departmentId
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull

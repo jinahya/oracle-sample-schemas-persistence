@@ -32,7 +32,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * An abstract mapped-superclass maps {@value MappedJobHistory#TABLE_NAME} table which uses {@link JobHistoryId} as its
+ * An abstract mapped-superclass, maps the {@value MappedJobHistory#TABLE_NAME} table, uses {@link JobHistoryId} as its
  * {@link EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
@@ -45,20 +45,26 @@ public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
+    // ------------------------------------------------------------------------------------------------------ START_DATE
+
+    // ---------------------------------------------------------------------------------------- EMPLOYEE_ID / START_DATE
+    public static final String ATTRIBUTE_NAME_ID = "id";
+
     // -------------------------------------------------------------------------------------------------------- END_DATE
 
     // ---------------------------------------------------------------------------------------------------------- JOB_ID
 
     // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
 
-    // -----------------------------------------------------------------------------------------------------------------
-    public static final String ATTRIBUTE_NAME_ID = "id";
-
     // -------------------------------------------------------------------------------------------------------- BUILDERS
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    /**
+     * Creates a new instance.
+     */
     protected MappedJobHistoryWithEmbeddedId() {
         super();
     }
@@ -76,7 +82,6 @@ public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
         if (!(obj instanceof MappedJobHistoryWithEmbeddedId that)) {
             return false;
         }
-//        if (!super.equals(obj)) return false;
         return Objects.equals(getId(), that.getId());
     }
 
@@ -104,6 +109,12 @@ public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
                 .orElse(null);
     }
 
+    // --------------------------------------------------------------------------------------------------- super.endDate
+
+    // ----------------------------------------------------------------------------------------------------- super.jobId
+
+    // ---------------------------------------------------------------------------------------------- super.departmentId
+
     // -------------------------------------------------------------------------------------------------------------- id
     @Nonnull
     @Override
@@ -112,15 +123,10 @@ public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
     }
 
     @Deprecated(forRemoval = true)
+    @Override
     protected void setId(@Nonnull final JobHistoryId id) {
         this.id = id;
     }
-
-    // --------------------------------------------------------------------------------------------------- super.endDate
-
-    // ----------------------------------------------------------------------------------------------------- super.jobId
-
-    // ---------------------------------------------------------------------------------------------- super.departmentId
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull

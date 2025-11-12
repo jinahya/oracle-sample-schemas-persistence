@@ -3,6 +3,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedDepartment;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithEmbeddedId;
+import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -36,12 +37,13 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
     // -------------------------------------------------------------------------------------------------------- employee
 
     // ------------------------------------------------------------------------------------------------------------- job
+    @Nonnull
     public Job getJob() {
         return job;
     }
 
     @Deprecated(forRemoval = true)
-    protected void setJob(Job job) {
+    protected void setJob(final @Nonnull Job job) {
         this.job = job;
         setJobId(
                 Optional.ofNullable(this.job)

@@ -151,7 +151,12 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
     public abstract LocalDate getStartDate();
 
     // -------------------------------------------------------------------------------------------------------------- id
-    @Nonnull
+
+    /**
+     * Returns the id of this entity.
+     *
+     * @return the id of this entity.
+     */
     public JobHistoryId getId() {
         return JobHistoryId.builder()
                 .employeeId(getEmployeeId())
@@ -159,15 +164,33 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
                 .build();
     }
 
-//    @Deprecated(forRemoval = true)
-//    abstract void setId(@Nonnull final JobHistoryId id);
+    /**
+     * Replaces the id of this entity with the specified value.
+     *
+     * @param id new id for this entity.
+     * @deprecated the id is not supposed to be updated.
+     */
+    @Deprecated(forRemoval = true)
+    protected abstract void setId(final JobHistoryId id);
 
     // --------------------------------------------------------------------------------------------------------- endDate
+
+    /**
+     * Returns current value of {@value MappedJobHistory_#END_DATE} attribute.
+     *
+     * @return current value of the {@value MappedJobHistory_#END_DATE} attribute.
+     */
     @Nonnull
     public LocalDate getEndDate() {
         return endDate;
     }
 
+    /**
+     * Replaces current value of {@value MappedJobHistory_#END_DATE} attribute with specified value.
+     *
+     * @param endDate new value for the {@value MappedJobHistory_#END_DATE} attribute.
+     * @deprecated the attribute is not supposed to be updated.
+     */
     @Deprecated(forRemoval = true)
     protected void setEndDate(@Nonnull final LocalDate endDate) {
         this.endDate = endDate;

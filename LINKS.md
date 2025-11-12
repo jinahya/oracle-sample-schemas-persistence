@@ -19,6 +19,7 @@
 * [ORA-65096: common user or role name must start with prefix C## #27](https://github.com/oracle-samples/db-sample-schemas/issues/27)
 * [Populate customer_orders/STORES/logo data #30](https://github.com/oracle-samples/db-sample-schemas/issues/30)
 * [What are relationships ORDER_ITEMS.SHIPMENTS.CUSTOMER and SHIPMENTS.CUSTOMER? #31](https://github.com/oracle-samples/db-sample-schemas/issues/31)
+* [issues/34 Add more checks for HR.JOB](https://github.com/oracle-samples/db-sample-schemas/issues/34)
 
 ### spring-projects/spring-data-jpa
 
