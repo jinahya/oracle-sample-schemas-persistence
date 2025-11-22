@@ -29,15 +29,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -60,9 +61,11 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     // TODO: use decimal
     public static final int COLUMN_MIN_EMPLOYEE_ID = 0xFF_F0_BD_C1; // -999999
+    //                                               0b1111_1111_1111_0000_1011_1101_1100_0001
 
     // TODO: use decimal
-    public static final int COLUMN_MAX_EMPLOYEE_ID = 0x00_0F_42_3F; // +999999
+//    public static final int COLUMN_MAX_EMPLOYEE_ID = 0x00_0F_42_3F; // +999999
+    public static final int COLUMN_MAX_EMPLOYEE_ID = 0b0000_0000_0000_1111_0100_0010_0011_1111; // +999999
 
     public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
 
@@ -71,7 +74,7 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
 
-    public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
+//    public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
 
     // ------------------------------------------------------------------------------------------------------ FIRST_NAME
     public static final String COLUMN_NAME_FIRST_NAME = "FIRST_NAME";
@@ -142,13 +145,14 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     public static final int COLUMN_SCALE_SALARY = 2;
 
-    public static final double COLUMN_MIN_SALARY = -999999.99d; // TODO: check the checks/EMP_SALARY_MIN
+//    public static final double COLUMN_MIN_SALARY = -999999.99d; // TODO: check the checks/EMP_SALARY_MIN
+    public static final double COLUMN_MIN_SALARY_EXCLUSIVE = 0; // TODO: check the checks/EMP_SALARY_MIN
 
     public static final double COLUMN_MAX_SALARY = +999999.99d;
 
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
 
-    public static final String ATTRIBUTE_DECIMAL_MIN_SALARY = "-999999.99"; // TODO: check the checks/EMP_SALARY_MIN
+    public static final String ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE = "-000000.00"; // TODO: check the checks/EMP_SALARY_MIN
 
     public static final String ATTRIBUTE_DECIMAL_MAX_SALARY = "+999999.99";
 
@@ -186,6 +190,8 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     public static final long ATTRIBUTE_MAX_MANAGER_ID = COLUMN_MAX_MANAGER_ID;
 
+    public static final String ATTRIBUTE_NAME_MANAGER = "manager";
+
     // ------------------------------------------------------------------------------------ DEPARTMENT_ID / departmentId
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
 
@@ -205,12 +211,12 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     public static final long ATTRIBUTE_MIN_DEPARTMENT_ID = 0xFF_FF_FF_FF_FF_FF_D8_F1L; // -9999L
 
     // TODO: assign COLUMN_MAX_DEPARTMENT_ID
-    public static final long ATTRIBUTE_MAX_DEPARTMENT_ID = 0x00_00_00_00_00_00_270_FL; // +9999L
+    public static final long ATTRIBUTE_MAX_DEPARTMENT_ID = 0x00_00_00_00_00_00_27_0FL; // +9999L
 
     public static final String ATTRIBUTE_NAME_DEPARTMENT = "department";
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static final String ATTRIBUTE_NAME_EMPLOYEES = "employees";
+    public static final String ATTRIBUTE_NAME_SUBORDINATES = "subordinates";
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -248,39 +254,31 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
                '}';
     }
 
-//    @Override
-//    public final boolean equals(final Object obj) {
-//        if (!(obj instanceof MappedEmployee that)) {
-//            return false;
-//        }
-//        return Objects.equals(getEmployeeId(), that.getEmployeeId());
-//    }
-//
-//    @Override
-//    public final int hashCode() {
-//        return Objects.hashCode(getEmployeeId());
-//    }
+    protected final boolean equalsWithEmployeeId(final Object obj) {
+        if (!(obj instanceof MappedEmployee that)) {
+            return false;
+        }
+        return Objects.equals(getEmployeeId(), that.getEmployeeId());
+    }
+
+    protected final int hashCodeWithEmployeeId() {
+        return Objects.hashCode(getEmployeeId());
+    }
+
+    protected final boolean equalsWithEmail(final Object obj) {
+        if (!(obj instanceof MappedEmployee that)) {
+            return false;
+        }
+        return Objects.equals(getEmail(), that.getEmail());
+    }
+
+    protected final int hashCodeWithEmail() {
+        return Objects.hashCode(getEmail());
+    }
 
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
-    @Deprecated(forRemoval = true)
-    protected boolean isEmployeeIdNonNegative() {
-        return employeeId == null || employeeId >= 0;
-    }
-
-    /**
-     * Tests whether current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is positive.
-     *
-     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is positive.
-     * {@code false} otherwise.
-     * @deprecated just don't use.
-     */
-    @Deprecated(forRemoval = true)
-    protected boolean isSalaryPositive() {
-        return salary == null || salary.signum() == 1;
-    }
-
     /**
      * Tests whether current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is greater than or equal to the
      * result of a method of {@code getJobMinSalary()Number}.
@@ -392,16 +390,6 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
         return commissionPct.signum() != -1;
     }
 
-    @Deprecated(forRemoval = true)
-    protected boolean isManagerIdNonNegative() {
-        return managerId == null || managerId >= 0;
-    }
-
-    @Deprecated(forRemoval = true)
-    protected boolean isDepartmentIdNonNegative() {
-        return departmentId == null || departmentId >= 0;
-    }
-
     // ------------------------------------------------------------------------------------------------------ employeeId
 
     /**
@@ -503,30 +491,13 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
         this.commissionPct = commissionPct;
     }
 
-//    /**
-//     * Replaces current value of {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute with specified value rounded with
-//     * specified rounding mode.
-//     *
-//     * @param commissionPct the new value for the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute.
-//     * @param roundingMode  the rounding mode to be applied; should be not {@code null} when the {@code commissionPct}
-//     *                      argument is not {@code null}.
-//     */
-//    public void setCommissionPct(final BigDecimal commissionPct, final java.math.RoundingMode roundingMode) {
-//        setCommissionPct(
-//                Optional.ofNullable(commissionPct)
-//                        .map(v -> v.setScale(COLUMN_SCALE_COMMISSION_PCT,
-//                                             Objects.requireNonNull(roundingMode, "roundingMode is null")))
-//                        .orElse(null)
-//        );
-//    }
-
     // ------------------------------------------------------------------------------------------------------- managerId
     @Nullable
-    public Integer getManagerId() {
+    protected Integer getManagerId() {
         return managerId;
     }
 
-    public void setManagerId(@Nullable final Integer managerId) {
+    protected void setManagerId(@Nullable final Integer managerId) {
         this.managerId = managerId;
     }
 
@@ -570,7 +541,9 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     private String firstName;
 
     @Nonnull
-    @Size(min = ATTRIBUTE_SIZE_MIN_LAST_NAME, max = ATTRIBUTE_SIZE_MAX_LAST_NAME)
+    @Size(min = ATTRIBUTE_SIZE_MIN_LAST_NAME,
+          max = ATTRIBUTE_SIZE_MAX_LAST_NAME
+    )
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_LAST_NAME,
@@ -582,7 +555,7 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     private String lastName;
 
     @Nonnull
-    @Email
+//    @Email
     @Size(min = ATTRIBUTE_SIZE_MIN_EMAIL, max = ATTRIBUTE_SIZE_MAX_EMAIL)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
@@ -607,7 +580,7 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     private String phoneNumber;
 
     @Nonnull
-    //@jakarta.validation.constraints.PastOrPresent // @@?
+//    @jakarta.validation.constraints.PastOrPresent // @@?
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_HIRE_DATE, nullable = false, insertable = true, updatable = true)
@@ -626,7 +599,7 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     @Nullable
 //    @Positive // @@?
     @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
-    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY, inclusive = true)
+    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_SALARY, nullable = true, insertable = true, updatable = true,
             precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY)
@@ -658,3 +631,14 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
             precision = COLUMN_PRECISION_DEPARTMENT_ID)
     private Integer departmentId;
 }
+
+
+
+
+
+
+
+
+
+
+
