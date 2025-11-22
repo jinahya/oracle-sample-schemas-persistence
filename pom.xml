@@ -57,7 +57,8 @@
     <version.jakarta.jakartaee-api>11.0.0</version.jakarta.jakartaee-api>
     <!--    <version.jinahya-persistence>0.2.6</version.jinahya-persistence>-->
     <!--    <version.jinahya-persistence>0.3.4</version.jinahya-persistence>-->
-    <version.jinahya-persistence>0.3.9</version.jinahya-persistence>
+<!--    <version.jinahya-persistence>0.3.9</version.jinahya-persistence>-->
+    <version.jinahya-persistence>0.4.1</version.jinahya-persistence>
     <!--    <version.mysql-connector-j>8.3.0</version.mysql-connector-j>-->
     <!-- https://search.maven.org/artifact/org.eclipse.persistence/eclipselink -->
     <!-- https://central.sonatype.com/artifact/org.eclipse.persistence/eclipselink/versions -->
