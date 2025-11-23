@@ -170,13 +170,11 @@ public abstract class MappedEmployeeBuilder<
     }
 
     // ---------------------------------------------------------------------------------------------------- departmentId
-    @Deprecated(forRemoval = true)
-    public Integer departmentId() {
+    protected Integer departmentId() {
         return departmentId;
     }
 
-    @Deprecated(forRemoval = true)
-    public SELF departmentId(final Integer departmentId) {
+    protected SELF departmentId(final Integer departmentId) {
         this.departmentId = departmentId;
         return (SELF) this;
     }

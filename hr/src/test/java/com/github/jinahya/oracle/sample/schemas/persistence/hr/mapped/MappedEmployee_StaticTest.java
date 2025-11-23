@@ -61,8 +61,8 @@ class MappedEmployee_StaticTest {
 
         @Test
         void __ATTRIBUTE_DECIMAL_MIN_SALARY() {
-            assertThat(new BigDecimal(MappedEmployee.ATTRIBUTE_DECIMAL_MIN_SALARY).doubleValue())
-                    .isEqualTo(MappedEmployee.COLUMN_MIN_SALARY);
+            assertThat(new BigDecimal(MappedEmployee.ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE).doubleValue())
+                    .isEqualTo(MappedEmployee.COLUMN_MIN_SALARY_EXCLUSIVE);
         }
 
         @Test
