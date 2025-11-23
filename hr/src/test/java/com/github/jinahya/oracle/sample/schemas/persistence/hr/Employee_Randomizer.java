@@ -11,10 +11,13 @@ class Employee_Randomizer extends _MappedHrEntity_Randomizer<Employee, Integer> 
 
     Employee_Randomizer() {
         super(Employee.class, Integer.class,
+              MappedEmployee.ATTRIBUTE_NAME_JOB_ID,
+              MappedEmployee.ATTRIBUTE_NAME_JOB,
               MappedEmployee.ATTRIBUTE_NAME_MANAGER_ID,
               MappedEmployee.ATTRIBUTE_NAME_MANAGER,
               MappedEmployee.ATTRIBUTE_NAME_DEPARTMENT_ID,
-              MappedEmployee.ATTRIBUTE_NAME_DEPARTMENT
+              MappedEmployee.ATTRIBUTE_NAME_DEPARTMENT,
+              MappedEmployee.ATTRIBUTE_NAME_SUBORDINATES
         );
     }
 

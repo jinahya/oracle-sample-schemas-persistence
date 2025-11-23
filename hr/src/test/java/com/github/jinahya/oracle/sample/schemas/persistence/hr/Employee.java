@@ -2,6 +2,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedDepartment;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedEmployee;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
@@ -56,7 +57,6 @@ class Employee extends MappedEmployee {
     }
 
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
-
     //    @AssertTrue
     @Override
     protected boolean isCommissionPctNonNegative() {
@@ -74,6 +74,7 @@ class Employee extends MappedEmployee {
         return null;
     }
 
+    // ------------------------------------------------------------------------------------------------- super.managerId
     @Nullable
     @Override
     public Integer getManagerId() {
@@ -85,7 +86,21 @@ class Employee extends MappedEmployee {
         super.setManagerId(managerId);
     }
 
-    // --------------------------------------------------------------------------------------------------------- manager
+    // ------------------------------------------------------------------------------------------------------------- job
+    @Nonnull
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(@Nonnull final Job job) {
+        this.job = job;
+        setJobId(
+                Optional.ofNullable(this.job)
+                        .map(MappedJob::getJobId)
+                        .orElse(null)
+        );
+    }
+// --------------------------------------------------------------------------------------------------------- manager
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_MANAGER} attribute.
@@ -136,20 +151,31 @@ class Employee extends MappedEmployee {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
+    @Valid
+    @NotNull
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = {})
+    @JoinColumn(name = COLUMN_NAME_JOB_ID, referencedColumnName = MappedJob.COLUMN_NAME_JOB_ID,
+                nullable = false, insertable = false, updatable = false)
+    private Job job;
+
+    // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Valid
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = {})
+    @ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = {})
     @JoinColumn(name = COLUMN_NAME_MANAGER_ID, referencedColumnName = COLUMN_NAME_EMPLOYEE_ID,
                 nullable = true, insertable = false, updatable = false)
     private Employee manager;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Valid
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = {})
+    @ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = {})
     @JoinColumn(name = COLUMN_NAME_DEPARTMENT_ID, referencedColumnName = MappedDepartment.COLUMN_NAME_DEPARTMENT_ID,
                 nullable = true, insertable = false, updatable = false)
     private Department department;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = MappedEmployee.ATTRIBUTE_NAME_MANAGER, fetch = FetchType.LAZY, cascade = {})
     private List<@Valid @NotNull Employee> subordinates;
 }

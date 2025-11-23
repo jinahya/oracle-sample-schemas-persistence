@@ -117,7 +117,7 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     public static final int ATTRIBUTE_SIZE_MIN_PHONE_NUMBER = 0;
 
-    public static final int ATTRIBUTE_SIZE_MAX_PHONE_NUMBER = COLUMN_LENGTH_EMAIL;
+    public static final int ATTRIBUTE_SIZE_MAX_PHONE_NUMBER = COLUMN_LENGTH_PHONE_NUMBER;
 
     // ------------------------------------------------------------------------------------------------------- HIRE_DATE
     public static final String COLUMN_NAME_HIRE_DATE = "HIRE_DATE";
@@ -152,7 +152,7 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
 
     public static final String ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE = "-000000.00";
-            // TODO: check the checks/EMP_SALARY_MIN
+    // TODO: check the checks/EMP_SALARY_MIN
 
     public static final String ATTRIBUTE_DECIMAL_MAX_SALARY = "+999999.99";
 
@@ -216,6 +216,10 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     public static final String ATTRIBUTE_NAME_DEPARTMENT = "department";
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * The subordinates' attribute of this entity.
+     */
     public static final String ATTRIBUTE_NAME_SUBORDINATES = "subordinates";
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
@@ -468,7 +472,7 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
         return jobId;
     }
 
-    public void setJobId(@Nonnull final String jobId) {
+    protected void setJobId(@Nonnull final String jobId) {
         this.jobId = jobId;
     }
 

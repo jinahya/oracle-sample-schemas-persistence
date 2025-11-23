@@ -14,6 +14,9 @@ class Employee_Persister extends _MappedHrEntity_Persister<Employee, Integer> {
 
     @Override
     public void persist(final @Nonnull EntityManager entityManager, final @Nonnull Employee entityInstance) {
+        entityInstance.setJob(
+                newPersistedInstanceOf(entityManager, Job.class)
+        );
         entityInstance.setManager(
                 ThreadLocalRandom.current().nextBoolean()
                 ? null
