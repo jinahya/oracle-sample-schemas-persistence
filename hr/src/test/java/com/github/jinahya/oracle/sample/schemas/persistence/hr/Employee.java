@@ -74,6 +74,29 @@ class Employee extends MappedEmployee {
         return null;
     }
 
+    // ----------------------------------------------------------------------------------------------------- super.jobId
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     */
+    @Nullable
+    @Override
+    public String getJobId() {
+        return super.getJobId();
+    }
+
+    /**
+     * {@inheritDoc}}
+     * @param jobId {@inheritDoc}
+     */
+    // overridden to public
+    @Override
+    public void setJobId(@Nullable final String jobId) {
+        super.setJobId(jobId);
+    }
+
     // ------------------------------------------------------------------------------------------------- super.managerId
     @Nullable
     @Override
@@ -81,9 +104,23 @@ class Employee extends MappedEmployee {
         return super.getManagerId();
     }
 
+    // overridden to public
     @Override
-    public void setManagerId(@Nullable Integer managerId) {
+    public void setManagerId(@Nullable final Integer managerId) {
         super.setManagerId(managerId);
+    }
+
+    // ------------------------------------------------------------------------------------------------- super.departmentId
+    @Nullable
+    @Override
+    public Integer getDepartmentId() {
+        return super.getDepartmentId();
+    }
+
+    // overridden to public
+    @Override
+    public void setDepartmentId(@Nullable final Integer departmentId) {
+        super.setDepartmentId(departmentId);
     }
 
     // ------------------------------------------------------------------------------------------------------------- job
@@ -100,7 +137,8 @@ class Employee extends MappedEmployee {
                         .orElse(null)
         );
     }
-// --------------------------------------------------------------------------------------------------------- manager
+
+    // --------------------------------------------------------------------------------------------------------- manager
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_MANAGER} attribute.

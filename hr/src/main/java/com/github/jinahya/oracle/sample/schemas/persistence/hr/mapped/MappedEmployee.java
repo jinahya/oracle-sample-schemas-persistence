@@ -412,7 +412,7 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
      *
      * @param employeeId the new value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
      */
-    public void setEmployeeId(@Nonnull final Integer employeeId) {
+    protected void setEmployeeId(@Nonnull final Integer employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -467,11 +467,22 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     }
 
     // ----------------------------------------------------------------------------------------------------------- jobId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
+     *
+     * @return current value of the {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
+     */
     @Nonnull
     public String getJobId() {
         return jobId;
     }
 
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute with the specified value.
+     *
+     * @param jobId new value of the {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
+     */
     protected void setJobId(@Nonnull final String jobId) {
         this.jobId = jobId;
     }
@@ -512,7 +523,7 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
         return departmentId;
     }
 
-    public void setDepartmentId(@Nullable final Integer departmentId) {
+    protected void setDepartmentId(@Nullable final Integer departmentId) {
         this.departmentId = departmentId;
     }
 
