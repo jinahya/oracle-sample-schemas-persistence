@@ -32,7 +32,9 @@ import java.util.concurrent.ThreadLocalRandom;
 class Job_Randomizer extends _MappedHrEntity_Randomizer<Job, String> {
 
     Job_Randomizer() {
-        super(Job.class, String.class);
+        super(Job.class, String.class,
+              MappedJob.ATTRIBUTE_NAME_EMPLOYEES
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------

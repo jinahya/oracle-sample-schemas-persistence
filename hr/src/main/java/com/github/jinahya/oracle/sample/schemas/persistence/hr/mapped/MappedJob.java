@@ -33,6 +33,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 /**
  * An abstract mapped-superclass for mapping the {@value MappedJob#TABLE_NAME} table.
@@ -121,6 +122,9 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
 
     public static final long ATTRIBUTE_MAX_MAX_SALARY = COLUMN_MAX_MAX_SALARY;
 
+    // -----------------------------------------------------------------------------------------------------------------
+    public static final String ATTRIBUTE_NAME_EMPLOYEES = "employees";
+
     // ----------------------------------------------------------------------------------------------------- COMPARATORS
     public static final Comparator<MappedJob> COMPARATOR_MIN_SALARY_NATURAL_NULLS_FIRST =
             Comparator.comparing(MappedJob::getMinSalary, Comparator.nullsFirst(Comparator.naturalOrder()));
@@ -160,6 +164,15 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
                ",minSalary=" + minSalary +
                ",maxSalary=" + maxSalary +
                '}';
+    }
+
+    protected final boolean equalsWithJobId(final Object obj) {
+        if (!(obj instanceof MappedJob that)) return false;
+        return Objects.equals(jobId, that.jobId);
+    }
+
+    protected final int hashCodeWithJobId() {
+        return Objects.hashCode(jobId);
     }
 
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
