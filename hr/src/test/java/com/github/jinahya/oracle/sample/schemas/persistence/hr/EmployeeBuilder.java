@@ -1,28 +1,11 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedDepartment;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedEmployee;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedEmployeeBuilder;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntityBuilder;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_PersistenceIT;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-
-import java.util.List;
-import java.util.Optional;
 
 public class EmployeeBuilder extends MappedEmployeeBuilder<EmployeeBuilder, Employee> {
 
     // ----------------------------------------------------------------------------------------------------- CONSTRUCTOR
-     EmployeeBuilder() {
+    EmployeeBuilder() {
         super(Employee.class);
     }
 
@@ -58,36 +41,3 @@ public class EmployeeBuilder extends MappedEmployeeBuilder<EmployeeBuilder, Empl
 
     private Department department;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

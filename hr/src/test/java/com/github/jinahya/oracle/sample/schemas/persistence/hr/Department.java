@@ -58,8 +58,6 @@ public class Department extends MappedDepartment {
         );
     }
 
-
-
     @Nullable
     public Location getLocation() {
         return location;
@@ -92,10 +90,10 @@ public class Department extends MappedDepartment {
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_LOCATION_ID,  nullable = true, insertable = false, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_LOCATION_ID, nullable = true, insertable = false, updatable = false)
     private Location location;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @OneToMany(mappedBy = MappedEmployee.ATTRIBUTE_NAME_DEPARTMENT,               fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = MappedEmployee.ATTRIBUTE_NAME_DEPARTMENT, fetch = FetchType.LAZY)
     private List<@Valid @NotNull Employee> employees;
 }

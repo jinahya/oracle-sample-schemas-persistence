@@ -32,7 +32,6 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
 import java.lang.reflect.Method;
@@ -145,14 +144,15 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     public static final int COLUMN_SCALE_SALARY = 2;
 
-//    public static final double COLUMN_MIN_SALARY = -999999.99d; // TODO: check the checks/EMP_SALARY_MIN
+    //    public static final double COLUMN_MIN_SALARY = -999999.99d; // TODO: check the checks/EMP_SALARY_MIN
     public static final double COLUMN_MIN_SALARY_EXCLUSIVE = 0; // TODO: check the checks/EMP_SALARY_MIN
 
     public static final double COLUMN_MAX_SALARY = +999999.99d;
 
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
 
-    public static final String ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE = "-000000.00"; // TODO: check the checks/EMP_SALARY_MIN
+    public static final String ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE = "-000000.00";
+            // TODO: check the checks/EMP_SALARY_MIN
 
     public static final String ATTRIBUTE_DECIMAL_MAX_SALARY = "+999999.99";
 
@@ -279,6 +279,7 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+
     /**
      * Tests whether current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is greater than or equal to the
      * result of a method of {@code getJobMinSalary()Number}.
@@ -631,14 +632,3 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
             precision = COLUMN_PRECISION_DEPARTMENT_ID)
     private Integer departmentId;
 }
-
-
-
-
-
-
-
-
-
-
-

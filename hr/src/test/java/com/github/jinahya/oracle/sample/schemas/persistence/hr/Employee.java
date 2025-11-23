@@ -11,7 +11,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -21,7 +20,6 @@ import java.util.Optional;
 @Entity
 @Table(name = MappedEmployee.TABLE_NAME)
 class Employee extends MappedEmployee {
-
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
     public static EmployeeBuilder builder() {
@@ -59,7 +57,7 @@ class Employee extends MappedEmployee {
 
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
-//    @AssertTrue
+    //    @AssertTrue
     @Override
     protected boolean isCommissionPctNonNegative() {
         return super.isCommissionPctNonNegative();
@@ -73,7 +71,7 @@ class Employee extends MappedEmployee {
 
     private BigDecimal getJobMinSalary() {
         // return job.getMinSalary();
-        return  null;
+        return null;
     }
 
     @Nullable
@@ -128,11 +126,11 @@ class Employee extends MappedEmployee {
     }
 
     // ---------------------------------------------------------------------------------------------------- subordinates
-     List<Employee> getSubordinates() {
+    List<Employee> getSubordinates() {
         return subordinates;
     }
 
-     void setSubordinates(final List<Employee> subordinates) {
+    void setSubordinates(final List<Employee> subordinates) {
         this.subordinates = subordinates;
         // SELECT e FROM Employee e ORDER BY COUNT(e.subordinates)
     }
@@ -155,35 +153,3 @@ class Employee extends MappedEmployee {
     @OneToMany(mappedBy = MappedEmployee.ATTRIBUTE_NAME_MANAGER, fetch = FetchType.LAZY, cascade = {})
     private List<@Valid @NotNull Employee> subordinates;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

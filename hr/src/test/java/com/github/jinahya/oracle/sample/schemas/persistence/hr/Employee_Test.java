@@ -5,8 +5,6 @@ import jakarta.annotation.Nonnull;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class Employee_Test extends _MappedHrEntity_Test<Employee, Integer> {
 
     Employee_Test() {

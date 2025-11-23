@@ -14,7 +14,7 @@ class Department_Randomizer extends _MappedHrEntity_Randomizer<Department, Integ
               MappedDepartment.ATTRIBUTE_NAME_LOCATION_ID,
               MappedDepartment.ATTRIBUTE_NAME_LOCATION,
               MappedDepartment.ATTRIBUTE_NAME_MANAGER_ID,
-              MappedDepartment.ATTRIBUTE_NAME_MANAGER ,
+              MappedDepartment.ATTRIBUTE_NAME_MANAGER,
               MappedDepartment.ATTRIBUTE_NAME_EMPLOYEES
         );
     }
