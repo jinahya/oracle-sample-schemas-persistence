@@ -204,14 +204,11 @@ CONNECT BY PRIOR e.MANAGER_ID = e.EMPLOYEE_ID;
 
 
 -- all in a tree
-SELECT e.EMPLOYEE_ID,
-       e.FIRST_NAME,
-       e.LAST_NAME,
-       e.MANAGER_ID,
-       LEVEL,
-       SYS_CONNECT_BY_PATH(LAST_NAME, '/') AS full_path -- Optional: to show the full path from root
+SELECT LEVEL,
+       SYS_CONNECT_BY_PATH(LAST_NAME, '/') AS full_path,
+       e.*
 FROM EMPLOYEES e
-START WITH MANAGER_ID IS NULL -- Or a specific ID to start the tree from a particular root
-CONNECT BY PRIOR EMPLOYEE_ID = MANAGER_ID
-ORDER BY LEVEL ASC NULLS FIRST
+START WITH e.MANAGER_ID IS NULL
+CONNECT BY PRIOR e.EMPLOYEE_ID = e.MANAGER_ID
+ORDER BY LEVEL ASC, LAST_NAME ASC
 ;
