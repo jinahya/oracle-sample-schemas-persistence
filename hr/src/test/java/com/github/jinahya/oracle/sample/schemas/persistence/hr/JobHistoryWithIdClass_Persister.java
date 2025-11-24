@@ -1,11 +1,8 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory_Persister;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersisterUtils;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityManager;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 class JobHistoryWithIdClass_Persister extends MappedJobHistory_Persister<JobHistoryWithIdClass> {
 

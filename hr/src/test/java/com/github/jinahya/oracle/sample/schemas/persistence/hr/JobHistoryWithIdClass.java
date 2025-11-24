@@ -11,7 +11,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
@@ -28,16 +27,7 @@ import jakarta.validation.constraints.NotNull;
                     WHERE e.employeeId = :employeeId"""
 )
 @Entity
-@Table(name = MappedJobHistory.TABLE_NAME,
-       uniqueConstraints = {
-               @UniqueConstraint(
-                       columnNames = {
-                               MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,
-                               MappedJobHistory.COLUMN_NAME_START_DATE
-                       }
-               )
-       }
-)
+@Table(name = MappedJobHistory.TABLE_NAME)
 class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass {
 
     protected JobHistoryWithIdClass() {

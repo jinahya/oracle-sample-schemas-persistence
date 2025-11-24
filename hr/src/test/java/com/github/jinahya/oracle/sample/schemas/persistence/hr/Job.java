@@ -20,7 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedEmployee;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

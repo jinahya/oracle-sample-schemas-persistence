@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithEmbeddedId;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -9,21 +8,11 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = MappedJobHistoryWithEmbeddedId.TABLE_NAME,
-       uniqueConstraints = {
-               @UniqueConstraint(
-                       columnNames = {
-                               MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,
-                               MappedJobHistory.COLUMN_NAME_START_DATE
-                       }
-               )
-       }
-)
+@Table(name = MappedJobHistoryWithEmbeddedId.TABLE_NAME)
 class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
