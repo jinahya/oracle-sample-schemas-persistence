@@ -1,7 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedDepartment;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithEmbeddedId;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -10,13 +9,21 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
-import java.util.Optional;
-
 @Entity
-@Table(name = MappedJobHistoryWithEmbeddedId.TABLE_NAME)
+@Table(name = MappedJobHistoryWithEmbeddedId.TABLE_NAME,
+       uniqueConstraints = {
+               @UniqueConstraint(
+                       columnNames = {
+                               MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,
+                               MappedJobHistory.COLUMN_NAME_START_DATE
+                       }
+               )
+       }
+)
 class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
@@ -35,6 +42,10 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
 
     // -------------------------------------------------------------------------------------------------------- employee
+    @Nonnull
+    public Employee getEmployee() {
+        return employee;
+    }
 
     // ------------------------------------------------------------------------------------------------------------- job
     @Nonnull
@@ -42,37 +53,26 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
         return job;
     }
 
-    @Deprecated(forRemoval = true)
-    protected void setJob(final @Nonnull Job job) {
-        this.job = job;
-        setJobId(
-                Optional.ofNullable(this.job)
-                        .map(MappedJob::getJobId)
-                        .orElse(null)
-        );
-    }
-
     // ------------------------------------------------------------------------------------------------------ department
     @Nullable
-    public Department getDepartment() {
+    protected Department getDepartment() {
         return department;
     }
 
-    @Deprecated(forRemoval = true)
-    protected void setDepartment(final @Nullable Department department) {
-        this.department = department;
-        setDepartmentId(
-                Optional.ofNullable(this.department)
-                        .map(MappedDepartment::getDepartmentId)
-                        .orElse(null)
-
-        );
-    }
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
+    @Valid
+    @NotNull
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = MappedJobHistoryWithEmbeddedId.COLUMN_NAME_EMPLOYEE_ID,
+                nullable = false,
+                insertable = false,
+                updatable = false
+    )
+    private Employee employee;
 
     // -----------------------------------------------------------------------------------------------------------------
-
-    // TODO: map Employee
-
+    @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

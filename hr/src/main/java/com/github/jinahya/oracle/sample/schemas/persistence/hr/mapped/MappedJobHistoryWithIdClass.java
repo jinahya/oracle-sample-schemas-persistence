@@ -33,7 +33,6 @@ import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * An abstract mapped-superclass, maps the {@value MappedJobHistory#TABLE_NAME} table, uses {@link JobHistoryId} as its
@@ -46,12 +45,12 @@ import java.util.Optional;
 public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
-    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = JobHistoryId.ATTRIBUTE_NAME_EMPLOYEE_ID;
+    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = MappedJobHistory.ATTRIBUTE_NAME_EMPLOYEE_ID;
 
     public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
 
     // ------------------------------------------------------------------------------------------------------ START_DATE
-    public static final String ATTRIBUTE_NAME_START_DATE = JobHistoryId.ATTRIBUTE_NAME_START_DATE;
+    public static final String ATTRIBUTE_NAME_START_DATE = MappedJobHistory.ATTRIBUTE_NAME_START_DATE;
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
 
@@ -94,26 +93,24 @@ public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
-
-    // -------------------------------------------------------------------------------------------------------- super.id
-    @Override
-    public JobHistoryId getId() {
-        return super.getId();
+    protected boolean isStartDateBeforeEndDate() {
+        if (startDate == null) {
+            return true;
+        }
+        if (endDate == null) {
+            return true;
+        }
+        return startDate.isBefore(endDate);
     }
 
-    @Deprecated(forRemoval = true)
-    @Override
-    protected void setId(final JobHistoryId id) {
-        setEmployeeId(
-                Optional.ofNullable(id)
-                        .map(JobHistoryId::getEmployeeId)
-                        .orElse(null)
-        );
-        setStartDate(
-                Optional.ofNullable(id)
-                        .map(JobHistoryId::getStartDate)
-                        .orElse(null)
-        );
+    protected boolean isStartDateNotAfterEndDate() {
+        if (startDate == null) {
+            return true;
+        }
+        if (endDate == null) {
+            return true;
+        }
+        return !startDate.isAfter(endDate);
     }
 
     // --------------------------------------------------------------------------------------------------- super.endDate
@@ -124,38 +121,36 @@ public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
 
     // ------------------------------------------------------------------------------------------------------ employeeId
     @Nonnull
-    @Override
     public Integer getEmployeeId() {
         return employeeId;
     }
 
-    public void setEmployeeId(@Nonnull final Integer employeeId) {
+    protected void setEmployeeId(@Nonnull final Integer employeeId) {
         this.employeeId = employeeId;
     }
 
     // ------------------------------------------------------------------------------------------------------- startDate
     @Nonnull
-    @Override
     public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(@Nonnull final LocalDate startDate) {
+    protected void setStartDate(@Nonnull final LocalDate startDate) {
         this.startDate = startDate;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Max(JobHistoryId.ATTRIBUTE_MAX_EMPLOYEE_ID)
-    @Min(JobHistoryId.ATTRIBUTE_MIN_EMPLOYEE_ID)
+    @Max(MappedJobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
+    @Min(MappedJobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
     @NotNull
     @Id // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    @Column(name = JobHistoryId.COLUMN_NAME_EMPLOYEE_ID,
+    @Column(name = MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,
             nullable = false,
             insertable = false,
             updatable = false,
-            precision = JobHistoryId.COLUMN_PRECISION_EMPLOYEE_ID,
-            scale = JobHistoryId.COLUMN_SCALE_EMPLOYEE_ID
+            precision = MappedJobHistory.COLUMN_PRECISION_EMPLOYEE_ID,
+            scale = MappedJobHistory.COLUMN_SCALE_EMPLOYEE_ID
     )
     private Integer employeeId;
 
@@ -164,7 +159,7 @@ public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
     @PastOrPresent
     @NotNull
     @Id // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    @Column(name = JobHistoryId.COLUMN_NAME_START_DATE,
+    @Column(name = MappedJobHistory.COLUMN_NAME_START_DATE,
             nullable = false,
             insertable = false,
             updatable = false

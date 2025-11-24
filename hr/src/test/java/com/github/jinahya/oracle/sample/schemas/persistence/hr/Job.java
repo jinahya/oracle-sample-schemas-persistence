@@ -167,6 +167,7 @@ public class Job extends MappedJob {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @OneToMany(mappedBy = MappedEmployee.ATTRIBUTE_NAME_JOB, fetch = FetchType.LAZY)
+//    @OneToMany(mappedBy = MappedEmployee.ATTRIBUTE_NAME_JOB, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = Employee_.JOB, fetch = FetchType.LAZY)
     private List<@Valid @NotNull Employee> employees;
 }

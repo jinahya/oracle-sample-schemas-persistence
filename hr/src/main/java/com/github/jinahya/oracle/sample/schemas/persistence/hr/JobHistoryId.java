@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHr;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
@@ -31,8 +32,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -42,52 +41,10 @@ import java.util.Objects;
 //     by 'com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistory.id'
 //     because it has no properties
 @Embeddable
-public class JobHistoryId extends _MappedHr implements Serializable {
+public class JobHistoryId extends _MappedHr { // implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = -537237161047866359L;
-
-    // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
-
-    /**
-     * A table column name of {@value}.
-     */
-    public static final String COLUMN_NAME_EMPLOYEE_ID = "EMPLOYEE_ID";
-
-    /**
-     * The precision of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_PRECISION_EMPLOYEE_ID = 6;
-
-    /**
-     * The scale of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_SCALE_EMPLOYEE_ID = 0;
-
-    /**
-     * The minimum value of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_MIN_EMPLOYEE_ID = -999999;
-
-    /**
-     * The maximum value of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_MAX_EMPLOYEE_ID = +999999;
-
-    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
-
-    public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
-
-    public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
-
-    // ------------------------------------------------------------------------------------------------------ START_DATE
-
-    /**
-     * A table column name of {@value}.
-     */
-    public static final String COLUMN_NAME_START_DATE = "START_DATE";
-
-    public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
+//    @Serial
+//    private static final long serialVersionUID = -537237161047866359L;
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
     public static JobHistoryIdBuilder builder() {
@@ -110,7 +67,7 @@ public class JobHistoryId extends _MappedHr implements Serializable {
      *
      * @param builder the builder from which a new instance is built.
      */
-    private JobHistoryId(@Nonnull final JobHistoryIdBuilder builder) {
+    JobHistoryId(@Nonnull final JobHistoryIdBuilder builder) {
         super(builder);
     }
 
@@ -128,8 +85,6 @@ public class JobHistoryId extends _MappedHr implements Serializable {
         if (!(obj instanceof JobHistoryId that)) {
             return false;
         }
-//        return (employeeId != null && Objects.equals(employeeId, that.employeeId)) &&
-//               (startDate != null && Objects.equals(startDate, that.startDate));
         return Objects.equals(employeeId, that.employeeId) &&
                Objects.equals(startDate, that.startDate);
     }
@@ -139,15 +94,17 @@ public class JobHistoryId extends _MappedHr implements Serializable {
         return Objects.hash(employeeId, startDate);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+    public JobHistoryIdBuilder toBuilder() {
+        return JobHistoryId.builder()
+                .employeeId(employeeId)
+                .startDate(startDate);
+    }
+
     // ------------------------------------------------------------------------------------------------------ employeeId
     @Nonnull
     public Integer getEmployeeId() {
         return employeeId;
-    }
-
-    @Deprecated(forRemoval = true)
-    void setEmployeeId(@Nonnull final Integer employeeId) {
-        this.employeeId = employeeId;
     }
 
     // ------------------------------------------------------------------------------------------------------- startDate
@@ -156,22 +113,17 @@ public class JobHistoryId extends _MappedHr implements Serializable {
         return startDate;
     }
 
-    @Deprecated(forRemoval = true)
-    void setStartDate(@Nonnull final LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
-    @Max(ATTRIBUTE_MAX_EMPLOYEE_ID)
-    @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
+    @Max(MappedJobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
+    @Min(MappedJobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_EMPLOYEE_ID,
+    @Column(name = MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,
             nullable = false,
             insertable = false,
             updatable = false,
-            precision = COLUMN_PRECISION_EMPLOYEE_ID,
-            scale = COLUMN_SCALE_EMPLOYEE_ID
+            precision = MappedJobHistory.COLUMN_PRECISION_EMPLOYEE_ID,
+            scale = MappedJobHistory.COLUMN_SCALE_EMPLOYEE_ID
     )
     private Integer employeeId;
 
@@ -179,7 +131,7 @@ public class JobHistoryId extends _MappedHr implements Serializable {
     @PastOrPresent
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_START_DATE,
+    @Column(name = MappedJobHistory.COLUMN_NAME_START_DATE,
             nullable = false,
             insertable = false,
             updatable = false

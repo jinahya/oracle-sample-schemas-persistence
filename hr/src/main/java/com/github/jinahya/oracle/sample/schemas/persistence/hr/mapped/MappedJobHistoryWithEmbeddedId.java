@@ -27,9 +27,9 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * An abstract mapped-superclass, maps the {@value MappedJobHistory#TABLE_NAME} table, uses {@link JobHistoryId} as its
@@ -93,39 +93,59 @@ public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+    protected boolean isIdStartDateBeforeEndDate() {
+        if (id == null) {
+            return true;
+        }
+        final var startDate = id.getStartDate();
+        if (startDate == null) {
+            return true;
+        }
+        final var endDate = getEndDate();
+        if (endDate == null) {
+            return true;
+        }
+        return startDate.isBefore(endDate);
+    }
+
+    protected boolean isIdStartDateNotAfterEndDate() {
+        if (id == null) {
+            return true;
+        }
+        final var startDate = id.getStartDate();
+        if (startDate == null) {
+            return true;
+        }
+        final var endDate = getEndDate();
+        if (endDate == null) {
+            return true;
+        }
+        return !startDate.isAfter(endDate);
+    }
 
     // ----------------------------------------------------------------------------------------------------------- super
-    @Override
-    public Integer getEmployeeId() {
-        return Optional.ofNullable(getId())
-                .map(JobHistoryId::getEmployeeId)
-                .orElse(null);
-    }
-
-    @Override
-    public LocalDate getStartDate() {
-        return Optional.ofNullable(getId())
-                .map(JobHistoryId::getStartDate)
-                .orElse(null);
-    }
 
     // --------------------------------------------------------------------------------------------------- super.endDate
 
     // ----------------------------------------------------------------------------------------------------- super.jobId
 
-    // ---------------------------------------------------------------------------------------------- super.departmentId
-
     // -------------------------------------------------------------------------------------------------------------- id
     @Nonnull
-    @Override
     public JobHistoryId getId() {
         return id;
     }
 
-    @Deprecated(forRemoval = true)
-    @Override
     protected void setId(@Nonnull final JobHistoryId id) {
         this.id = id;
+    }
+
+    @Nonnull
+    public JobHistoryId getIdOrSetSuppliedAndGet(final Supplier<? extends JobHistoryId> supplier) {
+        return Optional.ofNullable(getId())
+                .orElseGet(() -> {
+                    setId(supplier.get());
+                    return getId();
+                });
     }
 
     // -----------------------------------------------------------------------------------------------------------------

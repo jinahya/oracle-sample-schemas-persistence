@@ -31,7 +31,7 @@ class Employee_PersistenceTest extends _MappedHrEntity_PersistenceTest<Employee,
                     final var persisted = __MappedEntity_PersisterUtils.newPersistedInstanceOf(em, entityClass);
                     final var jobId = persisted.getJobId();
                     // -------------------------------------------------------------------------------------------- when
-                    final var query = em.createNamedQuery("Employee.selectListWhereJobIdEqualTo", Employee.class);
+                    final var query = em.createNamedQuery("Employee.selectList_WhereJobIdEqualTo", Employee.class);
                     query.setParameter("jobId", jobId);
                     final var result = query.getResultList();
                     // -------------------------------------------------------------------------------------------- then
@@ -109,7 +109,7 @@ class Employee_PersistenceTest extends _MappedHrEntity_PersistenceTest<Employee,
                     final var persisted = __MappedEntity_PersisterUtils.newPersistedInstanceOf(em, entityClass);
                     final var job = persisted.getJob();
                     // -------------------------------------------------------------------------------------------- when
-                    final var query = em.createNamedQuery("Employee.selectListWhereJobEqualTo", Employee.class);
+                    final var query = em.createNamedQuery("Employee.selectList_WhereJobEqualTo", Employee.class);
                     query.setParameter("job", job);
                     final var result = query.getResultList();
                     // -------------------------------------------------------------------------------------------- then

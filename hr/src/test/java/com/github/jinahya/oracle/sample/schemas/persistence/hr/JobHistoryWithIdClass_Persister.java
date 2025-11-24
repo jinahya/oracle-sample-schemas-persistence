@@ -17,15 +17,15 @@ class JobHistoryWithIdClass_Persister extends MappedJobHistory_Persister<JobHist
     @Override
     public void persist(@Nonnull final EntityManager entityManager,
                         @Nonnull final JobHistoryWithIdClass entityInstance) {
-        // TODO: set employee
-        entityInstance.setJob(
-                __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Job.class)
-        );
-        entityInstance.setDepartment(
-                ThreadLocalRandom.current().nextBoolean()
-                ? null
-                : __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Department.class)
-        );
+//        // TODO: set employee
+//        entityInstance.setJob(
+//                __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Job.class)
+//        );
+//        entityInstance.setDepartment(
+//                ThreadLocalRandom.current().nextBoolean()
+//                ? null
+//                : __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Department.class)
+//        );
         super.persist(entityManager, entityInstance);
     }
 }

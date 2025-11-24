@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @NamedQuery(
-        name = "Employee.selectListWhereJobEqualTo",
+        name = "Employee.selectList_WhereJobEqualTo",
         query = """
                 SELECT e 
                 FROM Employee e
@@ -28,7 +28,7 @@ import java.util.Optional;
                 """
 )
 @NamedQuery(
-        name = "Employee.selectListWhereJobIdEqualTo",
+        name = "Employee.selectList_WhereJobIdEqualTo",
         query = """
                 SELECT e 
                 FROM Employee e
