@@ -16,7 +16,7 @@ class Employee_PersistenceTest extends _MappedHrEntity_PersistenceTest<Employee,
         super(Employee.class, Integer.class);
     }
 
-    @DisplayName("SelectListByJobId")
+    @DisplayName("selectListWhereJobIdEqual")
     @Nested
     class SelectListByJobId_Test {
 
@@ -85,6 +85,84 @@ class Employee_PersistenceTest extends _MappedHrEntity_PersistenceTest<Employee,
                     final var root = query.from(Employee.class);                  // FROM Employee e
                     query.select(root);                                           // SELECT e
                     query.where(builder.equal(root.get(Employee_.jobId), jobId)); // WHERE e.jobId = :jobId
+                    final var result = em.createQuery(query).getResultList();
+                    // -------------------------------------------------------------------------------------------- then
+                    assertThat(result).contains(persisted);
+                    return null;
+                });
+            }
+        }
+    }
+
+    @DisplayName("selectListWhereJobEqual")
+    @Nested
+    class SelectListByJob_Test {
+
+        @Nested
+        class NamedQuery_Test {
+
+            @DisplayName("(persisted.)[persisted]")
+            @Test
+            void __() {
+                applyEntityManagerInTransactionAndRollback(em -> {
+                    // ------------------------------------------------------------------------------------------- given
+                    final var persisted = __MappedEntity_PersisterUtils.newPersistedInstanceOf(em, entityClass);
+                    final var job = persisted.getJob();
+                    // -------------------------------------------------------------------------------------------- when
+                    final var query = em.createNamedQuery("Employee.selectListWhereJobEqualTo", Employee.class);
+                    query.setParameter("job", job);
+                    final var result = query.getResultList();
+                    // -------------------------------------------------------------------------------------------- then
+                    assertThat(result).contains(persisted);
+                    return null;
+                });
+            }
+        }
+
+        @Nested
+        class QueryLanguage_Test {
+
+            @DisplayName("(persisted.)[persisted]")
+            @Test
+            void __() {
+                applyEntityManagerInTransactionAndRollback(em -> {
+                    // ------------------------------------------------------------------------------------------- given
+                    final var persisted = __MappedEntity_PersisterUtils.newPersistedInstanceOf(em, entityClass);
+                    final var job = persisted.getJob();
+                    // -------------------------------------------------------------------------------------------- when
+                    final var query = em.createQuery(
+                            """
+                                    SELECT e
+                                    FROM Employee e
+                                    WHERE e.job = :job
+                                    """,
+                            Employee.class
+                    );
+                    query.setParameter("job", job);
+                    final var result = query.getResultList();
+                    // -------------------------------------------------------------------------------------------- then
+                    assertThat(result).contains(persisted);
+                    return null;
+                });
+            }
+        }
+
+        @Nested
+        class CriteriaApi_Test {
+
+            @DisplayName("(persisted.)[persisted]")
+            @Test
+            void __() {
+                applyEntityManagerInTransactionAndRollback(em -> {
+                    // ------------------------------------------------------------------------------------------- given
+                    final var persisted = __MappedEntity_PersisterUtils.newPersistedInstanceOf(em, entityClass);
+                    final var job = persisted.getJob();
+                    // -------------------------------------------------------------------------------------------- when
+                    final var builder = em.getCriteriaBuilder();
+                    final var query = builder.createQuery(Employee.class);
+                    final var root = query.from(Employee.class);              // FROM Employee e
+                    query.select(root);                                       // SELECT e
+                    query.where(builder.equal(root.get(Employee_.job), job)); // WHERE e.job = :job
                     final var result = em.createQuery(query).getResultList();
                     // -------------------------------------------------------------------------------------------- then
                     assertThat(result).contains(persisted);
