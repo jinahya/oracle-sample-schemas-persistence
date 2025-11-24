@@ -69,6 +69,14 @@ SELECT MIN(JOB_ID), MAX(JOB_ID)
 FROM EMPLOYEES
 ;
 
+-- JOB_ID COUNT 역순
+SELECT JOB_ID, COUNT(1) AS JOB_COUNT
+FROM EMPLOYEES
+GROUP BY JOB_ID
+ORDER BY COUNT(JOB_ID) DESC
+    FETCH FIRST 10 ROWS ONLY
+;
+
 -- -------------------------------------------------------------------------------------------------------------- SALARY
 SELECT COUNT(1)
 FROM EMPLOYEES
