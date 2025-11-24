@@ -127,6 +127,14 @@ public class Job extends MappedJob {
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
+
+    @Override
+    public String toString() {
+        return super.toString() + '{' +
+//               "employees=" + employees +
+               '}';
+    }
+
     @Override
     public final boolean equals(final Object obj) {
         return super.equalsWithJobId(obj);

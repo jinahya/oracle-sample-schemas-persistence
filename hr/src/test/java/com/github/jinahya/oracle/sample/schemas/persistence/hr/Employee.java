@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -18,6 +19,22 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+@NamedQuery(
+        name = "Employee.selectListWhereJobEqualTo",
+        query = """
+                SELECT e 
+                FROM Employee e
+                WHERE e.job = :job
+                """
+)
+@NamedQuery(
+        name = "Employee.selectListWhereJobIdEqualTo",
+        query = """
+                SELECT e 
+                FROM Employee e
+                WHERE e.jobId = :jobId
+                """
+)
 @Entity
 @Table(name = MappedEmployee.TABLE_NAME)
 class Employee extends MappedEmployee {
@@ -89,6 +106,7 @@ class Employee extends MappedEmployee {
 
     /**
      * {@inheritDoc}}
+     *
      * @param jobId {@inheritDoc}
      */
     // overridden to public
