@@ -146,7 +146,7 @@ class Customer_PersistenceIT extends _MappedCoEntity_PersistenceIT<Customer, Lon
 
             @Test
             void __() {
-                applyEntityManager(em -> ___JakartaPersistence_TestUtils.applyCountIndexAndEntity(
+                applyEntityManager(em -> ___JakartaPersistence_TestUtils.applyCountRandomIndexAndEntity(
                         em,
                         entityClass,
                         c -> i -> e -> {
@@ -181,7 +181,7 @@ class Customer_PersistenceIT extends _MappedCoEntity_PersistenceIT<Customer, Lon
 
                 @Test
                 void __() {
-                    applyEntityManager(em -> ___JakartaPersistence_TestUtils.applyCountIndexAndEntity(
+                    applyEntityManager(em -> ___JakartaPersistence_TestUtils.applyCountRandomIndexAndEntity(
                             em,
                             entityClass,
                             c -> i -> e -> {
@@ -221,7 +221,7 @@ class Customer_PersistenceIT extends _MappedCoEntity_PersistenceIT<Customer, Lon
 
                 @Test
                 void __() {
-                    applyEntityManager(em -> ___JakartaPersistence_TestUtils.applyCountIndexAndEntity(
+                    applyEntityManager(em -> ___JakartaPersistence_TestUtils.applyCountRandomIndexAndEntity(
                             em,
                             entityClass,
                             c -> i -> e -> {
