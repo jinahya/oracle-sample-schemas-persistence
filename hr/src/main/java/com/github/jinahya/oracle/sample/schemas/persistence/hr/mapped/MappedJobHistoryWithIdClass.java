@@ -138,7 +138,7 @@ public abstract class MappedJobHistoryWithIdClass<ID extends MappedJobHistoryId>
     @Column(name = MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,
             nullable = false,
 //            insertable = false,
-            insertable = true,
+            insertable = true, // fuck eclipselink
             updatable = false,
             precision = MappedJobHistory.COLUMN_PRECISION_EMPLOYEE_ID,
             scale = MappedJobHistory.COLUMN_SCALE_EMPLOYEE_ID
@@ -153,7 +153,7 @@ public abstract class MappedJobHistoryWithIdClass<ID extends MappedJobHistoryId>
     @Column(name = MappedJobHistory.COLUMN_NAME_START_DATE,
             nullable = false,
 //            insertable = false,
-            insertable = true,
+            insertable = true, // fuck eclipselink
             updatable = false
     )
     private LocalDate startDate;
