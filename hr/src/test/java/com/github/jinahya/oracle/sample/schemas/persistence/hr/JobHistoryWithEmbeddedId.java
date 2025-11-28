@@ -1,8 +1,10 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithEmbeddedId;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -13,7 +15,7 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = MappedJobHistoryWithEmbeddedId.TABLE_NAME)
-class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
+class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId<JobHistoryId> {
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
 
@@ -29,6 +31,18 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+
+    // -------------------------------------------------------------------------------------------------------------- id
+
+    @Override
+    protected JobHistoryId getId() {
+        return id;
+    }
+
+//    @Override
+//    protected void setId(final JobHistoryId id) {
+//        this.id = id;
+//    }
 
     // -------------------------------------------------------------------------------------------------------- employee
     @Nonnull
@@ -49,14 +63,19 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Valid
+    @NotNull
+    @EmbeddedId
+    private JobHistoryId id;
+
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = MappedJobHistoryWithEmbeddedId.COLUMN_NAME_EMPLOYEE_ID,
+    @JoinColumn(name = MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,
                 nullable = false,
                 insertable = false,
-//                insertable = true, // eclipselink
                 updatable = false
     )
     private Employee employee;
@@ -66,7 +85,7 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = MappedJobHistoryWithEmbeddedId.COLUMN_NAME_JOB_ID,
+    @JoinColumn(name = MappedJobHistory.COLUMN_NAME_JOB_ID,
                 nullable = false,
                 insertable = false,
 //                insertable = true, // eclipselink
@@ -78,7 +97,7 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = MappedJobHistoryWithEmbeddedId.COLUMN_NAME_DEPARTMENT_ID,
+    @JoinColumn(name = MappedJobHistory.COLUMN_NAME_DEPARTMENT_ID,
                 nullable = true,
                 insertable = false,
 //                insertable = true, // eclipselink

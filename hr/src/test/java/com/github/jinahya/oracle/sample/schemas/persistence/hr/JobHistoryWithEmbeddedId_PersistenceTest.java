@@ -4,9 +4,10 @@ import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobH
 import com.github.jinahya.persistence.mapped.test.__Disable_PersistEntityInstance_Test;
 
 @__Disable_PersistEntityInstance_Test
-class JobHistoryWithEmbeddedId_PersistenceTest extends MappedJobHistory_PersistenceTest<JobHistoryWithEmbeddedId> {
+class JobHistoryWithEmbeddedId_PersistenceTest
+        extends MappedJobHistory_PersistenceTest<JobHistoryWithEmbeddedId, JobHistoryId> {
 
     JobHistoryWithEmbeddedId_PersistenceTest() {
-        super(JobHistoryWithEmbeddedId.class);
+        super(JobHistoryWithEmbeddedId.class, JobHistoryId.class);
     }
 }

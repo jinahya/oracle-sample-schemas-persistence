@@ -1,10 +1,40 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
 import com.github.jinahya.persistence.mapped.test.__Mapped_Randomizer;
+import jakarta.annotation.Nonnull;
+import uk.co.jemos.podam.api.ClassInfoStrategy;
+import uk.co.jemos.podam.api.DataProviderStrategy;
+import uk.co.jemos.podam.api.PodamFactory;
 
 public class _MappedHr_Randomizer<MAPPED extends _MappedHr> extends __Mapped_Randomizer<MAPPED> {
 
-    protected _MappedHr_Randomizer(final Class<MAPPED> mappedClass) {
-        super(mappedClass);
+    protected _MappedHr_Randomizer(final Class<MAPPED> mappedClass, final String... excludedFields) {
+        super(mappedClass, excludedFields);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Nonnull
+    @Override
+    protected DataProviderStrategy getDataProviderStrategy() {
+        return super.getDataProviderStrategy();
+    }
+
+    @Nonnull
+    @Override
+    protected PodamFactory getPodamFactory() {
+        return super.getPodamFactory();
+    }
+
+    @Nonnull
+    @Override
+    protected ClassInfoStrategy getClassInfoStrategy() {
+        return super.getClassInfoStrategy();
+    }
+
+    @Nonnull
+    @Override
+    public MAPPED get() {
+        return super.get();
     }
 }

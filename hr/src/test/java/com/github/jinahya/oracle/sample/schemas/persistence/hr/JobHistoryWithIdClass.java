@@ -28,7 +28,7 @@ import jakarta.validation.constraints.NotNull;
 )
 @Entity
 @Table(name = MappedJobHistory.TABLE_NAME)
-class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass {
+class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass<JobHistoryId> {
 
     protected JobHistoryWithIdClass() {
         super();
@@ -87,6 +87,7 @@ class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass {
     )
     private Employee employee;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull

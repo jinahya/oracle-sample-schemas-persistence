@@ -20,20 +20,17 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
- * An abstract mapped-superclass, maps the {@value MappedJobHistory#TABLE_NAME} table, uses {@link JobHistoryId} as its
- * {@link EmbeddedId}.
+ * An abstract mapped-superclass, maps the {@value MappedJobHistory#TABLE_NAME} table, uses {@link MappedJobHistoryId}
+ * as its {@link EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -41,7 +38,7 @@ import java.util.function.Supplier;
 @SuppressWarnings({
         "java:S119" // Type parameter names should comply with a naming convention
 })
-public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
+public abstract class MappedJobHistoryWithEmbeddedId<ID extends MappedJobHistoryId> extends MappedJobHistory<ID> {
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
@@ -73,7 +70,7 @@ public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + id +
+               "id=" + getId() +
                '}';
     }
 
@@ -94,6 +91,7 @@ public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
     protected boolean isIdStartDateBeforeEndDate() {
+        final var id = getId();
         if (id == null) {
             return true;
         }
@@ -109,6 +107,7 @@ public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
     }
 
     protected boolean isIdStartDateNotAfterEndDate() {
+        final var id = getId();
         if (id == null) {
             return true;
         }
@@ -130,28 +129,15 @@ public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
     // ----------------------------------------------------------------------------------------------------- super.jobId
 
     // -------------------------------------------------------------------------------------------------------------- id
-    @Nonnull
-    public JobHistoryId getId() {
-        return id;
-    }
+    protected abstract ID getId();
 
-    protected void setId(@Nonnull final JobHistoryId id) {
-        this.id = id;
-    }
-
-    @Nonnull
-    public JobHistoryId getIdOrSetSuppliedAndGet(final Supplier<? extends JobHistoryId> supplier) {
-        return Optional.ofNullable(getId())
-                .orElseGet(() -> {
-                    setId(supplier.get());
-                    return getId();
-                });
-    }
+//    protected abstract void setId(final ID id);
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @Valid
-    @NotNull
-    @EmbeddedId
-    private JobHistoryId id;
+    // fuck eclipselink
+//    @Nonnull
+//    @Valid
+//    @NotNull
+//    @EmbeddedId
+//    private ID id;
 }

@@ -20,7 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
@@ -35,14 +34,13 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * An abstract mapped-superclass, maps the {@value MappedJobHistory#TABLE_NAME} table, uses {@link JobHistoryId} as its
- * {@link IdClass}.
+ * An abstract mapped-superclass, maps the {@value MappedJobHistory#TABLE_NAME} table, uses {@link MappedJobHistoryId}
+ * as its {@link IdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@IdClass(JobHistoryId.class)
 @MappedSuperclass
-public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
+public abstract class MappedJobHistoryWithIdClass<ID extends MappedJobHistoryId> extends MappedJobHistory<ID> {
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
     public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = MappedJobHistory.ATTRIBUTE_NAME_EMPLOYEE_ID;
@@ -125,18 +123,10 @@ public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
         return employeeId;
     }
 
-    protected void setEmployeeId(@Nonnull final Integer employeeId) {
-        this.employeeId = employeeId;
-    }
-
     // ------------------------------------------------------------------------------------------------------- startDate
     @Nonnull
     public LocalDate getStartDate() {
         return startDate;
-    }
-
-    protected void setStartDate(@Nonnull final LocalDate startDate) {
-        this.startDate = startDate;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

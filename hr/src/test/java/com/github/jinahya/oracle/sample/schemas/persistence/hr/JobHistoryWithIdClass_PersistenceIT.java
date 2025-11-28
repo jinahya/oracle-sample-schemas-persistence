@@ -5,9 +5,9 @@ import com.github.jinahya.persistence.mapped.test.__Disable_PersistEntityInstanc
 
 @org.junit.jupiter.api.Disabled
 @__Disable_PersistEntityInstance_Test
-class JobHistoryWithIdClass_PersistenceIT extends MappedJobHistory_PersistenceIT<JobHistoryWithIdClass> {
+class JobHistoryWithIdClass_PersistenceIT extends MappedJobHistory_PersistenceIT<JobHistoryWithIdClass, JobHistoryId> {
 
     JobHistoryWithIdClass_PersistenceIT() {
-        super(JobHistoryWithIdClass.class);
+        super(JobHistoryWithIdClass.class, JobHistoryId.class);
     }
 }

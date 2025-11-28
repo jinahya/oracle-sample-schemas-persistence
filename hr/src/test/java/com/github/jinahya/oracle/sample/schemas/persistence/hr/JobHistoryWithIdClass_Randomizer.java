@@ -6,10 +6,10 @@ import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-class JobHistoryWithIdClass_Randomizer extends MappedJobHistory_Randomizer<JobHistoryWithIdClass> {
+class JobHistoryWithIdClass_Randomizer extends MappedJobHistory_Randomizer<JobHistoryWithIdClass, JobHistoryId> {
 
     JobHistoryWithIdClass_Randomizer() {
-        super(JobHistoryWithIdClass.class);
+        super(JobHistoryWithIdClass.class, JobHistoryId.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -20,7 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
@@ -40,7 +39,10 @@ import java.time.LocalDate;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
+@SuppressWarnings({
+        "java:S119" // Type parameter names should comply with a naming convention
+})
+public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _MappedHrEntity<ID> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -79,6 +81,8 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
     public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
 
     public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
+
+    public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
 
     // ------------------------------------------------------------------------------------------------------ START_DATE
 
@@ -159,40 +163,6 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
-//    protected boolean isStartDateBeforeEndDate() {
-//        final var startDate = Optional.ofNullable(getId()).map(JobHistoryId::getStartDate).orElse(null);
-//        if (startDate == null) {
-//            return true;
-//        }
-//        if (endDate == null) {
-//            return true;
-//        }
-//        return startDate.isBefore(endDate);
-//    }
-//
-//    protected boolean isStartDateNotAfterEndDate() {
-//        final var startDate = Optional.ofNullable(getId()).map(JobHistoryId::getStartDate).orElse(null);
-//        if (startDate == null) {
-//            return true;
-//        }
-//        if (endDate == null) {
-//            return true;
-//        }
-//        return !startDate.isAfter(endDate);
-//    }
-
-//    // -------------------------------------------------------------------------------------------------------------- id
-//    /**
-//     * Returns the id of this entity.
-//     *
-//     * @return the id of this entity.
-//     */
-//    public JobHistoryId getId() {
-//        return JobHistoryId.builder()
-//                .employeeId(getEmployeeId())
-//                .startDate(getStartDate())
-//                .build();
-//    }
 
     // --------------------------------------------------------------------------------------------------------- endDate
 

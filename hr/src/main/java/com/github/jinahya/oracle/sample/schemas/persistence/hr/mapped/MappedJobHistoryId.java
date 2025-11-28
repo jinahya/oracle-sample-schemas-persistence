@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.hr;
+package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
 /*-
  * #%L
@@ -20,13 +20,11 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHr;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -35,21 +33,10 @@ import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 import java.util.Objects;
 
-// org.hibernate.AnnotationException:
-//     Embeddable class 'com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId'
-//     may not be used as an '@EmbeddedId'
-//     by 'com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistory.id'
-//     because it has no properties
-@Embeddable
-public class JobHistoryId extends _MappedHr { // implements Serializable {
-
-//    @Serial
-//    private static final long serialVersionUID = -537237161047866359L;
+@MappedSuperclass
+public abstract class MappedJobHistoryId extends _MappedHr {
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
-    public static JobHistoryIdBuilder builder() {
-        return new JobHistoryIdBuilder();
-    }
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -58,7 +45,7 @@ public class JobHistoryId extends _MappedHr { // implements Serializable {
     /**
      * Creates a new instance.
      */
-    protected JobHistoryId() {
+    protected MappedJobHistoryId() {
         super();
     }
 
@@ -67,7 +54,7 @@ public class JobHistoryId extends _MappedHr { // implements Serializable {
      *
      * @param builder the builder from which a new instance is built.
      */
-    JobHistoryId(@Nonnull final JobHistoryIdBuilder builder) {
+    protected MappedJobHistoryId(@Nonnull final MappedJobHistoryIdBuilder<?, ?> builder) {
         super(builder);
     }
 
@@ -82,7 +69,7 @@ public class JobHistoryId extends _MappedHr { // implements Serializable {
 
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof JobHistoryId that)) {
+        if (!(obj instanceof MappedJobHistoryId that)) {
             return false;
         }
         return Objects.equals(employeeId, that.employeeId) &&
@@ -94,23 +81,24 @@ public class JobHistoryId extends _MappedHr { // implements Serializable {
         return Objects.hash(employeeId, startDate);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    public JobHistoryIdBuilder toBuilder() {
-        return JobHistoryId.builder()
-                .employeeId(employeeId)
-                .startDate(startDate);
-    }
-
     // ------------------------------------------------------------------------------------------------------ employeeId
     @Nonnull
     public Integer getEmployeeId() {
         return employeeId;
     }
 
+    protected void setEmployeeId(final Integer employeeId) {
+        this.employeeId = employeeId;
+    }
+
     // ------------------------------------------------------------------------------------------------------- startDate
     @Nonnull
     public LocalDate getStartDate() {
         return startDate;
+    }
+
+    protected void setStartDate(final LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
