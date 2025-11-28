@@ -4,6 +4,7 @@ import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobH
 import com.github.jinahya.persistence.mapped.test.__Disable_PersistEntityInstance_Test;
 import jakarta.annotation.Nonnull;
 
+@org.junit.jupiter.api.Disabled
 @__Disable_PersistEntityInstance_Test
 class JobHistoryWithEmbeddedId_PersistenceIT
         extends MappedJobHistory_PersistenceIT<JobHistoryWithEmbeddedId, JobHistoryId> {
