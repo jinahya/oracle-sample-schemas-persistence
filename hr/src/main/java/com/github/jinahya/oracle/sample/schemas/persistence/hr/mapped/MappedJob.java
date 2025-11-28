@@ -53,7 +53,7 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
     // ---------------------------------------------------------------------------------------------------------- JOB_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_ID} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value MappedJob_#JOB_ID} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_JOB_ID = "JOB_ID";
 
@@ -68,12 +68,12 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
     public static final String ATTRIBUTE_NAME_JOB_ID = "jobId";
 
     /**
-     * The value for the {@link Size#min()} of the {@value #ATTRIBUTE_NAME_JOB_ID} attribute. The value is {@value}.
+     * The value for the {@link Size#min()} of the {@value MappedJob_#JOB_ID} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_SIZE_MIN_JOB_ID = 0;
 
     /**
-     * The value for the {@link Size#max()} of the {@value #ATTRIBUTE_NAME_JOB_ID} attribute. The value is {@value}.
+     * The value for the {@link Size#max()} of the {@value MappedJob_#JOB_ID} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
