@@ -33,9 +33,8 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId<JobHistory
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
 
     // -------------------------------------------------------------------------------------------------------------- id
-
     @Override
-    protected JobHistoryId getId() {
+    public JobHistoryId getId() {
         return id;
     }
 

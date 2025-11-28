@@ -20,13 +20,10 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.MappedSuperclass;
 
 import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Supplier;
 
 /**
  * An abstract mapped-superclass, maps the {@value MappedJobHistory#TABLE_NAME} table, uses {@link MappedJobHistoryId}
@@ -76,7 +73,7 @@ public abstract class MappedJobHistoryWithEmbeddedId<ID extends MappedJobHistory
 
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedJobHistoryWithEmbeddedId that)) {
+        if (!(obj instanceof MappedJobHistoryWithEmbeddedId<?> that)) {
             return false;
         }
         return Objects.equals(getId(), that.getId());
@@ -129,7 +126,7 @@ public abstract class MappedJobHistoryWithEmbeddedId<ID extends MappedJobHistory
     // ----------------------------------------------------------------------------------------------------- super.jobId
 
     // -------------------------------------------------------------------------------------------------------------- id
-    protected abstract ID getId();
+    public abstract ID getId();
 
 //    protected abstract void setId(final ID id);
 

@@ -76,7 +76,7 @@ public abstract class MappedJobHistoryWithIdClass<ID extends MappedJobHistoryId>
 
     @Override
     public boolean equals(final Object obj) {
-        if (!(obj instanceof MappedJobHistoryWithIdClass that)) {
+        if (!(obj instanceof MappedJobHistoryWithIdClass<?> that)) {
             return false;
         }
         return Objects.equals(employeeId, that.employeeId) &&
