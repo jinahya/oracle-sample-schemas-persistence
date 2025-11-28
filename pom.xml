@@ -55,10 +55,8 @@
     <!--    <version.maven-surefire>3.2.5</version.maven-surefire>-->
     <version.maven-surefire>3.5.4</version.maven-surefire>
     <version.jakarta.jakartaee-api>11.0.0</version.jakarta.jakartaee-api>
-    <!--    <version.jinahya-persistence>0.2.6</version.jinahya-persistence>-->
-    <!--    <version.jinahya-persistence>0.3.4</version.jinahya-persistence>-->
-<!--    <version.jinahya-persistence>0.3.9</version.jinahya-persistence>-->
-<!--    <version.jinahya-persistence>0.4.1</version.jinahya-persistence>-->
+    <!-- https://central.sonatype.com/artifact/io.github.jinahya/jinahya-persistence/versions -->
+<!--    <version.jinahya-persistence>0.4.5</version.jinahya-persistence>-->
     <version.jinahya-persistence>0.4.3</version.jinahya-persistence>
     <!--    <version.mysql-connector-j>8.3.0</version.mysql-connector-j>-->
     <!-- https://search.maven.org/artifact/org.eclipse.persistence/eclipselink -->
