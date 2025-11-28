@@ -3,9 +3,11 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_Persister;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityManager;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+@Slf4j
 class Employee_Persister extends _MappedHrEntity_Persister<Employee, Integer> {
 
     Employee_Persister() {
@@ -27,6 +29,9 @@ class Employee_Persister extends _MappedHrEntity_Persister<Employee, Integer> {
                 ? null
                 : newPersistedInstanceOf(entityManager, Department.class)
         );
+        if (true) {
+            entityManager.flush(); // fuck eclipselink, or fuck myself.
+        }
         super.persist(entityManager, entityInstance);
     }
 }

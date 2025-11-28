@@ -56,6 +56,7 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
     @JoinColumn(name = MappedJobHistoryWithEmbeddedId.COLUMN_NAME_EMPLOYEE_ID,
                 nullable = false,
                 insertable = false,
+//                insertable = true, // eclipselink
                 updatable = false
     )
     private Employee employee;
@@ -68,6 +69,7 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
     @JoinColumn(name = MappedJobHistoryWithEmbeddedId.COLUMN_NAME_JOB_ID,
                 nullable = false,
                 insertable = false,
+//                insertable = true, // eclipselink
                 updatable = false
     )
     private Job job;
@@ -79,6 +81,7 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
     @JoinColumn(name = MappedJobHistoryWithEmbeddedId.COLUMN_NAME_DEPARTMENT_ID,
                 nullable = true,
                 insertable = false,
+//                insertable = true, // eclipselink
                 updatable = false
     )
     private Department department;

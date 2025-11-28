@@ -95,5 +95,5 @@ public class Department extends MappedDepartment {
 
     // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = MappedEmployee.ATTRIBUTE_NAME_DEPARTMENT, fetch = FetchType.LAZY)
-    private List<@Valid @NotNull Employee> employees;
+    private List<@Valid @NotNull Employee> employees; // what about 'staffs'?
 }

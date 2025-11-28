@@ -120,7 +120,8 @@ public class JobHistoryId extends _MappedHr { // implements Serializable {
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,
             nullable = false,
-            insertable = false,
+//                insertable = false,
+            insertable = true, // eclipselink
             updatable = false,
             precision = MappedJobHistory.COLUMN_PRECISION_EMPLOYEE_ID,
             scale = MappedJobHistory.COLUMN_SCALE_EMPLOYEE_ID
@@ -133,7 +134,8 @@ public class JobHistoryId extends _MappedHr { // implements Serializable {
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = MappedJobHistory.COLUMN_NAME_START_DATE,
             nullable = false,
-            insertable = false,
+//                insertable = false,
+            insertable = true, // eclipselink
             updatable = false
     )
     private LocalDate startDate;

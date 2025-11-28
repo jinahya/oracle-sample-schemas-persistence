@@ -2,6 +2,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_PersistenceTest;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersisterUtils;
+import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -15,6 +16,19 @@ class Employee_PersistenceTest extends _MappedHrEntity_PersistenceTest<Employee,
     Employee_PersistenceTest() {
         super(Employee.class, Integer.class);
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Override
+    protected void __persistEntityInstance(final EntityManager entityManager, final Employee persisted) {
+        super.__persistEntityInstance(entityManager, persisted);
+    }
+
+    @Override
+    protected void __persistEntityInstance(final Employee persisted) {
+        super.__persistEntityInstance(persisted);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     @DisplayName("selectListWhereJobIdEqual")
     @Nested
@@ -122,6 +136,7 @@ class Employee_PersistenceTest extends _MappedHrEntity_PersistenceTest<Employee,
         @Nested
         class QueryLanguage_Test {
 
+
             @DisplayName("(persisted.)[persisted]")
             @Test
             void __() {
@@ -163,6 +178,9 @@ class Employee_PersistenceTest extends _MappedHrEntity_PersistenceTest<Employee,
                     final var root = query.from(Employee.class);              // FROM Employee e
                     query.select(root);                                       // SELECT e
                     query.where(builder.equal(root.get(Employee_.job), job)); // WHERE e.job = :job
+                    if (true) {
+                        em.flush(); // fuck eclipselink
+                    }
                     final var result = em.createQuery(query).getResultList();
                     // -------------------------------------------------------------------------------------------- then
                     assertThat(result).contains(persisted);
