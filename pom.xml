@@ -21,25 +21,31 @@
       <id>louisvuiton</id>
       <name>Lim, Jaehan</name>
       <email>fix.me</email>
+      <url>https://github.com/louisvuiton</url>
       <roles>
-        <role>Developer</role>
+        <role>developer</role>
       </roles>
+      <timezone>Asia/Seoul</timezone>
     </developer>
     <developer>
       <id>myeongkwonhwang</id>
       <name>Hwang, Myoungkwon</name>
       <email>fix.me</email>
+      <url>https://github.com/myeongkwonhwang</url>
       <roles>
-        <role>Developer</role>
+        <role>developer</role>
       </roles>
+      <timezone>Asia/Seoul</timezone>
     </developer>
     <developer>
       <id>onacit</id>
       <name>Kwon, Jin</name>
       <email>onacit@gmail.com</email>
+      <url>https://github.com/onacit</url>
       <roles>
-        <role>Developer</role>
+        <role>developer</role>
       </roles>
+      <timezone>Asia/Seoul</timezone>
     </developer>
   </developers>
 
