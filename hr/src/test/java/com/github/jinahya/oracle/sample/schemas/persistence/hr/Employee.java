@@ -19,6 +19,11 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * .
+ *
+ * @author Jaehan Lim
+ */
 @NamedQuery(
         name = "Employee.selectList_WhereJobEqualTo",
         query = """

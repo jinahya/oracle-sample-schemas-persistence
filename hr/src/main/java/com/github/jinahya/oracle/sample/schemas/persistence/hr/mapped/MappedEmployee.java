@@ -43,6 +43,7 @@ import java.util.Optional;
 /**
  * An abstract mapped superclass for mapping {@value MappedEmployee#TABLE_NAME} table.
  *
+ * @author Jaehan Lim
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass

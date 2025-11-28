@@ -36,6 +36,7 @@ import jakarta.validation.constraints.Size;
  * An abstract mapped-superclass for mapping the {@value MappedDepartment#TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ * @author Myoungkwon Hwang
  */
 @MappedSuperclass
 public abstract class MappedDepartment extends _MappedHrEntity<Integer> {

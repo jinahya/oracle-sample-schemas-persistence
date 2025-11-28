@@ -17,6 +17,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * .
+ *
+ * @author Myoungkwon Hwang
+ */
 @Entity
 @Table(name = MappedDepartment.TABLE_NAME)
 public class Department extends MappedDepartment {
