@@ -22,10 +22,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
-import java.util.Objects;
+import java.util.List;
 
 //@NamedQuery(
 //        name = "Job.select_WhereMaxSalaryIsNotNull_OrderByMaxSalaryDesc",
@@ -122,17 +126,22 @@ public class Job extends MappedJob {
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
+
+    @Override
+    public String toString() {
+        return super.toString() + '{' +
+//               "employees=" + employees +
+               '}';
+    }
+
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedJob that)) {
-            return false;
-        }
-        return Objects.equals(getJobId(), that.getJobId());
+        return super.equalsWithJobId(obj);
     }
 
     @Override
     public final int hashCode() {
-        return Objects.hashCode(getJobId());
+        return super.hashCodeWithJobId();
     }
 
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
@@ -147,5 +156,17 @@ public class Job extends MappedJob {
 
     // ------------------------------------------------------------------------------------------------- super.maxSalary
 
+    // ------------------------------------------------------------------------------------------------------- employees
+    List<Employee> getEmployees() {
+        return employees;
+    }
+
+    void setEmployees(final List<Employee> employees) {
+        this.employees = employees;
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
+//    @OneToMany(mappedBy = MappedEmployee.ATTRIBUTE_NAME_JOB, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = Employee_.JOB, fetch = FetchType.LAZY)
+    private List<@Valid @NotNull Employee> employees;
 }

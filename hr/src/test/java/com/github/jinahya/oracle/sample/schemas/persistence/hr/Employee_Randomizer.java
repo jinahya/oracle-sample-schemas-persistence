@@ -1,21 +1,23 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedDepartment;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedEmployee;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_Randomizer;
 import jakarta.annotation.Nonnull;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-class Department_Randomizer extends _MappedHrEntity_Randomizer<Department, Integer> {
+class Employee_Randomizer extends _MappedHrEntity_Randomizer<Employee, Integer> {
 
-    Department_Randomizer() {
-        super(Department.class, Integer.class,
-              MappedDepartment.ATTRIBUTE_NAME_LOCATION_ID,
-              MappedDepartment.ATTRIBUTE_NAME_LOCATION,
-              MappedDepartment.ATTRIBUTE_NAME_MANAGER_ID,
-              MappedDepartment.ATTRIBUTE_NAME_MANAGER,
-              MappedDepartment.ATTRIBUTE_NAME_EMPLOYEES
+    Employee_Randomizer() {
+        super(Employee.class, Integer.class,
+              MappedEmployee.ATTRIBUTE_NAME_JOB_ID,
+              MappedEmployee.ATTRIBUTE_NAME_JOB,
+              MappedEmployee.ATTRIBUTE_NAME_MANAGER_ID,
+              MappedEmployee.ATTRIBUTE_NAME_MANAGER,
+              MappedEmployee.ATTRIBUTE_NAME_DEPARTMENT_ID,
+              MappedEmployee.ATTRIBUTE_NAME_DEPARTMENT,
+              MappedEmployee.ATTRIBUTE_NAME_SUBORDINATES
         );
     }
 
@@ -39,8 +41,7 @@ class Department_Randomizer extends _MappedHrEntity_Randomizer<Department, Integ
 
     @Nonnull
     @Override
-    public Department get() {
-        final var department = super.get();
-        return department;
+    public Employee get() {
+        return super.get();
     }
 }

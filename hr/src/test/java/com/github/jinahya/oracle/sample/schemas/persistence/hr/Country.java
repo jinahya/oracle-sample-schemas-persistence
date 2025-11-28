@@ -110,7 +110,11 @@ public class Country extends MappedCountry {
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = {})
-    @JoinColumn(name = COLUMN_NAME_REGION_ID, nullable = true, insertable = false, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_REGION_ID, nullable = true,
+                insertable = false,
+//                insertable = true, // eclipselink
+                updatable = false
+    )
     private Region region;
 
     @OneToMany(mappedBy = Location.ATTRIBUTE_NAME_COUNTRY, fetch = FetchType.LAZY, cascade = {}, orphanRemoval = false)

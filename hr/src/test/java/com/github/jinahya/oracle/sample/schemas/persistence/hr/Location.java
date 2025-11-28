@@ -141,7 +141,10 @@ public class Location extends MappedLocation {
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = MappedLocation.COLUMN_NAME_COUNTRY_ID, nullable = true, insertable = false, updatable = false)
+    @JoinColumn(name = MappedLocation.COLUMN_NAME_COUNTRY_ID, nullable = true,
+                insertable = false,
+//                insertable = true, // eclipselink
+                updatable = false)
     private Country country;
 
     @OneToMany(

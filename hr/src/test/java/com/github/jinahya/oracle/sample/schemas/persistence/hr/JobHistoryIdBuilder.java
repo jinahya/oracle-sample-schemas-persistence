@@ -20,9 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrBuilder;
-
-import java.time.LocalDate;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryIdBuilder;
 
 /**
  * A class for building instances of {@link JobHistoryId} class.
@@ -30,7 +28,7 @@ import java.time.LocalDate;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public class JobHistoryIdBuilder
-        extends _MappedHrBuilder<JobHistoryIdBuilder, JobHistoryId> {
+        extends MappedJobHistoryIdBuilder<JobHistoryIdBuilder, JobHistoryId> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -45,29 +43,9 @@ public class JobHistoryIdBuilder
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
-    // ------------------------------------------------------------------------------------------------------ employeeId
-    public Integer employeeId() {
-        return employeeId;
-    }
+    // ------------------------------------------------------------------------------------------------ super.employeeId
 
-    public JobHistoryIdBuilder employeeId(final Integer employeeId) {
-        this.employeeId = employeeId;
-        return this;
-    }
-
-    // ------------------------------------------------------------------------------------------------------- startDate
-    public LocalDate startDate() {
-        return startDate;
-    }
-
-    public JobHistoryIdBuilder startDate(final LocalDate startDate) {
-        this.startDate = startDate;
-        return this;
-    }
+    // ------------------------------------------------------------------------------------------------- super.startDate
 
     // -----------------------------------------------------------------------------------------------------------------
-    private Integer employeeId;
-
-    // -----------------------------------------------------------------------------------------------------------------
-    private LocalDate startDate;
 }

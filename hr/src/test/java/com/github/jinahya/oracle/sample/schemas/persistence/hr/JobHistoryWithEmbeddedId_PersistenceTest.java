@@ -6,9 +6,10 @@ import org.junit.jupiter.api.Disabled;
 
 @Disabled
 @__Disable_PersistEntityInstance_Test
-class JobHistoryWithEmbeddedId_PersistenceTest extends MappedJobHistory_PersistenceTest<JobHistoryWithEmbeddedId> {
+class JobHistoryWithEmbeddedId_PersistenceTest
+        extends MappedJobHistory_PersistenceTest<JobHistoryWithEmbeddedId, JobHistoryId> {
 
     JobHistoryWithEmbeddedId_PersistenceTest() {
-        super(JobHistoryWithEmbeddedId.class);
+        super(JobHistoryWithEmbeddedId.class, JobHistoryId.class);
     }
 }

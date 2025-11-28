@@ -55,26 +55,31 @@
     <!--    <version.maven-surefire>3.2.5</version.maven-surefire>-->
     <version.maven-surefire>3.5.4</version.maven-surefire>
     <version.jakarta.jakartaee-api>11.0.0</version.jakarta.jakartaee-api>
-    <!--    <version.jinahya-persistence>0.2.6</version.jinahya-persistence>-->
-    <!--    <version.jinahya-persistence>0.3.4</version.jinahya-persistence>-->
-    <version.jinahya-persistence>0.3.9</version.jinahya-persistence>
+    <!-- https://central.sonatype.com/artifact/io.github.jinahya/jinahya-persistence/versions -->
+<!--    <version.jinahya-persistence>0.4.5</version.jinahya-persistence>-->
+    <version.jinahya-persistence>0.4.6-SNAPSHOT</version.jinahya-persistence>
+    <!--    <version.jinahya-persistence>0.4.3</version.jinahya-persistence>-->
     <!--    <version.mysql-connector-j>8.3.0</version.mysql-connector-j>-->
     <!-- https://search.maven.org/artifact/org.eclipse.persistence/eclipselink -->
     <!-- https://central.sonatype.com/artifact/org.eclipse.persistence/eclipselink/versions -->
     <!-- https://central.sonatype.com/artifact/org.eclipse.persistence/org.eclipse.persistence.jpa/versions -->
     <!--    <version.org.eclipse.persistence>4.0.7</version.org.eclipse.persistence>-->
-    <version.org.eclipse.persistence>5.0.0-B09</version.org.eclipse.persistence>
+<!--    <version.org.eclipse.persistence>5.0.0-B09</version.org.eclipse.persistence>-->
+    <version.org.eclipse.persistence>5.0.0-B11</version.org.eclipse.persistence>
     <!-- https://central.sonatype.com/artifact/org.glassfish.expressly/expressly/versions -->
     <version.org.glassfish.expressly>6.0.0</version.org.glassfish.expressly>
     <!-- https://hibernate.org/orm/releases/ -->
     <!-- https://central.sonatype.com/artifact/org.hibernate.orm/hibernate-platform/versions -->
     <!--    <version.org.hibernate.orm>7.0.6.Final</version.org.hibernate.orm>-->
-    <version.org.hibernate.orm>7.1.4.Final</version.org.hibernate.orm>
+    <!--    <version.org.hibernate.orm>7.1.4.Final</version.org.hibernate.orm>-->
+    <version.org.hibernate.orm>7.1.10.Final</version.org.hibernate.orm>
+    <!-- https://hibernate.org/validator/releases/9.1/ -->
     <!-- https://central.sonatype.com/artifact/org.hibernate.validator/hibernate-validator/versions -->
-    <version.org.hibernate.validator>9.0.1.Final</version.org.hibernate.validator>
+    <!--    <version.org.hibernate.validator>9.0.1.Final</version.org.hibernate.validator>-->
+    <version.org.hibernate.validator>9.1.0.Final</version.org.hibernate.validator>
+    <!-- https://central.sonatype.com/artifact/org.jboss.weld/weld-junit5 -->
     <!--    <version.org.jboss.weld>4.0.2.Final</version.org.jboss.weld>-->
-    <version.org.jboss.weld>5.0.1.Final</version.org.jboss.weld>
-    <version.org.jooq>3.19.5</version.org.jooq>
+    <version.org.jboss.weld>5.0.3.Final</version.org.jboss.weld>
     <!-- https://search.maven.org/search?q=g:org.junit -->
     <!-- https://search.maven.org/search?q=g:org.junit.jupiter -->
     <!-- https://central.sonatype.com/artifact/org.junit/junit-bom/versions -->
@@ -91,7 +96,9 @@
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
         <!-- https://central.sonatype.com/artifact/ch.qos.logback/logback-classic/versions -->
-        <version>1.5.19</version>
+        <!-- https://central.sonatype.com/artifact/ch.qos.logback/logback-parent/versions -->
+        <!--        <version>1.5.19</version> &lt;!&ndash; slf4j.version: 2.0.17 &ndash;&gt;-->
+        <version>1.5.21</version> <!-- slf4j.version: 2.0.17 -->
       </dependency>
       <dependency>
         <groupId>com.h2database</groupId>
@@ -102,7 +109,7 @@
       <dependency><!-- https://central.sonatype.com/artifact/com.fasterxml.jackson/jackson-bom/versions -->
         <groupId>com.fasterxml.jackson</groupId>
         <artifactId>jackson-bom</artifactId>
-        <version>2.20.0</version>
+        <version>2.20.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -134,6 +141,11 @@
         <scope>import</scope>
       </dependency>
       <dependency>
+        <groupId>org.eclipse.persistence</groupId>
+        <artifactId>eclipselink</artifactId>
+        <version>${version.org.eclipse.persistence}</version>
+      </dependency>
+      <dependency>
         <groupId>org.glassfish.expressly</groupId>
         <artifactId>expressly</artifactId>
         <version>${version.org.glassfish.expressly}</version>
@@ -160,10 +172,12 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <dependency><!-- https://docs.spring.io/spring-boot/docs/current/reference/html/dependency-versions.html -->
+      <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-bom</artifactId>
-        <version>2.0.12</version>
+        <!-- https://docs.spring.io/spring-boot/docs/current/reference/html/dependency-versions.html -->
+        <!-- https://central.sonatype.com/artifact/ch.qos.logback/logback-parent/versions -->
+        <version>2.0.17</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -181,7 +195,8 @@
       <artifactId>ojdbc17</artifactId>
       <!-- https://central.sonatype.com/artifact/com.oracle.database.jdbc/ojdbc17/versions -->
       <!--      <version>23.8.0.25.04</version>-->
-      <version>23.9.0.25.07</version>
+      <!--      <version>23.9.0.25.07</version>-->
+      <version>23.26.0.0.0</version>
       <scope>provided</scope>
     </dependency>
     <dependency>

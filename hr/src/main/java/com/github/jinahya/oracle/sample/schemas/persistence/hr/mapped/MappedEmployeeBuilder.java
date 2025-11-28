@@ -126,13 +126,11 @@ public abstract class MappedEmployeeBuilder<
     }
 
     // ----------------------------------------------------------------------------------------------------------- jobId
-    @Deprecated(forRemoval = true)
     public String jobId() {
         return jobId;
     }
 
-    @Deprecated(forRemoval = true)
-    public SELF jobId(final String jobId) {
+    protected SELF jobId(final String jobId) {
         this.jobId = jobId;
         return (SELF) this;
     }
@@ -158,25 +156,21 @@ public abstract class MappedEmployeeBuilder<
     }
 
     // ------------------------------------------------------------------------------------------------------- managerId
-    @Deprecated(forRemoval = true)
     public Integer managerId() {
         return managerId;
     }
 
-    @Deprecated(forRemoval = true)
-    public SELF managerId(final Integer managerId) {
+    protected SELF managerId(final Integer managerId) {
         this.managerId = managerId;
         return (SELF) this;
     }
 
     // ---------------------------------------------------------------------------------------------------- departmentId
-    @Deprecated(forRemoval = true)
-    public Integer departmentId() {
+    protected Integer departmentId() {
         return departmentId;
     }
 
-    @Deprecated(forRemoval = true)
-    public SELF departmentId(final Integer departmentId) {
+    protected SELF departmentId(final Integer departmentId) {
         this.departmentId = departmentId;
         return (SELF) this;
     }

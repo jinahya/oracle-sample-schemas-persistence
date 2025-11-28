@@ -29,11 +29,13 @@
   <logger name="io.github.jinahya" level="debug"/>
   <logger name="com.github.jinahya" level="debug"/>
   <logger name="org.jboss.weld" level="WARN"/>
-  <logger name="org.hibernate" level="WARN"/>
-  <!--  <logger name="org.hibernate.SQL" level="DEBUG"/>-->
+  <!--  <logger name="org.hibernate" level="WARN"/>-->
   <!-- https://stackoverflow.com/a/1713464/330457 -->
+  <!--  <logger name="org.hibernate.SQL" level="DEBUG"/>-->
+  <!--    <logger name="org.hibernate.type" level="TRACE"/>-->
+  <!--  <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>-->
   <logger name="org.hibernate.orm.jdbc.bind" level="TRACE"/>
-  <logger name="uk.co.jemos.podam.api" level="INFO"/>
+  <logger name="uk.co.jemos.podam.api" level="ERROR"/>
   <!--  <logger name="uk.co.jemos.podam." level="ERROR"/>-->
   <!--  <logger name="uk.co.jemos.podam.api" level="ERROR"/>-->
 </configuration>

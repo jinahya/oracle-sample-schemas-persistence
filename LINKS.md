@@ -8,7 +8,13 @@
 
 ### [Hibernate ORM User Guide](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html)
 
-* [3.2.41. XML mapping](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#basic-mapping-xml)
+#### [3.2.41. XML mapping](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#basic-mapping-xml)
+
+### [A Guide to Hibernate Query Language](https://docs.hibernate.org/orm/current/querylanguage/html_single/)
+
+#### [1.4. Type system](https://docs.hibernate.org/orm/current/querylanguage/html_single/#type-system)
+
+>Going further, an expression like `local datetime - document.created` is assigned the Java type `java.time.Duration`, a type which doesn’t appear anywhere in the JPA specification.
 
 ### [Hibernate Javadoc](https://docs.jboss.org/hibernate/orm/current/javadocs/)
 
@@ -19,6 +25,8 @@
 * [ORA-65096: common user or role name must start with prefix C## #27](https://github.com/oracle-samples/db-sample-schemas/issues/27)
 * [Populate customer_orders/STORES/logo data #30](https://github.com/oracle-samples/db-sample-schemas/issues/30)
 * [What are relationships ORDER_ITEMS.SHIPMENTS.CUSTOMER and SHIPMENTS.CUSTOMER? #31](https://github.com/oracle-samples/db-sample-schemas/issues/31)
+* [issues/34 Add more checks for HR.JOB](https://github.com/oracle-samples/db-sample-schemas/issues/34)
+    * [Fix \[#34\] #35](https://github.com/oracle-samples/db-sample-schemas/pull/35)
 
 ### spring-projects/spring-data-jpa
 

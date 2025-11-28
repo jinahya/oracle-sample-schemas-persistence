@@ -20,14 +20,12 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -41,7 +39,10 @@ import java.time.LocalDate;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
+@SuppressWarnings({
+        "java:S119" // Type parameter names should comply with a naming convention
+})
+public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _MappedHrEntity<ID> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -50,7 +51,47 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
+    /**
+     * A table column name of {@value}.
+     */
+    public static final String COLUMN_NAME_EMPLOYEE_ID = "EMPLOYEE_ID";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_EMPLOYEE_ID = 6;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_EMPLOYEE_ID = 0;
+
+    /**
+     * The minimum value of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_MIN_EMPLOYEE_ID = -999999;
+
+    /**
+     * The maximum value of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_MAX_EMPLOYEE_ID = +999999;
+
+    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
+
+    public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
+
+    public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
+
+    public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
+
     // ------------------------------------------------------------------------------------------------------ START_DATE
+
+    /**
+     * A table column name of {@value}.
+     */
+    public static final String COLUMN_NAME_START_DATE = "START_DATE";
+
+    public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
     public static final String COLUMN_NAME_END_DATE = "END_DATE";
@@ -105,7 +146,7 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-    MappedJobHistory() {
+    protected MappedJobHistory() {
         super();
     }
 
@@ -122,55 +163,17 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
-    @AssertTrue
-    protected boolean isStartDateBeforeEndDate() {
-        final var startDate = getStartDate();
-        if (startDate == null) {
-            return true;
-        }
-        if (endDate == null) {
-            return true;
-        }
-        return startDate.isBefore(endDate);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Returns current value of the attribute maps to the {@value JobHistoryId#COLUMN_NAME_EMPLOYEE_ID} column.
-     *
-     * @return current value of the attribute maps to the {@value JobHistoryId#COLUMN_NAME_EMPLOYEE_ID} column.
-     */
-    public abstract Integer getEmployeeId();
-
-    /**
-     * Returns current value of the attribute maps to the {@value JobHistoryId#COLUMN_NAME_START_DATE} column.
-     *
-     * @return current value of the attribute maps to the {@value JobHistoryId#COLUMN_NAME_START_DATE} column.
-     */
-    public abstract LocalDate getStartDate();
-
-    // -------------------------------------------------------------------------------------------------------------- id
-    @Nonnull
-    public JobHistoryId getId() {
-        return JobHistoryId.builder()
-                .employeeId(getEmployeeId())
-                .startDate(getStartDate())
-                .build();
-    }
-
-//    @Deprecated(forRemoval = true)
-//    abstract void setId(@Nonnull final JobHistoryId id);
 
     // --------------------------------------------------------------------------------------------------------- endDate
+
+    /**
+     * Returns current value of {@value MappedJobHistory_#END_DATE} attribute.
+     *
+     * @return current value of the {@value MappedJobHistory_#END_DATE} attribute.
+     */
     @Nonnull
     public LocalDate getEndDate() {
         return endDate;
-    }
-
-    @Deprecated(forRemoval = true)
-    protected void setEndDate(@Nonnull final LocalDate endDate) {
-        this.endDate = endDate;
     }
 
     // ----------------------------------------------------------------------------------------------------------- jobId
@@ -179,20 +182,10 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
         return jobId;
     }
 
-    @Deprecated(forRemoval = true)
-    protected void setJobId(@Nonnull final String jobId) {
-        this.jobId = jobId;
-    }
-
     // ---------------------------------------------------------------------------------------------------- departmentId
     @Nullable
     public Integer getDepartmentId() {
         return departmentId;
-    }
-
-    @Deprecated(forRemoval = true)
-    protected void setDepartmentId(@Nullable final Integer departmentId) {
-        this.departmentId = departmentId;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -201,7 +194,7 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_END_DATE, nullable = false, insertable = false, updatable = false)
-    private LocalDate endDate;
+    LocalDate endDate;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull

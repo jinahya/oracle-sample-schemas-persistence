@@ -20,20 +20,17 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
- * An abstract mapped-superclass maps {@value MappedJobHistory#TABLE_NAME} table which uses {@link JobHistoryId} as its
- * {@link EmbeddedId}.
+ * An abstract mapped-superclass, maps the {@value MappedJobHistory#TABLE_NAME} table, uses {@link MappedJobHistoryId}
+ * as its {@link EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -41,9 +38,14 @@ import java.util.Optional;
 @SuppressWarnings({
         "java:S119" // Type parameter names should comply with a naming convention
 })
-public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
+public abstract class MappedJobHistoryWithEmbeddedId<ID extends MappedJobHistoryId> extends MappedJobHistory<ID> {
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
+
+    // ------------------------------------------------------------------------------------------------------ START_DATE
+
+    // ---------------------------------------------------------------------------------------- EMPLOYEE_ID / START_DATE
+    public static final String ATTRIBUTE_NAME_ID = "id";
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
 
@@ -51,14 +53,15 @@ public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
 
     // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
 
-    // -----------------------------------------------------------------------------------------------------------------
-    public static final String ATTRIBUTE_NAME_ID = "id";
-
     // -------------------------------------------------------------------------------------------------------- BUILDERS
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    /**
+     * Creates a new instance.
+     */
     protected MappedJobHistoryWithEmbeddedId() {
         super();
     }
@@ -67,7 +70,7 @@ public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + id +
+               "id=" + getId() +
                '}';
     }
 
@@ -76,7 +79,6 @@ public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
         if (!(obj instanceof MappedJobHistoryWithEmbeddedId that)) {
             return false;
         }
-//        if (!super.equals(obj)) return false;
         return Objects.equals(getId(), that.getId());
     }
 
@@ -88,44 +90,54 @@ public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+    protected boolean isIdStartDateBeforeEndDate() {
+        final var id = getId();
+        if (id == null) {
+            return true;
+        }
+        final var startDate = id.getStartDate();
+        if (startDate == null) {
+            return true;
+        }
+        final var endDate = getEndDate();
+        if (endDate == null) {
+            return true;
+        }
+        return startDate.isBefore(endDate);
+    }
+
+    protected boolean isIdStartDateNotAfterEndDate() {
+        final var id = getId();
+        if (id == null) {
+            return true;
+        }
+        final var startDate = id.getStartDate();
+        if (startDate == null) {
+            return true;
+        }
+        final var endDate = getEndDate();
+        if (endDate == null) {
+            return true;
+        }
+        return !startDate.isAfter(endDate);
+    }
 
     // ----------------------------------------------------------------------------------------------------------- super
-    @Override
-    public Integer getEmployeeId() {
-        return Optional.ofNullable(getId())
-                .map(JobHistoryId::getEmployeeId)
-                .orElse(null);
-    }
-
-    @Override
-    public LocalDate getStartDate() {
-        return Optional.ofNullable(getId())
-                .map(JobHistoryId::getStartDate)
-                .orElse(null);
-    }
-
-    // -------------------------------------------------------------------------------------------------------------- id
-    @Nonnull
-    @Override
-    public JobHistoryId getId() {
-        return id;
-    }
-
-    @Deprecated(forRemoval = true)
-    protected void setId(@Nonnull final JobHistoryId id) {
-        this.id = id;
-    }
 
     // --------------------------------------------------------------------------------------------------- super.endDate
 
     // ----------------------------------------------------------------------------------------------------- super.jobId
 
-    // ---------------------------------------------------------------------------------------------- super.departmentId
+    // -------------------------------------------------------------------------------------------------------------- id
+    protected abstract ID getId();
+
+//    protected abstract void setId(final ID id);
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @Valid
-    @NotNull
-    @EmbeddedId
-    private JobHistoryId id;
+    // fuck eclipselink
+//    @Nonnull
+//    @Valid
+//    @NotNull
+//    @EmbeddedId
+//    private ID id;
 }

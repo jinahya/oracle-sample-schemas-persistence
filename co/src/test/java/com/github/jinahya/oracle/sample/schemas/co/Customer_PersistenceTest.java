@@ -166,7 +166,7 @@ class Customer_PersistenceTest extends __MappedEntity_PersistenceTest<Customer, 
                     IntStream.range(0, 128).forEach(i -> {
                         __MappedEntity_PersisterUtils.newPersistedInstanceOf(em, entityClass);
                     });
-                    return ___JakartaPersistence_TestUtils.applyCountIndexAndEntity(
+                    return ___JakartaPersistence_TestUtils.applyCountRandomIndexAndEntity(
                             em,
                             entityClass,
                             c -> i -> e -> {
@@ -208,7 +208,7 @@ class Customer_PersistenceTest extends __MappedEntity_PersistenceTest<Customer, 
                         IntStream.range(0, 128).forEach(i -> {
                             __MappedEntity_PersisterUtils.newPersistedInstanceOf(em, entityClass);
                         });
-                        return ___JakartaPersistence_TestUtils.applyCountIndexAndEntity(
+                        return ___JakartaPersistence_TestUtils.applyCountRandomIndexAndEntity(
                                 em,
                                 entityClass,
                                 c -> i -> e -> {
@@ -260,7 +260,7 @@ class Customer_PersistenceTest extends __MappedEntity_PersistenceTest<Customer, 
                         IntStream.range(0, 128).forEach(i -> {
                             __MappedEntity_PersisterUtils.newPersistedInstanceOf(em, entityClass);
                         });
-                        return ___JakartaPersistence_TestUtils.applyCountIndexAndEntity(
+                        return ___JakartaPersistence_TestUtils.applyCountRandomIndexAndEntity(
                                 em,
                                 entityClass,
                                 c -> i -> e -> {

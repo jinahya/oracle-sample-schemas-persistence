@@ -33,6 +33,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 /**
  * An abstract mapped-superclass for mapping the {@value MappedJob#TABLE_NAME} table.
@@ -121,12 +122,26 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
 
     public static final long ATTRIBUTE_MAX_MAX_SALARY = COLUMN_MAX_MAX_SALARY;
 
+    // -----------------------------------------------------------------------------------------------------------------
+    public static final String ATTRIBUTE_NAME_EMPLOYEES = "employees";
+
     // ----------------------------------------------------------------------------------------------------- COMPARATORS
+
+    /**
+     * A comparator compares {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute in
+     * {@link Comparator#naturalOrder() natural order}, {@link Comparator#nullsFirst(Comparator) nulls first}.
+     */
     public static final Comparator<MappedJob> COMPARATOR_MIN_SALARY_NATURAL_NULLS_FIRST =
-            Comparator.comparing(MappedJob::getMinSalary, Comparator.nullsFirst(Comparator.naturalOrder()));
+            Comparator.comparing(
+                    MappedJob::getMinSalary,
+                    Comparator.nullsFirst(Comparator.naturalOrder())
+            );
 
     public static final Comparator<MappedJob> COMPARATOR_MAX_SALARY_REVERSE_NULLS_LAST =
-            Comparator.comparing(MappedJob::getMaxSalary, Comparator.nullsLast(Comparator.reverseOrder()));
+            Comparator.comparing(
+                    MappedJob::getMaxSalary,
+                    Comparator.nullsLast(Comparator.reverseOrder())
+            );
 
     // --------------------------------------------------------------------------------------------------------- BUILDER
 
@@ -162,9 +177,28 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
                '}';
     }
 
+    protected final boolean equalsWithJobId(final Object obj) {
+        if (!(obj instanceof MappedJob that)) return false;
+        return Objects.equals(jobId, that.jobId);
+    }
+
+    protected final int hashCodeWithJobId() {
+        return Objects.hashCode(jobId);
+    }
+
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+
+    /**
+     * Tests whether current value of {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute is blank.
+     *
+     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute is blank;
+     * {@code false} otherwise.
+     */
+    protected boolean isJobTitleBlank() {
+        return jobTitle == null || jobTitle.isBlank();
+    }
 
     /**
      * Tests whether current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is non-negative.
@@ -179,7 +213,19 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
         return minSalary <= 0;
     }
 
-    // TODO: javadoc
+    /**
+     * Tests whether current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is positive.
+     *
+     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is positive;
+     * {@code false} otherwise.
+     */
+    protected boolean isMinSalaryPositive() {
+        if (minSalary == null) {
+            return true;
+        }
+        return minSalary > 0;
+    }
+
     protected boolean isMaxSalaryNonNegative() {
         if (maxSalary == null) {
             return true;
@@ -187,12 +233,19 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
         return maxSalary <= 0;
     }
 
+    protected boolean isMaxSalaryPositive() {
+        if (maxSalary == null) {
+            return true;
+        }
+        return maxSalary > 0;
+    }
+
     /**
-     * Tests whether current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or equal to the
+     * Tests whether current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or equals to that of
      * {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute.
      *
      * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or
-     * {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute; {@code false} otherwise.
+     * equals to that of the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute; {@code false} otherwise.
      */
     protected boolean isMinSalaryIsLessThanOrEqualToMaxSalary() {
         if (minSalary == null) {

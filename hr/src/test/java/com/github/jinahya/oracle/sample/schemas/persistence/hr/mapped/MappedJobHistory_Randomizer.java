@@ -1,16 +1,23 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId;
+import com.github.jinahya.persistence.mapped.test.___RandomizerUtils;
 import jakarta.annotation.Nonnull;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-public class MappedJobHistory_Randomizer<ENTITY extends MappedJobHistory>
-        extends _MappedHrEntity_Randomizer<ENTITY, JobHistoryId> {
+public class MappedJobHistory_Randomizer<ENTITY extends MappedJobHistory<ID>, ID extends MappedJobHistoryId>
+        extends _MappedHrEntity_Randomizer<ENTITY, ID> {
 
-    protected MappedJobHistory_Randomizer(final Class<ENTITY> entityClass) {
-        super(entityClass, JobHistoryId.class);
+    protected MappedJobHistory_Randomizer(final Class<ENTITY> entityClass, final Class<ID> idClass,
+                                          final String... excludedFields) {
+        super(entityClass, idClass,
+              ___RandomizerUtils.mergeExcludedFields(excludedFields,
+                                                     MappedJobHistory.ATTRIBUTE_NAME_EMPLOYEE,
+                                                     MappedJobHistory.ATTRIBUTE_NAME_JOB,
+                                                     MappedJobHistory.ATTRIBUTE_NAME_DEPARTMENT
+              )
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -35,6 +42,7 @@ public class MappedJobHistory_Randomizer<ENTITY extends MappedJobHistory>
     @Nonnull
     @Override
     public ENTITY get() {
-        return super.get();
+        final var value = super.get();
+        return value;
     }
 }

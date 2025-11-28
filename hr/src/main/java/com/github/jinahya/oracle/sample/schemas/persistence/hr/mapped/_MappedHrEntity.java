@@ -51,6 +51,6 @@ public abstract class _MappedHrEntity<ID> extends __MappedEntity<ID> {
      * @param builder the builder to build from.
      */
     protected _MappedHrEntity(final _MappedHrEntityBuilder<?, ?> builder) {
-        super();
+        super(builder);
     }
 }

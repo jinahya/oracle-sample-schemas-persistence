@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountry;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
 import jakarta.annotation.Nonnull;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
@@ -29,7 +30,9 @@ import uk.co.jemos.podam.api.PodamFactory;
 class Country_Randomizer extends __MappedEntity_Randomizer<Country, String> {
 
     Country_Randomizer() {
-        super(Country.class, String.class);
+        super(Country.class, String.class,
+              MappedCountry.ATTRIBUTE_NAME_LOCATIONS
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------

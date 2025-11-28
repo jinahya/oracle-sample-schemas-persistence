@@ -2,13 +2,19 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory_PersistenceIT;
 import com.github.jinahya.persistence.mapped.test.__Disable_PersistEntityInstance_Test;
-import org.junit.jupiter.api.Disabled;
+import jakarta.annotation.Nonnull;
 
-@Disabled
 @__Disable_PersistEntityInstance_Test
-class JobHistoryWithEmbeddedId_PersistenceIT extends MappedJobHistory_PersistenceIT<JobHistoryWithEmbeddedId> {
+class JobHistoryWithEmbeddedId_PersistenceIT
+        extends MappedJobHistory_PersistenceIT<JobHistoryWithEmbeddedId, JobHistoryId> {
 
     JobHistoryWithEmbeddedId_PersistenceIT() {
-        super(JobHistoryWithEmbeddedId.class);
+        super(JobHistoryWithEmbeddedId.class, JobHistoryId.class);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Override
+    protected void selectRandomEntityInstance(@Nonnull final JobHistoryWithEmbeddedId entityInstance) {
+        super.selectRandomEntityInstance(entityInstance);
     }
 }
