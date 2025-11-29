@@ -65,21 +65,25 @@ WHERE e.job.jobId = ?
 ORDER BY e.hireDate ASC
 ```
 
-### List up ***manager***s order by number of subordinates.
+### List up ***manager***s order by number of ***subordinates***.
 
 ```sql
-SELECT m.SUBORDINATE_COUNT, e.*
+SELECT e.*, m.NUMBER_OF_SUBORDINATES
 FROM EMPLOYEES e
-         JOIN (SELECT MANAGER_ID,
-                      COUNT(MANAGER_ID) AS SUBORDINATE_COUNT
+         JOIN (SELECT MANAGER_ID, COUNT(MANAGER_ID) AS NUMBER_OF_SUBORDINATES
                FROM EMPLOYEES
                GROUP BY MANAGER_ID
-               ORDER BY SUBORDINATE_COUNT DESC) m
+               ORDER BY NUMBER_OF_SUBORDINATES DESC) m
               ON e.EMPLOYEE_ID = m.MANAGER_ID
-ORDER BY m.SUBORDINATE_COUNT DESC
+WHERE m.NUMBER_OF_SUBORDINATES > 0
+ORDER BY m.NUMBER_OF_SUBORDINATES DESC
 ```
 
 ```jpaql
+SELECT e, COUNT(e.subordinates) AS numberOfSubordinates
+FROM Employee AS e
+WHERE numberOfSubordinates > 0
+ORDER BY numberOfSubordinates ASC
 ```
 
 ## JOB_HISTORY
@@ -128,6 +132,7 @@ ORDER BY days DESC
 ```
 
 // may not work by service providers
+
 ```jpaql
 SELECT jh.endDate - jh.id.startDate AS period,
        jh

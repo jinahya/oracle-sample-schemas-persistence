@@ -27,14 +27,15 @@ import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 class Job_Randomizer extends _MappedHrEntity_Randomizer<Job, String> {
 
     Job_Randomizer() {
-        super(Job.class, String.class,
-              MappedJob.ATTRIBUTE_NAME_EMPLOYEES
-        );
+        super(Job.class, String.class, List.of(
+                MappedJob.ATTRIBUTE_NAME_EMPLOYEES
+        ));
     }
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -123,12 +123,17 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
     public static final long ATTRIBUTE_MAX_MAX_SALARY = COLUMN_MAX_MAX_SALARY;
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * The name of the attribute of {@link MappedEmployee employees} mapped by
+     * {@value MappedEmployee#ATTRIBUTE_NAME_JOB}.
+     */
     public static final String ATTRIBUTE_NAME_EMPLOYEES = "employees";
 
     // ----------------------------------------------------------------------------------------------------- COMPARATORS
 
     /**
-     * A comparator compares {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute in
+     * A comparator compares {@value MappedJob_#MIN_SALARY} attribute in
      * {@link Comparator#naturalOrder() natural order}, {@link Comparator#nullsFirst(Comparator) nulls first}.
      */
     public static final Comparator<MappedJob> COMPARATOR_MIN_SALARY_NATURAL_NULLS_FIRST =
@@ -137,6 +142,7 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
                     Comparator.nullsFirst(Comparator.naturalOrder())
             );
 
+    // TODO: javadoc
     public static final Comparator<MappedJob> COMPARATOR_MAX_SALARY_REVERSE_NULLS_LAST =
             Comparator.comparing(
                     MappedJob::getMaxSalary,
@@ -214,9 +220,9 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
     }
 
     /**
-     * Tests whether current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is positive.
+     * Tests whether current value of the {@value MappedJob_#MIN_SALARY} attribute is positive.
      *
-     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is positive;
+     * @return {@code true} if the current value of the {@value MappedJob_#MIN_SALARY} attribute is positive;
      * {@code false} otherwise.
      */
     protected boolean isMinSalaryPositive() {
@@ -241,11 +247,11 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
     }
 
     /**
-     * Tests whether current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or equals to that of
-     * {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute.
+     * Tests whether current value of {@value MappedJob_#MIN_SALARY} attribute is less than or equals to that of
+     * {@value MappedJob_#MAX_SALARY} attribute.
      *
-     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or
-     * equals to that of the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute; {@code false} otherwise.
+     * @return {@code true} if the current value of the {@value MappedJob_#MIN_SALARY} attribute is less than or equals
+     * to that of the {@value MappedJob_#MAX_SALARY} attribute; {@code false} otherwise.
      */
     protected boolean isMinSalaryIsLessThanOrEqualToMaxSalary() {
         if (minSalary == null) {

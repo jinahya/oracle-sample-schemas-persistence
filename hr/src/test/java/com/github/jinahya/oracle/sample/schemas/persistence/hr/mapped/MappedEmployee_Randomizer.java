@@ -26,7 +26,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 public abstract class MappedEmployee_Randomizer<ENTITY extends MappedEmployee>
         extends _MappedHrEntity_Randomizer<ENTITY, Integer> {
 
-    protected MappedEmployee_Randomizer(final Class<ENTITY> entityClass) {
-        super(entityClass, Integer.class);
+    protected MappedEmployee_Randomizer(final Class<ENTITY> entityClass, final Iterable<String> excludedFields) {
+        super(entityClass, Integer.class, excludedFields);
     }
 }

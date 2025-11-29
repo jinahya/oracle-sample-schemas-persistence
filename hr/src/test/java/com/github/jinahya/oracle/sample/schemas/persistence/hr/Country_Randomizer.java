@@ -27,12 +27,14 @@ import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
+import java.util.List;
+
 class Country_Randomizer extends __MappedEntity_Randomizer<Country, String> {
 
     Country_Randomizer() {
-        super(Country.class, String.class,
-              MappedCountry.ATTRIBUTE_NAME_LOCATIONS
-        );
+        super(Country.class, String.class, List.of(
+                MappedCountry.ATTRIBUTE_NAME_LOCATIONS
+        ));
     }
 
     // -----------------------------------------------------------------------------------------------------------------

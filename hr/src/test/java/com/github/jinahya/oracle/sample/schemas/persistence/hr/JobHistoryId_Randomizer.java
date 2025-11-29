@@ -7,12 +7,14 @@ import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
+import java.util.List;
+
 class JobHistoryId_Randomizer extends _MappedHr_Randomizer<JobHistoryId> {
 
     JobHistoryId_Randomizer() {
-        super(JobHistoryId.class,
-              MappedJobHistory.ATTRIBUTE_NAME_EMPLOYEE
-        );
+        super(JobHistoryId.class, List.of(
+                MappedJobHistory.ATTRIBUTE_NAME_EMPLOYEE
+        ));
     }
 
     // -----------------------------------------------------------------------------------------------------------------

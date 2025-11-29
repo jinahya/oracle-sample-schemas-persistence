@@ -36,8 +36,14 @@ public abstract class _MappedHrEntity_Randomizer<
         extends __MappedEntity_Randomizer<ENTITY, ID> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    @Deprecated(forRemoval = true)
     protected _MappedHrEntity_Randomizer(final Class<ENTITY> entityClass, final Class<ID> idClass,
                                          String... excludedFields) {
+        super(entityClass, idClass, excludedFields);
+    }
+
+    protected _MappedHrEntity_Randomizer(final Class<ENTITY> entityClass, final Class<ID> idClass,
+                                         final Iterable<String> excludedFields) {
         super(entityClass, idClass, excludedFields);
     }
 

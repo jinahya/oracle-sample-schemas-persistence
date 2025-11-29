@@ -20,6 +20,16 @@ public class MappedJobHistory_Randomizer<ENTITY extends MappedJobHistory<ID>, ID
         );
     }
 
+    protected MappedJobHistory_Randomizer(final Class<ENTITY> entityClass, final Class<ID> idClass,
+                                          final Iterable<String> excludedFields) {
+        super(entityClass, idClass, moreExcludedFields(
+                excludedFields,
+                MappedJobHistory.ATTRIBUTE_NAME_EMPLOYEE,
+                MappedJobHistory.ATTRIBUTE_NAME_JOB,
+                MappedJobHistory.ATTRIBUTE_NAME_DEPARTMENT
+        ));
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Override

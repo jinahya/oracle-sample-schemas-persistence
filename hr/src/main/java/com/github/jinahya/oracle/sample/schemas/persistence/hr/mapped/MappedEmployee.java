@@ -27,6 +27,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Max;
@@ -34,11 +35,9 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * An abstract mapped superclass for mapping {@value MappedEmployee#TABLE_NAME} table.
@@ -73,8 +72,6 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = (long) COLUMN_MIN_EMPLOYEE_ID;
 
     public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
-
-//    public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
 
     // ------------------------------------------------------------------------------------------------------ FIRST_NAME
     public static final String COLUMN_NAME_FIRST_NAME = "FIRST_NAME";
@@ -286,11 +283,12 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
 
     /**
-     * Tests whether current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is greater than or equal to the
-     * result of a method of {@code getJobMinSalary()Number}.
+     * Tests whether current value of the {@value MappedEmployee_#SALARY} attribute is greater than or equal to the
+     * result of the {@link #getJobMinSalary()} method.
      *
-     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is greater than or
-     * equal to the result of a method of {@code getJobMinSalary()Number}; {@code false} otherwise.
+     * @return {@code true} if the current value of the {@value MappedEmployee_#SALARY} attribute is greater than or
+     * equal to the result of {@link #getJobMinSalary()} method; {@code false} otherwise.
+     * @see #getJobMinSalary()
      */
     @SuppressWarnings({
             "java:S3011" // Reflection should not be used to increase accessibility of classes, methods, or fields
@@ -299,47 +297,20 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
         if (salary == null) {
             return true;
         }
-        Method method = null;
-        for (Class<?> c = getClass(); c != null; c = c.getSuperclass()) {
-            try {
-                method = getClass().getDeclaredMethod("getJobMinSalary");
-                break;
-            } catch (final NoSuchMethodException nsme) {
-                // empty
-            }
-        }
-        if (method == null) {
-            return true;
-        }
-        if (!Number.class.isAssignableFrom(method.getReturnType())) {
-            return true;
-        }
-        if (!method.canAccess(this)) {
-            method.setAccessible(true);
-        }
-        BigDecimal jobMinSalary = null;
-        try {
-            jobMinSalary =
-                    Optional.ofNullable((Number) method.invoke(this))
-                            .map(Number::longValue)
-                            .map(BigDecimal::valueOf)
-                            .orElse(null);
-        } catch (final ReflectiveOperationException roe) {
-            return true;
-        }
+        final var jobMinSalary = getJobMinSalary();
         if (jobMinSalary == null) {
             return true;
         }
-        assert salary != null;
         return salary.compareTo(jobMinSalary) >= 0;
     }
 
     /**
      * Tests whether current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is greater than or equal to the
-     * result of a method of {@code getJobMaxSalary()Number}.
+     * result of a method of {@link #getJobMaxSalary()} method.
      *
      * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is greater than or
-     * equal to the result of a method of {@code getJobMaxSalary()Number}; {@code false} otherwise.
+     * equal to the result of a method of {@link #getJobMaxSalary()} method; {@code false} otherwise.
+     * @see #getJobMaxSalary()
      */
     @SuppressWarnings({
             "java:S3011" // Reflection should not be used to increase accessibility of classes, methods, or fields
@@ -348,38 +319,10 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
         if (salary == null) {
             return true;
         }
-        Method method = null;
-        for (Class<?> c = getClass(); c != null; c = c.getSuperclass()) {
-            try {
-                method = getClass().getDeclaredMethod("getJobMaxSalary");
-                break;
-            } catch (final NoSuchMethodException nsme) {
-                // empty
-            }
-        }
-        if (method == null) {
-            return true;
-        }
-        if (!Number.class.isAssignableFrom(method.getReturnType())) {
-            return true;
-        }
-        if (!method.canAccess(this)) {
-            method.setAccessible(true);
-        }
-        BigDecimal jobMaxSalary = null;
-        try {
-            jobMaxSalary =
-                    Optional.ofNullable((Number) method.invoke(this))
-                            .map(Number::longValue)
-                            .map(BigDecimal::valueOf)
-                            .orElse(null);
-        } catch (final ReflectiveOperationException roe) {
-            return true;
-        }
+        final var jobMaxSalary = getJobMaxSalary();
         if (jobMaxSalary == null) {
             return true;
         }
-        assert salary != null;
         return salary.compareTo(jobMaxSalary) <= 0;
     }
 
@@ -396,12 +339,25 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
         return commissionPct.signum() != -1;
     }
 
+    /**
+     * Tests whether current value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is positive.
+     *
+     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is positive;
+     * {@code false} otherwise.
+     */
+    protected boolean isCommissionPctPositive() {
+        if (commissionPct == null) {
+            return true;
+        }
+        return commissionPct.signum() > 0;
+    }
+
     // ------------------------------------------------------------------------------------------------------ employeeId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
+     * Returns current value of {@value MappedEmployee_#EMPLOYEE_ID} attribute.
      *
-     * @return the current value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
+     * @return the current value of the {@value MappedEmployee_#EMPLOYEE_ID} attribute.
      */
     @Nonnull
     public Integer getEmployeeId() {
@@ -409,9 +365,9 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute with the specified value.
+     * Replaces current value of {@value MappedEmployee_#EMPLOYEE_ID} attribute with the specified value.
      *
-     * @param employeeId the new value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
+     * @param employeeId the new value of the {@value MappedEmployee_#EMPLOYEE_ID} attribute.
      */
     protected void setEmployeeId(@Nonnull final Integer employeeId) {
         this.employeeId = employeeId;
@@ -470,9 +426,9 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     // ----------------------------------------------------------------------------------------------------------- jobId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
+     * Returns current value of {@value MappedEmployee_#JOB_ID} attribute.
      *
-     * @return current value of the {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
+     * @return current value of the {@value MappedEmployee_#JOB_ID} attribute.
      */
     @Nonnull
     public String getJobId() {
@@ -480,12 +436,34 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute with the specified value.
+     * Replaces current value of {@value MappedEmployee_#JOB_ID} attribute with the specified value.
      *
-     * @param jobId new value of the {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
+     * @param jobId new value of the {@value MappedEmployee_#JOB_ID} attribute.
      */
     protected void setJobId(@Nonnull final String jobId) {
         this.jobId = jobId;
+    }
+
+    /**
+     * Returns the {@value MappedJob_#MIN_SALARY} of this employee's current job.
+     *
+     * @return the {@value MappedJob_#MIN_SALARY} of this employee's current job.
+     * @apiNote the {@code getJobMinSalary()} method of {@code MappedEmployee} class returns {@code null}.
+     */
+    @Transient
+    protected @Nullable BigDecimal getJobMinSalary() {
+        return null;
+    }
+
+    /**
+     * Returns the {@value MappedJob_#MAX_SALARY} of this employee's current job.
+     *
+     * @return the {@value MappedJob_#MAX_SALARY} of this employee's current job.
+     * @apiNote the {@code getJobMaxSalary()} method of {@code MappedEmployee} class returns {@code null}.
+     */
+    @Transient
+    protected @Nullable BigDecimal getJobMaxSalary() {
+        return null;
     }
 
     // ---------------------------------------------------------------------------------------------------------- salary
@@ -636,7 +614,7 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     @Min(ATTRIBUTE_MIN_MANAGER_ID)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_MANAGER_ID, nullable = true, insertable = true, updatable = true,
-            precision = COLUMN_PRECISION_MANAGER_ID)
+            precision = COLUMN_PRECISION_MANAGER_ID, scale = COLUMN_SCALE_MANAGER_ID)
     private Integer managerId;
 
     // -----------------------------------------------------------------------------------------------------------------

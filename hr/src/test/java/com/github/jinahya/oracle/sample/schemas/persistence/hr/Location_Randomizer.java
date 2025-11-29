@@ -7,10 +7,14 @@ import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
+import java.util.List;
+
 class Location_Randomizer extends __MappedEntity_Randomizer<Location, Integer> {
 
     Location_Randomizer() {
-        super(Location.class, Integer.class, MappedLocation.ATTRIBUTE_NAME_DEPARTMENTS);
+        super(Location.class, Integer.class, List.of(
+                MappedLocation.ATTRIBUTE_NAME_DEPARTMENTS
+        ));
     }
 
     @Nonnull

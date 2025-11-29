@@ -8,8 +8,13 @@ import uk.co.jemos.podam.api.PodamFactory;
 
 public class _MappedHr_Randomizer<MAPPED extends _MappedHr> extends __Mapped_Randomizer<MAPPED> {
 
-    protected _MappedHr_Randomizer(final Class<MAPPED> mappedClass, final String... excludedFields) {
-        super(mappedClass, excludedFields);
+    @Deprecated(forRemoval = true)
+    protected _MappedHr_Randomizer(final Class<MAPPED> targetClass, final String... excludedFields) {
+        super(targetClass, excludedFields);
+    }
+
+    protected _MappedHr_Randomizer(final Class<MAPPED> targetClass, final Iterable<String> excludedFields) {
+        super(targetClass, excludedFields);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
