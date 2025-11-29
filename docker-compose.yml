@@ -6,7 +6,8 @@ services:
     ports:
       - "1521:1521"
     environment:
-      ORACLE_PWD: password
+      - ORACLE_PWD=password
+      - TZ=Asia/Seoul
     volumes:
       - ./db-sample-schemas:/db-sample-schemas
       - ./db-sample-schemas-local:/db-sample-schemas-local
