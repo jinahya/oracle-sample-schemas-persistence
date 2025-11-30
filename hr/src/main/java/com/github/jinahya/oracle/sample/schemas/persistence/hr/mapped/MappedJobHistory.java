@@ -110,8 +110,9 @@ import java.time.LocalDate;
  * @see jakarta.persistence.EmbeddedId
  * @see jakarta.persistence.IdClass
  * @see MappedJobHistoryId
- * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a14687">11.1.17. EmbeddedId Annotation</a> (Jakarta Persistence 3.2 Specification Document)</td>
- * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a14836">11.1.23. IdClass Annotation</a> (Jakarta Persistence 3.2 Specification Document)</td>
+ * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#composite-primary-keys">2.4.1. Composite primary keys</a> (Jakarta Persistence 3.2 Specification Document)
+ * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a14687">11.1.17. EmbeddedId Annotation</a> (Jakarta Persistence 3.2 Specification Document)
+ * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a14836">11.1.23. IdClass Annotation</a> (Jakarta Persistence 3.2 Specification Document)
  */
 @MappedSuperclass
 @SuppressWarnings({

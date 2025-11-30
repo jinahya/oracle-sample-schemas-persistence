@@ -25,6 +25,8 @@ import java.time.LocalDate;
 /**
  * An abstract builder class for building instances of a specific subclass of {@link MappedJobHistoryId} class.
  *
+ * @param <SELF>   self type parameter
+ * @param <TARGET> target type parameter
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @SuppressWarnings({
@@ -51,20 +53,34 @@ public abstract class MappedJobHistoryIdBuilder<
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     // ------------------------------------------------------------------------------------------------------ employeeId
+
+    /**
+     * Returns current value of {@code employeeId} property.
+     *
+     * @return current value of the {@code employeeId} property.
+     */
     public Integer employeeId() {
         return employeeId;
     }
 
+    /**
+     * Replaces current value of {@code employeeId} property with specified value, and returns this builder instance.
+     *
+     * @param employeeId new value for the {@code employeeId} property.
+     * @return this builder instance.
+     */
     public SELF employeeId(final Integer employeeId) {
         this.employeeId = employeeId;
         return (SELF) this;
     }
 
     // ------------------------------------------------------------------------------------------------------- startDate
+    // TODO: javadoc
     public LocalDate startDate() {
         return startDate;
     }
 
+    // TODO: javadoc
     public SELF startDate(final LocalDate startDate) {
         this.startDate = startDate;
         return (SELF) this;

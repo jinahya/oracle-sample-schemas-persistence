@@ -33,6 +33,16 @@ import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ * An abstract composite primary key class for mapping {@value MappedJobHistory#COLUMN_NAME_EMPLOYEE_ID} column and
+ * {@value MappedJobHistory#COLUMN_NAME_START_DATE} column, of {@value MappedJobHistory#TABLE_NAME} table.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ * @see MappedJobHistory
+ * @see <a
+ * href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#composite-primary-keys">2.4.1.
+ * Composite primary keys</a> (Jakarta Persistence 3.2 Specification Document)
+ */
 @MappedSuperclass
 public abstract class MappedJobHistoryId extends _MappedHr {
 

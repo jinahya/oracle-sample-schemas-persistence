@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.github.jinahya</groupId>
@@ -90,8 +91,8 @@
     <version.jakarta.jakartaee-api>11.0.0</version.jakarta.jakartaee-api>
     <!-- https://central.sonatype.com/artifact/io.github.jinahya/jinahya-persistence/versions -->
     <!--    <version.jinahya-persistence>0.4.5</version.jinahya-persistence>-->
-<!--    <version.jinahya-persistence>0.4.6-SNAPSHOT</version.jinahya-persistence>-->
-<!--    <version.jinahya-persistence>0.4.7</version.jinahya-persistence>-->
+    <!--    <version.jinahya-persistence>0.4.6-SNAPSHOT</version.jinahya-persistence>-->
+    <!--    <version.jinahya-persistence>0.4.7</version.jinahya-persistence>-->
     <version.jinahya-persistence>0.4.8</version.jinahya-persistence>
     <!--    <version.jinahya-persistence>0.4.3</version.jinahya-persistence>-->
     <!--    <version.mysql-connector-j>8.3.0</version.mysql-connector-j>-->
@@ -314,11 +315,11 @@
             </additionalOptions>
             <links>
               <link>https://www.javadoc.io/doc/jakarta.platform/jakarta.jakartaee-api/${version.jakarta.jakartaee-api}</link>
-              <!--              <link>https://jakarta.ee/specifications/platform/11/apidocs/</link>-->
-              <!--              <link>https://javadoc.io/static/io.github.jinahya/jinahya-persistence-mapped/${version.jinahya-persistence}</link>-->
-              <!--              <link>https://javadoc.io/static/io.github.jinahya/jinahya-persistence-mapped-test/${version.jinahya-persistence}</link>-->
-              <!--              <link>https://javadoc.io/static/io.github.jinahya/jinahya-persistence-more/${version.jinahya-persistence}</link>-->
-              <!--              <link>https://javadoc.io/static/io.github.jinahya/jinahya-persistence-more-test/${version.jinahya-persistence}</link>-->
+              <link>https://jakarta.ee/specifications/platform/11/apidocs/</link>
+              <link>https://javadoc.io/static/io.github.jinahya/jinahya-persistence-mapped/${version.jinahya-persistence}</link>
+              <link>https://javadoc.io/static/io.github.jinahya/jinahya-persistence-mapped-test/${version.jinahya-persistence}</link>
+              <link>https://javadoc.io/static/io.github.jinahya/jinahya-persistence-more/${version.jinahya-persistence}</link>
+              <link>https://javadoc.io/static/io.github.jinahya/jinahya-persistence-more-test/${version.jinahya-persistence}</link>
             </links>
             <release>${maven.compiler.testRelease}</release>
             <tags>

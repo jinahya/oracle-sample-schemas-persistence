@@ -20,8 +20,29 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
+import java.time.DayOfWeek;
+import java.time.LocalTime;
+import java.util.List;
+
 public final class __HrDomainConstants {
 
+    // ------------------------------------------------------------------------------------------- routines / SECURE_DML
+    static final String ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT = "08:00";
+
+    public static final LocalTime ROUTINE_SECURE_DML_LOCAL_TIME_MIN =
+            LocalTime.parse(ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT);
+
+    static final String ROUTINE_SECURE_DML_LOCAL_TIME_MAX_TEXT = "18:00";
+
+    public static final LocalTime ROUTINE_SECURE_DML_LOCAL_TIME_MAX =
+            LocalTime.parse(ROUTINE_SECURE_DML_LOCAL_TIME_MAX_TEXT);
+
+    public static final List<DayOfWeek> ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST =
+            List.of(DayOfWeek.SATURDAY, DayOfWeek.SUNDAY);
+
+    public static final int ROUTINE_SECURE_DML_APPLICATION_ERROR_CODE = -20205;
+
+    // -----------------------------------------------------------------------------------------------------------------
     private __HrDomainConstants() {
         throw new AssertionError("instantiation is not allowed");
     }
