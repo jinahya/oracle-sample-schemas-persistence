@@ -35,8 +35,83 @@ import java.time.LocalDate;
 
 /**
  * An abstract mapped-superclass for mapping the {@value MappedJobHistory#TABLE_NAME} table.
+ * <p>
+ * The {@value MappedJobHistory#TABLE_NAME} table has two primary key columns,
+ * {@value MappedJobHistory#COLUMN_NAME_EMPLOYEE_ID} and {@value MappedJobHistory#COLUMN_NAME_START_DATE}.
+ * <p>
+ * Say, we have a class for the composite-primary key,
+ * <p>
+ * //@formatter:off
+ * {@snippet lang = "java" :
+ * @jakarta.persistence.Embeddable // only for the @EmbeddedId // @highlight substring="Embeddable"
+ * class JobHistoryId {
+ *
+ *     @jakarta.persistence.Column(name = "EMPLOYEE_ID") // only for the @EmbeddedId
+ *     private Integer employeeId; // @highlight substring="Integer employeeId"
+ *
+ *     @jakarta.persistence.Column(name = "START_DATE") // only for the @EmbeddedId
+ *     private java.time.LocalDate startDate; // @highlight substring="java.time.LocalDate startDate"
+ * }
+ *}
+ * //@formatter:on
+ * <p>
+ * Then we can use the class in two ways, {@link jakarta.persistence.EmbeddedId} or {@link jakarta.persistence.IdClass}.
+ * <p>
+ * <table>
+ *   <caption></caption>
+ *   <thead>
+ *     <tr>
+ *       <th>used as an {@link jakarta.persistence.EmbeddedId}</th>
+ *       <th>used as an {@link jakarta.persistence.IdClass}</th>
+ *     </tr>
+ *   </thead>
+ *   <tbody>
+ *     <tr style="vertical-align: top;">
+ *       <td>{@snippet lang = "java":
+ *
+ * @jakarta.persistence.Entity
+ * class JobHistory {
+ *
+ *
+ *
+ *
+ *
+ *
+ *     @jakarta.persistence.EmbeddedId // @highlight substring="EmbeddedId"
+ *     private JobHistoryId id;
+ * }
+ *}</td>
+ *       <td>{@snippet lang = "java":
+ * @IdClass(JobHistoryId.class) // @highlight substring="IdClass"
+ * @jakarta.persistence.Entity
+ * class JobHistory {
+ *
+ *     @jakarta.persistence.Id // @highlight substring="Id"
+ *     @jakarta.persistence.Column(name = "EMPLOYEE_ID")
+ *     private Integer employeeId; // should be the same time/name // @highlight substring="Integer employeeId"
+ *
+ *     @jakarta.persistence.Id // @highlight substring="Id"
+ *     @jakarta.persistence.Column(name = "START_DATE")
+ *     private java.time.LocalDate startDate; // should be the same type/name, // @highlight substring="java.time.LocalDate startDate"
+ * }
+ *}</td>
+ *     </tr>
+ *   </tbody>
+ *   <tfoot>
+ *     <tr style="vertical-align: top;">
+ *       <td>See <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a14687">11.1.17. EmbeddedId Annotation</a></td>
+ *       <td>See <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a14836">11.1.23. IdClass Annotation</a></td>
+ *     </tr>
+ *   </tfoot>
+ * </table>
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ * @see jakarta.persistence.Embeddable
+ * @see jakarta.persistence.EmbeddedId
+ * @see jakarta.persistence.IdClass
+ * @see MappedJobHistoryId
+ * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a14687">11.1.17. EmbeddedId Annotation</a> (Jakarta Persistence 3.2 Specification Document)</td>
+ * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a14836">11.1.23. IdClass Annotation</a> (Jakarta Persistence 3.2 Specification Document)</td>
  */
 @MappedSuperclass
 @SuppressWarnings({

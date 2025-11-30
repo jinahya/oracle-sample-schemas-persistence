@@ -28,7 +28,8 @@ import java.time.LocalDate;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @SuppressWarnings({
-        "unchecked"
+        "unchecked",
+        "java:S119" // Type parameter names should comply with a naming convention
 })
 public abstract class MappedJobHistoryIdBuilder<
         SELF extends MappedJobHistoryIdBuilder<SELF, TARGET>,
@@ -72,6 +73,5 @@ public abstract class MappedJobHistoryIdBuilder<
     // -----------------------------------------------------------------------------------------------------------------
     private Integer employeeId;
 
-    // -----------------------------------------------------------------------------------------------------------------
     private LocalDate startDate;
 }

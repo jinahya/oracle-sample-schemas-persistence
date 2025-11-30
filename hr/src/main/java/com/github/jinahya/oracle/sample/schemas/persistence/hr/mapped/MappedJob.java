@@ -197,19 +197,20 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
 
     /**
-     * Tests whether current value of {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute is blank.
+     * Tests whether current value of {@value MappedJob_#JOB_TITLE} attribute {@link String#isBlank() is blank}.
      *
-     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute is blank;
-     * {@code false} otherwise.
+     * @return {@code true} if the current value of the {@value MappedJob_#JOB_TITLE} attribute
+     * {@link String#isBlank() is blank}; {@code false} otherwise.
+     * @see String#isBlank()
      */
     protected boolean isJobTitleBlank() {
         return jobTitle == null || jobTitle.isBlank();
     }
 
     /**
-     * Tests whether current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is non-negative.
+     * Tests whether current value of the {@value MappedJob_#MIN_SALARY} attribute is non-negative.
      *
-     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is non-negative;
+     * @return {@code true} if the current value of the {@value MappedJob_#MIN_SALARY} attribute is non-negative;
      * {@code false} otherwise.
      */
     protected boolean isMinSalaryNonNegative() {
@@ -232,6 +233,7 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
         return minSalary > 0;
     }
 
+    // TODO: javadoc
     protected boolean isMaxSalaryNonNegative() {
         if (maxSalary == null) {
             return true;
@@ -239,6 +241,7 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
         return maxSalary <= 0;
     }
 
+    // TODO: javadoc
     protected boolean isMaxSalaryPositive() {
         if (maxSalary == null) {
             return true;
@@ -295,21 +298,34 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
     }
 
     // ------------------------------------------------------------------------------------------------------- minSalary
+
+    /**
+     * Returns current value of {@value MappedJob_#MIN_SALARY} attribute.
+     *
+     * @return current value of the {@value MappedJob_#MIN_SALARY} attribute.
+     */
     @Nullable
     public Integer getMinSalary() {
         return minSalary;
     }
 
+    /**
+     * Replaces current value of {@value MappedJob_#MIN_SALARY} attribute with specified value.
+     *
+     * @param minSalary new value for the {@value MappedJob_#MIN_SALARY} attribute.
+     */
     public void setMinSalary(@Nullable final Integer minSalary) {
         this.minSalary = minSalary;
     }
 
     // ------------------------------------------------------------------------------------------------------- maxSalary
+    // TODO: javadoc
     @Nullable
     public Integer getMaxSalary() {
         return maxSalary;
     }
 
+    // TODO: javadoc
     public void setMaxSalary(@Nullable final Integer maxSalary) {
         this.maxSalary = maxSalary;
     }
@@ -319,18 +335,27 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
     @Size(min = ATTRIBUTE_SIZE_MIN_JOB_ID, max = ATTRIBUTE_SIZE_MAX_JOB_ID)
     @NotNull
     @Id
-    @Column(name = COLUMN_NAME_JOB_ID, nullable = false, insertable = true, updatable = false,
-            length = COLUMN_LENGTH_JOB_ID)
+    @Column(name = COLUMN_NAME_JOB_ID,
+            nullable = false,
+            insertable = true,
+            updatable = false,
+            length = COLUMN_LENGTH_JOB_ID
+    )
     private String jobId;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Size(min = ATTRIBUTE_SIZE_MIN_JOB_TITLE, max = ATTRIBUTE_SIZE_MAX_JOB_TITLE)
     @NotNull
-    @Column(name = COLUMN_NAME_JOB_TITLE, nullable = false, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_JOB_TITLE)
+    @Column(name = COLUMN_NAME_JOB_TITLE,
+            nullable = false,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_JOB_TITLE
+    )
     private String jobTitle;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Max(ATTRIBUTE_MAX_MIN_SALARY)
     @Min(ATTRIBUTE_MIN_MIN_SALARY)

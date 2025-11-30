@@ -13,10 +13,15 @@
 -- ---------------------------------------------------------------------------------------------------------------------
 SELECT COUNT(1)
 FROM JOB_HISTORY
-WHERE START_DATE <= END_DATE
+WHERE START_DATE = END_DATE
 ;
 
 SELECT COUNT(1)
 FROM JOB_HISTORY
 WHERE START_DATE > END_DATE
+;
+
+SELECT COUNT(1)
+FROM JOB_HISTORY
+WHERE START_DATE <= END_DATE
 ;

@@ -23,6 +23,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.MappedSuperclass;
 
+import java.time.chrono.ChronoLocalDate;
 import java.util.Objects;
 
 /**
@@ -40,9 +41,6 @@ public abstract class MappedJobHistoryWithEmbeddedId<ID extends MappedJobHistory
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
     // ------------------------------------------------------------------------------------------------------ START_DATE
-
-    // ---------------------------------------------------------------------------------------- EMPLOYEE_ID / START_DATE
-    public static final String ATTRIBUTE_NAME_ID = "id";
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
 
@@ -87,6 +85,16 @@ public abstract class MappedJobHistoryWithEmbeddedId<ID extends MappedJobHistory
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+
+    /**
+     * Tests whether current value of {@link MappedJobHistoryId_#START_DATE id.startDate} attribute
+     * {@link java.time.LocalDate#isBefore(ChronoLocalDate) is before} current value of
+     * {@value MappedJobHistoryWithEmbeddedId_#END_DATE} attribute.
+     *
+     * @return {@code true} when current value of {@link MappedJobHistoryId_#START_DATE id.startDate} attribute
+     * {@link java.time.LocalDate#isBefore(ChronoLocalDate) is before} current value of
+     * {@value MappedJobHistoryWithEmbeddedId_#END_DATE} attribute; {@code false} otherwise.
+     */
     protected boolean isIdStartDateBeforeEndDate() {
         final var id = getId();
         if (id == null) {
@@ -103,6 +111,7 @@ public abstract class MappedJobHistoryWithEmbeddedId<ID extends MappedJobHistory
         return startDate.isBefore(endDate);
     }
 
+    // TODO: javadoc
     protected boolean isIdStartDateNotAfterEndDate() {
         final var id = getId();
         if (id == null) {
@@ -119,16 +128,18 @@ public abstract class MappedJobHistoryWithEmbeddedId<ID extends MappedJobHistory
         return !startDate.isAfter(endDate);
     }
 
-    // ----------------------------------------------------------------------------------------------------------- super
-
     // --------------------------------------------------------------------------------------------------- super.endDate
 
     // ----------------------------------------------------------------------------------------------------- super.jobId
 
     // -------------------------------------------------------------------------------------------------------------- id
-    public abstract ID getId();
 
-//    protected abstract void setId(final ID id);
+    /**
+     * Returns the id of this entity.
+     *
+     * @return the id of this entity.
+     */
+    public abstract ID getId();
 
     // -----------------------------------------------------------------------------------------------------------------
     // fuck eclipselink

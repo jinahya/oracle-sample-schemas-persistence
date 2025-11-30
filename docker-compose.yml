@@ -6,11 +6,10 @@ services:
     ports:
       - "1521:1521"
     environment:
-      - ORACLE_PWD=password
-      - TZ=Asia/Seoul
+      ORACLE_PWD: password
     volumes:
       - ./db-sample-schemas:/db-sample-schemas
       - ./db-sample-schemas-local:/db-sample-schemas-local
       - ./opt/oracle/oradata:/opt/oracle/oradata
-      - "/etc/localtime:/etc/localtime:ro"
-      - "/etc/timezone:/etc/timezone:ro"
+#      - /etc/localtime:/etc/localtime:ro
+#      - /etc/timezone:/etc/timezone:ro

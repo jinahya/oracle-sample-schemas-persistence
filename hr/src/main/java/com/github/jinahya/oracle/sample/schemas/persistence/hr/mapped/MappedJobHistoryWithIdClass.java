@@ -31,6 +31,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 import java.util.Objects;
 
 /**
@@ -43,12 +44,8 @@ import java.util.Objects;
 public abstract class MappedJobHistoryWithIdClass<ID extends MappedJobHistoryId> extends MappedJobHistory<ID> {
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
-    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = MappedJobHistory.ATTRIBUTE_NAME_EMPLOYEE_ID;
-
-    public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
 
     // ------------------------------------------------------------------------------------------------------ START_DATE
-    public static final String ATTRIBUTE_NAME_START_DATE = MappedJobHistory.ATTRIBUTE_NAME_START_DATE;
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
 
@@ -61,6 +58,10 @@ public abstract class MappedJobHistoryWithIdClass<ID extends MappedJobHistoryId>
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    /**
+     * Creates a new instance.
+     */
     protected MappedJobHistoryWithIdClass() {
         super();
     }
@@ -91,6 +92,17 @@ public abstract class MappedJobHistoryWithIdClass<ID extends MappedJobHistoryId>
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+
+    /**
+     * Tests whether current value of {@value MappedJobHistoryWithIdClass_#START_DATE} attribute
+     * {@link LocalDate#isBefore(ChronoLocalDate) is before} current value of
+     * {@value MappedJobHistoryWithIdClass_#END_DATE} attribute.
+     *
+     * @return {@code true} when current value of the {@value MappedJobHistoryWithIdClass_#START_DATE} attribute
+     * {@link LocalDate#isBefore(ChronoLocalDate) is before} current value of the
+     * {@value MappedJobHistoryWithIdClass_#END_DATE} attribute; {@code false} otherwise.
+     * @see LocalDate#isBefore(ChronoLocalDate)
+     */
     protected boolean isStartDateBeforeEndDate() {
         if (startDate == null) {
             return true;
@@ -101,6 +113,7 @@ public abstract class MappedJobHistoryWithIdClass<ID extends MappedJobHistoryId>
         return startDate.isBefore(endDate);
     }
 
+    // TODO: javadoc
     protected boolean isStartDateNotAfterEndDate() {
         if (startDate == null) {
             return true;
@@ -118,12 +131,24 @@ public abstract class MappedJobHistoryWithIdClass<ID extends MappedJobHistoryId>
     // ---------------------------------------------------------------------------------------------- super.departmentId
 
     // ------------------------------------------------------------------------------------------------------ employeeId
+
+    /**
+     * Returns current value of {@value MappedJobHistoryWithIdClass_#EMPLOYEE_ID} attribute.
+     *
+     * @return current value of the {@value MappedJobHistoryWithIdClass_#EMPLOYEE_ID} attribute.
+     */
     @Nonnull
     public Integer getEmployeeId() {
         return employeeId;
     }
 
     // ------------------------------------------------------------------------------------------------------- startDate
+
+    /**
+     * Returns current value of {@value MappedJobHistoryWithIdClass_#START_DATE} attribute.
+     *
+     * @return current value of the {@value MappedJobHistoryWithIdClass_#START_DATE} attribute.
+     */
     @Nonnull
     public LocalDate getStartDate() {
         return startDate;
