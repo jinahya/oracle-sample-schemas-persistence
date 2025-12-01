@@ -22,8 +22,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.AssertTrue;
 
-import java.time.chrono.ChronoLocalDate;
 import java.util.Objects;
 
 /**
@@ -85,17 +85,12 @@ public abstract class MappedJobHistoryWithEmbeddedId<ID extends MappedJobHistory
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
-
-    /**
-     * Tests whether current value of {@link MappedJobHistoryId_#START_DATE id.startDate} attribute
-     * {@link java.time.LocalDate#isBefore(ChronoLocalDate) is before} current value of
-     * {@value MappedJobHistoryWithEmbeddedId_#END_DATE} attribute.
-     *
-     * @return {@code true} when current value of {@link MappedJobHistoryId_#START_DATE id.startDate} attribute
-     * {@link java.time.LocalDate#isBefore(ChronoLocalDate) is before} current value of
-     * {@value MappedJobHistoryWithEmbeddedId_#END_DATE} attribute; {@code false} otherwise.
-     */
-    protected boolean isIdStartDateBeforeEndDate() {
+    @AssertTrue
+    protected boolean isEndDateAfterThanIdStartDate() {
+        final var endDate = getEndDate();
+        if (endDate == null) {
+            return true;
+        }
         final var id = getId();
         if (id == null) {
             return true;
@@ -104,28 +99,7 @@ public abstract class MappedJobHistoryWithEmbeddedId<ID extends MappedJobHistory
         if (startDate == null) {
             return true;
         }
-        final var endDate = getEndDate();
-        if (endDate == null) {
-            return true;
-        }
-        return startDate.isBefore(endDate);
-    }
-
-    // TODO: javadoc
-    protected boolean isIdStartDateNotAfterEndDate() {
-        final var id = getId();
-        if (id == null) {
-            return true;
-        }
-        final var startDate = id.getStartDate();
-        if (startDate == null) {
-            return true;
-        }
-        final var endDate = getEndDate();
-        if (endDate == null) {
-            return true;
-        }
-        return !startDate.isAfter(endDate);
+        return endDate.isAfter(startDate);
     }
 
     // --------------------------------------------------------------------------------------------------- super.endDate

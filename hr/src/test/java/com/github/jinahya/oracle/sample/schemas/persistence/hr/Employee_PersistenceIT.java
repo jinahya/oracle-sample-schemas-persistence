@@ -1,7 +1,7 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_PersistenceIT;
-import com.github.jinahya.persistence.mapped.test.___PersisterUtils;
+import com.github.jinahya.persistence.mapped.test.___JakartaPersistence_TestUtils;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +17,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 class Employee_PersistenceIT extends _MappedHrEntity_PersistenceIT<Employee, Integer> {
 
+    private static final Function<
+            EntityManager,
+            ? extends Function<
+                    ? super Integer,
+                    ? extends List<JobHistoryWithEmbeddedId>
+                    >
+            >
+            JOB_HISTORY_SELECTOR = em -> employeeId -> em.createQuery(
+            """
+                    SELECT e
+                    FROM JobHistoryWithEmbeddedId e
+                    WHERE e.id.employeeId = :employeeId
+                    ORDER BY e.id.startDate ASC
+                    """,
+            JobHistoryWithEmbeddedId.class
+    ).setParameter("employeeId", employeeId).getResultList();
+
+    // -----------------------------------------------------------------------------------------------------------------
     Employee_PersistenceIT() {
         super(Employee.class, Integer.class);
     }
@@ -25,33 +43,50 @@ class Employee_PersistenceIT extends _MappedHrEntity_PersistenceIT<Employee, Int
     @DisplayName("Job updated -> JobHistory added")
     @Test
     void _JobHistoryAdded_JobUpdated() {
-        final Function<EntityManager, ? extends Function<? super Integer, ? extends List<JobHistoryWithEmbeddedId>>>
-                jobHistorySelector = em -> employeeId -> {
-            return em.createQuery(
-                    """
-                            SELECT e
-                            FROM JobHistoryWithEmbeddedId e
-                            WHERE e.id.employeeId = :employeeId
-                            ORDER BY e.id.startDate ASC
-                            """,
-                    JobHistoryWithEmbeddedId.class
-            ).setParameter("employeeId", employeeId).getResultList();
-        };
         applyEntityManagerInTransactionAndRollback(em -> {
             // --------------------------------------------------------------------------------------------------- given
-            final var employee = ___PersisterUtils.newPersistedInstanceOf(em, entityClass);
-            em.flush();
-            final var jobHistories1 = jobHistorySelector.apply(em).apply(employee.getEmployeeId());
+            final var employee = ___JakartaPersistence_TestUtils.selectRandom(em, Employee.class).orElseThrow();
+            final var jobHistories1 = JOB_HISTORY_SELECTOR.apply(em).apply(employee.getEmployeeId());
             assertThat(jobHistories1).isEmpty();
             // ---------------------------------------------------------------------------------------------------- when
-            {
-                final var newJob = ___PersisterUtils.newPersistedInstanceOf(em, Job.class);
-                employee.setJob(newJob);
-                em.flush();
+            final Job newJob;
+            while (true) {
+                final var job = ___JakartaPersistence_TestUtils.selectRandom(em, Job.class).orElseThrow();
+                if (!job.equals(employee.getJob())) {
+                    newJob = job;
+                    break;
+                }
             }
+            employee.setJob(newJob);
+            em.flush();
             // ---------------------------------------------------------------------------------------------------- when
-            final var jobHistories2 = jobHistorySelector.apply(em).apply(employee.getEmployeeId());
+            final var jobHistories2 = JOB_HISTORY_SELECTOR.apply(em).apply(employee.getEmployeeId());
             assertThat(jobHistories2).hasSize(jobHistories1.size() + 1);
+            return null;
+        });
+    }
+
+    @DisplayName("Department updated -> JobHistory added")
+    @Test
+    void _JobHistoryAdded_DepartmentUpdated() {
+        applyEntityManagerInTransactionAndRollback(em -> {
+            // --------------------------------------------------------------------------------------------------- given
+            final var employee = ___JakartaPersistence_TestUtils.selectRandom(em, Employee.class).orElseThrow();
+            final var departmentHistories1 = JOB_HISTORY_SELECTOR.apply(em).apply(employee.getEmployeeId());
+            // ---------------------------------------------------------------------------------------------------- when
+            final Department newDepartment;
+            while (true) {
+                final var department = ___JakartaPersistence_TestUtils.selectRandom(em, Department.class).orElseThrow();
+                if (!department.equals(employee.getDepartment())) {
+                    newDepartment = department;
+                    break;
+                }
+            }
+            employee.setDepartment(newDepartment);
+            em.flush();
+            // ---------------------------------------------------------------------------------------------------- when
+            final var departmentHistories2 = JOB_HISTORY_SELECTOR.apply(em).apply(employee.getEmployeeId());
+            assertThat(departmentHistories2).hasSize(departmentHistories1.size() + 1);
             return null;
         });
     }

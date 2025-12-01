@@ -25,13 +25,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
 import java.util.Objects;
 
 /**
@@ -92,36 +92,15 @@ public abstract class MappedJobHistoryWithIdClass<ID extends MappedJobHistoryId>
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
-
-    /**
-     * Tests whether current value of {@value MappedJobHistoryWithIdClass_#START_DATE} attribute
-     * {@link LocalDate#isBefore(ChronoLocalDate) is before} current value of
-     * {@value MappedJobHistoryWithIdClass_#END_DATE} attribute.
-     *
-     * @return {@code true} when current value of the {@value MappedJobHistoryWithIdClass_#START_DATE} attribute
-     * {@link LocalDate#isBefore(ChronoLocalDate) is before} current value of the
-     * {@value MappedJobHistoryWithIdClass_#END_DATE} attribute; {@code false} otherwise.
-     * @see LocalDate#isBefore(ChronoLocalDate)
-     */
-    protected boolean isStartDateBeforeEndDate() {
-        if (startDate == null) {
-            return true;
-        }
+    @AssertTrue
+    protected boolean isEndDateAfterStartDate() {
         if (endDate == null) {
             return true;
         }
-        return startDate.isBefore(endDate);
-    }
-
-    // TODO: javadoc
-    protected boolean isStartDateNotAfterEndDate() {
         if (startDate == null) {
             return true;
         }
-        if (endDate == null) {
-            return true;
-        }
-        return !startDate.isAfter(endDate);
+        return endDate.isAfter(startDate);
     }
 
     // --------------------------------------------------------------------------------------------------- super.endDate

@@ -29,7 +29,6 @@ class Employee_PersistenceTest extends _MappedHrEntity_PersistenceTest<Employee,
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
     @DisplayName("selectListWhereJobIdEqual")
     @Nested
     class SelectListByJobId_Test {
