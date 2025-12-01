@@ -20,7 +20,17 @@ package com.github.jinahya.oracle.sample.schemas.co.mapped;
  * #L%
  */
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Supplier;
 
 @SuppressWarnings({
         "unchecked",
@@ -33,7 +43,44 @@ public abstract class _MappedCoBinaryBuilder<
         >
         extends _MappedCoBuilder<SELF, TARGET> {
 
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
+
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    public static <BUILDER extends _MappedCoBinaryBuilder<BUILDER, ?>>
+    BUILDER from(@Nonnull final Supplier<? extends BUILDER> instantiator, @Nonnull final Path path,
+                 @Nullable String mimeType, @Nullable String filename, @Nullable final String charset,
+                 @Nullable LocalDate lastUpdated)
+            throws IOException {
+        final BUILDER instance =
+                Objects.requireNonNull(
+                        Objects.requireNonNull(instantiator, "instantiator is null").get(),
+                        "null instantiated from " + instantiator
+                );
+        if (!Files.isRegularFile(Objects.requireNonNull(path, "path is null"))) {
+            throw new IllegalArgumentException("not a regular file: " + path);
+        }
+        // ------------------------------------------------------------------------------------------------------- bytes
+        instance.bytes(Files.readAllBytes(path));
+        // ---------------------------------------------------------------------------------------------------- mimeType
+        if (mimeType == null) {
+            mimeType = Files.probeContentType(path);
+        }
+        instance.mimeType(mimeType);
+        // ---------------------------------------------------------------------------------------------------- filename
+        if (filename == null) {
+            filename = path.getFileName().toString();
+        }
+        instance.filename(filename);
+        // ----------------------------------------------------------------------------------------------------- charset
+        instance.charset(charset);
+        // -------------------------------------------------------------------------------------------------- latUpdated
+        if (lastUpdated == null) {
+            lastUpdated = LocalDate.now();
+        }
+        instance.lastUpdated(lastUpdated);
+        // -------------------------------------------------------------------------------------------------------------
+        return instance;
+    }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -47,51 +94,53 @@ public abstract class _MappedCoBinaryBuilder<
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     // ----------------------------------------------------------------------------------------------------------- bytes
-    public byte[] bytes() {
+    protected byte[] bytes() {
         return bytes;
     }
 
-    public SELF bytes(final byte[] bytes) {
-        this.bytes = bytes;
+    protected SELF bytes(final byte[] bytes) {
+        this.bytes = Optional.ofNullable(bytes)
+                .map(v -> Arrays.copyOf(v, v.length))
+                .orElse(null);
         return (SELF) this;
     }
 
     // -------------------------------------------------------------------------------------------------------- mimeType
-    public String mimeType() {
+    protected String mimeType() {
         return mimeType;
     }
 
-    public SELF mimeType(final String mimeType) {
+    protected SELF mimeType(final String mimeType) {
         this.mimeType = mimeType;
         return (SELF) this;
     }
 
     // -------------------------------------------------------------------------------------------------------- filename
-    public String filename() {
+    protected String filename() {
         return filename;
     }
 
-    public SELF filename(final String filename) {
+    protected SELF filename(final String filename) {
         this.filename = filename;
         return (SELF) this;
     }
 
     // --------------------------------------------------------------------------------------------------------- charset
-    public String charset() {
+    protected String charset() {
         return charset;
     }
 
-    public SELF charset(final String charset) {
+    protected SELF charset(final String charset) {
         this.charset = charset;
         return (SELF) this;
     }
 
     // ----------------------------------------------------------------------------------------------------- lastUpdated
-    public LocalDate lastUpdated() {
+    protected LocalDate lastUpdated() {
         return lastUpdated;
     }
 
-    public SELF lastUpdated(final LocalDate lastUpdated) {
+    protected SELF lastUpdated(final LocalDate lastUpdated) {
         this.lastUpdated = lastUpdated;
         return (SELF) this;
     }

@@ -27,6 +27,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Lob;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Optional;
 
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
@@ -48,6 +50,8 @@ public abstract class _MappedCoBinary extends _MappedCo {
     // -------------------------------------------------------------------------------------- LAST_UPDATED / lastUpdated
     public static final String COLUMN_NAME_LAST_UPDATED = "LAST_UPDATED";
 
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
+
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
@@ -66,11 +70,6 @@ public abstract class _MappedCoBinary extends _MappedCo {
      */
     protected _MappedCoBinary(final _MappedCoBinaryBuilder<?, ?> builder) {
         super(builder);
-        bytes = builder.bytes();
-        mimeType = builder.mimeType();
-        filename = builder.filename();
-        charset = builder.charset();
-        lastUpdated = builder.lastUpdated();
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -86,60 +85,68 @@ public abstract class _MappedCoBinary extends _MappedCo {
                '}';
     }
 
+    // --------------------------------------------------------------------------------------------- Jakarta-Persistence
+
+    // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+
     // ----------------------------------------------------------------------------------------------------------- bytes
     @Nullable
-    public byte[] getBytes() {
-        return bytes;
+    protected byte[] getBytes() {
+        return Optional.ofNullable(bytes)
+                .map(v -> Arrays.copyOf(v, v.length))
+                .orElse(null);
     }
 
-    public void setBytes(@Nullable final byte[] bytes) {
-        this.bytes = bytes;
+    protected void setBytes(@Nullable final byte[] bytes) {
+        this.bytes = Optional.ofNullable(bytes)
+                .map(v -> Arrays.copyOf(v, v.length))
+                .orElse(null);
     }
 
     // -------------------------------------------------------------------------------------------------------- mimeType
     @Nullable
-    public String getMimeType() {
+    protected String getMimeType() {
         return mimeType;
     }
 
-    public void setMimeType(@Nullable final String mimeType) {
+    protected void setMimeType(@Nullable final String mimeType) {
         this.mimeType = mimeType;
     }
 
     // -------------------------------------------------------------------------------------------------------- filename
     @Nullable
-    public String getFilename() {
+    protected String getFilename() {
         return filename;
     }
 
-    public void setFilename(@Nullable final String filename) {
+    protected void setFilename(@Nullable final String filename) {
         this.filename = filename;
     }
 
     // --------------------------------------------------------------------------------------------------------- charset
     @Nullable
-    public String getCharset() {
+    protected String getCharset() {
         return charset;
     }
 
-    public void setCharset(@Nullable final String charset) {
+    protected void setCharset(@Nullable final String charset) {
         this.charset = charset;
     }
 
     // ----------------------------------------------------------------------------------------------------- lastUpdated
     @Nullable
-    public LocalDate getLastUpdated() {
+    protected LocalDate getLastUpdated() {
         return lastUpdated;
     }
 
-    public void setLastUpdated(@Nullable final LocalDate lastUpdated) {
+    protected void setLastUpdated(@Nullable final LocalDate lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Lob
-    @Basic(optional = true, fetch = FetchType.LAZY)
+    @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(
             name = COLUMN_NAME_BYTES,
             nullable = true,

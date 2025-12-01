@@ -53,4 +53,10 @@ abstract class _MappedCoEntity<ID> extends __MappedEntity<ID> {
     protected _MappedCoEntity(final _MappedCoEntityBuilder<?, ?> builder) {
         super(builder);
     }
+
+    // ------------------------------------------------------------------------------------------------ java.lang.Object
+
+    // --------------------------------------------------------------------------------------------- Jakarta-Persistence
+
+    // ---------------------------------------------------------------------------------------------- Jakarta-Validation
 }

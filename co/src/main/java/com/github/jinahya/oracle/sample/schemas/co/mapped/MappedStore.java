@@ -37,14 +37,9 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -63,91 +58,125 @@ public abstract class MappedStore extends _MappedCoEntity<Long> {
 
     public static final String ATTRIBUTE_NAME_STORE_ID = "storeId";
 
-    // ------------------------------------------------------------------------------------------ STORE_NAME / storeName
+    // ---------))))))))))))--------------------------------------------------------------------------------- STORE_NAME
     public static final String COLUMN_NAME_STORE_NAME = "STORE_NAME";
 
     public static final int COLUMN_LENGTH_STORE_NAME = 255;
 
-    public static final int SIZE_MAX_STORE_NAME = COLUMN_LENGTH_STORE_NAME;
-
     public static final String ATTRIBUTE_NAME_STORE_NAME = "storeName";
 
-    // ---------------------------------------------------------------------------------------- WEB_ADDRESS / webAddress
+    public static final int ATTRIBUTE_SIZE_MIN_STORE_NAME = 0; // 1?
+
+    public static final int ATTRIBUTE_SIZE_MAX_STORE_NAME = COLUMN_LENGTH_STORE_NAME;
+
+    // ----------------------------------------------------------------------------------------------------- WEB_ADDRESS
     public static final String COLUMN_NAME_WEB_ADDRESS = "WEB_ADDRESS";
 
     public static final int COLUMN_LENGTH_WEB_ADDRESS = 100;
 
-    public static final int SIZE_MAXH_WEB_ADDRESS = COLUMN_LENGTH_WEB_ADDRESS;
-
     public static final String ATTRIBUTE_NAME_WEB_ADDRESS = "webAddress";
 
-    // ------------------------------------------------------------------------------ PHYSICAL_ADDRESS / physicalAddress
+    public static final int ATTRIBUTE_SIZE_MIN_WEB_ADDRESS = 0; // 1?
+
+    public static final int ATTRIBUTE_SIZE_MAX_WEB_ADDRESS = COLUMN_LENGTH_WEB_ADDRESS;
+
+    // ------------------------------------------------------------------------------------------------ PHYSICAL_ADDRESS
     public static final String COLUMN_NAME_PHYSICAL_ADDRESS = "PHYSICAL_ADDRESS";
 
     public static final int COLUMN_LENGTH_PHYSICAL_ADDRESS = 512;
 
-    public static final int SIZE_MAXH_PHYSICAL_ADDRESS = COLUMN_LENGTH_PHYSICAL_ADDRESS;
-
     public static final String ATTRIBUTE_NAME_PHYSICAL_ADDRESS = "physicalAddress";
 
-    // --------------------------------------------------------------------------------------------- LATITUDE / latitude
+    public static final int ATTRIBUTE_SIZE_MIN_PHYSICAL_ADDRESS = 0; // 1?
+
+    public static final int ATTRIBUTE_SIZE_MAX_PHYSICAL_ADDRESS = COLUMN_LENGTH_PHYSICAL_ADDRESS;
+
+    // -------------------------------------------------------------------------------------------------------- LATITUDE
     public static final String COLUMN_NAME_LATITUDE = "LATITUDE";
 
     public static final int COLUMN_PRECISION_LATITUDE = 9;
 
     public static final int COLUMN_SCALE_LATITUDE = 6;
 
+    public static final String COLUMN_MIN_LATITUDE = "-999.999999";
+
+    public static final String COLUMN_MAX_LATITUDE = "+999.999999";
+
     public static final String ATTRIBUTE_NAME_LATITUDE = "latitude";
 
-    // ------------------------------------------------------------------------------------------- LONGITUDE / longitude
+    public static String ATTRIBUTE_DECIMAL_MIN_LATITUDE = __MappedCoConstants.DECIMAL_MIN_LATITUDE;
+
+    public static String ATTRIBUTE_DECIMAL_MAX_LATITUDE = __MappedCoConstants.DECIMAL_MAX_LATITUDE;
+
+    public static BigDecimal ATTRIBUTE_MIN_LATITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MIN_LATITUDE);
+
+    public static BigDecimal ATTRIBUTE_MAX_LATITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MAX_LATITUDE);
+
+    // ------------------------------------------------------------------------------------------------------- LONGITUDE
     public static final String COLUMN_NAME_LONGITUDE = "LONGITUDE";
 
     public static final int COLUMN_PRECISION_LONGITUDE = 9;
 
     public static final int COLUMN_SCALE_LONGITUDE = 6;
 
+    public static final String COLUMN_MIN_LONGITUDE = "-999.999999";
+
+    public static final String COLUMN_MAX_LONGITUDE = "+999.999999";
+
     public static final String ATTRIBUTE_NAME_LONGITUDE = "longitude";
 
-    // ----------------------------------------------------------------------------------------------------- LOGO / logo
+    public static String ATTRIBUTE_DECIMAL_MIN_LONGITUDE = __MappedCoConstants.DECIMAL_MIN_LONGITUDE;
+
+    public static String ATTRIBUTE_DECIMAL_MAX_LONGITUDE = __MappedCoConstants.DECIMAL_MAX_LONGITUDE;
+
+    public static BigDecimal ATTRIBUTE_MIN_LONGITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MIN_LONGITUDE);
+
+    public static BigDecimal ATTRIBUTE_MAX_LONGITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MAX_LONGITUDE);
+
+    // ------------------------------------------------------------------------------------------------------------ LOGO
     public static final String COLUMN_NAME_LOGO = "LOGO";
 
     public static final String ATTRIBUTE_NAME_LOGO = "logo";
 
-    // ----------------------------------------------------------------------------------- LOGO_MIME_TYPE / logoMimeType
+    // -------------------------------------------------------------------------------------------------- LOGO_MIME_TYPE
     public static final String COLUMN_NAME_LOGO_MIME_TYPE = "LOGO_MIME_TYPE";
 
     public static final int COLUMN_LENGTH_LOGO_MIME_TYPE = 512;
 
     public static final String ATTRIBUTE_NAME_LOGO_MIME_TYPE = "logoMimeType";
 
-    public static final int SIZE_MAX_LOGO_MIME_TYPE = COLUMN_LENGTH_LOGO_MIME_TYPE;
+    public static final int ATTRIBUTE_SIZE_MIN_LOGO_MIME_TYPE = 0; // 1?
 
-    // ------------------------------------------------------------------------------------ LOGO_FILENAME / logoFilename
+    public static final int ATTRIBUTE_SIZE_MAX_LOGO_MIME_TYPE = COLUMN_LENGTH_LOGO_MIME_TYPE;
+
+    // --------------------------------------------------------------------------------------------------- LOGO_FILENAME
     public static final String COLUMN_NAME_LOGO_FILENAME = "LOGO_FILENAME";
 
     public static final int COLUMN_LENGTH_LOGO_FILENAME = 512;
 
     public static final String ATTRIBUTE_NAME_LOGO_FILENAME = "logoFilename";
 
-    public static final int SIZE_MAX_LOGO_FILENAME = COLUMN_LENGTH_LOGO_FILENAME;
+    public static final int ATTRIBUTE_SIZE_MIN_LOGO_FILENAME = 0; // 1?
 
-    // -------------------------------------------------------------------------------------- LOGO_CHARSET / logoCharset
+    public static final int ATTRIBUTE_SIZE_MAX_LOGO_FILENAME = COLUMN_LENGTH_LOGO_FILENAME;
+
+    // ---------------------------------------------------------------------------------------------------- LOGO_CHARSET
     public static final String COLUMN_NAME_LOGO_CHARSET = "LOGO_CHARSET";
 
     public static final int COLUMN_LENGTH_LOGO_CHARSET = 512;
 
     public static final String ATTRIBUTE_NAME_LOGO_CHARSET = "logoCharset";
 
-    public static final int SIZE_MAX_LOGO_CHARSET = COLUMN_LENGTH_LOGO_CHARSET;
+    public static final int ATTRIBUTE_SIZE_MIN_LOGO_CHARSET = 0; // 1?
 
-    // ----------------------------------------------------------------------------- LOGO_LAST_UPDATED / logoLastUpdated
+    public static final int ATTRIBUTE_SIZE_MAX_LOGO_CHARSET = COLUMN_LENGTH_LOGO_CHARSET;
+
+    // ----------------------------------------------------------------------------------------------- LOGO_LAST_UPDATED
     public static final String COLUMN_NAME_LOGO_LAST_UPDATED = "LOGO_LAST_UPDATED";
-
-    public static final int COLUMN_LENGTH_LOGO_LAST_UPDATED = 512;
 
     public static final String ATTRIBUTE_NAME_LOGO_LAST_UPDATED = "logoLastUpdated";
 
-    public static final int SIZE_MAX_LOGO_LAST_UPDATED = COLUMN_LENGTH_LOGO_LAST_UPDATED;
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -167,16 +196,6 @@ public abstract class MappedStore extends _MappedCoEntity<Long> {
      */
     protected MappedStore(@Nonnull final MappedStoreBuilder<?, ?> builder) {
         super(builder);
-        storeName = builder.storeName();
-        webAddress = builder.webAddress();
-        physicalAddress = builder.physicalAddress();
-        latitude = builder.latitude();
-        longitude = builder.longitude();
-        logo = builder.logo();
-        logoMimeType = builder.logoMimeType();
-        logoFilename = builder.logoFilename();
-        logoCharset = builder.logoCharset();
-        logoLastUpdated = builder.logoLastUpdated();
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -195,27 +214,26 @@ public abstract class MappedStore extends _MappedCoEntity<Long> {
                ",logoFilename=" + logoFilename +
                ",logoCharset=" + logoCharset +
                ",logoLastUpdated=" + logoLastUpdated +
+//               ",logo=" + logo +
                '}';
     }
 
-    @Override
-    public final boolean equals(final Object obj) {
+    public final boolean equalsWithStoreName(final Object obj) {
         if (!(obj instanceof MappedStore that)) {
             return false;
         }
         return Objects.equals(storeName, that.storeName);
     }
 
-    @Override
-    public final int hashCode() {
+    protected final int hashCodeWithStoreName() {
         return Objects.hashCode(storeName);
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
     // constraint STORE_AT_LEAST_ONE_ADDRESS_C
     //        check (web_address IS NOT NULL or physical_address IS NOT NULL)
-    @AssertTrue(message = "either webAddress or physicalAddress must be specified")
-    private boolean isEitherWebAddressOrPhysicalAddressSpecified() {
+    @AssertTrue(message = "either webAddress or physicalAddress must be non-null")
+    private boolean isEitherWebAddressOrPhysicalAddressNonnull() {
         return webAddress != null || physicalAddress != null;
     }
 
@@ -382,6 +400,16 @@ public abstract class MappedStore extends _MappedCoEntity<Long> {
         this.logoLastUpdated = logoLastUpdated;
     }
 
+//    // ------------------------------------------------------------------------------------------------------------ logo
+//    @Nullable
+//    public Store_Logo getLogo() {
+//        return logo;
+//    }
+//
+//    public void setLogo(@Nullable final Store_Logo logo) {
+//        this.logo = logo;
+//    }
+
     // -----------------------------------------------------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -392,26 +420,39 @@ public abstract class MappedStore extends _MappedCoEntity<Long> {
     private Long storeId;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Size(max = SIZE_MAX_STORE_NAME)
+    @Size(min = ATTRIBUTE_SIZE_MIN_STORE_NAME, max = ATTRIBUTE_SIZE_MAX_STORE_NAME)
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_STORE_NAME, nullable = false, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_STORE_NAME, unique = true)
+    @Column(name = COLUMN_NAME_STORE_NAME,
+            nullable = false,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_STORE_NAME,
+            unique = true
+    )
     private String storeName;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @Size(max = SIZE_MAXH_WEB_ADDRESS)
+    @Size(max = ATTRIBUTE_SIZE_MAX_WEB_ADDRESS)
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_WEB_ADDRESS, nullable = true, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_WEB_ADDRESS)
+    @Column(name = COLUMN_NAME_WEB_ADDRESS,
+            nullable = true,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_WEB_ADDRESS
+    )
     private String webAddress;
 
     @Nullable
-    @Size(max = SIZE_MAXH_PHYSICAL_ADDRESS)
+    @Size(max = ATTRIBUTE_SIZE_MAX_PHYSICAL_ADDRESS)
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_PHYSICAL_ADDRESS, nullable = true, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_PHYSICAL_ADDRESS)
+    @Column(name = COLUMN_NAME_PHYSICAL_ADDRESS,
+            nullable = true,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_PHYSICAL_ADDRESS
+    )
     private String physicalAddress;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -444,12 +485,12 @@ public abstract class MappedStore extends _MappedCoEntity<Long> {
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Lob
-    @Basic(optional = true, fetch = FetchType.LAZY)
+    @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_LOGO, nullable = true, insertable = true, updatable = true)
     private byte[] logo;
 
     @Nullable
-    @Size(max = SIZE_MAX_LOGO_MIME_TYPE)
+    @Size(min = ATTRIBUTE_SIZE_MIN_LOGO_MIME_TYPE, max = ATTRIBUTE_SIZE_MAX_LOGO_MIME_TYPE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOGO_MIME_TYPE,
             nullable = true,
@@ -460,7 +501,7 @@ public abstract class MappedStore extends _MappedCoEntity<Long> {
     private String logoMimeType;
 
     @Nullable
-    @Size(max = SIZE_MAX_LOGO_FILENAME)
+    @Size(min = ATTRIBUTE_SIZE_MIN_LOGO_FILENAME, max = ATTRIBUTE_SIZE_MAX_LOGO_FILENAME)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOGO_FILENAME,
             nullable = true,
@@ -471,7 +512,7 @@ public abstract class MappedStore extends _MappedCoEntity<Long> {
     private String logoFilename;
 
     @Nullable
-    @Size(max = SIZE_MAX_LOGO_CHARSET)
+    @Size(min = ATTRIBUTE_SIZE_MIN_LOGO_CHARSET, max = ATTRIBUTE_SIZE_MAX_LOGO_CHARSET)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOGO_CHARSET,
             nullable = true,
@@ -486,83 +527,7 @@ public abstract class MappedStore extends _MappedCoEntity<Long> {
     @Column(name = COLUMN_NAME_LOGO_LAST_UPDATED, nullable = true, insertable = true, updatable = true)
     private LocalDate logoLastUpdated;
 
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Resets {@link MappedStore_#logo logo} attribute, {@link MappedStore_#logoMimeType logoMimeType} attribute,
-     * {@link MappedStore_#logoFilename logoFilename} attribute, and {@link MappedStore_#logoCharset logoCharset}
-     * attribute, while updating {@link MappedStore_#logoLastUpdated logoLastUpdated} attribute with
-     * {@link LocalDate#now() now}.
-     */
-    public void resetLogo() {
-        setLogo(null);
-        setLogoMimeType(null);
-        setLogoCharset(null);
-        setLogoLastUpdated(LocalDate.now());
-    }
-
-    /**
-     * Updates logo information from the specified file.
-     *
-     * @param path the path to the file to read.
-     * @throws IOException if an I/O error occurs.
-     * @see Files#probeContentType(Path)
-     */
-    public void setLogoFromFile(@Nonnull final Path path) throws IOException {
-        Objects.requireNonNull(path, "path is null");
-        setLogo(Files.readAllBytes(path));
-        setLogoMimeType(Files.probeContentType(path));
-        setLogoLastUpdated(LocalDate.now());
-    }
-
-    /**
-     * Updates logo information from the specified file.
-     *
-     * @param path    the path to the file to read.
-     * @param options an array of options specifying how symbolic links are handled for the search.
-     * @throws IOException              if an I/O error occurs.
-     * @throws IllegalArgumentException if {@code path} is not a regular file checked with {@code options}.
-     * @see Files#probeContentType(Path)
-     */
-    public void setLogoFromFile(@Nonnull final Path path, @Nonnull final LinkOption... options)
-            throws IOException {
-        Objects.requireNonNull(path, "path is null");
-        Objects.requireNonNull(options, "options is null");
-        if (!Files.isRegularFile(path, options)) {
-            throw new IllegalArgumentException(
-                    "not a regular file; path: " + path + ", options: " + Arrays.toString(options)
-            );
-        }
-        setLogo(Files.readAllBytes(path));
-        setLogoMimeType(Files.probeContentType(path));
-        setLogoLastUpdated(LocalDate.now());
-    }
-
-    public void setLogoFrom(@Nullable final _MappedCoBinary coBinary) {
-        setLogo(
-                Optional.ofNullable(coBinary)
-                        .map(_MappedCoBinary::getBytes)
-                        .orElse(null)
-        );
-        setLogoMimeType(
-                Optional.ofNullable(coBinary)
-                        .map(_MappedCoBinary::getMimeType)
-                        .orElse(null)
-        );
-        setLogoFilename(
-                Optional.ofNullable(coBinary)
-                        .map(_MappedCoBinary::getFilename)
-                        .orElse(null)
-        );
-        setLogoCharset(
-                Optional.ofNullable(coBinary)
-                        .map(_MappedCoBinary::getCharset)
-                        .orElse(null)
-        );
-        setLogoLastUpdated(
-                Optional.ofNullable(coBinary)
-                        .map(_MappedCoBinary::getLastUpdated)
-                        .orElseGet(LocalDate::now)
-        );
-    }
+//    @Nullable
+//    @Embedded
+//    private Store_Logo logo;
 }

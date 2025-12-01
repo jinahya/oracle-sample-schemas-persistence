@@ -139,14 +139,6 @@ public abstract class MappedProduct extends _MappedCoEntity<Long> {
 
     protected MappedProduct(@Nonnull final MappedProductBuilder<?, ?> builder) {
         super(builder);
-        productName = builder.productName();
-        unitPrice = builder.unitPrice();
-        productDetails = builder.productDetails();
-        productImage = builder.productImage();
-        imageMimeType = builder.imageMimeType();
-        imageFilename = builder.imageFilename();
-        imageCharset = builder.imageCharset();
-        imageLastUpdated = builder.imageLastUpdated();
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -165,16 +157,14 @@ public abstract class MappedProduct extends _MappedCoEntity<Long> {
                '}';
     }
 
-    @Override
-    public final boolean equals(final Object obj) {
+    protected final boolean equalsWithProductId(final Object obj) {
         if (!(obj instanceof MappedProduct that)) {
             return false;
         }
         return Objects.equals(getProductId(), that.getProductId());
     }
 
-    @Override
-    public final int hashCode() {
+    protected final int hashCodeWithProductId() {
         return Objects.hashCode(getProductId());
     }
 

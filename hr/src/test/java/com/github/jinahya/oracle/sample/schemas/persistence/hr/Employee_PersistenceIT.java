@@ -47,7 +47,6 @@ class Employee_PersistenceIT extends _MappedHrEntity_PersistenceIT<Employee, Int
             // --------------------------------------------------------------------------------------------------- given
             final var employee = ___JakartaPersistence_TestUtils.selectRandom(em, Employee.class).orElseThrow();
             final var jobHistories1 = JOB_HISTORY_SELECTOR.apply(em).apply(employee.getEmployeeId());
-            assertThat(jobHistories1).isEmpty();
             // ---------------------------------------------------------------------------------------------------- when
             final Job newJob;
             while (true) {

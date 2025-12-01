@@ -30,6 +30,7 @@ import jakarta.persistence.Table;
 @Table(name = MappedStore.TABLE_NAME)
 class Store extends MappedStore {
 
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
     static MappedStoreBuilder<?, Store> builder() {
         return new StoreBuilder();
     }
@@ -47,5 +48,16 @@ class Store extends MappedStore {
 
     Store(@Nonnull final StoreBuilder builder) {
         super(builder);
+    }
+
+    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    @Override
+    public final boolean equals(final Object obj) {
+        return equalsWithStoreName(obj);
+    }
+
+    @Override
+    public final int hashCode() {
+        return hashCodeWithStoreName();
     }
 }
