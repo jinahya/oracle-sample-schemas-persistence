@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedProduct;
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedProductBuilder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;

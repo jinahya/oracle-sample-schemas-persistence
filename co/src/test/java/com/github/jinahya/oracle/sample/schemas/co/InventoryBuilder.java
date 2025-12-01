@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedInventoryBuilder;
+
 class InventoryBuilder extends MappedInventoryBuilder<InventoryBuilder, Inventory, Store, Product> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS

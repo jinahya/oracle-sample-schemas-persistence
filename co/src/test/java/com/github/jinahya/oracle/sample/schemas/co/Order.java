@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrder;
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrderBuilder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 

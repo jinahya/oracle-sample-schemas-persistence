@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedCustomer;
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedCustomerBuilder;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.NamedQuery;
@@ -66,8 +68,8 @@ import jakarta.persistence.Table;
 @Table(name = MappedCustomer.TABLE_NAME)
 class Customer extends MappedCustomer {
 
-    // -----------------------------------------------------------------------------------------------------------------
-    static MappedCustomerBuilder<?, Customer> builder() {
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
+    public static MappedCustomerBuilder<?, Customer> builder() {
         return new CustomerBuilder();
     }
 
@@ -87,4 +89,13 @@ class Customer extends MappedCustomer {
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
+    @Override
+    public final boolean equals(final Object obj) {
+        return equalsWithEmailAddress(obj);
+    }
+
+    @Override
+    public final int hashCode() {
+        return hashCodeWithEmailAddress();
+    }
 }

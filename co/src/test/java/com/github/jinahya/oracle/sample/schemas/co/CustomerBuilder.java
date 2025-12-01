@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedCustomerBuilder;
+
 class CustomerBuilder extends MappedCustomerBuilder<CustomerBuilder, Customer> {
 
     // -----------------------------------------------------------------------------------------------------------------

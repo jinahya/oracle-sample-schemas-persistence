@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedStore;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
 import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;

@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrderItemBuilder;
+
 class OrderItemBuilder extends MappedOrderItemBuilder<
         OrderItemBuilder,
         OrderItem,

@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedCustomer;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_Test;
 import jakarta.annotation.Nonnull;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;

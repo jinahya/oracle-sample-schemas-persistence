@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedInventory;
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedInventoryBuilder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 

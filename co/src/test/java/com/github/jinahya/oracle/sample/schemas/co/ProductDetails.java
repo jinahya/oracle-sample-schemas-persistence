@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedProductDetails;
+
 /**
  * A class for mapping {@link Product#COLUMN_NAME_PRODUCT_DETAILS} column.
  *

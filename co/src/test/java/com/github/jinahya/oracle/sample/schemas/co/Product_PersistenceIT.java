@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped._MappedCoEntity_PersistenceIT;
+
 class Product_PersistenceIT extends _MappedCoEntity_PersistenceIT<Product, Long> {
 
     Product_PersistenceIT() {

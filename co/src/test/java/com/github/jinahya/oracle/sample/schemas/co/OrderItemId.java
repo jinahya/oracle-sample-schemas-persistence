@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrderItemId;
 import jakarta.persistence.Embeddable;
 
 import java.io.Serial;

@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped._MappedCoLocationBuilder;
+
 class _LocationBuilder extends _MappedCoLocationBuilder<_LocationBuilder, _Location> {
 
     _LocationBuilder() {

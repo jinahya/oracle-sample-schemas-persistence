@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedShipmentBuilder;
+
 class ShipmentBuilder extends MappedShipmentBuilder<ShipmentBuilder, Shipment, Store, Customer> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS

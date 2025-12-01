@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrderBuilder;
+
 class OrderBuilder extends MappedOrderBuilder<OrderBuilder, Order, Customer, Store> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS

@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedCustomer;
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedCustomer_;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersistenceTest;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersisterUtils;
 import com.github.jinahya.persistence.mapped.test.__Use_Cached_EntityManager;

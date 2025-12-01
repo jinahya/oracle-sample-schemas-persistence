@@ -20,6 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedCustomer;
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedCustomer_;
+import com.github.jinahya.oracle.sample.schemas.co.mapped._MappedCoEntity_PersistenceIT;
 import com.github.jinahya.persistence.mapped.test.___JakartaPersistence_TestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;

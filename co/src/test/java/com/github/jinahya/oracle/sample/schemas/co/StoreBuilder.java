@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedStoreBuilder;
+
 class StoreBuilder extends MappedStoreBuilder<StoreBuilder, Store> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS

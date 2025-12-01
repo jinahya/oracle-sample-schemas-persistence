@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedStore;
+import com.github.jinahya.oracle.sample.schemas.co.mapped._MappedCoEntity_Test;
 import jakarta.annotation.Nonnull;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
