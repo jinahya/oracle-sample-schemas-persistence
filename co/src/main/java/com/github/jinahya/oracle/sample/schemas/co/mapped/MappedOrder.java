@@ -24,7 +24,6 @@ import com.github.jinahya.persistence.more.__AttributeEnum;
 import com.github.jinahya.persistence.more.__AttributeEnumConverter;
 import com.github.jinahya.persistence.more.__AttributeEnumUtils;
 import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Converter;
@@ -32,39 +31,28 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Transient;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
 @MappedSuperclass
 @SuppressWarnings({
-        "java:S119" // Type parameter names should comply with a naming convention
+        "java:S101", // Class names should comply with a naming convention
+        "java:S114", // Interface names should comply with a naming convention
+        "java:S119"  // Type parameter names should comply with a naming convention
 })
-public abstract class MappedOrder<
-        CUSTOMER extends MappedCustomer,
-        STORE extends MappedStore,
-        ORDER_ITEM extends MappedOrderItem<?, ?, ?, ?>
-        >
-        extends _MappedCoEntity<Long> {
-
-    // -----------------------------------------------------------------------------------------------------------------
+public abstract class MappedOrder extends _MappedCoEntity<Long> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -79,14 +67,14 @@ public abstract class MappedOrder<
      */
     public static final String COLUMN_NAME_ORDER_ID = "ORDER_ID";
 
-    // -------------------------------------------------------------------------------------------- ORDER_TMS / orderTms
+    // ------------------------------------------------------------------------------------------------------- ORDER_TMS
     public static final String COLUMN_NAME_ORDER_TMS = "ORDER_TMS";
 
     public static final int FRACTIONAL_SECONDS_PRECISION_ORDER_TMS = 6;
 
     public static final String ATTRIBUTE_NAME_ORDER_TMS = "orderTms";
 
-    // ----------------------------------------------------------------------------- CUSTOMER_ID / customerId / customer
+    // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
     public static final String COLUMN_NAME_CUSTOMER_ID = "CUSTOMER_ID";
 
     public static final String ATTRIBUTE_NAME_CUSTOMER_ID = "customerId";
@@ -112,7 +100,9 @@ public abstract class MappedOrder<
 
     public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
 
-    public static final int SIZE_MAX_ORDER_STATUS = COLUMN_LENGTH_ORDER_STATUS;
+    public static final int ATTRIBUTE_SIZE_MIN_ORDER_STATUS = 0;
+
+    public static final int ATTRIBUTE_SIZE_MAX_ORDER_STATUS = COLUMN_LENGTH_ORDER_STATUS;
 
     public interface __OrderStatus<E extends Enum<E> & __OrderStatus<E>> extends __AttributeEnum.__OfString<E> {
 
@@ -165,12 +155,15 @@ public abstract class MappedOrder<
         }
     }
 
-    // -------------------------------------------------------------------------------------- STORE_ID / storeId / store
+    // -------------------------------------------------------------------------------------------------------- STORE_ID
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
     public static final String ATTRIBUTE_NAME_STORE_ID = "storeId";
 
     public static final String ATTRIBUTE_NAME_STORE = "store";
+
+    // -----------------------------------------------------------------------------------------------------------------
+    public static final String ATTRIBUTE_NAME_ORDER_ITEMS = "orderItems";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -183,19 +176,8 @@ public abstract class MappedOrder<
         super();
     }
 
-    protected MappedOrder(final MappedOrderBuilder<?, ?, CUSTOMER, STORE> builder) {
+    protected MappedOrder(final MappedOrderBuilder<?, ?> builder) {
         super(builder);
-        orderId = builder.orderId();
-        orderTms = builder.orderTms();
-        {
-            customerId = builder.customerId();
-            setCustomer(builder.customer());
-        }
-        orderStatus = builder.orderStatus();
-        {
-            storeId = builder.storeId();
-            setStore(builder.store());
-        }
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -211,16 +193,14 @@ public abstract class MappedOrder<
                '}';
     }
 
-    @Override
-    public boolean equals(final Object obj) {
-        if (!(obj instanceof MappedOrder<?, ?, ?> that)) {
+    protected final boolean equalsWithOrderId(final Object obj) {
+        if (!(obj instanceof MappedOrder that)) {
             return false;
         }
         return Objects.equals(getOrderId(), that.getOrderId());
     }
 
-    @Override
-    public int hashCode() {
+    protected final int hashCodeWithOrderIda() {
         return Objects.hashCode(getOrderId());
     }
 
@@ -229,7 +209,7 @@ public abstract class MappedOrder<
         return orderId;
     }
 
-    void setOrderId(final Long orderId) {
+    protected void setOrderId(final Long orderId) {
         this.orderId = orderId;
     }
 
@@ -324,17 +304,14 @@ public abstract class MappedOrder<
         );
     }
 
-    // -------------------------------------------------------------------------------------------------------- customer
+    // ------------------------------------------------------------------------------------------------------ customerId
     @Nonnull
-    public CUSTOMER getCustomer() {
-        return customer;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(@Nonnull final CUSTOMER customer) {
-        this.customer = customer;
-        customerId = Optional.ofNullable(this.customer)
-                .map(MappedCustomer::getCustomerId)
-                .orElse(null);
+    protected void setCustomerId(@Nonnull final Long customerId) {
+        this.customerId = customerId;
     }
 
     // ----------------------------------------------------------------------------------------------------- orderStatus
@@ -391,15 +368,12 @@ public abstract class MappedOrder<
 
     // --------------------------------------------------------------------------------------------------------- storeId
     @Nonnull
-    public STORE getStore() {
-        return store;
+    public Long getStoreId() {
+        return storeId;
     }
 
-    public void setStore(@Nonnull final STORE store) {
-        this.store = store;
-        storeId = Optional.ofNullable(this.store)
-                .map(MappedStore::getStoreId)
-                .orElse(null);
+    protected void setStoreId(@Nonnull final Long storeId) {
+        this.storeId = storeId;
     }
 
     // ------------------------------------------------------------------------------------------------------ orderItems
@@ -414,6 +388,7 @@ public abstract class MappedOrder<
     )
     private Long orderId;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @NotNull
     @Basic(optional = false)
@@ -426,12 +401,6 @@ public abstract class MappedOrder<
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
     private Long customerId;
-
-    @Nonnull
-    @NotNull
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false)
-    private CUSTOMER customer;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
@@ -448,28 +417,6 @@ public abstract class MappedOrder<
     @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
     private Long storeId;
 
-    @Nonnull
-    @NotNull
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
-    private STORE store;
-
     // -----------------------------------------------------------------------------------------------------------------
-    @OneToMany(
-            mappedBy = MappedOrderItem.ATTRIBUTE_NAME_ORDER,
-            fetch = FetchType.LAZY
-    )
-    private List<@Valid @NotNull ORDER_ITEM> orderItems;
-
-    /**
-     * Returns the total price of this order.
-     *
-     * @param mc a math context to use.
-     * @return the total price of this order.
-     * @see MappedOrderItem#getTotalPrice(MathContext)
-     */
-    public BigDecimal getTotalPrice(@Nullable final MathContext mc) {
-        // TODO: implement!
-        throw new UnsupportedOperationException("not yet implemented");
-    }
+    public abstract BigDecimal getTotalPrice();
 }

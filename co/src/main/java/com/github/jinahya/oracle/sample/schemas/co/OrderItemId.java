@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.schemas.co.mapped;
+package com.github.jinahya.oracle.sample.schemas.co;
 
 /*-
  * #%L
@@ -20,42 +20,53 @@ package com.github.jinahya.oracle.sample.schemas.co.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrderItem;
+import com.github.jinahya.oracle.sample.schemas.co.mapped._MappedCo;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Objects;
 
-@MappedSuperclass
-public abstract class MappedOrderItemId implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 2149145063300672899L;
+/**
+ * An id class for {@link MappedOrderItem} class.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+@Embeddable
+public class OrderItemId extends _MappedCo {
 
     // -----------------------------------------------------------------------------------------------------------------
     public static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
 
     public static final String ATTRIBUTE_NAME_LINE_ITEM_ID = "lineItemId";
 
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
+    public static OrderItemIdBuilder builder() {
+        return new OrderItemIdBuilder();
+    }
+
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    public static OrderItemId of(@Nonnull final Long orderId, @Nonnull final Long lineItemId) {
+        return builder()
+                .orderId(orderId)
+                .lineItemId(lineItemId)
+                .build();
+    }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
      */
-    protected MappedOrderItemId() {
+    protected OrderItemId() {
         super();
     }
 
-    protected MappedOrderItemId(final MappedOrderItemIdBuilder<?, ?> builder) {
-        super();
-        this.orderId = builder.orderId();
-        this.lineItemId = builder.lineItemId();
+    OrderItemId(final OrderItemIdBuilder builder) {
+        super(builder);
     }
 
     // --------------------------------------------------=--------------------------------------------- java.lang.String
@@ -69,7 +80,7 @@ public abstract class MappedOrderItemId implements Serializable {
 
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedOrderItemId that)) {
+        if (!(obj instanceof OrderItemId that)) {
             return false;
         }
         return Objects.equals(orderId, that.orderId)

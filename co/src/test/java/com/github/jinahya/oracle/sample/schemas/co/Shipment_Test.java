@@ -37,7 +37,6 @@ class Shipment_Test extends __MappedEntity_Test<Shipment, Long> {
     protected SingleTypeEqualsVerifierApi<Shipment> equals_Verify_(
             @Nonnull final SingleTypeEqualsVerifierApi<Shipment> equalsVerifier) {
         return super.equals_Verify_(equalsVerifier)
-//                .withOnlyTheseFields(MappedShipment.ATTRIBUTE_NAME_SHIPMENT_ID)
                 .suppress(Warning.SURROGATE_KEY)
                 ;
     }

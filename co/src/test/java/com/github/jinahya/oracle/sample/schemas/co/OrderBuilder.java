@@ -20,9 +20,13 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedCustomer;
 import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrderBuilder;
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedStore;
 
-class OrderBuilder extends MappedOrderBuilder<OrderBuilder, Order, Customer, Store> {
+import java.util.Optional;
+
+class OrderBuilder extends MappedOrderBuilder<OrderBuilder, Order> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -32,4 +36,37 @@ class OrderBuilder extends MappedOrderBuilder<OrderBuilder, Order, Customer, Sto
     OrderBuilder() {
         super(Order.class);
     }
+
+    // -------------------------------------------------------------------------------------------------------- customer
+    public Customer customer() {
+        return customer;
+    }
+
+    public OrderBuilder customer(final Customer customer) {
+        this.customer = customer;
+        return customerId(
+                Optional.ofNullable(this.customer)
+                        .map(MappedCustomer::getCustomerId)
+                        .orElse(null)
+        );
+    }
+
+    // ----------------------------------------------------------------------------------------------------------- store
+    public Store stoer() {
+        return stoer;
+    }
+
+    public OrderBuilder stoer(final Store stoer) {
+        this.stoer = stoer;
+        return storeId(
+                Optional.ofNullable(this.stoer)
+                        .map(MappedStore::getStoreId)
+                        .orElse(null)
+        );
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    private Customer customer;
+
+    private Store stoer;
 }

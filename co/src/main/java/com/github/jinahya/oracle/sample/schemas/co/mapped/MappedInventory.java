@@ -23,28 +23,20 @@ package com.github.jinahya.oracle.sample.schemas.co.mapped;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
-import java.util.Optional;
 
 @MappedSuperclass
 @SuppressWarnings({
         "java:S119" // Type parameter names should comply with a naming convention
 })
-public abstract class MappedInventory<
-        STORE extends MappedStore,
-        PRODUCT extends MappedProduct
-        >
-        extends _MappedCoEntity<Long> {
+public abstract class MappedInventory extends _MappedCoEntity<Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -53,7 +45,7 @@ public abstract class MappedInventory<
      */
     public static final String TABLE_NAME = "INVENTORY";
 
-    // -------------------------------------------------------------------------------------- INVENTORY_ID / inventoryId
+    // ---------------------------------------------------------------------------------------------------- INVENTORY_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_INVENTORY_ID} attribute maps. The value is
@@ -67,7 +59,7 @@ public abstract class MappedInventory<
      */
     public static final String ATTRIBUTE_NAME_INVENTORY_ID = "inventoryId";
 
-    // -------------------------------------------------------------------------------------- STORE_ID / storeId / store
+    // -------------------------------------------------------------------------------------------------------- STORE_ID
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
     /**
@@ -82,7 +74,7 @@ public abstract class MappedInventory<
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
-    // -------------------------------------------------------------------------------- PRODUCT_ID / productId / product
+    // ------------------------------------------------------------------------------------------------------ PRODUCT_ID
     public static final String COLUMN_NAME_PRODUCT_ID = "PRODUCT_ID";
 
     public static final String ATTRIBUTE_NAME_PRODUCT_ID = "productId";
@@ -91,6 +83,8 @@ public abstract class MappedInventory<
 
     // ----------------------------------------------------------------------------------------------- PRODUCT_INVENTORY
     public static final String COLUMN_NAME_PRODUCT_INVENTORY = "PRODUCT_INVENTORY";
+
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -103,13 +97,8 @@ public abstract class MappedInventory<
         super();
     }
 
-    protected MappedInventory(final MappedInventoryBuilder<?, ?, ? extends STORE, ? extends PRODUCT> builder) {
+    protected MappedInventory(final MappedInventoryBuilder<?, ?> builder) {
         super(builder);
-        setStoreId(builder.storeId());
-        setStore(builder.store());
-        setProductId(builder.productId());
-        setProduct(builder.product());
-        productInventory = builder.productInventory();
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -118,25 +107,36 @@ public abstract class MappedInventory<
         return super.toString() + '{' +
                "inventoryId=" + inventoryId +
                ",storeId=" + storeId +
-//                ",store=" + store +
                ",productId=" + productId +
-//                ",product=" + product +
                ",productInventory=" + productInventory +
                '}';
     }
 
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedInventory<?, ?> that)) {
+    protected final boolean equalsWithStoreIdAndProductId(final Object obj) {
+        if (!(obj instanceof MappedInventory that)) {
             return false;
         }
         return Objects.equals(storeId, that.storeId)
                && Objects.equals(productId, that.productId);
     }
 
-    @Override
-    public final int hashCode() {
+    protected final int hashCodeWithStoreIdAndProductId() {
         return Objects.hash(storeId, productId);
+    }
+
+    // --------------------------------------------------------------------------------------------- Jakarta-Persistence
+
+    // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+    /**
+     * Tests whether {@value MappedInventory_#PRODUCT_INVENTORY} attribute is non-negative.
+     *
+     * @return {@code true} if {@value MappedInventory_#PRODUCT_INVENTORY} is non-negative; {@code false} otherwise.
+     */
+    protected boolean isProductInventoryNonNegative() {
+        if (productInventory == null) {
+            return true;
+        }
+        return productInventory >= 0L;
     }
 
     // ----------------------------------------------------------------------------------------------------- inventoryId
@@ -144,7 +144,7 @@ public abstract class MappedInventory<
         return inventoryId;
     }
 
-    void setInventoryId(final Long inventoryId) {
+    protected void setInventoryId(final Long inventoryId) {
         this.inventoryId = inventoryId;
     }
 
@@ -154,48 +154,18 @@ public abstract class MappedInventory<
         return storeId;
     }
 
-    final void setStoreId(@Nonnull final Long storeId) {
+    protected void setStoreId(@Nonnull final Long storeId) {
         this.storeId = storeId;
     }
 
-    // ----------------------------------------------------------------------------------------------------------- store
-    @Nonnull
-    public STORE getStore() {
-        return store;
-    }
-
-    public void setStore(@Nonnull final STORE store) {
-        this.store = store;
-        setStoreId(
-                Optional.ofNullable(this.store)
-                        .map(MappedStore::getStoreId)
-                        .orElse(null)
-        );
-    }
-
-    // --------------------------------------------------------------------------------------------------------- productId
+    // -------------------------------------------------------------------------------------------------------- productId
     @Nonnull
     public final Long getProductId() {
         return productId;
     }
 
-    final void setProductId(@Nonnull final Long productId) {
+    protected void setProductId(@Nonnull final Long productId) {
         this.productId = productId;
-    }
-
-    // --------------------------------------------------------------------------------------------------------- product
-    @Nonnull
-    public PRODUCT getProduct() {
-        return product;
-    }
-
-    public void setProduct(@Nonnull final PRODUCT product) {
-        this.product = product;
-        setProductId(
-                Optional.ofNullable(this.product)
-                        .map(MappedProduct::getProductId)
-                        .orElse(null)
-        );
     }
 
     // ------------------------------------------------------------------------------------------------ productInventory
@@ -209,7 +179,7 @@ public abstract class MappedInventory<
     }
 
     /**
-     * Adjusts current value of {@link #getProductInventory() productInventory} attribute by the specified delta.
+     * Adjusts current value of {@value MappedInventory_#PRODUCT_INVENTORY} attribute by the specified delta.
      *
      * @param delta the delta to adjust.
      */
@@ -218,27 +188,27 @@ public abstract class MappedInventory<
     }
 
     /**
-     * Increases current value of {@link #getProductInventory() productInventory} attribute by the specified delta.
+     * Increases current value of {@value MappedInventory_#PRODUCT_INVENTORY} attribute by the specified quantity.
      *
-     * @param delta the delta to adjust which should be non-negative.
+     * @param quantity the quantity to adjust which should be non-negative.
      */
-    public void increaseProductInventoryBy(final int delta) {
-        if (delta < 0) {
-            throw new IllegalArgumentException("negative delta: " + delta);
+    public void increaseProductInventoryBy(final int quantity) {
+        if (quantity < 0) {
+            throw new IllegalArgumentException("negative quantity: " + quantity);
         }
-        adjustProductInventory(delta);
+        adjustProductInventory(+quantity);
     }
 
     /**
-     * Decreases current value of {@link #getProductInventory() productInventory} attribute by the specified delta.
+     * Decreases current value of {@value MappedInventory_#PRODUCT_INVENTORY} attribute by the specified quantity.
      *
-     * @param delta the delta to adjust which should be non-negative.
+     * @param quantity the quantity to adjust which should be non-negative.
      */
-    public void decreaseProductInventoryBy(final int delta) {
-        if (delta < 0) {
-            throw new IllegalArgumentException("non-positive delta: " + delta);
+    public void decreaseProductInventoryBy(final int quantity) {
+        if (quantity < 0) {
+            throw new IllegalArgumentException("non-positive quantity: " + quantity);
         }
-        adjustProductInventory(-delta);
+        adjustProductInventory(-quantity);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -263,18 +233,6 @@ public abstract class MappedInventory<
     )
     private Long storeId;
 
-    @Nonnull
-    @Valid
-    @NotNull
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_STORE_ID,
-                referencedColumnName = MappedStore.COLUMN_NAME_STORE_ID,
-                nullable = false,
-                insertable = false,
-                updatable = false
-    )
-    private STORE store;
-
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @NotNull
@@ -285,18 +243,6 @@ public abstract class MappedInventory<
             updatable = false
     )
     private Long productId;
-
-    @Nonnull
-    @Valid
-    @NotNull
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_PRODUCT_ID,
-                referencedColumnName = MappedProduct.COLUMN_NAME_PRODUCT_ID,
-                nullable = false,
-                insertable = false,
-                updatable = false
-    )
-    private PRODUCT product;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull

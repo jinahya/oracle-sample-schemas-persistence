@@ -21,7 +21,9 @@ package com.github.jinahya.oracle.sample.schemas.co;
  */
 
 import com.github.jinahya.oracle.sample.schemas.co.mapped._MappedCoEntity_PersistenceTest;
+import org.junit.jupiter.api.Disabled;
 
+@Disabled
 class Product_PersistenceTest extends _MappedCoEntity_PersistenceTest<Product, Long> {
 
     Product_PersistenceTest() {

@@ -21,7 +21,6 @@ package com.github.jinahya.oracle.sample.schemas.co;
  */
 
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_Persister;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersisterUtils;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,10 +37,10 @@ class Shipment_Persister extends __MappedEntity_Persister<Shipment, Long> {
     @Override
     public void persist(@Nonnull final EntityManager entityManager, @Nonnull final Shipment entityInstance) {
         entityInstance.setStore(
-                __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Store.class)
+                newPersistedInstanceOf(entityManager, Store.class)
         );
         entityInstance.setCustomer(
-                __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Customer.class)
+                newPersistedInstanceOf(entityManager, Customer.class)
         );
         super.persist(entityManager, entityInstance);
     }

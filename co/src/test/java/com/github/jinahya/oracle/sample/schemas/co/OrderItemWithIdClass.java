@@ -20,10 +20,10 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedInventory;
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedInventoryBuilder;
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrder;
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrderItem;
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrderItemWithIdClass;
 import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedProduct;
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedStore;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -37,23 +37,21 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Optional;
 
 @Entity
-@Table(name = Inventory.TABLE_NAME,
+@Table(name = MappedOrderItem.TABLE_NAME,
        uniqueConstraints = {
                @UniqueConstraint(
                        columnNames = {
-                               MappedInventory.COLUMN_NAME_STORE_ID,
-                               MappedInventory.COLUMN_NAME_PRODUCT_ID
+                               MappedOrderItem.COLUMN_NAME_ORDER_ID,
+                               MappedOrderItem.COLUMN_NAME_PRODUCT_ID,
                        }
                )
        }
 )
-class Inventory extends MappedInventory {
+class OrderItemWithIdClass extends MappedOrderItemWithIdClass {
 
-    // -------------------------------------------------------------------------------------------------------- BUILDERS
-    static MappedInventoryBuilder<?, Inventory> builder() {
-        return new InventoryBuilder();
+    static OrderItemWithEmbeddedIdBuilder builder() {
+        return new OrderItemWithEmbeddedIdBuilder();
     }
-
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
@@ -61,27 +59,25 @@ class Inventory extends MappedInventory {
     /**
      * Creates a new instance.
      */
-    protected Inventory() {
+    protected OrderItemWithIdClass() {
         super();
     }
 
-    Inventory(final InventoryBuilder builder) {
+    OrderItemWithIdClass(final OrderItemWithIdClassBuilder builder) {
         super(builder);
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
-
-    // ----------------------------------------------------------------------------------------------------------- store
+    // ----------------------------------------------------------------------------------------------------------- order
     @Nonnull
-    public Store getStore() {
-        return store;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setStore(@Nonnull final Store store) {
-        this.store = store;
-        setStoreId(
-                Optional.ofNullable(this.store)
-                        .map(MappedStore::getStoreId)
+    protected void setOrder(@Nonnull final Order order) {
+        this.order = order;
+        setOrderId(
+                Optional.ofNullable(this.order)
+                        .map(MappedOrder::getOrderId)
                         .orElse(null)
         );
     }
@@ -92,7 +88,7 @@ class Inventory extends MappedInventory {
         return product;
     }
 
-    public void setProduct(@Nonnull final Product product) {
+    protected void setProduct(@Nonnull final Product product) {
         this.product = product;
         setProductId(
                 Optional.ofNullable(this.product)
@@ -106,13 +102,19 @@ class Inventory extends MappedInventory {
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
-    private Store store;
+    @JoinColumn(name = COLUMN_NAME_ORDER_ID, referencedColumnName = COLUMN_NAME_ORDER_ID, nullable = false,
+                insertable = false, updatable = false)
+    private Order order;
 
     @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_PRODUCT_ID,
+                referencedColumnName = MappedProduct.COLUMN_NAME_PRODUCT_ID,
+                nullable = false,
+                insertable = false,
+                updatable = false
+    )
     private Product product;
 }

@@ -20,16 +20,26 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedCustomer;
 import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedShipment;
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedShipmentBuilder;
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedStore;
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.Optional;
 
 @Entity
 @Table(name = MappedShipment.TABLE_NAME)
-class Shipment extends MappedShipment<Store, Customer> {
+class Shipment extends MappedShipment {
 
-    static MappedShipmentBuilder<?, Shipment, ?, ?> builder() {
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
+    static ShipmentBuilder builder() {
         return new ShipmentBuilder();
     }
 
@@ -42,5 +52,71 @@ class Shipment extends MappedShipment<Store, Customer> {
 
     Shipment(final ShipmentBuilder builder) {
         super(builder);
+        if (getStoreId() == null) {
+            setStore(builder.store());
+        }
+        if (getCustomerId() == null) {
+            setCustomer(builder.customer());
+        }
     }
+
+    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    @Override
+    public final boolean equals(final Object obj) {
+        return equalsWithShipmentId(obj);
+    }
+
+    @Override
+    public final int hashCode() {
+        return hashCodeWithShipmentId();
+    }
+
+    // --------------------------------------------------------------------------------------------- Jakarta-Persistence
+
+    // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+
+    // ----------------------------------------------------------------------------------------------------------- store
+    @Nonnull
+    public Store getStore() {
+        return store;
+    }
+
+    public void setStore(@Nonnull final Store store) {
+        this.store = store;
+        setStoreId(
+                Optional.ofNullable(this.store)
+                        .map(MappedStore::getStoreId)
+                        .orElse(null)
+        );
+    }
+
+    // --------------------------------------------------------------------------------------------------------- product
+    @Nonnull
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(@Nonnull final Customer customer) {
+        this.customer = customer;
+        setCustomerId(
+                Optional.ofNullable(this.customer)
+                        .map(MappedCustomer::getCustomerId)
+                        .orElse(null)
+        );
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
+    @Valid
+    @NotNull
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
+    private Store store;
+
+    @Nonnull
+    @Valid
+    @NotNull
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false)
+    private Customer customer;
 }

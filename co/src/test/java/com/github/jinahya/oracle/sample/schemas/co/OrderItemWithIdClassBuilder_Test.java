@@ -22,9 +22,10 @@ package com.github.jinahya.oracle.sample.schemas.co;
 
 import com.github.jinahya.persistence.mapped.test.__MappedEntityBuilder_Test;
 
-class OrderItemBuilder_Test extends __MappedEntityBuilder_Test<OrderItemBuilder, OrderItem, OrderItemId> {
+class OrderItemWithIdClassBuilder_Test
+        extends __MappedEntityBuilder_Test<OrderItemWithIdClassBuilder, OrderItemWithIdClass, OrderItemId> {
 
-    OrderItemBuilder_Test() {
-        super(OrderItemBuilder.class, OrderItem.class, OrderItemId.class);
+    OrderItemWithIdClassBuilder_Test() {
+        super(OrderItemWithIdClassBuilder.class, OrderItemWithIdClass.class, OrderItemId.class);
     }
 }

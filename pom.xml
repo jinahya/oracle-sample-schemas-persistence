@@ -171,6 +171,11 @@
         <artifactId>jinahya-persistence-more-test</artifactId>
         <version>${version.jinahya-persistence}</version>
       </dependency>
+      <dependency>
+        <groupId>io.github.jinahya</groupId>
+        <artifactId>jinahya-persistence-utils</artifactId>
+        <version>${version.jinahya-persistence}</version>
+      </dependency>
       <dependency><!-- https://central.sonatype.com/artifact/jakarta.platform/jakarta.jakartaee-bom/versions -->
         <groupId>jakarta.platform</groupId>
         <artifactId>jakarta.jakartaee-bom</artifactId>

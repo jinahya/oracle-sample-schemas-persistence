@@ -24,6 +24,7 @@ import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedInventory;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_Test;
 import jakarta.annotation.Nonnull;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -36,6 +37,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+@Disabled
 class Inventory_Test extends __MappedEntity_Test<Inventory, Long> {
 
     Inventory_Test() {

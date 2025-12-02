@@ -30,12 +30,10 @@ import java.time.LocalDateTime;
         "java:S119" // Type parameter names should comply with a naming convention
 })
 public abstract class MappedOrderBuilder<
-        SELF extends MappedOrderBuilder<SELF, ORDER, CUSTOMER, STORE>,
-        ORDER extends MappedOrder<CUSTOMER, STORE, ?>,
-        CUSTOMER extends MappedCustomer,
-        STORE extends MappedStore
+        SELF extends MappedOrderBuilder<SELF, TARGET>,
+        TARGET extends MappedOrder
         >
-        extends _MappedCoEntityBuilder<SELF, ORDER> {
+        extends _MappedCoEntityBuilder<SELF, TARGET> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -44,7 +42,7 @@ public abstract class MappedOrderBuilder<
     /**
      * Creates a new instance.
      */
-    protected MappedOrderBuilder(final Class<ORDER> entityClass) {
+    protected MappedOrderBuilder(final Class<TARGET> entityClass) {
         super(entityClass);
     }
 
@@ -57,7 +55,7 @@ public abstract class MappedOrderBuilder<
     }
 
     @Deprecated(forRemoval = true)
-    public SELF orderId(Long orderId) {
+    protected SELF orderId(Long orderId) {
         this.orderId = orderId;
         return (SELF) this;
     }
@@ -79,23 +77,12 @@ public abstract class MappedOrderBuilder<
     }
 
     @Deprecated(forRemoval = true)
-    public SELF customerId(final Long customerId) {
+    protected SELF customerId(final Long customerId) {
         this.customerId = customerId;
         return (SELF) this;
     }
 
-    // -------------------------------------------------------------------------------------------------------- customer
-    public CUSTOMER customer() {
-        return customer;
-    }
-
-    public SELF customer(final CUSTOMER customer) {
-        this.customer = customer;
-        return (SELF) this;
-    }
-
     // ----------------------------------------------------------------------------------------------------- orderStatus
-
     public String orderStatus() {
         return orderStatus;
     }
@@ -112,18 +99,8 @@ public abstract class MappedOrderBuilder<
     }
 
     @Deprecated(forRemoval = true)
-    public SELF storeId(final Long storeId) {
+    protected SELF storeId(final Long storeId) {
         this.storeId = storeId;
-        return (SELF) this;
-    }
-
-    // --------------------------------------------------------------------------------------------------------- store
-    public STORE store() {
-        return store;
-    }
-
-    public SELF store(final STORE store) {
-        this.store = store;
         return (SELF) this;
     }
 
@@ -137,14 +114,10 @@ public abstract class MappedOrderBuilder<
     @Deprecated(forRemoval = true)
     private Long customerId;
 
-    private CUSTOMER customer;
-
     // -----------------------------------------------------------------------------------------------------------------
     private String orderStatus;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Deprecated(forRemoval = true)
     private Long storeId;
-
-    private STORE store;
 }

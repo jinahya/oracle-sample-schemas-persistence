@@ -25,17 +25,15 @@ package com.github.jinahya.oracle.sample.schemas.co.mapped;
         "java:S119" // Type parameter names should comply with a naming convention
 })
 public abstract class MappedInventoryBuilder<
-        SELF extends MappedInventoryBuilder<SELF, INVENTORY, STORE, PRODUCT>,
-        INVENTORY extends MappedInventory<STORE, PRODUCT>,
-        STORE extends MappedStore,
-        PRODUCT extends MappedProduct
+        SELF extends MappedInventoryBuilder<SELF, TARGET>,
+        TARGET extends MappedInventory
         >
-        extends _MappedCoEntityBuilder<SELF, INVENTORY> {
+        extends _MappedCoEntityBuilder<SELF, TARGET> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-    protected MappedInventoryBuilder(final Class<INVENTORY> entityClass) {
+    protected MappedInventoryBuilder(final Class<TARGET> entityClass) {
         super(entityClass);
     }
 
@@ -43,12 +41,23 @@ public abstract class MappedInventoryBuilder<
     @Override
     public String toString() {
         return super.toString() + '{' +
+               "inventoryId=" + inventoryId +
                "storeId=" + storeId +
-               ",store=" + store +
                ",productId=" + productId +
-               ",product=" + product +
                ",productInventory=" + productInventory +
                '}';
+    }
+
+    // ----------------------------------------------------------------------------------------------------- inventoryId
+    @Deprecated(forRemoval = true)
+    public Long inventoryId() {
+        return inventoryId;
+    }
+
+    @Deprecated(forRemoval = true)
+    protected SELF inventoryId(final Long inventoryId) {
+        this.inventoryId = inventoryId;
+        return (SELF) this;
     }
 
     // --------------------------------------------------------------------------------------------------------- storeId
@@ -58,18 +67,8 @@ public abstract class MappedInventoryBuilder<
     }
 
     @Deprecated(forRemoval = true)
-    public SELF storeId(final Long storeId) {
+    protected SELF storeId(final Long storeId) {
         this.storeId = storeId;
-        return (SELF) this;
-    }
-
-    // ----------------------------------------------------------------------------------------------------------- store
-    public STORE store() {
-        return store;
-    }
-
-    public SELF store(final STORE store) {
-        this.store = store;
         return (SELF) this;
     }
 
@@ -80,18 +79,8 @@ public abstract class MappedInventoryBuilder<
     }
 
     @Deprecated(forRemoval = true)
-    public SELF productId(final Long productId) {
+    protected SELF productId(final Long productId) {
         this.productId = productId;
-        return (SELF) this;
-    }
-
-    // --------------------------------------------------------------------------------------------------------- product
-    public PRODUCT product() {
-        return product;
-    }
-
-    public SELF product(final PRODUCT product) {
-        this.product = product;
         return (SELF) this;
     }
 
@@ -107,15 +96,15 @@ public abstract class MappedInventoryBuilder<
 
     // -----------------------------------------------------------------------------------------------------------------
     @Deprecated(forRemoval = true)
-    private Long storeId;
+    private Long inventoryId;
 
-    private STORE store;
+    // -----------------------------------------------------------------------------------------------------------------
+    @Deprecated(forRemoval = true)
+    private Long storeId;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Deprecated(forRemoval = true)
     private Long productId;
-
-    private PRODUCT product;
 
     // -----------------------------------------------------------------------------------------------------------------
     private Long productInventory;

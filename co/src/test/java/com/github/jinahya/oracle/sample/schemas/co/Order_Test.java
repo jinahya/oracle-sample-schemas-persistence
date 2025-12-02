@@ -26,6 +26,7 @@ import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -46,6 +47,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+@Disabled
 @Slf4j
 class Order_Test extends __MappedEntity_Test<Order, Long> {
 

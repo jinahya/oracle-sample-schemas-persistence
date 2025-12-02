@@ -20,20 +20,20 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrderItemBuilder;
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrderItemWithIdClassBuilder;
 
-class OrderItemBuilder extends MappedOrderItemBuilder<
-        OrderItemBuilder,
-        OrderItem,
-        OrderItemId,
-        Order,
-        Product,
-        Shipment> {
+public class OrderItemWithIdClassBuilder
+        extends MappedOrderItemWithIdClassBuilder<
+        OrderItemWithIdClassBuilder,
+        OrderItemWithIdClass
+        > {
+
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-    OrderItemBuilder() {
-        super(OrderItem.class);
+    OrderItemWithIdClassBuilder() {
+        super(OrderItemWithIdClass.class);
     }
 }

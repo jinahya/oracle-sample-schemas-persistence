@@ -20,25 +20,40 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Persister;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.EntityManager;
+import lombok.extern.slf4j.Slf4j;
+import uk.co.jemos.podam.api.DataProviderStrategy;
+import uk.co.jemos.podam.api.PodamFactory;
 
-class Inventory_Persister extends __MappedEntity_Persister<Inventory, Long> {
+import java.util.List;
 
-    Inventory_Persister() {
-        super(Inventory.class, Long.class);
+@Slf4j
+class OrderItemWithIdClass_Randomizer extends __MappedEntity_Randomizer<OrderItemWithIdClass, OrderItemId> {
+
+    OrderItemWithIdClass_Randomizer() {
+        super(OrderItemWithIdClass.class, OrderItemId.class, List.of(
+                "order", "shipment"
+        ));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    @Nonnull
     @Override
-    public void persist(@Nonnull final EntityManager entityManager, @Nonnull final Inventory entityInstance) {
-        entityInstance.setStore(
-                newPersistedInstanceOf(entityManager, Store.class)
-        );
-        entityInstance.setProduct(
-                newPersistedInstanceOf(entityManager, Product.class)
-        );
-        super.persist(entityManager, entityInstance);
+    protected DataProviderStrategy getDataProviderStrategy() {
+        return super.getDataProviderStrategy();
+    }
+
+    @Nonnull
+    @Override
+    protected PodamFactory getPodamFactory() {
+        return super.getPodamFactory();
+    }
+
+    @Nonnull
+    @Override
+    public OrderItemWithIdClass get() {
+        return super.get();
     }
 }

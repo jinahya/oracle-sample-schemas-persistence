@@ -21,6 +21,19 @@
 -- ------------------------------------------------------------------------------------------------------------ ORDER_ID
 
 -- -------------------------------------------------------------------------------------------------------- LINE_ITEM_ID
+SELECT LINE_ITEM_ID, COUNT(1)
+FROM ORDER_ITEMS
+GROUP BY LINE_ITEM_ID
+HAVING COUNT(1) > 1
+ORDER BY LINE_ITEM_ID
+;
+
+SELECT ORDER_ID, LINE_ITEM_ID, COUNT(1)
+FROM ORDER_ITEMS
+GROUP BY ORDER_ID, LINE_ITEM_ID
+HAVING COUNT(1) > 1
+ORDER BY ORDER_ID, LINE_ITEM_ID
+;
 
 -- ---------------------------------------------------------------------------------------------------------- PRODUCT_ID
 

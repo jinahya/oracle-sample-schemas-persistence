@@ -20,19 +20,14 @@ package com.github.jinahya.oracle.sample.schemas.co.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.OrderItemId;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.Transient;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -40,20 +35,13 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Supplier;
 
 @MappedSuperclass
 @SuppressWarnings({
         "java:S119" // Type parameter names should comply with a naming convention
 })
-public abstract class MappedOrderItem<
-        ID extends MappedOrderItemId,
-        ORDER extends MappedOrder<?, ?, ?>,
-        PRODUCT extends MappedProduct,
-        SHIPMENT extends MappedShipment<?, ?>
-        >
-        extends _MappedCoEntity<ID> {
+public abstract class MappedOrderItem
+        extends _MappedCoEntity<OrderItemId> {
 
     // -----------------------------------------------------------------------------------------------------------------
     public static final String TABLE_NAME = "ORDER_ITEMS";
@@ -107,16 +95,8 @@ public abstract class MappedOrderItem<
         super();
     }
 
-    protected MappedOrderItem(final MappedOrderItemBuilder<?, ?, ID, ORDER, PRODUCT, SHIPMENT> builder) {
+    protected MappedOrderItem(final MappedOrderItemBuilder<?, ?> builder) {
         super(builder);
-        this.id = builder.id();
-        this.order = builder.order();
-        this.productId = builder.productId();
-        setProduct(builder.product());
-        this.unitPrice = builder.unitPrice();
-        this.quantity = builder.quantity();
-        this.shipmentId = builder.shipmentId();
-        setShipment(builder.shipment());
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -124,7 +104,6 @@ public abstract class MappedOrderItem<
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + id +
                ",productId=" + productId +
                ",unitPrice=" + unitPrice +
                ",quantity=" + quantity +
@@ -133,87 +112,79 @@ public abstract class MappedOrderItem<
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (!(obj instanceof MappedOrderItem<?, ?, ?, ?> that)) {
+    public final boolean equals(final Object obj) {
+        if (!(obj instanceof MappedOrderItem that)) {
             return false;
         }
-        return Objects.equals(id, that.id);
+        return Objects.equals(getId(), that.getId());
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
+    public final int hashCode() {
+        return Objects.hashCode(getId());
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
-    @AssertTrue(message = "shipment.customer should be equal to the order.customer")
+    protected boolean isUniPricesNonNegative() {
+        if (unitPrice == null) {
+            return true;
+        }
+        return unitPrice.signum() >= 1;
+    }
+
+    protected boolean isQuantityNonNegative() {
+        if (quantity == null) {
+            return true;
+        }
+        return quantity >= 0;
+    }
+
+    //    @AssertTrue(message = "shipment.customer should be equal to the order.customer")
     // 일단 DB 상으로는 다 맞다.
     private boolean isShipmentCustomerEqualToOrderCustomer() {
-        if (shipment == null) {
-            return true;
-        }
-        final var shipmentCustomer = shipment.getCustomer();
-        if (shipmentCustomer == null) {
-            return true;
-        }
-        if (order == null) {
-            return true;
-        }
-        final var orderCustomer = order.getCustomer();
-        if (orderCustomer == null) {
-            return true;
-        }
-        return Objects.equals(shipmentCustomer, orderCustomer);
+//        if (shipment == null) {
+//            return true;
+//        }
+//        final var shipmentCustomer = shipment.getCustomer();
+//        if (shipmentCustomer == null) {
+//            return true;
+//        }
+//        if (order == null) {
+//            return true;
+//        }
+//        final var orderCustomer = order.getCustomer();
+//        if (orderCustomer == null) {
+//            return true;
+//        }
+//        return Objects.equals(shipmentCustomer, orderCustomer);
+        return false;
     }
 
-    @AssertTrue(message = "shipment.store should be equal to the order.store")
+    //    @AssertTrue(message = "shipment.store should be equal to the order.store")
     // 일단 DB 상으로는 다 맞다.
     private boolean isShipmentStoreEqualToOrderStore() {
-        if (shipment == null) {
-            return true;
-        }
-        final var shipmentStore = shipment.getStore();
-        if (shipmentStore == null) {
-            return true;
-        }
-        if (order == null) {
-            return true;
-        }
-        final var orderStore = order.getStore();
-        if (orderStore == null) {
-            return true;
-        }
-        return Objects.equals(shipmentStore, orderStore);
+//        if (shipment == null) {
+//            return true;
+//        }
+//        final var shipmentStore = shipment.getStore();
+//        if (shipmentStore == null) {
+//            return true;
+//        }
+//        if (order == null) {
+//            return true;
+//        }
+//        final var orderStore = order.getStore();
+//        if (orderStore == null) {
+//            return true;
+//        }
+//        return Objects.equals(shipmentStore, orderStore);
+        return true;
     }
 
-    // -------------------------------------------------------------------------------------------------------------- id
-    @Nonnull
-    public ID getId() {
-        return id;
-    }
+    // -----------------------------------------------------------------------------------------------------------------
+    public abstract OrderItemId getId();
 
-    void setId(@Nonnull final ID id) {
-        this.id = id;
-    }
-
-    protected ID getIdOrElseSetAndGet(@Nonnull final Supplier<? extends ID> instantiator) {
-        Objects.requireNonNull(instantiator, "instantiator is null");
-        return Optional.ofNullable(getId())
-                .orElseGet(() -> {
-                    setId(Objects.requireNonNull(instantiator.get(), "null supplied from " + instantiator));
-                    return getId();
-                });
-    }
-
-    // ----------------------------------------------------------------------------------------------------------- order
-    @Nonnull
-    public ORDER getOrder() {
-        return order;
-    }
-
-    public void setOrder(@Nonnull final ORDER order) {
-        this.order = order;
-    }
+    protected abstract void setId(final OrderItemId id);
 
     // ------------------------------------------------------------------------------------------------------- productId
     @Nonnull
@@ -221,23 +192,8 @@ public abstract class MappedOrderItem<
         return productId;
     }
 
-    void setProductId(@Nonnull final Long productId) {
+    protected void setProductId(@Nonnull final Long productId) {
         this.productId = productId;
-    }
-
-    // --------------------------------------------------------------------------------------------------------- product
-    @Nonnull
-    public PRODUCT getProduct() {
-        return product;
-    }
-
-    public void setProduct(@Nonnull final PRODUCT product) {
-        this.product = product;
-        setProductId(
-                Optional.ofNullable(this.product)
-                        .map(MappedProduct::getProductId)
-                        .orElse(null)
-        );
     }
 
     // ------------------------------------------------------------------------------------------------------- unitPrice
@@ -245,7 +201,7 @@ public abstract class MappedOrderItem<
         return unitPrice;
     }
 
-    public void setUnitPrice(final BigDecimal unitPrice) {
+    protected void setUnitPrice(final BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
     }
 
@@ -260,49 +216,13 @@ public abstract class MappedOrderItem<
 
     // ------------------------------------------------------------------------------------------------------ shipmentId
     @Nullable
-    Long getShipmentId() {
+    public Long getShipmentId() {
         return shipmentId;
     }
 
-    void setShipmentId(@Nullable final Long shipmentId) {
+    protected void setShipmentId(@Nullable final Long shipmentId) {
         this.shipmentId = shipmentId;
     }
-
-    // -------------------------------------------------------------------------------------------------------- shipment
-    @Nullable
-    public SHIPMENT getShipment() {
-        return shipment;
-    }
-
-    public void setShipment(@Nullable final SHIPMENT shipment) {
-        this.shipment = shipment;
-        setShipmentId(
-                Optional.ofNullable(shipment)
-                        .map(MappedShipment::getShipmentId)
-                        .orElse(null)
-        );
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @Valid
-    @NotNull
-    @EmbeddedId
-    private ID id;
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @Valid
-    @NotNull
-    @MapsId(MappedOrderItemId.ATTRIBUTE_NAME_ORDER_ID)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(
-            name = COLUMN_NAME_ORDER_ID,
-            nullable = false,
-            insertable = true /* EclipseLink */,
-            updatable = false
-    )
-    private ORDER order;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
@@ -310,12 +230,6 @@ public abstract class MappedOrderItem<
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = true, updatable = false)
     private Long productId;
-
-    @Nonnull
-    @NotNull
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = false, updatable = false)
-    private PRODUCT product;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
@@ -326,7 +240,7 @@ public abstract class MappedOrderItem<
     @Column(name = COLUMN_NAME_UNIT_PRICE,
             nullable = false,
             insertable = true,
-            updatable = false,
+            updatable = false, // @@?
             precision = COLUMN_PRECISION_UNIT_PRICE,
             scale = COLUMN_SCALE_UNIT_PRICE
     )
@@ -344,16 +258,11 @@ public abstract class MappedOrderItem<
     @Column(name = COLUMN_NAME_SHIPMENT_ID, nullable = true, insertable = true, updatable = true)
     private Long shipmentId;
 
-    @Nullable
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_SHIPMENT_ID, nullable = true, insertable = false, updatable = false)
-    private SHIPMENT shipment;
-
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns the total price of this item which is {@link #getUnitPrice() unitPrice} multiplied by
-     * {@link #getQuantity() quantity}.
+     * Returns the total price of this order item which is {@value MappedOrderItem_#UNIT_PRICE} attribute multiplied by
+     * {@value MappedOrderItem_#QUANTITY} attribute.
      *
      * @param mc a math context to use.
      * @return the total price of this item.

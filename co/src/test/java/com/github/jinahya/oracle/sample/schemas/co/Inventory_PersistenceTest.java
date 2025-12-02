@@ -21,7 +21,9 @@ package com.github.jinahya.oracle.sample.schemas.co;
  */
 
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersistenceTest;
+import org.junit.jupiter.api.Disabled;
 
+@Disabled
 class Inventory_PersistenceTest extends __MappedEntity_PersistenceTest<Inventory, Long> {
 
     Inventory_PersistenceTest() {

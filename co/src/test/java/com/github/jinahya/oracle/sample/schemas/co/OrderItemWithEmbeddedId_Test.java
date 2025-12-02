@@ -25,17 +25,17 @@ import jakarta.annotation.Nonnull;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
-class OrderItem_Test extends _MappedCoEntity_Test<OrderItem, OrderItemId> {
+class OrderItemWithEmbeddedId_Test extends _MappedCoEntity_Test<OrderItemWithEmbeddedId, OrderItemId> {
 
-    OrderItem_Test() {
-        super(OrderItem.class, OrderItemId.class);
+    OrderItemWithEmbeddedId_Test() {
+        super(OrderItemWithEmbeddedId.class, OrderItemId.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Override
-    protected SingleTypeEqualsVerifierApi<OrderItem> equals_Verify_(
-            @Nonnull final SingleTypeEqualsVerifierApi<OrderItem> equalsVerifier) {
+    protected SingleTypeEqualsVerifierApi<OrderItemWithEmbeddedId> equals_Verify_(
+            @Nonnull final SingleTypeEqualsVerifierApi<OrderItemWithEmbeddedId> equalsVerifier) {
         return super.equals_Verify_(equalsVerifier)
                 .suppress(Warning.SURROGATE_KEY)
                 ;

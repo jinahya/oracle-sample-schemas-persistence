@@ -24,6 +24,7 @@ import com.github.jinahya.persistence.more.__AttributeEnum;
 import com.github.jinahya.persistence.more.__AttributeEnumConverter;
 import com.github.jinahya.persistence.more.__AttributeEnumUtils;
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Converter;
@@ -31,8 +32,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
@@ -48,7 +47,7 @@ import java.util.Optional;
         "java:S119", // Type parameter names should comply with a naming convention
         "java:S2637" // "@NonNull" values should not be set to null
 })
-public abstract class MappedShipment<STORE extends MappedStore, CUSTOMER extends MappedCustomer>
+public abstract class MappedShipment
         extends _MappedCoEntity<Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -96,9 +95,19 @@ public abstract class MappedShipment<STORE extends MappedStore, CUSTOMER extends
 
     public static final int COLUMN_LENGTH_SHIPMENT_STATUS = 100;
 
+    public static final String COLUMN_VALUE_SHIPMENT_STATUS_CREATED = "CREATED";
+
+    public static final String COLUMN_VALUE_SHIPMENT_STATUS_SHIPPED = "SHIPPED";
+
+    public static final String COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT = "IN-TRANSIT";
+
+    public static final String COLUMN_VALUE_SHIPMENT_STATUS_DELIVERED = "DELIVERED";
+
     public static final String ATTRIBUTE_NAME_SHIPMENT_STATUS = "shipmentStatus";
 
-    public static final int SIZE_MAX_SHIPMENT_STATUS = COLUMN_LENGTH_SHIPMENT_STATUS;
+    public static final int ATTRIBUTE_SIZE_MIN_SHIPMENT_STATUS = 0;
+
+    public static final int ATTRIBUTE_SIZE_MAX_SHIPMENT_STATUS = COLUMN_LENGTH_SHIPMENT_STATUS;
 
     public interface __ShipmentStatus<E extends Enum<E> & __ShipmentStatus<E>>
             extends __AttributeEnum.__OfString<E> {
@@ -110,25 +119,25 @@ public abstract class MappedShipment<STORE extends MappedStore, CUSTOMER extends
         /**
          * .
          */
-        // 준비 중
+        // 준비 중?
         CREATED,
 
         /**
          * .
          */
-        // 발송/출고
+        // 발송/출고?
         SHIPPED,
 
         /**
          * .
          */
-        // 배송/운송 중
-        IN_TRANSIT("IN-TRANSIT"),
+        // 배송/운송 중?
+        IN_TRANSIT(COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT),
 
         /**
          * .
          */
-        // 배달됨
+        // 배달됨?
         DELIVERED;
 
         // -------------------------------------------------------------------------------------------------------------
@@ -148,7 +157,7 @@ public abstract class MappedShipment<STORE extends MappedStore, CUSTOMER extends
         }
 
         // -------------------------------------------------------------------------------------------------------------
-        private final String attributeValue;
+        private final @Nullable String attributeValue;
     }
 
     @Converter(autoApply = true)
@@ -166,41 +175,30 @@ public abstract class MappedShipment<STORE extends MappedStore, CUSTOMER extends
         super();
     }
 
-    protected MappedShipment(final MappedShipmentBuilder<?, ?, STORE, CUSTOMER> builder) {
+    protected MappedShipment(final MappedShipmentBuilder<?, ?> builder) {
         super(builder);
-        storeId = builder.storeId();
-        setStore(builder.store()); // TODO: set directly
-        customerId = builder.customerId();
-        setCustomer(builder.customer()); // TODO: set directly
-        deliveryAddress = builder.deliveryAddress();
-        shipmentStatus = builder.shipmentStatus();
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
-
     @Override
     public String toString() {
         return super.toString() + '{' +
                "shipmentId=" + shipmentId +
                ",storeId=" + storeId +
-//                ",store=" + store +
                ",customerId=" + customerId +
-//                ",customer=" + customer +
                ",deliveryAddress=" + deliveryAddress +
                ",shipmentStatus=" + shipmentStatus +
                '}';
     }
 
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedShipment<?, ?> that)) {
+    protected final boolean equalsWithShipmentId(final Object obj) {
+        if (!(obj instanceof MappedShipment that)) {
             return false;
         }
         return Objects.equals(getShipmentId(), that.getShipmentId());
     }
 
-    @Override
-    public final int hashCode() {
+    protected final int hashCodeWithShipmentId() {
         return Objects.hashCode(getShipmentId());
     }
 
@@ -209,34 +207,28 @@ public abstract class MappedShipment<STORE extends MappedStore, CUSTOMER extends
         return shipmentId;
     }
 
-    void setShipmentId(final Long shipmentId) {
+    protected void setShipmentId(final Long shipmentId) {
         this.shipmentId = shipmentId;
     }
 
-    // ----------------------------------------------------------------------------------------------------------- store
+    // --------------------------------------------------------------------------------------------------------- storeId
     @Nonnull
-    public STORE getStore() {
-        return store;
+    public Long getStoreId() {
+        return storeId;
     }
 
-    public void setStore(@Nonnull final STORE store) {
-        this.store = store;
-        storeId = Optional.ofNullable(this.store)
-                .map(MappedStore::getStoreId)
-                .orElse(null);
+    protected void setStoreId(@Nonnull final Long storeId) {
+        this.storeId = storeId;
     }
 
-    // -------------------------------------------------------------------------------------------------------- customer
+    // ------------------------------------------------------------------------------------------------------ customerId
     @Nonnull
-    public CUSTOMER getCustomer() {
-        return customer;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(@Nonnull final CUSTOMER customer) {
-        this.customer = customer;
-        customerId = Optional.ofNullable(this.customer)
-                .map(MappedCustomer::getCustomerId)
-                .orElse(null);
+    protected void setCustomerId(@Nonnull final Long customerId) {
+        this.customerId = customerId;
     }
 
     // ------------------------------------------------------------------------------------------------- deliveryAddress
@@ -285,32 +277,18 @@ public abstract class MappedShipment<STORE extends MappedStore, CUSTOMER extends
     private Long shipmentId;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Deprecated(forRemoval = true)
     @Nonnull
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
-    private Long storeId; // TODO: remove
-
-    @Nonnull
-    @NotNull
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
-    private STORE store;
+    private Long storeId;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Deprecated(forRemoval = true)
     @Nonnull
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
-    private Long customerId; // TODO: remove
-
-    @Nonnull
-    @NotNull
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false)
-    private CUSTOMER customer;
+    private Long customerId;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
@@ -326,7 +304,7 @@ public abstract class MappedShipment<STORE extends MappedStore, CUSTOMER extends
     private String deliveryAddress;
 
     @Nonnull
-    @Size(max = SIZE_MAX_SHIPMENT_STATUS)
+    @Size(max = ATTRIBUTE_SIZE_MAX_SHIPMENT_STATUS)
     @NotNull
     @Column(name = COLUMN_NAME_SHIPMENT_STATUS,
             nullable = false,

@@ -42,7 +42,7 @@ public abstract class MappedCustomerBuilder<
     }
 
     @Deprecated(forRemoval = true)
-    public SELF customerId(final Long customerId) {
+    protected SELF customerId(final Long customerId) {
         this.customerId = customerId;
         return (SELF) this;
     }

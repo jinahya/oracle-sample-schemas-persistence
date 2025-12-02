@@ -21,45 +21,43 @@ package com.github.jinahya.oracle.sample.schemas.co;
  */
 
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_Persister;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersisterUtils;
 import com.github.jinahya.persistence.mapped.test.___Builder_TestUtils;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 @Slf4j
-class OrderItem_Persister extends __MappedEntity_Persister<OrderItem, OrderItemId> {
+class OrderItemWithIdClass_Persister extends __MappedEntity_Persister<OrderItemWithIdClass, OrderItemId> {
 
-    OrderItem_Persister() {
-        super(OrderItem.class, OrderItemId.class);
+    OrderItemWithIdClass_Persister() {
+        super(OrderItemWithIdClass.class, OrderItemId.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
     @Override
-    public void persist(@Nonnull final EntityManager entityManager, @Nonnull final OrderItem entityInstance) {
+    public void persist(@Nonnull final EntityManager entityManager,
+                        @Nonnull final OrderItemWithIdClass entityInstance) {
         {
-            final var order = __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Order.class);
-            entityInstance.setOrder(order);
+//            final var order = __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Order.class);
+//            entityInstance.setOrder(order);
         }
         {
-            final var product = __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Product.class);
-            entityInstance.setProduct(product);
+//            final var product = __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Product.class);
+//            entityInstance.setProduct(product);
         }
         {
             final var builder = ___Builder_TestUtils.newBuilderInstanceFromRandomizedInstanceOf(
                     ShipmentBuilder.class,
                     Shipment.class
             ).orElseThrow();
-            builder.customer(entityInstance.getOrder().getCustomer());
-            builder.store(entityInstance.getOrder().getStore());
+//            builder.customer(entityInstance.getOrder().getCustomer());
+//            builder.store(entityInstance.getOrder().getStore());
             final var shipment = builder.build();
             entityManager.persist(shipment);
-            entityInstance.setShipment(
-                    ThreadLocalRandom.current().nextBoolean() ? null : shipment
-            );
+//            entityInstance.setShipment(
+//                    ThreadLocalRandom.current().nextBoolean() ? null : shipment
+//            );
         }
         super.persist(entityManager, entityInstance);
     }

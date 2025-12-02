@@ -26,11 +26,15 @@ import lombok.extern.slf4j.Slf4j;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-@Slf4j
-class OrderItem_Randomizer extends __MappedEntity_Randomizer<OrderItem, OrderItemId> {
+import java.util.List;
 
-    OrderItem_Randomizer() {
-        super(OrderItem.class, OrderItemId.class, "order", "shipment");
+@Slf4j
+class OrderItemWithEmbeddedId_Randomizer extends __MappedEntity_Randomizer<OrderItemWithEmbeddedId, OrderItemId> {
+
+    OrderItemWithEmbeddedId_Randomizer() {
+        super(OrderItemWithEmbeddedId.class, OrderItemId.class, List.of(
+                "order", "shipment"
+        ));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -49,7 +53,7 @@ class OrderItem_Randomizer extends __MappedEntity_Randomizer<OrderItem, OrderIte
 
     @Nonnull
     @Override
-    public OrderItem get() {
+    public OrderItemWithEmbeddedId get() {
         return super.get();
     }
 }

@@ -20,12 +20,49 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedCustomer;
 import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedShipmentBuilder;
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedStore;
 
-class ShipmentBuilder extends MappedShipmentBuilder<ShipmentBuilder, Shipment, Store, Customer> {
+import java.util.Optional;
+
+class ShipmentBuilder extends MappedShipmentBuilder<ShipmentBuilder, Shipment> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     ShipmentBuilder() {
         super(Shipment.class);
     }
+
+    // ----------------------------------------------------------------------------------------------------------- store
+    public Store store() {
+        return store;
+    }
+
+    public ShipmentBuilder store(final Store store) {
+        this.store = store;
+        return shipmentId(
+                Optional.ofNullable(this.store)
+                        .map(MappedStore::getStoreId)
+                        .orElse(null)
+        );
+    }
+
+    // --------------------------------------------------------------------------------------------------------- product
+    public Customer customer() {
+        return customer;
+    }
+
+    public ShipmentBuilder customer(final Customer customer) {
+        this.customer = customer;
+        return customerId(
+                Optional.ofNullable(this.customer)
+                        .map(MappedCustomer::getCustomerId)
+                        .orElse(null)
+        );
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    private Store store;
+
+    private Customer customer;
 }

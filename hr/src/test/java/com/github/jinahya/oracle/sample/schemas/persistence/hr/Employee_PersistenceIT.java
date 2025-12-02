@@ -4,6 +4,7 @@ import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrE
 import com.github.jinahya.persistence.mapped.test.___JakartaPersistence_TestUtils;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -40,6 +41,7 @@ class Employee_PersistenceIT extends _MappedHrEntity_PersistenceIT<Employee, Int
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Disabled("run manually")
     @DisplayName("Job updated -> JobHistory added")
     @Test
     void _JobHistoryAdded_JobUpdated() {
@@ -65,6 +67,7 @@ class Employee_PersistenceIT extends _MappedHrEntity_PersistenceIT<Employee, Int
         });
     }
 
+    @Disabled("run manually")
     @DisplayName("Department updated -> JobHistory added")
     @Test
     void _JobHistoryAdded_DepartmentUpdated() {

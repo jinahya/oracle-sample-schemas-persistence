@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedCustomer;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
 import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
@@ -27,12 +28,16 @@ import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
+import java.util.List;
+
 @Slf4j
 class Customer_Randomizer extends __MappedEntity_Randomizer<Customer, Long> {
 
     // ----------------------------------------------------------------------------------------------------- CONSTRUCTOR
     Customer_Randomizer() {
-        super(Customer.class, Long.class, "customerId");
+        super(Customer.class, Long.class, List.of(
+                MappedCustomer.ATTRIBUTE_NAME_CUSTOMER_ID
+        ));
     }
 
     // -----------------------------------------------------------------------------------------------------------------

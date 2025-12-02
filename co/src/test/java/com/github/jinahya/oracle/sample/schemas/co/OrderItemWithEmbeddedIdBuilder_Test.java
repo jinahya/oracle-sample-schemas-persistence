@@ -20,23 +20,12 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrderItemId;
-import jakarta.persistence.Embeddable;
+import com.github.jinahya.persistence.mapped.test.__MappedEntityBuilder_Test;
 
-import java.io.Serial;
+class OrderItemWithEmbeddedIdBuilder_Test
+        extends __MappedEntityBuilder_Test<OrderItemWithEmbeddedIdBuilder, OrderItemWithEmbeddedId, OrderItemId> {
 
-@Embeddable
-class OrderItemId extends MappedOrderItemId {
-
-    @Serial
-    private static final long serialVersionUID = 6940492962220240933L;
-
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-    protected OrderItemId() {
-        super();
-    }
-
-    OrderItemId(final OrderItemIdBuilder builder) {
-        super(builder);
+    OrderItemWithEmbeddedIdBuilder_Test() {
+        super(OrderItemWithEmbeddedIdBuilder.class, OrderItemWithEmbeddedId.class, OrderItemId.class);
     }
 }

@@ -27,45 +27,21 @@ import java.math.BigDecimal;
         "java:S119" // Type parameter names should comply with a naming convention
 })
 public abstract class MappedOrderItemBuilder<
-        SELF extends MappedOrderItemBuilder<SELF, ORDER_ITEM, ID, ORDER, PRODUCT, SHIPMENT>,
-        ORDER_ITEM extends MappedOrderItem<ID, ORDER, PRODUCT, SHIPMENT>,
-        ID extends MappedOrderItemId,
-        ORDER extends MappedOrder<?, ?, ORDER_ITEM>,
-        PRODUCT extends MappedProduct,
-        SHIPMENT extends MappedShipment<?, ?>
+        SELF extends MappedOrderItemBuilder<SELF, TARGET>,
+        TARGET extends MappedOrderItem
         >
-        extends _MappedCoEntityBuilder<SELF, ORDER_ITEM> {
+        extends _MappedCoEntityBuilder<SELF, TARGET> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-    protected MappedOrderItemBuilder(final Class<ORDER_ITEM> entityClass) {
+    protected MappedOrderItemBuilder(final Class<TARGET> entityClass) {
         super(entityClass);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
-
-    // -------------------------------------------------------------------------------------------------------------- id
-    public ID id() {
-        return id;
-    }
-
-    public SELF id(final ID id) {
-        this.id = id;
-        return (SELF) this;
-    }
-
-    // ----------------------------------------------------------------------------------------------------------- order
-    public ORDER order() {
-        return order;
-    }
-
-    public SELF order(final ORDER order) {
-        this.order = order;
-        return (SELF) this;
-    }
 
     // ------------------------------------------------------------------------------------------------------- productId
     @Deprecated(forRemoval = true)
@@ -74,18 +50,8 @@ public abstract class MappedOrderItemBuilder<
     }
 
     @Deprecated(forRemoval = true)
-    public SELF productId(final Long productId) {
+    protected SELF productId(final Long productId) {
         this.productId = productId;
-        return (SELF) this;
-    }
-
-    // --------------------------------------------------------------------------------------------------------- product
-    public PRODUCT product() {
-        return product;
-    }
-
-    public SELF product(final PRODUCT product) {
-        this.product = product;
         return (SELF) this;
     }
 
@@ -121,27 +87,9 @@ public abstract class MappedOrderItemBuilder<
         return (SELF) this;
     }
 
-    // -------------------------------------------------------------------------------------------------------- shipment
-    public SHIPMENT shipment() {
-        return shipment;
-    }
-
-    public SELF shipment(final SHIPMENT shipment) {
-        this.shipment = shipment;
-        return (SELF) this;
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    private ID id;
-
-    // -----------------------------------------------------------------------------------------------------------------
-    private ORDER order;
-
     // -----------------------------------------------------------------------------------------------------------------
     @Deprecated(forRemoval = true)
     private Long productId;
-
-    private PRODUCT product;
 
     // -----------------------------------------------------------------------------------------------------------------
     private BigDecimal unitPrice;
@@ -151,6 +99,4 @@ public abstract class MappedOrderItemBuilder<
     // -----------------------------------------------------------------------------------------------------------------
     @Deprecated(forRemoval = true)
     private Long shipmentId;
-
-    private SHIPMENT shipment;
 }

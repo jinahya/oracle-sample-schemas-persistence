@@ -20,37 +20,33 @@ package com.github.jinahya.oracle.sample.schemas.co.mapped;
  * #L%
  */
 
-//import com.github.jinahya.persistence.mapped.__Builder;
-
-import com.github.jinahya.persistence.mapped.___Builder;
-
 @SuppressWarnings({
         "unchecked",
         "java:S119" // Type parameter names should comply with a naming convention
 })
-public abstract class MappedOrderItemIdBuilder<
-        SELF extends MappedOrderItemIdBuilder<SELF, ORDER_ITEM_ID>,
-        ORDER_ITEM_ID extends MappedOrderItemId
+public abstract class MappedOrderItemWithIdClassBuilder<
+        SELF extends MappedOrderItemWithIdClassBuilder<SELF, TARGET>,
+        TARGET extends MappedOrderItemWithIdClass
         >
-        extends ___Builder<SELF, ORDER_ITEM_ID> {
+        extends MappedOrderItemBuilder<SELF, TARGET> {
+
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-
-    /**
-     * Creates a new instance.
-     */
-    protected MappedOrderItemIdBuilder(final Class<ORDER_ITEM_ID> targetClass) {
-        super(targetClass);
+    protected MappedOrderItemWithIdClassBuilder(final Class<TARGET> entityClass) {
+        super(entityClass);
     }
 
-    // --------------------------------------------------=--------------------------------------------- java.lang.String
+    // ------------------------------------------------------------------------------------------------ java.lang.Object
+
+    // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     // --------------------------------------------------------------------------------------------------------- orderId
-    public Long orderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public SELF orderId(final Long orderId) {
+    protected SELF setOrderId(final Long orderId) {
         this.orderId = orderId;
         return (SELF) this;
     }

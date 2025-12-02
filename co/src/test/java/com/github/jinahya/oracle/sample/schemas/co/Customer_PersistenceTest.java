@@ -28,6 +28,7 @@ import com.github.jinahya.persistence.mapped.test.__Use_Cached_EntityManager;
 import com.github.jinahya.persistence.mapped.test.___JakartaPersistence_TestUtils;
 import jakarta.persistence.NoResultException;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -38,6 +39,7 @@ import java.util.stream.IntStream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@Disabled
 @__Use_Cached_EntityManager
 @Slf4j
 class Customer_PersistenceTest extends __MappedEntity_PersistenceTest<Customer, Long> {

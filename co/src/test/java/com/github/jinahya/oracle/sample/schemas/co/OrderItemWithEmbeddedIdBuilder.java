@@ -20,30 +20,33 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrderItem;
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrderItemBuilder;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrderItemWithEmbeddedIdBuilder;
 
-@Entity
-@Table(name = MappedOrderItem.TABLE_NAME)
-class OrderItem extends MappedOrderItem<OrderItemId, Order, Product, Shipment> {
+public class OrderItemWithEmbeddedIdBuilder
+        extends MappedOrderItemWithEmbeddedIdBuilder<
+        OrderItemWithEmbeddedIdBuilder,
+        OrderItemWithEmbeddedId
+        > {
 
-    static MappedOrderItemBuilder<?, OrderItem, OrderItemId, Order, Product, Shipment> builder() {
-        return new OrderItemBuilder();
-    }
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
+
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-
-    /**
-     * Creates a new instance.
-     */
-    protected OrderItem() {
-        super();
+    OrderItemWithEmbeddedIdBuilder() {
+        super(OrderItemWithEmbeddedId.class);
     }
 
-    OrderItem(final OrderItemBuilder builder) {
-        super(builder);
+    // ----------------------------------------------------------------------------------------------------------- order
+    public Order order() {
+        return order;
     }
+
+    public OrderItemWithEmbeddedIdBuilder setOrder(final Order order) {
+        this.order = order;
+        return this;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    private Order order;
 }

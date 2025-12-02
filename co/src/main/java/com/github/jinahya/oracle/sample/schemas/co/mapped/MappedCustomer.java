@@ -110,19 +110,6 @@ public abstract class MappedCustomer extends _MappedCoEntity<Long> {
                '}';
     }
 
-//    @Override
-//    public final boolean equals(final Object obj) {
-//        if (!(obj instanceof MappedCustomer that)) {
-//            return false;
-//        }
-//        return Objects.equals(emailAddress, that.emailAddress);
-//    }
-//
-//    @Override
-//    public final int hashCode() {
-//        return Objects.hashCode(emailAddress);
-//    }
-
     protected final boolean equalsWithEmailAddress(final Object obj) {
         if (!(obj instanceof MappedCustomer that)) {
             return false;

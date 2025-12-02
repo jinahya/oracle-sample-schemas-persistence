@@ -20,16 +20,16 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.mapped._MappedCoEntity_PersistenceIT;
+import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersistenceTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
 
 @Disabled
 @Slf4j
-class Order_PersistenceIT extends _MappedCoEntity_PersistenceIT<Order, Long> {
+class OrderItemWithEmbeddedId_PersistenceTest
+        extends __MappedEntity_PersistenceTest<OrderItemWithEmbeddedId, OrderItemId> {
 
-    // -----------------------------------------------------------------------------------------------------------------
-    Order_PersistenceIT() {
-        super(Order.class, Long.class);
+    OrderItemWithEmbeddedId_PersistenceTest() {
+        super(OrderItemWithEmbeddedId.class, OrderItemId.class);
     }
 }

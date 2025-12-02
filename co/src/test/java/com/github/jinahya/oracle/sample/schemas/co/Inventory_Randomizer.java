@@ -20,19 +20,28 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedInventory;
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
 import jakarta.annotation.Nonnull;
+import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
+
+import java.util.List;
 
 class Inventory_Randomizer extends __MappedEntity_Randomizer<Inventory, Long> {
 
     Inventory_Randomizer() {
-        super(Inventory.class, Long.class, "inventoryId");
+        super(Inventory.class, Long.class, List.of(
+                MappedInventory.ATTRIBUTE_NAME_INVENTORY_ID,
+                MappedInventory.ATTRIBUTE_NAME_STORE_ID,
+                MappedInventory.ATTRIBUTE_NAME_STORE,
+                MappedInventory.ATTRIBUTE_NAME_PRODUCT_ID,
+                MappedInventory.ATTRIBUTE_NAME_PRODUCT
+        ));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
     @Nonnull
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
@@ -43,6 +52,12 @@ class Inventory_Randomizer extends __MappedEntity_Randomizer<Inventory, Long> {
     @Override
     protected PodamFactory getPodamFactory() {
         return super.getPodamFactory();
+    }
+
+    @Nonnull
+    @Override
+    protected ClassInfoStrategy getClassInfoStrategy() {
+        return super.getClassInfoStrategy();
     }
 
     @Nonnull

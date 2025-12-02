@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.schemas.co;
+package com.github.jinahya.oracle.sample.schemas.co.mapped;
 
 /*-
  * #%L
@@ -20,44 +20,39 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedInventoryBuilder;
+import com.github.jinahya.oracle.sample.schemas.co.OrderItemId;
 
-class InventoryBuilder extends MappedInventoryBuilder<InventoryBuilder, Inventory> {
+@SuppressWarnings({
+        "unchecked",
+        "java:S119" // Type parameter names should comply with a naming convention
+})
+public abstract class MappedOrderItemWithEmbeddedIdBuilder<
+        SELF extends MappedOrderItemWithEmbeddedIdBuilder<SELF, TARGET>,
+        TARGET extends MappedOrderItemWithEmbeddedId
+        >
+        extends MappedOrderItemBuilder<SELF, TARGET> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-
-    /**
-     * Creates a new instance.
-     */
-    protected InventoryBuilder() {
-        super(Inventory.class);
+    protected MappedOrderItemWithEmbeddedIdBuilder(final Class<TARGET> entityClass) {
+        super(entityClass);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
-    // ----------------------------------------------------------------------------------------------------------- store
-    public Store store() {
-        return store;
+
+    // ------------------------------------------------------------------------------------------------- Bean-Validation
+
+    // -------------------------------------------------------------------------------------------------------------- id
+    public OrderItemId id() {
+        return id;
     }
 
-    public InventoryBuilder store(final Store store) {
-        this.store = store;
-        return this;
-    }
-
-    // --------------------------------------------------------------------------------------------------------- product
-    public Product product() {
-        return product;
-    }
-
-    public InventoryBuilder product(final Product product) {
-        this.product = product;
-        return this;
+    public SELF id(final OrderItemId id) {
+        this.id = id;
+        return (SELF) this;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    private Store store;
-
-    private Product product;
+    private OrderItemId id;
 }

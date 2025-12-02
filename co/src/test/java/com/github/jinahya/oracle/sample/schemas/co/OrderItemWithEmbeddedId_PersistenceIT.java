@@ -20,11 +20,16 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrderItemIdBuilder;
+import com.github.jinahya.oracle.sample.schemas.co.mapped._MappedCoEntity_PersistenceIT;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
 
-class OrderItemIdBuilder extends MappedOrderItemIdBuilder<OrderItemIdBuilder, OrderItemId> {
+@Disabled
+@Slf4j
+class OrderItemWithEmbeddedId_PersistenceIT
+        extends _MappedCoEntity_PersistenceIT<OrderItemWithEmbeddedId, OrderItemId> {
 
-    OrderItemIdBuilder() {
-        super(OrderItemId.class);
+    OrderItemWithEmbeddedId_PersistenceIT() {
+        super(OrderItemWithEmbeddedId.class, OrderItemId.class);
     }
 }

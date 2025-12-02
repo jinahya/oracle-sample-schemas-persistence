@@ -20,80 +20,55 @@ package com.github.jinahya.oracle.sample.schemas.co.mapped;
  * #L%
  */
 
-import jakarta.persistence.MappedSuperclass;
-
-@MappedSuperclass
 @SuppressWarnings({
         "unchecked",
         "java:S119", // Type parameter names should comply with a naming convention
         "java:S2637" // "" values should not be set to null
 })
 public abstract class MappedShipmentBuilder<
-        SELF extends MappedShipmentBuilder<SELF, SHIPMENT, STORE, CUSTOMER>,
-        SHIPMENT extends MappedShipment<STORE, CUSTOMER>,
-        STORE extends MappedStore,
-        CUSTOMER extends MappedCustomer
+        SELF extends MappedShipmentBuilder<SELF, TARGET>,
+        TARGET extends MappedShipment
         >
-        extends _MappedCoEntityBuilder<SELF, SHIPMENT> {
+        extends _MappedCoEntityBuilder<SELF, TARGET> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-    protected MappedShipmentBuilder(final Class<SHIPMENT> entityClass) {
+    protected MappedShipmentBuilder(final Class<TARGET> entityClass) {
         super(entityClass);
     }
 
     // ------------------------------------------------------------------------------------------------------ shipmentId
     @Deprecated(forRemoval = true)
-    Long shipmentId() {
+    public Long shipmentId() {
         return shipmentId;
     }
 
     @Deprecated(forRemoval = true)
-    SELF shipmentId(final Long shipmentId) {
+    protected SELF shipmentId(final Long shipmentId) {
         this.shipmentId = shipmentId;
         return (SELF) this;
     }
 
     // --------------------------------------------------------------------------------------------------------- storeId
     @Deprecated(forRemoval = true)
-    Long storeId() {
+    public Long storeId() {
         return storeId;
     }
 
     @Deprecated(forRemoval = true)
-    SELF storeId(Long storeId) {
+    protected SELF storeId(final Long storeId) {
         this.storeId = storeId;
-        return (SELF) this;
-    }
-
-    // ----------------------------------------------------------------------------------------------------------- store
-    public STORE store() {
-        return store;
-    }
-
-    public SELF store(final STORE store) {
-        this.store = store;
         return (SELF) this;
     }
 
     // ------------------------------------------------------------------------------------------------------ customerId
     @Deprecated(forRemoval = true)
-    Long customerId() {
+    public Long customerId() {
         return customerId;
     }
 
     @Deprecated(forRemoval = true)
-    SELF customerId(Long customerId) {
+    protected SELF customerId(final Long customerId) {
         this.customerId = customerId;
-        return (SELF) this;
-    }
-
-    // -------------------------------------------------------------------------------------------------------- customer
-    public CUSTOMER customer() {
-        return customer;
-    }
-
-    public SELF customer(final CUSTOMER customer) {
-        this.customer = customer;
         return (SELF) this;
     }
 
@@ -118,17 +93,16 @@ public abstract class MappedShipmentBuilder<
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Deprecated(forRemoval = true)
     private Long shipmentId;
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Deprecated(forRemoval = true)
     private Long storeId;
 
-    private STORE store;
-
     // -----------------------------------------------------------------------------------------------------------------
+    @Deprecated(forRemoval = true)
     private Long customerId;
-
-    private CUSTOMER customer;
 
     // -----------------------------------------------------------------------------------------------------------------
     private String deliveryAddress;
