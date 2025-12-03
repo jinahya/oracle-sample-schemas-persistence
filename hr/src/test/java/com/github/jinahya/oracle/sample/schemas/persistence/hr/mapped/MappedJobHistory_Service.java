@@ -1,22 +1,23 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Root;
+import org.glassfish.jaxb.core.v2.model.core.ID;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Function;
 
 public abstract class MappedJobHistory_Service<
-        ENTITY extends MappedJobHistory<ID>,
-        ID extends MappedJobHistoryId
+        ENTITY extends MappedJobHistory
         >
-        extends _MappedHrEntity_Service<ENTITY, ID> {
+        extends _MappedHrEntity_Service<ENTITY, JobHistoryId> {
 
     protected MappedJobHistory_Service(final Class<ENTITY> entityClass, final Class<ID> idClass,
                                        final EntityManager entityManager) {
-        super(entityClass, idClass, entityManager);
+        super(entityClass, JobHistoryId.class, entityManager);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

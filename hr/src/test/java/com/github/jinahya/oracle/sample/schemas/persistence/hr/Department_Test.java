@@ -14,7 +14,7 @@ class Department_Test extends _MappedHrEntity_Test<Department, Integer> {
     @Nonnull
     @Override
     protected SingleTypeEqualsVerifierApi<Department> equals_Verify_(
-            @Nonnull SingleTypeEqualsVerifierApi<Department> equalsVerifier) {
+            @Nonnull final SingleTypeEqualsVerifierApi<Department> equalsVerifier) {
         return super.equals_Verify_(equalsVerifier).suppress(Warning.SURROGATE_KEY);
     }
 }

@@ -1,17 +1,17 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId;
 import com.github.jinahya.persistence.mapped.test.___RandomizerUtils;
 import jakarta.annotation.Nonnull;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-public class MappedJobHistory_Randomizer<ENTITY extends MappedJobHistory<ID>, ID extends MappedJobHistoryId>
-        extends _MappedHrEntity_Randomizer<ENTITY, ID> {
+public class MappedJobHistory_Randomizer<ENTITY extends MappedJobHistory>
+        extends _MappedHrEntity_Randomizer<ENTITY, JobHistoryId> {
 
-    protected MappedJobHistory_Randomizer(final Class<ENTITY> entityClass, final Class<ID> idClass,
-                                          final String... excludedFields) {
-        super(entityClass, idClass,
+    protected MappedJobHistory_Randomizer(final Class<ENTITY> entityClass, final String... excludedFields) {
+        super(entityClass, JobHistoryId.class,
               ___RandomizerUtils.mergeExcludedFields(excludedFields,
                                                      MappedJobHistory.ATTRIBUTE_NAME_EMPLOYEE,
                                                      MappedJobHistory.ATTRIBUTE_NAME_JOB,
@@ -20,9 +20,8 @@ public class MappedJobHistory_Randomizer<ENTITY extends MappedJobHistory<ID>, ID
         );
     }
 
-    protected MappedJobHistory_Randomizer(final Class<ENTITY> entityClass, final Class<ID> idClass,
-                                          final Iterable<String> excludedFields) {
-        super(entityClass, idClass, moreExcludedFields(
+    protected MappedJobHistory_Randomizer(final Class<ENTITY> entityClass, final Iterable<String> excludedFields) {
+        super(entityClass, JobHistoryId.class, moreExcludedFields(
                 excludedFields,
                 MappedJobHistory.ATTRIBUTE_NAME_EMPLOYEE,
                 MappedJobHistory.ATTRIBUTE_NAME_JOB,

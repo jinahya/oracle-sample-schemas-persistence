@@ -135,7 +135,6 @@ class Employee_PersistenceTest extends _MappedHrEntity_PersistenceTest<Employee,
         @Nested
         class QueryLanguage_Test {
 
-
             @DisplayName("(persisted.)[persisted]")
             @Test
             void __() {

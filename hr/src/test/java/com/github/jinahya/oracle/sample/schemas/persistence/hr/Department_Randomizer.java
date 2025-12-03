@@ -13,14 +13,15 @@ class Department_Randomizer extends _MappedHrEntity_Randomizer<Department, Integ
 
     Department_Randomizer() {
         super(Department.class, Integer.class, List.of(
-                MappedDepartment.ATTRIBUTE_NAME_LOCATION_ID,
-                MappedDepartment.ATTRIBUTE_NAME_LOCATION,
                 MappedDepartment.ATTRIBUTE_NAME_MANAGER_ID,
                 MappedDepartment.ATTRIBUTE_NAME_MANAGER,
+                MappedDepartment.ATTRIBUTE_NAME_LOCATION_ID,
+                MappedDepartment.ATTRIBUTE_NAME_LOCATION,
                 MappedDepartment.ATTRIBUTE_NAME_EMPLOYEES
         ));
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
@@ -42,7 +43,6 @@ class Department_Randomizer extends _MappedHrEntity_Randomizer<Department, Integ
     @Nonnull
     @Override
     public Department get() {
-        final var department = super.get();
-        return department;
+        return super.get();
     }
 }

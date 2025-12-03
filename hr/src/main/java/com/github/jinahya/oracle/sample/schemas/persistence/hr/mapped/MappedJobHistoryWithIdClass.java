@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
@@ -35,13 +36,13 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * An abstract mapped-superclass, maps the {@value MappedJobHistory#TABLE_NAME} table, uses {@link MappedJobHistoryId}
- * as its {@link IdClass}.
+ * An abstract mapped-superclass, maps the {@value MappedJobHistory#TABLE_NAME} table, uses {@link JobHistoryId} as its
+ * {@link IdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedJobHistoryWithIdClass<ID extends MappedJobHistoryId> extends MappedJobHistory<ID> {
+public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
@@ -75,17 +76,15 @@ public abstract class MappedJobHistoryWithIdClass<ID extends MappedJobHistoryId>
                '}';
     }
 
-    @Override
-    public boolean equals(final Object obj) {
-        if (!(obj instanceof MappedJobHistoryWithIdClass<?> that)) {
+    protected final boolean equalsWithEmployeeIdAndStartDate(final Object obj) {
+        if (!(obj instanceof MappedJobHistoryWithIdClass that)) {
             return false;
         }
         return Objects.equals(employeeId, that.employeeId) &&
                Objects.equals(startDate, that.startDate);
     }
 
-    @Override
-    public int hashCode() {
+    protected final int hashCodeWithEmployeeIdAndStartDate() {
         return Objects.hash(employeeId, startDate);
     }
 
@@ -101,6 +100,15 @@ public abstract class MappedJobHistoryWithIdClass<ID extends MappedJobHistoryId>
             return true;
         }
         return endDate.isAfter(startDate);
+    }
+
+    // -------------------------------------------------------------------------------------------------------- super.id
+    @Override
+    protected final JobHistoryId getId() {
+        return JobHistoryId.builder()
+                .employeeId(getEmployeeId())
+                .startDate(getStartDate())
+                .build();
     }
 
     // --------------------------------------------------------------------------------------------------- super.endDate

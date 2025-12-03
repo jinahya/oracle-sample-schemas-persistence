@@ -24,7 +24,7 @@ import java.util.Optional;
  */
 @Entity
 @Table(name = MappedDepartment.TABLE_NAME)
-public class Department extends MappedDepartment {
+class Department extends MappedDepartment {
 
     protected Department() {
         super();
@@ -50,11 +50,17 @@ public class Department extends MappedDepartment {
         return Objects.hashCode(getDepartmentId());
     }
 
+    // --------------------------------------------------------------------------------------------- Jakarta-Persistence
+
+    // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+
+    // --------------------------------------------------------------------------------------------------------- manager
+    @Nullable
     public Employee getManager() {
         return manager;
     }
 
-    public void setManager(Employee manager) {
+    public void setManager(@Nullable final Employee manager) {
         this.manager = manager;
         setManagerId(
                 Optional.ofNullable(this.manager)
@@ -63,6 +69,7 @@ public class Department extends MappedDepartment {
         );
     }
 
+    // -------------------------------------------------------------------------------------------------------- location
     @Nullable
     public Location getLocation() {
         return location;
@@ -77,6 +84,7 @@ public class Department extends MappedDepartment {
         );
     }
 
+    // ------------------------------------------------------------------------------------------------------- employees
     List<@Valid @NotNull Employee> getEmployees() {
         return employees;
     }
@@ -88,14 +96,22 @@ public class Department extends MappedDepartment {
 
     // -----------------------------------------------------------------------------------------------------------------
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = MappedDepartment.COLUMN_NAME_MANAGER_ID, nullable = true, insertable = false,
-                updatable = false)
+    @JoinColumn(name = COLUMN_NAME_MANAGER_ID,
+                nullable = COLUMN_NULLABLE_MANAGER_ID,
+                insertable = false,
+                updatable = false
+    )
     private Employee manager;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_LOCATION_ID, nullable = true, insertable = false, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_LOCATION_ID,
+                nullable = COLUMN_NULLABLE_LOCATION_ID,
+                insertable = false,
+                updatable = false
+    )
     private Location location;
 
     // -----------------------------------------------------------------------------------------------------------------

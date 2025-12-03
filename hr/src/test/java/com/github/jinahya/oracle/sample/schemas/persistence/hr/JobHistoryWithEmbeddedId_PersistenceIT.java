@@ -6,10 +6,10 @@ import jakarta.annotation.Nonnull;
 
 @__Disable_PersistEntityInstance_Test
 class JobHistoryWithEmbeddedId_PersistenceIT
-        extends MappedJobHistory_PersistenceIT<JobHistoryWithEmbeddedId, JobHistoryId> {
+        extends MappedJobHistory_PersistenceIT<JobHistoryWithEmbeddedId> {
 
     JobHistoryWithEmbeddedId_PersistenceIT() {
-        super(JobHistoryWithEmbeddedId.class, JobHistoryId.class);
+        super(JobHistoryWithEmbeddedId.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -4,10 +4,10 @@ import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobH
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityManager;
 
-class JobHistoryWithIdClass_Persister extends MappedJobHistory_Persister<JobHistoryWithIdClass, JobHistoryId> {
+class JobHistoryWithIdClass_Persister extends MappedJobHistory_Persister<JobHistoryWithIdClass> {
 
     JobHistoryWithIdClass_Persister() {
-        super(JobHistoryWithIdClass.class, JobHistoryId.class);
+        super(JobHistoryWithIdClass.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -83,7 +83,7 @@ class Order_Test extends __MappedEntity_Test<Order, Long> {
             @Test
             void _Null_Null() {
                 // ----------------------------------------------------------------------------------------------- given
-                final var instance = newMappedInstanceSpy();
+                final var instance = newInstantiatedTargetInstanceSpy();
                 given(instance.getOrderStatus()).willReturn(null);
                 // ------------------------------------------------------------------------------------------------ when
                 assertThatCode(() -> {
@@ -96,7 +96,7 @@ class Order_Test extends __MappedEntity_Test<Order, Long> {
             @Test
             void _NullPointerException_ValueIsNotNullMapperIsNull() {
                 // ----------------------------------------------------------------------------------------------- given
-                final var instance = newMappedInstance();
+                final var instance = newInstantiatedTargetInstance();
                 instance.setOrderStatus("");
                 // ------------------------------------------------------------------------------------------------ when
                 assertThatThrownBy(() -> {
@@ -113,7 +113,7 @@ class Order_Test extends __MappedEntity_Test<Order, Long> {
             @Test
             void _Null_Null() {
                 // ----------------------------------------------------------------------------------------------- given
-                final var instance = newMappedInstance();
+                final var instance = newInstantiatedTargetInstance();
                 // ------------------------------------------------------------------------------------------------ when
                 assertThatCode(() -> {
                     instance.setOrderStatusFromMapped(null, null);
@@ -123,7 +123,7 @@ class Order_Test extends __MappedEntity_Test<Order, Long> {
             @Test
             void _NullPointerException_ValueIsNotNullMapperIsNull() {
                 // ----------------------------------------------------------------------------------------------- given
-                final var instance = newMappedInstance();
+                final var instance = newInstantiatedTargetInstance();
                 // ------------------------------------------------------------------------------------------------ when
                 assertThatThrownBy(() -> {
                     instance.setOrderStatusFromMapped("", null);
@@ -133,7 +133,7 @@ class Order_Test extends __MappedEntity_Test<Order, Long> {
             @Test
             void _InvokeSetOrderStatus_() {
                 // ----------------------------------------------------------------------------------------------- given
-                final var instance = newMappedInstanceSpy();
+                final var instance = newInstantiatedTargetInstanceSpy();
                 final var orderStatus = "";
                 final var mapper = Mockito.mock(Function.class);
                 given(mapper.apply(any())).willAnswer(i -> i.getArguments()[0]);
@@ -153,7 +153,7 @@ class Order_Test extends __MappedEntity_Test<Order, Long> {
             @Test
             void _Null_Null() {
                 // ----------------------------------------------------------------------------------------------- given
-                final var instance = newMappedInstanceSpy();
+                final var instance = newInstantiatedTargetInstanceSpy();
                 given(instance.getOrderStatus()).willReturn(null);
                 // ------------------------------------------------------------------------------------------------ when
                 final var result = instance.getOrderStatusAsEnum(MappedOrder._OrderStatus.class);
@@ -165,7 +165,7 @@ class Order_Test extends __MappedEntity_Test<Order, Long> {
             @ParameterizedTest
             void _NotNull_NotNull(final MappedOrder._OrderStatus orderStatus) {
                 // ----------------------------------------------------------------------------------------------- given
-                final var instance = newMappedInstanceSpy();
+                final var instance = newInstantiatedTargetInstanceSpy();
                 given(instance.getOrderStatus()).willReturn(orderStatus.attributeValue());
                 // ------------------------------------------------------------------------------------------------ when
                 final var result = instance.getOrderStatusAsEnum(MappedOrder._OrderStatus.class);
@@ -182,7 +182,7 @@ class Order_Test extends __MappedEntity_Test<Order, Long> {
             @Test
             void _Null_Null() {
                 // ----------------------------------------------------------------------------------------------- given
-                final var instance = newMappedInstanceSpy();
+                final var instance = newInstantiatedTargetInstanceSpy();
                 // ------------------------------------------------------------------------------------------------ when
                 instance.setOrderStatusFromEnum(null);
                 // ------------------------------------------------------------------------------------------------ then
@@ -193,7 +193,7 @@ class Order_Test extends __MappedEntity_Test<Order, Long> {
             @ParameterizedTest
             void _NotNull_NotNull(final MappedOrder._OrderStatus orderStatus) {
                 // ----------------------------------------------------------------------------------------------- given
-                final var instance = newMappedInstanceSpy();
+                final var instance = newInstantiatedTargetInstanceSpy();
                 // ------------------------------------------------------------------------------------------------ when
                 instance.setOrderStatusFromEnum(orderStatus);
                 // ------------------------------------------------------------------------------------------------ then

@@ -101,7 +101,7 @@ public abstract class MappedLocationBuilder<
         return countryId;
     }
 
-    public SELF countryId(final String countryId) {
+    protected SELF countryId(final String countryId) {
         this.countryId = countryId;
         return (SELF) this;
     }

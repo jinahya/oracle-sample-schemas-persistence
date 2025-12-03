@@ -20,15 +20,21 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId_;
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
- * An abstract mapped-superclass, maps the {@value MappedJobHistory#TABLE_NAME} table, uses {@link MappedJobHistoryId}
- * as its {@link EmbeddedId}.
+ * An abstract mapped-superclass, maps the {@value MappedJobHistory#TABLE_NAME} table, uses {@link JobHistoryId} as its
+ * {@link EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -36,7 +42,7 @@ import java.util.Objects;
 @SuppressWarnings({
         "java:S119" // Type parameter names should comply with a naming convention
 })
-public abstract class MappedJobHistoryWithEmbeddedId<ID extends MappedJobHistoryId> extends MappedJobHistory<ID> {
+public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
@@ -71,7 +77,7 @@ public abstract class MappedJobHistoryWithEmbeddedId<ID extends MappedJobHistory
 
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedJobHistoryWithEmbeddedId<?> that)) {
+        if (!(obj instanceof MappedJobHistoryWithEmbeddedId that)) {
             return false;
         }
         return Objects.equals(getId(), that.getId());
@@ -85,41 +91,41 @@ public abstract class MappedJobHistoryWithEmbeddedId<ID extends MappedJobHistory
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+
+    /**
+     * Tests whether current value of {@value MappedJobHistory_#END_DATE} attribute is after the value of
+     * {@link JobHistoryId_#START_DATE id.startDate} attribute.
+     *
+     * @return {@code true} if the current value of the {@value MappedJobHistory_#END_DATE} attribute is after the
+     * {@link JobHistoryId_#START_DATE id.startDate} attribute; {@code false} otherwise.
+     */
     @AssertTrue
-    protected boolean isEndDateAfterThanIdStartDate() {
+    protected boolean isEndDateAfterIdStartDate() {
         final var endDate = getEndDate();
         if (endDate == null) {
             return true;
         }
-        final var id = getId();
-        if (id == null) {
+        final var idStartDate = Optional.ofNullable(getId()).map(JobHistoryId::getStartDate).orElse(null);
+        if (idStartDate == null) {
             return true;
         }
-        final var startDate = id.getStartDate();
-        if (startDate == null) {
-            return true;
-        }
-        return endDate.isAfter(startDate);
+        return endDate.isAfter(idStartDate);
+    }
+
+    // -------------------------------------------------------------------------------------------------------- super.id
+    @Override
+    protected final JobHistoryId getId() {
+        return id;
     }
 
     // --------------------------------------------------------------------------------------------------- super.endDate
 
     // ----------------------------------------------------------------------------------------------------- super.jobId
 
-    // -------------------------------------------------------------------------------------------------------------- id
-
-    /**
-     * Returns the id of this entity.
-     *
-     * @return the id of this entity.
-     */
-    public abstract ID getId();
-
     // -----------------------------------------------------------------------------------------------------------------
-    // fuck eclipselink
-//    @Nonnull
-//    @Valid
-//    @NotNull
-//    @EmbeddedId
-//    private ID id;
+    @Nonnull
+    @Valid
+    @NotNull
+    @EmbeddedId
+    private JobHistoryId id;
 }

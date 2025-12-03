@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
@@ -32,6 +33,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * An abstract mapped-superclass for mapping the {@value MappedJobHistory#TABLE_NAME} table.
@@ -109,7 +111,7 @@ import java.time.LocalDate;
  * @see jakarta.persistence.Embeddable
  * @see jakarta.persistence.EmbeddedId
  * @see jakarta.persistence.IdClass
- * @see MappedJobHistoryId
+ * @see JobHistoryId
  * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#composite-primary-keys">2.4.1. Composite primary keys</a> (Jakarta Persistence 3.2 Specification Document)
  * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a14687">11.1.17. EmbeddedId Annotation</a> (Jakarta Persistence 3.2 Specification Document)
  * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a14836">11.1.23. IdClass Annotation</a> (Jakarta Persistence 3.2 Specification Document)
@@ -118,7 +120,7 @@ import java.time.LocalDate;
 @SuppressWarnings({
         "java:S119" // Type parameter names should comply with a naming convention
 })
-public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _MappedHrEntity<ID> {
+public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -131,6 +133,8 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
      * A table column name of {@value}.
      */
     public static final String COLUMN_NAME_EMPLOYEE_ID = "EMPLOYEE_ID";
+
+    public static final boolean COLUMN_NULLABLE_EMPLOYEE_ID = false;
 
     /**
      * The precision of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
@@ -167,6 +171,8 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
      */
     public static final String COLUMN_NAME_START_DATE = "START_DATE";
 
+    public static final boolean COLUMN_NULLABLE_START_DATE = false;
+
     public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
@@ -176,6 +182,8 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
 
     // ---------------------------------------------------------------------------------------------------------- JOB_ID
     public static final String COLUMN_NAME_JOB_ID = "JOB_ID";
+
+    public static final boolean COLUMN_NULLABLE_JOB_ID = false;
 
     public static final int COLUMN_LENGTH_JOB_ID = 10;
 
@@ -193,6 +201,8 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
 
     // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
+
+    public static final boolean COLUMN_NULLABLE_DEPARTMENT_ID = true;
 
     public static final int COLUMN_PRECISION_DEPARTMENT_ID = 4;
 
@@ -236,9 +246,29 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
                '}';
     }
 
+    protected final boolean equalsWithId(final Object obj) {
+        if (!(obj instanceof MappedJobHistory that)) {
+            return false;
+        }
+        return Objects.equals(getId(), that.getId());
+    }
+
+    protected final int hashCodeWithId() {
+        return Objects.hash(getId());
+    }
+
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+
+    // -------------------------------------------------------------------------------------------------------------- id
+
+    /**
+     * Returns the id of this entity.
+     *
+     * @return the id of this entity.
+     */
+    protected abstract JobHistoryId getId();
 
     // --------------------------------------------------------------------------------------------------------- endDate
 
@@ -269,7 +299,11 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
 //    @PastOrPresent // @@?
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_END_DATE, nullable = false, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_END_DATE,
+            nullable = false,
+            insertable = false,
+            updatable = false
+    )
     LocalDate endDate;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -277,8 +311,12 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
     @Size(min = ATTRIBUTE_SIZE_MIN_JOB_ID, max = ATTRIBUTE_SIZE_MAX_JOB_ID)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_JOB_ID, nullable = false, insertable = false, updatable = false,
-            length = COLUMN_LENGTH_JOB_ID)
+    @Column(name = COLUMN_NAME_JOB_ID,
+            nullable = COLUMN_NULLABLE_JOB_ID,
+            insertable = false,
+            updatable = false,
+            length = COLUMN_LENGTH_JOB_ID
+    )
     private String jobId;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -286,7 +324,12 @@ public abstract class MappedJobHistory<ID extends MappedJobHistoryId> extends _M
     @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
     @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_DEPARTMENT_ID, nullable = true, insertable = false, updatable = false,
-            precision = COLUMN_PRECISION_DEPARTMENT_ID, scale = COLUMN_SCALE_DEPARTMENT_ID)
+    @Column(name = COLUMN_NAME_DEPARTMENT_ID,
+            nullable = COLUMN_NULLABLE_DEPARTMENT_ID,
+            insertable = false,
+            updatable = false,
+            precision = COLUMN_PRECISION_DEPARTMENT_ID,
+            scale = COLUMN_SCALE_DEPARTMENT_ID
+    )
     private Integer departmentId;
 }

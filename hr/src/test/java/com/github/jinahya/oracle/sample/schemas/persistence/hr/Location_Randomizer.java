@@ -13,10 +13,13 @@ class Location_Randomizer extends __MappedEntity_Randomizer<Location, Integer> {
 
     Location_Randomizer() {
         super(Location.class, Integer.class, List.of(
+                MappedLocation.ATTRIBUTE_NAME_COUNTRY_ID,
+                MappedLocation.ATTRIBUTE_NAME_COUNTRY,
                 MappedLocation.ATTRIBUTE_NAME_DEPARTMENTS
         ));
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {

@@ -5,9 +5,9 @@ import com.github.jinahya.persistence.mapped.test.__Disable_PersistEntityInstanc
 
 @__Disable_PersistEntityInstance_Test
 class JobHistoryWithEmbeddedId_PersistenceTest
-        extends MappedJobHistory_PersistenceTest<JobHistoryWithEmbeddedId, JobHistoryId> {
+        extends MappedJobHistory_PersistenceTest<JobHistoryWithEmbeddedId> {
 
     JobHistoryWithEmbeddedId_PersistenceTest() {
-        super(JobHistoryWithEmbeddedId.class, JobHistoryId.class);
+        super(JobHistoryWithEmbeddedId.class);
     }
 }

@@ -84,9 +84,9 @@ public class Location extends MappedLocation {
      *
      * @param builder the builder to build from.
      */
-    private Location(final LocationBuilder builder) {
+    Location(final LocationBuilder builder) {
         super(builder);
-        if (getCountryId() == null) { // TODO: remove when builder#countryId gone
+        if (getCountryId() == null) {
             if (builder.countryId() != null) {
                 setCountryId(builder.countryId());
             } else {

@@ -96,13 +96,11 @@ public abstract class MappedDepartmentBuilder<
     }
 
     // ------------------------------------------------------------------------------------------------------ locationId
-    @Deprecated(forRemoval = true)
     public Integer locationId() {
         return locationId;
     }
 
-    @Deprecated(forRemoval = true)
-    public SELF locationId(final Integer locationId) {
+    protected SELF locationId(final Integer locationId) {
         this.locationId = locationId;
         return (SELF) this;
     }
@@ -117,6 +115,5 @@ public abstract class MappedDepartmentBuilder<
     private Integer managerId;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Deprecated(forRemoval = true)
     private Integer locationId;
 }

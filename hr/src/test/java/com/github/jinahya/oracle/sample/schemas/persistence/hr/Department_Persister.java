@@ -1,7 +1,6 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_Persister;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersisterUtils;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityManager;
 
@@ -15,11 +14,15 @@ class Department_Persister extends _MappedHrEntity_Persister<Department, Integer
 
     @Override
     public void persist(@Nonnull EntityManager entityManager, @Nonnull Department entityInstance) {
-        entityInstance.setManagerId(null);
+        entityInstance.setManager(
+                ThreadLocalRandom.current().nextBoolean()
+                ? null
+                : newPersistedInstanceOf(entityManager, Employee.class)
+        );
         entityInstance.setLocation(
                 ThreadLocalRandom.current().nextBoolean()
                 ? null
-                : __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Location.class)
+                : newPersistedInstanceOf(entityManager, Location.class)
         );
         super.persist(entityManager, entityInstance);
     }

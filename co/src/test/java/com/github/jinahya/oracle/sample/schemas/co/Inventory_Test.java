@@ -66,7 +66,7 @@ class Inventory_Test extends __MappedEntity_Test<Inventory, Long> {
         @Test
         void _ShouldInvokeSetProductInventoryWithProductInventoryPlusDelta_() {
             // --------------------------------------------------------------------------------------------------- given
-            final var instance = newMappedInstanceSpy();
+            final var instance = newInstantiatedTargetInstanceSpy();
             final var productInventory = ThreadLocalRandom.current().nextLong();
             given(instance.getProductInventory()).willReturn(productInventory);
             final var delta = ThreadLocalRandom.current().nextInt();
@@ -85,7 +85,7 @@ class Inventory_Test extends __MappedEntity_Test<Inventory, Long> {
         @Test
         void _ShouldThrowIllegalArgumentException_DeltalIsNegative_() {
             // --------------------------------------------------------------------------------------------------- given
-            final var instance = newMappedInstance();
+            final var instance = newInstantiatedTargetInstanceSpy();
             final var delta = ThreadLocalRandom.current().nextInt() | Integer.MIN_VALUE;
             assert delta < 0;
             // --------------------------------------------------------------------------------------------- when / then
@@ -98,7 +98,7 @@ class Inventory_Test extends __MappedEntity_Test<Inventory, Long> {
         @Test
         void _ShouldInvokeAdjustProductInventoryWithDelta_() {
             // --------------------------------------------------------------------------------------------------- given
-            final var instance = newMappedInstanceSpy();
+            final var instance = newInstantiatedTargetInstanceSpy();
             final var productInventory = ThreadLocalRandom.current().nextLong();
             given(instance.getProductInventory()).willReturn(productInventory);
             final var delta = ThreadLocalRandom.current().nextInt() & Integer.MAX_VALUE;
@@ -118,7 +118,7 @@ class Inventory_Test extends __MappedEntity_Test<Inventory, Long> {
         @Test
         void _ShouldThrowIllegalArgumentException_DeltalIsNegative_() {
             // --------------------------------------------------------------------------------------------------- given
-            final var instance = newMappedInstance();
+            final var instance = newInstantiatedTargetInstanceSpy();
             final var delta = ThreadLocalRandom.current().nextInt() | Integer.MIN_VALUE;
             assert delta < 0;
             // --------------------------------------------------------------------------------------------- when / then
@@ -129,7 +129,7 @@ class Inventory_Test extends __MappedEntity_Test<Inventory, Long> {
         @Test
         void _ShouldInvokeAdjustProductInventoryWithMinusDelta_() {
             // --------------------------------------------------------------------------------------------------- given
-            final var instance = newMappedInstanceSpy();
+            final var instance = newInstantiatedTargetInstanceSpy();
             final var productInventory = ThreadLocalRandom.current().nextLong();
             given(instance.getProductInventory()).willReturn(productInventory);
             final var delta = ThreadLocalRandom.current().nextInt() & Integer.MAX_VALUE;

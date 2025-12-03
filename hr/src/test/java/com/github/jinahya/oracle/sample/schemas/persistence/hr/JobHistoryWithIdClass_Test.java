@@ -5,10 +5,10 @@ import jakarta.annotation.Nonnull;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
-class JobHistoryWithIdClass_Test extends MappedJobHistory_Test<JobHistoryWithIdClass, JobHistoryId> {
+class JobHistoryWithIdClass_Test extends MappedJobHistory_Test<JobHistoryWithIdClass> {
 
     JobHistoryWithIdClass_Test() {
-        super(JobHistoryWithIdClass.class, JobHistoryId.class);
+        super(JobHistoryWithIdClass.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

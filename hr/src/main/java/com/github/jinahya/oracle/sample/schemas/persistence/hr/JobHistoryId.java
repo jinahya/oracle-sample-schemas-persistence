@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
+package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 /*-
  * #%L
@@ -20,11 +20,13 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHr;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -34,7 +36,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * An abstract composite primary key class for mapping {@value MappedJobHistory#COLUMN_NAME_EMPLOYEE_ID} column and
+ * A composite primary key class for mapping {@value MappedJobHistory#COLUMN_NAME_EMPLOYEE_ID} column and
  * {@value MappedJobHistory#COLUMN_NAME_START_DATE} column, of {@value MappedJobHistory#TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
@@ -43,10 +45,19 @@ import java.util.Objects;
  * href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#composite-primary-keys">2.4.1.
  * Composite primary keys</a> (Jakarta Persistence 3.2 Specification Document)
  */
-@MappedSuperclass
-public abstract class MappedJobHistoryId extends _MappedHr {
+@Embeddable
+public class JobHistoryId extends _MappedHr {
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
+
+    /**
+     * Returns a builder for building instances of this id class.
+     *
+     * @return a builder for building instances of this id class.
+     */
+    public static JobHistoryIdBuilder builder() {
+        return new JobHistoryIdBuilder();
+    }
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -55,7 +66,7 @@ public abstract class MappedJobHistoryId extends _MappedHr {
     /**
      * Creates a new instance.
      */
-    protected MappedJobHistoryId() {
+    protected JobHistoryId() {
         super();
     }
 
@@ -64,7 +75,7 @@ public abstract class MappedJobHistoryId extends _MappedHr {
      *
      * @param builder the builder from which a new instance is built.
      */
-    protected MappedJobHistoryId(@Nonnull final MappedJobHistoryIdBuilder<?, ?> builder) {
+    JobHistoryId(@Nonnull final JobHistoryIdBuilder builder) {
         super(builder);
     }
 
@@ -79,7 +90,7 @@ public abstract class MappedJobHistoryId extends _MappedHr {
 
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedJobHistoryId that)) {
+        if (!(obj instanceof JobHistoryId that)) {
             return false;
         }
         return Objects.equals(employeeId, that.employeeId) &&
@@ -92,11 +103,22 @@ public abstract class MappedJobHistoryId extends _MappedHr {
     }
 
     // ------------------------------------------------------------------------------------------------------ employeeId
+
+    /**
+     * Returns current value of {@link JobHistoryId_#EMPLOYEE_ID} attribute.
+     *
+     * @return current value of the {@link JobHistoryId_#EMPLOYEE_ID} attribute.
+     */
     @Nonnull
     public Integer getEmployeeId() {
         return employeeId;
     }
 
+    /**
+     * Replaces current value of {@link JobHistoryId_#EMPLOYEE_ID} attribute with specified value.
+     *
+     * @param employeeId new value for the {@link JobHistoryId_#EMPLOYEE_ID} attribute.
+     */
     protected void setEmployeeId(final Integer employeeId) {
         this.employeeId = employeeId;
     }
@@ -117,7 +139,7 @@ public abstract class MappedJobHistoryId extends _MappedHr {
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,
-            nullable = false,
+            nullable = MappedJobHistory.COLUMN_NULLABLE_EMPLOYEE_ID,
 //                insertable = false,
             insertable = true, // eclipselink
             updatable = false,
@@ -131,7 +153,7 @@ public abstract class MappedJobHistoryId extends _MappedHr {
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = MappedJobHistory.COLUMN_NAME_START_DATE,
-            nullable = false,
+            nullable = MappedJobHistory.COLUMN_NULLABLE_START_DATE,
 //                insertable = false,
             insertable = true, // eclipselink
             updatable = false

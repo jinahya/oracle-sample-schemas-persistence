@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
+package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 /*-
  * #%L
@@ -20,24 +20,20 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrBuilder;
+
 import java.time.LocalDate;
 
 /**
- * An abstract builder class for building instances of a specific subclass of {@link MappedJobHistoryId} class.
+ * A class for building instance of {@link JobHistoryId}.
  *
- * @param <SELF>   self type parameter
- * @param <TARGET> target type parameter
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @SuppressWarnings({
-        "unchecked",
         "java:S119" // Type parameter names should comply with a naming convention
 })
-public abstract class MappedJobHistoryIdBuilder<
-        SELF extends MappedJobHistoryIdBuilder<SELF, TARGET>,
-        TARGET extends MappedJobHistoryId
-        >
-        extends _MappedHrBuilder<SELF, TARGET> {
+public class JobHistoryIdBuilder
+        extends _MappedHrBuilder<JobHistoryIdBuilder, JobHistoryId> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -46,8 +42,8 @@ public abstract class MappedJobHistoryIdBuilder<
     /**
      * Creates a new instance.
      */
-    protected MappedJobHistoryIdBuilder(final Class<TARGET> targetClass) {
-        super(targetClass);
+    JobHistoryIdBuilder() {
+        super(JobHistoryId.class);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
@@ -69,9 +65,9 @@ public abstract class MappedJobHistoryIdBuilder<
      * @param employeeId new value for the {@code employeeId} property.
      * @return this builder instance.
      */
-    public SELF employeeId(final Integer employeeId) {
+    public JobHistoryIdBuilder employeeId(final Integer employeeId) {
         this.employeeId = employeeId;
-        return (SELF) this;
+        return this;
     }
 
     // ------------------------------------------------------------------------------------------------------- startDate
@@ -81,9 +77,9 @@ public abstract class MappedJobHistoryIdBuilder<
     }
 
     // TODO: javadoc
-    public SELF startDate(final LocalDate startDate) {
+    public JobHistoryIdBuilder startDate(final LocalDate startDate) {
         this.startDate = startDate;
-        return (SELF) this;
+        return this;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -127,6 +127,7 @@ public abstract class MappedInventory extends _MappedCoEntity<Long> {
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+
     /**
      * Tests whether {@value MappedInventory_#PRODUCT_INVENTORY} attribute is non-negative.
      *

@@ -21,13 +21,10 @@ package com.github.jinahya.oracle.sample.schemas.co;
  */
 
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_Persister;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersisterUtils;
 import com.github.jinahya.persistence.mapped.test.___Builder_TestUtils;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
 class OrderItemWithEmbeddedId_Persister extends __MappedEntity_Persister<OrderItemWithEmbeddedId, OrderItemId> {

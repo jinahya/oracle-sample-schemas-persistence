@@ -104,6 +104,8 @@ public abstract class MappedDepartment extends _MappedHrEntity<Integer> {
     // ------------------------------------------------------------------------------------------------------ MANAGER_ID
     public static final String COLUMN_NAME_MANAGER_ID = "MANAGER_ID";
 
+    public static final boolean COLUMN_NULLABLE_MANAGER_ID = true;
+
     public static final int COLUMN_PRECISION_MANAGER_ID = 6;
 
     public static final int COLUMN_SCALE_MANAGER_ID = 0;
@@ -122,6 +124,8 @@ public abstract class MappedDepartment extends _MappedHrEntity<Integer> {
 
     // ----------------------------------------------------------------------------------------------------- LOCATION_ID
     public static final String COLUMN_NAME_LOCATION_ID = "LOCATION_ID";
+
+    public static final boolean COLUMN_NULLABLE_LOCATION_ID = true;
 
     public static final int COLUMN_PRECISION_LOCATION_ID = 4;
 
@@ -255,7 +259,7 @@ public abstract class MappedDepartment extends _MappedHrEntity<Integer> {
     @Min(ATTRIBUTE_MIN_MANAGER_ID)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_MANAGER_ID,
-            nullable = true,
+            nullable = COLUMN_NULLABLE_MANAGER_ID,
             insertable = true,
             updatable = true,
             precision = COLUMN_PRECISION_MANAGER_ID,
@@ -270,7 +274,7 @@ public abstract class MappedDepartment extends _MappedHrEntity<Integer> {
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(
             name = COLUMN_NAME_LOCATION_ID,
-            nullable = true,
+            nullable = COLUMN_NULLABLE_LOCATION_ID,
             insertable = true,
             updatable = true,
             precision = COLUMN_PRECISION_LOCATION_ID,

@@ -1,10 +1,8 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithEmbeddedId;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
@@ -15,7 +13,7 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = MappedJobHistoryWithEmbeddedId.TABLE_NAME)
-class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId<JobHistoryId> {
+class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
 
@@ -33,10 +31,6 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId<JobHistory
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
 
     // -------------------------------------------------------------------------------------------------------- super.id
-    @Override
-    public JobHistoryId getId() {
-        return id;
-    }
 
     // -------------------------------------------------------------------------------------------------------- employee
     @Nonnull
@@ -57,18 +51,12 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId<JobHistory
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Valid
-    @NotNull
-    @EmbeddedId
-    private JobHistoryId id;
-
-    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,
-                nullable = false,
+    @JoinColumn(name = COLUMN_NAME_EMPLOYEE_ID,
+                nullable = COLUMN_NULLABLE_EMPLOYEE_ID,
                 insertable = false,
                 updatable = false
     )
@@ -79,8 +67,8 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId<JobHistory
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = MappedJobHistory.COLUMN_NAME_JOB_ID,
-                nullable = false,
+    @JoinColumn(name = COLUMN_NAME_JOB_ID,
+                nullable = COLUMN_NULLABLE_JOB_ID,
                 insertable = false,
 //                insertable = true, // eclipselink
                 updatable = false
@@ -91,8 +79,8 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId<JobHistory
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = MappedJobHistory.COLUMN_NAME_DEPARTMENT_ID,
-                nullable = true,
+    @JoinColumn(name = COLUMN_NAME_DEPARTMENT_ID,
+                nullable = COLUMN_NULLABLE_DEPARTMENT_ID,
                 insertable = false,
 //                insertable = true, // eclipselink
                 updatable = false

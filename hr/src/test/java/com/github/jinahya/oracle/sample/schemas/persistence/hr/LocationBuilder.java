@@ -1,6 +1,9 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountry;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedLocationBuilder;
+
+import java.util.Optional;
 
 public class LocationBuilder extends MappedLocationBuilder<LocationBuilder, Location> {
 
@@ -33,13 +36,15 @@ public class LocationBuilder extends MappedLocationBuilder<LocationBuilder, Loca
     @Deprecated(forRemoval = true)
     @Override
     public String countryId() {
-        return super.countryId();
+//        return super.countryId();
+        return Optional.ofNullable(country()).map(MappedCountry::getCountryId).orElse(null);
     }
 
     @Deprecated(forRemoval = true)
     @Override
-    public LocationBuilder countryId(final String countryId) {
-        return super.countryId(countryId);
+    protected LocationBuilder countryId(final String countryId) {
+//        return super.countryId(countryId);
+        throw new UnsupportedOperationException("not supported; use country(Country)");
     }
 
     // --------------------------------------------------------------------------------------------------------- country

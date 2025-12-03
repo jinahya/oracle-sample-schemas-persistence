@@ -22,7 +22,7 @@ public abstract class MappedInventory_Test<ENTITY extends MappedInventory> exten
         @DisplayName("(negative)IllegalArgumentException")
         @Test
         void _ThrowIllegalArgumentException_QuantityNegative() {
-            final var inventory = newMappedInstance();
+            final var inventory = newInstantiatedTargetInstance();
             final var quantity = ThreadLocalRandom.current().nextInt() | Integer.MIN_VALUE;
             assertThatThrownBy(() -> {
                 inventory.increaseProductInventoryBy(quantity);

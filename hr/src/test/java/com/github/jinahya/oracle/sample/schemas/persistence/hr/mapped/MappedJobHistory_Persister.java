@@ -1,13 +1,14 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityManager;
 
-public class MappedJobHistory_Persister<ENTITY extends MappedJobHistory<ID>, ID extends MappedJobHistoryId>
-        extends _MappedHrEntity_Persister<ENTITY, ID> {
+public class MappedJobHistory_Persister<ENTITY extends MappedJobHistory>
+        extends _MappedHrEntity_Persister<ENTITY, JobHistoryId> {
 
-    protected MappedJobHistory_Persister(final Class<ENTITY> entityClass, final Class<ID> idClass) {
-        super(entityClass, idClass);
+    protected MappedJobHistory_Persister(final Class<ENTITY> entityClass) {
+        super(entityClass, JobHistoryId.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
