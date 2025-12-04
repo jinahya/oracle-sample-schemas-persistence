@@ -90,11 +90,11 @@ import java.util.Objects;
  *
  *     @jakarta.persistence.Id // @highlight substring="Id"
  *     @jakarta.persistence.Column(name = "EMPLOYEE_ID")
- *     private Integer employeeId; // should be the same time/name // @highlight substring="Integer employeeId"
+ *     private Integer employeeId; // should have the same type/name // @highlight substring="Integer employeeId"
  *
  *     @jakarta.persistence.Id // @highlight substring="Id"
  *     @jakarta.persistence.Column(name = "START_DATE")
- *     private java.time.LocalDate startDate; // should be the same type/name, // @highlight substring="java.time.LocalDate startDate"
+ *     private java.time.LocalDate startDate; // should have the same type/name, // @highlight substring="java.time.LocalDate startDate"
  * }
  *}</td>
  *     </tr>

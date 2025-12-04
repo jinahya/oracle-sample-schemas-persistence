@@ -105,9 +105,9 @@ public class JobHistoryId extends _MappedHr {
     // ------------------------------------------------------------------------------------------------------ employeeId
 
     /**
-     * Returns current value of {@link JobHistoryId_#EMPLOYEE_ID} attribute.
+     * Returns current value of {@value JobHistoryId_#EMPLOYEE_ID} attribute.
      *
-     * @return current value of the {@link JobHistoryId_#EMPLOYEE_ID} attribute.
+     * @return current value of the {@value JobHistoryId_#EMPLOYEE_ID} attribute.
      */
     @Nonnull
     public Integer getEmployeeId() {
@@ -115,9 +115,9 @@ public class JobHistoryId extends _MappedHr {
     }
 
     /**
-     * Replaces current value of {@link JobHistoryId_#EMPLOYEE_ID} attribute with specified value.
+     * Replaces current value of {@value JobHistoryId_#EMPLOYEE_ID} attribute with specified value.
      *
-     * @param employeeId new value for the {@link JobHistoryId_#EMPLOYEE_ID} attribute.
+     * @param employeeId new value for the {@value JobHistoryId_#EMPLOYEE_ID} attribute.
      */
     protected void setEmployeeId(final Integer employeeId) {
         this.employeeId = employeeId;

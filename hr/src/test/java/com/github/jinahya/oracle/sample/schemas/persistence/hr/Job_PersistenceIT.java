@@ -37,9 +37,9 @@ class Job_PersistenceIT extends _MappedHrEntity_PersistenceIT<Job, String> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @DisplayName("Select_OrderByMinSalaryAscNullsFirst")
+    @DisplayName("Select__OrderByMinSalaryAscNullsFirst")
     @Nested
-    class Select_OrderByMinSalaryAscNullsFirst_Test {
+    class Select__OrderByMinSalaryAscNullsFirst_Test {
 
         @Test
         void __NamedQuery() {
@@ -88,6 +88,7 @@ class Job_PersistenceIT extends _MappedHrEntity_PersistenceIT<Job, String> {
                 final var b = em.getCriteriaBuilder();
                 final var q = b.createQuery(Job.class);
                 final var r = q.from(Job.class);
+                q.select(r);
                 q.orderBy(
                         b.asc(b.coalesce(r.get(Job_.minSalary), Integer.MIN_VALUE))
                 );
@@ -103,9 +104,9 @@ class Job_PersistenceIT extends _MappedHrEntity_PersistenceIT<Job, String> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @DisplayName("Select_OrderByMaxSalaryDescNullsLast")
+    @DisplayName("Select__OrderByMaxSalaryDescNullsLast")
     @Nested
-    class Select_OrderByMaxSalaryDescNullsLast_Test {
+    class Select__OrderByMaxSalaryDescNullsLast_Test {
 
         @Test
         void __NamedQuery() {
@@ -154,6 +155,7 @@ class Job_PersistenceIT extends _MappedHrEntity_PersistenceIT<Job, String> {
                 final var b = em.getCriteriaBuilder();
                 final var q = b.createQuery(Job.class);
                 final var r = q.from(Job.class);
+                q.select(r);
                 q.orderBy(
                         b.desc(b.coalesce(r.get(Job_.maxSalary), Integer.MAX_VALUE))
                 );

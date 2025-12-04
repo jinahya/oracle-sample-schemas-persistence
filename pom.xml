@@ -75,7 +75,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.source>25</maven.compiler.source>
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     <maven.compiler.release>${maven.compiler.target}</maven.compiler.release>
     <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>
@@ -90,7 +90,7 @@
     <version.maven-surefire>3.5.4</version.maven-surefire>
     <version.jakarta.jakartaee-api>11.0.0</version.jakarta.jakartaee-api>
     <!-- https://central.sonatype.com/artifact/io.github.jinahya/jinahya-persistence/versions -->
-<!--    <version.jinahya-persistence>0.4.9</version.jinahya-persistence>-->
+    <!--    <version.jinahya-persistence>0.4.9</version.jinahya-persistence>-->
     <version.jinahya-persistence>0.5.0</version.jinahya-persistence>
     <!--    <version.jinahya-persistence>0.4.3</version.jinahya-persistence>-->
     <!--    <version.mysql-connector-j>8.3.0</version.mysql-connector-j>-->
@@ -317,7 +317,8 @@
               <additionalOption>-Xdoclint:${doclint}</additionalOption>
             </additionalOptions>
             <links>
-              <link>https://www.javadoc.io/doc/jakarta.platform/jakarta.jakartaee-api/${version.jakarta.jakartaee-api}</link>
+<!--              <link>https://www.javadoc.io/doc/jakarta.platform/jakarta.jakartaee-api/${version.jakarta.jakartaee-api}</link>-->
+<!--              <link>https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence</link>-->
               <link>https://jakarta.ee/specifications/platform/11/apidocs/</link>
               <link>https://javadoc.io/static/io.github.jinahya/jinahya-persistence-mapped/${version.jinahya-persistence}</link>
               <link>https://javadoc.io/static/io.github.jinahya/jinahya-persistence-mapped-test/${version.jinahya-persistence}</link>

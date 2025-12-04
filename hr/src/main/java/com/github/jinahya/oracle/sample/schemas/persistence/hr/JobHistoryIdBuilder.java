@@ -20,9 +20,12 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedEmployee;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedEmployee_;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrBuilder;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 /**
  * A class for building instance of {@link JobHistoryId}.
@@ -68,6 +71,22 @@ public class JobHistoryIdBuilder
     public JobHistoryIdBuilder employeeId(final Integer employeeId) {
         this.employeeId = employeeId;
         return this;
+    }
+
+    /**
+     * Replaces current value of {@code employeeId} property with specified employee's
+     * {@value MappedEmployee_#EMPLOYEE_ID} attribute, and returns this builder instance.
+     *
+     * @param employee the employee whose {@value MappedEmployee_#EMPLOYEE_ID} attribute is set for the
+     *                 {@code employeeId} property.
+     * @return this builder instance.
+     */
+    public JobHistoryIdBuilder employee(final MappedEmployee employee) {
+        return employeeId(
+                Optional.ofNullable(employee)
+                        .map(MappedEmployee::getEmployeeId)
+                        .orElse(null)
+        );
     }
 
     // ------------------------------------------------------------------------------------------------------- startDate

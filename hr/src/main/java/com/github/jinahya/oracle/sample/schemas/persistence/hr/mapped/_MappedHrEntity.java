@@ -24,7 +24,7 @@ import com.github.jinahya.persistence.mapped.__MappedEntity;
 import jakarta.persistence.MappedSuperclass;
 
 /**
- * An abstract mapped superclass for entities in the {@code CO} schema.
+ * An abstract mapped-superclass for mapping tables in the {@code CO} schema.
  *
  * @param <ID> id type parameter
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
@@ -48,7 +48,7 @@ public abstract class _MappedHrEntity<ID> extends __MappedEntity<ID> {
     /**
      * Creates a new instance built from the specified builder.
      *
-     * @param builder the builder to build from.
+     * @param builder the builder from which a new instance is built.
      */
     protected _MappedHrEntity(final _MappedHrEntityBuilder<?, ?> builder) {
         super(builder);

@@ -31,59 +31,6 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
-//@NamedQuery(
-//        name = "Job.select_WhereMaxSalaryIsNotNull_OrderByMaxSalaryDesc",
-//        query = """
-//                SELECT e
-//                FROM Job AS e
-//                WHERE e.maxSalary IS NOT NULL
-//                ORDER BY e.maxSalary DESC"""
-//)
-//@NamedQuery(
-//        name = "Job.select_WhereMinSalaryIsNotNull_OrderByMinSalaryAsc",
-//        query = """
-//                SELECT e
-//                FROM Job AS e
-//                WHERE e.minSalary IS NOT NULL
-//                ORDER BY e.minSalary ASC"""
-//)
-//@NamedQuery(
-//        name = "Job.select_OrderByMaxSalaryDesc",
-//        query = """
-//                SELECT e
-//                FROM Job AS e
-//                ORDER BY e.maxSalary DESC"""
-//)
-//@NamedQuery(
-//        name = "Job.select_OrderByMinSalaryAsc",
-//        query = """
-//                SELECT e
-//                FROM Job AS e
-//                ORDER BY e.minSalary ASC"""
-//)
-//@NamedQuery(
-//        name = "Job.select_WhereMaxSalaryIsNull_OrderByJobTitleAsc",
-//        query = """
-//                SELECT e
-//                FROM Job AS e
-//                WHERE e.maxSalary IS NULL
-//                ORDER BY e.jobTitle ASC"""
-//)
-//@NamedQuery(
-//        name = "Job.select_WhereMinSalaryIsNull_OrderByJobTitleAsc",
-//        query = """
-//                SELECT e
-//                FROM Job AS e
-//                WHERE e.minSalary IS NULL
-//                ORDER BY e.jobTitle ASC"""
-//)
-//@NamedQuery( // no indices
-//             name = "Job.select_OrderByJobTitleAsc",
-//             query = """
-//                     SELECT e
-//                     FROM Job AS e
-//                     ORDER BY e.jobTitle ASC"""
-//)
 @NamedQuery(name = "Job.Select__OrderByMaxSalaryDescNullsLast",
             query = """
                     SELECT e
@@ -98,10 +45,10 @@ import java.util.List;
 )
 @Entity
 @Table(name = MappedJob.TABLE_NAME)
-public class Job extends MappedJob {
+class Job extends MappedJob {
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
-    public static JobBuilder builder() {
+    static JobBuilder builder() {
         return new JobBuilder();
     }
 
@@ -121,19 +68,11 @@ public class Job extends MappedJob {
      *
      * @param builder the builder to build from.
      */
-    private Job(final JobBuilder builder) {
+    Job(final JobBuilder builder) {
         super(builder);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
-
-    @Override
-    public String toString() {
-        return super.toString() + '{' +
-//               "employees=" + employees +
-               '}';
-    }
-
     @Override
     public final boolean equals(final Object obj) {
         return super.equalsWithJobId(obj);
@@ -157,6 +96,12 @@ public class Job extends MappedJob {
     // ------------------------------------------------------------------------------------------------- super.maxSalary
 
     // ------------------------------------------------------------------------------------------------------- employees
+
+    /**
+     * Returns current value of {@value Job_#EMPLOYEES} attribute.
+     *
+     * @return current value of the {@value Job_#EMPLOYEES} attribute.
+     */
     List<Employee> getEmployees() {
         return employees;
     }
@@ -166,6 +111,11 @@ public class Job extends MappedJob {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @OneToMany(mappedBy = Employee_.JOB, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = Employee_.JOB,
+               fetch = FetchType.LAZY,
+               cascade = {
+               },
+               orphanRemoval = false
+    )
     private List<@Valid @NotNull Employee> employees;
 }
