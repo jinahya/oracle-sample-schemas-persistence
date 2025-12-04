@@ -7,10 +7,23 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
+@NamedQuery(name = "JobHistoryWithEmbeddedId.selectList_WhereEmployeeEqualTo_OrderByStartDateDesc",
+            query = """
+                    SELECT e
+                    FROM JobHistoryWithEmbeddedId e
+                    WHERE e.employee = :employee"""
+)
+@NamedQuery(name = "JobHistoryWithEmbeddedId.selectList_WhereIdEmployeeIdEqualTo_OrderByStartDateDesc",
+            query = """
+                    SELECT e
+                    FROM JobHistoryWithEmbeddedId e
+                    WHERE e.id.employeeId = :idEmployeeId"""
+)
 @Entity
 @Table(name = MappedJobHistoryWithEmbeddedId.TABLE_NAME)
 class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {

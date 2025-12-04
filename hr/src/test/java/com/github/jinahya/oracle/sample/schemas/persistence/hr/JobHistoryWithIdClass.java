@@ -35,7 +35,6 @@ class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass {
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
-
     @Override
     public final boolean equals(final Object obj) {
         return equalsWithEmployeeIdAndStartDate(obj);
@@ -51,11 +50,6 @@ class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass {
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
 
     // ------------------------------------------------------------------------------------------------ super.employeeId
-    @Nonnull
-    @Override
-    public Integer getEmployeeId() {
-        return super.getEmployeeId();
-    }
 
     // ------------------------------------------------------------------------------------------------- super.startDate
 
@@ -66,6 +60,12 @@ class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass {
     // ---------------------------------------------------------------------------------------------- super.departmentId
 
     // -------------------------------------------------------------------------------------------------------- employee
+
+    /**
+     * Returns current value of {@link JobHistoryWithIdClass_#EMPLOYEE} attribute.
+     *
+     * @return current value of the {@link JobHistoryWithIdClass_#EMPLOYEE} attribute.
+     */
     @Nonnull
     public Employee getEmployee() {
         return employee;
