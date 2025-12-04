@@ -111,9 +111,9 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
 
     public static final String ATTRIBUTE_NAME_MIN_SALARY = "minSalary";
 
-    public static final long ATTRIBUTE_MIN_MIN_SALARY = COLUMN_MIN_MIN_SALARY;
+    public static final int ATTRIBUTE_MIN_MIN_SALARY = COLUMN_MIN_MIN_SALARY;
 
-    public static final long ATTRIBUTE_MAX_MIN_SALARY = COLUMN_MAX_MIN_SALARY;
+    public static final int ATTRIBUTE_MAX_MIN_SALARY = COLUMN_MAX_MIN_SALARY;
 
     // ------------------------------------------------------------------------------------------------------ MAX_SALARY
     public static final String COLUMN_NAME_MAX_SALARY = "MAX_SALARY";
@@ -128,9 +128,9 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
 
     public static final String ATTRIBUTE_NAME_MAX_SALARY = "maxSalary";
 
-    public static final long ATTRIBUTE_MIN_MAX_SALARY = COLUMN_MIN_MAX_SALARY;
+    public static final int ATTRIBUTE_MIN_MAX_SALARY = COLUMN_MIN_MAX_SALARY;
 
-    public static final long ATTRIBUTE_MAX_MAX_SALARY = COLUMN_MAX_MAX_SALARY;
+    public static final int ATTRIBUTE_MAX_MAX_SALARY = COLUMN_MAX_MAX_SALARY;
 
     // -----------------------------------------------------------------------------------------------------------------
 

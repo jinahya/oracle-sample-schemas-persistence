@@ -26,24 +26,21 @@ import java.util.concurrent.ThreadLocalRandom;
 
 final class Job_TestUtils {
 
-    static long newRandomPositiveSalary(final long maxInclusive) {
-        if (maxInclusive <= 1) {
-            throw new IllegalArgumentException("maxInclusive(" + maxInclusive + ") <= 1");
+    static int newRandomPositiveMinSalary() {
+        return ThreadLocalRandom.current().nextInt(MappedJob.ATTRIBUTE_MAX_MIN_SALARY) + 1;
+    }
+
+    static int newRandomPositiveMaxSalary(final int minSalary) {
+        if (minSalary < 1) {
+            throw new IllegalArgumentException("minSalary(" + minSalary + ") < 1");
         }
-        return ThreadLocalRandom.current().nextLong(1L, maxInclusive + 1L);
-    }
-
-    static long newRandomPositiveMinSalary() {
-        return newRandomPositiveSalary(MappedJob.ATTRIBUTE_MAX_MIN_SALARY);
-    }
-
-    static long newRandomPositiveMaxSalary(final long minSalary) {
-        if (minSalary <= 1) {
-            throw new IllegalArgumentException("minSalary(" + minSalary + ") <= 1");
+        if (minSalary > MappedJob.ATTRIBUTE_MAX_MIN_SALARY) {
+            throw new IllegalArgumentException("minSalary(" + minSalary + ") > " + MappedJob.ATTRIBUTE_MAX_MIN_SALARY);
         }
-        return newRandomPositiveSalary(MappedJob.ATTRIBUTE_MAX_MIN_SALARY - minSalary) + minSalary;
+        return ThreadLocalRandom.current().nextInt(MappedJob.ATTRIBUTE_MAX_MIN_SALARY - minSalary + 1) + minSalary;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     private Job_TestUtils() {
         throw new AssertionError("instantiation is not allowed");
     }
