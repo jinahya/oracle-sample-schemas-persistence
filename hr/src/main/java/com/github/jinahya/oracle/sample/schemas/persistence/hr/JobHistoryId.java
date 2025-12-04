@@ -119,7 +119,7 @@ public class JobHistoryId extends _MappedHr {
      *
      * @param employeeId new value for the {@value JobHistoryId_#EMPLOYEE_ID} attribute.
      */
-    protected void setEmployeeId(final Integer employeeId) {
+    void setEmployeeId(final Integer employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -129,7 +129,7 @@ public class JobHistoryId extends _MappedHr {
         return startDate;
     }
 
-    protected void setStartDate(final LocalDate startDate) {
+    void setStartDate(final LocalDate startDate) {
         this.startDate = startDate;
     }
 

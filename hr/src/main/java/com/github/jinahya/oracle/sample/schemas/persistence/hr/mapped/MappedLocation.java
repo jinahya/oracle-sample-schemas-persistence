@@ -139,7 +139,7 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
     public String toString() {
         return super.toString() + '{' +
                "locationId=" + locationId +
-               ",streetAddress='" + streetAddress +
+               ",streetAddress=" + streetAddress +
                ",postalCode=" + postalCode +
                ",city=" + city +
                ",stateProvince=" + stateProvince +

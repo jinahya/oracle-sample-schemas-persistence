@@ -27,6 +27,7 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
@@ -86,6 +87,23 @@ class Job extends MappedJob {
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
+    @AssertTrue
+    @Override
+    protected boolean isMinSalaryPositive() {
+        return super.isMinSalaryPositive();
+    }
+
+    @AssertTrue
+    @Override
+    protected boolean isMaxSalaryPositive() {
+        return super.isMaxSalaryPositive();
+    }
+
+    @AssertTrue
+    @Override
+    protected boolean isMinSalaryLessThanOrEqualToMaxSalary() {
+        return super.isMinSalaryLessThanOrEqualToMaxSalary();
+    }
 
     // ----------------------------------------------------------------------------------------------------- super.jobId
 

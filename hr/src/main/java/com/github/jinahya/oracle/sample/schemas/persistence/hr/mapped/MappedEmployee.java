@@ -49,6 +49,10 @@ import java.util.Objects;
 public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * The name of the database table to which this entity is mapped. The value is {@value}.
+     */
     public static final String TABLE_NAME = "EMPLOYEES";
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
