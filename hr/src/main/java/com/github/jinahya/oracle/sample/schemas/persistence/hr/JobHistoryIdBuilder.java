@@ -63,7 +63,8 @@ public class JobHistoryIdBuilder
     }
 
     /**
-     * Replaces current value of {@code employeeId} property with specified value, and returns this builder instance.
+     * Replaces current value of {@code employeeId} property with the specified value, and returns this builder
+     * instance.
      *
      * @param employeeId new value for the {@code employeeId} property.
      * @return this builder instance.
@@ -74,7 +75,7 @@ public class JobHistoryIdBuilder
     }
 
     /**
-     * Replaces current value of {@code employeeId} property with specified employee's
+     * Replaces current value of {@code employeeId} property with the specified employee's
      * {@value MappedEmployee_#EMPLOYEE_ID} attribute, and returns this builder instance.
      *
      * @param employee the employee whose {@value MappedEmployee_#EMPLOYEE_ID} attribute is set for the

@@ -42,10 +42,10 @@ public class OrderItemIdBuilder
         super(OrderItemId.class);
     }
 
-    // --------------------------------------------------=--------------------------------------------- java.lang.String
+    // --------------------------------------------------=--------------------------------------------- java.lang.Object
 
     // --------------------------------------------------------------------------------------------------------- orderId
-    public Long orderId() {
+    Long orderId() {
         return orderId;
     }
 
@@ -63,7 +63,7 @@ public class OrderItemIdBuilder
     }
 
     // ------------------------------------------------------------------------------------------------------ lineItemId
-    public Long lineItemId() {
+    Long lineItemId() {
         return lineItemId;
     }
 

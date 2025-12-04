@@ -173,7 +173,7 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
     }
 
     /**
-     * Replaces current value of {@link MappedLocation_#locationId locationId} attribute with specified value.
+     * Replaces current value of {@link MappedLocation_#locationId locationId} attribute with the specified value.
      *
      * @param locationId new value for the {@link MappedLocation_#locationId locationId} attribute.
      */

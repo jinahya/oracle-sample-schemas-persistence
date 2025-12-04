@@ -133,7 +133,7 @@ public abstract class MappedCustomer extends _MappedCoEntity<Long> {
     }
 
     /**
-     * Replaces current value of {@link MappedCustomer_#CUSTOMER_ID} attribute with specified value.
+     * Replaces current value of {@link MappedCustomer_#CUSTOMER_ID} attribute with the specified value.
      *
      * @param customerId new value for {@link MappedCustomer_#CUSTOMER_ID} attribute.
      */

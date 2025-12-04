@@ -64,7 +64,7 @@ public abstract class MappedDepartmentBuilder<
     }
 
     /**
-     * Replaces current value of {@code #departmentId} property with specified value, and returns this builder
+     * Replaces current value of {@code #departmentId} property with the specified value, and returns this builder
      * instance.
      *
      * @param departmentId new value for {@code #departmentId} property.

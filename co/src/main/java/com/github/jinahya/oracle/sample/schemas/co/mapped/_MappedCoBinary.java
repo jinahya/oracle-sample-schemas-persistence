@@ -25,11 +25,13 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Lob;
+import jakarta.persistence.MappedSuperclass;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Optional;
 
+@MappedSuperclass
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })

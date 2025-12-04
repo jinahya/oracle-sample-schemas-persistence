@@ -115,7 +115,7 @@ public class JobHistoryId extends _MappedHr {
     }
 
     /**
-     * Replaces current value of {@value JobHistoryId_#EMPLOYEE_ID} attribute with specified value.
+     * Replaces current value of {@value JobHistoryId_#EMPLOYEE_ID} attribute with the specified value.
      *
      * @param employeeId new value for the {@value JobHistoryId_#EMPLOYEE_ID} attribute.
      */

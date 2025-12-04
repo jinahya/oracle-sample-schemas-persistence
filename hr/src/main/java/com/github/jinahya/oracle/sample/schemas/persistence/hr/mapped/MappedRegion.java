@@ -150,7 +150,7 @@ public abstract class MappedRegion extends _MappedHrEntity<Long> {
     }
 
     /**
-     * Replaces current value of {@link MappedRegion_#regionId regionId} attribute with specified value.
+     * Replaces current value of {@link MappedRegion_#regionId regionId} attribute with the specified value.
      *
      * @param regionId new value for the {@link MappedRegion_#regionId regionId} attribute.
      */
@@ -171,7 +171,7 @@ public abstract class MappedRegion extends _MappedHrEntity<Long> {
     }
 
     /**
-     * Replaces current value of {@link #regionName} attribute with specified value.
+     * Replaces current value of {@link #regionName} attribute with the specified value.
      *
      * @param regionName new value for {@link #regionName} attribute.
      */

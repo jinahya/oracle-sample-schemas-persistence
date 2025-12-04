@@ -147,7 +147,7 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
     }
 
     /**
-     * Replaces current value of {@link MappedCountry_#countryId countryId} attribute with specified value.
+     * Replaces current value of {@link MappedCountry_#countryId countryId} attribute with the specified value.
      *
      * @param countryId new value for the {@link MappedCountry_#countryId countryId} attribute.
      */
@@ -168,7 +168,7 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
     }
 
     /**
-     * Replaces current value of {@link MappedCountry_#countryName countryName} attribute with specified value.
+     * Replaces current value of {@link MappedCountry_#countryName countryName} attribute with the specified value.
      *
      * @param countryName new value for the {@link MappedCountry_#countryName countryName} attribute.
      */

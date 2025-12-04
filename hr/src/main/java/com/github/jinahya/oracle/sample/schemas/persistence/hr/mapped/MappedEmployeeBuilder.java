@@ -65,7 +65,8 @@ public abstract class MappedEmployeeBuilder<
     }
 
     /**
-     * Replaces current value of {@code #employeeId} property with specified value, and returns this builder instance.
+     * Replaces current value of {@code #employeeId} property with the specified value, and returns this builder
+     * instance.
      *
      * @param employeeId new value for the {@code #employeeId} property.
      * @return this builder instance.

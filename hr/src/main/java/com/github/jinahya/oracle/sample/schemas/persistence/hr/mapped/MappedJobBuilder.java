@@ -53,7 +53,7 @@ public abstract class MappedJobBuilder<
     }
 
     /**
-     * Replaces current value of {@code jobId} property with specified value, and returns this builder instance.
+     * Replaces current value of {@code jobId} property with the specified value, and returns this builder instance.
      *
      * @param jobId new value for the {@code jobId} property.
      * @return this builder instance.

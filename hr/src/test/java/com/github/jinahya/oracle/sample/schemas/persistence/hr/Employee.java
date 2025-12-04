@@ -172,7 +172,7 @@ class Employee extends MappedEmployee {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_MANAGER} attribute with specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_MANAGER} attribute with the specified value.
      *
      * @param manager new value for the {@value #ATTRIBUTE_NAME_MANAGER}.
      */
@@ -211,7 +211,7 @@ class Employee extends MappedEmployee {
     }
 
     /**
-     * Replaces current <em>subordinates</em> of this <em>manager</em> with specified value.
+     * Replaces current <em>subordinates</em> of this <em>manager</em> with the specified value.
      *
      * @param subordinates new <em>subordinates</em> of this <em>manager</em>.
      */

@@ -249,7 +249,7 @@ public abstract class MappedStore extends _MappedCoEntity<Long> {
     }
 
     /**
-     * Replaces current value of {@link MappedStore_#storeId storeId} attribute with specified value.
+     * Replaces current value of {@link MappedStore_#storeId storeId} attribute with the specified value.
      *
      * @param storeId new value for the {@link MappedStore_#storeId storeId} attribute.
      */
@@ -269,7 +269,7 @@ public abstract class MappedStore extends _MappedCoEntity<Long> {
     }
 
     /**
-     * Replaces current value of {@link MappedStore_#storeName storeName} attribute with specified value.
+     * Replaces current value of {@link MappedStore_#storeName storeName} attribute with the specified value.
      *
      * @param storeName new value for the {@link MappedStore_#storeName storeName} attribute.
      */
@@ -323,7 +323,7 @@ public abstract class MappedStore extends _MappedCoEntity<Long> {
     }
 
     /**
-     * Replaces current value of {@link MappedStore_#latitude latitude} attribute with specified value.
+     * Replaces current value of {@link MappedStore_#latitude latitude} attribute with the specified value.
      *
      * @param latitude     new value for the {@link #setLatitude(BigDecimal) latitude} attribute.
      * @param roundingMode a rounding mode.

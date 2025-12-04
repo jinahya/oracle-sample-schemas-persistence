@@ -301,7 +301,7 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute with specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute with the specified value.
      *
      * @param jobId new value for the {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
      */
@@ -332,7 +332,7 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
     }
 
     /**
-     * Replaces current value of {@value MappedJob_#MIN_SALARY} attribute with specified value.
+     * Replaces current value of {@value MappedJob_#MIN_SALARY} attribute with the specified value.
      *
      * @param minSalary new value for the {@value MappedJob_#MIN_SALARY} attribute.
      */
@@ -340,16 +340,68 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
         this.minSalary = minSalary;
     }
 
+    /**
+     * Replaces current value of {@value MappedJob_#MIN_SALARY} attribute with the specified value while adjusting
+     * current value of {@value MappedJob_#MAX_SALARY} attribute to be validated by
+     * {@link #isMinSalaryLessThanOrEqualToMaxSalary()} method.
+     *
+     * @param minSalary new value for the {@value MappedJob_#MIN_SALARY} attribute; should be between
+     *                  {@value #ATTRIBUTE_MIN_MIN_SALARY} and {@value #ATTRIBUTE_MAX_MIN_SALARY}.
+     * @deprecated for removal.
+     */
+    @Deprecated(forRemoval = true)
+    public void setMinSalaryWhileAdjustingMaxSalary(@Nullable final Integer minSalary) {
+        if (minSalary != null && (minSalary < ATTRIBUTE_MIN_MIN_SALARY || minSalary > ATTRIBUTE_MAX_MIN_SALARY)) {
+            throw new IllegalArgumentException(
+                    "minSalary(" + minSalary + ") is out of [" + ATTRIBUTE_MIN_MIN_SALARY + ".."
+                    + ATTRIBUTE_MAX_MIN_SALARY + "]");
+        }
+        setMinSalary(minSalary);
+        {
+            final var currentMaxSalary = getMaxSalary();
+            final var currentMinSalary = getMinSalary();
+            if (currentMaxSalary != null && currentMinSalary != null && currentMaxSalary < currentMinSalary) {
+                setMaxSalary(currentMinSalary);
+            }
+        }
+        {
+            final var currentMaxSalary = getMaxSalary();
+            assert currentMaxSalary == null
+                   || (currentMaxSalary >= ATTRIBUTE_MIN_MIN_SALARY && currentMaxSalary <= ATTRIBUTE_MAX_MIN_SALARY);
+        }
+    }
+
     // ------------------------------------------------------------------------------------------------------- maxSalary
-    // TODO: javadoc
+
+    /**
+     * Returns current value of {@value MappedJob_#MAX_SALARY} attribute.
+     *
+     * @return current value of the {@value MappedJob_#MAX_SALARY} attribute.
+     */
     @Nullable
     public Integer getMaxSalary() {
         return maxSalary;
     }
 
-    // TODO: javadoc
+    /**
+     * Replaces current value of {@value MappedJob_#MAX_SALARY} attribute with the specified value.
+     *
+     * @param maxSalary new value for the {@value MappedJob_#MAX_SALARY} attribute.
+     */
     public void setMaxSalary(@Nullable final Integer maxSalary) {
         this.maxSalary = maxSalary;
+    }
+
+    @Deprecated(forRemoval = true)
+    public void setMaxSalary(@Nullable final Integer maxSalary, final boolean adjustMinSalary) {
+        setMaxSalary(maxSalary);
+        if (adjustMinSalary) {
+            final var currentMaxSalary = getMaxSalary();
+            final var currentMinSalary = getMinSalary();
+            if (currentMaxSalary != null && currentMinSalary != null && currentMaxSalary < currentMinSalary) {
+                setMinSalary(currentMaxSalary);
+            }
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------

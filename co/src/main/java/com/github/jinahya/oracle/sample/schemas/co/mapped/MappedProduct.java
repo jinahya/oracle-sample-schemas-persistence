@@ -180,7 +180,7 @@ public abstract class MappedProduct extends _MappedCoEntity<Long> {
     }
 
     /**
-     * Replaces current value of {@link MappedProduct_#productId productId} attribute with specified value.
+     * Replaces current value of {@link MappedProduct_#productId productId} attribute with the specified value.
      *
      * @param productId new value for the {@link MappedProduct_#productId productId} attribute.
      */

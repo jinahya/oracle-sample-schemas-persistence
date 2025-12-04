@@ -57,7 +57,7 @@ public abstract class MappedStoreBuilder<
     }
 
     /**
-     * Replaces current value of {@code storeName} property with specified value, and returns this builder.
+     * Replaces current value of {@code storeName} property with the specified value, and returns this builder.
      *
      * @param storeName the value for the {@code storeName} property.
      * @return this builder.

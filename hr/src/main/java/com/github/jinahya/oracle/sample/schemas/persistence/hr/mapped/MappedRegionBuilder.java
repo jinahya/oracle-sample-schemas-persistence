@@ -64,7 +64,7 @@ public abstract class MappedRegionBuilder<
     }
 
     /**
-     * Replaces current value of {@link MappedRegion_#regionId regionId} property with specified
+     * Replaces current value of {@link MappedRegion_#regionId regionId} property with the specified
      *
      * @param regionId new value for the {@link MappedRegion_#regionId regionId} property.
      * @return this builder instance.

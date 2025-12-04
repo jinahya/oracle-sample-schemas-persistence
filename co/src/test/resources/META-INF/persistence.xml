@@ -33,7 +33,7 @@
     <class>com.github.jinahya.oracle.sample.schemas.co.Inventory</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Order</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.OrderItemWithEmbeddedId</class>
-<!--    <class>com.github.jinahya.oracle.sample.schemas.co.OrderItemWithIdClass</class>-->
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.co.OrderItemWithIdClass</class>-->
     <!--    <class>com.github.jinahya.oracle.sample.schemas.co.OrderItemId</class>-->
     <class>com.github.jinahya.oracle.sample.schemas.co.Product</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Shipment</class>
