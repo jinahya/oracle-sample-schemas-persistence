@@ -63,8 +63,8 @@ import java.util.Objects;
  *   <caption></caption>
  *   <thead>
  *     <tr>
- *       <th>used as an {@link jakarta.persistence.EmbeddedId}</th>
- *       <th>used as an {@link jakarta.persistence.IdClass}</th>
+ *       <th>as an {@link jakarta.persistence.EmbeddedId}</th>
+ *       <th>as an {@link jakarta.persistence.IdClass}</th>
  *     </tr>
  *   </thead>
  *   <tbody>
