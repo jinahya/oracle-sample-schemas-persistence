@@ -33,6 +33,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -45,14 +46,25 @@ import java.util.Objects;
 public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
+    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
+
+    public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
+
+    public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
 
     // ------------------------------------------------------------------------------------------------------ START_DATE
+    public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
 
     // ---------------------------------------------------------------------------------------------------------- JOB_ID
 
     // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
+
+    // -----------------------------------------------------------------------------------------------------------------
+    protected static <T extends MappedJobHistoryWithIdClass> Comparator<T> comparingStartDate() {
+        return comparingStartDate(MappedJobHistoryWithIdClass::getStartDate);
+    }
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
 
@@ -81,25 +93,14 @@ public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
         if (!(obj instanceof MappedJobHistoryWithIdClass that)) {
             return false;
         }
-        return Objects.equals(getId(), that.getId());
+        return Objects.equals(employeeId, that.employeeId) &&
+               Objects.equals(startDate, that.startDate);
     }
 
     @Override
     public final int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(employeeId, startDate);
     }
-
-//    protected final boolean equalsWithEmployeeIdAndStartDate(final Object obj) {
-//        if (!(obj instanceof MappedJobHistoryWithIdClass that)) {
-//            return false;
-//        }
-//        return Objects.equals(employeeId, that.employeeId) &&
-//               Objects.equals(startDate, that.startDate);
-//    }
-//
-//    protected final int hashCodeWithEmployeeIdAndStartDate() {
-//        return Objects.hash(employeeId, startDate);
-//    }
 
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
@@ -113,15 +114,6 @@ public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
             return true;
         }
         return endDate.isAfter(startDate);
-    }
-
-    // -------------------------------------------------------------------------------------------------------- super.id
-    @Override
-    protected final JobHistoryId getId() {
-        return JobHistoryId.builder()
-                .employeeId(getEmployeeId())
-                .startDate(getStartDate())
-                .build();
     }
 
     // --------------------------------------------------------------------------------------------------- super.endDate
@@ -142,6 +134,10 @@ public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
         return employeeId;
     }
 
+    void setEmployeeId(@Nonnull final Integer employeeId) {
+        this.employeeId = employeeId;
+    }
+
     // ------------------------------------------------------------------------------------------------------- startDate
 
     /**
@@ -154,10 +150,14 @@ public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
         return startDate;
     }
 
+    void setStartDate(@Nonnull final LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Max(MappedJobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
-    @Min(MappedJobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
+    @Max(MappedJobHistoryWithIdClass.ATTRIBUTE_MAX_EMPLOYEE_ID)
+    @Min(MappedJobHistoryWithIdClass.ATTRIBUTE_MIN_EMPLOYEE_ID)
     @NotNull
     @Id // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     @Column(name = MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,

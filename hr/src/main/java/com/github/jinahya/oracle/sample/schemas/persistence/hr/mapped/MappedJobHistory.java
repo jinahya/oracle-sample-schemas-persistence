@@ -33,7 +33,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.Objects;
+import java.util.function.Function;
 
 /**
  * An abstract mapped-superclass for mapping the {@value MappedJobHistory#TABLE_NAME} table.
@@ -127,6 +129,8 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
      */
     public static final String TABLE_NAME = "JOB_HISTORY";
 
+    public static final String ENTITY_NAME = "JobHistory";
+
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
@@ -156,11 +160,11 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
      */
     public static final int COLUMN_MAX_EMPLOYEE_ID = +999999;
 
-    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
-
-    public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
-
-    public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
+//    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
+//
+//    public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
+//
+//    public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
 
     public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
 
@@ -173,7 +177,6 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
 
     public static final boolean COLUMN_NULLABLE_START_DATE = false;
 
-    public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
     public static final String COLUMN_NAME_END_DATE = "END_DATE";
@@ -227,11 +230,22 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
 
     public static final String ATTRIBUTE_NAME_DEPARTMENT = "department";
 
+    // -----------------------------------------------------------------------------------------------------------------
+    static <T extends MappedJobHistory> Comparator<T> comparingStartDate(
+            @Nonnull final Function<? super T, LocalDate> startDateExtractor) {
+        Objects.requireNonNull(startDateExtractor, "startDateExtractor is null");
+        return Comparator.comparing(startDateExtractor);
+    }
+
     // -------------------------------------------------------------------------------------------------------- BUILDERS
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    /**
+     * Creates a new instance.
+     */
     protected MappedJobHistory() {
         super();
     }
@@ -246,29 +260,9 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
                '}';
     }
 
-    protected final boolean equalsWithId(final Object obj) {
-        if (!(obj instanceof MappedJobHistory that)) {
-            return false;
-        }
-        return Objects.equals(getId(), that.getId());
-    }
-
-    protected final int hashCodeWithId() {
-        return Objects.hash(getId());
-    }
-
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
-
-    // -------------------------------------------------------------------------------------------------------------- id
-
-    /**
-     * Returns the id of this entity.
-     *
-     * @return the id of this entity.
-     */
-    protected abstract JobHistoryId getId();
 
     // --------------------------------------------------------------------------------------------------------- endDate
 
@@ -282,16 +276,28 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
         return endDate;
     }
 
+    protected void setEndDate(@Nonnull final LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
     // ----------------------------------------------------------------------------------------------------------- jobId
     @Nonnull
     public String getJobId() {
         return jobId;
     }
 
+    protected void setJobId(@Nonnull final String jobId) {
+        this.jobId = jobId;
+    }
+
     // ---------------------------------------------------------------------------------------------------- departmentId
     @Nullable
     public Integer getDepartmentId() {
         return departmentId;
+    }
+
+    protected void setDepartmentId(@Nullable final Integer departmentId) {
+        this.departmentId = departmentId;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

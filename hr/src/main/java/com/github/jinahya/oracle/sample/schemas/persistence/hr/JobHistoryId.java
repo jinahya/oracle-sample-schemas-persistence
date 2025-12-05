@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithEmbeddedId;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHr;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
@@ -47,6 +48,10 @@ import java.util.Objects;
  */
 @Embeddable
 public class JobHistoryId extends _MappedHr {
+
+    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
+
+    public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
 
@@ -134,8 +139,8 @@ public class JobHistoryId extends _MappedHr {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Max(MappedJobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
-    @Min(MappedJobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
+    @Max(MappedJobHistoryWithEmbeddedId.ATTRIBUTE_MAX_ID_EMPLOYEE_ID)
+    @Min(MappedJobHistoryWithEmbeddedId.ATTRIBUTE_MIN_ID_EMPLOYEE_ID)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,

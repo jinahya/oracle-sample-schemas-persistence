@@ -1,5 +1,9 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedDepartment;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedEmployee;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithEmbeddedId;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -9,24 +13,42 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
-@NamedQuery(name = "JobHistoryWithEmbeddedId.selectList_WhereEmployeeEqualTo_OrderByStartDateDesc",
+import java.util.Comparator;
+import java.util.Optional;
+
+@NamedQuery(name = "JobHistory.selectList_WhereEmployeeEqualTo_OrderByIdStartDateDesc",
             query = """
                     SELECT e
-                    FROM JobHistoryWithEmbeddedId e
-                    WHERE e.employee = :employee"""
+                    FROM JobHistory e
+                    WHERE e.employee = :employee
+                    ORDER BY e.id.startDate DESC"""
 )
-@NamedQuery(name = "JobHistoryWithEmbeddedId.selectList_WhereIdEmployeeIdEqualTo_OrderByStartDateDesc",
+@NamedQuery(name = "JobHistory.selectList_WhereIdEmployeeIdEqualTo_OrderByIdStartDateDesc",
             query = """
                     SELECT e
-                    FROM JobHistoryWithEmbeddedId e
-                    WHERE e.id.employeeId = :idEmployeeId"""
+                    FROM JobHistory e
+                    WHERE e.id.employeeId = :idEmployeeId
+                    ORDER BY e.id.startDate DESC"""
 )
-@Entity
-@Table(name = MappedJobHistoryWithEmbeddedId.TABLE_NAME)
+@Entity(name = MappedJobHistory.ENTITY_NAME)
+@Table(name = MappedJobHistoryWithEmbeddedId.TABLE_NAME,
+       uniqueConstraints = {
+               @UniqueConstraint(
+                       columnNames = {
+                               MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,
+                               MappedJobHistory.COLUMN_NAME_START_DATE
+                       }
+               )
+       }
+)
 class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
+
+    // -----------------------------------------------------------------------------------------------------------------
+    public static final Comparator<JobHistoryWithEmbeddedId> COMPARING_ID_START_DATE = comparingIdStartDate();
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
 
@@ -51,10 +73,29 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
         return employee;
     }
 
+    void setEmployee(@Nonnull final Employee employee) {
+        this.employee = employee;
+        getIdOr(() -> JobHistoryId.builder().build())
+                .setEmployeeId(
+                        Optional.ofNullable(this.employee)
+                                .map(MappedEmployee::getEmployeeId)
+                                .orElse(null)
+                );
+    }
+
     // ------------------------------------------------------------------------------------------------------------- job
     @Nonnull
     public Job getJob() {
         return job;
+    }
+
+    void setJob(@Nonnull final Job job) {
+        this.job = job;
+        setJobId(
+                Optional.ofNullable(this.job)
+                        .map(MappedJob::getJobId)
+                        .orElse(null)
+        );
     }
 
     // ------------------------------------------------------------------------------------------------------ department
@@ -63,12 +104,22 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
         return department;
     }
 
+    void setDepartment(@Nonnull final Department department) {
+        this.department = department;
+        setDepartmentId(
+                Optional.ofNullable(this.department)
+                        .map(MappedDepartment::getDepartmentId)
+                        .orElse(null)
+        );
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_EMPLOYEE_ID,
+                referencedColumnName = MappedEmployee.COLUMN_NAME_EMPLOYEE_ID,
                 nullable = COLUMN_NULLABLE_EMPLOYEE_ID,
                 insertable = false,
                 updatable = false
@@ -81,6 +132,7 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_JOB_ID,
+                referencedColumnName = MappedJob.COLUMN_NAME_JOB_ID,
                 nullable = COLUMN_NULLABLE_JOB_ID,
                 insertable = false,
 //                insertable = true, // eclipselink
@@ -93,6 +145,7 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_DEPARTMENT_ID,
+                referencedColumnName = MappedDepartment.COLUMN_NAME_DEPARTMENT_ID,
                 nullable = COLUMN_NULLABLE_DEPARTMENT_ID,
                 insertable = false,
 //                insertable = true, // eclipselink

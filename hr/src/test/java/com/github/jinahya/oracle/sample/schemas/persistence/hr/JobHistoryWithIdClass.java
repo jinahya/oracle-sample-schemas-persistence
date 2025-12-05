@@ -10,24 +10,43 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
-@NamedQuery(name = "JobHistoryWithIdClass.selectList_WhereEmployeeEqualTo_OrderByStartDateDesc",
+import java.util.Comparator;
+
+@NamedQuery(name = "JobHistory.selectList_WhereEmployeeEqualTo_OrderByStartDateDesc",
             query = """
                     SELECT e
-                    FROM JobHistoryWithIdClass e
+                    FROM JobHistory e
                     WHERE e.employee = :employee"""
 )
-@NamedQuery(name = "JobHistoryWithIdClass.selectList_WhereEmployeeIdEqualTo_OrderByStartDateDesc",
+@NamedQuery(name = "JobHistory.selectList_WhereEmployeeIdEqualTo_OrderByStartDateDesc",
             query = """
                     SELECT e
-                    FROM JobHistoryWithIdClass e
+                    FROM JobHistory e
                     WHERE e.employeeId = :employeeId"""
 )
-@Entity
-@Table(name = MappedJobHistory.TABLE_NAME)
+@Entity(name = MappedJobHistory.ENTITY_NAME)
+@Table(name = MappedJobHistory.TABLE_NAME,
+       uniqueConstraints = {
+               @UniqueConstraint(
+                       columnNames = {
+                               MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,
+                               MappedJobHistory.COLUMN_NAME_START_DATE
+                       }
+               )
+       }
+)
 class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass {
+
+    // -----------------------------------------------------------------------------------------------------------------
+    public static final Comparator<JobHistoryWithIdClass> COMPARING_START_DATE = comparingStartDate();
+
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
+
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     protected JobHistoryWithIdClass() {
@@ -35,15 +54,6 @@ class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass {
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
-//    @Override
-//    public final boolean equals(final Object obj) {
-//        return equalsWithEmployeeIdAndStartDate(obj);
-//    }
-//
-//    @Override
-//    public final int hashCode() {
-//        return hashCodeWithEmployeeIdAndStartDate();
-//    }
 
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 

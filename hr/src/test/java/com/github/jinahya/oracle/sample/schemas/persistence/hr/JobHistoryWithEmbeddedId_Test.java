@@ -2,9 +2,11 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory_Test;
 import jakarta.annotation.Nonnull;
+import lombok.extern.slf4j.Slf4j;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
+@Slf4j
 class JobHistoryWithEmbeddedId_Test extends MappedJobHistory_Test<JobHistoryWithEmbeddedId> {
 
     JobHistoryWithEmbeddedId_Test() {

@@ -21,14 +21,11 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
  */
 
 import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersistenceIT;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersisterUtils;
 import com.github.jinahya.persistence.mapped.test.___JakartaPersistence_TestUtils;
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.sql.SQLException;
-import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -111,32 +108,5 @@ public abstract class _MappedHrEntity_PersistenceIT<ENTITY extends _MappedHrEnti
                 },
                 false
         ));
-    }
-
-    // ------------------------------------------------------------------------------- super.(entityManager|entityClass)
-
-    /**
-     * Returns a new persisted instance of the specified entity class.
-     *
-     * @param entityClass the entity class whose instance is to be returned.
-     * @param <T>         entity type parameter
-     * @return a new persisted instance of the specified entity class.
-     * @see #newPersistedEntityInstance()
-     */
-    protected final <T extends _MappedHrEntity<?>> T newPersistedEntityInstanceOf(@Nonnull final Class<T> entityClass) {
-        Objects.requireNonNull(entityClass, "entityClass is null");
-        return applyEntityManager(em -> {
-            return __MappedEntity_PersisterUtils.newPersistedInstanceOf(em, entityClass);
-        });
-    }
-
-    /**
-     * Returns a new persisted instance of the {@link #entityClass}.
-     *
-     * @return a new persisted instance of the {@link #entityClass}.
-     * @see #newPersistedEntityInstanceOf(Class)
-     */
-    protected final ENTITY newPersistedEntityInstance() {
-        return newPersistedEntityInstanceOf(entityClass);
     }
 }

@@ -29,8 +29,11 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * An abstract mapped-superclass, maps the {@value MappedJobHistory#TABLE_NAME} table, uses {@link JobHistoryId} as its
@@ -45,14 +48,25 @@ import java.util.Optional;
 public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
+    public static final String ATTRIBUTE_NAME_ID_EMPLOYEE_ID = "id.employeeId";
+
+    public static final long ATTRIBUTE_MIN_ID_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
+
+    public static final long ATTRIBUTE_MAX_ID_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
 
     // ------------------------------------------------------------------------------------------------------ START_DATE
+    public static final String ATTRIBUTE_NAME_ID_START_DATE = "id.startDate";
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
 
     // ---------------------------------------------------------------------------------------------------------- JOB_ID
 
     // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
+
+    // -----------------------------------------------------------------------------------------------------------------
+    protected static <T extends MappedJobHistoryWithEmbeddedId> Comparator<T> comparingIdStartDate() {
+        return comparingStartDate(v -> v.getId().getStartDate());
+    }
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
 
@@ -105,22 +119,43 @@ public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
         if (endDate == null) {
             return true;
         }
-        final var idStartDate = Optional.ofNullable(getId()).map(JobHistoryId::getStartDate).orElse(null);
+        final var idStartDate = Optional.ofNullable(id).map(JobHistoryId::getStartDate).orElse(null);
         if (idStartDate == null) {
             return true;
         }
         return endDate.isAfter(idStartDate);
     }
 
-    // -------------------------------------------------------------------------------------------------------- super.id
-    @Override
-    protected final JobHistoryId getId() {
-        return id;
-    }
-
     // --------------------------------------------------------------------------------------------------- super.endDate
 
     // ----------------------------------------------------------------------------------------------------- super.jobId
+
+    // -------------------------------------------------------------------------------------------------------------- id
+    public JobHistoryId getId() {
+        return id;
+    }
+
+    protected void setId(@Nonnull final JobHistoryId id) {
+        this.id = id;
+    }
+
+    protected JobHistoryId getIdOr(final Supplier<JobHistoryId> supplier) {
+        return Optional.ofNullable(getId())
+                .orElseGet(() -> {
+                    setId(supplier.get());
+                    return getId();
+                });
+    }
+
+    protected <R> R applyId(final Function<? super JobHistoryId, ? extends R> function) {
+        return Objects.requireNonNull(function, "function is null").apply(getId());
+    }
+
+    protected <R> R applyIdOr(final Supplier<JobHistoryId> supplier,
+                              final Function<? super JobHistoryId, ? extends R> function) {
+        return Objects.requireNonNull(function, "function is null")
+                .apply(getIdOr(supplier));
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
