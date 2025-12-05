@@ -42,6 +42,7 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@IdClass(JobHistoryId.class)
 @MappedSuperclass
 public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
 
