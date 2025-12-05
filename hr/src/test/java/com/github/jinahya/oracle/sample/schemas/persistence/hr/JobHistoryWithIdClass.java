@@ -35,15 +35,15 @@ class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass {
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
-    @Override
-    public final boolean equals(final Object obj) {
-        return equalsWithEmployeeIdAndStartDate(obj);
-    }
-
-    @Override
-    public final int hashCode() {
-        return hashCodeWithEmployeeIdAndStartDate();
-    }
+//    @Override
+//    public final boolean equals(final Object obj) {
+//        return equalsWithEmployeeIdAndStartDate(obj);
+//    }
+//
+//    @Override
+//    public final int hashCode() {
+//        return hashCodeWithEmployeeIdAndStartDate();
+//    }
 
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 

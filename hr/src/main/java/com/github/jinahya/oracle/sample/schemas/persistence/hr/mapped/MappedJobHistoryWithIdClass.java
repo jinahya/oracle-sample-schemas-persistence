@@ -76,17 +76,30 @@ public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
                '}';
     }
 
-    protected final boolean equalsWithEmployeeIdAndStartDate(final Object obj) {
+    @Override
+    public final boolean equals(final Object obj) {
         if (!(obj instanceof MappedJobHistoryWithIdClass that)) {
             return false;
         }
-        return Objects.equals(employeeId, that.employeeId) &&
-               Objects.equals(startDate, that.startDate);
+        return Objects.equals(getId(), that.getId());
     }
 
-    protected final int hashCodeWithEmployeeIdAndStartDate() {
-        return Objects.hash(employeeId, startDate);
+    @Override
+    public final int hashCode() {
+        return Objects.hash(getId());
     }
+
+//    protected final boolean equalsWithEmployeeIdAndStartDate(final Object obj) {
+//        if (!(obj instanceof MappedJobHistoryWithIdClass that)) {
+//            return false;
+//        }
+//        return Objects.equals(employeeId, that.employeeId) &&
+//               Objects.equals(startDate, that.startDate);
+//    }
+//
+//    protected final int hashCodeWithEmployeeIdAndStartDate() {
+//        return Objects.hash(employeeId, startDate);
+//    }
 
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
