@@ -32,8 +32,6 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * An abstract mapped-superclass, maps the {@value MappedJobHistory#TABLE_NAME} table, uses {@link JobHistoryId} as its
@@ -131,30 +129,14 @@ public abstract class MappedJobHistoryWithEmbeddedId extends MappedJobHistory {
     // ----------------------------------------------------------------------------------------------------- super.jobId
 
     // -------------------------------------------------------------------------------------------------------------- id
+
+    /**
+     * Returns current value of {@value MappedJobHistoryWithEmbeddedId_#ID} attribute.
+     *
+     * @return current value of the {@value MappedJobHistoryWithEmbeddedId_#ID} attribute.
+     */
     public JobHistoryId getId() {
         return id;
-    }
-
-    protected void setId(@Nonnull final JobHistoryId id) {
-        this.id = id;
-    }
-
-    protected JobHistoryId getIdOr(final Supplier<JobHistoryId> supplier) {
-        return Optional.ofNullable(getId())
-                .orElseGet(() -> {
-                    setId(supplier.get());
-                    return getId();
-                });
-    }
-
-    protected <R> R applyId(final Function<? super JobHistoryId, ? extends R> function) {
-        return Objects.requireNonNull(function, "function is null").apply(getId());
-    }
-
-    protected <R> R applyIdOr(final Supplier<JobHistoryId> supplier,
-                              final Function<? super JobHistoryId, ? extends R> function) {
-        return Objects.requireNonNull(function, "function is null")
-                .apply(getIdOr(supplier));
     }
 
     // -----------------------------------------------------------------------------------------------------------------

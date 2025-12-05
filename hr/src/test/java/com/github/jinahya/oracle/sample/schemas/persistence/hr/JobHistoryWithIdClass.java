@@ -1,7 +1,11 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedDepartment;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedEmployee;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithIdClass;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithIdClass_;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
@@ -42,6 +46,11 @@ import java.util.Comparator;
 class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass {
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * A comparator for comparing {@link JobHistoryWithIdClass} instances by their
+     * {@value MappedJobHistoryWithIdClass_#startDate} attributes.
+     */
     public static final Comparator<JobHistoryWithIdClass> COMPARING_START_DATE = comparingStartDate();
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
@@ -99,6 +108,7 @@ class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass {
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_EMPLOYEE_ID,
+                referencedColumnName = MappedEmployee.COLUMN_NAME_DEPARTMENT_ID,
                 nullable = COLUMN_NULLABLE_EMPLOYEE_ID,
                 insertable = false,
                 updatable = false
@@ -111,6 +121,7 @@ class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass {
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_JOB_ID,
+                referencedColumnName = MappedJob.COLUMN_NAME_JOB_ID,
                 nullable = COLUMN_NULLABLE_JOB_ID,
                 insertable = false,
                 updatable = false
@@ -122,6 +133,7 @@ class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass {
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_DEPARTMENT_ID,
+                referencedColumnName = MappedDepartment.COLUMN_NAME_DEPARTMENT_ID,
                 nullable = COLUMN_NULLABLE_DEPARTMENT_ID,
                 insertable = false,
                 updatable = false

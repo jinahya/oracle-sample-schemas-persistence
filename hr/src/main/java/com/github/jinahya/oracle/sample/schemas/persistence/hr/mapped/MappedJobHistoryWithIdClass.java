@@ -135,10 +135,6 @@ public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
         return employeeId;
     }
 
-    void setEmployeeId(@Nonnull final Integer employeeId) {
-        this.employeeId = employeeId;
-    }
-
     // ------------------------------------------------------------------------------------------------------- startDate
 
     /**
@@ -149,10 +145,6 @@ public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
     @Nonnull
     public LocalDate getStartDate() {
         return startDate;
-    }
-
-    void setStartDate(@Nonnull final LocalDate startDate) {
-        this.startDate = startDate;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

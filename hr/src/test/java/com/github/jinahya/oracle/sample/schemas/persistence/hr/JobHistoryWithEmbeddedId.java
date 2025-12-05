@@ -18,21 +18,20 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Comparator;
-import java.util.Optional;
 
-@NamedQuery(name = "JobHistory.selectList_WhereEmployeeEqualTo_OrderByIdStartDateDesc",
+@NamedQuery(name = "JobHistory.selectList_WhereEmployeeEqualTo_OrderByIdStartDate",
             query = """
                     SELECT e
                     FROM JobHistory e
                     WHERE e.employee = :employee
-                    ORDER BY e.id.startDate DESC"""
+                    ORDER BY e.id.startDate"""
 )
-@NamedQuery(name = "JobHistory.selectList_WhereIdEmployeeIdEqualTo_OrderByIdStartDateDesc",
+@NamedQuery(name = "JobHistory.selectList_WhereIdEmployeeIdEqualTo_OrderByIdStartDate",
             query = """
                     SELECT e
                     FROM JobHistory e
                     WHERE e.id.employeeId = :idEmployeeId
-                    ORDER BY e.id.startDate DESC"""
+                    ORDER BY e.id.startDate"""
 )
 @Entity(name = MappedJobHistory.ENTITY_NAME)
 @Table(name = MappedJobHistoryWithEmbeddedId.TABLE_NAME,
@@ -73,44 +72,16 @@ class JobHistoryWithEmbeddedId extends MappedJobHistoryWithEmbeddedId {
         return employee;
     }
 
-    void setEmployee(@Nonnull final Employee employee) {
-        this.employee = employee;
-        getIdOr(() -> JobHistoryId.builder().build())
-                .setEmployeeId(
-                        Optional.ofNullable(this.employee)
-                                .map(MappedEmployee::getEmployeeId)
-                                .orElse(null)
-                );
-    }
-
     // ------------------------------------------------------------------------------------------------------------- job
     @Nonnull
     public Job getJob() {
         return job;
     }
 
-    void setJob(@Nonnull final Job job) {
-        this.job = job;
-        setJobId(
-                Optional.ofNullable(this.job)
-                        .map(MappedJob::getJobId)
-                        .orElse(null)
-        );
-    }
-
     // ------------------------------------------------------------------------------------------------------ department
     @Nullable
     protected Department getDepartment() {
         return department;
-    }
-
-    void setDepartment(@Nonnull final Department department) {
-        this.department = department;
-        setDepartmentId(
-                Optional.ofNullable(this.department)
-                        .map(MappedDepartment::getDepartmentId)
-                        .orElse(null)
-        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
