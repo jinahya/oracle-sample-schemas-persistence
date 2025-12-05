@@ -50,15 +50,17 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
 
     public static final int COLUMN_PRECISION_LOCATION_ID = 4;
 
+    public static final int COLUMN_SCALE_LOCATION_ID = 0;
+
     public static final int COLUMN_MIN_LOCATION_ID = -9999;
 
     public static final int COLUMN_MAX_LOCATION_ID = +9999;
 
     public static final String ATTRIBUTE_NAME_LOCATION_ID = "locationId";
 
-    public static final int MIN_LOCATION_ID = COLUMN_MIN_LOCATION_ID;
+    public static final int ATTRIBUTE_MIN_LOCATION_ID = COLUMN_MIN_LOCATION_ID;
 
-    public static final int MAX_LOCATION_ID = COLUMN_MAX_LOCATION_ID;
+    public static final int ATTRIBUTE_MAX_LOCATION_ID = COLUMN_MAX_LOCATION_ID;
 
     // -------------------------------------------------------------------------------------------------- STREET_ADDRESS
     public static final String COLUMN_NAME_STREET_ADDRESS = "STREET_ADDRESS";
@@ -67,7 +69,9 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
 
     public static final String ATTRIBUTE_NAME_STREET_ADDRESS = "streetAddress";
 
-    public static final int SIZE_MAX_STREET_ADDRESS = COLUMN_LENGTH_STREET_ADDRESS;
+    public static final int ATTRIBUTE_SIZE_MIN_STREET_ADDRESS = 0;
+
+    public static final int ATTRIBUTE_SIZE_MAX_STREET_ADDRESS = COLUMN_LENGTH_STREET_ADDRESS;
 
     // ----------------------------------------------------------------------------------------------------- POSTAL_CODE
     public static final String COLUMN_NAME_POSTAL_CODE = "POSTAL_CODE";
@@ -76,7 +80,9 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
 
     public static final String ATTRIBUTE_NAME_POSTAL_CODE = "postalCode";
 
-    public static final int SIZE_MAX_POSTAL_CODE = COLUMN_LENGTH_POSTAL_CODE;
+    public static final int ATTRIBUTE_SIZE_MIN_POSTAL_CODE = 0;
+
+    public static final int ATTRIBUTE_SIZE_MAX_POSTAL_CODE = COLUMN_LENGTH_POSTAL_CODE;
 
     // ------------------------------------------------------------------------------------------------------------ CITY
     public static final String COLUMN_NAME_CITY = "CITY";
@@ -85,7 +91,9 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
 
     public static final String ATTRIBUTE_NAME_CITY = "city";
 
-    public static final int SIZE_MAX_CITY = COLUMN_LENGTH_CITY;
+    public static final int ATTRIBUTE_SIZE_MIN_CITY = 0;
+
+    public static final int ATTRIBUTE_SIZE_MAX_CITY = COLUMN_LENGTH_CITY;
 
     // -------------------------------------------------------------------------------------------------- STATE_PROVINCE
     public static final String COLUMN_NAME_STATE_PROVINCE = "STATE_PROVINCE";
@@ -94,10 +102,14 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
 
     public static final String ATTRIBUTE_STATE_PROVINCE = "stateProvince";
 
-    public static final int SIZE_MAX_STREET_PROVINCE = COLUMN_LENGTH_STREET_PROVINCE;
+    public static final int ATTRIBUTE_SIZE_MIN_STREET_PROVINCE = 0;
+
+    public static final int ATTRIBUTE_SIZE_MAX_STREET_PROVINCE = COLUMN_LENGTH_STREET_PROVINCE;
 
     // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
     public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
+
+    public static final boolean COLUMN_NULLABLE_COUNTRY_ID = true;
 
     public static final int COLUMN_LENGTH_COUNTRY_ID = 2;
 
@@ -107,10 +119,13 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
 
     public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
 
-    public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
+    public static final int ATTRIBUTE_SIZE_MIN_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
+
+    public static final int ATTRIBUTE_SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
     public static final String ATTRIBUTE_NAME_COUNTRY = "country";
 
+    // -----------------------------------------------------------------------------------------------------------------
     public static final String ATTRIBUTE_NAME_DEPARTMENTS = "departments";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
@@ -147,25 +162,23 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
                '}';
     }
 
-    @Override
-    public final boolean equals(final Object obj) {
+    protected final boolean equalsWithLocationId(final Object obj) {
         if (!(obj instanceof MappedLocation that)) {
             return false;
         }
         return Objects.equals(locationId, that.locationId);
     }
 
-    @Override
-    public final int hashCode() {
+    protected final int hashCodeWithLocationId() {
         return Objects.hashCode(locationId);
     }
 
     // ------------------------------------------------------------------------------------------------------ locationId
 
     /**
-     * Returns current value of {@link MappedLocation_#locationId locationId} attribute.
+     * Returns current value of {@link MappedLocation_#LOCATION_ID} attribute.
      *
-     * @return the current value of {@link MappedLocation_#locationId locationId} attribute.
+     * @return the current value of the {@link MappedLocation_#LOCATION_ID} attribute.
      */
     @Nonnull
     public Integer getLocationId() {
@@ -173,9 +186,9 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
     }
 
     /**
-     * Replaces current value of {@link MappedLocation_#locationId locationId} attribute with the specified value.
+     * Replaces current value of {@link MappedLocation_#LOCATION_ID} attribute with the specified value.
      *
-     * @param locationId new value for the {@link MappedLocation_#locationId locationId} attribute.
+     * @param locationId new value for the {@link MappedLocation_#LOCATION_ID} attribute.
      */
     protected void setLocationId(@Nonnull final Integer locationId) {
         this.locationId = locationId;
@@ -233,48 +246,74 @@ public abstract class MappedLocation extends _MappedHrEntity<Integer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Max(COLUMN_MAX_LOCATION_ID)
-    @Min(COLUMN_MIN_LOCATION_ID)
+    @Max(ATTRIBUTE_MAX_LOCATION_ID)
+    @Min(ATTRIBUTE_MIN_LOCATION_ID)
     @NotNull
     @Id
-    @Column(name = COLUMN_NAME_LOCATION_ID, nullable = false, insertable = true, updatable = false,
-            precision = COLUMN_PRECISION_LOCATION_ID)
+    @Column(name = COLUMN_NAME_LOCATION_ID,
+            nullable = false,
+            insertable = true,
+            updatable = false,
+            precision = COLUMN_PRECISION_LOCATION_ID,
+            scale = COLUMN_SCALE_LOCATION_ID
+    )
     private Integer locationId;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @Size(max = SIZE_MAX_STREET_ADDRESS)
+    @Size(min = ATTRIBUTE_SIZE_MIN_STREET_ADDRESS, max = ATTRIBUTE_SIZE_MAX_STREET_ADDRESS)
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_STREET_ADDRESS, nullable = true, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_STREET_ADDRESS)
+    @Column(name = COLUMN_NAME_STREET_ADDRESS,
+            nullable = true,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_STREET_ADDRESS
+    )
     private String streetAddress;
 
     @Nullable
-    @Size(max = SIZE_MAX_POSTAL_CODE)
+    @Size(min = ATTRIBUTE_SIZE_MIN_POSTAL_CODE, max = ATTRIBUTE_SIZE_MAX_POSTAL_CODE)
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_POSTAL_CODE, nullable = true, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_POSTAL_CODE)
+    @Column(name = COLUMN_NAME_POSTAL_CODE,
+            nullable = true,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_POSTAL_CODE
+    )
     private String postalCode;
 
     @Nonnull
-    @Size(max = SIZE_MAX_CITY)
+    @Size(min = ATTRIBUTE_SIZE_MIN_CITY, max = ATTRIBUTE_SIZE_MAX_CITY)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_CITY, nullable = false, insertable = true, updatable = true, length = COLUMN_LENGTH_CITY)
+    @Column(name = COLUMN_NAME_CITY,
+            nullable = false,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_CITY
+    )
     private String city;
 
     @Nullable
-    @Size(max = SIZE_MAX_STREET_PROVINCE)
+    @Size(max = ATTRIBUTE_SIZE_MAX_STREET_PROVINCE)
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_STATE_PROVINCE, nullable = true, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_STREET_PROVINCE)
+    @Column(name = COLUMN_NAME_STATE_PROVINCE,
+            nullable = true,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_STREET_PROVINCE
+    )
     private String stateProvince;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @Size(max = SIZE_MAX_COUNTRY_ID)
+    @Size(min = ATTRIBUTE_SIZE_MIN_COUNTRY_ID, max = ATTRIBUTE_SIZE_MAX_COUNTRY_ID)
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = true, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_COUNTRY_ID)
+    @Column(name = COLUMN_NAME_COUNTRY_ID,
+            nullable = COLUMN_NULLABLE_COUNTRY_ID,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_COUNTRY_ID
+    )
     private String countryId;
 }

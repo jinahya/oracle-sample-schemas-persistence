@@ -182,7 +182,7 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
         return regionId;
     }
 
-    public void setRegionId(@Nullable final Long regionId) {
+    protected void setRegionId(@Nullable final Long regionId) {
         this.regionId = regionId;
     }
 

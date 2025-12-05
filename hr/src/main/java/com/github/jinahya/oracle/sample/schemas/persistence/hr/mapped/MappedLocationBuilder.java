@@ -47,7 +47,7 @@ public abstract class MappedLocationBuilder<
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     // ------------------------------------------------------------------------------------------------------ locationId
-    public Integer locationId() {
+    protected Integer locationId() {
         return locationId;
     }
 
@@ -57,7 +57,7 @@ public abstract class MappedLocationBuilder<
     }
 
     // --------------------------------------------------------------------------------------------------- streetAddress
-    public String streetAddress() {
+    protected String streetAddress() {
         return streetAddress;
     }
 
@@ -67,7 +67,7 @@ public abstract class MappedLocationBuilder<
     }
 
     // ------------------------------------------------------------------------------------------------------ postalCode
-    public String postalCode() {
+    protected String postalCode() {
         return postalCode;
     }
 
@@ -77,7 +77,7 @@ public abstract class MappedLocationBuilder<
     }
 
     // ------------------------------------------------------------------------------------------------------------ city
-    public String city() {
+    protected String city() {
         return city;
     }
 
@@ -87,7 +87,7 @@ public abstract class MappedLocationBuilder<
     }
 
     // --------------------------------------------------------------------------------------------------- stateProvince
-    public String stateProvince() {
+    protected String stateProvince() {
         return stateProvince;
     }
 

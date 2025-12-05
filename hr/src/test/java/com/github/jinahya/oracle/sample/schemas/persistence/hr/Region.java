@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountry;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedRegion;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedRegionBuilder;
 import jakarta.persistence.Entity;
@@ -67,7 +68,7 @@ import java.util.List;
 )
 @Entity
 @Table(name = MappedRegion.TABLE_NAME)
-public class Region extends MappedRegion {
+class Region extends MappedRegion {
 
     public static final String ATTRIBUTE_NAME_COUNTRIES = "countries";
 
@@ -103,17 +104,17 @@ public class Region extends MappedRegion {
     // ------------------------------------------------------------------------------------------------ super.regionName
 
     // ------------------------------------------------------------------------------------------------------- countries
-    protected List<Country> getCountries() {
+    List<Country> getCountries() {
         return countries;
     }
 
-    protected void setCountries(final List<Country> countries) {
+    void setCountries(final List<Country> countries) {
         this.countries = countries;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(
-            mappedBy = Country.ATTRIBUTE_NAME_REGION,
+            mappedBy = MappedCountry.ATTRIBUTE_NAME_REGION,
             fetch = FetchType.LAZY,
             cascade = {
             },

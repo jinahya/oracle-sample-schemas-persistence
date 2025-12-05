@@ -32,6 +32,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.Objects;
+
 /**
  * An abstract mapped-superclass for mapping the {@value MappedDepartment#TABLE_NAME} table.
  *
@@ -174,6 +176,17 @@ public abstract class MappedDepartment extends _MappedHrEntity<Integer> {
                + "}";
     }
 
+    protected final boolean equalsWithDepartmentId(final Object obj) {
+        if (!(obj instanceof MappedDepartment that)) {
+            return false;
+        }
+        return Objects.equals(getDepartmentId(), that.getDepartmentId());
+    }
+
+    protected final int hashCodeWithDepartmentId() {
+        return Objects.hashCode(getDepartmentId());
+    }
+
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
@@ -215,7 +228,7 @@ public abstract class MappedDepartment extends _MappedHrEntity<Integer> {
         return managerId;
     }
 
-    public void setManagerId(@Nullable final Integer managerId) {
+    protected void setManagerId(@Nullable final Integer managerId) {
         this.managerId = managerId;
     }
 

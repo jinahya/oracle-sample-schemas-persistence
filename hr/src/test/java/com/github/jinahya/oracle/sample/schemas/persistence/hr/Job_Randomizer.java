@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob_TestUtils;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_Randomizer;
 import jakarta.annotation.Nonnull;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
@@ -65,14 +66,14 @@ class Job_Randomizer extends _MappedHrEntity_Randomizer<Job, String> {
             value.setMinSalary(
                     ThreadLocalRandom.current().nextBoolean()
                     ? null
-                    : Job_TestUtils.newRandomPositiveMinSalary()
+                    : MappedJob_TestUtils.newRandomPositiveMinSalary()
             );
             value.setMaxSalary(
                     ThreadLocalRandom.current().nextBoolean()
                     ? null
                     : value.getMinSalary() == null
-                      ? Job_TestUtils.newRandomPositiveMinSalary()
-                      : Job_TestUtils.newRandomPositiveMaxSalary(value.getMinSalary())
+                      ? MappedJob_TestUtils.newRandomPositiveMinSalary()
+                      : MappedJob_TestUtils.newRandomPositiveMaxSalary(value.getMinSalary())
             );
         }
         return value;

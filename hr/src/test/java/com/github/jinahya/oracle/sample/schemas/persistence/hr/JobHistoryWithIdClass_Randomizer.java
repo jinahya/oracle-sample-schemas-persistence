@@ -6,6 +6,7 @@ import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
+@Deprecated(forRemoval = true)
 class JobHistoryWithIdClass_Randomizer extends MappedJobHistory_Randomizer<JobHistoryWithIdClass> {
 
     JobHistoryWithIdClass_Randomizer() {

@@ -14,7 +14,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -26,28 +25,31 @@ import java.util.Optional;
 @Table(name = MappedDepartment.TABLE_NAME)
 class Department extends MappedDepartment {
 
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
+
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     protected Department() {
         super();
     }
 
-    private Department(@Nullable final DepartmentBuilder builder) {
+    Department(final DepartmentBuilder builder) {
         super(builder);
         if (getLocationId() == null) {
             setLocation(builder.location());
         }
     }
 
+    // ------------------------------------------------------------------------------------------------ java.lang.Object
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof Department that)) {
-            return false;
-        }
-        return Objects.equals(getDepartmentId(), that.getDepartmentId());
+        return equalsWithDepartmentId(obj);
     }
 
     @Override
     public final int hashCode() {
-        return Objects.hashCode(getDepartmentId());
+        return hashCodeWithDepartmentId();
     }
 
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
@@ -77,7 +79,7 @@ class Department extends MappedDepartment {
 
     public void setLocation(@Nullable final Location location) {
         this.location = location;
-        super.setLocationId(
+        setLocationId(
                 Optional.ofNullable(this.location)
                         .map(MappedLocation::getLocationId)
                         .orElse(null)
@@ -85,12 +87,11 @@ class Department extends MappedDepartment {
     }
 
     // ------------------------------------------------------------------------------------------------------- employees
-    List<@Valid @NotNull Employee> getEmployees() {
+    List<Employee> getEmployees() {
         return employees;
     }
 
-    void setEmployees(
-            List<@Valid @NotNull Employee> employees) {
+    void setEmployees(final List<Employee> employees) {
         this.employees = employees;
     }
 
@@ -115,6 +116,11 @@ class Department extends MappedDepartment {
     private Location location;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @OneToMany(mappedBy = MappedEmployee.ATTRIBUTE_NAME_DEPARTMENT, fetch = FetchType.LAZY)
-    private List<@Valid @NotNull Employee> employees; // what about 'staffs'?
+    @OneToMany(mappedBy = MappedEmployee.ATTRIBUTE_NAME_DEPARTMENT,
+               fetch = FetchType.LAZY,
+               cascade = {
+               },
+               orphanRemoval = false
+    )
+    private List<@Valid @NotNull Employee> employees;
 }

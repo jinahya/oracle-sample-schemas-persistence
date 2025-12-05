@@ -61,7 +61,7 @@ import java.util.Optional;
 )
 @Entity
 @Table(name = MappedLocation.TABLE_NAME)
-public class Location extends MappedLocation {
+class Location extends MappedLocation {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -86,16 +86,18 @@ public class Location extends MappedLocation {
      */
     Location(final LocationBuilder builder) {
         super(builder);
-        if (getCountryId() == null) {
-            if (builder.countryId() != null) {
-                setCountryId(builder.countryId());
-            } else {
-                setCountry(builder.country());
-            }
-        }
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
+    @Override
+    public final boolean equals(final Object obj) {
+        return equalsWithLocationId(obj);
+    }
+
+    @Override
+    public final int hashCode() {
+        return hashCodeWithLocationId();
+    }
 
     // --------------------------------------------------------------------------------------------- Jakarta-Persistence
 
@@ -129,11 +131,11 @@ public class Location extends MappedLocation {
     }
 
     // ----------------------------------------------------------------------------------------------------- departments
-    private List<Department> getDepartments() {
+    public List<Department> getDepartments() {
         return departments;
     }
 
-    private void setDepartments(final List<Department> departments) {
+    void setDepartments(final List<Department> departments) {
         this.departments = departments;
     }
 
@@ -141,12 +143,14 @@ public class Location extends MappedLocation {
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = MappedLocation.COLUMN_NAME_COUNTRY_ID, nullable = true,
+    @JoinColumn(name = MappedLocation.COLUMN_NAME_COUNTRY_ID,
+                nullable = COLUMN_NULLABLE_COUNTRY_ID,
                 insertable = false,
 //                insertable = true, // eclipselink
                 updatable = false)
     private Country country;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(
             mappedBy = MappedDepartment.ATTRIBUTE_NAME_LOCATION,
             fetch = FetchType.LAZY,

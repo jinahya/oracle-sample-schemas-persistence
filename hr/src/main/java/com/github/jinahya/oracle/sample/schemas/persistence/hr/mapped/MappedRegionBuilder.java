@@ -55,18 +55,18 @@ public abstract class MappedRegionBuilder<
     // -------------------------------------------------------------------------------------------------------- regionId
 
     /**
-     * Returns current value of the {@link MappedRegion_#regionId regionId} property.
+     * Returns current value of {@code regionId} property.
      *
-     * @return the current value of the {@link MappedRegion_#regionId regionId} property.
+     * @return the current value of the {@code regionId} property.
      */
-    public Long regionId() {
+    protected Long regionId() {
         return regionId;
     }
 
     /**
-     * Replaces current value of {@link MappedRegion_#regionId regionId} property with the specified
+     * Replaces current value of {@code regionId} property with the specified value, and returns this builder instance.
      *
-     * @param regionId new value for the {@link MappedRegion_#regionId regionId} property.
+     * @param regionId new value for the {@code regionId} property.
      * @return this builder instance.
      */
     public SELF regionId(final Long regionId) {
@@ -75,7 +75,7 @@ public abstract class MappedRegionBuilder<
     }
 
     // ------------------------------------------------------------------------------------------------------ regionName
-    public String regionName() {
+    protected String regionName() {
         return regionName;
     }
 

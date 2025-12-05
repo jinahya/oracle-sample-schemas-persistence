@@ -20,11 +20,43 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountryBuilder;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntityBuilder_Test;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
+import java.util.Locale;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@Slf4j
 class CountryBuilder_Test extends _MappedHrEntityBuilder_Test<CountryBuilder, Country, String> {
 
     CountryBuilder_Test() {
         super(CountryBuilder.class, Country.class, String.class);
+    }
+
+    @DisplayName("from(locale)")
+    @Nested
+    class From_Test {
+
+        @Test
+        void __() {
+            Locale.availableLocales()
+                    .filter(l -> {
+                        final var country = l.getCountry();
+                        return country != null
+                               && MappedCountryBuilder.ISO_3166_1_ALPHA_2_PATTERN.matcher(country).matches();
+                    })
+                    .forEach(l -> {
+                        log.debug("locale: {}, '{}'", l, l.getDisplayCountry());
+                        final var builder = CountryBuilder.from(l);
+                        final var built = builder.build();
+                        assertThat(built.getCountryId()).isEqualTo(l.getCountry());
+                        assertThat(built.getCountryName()).isEqualTo(l.getDisplayCountry());
+                    });
+        }
     }
 }

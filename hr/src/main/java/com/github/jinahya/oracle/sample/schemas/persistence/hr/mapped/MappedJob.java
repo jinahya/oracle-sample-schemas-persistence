@@ -350,7 +350,7 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
      * @deprecated for removal.
      */
     @Deprecated(forRemoval = true)
-    public void setMinSalaryWhileAdjustingMaxSalary(@Nullable final Integer minSalary) {
+    public final void setMinSalaryWhileAdjustingMaxSalary(@Nullable final Integer minSalary) {
         if (minSalary != null && (minSalary < ATTRIBUTE_MIN_MIN_SALARY || minSalary > ATTRIBUTE_MAX_MIN_SALARY)) {
             throw new IllegalArgumentException(
                     "minSalary(" + minSalary + ") is out of [" + ATTRIBUTE_MIN_MIN_SALARY + ".."
@@ -392,15 +392,34 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
         this.maxSalary = maxSalary;
     }
 
+    /**
+     * Replaces current value of {@value MappedJob_#MAX_SALARY} attribute with the specified value while adjusting
+     * current value of {@value MappedJob_#MIN_SALARY} attribute to be validated by
+     * {@link #isMinSalaryLessThanOrEqualToMaxSalary()}} method.
+     *
+     * @param maxSalary new value for the {@value MappedJob_#MAX_SALARY} attribute; should be between
+     *                  {@value #ATTRIBUTE_MAX_MAX_SALARY} and {@value #ATTRIBUTE_MIN_MAX_SALARY}.
+     * @deprecated for removal.
+     */
     @Deprecated(forRemoval = true)
-    public void setMaxSalary(@Nullable final Integer maxSalary, final boolean adjustMinSalary) {
+    public final void setMaxSalaryWhileAdjustingMinSalary(@Nullable final Integer maxSalary) {
+        if (maxSalary != null && (maxSalary < ATTRIBUTE_MAX_MAX_SALARY || maxSalary > ATTRIBUTE_MIN_MAX_SALARY)) {
+            throw new IllegalArgumentException(
+                    "maxSalary(" + maxSalary + ") is out of [" + ATTRIBUTE_MAX_MAX_SALARY + ".."
+                    + ATTRIBUTE_MIN_MAX_SALARY + "]");
+        }
         setMaxSalary(maxSalary);
-        if (adjustMinSalary) {
-            final var currentMaxSalary = getMaxSalary();
+        {
             final var currentMinSalary = getMinSalary();
-            if (currentMaxSalary != null && currentMinSalary != null && currentMaxSalary < currentMinSalary) {
+            final var currentMaxSalary = getMaxSalary();
+            if (currentMinSalary != null && currentMaxSalary != null && currentMinSalary < currentMaxSalary) {
                 setMinSalary(currentMaxSalary);
             }
+        }
+        {
+            final var currentMinSalary = getMinSalary();
+            assert currentMinSalary == null
+                   || (currentMinSalary >= ATTRIBUTE_MAX_MAX_SALARY && currentMinSalary <= ATTRIBUTE_MIN_MAX_SALARY);
         }
     }
 

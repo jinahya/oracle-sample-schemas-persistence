@@ -1,6 +1,7 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedDepartmentBuilder;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedEmployee;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedLocation;
 
 import java.util.Optional;
@@ -11,17 +12,18 @@ class DepartmentBuilder extends MappedDepartmentBuilder<DepartmentBuilder, Depar
         super(Department.class);
     }
 
-    // ------------------------------------------------------------------------------------------------ super.locationId
-    @Override
-    public Integer locationId() {
-//        return super.locationId();
-        return Optional.ofNullable(location()).map(MappedLocation::getLocationId).orElse(null);
+    // --------------------------------------------------------------------------------------------------------- manager
+    public Employee getManager() {
+        return manager;
     }
 
-    @Override
-    protected DepartmentBuilder locationId(final Integer locationId) {
-//        return super.locationId(locationId);
-        throw new UnsupportedOperationException("not supported; use location(Location)");
+    public DepartmentBuilder setManager(Employee manager) {
+        this.manager = manager;
+        return managerId(
+                Optional.of(this.manager)
+                        .map(MappedEmployee::getEmployeeId)
+                        .orElse(null)
+        );
     }
 
     // -------------------------------------------------------------------------------------------------------- location
@@ -31,9 +33,15 @@ class DepartmentBuilder extends MappedDepartmentBuilder<DepartmentBuilder, Depar
 
     public DepartmentBuilder location(final Location location) {
         this.location = location;
-        return this;
+        return locationId(
+                Optional.ofNullable(this.location)
+                        .map(MappedLocation::getLocationId)
+                        .orElse(null)
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    private Employee manager;
+
     private Location location;
 }

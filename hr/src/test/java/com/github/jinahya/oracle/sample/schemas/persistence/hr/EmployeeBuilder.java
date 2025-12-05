@@ -2,7 +2,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedEmployeeBuilder;
 
-public class EmployeeBuilder extends MappedEmployeeBuilder<EmployeeBuilder, Employee> {
+class EmployeeBuilder extends MappedEmployeeBuilder<EmployeeBuilder, Employee> {
 
     // ----------------------------------------------------------------------------------------------------- CONSTRUCTOR
     EmployeeBuilder() {

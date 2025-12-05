@@ -22,7 +22,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobBuilder;
 
-public class JobBuilder extends MappedJobBuilder<JobBuilder, Job> {
+ class JobBuilder extends MappedJobBuilder<JobBuilder, Job> {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 

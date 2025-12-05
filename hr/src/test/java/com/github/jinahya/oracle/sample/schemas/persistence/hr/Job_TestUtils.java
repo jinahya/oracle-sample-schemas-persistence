@@ -20,25 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob;
-
-import java.util.concurrent.ThreadLocalRandom;
-
 final class Job_TestUtils {
-
-    static int newRandomPositiveMinSalary() {
-        return ThreadLocalRandom.current().nextInt(MappedJob.ATTRIBUTE_MAX_MIN_SALARY) + 1;
-    }
-
-    static int newRandomPositiveMaxSalary(final int minSalary) {
-        if (minSalary < 1) {
-            throw new IllegalArgumentException("minSalary(" + minSalary + ") < 1");
-        }
-        if (minSalary > MappedJob.ATTRIBUTE_MAX_MIN_SALARY) {
-            throw new IllegalArgumentException("minSalary(" + minSalary + ") > " + MappedJob.ATTRIBUTE_MAX_MIN_SALARY);
-        }
-        return ThreadLocalRandom.current().nextInt(MappedJob.ATTRIBUTE_MAX_MIN_SALARY - minSalary + 1) + minSalary;
-    }
 
     // -----------------------------------------------------------------------------------------------------------------
     private Job_TestUtils() {

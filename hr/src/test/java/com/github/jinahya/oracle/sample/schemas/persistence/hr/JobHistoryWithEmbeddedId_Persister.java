@@ -4,6 +4,7 @@ import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobH
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.EntityManager;
 
+@Deprecated(forRemoval = true)
 class JobHistoryWithEmbeddedId_Persister extends MappedJobHistory_Persister<JobHistoryWithEmbeddedId> {
 
     JobHistoryWithEmbeddedId_Persister() {

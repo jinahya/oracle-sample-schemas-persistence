@@ -5,7 +5,7 @@ import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedLoca
 
 import java.util.Optional;
 
-public class LocationBuilder extends MappedLocationBuilder<LocationBuilder, Location> {
+class LocationBuilder extends MappedLocationBuilder<LocationBuilder, Location> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -33,19 +33,6 @@ public class LocationBuilder extends MappedLocationBuilder<LocationBuilder, Loca
     // --------------------------------------------------------------------------------------------- super.stateProvince
 
     // ------------------------------------------------------------------------------------------------- super.countryId
-    @Deprecated(forRemoval = true)
-    @Override
-    public String countryId() {
-//        return super.countryId();
-        return Optional.ofNullable(country()).map(MappedCountry::getCountryId).orElse(null);
-    }
-
-    @Deprecated(forRemoval = true)
-    @Override
-    protected LocationBuilder countryId(final String countryId) {
-//        return super.countryId(countryId);
-        throw new UnsupportedOperationException("not supported; use country(Country)");
-    }
 
     // --------------------------------------------------------------------------------------------------------- country
     public Country country() {
@@ -54,7 +41,11 @@ public class LocationBuilder extends MappedLocationBuilder<LocationBuilder, Loca
 
     public LocationBuilder country(final Country country) {
         this.country = country;
-        return this;
+        return countryId(
+                Optional.ofNullable(this.country)
+                        .map(MappedCountry::getCountryId)
+                        .orElse(null)
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------

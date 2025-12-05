@@ -38,7 +38,7 @@ import java.util.Optional;
 
 @Entity
 @Table(name = MappedCountry.TABLE_NAME)
-public class Country extends MappedCountry {
+ class Country extends MappedCountry {
 
     /**
      * The name of the entity attribute, of  {@link Region}, from which the {@value #COLUMN_NAME_REGION_ID} column maps.
@@ -69,18 +69,6 @@ public class Country extends MappedCountry {
     // ----------------------------------------------------------------------------------------------- super.countryName
 
     // -------------------------------------------------------------------------------------------------- super.regionId
-    @Deprecated(forRemoval = true)
-    @Nullable
-    @Override
-    public Long getRegionId() {
-        return super.getRegionId();
-    }
-
-    @Deprecated(forRemoval = true)
-    @Override
-    public void setRegionId(@Nullable final Long regionId) {
-        super.setRegionId(regionId);
-    }
 
     // ---------------------------------------------------------------------------------------------------------- region
     @Nullable
@@ -98,11 +86,11 @@ public class Country extends MappedCountry {
     }
 
     // ------------------------------------------------------------------------------------------------------- locations
-    protected List<Location> getLocations() {
+    List<Location> getLocations() {
         return locations;
     }
 
-    protected void setLocations(final List<Location> countries) {
+    void setLocations(final List<Location> countries) {
         this.locations = countries;
     }
 
@@ -117,6 +105,12 @@ public class Country extends MappedCountry {
     )
     private Region region;
 
-    @OneToMany(mappedBy = Location.ATTRIBUTE_NAME_COUNTRY, fetch = FetchType.LAZY, cascade = {}, orphanRemoval = false)
+    // -----------------------------------------------------------------------------------------------------------------
+    @OneToMany(mappedBy = Location.ATTRIBUTE_NAME_COUNTRY,
+               fetch = FetchType.LAZY,
+               cascade = {
+               },
+               orphanRemoval = false
+    )
     private List<@Valid @NotNull Location> locations;
 }

@@ -21,13 +21,24 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountryBuilder;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedRegion;
 import jakarta.annotation.Nonnull;
 
+import java.util.Locale;
 import java.util.Optional;
 
 class CountryBuilder extends MappedCountryBuilder<CountryBuilder, Country> {
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    public static CountryBuilder from(@Nonnull final Locale locale) {
+        return from(CountryBuilder::new, locale);
+    }
+
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    /**
+     * Creates a new instance.
+     */
     CountryBuilder() {
         super(Country.class);
     }
@@ -46,28 +57,17 @@ class CountryBuilder extends MappedCountryBuilder<CountryBuilder, Country> {
     // ----------------------------------------------------------------------------------------------- super.countryName
 
     // -------------------------------------------------------------------------------------------------- super.regionId
-    @Deprecated(forRemoval = true)
-    @Override
-    public Long regionId() {
-        return super.regionId();
-    }
-
-    @Deprecated(forRemoval = true)
-    @Override
-    public CountryBuilder regionId(final Long regionId) {
-        return super.regionId(regionId);
-    }
 
     // ---------------------------------------------------------------------------------------------------------- region
-    public Region getRegion() {
+    protected Region region() {
         return region;
     }
 
-    public CountryBuilder setRegion(final Region region) {
+    public CountryBuilder region(final Region region) {
         this.region = region;
         return regionId(
                 Optional.ofNullable(this.region)
-                        .map(Region::getRegionId)
+                        .map(MappedRegion::getRegionId)
                         .orElse(null)
         );
     }

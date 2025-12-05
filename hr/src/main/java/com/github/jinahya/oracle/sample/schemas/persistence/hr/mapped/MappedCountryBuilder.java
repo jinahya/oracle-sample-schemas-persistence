@@ -22,6 +22,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
 import jakarta.annotation.Nonnull;
 
+import java.util.Locale;
+import java.util.Objects;
+import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
 @SuppressWarnings({
@@ -40,6 +43,45 @@ public abstract class MappedCountryBuilder<
     public static final Pattern ISO_3166_1_ALPHA_2_PATTERN = Pattern.compile(ISO_3166_1_ALPHA_2_REGEXP);
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    public static <
+            BUILDER extends MappedCountryBuilder<BUILDER, TARGET>,
+            TARGET extends MappedCountry
+            >
+    BUILDER from(@Nonnull final Supplier<? extends BUILDER> instantiator, @Nonnull final Locale locale) {
+        Objects.requireNonNull(instantiator, "instantiator is null");
+        Objects.requireNonNull(locale, "locale is null");
+        final var instance = Objects.requireNonNull(instantiator.get(), "null instantiated from " + instantiator);
+        final var countryId = locale.getCountry();
+        if (!ISO_3166_1_ALPHA_2_PATTERN.matcher(countryId).matches()) {
+            throw new IllegalArgumentException("invalid countryId: " + countryId + " from " + locale);
+        }
+        instance.countryId(countryId);
+        final var countryName = locale.getDisplayCountry();
+        instance.countryName(countryName);
+        return instance;
+    }
+
+    public static <
+            BUILDER extends MappedCountryBuilder<BUILDER, TARGET>,
+            TARGET extends MappedCountry
+            >
+    BUILDER from(@Nonnull final Class<BUILDER> builderClass, @Nonnull final Locale locale) {
+        Objects.requireNonNull(builderClass, "builderClass is null");
+        return MappedCountryBuilder.from(
+                () -> {
+                    try {
+                        final var constructor = builderClass.getDeclaredConstructor();
+                        if (!constructor.canAccess(null)) {
+                            constructor.setAccessible(true);
+                        }
+                        return constructor.newInstance();
+                    } catch (final ReflectiveOperationException roe) {
+                        throw new RuntimeException("failed to instantiate " + builderClass, roe);
+                    }
+                },
+                locale
+        );
+    }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -55,7 +97,7 @@ public abstract class MappedCountryBuilder<
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     // ------------------------------------------------------------------------------------------------------- countryId
-    public String countryId() {
+    protected String countryId() {
         return countryId;
     }
 
@@ -65,7 +107,7 @@ public abstract class MappedCountryBuilder<
     }
 
     // ----------------------------------------------------------------------------------------------------- countryName
-    public String countryName() {
+    protected String countryName() {
         return countryName;
     }
 
@@ -75,11 +117,13 @@ public abstract class MappedCountryBuilder<
     }
 
     // -------------------------------------------------------------------------------------------------------- regionId
-    public Long regionId() {
+    @Deprecated(forRemoval = true)
+    protected Long regionId() {
         return regionId;
     }
 
-    public SELF regionId(final Long regionId) {
+    @Deprecated(forRemoval = true)
+    protected SELF regionId(final Long regionId) {
         this.regionId = regionId;
         return (SELF) this;
     }
@@ -89,5 +133,6 @@ public abstract class MappedCountryBuilder<
 
     private String countryName;
 
+    @Deprecated(forRemoval = true)
     private Long regionId;
 }

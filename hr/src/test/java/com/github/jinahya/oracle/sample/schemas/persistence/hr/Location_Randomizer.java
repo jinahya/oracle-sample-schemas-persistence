@@ -42,7 +42,7 @@ class Location_Randomizer extends __MappedEntity_Randomizer<Location, Integer> {
     @Override
     public Location get() {
         final var value = super.get();
-        value.setPostalCode(null);
+//        value.setPostalCode(null);
         return value;
     }
 }
