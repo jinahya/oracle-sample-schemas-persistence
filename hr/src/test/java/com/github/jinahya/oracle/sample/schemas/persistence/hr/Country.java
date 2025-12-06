@@ -31,6 +31,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.Optional;
@@ -89,8 +91,8 @@ class Country extends MappedCountry {
         return locations;
     }
 
-    void setLocations(final List<Location> countries) {
-        this.locations = countries;
+    void setLocations(final List<Location> locations) {
+        this.locations = locations;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -102,6 +104,8 @@ class Country extends MappedCountry {
 //                insertable = true, // eclipselink
                 updatable = false
     )
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private Region region;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -111,5 +115,7 @@ class Country extends MappedCountry {
                },
                orphanRemoval = false
     )
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private List<@Valid @NotNull Location> locations;
 }
