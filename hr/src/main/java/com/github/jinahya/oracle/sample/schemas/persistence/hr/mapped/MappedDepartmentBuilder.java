@@ -90,7 +90,7 @@ public abstract class MappedDepartmentBuilder<
         return managerId;
     }
 
-    public SELF managerId(final Integer managerId) {
+    protected SELF managerId(final Integer managerId) {
         this.managerId = managerId;
         return (SELF) this;
     }

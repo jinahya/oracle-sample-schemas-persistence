@@ -47,13 +47,33 @@ import java.util.Objects;
 public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
+
+    /**
+     * The name of the entity attribute from which the {@value #COLUMN_NAME_EMPLOYEE_ID} column maps. The value is
+     * {@value}.
+     */
     public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
 
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute The value is {@value};
+     *
+     * @see #COLUMN_MIN_EMPLOYEE_ID
+     */
     public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
 
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is {@value}.
+     *
+     * @see #COLUMN_MAX_EMPLOYEE_ID
+     */
     public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
 
     // ------------------------------------------------------------------------------------------------------ START_DATE
+
+    /**
+     * The name of the entity attribute from which the {@value #COLUMN_NAME_START_DATE} column maps. The value is
+     * {@value}.
+     */
     public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
@@ -63,6 +83,13 @@ public abstract class MappedJobHistoryWithIdClass extends MappedJobHistory {
     // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns a comparator compares {@value #ATTRIBUTE_NAME_START_DATE} attribute.
+     *
+     * @param <T> the type to be compared.
+     * @return a comparator compares {@value #ATTRIBUTE_NAME_START_DATE} attribute.
+     */
     protected static <T extends MappedJobHistoryWithIdClass> Comparator<T> comparingStartDate() {
         return comparingStartDate(MappedJobHistoryWithIdClass::getStartDate);
     }

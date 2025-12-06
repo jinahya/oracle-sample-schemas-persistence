@@ -1,6 +1,31 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
+/*-
+ * #%L
+ * hr
+ * %%
+ * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedDepartment;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedEmployee;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedEmployeeBuilder;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob;
+
+import java.util.Optional;
 
 class EmployeeBuilder extends MappedEmployeeBuilder<EmployeeBuilder, Employee> {
 
@@ -10,75 +35,57 @@ class EmployeeBuilder extends MappedEmployeeBuilder<EmployeeBuilder, Employee> {
     }
 
     // ----------------------------------------------------------------------------------------------------- super.jobId
-    @Override
-    public String jobId() {
-        return super.jobId();
-    }
-
-    // overridden to public
-    @Override
-    public EmployeeBuilder jobId(final String jobId) {
-        return super.jobId(jobId);
-    }
 
     // ------------------------------------------------------------------------------------------------- super.managerId
-    @Override
-    public Integer managerId() {
-        return super.managerId();
-    }
-
-    // overridden to public
-    @Override
-    public EmployeeBuilder managerId(final Integer managerId) {
-        return super.managerId(managerId);
-    }
 
     // ---------------------------------------------------------------------------------------------- super.departmentId
-    @Override
-    public Integer departmentId() {
-        return super.departmentId();
-    }
-
-    // overridden to public
-    @Override
-    public EmployeeBuilder departmentId(final Integer departmentId) {
-        return super.departmentId(departmentId);
-    }
 
     // ------------------------------------------------------------------------------------------------------------- job
-    public Job job() {
+    Job job() {
         return job;
     }
 
     public EmployeeBuilder job(final Job job) {
         this.job = job;
-        return this;
+        return jobId(
+                Optional.ofNullable(this.job)
+                        .map(MappedJob::getJobId)
+                        .orElse(null)
+        );
     }
 
     // ------------------------------------------------------------------------------------------------------ department
-    public Department department() {
+    Department department() {
         return department;
     }
 
     public EmployeeBuilder department(final Department department) {
         this.department = department;
-        return this;
+        return departmentId(
+                Optional.ofNullable(this.department)
+                        .map(MappedDepartment::getDepartmentId)
+                        .orElse(null)
+        );
     }
 
     // --------------------------------------------------------------------------------------------------------- manager
-    public EmployeeBuilder manager() {
+    Employee manager() {
         return manager;
     }
 
-    public EmployeeBuilder manager(final EmployeeBuilder manager) {
+    public EmployeeBuilder manager(final Employee manager) {
         this.manager = manager;
-        return this;
+        return managerId(
+                Optional.ofNullable(this.manager)
+                        .map(MappedEmployee::getEmployeeId)
+                        .orElse(null)
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     private Job job;
 
-    private EmployeeBuilder manager;
+    private Employee manager;
 
     private Department department;
 }

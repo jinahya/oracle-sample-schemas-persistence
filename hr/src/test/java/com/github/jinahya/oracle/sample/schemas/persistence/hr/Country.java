@@ -21,7 +21,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountry;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntityBuilder;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
@@ -38,7 +37,7 @@ import java.util.Optional;
 
 @Entity
 @Table(name = MappedCountry.TABLE_NAME)
- class Country extends MappedCountry {
+class Country extends MappedCountry {
 
     /**
      * The name of the entity attribute, of  {@link Region}, from which the {@value #COLUMN_NAME_REGION_ID} column maps.
@@ -47,7 +46,7 @@ import java.util.Optional;
     public static final String ATTRIBUTE_NAME_REGION = "region";
 
     // -----------------------------------------------------------------------------------------------------------------
-    public static _MappedHrEntityBuilder<?, Country> builder() {
+    public static CountryBuilder builder() {
         return new CountryBuilder();
     }
 

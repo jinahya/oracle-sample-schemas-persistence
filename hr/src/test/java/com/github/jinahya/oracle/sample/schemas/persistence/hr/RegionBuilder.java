@@ -21,18 +21,10 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedRegionBuilder;
-import jakarta.annotation.Nonnull;
 
 class RegionBuilder extends MappedRegionBuilder<RegionBuilder, Region> {
 
     RegionBuilder() {
         super(Region.class);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @Override
-    public Region build() {
-        return new Region(this);
     }
 }

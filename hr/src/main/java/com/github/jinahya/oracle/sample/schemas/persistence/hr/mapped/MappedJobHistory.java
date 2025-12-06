@@ -160,12 +160,6 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
      */
     public static final int COLUMN_MAX_EMPLOYEE_ID = +999999;
 
-//    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
-//
-//    public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
-//
-//    public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
-
     public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
 
     // ------------------------------------------------------------------------------------------------------ START_DATE
@@ -176,7 +170,6 @@ public abstract class MappedJobHistory extends _MappedHrEntity<JobHistoryId> {
     public static final String COLUMN_NAME_START_DATE = "START_DATE";
 
     public static final boolean COLUMN_NULLABLE_START_DATE = false;
-
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
     public static final String COLUMN_NAME_END_DATE = "END_DATE";

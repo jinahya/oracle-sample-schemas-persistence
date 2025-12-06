@@ -97,7 +97,7 @@ public abstract class MappedCountryBuilder<
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     // ------------------------------------------------------------------------------------------------------- countryId
-    protected String countryId() {
+    public String countryId() {
         return countryId;
     }
 
@@ -107,7 +107,7 @@ public abstract class MappedCountryBuilder<
     }
 
     // ----------------------------------------------------------------------------------------------------- countryName
-    protected String countryName() {
+    public String countryName() {
         return countryName;
     }
 
@@ -117,12 +117,10 @@ public abstract class MappedCountryBuilder<
     }
 
     // -------------------------------------------------------------------------------------------------------- regionId
-    @Deprecated(forRemoval = true)
-    protected Long regionId() {
+    public Long regionId() {
         return regionId;
     }
 
-    @Deprecated(forRemoval = true)
     protected SELF regionId(final Long regionId) {
         this.regionId = regionId;
         return (SELF) this;
@@ -133,6 +131,5 @@ public abstract class MappedCountryBuilder<
 
     private String countryName;
 
-    @Deprecated(forRemoval = true)
     private Long regionId;
 }

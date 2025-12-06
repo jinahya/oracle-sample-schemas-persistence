@@ -135,7 +135,7 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The name of the plural attribute, of {@link MappedEmployee employee}s, mapped by
+     * The name of the attribute of {@link MappedEmployee employee}s, mapped by
      * {@value MappedEmployee#ATTRIBUTE_NAME_JOB}.
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEES = "employees";

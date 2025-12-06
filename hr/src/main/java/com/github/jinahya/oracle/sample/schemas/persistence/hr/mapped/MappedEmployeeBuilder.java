@@ -56,19 +56,19 @@ public abstract class MappedEmployeeBuilder<
     // ------------------------------------------------------------------------------------------------------ employeeId
 
     /**
-     * Returns current value of {@code #employeeId} property.
+     * Returns current value of {@code employeeId} property.
      *
-     * @return current value of the {@code #employeeId} property.
+     * @return current value of the {@code employeeId} property.
      */
     public Integer employeeId() {
         return employeeId;
     }
 
     /**
-     * Replaces current value of {@code #employeeId} property with the specified value, and returns this builder
+     * Replaces current value of {@code employeeId} property with the specified value, and returns this builder
      * instance.
      *
-     * @param employeeId new value for the {@code #employeeId} property.
+     * @param employeeId new value for the {@code employeeId} property.
      * @return this builder instance.
      */
     public SELF employeeId(final Integer employeeId) {
@@ -167,7 +167,7 @@ public abstract class MappedEmployeeBuilder<
     }
 
     // ---------------------------------------------------------------------------------------------------- departmentId
-    protected Integer departmentId() {
+    public Integer departmentId() {
         return departmentId;
     }
 
@@ -191,7 +191,6 @@ public abstract class MappedEmployeeBuilder<
     private LocalDate hireDate;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Deprecated(forRemoval = true)
     private String jobId;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -200,10 +199,8 @@ public abstract class MappedEmployeeBuilder<
     private BigDecimal commissionPct;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Deprecated(forRemoval = true)
     private Integer managerId;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Deprecated(forRemoval = true)
     private Integer departmentId;
 }
