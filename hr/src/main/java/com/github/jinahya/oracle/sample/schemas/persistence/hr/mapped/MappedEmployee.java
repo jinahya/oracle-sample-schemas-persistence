@@ -42,7 +42,7 @@ import java.util.Objects;
 /**
  * An abstract mapped superclass for mapping {@value MappedEmployee#TABLE_NAME} table.
  *
- * @author Jaehan Lim
+ * @author Jaehan Lim &lt;gmmail25@gmail.com&gt;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
