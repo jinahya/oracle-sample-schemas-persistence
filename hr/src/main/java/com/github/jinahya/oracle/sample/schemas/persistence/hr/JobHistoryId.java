@@ -42,6 +42,7 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedJobHistory
+ * @see JobHistoryIdBuilder
  * @see <a
  * href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#composite-primary-keys">2.4.1.
  * Composite primary keys</a> (Jakarta Persistence 3.2 Specification Document)
@@ -70,6 +71,8 @@ public class JobHistoryId extends _MappedHr {
 
     /**
      * Creates a new instance.
+     *
+     * @see #builder()
      */
     protected JobHistoryId() {
         super();
@@ -124,6 +127,7 @@ public class JobHistoryId extends _MappedHr {
      *
      * @param employeeId new value for the {@value JobHistoryId_#EMPLOYEE_ID} attribute.
      */
+    // TODO: remove if it's not used anymore
     void setEmployeeId(final Integer employeeId) {
         this.employeeId = employeeId;
     }
@@ -134,6 +138,7 @@ public class JobHistoryId extends _MappedHr {
         return startDate;
     }
 
+    // TODO: remove if it's not used anymore
     void setStartDate(final LocalDate startDate) {
         this.startDate = startDate;
     }

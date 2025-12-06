@@ -89,7 +89,8 @@
     <version.maven-surefire>3.5.4</version.maven-surefire>
     <version.jakarta.jakartaee-api>11.0.0</version.jakarta.jakartaee-api>
     <!-- https://central.sonatype.com/artifact/io.github.jinahya/jinahya-persistence/versions -->
-    <version.jinahya-persistence>0.5.1</version.jinahya-persistence>
+<!--    <version.jinahya-persistence>0.5.1</version.jinahya-persistence>-->
+    <version.jinahya-persistence>0.5.3</version.jinahya-persistence>
     <!-- https://search.maven.org/artifact/org.eclipse.persistence/eclipselink -->
     <!-- https://central.sonatype.com/artifact/org.eclipse.persistence/eclipselink/versions -->
     <!-- https://central.sonatype.com/artifact/org.eclipse.persistence/org.eclipse.persistence.jpa/versions -->

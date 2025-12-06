@@ -1,0 +1,20 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Department {
+   employees: List<Employee>
+   location: Location?
+   manager: Employee?
+}
+class MappedDepartment {
+   departmentName: String
+   managerId: Integer?
+   departmentId: Integer
+   locationId: Integer?
+}
+
+Department        -[#000082,plain]-^  MappedDepartment 
+@enduml

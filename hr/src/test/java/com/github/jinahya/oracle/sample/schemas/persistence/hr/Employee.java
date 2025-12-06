@@ -9,7 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -24,37 +23,6 @@ import java.util.Optional;
  *
  * @author Jaehan Lim
  */
-// https://github.com/eclipse-ee4j/eclipselink/issues/778
-@NamedQuery(
-        name = "Employee.selectManagersAndNumberOfSubordinates__OrderByNumberOfSubordinatesDesc",
-        query = """
-                SELECT e, SIZE(e.subordinates) AS numberOfSubordinates
-                FROM Employee AS e
-                WHERE SIZE(e.subordinates) > 0
-                ORDER BY numberOfSubordinates DESC"""
-)
-@NamedQuery(
-        name = "Employee.selectManagersAndNumberOfSubordinates__OrderByNumberOfSubordinatesAsc",
-        query = """
-                SELECT e, SIZE(e.subordinates) AS numberOfSubordinates
-                FROM Employee AS e
-                WHERE SIZE(e.subordinates) > 0
-                ORDER BY SIZE(e.subordinates) ASC"""
-)
-@NamedQuery(
-        name = "Employee.selectList_WhereJobEqualTo",
-        query = """
-                SELECT e
-                FROM Employee e
-                WHERE e.job = :job"""
-)
-@NamedQuery(
-        name = "Employee.selectList_WhereJobIdEqualTo",
-        query = """
-                SELECT e 
-                FROM Employee e
-                WHERE e.jobId = :jobId"""
-)
 @Entity
 @Table(name = MappedEmployee.TABLE_NAME)
 class Employee extends MappedEmployee {

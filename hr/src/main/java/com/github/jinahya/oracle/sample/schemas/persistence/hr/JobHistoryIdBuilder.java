@@ -68,6 +68,7 @@ public class JobHistoryIdBuilder
      *
      * @param employeeId new value for the {@code employeeId} property.
      * @return this builder instance.
+     * @see #employee(MappedEmployee)
      */
     public JobHistoryIdBuilder employeeId(final Integer employeeId) {
         this.employeeId = employeeId;
@@ -81,6 +82,8 @@ public class JobHistoryIdBuilder
      * @param employee the employee whose {@value MappedEmployee_#EMPLOYEE_ID} attribute is set for the
      *                 {@code employeeId} property.
      * @return this builder instance.
+     * @apiNote This method is a convenience method for {@code employeeId(employee.getEmployeeId())}.
+     * @see #employeeId(Integer)
      */
     public JobHistoryIdBuilder employee(final MappedEmployee employee) {
         return employeeId(
@@ -91,12 +94,23 @@ public class JobHistoryIdBuilder
     }
 
     // ------------------------------------------------------------------------------------------------------- startDate
-    // TODO: javadoc
+
+    /**
+     * Returns current value of {@code startDate} property.
+     *
+     * @return current value of the {@code startDate} property.
+     */
     LocalDate startDate() {
         return startDate;
     }
 
-    // TODO: javadoc
+    /**
+     * Replaces current value of {@code startDate} property with the specified value, and returns this builder
+     * instance.
+     *
+     * @param startDate new value for the {@code startDate} property.
+     * @return this builder instance.
+     */
     public JobHistoryIdBuilder startDate(final LocalDate startDate) {
         this.startDate = startDate;
         return this;

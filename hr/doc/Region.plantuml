@@ -1,0 +1,22 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Country {
+   region: Region?
+   locations: List<Location>
+}
+class MappedRegion {
+   regionId: Long
+   regionName: String?
+}
+class Region {
+   countries: List<Country>
+}
+
+Country      "1" *-[#595959,plain]-> "region\n1" Region       
+Region       "1" *-[#595959,plain]-> "countries\n*" Country      
+Region        -[#000082,plain]-^  MappedRegion 
+@enduml

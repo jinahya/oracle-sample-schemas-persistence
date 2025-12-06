@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryWithIdClass</OriginalElement>
+  <nodes>
+    <node x="35.0" y="-42.5">com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId</node>
+    <node x="-164.5" y="417.5">com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithEmbeddedId</node>
+    <node x="196.0" y="286.0">com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithIdClass</node>
+    <node x="-98.5" y="86.0">com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory</node>
+    <node x="-153.0" y="626.0">com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryWithEmbeddedId</node>
+    <node x="227.5" y="626.0">com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryWithIdClass</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithEmbeddedId" target="com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory" relationship="GENERALIZATION">
+      <point x="0.0" y="-42.5" />
+      <point x="0.0" y="54.0" />
+    </edge>
+    <edge source="com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryWithEmbeddedId" target="com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithEmbeddedId" relationship="GENERALIZATION">
+      <point x="0.0" y="-54.0" />
+      <point x="-19.0" y="600.0" />
+      <point x="-199.0" y="600.0" />
+      <point x="-199.0" y="380.0" />
+      <point x="1.0" y="380.0" />
+      <point x="0.0" y="-42.5" />
+    </edge>
+    <edge source="com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryWithIdClass" target="com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithIdClass" relationship="GENERALIZATION">
+      <point x="0.0" y="-54.0" />
+      <point x="341.0" y="600.0" />
+      <point x="501.0" y="600.0" />
+      <point x="501.0" y="260.0" />
+      <point x="341.0" y="260.0" />
+      <point x="0.0" y="-54.0" />
+    </edge>
+    <edge source="com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithIdClass" target="com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory" relationship="GENERALIZATION">
+      <point x="0.0" y="-54.0" />
+      <point x="341.0" y="240.0" />
+      <point x="1.0" y="240.0" />
+      <point x="0.0" y="54.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="1.0" showDependencies="false" x="151.0" y="345.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

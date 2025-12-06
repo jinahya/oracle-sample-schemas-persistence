@@ -88,56 +88,58 @@ ORDER BY numberOfSubordinates ASC
 
 ## JOB_HISTORY
 
-### List up employees who have worked for a specific `JOB`
+### List up, for a specific `JOB_ID`, order by `START_DATE`
 
 ```oracle
-SELECT e.*
+SELECT jh.*
 FROM JOB_HISTORY jh
-         JOIN EMPLOYEES e ON jh.EMPLOYEE_ID = e.EMPLOYEE_ID
 WHERE JOB_ID = :jobId
 ORDER BY start_date ASC
 ```
 
+`JobHistoryWithEmbeddedId`
+
 ```jpaql
-SELECT jh.employee
-FROM JobHistory jh
-WHERE jh.job = :job
-ORDER BY jh.id.startDate ASC
+SELECT e
+FROM JobHistory e
+WHERE e.jobId = :jobId
+ORDER BY e.id.startDate ASC
 ```
 
-### List up employees who have worked for a specific `DEPARTMENT`
+`JobHistoryWithIdClass`
+
+```jpaql
+SELECT e
+FROM JobHistory e
+WHERE e.jobId = :jobId
+ORDER BY e.startDate ASC
+```
+
+### List up, for a specific `DEPARTMENT_ID`, order by `START_DATE`
 
 ```oracle
-SELECT d.*
+SELECT jh.*
 FROM JOB_HISTORY jh
-         JOIN HR.DEPARTMENTS d ON jh.EMPLOYEE_ID = d.DEPARTMENT_ID
-WHERE JOB_ID = :jobId
+WHERE DEPARTMENT_ID = :departmentId
 ORDER BY start_date ASC
 ```
 
-```jpaql
-SELECT jh.employee
-FROM JobHistory jh
-WHERE jh.department = :department
-ORDER BY jh.id.startDate ASC
-```
-
-## List up employees by longest period
-
-```oracle
-SELECT jh.end_date - jh.start_date AS days,
-       jh.*
-FROM JOB_HISTORY jh
-ORDER BY days DESC
-```
-
-// may not work by service providers
+`JobHistoryWithEmbeddedId`
 
 ```jpaql
-SELECT jh.endDate - jh.id.startDate AS period,
-       jh
-FROM JobHistory jh
-ORDER BY period DESC NULLS LAST
+SELECT e
+FROM JobHistory e
+WHERE e.departmentId = :departmentId
+ORDER BY e.id.startDate ASC
+```
+
+`JobHistoryWithIdClass`
+
+```jpaql
+SELECT e
+FROM JobHistory e
+WHERE e.departmentId = :departmentId
+ORDER BY e.startDate ASC
 ```
 
 ## JOBS

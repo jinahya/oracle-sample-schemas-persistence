@@ -1,0 +1,23 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Job
+class MappedJob {
+   minSalaryNonNegative: boolean
+   minSalary: Integer?
+   minSalaryPositive: boolean
+   maxSalaryPositive: boolean
+   minSalaryWhileAdjustingMaxSalary: Integer
+   maxSalaryNonNegative: boolean
+   maxSalaryWhileAdjustingMinSalary: Integer
+   minSalaryLessThanOrEqualToMaxSalary: boolean
+   maxSalary: Integer?
+   jobId: String
+   jobTitle: String
+}
+
+Job        -[#000082,plain]-^  MappedJob 
+@enduml

@@ -1,0 +1,25 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class Country {
+   region: Region?
+   locations: List<Location>
+}
+class Department {
+   employees: List<Employee>
+   location: Location?
+   manager: Employee?
+}
+class Location {
+   country: Country?
+   departments: List<Department>
+}
+
+Country    "1" *-[#595959,plain]-> "locations\n*" Location   
+Department "1" *-[#595959,plain]-> "location\n1" Location   
+Location   "1" *-[#595959,plain]-> "country\n1" Country    
+Location   "1" *-[#595959,plain]-> "departments\n*" Department 
+@enduml

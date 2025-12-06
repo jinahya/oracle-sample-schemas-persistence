@@ -1,0 +1,36 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class JobHistoryWithEmbeddedId {
+   job: Job
+   department: Department?
+   employee: Employee
+}
+class JobHistoryWithIdClass {
+   job: Job
+   department: Department?
+   employee: Employee
+}
+class MappedJobHistory {
+   jobId: String
+   endDate: LocalDate
+   departmentId: Integer?
+}
+class MappedJobHistoryWithEmbeddedId {
+   endDateAfterIdStartDate: boolean
+   id: JobHistoryId
+}
+class MappedJobHistoryWithIdClass {
+   employeeId: Integer
+   endDateAfterStartDate: boolean
+   startDate: LocalDate
+}
+
+JobHistoryWithEmbeddedId        -[#000082,plain]-^  MappedJobHistoryWithEmbeddedId 
+JobHistoryWithIdClass           -[#000082,plain]-^  MappedJobHistoryWithIdClass    
+MappedJobHistoryWithEmbeddedId  -[#000082,plain]-^  MappedJobHistory               
+MappedJobHistoryWithIdClass     -[#000082,plain]-^  MappedJobHistory               
+@enduml
