@@ -37,6 +37,7 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -62,20 +63,15 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     public static final int COLUMN_SCALE_EMPLOYEE_ID = 0;
 
-    // TODO: use decimal
-    public static final int COLUMN_MIN_EMPLOYEE_ID = 0xFF_F0_BD_C1; // -999999
-    //                                               0b1111_1111_1111_0000_1011_1101_1100_0001
+    public static final int COLUMN_MIN_EMPLOYEE_ID = -999999;
 
-    // TODO: use decimal
-//    public static final int COLUMN_MAX_EMPLOYEE_ID = 0x00_0F_42_3F; // +999999
-    public static final int COLUMN_MAX_EMPLOYEE_ID = 0b0000_0000_0000_1111_0100_0010_0011_1111; // +999999
+    public static final int COLUMN_MAX_EMPLOYEE_ID = +999999;
 
     public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
 
-    // TODO: remove casting when COLUMN_MIN_EMPLOYEE_ID uses decimal
-    public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = (long) COLUMN_MIN_EMPLOYEE_ID;
+    public static final int ATTRIBUTE_MIN_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
 
-    public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
+    public static final int ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
 
     // ------------------------------------------------------------------------------------------------------ FIRST_NAME
     public static final String COLUMN_NAME_FIRST_NAME = "FIRST_NAME";
@@ -153,10 +149,12 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
 
-    public static final String ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE = "-000000.00";
-    // TODO: check the checks/EMP_SALARY_MIN
+    /**
+     * The decimal (exclusive) minimum value of the {@value #ATTRIBUTE_NAME_SALARY} attribute. The value is {@value}.
+     */
+    static final String ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE = "000000.00";
 
-    public static final String ATTRIBUTE_DECIMAL_MAX_SALARY = "+999999.99";
+    public static final String ATTRIBUTE_DECIMAL_MAX_SALARY = "999999.99";
 
     // -------------------------------------------------------------------------------------------------- COMMISSION_PCT
     public static final String COLUMN_NAME_COMMISSION_PCT = "COMMISSION_PCT";
@@ -165,9 +163,9 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     public static final int COLUMN_SCALE_COMMISSION_PCT = 2;
 
-    public static final double COLUMN_MIN_COMMISSION_PCT = -0.99d;
+    static final double COLUMN_MIN_COMMISSION_PCT = -0.99d;
 
-    public static final double COLUMN_MAX_COMMISSION_PCT = +0.99d;
+    static final double COLUMN_MAX_COMMISSION_PCT = +0.99d;
 
     public static final String ATTRIBUTE_NAME_COMMISSION_PCT = "commissionPct";
 
@@ -194,6 +192,12 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     public static final String ATTRIBUTE_NAME_MANAGER = "manager";
 
+    /**
+     * The name of the attribute, of subordinates mapped by {@value ATTRIBUTE_NAME_MANAGER} attribute, of this employee.
+     * The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_SUBORDINATES = "subordinates";
+
     // ------------------------------------------------------------------------------------ DEPARTMENT_ID / departmentId
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
 
@@ -201,28 +205,56 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     public static final int COLUMN_SCALE_DEPARTMENT_ID = 0;
 
-    // TODO: use decimal
-    public static final int COLUMN_MIN_DEPARTMENT_ID = 0xFF_FF_D8_F1; // -9999
+    public static final int COLUMN_MIN_DEPARTMENT_ID = -9999;
 
-    // TODO: use decimal
-    public static final int COLUMN_MAX_DEPARTMENT_ID = 0x00_00_27_0F; // +9999
+    public static final int COLUMN_MAX_DEPARTMENT_ID = +9999;
 
     public static final String ATTRIBUTE_NAME_DEPARTMENT_ID = "departmentId";
 
-    // TODO: assign COLUMN_MIN_DEPARTMENT_ID
-    public static final long ATTRIBUTE_MIN_DEPARTMENT_ID = 0xFF_FF_FF_FF_FF_FF_D8_F1L; // -9999L
+    public static final int ATTRIBUTE_MIN_DEPARTMENT_ID = COLUMN_MIN_DEPARTMENT_ID;
 
-    // TODO: assign COLUMN_MAX_DEPARTMENT_ID
-    public static final long ATTRIBUTE_MAX_DEPARTMENT_ID = 0x00_00_00_00_00_00_27_0FL; // +9999L
+    public static final int ATTRIBUTE_MAX_DEPARTMENT_ID = COLUMN_MAX_DEPARTMENT_ID;
 
     public static final String ATTRIBUTE_NAME_DEPARTMENT = "department";
 
     // -----------------------------------------------------------------------------------------------------------------
+    public static final Comparator<MappedEmployee> COMPARING_HIRE_DATE =
+            Comparator.comparing(MappedEmployee::getHireDate);
+
+    public static final Comparator<MappedEmployee> COMPARING_LAST_NAME =
+            Comparator.comparing(MappedEmployee::getLastName);
 
     /**
-     * The subordinates' attribute of this entity.
+     * A comparator compares {@value MappedEmployee_#FIRST_NAME} attribute.
+     *
+     * @apiNote Note that this comparator is not null-friendly.
+     * @see #COMPARING_FIRST_NAME_NULLS_FIRST
+     * @see #COMPARING_FIRST_NAME_NULLS_LAST
      */
-    public static final String ATTRIBUTE_NAME_SUBORDINATES = "subordinates";
+    public static final Comparator<MappedEmployee> COMPARING_FIRST_NAME =
+            Comparator.comparing(MappedEmployee::getFirstName);
+
+    /**
+     * A comparator compares {@value MappedEmployee_#FIRST_NAME} attribute,
+     * {@link Comparator#nullsFirst(Comparator) nulls first}.
+     *
+     * @see #COMPARING_FIRST_NAME_NULLS_LAST
+     */
+    public static final Comparator<MappedEmployee> COMPARING_FIRST_NAME_NULLS_FIRST =
+            Comparator.nullsFirst(COMPARING_FIRST_NAME);
+
+    /**
+     * A comparator compares {@value MappedEmployee_#FIRST_NAME} attribute,
+     * {@link Comparator#nullsLast(Comparator) nulls last}.
+     *
+     * @see #COMPARING_FIRST_NAME_NULLS_FIRST
+     */
+    public static final Comparator<MappedEmployee> COMPARING_FIRST_NAME_NULLS_LAST =
+            Comparator.nullsLast(COMPARING_FIRST_NAME);
+
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
+
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -451,7 +483,8 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     /**
      * Returns the {@value MappedJob_#MIN_SALARY} of this employee's current job.
      *
-     * @return the {@value MappedJob_#MIN_SALARY} of this employee's current job.
+     * @return the {@value MappedJob_#MIN_SALARY} of this employee's current job; {@code null} if this employee does not
+     * have a job or the job's {@value MappedJob_#MIN_SALARY} is {@code null}.
      * @apiNote the {@code getJobMinSalary()} method of {@code MappedEmployee} class returns {@code null}.
      */
     @Transient
@@ -462,7 +495,8 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     /**
      * Returns the {@value MappedJob_#MAX_SALARY} of this employee's current job.
      *
-     * @return the {@value MappedJob_#MAX_SALARY} of this employee's current job.
+     * @return the {@value MappedJob_#MAX_SALARY} of this employee's current job; {@code null} if this employee does not
+     * have a job or the job's {@value MappedJob_#MAX_SALARY} is {@code null}.
      * @apiNote the {@code getJobMaxSalary()} method of {@code MappedEmployee} class returns {@code null}.
      */
     @Transient
@@ -501,11 +535,22 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     }
 
     // ---------------------------------------------------------------------------------------------------- departmentId
+
+    /**
+     * Returns current value of {@value MappedEmployee_#DEPARTMENT_ID} attribute.
+     *
+     * @return current value of the {@value MappedEmployee_#DEPARTMENT_ID} attribute.
+     */
     @Nullable
     public Integer getDepartmentId() {
         return departmentId;
     }
 
+    /**
+     * Replaces current value of {@value MappedEmployee_#DEPARTMENT_ID} attribute with the specified value.
+     *
+     * @param departmentId new value of the {@value MappedEmployee_#DEPARTMENT_ID} attribute.
+     */
     protected void setDepartmentId(@Nullable final Integer departmentId) {
         this.departmentId = departmentId;
     }
@@ -527,9 +572,7 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @Size(min = ATTRIBUTE_SIZE_MIN_FIRST_NAME,
-          max = ATTRIBUTE_SIZE_MAX_FIRST_NAME
-    )
+    @Size(min = ATTRIBUTE_SIZE_MIN_FIRST_NAME, max = ATTRIBUTE_SIZE_MAX_FIRST_NAME)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_FIRST_NAME,
             nullable = true,
@@ -540,9 +583,7 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     private String firstName;
 
     @Nonnull
-    @Size(min = ATTRIBUTE_SIZE_MIN_LAST_NAME,
-          max = ATTRIBUTE_SIZE_MAX_LAST_NAME
-    )
+    @Size(min = ATTRIBUTE_SIZE_MIN_LAST_NAME, max = ATTRIBUTE_SIZE_MAX_LAST_NAME)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_LAST_NAME,
@@ -568,7 +609,7 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     private String email;
 
     @Nullable
-    @Size(max = ATTRIBUTE_SIZE_MAX_PHONE_NUMBER)
+    @Size(min = ATTRIBUTE_SIZE_MIN_PHONE_NUMBER, max = ATTRIBUTE_SIZE_MAX_PHONE_NUMBER)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_PHONE_NUMBER,
             nullable = true,
@@ -582,7 +623,11 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
 //    @jakarta.validation.constraints.PastOrPresent // @@?
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_HIRE_DATE, nullable = false, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_HIRE_DATE,
+            nullable = false,
+            insertable = true,
+            updatable = true
+    )
     private LocalDate hireDate;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -590,26 +635,40 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     @Size(min = ATTRIBUTE_SIZE_MIN_JOB_ID, max = ATTRIBUTE_SIZE_MAX_JOB_ID)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_JOB_ID, nullable = false, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_JOB_ID)
+    @Column(name = COLUMN_NAME_JOB_ID,
+            nullable = false,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_JOB_ID
+    )
     private String jobId;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-//    @Positive // @@?
     @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
     @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false)
+//    @Positive // https://github.com/mtedone/podam/issues/328
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_SALARY, nullable = true, insertable = true, updatable = true,
-            precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY)
+    @Column(name = COLUMN_NAME_SALARY,
+            nullable = true,
+            insertable = true,
+            updatable = true,
+            precision = COLUMN_PRECISION_SALARY,
+            scale = COLUMN_SCALE_SALARY
+    )
     private BigDecimal salary;
 
     @Nullable
     @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT, inclusive = true)
     @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT, inclusive = true)
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_COMMISSION_PCT, nullable = true, insertable = true, updatable = true,
-            precision = COLUMN_PRECISION_COMMISSION_PCT, scale = COLUMN_SCALE_COMMISSION_PCT)
+    @Column(name = COLUMN_NAME_COMMISSION_PCT,
+            nullable = true,
+            insertable = true,
+            updatable = true,
+            precision = COLUMN_PRECISION_COMMISSION_PCT,
+            scale = COLUMN_SCALE_COMMISSION_PCT
+    )
     private BigDecimal commissionPct;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -617,8 +676,13 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     @Max(ATTRIBUTE_MAX_MANAGER_ID)
     @Min(ATTRIBUTE_MIN_MANAGER_ID)
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_MANAGER_ID, nullable = true, insertable = true, updatable = true,
-            precision = COLUMN_PRECISION_MANAGER_ID, scale = COLUMN_SCALE_MANAGER_ID)
+    @Column(name = COLUMN_NAME_MANAGER_ID,
+            nullable = true,
+            insertable = true,
+            updatable = true,
+            precision = COLUMN_PRECISION_MANAGER_ID,
+            scale = COLUMN_SCALE_MANAGER_ID
+    )
     private Integer managerId;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -626,7 +690,12 @@ public abstract class MappedEmployee extends _MappedHrEntity<Integer> {
     @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
     @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_DEPARTMENT_ID, nullable = true, insertable = true, updatable = true,
-            precision = COLUMN_PRECISION_DEPARTMENT_ID)
+    @Column(name = COLUMN_NAME_DEPARTMENT_ID,
+            nullable = true,
+            insertable = true,
+            updatable = true,
+            precision = COLUMN_PRECISION_DEPARTMENT_ID,
+            scale = COLUMN_SCALE_DEPARTMENT_ID
+    )
     private Integer departmentId;
 }

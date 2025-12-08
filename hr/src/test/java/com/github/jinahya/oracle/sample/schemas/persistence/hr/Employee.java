@@ -29,8 +29,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
@@ -42,7 +44,48 @@ import java.util.Optional;
  * An entity class maps the {@value MappedEmployee#TABLE_NAME} table.
  *
  * @author Jaehan Lim
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@NamedQuery(
+        name = """
+                Employee.\
+                SelectList_\
+                Where\
+                DepartmentEqual_\
+                OrderBy\
+                LastNameAsc\
+                FirstNameAscNullsFirst""",
+        query = """
+                SELECT e
+                FROM Employee AS e
+                WHERE e.department = :department
+                ORDER BY e.lastName ASC, e.firstName ASC NULLS FIRST"""
+)
+@NamedQuery(
+        name = """
+                Employee.\
+                SelectList_\
+                Where\
+                JobEqual_\
+                OrderBy\
+                HireDateAsc""",
+        query = """
+                SELECT e
+                FROM Employee AS e
+                WHERE e.job = :job
+                ORDER BY e.hireDate ASC"""
+)
+@NamedQuery(
+        name = """
+                Employee.\
+                SelectOne_\
+                Where\
+                EmailEqual_""",
+        query = """
+                SELECT e
+                FROM Employee AS e
+                WHERE e.email = :email"""
+)
 @Entity
 @Table(name = MappedEmployee.TABLE_NAME)
 class Employee extends MappedEmployee {
@@ -96,13 +139,18 @@ class Employee extends MappedEmployee {
         return super.isSalaryGreaterThanOrEqualToJobMinSalary();
     }
 
+    //    @jakarta.validation.constraints.AssertTrue
+    @Override
+    protected boolean isSalaryLessThanOrEqualToJobMaxSalary() {
+        return super.isSalaryLessThanOrEqualToJobMaxSalary();
+    }
     // ----------------------------------------------------------------------------------------------------- super.jobId
 
     // ---------------------------------------------------------------------------------------------- super.jobMinSalary
     @Nullable
+    @Transient
     @Override
     protected BigDecimal getJobMinSalary() {
-//        return super.getJobMinSalary();
         return Optional.ofNullable(job) // accessing the LAZY-fetching attribute !!!!
                 .map(MappedJob::getMinSalary)
                 .map(BigDecimal::valueOf)
@@ -111,9 +159,9 @@ class Employee extends MappedEmployee {
 
     // ---------------------------------------------------------------------------------------------- super.jobMaxSalary
     @Nullable
+    @Transient
     @Override
     protected BigDecimal getJobMaxSalary() {
-//        return super.getJobMaxSalary();
         return Optional.ofNullable(job) // accessing the LAZY-fetching attribute !!!!
                 .map(MappedJob::getMaxSalary)
                 .map(BigDecimal::valueOf)
@@ -137,7 +185,6 @@ class Employee extends MappedEmployee {
                         .map(MappedJob::getJobId)
                         .orElse(null)
         );
-        // TODO: adjust current salary to between job.minSalary and job.maxSalary
     }
 
     // --------------------------------------------------------------------------------------------------------- manager
@@ -183,18 +230,18 @@ class Employee extends MappedEmployee {
     // ---------------------------------------------------------------------------------------------------- subordinates
 
     /**
-     * Returns <em>subordinates</em> of this <em>manager</em>.
+     * Returns current value of {@value Employee_#SUBORDINATES} attribute.
      *
-     * @return <em>subordinates</em> of this <em>manager</em>
+     * @return current value of the {@value Employee_#SUBORDINATES} attribute.
      */
     List<Employee> getSubordinates() {
         return subordinates;
     }
 
     /**
-     * Replaces current <em>subordinates</em> of this <em>manager</em> with the specified value.
+     * Replaces current value of {@value Employee_#SUBORDINATES} attribute with the specified value.
      *
-     * @param subordinates new <em>subordinates</em> of this <em>manager</em>.
+     * @param subordinates new value for the {@value Employee_#SUBORDINATES} attribute.
      */
     void setSubordinates(final List<Employee> subordinates) {
         this.subordinates = subordinates;

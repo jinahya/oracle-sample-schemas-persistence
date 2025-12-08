@@ -20,7 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountry;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedRegion;
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedRegionBuilder;
 import jakarta.persistence.Entity;
@@ -98,6 +97,15 @@ class Region extends MappedRegion {
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
+    @Override
+    public final boolean equals(final Object obj) {
+        return equalsWithRegionId(obj);
+    }
+
+    @Override
+    public final int hashCode() {
+        return hashCodeWithRegionId();
+    }
 
     // -------------------------------------------------------------------------------------------------- super.regionId
 
@@ -114,7 +122,7 @@ class Region extends MappedRegion {
 
     // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(
-            mappedBy = MappedCountry.ATTRIBUTE_NAME_REGION,
+            mappedBy = Country_.REGION,
             fetch = FetchType.LAZY,
             cascade = {
             },

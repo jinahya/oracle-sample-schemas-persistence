@@ -95,6 +95,8 @@ public abstract class MappedRegion extends _MappedHrEntity<Long> {
     // -----------------------------------------------------------------------------------------------------------------
     public static final String ATTRIBUTE_NAME_COUNTRIES = "countries";
 
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
+
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
@@ -124,16 +126,14 @@ public abstract class MappedRegion extends _MappedHrEntity<Long> {
                '}';
     }
 
-    @Override
-    public final boolean equals(final Object obj) {
+    protected final boolean equalsWithRegionId(final Object obj) {
         if (!(obj instanceof MappedRegion that)) {
             return false;
         }
         return Objects.equals(getRegionId(), that.getRegionId());
     }
 
-    @Override
-    public final int hashCode() {
+    protected final int hashCodeWithRegionId() {
         return Objects.hashCode(getRegionId());
     }
 

@@ -47,22 +47,52 @@ ORDER BY HIRE_DATE ASC
 ```jpaql
 SELECT e
 FROM Employee e
-WHERE e.jobId = ?
+WHERE e.jobId = :jobId
 ORDER BY e.hireDate ASC
 ```
 
 ```jpaql
 SELECT e
 FROM Employee e
-WHERE e.jobq = ?
+WHERE e.job = :job
 ORDER BY e.hireDate ASC
 ```
 
 ```jpaql
 SELECT e
 FROM Employee e
-WHERE e.job.jobId = ?
+WHERE e.job.jobId = :jobJobId
 ORDER BY e.hireDate ASC
+```
+
+### List up employees of a specific `DEPARTMENT` order by their `LAST_NAME`, `FIRST_NAME`
+
+```sql
+SELECT *
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID = ?
+ORDER BY LAST_NAME ASC, FIRST_NAME ASC NULLS FIRST
+```
+
+```jpaql
+SELECT e
+FROM Employee e
+WHERE e.departmentId = :departmentId
+ORDER BY e.lastName ASC, e.firstName ASC NULLS FIRST
+```
+
+```jpaql
+SELECT e
+FROM Employee e
+WHERE e.department = :department
+ORDER BY e.lastName ASC, e.firstName ASC NULLS FIRST
+```
+
+```jpaql
+SELECT e
+FROM Employee e
+WHERE e.department.departmentId = :departmentDepartmentId
+ORDER BY e.lastName ASC, e.firstName ASC NULLS FIRST
 ```
 
 ### List up ***manager***s order by number of ***subordinates***.

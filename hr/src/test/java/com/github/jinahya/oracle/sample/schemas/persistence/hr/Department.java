@@ -28,6 +28,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -41,11 +42,61 @@ import java.util.Optional;
  *
  * @author Myoungkwon Hwang
  */
+@NamedQuery(
+        name = """
+                Department.\
+                SelectList_\
+                Where\
+                LocationCountryRegionEqual_\
+                OrderBy\
+                LocationCountryRegionRegionIdAsc\
+                LocationCountryCountryIdAsc\
+                LocationStateProvinceAsc\
+                DepartmentIdAsc""",
+        query = """
+                SELECT e
+                FROM Department e
+                WHERE e.location.country.region = :region
+                """
+)
+@NamedQuery(
+        name = """
+                Department.\
+                SelectList_\
+                Where\
+                LocationCountryEqual_\
+                OrderBy\
+                LocationCountryCountryIdAsc\
+                LocationStateProvinceAsc\
+                DepartmentIdAsc""",
+        query = """
+                SELECT e
+                FROM Department e
+                WHERE e.location.country = :country
+                """
+)
+@NamedQuery(
+        name = """
+                Department.\
+                SelectList_\
+                Where\
+                LocationEqual_\
+                OrderBy\
+                DepartmentIdAsc""",
+        query = """
+                SELECT e
+                FROM Department e
+                WHERE e.location = :location
+                """
+)
 @Entity
 @Table(name = MappedDepartment.TABLE_NAME)
 class Department extends MappedDepartment {
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
+    static DepartmentBuilder builder() {
+        return new DepartmentBuilder();
+    }
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 

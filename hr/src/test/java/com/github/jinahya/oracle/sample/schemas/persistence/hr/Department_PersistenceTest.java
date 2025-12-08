@@ -21,10 +21,37 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_PersistenceTest;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 class Department_PersistenceTest extends _MappedHrEntity_PersistenceTest<Department, Integer> {
 
     Department_PersistenceTest() {
         super(Department.class, Integer.class);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @DisplayName(value = """
+            SelectOne_\
+            WhereLocation_"""
+    )
+    @Nested
+    class SelectOne_WhereEmailEqual__Test {
+
+        @Test
+        void NamedQuery__() {
+            // TODO: implement!
+        }
+
+        @Test
+        void QueryLanguage__() {
+
+        }
+
+        @Test
+        void CriteriaApi__() {
+            // TODO: implement!
+        }
     }
 }

@@ -341,7 +341,7 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
     }
 
     /**
-     * Replaces current value of {@value MappedJob_#MIN_SALARY} attribute with the specified value while adjusting
+     * Replaces current value of {@value MappedJob_#MIN_SALARY} attribute with the specified value, while adjusting
      * current value of {@value MappedJob_#MAX_SALARY} attribute to be validated by
      * {@link #isMinSalaryLessThanOrEqualToMaxSalary()} method.
      *
@@ -393,7 +393,7 @@ public abstract class MappedJob extends _MappedHrEntity<String> {
     }
 
     /**
-     * Replaces current value of {@value MappedJob_#MAX_SALARY} attribute with the specified value while adjusting
+     * Replaces current value of {@value MappedJob_#MAX_SALARY} attribute with the specified value, while adjusting
      * current value of {@value MappedJob_#MIN_SALARY} attribute to be validated by
      * {@link #isMinSalaryLessThanOrEqualToMaxSalary()}} method.
      *
