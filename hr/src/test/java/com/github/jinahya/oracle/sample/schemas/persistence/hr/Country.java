@@ -27,6 +27,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -37,17 +38,39 @@ import lombok.ToString;
 import java.util.List;
 import java.util.Optional;
 
+@NamedQuery(
+        name = """
+                Country.\
+                SelectList_\
+                Where\
+                RegionRegionIdEqual_\
+                OrderBy\
+                CountryIdAsc""",
+        query = """
+                SELECT e
+                FROM Country e
+                WHERE e.region.regionId = : regionRegionId
+                """
+)
+@NamedQuery(
+        name = """
+                Country.\
+                SelectList_\
+                Where\
+                RegionIdEqual_\
+                OrderBy\
+                CountryIdAsc""",
+        query = """
+                SELECT e
+                FROM Country e
+                WHERE e.regionId = : regionId
+                """
+)
 @Entity
 @Table(name = MappedCountry.TABLE_NAME)
 class Country extends MappedCountry {
 
-    /**
-     * The name of the entity attribute, of  {@link Region}, from which the {@value #COLUMN_NAME_REGION_ID} column maps.
-     * The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_REGION = "region";
-
-    // -----------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------- BUILDERS
     public static CountryBuilder builder() {
         return new CountryBuilder();
     }

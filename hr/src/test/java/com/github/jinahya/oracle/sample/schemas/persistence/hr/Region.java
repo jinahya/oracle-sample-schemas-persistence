@@ -24,7 +24,6 @@ import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedRegi
 import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedRegionBuilder;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -37,34 +36,6 @@ import java.util.List;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(
-        name = "Region.selectListWhereRegionNameIsNull",
-        query = """
-                SELECT e
-                FROM Region AS e
-                WHERE e.regionName IS NULL"""
-)
-@NamedQuery(
-        name = "Region.selectListWhereRegionNameIsNotNull",
-        query = """
-                SELECT e
-                FROM Region AS e
-                WHERE e.regionName IS NOT NULL"""
-)
-@NamedQuery(
-        name = "Region.selectListWhereRegionNameLike",
-        query = """
-                SELECT e
-                FROM Region AS e
-                WHERE e.regionName LIKE :regionNamePattern"""
-)
-@NamedQuery(
-        name = "Region.selectListWhereRegionNameEqual",
-        query = """
-                SELECT e
-                FROM Region AS e
-                WHERE e.regionName = :regionName"""
-)
 @Entity
 @Table(name = MappedRegion.TABLE_NAME)
 class Region extends MappedRegion {

@@ -85,7 +85,6 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
      */
     public static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
 
-    // -----------------------------------------------------------------------------------------------------------------
     public static final String ATTRIBUTE_NAME_REGION = "region";
 
     // -----------------------------------------------------------------------------------------------------------------
