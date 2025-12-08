@@ -58,7 +58,7 @@ public class JobHistoryIdBuilder
      *
      * @return current value of the {@code employeeId} property.
      */
-    Integer employeeId() {
+    public Integer employeeId() {
         return employeeId;
     }
 
@@ -100,7 +100,7 @@ public class JobHistoryIdBuilder
      *
      * @return current value of the {@code startDate} property.
      */
-    LocalDate startDate() {
+    public LocalDate startDate() {
         return startDate;
     }
 
