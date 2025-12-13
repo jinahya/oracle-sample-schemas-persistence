@@ -25,6 +25,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 class Department_PersistenceTest extends _MappedHrEntity_PersistenceTest<Department, Integer> {
 
     Department_PersistenceTest() {
@@ -52,6 +56,61 @@ class Department_PersistenceTest extends _MappedHrEntity_PersistenceTest<Departm
         @Test
         void CriteriaApi__() {
             // TODO: implement!
+        }
+    }
+
+    @Nested
+    class SelectList_WhereLocationEqual_OrderByLocationIdAsc_Test {
+
+        @Test
+        void NamedQuery__() {
+            final List<Department> result = applyEntityManager(
+                    em -> {
+                        final var query = em.createNamedQuery(
+                                """
+                                        Department.\
+                                        SelectList_\
+                                        Where\
+                                        LocationEqual_\
+                                        OrderBy\
+                                        DepartmentIdAsc""",
+                                Department.class
+                        );
+                        query.setParameter("location", Location.builder().locationId(1).build());
+                        query.setFirstResult(0);
+                        query.setMaxResults(10);
+                        return query.getResultList();
+                    }
+            );
+            assertThat(result).allSatisfy(d -> {
+                assertThat(d.getLocationId()).isEqualTo(1);
+            });
+        }
+
+        @Test
+        void QueryLangauge__() {
+        }
+
+        @Test
+        void CriteriaApi__() {
+            final var result = applyEntityManager(em -> {
+                final var builder = em.getCriteriaBuilder();
+                final var query = builder.createQuery(Department.class);
+                final var root = query.from(Department.class);
+                query.select(root);
+                query.where(builder.equal(
+                        root.get(Department_.location),
+                        Location.builder().locationId(1).build()
+                ));
+                query.orderBy(builder.asc(root.get(Department_.departmentId)));
+                return em.createQuery(query)
+                        .setFirstResult(0)
+                        .setMaxResults(10)
+                        .getResultList();
+            });
+            assertThat(result).allSatisfy(e -> {
+                assertThat(e.getLocationId()).isEqualTo(1);
+            });
         }
     }
 }

@@ -87,6 +87,7 @@ import java.util.Optional;
                 SELECT e
                 FROM Department e
                 WHERE e.location = :location
+                ORDER BY e.departmentId ASC
                 """
 )
 @Entity

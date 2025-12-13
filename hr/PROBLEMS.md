@@ -2,6 +2,29 @@
 
 ## DEPARTMENTS
 
+### List up all departments by `location`
+
+```sql
+SELECT *
+FROM DEPARTMENTS
+WHERE LOCATION_ID = ?
+ORDER BY DEPARTMENT_ID ASC
+```
+
+```jpaql
+SELECT e
+FROM Department e
+WHERE e.locationId = :locationId
+ORDER BY e.departmentId ASC
+```
+
+```jpaql
+SELECT e
+FROM Department e
+WHERE e.location = :location
+ORDER BY e.departmentId ASC
+```
+
 ### List up departments order by number of employees
 
 ```sql
