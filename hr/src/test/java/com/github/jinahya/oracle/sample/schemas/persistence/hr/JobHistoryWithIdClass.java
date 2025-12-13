@@ -128,7 +128,7 @@ class JobHistoryWithIdClass extends MappedJobHistoryWithIdClass {
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_EMPLOYEE_ID,
-                referencedColumnName = MappedEmployee.COLUMN_NAME_DEPARTMENT_ID,
+                referencedColumnName = MappedEmployee.COLUMN_NAME_EMPLOYEE_ID,
                 nullable = COLUMN_NULLABLE_EMPLOYEE_ID,
                 insertable = false,
                 updatable = false
