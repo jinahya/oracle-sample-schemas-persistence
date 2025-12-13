@@ -62,14 +62,35 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
     public static final int ATTRIBUTE_SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
     // ---------------------------------------------------------------------------------------------------- COUNTRY_NAME
+
+    /**
+     * The name of the table column to which the {@value MappedCountry_#COUNTRY_ID} attribute maps. The value is
+     * {@value}.
+     */
     public static final String COLUMN_NAME_COUNTRY_NAME = "COUNTRY_NAME";
 
+    /**
+     * The length of the {@value #COLUMN_NAME_COUNTRY_NAME} column. The value is {@value}.
+     */
     public static final int COLUMN_LENGTH_COUNTRY_NAME = 60;
 
+    /**
+     * The name of the entity attribute from which the {@value #COLUMN_NAME_COUNTRY_NAME} column maps. The value is
+     * {@value}.
+     *
+     * @deprecated in favor of {@link MappedCountry_#COUNTRY_ID}.
+     */
+    @Deprecated(forRemoval = true)
     public static final String ATTRIBUTE_NAME_COUNTRY_NAME = "countryName";
 
+    /**
+     * The minimum value of the {@value MappedCountry_#COUNTRY_ID} attribute. The value is {@value}.
+     */
     public static final int ATTRIBUTE_SIZE_NIN_COUNTRY_NAME = 0;
 
+    /**
+     * The maximum value of the {@value MappedCountry_#COUNTRY_ID} attribute. The value is {@value}.
+     */
     public static final int ATTRIBUTE_SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
 
     // ------------------------------------------------------------------------------------------------------- REGION_ID
@@ -83,12 +104,7 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
     /**
      * The name of the entity attribute from which the {@value #COLUMN_NAME_REGION_ID} column. The value is {@value}.
      */
-    public static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
-
-    public static final String ATTRIBUTE_NAME_REGION = "region";
-
-    // -----------------------------------------------------------------------------------------------------------------
-    public static final String ATTRIBUTE_NAME_LOCATIONS = "locations";
+    static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -120,16 +136,14 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
                '}';
     }
 
-    @Override
-    public final boolean equals(final Object obj) {
+    protected final boolean equalsWithCountryId(final Object obj) {
         if (!(obj instanceof MappedCountry that)) {
             return false;
         }
         return Objects.equals(getCountryId(), that.getCountryId());
     }
 
-    @Override
-    public final int hashCode() {
+    protected final int hashCodeWithCountryId() {
         return Objects.hashCode(getCountryId());
     }
 
@@ -191,21 +205,33 @@ public abstract class MappedCountry extends _MappedHrEntity<String> {
     @NotNull
     @Id
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = false, insertable = true, updatable = false,
-            length = COLUMN_LENGTH_COUNTRY_ID)
+    @Column(name = COLUMN_NAME_COUNTRY_ID,
+            nullable = false,
+            insertable = true,
+            updatable = false,
+            length = COLUMN_LENGTH_COUNTRY_ID
+    )
     private String countryId;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Size(min = ATTRIBUTE_SIZE_NIN_COUNTRY_NAME, max = ATTRIBUTE_SIZE_MAX_COUNTRY_NAME)
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_COUNTRY_NAME, nullable = true, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_COUNTRY_NAME)
+    @Column(name = COLUMN_NAME_COUNTRY_NAME,
+            nullable = true,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_COUNTRY_NAME
+    )
     private String countryName;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_REGION_ID, nullable = true, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_REGION_ID,
+            nullable = true,
+            insertable = true,
+            updatable = true
+    )
     private Long regionId;
 }

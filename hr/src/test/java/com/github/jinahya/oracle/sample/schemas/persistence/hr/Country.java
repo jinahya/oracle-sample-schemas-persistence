@@ -43,13 +43,29 @@ import java.util.Optional;
                 Country.\
                 SelectList_\
                 Where\
+                RegionEqual_\
+                OrderBy\
+                CountryIdAsc""",
+        query = """
+                SELECT e
+                FROM Country e
+                WHERE e.region = :region
+                ORDER BY e.countryId ASC
+                """
+)
+@NamedQuery(
+        name = """
+                Country.\
+                SelectList_\
+                Where\
                 RegionRegionIdEqual_\
                 OrderBy\
                 CountryIdAsc""",
         query = """
                 SELECT e
                 FROM Country e
-                WHERE e.region.regionId = : regionRegionId
+                WHERE e.region.regionId = :regionRegionId
+                ORDER BY e.countryId ASC
                 """
 )
 @NamedQuery(
@@ -64,11 +80,18 @@ import java.util.Optional;
                 SELECT e
                 FROM Country e
                 WHERE e.regionId = : regionId
+                ORDER BY e.countryId ASC
                 """
 )
 @Entity
 @Table(name = MappedCountry.TABLE_NAME)
 class Country extends MappedCountry {
+
+    // -----------------------------------------------------------------------------------------------------------------
+    static final String ATTRIBUTE_NAME_REGION = "region";
+
+    // -----------------------------------------------------------------------------------------------------------------
+    static final String ATTRIBUTE_NAME_LOCATIONS = "locations";
 
     // -------------------------------------------------------------------------------------------------------- BUILDERS
     public static CountryBuilder builder() {
@@ -87,6 +110,15 @@ class Country extends MappedCountry {
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
+    @Override
+    public final boolean equals(final Object obj) {
+        return equalsWithCountryId(obj);
+    }
+
+    @Override
+    public final int hashCode() {
+        return hashCodeWithCountryId();
+    }
 
     // ------------------------------------------------------------------------------------------------- super.countryId
 
@@ -121,8 +153,13 @@ class Country extends MappedCountry {
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Valid
-    @ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = {})
-    @JoinColumn(name = COLUMN_NAME_REGION_ID, nullable = true,
+    @ManyToOne(optional = true,
+               fetch = FetchType.LAZY,
+               cascade = {
+               }
+    )
+    @JoinColumn(name = COLUMN_NAME_REGION_ID,
+                nullable = true,
                 insertable = false,
 //                insertable = true, // eclipselink
                 updatable = false

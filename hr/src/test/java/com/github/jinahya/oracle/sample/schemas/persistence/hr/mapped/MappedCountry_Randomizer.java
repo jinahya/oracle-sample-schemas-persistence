@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.hr;
+package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
 /*-
  * #%L
@@ -20,7 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountry_Randomizer;
+import com.github.jinahya.persistence.mapped.test.___RandomizerUtils;
 import jakarta.annotation.Nonnull;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
@@ -28,13 +28,28 @@ import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.List;
 
-class Country_Randomizer extends MappedCountry_Randomizer<Country> {
+@SuppressWarnings({
+        "java:S119" // Type parameter names should comply with a naming convention
+})
+public abstract class MappedCountry_Randomizer<ENTITY extends MappedCountry>
+        extends _MappedHrEntity_Randomizer<ENTITY, String> {
 
-    Country_Randomizer() {
-        super(Country.class, List.of(
-                Country.ATTRIBUTE_NAME_REGION,
-                Country.ATTRIBUTE_NAME_LOCATIONS
-        ));
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    /**
+     * Creates a new instance for building instance of the specified target class.
+     *
+     * @param targetClass the target class to build.
+     */
+    protected MappedCountry_Randomizer(@Nonnull final Class<ENTITY> targetClass,
+                                       @Nonnull final Iterable<String> excludedFields) {
+        super(targetClass, String.class,
+              ___RandomizerUtils.moreExcludedFields(excludedFields, List.of(
+                      MappedCountry.ATTRIBUTE_NAME_REGION_ID
+              ))
+        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -58,7 +73,7 @@ class Country_Randomizer extends MappedCountry_Randomizer<Country> {
 
     @Nonnull
     @Override
-    public Country get() {
+    public ENTITY get() {
         return super.get();
     }
 }
