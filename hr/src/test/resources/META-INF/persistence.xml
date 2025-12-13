@@ -34,7 +34,7 @@
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Employee</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Job</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryWithEmbeddedId</class>
+<!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryWithEmbeddedId</class>-->
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryWithIdClass</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Location</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Region</class>
@@ -78,8 +78,8 @@
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Employee</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Job</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId</class>-->
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryWithEmbeddedId</class>-->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryWithIdClass</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Location</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Region</class>
     <shared-cache-mode>NONE</shared-cache-mode>

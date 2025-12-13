@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assumptions.assumeThat;
 
-//@org.junit.jupiter.api.Disabled
+@org.junit.jupiter.api.Disabled
 @__Disable_PersistEntityInstance_Test
 @Slf4j
 class JobHistoryWithEmbeddedId_PersistenceIT
