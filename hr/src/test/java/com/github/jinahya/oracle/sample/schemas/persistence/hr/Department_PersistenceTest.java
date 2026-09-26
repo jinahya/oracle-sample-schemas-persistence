@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_PersistenceTest;
-
-class Department_PersistenceTest extends _MappedHrEntity_PersistenceTest<Department, Integer> {
+/**
+ * Verifies the mappings of {@link Department} against the schema generated into the in-memory database.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Department_PersistenceTest extends _Persistence_Test<Department> {
 
     Department_PersistenceTest() {
-        super(Department.class, Integer.class);
+        super(Department.class);
     }
 }

@@ -26,23 +26,8 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>io.github.jinahya</groupId>
-      <artifactId>jinahya-persistence-mapped</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.github.jinahya</groupId>
-      <artifactId>jinahya-persistence-mapped-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.github.jinahya</groupId>
-      <artifactId>jinahya-persistence-more</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.github.jinahya</groupId>
-      <artifactId>jinahya-persistence-more-test</artifactId>
+      <groupId>org.jboss.weld</groupId>
+      <artifactId>weld-junit5</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>

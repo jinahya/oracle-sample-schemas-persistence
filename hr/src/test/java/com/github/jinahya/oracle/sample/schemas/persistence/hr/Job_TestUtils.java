@@ -20,7 +20,44 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-final class Job_TestUtils {
+import java.util.concurrent.ThreadLocalRandom;
+
+/**
+ * Utilities for testing the {@link Job} entity class.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+public final class Job_TestUtils {
+
+    /**
+     * Returns a new random positive value for the {@code minSalary} attribute.
+     *
+     * @return a new random positive value for the {@code minSalary} attribute.
+     */
+    public static int newRandomPositiveMinSalary() {
+        return ThreadLocalRandom.current().nextInt(Job.ATTRIBUTE_MAX_MIN_SALARY) + 1;
+    }
+
+    /**
+     * Returns a new random positive value for the {@code maxSalary} attribute, which is greater than or equal to the
+     * specified value of the {@code minSalary} attribute.
+     *
+     * @param minSalary the value of the {@code minSalary} attribute; may be {@code null}.
+     * @return a new random positive value for the {@code maxSalary} attribute.
+     * @throws IllegalArgumentException if {@code minSalary} is out of range.
+     */
+    public static int newRandomPositiveMaxSalary(final Integer minSalary) {
+        if (minSalary != null && minSalary < 1) {
+            throw new IllegalArgumentException("minSalary(" + minSalary + ") < 1");
+        }
+        if (minSalary != null && minSalary > Job.ATTRIBUTE_MAX_MIN_SALARY) {
+            throw new IllegalArgumentException("minSalary(" + minSalary + ") > " + Job.ATTRIBUTE_MAX_MIN_SALARY);
+        }
+        if (minSalary == null) {
+            return newRandomPositiveMinSalary();
+        }
+        return ThreadLocalRandom.current().nextInt(Job.ATTRIBUTE_MAX_MIN_SALARY - minSalary + 1) + minSalary;
+    }
 
     // -----------------------------------------------------------------------------------------------------------------
     private Job_TestUtils() {

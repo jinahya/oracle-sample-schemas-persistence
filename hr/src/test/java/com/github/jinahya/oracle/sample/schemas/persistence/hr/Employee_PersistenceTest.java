@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,25 +20,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_PersistenceTest;
-import jakarta.persistence.EntityManager;
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
-class Employee_PersistenceTest extends _MappedHrEntity_PersistenceTest<Employee, Integer> {
+/**
+ * Verifies the mappings of {@link Employee} against the schema generated into the in-memory database.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Employee_PersistenceTest extends _Persistence_Test<Employee> {
 
     Employee_PersistenceTest() {
-        super(Employee.class, Integer.class);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Override
-    protected void __persistEntityInstance(final EntityManager entityManager, final Employee persisted) {
-        super.__persistEntityInstance(entityManager, persisted);
-    }
-
-    @Override
-    protected void __persistEntityInstance(final Employee persisted) {
-        super.__persistEntityInstance(persisted);
+        super(Employee.class);
     }
 }

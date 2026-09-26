@@ -20,43 +20,136 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.MappedCountrySectionBuilder_;
-import com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.MappedCountrySection_;
-import com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped._MappedShBuilder;
-import com.github.jinahya.persistence.mapped.__Mapped;
-import com.github.jinahya.persistence.mapped.__MappedBuilder;
 import jakarta.annotation.Nonnull;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.FetchType;
+import jakarta.validation.constraints.NotNull;
 
+import java.util.Objects;
+
+/**
+ * An embeddable class for mapping a named section -- a region, a subregion or a total -- of the
+ * {@value Country#TABLE_NAME} table.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 @Embeddable
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public class CountrySection_ extends MappedCountrySection_ {
+public class CountrySection_ {
+    // ------------------------------------------------------------------------------------------------------------ NAME
 
-    // -----------------------------------------------------------------------------------------------------------------
-    public static MappedCountrySectionBuilder_<?, CountrySection_> builder() {
-        return new CountrySectionBuilder_();
-    }
+    /**
+     * The name of the table column to which the {@code name} attribute maps. The value is {@value}.
+     */
+    public static final String COLUMN_NAME_NAME = "NAME";
 
-    // TODO: remove!
-    static _MappedShBuilder<?, ? extends MappedCountrySection_> builder2() {
-        return builder();
-    }
+    /**
+     * The name of the attribute which maps the {@code NAME} column. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_NAME = "name";
 
-    // TODO: remove!
-    static __MappedBuilder<?, ? extends __Mapped> builder3() {
-        return builder2();
-    }
+    // -------------------------------------------------------------------------------------------------------------- ID
 
-    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    /**
+     * The name of the table column to which the {@code id} attribute maps. The value is {@value}.
+     */
+    public static final String COLUMN_NAME_ID = "ID";
+
+    /**
+     * The name of the attribute which maps the {@code ID} column. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_ID = "id";
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    /**
+     * Creates a new instance.
+     */
     protected CountrySection_() {
         super();
     }
 
-    private CountrySection_(@Nonnull final CountrySectionBuilder_ builder) {
-        super(builder);
+    // ------------------------------------------------------------------------------------------------ java.lang.Object
+
+    @Override
+    public String toString() {
+        return super.toString() + '{' +
+               "name=" + name +
+               ",id=" + id +
+               '}';
     }
+
+    @Override
+    public final boolean equals(final Object obj) {
+        if (!(obj instanceof CountrySection_ that)) {
+            return false;
+        }
+        return Objects.equals(name, that.name) &&
+               Objects.equals(id, that.id);
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(name, id);
+    }
+
+    // ------------------------------------------------------------------------------------------------------------ name
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_NAME} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_NAME} attribute.
+     */
+    @Nonnull
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_NAME} attribute with the specified value.
+     *
+     * @param name new value for {@value #ATTRIBUTE_NAME_NAME} attribute.
+     */
+    public void setName(@Nonnull final String name) {
+        this.name = name;
+    }
+
+    // -------------------------------------------------------------------------------------------------------------- id
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     */
+    @Nonnull
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ID} attribute with the specified value.
+     *
+     * @param id new value for {@value #ATTRIBUTE_NAME_ID} attribute.
+     */
+    public void setId(@Nonnull final Long id) {
+        this.id = id;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    @Nonnull
+    @NotNull
+    @Basic(optional = false, fetch = FetchType.EAGER)
+    @Column(name = COLUMN_NAME_NAME, nullable = false, insertable = true, updatable = false)
+    private String name;
+
+    @Nonnull
+    @NotNull
+    @Basic(optional = false, fetch = FetchType.EAGER)
+    @Column(name = COLUMN_NAME_ID, nullable = false, insertable = true, updatable = false)
+    private Long id;
 }

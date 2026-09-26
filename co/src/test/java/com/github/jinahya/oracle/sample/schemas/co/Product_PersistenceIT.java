@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,14 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.mapped._MappedCoEntity_PersistenceIT;
-
-class Product_PersistenceIT extends _MappedCoEntity_PersistenceIT<Product, Long> {
+/**
+ * Verifies the mappings of {@link Product} against the installed {@code CO} schema.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Product_PersistenceIT extends _Persistence_IT<Product> {
 
     Product_PersistenceIT() {
-        super(Product.class, Long.class);
+        super(Product.class);
     }
 }

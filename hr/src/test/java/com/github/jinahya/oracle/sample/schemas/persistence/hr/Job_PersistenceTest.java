@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,151 +20,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_PersistenceTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-
-import java.util.concurrent.ThreadLocalRandom;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
-class Job_PersistenceTest extends _MappedHrEntity_PersistenceTest<Job, String> {
+/**
+ * Verifies the mappings of {@link Job} against the schema generated into the in-memory database.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Job_PersistenceTest extends _Persistence_Test<Job> {
 
     Job_PersistenceTest() {
-        super(Job.class, String.class);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @DisplayName("Select_OrderByMinSalaryAscNullsFirst")
-    @Nested
-    class Select_OrderByMinSalaryAscNullsFirst_Test {
-
-        @Test
-        void __NamedQuery() {
-            // --------------------------------------------------------------------------------------------------- given
-            final var maxResults = ThreadLocalRandom.current().nextInt(10) + 1;
-            // ---------------------------------------------------------------------------------------------------- when
-            final var result = applyEntityManager(em -> {
-                return em.createNamedQuery("Job.Select__OrderByMinSalaryAscNullsFirst", Job.class)
-                        .setMaxResults(maxResults)
-                        .getResultList();
-            });
-            // ---------------------------------------------------------------------------------------------------- then
-            assertThat(result)
-                    .hasSizeLessThanOrEqualTo(maxResults)
-                    .isSortedAccordingTo(MappedJob.COMPARATOR_MIN_SALARY_NATURAL_NULLS_FIRST);
-        }
-
-        @Test
-        void __QueryLanguage() {
-            // --------------------------------------------------------------------------------------------------- given
-            final var maxResults = ThreadLocalRandom.current().nextInt(10) + 1;
-            // ---------------------------------------------------------------------------------------------------- when
-            final var result = applyEntityManager(em -> {
-                return em.createQuery(
-                                """
-                                        SELECT e
-                                        FROM Job e
-                                        ORDER BY e.minSalary ASC NULLS FIRST""",
-                                Job.class
-                        )
-                        .setMaxResults(maxResults)
-                        .getResultList();
-            });
-            // ---------------------------------------------------------------------------------------------------- then
-            assertThat(result)
-                    .hasSizeLessThanOrEqualTo(maxResults)
-                    .isSortedAccordingTo(MappedJob.COMPARATOR_MIN_SALARY_NATURAL_NULLS_FIRST);
-        }
-
-        @Test
-        void __CriteriaApi() {
-            // --------------------------------------------------------------------------------------------------- given
-            final var maxResults = ThreadLocalRandom.current().nextInt(10) + 1;
-            // ---------------------------------------------------------------------------------------------------- when
-            final var result = applyEntityManager(em -> {
-                final var b = em.getCriteriaBuilder();
-                final var q = b.createQuery(Job.class);
-                final var r = q.from(Job.class);
-                q.orderBy(
-                        b.asc(b.coalesce(r.get(Job_.minSalary), Integer.MIN_VALUE))
-                );
-                return em.createQuery(q)
-                        .setMaxResults(maxResults)
-                        .getResultList();
-            });
-            // ---------------------------------------------------------------------------------------------------- then
-            assertThat(result)
-                    .hasSizeLessThanOrEqualTo(maxResults)
-                    .isSortedAccordingTo(MappedJob.COMPARATOR_MIN_SALARY_NATURAL_NULLS_FIRST);
-        }
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @DisplayName("Select_OrderByMaxSalaryDescNullsLast")
-    @Nested
-    class Select_OrderByMaxSalaryDescNullsLast_Test {
-
-        @Test
-        void __NamedQuery() {
-            // --------------------------------------------------------------------------------------------------- given
-            final var maxResults = ThreadLocalRandom.current().nextInt(10) + 1;
-            // ---------------------------------------------------------------------------------------------------- when
-            final var result = applyEntityManager(em -> {
-                return em.createNamedQuery("Job.Select__OrderByMaxSalaryDescNullsLast", Job.class)
-                        .setMaxResults(maxResults)
-                        .getResultList();
-            });
-            // ---------------------------------------------------------------------------------------------------- then
-            assertThat(result)
-                    .hasSizeLessThanOrEqualTo(maxResults)
-                    .isSortedAccordingTo(MappedJob.COMPARATOR_MAX_SALARY_REVERSE_NULLS_LAST);
-        }
-
-        @Test
-        void __QueryLanguage() {
-            // --------------------------------------------------------------------------------------------------- given
-            final var maxResults = ThreadLocalRandom.current().nextInt(10) + 1;
-            // ---------------------------------------------------------------------------------------------------- when
-            final var result = applyEntityManager(em -> {
-                return em.createQuery(
-                                """
-                                        SELECT e
-                                        FROM Job e
-                                        ORDER BY e.minSalary ASC NULLS FIRST""",
-                                Job.class
-                        )
-                        .setMaxResults(maxResults)
-                        .getResultList();
-            });
-            // ---------------------------------------------------------------------------------------------------- then
-            assertThat(result)
-                    .hasSizeLessThanOrEqualTo(maxResults)
-                    .isSortedAccordingTo(MappedJob.COMPARATOR_MAX_SALARY_REVERSE_NULLS_LAST);
-        }
-
-        @Test
-        void __CriteriaApi() {
-            // --------------------------------------------------------------------------------------------------- given
-            final var maxResults = ThreadLocalRandom.current().nextInt(10) + 1;
-            // ---------------------------------------------------------------------------------------------------- when
-            final var result = applyEntityManager(em -> {
-                final var b = em.getCriteriaBuilder();
-                final var q = b.createQuery(Job.class);
-                final var r = q.from(Job.class);
-                q.orderBy(
-                        b.asc(b.coalesce(r.get(Job_.maxSalary), Integer.MAX_VALUE))
-                );
-                return em.createQuery(q)
-                        .setMaxResults(maxResults)
-                        .getResultList();
-            });
-            // ---------------------------------------------------------------------------------------------------- then
-            assertThat(result)
-                    .hasSizeLessThanOrEqualTo(maxResults)
-                    .isSortedAccordingTo(MappedJob.COMPARATOR_MAX_SALARY_REVERSE_NULLS_LAST);
-        }
+        super(Job.class);
     }
 }

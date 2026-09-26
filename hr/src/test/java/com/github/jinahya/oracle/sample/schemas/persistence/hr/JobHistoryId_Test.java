@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,25 +20,25 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHr_Test;
-import jakarta.annotation.Nonnull;
-import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-class JobHistoryId_Test extends _MappedHr_Test<JobHistoryId> {
+/**
+ * A class for testing the {@link JobHistoryId} composite primary key class.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class JobHistoryId_Test {
 
-    JobHistoryId_Test() {
-        super(JobHistoryId.class);
+    @DisplayName("new JobHistoryId().toString()!blank")
+    @Test
+    void toString_NotBlank_() {
+        EntityTestUtils.assertToStringIsNotBlank(JobHistoryId.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @Override
-    protected SingleTypeEqualsVerifierApi<JobHistoryId> equals_Verify_(
-            @Nonnull final SingleTypeEqualsVerifierApi<JobHistoryId> equalsVerifier) {
-        return super.equals_Verify_(equalsVerifier)
-                .withOnlyTheseFields(
-                        JobHistoryId.ATTRIBUTE_NAME_EMPLOYEE_ID,
-                        JobHistoryId.ATTRIBUTE_NAME_START_DATE
-                );
+    @DisplayName("JobHistoryId property accessors round-trip")
+    @Test
+    void propertyAccessors_DoNotThrow_() {
+        EntityTestUtils.assertPropertyAccessorsDoNotThrow(JobHistoryId.class);
     }
 }

@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,24 +20,25 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Test;
-import jakarta.annotation.Nonnull;
-import nl.jqno.equalsverifier.Warning;
-import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-class Product_Test extends __MappedEntity_Test<Product, Long> {
+/**
+ * A class for testing the {@link Product} entity class.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Product_Test {
 
-    Product_Test() {
-        super(Product.class, Long.class);
+    @DisplayName("new Product().toString()!blank")
+    @Test
+    void toString_NotBlank_() {
+        EntityTestUtils.assertToStringIsNotBlank(Product.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @Override
-    protected SingleTypeEqualsVerifierApi<Product> equals_Verify_(
-            @Nonnull final SingleTypeEqualsVerifierApi<Product> equalsVerifier) {
-        return super.equals_Verify_(equalsVerifier)
-                .suppress(Warning.SURROGATE_KEY)
-                ;
+    @DisplayName("Product property accessors round-trip")
+    @Test
+    void propertyAccessors_DoNotThrow_() {
+        EntityTestUtils.assertPropertyAccessorsDoNotThrow(Product.class);
     }
 }

@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,16 +20,14 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersistenceTest;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Disabled;
-
-@Disabled
-@Slf4j
-class OrderItemWithIdClass_PersistenceTest
-        extends __MappedEntity_PersistenceTest<OrderItemWithIdClass, OrderItemId> {
+/**
+ * Verifies the mappings of {@link OrderItemWithIdClass} against the schema generated into the in-memory database.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class OrderItemWithIdClass_PersistenceTest extends _Persistence_Test<OrderItemWithIdClass> {
 
     OrderItemWithIdClass_PersistenceTest() {
-        super(OrderItemWithIdClass.class, OrderItemId.class);
+        super(OrderItemWithIdClass.class);
     }
 }

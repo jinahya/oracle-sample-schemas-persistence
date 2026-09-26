@@ -20,8 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrderItem;
-import com.github.jinahya.oracle.sample.schemas.co.mapped._MappedCo;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -31,30 +29,22 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * An id class for {@link MappedOrderItem} class.
+ * An id class for {@link OrderItemWithEmbeddedId} class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @Embeddable
-public class OrderItemId extends _MappedCo {
+public class OrderItemId {
 
-    // -----------------------------------------------------------------------------------------------------------------
+    /**
+     * The name of the attribute which maps the {@code ORDER_ID} column. The value is {@value}.
+     */
     public static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
 
+    /**
+     * The name of the attribute which maps the {@code LINE_ITEM_ID} column. The value is {@value}.
+     */
     public static final String ATTRIBUTE_NAME_LINE_ITEM_ID = "lineItemId";
-
-    // -------------------------------------------------------------------------------------------------------- BUILDERS
-    public static OrderItemIdBuilder builder() {
-        return new OrderItemIdBuilder();
-    }
-
-    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
-    public static OrderItemId of(@Nonnull final Long orderId, @Nonnull final Long lineItemId) {
-        return builder()
-                .orderId(orderId)
-                .lineItemId(lineItemId)
-                .build();
-    }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -65,11 +55,20 @@ public class OrderItemId extends _MappedCo {
         super();
     }
 
-    OrderItemId(final OrderItemIdBuilder builder) {
-        super(builder);
+    /**
+     * Creates a new instance with the specified order id and line item id.
+     *
+     * @param orderId    the {@value OrderItemWithEmbeddedId#COLUMN_NAME_ORDER_ID} column value.
+     * @param lineItemId the {@value OrderItemWithEmbeddedId#COLUMN_NAME_LINE_ITEM_ID} column value.
+     */
+    public OrderItemId(@Nonnull final Long orderId, @Nonnull final Long lineItemId) {
+        this();
+        setOrderId(orderId);
+        setLineItemId(lineItemId);
     }
 
-    // --------------------------------------------------=--------------------------------------------- java.lang.String
+    // ------------------------------------------------------------------------------------------------ java.lang.Object
+
     @Override
     public String toString() {
         return super.toString() + '{' +
@@ -93,6 +92,12 @@ public class OrderItemId extends _MappedCo {
     }
 
     // --------------------------------------------------------------------------------------------------------- orderId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
+     */
     @Nonnull
     public Long getOrderId() {
         return orderId;
@@ -103,6 +108,12 @@ public class OrderItemId extends _MappedCo {
     }
 
     // ------------------------------------------------------------------------------------------------------ lineItemId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_LINE_ITEM_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_LINE_ITEM_ID} attribute.
+     */
     @Nonnull
     public Long getLineItemId() {
         return lineItemId;
@@ -113,15 +124,17 @@ public class OrderItemId extends _MappedCo {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
     @Nonnull
     @NotNull
     @Basic(optional = false)
-    @Column(name = MappedOrderItem.COLUMN_NAME_ORDER_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = OrderItemWithEmbeddedId.COLUMN_NAME_ORDER_ID, nullable = false, insertable = true, updatable = false)
     private Long orderId;
 
     @Nonnull
     @NotNull
     @Basic(optional = false)
-    @Column(name = MappedOrderItem.COLUMN_NAME_LINE_ITEM_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = OrderItemWithEmbeddedId.COLUMN_NAME_LINE_ITEM_ID, nullable = false, insertable = true,
+            updatable = false)
     private Long lineItemId;
 }

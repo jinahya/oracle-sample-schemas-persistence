@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,26 +20,25 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory_Test;
-import jakarta.annotation.Nonnull;
-import lombok.extern.slf4j.Slf4j;
-import nl.jqno.equalsverifier.Warning;
-import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
-@Slf4j
-class JobHistoryWithEmbeddedId_Test extends MappedJobHistory_Test<JobHistoryWithEmbeddedId> {
+/**
+ * A class for testing the {@link JobHistoryWithEmbeddedId} entity class.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class JobHistoryWithEmbeddedId_Test {
 
-    JobHistoryWithEmbeddedId_Test() {
-        super(JobHistoryWithEmbeddedId.class);
+    @DisplayName("new JobHistoryWithEmbeddedId().toString()!blank")
+    @Test
+    void toString_NotBlank_() {
+        EntityTestUtils.assertToStringIsNotBlank(JobHistoryWithEmbeddedId.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @Override
-    protected SingleTypeEqualsVerifierApi<JobHistoryWithEmbeddedId> equals_Verify_(
-            @Nonnull final SingleTypeEqualsVerifierApi<JobHistoryWithEmbeddedId> equalsVerifier) {
-        return super.equals_Verify_(equalsVerifier)
-                .suppress(Warning.SURROGATE_KEY)
-                ;
+    @DisplayName("JobHistoryWithEmbeddedId property accessors round-trip")
+    @Test
+    void propertyAccessors_DoNotThrow_() {
+        EntityTestUtils.assertPropertyAccessorsDoNotThrow(JobHistoryWithEmbeddedId.class);
     }
 }

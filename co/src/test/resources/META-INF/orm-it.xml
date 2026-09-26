@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  The schema the __itPU persistence unit reads.
+
+  The entities map unqualified table names, on purpose, so that nothing in src/main knows which
+  schema it was installed into. The integration-test unit connects as a DML-only user which owns
+  no objects of its own, and Oracle resolves an unqualified name against the session's
+  CURRENT_SCHEMA (the connected user), so every query would look for DMLONLY.CUSTOMERS and fail
+  with ORA-00942.
+
+  <persistence-unit-defaults><schema> is the standard, provider-neutral way to say it: it qualifies
+  every table of this unit, and only of this unit, so __testPU keeps mapping unqualified names into
+  the in-memory database.
+  -->
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence/orm
+                                     https://jakarta.ee/xml/ns/persistence/orm/orm_3_2.xsd"
+                 version="3.2">
+  <persistence-unit-metadata>
+    <persistence-unit-defaults>
+      <schema>CO</schema>
+    </persistence-unit-defaults>
+  </persistence-unit-metadata>
+</entity-mappings>

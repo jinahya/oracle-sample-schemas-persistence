@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #%L
  * sh
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +20,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped._MappedShEntity_PersistenceIT;
-
-class Country_PersistenceIT extends _MappedShEntity_PersistenceIT<Country, Long> {
+/**
+ * Verifies the mappings of {@link Country} against the installed {@code SH} schema.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Country_PersistenceIT extends _Persistence_IT<Country> {
 
     Country_PersistenceIT() {
-        super(Country.class, Long.class);
+        super(Country.class);
     }
 }

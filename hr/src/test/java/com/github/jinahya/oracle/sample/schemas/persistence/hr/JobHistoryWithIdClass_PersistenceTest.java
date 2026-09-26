@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,12 +20,12 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory_PersistenceTest;
-import com.github.jinahya.persistence.mapped.test.__Disable_PersistEntityInstance_Test;
-
-@org.junit.jupiter.api.Disabled
-@__Disable_PersistEntityInstance_Test
-class JobHistoryWithIdClass_PersistenceTest extends MappedJobHistory_PersistenceTest<JobHistoryWithIdClass> {
+/**
+ * Verifies the mappings of {@link JobHistoryWithIdClass} against the schema generated into the in-memory database.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class JobHistoryWithIdClass_PersistenceTest extends _Persistence_Test<JobHistoryWithIdClass> {
 
     JobHistoryWithIdClass_PersistenceTest() {
         super(JobHistoryWithIdClass.class);

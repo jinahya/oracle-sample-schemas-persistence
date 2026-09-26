@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,28 +20,14 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedStore;
-import com.github.jinahya.oracle.sample.schemas.co.mapped._MappedCoEntity_PersistenceIT;
-import jakarta.annotation.Nonnull;
-import lombok.extern.slf4j.Slf4j;
-
-import java.util.Collection;
-
-@Slf4j
-class Store_PersistenceIT extends _MappedCoEntity_PersistenceIT<Store, Long> {
+/**
+ * Verifies the mappings of {@link Store} against the installed {@code CO} schema.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Store_PersistenceIT extends _Persistence_IT<Store> {
 
     Store_PersistenceIT() {
-        super(Store.class, Long.class);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Override
-    protected void _Mapped_AllTableColumnNames(@Nonnull final Collection<String> remainingTableColumnNames) {
-        remainingTableColumnNames.remove(MappedStore.COLUMN_NAME_LOGO);
-        remainingTableColumnNames.remove(MappedStore.COLUMN_NAME_LOGO_MIME_TYPE);
-        remainingTableColumnNames.remove(MappedStore.COLUMN_NAME_LOGO_FILENAME);
-        remainingTableColumnNames.remove(MappedStore.COLUMN_NAME_LOGO_CHARSET);
-        remainingTableColumnNames.remove(MappedStore.COLUMN_NAME_LOGO_LAST_UPDATED);
-        super._Mapped_AllTableColumnNames(remainingTableColumnNames);
+        super(Store.class);
     }
 }
