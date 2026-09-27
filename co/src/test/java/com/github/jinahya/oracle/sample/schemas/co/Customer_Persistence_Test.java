@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Customer_PersistenceTest {
+class Customer_Persistence_Test {
 
     private static Customer newRandomizedInstance() {
         final var random = ThreadLocalRandom.current();

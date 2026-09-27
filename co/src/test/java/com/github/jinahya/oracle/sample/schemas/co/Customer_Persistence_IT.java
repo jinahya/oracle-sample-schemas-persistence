@@ -25,9 +25,9 @@ package com.github.jinahya.oracle.sample.schemas.co;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Customer_PersistenceIT extends _Persistence_IT<Customer> {
+class Customer_Persistence_IT extends _Persistence_IT<Customer> {
 
-    Customer_PersistenceIT() {
+    Customer_Persistence_IT() {
         super(Customer.class);
     }
 }

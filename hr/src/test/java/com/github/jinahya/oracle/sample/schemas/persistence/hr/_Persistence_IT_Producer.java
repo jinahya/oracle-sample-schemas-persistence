@@ -48,7 +48,7 @@ import java.lang.invoke.MethodHandles;
  * The two scopes mirror the two lifetimes:
  * <ul>
  * <li>the factory is {@link ApplicationScoped}, because opening one is what costs -- the provider reads the
- * descriptor, builds the metamodel and generates the schema exactly once per container;</li>
+ * descriptor, builds the metamodel and connects to the database exactly once per container;</li>
  * <li>an entity manager is {@link Dependent}, and so is created afresh at each injection point and destroyed with
  * whatever it was injected into -- a persistence context is short-lived, and sharing one across tests would leak
  * managed instances from one into the next.</li>
@@ -58,33 +58,33 @@ import java.lang.invoke.MethodHandles;
  * destroying the container does it.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see _Persistence_Test
+ * @see _Persistence_IT
  */
 @ApplicationScoped
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-class _TestPersistenceProducer {
+class _Persistence_IT_Producer {
 
     /**
      * The name of the persistence unit this producer bootstraps. The value is {@value}.
      */
-    static final String PERSISTENCE_UNIT_NAME = "__testPU";
+    static final String PERSISTENCE_UNIT_NAME = "__itPU";
 
     private static final System.Logger logger = System.getLogger(MethodHandles.lookup().lookupClass().getName());
 
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * A CDI qualifier for the beans of the {@value _TestPersistenceProducer#PERSISTENCE_UNIT_NAME} persistence unit.
+     * A CDI qualifier for the beans of the {@value _Persistence_IT_Producer#PERSISTENCE_UNIT_NAME} persistence unit.
      * <p>
      * This module declares two persistence units, so an unqualified {@link EntityManager} would be an
      * ambiguous-resolution failure rather than a second bean. The qualifier names the unit at both ends: the producer
      * declares which unit it produces, and an injection point declares which unit it wants.
      * <p>
      * Declaring it also removes {@link jakarta.enterprise.inject.Default @Default} from these beans, so an injection
-     * point which asks for a bare {@code EntityManager} is left unsatisfied, deliberately: the in-memory unit is never
-     * picked when a test meant the physical one.
+     * point which asks for a bare {@code EntityManager} is left unsatisfied, deliberately: the physical database is
+     * never touched by a test which meant the in-memory unit.
      *
      * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
      */
@@ -92,14 +92,14 @@ class _TestPersistenceProducer {
     @Qualifier
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.TYPE})
-    @interface __TestPU {
+    @interface __ItPU {
 
         /**
-         * An {@link AnnotationLiteral} of {@link __TestPU}, for selecting a bean programmatically.
+         * An {@link AnnotationLiteral} of {@link __ItPU}, for selecting a bean programmatically.
          *
          * @see jakarta.enterprise.inject.Instance#select(Class, java.lang.annotation.Annotation...)
          */
-        final class Literal extends AnnotationLiteral<__TestPU> implements __TestPU {
+        final class Literal extends AnnotationLiteral<__ItPU> implements __ItPU {
 
             /**
              * The single instance of this literal; the annotation declares no member, so one is enough.
@@ -119,7 +119,7 @@ class _TestPersistenceProducer {
     /**
      * Creates a new instance.
      */
-    _TestPersistenceProducer() {
+    _Persistence_IT_Producer() {
         super();
     }
 
@@ -132,7 +132,7 @@ class _TestPersistenceProducer {
      * @see Persistence#createEntityManagerFactory(String)
      */
     @Produces
-    @__TestPU
+    @__ItPU
     @ApplicationScoped
     EntityManagerFactory produceEntityManagerFactory() {
         logger.log(System.Logger.Level.DEBUG, "creating a factory of {0}", PERSISTENCE_UNIT_NAME);
@@ -146,7 +146,7 @@ class _TestPersistenceProducer {
      * @implNote Guarded by {@link EntityManagerFactory#isOpen()}: a test which closed it itself, which is allowed, must
      * not make the shutdown fail.
      */
-    void disposeEntityManagerFactory(@Disposes @__TestPU final EntityManagerFactory entityManagerFactory) {
+    void disposeEntityManagerFactory(@Disposes @__ItPU final EntityManagerFactory entityManagerFactory) {
         if (entityManagerFactory.isOpen()) {
             logger.log(System.Logger.Level.DEBUG, "closing {0}", entityManagerFactory);
             entityManagerFactory.close();
@@ -158,7 +158,7 @@ class _TestPersistenceProducer {
     /**
      * Produces a new entity manager, from the factory of the {@value #PERSISTENCE_UNIT_NAME} persistence unit.
      *
-     * @param entityManagerFactory the factory, injected by the {@link __TestPU} qualifier; the parameter of a producer
+     * @param entityManagerFactory the factory, injected by the {@link __ItPU} qualifier; the parameter of a producer
      *                             method is an injection point.
      * @return a new entity manager.
      * @implNote {@link Dependent}, not {@link ApplicationScoped}: a persistence context is not something to share. Note
@@ -167,9 +167,9 @@ class _TestPersistenceProducer {
      * @see EntityManagerFactory#createEntityManager()
      */
     @Produces
-    @__TestPU
+    @__ItPU
     @Dependent
-    EntityManager produceEntityManager(@__TestPU final EntityManagerFactory entityManagerFactory) {
+    EntityManager produceEntityManager(@__ItPU final EntityManagerFactory entityManagerFactory) {
         return entityManagerFactory.createEntityManager();
     }
 
@@ -180,7 +180,7 @@ class _TestPersistenceProducer {
      * @implNote Guarded by {@link EntityManager#isOpen()}, for the same reason the factory's disposer is: an entity
      * manager used in a try-with-resources is already closed by the time it is destroyed.
      */
-    void disposeEntityManager(@Disposes @__TestPU final EntityManager entityManager) {
+    void disposeEntityManager(@Disposes @__ItPU final EntityManager entityManager) {
         if (entityManager.isOpen()) {
             entityManager.close();
         }

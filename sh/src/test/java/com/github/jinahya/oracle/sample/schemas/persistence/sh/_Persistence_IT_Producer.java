@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.schemas.co;
+package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 
 /*-
  * #%L
- * co
+ * sh
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
@@ -64,7 +64,7 @@ import java.lang.invoke.MethodHandles;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-class _ItPersistenceProducer {
+class _Persistence_IT_Producer {
 
     /**
      * The name of the persistence unit this producer bootstraps. The value is {@value}.
@@ -76,7 +76,7 @@ class _ItPersistenceProducer {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * A CDI qualifier for the beans of the {@value _ItPersistenceProducer#PERSISTENCE_UNIT_NAME} persistence unit.
+     * A CDI qualifier for the beans of the {@value _Persistence_IT_Producer#PERSISTENCE_UNIT_NAME} persistence unit.
      * <p>
      * This module declares two persistence units, so an unqualified {@link EntityManager} would be an
      * ambiguous-resolution failure rather than a second bean. The qualifier names the unit at both ends: the producer
@@ -119,7 +119,7 @@ class _ItPersistenceProducer {
     /**
      * Creates a new instance.
      */
-    _ItPersistenceProducer() {
+    _Persistence_IT_Producer() {
         super();
     }
 

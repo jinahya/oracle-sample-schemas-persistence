@@ -34,13 +34,13 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import static com.github.jinahya.oracle.sample.schemas.persistence.hr._ItPersistenceProducer.__ItPU;
+import static com.github.jinahya.oracle.sample.schemas.persistence.hr._Persistence_IT_Producer.__ItPU;
 
 /**
  * An abstract base class for integration tests which need the physical database, against the
- * {@value _ItPersistenceProducer#PERSISTENCE_UNIT_NAME} persistence unit.
+ * {@value _Persistence_IT_Producer#PERSISTENCE_UNIT_NAME} persistence unit.
  * <p>
- * The container is started by weld-testing, with {@link _ItPersistenceProducer} as its only bean class, so a subclass
+ * The container is started by weld-testing, with {@link _Persistence_IT_Producer} as its only bean class, so a subclass
  * gets an entity manager on the Oracle database the sample schemas were installed into, connecting as {@code dmlonly}.
  * <p>
  * These run under the {@code failsafe} profile only, and require the container from {@code docker-compose.yml} to be
@@ -49,9 +49,9 @@ import static com.github.jinahya.oracle.sample.schemas.persistence.hr._ItPersist
  *
  * @param <T> the type of the entity under test.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see _ItPersistenceProducer
+ * @see _Persistence_IT_Producer
  */
-@AddBeanClasses(_ItPersistenceProducer.class)
+@AddBeanClasses(_Persistence_IT_Producer.class)
 @EnableAutoWeld
 @SuppressWarnings({
         "java:S101", // Class names should comply with a naming convention
@@ -83,7 +83,7 @@ abstract class _Persistence_IT<T> extends __Test<T> {
     @Test
     void selectRandom() {
         acceptEntityManagerInRolledBackTransaction(
-                em -> __Persistence__Utils.selectRandom(em, persistenceClass).ifPresent(this::randomSelected)
+                em -> __Persistence___Utils.selectRandom(em, persistenceClass).ifPresent(this::randomSelected)
         );
     }
 

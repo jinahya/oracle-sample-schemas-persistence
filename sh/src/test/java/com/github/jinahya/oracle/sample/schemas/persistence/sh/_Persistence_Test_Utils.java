@@ -22,7 +22,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -32,6 +31,8 @@ import java.util.function.Function;
  * The persistence unit shared by the {@code SH} tests.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ * @apiNote Every method here is {@link __Persistence___Utils} bound to {@value #PERSISTENCE_UNIT_NAME}; the shared
+ * class holds the logic, this one holds the persistence unit.
  */
 final class _Persistence_Test_Utils {
 
@@ -45,12 +46,8 @@ final class _Persistence_Test_Utils {
      *
      * @return the entity manager factory.
      */
-    static synchronized EntityManagerFactory entityManagerFactory() {
-        if (entityManagerFactory == null) {
-            entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-            Runtime.getRuntime().addShutdownHook(new Thread(entityManagerFactory::close));
-        }
-        return entityManagerFactory;
+    static EntityManagerFactory entityManagerFactory() {
+        return __Persistence___Utils.entityManagerFactory(PERSISTENCE_UNIT_NAME);
     }
 
     /**
@@ -63,15 +60,7 @@ final class _Persistence_Test_Utils {
      */
     static <R> R applyEntityManagerInRolledBackTransaction(
             final Function<? super EntityManager, ? extends R> function) {
-        try (final var entityManager = entityManagerFactory().createEntityManager()) {
-            final var transaction = entityManager.getTransaction();
-            transaction.begin();
-            try {
-                return function.apply(entityManager);
-            } finally {
-                transaction.rollback();
-            }
-        }
+        return __Persistence___Utils.applyEntityManagerInRolledBackTransaction(PERSISTENCE_UNIT_NAME, function);
     }
 
     /**
@@ -86,7 +75,7 @@ final class _Persistence_Test_Utils {
                                               final Class<T> entityClass) {
         Objects.requireNonNull(entityManager, "entityManager is null");
         Objects.requireNonNull(entityClass, "entityClass is null");
-        return __Persistence__Utils.selectRandom(entityManager, entityClass);
+        return __Persistence___Utils.selectRandom(entityManager, entityClass);
     }
 
     /**
@@ -100,15 +89,11 @@ final class _Persistence_Test_Utils {
      * {@link #selectRandomEntity(EntityManager, Class)} when the instance has to stay managed.
      */
     static <T> Optional<T> selectRandomEntity(final Class<T> entityClass) {
-        Objects.requireNonNull(entityClass, "entityClass is null");
-        return applyEntityManagerInRolledBackTransaction(em -> selectRandomEntity(em, entityClass));
+        return __Persistence___Utils.selectRandom(PERSISTENCE_UNIT_NAME, entityClass);
     }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     private _Persistence_Test_Utils() {
         throw new AssertionError("instantiation is not allowed");
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    private static EntityManagerFactory entityManagerFactory;
 }

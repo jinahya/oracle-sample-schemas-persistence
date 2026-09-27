@@ -22,9 +22,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -34,26 +32,23 @@ import java.util.function.Function;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @apiNote This is the {@value #PERSISTENCE_UNIT_NAME} counterpart of {@link _Persistence_Test_Utils}, for tests which
  * reach the physical database rather than the in-memory one. Unlike {@link _Persistence_IT}, which takes its entity
- * manager from CDI, this opens its own factory, for tests which are not Weld-managed.
+ * manager from CDI, this opens its own factory, for tests which are not Weld-managed. Every method here is
+ * {@link __Persistence___Utils} bound to that persistence unit.
  */
 final class _Persistence_IT_Utils {
 
     /**
      * The name of the persistence unit the integration tests run against. The value is {@value}.
      */
-    static final String PERSISTENCE_UNIT_NAME = _ItPersistenceProducer.PERSISTENCE_UNIT_NAME;
+    static final String PERSISTENCE_UNIT_NAME = _Persistence_IT_Producer.PERSISTENCE_UNIT_NAME;
 
     /**
      * Returns the entity manager factory, creating it on first use.
      *
      * @return the entity manager factory.
      */
-    static synchronized EntityManagerFactory entityManagerFactory() {
-        if (entityManagerFactory == null) {
-            entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-            Runtime.getRuntime().addShutdownHook(new Thread(entityManagerFactory::close));
-        }
-        return entityManagerFactory;
+    static EntityManagerFactory entityManagerFactory() {
+        return __Persistence___Utils.entityManagerFactory(PERSISTENCE_UNIT_NAME);
     }
 
     /**
@@ -66,16 +61,7 @@ final class _Persistence_IT_Utils {
      */
     static <R> R applyEntityManagerInRolledBackTransaction(
             final Function<? super EntityManager, ? extends R> function) {
-        Objects.requireNonNull(function, "function is null");
-        try (final var entityManager = entityManagerFactory().createEntityManager()) {
-            final var transaction = entityManager.getTransaction();
-            transaction.begin();
-            try {
-                return function.apply(entityManager);
-            } finally {
-                transaction.rollback();
-            }
-        }
+        return __Persistence___Utils.applyEntityManagerInRolledBackTransaction(PERSISTENCE_UNIT_NAME, function);
     }
 
     /**
@@ -86,20 +72,15 @@ final class _Persistence_IT_Utils {
      * @return a random instance of {@code entityClass}; {@link Optional#empty() empty} when the table is empty.
      * @apiNote The instance is detached by the time it is returned -- the transaction is rolled back and the entity
      * manager closed -- so reading a lazy association off it throws. Use
-     * {@link __Persistence__Utils#selectRandom(EntityManager, Class)} inside
+     * {@link __Persistence___Utils#selectRandom(EntityManager, Class)} inside
      * {@link #applyEntityManagerInRolledBackTransaction(Function)} when the instance has to stay managed.
      */
     static <T> Optional<T> selectRandomEntity(final Class<T> entityClass) {
-        Objects.requireNonNull(entityClass, "entityClass is null");
-        return applyEntityManagerInRolledBackTransaction(
-                em -> __Persistence__Utils.selectRandom(em, entityClass));
+        return __Persistence___Utils.selectRandom(PERSISTENCE_UNIT_NAME, entityClass);
     }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     private _Persistence_IT_Utils() {
         throw new AssertionError("instantiation is not allowed");
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    private static EntityManagerFactory entityManagerFactory;
 }

@@ -33,13 +33,13 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import static com.github.jinahya.oracle.sample.schemas.persistence.sh._TestPersistenceProducer.__TestPU;
+import static com.github.jinahya.oracle.sample.schemas.persistence.sh._Persistence_Test_Producer.__TestPU;
 
 /**
  * An abstract base class for tests which need a persistence context, against the
- * {@value _TestPersistenceProducer#PERSISTENCE_UNIT_NAME} persistence unit.
+ * {@value _Persistence_Test_Producer#PERSISTENCE_UNIT_NAME} persistence unit.
  * <p>
- * The container is started by weld-testing, with {@link _TestPersistenceProducer} as its only bean class, so a subclass
+ * The container is started by weld-testing, with {@link _Persistence_Test_Producer} as its only bean class, so a subclass
  * gets an entity manager on an in-memory database whose schema the provider generates.
  * <p>
  * Nothing here reaches the Oracle database; a test which needs the real data extends {@link _Persistence_IT} and is
@@ -47,9 +47,9 @@ import static com.github.jinahya.oracle.sample.schemas.persistence.sh._TestPersi
  *
  * @param <T> the type of the entity under test.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see _TestPersistenceProducer
+ * @see _Persistence_Test_Producer
  */
-@AddBeanClasses(_TestPersistenceProducer.class)
+@AddBeanClasses(_Persistence_Test_Producer.class)
 @EnableAutoWeld
 @SuppressWarnings({
         "java:S101", // Class names should comply with a naming convention

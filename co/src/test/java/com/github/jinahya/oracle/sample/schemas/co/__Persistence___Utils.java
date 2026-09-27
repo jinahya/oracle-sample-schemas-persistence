@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.sh;
+package com.github.jinahya.oracle.sample.schemas.co;
 
 /*-
  * #%L
- * sh
+ * co
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
@@ -32,7 +32,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 
 /**
- * Persistence-unit-agnostic helpers shared by {@link __Persistence_TestUtils} and {@link __Persistence_ITUtils}.
+ * Persistence-unit-agnostic helpers shared by {@link _Persistence_Test_Utils} and {@link _Persistence_IT_Utils}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @apiNote Every method takes the persistence unit to work against, which is the only thing that differs between the
@@ -41,7 +41,7 @@ import java.util.function.Function;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-final class __Persistence__Utils {
+final class __Persistence___Utils {
 
     /**
      * Returns the entity manager factory for the specified persistence unit, creating it on first use.
@@ -149,7 +149,7 @@ final class __Persistence__Utils {
     }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-    private __Persistence__Utils() {
+    private __Persistence___Utils() {
         throw new AssertionError("instantiation is not allowed");
     }
 

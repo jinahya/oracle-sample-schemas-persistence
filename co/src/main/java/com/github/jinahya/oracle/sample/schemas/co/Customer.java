@@ -328,6 +328,7 @@ public class Customer {
     )
     private Long customerId;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Email
     @Size(min = SIZE_MIN_NAME_EMAIL_ADDRESS, max = SIZE_MAX_NAME_EMAIL_ADDRESS)
