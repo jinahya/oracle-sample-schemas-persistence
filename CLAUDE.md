@@ -31,8 +31,7 @@ section rather than at the end of the file:
    implementations
 3. `// ---- STATIC_FACTORY_METHODS`
 4. `// ---- CONSTRUCTORS`
-5. `// ---- java.lang.Object` — `toString`, then `equals`/`hashCode` and the
-   `equalsWith*`/`hashCodeWith*` helpers they delegate to
+5. `// ---- java.lang.Object` — `toString`, then `equals`/`hashCode`
 6. accessors, under a `// ---- attributeName` marker per attribute
 7. the `private` fields, last, under a plain `// ----` separator
 
