@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,45 +20,33 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Persister;
-import com.github.jinahya.persistence.mapped.test.___Builder_TestUtils;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.persistence.test.util.__Persister;
+import com.github.jinahya.persistence.test.util.__PersisterUtils;
 import jakarta.persistence.EntityManager;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-class OrderItemWithIdClass_Persister extends __MappedEntity_Persister<OrderItemWithIdClass, OrderItemId> {
+import java.util.concurrent.ThreadLocalRandom;
+
+class OrderItemWithIdClass_Persister extends __Persister<OrderItemWithIdClass> {
 
     OrderItemWithIdClass_Persister() {
-        super(OrderItemWithIdClass.class, OrderItemId.class);
+        super(OrderItemWithIdClass.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
     @Override
-    public void persist(@Nonnull final EntityManager entityManager,
-                        @Nonnull final OrderItemWithIdClass entityInstance) {
-        {
-//            final var order = __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Order.class);
-//            entityInstance.setOrder(order);
+    public OrderItemWithIdClass apply(final EntityManager entityManager, final OrderItemWithIdClass entityInstance) {
+        final var order = __PersisterUtils.newPersistedInstanceOf(entityManager, Order.class);
+        // ORDER_ID is part of the primary key, so the association is still mirrored into it by setOrder, which
+        // copies the id it sees; EclipseLink assigns an IDENTITY id only on flush, hence the flush before the set.
+        entityManager.flush();
+        entityInstance.setOrder(order);
+        entityInstance.setProduct(__PersisterUtils.newPersistedInstanceOf(entityManager, Product.class));
+        if (ThreadLocalRandom.current().nextBoolean()) {
+            entityInstance.setShipment(__PersisterUtils.newPersistedInstanceOf(entityManager, Shipment.class));
         }
-        {
-//            final var product = __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Product.class);
-//            entityInstance.setProduct(product);
-        }
-        {
-            final var builder = ___Builder_TestUtils.newBuilderInstanceFromRandomizedInstanceOf(
-                    ShipmentBuilder.class,
-                    Shipment.class
-            ).orElseThrow();
-//            builder.customer(entityInstance.getOrder().getCustomer());
-//            builder.store(entityInstance.getOrder().getStore());
-            final var shipment = builder.build();
-            entityManager.persist(shipment);
-//            entityInstance.setShipment(
-//                    ThreadLocalRandom.current().nextBoolean() ? null : shipment
-//            );
-        }
-        super.persist(entityManager, entityInstance);
+        // LINE_ITEM_ID is not generated -- it numbers the item within its order -- so nothing but this assigns it.
+        entityInstance.setLineItemId(ThreadLocalRandom.current().nextLong(1, 100));
+        return super.apply(entityManager, entityInstance);
     }
 }

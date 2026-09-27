@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.co.Order;
+import com.github.jinahya.oracle.sample.schemas.co.Shipment;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -34,9 +36,7 @@ import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
 @MappedSuperclass
-public abstract class MappedCustomer extends _MappedCoEntity<Long> {
-
-    // -----------------------------------------------------------------------------------------------------------------
+public abstract class MappedCustomer {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -46,46 +46,68 @@ public abstract class MappedCustomer extends _MappedCoEntity<Long> {
     // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
 
     /**
-     * The name of the table column to which the {@link MappedCustomer_#CUSTOMER_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@code customerId} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUSTOMER_ID = "CUSTOMER_ID";
 
-    public static final String ATTRIBUTE_NAME_CUSTOMER_ID = "CUSTOMER_ID";
+    /**
+     * The name of the attribute which maps the {@code CUSTOMER_ID} column. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_CUSTOMER_ID = "customerId";
 
     // --------------------------------------------------------------------------------------------------- EMAIL_ADDRESS
 
     /**
-     * The name of the table column to which the {@value MappedCustomer_#EMAIL_ADDRESS} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@code emailAddress} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_EMAIL_ADDRESS = "EMAIL_ADDRESS";
 
+    /**
+     * The length of the {@code EMAIL_ADDRESS} column. The value is {@value}.
+     */
     public static final int COLUMN_LENGTH_NAME_EMAIL_ADDRESS = 255;
 
+    /**
+     * The name of the attribute which maps the {@code EMAIL_ADDRESS} column. The value is {@value}.
+     */
     public static final String ATTRIBUTE_NAME_EMAIL_ADDRESS = "emailAddress";
 
+    /**
+     * The minimum size of the {@code emailAddress} attribute. The value is {@value}.
+     */
     public static final int SIZE_MIN_NAME_EMAIL_ADDRESS = 0;
 
+    /**
+     * The maximum size of the {@code emailAddress} attribute.
+     */
     public static final int SIZE_MAX_NAME_EMAIL_ADDRESS = COLUMN_LENGTH_NAME_EMAIL_ADDRESS;
 
     // -------------------------------------------------------------------------------------------- FULL_NAME / fullName
 
     /**
-     * The name of the table column to which the {@link MappedCustomer_#FULL_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@code fullName} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_FULL_NAME = "FULL_NAME";
 
+    /**
+     * The length of the {@code FULL_NAME} column. The value is {@value}.
+     */
     public static final int COLUMN_LENGTH_NAME_FULL_NAME = 255;
 
+    /**
+     * The name of the attribute which maps the {@code FULL_NAME} column. The value is {@value}.
+     */
     public static final String ATTRIBUTE_NAME_FULL_NAME = "fullName";
 
+    /**
+     * The minimum size of the {@code fullName} attribute. The value is {@value}.
+     */
     public static final int SIZE_MIN_NAME_FULL_NAME = 0;
 
+    /**
+     * The maximum size of the {@code fullName} attribute.
+     */
     public static final int SIZE_MAX_NAME_FULL_NAME = COLUMN_LENGTH_NAME_FULL_NAME;
-
-    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -96,13 +118,10 @@ public abstract class MappedCustomer extends _MappedCoEntity<Long> {
         super();
     }
 
-    protected MappedCustomer(@Nonnull final MappedCustomerBuilder<?, ?> builder) {
-        super(builder);
-    }
-
     // ------------------------------------------------------------------------------------------------ java.lang.Object
+
     @Override
-    public final String toString() {
+    public String toString() {
         return super.toString() + '{' +
                "customerId=" + customerId +
                ",emailAddress=" + emailAddress +
@@ -110,57 +129,85 @@ public abstract class MappedCustomer extends _MappedCoEntity<Long> {
                '}';
     }
 
-    protected final boolean equalsWithEmailAddress(final Object obj) {
+    @Override
+    public final boolean equals(final Object obj) {
         if (!(obj instanceof MappedCustomer that)) {
             return false;
         }
         return Objects.equals(emailAddress, that.emailAddress);
     }
 
-    protected final int hashCodeWithEmailAddress() {
+    @Override
+    public final int hashCode() {
         return Objects.hashCode(emailAddress);
     }
 
     // ------------------------------------------------------------------------------------------------------ customerId
 
     /**
-     * Returns current value of {@link MappedCustomer_#CUSTOMER_ID} attribute.
+     * Returns current value of {@code customerId} attribute.
      *
-     * @return current value of {@link MappedCustomer_#CUSTOMER_ID} attribute.
+     * @return current value of {@code customerId} attribute.
      */
     public Long getCustomerId() {
         return customerId;
     }
 
     /**
-     * Replaces current value of {@link MappedCustomer_#CUSTOMER_ID} attribute with the specified value.
+     * Replaces current value of {@code customerId} attribute with the specified value.
      *
-     * @param customerId new value for {@link MappedCustomer_#CUSTOMER_ID} attribute.
+     * @param customerId new value for {@code customerId} attribute.
      */
     protected void setCustomerId(final Long customerId) {
         this.customerId = customerId;
     }
 
     // ---------------------------------------------------------------------------------------------------- emailAddress
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute.
+     */
     @Nonnull
     public String getEmailAddress() {
         return emailAddress;
     }
 
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute with the specified value.
+     *
+     * @param emailAddress new value for {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute.
+     */
     public void setEmailAddress(@Nonnull final String emailAddress) {
         this.emailAddress = emailAddress;
     }
 
     // -------------------------------------------------------------------------------------------------------- fullName
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_FULL_NAME} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_FULL_NAME} attribute.
+     */
     @Nonnull
     public String getFullName() {
         return fullName;
     }
 
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_FULL_NAME} attribute with the specified value.
+     *
+     * @param fullName new value for {@value #ATTRIBUTE_NAME_FULL_NAME} attribute.
+     */
     public void setFullName(@Nonnull final String fullName) {
         this.fullName = fullName;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     @Id
     @Positive // ???
@@ -168,8 +215,10 @@ public abstract class MappedCustomer extends _MappedCoEntity<Long> {
     @Column(
             name = COLUMN_NAME_CUSTOMER_ID,
             nullable = false,
-//            insertable = false,
-            insertable = true /* eclipseLink */,
+            // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
+            // insertable=false on a @GeneratedValue @Id -- it treats the mapping as read-only and
+            // fails descriptor initialisation with EclipseLink-46/EclipseLink-41. Verified on 5.0.1.
+            insertable = true,
             updatable = false
     )
     private Long customerId;

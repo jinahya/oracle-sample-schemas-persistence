@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +20,24 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Persister;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.persistence.test.util.__Persister;
+import com.github.jinahya.persistence.test.util.__Randomizer;
 import jakarta.persistence.EntityManager;
+import uk.co.jemos.podam.api.ClassInfoStrategy;
+import uk.co.jemos.podam.api.DataProviderStrategy;
+import uk.co.jemos.podam.api.PodamFactory;
 
-class Customer_Persister extends __MappedEntity_Persister<Customer, Long> {
+import java.util.List;
+
+class Customer_Persister extends __Persister<Customer> {
 
     Customer_Persister() {
-        super(Customer.class, Long.class);
+        super(Customer.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public void persist(@Nonnull final EntityManager entityManager, @Nonnull final Customer entityInstance) {
-        super.persist(entityManager, entityInstance);
+    public Customer apply(final EntityManager entityManager, final Customer entityInstance) {
+        return super.apply(entityManager, entityInstance);
     }
 }

@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,52 +20,51 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedCustomer;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
-import jakarta.annotation.Nonnull;
-import lombok.extern.slf4j.Slf4j;
+import com.github.jinahya.persistence.test.util.__Randomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
-@Slf4j
-class Customer_Randomizer extends __MappedEntity_Randomizer<Customer, Long> {
+class Customer_Randomizer extends __Randomizer.___OfPodam<Customer> {
 
-    // ----------------------------------------------------------------------------------------------------- CONSTRUCTOR
     Customer_Randomizer() {
-        super(Customer.class, Long.class, List.of(
-                MappedCustomer.ATTRIBUTE_NAME_CUSTOMER_ID
+        super(Customer.class, List.of(
+                Customer.ATTRIBUTE_NAME_CUSTOMER_ID,
+                Customer.ATTRIBUTE_NAME_ORDERS,
+                Customer.ATTRIBUTE_NAME_SHIPMENTS
         ));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();
     }
 
-    @Nonnull
     @Override
     protected ClassInfoStrategy getClassInfoStrategy() {
         return super.getClassInfoStrategy();
     }
 
-    @Nonnull
     @Override
     protected PodamFactory getPodamFactory() {
         return super.getPodamFactory();
     }
 
-    @Nonnull
     @Override
     public Customer get() {
         final var value = super.get();
-        {
-            value.setEmailAddress(System.nanoTime() + "@" + System.nanoTime() + ".com");
-        }
+        // Podam fills the attribute with an arbitrary string, which no @Email would accept; replace it with an
+        // address which actually validates, and which is distinct enough to stand in for the business key that
+        // Customer.equals(Object) compares.
+        final var random = ThreadLocalRandom.current();
+        value.setEmailAddress(
+                "customer" + Long.toUnsignedString(random.nextLong(), Character.MAX_RADIX)
+                + "@mail" + Long.toUnsignedString(random.nextLong(), Character.MAX_RADIX) + ".com"
+        );
         return value;
     }
 }

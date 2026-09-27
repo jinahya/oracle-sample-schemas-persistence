@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #%L
  * sh
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,38 +20,37 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped._MappedShEntity_Randomizer;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.persistence.test.util.__Randomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-class Country_Randomizer extends _MappedShEntity_Randomizer<Country, Long> {
+import java.util.List;
+
+class Country_Randomizer extends __Randomizer.___OfPodam<Country> {
 
     Country_Randomizer() {
-        super(Country.class, Long.class);
+        super(Country.class, List.of(
+
+        ));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();
     }
 
-    @Nonnull
-    @Override
-    protected PodamFactory getPodamFactory() {
-        return super.getPodamFactory();
-    }
-
-    @Nonnull
     @Override
     protected ClassInfoStrategy getClassInfoStrategy() {
         return super.getClassInfoStrategy();
     }
 
-    @Nonnull
+    @Override
+    protected PodamFactory getPodamFactory() {
+        return super.getPodamFactory();
+    }
+
     @Override
     public Country get() {
         return super.get();

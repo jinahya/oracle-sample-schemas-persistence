@@ -1,10 +1,12 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Persistence_IT;
+
 /*-
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,14 +22,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_PersistenceIT;
-import lombok.extern.slf4j.Slf4j;
+/**
+ * Verifies the mappings of {@link Employee} against the installed {@code HR} schema.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Employee_PersistenceIT extends _Persistence_IT<Employee> {
 
-@Slf4j
-class Employee_PersistenceIT extends _MappedHrEntity_PersistenceIT<Employee, Integer> {
-
-    // -----------------------------------------------------------------------------------------------------------------
     Employee_PersistenceIT() {
-        super(Employee.class, Integer.class);
+        super(Employee.class);
     }
 }

@@ -1,10 +1,16 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Persistence_IT;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.Locale;
+import java.util.Set;
+
 /*-
  * #%L
  * sh
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,11 +26,28 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped._MappedShEntity_PersistenceIT;
+/**
+ * Verifies the mappings of {@link Country} against the installed {@code SH} schema.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+@Slf4j
+class Country_PersistenceIT extends _Persistence_IT<Country> {
 
-class Country_PersistenceIT extends _MappedShEntity_PersistenceIT<Country, Long> {
+    private static final Set<String> LOCALE_COUNTRY_ISO_CODES = Set.of(Locale.getISOCountries());
 
+    // -----------------------------------------------------------------------------------------------------------------
     Country_PersistenceIT() {
-        super(Country.class, Long.class);
+        super(Country.class);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Override
+    protected void randomSelected(final Country instance) {
+        super.randomSelected(instance);
+        final var countryIsoCode = instance.getCountryIsoCode();
+        if (!LOCALE_COUNTRY_ISO_CODES.contains(countryIsoCode)) {
+            log.debug("unknown country iso code('{}') from {}", countryIsoCode, instance);
+        }
     }
 }

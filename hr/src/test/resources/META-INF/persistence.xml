@@ -22,20 +22,23 @@
 <!-- https://jakarta.ee/xml/ns/persistence/ -->
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
-             version="3.2">
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence ${persistence.schemaLocation}"
+             version="${persistence.version}">
   <persistence-unit name="__testPU" transaction-type="RESOURCE_LOCAL">
     <description>Persistence Unit for an In-Memory DB</description>
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
+    <!-- JobHistoryWithEmbeddedId and JobHistoryWithIdClass map the same table, two ways. Only one may be listed: with both,
+         EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour and its metamodel
+         rejects getIdClassAttributes(). -->
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Country</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Department</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Employee</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Job</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryWithEmbeddedId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryWithIdClass</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId</class>-->
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Location</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Region</class>
     <shared-cache-mode>NONE</shared-cache-mode>
@@ -62,10 +65,6 @@
       <property name="hibernate.highlight_sql" value="true"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.use_sql_comment" value="true"/>
-      <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// jinahya -->
-      <property name="jinahya.persistence.table_catalog" value="UNNAMED"/>
-      <property name="jinahya.persistence.table_schema" value="PUBLIC"/>
-      <property name="jinahya.persistence.table_types" value=""/>
     </properties>
   </persistence-unit>
   <persistence-unit name="__itPU" transaction-type="RESOURCE_LOCAL">
@@ -73,6 +72,7 @@
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
+    <mapping-file>META-INF/orm-it.xml</mapping-file>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Country</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Department</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Employee</class>
@@ -106,10 +106,6 @@
       <property name="hibernate.highlight_sql" value="true"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.use_sql_comment" value="true"/>
-      <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// jinahya -->
-      <property name="jinahya.persistence.table_catalog" value=""/>
-      <property name="jinahya.persistence.table_schema" value="HR"/>
-      <property name="jinahya.persistence.table_types" value=""/>
     </properties>
   </persistence-unit>
 </persistence>

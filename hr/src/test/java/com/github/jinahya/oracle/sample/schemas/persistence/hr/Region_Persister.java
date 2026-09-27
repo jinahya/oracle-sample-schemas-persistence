@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +20,18 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_Persister;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.persistence.test.util.__Persister;
 import jakarta.persistence.EntityManager;
 
-class Region_Persister extends _MappedHrEntity_Persister<Region, Long> {
+class Region_Persister extends __Persister<Region> {
 
     Region_Persister() {
-        super(Region.class, Long.class);
+        super(Region.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public void persist(@Nonnull final EntityManager entityManager, @Nonnull final Region entityInstance) {
-        super.persist(entityManager, entityInstance);
+    public Region apply(final EntityManager entityManager, final Region entityInstance) {
+        return super.apply(entityManager, entityInstance);
     }
 }

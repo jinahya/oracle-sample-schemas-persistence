@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,24 +20,31 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedStore;
-import com.github.jinahya.oracle.sample.schemas.co.mapped._MappedCoEntity_Test;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
-class Store_Test extends _MappedCoEntity_Test<Store, Long> {
+/**
+ * A class for testing the {@link Store} entity class.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Store_Test extends _Test<Store> {
 
     Store_Test() {
-        super(Store.class, Long.class);
+        super(Store.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
+    // ------------------------------------------------------------------------------------------------- equals/hashCode
+
+    /**
+     * {@inheritDoc}
+     *
+     * @implNote {@link Store#equals(Object) equals} compares the business key rather than the surrogate {@code @Id},
+     * which is null until the row is inserted.
+     */
     @Override
-    protected SingleTypeEqualsVerifierApi<Store> equals_Verify_(
-            @Nonnull final SingleTypeEqualsVerifierApi<Store> equalsVerifier) {
-        return super.equals_Verify_(equalsVerifier)
-                .withOnlyTheseFields(MappedStore.ATTRIBUTE_NAME_STORE_NAME)
-                ;
+    protected SingleTypeEqualsVerifierApi<Store> equals_verifier_() {
+        return super.equals_verifier_()
+                .withOnlyTheseFields(Store.ATTRIBUTE_NAME_STORE_NAME);
     }
 }

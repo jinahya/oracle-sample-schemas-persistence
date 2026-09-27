@@ -9,9 +9,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.util;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,11 +27,27 @@ import java.time.DateTimeException;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 
+/**
+ * Utilities for reading Oracle-specific values over a JDBC connection.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 public final class OracleUtils {
 
     private static final System.Logger logger = System.getLogger(MethodHandles.lookup().lookupClass().getName());
 
-    // -----------------------------------------------------------------------------------------------------------------
+    /**
+     * A statement which selects the time zone of the database. The value is {@value}.
+     */
+    public static final String SELECT_DBTIMEZONE = "SELECT DBTIMEZONE FROM DUAL";
+
+    /**
+     * A statement which selects the time zone of the session. The value is {@value}.
+     */
+    public static final String SELECT_SESSIONTIMEZONE = "SELECT SESSIONTIMEZONE FROM DUAL";
+
+    // -------------------------------------------------------------------------------------------------- STATIC_METHODS
+
     private static ZoneId zoneIdOf(final String string) {
         try {
             return ZoneOffset.of(string);
@@ -41,9 +57,6 @@ public final class OracleUtils {
         return ZoneId.of(string);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    public static final String SELECT_DBTIMEZONE = "SELECT DBTIMEZONE FROM DUAL";
-
     /**
      * Executes {@value #SELECT_DBTIMEZONE} and returns a {@link ZoneId} instance got from the result.
      *
@@ -51,7 +64,7 @@ public final class OracleUtils {
      * @return a {@link ZoneId} (or a {@link ZoneOffset}) from the result.
      * @throws SQLException if an error occurs.
      * @see <a href="https://docs.oracle.com/en/database/oracle/oracle-database/26/sqlrf/DBTIMEZONE.html">DBTIMEZONE</a>
-     * (Oracle Database / Relase 26)
+     * (Oracle Database / Release 26)
      */
     public static ZoneId DBTIMEZONE(final Connection connection) throws SQLException {
         try (var statement = connection.createStatement();
@@ -67,8 +80,16 @@ public final class OracleUtils {
         }
     }
 
-    public static final String SELECT_SESSIONTIMEZONE = "SELECT SESSIONTIMEZONE FROM DUAL";
-
+    /**
+     * Reads the time zone of the session, over the specified connection.
+     *
+     * @param connection the connection to use.
+     * @return the time zone of the session.
+     * @throws SQLException if a database access error occurs.
+     * @see <a
+     * href="https://docs.oracle.com/en/database/oracle/oracle-database/26/sqlrf/SESSIONTIMEZONE.html">SESSIONTIMEZONE</a>
+     * (Oracle Database / Release 26)
+     */
     public static ZoneId SESSIONTIMEZONE(final Connection connection) throws SQLException {
         try (var statement = connection.createStatement();
              var result = statement.executeQuery(SELECT_SESSIONTIMEZONE)) {
@@ -83,7 +104,8 @@ public final class OracleUtils {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
     private OracleUtils() {
         super();
     }

@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,40 +20,39 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
-import jakarta.annotation.Nonnull;
-import lombok.extern.slf4j.Slf4j;
+import com.github.jinahya.persistence.test.util.__Randomizer;
+import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-@Slf4j
-class Product_Randomizer extends __MappedEntity_Randomizer<Product, Long> {
+import java.util.List;
+
+class Product_Randomizer extends __Randomizer.___OfPodam<Product> {
 
     Product_Randomizer() {
-        super(Product.class,
-              Long.class,
-              "productId",
-//              "unitPrice",
-              "productDetails",
-              "productImage", "productMimeType", "productFilename", "productCharset", "imageLastUpdated"
-        );
+        super(Product.class, List.of(
+                Product.ATTRIBUTE_NAME_PRODUCT_ID,
+                Product.ATTRIBUTE_NAME_ORDER_ITEMS,
+                Product.ATTRIBUTE_NAME_INVENTORIES
+        ));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
-    @Nonnull
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();
     }
 
-    @Nonnull
+    @Override
+    protected ClassInfoStrategy getClassInfoStrategy() {
+        return super.getClassInfoStrategy();
+    }
+
     @Override
     protected PodamFactory getPodamFactory() {
         return super.getPodamFactory();
     }
 
-    @Nonnull
     @Override
     public Product get() {
         return super.get();

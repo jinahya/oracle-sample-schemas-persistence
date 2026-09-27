@@ -26,7 +26,6 @@
   <root level="debug">
     <appender-ref ref="CONSOLE"/>
   </root>
-  <logger name="com.github.jinahya.persistence" level="DEBUG"/>
   <logger name="org.jboss.weld" level="WARN"/>
   <logger name="org.hibernate" level="WARN"/>
   <!--  <logger name="org.hibernate.SQL" level="DEBUG"/>-->

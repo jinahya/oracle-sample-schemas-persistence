@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,60 +20,42 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
-import com.github.jinahya.persistence.more.test.__AttributeEnum_TestUtils;
-import jakarta.annotation.Nonnull;
-import lombok.extern.slf4j.Slf4j;
+import com.github.jinahya.persistence.test.util.__Randomizer;
+import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.List;
-import java.util.Optional;
 
-@Slf4j
-class Order_Randomizer extends __MappedEntity_Randomizer<Order, Long> {
+class Order_Randomizer extends __Randomizer.___OfPodam<Order> {
 
     Order_Randomizer() {
-        super(Order.class, Long.class, List.of(
-                "orderId",
-                "orderTmsAsZonedDateTime",
-                "orderTmsFromZonedDateTime",
-                "orderTmsAsOffsetDateTime",
-                "orderTmsFromOffsetDateTime",
-                "orderTmsAsInstant",
-                "orderTmsFromInstant",
-                "orderStatus",
-                "orderItems"
-//                ,
-//              "orderItemsTotalPrice1",
-//              "orderItemsTotalPrice2",
-//              "orderItemsTotalPrice3"
+        super(Order.class, List.of(
+                Order.ATTRIBUTE_NAME_ORDER_ID,
+                Order.ATTRIBUTE_NAME_CUSTOMER,
+                Order.ATTRIBUTE_NAME_STORE,
+                Order.ATTRIBUTE_NAME_ORDER_ITEMS
         ));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
-    @Nonnull
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();
     }
 
-    @Nonnull
+    @Override
+    protected ClassInfoStrategy getClassInfoStrategy() {
+        return super.getClassInfoStrategy();
+    }
+
     @Override
     protected PodamFactory getPodamFactory() {
         return super.getPodamFactory();
     }
 
-    @Nonnull
     @Override
     public Order get() {
-        final var value = super.get();
-        value.setOrderStatus(
-                Optional.ofNullable(
-                        __AttributeEnum_TestUtils.getRandomAttributeValue(Order._OrderStatus.class)
-                ).orElseThrow()
-        );
-        return value;
+        return super.get();
     }
 }

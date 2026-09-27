@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,22 +20,32 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_Test;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
-class Department_Test extends _MappedHrEntity_Test<Department, Integer> {
+/**
+ * A class for testing the {@link Department} entity class.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Department_Test extends _Test<Department> {
 
     Department_Test() {
-        super(Department.class, Integer.class);
+        super(Department.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
+    // ------------------------------------------------------------------------------------------------- equals/hashCode
+
+    /**
+     * {@inheritDoc}
+     *
+     * @implNote {@link Department#equals(Object) equals} compares only the {@code @Id} {@code departmentId} -- the
+     * surrogate key -- because every other attribute is mutable state.
+     */
     @Override
-    protected SingleTypeEqualsVerifierApi<Department> equals_Verify_(
-            @Nonnull final SingleTypeEqualsVerifierApi<Department> equalsVerifier) {
-        return super.equals_Verify_(equalsVerifier).suppress(Warning.SURROGATE_KEY);
+    protected SingleTypeEqualsVerifierApi<Department> equals_verifier_() {
+        return super.equals_verifier_()
+                .suppress(Warning.SURROGATE_KEY);
     }
 }

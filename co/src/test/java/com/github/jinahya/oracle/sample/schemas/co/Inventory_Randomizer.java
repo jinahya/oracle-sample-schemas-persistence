@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,47 +20,39 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedInventory;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.persistence.test.util.__Randomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.List;
 
-class Inventory_Randomizer extends __MappedEntity_Randomizer<Inventory, Long> {
+class Inventory_Randomizer extends __Randomizer.___OfPodam<Inventory> {
 
     Inventory_Randomizer() {
-        super(Inventory.class, Long.class, List.of(
-                MappedInventory.ATTRIBUTE_NAME_INVENTORY_ID,
-                MappedInventory.ATTRIBUTE_NAME_STORE_ID,
-                MappedInventory.ATTRIBUTE_NAME_STORE,
-                MappedInventory.ATTRIBUTE_NAME_PRODUCT_ID,
-                MappedInventory.ATTRIBUTE_NAME_PRODUCT
+        super(Inventory.class, List.of(
+                Inventory.ATTRIBUTE_NAME_INVENTORY_ID,
+                Inventory.ATTRIBUTE_NAME_STORE,
+                Inventory.ATTRIBUTE_NAME_PRODUCT
         ));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();
     }
 
-    @Nonnull
-    @Override
-    protected PodamFactory getPodamFactory() {
-        return super.getPodamFactory();
-    }
-
-    @Nonnull
     @Override
     protected ClassInfoStrategy getClassInfoStrategy() {
         return super.getClassInfoStrategy();
     }
 
-    @Nonnull
+    @Override
+    protected PodamFactory getPodamFactory() {
+        return super.getPodamFactory();
+    }
+
     @Override
     public Inventory get() {
         return super.get();

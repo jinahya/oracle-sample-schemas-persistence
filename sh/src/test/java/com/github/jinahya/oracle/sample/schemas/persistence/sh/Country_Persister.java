@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #%L
  * sh
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,19 +20,18 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped._MappedShEntity_Persister;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.persistence.test.util.__Persister;
 import jakarta.persistence.EntityManager;
 
-class Country_Persister extends _MappedShEntity_Persister<Country, Long> {
+class Country_Persister extends __Persister<Country> {
 
     Country_Persister() {
-        super(Country.class, Long.class);
+        super(Country.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public void persist(@Nonnull final EntityManager entityManager, @Nonnull final Country entityInstance) {
-        super.persist(entityManager, entityInstance);
+    public Country apply(final EntityManager entityManager, final Country entityInstance) {
+        return super.apply(entityManager, entityInstance);
     }
 }

@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,185 +20,32 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedOrder;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Test;
-import jakarta.annotation.Nonnull;
-import lombok.extern.slf4j.Slf4j;
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EnumSource;
-import org.mockito.Mockito;
 
-import java.util.function.Function;
+/**
+ * A class for testing the {@link Order} entity class.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Order_Test extends _Test<Order> {
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.isNotNull;
-import static org.mockito.ArgumentMatchers.isNull;
-import static org.mockito.ArgumentMatchers.same;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-
-@Disabled
-@Slf4j
-class Order_Test extends __MappedEntity_Test<Order, Long> {
-
-    // -----------------------------------------------------------------------------------------------------------------
     Order_Test() {
-        super(Order.class, Long.class);
+        super(Order.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
+    // ------------------------------------------------------------------------------------------------- equals/hashCode
+
+    /**
+     * {@inheritDoc}
+     *
+     * @implNote {@link Order#equals(Object) equals} compares only the {@code @Id}
+     * {@code orderId} -- the surrogate key -- because every other attribute is mutable state.
+     */
     @Override
-    protected SingleTypeEqualsVerifierApi<Order> equals_Verify_(
-            @Nonnull final SingleTypeEqualsVerifierApi<Order> equalsVerifier) {
-        return super.equals_Verify_(equalsVerifier)
-                .suppress(Warning.SURROGATE_KEY)
-                ;
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nested
-    class OrderTms_Test {
-
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nested
-    class OrderStatus_Test {
-
-        @DisplayName("getOrderStatusAsMapped(mapper)")
-        @Nested
-        class GetOrderStatusAsMapped_Test {
-
-            @Test
-            void _Null_Null() {
-                // ----------------------------------------------------------------------------------------------- given
-                final var instance = newInstantiatedTargetInstanceSpy();
-                given(instance.getOrderStatus()).willReturn(null);
-                // ------------------------------------------------------------------------------------------------ when
-                assertThatCode(() -> {
-                    final var result = instance.getOrderStatusAsMapped(null);
-                    // -------------------------------------------------------------------------------------------- then
-                    assertThat(result).isNull();
-                }).doesNotThrowAnyException();
-            }
-
-            @Test
-            void _NullPointerException_ValueIsNotNullMapperIsNull() {
-                // ----------------------------------------------------------------------------------------------- given
-                final var instance = newInstantiatedTargetInstance();
-                instance.setOrderStatus("");
-                // ------------------------------------------------------------------------------------------------ when
-                assertThatThrownBy(() -> {
-                    instance.getOrderStatusAsMapped(null);
-                }).isInstanceOf(NullPointerException.class);
-            }
-        }
-
-        // -------------------------------------------------------------------------------------------------------------
-        @DisplayName("getOrderStatusFromMapped(orderStatus, mapper)")
-        @Nested
-        class GetOrderStatusFromMapped_Test {
-
-            @Test
-            void _Null_Null() {
-                // ----------------------------------------------------------------------------------------------- given
-                final var instance = newInstantiatedTargetInstance();
-                // ------------------------------------------------------------------------------------------------ when
-                assertThatCode(() -> {
-                    instance.setOrderStatusFromMapped(null, null);
-                }).doesNotThrowAnyException();
-            }
-
-            @Test
-            void _NullPointerException_ValueIsNotNullMapperIsNull() {
-                // ----------------------------------------------------------------------------------------------- given
-                final var instance = newInstantiatedTargetInstance();
-                // ------------------------------------------------------------------------------------------------ when
-                assertThatThrownBy(() -> {
-                    instance.setOrderStatusFromMapped("", null);
-                }).isInstanceOf(NullPointerException.class);
-            }
-
-            @Test
-            void _InvokeSetOrderStatus_() {
-                // ----------------------------------------------------------------------------------------------- given
-                final var instance = newInstantiatedTargetInstanceSpy();
-                final var orderStatus = "";
-                final var mapper = Mockito.mock(Function.class);
-                given(mapper.apply(any())).willAnswer(i -> i.getArguments()[0]);
-                // ------------------------------------------------------------------------------------------------ when
-                instance.setOrderStatusFromMapped(orderStatus, mapper);
-                // ------------------------------------------------------------------------------------------------ then
-                verify(mapper, times(1)).apply(orderStatus);
-                verify(instance, times(1)).setOrderStatus(orderStatus);
-            }
-        }
-
-        // -------------------------------------------------------------------------------------------------------------
-        @DisplayName("getOrderStatusAsEnum(enumClass)")
-        @Nested
-        class GetOrderStatusAsEnum_Test {
-
-            @Test
-            void _Null_Null() {
-                // ----------------------------------------------------------------------------------------------- given
-                final var instance = newInstantiatedTargetInstanceSpy();
-                given(instance.getOrderStatus()).willReturn(null);
-                // ------------------------------------------------------------------------------------------------ when
-                final var result = instance.getOrderStatusAsEnum(MappedOrder._OrderStatus.class);
-                // ------------------------------------------------------------------------------------------------ then
-                assertThat(result).isNull();
-            }
-
-            @EnumSource(MappedOrder._OrderStatus.class)
-            @ParameterizedTest
-            void _NotNull_NotNull(final MappedOrder._OrderStatus orderStatus) {
-                // ----------------------------------------------------------------------------------------------- given
-                final var instance = newInstantiatedTargetInstanceSpy();
-                given(instance.getOrderStatus()).willReturn(orderStatus.attributeValue());
-                // ------------------------------------------------------------------------------------------------ when
-                final var result = instance.getOrderStatusAsEnum(MappedOrder._OrderStatus.class);
-                // ------------------------------------------------------------------------------------------------ then
-                assertThat(result).isSameAs(orderStatus);
-            }
-        }
-
-        // -------------------------------------------------------------------------------------------------------------
-        @DisplayName("setOrderStatusFromEnum(enumValue)")
-        @Nested
-        class SetOrderStatusAsEnum_Test {
-
-            @Test
-            void _Null_Null() {
-                // ----------------------------------------------------------------------------------------------- given
-                final var instance = newInstantiatedTargetInstanceSpy();
-                // ------------------------------------------------------------------------------------------------ when
-                instance.setOrderStatusFromEnum(null);
-                // ------------------------------------------------------------------------------------------------ then
-                verify(instance, times(1)).setOrderStatusFromMapped(isNull(), isNotNull());
-            }
-
-            @EnumSource(MappedOrder._OrderStatus.class)
-            @ParameterizedTest
-            void _NotNull_NotNull(final MappedOrder._OrderStatus orderStatus) {
-                // ----------------------------------------------------------------------------------------------- given
-                final var instance = newInstantiatedTargetInstanceSpy();
-                // ------------------------------------------------------------------------------------------------ when
-                instance.setOrderStatusFromEnum(orderStatus);
-                // ------------------------------------------------------------------------------------------------ then
-                verify(instance, times(1)).setOrderStatusFromMapped(same(orderStatus), isNotNull());
-            }
-        }
+    protected SingleTypeEqualsVerifierApi<Order> equals_verifier_() {
+        return super.equals_verifier_()
+                .suppress(Warning.SURROGATE_KEY);
     }
 }

@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,27 +20,21 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Persister;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersisterUtils;
+import com.github.jinahya.persistence.test.util.__Persister;
+import com.github.jinahya.persistence.test.util.__PersisterUtils;
 import jakarta.persistence.EntityManager;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-class Order_Persister extends __MappedEntity_Persister<Order, Long> {
+class Order_Persister extends __Persister<Order> {
 
     Order_Persister() {
-        super(Order.class, Long.class);
+        super(Order.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public void persist(final EntityManager entityManager, final Order entityInstance) {
-        entityInstance.setCustomer(
-                __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Customer.class)
-        );
-        entityInstance.setStore(
-                __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Store.class)
-        );
-        super.persist(entityManager, entityInstance);
+    public Order apply(final EntityManager entityManager, final Order entityInstance) {
+        entityInstance.setCustomer(__PersisterUtils.newPersistedInstanceOf(entityManager, Customer.class));
+        entityInstance.setStore(__PersisterUtils.newPersistedInstanceOf(entityManager, Store.class));
+        return super.apply(entityManager, entityInstance);
     }
 }

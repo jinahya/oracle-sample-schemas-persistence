@@ -22,13 +22,16 @@
 <!-- https://jakarta.ee/xml/ns/persistence/ -->
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
-             version="3.2">
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence ${persistence.schemaLocation}"
+             version="${persistence.version}">
   <persistence-unit name="__testPU" transaction-type="RESOURCE_LOCAL">
     <description>Persistence Unit for an In-Memory DB</description>
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
+    <!-- OrderItemWithEmbeddedId and OrderItemWithIdClass map ORDER_ITEMS, two ways; only one may be listed. With
+         both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its metamodel then
+         throws from getIdClassAttributes(). -->
     <class>com.github.jinahya.oracle.sample.schemas.co.Customer</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Inventory</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Order</class>
@@ -62,10 +65,6 @@
       <property name="hibernate.highlight_sql" value="true"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.use_sql_comment" value="true"/>
-      <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// jinahya -->
-      <property name="jinahya.persistence.table_catalog" value="UNNAMED"/>
-      <property name="jinahya.persistence.table_schema" value="PUBLIC"/>
-      <property name="jinahya.persistence.table_types" value=""/>
     </properties>
   </persistence-unit>
   <persistence-unit name="__itPU" transaction-type="RESOURCE_LOCAL">
@@ -73,6 +72,10 @@
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
+    <mapping-file>META-INF/orm-it.xml</mapping-file>
+    <!-- OrderItemWithEmbeddedId and OrderItemWithIdClass map ORDER_ITEMS, two ways; only one may be listed. With
+         both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its metamodel then
+         throws from getIdClassAttributes(). -->
     <class>com.github.jinahya.oracle.sample.schemas.co.Customer</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Inventory</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Order</class>
@@ -82,7 +85,7 @@
     <class>com.github.jinahya.oracle.sample.schemas.co.Product</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Shipment</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Store</class>
-    <class>com.github.jinahya.oracle.sample.schemas.co.Store_Logo</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.StoreLogo</class>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
     <properties>
@@ -108,10 +111,6 @@
       <property name="hibernate.highlight_sql" value="true"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.use_sql_comment" value="true"/>
-      <!-- ///////////////////////////////////////////////////////////////////////////////////////////////// jinahya -->
-      <property name="jinahya.persistence.table_catalog" value=""/>
-      <property name="jinahya.persistence.table_schema" value="CO"/>
-      <property name="jinahya.persistence.table_types" value=""/>
     </properties>
   </persistence-unit>
 </persistence>

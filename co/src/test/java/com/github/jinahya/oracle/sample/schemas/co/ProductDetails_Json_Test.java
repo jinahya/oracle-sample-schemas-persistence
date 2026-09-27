@@ -35,6 +35,27 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 class ProductDetails_Json_Test {
 
+    @Nested
+    class ProductDetails_JsonTest {
+
+        @ValueSource(strings = {
+                "PRODUCTS_PRODUCT_DETAILS_1.json",
+                "PRODUCTS_PRODUCT_DETAILS_2.json"
+        })
+        @ParameterizedTest
+        void __(final String name) throws IOException {
+            log.debug("package: {}", getClass().getPackageName());
+            try (var resource = getClass().getResourceAsStream(name)) {
+                assertThat(resource)
+                        .as("resource for '%1$s'", name)
+                        .isNotNull();
+                final var value = ProductDetails_TestUtils.from(resource, new ObjectMapper());
+                log.debug("value: {}", value);
+            }
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
     @Test
     void __() throws IOException {
         try (var resource = getClass().getResourceAsStream("PRODUCTS_PRODUCT_DETAILS_LIST.json")) {
@@ -56,27 +77,6 @@ class ProductDetails_Json_Test {
 //                        assertThat(e.unknownProperties()).isEmpty();
 //                    });
 //                });
-            }
-        }
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nested
-    class ProductDetails_JsonTest {
-
-        @ValueSource(strings = {
-                "PRODUCTS_PRODUCT_DETAILS_1.json",
-                "PRODUCTS_PRODUCT_DETAILS_2.json"
-        })
-        @ParameterizedTest
-        void __(final String name) throws IOException {
-            log.debug("package: {}", getClass().getPackageName());
-            try (var resource = getClass().getResourceAsStream(name)) {
-                assertThat(resource)
-                        .as("resource for '%1$s'", name)
-                        .isNotNull();
-                final var value = ProductDetails_TestUtils.from(resource, new ObjectMapper());
-                log.debug("value: {}", value);
             }
         }
     }

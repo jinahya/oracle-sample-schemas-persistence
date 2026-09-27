@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,29 +20,23 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.___Randomizer;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.persistence.test.util.__Randomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-class ProductDetails_Randomizer extends ___Randomizer<ProductDetails> {
+import java.util.List;
+
+class ProductDetails_Randomizer extends __Randomizer.___OfPodam<ProductDetails> {
 
     ProductDetails_Randomizer() {
-        super(ProductDetails.class);
+        super(ProductDetails.class, List.of());
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();
-    }
-
-    @Nonnull
-    @Override
-    protected PodamFactory getPodamFactory() {
-        return super.getPodamFactory();
     }
 
     @Override
@@ -50,7 +44,11 @@ class ProductDetails_Randomizer extends ___Randomizer<ProductDetails> {
         return super.getClassInfoStrategy();
     }
 
-    @Nonnull
+    @Override
+    protected PodamFactory getPodamFactory() {
+        return super.getPodamFactory();
+    }
+
     @Override
     public ProductDetails get() {
         return super.get();

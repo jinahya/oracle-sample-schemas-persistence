@@ -1,10 +1,12 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Persistence_Test;
+
 /*-
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,40 +22,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedRegion;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_PersistenceTest;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
-class Region_PersistenceTest extends _MappedHrEntity_PersistenceTest<Region, Long> {
+/**
+ * Verifies the mappings of {@link Region} against the schema generated into the in-memory database.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Region_PersistenceTest extends _Persistence_Test<Region> {
 
     Region_PersistenceTest() {
-        super(Region.class, Long.class);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nested
-    class Static_Test {
-
-        @DisplayName("ATTRIBUTE_NAME_...")
-        @Nested
-        @SuppressWarnings({
-                "java:S3415" // Assertion arguments should be passed in the correct order
-        })
-        class ATTRIBUTE_NAME_Test {
-
-            @Test
-            void __ATTRIBUTE_NAME_REGION_ID() {
-                assertThat(MappedRegion.ATTRIBUTE_NAME_REGION_ID).isEqualTo(Region_.regionId.getName());
-            }
-
-            @Test
-            void __ATTRIBUTE_NAME_REGION_NAME() {
-                assertThat(MappedRegion.ATTRIBUTE_NAME_REGION_NAME).isEqualTo(Region_.regionName.getName());
-            }
-        }
+        super(Region.class);
     }
 }

@@ -20,9 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistoryWithEmbeddedId;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHr;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -37,57 +34,40 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * A composite primary key class for mapping {@value MappedJobHistory#COLUMN_NAME_EMPLOYEE_ID} column and
- * {@value MappedJobHistory#COLUMN_NAME_START_DATE} column, of {@value MappedJobHistory#TABLE_NAME} table.
+ * A composite primary key class for mapping {@value JobHistoryWithEmbeddedId#COLUMN_NAME_EMPLOYEE_ID} column and
+ * {@value JobHistoryWithEmbeddedId#COLUMN_NAME_START_DATE} column, of {@value JobHistoryWithEmbeddedId#TABLE_NAME}
+ * table.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see MappedJobHistory
- * @see JobHistoryIdBuilder
+ * @see JobHistoryWithEmbeddedId
  * @see <a
  * href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#composite-primary-keys">2.4.1.
  * Composite primary keys</a> (Jakarta Persistence 3.2 Specification Document)
  */
 @Embeddable
-public class JobHistoryId extends _MappedHr {
-
-    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
-
-    public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
-
-    // -------------------------------------------------------------------------------------------------------- BUILDERS
+public class JobHistoryId {
 
     /**
-     * Returns a builder for building instances of this id class.
-     *
-     * @return a builder for building instances of this id class.
+     * The name of the attribute which maps the {@code EMPLOYEE_ID} column. The value is {@value}.
      */
-    public static JobHistoryIdBuilder builder() {
-        return new JobHistoryIdBuilder();
-    }
+    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
 
-    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    /**
+     * The name of the attribute which maps the {@code START_DATE} column. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
-     *
-     * @see #builder()
      */
     protected JobHistoryId() {
         super();
     }
 
-    /**
-     * Creates a new instance built from the specified builder.
-     *
-     * @param builder the builder from which a new instance is built.
-     */
-    JobHistoryId(@Nonnull final JobHistoryIdBuilder builder) {
-        super(builder);
-    }
-
     // ------------------------------------------------------------------------------------------------ java.lang.Object
+
     @Override
     public String toString() {
         return super.toString() + '{' +
@@ -113,9 +93,9 @@ public class JobHistoryId extends _MappedHr {
     // ------------------------------------------------------------------------------------------------------ employeeId
 
     /**
-     * Returns current value of {@value JobHistoryId_#EMPLOYEE_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
      *
-     * @return current value of the {@value JobHistoryId_#EMPLOYEE_ID} attribute.
+     * @return current value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
      */
     @Nonnull
     public Integer getEmployeeId() {
@@ -123,9 +103,9 @@ public class JobHistoryId extends _MappedHr {
     }
 
     /**
-     * Replaces current value of {@value JobHistoryId_#EMPLOYEE_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute with the specified value.
      *
-     * @param employeeId new value for the {@value JobHistoryId_#EMPLOYEE_ID} attribute.
+     * @param employeeId new value for the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
      */
     // TODO: remove if it's not used anymore
     void setEmployeeId(final Integer employeeId) {
@@ -133,6 +113,12 @@ public class JobHistoryId extends _MappedHr {
     }
 
     // ------------------------------------------------------------------------------------------------------- startDate
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute.
+     */
     @Nonnull
     public LocalDate getStartDate() {
         return startDate;
@@ -144,26 +130,26 @@ public class JobHistoryId extends _MappedHr {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Max(MappedJobHistoryWithEmbeddedId.ATTRIBUTE_MAX_ID_EMPLOYEE_ID)
-    @Min(MappedJobHistoryWithEmbeddedId.ATTRIBUTE_MIN_ID_EMPLOYEE_ID)
+
+    @Max(JobHistoryWithEmbeddedId.ATTRIBUTE_MAX_ID_EMPLOYEE_ID)
+    @Min(JobHistoryWithEmbeddedId.ATTRIBUTE_MIN_ID_EMPLOYEE_ID)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,
-            nullable = MappedJobHistory.COLUMN_NULLABLE_EMPLOYEE_ID,
+    @Column(name = JobHistoryWithEmbeddedId.COLUMN_NAME_EMPLOYEE_ID,
+            nullable = JobHistoryWithEmbeddedId.COLUMN_NULLABLE_EMPLOYEE_ID,
 //                insertable = false,
             insertable = true, // eclipselink
             updatable = false,
-            precision = MappedJobHistory.COLUMN_PRECISION_EMPLOYEE_ID,
-            scale = MappedJobHistory.COLUMN_SCALE_EMPLOYEE_ID
+            precision = JobHistoryWithEmbeddedId.COLUMN_PRECISION_EMPLOYEE_ID,
+            scale = JobHistoryWithEmbeddedId.COLUMN_SCALE_EMPLOYEE_ID
     )
     private Integer employeeId;
 
-    // -----------------------------------------------------------------------------------------------------------------
     @PastOrPresent
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = MappedJobHistory.COLUMN_NAME_START_DATE,
-            nullable = MappedJobHistory.COLUMN_NULLABLE_START_DATE,
+    @Column(name = JobHistoryWithEmbeddedId.COLUMN_NAME_START_DATE,
+            nullable = JobHistoryWithEmbeddedId.COLUMN_NULLABLE_START_DATE,
 //                insertable = false,
             insertable = true, // eclipselink
             updatable = false

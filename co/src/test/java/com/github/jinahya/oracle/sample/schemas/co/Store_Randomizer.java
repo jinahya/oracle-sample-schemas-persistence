@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,48 +20,40 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedStore;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Randomizer;
-import jakarta.annotation.Nonnull;
-import lombok.extern.slf4j.Slf4j;
+import com.github.jinahya.persistence.test.util.__Randomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
-@Slf4j
-class Store_Randomizer extends __MappedEntity_Randomizer<Store, Long> {
+import java.util.List;
+
+class Store_Randomizer extends __Randomizer.___OfPodam<Store> {
 
     Store_Randomizer() {
-        super(Store.class, Long.class,
-              MappedStore.ATTRIBUTE_NAME_STORE_ID,
-              MappedStore.ATTRIBUTE_NAME_LOGO,
-              MappedStore.ATTRIBUTE_NAME_LOGO_MIME_TYPE,
-              MappedStore.ATTRIBUTE_NAME_LOGO_FILENAME,
-              MappedStore.ATTRIBUTE_NAME_LOGO_CHARSET,
-              MappedStore.ATTRIBUTE_NAME_LOGO_LAST_UPDATED
-        );
+        super(Store.class, List.of(
+                Store.ATTRIBUTE_NAME_STORE_ID,
+                Store.ATTRIBUTE_NAME_ORDERS,
+                Store.ATTRIBUTE_NAME_SHIPMENTS,
+                Store.ATTRIBUTE_NAME_INVENTORIES
+        ));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();
     }
 
-    @Nonnull
     @Override
     protected ClassInfoStrategy getClassInfoStrategy() {
         return super.getClassInfoStrategy();
     }
 
-    @Nonnull
     @Override
     protected PodamFactory getPodamFactory() {
         return super.getPodamFactory();
     }
 
-    @Nonnull
     @Override
     public Store get() {
         return super.get();

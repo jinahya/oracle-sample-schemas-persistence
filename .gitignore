@@ -198,4 +198,29 @@ effective-pom.xml
 
 # ----------------------------------------------------------------------------------------------------------------------
 opt
+# ... but the container startup hooks are part of the project
+!opt/
+opt/*
+!opt/oracle/
+opt/oracle/*
+!opt/oracle/scripts/
 
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+__pycache__/
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# Created by https://www.toptal.com/developers/gitignore/api/jenv
+# Edit at https://www.toptal.com/developers/gitignore?templates=jenv
+
+### JEnv ###
+# JEnv local Java version configuration file
+.java-version
+
+# Used by previous versions of JEnv
+.jenv-version
+
+# End of https://www.toptal.com/developers/gitignore/api/jenv
+# ----------------------------------------------------------------------------------------------------------------------

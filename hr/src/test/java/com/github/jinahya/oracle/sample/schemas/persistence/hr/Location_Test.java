@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,23 +20,32 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Test;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
-class Location_Test extends __MappedEntity_Test<Location, Integer> {
+/**
+ * A class for testing the {@link Location} entity class.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Location_Test extends _Test<Location> {
 
     Location_Test() {
-        super(Location.class, Integer.class);
+        super(Location.class);
     }
 
-    @Nonnull
+    // ------------------------------------------------------------------------------------------------- equals/hashCode
+
+    /**
+     * {@inheritDoc}
+     *
+     * @implNote {@link Location#equals(Object) equals} compares only the {@code @Id} {@code locationId} -- the
+     * surrogate key -- because every other attribute is mutable state.
+     */
     @Override
-    protected SingleTypeEqualsVerifierApi<Location> equals_Verify_(
-            @Nonnull final SingleTypeEqualsVerifierApi<Location> equalsVerifier) {
-        return super.equals_Verify_(equalsVerifier)
-                .suppress(Warning.SURROGATE_KEY)
-                ;
+    protected SingleTypeEqualsVerifierApi<Location> equals_verifier_() {
+        return super.equals_verifier_()
+                .suppress(Warning.SURROGATE_KEY);
     }
 }

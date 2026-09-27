@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJob_TestUtils;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_Randomizer;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.persistence.test.util.__Randomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -31,51 +28,45 @@ import uk.co.jemos.podam.api.PodamFactory;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-class Job_Randomizer extends _MappedHrEntity_Randomizer<Job, String> {
+class Job_Randomizer extends __Randomizer.___OfPodam<Job> {
 
     Job_Randomizer() {
-        super(Job.class, String.class, List.of(
-                MappedJob.ATTRIBUTE_NAME_EMPLOYEES
+        super(Job.class, List.of(
+                Job.ATTRIBUTE_NAME_EMPLOYEES,
+                Job.ATTRIBUTE_NAME_JOB_HISTORIES
         ));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();
     }
 
-    @Nonnull
-    @Override
-    protected PodamFactory getPodamFactory() {
-        return super.getPodamFactory();
-    }
-
-    @Nonnull
     @Override
     protected ClassInfoStrategy getClassInfoStrategy() {
         return super.getClassInfoStrategy();
     }
 
-    @Nonnull
+    @Override
+    protected PodamFactory getPodamFactory() {
+        return super.getPodamFactory();
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implNote The two salaries are assigned here rather than left to PODAM, which draws them independently:
+     * {@link Job} asserts that both are positive and that the minimum does not exceed the maximum, so an independent
+     * pair fails validation roughly half of the time.
+     */
     @Override
     public Job get() {
-        final var value = super.get();
-        {
-            value.setMinSalary(
-                    ThreadLocalRandom.current().nextBoolean()
-                    ? null
-                    : MappedJob_TestUtils.newRandomPositiveMinSalary()
-            );
-            value.setMaxSalary(
-                    ThreadLocalRandom.current().nextBoolean()
-                    ? null
-                    : value.getMinSalary() == null
-                      ? MappedJob_TestUtils.newRandomPositiveMinSalary()
-                      : MappedJob_TestUtils.newRandomPositiveMaxSalary(value.getMinSalary())
-            );
-        }
-        return value;
+        final var instance = super.get();
+        final var minSalary = ThreadLocalRandom.current().nextInt(1, Job.ATTRIBUTE_MAX_MIN_SALARY);
+        instance.setMinSalary(minSalary);
+        instance.setMaxSalary(ThreadLocalRandom.current().nextInt(minSalary, Job.ATTRIBUTE_MAX_MAX_SALARY));
+        return instance;
     }
 }

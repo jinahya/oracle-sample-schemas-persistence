@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,38 +20,21 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_Persister;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.persistence.test.util.__Persister;
+import com.github.jinahya.persistence.test.util.__PersisterUtils;
 import jakarta.persistence.EntityManager;
-import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.ThreadLocalRandom;
-
-@Slf4j
-class Employee_Persister extends _MappedHrEntity_Persister<Employee, Integer> {
+class Employee_Persister extends __Persister<Employee> {
 
     Employee_Persister() {
-        super(Employee.class, Integer.class);
+        super(Employee.class);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public void persist(final @Nonnull EntityManager entityManager, final @Nonnull Employee entityInstance) {
-        entityInstance.setJob(
-                newPersistedInstanceOf(entityManager, Job.class)
-        );
-        entityInstance.setManager(
-                ThreadLocalRandom.current().nextBoolean()
-                ? null
-                : newPersistedInstanceOf(entityManager, Employee.class)
-        );
-        entityInstance.setDepartment(
-                ThreadLocalRandom.current().nextBoolean()
-                ? null
-                : newPersistedInstanceOf(entityManager, Department.class)
-        );
-        if (true) {
-            entityManager.flush(); // fuck eclipselink, or fuck myself.
-        }
-        super.persist(entityManager, entityInstance);
+    public Employee apply(final EntityManager entityManager, final Employee entityInstance) {
+        entityInstance.setJob(__PersisterUtils.newPersistedInstanceOf(entityManager, Job.class));
+        entityInstance.setDepartment(__PersisterUtils.newPersistedInstanceOf(entityManager, Department.class));
+        return super.apply(entityManager, entityInstance);
     }
 }

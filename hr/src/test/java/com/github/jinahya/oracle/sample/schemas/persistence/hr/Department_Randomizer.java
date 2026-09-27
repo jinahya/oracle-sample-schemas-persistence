@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,47 +20,40 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedDepartment;
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_Randomizer;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.persistence.test.util.__Randomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.List;
 
-class Department_Randomizer extends _MappedHrEntity_Randomizer<Department, Integer> {
+class Department_Randomizer extends __Randomizer.___OfPodam<Department> {
 
     Department_Randomizer() {
-        super(Department.class, Integer.class, List.of(
-                MappedDepartment.ATTRIBUTE_NAME_MANAGER_ID,
-                MappedDepartment.ATTRIBUTE_NAME_MANAGER,
-                MappedDepartment.ATTRIBUTE_NAME_LOCATION_ID,
-                MappedDepartment.ATTRIBUTE_NAME_LOCATION,
-                MappedDepartment.ATTRIBUTE_NAME_EMPLOYEES
+        super(Department.class, List.of(
+                Department.ATTRIBUTE_NAME_MANAGER,
+                Department.ATTRIBUTE_NAME_LOCATION,
+                Department.ATTRIBUTE_NAME_EMPLOYEES,
+                Department.ATTRIBUTE_NAME_JOB_HISTORIES
         ));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();
     }
 
-    @Nonnull
-    @Override
-    protected PodamFactory getPodamFactory() {
-        return super.getPodamFactory();
-    }
-
-    @Nonnull
     @Override
     protected ClassInfoStrategy getClassInfoStrategy() {
         return super.getClassInfoStrategy();
     }
 
-    @Nonnull
+    @Override
+    protected PodamFactory getPodamFactory() {
+        return super.getPodamFactory();
+    }
+
     @Override
     public Department get() {
         return super.get();

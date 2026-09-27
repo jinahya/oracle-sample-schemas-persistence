@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,24 +20,32 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory_Test;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
-class JobHistoryWithIdClass_Test extends MappedJobHistory_Test<JobHistoryWithIdClass> {
+/**
+ * A class for testing the {@link JobHistoryWithIdClass} entity class.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class JobHistoryWithIdClass_Test extends _Test<JobHistoryWithIdClass> {
 
     JobHistoryWithIdClass_Test() {
         super(JobHistoryWithIdClass.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
+    // ------------------------------------------------------------------------------------------------- equals/hashCode
+
+    /**
+     * {@inheritDoc}
+     *
+     * @implNote {@link JobHistoryWithIdClass#equals(Object) equals} compares only the {@code @Id}
+     * {@code employeeId and startDate} -- the surrogate key -- because every other attribute is mutable state.
+     */
     @Override
-    protected SingleTypeEqualsVerifierApi<JobHistoryWithIdClass> equals_Verify_(
-            @Nonnull final SingleTypeEqualsVerifierApi<JobHistoryWithIdClass> equalsVerifier) {
-        return super.equals_Verify_(equalsVerifier)
-                .suppress(Warning.SURROGATE_KEY)
-                ;
+    protected SingleTypeEqualsVerifierApi<JobHistoryWithIdClass> equals_verifier_() {
+        return super.equals_verifier_()
+                .suppress(Warning.SURROGATE_KEY);
     }
 }

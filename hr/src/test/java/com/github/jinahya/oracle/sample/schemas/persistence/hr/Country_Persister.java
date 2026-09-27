@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,23 +20,20 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Persister;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_PersisterUtils;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.persistence.test.util.__Persister;
+import com.github.jinahya.persistence.test.util.__PersisterUtils;
 import jakarta.persistence.EntityManager;
 
-class Country_Persister extends __MappedEntity_Persister<Country, String> {
+class Country_Persister extends __Persister<Country> {
 
     Country_Persister() {
-        super(Country.class, String.class);
+        super(Country.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public void persist(@Nonnull final EntityManager entityManager, @Nonnull final Country entityInstance) {
-        entityInstance.setRegion(
-                __MappedEntity_PersisterUtils.newPersistedInstanceOf(entityManager, Region.class)
-        );
-        super.persist(entityManager, entityInstance);
+    public Country apply(final EntityManager entityManager, final Country entityInstance) {
+        entityInstance.setRegion(__PersisterUtils.newPersistedInstanceOf(entityManager, Region.class));
+        return super.apply(entityManager, entityInstance);
     }
 }

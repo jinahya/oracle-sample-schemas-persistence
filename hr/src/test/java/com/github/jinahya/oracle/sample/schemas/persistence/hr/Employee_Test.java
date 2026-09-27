@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,22 +20,32 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedHrEntity_Test;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
-class Employee_Test extends _MappedHrEntity_Test<Employee, Integer> {
+/**
+ * A class for testing the {@link Employee} entity class.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Employee_Test extends _Test<Employee> {
 
     Employee_Test() {
-        super(Employee.class, Integer.class);
+        super(Employee.class);
     }
 
-    @Nonnull
+    // ------------------------------------------------------------------------------------------------- equals/hashCode
+
+    /**
+     * {@inheritDoc}
+     *
+     * @implNote {@link Employee#equals(Object) equals} compares only the {@code @Id} {@code employeeId} -- the
+     * surrogate key -- because every other attribute is mutable state.
+     */
     @Override
-    protected SingleTypeEqualsVerifierApi<Employee> equals_Verify_(
-            @Nonnull final SingleTypeEqualsVerifierApi<Employee> equalsVerifier) {
-        return super.equals_Verify_(equalsVerifier)
+    protected SingleTypeEqualsVerifierApi<Employee> equals_verifier_() {
+        return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }
 }

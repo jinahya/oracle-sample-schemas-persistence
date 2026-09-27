@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,24 +20,35 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.mapped.MappedCustomer;
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Test;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
-class Customer_Test extends __MappedEntity_Test<Customer, Long> {
+/**
+ * A class for testing the {@link Customer} entity class.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Customer_Test extends _Test<Customer> {
 
     Customer_Test() {
-        super(Customer.class, Long.class);
+        super(Customer.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
+    // -------------------------------------------------------------------------------------------------------- toString
+
+    // ------------------------------------------------------------------------------------------------- equals/hashCode
+
+    /**
+     * {@inheritDoc}
+     *
+     * @implNote {@link Customer#equals(Object) equals} compares the business key -- the unique
+     * {@value Customer#COLUMN_NAME_EMAIL_ADDRESS} column -- rather than the surrogate
+     * {@value Customer#ATTRIBUTE_NAME_CUSTOMER_ID}, which is null until the row is inserted. The remaining attributes
+     * are mutable state, and the associations are recursive, so none of them may take part.
+     */
     @Override
-    protected SingleTypeEqualsVerifierApi<Customer> equals_Verify_(
-            @Nonnull final SingleTypeEqualsVerifierApi<Customer> equalsVerifier) {
-        return super.equals_Verify_(equalsVerifier)
-                .withOnlyTheseFields(MappedCustomer.ATTRIBUTE_NAME_EMAIL_ADDRESS)
-                ;
+    protected SingleTypeEqualsVerifierApi<Customer> equals_verifier_() {
+        return super.equals_verifier_()
+                .withOnlyTheseFields(Customer.ATTRIBUTE_NAME_EMAIL_ADDRESS);
     }
 }

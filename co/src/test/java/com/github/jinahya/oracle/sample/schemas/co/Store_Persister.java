@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #%L
  * co
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,21 +20,19 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.mapped.test.__MappedEntity_Persister;
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.persistence.test.util.__Persister;
 import jakarta.persistence.EntityManager;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
-class Store_Persister extends __MappedEntity_Persister<Store, Long> {
+class Store_Persister extends __Persister<Store> {
 
     Store_Persister() {
-        super(Store.class, Long.class);
+        super(Store.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
     @Override
-    public void persist(@Nonnull final EntityManager entityManager, @Nonnull final Store entityInstance) {
-        super.persist(entityManager, entityInstance);
+    public Store apply(final EntityManager entityManager, final Store entityInstance) {
+        return super.apply(entityManager, entityInstance);
     }
 }
