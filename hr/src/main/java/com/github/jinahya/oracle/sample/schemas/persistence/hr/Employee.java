@@ -138,7 +138,7 @@ public class Employee {
      */
     public static final int SIZE_MAX_FIRST_NAME = COLUMN_LENGTH_FIRST_NAME;
 
-    // --------------------=---------------------------------------------------------------------------------- LAST_NAME
+    // ------------------------------------------------------------------------------------------------------- LAST_NAME
 
     /**
      * The name of the table column to which the {@code lastName} attribute maps. The value is {@value}.
