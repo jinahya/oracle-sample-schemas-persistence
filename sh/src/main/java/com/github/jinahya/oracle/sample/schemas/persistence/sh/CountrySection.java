@@ -39,7 +39,8 @@ import java.util.Objects;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public class CountrySection_ {
+public class CountrySection {
+
     // ------------------------------------------------------------------------------------------------------------ NAME
 
     /**
@@ -69,7 +70,7 @@ public class CountrySection_ {
     /**
      * Creates a new instance.
      */
-    protected CountrySection_() {
+    protected CountrySection() {
         super();
     }
 
@@ -85,7 +86,7 @@ public class CountrySection_ {
 
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof CountrySection_ that)) {
+        if (!(obj instanceof CountrySection that)) {
             return false;
         }
         return Objects.equals(name, that.name) &&
@@ -144,6 +145,9 @@ public class CountrySection_ {
     @Nonnull
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
+    // no length, and hence no SIZE_MAX_NAME: this embeddable is meant to be reused for each of the section column
+    // pairs, whose name columns are of different widths, so the owning entity supplies the length through an
+    // @AttributeOverride rather than the embeddable fixing one here
     @Column(name = COLUMN_NAME_NAME, nullable = false, insertable = true, updatable = false)
     private String name;
 

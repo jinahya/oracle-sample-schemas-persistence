@@ -23,13 +23,13 @@ import com.github.jinahya.oracle.sample.schemas.persistence.test._Persistence_IT
  */
 
 /**
- * Verifies the mappings of {@link CountrySection_} against the installed {@code SH} schema.
+ * Verifies the mappings of {@link CountrySection} against the installed {@code SH} schema.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class CountrySection__PersistenceIT extends _Persistence_IT<CountrySection_> {
+class CountrySection__PersistenceIT extends _Persistence_IT<CountrySection> {
 
     CountrySection__PersistenceIT() {
-        super(CountrySection_.class);
+        super(CountrySection.class);
     }
 }

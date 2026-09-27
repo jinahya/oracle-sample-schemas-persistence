@@ -28,6 +28,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
@@ -158,6 +159,15 @@ public class OrderItemWithEmbeddedId {
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT = "shipment";
 
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_UNIT_PRICE = "unitPrice";
+
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_QUANTITY} column. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_QUANTITY = "quantity";
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -296,12 +306,11 @@ public class OrderItemWithEmbeddedId {
      */
     protected void setOrder(@Nonnull final Order order) {
         this.order = order;
-        Optional.ofNullable(getId())
-                .orElseGet(() -> {
-                    setId(new OrderItemId(null, null));
-                    return getId();
-                })
-                .setOrderId(Optional.ofNullable(this.order).map(Order::getOrderId).orElse(null));
+        // no mirroring: @MapsId writes ORDER_ID from this association, and fills id.orderId with it. The id object
+        // itself still has to exist, because LINE_ITEM_ID is not generated and nothing else creates it.
+        if (getId() == null) {
+            setId(new OrderItemId(null, null));
+        }
     }
 
     // --------------------------------------------------------------------------------------------------------- product
@@ -419,13 +428,11 @@ public class OrderItemWithEmbeddedId {
     @Nonnull
     @Valid
     @NotNull
+    // the association owns ORDER_ID, and the provider copies the order's id into the embedded id; @MapsId is what
+    // ties the two together, so the column is written from here rather than from a mirroring attribute
+    @MapsId(OrderItemId.ATTRIBUTE_NAME_ORDER_ID)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_ORDER_ID,
-                referencedColumnName = Order.COLUMN_NAME_ORDER_ID,
-                nullable = false,
-                insertable = false,
-                updatable = false
-    )
+    @JoinColumn(name = COLUMN_NAME_ORDER_ID, referencedColumnName = Order.COLUMN_NAME_ORDER_ID, nullable = false)
     private Order order;
 
     // -----------------------------------------------------------------------------------------------------------------

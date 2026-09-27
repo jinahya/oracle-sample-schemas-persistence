@@ -118,6 +118,25 @@ public class Cost {
      */
     public static final String ATTRIBUTE_NAME_UNITPRICE = "unitPrice";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_UNIT_COST} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_UNIT_COST = 10;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_UNIT_COST} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_UNIT_COST = 2;
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_UNIT_PRICE = 10;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_UNIT_PRICE = 2;
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -344,8 +363,8 @@ public class Cost {
             nullable = false,
             insertable = true,
             updatable = true,
-            precision = 10,
-            scale = 2
+            precision = COLUMN_PRECISION_UNIT_COST,
+            scale = COLUMN_SCALE_UNIT_COST
     )
     private BigDecimal unitCost;
 
@@ -355,8 +374,8 @@ public class Cost {
             nullable = false,
             insertable = true,
             updatable = true,
-            precision = 10,
-            scale = 2
+            precision = COLUMN_PRECISION_UNIT_PRICE,
+            scale = COLUMN_SCALE_UNIT_PRICE
     )
     private BigDecimal unitPrice;
 }

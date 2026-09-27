@@ -27,10 +27,10 @@ import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.List;
 
-class CountrySection__Randomizer extends __Randomizer.___OfPodam<CountrySection_> {
+class CountrySection__Randomizer extends __Randomizer.___OfPodam<CountrySection> {
 
     CountrySection__Randomizer() {
-        super(CountrySection_.class, List.of(
+        super(CountrySection.class, List.of(
 
         ));
     }
@@ -52,7 +52,7 @@ class CountrySection__Randomizer extends __Randomizer.___OfPodam<CountrySection_
     }
 
     @Override
-    public CountrySection_ get() {
+    public CountrySection get() {
         return super.get();
     }
 }

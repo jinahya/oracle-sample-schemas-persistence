@@ -117,12 +117,12 @@ public class Department {
     /**
      * The minimum size of the {@code departmentName} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_DEPARTMENT_NAME = 0;
+    public static final int SIZE_MIN_DEPARTMENT_NAME = 0;
 
     /**
      * The maximum size of the {@code departmentName} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_DEPARTMENT_NAME = COLUMN_LENGTH_DEPARTMENT_NAME;
+    public static final int SIZE_MAX_DEPARTMENT_NAME = COLUMN_LENGTH_DEPARTMENT_NAME;
 
     // ------------------------------------------------------------------------------------------------------ MANAGER_ID
 
@@ -399,7 +399,7 @@ public class Department {
     private Integer departmentId;
 
     @Nonnull
-    @Size(min = ATTRIBUTE_SIZE_MIN_DEPARTMENT_NAME, max = ATTRIBUTE_SIZE_MAX_DEPARTMENT_NAME)
+    @Size(min = SIZE_MIN_DEPARTMENT_NAME, max = SIZE_MAX_DEPARTMENT_NAME)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_DEPARTMENT_NAME, nullable = false, insertable = true, updatable = true,

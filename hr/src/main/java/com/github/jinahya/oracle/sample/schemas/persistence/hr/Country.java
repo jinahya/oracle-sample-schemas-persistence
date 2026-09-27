@@ -72,12 +72,12 @@ public class Country {
     /**
      * The minimum size of the {@code countryId} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
+    public static final int SIZE_MIN_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
     /**
      * The maximum size of the {@code countryId} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
+    public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
     // ---------------------------------------------------------------------------------------------------- COUNTRY_NAME
 
@@ -99,12 +99,12 @@ public class Country {
     /**
      * The minimum size of the {@code countryName} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_NIN_COUNTRY_NAME = 0;
+    public static final int SIZE_MIN_COUNTRY_NAME = 0;
 
     /**
      * The maximum size of the {@code countryName} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
+    public static final int SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
 
     // ------------------------------------------------------------------------------------------------------- REGION_ID
 
@@ -238,7 +238,7 @@ public class Country {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Size(min = ATTRIBUTE_SIZE_MIN_COUNTRY_ID, max = ATTRIBUTE_SIZE_MAX_COUNTRY_ID)
+    @Size(min = SIZE_MIN_COUNTRY_ID, max = SIZE_MAX_COUNTRY_ID)
     @NotNull
     @Id
     @Basic(optional = false)
@@ -247,7 +247,7 @@ public class Country {
     private String countryId;
 
     @jakarta.annotation.Nullable
-    @Size(min = ATTRIBUTE_SIZE_NIN_COUNTRY_NAME, max = ATTRIBUTE_SIZE_MAX_COUNTRY_NAME)
+    @Size(min = SIZE_MIN_COUNTRY_NAME, max = SIZE_MAX_COUNTRY_NAME)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_COUNTRY_NAME, nullable = true, insertable = true, updatable = true,
             length = COLUMN_LENGTH_COUNTRY_NAME)

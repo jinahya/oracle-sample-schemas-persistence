@@ -130,6 +130,15 @@ public class Sale {
      */
     public static final String ATTRIBUTE_NAME_AMOUNTSOLD = "amountSold";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_AMOUNT_SOLD = 10;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_AMOUNT_SOLD = 2;
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -398,8 +407,8 @@ public class Sale {
             nullable = false,
             insertable = true,
             updatable = true,
-            precision = 10,
-            scale = 2
+            precision = COLUMN_PRECISION_AMOUNT_SOLD,
+            scale = COLUMN_SCALE_AMOUNT_SOLD
     )
     private BigDecimal amountSold;
 }

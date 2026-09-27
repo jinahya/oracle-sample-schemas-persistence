@@ -161,6 +161,35 @@ public class Profits {
      */
     public static final String ATTRIBUTE_NAME_TOTAL_COST = "totalCost";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_UNIT_COST} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_UNIT_COST = 10;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_UNIT_COST} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_UNIT_COST = 2;
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_UNIT_PRICE = 10;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_UNIT_PRICE = 2;
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_AMOUNT_SOLD = 10;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_AMOUNT_SOLD = 2;
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -406,13 +435,13 @@ public class Profits {
     @Column(name = COLUMN_NAME_TIME_ID, insertable = false, updatable = false)
     private LocalDate timeId;
 
-    @Column(name = COLUMN_NAME_UNIT_COST, insertable = false, updatable = false, precision = 10, scale = 2)
+    @Column(name = COLUMN_NAME_UNIT_COST, insertable = false, updatable = false, precision = COLUMN_PRECISION_UNIT_COST, scale = COLUMN_SCALE_UNIT_COST)
     private BigDecimal unitCost;
 
-    @Column(name = COLUMN_NAME_UNIT_PRICE, insertable = false, updatable = false, precision = 10, scale = 2)
+    @Column(name = COLUMN_NAME_UNIT_PRICE, insertable = false, updatable = false, precision = COLUMN_PRECISION_UNIT_PRICE, scale = COLUMN_SCALE_UNIT_PRICE)
     private BigDecimal unitPrice;
 
-    @Column(name = COLUMN_NAME_AMOUNT_SOLD, insertable = false, updatable = false, precision = 10, scale = 2)
+    @Column(name = COLUMN_NAME_AMOUNT_SOLD, insertable = false, updatable = false, precision = COLUMN_PRECISION_AMOUNT_SOLD, scale = COLUMN_SCALE_AMOUNT_SOLD)
     private BigDecimal amountSold;
 
     @Column(name = COLUMN_NAME_QUANTITY_SOLD, insertable = false, updatable = false)

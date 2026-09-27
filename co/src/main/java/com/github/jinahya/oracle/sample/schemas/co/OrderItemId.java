@@ -126,7 +126,8 @@ public class OrderItemId {
     // -----------------------------------------------------------------------------------------------------------------
 
     @Nonnull
-    @NotNull
+    // no @NotNull: OrderItemWithEmbeddedId maps this through @MapsId, so the provider fills it at flush -- later than
+    // the prePersist at which EclipseLink validates. The column stays NOT NULL.
     @Basic(optional = false)
     @Column(name = OrderItemWithEmbeddedId.COLUMN_NAME_ORDER_ID, nullable = false, insertable = true, updatable = false)
     private Long orderId;

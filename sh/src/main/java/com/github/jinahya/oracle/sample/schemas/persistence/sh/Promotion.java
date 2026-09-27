@@ -218,6 +218,15 @@ public class Promotion {
      */
     public static final String ATTRIBUTE_NAME_PROMO_TOTAL_ID = "promoTotalId";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_PROMO_COST} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROMO_COST = 10;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROMO_COST} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROMO_COST = 2;
     // --------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -556,8 +565,8 @@ public class Promotion {
             nullable = false,
             insertable = true,
             updatable = true,
-            precision = 10,
-            scale = 2
+            precision = COLUMN_PRECISION_PROMO_COST,
+            scale = COLUMN_SCALE_PROMO_COST
     )
     private BigDecimal promoCost;
 

@@ -159,12 +159,12 @@ public class Location {
     /**
      * The minimum size of the {@code streetAddress} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_STREET_ADDRESS = 0;
+    public static final int SIZE_MIN_STREET_ADDRESS = 0;
 
     /**
      * The maximum size of the {@code streetAddress} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_STREET_ADDRESS = COLUMN_LENGTH_STREET_ADDRESS;
+    public static final int SIZE_MAX_STREET_ADDRESS = COLUMN_LENGTH_STREET_ADDRESS;
 
     // ----------------------------------------------------------------------------------------------------- POSTAL_CODE
 
@@ -186,12 +186,12 @@ public class Location {
     /**
      * The minimum size of the {@code postalCode} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_POSTAL_CODE = 0;
+    public static final int SIZE_MIN_POSTAL_CODE = 0;
 
     /**
      * The maximum size of the {@code postalCode} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_POSTAL_CODE = COLUMN_LENGTH_POSTAL_CODE;
+    public static final int SIZE_MAX_POSTAL_CODE = COLUMN_LENGTH_POSTAL_CODE;
 
     // ------------------------------------------------------------------------------------------------------------ CITY
 
@@ -213,12 +213,12 @@ public class Location {
     /**
      * The minimum size of the {@code city} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_CITY = 0;
+    public static final int SIZE_MIN_CITY = 0;
 
     /**
      * The maximum size of the {@code city} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_CITY = COLUMN_LENGTH_CITY;
+    public static final int SIZE_MAX_CITY = COLUMN_LENGTH_CITY;
 
     // -------------------------------------------------------------------------------------------------- STATE_PROVINCE
 
@@ -230,7 +230,7 @@ public class Location {
     /**
      * The length of the {@code STATE_PROVINCE} column. The value is {@value}.
      */
-    public static final int COLUMN_LENGTH_STREET_PROVINCE = 25;
+    public static final int COLUMN_LENGTH_STATE_PROVINCE = 25;
 
     /**
      * The name of the attribute which maps the {@code STATE_PROVINCE} column. The value is {@value}.
@@ -240,12 +240,12 @@ public class Location {
     /**
      * The minimum size of the {@code stateProvince} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_STREET_PROVINCE = 0;
+    public static final int SIZE_MIN_STATE_PROVINCE = 0;
 
     /**
      * The maximum size of the {@code stateProvince} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_STREET_PROVINCE = COLUMN_LENGTH_STREET_PROVINCE;
+    public static final int SIZE_MAX_STATE_PROVINCE = COLUMN_LENGTH_STATE_PROVINCE;
 
     // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
 
@@ -267,12 +267,12 @@ public class Location {
     /**
      * The minimum size of the {@code countryId} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
+    public static final int SIZE_MIN_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
     /**
      * The maximum size of the {@code countryId} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
+    public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column. The value is {@value}.
@@ -290,6 +290,10 @@ public class Location {
         assert COLUMN_LENGTH_COUNTRY_ID == Country.COLUMN_LENGTH_COUNTRY_ID;
     }
 
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_STATE_PROVINCE} column. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_STATE_PROVINCE = "stateProvince";
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -487,7 +491,7 @@ public class Location {
     private Integer locationId;
 
     @jakarta.annotation.Nullable
-    @Size(min = ATTRIBUTE_SIZE_MIN_STREET_ADDRESS, max = ATTRIBUTE_SIZE_MAX_STREET_ADDRESS)
+    @Size(min = SIZE_MIN_STREET_ADDRESS, max = SIZE_MAX_STREET_ADDRESS)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_STREET_ADDRESS,
             nullable = true,
@@ -498,7 +502,7 @@ public class Location {
     private String streetAddress;
 
     @jakarta.annotation.Nullable
-    @Size(min = ATTRIBUTE_SIZE_MIN_POSTAL_CODE, max = ATTRIBUTE_SIZE_MAX_POSTAL_CODE)
+    @Size(min = SIZE_MIN_POSTAL_CODE, max = SIZE_MAX_POSTAL_CODE)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_POSTAL_CODE,
             nullable = true,
@@ -509,7 +513,7 @@ public class Location {
     private String postalCode;
 
     @Nonnull
-    @Size(min = ATTRIBUTE_SIZE_MIN_CITY, max = ATTRIBUTE_SIZE_MAX_CITY)
+    @Size(min = SIZE_MIN_CITY, max = SIZE_MAX_CITY)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_CITY,
@@ -521,13 +525,13 @@ public class Location {
     private String city;
 
     @jakarta.annotation.Nullable
-    @Size(max = ATTRIBUTE_SIZE_MAX_STREET_PROVINCE)
+    @Size(max = SIZE_MAX_STATE_PROVINCE)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_STATE_PROVINCE,
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_STREET_PROVINCE
+            length = COLUMN_LENGTH_STATE_PROVINCE
     )
     private String stateProvince;
 

@@ -26,6 +26,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
@@ -63,6 +64,7 @@ import java.util.function.Function;
                     WHERE e.employeeId = :employeeId"""
 )
 @Entity(name = JobHistoryWithIdClass.ENTITY_NAME)
+@IdClass(JobHistoryId.class)
 @Table(name = JobHistoryWithIdClass.TABLE_NAME,
        uniqueConstraints = {
                @UniqueConstraint(
@@ -201,12 +203,12 @@ public class JobHistoryWithIdClass {
     /**
      * The minimum size of the {@code jobId} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_JOB_ID = 0;
+    public static final int SIZE_MIN_JOB_ID = 0;
 
     /**
      * The maximum size of the {@code jobId} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
+    public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column. The value is {@value}.

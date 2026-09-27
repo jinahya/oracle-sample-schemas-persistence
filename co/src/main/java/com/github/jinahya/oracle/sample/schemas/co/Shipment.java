@@ -155,12 +155,12 @@ public class Shipment {
     /**
      * The minimum size of the {@code shipmentStatus} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_SHIPMENT_STATUS = 0;
+    public static final int SIZE_MIN_SHIPMENT_STATUS = 0;
 
     /**
      * The maximum size of the {@code shipmentStatus} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_SHIPMENT_STATUS = COLUMN_LENGTH_SHIPMENT_STATUS;
+    public static final int SIZE_MAX_SHIPMENT_STATUS = COLUMN_LENGTH_SHIPMENT_STATUS;
 
     // ----------------------------------------------------------------------------------------------------- ORDER_ITEMS
 
@@ -292,6 +292,10 @@ public class Shipment {
         throw new IllegalArgumentException("no constant of " + enumClass + " for '" + attributeValue + "'");
     }
 
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DELIVERY_ADDRESS} column. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_DELIVERY_ADDRESS = "deliveryAddress";
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -521,7 +525,7 @@ public class Shipment {
     private String deliveryAddress;
 
     @Nonnull
-    @Size(max = ATTRIBUTE_SIZE_MAX_SHIPMENT_STATUS)
+    @Size(max = SIZE_MAX_SHIPMENT_STATUS)
     @NotNull
     @Column(name = COLUMN_NAME_SHIPMENT_STATUS,
             nullable = false,

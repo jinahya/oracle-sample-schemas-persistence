@@ -29,6 +29,9 @@
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
+    <!-- JobHistoryWithEmbeddedId and JobHistoryWithIdClass map the same table, two ways. Only one may be listed: with both,
+         EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour and its metamodel
+         rejects getIdClassAttributes(). -->
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Country</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Department</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Employee</class>

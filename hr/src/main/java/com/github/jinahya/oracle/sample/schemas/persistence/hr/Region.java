@@ -115,13 +115,13 @@ public class Region {
      * The value for the {@link Size#min()} of the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute. The value is
      * {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_REGION_NAME = 0;
+    public static final int SIZE_MIN_REGION_NAME = 0;
 
     /**
      * The value for the {@link Size#max()} of the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute. The value is
      * {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_REGION_NAME = COLUMN_LENGTH_REGION_NAME;
+    public static final int SIZE_MAX_REGION_NAME = COLUMN_LENGTH_REGION_NAME;
 
     /**
      * The name of the attribute which maps the {@link Country countries} of this region. The value is {@value}.
@@ -225,7 +225,7 @@ public class Region {
     private Long regionId;
 
     @jakarta.annotation.Nullable
-    @Size(min = ATTRIBUTE_SIZE_MIN_REGION_NAME, max = ATTRIBUTE_SIZE_MAX_REGION_NAME)
+    @Size(min = SIZE_MIN_REGION_NAME, max = SIZE_MAX_REGION_NAME)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_REGION_NAME, nullable = true, insertable = true, updatable = true,
             length = COLUMN_LENGTH_REGION_NAME)

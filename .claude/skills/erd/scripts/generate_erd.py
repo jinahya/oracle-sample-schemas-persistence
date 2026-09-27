@@ -63,6 +63,11 @@ def resolve(expr, klass, classes, seen=()):
     if expr is None:
         return None
     expr = expr.strip()
+    # a quoted identifier is written as '"' + CONST + '"', because a reserved word has to reach the database
+    # quoted; the diagram wants the bare column name, so the quoting parts are dropped
+    quoted = re.fullmatch(r"""'"'\s*\+(.+?)\+\s*'"'""", expr)
+    if quoted:
+        return resolve(quoted.group(1), klass, classes, seen)
     if expr.startswith('"'):
         return expr.strip('"')
     if re.fullmatch(r"\d+", expr):

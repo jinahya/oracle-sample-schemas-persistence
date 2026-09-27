@@ -1,6 +1,10 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 
 import com.github.jinahya.oracle.sample.schemas.persistence.test._Persistence_IT;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.Locale;
+import java.util.Set;
 
 /*-
  * #%L
@@ -27,9 +31,23 @@ import com.github.jinahya.oracle.sample.schemas.persistence.test._Persistence_IT
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@Slf4j
 class Country_PersistenceIT extends _Persistence_IT<Country> {
 
+    private static final Set<String> LOCALE_COUNTRY_ISO_CODES = Set.of(Locale.getISOCountries());
+
+    // -----------------------------------------------------------------------------------------------------------------
     Country_PersistenceIT() {
         super(Country.class);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Override
+    protected void randomSelected(final Country instance) {
+        super.randomSelected(instance);
+        final var countryIsoCode = instance.getCountryIsoCode();
+        if (!LOCALE_COUNTRY_ISO_CODES.contains(countryIsoCode)) {
+            log.debug("unknown country iso code('{}') from {}", countryIsoCode, instance);
+        }
     }
 }

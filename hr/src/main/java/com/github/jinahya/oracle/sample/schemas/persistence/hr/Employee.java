@@ -131,12 +131,12 @@ public class Employee {
     /**
      * The minimum size of the {@code firstName} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_FIRST_NAME = 0;
+    public static final int SIZE_MIN_FIRST_NAME = 0;
 
     /**
      * The maximum size of the {@code firstName} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_FIRST_NAME = COLUMN_LENGTH_FIRST_NAME;
+    public static final int SIZE_MAX_FIRST_NAME = COLUMN_LENGTH_FIRST_NAME;
 
     // --------------------=---------------------------------------------------------------------------------- LAST_NAME
 
@@ -158,12 +158,12 @@ public class Employee {
     /**
      * The minimum size of the {@code lastName} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_LAST_NAME = 0;
+    public static final int SIZE_MIN_LAST_NAME = 0;
 
     /**
      * The maximum size of the {@code lastName} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_LAST_NAME = COLUMN_LENGTH_LAST_NAME;
+    public static final int SIZE_MAX_LAST_NAME = COLUMN_LENGTH_LAST_NAME;
 
     // ----------------------------------------------------------------------------------------------------------- EMAIL
 
@@ -185,12 +185,12 @@ public class Employee {
     /**
      * The minimum size of the {@code email} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_EMAIL = 0;
+    public static final int SIZE_MIN_EMAIL = 0;
 
     /**
      * The maximum size of the {@code email} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_EMAIL = COLUMN_LENGTH_EMAIL;
+    public static final int SIZE_MAX_EMAIL = COLUMN_LENGTH_EMAIL;
 
     // ---------------------------------------------------------------------------------------------------- PHONE_NUMBER
 
@@ -212,12 +212,12 @@ public class Employee {
     /**
      * The minimum size of the {@code phoneNumber} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_PHONE_NUMBER = 0;
+    public static final int SIZE_MIN_PHONE_NUMBER = 0;
 
     /**
      * The maximum size of the {@code phoneNumber} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_PHONE_NUMBER = COLUMN_LENGTH_PHONE_NUMBER;
+    public static final int SIZE_MAX_PHONE_NUMBER = COLUMN_LENGTH_PHONE_NUMBER;
 
     // ------------------------------------------------------------------------------------------------------- HIRE_DATE
 
@@ -246,12 +246,12 @@ public class Employee {
     /**
      * The minimum size of the {@code jobId} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_JOB_ID = 0;
+    public static final int SIZE_MIN_JOB_ID = 0;
 
     /**
      * The maximum size of the {@code jobId} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
+    public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column. The value is {@value}.
@@ -917,8 +917,8 @@ public class Employee {
     private Integer employeeId;
 
     @jakarta.annotation.Nullable
-    @Size(min = ATTRIBUTE_SIZE_MIN_FIRST_NAME,
-          max = ATTRIBUTE_SIZE_MAX_FIRST_NAME
+    @Size(min = SIZE_MIN_FIRST_NAME,
+          max = SIZE_MAX_FIRST_NAME
     )
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_FIRST_NAME,
@@ -930,8 +930,8 @@ public class Employee {
     private String firstName;
 
     @Nonnull
-    @Size(min = ATTRIBUTE_SIZE_MIN_LAST_NAME,
-          max = ATTRIBUTE_SIZE_MAX_LAST_NAME
+    @Size(min = SIZE_MIN_LAST_NAME,
+          max = SIZE_MAX_LAST_NAME
     )
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
@@ -945,7 +945,7 @@ public class Employee {
 
     @Nonnull
 //    @Email
-    @Size(min = ATTRIBUTE_SIZE_MIN_EMAIL, max = ATTRIBUTE_SIZE_MAX_EMAIL)
+    @Size(min = SIZE_MIN_EMAIL, max = SIZE_MAX_EMAIL)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_EMAIL,
@@ -958,7 +958,7 @@ public class Employee {
     private String email;
 
     @jakarta.annotation.Nullable
-    @Size(max = ATTRIBUTE_SIZE_MAX_PHONE_NUMBER)
+    @Size(max = SIZE_MAX_PHONE_NUMBER)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_PHONE_NUMBER,
             nullable = true,

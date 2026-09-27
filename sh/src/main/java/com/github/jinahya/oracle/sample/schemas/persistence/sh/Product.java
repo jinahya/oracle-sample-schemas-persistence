@@ -420,6 +420,25 @@ public class Product {
      */
     public static final int SIZE_MAX_PROD_VALID = COLUMN_LENGTH_PROD_VALID;
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_PROD_LIST_PRICE} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROD_LIST_PRICE = 8;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROD_LIST_PRICE} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROD_LIST_PRICE = 2;
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_PROD_MIN_PRICE} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROD_MIN_PRICE = 8;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROD_MIN_PRICE} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROD_MIN_PRICE = 2;
     // --------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -1072,8 +1091,8 @@ public class Product {
             nullable = false,
             insertable = true,
             updatable = true,
-            precision = 8,
-            scale = 2
+            precision = COLUMN_PRECISION_PROD_LIST_PRICE,
+            scale = COLUMN_SCALE_PROD_LIST_PRICE
     )
     private BigDecimal prodListPrice;
 
@@ -1083,8 +1102,8 @@ public class Product {
             nullable = false,
             insertable = true,
             updatable = true,
-            precision = 8,
-            scale = 2
+            precision = COLUMN_PRECISION_PROD_MIN_PRICE,
+            scale = COLUMN_SCALE_PROD_MIN_PRICE
     )
     private BigDecimal prodMinPrice;
 

@@ -72,11 +72,12 @@ EOSQL
         # classic SQL*Plus does not implement -- it reports SP2-0158 on the preceding
         # `SET LOAD` and skips them. The image ships no SQLcl, so those tables stay empty
         # whether you run this hook or follow the manual steps in the README. Everything
-        # populated by INSERT (including SH.COUNTRIES, the only SH table this project maps)
-        # loads correctly. Call that out rather than failing the whole schema.
+        # populated by INSERT (SH.CHANNELS, SH.COUNTRIES and SH.PRODUCTS) loads correctly.
+        # Call that out rather than failing the whole schema: 02_load_sh_csv.sh runs next
+        # and fills the six from the same CSVs, through external tables.
         if grep -q 'SP2-0158.*"LOAD"' "${workdir}/${schema}.out"; then
             echo "sample-schemas: ${schema} installed (partial: tables bulk-loaded via" \
-                 "SQLcl 'LOAD' are empty -- SQL*Plus cannot run them)"
+                 "SQLcl 'LOAD' are empty -- see 02_load_sh_csv.sh)"
         fi
         if grep -qE 'ORA-[0-9]+' "${workdir}/${schema}.out"; then
             echo "sample-schemas: ${schema} FAILED"

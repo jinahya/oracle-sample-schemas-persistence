@@ -26,6 +26,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -49,6 +50,7 @@ import java.util.Optional;
  * @see OrderItemWithEmbeddedId
  */
 @Entity
+@IdClass(OrderItemId.class)
 @Table(name = OrderItemWithIdClass.TABLE_NAME,
        uniqueConstraints = {
                @UniqueConstraint(
@@ -153,6 +155,15 @@ public class OrderItemWithIdClass {
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT = "shipment";
 
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_UNIT_PRICE = "unitPrice";
+
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_QUANTITY} column. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_QUANTITY = "quantity";
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**

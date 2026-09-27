@@ -91,14 +91,14 @@ public class Store {
     /**
      * The minimum size of the {@code storeName} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_STORE_NAME = 0;
+    public static final int SIZE_MIN_STORE_NAME = 0;
 
     // 1?
 
     /**
      * The maximum size of the {@code storeName} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_STORE_NAME = COLUMN_LENGTH_STORE_NAME;
+    public static final int SIZE_MAX_STORE_NAME = COLUMN_LENGTH_STORE_NAME;
 
     // ----------------------------------------------------------------------------------------------------- WEB_ADDRESS
 
@@ -120,14 +120,14 @@ public class Store {
     /**
      * The minimum size of the {@code webAddress} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_WEB_ADDRESS = 0;
+    public static final int SIZE_MIN_WEB_ADDRESS = 0;
 
     // 1?
 
     /**
      * The maximum size of the {@code webAddress} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_WEB_ADDRESS = COLUMN_LENGTH_WEB_ADDRESS;
+    public static final int SIZE_MAX_WEB_ADDRESS = COLUMN_LENGTH_WEB_ADDRESS;
 
     // ------------------------------------------------------------------------------------------------ PHYSICAL_ADDRESS
 
@@ -149,14 +149,14 @@ public class Store {
     /**
      * The minimum size of the {@code physicalAddress} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_PHYSICAL_ADDRESS = 0;
+    public static final int SIZE_MIN_PHYSICAL_ADDRESS = 0;
 
     // 1?
 
     /**
      * The maximum size of the {@code physicalAddress} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_PHYSICAL_ADDRESS = COLUMN_LENGTH_PHYSICAL_ADDRESS;
+    public static final int SIZE_MAX_PHYSICAL_ADDRESS = COLUMN_LENGTH_PHYSICAL_ADDRESS;
 
     // -------------------------------------------------------------------------------------------------------- LATITUDE
 
@@ -294,14 +294,14 @@ public class Store {
     /**
      * The minimum size of the {@code logoMimeType} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_LOGO_MIME_TYPE = 0;
+    public static final int SIZE_MIN_LOGO_MIME_TYPE = 0;
 
     // 1?
 
     /**
      * The maximum size of the {@code logoMimeType} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_LOGO_MIME_TYPE = COLUMN_LENGTH_LOGO_MIME_TYPE;
+    public static final int SIZE_MAX_LOGO_MIME_TYPE = COLUMN_LENGTH_LOGO_MIME_TYPE;
 
     // --------------------------------------------------------------------------------------------------- LOGO_FILENAME
 
@@ -323,14 +323,14 @@ public class Store {
     /**
      * The minimum size of the {@code logoFilename} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_LOGO_FILENAME = 0;
+    public static final int SIZE_MIN_LOGO_FILENAME = 0;
 
     // 1?
 
     /**
      * The maximum size of the {@code logoFilename} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_LOGO_FILENAME = COLUMN_LENGTH_LOGO_FILENAME;
+    public static final int SIZE_MAX_LOGO_FILENAME = COLUMN_LENGTH_LOGO_FILENAME;
 
     // ---------------------------------------------------------------------------------------------------- LOGO_CHARSET
 
@@ -352,14 +352,14 @@ public class Store {
     /**
      * The minimum size of the {@code logoCharset} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_LOGO_CHARSET = 0;
+    public static final int SIZE_MIN_LOGO_CHARSET = 0;
 
     // 1?
 
     /**
      * The maximum size of the {@code logoCharset} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_LOGO_CHARSET = COLUMN_LENGTH_LOGO_CHARSET;
+    public static final int SIZE_MAX_LOGO_CHARSET = COLUMN_LENGTH_LOGO_CHARSET;
 
     // ----------------------------------------------------------------------------------------------- LOGO_LAST_UPDATED
 
@@ -799,7 +799,7 @@ public class Store {
             updatable = false)
     private Long storeId;
 
-    @Size(min = ATTRIBUTE_SIZE_MIN_STORE_NAME, max = ATTRIBUTE_SIZE_MAX_STORE_NAME)
+    @Size(min = SIZE_MIN_STORE_NAME, max = SIZE_MAX_STORE_NAME)
     @NotNull
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_STORE_NAME,
@@ -812,7 +812,7 @@ public class Store {
     private String storeName;
 
     @jakarta.annotation.Nullable
-    @Size(max = ATTRIBUTE_SIZE_MAX_WEB_ADDRESS)
+    @Size(max = SIZE_MAX_WEB_ADDRESS)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_WEB_ADDRESS,
             nullable = true,
@@ -823,7 +823,7 @@ public class Store {
     private String webAddress;
 
     @jakarta.annotation.Nullable
-    @Size(max = ATTRIBUTE_SIZE_MAX_PHYSICAL_ADDRESS)
+    @Size(max = SIZE_MAX_PHYSICAL_ADDRESS)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_PHYSICAL_ADDRESS,
             nullable = true,
@@ -866,7 +866,7 @@ public class Store {
     private byte[] logo;
 
     @jakarta.annotation.Nullable
-    @Size(min = ATTRIBUTE_SIZE_MIN_LOGO_MIME_TYPE, max = ATTRIBUTE_SIZE_MAX_LOGO_MIME_TYPE)
+    @Size(min = SIZE_MIN_LOGO_MIME_TYPE, max = SIZE_MAX_LOGO_MIME_TYPE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOGO_MIME_TYPE,
             nullable = true,
@@ -877,7 +877,7 @@ public class Store {
     private String logoMimeType;
 
     @jakarta.annotation.Nullable
-    @Size(min = ATTRIBUTE_SIZE_MIN_LOGO_FILENAME, max = ATTRIBUTE_SIZE_MAX_LOGO_FILENAME)
+    @Size(min = SIZE_MIN_LOGO_FILENAME, max = SIZE_MAX_LOGO_FILENAME)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOGO_FILENAME,
             nullable = true,
@@ -888,7 +888,7 @@ public class Store {
     private String logoFilename;
 
     @jakarta.annotation.Nullable
-    @Size(min = ATTRIBUTE_SIZE_MIN_LOGO_CHARSET, max = ATTRIBUTE_SIZE_MAX_LOGO_CHARSET)
+    @Size(min = SIZE_MIN_LOGO_CHARSET, max = SIZE_MAX_LOGO_CHARSET)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOGO_CHARSET,
             nullable = true,

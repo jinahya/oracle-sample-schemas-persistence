@@ -23,13 +23,13 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 
 /**
- * A class for testing the {@link CountrySection_} embeddable class.
+ * A class for testing the {@link CountrySection} embeddable class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class CountrySection__Test extends _Test<CountrySection_> {
+class CountrySection__Test extends _Test<CountrySection> {
 
     CountrySection__Test() {
-        super(CountrySection_.class);
+        super(CountrySection.class);
     }
 }

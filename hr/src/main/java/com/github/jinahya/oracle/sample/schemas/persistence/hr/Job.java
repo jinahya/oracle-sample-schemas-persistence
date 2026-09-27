@@ -86,12 +86,12 @@ public class Job {
     /**
      * The value for the {@link Size#min()} of the {@value #ATTRIBUTE_NAME_JOB_ID} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_JOB_ID = 0;
+    public static final int SIZE_MIN_JOB_ID = 0;
 
     /**
      * The value for the {@link Size#max()} of the {@value #ATTRIBUTE_NAME_JOB_ID} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
+    public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
     // ------------------------------------------------------------------------------------------------------- JOB_TITLE
 
@@ -113,12 +113,12 @@ public class Job {
     /**
      * The minimum size of the {@code jobTitle} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_JOB_TITLE = 0;
+    public static final int SIZE_MIN_JOB_TITLE = 0;
 
     /**
      * The maximum size of the {@code jobTitle} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_JOB_TITLE = COLUMN_LENGTH_JOB_TITLE;
+    public static final int SIZE_MAX_JOB_TITLE = COLUMN_LENGTH_JOB_TITLE;
 
     // ------------------------------------------------------------------------------------------------------ MIN_SALARY
 
@@ -529,7 +529,7 @@ public class Job {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Size(min = ATTRIBUTE_SIZE_MIN_JOB_ID, max = ATTRIBUTE_SIZE_MAX_JOB_ID)
+    @Size(min = SIZE_MIN_JOB_ID, max = SIZE_MAX_JOB_ID)
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_JOB_ID,
@@ -541,7 +541,7 @@ public class Job {
     private String jobId;
 
     @Nonnull
-    @Size(min = ATTRIBUTE_SIZE_MIN_JOB_TITLE, max = ATTRIBUTE_SIZE_MAX_JOB_TITLE)
+    @Size(min = SIZE_MIN_JOB_TITLE, max = SIZE_MAX_JOB_TITLE)
     @NotNull
     @Column(name = COLUMN_NAME_JOB_TITLE,
             nullable = false,

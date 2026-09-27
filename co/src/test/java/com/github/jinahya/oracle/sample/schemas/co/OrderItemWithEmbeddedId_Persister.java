@@ -36,11 +36,7 @@ class OrderItemWithEmbeddedId_Persister extends __Persister<OrderItemWithEmbedde
     @Override
     public OrderItemWithEmbeddedId apply(final EntityManager entityManager,
                                          final OrderItemWithEmbeddedId entityInstance) {
-        final var order = __PersisterUtils.newPersistedInstanceOf(entityManager, Order.class);
-        // ORDER_ID is part of the primary key, so the association is still mirrored into it by setOrder, which
-        // copies the id it sees; EclipseLink assigns an IDENTITY id only on flush, hence the flush before the set.
-        entityManager.flush();
-        entityInstance.setOrder(order);
+        entityInstance.setOrder(__PersisterUtils.newPersistedInstanceOf(entityManager, Order.class));
         entityInstance.setProduct(__PersisterUtils.newPersistedInstanceOf(entityManager, Product.class));
         if (ThreadLocalRandom.current().nextBoolean()) {
             entityInstance.setShipment(__PersisterUtils.newPersistedInstanceOf(entityManager, Shipment.class));

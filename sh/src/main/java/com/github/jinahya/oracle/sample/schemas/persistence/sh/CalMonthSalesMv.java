@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  */
 
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -51,6 +52,11 @@ public class CalMonthSalesMv {
      * The length of the {@value #COLUMN_NAME_CALENDAR_MONTH_DESC} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_CALENDAR_MONTH_DESC = 8;
+
+    /**
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute. The value is {@value}.
+     */
+    public static final int SIZE_MAX_CALENDAR_MONTH_DESC = COLUMN_LENGTH_CALENDAR_MONTH_DESC;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_DESC} column. The value is {@value}.
@@ -131,6 +137,7 @@ public class CalMonthSalesMv {
 
     // -----------------------------------------------------------------------------------------------------------------
 
+    @Size(max = SIZE_MAX_CALENDAR_MONTH_DESC)
     @Column(name = COLUMN_NAME_CALENDAR_MONTH_DESC, insertable = false, updatable = false, length = COLUMN_LENGTH_CALENDAR_MONTH_DESC)
     private String calendarMonthDesc;
 

@@ -197,12 +197,12 @@ public class JobHistoryWithEmbeddedId {
     /**
      * The minimum size of the {@code jobId} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_JOB_ID = 0;
+    public static final int SIZE_MIN_JOB_ID = 0;
 
     /**
      * The maximum size of the {@code jobId} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
+    public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column. The value is {@value}.

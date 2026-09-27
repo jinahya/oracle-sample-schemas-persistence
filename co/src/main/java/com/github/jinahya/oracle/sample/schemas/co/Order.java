@@ -38,6 +38,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -156,12 +157,12 @@ public class Order {
     /**
      * The minimum size of the {@code orderStatus} attribute. The value is {@value}.
      */
-    public static final int ATTRIBUTE_SIZE_MIN_ORDER_STATUS = 0;
+    public static final int SIZE_MIN_ORDER_STATUS = 0;
 
     /**
      * The maximum size of the {@code orderStatus} attribute.
      */
-    public static final int ATTRIBUTE_SIZE_MAX_ORDER_STATUS = COLUMN_LENGTH_ORDER_STATUS;
+    public static final int SIZE_MAX_ORDER_STATUS = COLUMN_LENGTH_ORDER_STATUS;
 
     // -------------------------------------------------------------------------------------------------------- STORE_ID
 
@@ -672,6 +673,7 @@ public class Order {
     private Customer customer;
 
     @Nonnull
+    @Size(max = SIZE_MAX_ORDER_STATUS)
     @NotNull
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_ORDER_STATUS, nullable = false, insertable = true, updatable = true,

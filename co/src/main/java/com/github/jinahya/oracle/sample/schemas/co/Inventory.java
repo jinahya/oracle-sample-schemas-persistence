@@ -107,6 +107,10 @@ public class Inventory {
      */
     public static final String COLUMN_NAME_PRODUCT_INVENTORY = "PRODUCT_INVENTORY";
 
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_INVENTORY} column. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_PRODUCT_INVENTORY = "productInventory";
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
