@@ -20,14 +20,24 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-/**
- * Persists {@link Customer} instances against the in-memory database.
- *
- * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- */
-class Customer_Persistence_Test extends _Persistence_Test<Customer> {
+import com.github.jinahya.persistence.test.util.__Persister;
+import com.github.jinahya.persistence.test.util.__Randomizer;
+import jakarta.persistence.EntityManager;
+import uk.co.jemos.podam.api.ClassInfoStrategy;
+import uk.co.jemos.podam.api.DataProviderStrategy;
+import uk.co.jemos.podam.api.PodamFactory;
 
-    Customer_Persistence_Test() {
+import java.util.List;
+
+class Customer_Persister extends __Persister<Customer> {
+
+    Customer_Persister() {
         super(Customer.class);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Override
+    public Customer apply(final EntityManager entityManager, final Customer entityInstance) {
+        return super.apply(entityManager, entityInstance);
     }
 }

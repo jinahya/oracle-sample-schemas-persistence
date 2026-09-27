@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +29,25 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Inventory_Test {
+class Inventory_Test extends _Test<Inventory> {
+
+    Inventory_Test() {
+        super(Inventory.class);
+    }
+
+    // ------------------------------------------------------------------------------------------------- equals/hashCode
+
+    /**
+     * {@inheritDoc}
+     *
+     * @implNote {@link Inventory#equals(Object) equals} compares the business key rather than the
+     * surrogate {@code @Id}, which is null until the row is inserted.
+     */
+    @Override
+    SingleTypeEqualsVerifierApi<Inventory> equals_verifier_() {
+        return super.equals_verifier_()
+                .withOnlyTheseFields(Inventory.ATTRIBUTE_NAME_STORE_ID, Inventory.ATTRIBUTE_NAME_PRODUCT_ID);
+    }
 
     @DisplayName("new Inventory().toString()!blank")
     @Test

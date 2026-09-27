@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
+import nl.jqno.equalsverifier.Warning;
+import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +30,25 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Country_Test {
+class Country_Test extends _Test<Country> {
+
+    Country_Test() {
+        super(Country.class);
+    }
+
+    // ------------------------------------------------------------------------------------------------- equals/hashCode
+
+    /**
+     * {@inheritDoc}
+     *
+     * @implNote {@link Country#equals(Object) equals} compares only the {@code @Id}
+     * {@code id} -- the surrogate key -- because every other attribute is mutable state.
+     */
+    @Override
+    SingleTypeEqualsVerifierApi<Country> equals_verifier_() {
+        return super.equals_verifier_()
+                .suppress(Warning.SURROGATE_KEY);
+    }
 
     @DisplayName("new Country().toString()!blank")
     @Test

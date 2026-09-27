@@ -21,13 +21,13 @@ package com.github.jinahya.oracle.sample.schemas.co;
  */
 
 /**
- * Verifies the mappings of {@link OrderItemId} against the installed {@code CO} schema.
+ * Verifies the mappings of {@link Inventory} against the installed {@code CO} schema.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class OrderItemId_PersistenceIT extends _Persistence_IT<OrderItemId> {
+class Inventory_Persistence_IT extends _Persistence_IT<Inventory> {
 
-    OrderItemId_PersistenceIT() {
-        super(OrderItemId.class);
+    Inventory_Persistence_IT() {
+        super(Inventory.class);
     }
 }

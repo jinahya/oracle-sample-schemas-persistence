@@ -25,9 +25,9 @@ package com.github.jinahya.oracle.sample.schemas.co;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class ProductImage_PersistenceTest extends _Persistence_Test<ProductImage> {
+class ProductImage_Persistence_Test extends _Persistence_Test<ProductImage> {
 
-    ProductImage_PersistenceTest() {
+    ProductImage_Persistence_Test() {
         super(ProductImage.class);
     }
 }

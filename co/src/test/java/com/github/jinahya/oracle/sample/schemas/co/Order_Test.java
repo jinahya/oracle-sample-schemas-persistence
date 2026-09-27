@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import nl.jqno.equalsverifier.Warning;
+import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +30,25 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Order_Test {
+class Order_Test extends _Test<Order> {
+
+    Order_Test() {
+        super(Order.class);
+    }
+
+    // ------------------------------------------------------------------------------------------------- equals/hashCode
+
+    /**
+     * {@inheritDoc}
+     *
+     * @implNote {@link Order#equals(Object) equals} compares only the {@code @Id}
+     * {@code orderId} -- the surrogate key -- because every other attribute is mutable state.
+     */
+    @Override
+    SingleTypeEqualsVerifierApi<Order> equals_verifier_() {
+        return super.equals_verifier_()
+                .suppress(Warning.SURROGATE_KEY);
+    }
 
     @DisplayName("new Order().toString()!blank")
     @Test

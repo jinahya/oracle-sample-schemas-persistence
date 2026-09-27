@@ -21,13 +21,13 @@ package com.github.jinahya.oracle.sample.schemas.co;
  */
 
 /**
- * Verifies the mappings of {@link Inventory} against the installed {@code CO} schema.
+ * Verifies the mappings of {@link Inventory} against the schema generated into the in-memory database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Inventory_PersistenceIT extends _Persistence_IT<Inventory> {
+class Inventory_Persistence_Test extends _Persistence_Test<Inventory> {
 
-    Inventory_PersistenceIT() {
+    Inventory_Persistence_Test() {
         super(Inventory.class);
     }
 }

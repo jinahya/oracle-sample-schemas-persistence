@@ -28,7 +28,11 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class ProductDetails_Test {
+class ProductDetails_Test extends _Test<ProductDetails> {
+
+    ProductDetails_Test() {
+        super(ProductDetails.class);
+    }
 
     @DisplayName("new ProductDetails().toString()!blank")
     @Test

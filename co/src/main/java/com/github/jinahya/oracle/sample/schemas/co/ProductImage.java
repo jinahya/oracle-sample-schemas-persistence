@@ -106,11 +106,11 @@ public class ProductImage extends _Binary {
      */
     @Nullable
     public byte[] getProductImage() {
-        return this.getBytes();
+        return getBytes();
     }
 
     void setProductImage(@Nullable final byte[] productImage) {
-        this.setBytes(productImage);
+        setBytes(productImage);
     }
 
     // ------------------------------------------------------------------------------------------------- IMAGE_MIME_TYPE
@@ -122,11 +122,11 @@ public class ProductImage extends _Binary {
      */
     @Nullable
     public String getImageMimeType() {
-        return this.getMimeType();
+        return getMimeType();
     }
 
     void setImageMimeType(@Nullable final String imageMimeType) {
-        this.setMimeType(imageMimeType);
+        setMimeType(imageMimeType);
     }
 
     // -------------------------------------------------------------------------------------------------- IMAGE_FILENAME
@@ -138,11 +138,11 @@ public class ProductImage extends _Binary {
      */
     @Nullable
     public String getImageFilename() {
-        return this.getFilename();
+        return getFilename();
     }
 
     void setImageFilename(@Nullable final String imageFilename) {
-        this.setFilename(imageFilename);
+        setFilename(imageFilename);
     }
 
     // --------------------------------------------------------------------------------------------------- IMAGE_CHARSET
@@ -154,11 +154,11 @@ public class ProductImage extends _Binary {
      */
     @Nullable
     public String getImageCharset() {
-        return this.getCharset();
+        return getCharset();
     }
 
     void setImageCharset(@Nullable final String imageCharset) {
-        this.setCharset(imageCharset);
+        setCharset(imageCharset);
     }
 
     // ---------------------------------------------------------------------------------------------- IMAGE_LAST_UPDATED
@@ -170,10 +170,10 @@ public class ProductImage extends _Binary {
      */
     @Nullable
     protected LocalDate getImageLastUpdated() {
-        return this.getLastUpdated();
+        return getLastUpdated();
     }
 
     void setImageLastUpdated(@Nullable final LocalDate imageLastUpdated) {
-        this.setLastUpdated(imageLastUpdated);
+        setLastUpdated(imageLastUpdated);
     }
 }

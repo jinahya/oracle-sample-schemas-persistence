@@ -90,6 +90,11 @@ public class OrderItemWithIdClass {
      */
     public static final String COLUMN_NAME_LINE_ITEM_ID = "LINE_ITEM_ID";
 
+    /**
+     * The name of the attribute which maps the {@code LINE_ITEM_ID} column. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_LINE_ITEM_ID = "lineItemId";
+
     // -------------------------------------------------------------------------------- PRODUCT_ID / productId / product
 
     /**

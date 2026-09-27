@@ -72,6 +72,11 @@ public class Order {
      */
     public static final String COLUMN_NAME_ORDER_ID = "ORDER_ID";
 
+    /**
+     * The name of the attribute which maps the {@code ORDER_ID} column. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
+
     // ------------------------------------------------------------------------------------------------------- ORDER_TMS
 
     /**

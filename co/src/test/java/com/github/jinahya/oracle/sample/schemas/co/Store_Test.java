@@ -20,25 +20,30 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
 /**
  * A class for testing the {@link Store} entity class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Store_Test {
+class Store_Test extends _Test<Store> {
 
-    @DisplayName("new Store().toString()!blank")
-    @Test
-    void toString_NotBlank_() {
-        EntityTestUtils.assertToStringIsNotBlank(Store.class);
+    Store_Test() {
+        super(Store.class);
     }
 
-    @DisplayName("Store property accessors round-trip")
-    @Test
-    void propertyAccessors_DoNotThrow_() {
-        EntityTestUtils.assertPropertyAccessorsDoNotThrow(Store.class);
+    // ------------------------------------------------------------------------------------------------- equals/hashCode
+
+    /**
+     * {@inheritDoc}
+     *
+     * @implNote {@link Store#equals(Object) equals} compares the business key rather than the surrogate {@code @Id},
+     * which is null until the row is inserted.
+     */
+    @Override
+    SingleTypeEqualsVerifierApi<Store> equals_verifier_() {
+        return super.equals_verifier_()
+                .withOnlyTheseFields(Store.ATTRIBUTE_NAME_STORE_NAME);
     }
 }

@@ -20,14 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-/**
- * Verifies the mappings of {@link Shipment} against the installed {@code CO} schema.
- *
- * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- */
-class Shipment_PersistenceIT extends _Persistence_IT<Shipment> {
+class ProductDetails_Persistence_IT extends _Persistence_IT<ProductDetails> {
 
-    Shipment_PersistenceIT() {
-        super(Shipment.class);
+    ProductDetails_Persistence_IT() {
+        super(ProductDetails.class);
     }
 }

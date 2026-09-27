@@ -20,14 +20,18 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.persistence.test.util.__PersisterUtils;
+import com.github.jinahya.persistence.test.util.__RandomizerUtils;
 import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.jboss.weld.junit5.auto.AddBeanClasses;
 import org.jboss.weld.junit5.auto.EnableAutoWeld;
+import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -39,8 +43,8 @@ import static com.github.jinahya.oracle.sample.schemas.co._Persistence_Test_Prod
  * An abstract base class for tests which need a persistence context, against the
  * {@value _Persistence_Test_Producer#PERSISTENCE_UNIT_NAME} persistence unit.
  * <p>
- * The container is started by weld-testing, with {@link _Persistence_Test_Producer} as its only bean class, so a subclass
- * gets an entity manager on an in-memory database whose schema the provider generates.
+ * The container is started by weld-testing, with {@link _Persistence_Test_Producer} as its only bean class, so a
+ * subclass gets an entity manager on an in-memory database whose schema the provider generates.
  * <p>
  * Nothing here reaches the Oracle database; a test which needs the real data extends {@link _Persistence_IT} and is
  * named {@code *_IT} so that failsafe, not surefire, runs it.
@@ -49,6 +53,7 @@ import static com.github.jinahya.oracle.sample.schemas.co._Persistence_Test_Prod
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see _Persistence_Test_Producer
  */
+@Slf4j
 @AddBeanClasses(_Persistence_Test_Producer.class)
 @EnableAutoWeld
 @SuppressWarnings({
@@ -64,6 +69,21 @@ abstract class _Persistence_Test<T> extends __Test<T> {
      */
     _Persistence_Test(final Class<T> persistenceClass) {
         super(persistenceClass);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Test
+    void persist__() {
+        final var persisted = __RandomizerUtils.newRandomizerInstanceOf(targetClass)
+                .map(r -> {
+                    return __PersisterUtils.newPersisterInstanceOf(targetClass)
+                            .map(p -> {
+                                return applyEntityManagerInRolledBackTransaction(em -> {
+                                    return p.apply(em, r.get());
+                                });
+                            });
+                });
+        log.debug("persisted: {}", persisted);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

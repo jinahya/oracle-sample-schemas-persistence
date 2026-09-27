@@ -71,7 +71,7 @@ abstract class _Persistence_IT<T> extends __Test<T> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Selects a random instance of {@link #persistenceClass}, from the installed schema, and hands it to
+     * Selects a random instance of {@link #targetClass}, from the installed schema, and hands it to
      * {@link #randomSelected(Object)}.
      *
      * @implNote The selection and the callback both run inside a transaction which is rolled back, so the instance
@@ -83,7 +83,7 @@ abstract class _Persistence_IT<T> extends __Test<T> {
     @Test
     void selectRandom() {
         acceptEntityManagerInRolledBackTransaction(
-                em -> __Persistence___Utils.selectRandom(em, persistenceClass).ifPresent(this::randomSelected)
+                em -> __Persistence___Utils.selectRandom(em, targetClass).ifPresent(this::randomSelected)
         );
     }
 

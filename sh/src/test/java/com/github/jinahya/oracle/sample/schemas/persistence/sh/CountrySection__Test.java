@@ -28,7 +28,11 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class CountrySection__Test {
+class CountrySection__Test extends _Test<CountrySection_> {
+
+    CountrySection__Test() {
+        super(CountrySection_.class);
+    }
 
     @DisplayName("new CountrySection_().toString()!blank")
     @Test

@@ -28,7 +28,11 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class JobHistoryId_Test {
+class JobHistoryId_Test extends _Test<JobHistoryId> {
+
+    JobHistoryId_Test() {
+        super(JobHistoryId.class);
+    }
 
     @DisplayName("new JobHistoryId().toString()!blank")
     @Test

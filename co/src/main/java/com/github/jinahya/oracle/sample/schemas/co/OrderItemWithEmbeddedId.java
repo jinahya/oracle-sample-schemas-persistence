@@ -90,6 +90,14 @@ public class OrderItemWithEmbeddedId {
      */
     public static final String COLUMN_NAME_LINE_ITEM_ID = "LINE_ITEM_ID";
 
+    // ------------------------------------------------------------------------------------ ORDER_ID / LINE_ITEM_ID / id
+
+    /**
+     * The name of the attribute which maps both the {@code ORDER_ID} and the {@code LINE_ITEM_ID} columns, as an
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_ID = "id";
+
     // -------------------------------------------------------------------------------- PRODUCT_ID / productId / product
 
     /**

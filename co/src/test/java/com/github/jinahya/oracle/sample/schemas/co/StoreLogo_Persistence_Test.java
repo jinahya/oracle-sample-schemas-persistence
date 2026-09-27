@@ -21,13 +21,13 @@ package com.github.jinahya.oracle.sample.schemas.co;
  */
 
 /**
- * Verifies the mappings of {@link Order} against the schema generated into the in-memory database.
+ * Verifies the mappings of {@link StoreLogo} against the schema generated into the in-memory database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Order_PersistenceTest extends _Persistence_Test<Order> {
+class StoreLogo_Persistence_Test extends _Persistence_Test<StoreLogo> {
 
-    Order_PersistenceTest() {
-        super(Order.class);
+    StoreLogo_Persistence_Test() {
+        super(StoreLogo.class);
     }
 }

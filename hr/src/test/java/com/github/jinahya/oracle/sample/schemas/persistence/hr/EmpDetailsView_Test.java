@@ -28,7 +28,26 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class EmpDetailsView_Test {
+class EmpDetailsView_Test extends _Test<EmpDetailsView> {
+
+    EmpDetailsView_Test() {
+        super(EmpDetailsView.class);
+    }
+
+    // ------------------------------------------------------------------------------------------------- equals/hashCode
+
+    /**
+     * Does nothing; {@link EmpDetailsView} is not a class {@code EqualsVerifier} has anything to verify.
+     *
+     * @implNote {@link EmpDetailsView} declares no {@code equals(Object)}, so instances carry {@link Object}'s
+     * reference equality. There is no value equality to verify, and suppressing every check that follows from that
+     * would leave the test asserting nothing anyway.
+     */
+    @Override
+    @Test
+    void equals_verify_() {
+        // empty
+    }
 
     @DisplayName("new EmpDetailsView().toString()!blank")
     @Test

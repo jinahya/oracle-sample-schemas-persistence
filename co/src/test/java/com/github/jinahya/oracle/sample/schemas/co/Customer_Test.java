@@ -20,25 +20,34 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
 /**
  * A class for testing the {@link Customer} entity class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Customer_Test {
+class Customer_Test extends _Test<Customer> {
 
-    @DisplayName("new Customer().toString()!blank")
-    @Test
-    void toString_NotBlank_() {
-        EntityTestUtils.assertToStringIsNotBlank(Customer.class);
+    Customer_Test() {
+        super(Customer.class);
     }
 
-    @DisplayName("Customer property accessors round-trip")
-    @Test
-    void propertyAccessors_DoNotThrow_() {
-        EntityTestUtils.assertPropertyAccessorsDoNotThrow(Customer.class);
+    // -------------------------------------------------------------------------------------------------------- toString
+
+    // ------------------------------------------------------------------------------------------------- equals/hashCode
+
+    /**
+     * {@inheritDoc}
+     *
+     * @implNote {@link Customer#equals(Object) equals} compares the business key -- the unique
+     * {@value Customer#COLUMN_NAME_EMAIL_ADDRESS} column -- rather than the surrogate
+     * {@value Customer#ATTRIBUTE_NAME_CUSTOMER_ID}, which is null until the row is inserted. The remaining attributes
+     * are mutable state, and the associations are recursive, so none of them may take part.
+     */
+    @Override
+    SingleTypeEqualsVerifierApi<Customer> equals_verifier_() {
+        return super.equals_verifier_()
+                .withOnlyTheseFields(Customer.ATTRIBUTE_NAME_EMAIL_ADDRESS);
     }
 }

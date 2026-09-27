@@ -20,29 +20,14 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 /**
- * A class for testing the {@link OrderItemId} id class.
+ * Verifies the mappings of {@link Product} against the installed {@code CO} schema.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class OrderItemId_Test extends _Test<OrderItemId> {
+class Product_Persistence_IT extends _Persistence_IT<Product> {
 
-    OrderItemId_Test() {
-        super(OrderItemId.class);
-    }
-
-    @DisplayName("new OrderItemId().toString()!blank")
-    @Test
-    void toString_NotBlank_() {
-        EntityTestUtils.assertToStringIsNotBlank(OrderItemId.class);
-    }
-
-    @DisplayName("OrderItemId property accessors round-trip")
-    @Test
-    void propertyAccessors_DoNotThrow_() {
-        EntityTestUtils.assertPropertyAccessorsDoNotThrow(OrderItemId.class);
+    Product_Persistence_IT() {
+        super(Product.class);
     }
 }

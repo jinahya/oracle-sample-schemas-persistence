@@ -106,11 +106,11 @@ public class StoreLogo extends _Binary {
      */
     @Nullable
     public byte[] getLogo() {
-        return this.getBytes();
+        return getBytes();
     }
 
     void setLogo(@Nullable final byte[] logo) {
-        this.setBytes(logo);
+        setBytes(logo);
     }
 
     // -------------------------------------------------------------------------------------------------- LOGO_MIME_TYPE
@@ -122,11 +122,11 @@ public class StoreLogo extends _Binary {
      */
     @Nullable
     public String getLogoMimeType() {
-        return this.getMimeType();
+        return getMimeType();
     }
 
     void setLogoMimeType(@Nullable final String logoMimeType) {
-        this.setMimeType(logoMimeType);
+        setMimeType(logoMimeType);
     }
 
     // --------------------------------------------------------------------------------------------------- LOGO_FILENAME
@@ -138,11 +138,11 @@ public class StoreLogo extends _Binary {
      */
     @Nullable
     public String getLogoFilename() {
-        return this.getFilename();
+        return getFilename();
     }
 
     void setLogoFilename(@Nullable final String logoFilename) {
-        this.setFilename(logoFilename);
+        setFilename(logoFilename);
     }
 
     // ---------------------------------------------------------------------------------------------------- LOGO_CHARSET
@@ -154,11 +154,11 @@ public class StoreLogo extends _Binary {
      */
     @Nullable
     public String getLogoCharset() {
-        return this.getCharset();
+        return getCharset();
     }
 
     void setLogoCharset(@Nullable final String logoCharset) {
-        this.setCharset(logoCharset);
+        setCharset(logoCharset);
     }
 
     // ----------------------------------------------------------------------------------------------- LOGO_LAST_UPDATED
@@ -170,10 +170,10 @@ public class StoreLogo extends _Binary {
      */
     @Nullable
     protected LocalDate getLogoLastUpdated() {
-        return this.getLastUpdated();
+        return getLastUpdated();
     }
 
     void setLogoLastUpdated(@Nullable final LocalDate logoLastUpdated) {
-        this.setLastUpdated(logoLastUpdated);
+        setLastUpdated(logoLastUpdated);
     }
 }

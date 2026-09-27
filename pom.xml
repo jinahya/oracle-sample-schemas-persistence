@@ -97,6 +97,7 @@
     <metamodel.generator.version>${version.org.hibernate.orm}</metamodel.generator.version>
     <version.maven-failsafe>${version.maven-surefire}</version.maven-failsafe>
     <version.maven-surefire>3.6.0</version.maven-surefire>
+    <version.jinahya-persistence>0.5.6</version.jinahya-persistence>
     <!-- https://central.sonatype.com/artifact/ch.qos.logback/logback-classic/versions -->
     <!-- https://central.sonatype.com/artifact/ch.qos.logback/logback-parent -->
     <version.ch.qus.logback>1.6.3</version.ch.qus.logback>
@@ -246,6 +247,12 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>io.github.jinahya</groupId>
+      <artifactId>jinahya-persistence-test-utils</artifactId>
+      <version>${version.jinahya-persistence}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>jakarta.annotation</groupId>
       <artifactId>jakarta.annotation-api</artifactId>
       <scope>provided</scope>
@@ -304,6 +311,12 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>uk.co.jemos.podam</groupId>
+      <artifactId>podam</artifactId>
+      <version>8.0.2.RELEASE</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

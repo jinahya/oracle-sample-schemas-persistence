@@ -20,9 +20,18 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-class ProductDetails_PersistenceIT extends _Persistence_IT<ProductDetails> {
+import com.github.jinahya.persistence.test.util.__Persister;
+import jakarta.persistence.EntityManager;
 
-    ProductDetails_PersistenceIT() {
-        super(ProductDetails.class);
+class Product_Persister extends __Persister<Product> {
+
+    Product_Persister() {
+        super(Product.class);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Override
+    public Product apply(final EntityManager entityManager, final Product entityInstance) {
+        return super.apply(entityManager, entityInstance);
     }
 }

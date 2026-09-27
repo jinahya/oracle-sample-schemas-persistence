@@ -28,7 +28,27 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class ProductImage_Test {
+class ProductImage_Test extends _Test<ProductImage> {
+
+    ProductImage_Test() {
+        super(ProductImage.class);
+    }
+
+    // ------------------------------------------------------------------------------------------------- equals/hashCode
+
+    /**
+     * Does nothing; {@link ProductImage} is not a class {@code EqualsVerifier} has anything to verify.
+     *
+     * @implNote Neither {@link ProductImage} nor {@link _Binary}, which holds its state, declares
+     * {@code equals(Object)}, so instances carry {@link Object}'s
+     * reference equality. There is no value equality to verify, and suppressing every check that follows from that
+     * would leave the test asserting nothing anyway.
+     */
+    @Override
+    @Test
+    void equals_verify_() {
+        // empty
+    }
 
     @DisplayName("new ProductImage().toString()!blank")
     @Test

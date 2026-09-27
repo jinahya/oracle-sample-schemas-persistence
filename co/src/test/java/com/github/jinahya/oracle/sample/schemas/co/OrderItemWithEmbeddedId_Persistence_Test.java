@@ -21,13 +21,13 @@ package com.github.jinahya.oracle.sample.schemas.co;
  */
 
 /**
- * Verifies the mappings of {@link OrderItemWithIdClass} against the installed {@code CO} schema.
+ * Verifies the mappings of {@link OrderItemWithEmbeddedId} against the schema generated into the in-memory database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class OrderItemWithIdClass_PersistenceIT extends _Persistence_IT<OrderItemWithIdClass> {
+class OrderItemWithEmbeddedId_Persistence_Test extends _Persistence_Test<OrderItemWithEmbeddedId> {
 
-    OrderItemWithIdClass_PersistenceIT() {
-        super(OrderItemWithIdClass.class);
+    OrderItemWithEmbeddedId_Persistence_Test() {
+        super(OrderItemWithEmbeddedId.class);
     }
 }
