@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
 /**
@@ -42,7 +43,7 @@ class Store_Test extends _Test<Store> {
      * which is null until the row is inserted.
      */
     @Override
-    SingleTypeEqualsVerifierApi<Store> equals_verifier_() {
+    protected SingleTypeEqualsVerifierApi<Store> equals_verifier_() {
         return super.equals_verifier_()
                 .withOnlyTheseFields(Store.ATTRIBUTE_NAME_STORE_NAME);
     }

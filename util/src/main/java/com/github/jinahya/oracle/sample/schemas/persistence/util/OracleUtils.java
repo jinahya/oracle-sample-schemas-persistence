@@ -33,6 +33,7 @@ import java.time.ZoneOffset;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public final class OracleUtils {
+
     private static final System.Logger logger = System.getLogger(MethodHandles.lookup().lookupClass().getName());
 
     /**
@@ -85,7 +86,8 @@ public final class OracleUtils {
      * @param connection the connection to use.
      * @return the time zone of the session.
      * @throws SQLException if a database access error occurs.
-     * @see <a href="https://docs.oracle.com/en/database/oracle/oracle-database/26/sqlrf/SESSIONTIMEZONE.html">SESSIONTIMEZONE</a>
+     * @see <a
+     * href="https://docs.oracle.com/en/database/oracle/oracle-database/26/sqlrf/SESSIONTIMEZONE.html">SESSIONTIMEZONE</a>
      * (Oracle Database / Release 26)
      */
     public static ZoneId SESSIONTIMEZONE(final Connection connection) throws SQLException {

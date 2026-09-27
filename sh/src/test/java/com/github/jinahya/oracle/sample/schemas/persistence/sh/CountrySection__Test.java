@@ -20,8 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 
 /**
  * A class for testing the {@link CountrySection_} embeddable class.
@@ -32,17 +31,5 @@ class CountrySection__Test extends _Test<CountrySection_> {
 
     CountrySection__Test() {
         super(CountrySection_.class);
-    }
-
-    @DisplayName("new CountrySection_().toString()!blank")
-    @Test
-    void toString_NotBlank_() {
-        EntityTestUtils.assertToStringIsNotBlank(CountrySection_.class);
-    }
-
-    @DisplayName("CountrySection_ property accessors round-trip")
-    @Test
-    void propertyAccessors_DoNotThrow_() {
-        EntityTestUtils.assertPropertyAccessorsDoNotThrow(CountrySection_.class);
     }
 }

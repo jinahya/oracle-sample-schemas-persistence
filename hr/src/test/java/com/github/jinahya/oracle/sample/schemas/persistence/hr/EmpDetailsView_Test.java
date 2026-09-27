@@ -20,8 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
+import nl.jqno.equalsverifier.Warning;
+import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
 /**
  * A class for testing the {@link EmpDetailsView} entity class.
@@ -37,27 +38,14 @@ class EmpDetailsView_Test extends _Test<EmpDetailsView> {
     // ------------------------------------------------------------------------------------------------- equals/hashCode
 
     /**
-     * Does nothing; {@link EmpDetailsView} is not a class {@code EqualsVerifier} has anything to verify.
+     * {@inheritDoc}
      *
-     * @implNote {@link EmpDetailsView} declares no {@code equals(Object)}, so instances carry {@link Object}'s
-     * reference equality. There is no value equality to verify, and suppressing every check that follows from that
-     * would leave the test asserting nothing anyway.
+     * @implNote {@link EmpDetailsView#equals(Object) equals} compares only {@code employeeId} -- the one row the view
+     * carries per employee -- because every other column is derived from it.
      */
     @Override
-    @Test
-    void equals_verify_() {
-        // empty
-    }
-
-    @DisplayName("new EmpDetailsView().toString()!blank")
-    @Test
-    void toString_NotBlank_() {
-        EntityTestUtils.assertToStringIsNotBlank(EmpDetailsView.class);
-    }
-
-    @DisplayName("EmpDetailsView property accessors round-trip")
-    @Test
-    void propertyAccessors_DoNotThrow_() {
-        EntityTestUtils.assertPropertyAccessorsDoNotThrow(EmpDetailsView.class);
+    protected SingleTypeEqualsVerifierApi<EmpDetailsView> equals_verifier_() {
+        return super.equals_verifier_()
+                .suppress(Warning.SURROGATE_KEY);
     }
 }

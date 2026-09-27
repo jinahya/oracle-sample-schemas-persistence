@@ -20,10 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 /**
  * A class for testing the {@link Product} entity class.
@@ -45,20 +44,8 @@ class Product_Test extends _Test<Product> {
      * {@code productId} -- the surrogate key -- because every other attribute is mutable state.
      */
     @Override
-    SingleTypeEqualsVerifierApi<Product> equals_verifier_() {
+    protected SingleTypeEqualsVerifierApi<Product> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
-    }
-
-    @DisplayName("new Product().toString()!blank")
-    @Test
-    void toString_NotBlank_() {
-        EntityTestUtils.assertToStringIsNotBlank(Product.class);
-    }
-
-    @DisplayName("Product property accessors round-trip")
-    @Test
-    void propertyAccessors_DoNotThrow_() {
-        EntityTestUtils.assertPropertyAccessorsDoNotThrow(Product.class);
     }
 }

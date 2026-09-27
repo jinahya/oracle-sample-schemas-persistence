@@ -51,6 +51,7 @@
   </developers>
 
   <modules>
+    <module>test-base</module>
     <module>co</module>
     <module>hr</module>
     <module>sh</module>
@@ -97,7 +98,7 @@
     <metamodel.generator.version>${version.org.hibernate.orm}</metamodel.generator.version>
     <version.maven-failsafe>${version.maven-surefire}</version.maven-failsafe>
     <version.maven-surefire>3.6.0</version.maven-surefire>
-    <version.jinahya-persistence>0.5.6</version.jinahya-persistence>
+    <version.jinahya-persistence>0.6.0</version.jinahya-persistence>
     <!-- https://central.sonatype.com/artifact/ch.qos.logback/logback-classic/versions -->
     <!-- https://central.sonatype.com/artifact/ch.qos.logback/logback-parent -->
     <version.ch.qus.logback>1.6.3</version.ch.qus.logback>
@@ -139,8 +140,6 @@
     <version.org.projectlombok>1.18.48</version.org.projectlombok>
     <!-- https://central.sonatype.com/artifact/org.slf4j/slf4j-bom/versions -->
     <version.org.slf4j>2.0.19</version.org.slf4j>
-    <!-- each module publishes its own name; a shared one collides on the module path -->
-    <automatic.module.name>com.github.jinahya.oracle.sample.schemas.${project.artifactId}</automatic.module.name>
     <eclipselink.woven>false</eclipselink.woven>
   </properties>
 
@@ -452,17 +451,6 @@
           <compilerArgs>
             <arg>-Xlint</arg>
           </compilerArgs>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifestEntries>
-              <Automatic-Module-Name>${automatic.module.name}</Automatic-Module-Name>
-            </manifestEntries>
-          </archive>
         </configuration>
       </plugin>
       <plugin>

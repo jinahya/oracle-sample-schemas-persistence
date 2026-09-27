@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
 /**
@@ -46,7 +47,7 @@ class Customer_Test extends _Test<Customer> {
      * are mutable state, and the associations are recursive, so none of them may take part.
      */
     @Override
-    SingleTypeEqualsVerifierApi<Customer> equals_verifier_() {
+    protected SingleTypeEqualsVerifierApi<Customer> equals_verifier_() {
         return super.equals_verifier_()
                 .withOnlyTheseFields(Customer.ATTRIBUTE_NAME_EMAIL_ADDRESS);
     }

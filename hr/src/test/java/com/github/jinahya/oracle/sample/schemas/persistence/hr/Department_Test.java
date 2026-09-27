@@ -20,10 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 /**
  * A class for testing the {@link Department} entity class.
@@ -41,24 +40,12 @@ class Department_Test extends _Test<Department> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Department#equals(Object) equals} compares only the {@code @Id}
-     * {@code departmentId} -- the surrogate key -- because every other attribute is mutable state.
+     * @implNote {@link Department#equals(Object) equals} compares only the {@code @Id} {@code departmentId} -- the
+     * surrogate key -- because every other attribute is mutable state.
      */
     @Override
-    SingleTypeEqualsVerifierApi<Department> equals_verifier_() {
+    protected SingleTypeEqualsVerifierApi<Department> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
-    }
-
-    @DisplayName("new Department().toString()!blank")
-    @Test
-    void toString_NotBlank_() {
-        EntityTestUtils.assertToStringIsNotBlank(Department.class);
-    }
-
-    @DisplayName("Department property accessors round-trip")
-    @Test
-    void propertyAccessors_DoNotThrow_() {
-        EntityTestUtils.assertPropertyAccessorsDoNotThrow(Department.class);
     }
 }

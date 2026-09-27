@@ -244,11 +244,6 @@ public class Employee {
     public static final int COLUMN_LENGTH_JOB_ID = 10;
 
     /**
-     * The name of the attribute which maps the {@code JOB_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_JOB_ID = "jobId";
-
-    /**
      * The minimum size of the {@code jobId} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_SIZE_MIN_JOB_ID = 0;
@@ -381,11 +376,6 @@ public class Employee {
     public static final int COLUMN_MAX_MANAGER_ID = +999999;
 
     /**
-     * The name of the attribute which maps the {@code MANAGER_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_MANAGER_ID = "managerId";
-
-    /**
      * The minimum value of the {@code managerId} attribute.
      */
     public static final long ATTRIBUTE_MIN_MANAGER_ID = COLUMN_MIN_MANAGER_ID;
@@ -433,11 +423,6 @@ public class Employee {
     public static final int COLUMN_MAX_DEPARTMENT_ID = 0x00_00_27_0F;
 
     // +9999
-
-    /**
-     * The name of the attribute which maps the {@code DEPARTMENT_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_DEPARTMENT_ID = "departmentId";
 
     // TODO: assign COLUMN_MIN_DEPARTMENT_ID
 
@@ -502,11 +487,11 @@ public class Employee {
                ",email=" + email +
                ",phoneNumber=" + phoneNumber +
                ",hireDate=" + hireDate +
-               ",jobId=" + jobId +
+               ",job=" + job +
                ",salary=" + salary +
                ",commissionPct=" + commissionPct +
-               ",managerId=" + managerId +
-               ",departmentId=" + departmentId +
+               ",manager=" + manager +
+               ",department=" + department +
                '}';
     }
 
@@ -568,7 +553,10 @@ public class Employee {
      * @return {@code true} if the {@code commissionPct} attribute is non-negative; {@code false} otherwise.
      */
     protected boolean isCommissionPctNonNegative() {
-        return this.isCommissionPctNonNegative();
+        if (commissionPct == null) {
+            return true;
+        }
+        return commissionPct.signum() >= 0;
     }
 
     //    @jakarta.validation.constraints.AssertTrue
@@ -580,7 +568,10 @@ public class Employee {
      * job; {@code false} otherwise.
      */
     protected boolean isSalaryGreaterThanOrEqualToJobMinSalary() {
-        return this.isSalaryGreaterThanOrEqualToJobMinSalary();
+        if (salary == null || job == null || job.getMinSalary() == null) {
+            return true;
+        }
+        return salary.compareTo(java.math.BigDecimal.valueOf(job.getMinSalary())) >= 0;
     }
 
     // ------------------------------------------------------------------------------------------------------ employeeId
@@ -709,27 +700,6 @@ public class Employee {
         this.hireDate = hireDate;
     }
 
-    // ----------------------------------------------------------------------------------------------------------- jobId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
-     *
-     * @return current value of the {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
-     */
-    @Nonnull
-    public String getJobId() {
-        return jobId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute with the specified value.
-     *
-     * @param jobId new value of the {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
-     */
-    protected void setJobId(@Nonnull final String jobId) {
-        this.jobId = jobId;
-    }
-
     // ------------------------------------------------------------------------------------------------------------- job
 
     /**
@@ -749,11 +719,6 @@ public class Employee {
      */
     public void setJob(@Nonnull final Job job) {
         this.job = job;
-        setJobId(
-                Optional.ofNullable(this.job)
-                        .map(Job::getJobId)
-                        .orElse(null)
-        );
         // TODO: adjust current salary to between job.minSalary and job.maxSalary
     }
 
@@ -799,27 +764,6 @@ public class Employee {
         this.commissionPct = commissionPct;
     }
 
-    // ------------------------------------------------------------------------------------------------------- managerId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute.
-     */
-    @jakarta.annotation.Nullable
-    protected Integer getManagerId() {
-        return managerId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute with the specified value.
-     *
-     * @param managerId new value for {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute.
-     */
-    protected void setManagerId(@jakarta.annotation.Nullable final Integer managerId) {
-        this.managerId = managerId;
-    }
-
     // --------------------------------------------------------------------------------------------------------- manager
 
     /**
@@ -839,32 +783,6 @@ public class Employee {
      */
     public void setManager(@Nonnull final Employee manager) {
         this.manager = manager;
-        setManagerId(
-                Optional.ofNullable(this.manager)
-                        .map(Employee::getEmployeeId)
-                        .orElse(null)
-        );
-    }
-
-    // ---------------------------------------------------------------------------------------------------- departmentId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
-     */
-    @jakarta.annotation.Nullable
-    public Integer getDepartmentId() {
-        return departmentId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute with the specified value.
-     *
-     * @param departmentId new value for {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
-     */
-    protected void setDepartmentId(@jakarta.annotation.Nullable final Integer departmentId) {
-        this.departmentId = departmentId;
     }
 
     // ----------------------------------------------------------------------------------------------- this.jobMinSalary
@@ -917,11 +835,6 @@ public class Employee {
      */
     public void setDepartment(@Nonnull final Department department) {
         this.department = department;
-        setDepartmentId(
-                Optional.ofNullable(this.department)
-                        .map(Department::getDepartmentId)
-                        .orElse(null)
-        );
     }
 
     // ---------------------------------------------------------------------------------------------------- subordinates
@@ -1063,14 +976,6 @@ public class Employee {
     private LocalDate hireDate;
 
     @Nonnull
-    @Size(min = ATTRIBUTE_SIZE_MIN_JOB_ID, max = ATTRIBUTE_SIZE_MAX_JOB_ID)
-    @NotNull
-    @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_JOB_ID, nullable = false, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_JOB_ID)
-    private String jobId;
-
-    @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false,
@@ -1081,8 +986,8 @@ public class Employee {
     @JoinColumn(name = COLUMN_NAME_JOB_ID,
                 referencedColumnName = Job.COLUMN_NAME_JOB_ID,
                 nullable = false,
-                insertable = false,
-                updatable = false
+                insertable = true,
+                updatable = true
     )
     private Job job;
 
@@ -1104,14 +1009,6 @@ public class Employee {
     private BigDecimal commissionPct;
 
     @jakarta.annotation.Nullable
-    @Max(ATTRIBUTE_MAX_MANAGER_ID)
-    @Min(ATTRIBUTE_MIN_MANAGER_ID)
-    @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_MANAGER_ID, nullable = true, insertable = true, updatable = true,
-            precision = COLUMN_PRECISION_MANAGER_ID, scale = COLUMN_SCALE_MANAGER_ID)
-    private Integer managerId;
-
-    @jakarta.annotation.Nullable
     @Valid
     @ManyToOne(optional = true,
                fetch = FetchType.LAZY,
@@ -1121,18 +1018,10 @@ public class Employee {
     @JoinColumn(name = COLUMN_NAME_MANAGER_ID,
                 referencedColumnName = COLUMN_NAME_EMPLOYEE_ID,
                 nullable = true,
-                insertable = false,
-                updatable = false
+                insertable = true,
+                updatable = true
     )
     private Employee manager;
-
-    @jakarta.annotation.Nullable
-    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
-    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
-    @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_DEPARTMENT_ID, nullable = true, insertable = true, updatable = true,
-            precision = COLUMN_PRECISION_DEPARTMENT_ID)
-    private Integer departmentId;
 
     @jakarta.annotation.Nullable
     @Valid
@@ -1144,8 +1033,8 @@ public class Employee {
     @JoinColumn(name = COLUMN_NAME_DEPARTMENT_ID,
                 referencedColumnName = Department.COLUMN_NAME_DEPARTMENT_ID,
                 nullable = true,
-                insertable = false,
-                updatable = false
+                insertable = true,
+                updatable = true
     )
     private Department department;
 

@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  */
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -348,7 +349,7 @@ public class Product {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public BigDecimal getUnitPrice() {
         return unitPrice;
     }
@@ -358,7 +359,7 @@ public class Product {
      *
      * @param unitPrice new value for {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute.
      */
-    public void setUnitPrice(@jakarta.annotation.Nullable final BigDecimal unitPrice) {
+    public void setUnitPrice(@Nullable final BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
     }
 
@@ -369,7 +370,7 @@ public class Product {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public byte[] getProductDetails() {
         return productDetails;
     }
@@ -379,7 +380,7 @@ public class Product {
      *
      * @param productDetails new value for {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute.
      */
-    public void setProductDetails(@jakarta.annotation.Nullable final byte[] productDetails) {
+    public void setProductDetails(@Nullable final byte[] productDetails) {
         this.productDetails = productDetails;
     }
 
@@ -420,7 +421,7 @@ public class Product {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public byte[] getProductImage() {
         return productImage;
     }
@@ -430,7 +431,7 @@ public class Product {
      *
      * @param productImage new value for {@value #ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute.
      */
-    public void setProductImage(@jakarta.annotation.Nullable final byte[] productImage) {
+    public void setProductImage(@Nullable final byte[] productImage) {
         this.productImage = productImage;
     }
 
@@ -441,7 +442,7 @@ public class Product {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public String getImageMimeType() {
         return imageMimeType;
     }
@@ -451,7 +452,7 @@ public class Product {
      *
      * @param imageMimeType new value for {@value #ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute.
      */
-    public void setImageMimeType(@jakarta.annotation.Nullable final String imageMimeType) {
+    public void setImageMimeType(@Nullable final String imageMimeType) {
         this.imageMimeType = imageMimeType;
     }
 
@@ -462,7 +463,7 @@ public class Product {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_IMAGE_FILENAME} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public String getImageFilename() {
         return imageFilename;
     }
@@ -472,7 +473,7 @@ public class Product {
      *
      * @param imageFilename new value for {@value #ATTRIBUTE_NAME_IMAGE_FILENAME} attribute.
      */
-    public void setImageFilename(@jakarta.annotation.Nullable final String imageFilename) {
+    public void setImageFilename(@Nullable final String imageFilename) {
         this.imageFilename = imageFilename;
     }
 
@@ -483,7 +484,7 @@ public class Product {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_IMAGE_CHARSET} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public String getImageCharset() {
         return imageCharset;
     }
@@ -493,7 +494,7 @@ public class Product {
      *
      * @param imageCharset new value for {@value #ATTRIBUTE_NAME_IMAGE_CHARSET} attribute.
      */
-    public void setImageCharset(@jakarta.annotation.Nullable final String imageCharset) {
+    public void setImageCharset(@Nullable final String imageCharset) {
         this.imageCharset = imageCharset;
     }
 
@@ -504,7 +505,7 @@ public class Product {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public LocalDate getImageLastUpdated() {
         return imageLastUpdated;
     }
@@ -514,7 +515,7 @@ public class Product {
      *
      * @param imageLastUpdated new value for {@value #ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute.
      */
-    public void setImageLastUpdated(@jakarta.annotation.Nullable final LocalDate imageLastUpdated) {
+    public void setImageLastUpdated(@Nullable final LocalDate imageLastUpdated) {
         this.imageLastUpdated = imageLastUpdated;
     }
 
@@ -583,7 +584,7 @@ public class Product {
     )
     private String productName;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @DecimalMax(value = DECIMAL_MAX_UNIT_PRICE, inclusive = true)
     @DecimalMin(value = DECIMAL_MIN_UNIT_PRICE, inclusive = true)
     @Basic(optional = true)
@@ -596,19 +597,20 @@ public class Product {
     )
     private BigDecimal unitPrice;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Lob
     @Basic(optional = true, fetch = FetchType.LAZY)
     @Column(name = COLUMN_NAME_PRODUCT_DETAILS, nullable = true, insertable = true, updatable = true)
     private byte[] productDetails;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
     @Lob
     @Basic(optional = true, fetch = FetchType.LAZY)
     @Column(name = COLUMN_NAME_PRODUCT_IMAGE, nullable = true, insertable = true, updatable = true)
     private byte[] productImage;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Size(max = SIZE_MAX_IMAGE_MIME_TYPE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_IMAGE_MIME_TYPE,
@@ -619,7 +621,7 @@ public class Product {
     )
     private String imageMimeType;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Size(max = SIZE_MAX_IMAGE_FILENAME)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_IMAGE_FILENAME,
@@ -630,7 +632,7 @@ public class Product {
     )
     private String imageFilename;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Size(max = SIZE_MAX_IMAGE_CHARSET)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_IMAGE_CHARSET,
@@ -641,11 +643,12 @@ public class Product {
     )
     private String imageCharset;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_IMAGE_LAST_UPDATED, insertable = true, updatable = true)
     private LocalDate imageLastUpdated;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = OrderItemWithEmbeddedId.ATTRIBUTE_NAME_PRODUCT,
                fetch = FetchType.LAZY,
                cascade = {

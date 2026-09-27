@@ -20,7 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import org.junit.jupiter.api.DisplayName;
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -46,19 +46,7 @@ class ProductImage_Test extends _Test<ProductImage> {
      */
     @Override
     @Test
-    void equals_verify_() {
+    protected void equals_verify_() {
         // empty
-    }
-
-    @DisplayName("new ProductImage().toString()!blank")
-    @Test
-    void toString_NotBlank_() {
-        EntityTestUtils.assertToStringIsNotBlank(ProductImage.class);
-    }
-
-    @DisplayName("ProductImage property accessors round-trip")
-    @Test
-    void propertyAccessors_DoNotThrow_() {
-        EntityTestUtils.assertPropertyAccessorsDoNotThrow(ProductImage.class);
     }
 }

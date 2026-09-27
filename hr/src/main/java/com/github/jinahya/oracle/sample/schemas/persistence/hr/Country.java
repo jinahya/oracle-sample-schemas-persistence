@@ -36,7 +36,6 @@ import jakarta.validation.constraints.Size;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value Country#TABLE_NAME} table.
@@ -116,12 +115,6 @@ public class Country {
     public static final String COLUMN_NAME_REGION_ID = "REGION_ID";
 
     /**
-     * The name of the entity attribute from which the {@value #COLUMN_NAME_REGION_ID} column maps. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
-
-    /**
      * The name of the attribute which maps the {@link Location location}s of this country. The value is {@value}.
      *
      * @see Location#ATTRIBUTE_NAME_COUNTRY
@@ -150,7 +143,7 @@ public class Country {
         return super.toString() + '{' +
                "countryId=" + countryId +
                ",countryName=" + countryName +
-               ",regionId=" + regionId +
+               ",region=" + region +
                '}';
     }
 
@@ -209,27 +202,6 @@ public class Country {
         this.countryName = countryName;
     }
 
-    // -------------------------------------------------------------------------------------------------------- regionId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_REGION_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_REGION_ID} attribute.
-     */
-    @jakarta.annotation.Nullable
-    public Long getRegionId() {
-        return regionId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_REGION_ID} attribute with the specified value.
-     *
-     * @param regionId new value for {@value #ATTRIBUTE_NAME_REGION_ID} attribute.
-     */
-    protected void setRegionId(@jakarta.annotation.Nullable final Long regionId) {
-        this.regionId = regionId;
-    }
-
     // ---------------------------------------------------------------------------------------------------------- region
 
     /**
@@ -249,11 +221,6 @@ public class Country {
      */
     public void setRegion(@jakarta.annotation.Nullable final Region region) {
         this.region = region;
-        setRegionId(
-                Optional.ofNullable(this.region)
-                        .map(Region::getRegionId)
-                        .orElse(null)
-        );
     }
 
     // ------------------------------------------------------------------------------------------------------- locations
@@ -287,17 +254,11 @@ public class Country {
     private String countryName;
 
     @jakarta.annotation.Nullable
-    @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_REGION_ID, nullable = true, insertable = true, updatable = true)
-    private Long regionId;
-
-    @jakarta.annotation.Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = {})
     @JoinColumn(name = COLUMN_NAME_REGION_ID, nullable = true,
-                insertable = false,
-//                insertable = true, // eclipselink
-                updatable = false
+                insertable = true,
+                updatable = true
     )
     private Region region;
 

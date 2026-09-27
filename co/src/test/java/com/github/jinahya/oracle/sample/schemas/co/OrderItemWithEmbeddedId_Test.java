@@ -20,10 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 /**
  * A class for testing the {@link OrderItemWithEmbeddedId} entity class.
@@ -45,20 +44,8 @@ class OrderItemWithEmbeddedId_Test extends _Test<OrderItemWithEmbeddedId> {
      * {@code id} -- the surrogate key -- because every other attribute is mutable state.
      */
     @Override
-    SingleTypeEqualsVerifierApi<OrderItemWithEmbeddedId> equals_verifier_() {
+    protected SingleTypeEqualsVerifierApi<OrderItemWithEmbeddedId> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
-    }
-
-    @DisplayName("new OrderItemWithEmbeddedId().toString()!blank")
-    @Test
-    void toString_NotBlank_() {
-        EntityTestUtils.assertToStringIsNotBlank(OrderItemWithEmbeddedId.class);
-    }
-
-    @DisplayName("OrderItemWithEmbeddedId property accessors round-trip")
-    @Test
-    void propertyAccessors_DoNotThrow_() {
-        EntityTestUtils.assertPropertyAccessorsDoNotThrow(OrderItemWithEmbeddedId.class);
     }
 }

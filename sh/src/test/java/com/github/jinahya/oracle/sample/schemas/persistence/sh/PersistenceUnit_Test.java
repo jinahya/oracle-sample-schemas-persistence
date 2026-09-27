@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Persistence_Test_Utils;
+import com.github.jinahya.oracle.sample.schemas.persistence.test.__Persistence___Utils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -56,8 +58,7 @@ class PersistenceUnit_Test {
     void generatedSchema_IsQueryable_() {
         _Persistence_Test_Utils.entityManagerFactory().getMetamodel().getEntities().forEach(e -> {
             final var count = _Persistence_Test_Utils.applyEntityManagerInRolledBackTransaction(
-                    em -> em.createQuery("SELECT COUNT(x) FROM " + e.getName() + " x", Long.class)
-                            .getSingleResult());
+                    em -> __Persistence___Utils.count(em, e));
             assertThat(count).as("row count of %s", e.getName()).isNotNegative();
         });
     }

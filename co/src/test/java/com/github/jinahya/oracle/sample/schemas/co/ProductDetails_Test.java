@@ -20,8 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 
 /**
  * A class for testing the {@link ProductDetails} class.
@@ -32,17 +31,5 @@ class ProductDetails_Test extends _Test<ProductDetails> {
 
     ProductDetails_Test() {
         super(ProductDetails.class);
-    }
-
-    @DisplayName("new ProductDetails().toString()!blank")
-    @Test
-    void toString_NotBlank_() {
-        EntityTestUtils.assertToStringIsNotBlank(ProductDetails.class);
-    }
-
-    @DisplayName("ProductDetails property accessors round-trip")
-    @Test
-    void propertyAccessors_DoNotThrow_() {
-        EntityTestUtils.assertPropertyAccessorsDoNotThrow(ProductDetails.class);
     }
 }

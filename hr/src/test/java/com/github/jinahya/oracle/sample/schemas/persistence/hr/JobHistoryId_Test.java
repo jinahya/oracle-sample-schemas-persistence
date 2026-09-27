@@ -20,8 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 
 /**
  * A class for testing the {@link JobHistoryId} composite primary key class.
@@ -32,17 +31,5 @@ class JobHistoryId_Test extends _Test<JobHistoryId> {
 
     JobHistoryId_Test() {
         super(JobHistoryId.class);
-    }
-
-    @DisplayName("new JobHistoryId().toString()!blank")
-    @Test
-    void toString_NotBlank_() {
-        EntityTestUtils.assertToStringIsNotBlank(JobHistoryId.class);
-    }
-
-    @DisplayName("JobHistoryId property accessors round-trip")
-    @Test
-    void propertyAccessors_DoNotThrow_() {
-        EntityTestUtils.assertPropertyAccessorsDoNotThrow(JobHistoryId.class);
     }
 }

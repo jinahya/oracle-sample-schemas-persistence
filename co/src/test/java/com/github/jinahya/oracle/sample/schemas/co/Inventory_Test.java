@@ -20,9 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 /**
  * A class for testing the {@link Inventory} entity class.
@@ -44,20 +43,8 @@ class Inventory_Test extends _Test<Inventory> {
      * surrogate {@code @Id}, which is null until the row is inserted.
      */
     @Override
-    SingleTypeEqualsVerifierApi<Inventory> equals_verifier_() {
+    protected SingleTypeEqualsVerifierApi<Inventory> equals_verifier_() {
         return super.equals_verifier_()
-                .withOnlyTheseFields(Inventory.ATTRIBUTE_NAME_STORE_ID, Inventory.ATTRIBUTE_NAME_PRODUCT_ID);
-    }
-
-    @DisplayName("new Inventory().toString()!blank")
-    @Test
-    void toString_NotBlank_() {
-        EntityTestUtils.assertToStringIsNotBlank(Inventory.class);
-    }
-
-    @DisplayName("Inventory property accessors round-trip")
-    @Test
-    void propertyAccessors_DoNotThrow_() {
-        EntityTestUtils.assertPropertyAccessorsDoNotThrow(Inventory.class);
+                .withOnlyTheseFields(Inventory.ATTRIBUTE_NAME_STORE, Inventory.ATTRIBUTE_NAME_PRODUCT);
     }
 }

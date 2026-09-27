@@ -20,10 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 /**
  * A class for testing the {@link Location} entity class.
@@ -41,24 +40,12 @@ class Location_Test extends _Test<Location> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Location#equals(Object) equals} compares only the {@code @Id}
-     * {@code locationId} -- the surrogate key -- because every other attribute is mutable state.
+     * @implNote {@link Location#equals(Object) equals} compares only the {@code @Id} {@code locationId} -- the
+     * surrogate key -- because every other attribute is mutable state.
      */
     @Override
-    SingleTypeEqualsVerifierApi<Location> equals_verifier_() {
+    protected SingleTypeEqualsVerifierApi<Location> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
-    }
-
-    @DisplayName("new Location().toString()!blank")
-    @Test
-    void toString_NotBlank_() {
-        EntityTestUtils.assertToStringIsNotBlank(Location.class);
-    }
-
-    @DisplayName("Location property accessors round-trip")
-    @Test
-    void propertyAccessors_DoNotThrow_() {
-        EntityTestUtils.assertPropertyAccessorsDoNotThrow(Location.class);
     }
 }

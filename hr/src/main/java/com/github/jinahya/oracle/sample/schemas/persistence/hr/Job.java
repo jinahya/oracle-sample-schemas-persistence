@@ -286,7 +286,7 @@ public class Job {
         if (minSalary == null) {
             return true;
         }
-        return minSalary <= 0;
+        return minSalary >= 0;
     }
 
     /**
@@ -301,7 +301,7 @@ public class Job {
         if (maxSalary == null) {
             return true;
         }
-        return maxSalary <= 0;
+        return maxSalary >= 0;
     }
 
     /**
@@ -311,7 +311,10 @@ public class Job {
      */
     @AssertTrue
     protected boolean isMinSalaryPositive() {
-        return this.isMinSalaryPositive();
+        if (minSalary == null) {
+            return true;
+        }
+        return minSalary > 0;
     }
 
     /**
@@ -321,7 +324,10 @@ public class Job {
      */
     @AssertTrue
     protected boolean isMaxSalaryPositive() {
-        return this.isMaxSalaryPositive();
+        if (maxSalary == null) {
+            return true;
+        }
+        return maxSalary > 0;
     }
 
     /**
@@ -332,7 +338,10 @@ public class Job {
      */
     @AssertTrue
     protected boolean isMinSalaryLessThanOrEqualToMaxSalary() {
-        return this.isMinSalaryLessThanOrEqualToMaxSalary();
+        if (minSalary == null || maxSalary == null) {
+            return true;
+        }
+        return minSalary <= maxSalary;
     }
 
     // ----------------------------------------------------------------------------------------------------------- jobId

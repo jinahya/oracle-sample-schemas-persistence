@@ -20,10 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 /**
  * A class for testing the {@link Region} entity class.
@@ -41,24 +40,12 @@ class Region_Test extends _Test<Region> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Region#equals(Object) equals} compares only the {@code @Id}
-     * {@code regionId} -- the surrogate key -- because every other attribute is mutable state.
+     * @implNote {@link Region#equals(Object) equals} compares only the {@code @Id} {@code regionId} -- the surrogate
+     * key -- because every other attribute is mutable state.
      */
     @Override
-    SingleTypeEqualsVerifierApi<Region> equals_verifier_() {
+    protected SingleTypeEqualsVerifierApi<Region> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
-    }
-
-    @DisplayName("new Region().toString()!blank")
-    @Test
-    void toString_NotBlank_() {
-        EntityTestUtils.assertToStringIsNotBlank(Region.class);
-    }
-
-    @DisplayName("Region property accessors round-trip")
-    @Test
-    void propertyAccessors_DoNotThrow_() {
-        EntityTestUtils.assertPropertyAccessorsDoNotThrow(Region.class);
     }
 }

@@ -36,7 +36,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value Inventory#TABLE_NAME} table.
@@ -83,14 +82,8 @@ public class Inventory {
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
     /**
-     * The name of the entity attribute, of {@link Basic} mapping, from which the {@value #COLUMN_NAME_STORE_ID} column
-     * maps. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_STORE_ID = "storeId";
-
-    /**
-     * The name of the entity attribute, of {@link ManyToOne} mapping, from which the {@value #COLUMN_NAME_STORE_ID}
-     * column maps. The value is {@value}.
+     * The name of the entity attribute, of {@link ManyToOne} mapping, which maps the
+     * {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
@@ -102,12 +95,8 @@ public class Inventory {
     public static final String COLUMN_NAME_PRODUCT_ID = "PRODUCT_ID";
 
     /**
-     * The name of the attribute which maps the {@code PRODUCT_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_PRODUCT_ID = "productId";
-
-    /**
-     * The name of the attribute which maps the {@code PRODUCT_ID} column. The value is {@value}.
+     * The name of the entity attribute, of {@link ManyToOne} mapping, which maps the
+     * {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
@@ -133,8 +122,8 @@ public class Inventory {
     public String toString() {
         return super.toString() + '{' +
                "inventoryId=" + inventoryId +
-               ",storeId=" + storeId +
-               ",productId=" + productId +
+               ",store=" + store +
+               ",product=" + product +
                ",productInventory=" + productInventory +
                '}';
     }
@@ -145,15 +134,17 @@ public class Inventory {
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
      * @implSpec Equality is by ({@value #COLUMN_NAME_STORE_ID}, {@value #COLUMN_NAME_PRODUCT_ID}), the pair the table
-     * declares unique.
+     * declares unique, read through the {@value #ATTRIBUTE_NAME_STORE} and {@value #ATTRIBUTE_NAME_PRODUCT}
+     * associations which map those two columns; both are read through their getters, which is what makes the
+     * comparison correct for an instance which is still a lazy proxy.
      */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Inventory that)) {
             return false;
         }
-        return Objects.equals(storeId, that.storeId)
-               && Objects.equals(productId, that.productId);
+        return Objects.equals(getStore(), that.getStore())
+               && Objects.equals(getProduct(), that.getProduct());
     }
 
     /**
@@ -165,7 +156,7 @@ public class Inventory {
      */
     @Override
     public final int hashCode() {
-        return Objects.hash(storeId, productId);
+        return Objects.hash(getStore(), getProduct());
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
@@ -202,27 +193,6 @@ public class Inventory {
         this.inventoryId = inventoryId;
     }
 
-    // --------------------------------------------------------------------------------------------------------- storeId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
-     */
-    @Nonnull
-    public Long getStoreId() {
-        return storeId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute with the specified value.
-     *
-     * @param storeId new value for {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
-     */
-    protected void setStoreId(@Nonnull final Long storeId) {
-        this.storeId = storeId;
-    }
-
     // ----------------------------------------------------------------------------------------------------------- store
 
     /**
@@ -242,32 +212,6 @@ public class Inventory {
      */
     public void setStore(@Nonnull final Store store) {
         this.store = store;
-        setStoreId(
-                Optional.ofNullable(this.store)
-                        .map(Store::getStoreId)
-                        .orElse(null)
-        );
-    }
-
-    // ------------------------------------------------------------------------------------------------------- productId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
-     */
-    @Nonnull
-    public Long getProductId() {
-        return productId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute with the specified value.
-     *
-     * @param productId new value for {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
-     */
-    protected void setProductId(@Nonnull final Long productId) {
-        this.productId = productId;
     }
 
     // --------------------------------------------------------------------------------------------------------- product
@@ -289,11 +233,6 @@ public class Inventory {
      */
     public void setProduct(@Nonnull final Product product) {
         this.product = product;
-        setProductId(
-                Optional.ofNullable(this.product)
-                        .map(Product::getProductId)
-                        .orElse(null)
-        );
     }
 
     // ------------------------------------------------------------------------------------------------ productInventory
@@ -351,10 +290,6 @@ public class Inventory {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = COLUMN_NAME_INVENTORY_ID,
@@ -367,40 +302,22 @@ public class Inventory {
     )
     private Long inventoryId;
 
-    @Nonnull
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = COLUMN_NAME_STORE_ID,
-            nullable = false,
-            insertable = true,
-            updatable = false
-    )
-    private Long storeId;
-
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
     private Store store;
 
     @Nonnull
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = COLUMN_NAME_PRODUCT_ID,
-            nullable = false,
-            insertable = true,
-            updatable = false
-    )
-    private Long productId;
-
-    @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = true, updatable = false)
     private Product product;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @NotNull
     @Basic(optional = false)

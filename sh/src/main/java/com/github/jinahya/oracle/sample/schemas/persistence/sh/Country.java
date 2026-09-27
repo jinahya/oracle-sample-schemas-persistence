@@ -96,7 +96,7 @@ public class Country {
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + id +
+               "countryId=" + countryId +
                ",countryIsoCode=" + countryIsoCode +
                ",countryName=" + countryName +
                ",countrySubregion=" + countrySubregion +
@@ -113,31 +113,31 @@ public class Country {
         if (!(obj instanceof Country that)) {
             return false;
         }
-        return Objects.equals(id, that.id);
+        return Objects.equals(countryId, that.countryId);
     }
 
     @Override
     public final int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(countryId);
     }
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------------------ countryId
 
     /**
-     * Returns current value of {@code id} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
      *
-     * @return current value of {@code id} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
      */
-    public Long getId() {
-        return id;
+    public Long getCountryId() {
+        return countryId;
     }
 
     /**
-     * Replaces current value of {@code id} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the specified value.
      *
-     * @param id new value for {@code id} attribute.
+     * @param countryId new value for {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
      */
-    public void setId(final Long id) {
-        this.id = id;
+    public void setCountryId(final Long countryId) {
+        this.countryId = countryId;
     }
 
     // -------------------------------------------------------------------------------------------------- countryIsoCode
@@ -307,7 +307,7 @@ public class Country {
     // -----------------------------------------------------------------------------------------------------------------
     @Id
     @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = false, insertable = true, updatable = false)
-    private Long id;
+    private Long countryId;
 
     @Size(max = SIZE_MAX_COUNTRY_ISO_CODE)
     @NotNull

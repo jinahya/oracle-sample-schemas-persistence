@@ -69,22 +69,12 @@ public class Shipment {
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT_ID = "shipmentId";
 
-    /**
-     * The name of the attribute which maps the {@code SHIPMENT} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_SHIPMENT = "shipment";
-
     // -------------------------------------------------------------------------------------- STORE_ID / storeId / store
 
     /**
      * The name of the table column to which the {@code storeId} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
-
-    /**
-     * The name of the attribute which maps the {@code STORE_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_STORE_ID = "storeId";
 
     /**
      * The name of the attribute which maps the {@code STORE_ID} column. The value is {@value}.
@@ -97,11 +87,6 @@ public class Shipment {
      * The name of the table column to which the {@code customerId} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUSTOMER_ID = "CUSTOMER_ID";
-
-    /**
-     * The name of the attribute which maps the {@code CUSTOMER_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_CUSTOMER_ID = "customerId";
 
     /**
      * The name of the attribute which maps the {@code CUSTOMER_ID} column. The value is {@value}.
@@ -322,8 +307,8 @@ public class Shipment {
     public String toString() {
         return super.toString() + '{' +
                "shipmentId=" + shipmentId +
-               ",storeId=" + storeId +
-               ",customerId=" + customerId +
+               ",store=" + store +
+               ",customer=" + customer +
                ",deliveryAddress=" + deliveryAddress +
                ",shipmentStatus=" + shipmentStatus +
                '}';
@@ -362,27 +347,6 @@ public class Shipment {
         this.shipmentId = shipmentId;
     }
 
-    // --------------------------------------------------------------------------------------------------------- storeId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
-     */
-    @Nonnull
-    public Long getStoreId() {
-        return storeId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute with the specified value.
-     *
-     * @param storeId new value for {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
-     */
-    protected void setStoreId(@Nonnull final Long storeId) {
-        this.storeId = storeId;
-    }
-
     // ----------------------------------------------------------------------------------------------------------- store
 
     /**
@@ -402,32 +366,6 @@ public class Shipment {
      */
     public void setStore(@Nonnull final Store store) {
         this.store = store;
-        setStoreId(
-                Optional.ofNullable(this.store)
-                        .map(Store::getStoreId)
-                        .orElse(null)
-        );
-    }
-
-    // ------------------------------------------------------------------------------------------------------ customerId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
-     */
-    @Nonnull
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute with the specified value.
-     *
-     * @param customerId new value for {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
-     */
-    protected void setCustomerId(@Nonnull final Long customerId) {
-        this.customerId = customerId;
     }
 
     // -------------------------------------------------------------------------------------------------------- customer
@@ -449,11 +387,6 @@ public class Shipment {
      */
     public void setCustomer(@Nonnull final Customer customer) {
         this.customer = customer;
-        setCustomerId(
-                Optional.ofNullable(this.customer)
-                        .map(Customer::getCustomerId)
-                        .orElse(null)
-        );
     }
 
     // ------------------------------------------------------------------------------------------------- deliveryAddress
@@ -562,29 +495,17 @@ public class Shipment {
     private Long shipmentId;
 
     @Nonnull
-    @NotNull
-    @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
-    private Long storeId;
-
-    @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
     private Store store;
 
     @Nonnull
-    @NotNull
-    @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
-    private Long customerId;
-
-    @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
     private Customer customer;
 
     @Nonnull

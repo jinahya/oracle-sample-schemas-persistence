@@ -20,10 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 /**
  * A class for testing the {@link Country} entity class.
@@ -45,20 +44,8 @@ class Country_Test extends _Test<Country> {
      * {@code id} -- the surrogate key -- because every other attribute is mutable state.
      */
     @Override
-    SingleTypeEqualsVerifierApi<Country> equals_verifier_() {
+    protected SingleTypeEqualsVerifierApi<Country> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
-    }
-
-    @DisplayName("new Country().toString()!blank")
-    @Test
-    void toString_NotBlank_() {
-        EntityTestUtils.assertToStringIsNotBlank(Country.class);
-    }
-
-    @DisplayName("Country property accessors round-trip")
-    @Test
-    void propertyAccessors_DoNotThrow_() {
-        EntityTestUtils.assertPropertyAccessorsDoNotThrow(Country.class);
     }
 }

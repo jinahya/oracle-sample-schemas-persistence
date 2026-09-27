@@ -33,10 +33,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -198,11 +195,6 @@ public class JobHistoryWithEmbeddedId {
     public static final int COLUMN_LENGTH_JOB_ID = 10;
 
     /**
-     * The name of the attribute which maps the {@code JOB_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_JOB_ID = "jobId";
-
-    /**
      * The minimum size of the {@code jobId} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_SIZE_MIN_JOB_ID = 0;
@@ -248,11 +240,6 @@ public class JobHistoryWithEmbeddedId {
      * The maximum value of the {@code DEPARTMENT_ID} column.
      */
     public static final int COLUMN_MAX_DEPARTMENT_ID = +9999;
-
-    /**
-     * The name of the attribute which maps the {@code DEPARTMENT_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_DEPARTMENT_ID = "departmentId";
 
     /**
      * The minimum value of the {@code departmentId} attribute.
@@ -394,27 +381,6 @@ public class JobHistoryWithEmbeddedId {
         this.endDate = endDate;
     }
 
-    // ----------------------------------------------------------------------------------------------------------- jobId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
-     */
-    @Nonnull
-    public String getJobId() {
-        return jobId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute with the specified value.
-     *
-     * @param jobId new value for {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
-     */
-    protected void setJobId(@Nonnull final String jobId) {
-        this.jobId = jobId;
-    }
-
     // ------------------------------------------------------------------------------------------------------------- job
 
     /**
@@ -427,25 +393,13 @@ public class JobHistoryWithEmbeddedId {
         return job;
     }
 
-    // ---------------------------------------------------------------------------------------------------- departmentId
-
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB} attribute with the specified value.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
+     * @param job new value for {@value #ATTRIBUTE_NAME_JOB} attribute.
      */
-    @jakarta.annotation.Nullable
-    public Integer getDepartmentId() {
-        return departmentId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute with the specified value.
-     *
-     * @param departmentId new value for {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
-     */
-    protected void setDepartmentId(@jakarta.annotation.Nullable final Integer departmentId) {
-        this.departmentId = departmentId;
+    public void setJob(@Nonnull final Job job) {
+        this.job = job;
     }
 
     // ------------------------------------------------------------------------------------------------------ department
@@ -458,6 +412,15 @@ public class JobHistoryWithEmbeddedId {
     @jakarta.annotation.Nullable
     protected Department getDepartment() {
         return department;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute with the specified value.
+     *
+     * @param department new value for {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute.
+     */
+    protected void setDepartment(@jakarta.annotation.Nullable final Department department) {
+        this.department = department;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -495,42 +458,16 @@ public class JobHistoryWithEmbeddedId {
     LocalDate endDate;
 
     @Nonnull
-    @Size(min = ATTRIBUTE_SIZE_MIN_JOB_ID, max = ATTRIBUTE_SIZE_MAX_JOB_ID)
-    @NotNull
-    @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_JOB_ID,
-            nullable = COLUMN_NULLABLE_JOB_ID,
-            insertable = false,
-            updatable = false,
-            length = COLUMN_LENGTH_JOB_ID
-    )
-    private String jobId;
-
-    @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_JOB_ID,
                 referencedColumnName = Job.COLUMN_NAME_JOB_ID,
                 nullable = COLUMN_NULLABLE_JOB_ID,
-                insertable = false,
-//                insertable = true, // eclipselink
-                updatable = false
+                insertable = true,
+                updatable = true
     )
     private Job job;
-
-    @jakarta.annotation.Nullable
-    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
-    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
-    @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_DEPARTMENT_ID,
-            nullable = COLUMN_NULLABLE_DEPARTMENT_ID,
-            insertable = false,
-            updatable = false,
-            precision = COLUMN_PRECISION_DEPARTMENT_ID,
-            scale = COLUMN_SCALE_DEPARTMENT_ID
-    )
-    private Integer departmentId;
 
     @jakarta.annotation.Nullable
     @Valid
@@ -538,9 +475,8 @@ public class JobHistoryWithEmbeddedId {
     @JoinColumn(name = COLUMN_NAME_DEPARTMENT_ID,
                 referencedColumnName = Department.COLUMN_NAME_DEPARTMENT_ID,
                 nullable = COLUMN_NULLABLE_DEPARTMENT_ID,
-                insertable = false,
-//                insertable = true, // eclipselink
-                updatable = false
+                insertable = true,
+                updatable = true
     )
     private Department department;
 }

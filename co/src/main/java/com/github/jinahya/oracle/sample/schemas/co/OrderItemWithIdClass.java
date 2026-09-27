@@ -105,11 +105,6 @@ public class OrderItemWithIdClass {
     /**
      * The name of the attribute which maps the {@code PRODUCT_ID} column. The value is {@value}.
      */
-    public static final String ATTRIBUTE_NAME_PRODUCT_ID = "productId";
-
-    /**
-     * The name of the attribute which maps the {@code PRODUCT_ID} column. The value is {@value}.
-     */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
     // ------------------------------------------------------------------------------------------------------ UNIT_PRICE
@@ -152,11 +147,6 @@ public class OrderItemWithIdClass {
      * The name of the table column to which the {@code shipmentId} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_SHIPMENT_ID = "SHIPMENT_ID";
-
-    /**
-     * The name of the attribute which maps the {@code SHIPMENT_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_SHIPMENT_ID = "shipmentId";
 
     /**
      * The name of the attribute which maps the {@code SHIPMENT_ID} column. The value is {@value}.
@@ -331,21 +321,6 @@ public class OrderItemWithIdClass {
         this.lineItemId = lineItemId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- productId
-    @Nonnull
-    Long getProductId() {
-        return productId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute with the specified value.
-     *
-     * @param productId new value for {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
-     */
-    protected void setProductId(@Nonnull final Long productId) {
-        this.productId = productId;
-    }
-
     // --------------------------------------------------------------------------------------------------------- product
 
     /**
@@ -365,11 +340,6 @@ public class OrderItemWithIdClass {
      */
     protected void setProduct(@Nonnull final Product product) {
         this.product = product;
-        setProductId(
-                Optional.ofNullable(this.product)
-                        .map(Product::getProductId)
-                        .orElse(null)
-        );
     }
 
     // ------------------------------------------------------------------------------------------------------- unitPrice
@@ -412,27 +382,6 @@ public class OrderItemWithIdClass {
         this.quantity = quantity;
     }
 
-    // ------------------------------------------------------------------------------------------------------ shipmentId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute.
-     */
-    @jakarta.annotation.Nullable
-    public Long getShipmentId() {
-        return shipmentId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute with the specified value.
-     *
-     * @param shipmentId new value for {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute.
-     */
-    protected void setShipmentId(@jakarta.annotation.Nullable final Long shipmentId) {
-        this.shipmentId = shipmentId;
-    }
-
     // -------------------------------------------------------------------------------------------------------- shipment
 
     /**
@@ -452,11 +401,6 @@ public class OrderItemWithIdClass {
      */
     public void setShipment(@jakarta.annotation.Nullable final Shipment shipment) {
         this.shipment = shipment;
-        setShipmentId(
-                Optional.ofNullable(this.shipment)
-                        .map(Shipment::getShipmentId)
-                        .orElse(null)
-        );
     }
 
     /**
@@ -550,19 +494,13 @@ public class OrderItemWithIdClass {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @NotNull
-    @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = true, updatable = false)
-    private Long productId;
-
-    @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_PRODUCT_ID,
                 referencedColumnName = Product.COLUMN_NAME_PRODUCT_ID,
                 nullable = false,
-                insertable = false,
+                insertable = true,
                 updatable = false
     )
     private Product product;
@@ -588,18 +526,14 @@ public class OrderItemWithIdClass {
     private Long quantity;
 
     @jakarta.annotation.Nullable
-    @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_SHIPMENT_ID, nullable = true, insertable = true, updatable = true)
-    private Long shipmentId;
-
-    @jakarta.annotation.Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_SHIPMENT_ID,
                 referencedColumnName = Shipment.COLUMN_NAME_SHIPMENT_ID,
                 nullable = true,
-                insertable = false,
-                updatable = false
+                insertable = true,
+                // the only mutable foreign key here: an item is shipped after it is ordered
+                updatable = true
     )
     private Shipment shipment;
 }

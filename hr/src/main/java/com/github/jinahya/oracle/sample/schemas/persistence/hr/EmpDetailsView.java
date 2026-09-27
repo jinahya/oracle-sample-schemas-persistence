@@ -23,17 +23,22 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
-//@org.hibernate.annotations.Immutable
+import java.util.Objects;
 
 /**
  * An entity class for mapping the {@value EmpDetailsView#TABLE_NAME} view.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@Entity
+@Table(name = EmpDetailsView.TABLE_NAME)
 public class EmpDetailsView {
 
     /**
@@ -67,11 +72,55 @@ public class EmpDetailsView {
         super();
     }
 
+    // ------------------------------------------------------------------------------------------------ java.lang.Object
+
+    @Override
+    public String toString() {
+        return super.toString() + '{' +
+               "employeeId=" + employeeId +
+               ",jobId=" + jobId +
+               ",firstName=" + firstName +
+               ",lastName=" + lastName +
+               ",departmentName=" + departmentName +
+               ",jobTitle=" + jobTitle +
+               '}';
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by {@value #COLUMN_NAME_EMPLOYEE_ID}, which the view carries one row per.
+     */
+    @Override
+    public final boolean equals(final Object obj) {
+        if (!(obj instanceof EmpDetailsView that)) {
+            return false;
+        }
+        return Objects.equals(employeeId, that.employeeId);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over {@value #COLUMN_NAME_EMPLOYEE_ID}, consistent with {@link #equals(Object)}.
+     */
+    @Override
+    public final int hashCode() {
+        return Objects.hashCode(employeeId);
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
+    @Id
     @Nonnull
     @Basic(optional = false)
-    @Column(name = "EMPLOYEE_ID", nullable = false, insertable = false, updatable = false)
+    // insertable=true is the JPA default; it is spelled out because EclipseLink rejects insertable=false on an @Id --
+    // "There should be one non-read-only mapping defined for the primary key field", EclipseLink-46. Nothing writes to
+    // a view anyway; every other column here stays insertable=false. Verified on 5.0.1.
+    @Column(name = COLUMN_NAME_EMPLOYEE_ID, nullable = false, insertable = true, updatable = false)
     private Integer employeeId;
 
     @Nonnull

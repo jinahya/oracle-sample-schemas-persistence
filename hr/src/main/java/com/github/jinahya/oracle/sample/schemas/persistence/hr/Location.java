@@ -39,7 +39,6 @@ import jakarta.validation.constraints.Size;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value Location#TABLE_NAME} table.
@@ -51,7 +50,7 @@ import java.util.Optional;
         query = """
                 SELECT e
                 FROM Location e
-                WHERE e.countryId = :countryId
+                WHERE e.country.countryId = :countryId
                   AND e.stateProvince = :stateProvince
                   AND e.city = :city
                 ORDER BY e.streetAddress ASC"""
@@ -61,7 +60,7 @@ import java.util.Optional;
         query = """
                 SELECT e
                 FROM Location e
-                WHERE e.countryId = :countryId
+                WHERE e.country.countryId = :countryId
                   AND e.city = :city
                 ORDER BY e.streetAddress ASC"""
 )
@@ -70,7 +69,7 @@ import java.util.Optional;
         query = """
                 SELECT e
                 FROM Location e
-                WHERE e.countryId = :countryId
+                WHERE e.country.countryId = :countryId
                   AND e.stateProvince = :stateProvince
                 ORDER BY e.streetAddress ASC"""
 )
@@ -79,7 +78,7 @@ import java.util.Optional;
         query = """
                 SELECT e
                 FROM Location e
-                WHERE e.countryId = :countryId
+                WHERE e.country.countryId = :countryId
                 ORDER BY e.locationId ASC"""
 )
 @NamedQuery(
@@ -266,11 +265,6 @@ public class Location {
     public static final int COLUMN_LENGTH_COUNTRY_ID = 2;
 
     /**
-     * The name of the attribute which maps the {@code COUNTRY_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
-
-    /**
      * The minimum size of the {@code countryId} attribute.
      */
     public static final int ATTRIBUTE_SIZE_MIN_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
@@ -315,7 +309,7 @@ public class Location {
                ",postalCode=" + postalCode +
                ",city=" + city +
                ",stateProvince=" + stateProvince +
-               ",countryId=" + countryId +
+               ",country=" + country +
                '}';
     }
 
@@ -437,27 +431,6 @@ public class Location {
         this.stateProvince = stateProvince;
     }
 
-    // ------------------------------------------------------------------------------------------------------- countryId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
-     */
-    @jakarta.annotation.Nullable
-    public String getCountryId() {
-        return countryId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the specified value.
-     *
-     * @param countryId new value for {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
-     */
-    protected void setCountryId(@jakarta.annotation.Nullable final String countryId) {
-        this.countryId = countryId;
-    }
-
     // --------------------------------------------------------------------------------------------------------- country
 
     /**
@@ -477,11 +450,6 @@ public class Location {
      */
     public void setCountry(@jakarta.annotation.Nullable final Country country) {
         this.country = country;
-        setCountryId(
-                Optional.ofNullable(this.country)
-                        .map(Country::getCountryId)
-                        .orElse(null)
-        );
     }
 
     // ----------------------------------------------------------------------------------------------------- departments
@@ -564,24 +532,12 @@ public class Location {
     private String stateProvince;
 
     @jakarta.annotation.Nullable
-    @Size(min = ATTRIBUTE_SIZE_MIN_COUNTRY_ID, max = ATTRIBUTE_SIZE_MAX_COUNTRY_ID)
-    @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_COUNTRY_ID,
-            nullable = COLUMN_NULLABLE_COUNTRY_ID,
-            insertable = true,
-            updatable = true,
-            length = COLUMN_LENGTH_COUNTRY_ID
-    )
-    private String countryId;
-
-    @jakarta.annotation.Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = Location.COLUMN_NAME_COUNTRY_ID,
                 nullable = COLUMN_NULLABLE_COUNTRY_ID,
-                insertable = false,
-//                insertable = true, // eclipselink
-                updatable = false)
+                insertable = true,
+                updatable = true)
     private Country country;
 
     @OneToMany(
