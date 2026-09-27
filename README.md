@@ -28,20 +28,36 @@ total NN
 
 ## Preparing the database
 
-With the submodule up to date, run the database. That is the whole step: on first start the
-container creates the database, installs the `CO`, `HR` and `SH` schemas from the submodule,
-and creates the `dmlonly` user the integration tests connect as.
+### Prerequisite: SQLcl
+
+Install [SQLcl](https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/) before you
+start. Upstream requires it -- `sales_history/README.md` says so outright, *"Requires SQLcl
+command prompt!"* -- because `sh_populate.sql` bulk-loads six of the `SH` tables with
+SQLcl's `LOAD <table> <file>.csv` command, which SQL\*Plus does not implement.
 
 ```shell
-$ docker-compose up -d
+$ brew install --cask sqlcl
+$ sqlcl -V
 ```
 
-Or, to follow the log and have Ctrl-C bring the stack back down:
+SQLcl is a **client** tool: `LOAD` reads the CSV on your machine and inserts over JDBC. So
+it runs on the host, against the published port, and the container needs neither SQLcl nor
+a JRE -- there is no image to build or maintain.
+
+> Call it as `sqlcl`, not `sql`. GNU parallel ships a `sql` of its own, and on Homebrew it
+> wins the `PATH`. Set `SQLCL=/path/to/sql` if yours lives elsewhere.
+
+### Bringing it up
+
+Use the wrapper, not `docker-compose up -d` directly:
 
 ```shell
 $ ./docker-compose-up.sh
 ==> down -v (cleaning up any previous run) ...
 ==> up -d ...
+==> waiting for the database to report healthy ...
+==> installing SH with SQLcl (drops and rebuilds the schema; takes a few minutes) ...
+==> SH installed
 ==> following the log; Ctrl-C to bring it down
 
 ...
@@ -50,22 +66,28 @@ sample-schemas: installing CO ...
 sample-schemas: CO installed
 sample-schemas: installing HR ...
 sample-schemas: HR installed
-sample-schemas: installing SH ...
-sample-schemas: SH installed
 sample-schemas: creating the dmlonly user ...
 sample-schemas: dmlonly created
 ```
 
-The work is done by `opt/oracle/scripts/startup/01_install_sample_schemas.sh`, which
-`docker-compose.yml` mounts into the image's `/opt/oracle/scripts/startup` hook. Everything
-uses the password `password`.
+It does three things plain `up -d` cannot: it waits for the container to report healthy,
+installs `SH` through SQLcl, and brings the stack back down on Ctrl-C. `CO` and `HR` come
+from the container's own startup hook,
+`opt/oracle/scripts/startup/01_install_sample_schemas.sh`, which drives `sqlplus` inside the
+image; only `SH` needs SQLcl, and only because of `LOAD`.
 
-Installing takes a few minutes the first time. On later starts the hook finds the schemas
-already there and skips them, so the container comes up quickly:
+Everything uses the password `password`.
+
+Installing takes a few minutes the first time. On later starts both the hook and the wrapper
+find the schemas already populated and skip them, so the container comes up quickly:
 
 ```shell
+==> SH is already installed and populated; skipping
 sample-schemas: CO already installed, skipping
 ```
+
+If `sqlcl` is not on the `PATH`, the wrapper says so and carries on rather than failing --
+you get a working database with those six `SH` tables empty, and the command to finish it.
 
 ### Notes
 
@@ -78,11 +100,22 @@ $ docker-compose down
 $ rm -rf opt/oracle/oradata
 ```
 
-`SH` installs only partially under SQL*Plus. Oracle's `sh_populate.sql` bulk-loads six
-tables (`costs`, `customers`, `promotions`, `sales`, `times`, `supplementary_demographics`)
-with SQLcl's `LOAD` command -- upstream lists SQLcl as an `SH` requirement -- and the image
-ships no SQLcl, so those six stay empty, silently. Everything populated by `INSERT` loads
-normally, including `SH.COUNTRIES`, the only `SH` table this project maps.
+`SH` installs only partially under SQL\*Plus, which is why `docker-compose-up.sh` reinstalls
+it with SQLcl. `sh_populate.sql` bulk-loads `costs`, `customers`, `promotions`, `sales`,
+`times` and `supplementary_demographics` with `LOAD`; SQL\*Plus reports `SP2-0158` on the
+preceding `SET LOAD` and skips all six. That is a client-side error, not a SQL one, so
+`WHENEVER SQLERROR EXIT` never fires and the install still reports success -- the tables are
+silently empty. All six are mapped by this project, so it matters.
+
+Oracle's installer leaves `CAL_MONTH_SALES_MV` and `FWEEK_PSCAT_SALES_MV` **empty** even on
+a correct run: `sh_create.sql` builds both over an empty `SALES` and `sh_populate.sql` never
+refreshes them. Neither is listed in a persistence unit. Refresh them yourself if you need
+them:
+
+```sql
+BEGIN DBMS_MVIEW.REFRESH('SH.CAL_MONTH_SALES_MV,SH.FWEEK_PSCAT_SALES_MV', 'CC'); END;
+/
+```
 
 The hook takes a few environment variables: `SAMPLE_SCHEMAS_PASSWORD`,
 `SAMPLE_SCHEMAS_PDB`, `SAMPLE_SCHEMAS_ROOT`, and `SAMPLE_SCHEMAS_OVERWRITE=true` to force a
