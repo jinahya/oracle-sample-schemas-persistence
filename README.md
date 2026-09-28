@@ -142,13 +142,15 @@ certified for that generation.
 
 | Spec | Version | Implementation | Version |
 | --- | --- | --- | --- |
-| Jakarta Persistence | 3.2 | Hibernate ORM | 7.4.9.Final (also tested on 7.2.25.Final) |
+| Jakarta Persistence | 3.2 | Hibernate ORM | 7.4.9.Final |
 | Jakarta Persistence | 3.2 | EclipseLink | 5.0.1 |
-| Jakarta Validation | 3.1 | Hibernate Validator | 9.1.3.Final (also tested on 9.0.1.Final) |
+| Jakarta Validation | 3.1 | Hibernate Validator | 9.1.3.Final |
 | Jakarta Expression Language | 6.0 | Expressly | 6.0.0 |
 | Jakarta CDI | 4.1 | Weld (weld-junit5) | 5.0.3.Final |
 
-Run the build against every supported combination:
+Only the persistence provider is varied: each of the other specs has exactly one
+implementation here, pinned to its Jakarta EE 11 aligned release in `<properties>`, so
+there is nothing to choose and no profile for it. Run the build against both providers:
 
 ```shell
 $ ./_mvn_jakarta_ee_11.sh test
@@ -345,7 +347,7 @@ a `BEFORE INSERT` trigger:
 
 ## EclipseLink
 
-Activated by `-P__eclipselink-5.0-jakarta-ee-11`, which swaps the provider class, the
+Activated by `-Pjakarta-ee-11-eclipselink`, which swaps the provider class, the
 metamodel annotation processor and the runtime jar in one move:
 
 | | |
@@ -393,18 +395,18 @@ default (`eclipselink.woven=false`).
 
 ## Hibernate
 
-The default provider — no `-P` needed — pinned by `version.org.hibernate.orm`:
+The default provider — `-Pjakarta-ee-11-hibernate-orm`, or no `-P` at all — pinned by
+`version.org.hibernate.orm`:
 
 | | |
 | --- | --- |
-| Versions | 7.4.9.Final (`-P__hibernate-orm-7.4-jakarta-ee-11`), 7.2.25.Final (`-P__hibernate-orm-7.2-jakarta-ee-11`) |
+| Version | 7.4.9.Final (`version.org.hibernate.orm`) |
 | Provider | `org.hibernate.jpa.HibernatePersistenceProvider` |
 | Metamodel processor | `org.hibernate.orm:hibernate-jpamodelgen` |
-| Validator | 9.1.3.Final / 9.0.1.Final (`-P___hibernate-validator-9.{1,0}-jakarta-ee-11`), each with Expressly 6 |
+| Validator | 9.1.3.Final (`version.org.hibernate.validator`), with Expressly 6 |
 
 * [ORM releases](https://hibernate.org/orm/releases/) ·
   [7.4](https://hibernate.org/orm/releases/7.4/) ·
-  [7.2](https://hibernate.org/orm/releases/7.2/) ·
   [Validator releases](https://hibernate.org/validator/releases/)
 * [Hibernate ORM User Guide](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html)
   * [3.2.41. XML mapping](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#basic-mapping-xml)

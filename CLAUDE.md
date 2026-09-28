@@ -61,13 +61,19 @@ artifacts:
   the `version.jakarta.jakartaee-bom` property (currently `11.0.0`).
 - **Jakarta EE 11 is the only supported generation.** The platform values live in the
   root `<properties>` — `version.jakarta.jakartaee-bom`, `persistence.version` (3.2),
-  `persistence.schemaLocation` — deliberately *not* in a profile, so no profile
-  combination can move the platform out from under the implementations.
-- Implementation profiles are named after the platform they target:
-  `__eclipselink-5.0-jakarta-ee-11`, `__hibernate-orm-7.4-jakarta-ee-11`,
-  `__hibernate-orm-7.2-jakarta-ee-11`, `___hibernate-validator-9.1-jakarta-ee-11`,
-  `___hibernate-validator-9.0-jakarta-ee-11`, `___weld-6-jakarta-ee-11`. Anything
-  added must carry the `-jakarta-ee-11` suffix and actually be certified for that
+  `persistence.schemaLocation` — deliberately *not* in a profile, so no profile can
+  move the platform out from under the implementations.
+- **The persistence provider is the only implementation axis**, and it has exactly two
+  profiles: `jakarta-ee-11-hibernate-orm` (`activeByDefault`) and
+  `jakarta-ee-11-eclipselink`. Every other spec has a single implementation here
+  (Hibernate Validator + Expressly for Jakarta Validation, Weld for CDI), pinned to
+  its EE 11 aligned release in `<properties>`; there is nothing to choose, so it gets
+  no profile. Neither provider profile picks a *version* either — both versions live
+  in `<properties>`; a profile decides only which provider is on the test classpath
+  and which metamodel generator the annotation processor path uses.
+- Do not add a profile to test a second version of anything. Varying Hibernate
+  Validator, Expressly or Weld tests those projects, not this one. Any profile that
+  is added must carry the `jakarta-ee-11-` prefix and actually be certified for that
   generation.
 
 Consequences:
@@ -78,11 +84,12 @@ Consequences:
   one place instead.
 - When a provider drags in a `jakarta.*` API newer or older than the umbrella BOM,
   align the provider with the platform generation — do not override the API version.
-- Check convergence across all six supported combinations, not just the defaults:
+- Check convergence against both providers, not just the default:
   `./_mvn_jakarta_ee_11.sh -q enforcer:enforce -Drules=dependencyConvergence`.
-- Naming any profile on the command line deactivates every `activeByDefault` profile,
-  so always name a profile from each axis you touch — a lone validator `-P` leaves the
-  build with no persistence provider.
+- Naming any profile on the command line deactivates every `activeByDefault` profile.
+  Harmless while the provider is the only axis — `-Pjakarta-ee-11-eclipselink` names
+  everything that had to be chosen — but it is why a second axis must not be added
+  casually.
 
 ### Keeping specs and implementations aligned
 
@@ -98,7 +105,7 @@ Rules:
 
 - The persistence provider is never hard-coded: `persistence-unit.provider` and
   `metamodel.generator.groupId/artifactId/version` default to Hibernate in
-  `<properties>` and are overridden by `__eclipselink-5.0-jakarta-ee-11`;
+  `<properties>` and are overridden by `jakarta-ee-11-eclipselink`;
   `persistence.xml` and the annotation processor path read them. Change the profile,
   not the literal provider class.
 - Both providers must stay buildable. A change made for Hibernate has to be checked
@@ -136,7 +143,7 @@ published jars stay consumable on 21 while the tests use current language featur
 
 ## Testing
 
-`./_mvn_jakarta_ee_11.sh test` runs every supported EE 11 combination. `clean` is
+`./_mvn_jakarta_ee_11.sh test` runs the build against both providers. `clean` is
 prepended and is not optional: the annotation processor writes a metamodel per
-provider, and without a clean between combinations the second provider compiles
-against the first's leftovers.
+provider, and without a clean in between the second provider compiles against the
+first's leftovers.
