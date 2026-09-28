@@ -656,9 +656,35 @@
       <!-- Jakarta Persistence: 3.2 / Jakarta EE: 11; version: version.org.eclipse.persistence -->
       <properties>
         <persistence-unit.provider>org.eclipse.persistence.jpa.PersistenceProvider</persistence-unit.provider>
-        <metamodel.generator.groupId>org.eclipse.persistence</metamodel.generator.groupId>
-        <metamodel.generator.artifactId>org.eclipse.persistence.jpa.modelgen.processor</metamodel.generator.artifactId>
-        <metamodel.generator.version>${version.org.eclipse.persistence}</metamodel.generator.version>
+        <!--
+          This profile deliberately does NOT override the metamodel generator: it inherits
+          hibernate-jpamodelgen from the root <properties>, and EclipseLink is the runtime provider only.
+
+          EclipseLink's own processor is commented out below. It works, but it reads a persistence.xml at
+          annotation-processing time and generates nothing without one — and the annotation processor path
+          sees main resources, not test resources. Using it therefore forces every module's persistence.xml
+          into src/main/resources/META-INF, which is also what gets packaged: the published jars then carry
+          the test descriptor, with the H2 datasource, the sa/dmlonly credentials, hbm2ddl.auto=create-drop
+          and whichever <provider> the releasing profile happened to bake in. Spring's
+          DefaultPersistenceUnitManager reads classpath*:META-INF/persistence.xml — every jar — so that
+          descriptor is in scope for any consumer, which is the opposite of what a mapping library should
+          ship. Keeping the descriptors under src/test/resources keeps the jars to entities and metamodel.
+
+          hibernate-jpamodelgen reads @Entity directly and needs no descriptor, and the canonical static
+          metamodel is defined by the specification (Jakarta Persistence 3.2, 6.2), so the Customer_ classes
+          it emits are provider-neutral and EclipseLink runs against them unchanged. Verified: both
+          providers green, 129 tests, with the descriptors in src/test/resources.
+
+          What this costs: the EclipseLink profile no longer exercises EclipseLink's metamodel processor.
+          It still exercises EclipseLink as the persistence provider — every *_Persistence_Test and
+          *_Persistence_IT runs against it — which is the behavioural difference this profile exists for.
+
+          To go back, uncomment the three properties AND move every module's META-INF back to
+          src/main/resources; neither half works without the other.
+        -->
+        <!--        <metamodel.generator.groupId>org.eclipse.persistence</metamodel.generator.groupId>-->
+        <!--        <metamodel.generator.artifactId>org.eclipse.persistence.jpa.modelgen.processor</metamodel.generator.artifactId>-->
+        <!--        <metamodel.generator.version>${version.org.eclipse.persistence}</metamodel.generator.version>-->
       </properties>
       <dependencies>
         <dependency>

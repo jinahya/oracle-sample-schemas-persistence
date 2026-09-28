@@ -44,10 +44,30 @@ The **generated static metamodel** (`Customer_`, `Employee_`, …) is available 
 providers, and is what persistence-context code uses: a criteria path is
 `root.get(Customer_.emailAddress)`, not a string.
 
-That works because each module's `persistence.xml` lives in **`src/main/resources/META-INF`**,
-not in test resources. EclipseLink's metamodel processor reads a `persistence.xml` at
-annotation-processing time and generates nothing without one, so moving it is what makes
-the metamodel exist under the EclipseLink profile at all. Do not move it back.
+That works because **both profiles generate it with `hibernate-jpamodelgen`**. The EclipseLink
+profile picks the provider and nothing else: it inherits `metamodel.generator.*` from the root
+`<properties>` rather than overriding it, and EclipseLink's own processor sits commented out
+beside a note saying why.
+
+The reason is where a descriptor has to live. EclipseLink's processor reads a `persistence.xml`
+at annotation-processing time and generates nothing without one, and the processor path sees
+main resources, not test resources — so using it forces every module's descriptor into
+`src/main/resources/META-INF`, which is also what gets packaged. The published jars would then
+carry the test descriptor: the H2 datasource, the `sa` / `dmlonly` credentials,
+`hbm2ddl.auto=create-drop`, and whichever `<provider>` the releasing profile baked in. Spring's
+`DefaultPersistenceUnitManager` reads `classpath*:META-INF/persistence.xml` — every jar on the
+classpath — so that descriptor reaches any consumer that wires an entity manager factory the
+usual way.
+
+`hibernate-jpamodelgen` needs no descriptor; it reads `@Entity` directly. And the canonical
+static metamodel is defined by the specification, so the classes it emits are provider-neutral
+and EclipseLink runs against them unchanged. Every module's `persistence.xml` and `orm-it.xml`
+therefore live in **`src/test/resources/META-INF`**, and the jars carry entities and metamodel
+only.
+
+What this gives up is coverage of EclipseLink's metamodel processor. EclipseLink is still
+exercised as the persistence provider — every `*_Persistence_Test` and `*_Persistence_IT` runs
+against it — which is the behavioural difference the profile exists for.
 
 Each module names its persistence units after itself -- `__co_testPU` / `__co_itPU`, and so on --
 because a unit name is only required to be unique within the archive that declares it, while every
@@ -64,11 +84,15 @@ producer**: CDI does not inherit producer or disposer methods, and an inherited 
 not seen -- the injection point fails with `WELD-001408`.
 
 Every persistence unit carries `<exclude-unlisted-classes>true</exclude-unlisted-classes>`,
-and that is load-bearing for the same reason: EclipseLink's processor otherwise attaches
-every `@Entity` in the compilation to the unit, including the ones a module deliberately
-leaves out — `hr` maps `JobHistory` twice (`JobHistoryWithEmbeddedId`, `JobHistoryWithIdClass`)
-under one entity name and lists one of them, and without the flag the `hr` compile fails with
-`EclipseLink-7237`, entity name not unique.
+and it stays: a module deliberately leaves classes out, and the flag is what keeps them out.
+`hr` maps `JobHistory` twice (`JobHistoryWithEmbeddedId`, `JobHistoryWithIdClass`) under one
+entity name and lists one of them; `co` does the same for `ORDER_ITEMS`, and `sh` for `COSTS`,
+`SALES`, `PROFITS` and `FWEEK_PSCAT_SALES_MV`. Both flavours in one unit is not a working unit.
+
+Under EclipseLink's metamodel processor this used to fail at *compile* time as well —
+`EclipseLink-7237`, entity name not unique — because that processor attaches every `@Entity` in
+the compilation to the unit it finds. With `hibernate-jpamodelgen` no processor reads the
+descriptor, so that particular compile failure is gone; the runtime reason for the flag is not.
 
 The entity's own `ATTRIBUTE_NAME_*` constants stay, for the places a metamodel reference
 cannot go: an annotation value must be a compile-time constant, so `mappedBy` takes
