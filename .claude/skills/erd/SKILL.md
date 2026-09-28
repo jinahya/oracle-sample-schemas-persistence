@@ -27,7 +27,7 @@ $ python3 .claude/skills/erd/scripts/generate_erd.py hr --dump  # the parsed mod
 Rendering is Graphviz, so `dot` must be on `PATH` (`brew install graphviz`); the script
 stops with that message if it is missing. Each run rewrites every diagram for the module
 and deletes files in `doc/erd` it did not write, so a dropped entity takes its diagram with
-it. `util` has no entities and gets no directory.
+it. `test-base` has no entities and gets no directory.
 
 ## Where the facts come from
 

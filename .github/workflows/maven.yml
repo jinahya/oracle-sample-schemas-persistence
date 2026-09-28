@@ -35,11 +35,11 @@ jobs:
         distribution: 'temurin'
         cache: maven
     # `verify`, not `package`: it runs everything bound up to and including verify -- the unit
-    # tests against the __testPU persistence unit (H2, in-memory, schema generated from the
-    # mappings), jacoco and the licence check -- so a green run here means the __testPU path is
+    # tests against each module's __<module>_testPU persistence unit (H2, in-memory, schema generated
+    # from the mappings), jacoco and the licence check -- so a green run here means that path is
     # verified end to end.
     #
-    # The __itPU integration tests are NOT run, and cannot be: maven-failsafe-plugin is declared
+    # The __<module>_itPU integration tests are NOT run, and cannot be: maven-failsafe-plugin is declared
     # only inside the `failsafe` profile, so `verify` without -Pfailsafe never reaches an *_IT
     # class. Those need the Oracle database from docker-compose.yml, with the sample schemas
     # installed; see the `integration` job note below.
@@ -66,7 +66,7 @@ jobs:
   # to clean.
   #
   # `test`, not `verify`: what each cell is here to answer is whether the provider compiles, its
-  # dependencies converge and the __testPU tests pass -- and all three are settled by the end of the
+  # dependencies converge and the in-memory tests pass -- and all three are settled by the end of the
   # test phase. The convergence enforcer is bound to `validate`, so it runs in every cell regardless,
   # and the packaging, jacoco and licence steps between test and verify do not vary by provider. The
   # `build` job above runs the full `verify` once.

@@ -6,7 +6,8 @@ Guidance for Claude Code when working in this repository.
 
 Jakarta Persistence mappings for the
 [Oracle Database Sample Schemas](https://github.com/oracle-samples/db-sample-schemas),
-one Maven module per schema (`co`, `hr`, `sh`) plus `util`.
+one Maven module per schema (`co`, `hr`, `sh`), plus `test-base` for the shared test
+base classes.
 
 **These are pure Jakarta Persistence modules.** Two rules follow from that:
 
@@ -37,11 +38,41 @@ section rather than at the end of the file:
 
 Section markers are line comments padded with dashes to column 120.
 
-Main sources must also stay free of the **generated static metamodel** (`Employee_`,
-`JobHistoryId_`, …). EclipseLink's metamodel processor needs a `persistence.xml`, and
-the only one lives in test resources, so a metamodel reference in `src/main` breaks
-the EclipseLink profile. Use the entity's own `ATTRIBUTE_NAME_*` constant instead —
-for example `@OneToMany(mappedBy = Employee.ATTRIBUTE_NAME_JOB)`.
+### The static metamodel, and `ATTRIBUTE_NAME_*`
+
+The **generated static metamodel** (`Customer_`, `Employee_`, …) is available under both
+providers, and is what persistence-context code uses: a criteria path is
+`root.get(Customer_.emailAddress)`, not a string.
+
+That works because each module's `persistence.xml` lives in **`src/main/resources/META-INF`**,
+not in test resources. EclipseLink's metamodel processor reads a `persistence.xml` at
+annotation-processing time and generates nothing without one, so moving it is what makes
+the metamodel exist under the EclipseLink profile at all. Do not move it back.
+
+Each module names its persistence units after itself -- `__co_testPU` / `__co_itPU`, and so on --
+because a unit name is only required to be unique within the archive that declares it, while every
+module of this build lands on one classpath whenever they are built or run together (an IDE running
+the whole project, or a reader depending on two modules at once). Two units sharing a name there is
+unspecified: the provider takes whichever descriptor it finds first, silently, and every test of the
+other modules then aborts with "not a managed type". Hibernate says so as `HHH008518`.
+
+That name lives in a per-module producer -- `_Persistence_Test_Producer` and its three siblings --
+which `_Persistence_Test` names in its `@AddBeanClasses`, and which every `*_Persistence_Test` of
+the module extends. The shared `__Persistence_Test_Producer` is abstract and supplies everything but
+the name. Note that its four `@Produces`/`@Disposes` methods **are overridden in each module
+producer**: CDI does not inherit producer or disposer methods, and an inherited `@Produces` is simply
+not seen -- the injection point fails with `WELD-001408`.
+
+Every persistence unit carries `<exclude-unlisted-classes>true</exclude-unlisted-classes>`,
+and that is load-bearing for the same reason: EclipseLink's processor otherwise attaches
+every `@Entity` in the compilation to the unit, including the ones a module deliberately
+leaves out — `hr` maps `JobHistory` twice (`JobHistoryWithEmbeddedId`, `JobHistoryWithIdClass`)
+under one entity name and lists one of them, and without the flag the `hr` compile fails with
+`EclipseLink-7237`, entity name not unique.
+
+The entity's own `ATTRIBUTE_NAME_*` constants stay, for the places a metamodel reference
+cannot go: an annotation value must be a compile-time constant, so `mappedBy` takes
+`@OneToMany(mappedBy = Employee.ATTRIBUTE_NAME_JOB)` and never `Employee_.job.getName()`.
 
 ## Dependency convergence
 

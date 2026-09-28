@@ -378,10 +378,12 @@ the JPA default — instead of leaving it off or setting it to `false`:
 private Long customerId;
 ```
 
-**The metamodel processor needs a `persistence.xml`,** and the only one lives in test
-resources. A reference to a generated metamodel class (`Employee_`, `JobHistoryId_`, …)
-from `src/main` therefore breaks this profile. Main sources use the entity's own
-`ATTRIBUTE_NAME_*` constant instead — `@OneToMany(mappedBy = Employee.ATTRIBUTE_NAME_JOB)`.
+**The metamodel processor needs a `persistence.xml`,** which is why each module keeps
+one in `src/main/resources/META-INF` rather than in test resources: EclipseLink's processor
+generates nothing without one, so `Customer_` and friends would not exist under this profile.
+Every unit also sets `<exclude-unlisted-classes>true</exclude-unlisted-classes>`, or the
+processor attaches every `@Entity` in the compilation to the unit and `hr` fails to compile
+with `EclipseLink-7237` over the two `JobHistory` mappings sharing an entity name.
 
 **H2 identifier case.** The in-memory test URL carries
 `;database_to_upper=false;MODE=LEGACY` because of

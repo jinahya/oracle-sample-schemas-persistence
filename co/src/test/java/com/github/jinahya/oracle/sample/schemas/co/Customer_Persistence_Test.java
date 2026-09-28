@@ -1,6 +1,10 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.persistence.test._Persistence_Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /*-
  * #%L
@@ -31,5 +35,65 @@ class Customer_Persistence_Test extends _Persistence_Test<Customer> {
 
     Customer_Persistence_Test() {
         super(Customer.class);
+    }
+
+    @Nested
+    class FindByEmailAddress_Test {
+
+        @DisplayName("a query-language query selects the customer just persisted")
+        @Test
+        void __QueryLanguage() {
+            applyNewPersistedTargetInstanceAndRollback((em, v) -> {
+                final var found = em
+                        .createQuery(
+                                """
+                                SELECT e
+                                FROM Customer e
+                                WHERE e.emailAddress = :emailAddress""",
+                                targetClass
+                        )
+                        .setParameter(Customer_.emailAddress.getName(), v.getEmailAddress())
+                        .getSingleResult();
+                assertThat(found)
+                        .as("the customer selected by %s", v.getEmailAddress())
+                        .isSameAs(v);
+                return found;
+            });
+        }
+
+        @DisplayName("the named query selects the customer just persisted")
+        @Test
+        void __NamedQuery() {
+            applyNewPersistedTargetInstanceAndRollback((em, v) -> {
+                final var found = em
+                        .createNamedQuery("Customer.selectSingleByEmailAddress", targetClass)
+                        .setParameter(Customer_.emailAddress.getName(), v.getEmailAddress())
+                        .getSingleResult();
+                assertThat(found)
+                        .as("the customer selected by %s", v.getEmailAddress())
+                        .isSameAs(v);
+                return found;
+            });
+        }
+
+        @DisplayName("a criteria query selects the customer just persisted")
+        @Test
+        void __CriteriaApi() {
+            applyNewPersistedTargetInstanceAndRollback((em, v) -> {
+                final var builder = em.getCriteriaBuilder();
+                final var query = builder.createQuery(targetClass);
+                final var root = query.from(targetClass);
+                query.select(root);
+                query.where(builder.equal(
+                        root.get(Customer_.emailAddress),
+                        v.getEmailAddress()
+                ));
+                final var found = em.createQuery(query).getSingleResult();
+                assertThat(found)
+                        .as("the customer selected by %s", v.getEmailAddress())
+                        .isSameAs(v);
+                return found;
+            });
+        }
     }
 }

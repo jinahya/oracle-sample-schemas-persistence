@@ -55,7 +55,6 @@
     <module>co</module>
     <module>hr</module>
     <module>sh</module>
-    <module>util</module>
   </modules>
 
   <scm>
