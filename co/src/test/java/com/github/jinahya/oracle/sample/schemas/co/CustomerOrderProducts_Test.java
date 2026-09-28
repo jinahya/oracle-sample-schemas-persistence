@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.sh;
+package com.github.jinahya.oracle.sample.schemas.co;
 
 /*-
  * #%L
- * sh
+ * co
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
@@ -21,27 +21,31 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  */
 
 import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
-import org.junit.jupiter.api.Test;
+import nl.jqno.equalsverifier.Warning;
+import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
 /**
- * A class for testing the {@link Profits} class.
+ * A class for testing the {@link CustomerOrderProducts} entity class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Profits_Test extends _Test<Profits> {
+class CustomerOrderProducts_Test extends _Test<CustomerOrderProducts> {
 
-    Profits_Test() {
-        super(Profits.class);
+    CustomerOrderProducts_Test() {
+        super(CustomerOrderProducts.class);
     }
 
     // ------------------------------------------------------------------------------------------------- equals/hashCode
 
     /**
-     * Does nothing; {@link Profits} declares no {@code equals(Object)}, so there is no value equality to verify.
+     * {@inheritDoc}
+     *
+     * @implNote {@link CustomerOrderProducts#equals(Object) equals} compares
+     * only the {@code @Id}, because every other attribute is mutable state.
      */
     @Override
-    @Test
-    protected void equals_verify_() {
-        // empty
+    protected SingleTypeEqualsVerifierApi<CustomerOrderProducts> equals_verifier_() {
+        return super.equals_verifier_()
+                .suppress(Warning.SURROGATE_KEY);
     }
 }

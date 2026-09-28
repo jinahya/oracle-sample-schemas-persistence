@@ -21,17 +21,18 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  */
 
 import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
+import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
 /**
- * A class for testing the {@link Cost} class.
+ * A class for testing the {@link CostId} id class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Cost_Test extends _Test<Cost> {
+class CostId_Test extends _Test<CostId> {
 
-    Cost_Test() {
-        super(Cost.class);
+    CostId_Test() {
+        super(CostId.class);
     }
 
     // ------------------------------------------------------------------------------------------------- equals/hashCode
@@ -39,17 +40,12 @@ class Cost_Test extends _Test<Cost> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Cost#equals(Object) equals} compares the dimensions the row references -- the table's natural
-     * key -- and not the measures, which are the row's payload.
+     * @implNote {@link CostId#equals(Object) equals} compares
+     * only the {@code @Id}, because every other attribute is mutable state.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<Cost> equals_verifier_() {
+    protected SingleTypeEqualsVerifierApi<CostId> equals_verifier_() {
         return super.equals_verifier_()
-                .withOnlyTheseFields(
-                        Cost.ATTRIBUTE_NAME_PRODUCT,
-                        Cost.ATTRIBUTE_NAME_TIME,
-                        Cost.ATTRIBUTE_NAME_PROMOTION,
-                        Cost.ATTRIBUTE_NAME_CHANNEL
-                );
+                .suppress(Warning.SURROGATE_KEY);
     }
 }

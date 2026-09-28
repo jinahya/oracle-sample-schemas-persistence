@@ -47,8 +47,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
- * An abstract base class for tests which need a persistence context, against the
- * persistence unit.
+ * An abstract base class for tests which need a persistence context, against the persistence unit.
  * <p>
  * The container is started by weld-testing, with {@link __Persistence_Test_Producer} as its only bean class, so a
  * subclass gets an entity manager on an in-memory database whose schema the provider generates.
@@ -73,6 +72,18 @@ public abstract class __Persistence_Test<T> extends __Test<T> {
     private static final String ATTRIBUTE_NAME_CONSTANT_PREFIX = "ATTRIBUTE_NAME_";
 
     /**
+     * Returns the {@code UPPER_SNAKE_CASE} form of the specified attribute name.
+     *
+     * @param attributeName the attribute name to convert; {@code countryIsoCode}, say.
+     * @return the converted name; {@code COUNTRY_ISO_CODE} for the example above.
+     * @implNote An underscore goes wherever a lower-case letter or a digit is followed by an upper-case one, which is
+     * the boundary the constants in this project are spelled with.
+     */
+    private static String toUpperSnakeCase(final String attributeName) {
+        return attributeName.replaceAll("(?<=[a-z0-9])(?=[A-Z])", "_").toUpperCase(Locale.ROOT);
+    }
+
+    /**
      * Creates a new instance for the specified persistence class.
      *
      * @param targetClass the class of the entity under test.
@@ -89,12 +100,12 @@ public abstract class __Persistence_Test<T> extends __Test<T> {
      *
      * @implNote The lookup runs from the attribute to the constant, never the other way round: an attribute with no
      * matching constant is skipped, because whether every attribute ought to have one is a different question than
-     * whether the constants which do exist are right. The constant is read reflectively rather than compared against
-     * a hand-written list, so an entity gains this check by declaring the constant and nothing else.
+     * whether the constants which do exist are right. The constant is read reflectively rather than compared against a
+     * hand-written list, so an entity gains this check by declaring the constant and nothing else.
      * <p>
-     * Absence is the only thing this forgives. A field which is there under the constant's name has to be a constant
-     * -- {@code static final String} -- and is a failure when it is not, rather than something to skip past: skipping
-     * it would let a field named like a constant, but not usable as one, pass for a checked attribute name.
+     * Absence is the only thing this forgives. A field which is there under the constant's name has to be a constant --
+     * {@code static final String} -- and is a failure when it is not, rather than something to skip past: skipping it
+     * would let a field named like a constant, but not usable as one, pass for a checked attribute name.
      * <p>
      * The name compared against is {@link Attribute#getName()} -- what the provider resolved from the mapping -- so
      * this catches a constant left behind by a renamed field, which the compiler cannot.
@@ -137,23 +148,11 @@ public abstract class __Persistence_Test<T> extends __Test<T> {
     }
 
     /**
-     * Returns the {@code UPPER_SNAKE_CASE} form of the specified attribute name.
-     *
-     * @param attributeName the attribute name to convert; {@code countryIsoCode}, say.
-     * @return the converted name; {@code COUNTRY_ISO_CODE} for the example above.
-     * @implNote An underscore goes wherever a lower-case letter or a digit is followed by an upper-case one, which is
-     * the boundary the constants in this project are spelled with.
-     */
-    private static String toUpperSnakeCase(final String attributeName) {
-        return attributeName.replaceAll("(?<=[a-z0-9])(?=[A-Z])", "_").toUpperCase(Locale.ROOT);
-    }
-
-    /**
      * Aborts, rather than fails, when the persistence unit does not know the {@link #targetClass}.
      *
-     * @implNote A class which is not listed in the persistence unit is not a managed type, and every test here would fail against it with an unknown-entity error
-     * which says nothing about the mapping. Aborting keeps the class reported as skipped, so listing it in
-     * {@code persistence.xml} is all it takes to bring the test back.
+     * @implNote A class which is not listed in the persistence unit is not a managed type, and every test here would
+     * fail against it with an unknown-entity error which says nothing about the mapping. Aborting keeps the class
+     * reported as skipped, so listing it in {@code persistence.xml} is all it takes to bring the test back.
      */
     @BeforeEach
     protected void assumeTargetClassIsManaged() {
@@ -167,7 +166,7 @@ public abstract class __Persistence_Test<T> extends __Test<T> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Test
-    protected void persist__() {
+    protected void _persist_RandomizedInstance() {
         final var persisted = __RandomizerUtils.newRandomizerInstanceOf(targetClass)
                 .map(r -> {
                     return __PersisterUtils.newPersisterInstanceOf(targetClass)
@@ -185,8 +184,8 @@ public abstract class __Persistence_Test<T> extends __Test<T> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Persists a new randomized instance of {@link #targetClass}, and applies it, along with the entity manager, to
-     * the specified function, within a transaction which is always rolled back.
+     * Persists a new randomized instance of {@link #targetClass}, and applies it, along with the entity manager, to the
+     * specified function, within a transaction which is always rolled back.
      *
      * @param function the function to apply the entity manager and the persisted instance to.
      * @param <R>      the type of the result.
@@ -206,9 +205,9 @@ public abstract class __Persistence_Test<T> extends __Test<T> {
     }
 
     /**
-     * Persists a new randomized instance of {@link #targetClass}, and applies it, along with the entity manager, to
-     * the specified function, within a transaction which is committed when the function returns, and rolled back when
-     * it throws.
+     * Persists a new randomized instance of {@link #targetClass}, and applies it, along with the entity manager, to the
+     * specified function, within a transaction which is committed when the function returns, and rolled back when it
+     * throws.
      *
      * @param function the function to apply the entity manager and the persisted instance to.
      * @param <R>      the type of the result.

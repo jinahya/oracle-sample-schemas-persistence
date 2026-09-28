@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.sh;
+package com.github.jinahya.oracle.sample.schemas.co;
 
 /*-
  * #%L
- * sh
+ * co
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
@@ -21,17 +21,18 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  */
 
 import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
+import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
 /**
- * A class for testing the {@link Sale} class.
+ * A class for testing the {@link ProductOrdersWithEmbeddedId} entity class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Sale_Test extends _Test<Sale> {
+class ProductOrdersWithEmbeddedId_Test extends _Test<ProductOrdersWithEmbeddedId> {
 
-    Sale_Test() {
-        super(Sale.class);
+    ProductOrdersWithEmbeddedId_Test() {
+        super(ProductOrdersWithEmbeddedId.class);
     }
 
     // ------------------------------------------------------------------------------------------------- equals/hashCode
@@ -39,18 +40,12 @@ class Sale_Test extends _Test<Sale> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Sale#equals(Object) equals} compares the dimensions the row references -- the table's natural
-     * key -- and not the measures, which are the row's payload.
+     * @implNote {@link ProductOrdersWithEmbeddedId#equals(Object) equals} compares
+     * only the {@code @Id}, because every other attribute is mutable state.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<Sale> equals_verifier_() {
+    protected SingleTypeEqualsVerifierApi<ProductOrdersWithEmbeddedId> equals_verifier_() {
         return super.equals_verifier_()
-                .withOnlyTheseFields(
-                        Sale.ATTRIBUTE_NAME_PRODUCT,
-                        Sale.ATTRIBUTE_NAME_CUSTOMER,
-                        Sale.ATTRIBUTE_NAME_TIME,
-                        Sale.ATTRIBUTE_NAME_CHANNEL,
-                        Sale.ATTRIBUTE_NAME_PROMOTION
-                );
+                .suppress(Warning.SURROGATE_KEY);
     }
 }

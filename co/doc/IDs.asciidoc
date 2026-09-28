@@ -1,0 +1,170 @@
+= CO — identifiers
+:toc: left
+:toclevels: 3
+:sectanchors:
+
+Which column(s) each table and view of the `CO` schema maps as a Jakarta Persistence
+`@Id`, and which ones cannot map one at all.
+
+For a table the answer is usually declared: its `PRIMARY KEY` is the identifier, and the
+schema guarantees it for any data. For a view — and for the few tables that declare no key
+— there is nothing to read off the dictionary, so the answer has to be measured.
+
+Each `src/test/sql/<NAME>.sql` that needs measuring ends in a `CANDIDATE_KEYS` section
+holding the two queries the numbers below come from: a single-pass profile counting the
+rows, the non-nulls and the distinct values of every column, and a
+`GROUP BY ... HAVING COUNT(1) > 1` duplicate check on the candidate the profile suggests.
+A column is a single-column candidate when its `NOT_NULLS` and its `DISTINCTS` both equal
+`ROW_COUNT`.
+
+Measured against `db-sample-schemas` as installed by `docker-compose-up.sh`. A measured
+count describes the shipped data; only a key backed by a constraint, or by a view's own
+`GROUP BY`, is guaranteed to hold for any data.
+
+== Tables
+
+Every `CO` table declares a primary key, so none of them needs measuring; the `@Id` is the
+key the schema already names.
+
+[cols="3,3,3,3",options="header"]
+|===
+| Table | `PRIMARY KEY` | `UNIQUE` | Mapped by
+
+| `CUSTOMERS`   | `CUSTOMER_ID`             | `EMAIL_ADDRESS`          | `Customer`
+| `INVENTORY`   | `INVENTORY_ID`            | `STORE_ID, PRODUCT_ID`   | `Inventory`
+| `ORDERS`      | `ORDER_ID`                | —                        | `Order`
+| `ORDER_ITEMS` | `ORDER_ID, LINE_ITEM_ID`  | `PRODUCT_ID, ORDER_ID`   | `OrderItemWithEmbeddedId`, `OrderItemWithIdClass`
+| `PRODUCTS`    | `PRODUCT_ID`              | —                        | `Product`
+| `SHIPMENTS`   | `SHIPMENT_ID`             | —                        | `Shipment`
+| `STORES`      | `STORE_ID`                | `STORE_NAME`             | `Store`
+|===
+
+Every column named above is `NOT NULL`, so each unique constraint is a usable alternate
+key as well — `CUSTOMERS.EMAIL_ADDRESS` and `STORES.STORE_NAME` would each work as a
+natural `@Id`. The surrogate is the better identifier all the same: an email address and a
+store name are both things an application is expected to change.
+
+`ORDER_ITEMS` is the one composite key, which is why the module maps it twice — once with
+an `@EmbeddedId` and once with an `@IdClass`, over the shared `OrderItemId`.
+
+== Views
+
+None of the four views declares anything, so all four were measured.
+
+[cols="3,4,2,4",options="header"]
+|===
+| View | Narrowest unique column(s) | `@Id`? | Why
+
+| `CUSTOMER_ORDER_PRODUCTS`
+| `ORDER_ID`
+| yes, single
+| the view's `GROUP BY` key, and `ORDERS`' primary key. Mapped by `CustomerOrderProducts`.
+
+| `PRODUCT_ORDERS`
+| `PRODUCT_NAME`, `ORDER_STATUS`
+| yes, composite
+| the view's whole `GROUP BY` key; both columns are `NOT NULL`. Mapped by
+  `ProductOrdersWithIdClass` and `ProductOrdersWithEmbeddedId`, over `ProductOrdersId`.
+
+| `PRODUCT_REVIEWS`
+| `PRODUCT_NAME`, `REVIEW`
+| no
+| `REVIEW` is nullable and 4000 characters wide; uniqueness is a coincidence of the data.
+  Mapped by `ProductReviews`, which is not an `@Entity`.
+
+| `STORE_ORDERS`
+| `STORE_NAME`, `ORDER_STATUS`
+| no
+| the `GROUPING SETS` key, but both are `NULL` in the subtotal and grand-total rows.
+  Mapped by `StoreOrders`, which is not an `@Entity`.
+|===
+
+=== CUSTOMER_ORDER_PRODUCTS
+
+1950 rows.
+
+[cols="3,2,2",options="header"]
+|===
+| Column | Non-nulls | Distincts
+| `ORDER_ID`      | 1950 | 1950
+| `ORDER_TMS`     | 1950 | 1950
+| `ORDER_TOTAL`   | 1950 | 1635
+| `ITEMS`         | 1950 | 1313
+| `CUSTOMER_ID`   | 1950 |  392
+| `EMAIL_ADDRESS` | 1950 |  392
+| `FULL_NAME`     | 1950 |  392
+| `ORDER_STATUS`  | 1950 |    3
+|===
+
+`ORDER_ID` is the `@Id` of `CustomerOrderProducts`. It is what the view aggregates on, and it arrives from
+`ORDERS.ORDER_ID`, so one row per order is structural rather than incidental.
+
+`ORDER_TMS` profiles as unique too — 1950 orders that happen to carry 1950 distinct
+timestamps — but nothing forbids two orders sharing one. Do not map it as the identifier.
+
+=== PRODUCT_ORDERS
+
+109 rows.
+
+[cols="3,2,2",options="header"]
+|===
+| Column | Non-nulls | Distincts
+| `TOTAL_SALES`  | 109 | 103
+| `PRODUCT_NAME` | 109 |  45
+| `ORDER_COUNT`  | 109 |  30
+| `ORDER_STATUS` | 109 |   3
+|===
+
+No single column is unique. `(PRODUCT_NAME, ORDER_STATUS)` is the view's entire `GROUP BY`
+list, so it is unique by construction, and both columns are `NOT NULL` — a composite
+identifier, mapped both ways: `ProductOrdersWithIdClass` and `ProductOrdersWithEmbeddedId`, over
+the shared `ProductOrdersId`. Only the `@EmbeddedId` flavour is listed in `persistence.xml`; see
+`CLAUDE.md` on why the two may not both be.
+
+=== PRODUCT_REVIEWS
+
+266 rows — one per review in the `PRODUCTS.PRODUCT_DETAILS` JSON, unnested by `JSON_TABLE`.
+
+[cols="3,2,2",options="header"]
+|===
+| Column | Non-nulls | Distincts
+| `REVIEW`       | 260 | 260
+| `PRODUCT_NAME` | 266 |  46
+| `AVG_RATING`   | 261 |  31
+| `RATING`       | 266 |  10
+|===
+
+**No usable `@Id`.** The narrowest unique combination is `(PRODUCT_NAME, REVIEW)` — it has
+no duplicate groups — but `REVIEW` is `NULL` in 6 rows and is a `VARCHAR2(4000)`. The JSON
+array carries no review id, and nothing stops a product from collecting the same review
+text twice, so its uniqueness here is a property of the shipped data, not of the view.
+
+A row of this view is addressable only by its position in the JSON array, which the view does not
+expose. `ProductReviews` therefore writes the columns out as a plain class — no `@Entity`, no
+`equals`/`hashCode`, every column read-only — rather than claiming an identity it cannot have.
+
+=== STORE_ORDERS
+
+60 rows, from four `GROUPING SETS`: per store and status, per store, per status, and one
+grand total.
+
+[cols="3,2,2",options="header"]
+|===
+| Column | Non-nulls | Distincts
+| `TOTAL_SALES`  | 60 | 46
+| `ADDRESS`      | 56 | 23
+| `STORE_NAME`   | 56 | 23
+| `LATITUDE`     | 52 | 22
+| `LONGITUDE`    | 52 | 22
+| `ORDER_COUNT`  | 60 | 18
+| `ORDER_STATUS` | 36 |  3
+| `TOTAL`        | 27 |  3
+|===
+
+**No usable `@Id`.** `(STORE_NAME, ORDER_STATUS)` is the grouping key and has no duplicate
+groups, but `STORE_NAME` is `NULL` in 4 rows and `ORDER_STATUS` in 24 — that is exactly how
+`GROUPING SETS` marks a subtotal — and an `@Id` attribute may not be null.
+
+Note that `ALL_TAB_COLUMNS` reports both columns as `NOT NULL`, inherited from the base columns
+they are selected from. The data says otherwise, and `StoreOrders` follows the data: it is a plain
+class — no `@Entity`, no `equals`/`hashCode` — and maps both columns as nullable.

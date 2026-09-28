@@ -1,0 +1,205 @@
+= SH — identifiers
+:toc: left
+:toclevels: 3
+:sectanchors:
+
+Which column(s) each table and view of the `SH` schema maps as a Jakarta Persistence
+`@Id`, and which ones cannot map one at all.
+
+For a table the answer is usually declared: its `PRIMARY KEY` is the identifier, and the
+schema guarantees it for any data. For a view — and for the few tables that declare no key
+— there is nothing to read off the dictionary, so the answer has to be measured.
+
+Each `src/test/sql/<NAME>.sql` that needs measuring ends in a `CANDIDATE_KEYS` section
+holding the two queries the numbers below come from: a single-pass profile counting the
+rows, the non-nulls and the distinct values of every column, and a
+`GROUP BY ... HAVING COUNT(1) > 1` duplicate check on the candidate the profile suggests.
+A column is a single-column candidate when its `NOT_NULLS` and its `DISTINCTS` both equal
+`ROW_COUNT`.
+
+Measured against `db-sample-schemas` as installed by `docker-compose-up.sh`. A measured
+count describes the shipped data; only a key backed by a constraint, or by a view's own
+`GROUP BY`, is guaranteed to hold for any data.
+
+IMPORTANT: `sh_create.sql` builds `CAL_MONTH_SALES_MV` and `FWEEK_PSCAT_SALES_MV` before
+`sh_populate.sql` loads `SALES`, and never refreshes them, so both materialized views hold
+0 rows on a fresh install. Profiling them without a refresh reports every column as unique
+and not null, because every count is 0. Refresh first:
+
+[source,sql]
+----
+EXEC DBMS_MVIEW.REFRESH('SH.CAL_MONTH_SALES_MV', 'C');
+EXEC DBMS_MVIEW.REFRESH('SH.FWEEK_PSCAT_SALES_MV', 'C');
+----
+
+== Tables
+
+`SH` is the one schema of the three whose tables do not all declare a key: **`COSTS` and `SALES`
+declare no primary key and no unique constraint**, and carry only non-unique bitmap indexes on
+their dimension columns. Both are measured below; every other table is answered by its constraint.
+
+Where a composite identifier is mapped, it is mapped twice — once with an `@IdClass` and once with
+an `@EmbeddedId`, over one shared id class — as `CO.ORDER_ITEMS` and `HR.JOB_HISTORY` already are.
+Only the `@EmbeddedId` flavour of each pair is listed in `persistence.xml`; see `CLAUDE.md` for why
+the two may not both be.
+
+[cols="4,3,2,3",options="header"]
+|===
+| Table | `PRIMARY KEY` | `UNIQUE` | Mapped by
+
+| `CHANNELS`                   | `CHANNEL_ID` | — | `Channel`
+| `COSTS`                      | **none**     | **none** | `CostWithIdClass`, `CostWithEmbeddedId`
+| `COUNTRIES`                  | `COUNTRY_ID` | — | `Country`
+| `CUSTOMERS`                  | `CUST_ID`    | — | `Customer`
+| `PRODUCTS`                   | `PROD_ID`    | — | `Product`
+| `PROMOTIONS`                 | `PROMO_ID`   | — | `Promotion`
+| `SALES`                      | **none**     | **none** | `SaleWithIdClass`, `SaleWithEmbeddedId`
+| `SUPPLEMENTARY_DEMOGRAPHICS` | `CUST_ID`    | — | `SupplementaryDemographics`
+| `TIMES`                      | `TIME_ID`    | — | `Time`
+|===
+
+`SUPPLEMENTARY_DEMOGRAPHICS.CUST_ID` is both the primary key and a foreign key to
+`CUSTOMERS`, so it is a one-to-one extension rather than a table of its own.
+
+=== COSTS
+
+82,112 rows.
+
+[cols="3,2,2",options="header"]
+|===
+| Column | Non-nulls | Distincts
+| `UNIT_COST`  | 82112 | 5675
+| `UNIT_PRICE` | 82112 | 3609
+| `TIME_ID`    | 82112 | 1459
+| `PROD_ID`    | 82112 |   72
+| `CHANNEL_ID` | 82112 |    3
+| `PROMO_ID`   | 82112 |    3
+|===
+
+No single column is anywhere near unique. `(PROD_ID, TIME_ID, PROMO_ID, CHANNEL_ID)` has no
+duplicate groups and all four are `NOT NULL` — the grain the table is obviously meant to
+have, and the four columns `PROFITS` joins on.
+
+`CostWithIdClass` and `CostWithEmbeddedId` map it both ways over the shared `CostId`, each of the
+four columns carrying a read-only `@ManyToOne` to its dimension alongside the `@Id`.
+
+CAUTION: it is a measurement, not a constraint. Nothing in the schema stops a second cost row for
+the same product, day, promotion and channel from appearing, and the JPA identity built on those
+four columns would silently collapse the two. The mapping is as good as the data; it is not a key
+the database will defend.
+
+=== SALES
+
+918,843 rows.
+
+[cols="3,2,2",options="header"]
+|===
+| Column | Non-nulls | Distincts
+| `CUST_ID`       | 918843 | 7059
+| `AMOUNT_SOLD`   | 918843 | 3586
+| `TIME_ID`       | 918843 | 1459
+| `PROD_ID`       | 918843 |   72
+| `CHANNEL_ID`    | 918843 |    4
+| `PROMO_ID`      | 918843 |    4
+| `QUANTITY_SOLD` | 918843 |    1
+|===
+
+`(PROD_ID, CUST_ID, TIME_ID, CHANNEL_ID, PROMO_ID)` has no duplicate groups and all five are
+`NOT NULL`. `QUANTITY_SOLD` holds a single distinct value across the whole table.
+
+`SaleWithIdClass` and `SaleWithEmbeddedId` map it both ways over the shared `SaleId`.
+
+CAUTION: the same caveat as `COSTS`, and a sharper one: a second sale of the same product to the
+same customer on the same day through the same channel under the same promotion is an ordinary
+thing for a sales fact table to record, and nothing here forbids it.
+
+== Views
+
+None of the three declares anything, so all three were measured.
+
+[cols="3,4,2,4",options="header"]
+|===
+| View | Narrowest unique column(s) | `@Id`? | Why
+
+| `PROFITS`
+| `CHANNEL_ID`, `CUST_ID`, `PROD_ID`, `PROMO_ID`, `TIME_ID`
+| composite, by data only
+| `SALES`' grain, carried through the join to `COSTS` — but no base table declares it. Mapped by
+  `ProfitsWithIdClass` and `ProfitsWithEmbeddedId`.
+
+| `CAL_MONTH_SALES_MV`
+| `CALENDAR_MONTH_DESC`
+| yes, single
+| the materialized query's `GROUP BY` key. Mapped by `CalMonthSalesMv`.
+
+| `FWEEK_PSCAT_SALES_MV`
+| `WEEK_ENDING_DAY`, `PROD_SUBCATEGORY`, `CHANNEL_ID`, `PROMO_ID`
+| yes, composite
+| the materialized query's whole `GROUP BY` key; all four are `NOT NULL`. Mapped by
+  `FweekPscatSalesMvWithIdClass` and `FweekPscatSalesMvWithEmbeddedId`.
+|===
+
+=== PROFITS
+
+916,039 rows: the 918,843 rows of `SALES`, less the 2,804 that find no matching `COSTS`
+row on `(PROD_ID, TIME_ID, CHANNEL_ID, PROMO_ID)`.
+
+[cols="3,2,2",options="header"]
+|===
+| Column | Non-nulls | Distincts
+| `CUST_ID`       | 916039 | 6119
+| `TOTAL_COST`    | 916039 | 5675
+| `UNIT_COST`     | 916039 | 5675
+| `UNIT_PRICE`    | 916039 | 3609
+| `AMOUNT_SOLD`   | 916039 | 3581
+| `TIME_ID`       | 916039 | 1459
+| `PROD_ID`       | 916039 |   72
+| `CHANNEL_ID`    | 916039 |    3
+| `PROMO_ID`      | 916039 |    3
+| `QUANTITY_SOLD` | 916039 |    1
+|===
+
+The five foreign-key columns `(CHANNEL_ID, CUST_ID, PROD_ID, PROMO_ID, TIME_ID)` have no
+duplicate groups and are all `NOT NULL` — the grain of `SALES`, preserved because `COSTS`
+holds at most one row per `(PROD_ID, TIME_ID, CHANNEL_ID, PROMO_ID)`.
+
+CAUTION: both of those facts inherit the `COSTS` and `SALES` problem above — they are measurements
+of the shipped data, not constraints. `ProfitsWithIdClass` and `ProfitsWithEmbeddedId` map it over
+`ProfitsId` on that basis, and every column is read-only: it is a view.
+
+=== CAL_MONTH_SALES_MV
+
+48 rows, after a refresh.
+
+[cols="3,2,2",options="header"]
+|===
+| Column | Non-nulls | Distincts
+| `CALENDAR_MONTH_DESC` | 48 | 48
+| `DOLLARS`             | 48 | 48
+|===
+
+`CALENDAR_MONTH_DESC` is the `@Id` of `CalMonthSalesMv`: the materialized query groups by it, so one
+row per month is structural — the one identifier in this schema that holds without a constraint
+behind it.
+
+`DOLLARS` profiles as unique as well — 48 monthly sums that happen not to collide — but it
+is the aggregate, not the key.
+
+=== FWEEK_PSCAT_SALES_MV
+
+10,512 rows, after a refresh.
+
+[cols="3,2,2",options="header"]
+|===
+| Column | Non-nulls | Distincts
+| `DOLLARS`          | 10512 | 10080
+| `WEEK_ENDING_DAY`  | 10512 |   209
+| `PROD_SUBCATEGORY` | 10512 |    19
+| `CHANNEL_ID`       | 10512 |     4
+| `PROMO_ID`         | 10512 |     4
+|===
+
+`(WEEK_ENDING_DAY, PROD_SUBCATEGORY, CHANNEL_ID, PROMO_ID)` is the materialized query's whole
+`GROUP BY` list and every one of the four is `NOT NULL` — a composite identifier, mapped both ways
+by `FweekPscatSalesMvWithIdClass` and `FweekPscatSalesMvWithEmbeddedId` over the shared
+`FweekPscatSalesMvId`. `DOLLARS` is the aggregate.

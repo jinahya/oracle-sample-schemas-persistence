@@ -28,3 +28,37 @@
 -- ----------------------------------------------------------------------------------------------------------- UNIT_COST
 
 -- ---------------------------------------------------------------------------------------------------------- UNIT_PRICE
+
+-- ------------------------------------------------------------------------------------------------------ CANDIDATE_KEYS
+-- the narrowest NOT NULL and unique column(s) this table could map as a JPA @Id -- it declares none.
+-- results: ../../../doc/IDs.asciidoc
+
+-- how many rows does the table hold, and how many non-null / distinct values does each column hold?
+-- a single-column candidate is one whose NOT_NULLS and DISTINCTS both equal ROW_COUNT.
+SELECT COLUMN_NAME, ROW_COUNT, NOT_NULLS, DISTINCTS
+FROM (SELECT COUNT(1) ROW_COUNT,
+             COUNT(PROD_ID)    NN_PROD_ID,    COUNT(DISTINCT PROD_ID)    DC_PROD_ID,
+             COUNT(TIME_ID)    NN_TIME_ID,    COUNT(DISTINCT TIME_ID)    DC_TIME_ID,
+             COUNT(PROMO_ID)   NN_PROMO_ID,   COUNT(DISTINCT PROMO_ID)   DC_PROMO_ID,
+             COUNT(CHANNEL_ID) NN_CHANNEL_ID, COUNT(DISTINCT CHANNEL_ID) DC_CHANNEL_ID,
+             COUNT(UNIT_COST)  NN_UNIT_COST,  COUNT(DISTINCT UNIT_COST)  DC_UNIT_COST,
+             COUNT(UNIT_PRICE) NN_UNIT_PRICE, COUNT(DISTINCT UNIT_PRICE) DC_UNIT_PRICE
+      FROM COSTS)
+UNPIVOT ((NOT_NULLS, DISTINCTS) FOR COLUMN_NAME IN (
+    (NN_PROD_ID,    DC_PROD_ID   ) AS 'PROD_ID',
+    (NN_TIME_ID,    DC_TIME_ID   ) AS 'TIME_ID',
+    (NN_PROMO_ID,   DC_PROMO_ID  ) AS 'PROMO_ID',
+    (NN_CHANNEL_ID, DC_CHANNEL_ID) AS 'CHANNEL_ID',
+    (NN_UNIT_COST,  DC_UNIT_COST ) AS 'UNIT_COST',
+    (NN_UNIT_PRICE, DC_UNIT_PRICE) AS 'UNIT_PRICE'
+))
+ORDER BY DISTINCTS DESC, COLUMN_NAME
+;
+
+-- the table declares no primary key, and no single column is unique; no rows here means
+-- the four dimension columns identify a row in the shipped data.
+SELECT PROD_ID, TIME_ID, PROMO_ID, CHANNEL_ID, COUNT(1) c
+FROM COSTS
+GROUP BY PROD_ID, TIME_ID, PROMO_ID, CHANNEL_ID
+HAVING COUNT(1) > 1
+;

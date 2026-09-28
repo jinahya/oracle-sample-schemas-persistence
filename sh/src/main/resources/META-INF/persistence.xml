@@ -37,6 +37,31 @@
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Promotion</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SupplementaryDemographics</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Time</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CalMonthSalesMv</class>
+    <!-- CostWithEmbeddedId and CostWithIdClass map COSTS, two ways; only one may be listed.
+         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
+         metamodel then throws from getIdClassAttributes(). -->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CostId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CostWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CostWithIdClass</class>-->
+    <!-- FweekPscatSalesMvWithEmbeddedId and FweekPscatSalesMvWithIdClass map FWEEK_PSCAT_SALES_MV, two ways; only one may be listed.
+         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
+         metamodel then throws from getIdClassAttributes(). -->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvWithIdClass</class>-->
+    <!-- ProfitsWithEmbeddedId and ProfitsWithIdClass map PROFITS, two ways; only one may be listed.
+         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
+         metamodel then throws from getIdClassAttributes(). -->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsWithIdClass</class>-->
+    <!-- SaleWithEmbeddedId and SaleWithIdClass map SALES, two ways; only one may be listed.
+         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
+         metamodel then throws from getIdClassAttributes(). -->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SaleId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SaleWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SaleWithIdClass</class>-->
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
@@ -78,6 +103,31 @@
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Promotion</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SupplementaryDemographics</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Time</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CalMonthSalesMv</class>
+    <!-- CostWithEmbeddedId and CostWithIdClass map COSTS, two ways; only one may be listed.
+         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
+         metamodel then throws from getIdClassAttributes(). -->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CostId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CostWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CostWithIdClass</class>-->
+    <!-- FweekPscatSalesMvWithEmbeddedId and FweekPscatSalesMvWithIdClass map FWEEK_PSCAT_SALES_MV, two ways; only one may be listed.
+         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
+         metamodel then throws from getIdClassAttributes(). -->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvWithIdClass</class>-->
+    <!-- ProfitsWithEmbeddedId and ProfitsWithIdClass map PROFITS, two ways; only one may be listed.
+         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
+         metamodel then throws from getIdClassAttributes(). -->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsWithIdClass</class>-->
+    <!-- SaleWithEmbeddedId and SaleWithIdClass map SALES, two ways; only one may be listed.
+         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
+         metamodel then throws from getIdClassAttributes(). -->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SaleId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SaleWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SaleWithIdClass</class>-->
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>

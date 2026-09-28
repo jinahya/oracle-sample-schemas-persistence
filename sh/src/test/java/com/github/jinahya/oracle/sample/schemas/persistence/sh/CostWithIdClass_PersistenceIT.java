@@ -20,28 +20,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
-import org.junit.jupiter.api.Test;
-
 /**
- * A class for testing the {@link FweekPscatSalesMv} class.
+ * Verifies the mappings of {@link CostWithIdClass} against the installed {@code SH} schema.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class FweekPscatSalesMv_Test extends _Test<FweekPscatSalesMv> {
+class CostWithIdClass_PersistenceIT extends _Persistence_IT<CostWithIdClass> {
 
-    FweekPscatSalesMv_Test() {
-        super(FweekPscatSalesMv.class);
-    }
-
-    // ------------------------------------------------------------------------------------------------- equals/hashCode
-
-    /**
-     * Does nothing; {@link FweekPscatSalesMv} declares no {@code equals(Object)}, so there is no value equality to verify.
-     */
-    @Override
-    @Test
-    protected void equals_verify_() {
-        // empty
+    CostWithIdClass_PersistenceIT() {
+        super(CostWithIdClass.class);
     }
 }

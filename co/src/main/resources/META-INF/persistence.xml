@@ -41,6 +41,13 @@
     <class>com.github.jinahya.oracle.sample.schemas.co.Product</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Shipment</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Store</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.CustomerOrderProducts</class>
+    <!-- ProductOrdersWithEmbeddedId and ProductOrdersWithIdClass map PRODUCT_ORDERS, two ways; only one may be listed.
+         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
+         metamodel then throws from getIdClassAttributes(). -->
+    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersWithIdClass</class>-->
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
@@ -87,6 +94,13 @@
     <class>com.github.jinahya.oracle.sample.schemas.co.Shipment</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Store</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.StoreLogo</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.CustomerOrderProducts</class>
+    <!-- ProductOrdersWithEmbeddedId and ProductOrdersWithIdClass map PRODUCT_ORDERS, two ways; only one may be listed.
+         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
+         metamodel then throws from getIdClassAttributes(). -->
+    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersWithIdClass</class>-->
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
