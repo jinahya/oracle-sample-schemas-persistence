@@ -38,8 +38,8 @@ class CalMonthSalesMv_PersistenceTest extends _Persistence_Test<CalMonthSalesMv>
 
     /**
      * Does nothing; {@value CalMonthSalesMv#TABLE_NAME} is a materialized view, so there is nothing to insert a
-     * randomized instance into. The provider generates a table for it into the in-memory database,
-     * which would make this pass for the wrong reason, and the real object is read-only.
+     * randomized instance into. The provider generates a table for it into the in-memory database, which would make
+     * this pass for the wrong reason, and the real object is read-only.
      */
     @Disabled("a materialized view: nothing is inserted into it")
     @Override

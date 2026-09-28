@@ -21,13 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  */
 
 import com.github.jinahya.persistence.test.util.__Persister;
-import com.github.jinahya.persistence.test.util.__Randomizer;
 import jakarta.persistence.EntityManager;
-import uk.co.jemos.podam.api.ClassInfoStrategy;
-import uk.co.jemos.podam.api.DataProviderStrategy;
-import uk.co.jemos.podam.api.PodamFactory;
-
-import java.util.List;
 
 class Customer_Persister extends __Persister<Customer> {
 

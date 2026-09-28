@@ -40,8 +40,8 @@ class ProductOrdersId_Test extends _Test<ProductOrdersId> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link ProductOrdersId#equals(Object) equals} compares
-     * only the {@code @Id}, because every other attribute is mutable state.
+     * @implNote {@link ProductOrdersId#equals(Object) equals} compares only the {@code @Id}, because every other
+     * attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<ProductOrdersId> equals_verifier_() {

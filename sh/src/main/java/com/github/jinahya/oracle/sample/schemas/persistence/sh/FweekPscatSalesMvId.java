@@ -24,6 +24,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -44,8 +45,7 @@ public class FweekPscatSalesMvId {
 
     /**
      * The name of the attribute which maps the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_WEEK_ENDING_DAY}
-     * column. The value
-     * is {@value}.
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_WEEK_ENDING_DAY = "weekEndingDay";
 
@@ -53,8 +53,7 @@ public class FweekPscatSalesMvId {
 
     /**
      * The name of the attribute which maps the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_PROD_SUBCATEGORY}
-     * column. The value
-     * is {@value}.
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_SUBCATEGORY = "prodSubcategory";
 
@@ -62,8 +61,7 @@ public class FweekPscatSalesMvId {
 
     /**
      * The name of the attribute which maps the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column.
-     * The value
-     * is {@value}.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
@@ -71,8 +69,7 @@ public class FweekPscatSalesMvId {
 
     /**
      * The name of the attribute which maps the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_PROMO_ID} column.
-     * The value
-     * is {@value}.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
@@ -88,10 +85,10 @@ public class FweekPscatSalesMvId {
     /**
      * Creates a new instance with the specified column values.
      *
-     * @param weekEndingDay the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_WEEK_ENDING_DAY} column value.
+     * @param weekEndingDay   the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_WEEK_ENDING_DAY} column value.
      * @param prodSubcategory the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_PROD_SUBCATEGORY} column value.
-     * @param channelId the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column value.
-     * @param promoId the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_PROMO_ID} column value.
+     * @param channelId       the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column value.
+     * @param promoId         the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_PROMO_ID} column value.
      */
     public FweekPscatSalesMvId(final LocalDate weekEndingDay,
                                final String prodSubcategory,
@@ -243,5 +240,4 @@ public class FweekPscatSalesMvId {
             insertable = true,
             updatable = false)
     private Integer promoId;
-
 }

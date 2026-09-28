@@ -24,15 +24,16 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
 import java.math.BigDecimal;
 
 /**
  * A class for the {@value ProductReviews#TABLE_NAME} view.
  * <p>
- * No column, and no combination of columns, identifies a row of this view: the narrowest unique
- * combination is {@code (PRODUCT_NAME, REVIEW)}, and {@code REVIEW} is nullable and 4000 characters
- * wide. So this is not an {@link jakarta.persistence.Entity @Entity}: the columns it projects are
- * written out here, and every one of them is read-only. See {@code doc/IDs.asciidoc}.
+ * No column, and no combination of columns, identifies a row of this view: the narrowest unique combination is
+ * {@code (PRODUCT_NAME, REVIEW)}, and {@code REVIEW} is nullable and 4000 characters wide. So this is not an
+ * {@link jakarta.persistence.Entity @Entity}: the columns it projects are written out here, and every one of them is
+ * read-only. See {@code doc/IDs.asciidoc}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -244,5 +245,4 @@ public class ProductReviews {
             updatable = false,
             length = COLUMN_LENGTH_REVIEW)
     private String review;
-
 }

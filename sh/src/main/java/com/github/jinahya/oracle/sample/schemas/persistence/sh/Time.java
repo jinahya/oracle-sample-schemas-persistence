@@ -99,7 +99,8 @@ public class Time {
     public static final String COLUMN_NAME_DAY_NUMBER_IN_MONTH = "DAY_NUMBER_IN_MONTH";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DAY_NUMBER_IN_MONTH} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DAY_NUMBER_IN_MONTH} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH = "dayNumberInMonth";
 
@@ -111,7 +112,8 @@ public class Time {
     public static final String COLUMN_NAME_CALENDAR_WEEK_NUMBER = "CALENDAR_WEEK_NUMBER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_WEEK_NUMBER} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_WEEK_NUMBER} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER = "calendarWeekNumber";
 
@@ -159,7 +161,8 @@ public class Time {
     public static final String COLUMN_NAME_CALENDAR_MONTH_NUMBER = "CALENDAR_MONTH_NUMBER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_NUMBER} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_NUMBER} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER = "calendarMonthNumber";
 
@@ -171,7 +174,8 @@ public class Time {
     public static final String COLUMN_NAME_FISCAL_MONTH_NUMBER = "FISCAL_MONTH_NUMBER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_MONTH_NUMBER} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_MONTH_NUMBER} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER = "fiscalMonthNumber";
 
@@ -188,7 +192,8 @@ public class Time {
     public static final int COLUMN_LENGTH_CALENDAR_MONTH_DESC = 8;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_DESC} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_DESC} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_MONTH_DESC = "calendarMonthDesc";
 
@@ -304,7 +309,8 @@ public class Time {
     public static final int COLUMN_LENGTH_CALENDAR_MONTH_NAME = 9;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_NAME} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_MONTH_NAME = "calendarMonthName";
 
@@ -348,7 +354,8 @@ public class Time {
     public static final int COLUMN_LENGTH_CALENDAR_QUARTER_DESC = 7;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_QUARTER_DESC} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_QUARTER_DESC} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_QUARTER_DESC = "calendarQuarterDesc";
 
@@ -365,7 +372,8 @@ public class Time {
     public static final String COLUMN_NAME_CALENDAR_QUARTER_ID = "CALENDAR_QUARTER_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_QUARTER_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_QUARTER_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_QUARTER_ID = "calendarQuarterId";
 
@@ -382,7 +390,8 @@ public class Time {
     public static final int COLUMN_LENGTH_FISCAL_QUARTER_DESC = 7;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_QUARTER_DESC} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_QUARTER_DESC} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_FISCAL_QUARTER_DESC = "fiscalQuarterDesc";
 
@@ -411,7 +420,8 @@ public class Time {
     public static final String COLUMN_NAME_DAYS_IN_CAL_QUARTER = "DAYS_IN_CAL_QUARTER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DAYS_IN_CAL_QUARTER} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DAYS_IN_CAL_QUARTER} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_DAYS_IN_CAL_QUARTER = "daysInCalQuarter";
 
@@ -423,7 +433,8 @@ public class Time {
     public static final String COLUMN_NAME_DAYS_IN_FIS_QUARTER = "DAYS_IN_FIS_QUARTER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DAYS_IN_FIS_QUARTER} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DAYS_IN_FIS_QUARTER} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_DAYS_IN_FIS_QUARTER = "daysInFisQuarter";
 
@@ -459,7 +470,8 @@ public class Time {
     public static final String COLUMN_NAME_CALENDAR_QUARTER_NUMBER = "CALENDAR_QUARTER_NUMBER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_QUARTER_NUMBER} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_QUARTER_NUMBER} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER = "calendarQuarterNumber";
 
@@ -471,7 +483,8 @@ public class Time {
     public static final String COLUMN_NAME_FISCAL_QUARTER_NUMBER = "FISCAL_QUARTER_NUMBER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_QUARTER_NUMBER} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_QUARTER_NUMBER} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER = "fiscalQuarterNumber";
 

@@ -110,7 +110,8 @@ public class Promotion {
     public static final String COLUMN_NAME_PROMO_SUBCATEGORY_ID = "PROMO_SUBCATEGORY_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_SUBCATEGORY_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_SUBCATEGORY_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_SUBCATEGORY_ID = "promoSubcategoryId";
 

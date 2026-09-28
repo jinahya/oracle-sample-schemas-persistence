@@ -40,8 +40,8 @@ class Shipment_Test extends _Test<Shipment> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Shipment#equals(Object) equals} compares only the {@code @Id}
-     * {@code shipmentId} -- the surrogate key -- because every other attribute is mutable state.
+     * @implNote {@link Shipment#equals(Object) equals} compares only the {@code @Id} {@code shipmentId} -- the
+     * surrogate key -- because every other attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<Shipment> equals_verifier_() {

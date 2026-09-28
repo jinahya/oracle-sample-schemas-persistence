@@ -27,6 +27,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -34,8 +35,7 @@ import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value ProfitsWithIdClass#TABLE_NAME} view, whose composite primary key is mapped
- * with an
- * {@link jakarta.persistence.IdClass @IdClass}.
+ * with an {@link jakarta.persistence.IdClass @IdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see ProfitsWithEmbeddedId
@@ -90,7 +90,8 @@ public class ProfitsWithIdClass {
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
 
@@ -588,5 +589,4 @@ public class ProfitsWithIdClass {
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_TOTAL_COST, nullable = true, insertable = false, updatable = false)
     private BigDecimal totalCost;
-
 }

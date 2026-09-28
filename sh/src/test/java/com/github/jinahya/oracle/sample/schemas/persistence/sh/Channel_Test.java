@@ -40,8 +40,8 @@ class Channel_Test extends _Test<Channel> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Channel#equals(Object) equals} compares only the {@code @Id} -- the surrogate key -- because every
-     * other attribute is mutable state.
+     * @implNote {@link Channel#equals(Object) equals} compares only the {@code @Id} -- the surrogate key -- because
+     * every other attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<Channel> equals_verifier_() {

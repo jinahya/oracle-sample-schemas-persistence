@@ -24,6 +24,7 @@ import com.github.jinahya.persistence.test.util.__Randomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
+
 import java.util.List;
 
 class CostWithIdClass_Randomizer extends __Randomizer.___OfPodam<CostWithIdClass> {
@@ -54,5 +55,4 @@ class CostWithIdClass_Randomizer extends __Randomizer.___OfPodam<CostWithIdClass
     public CostWithIdClass get() {
         return super.get();
     }
-
 }

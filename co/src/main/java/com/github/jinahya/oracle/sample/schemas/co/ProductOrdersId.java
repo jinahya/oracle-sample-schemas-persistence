@@ -24,6 +24,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.Size;
+
 import java.util.Objects;
 
 /**
@@ -43,8 +44,7 @@ public class ProductOrdersId {
 
     /**
      * The name of the attribute which maps the {@value ProductOrdersWithEmbeddedId#COLUMN_NAME_PRODUCT_NAME} column.
-     * The value
-     * is {@value}.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_NAME = "productName";
 
@@ -52,8 +52,7 @@ public class ProductOrdersId {
 
     /**
      * The name of the attribute which maps the {@value ProductOrdersWithEmbeddedId#COLUMN_NAME_ORDER_STATUS} column.
-     * The value
-     * is {@value}.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
 
@@ -161,5 +160,4 @@ public class ProductOrdersId {
             updatable = false,
             length = ProductOrdersWithEmbeddedId.COLUMN_LENGTH_ORDER_STATUS)
     private String orderStatus;
-
 }

@@ -30,6 +30,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -37,11 +38,10 @@ import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value CostWithEmbeddedId#TABLE_NAME} table, whose composite primary key is mapped
- * with an
- * {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
+ * with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  * <p>
- * The table declares no primary key; the four dimension columns are its grain, and the
- * {@code CANDIDATE_KEYS} section of {@code src/test/sql/COSTS.sql} is what measured them.
+ * The table declares no primary key; the four dimension columns are its grain, and the {@code CANDIDATE_KEYS} section
+ * of {@code src/test/sql/COSTS.sql} is what measured them.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see CostWithIdClass
@@ -58,7 +58,8 @@ public class CostWithEmbeddedId {
     // --------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_ID = "PROD_ID";
 
@@ -74,16 +75,17 @@ public class CostWithEmbeddedId {
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column -- a path
-     * into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
-     * actually lives. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID_PROD_ID = "id.prodId";
 
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_TIME_ID = "TIME_ID";
 
@@ -99,9 +101,9 @@ public class CostWithEmbeddedId {
     public static final String ATTRIBUTE_NAME_TIME = "time";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column -- a path
-     * into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
-     * actually lives. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID_TIME_ID = "id.timeId";
 
@@ -125,9 +127,9 @@ public class CostWithEmbeddedId {
     public static final String ATTRIBUTE_NAME_PROMOTION = "promotion";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column -- a path
-     * into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
-     * actually lives. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID_PROMO_ID = "id.promoId";
 
@@ -151,9 +153,9 @@ public class CostWithEmbeddedId {
     public static final String ATTRIBUTE_NAME_CHANNEL = "channel";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column -- a path
-     * into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
-     * actually lives. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID_CHANNEL_ID = "id.channelId";
 
@@ -287,8 +289,7 @@ public class CostWithEmbeddedId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute with the specified
-     * value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute with the specified value.
      *
      * @param prodId new value for {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
      */
@@ -311,8 +312,7 @@ public class CostWithEmbeddedId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute with the specified
-     * value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute with the specified value.
      *
      * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
@@ -335,8 +335,7 @@ public class CostWithEmbeddedId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified
-     * value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified value.
      *
      * @param promoId new value for {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
      */
@@ -359,8 +358,7 @@ public class CostWithEmbeddedId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified
-     * value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified value.
      *
      * @param channelId new value for {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
      */
@@ -485,5 +483,4 @@ public class CostWithEmbeddedId {
             precision = COLUMN_PRECISION_UNIT_PRICE,
             scale = COLUMN_SCALE_UNIT_PRICE)
     private BigDecimal unitPrice;
-
 }

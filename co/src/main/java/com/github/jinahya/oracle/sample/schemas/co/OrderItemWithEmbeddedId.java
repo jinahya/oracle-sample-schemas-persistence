@@ -40,7 +40,6 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value OrderItemWithEmbeddedId#TABLE_NAME} table, whose composite primary key is

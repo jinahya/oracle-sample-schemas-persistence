@@ -21,8 +21,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  */
 
 import com.github.jinahya.persistence.test.util.__Persister;
-import jakarta.persistence.EntityManager;
 import com.github.jinahya.persistence.test.util.__PersisterUtils;
+import jakarta.persistence.EntityManager;
 
 class CostWithIdClass_Persister extends __Persister<CostWithIdClass> {
 
@@ -31,16 +31,17 @@ class CostWithIdClass_Persister extends __Persister<CostWithIdClass> {
     }
 
     // ---------------------------------------------------------------------------------------------------------------- 
+
     /**
      * {@inheritDoc}
      *
-     * @param entityManager {@inheritDoc}
+     * @param entityManager  {@inheritDoc}
      * @param entityInstance {@inheritDoc}
      * @return {@inheritDoc}
-     * @implNote Every column of the composite {@code @Id} is a foreign key, and the randomizer
-     * fills them with values no parent row carries. Each parent is persisted first, and its key
-     * copied in; the {@link jakarta.persistence.ManyToOne @ManyToOne} mappings alongside are
-     * read-only, so assigning the column is what makes the row insertable.
+     * @implNote Every column of the composite {@code @Id} is a foreign key, and the randomizer fills them with values
+     * no parent row carries. Each parent is persisted first, and its key copied in; the
+     * {@link jakarta.persistence.ManyToOne @ManyToOne} mappings alongside are read-only, so assigning the column is
+     * what makes the row insertable.
      */
     @Override
     public CostWithIdClass apply(final EntityManager entityManager, final CostWithIdClass entityInstance) {

@@ -39,9 +39,8 @@ class FweekPscatSalesMvWithEmbeddedId_PersistenceTest extends _Persistence_Test<
 
     /**
      * Does nothing; {@value FweekPscatSalesMvWithEmbeddedId#TABLE_NAME} is a materialized view, so there is nothing to
-     * insert a
-     * randomized instance into. The provider generates a table for it into the in-memory database,
-     * which would make this pass for the wrong reason, and the real object is read-only.
+     * insert a randomized instance into. The provider generates a table for it into the in-memory database, which would
+     * make this pass for the wrong reason, and the real object is read-only.
      */
     @Disabled("a materialized view: nothing is inserted into it")
     @Override

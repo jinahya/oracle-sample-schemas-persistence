@@ -40,8 +40,8 @@ class CostWithEmbeddedId_Test extends _Test<CostWithEmbeddedId> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link CostWithEmbeddedId#equals(Object) equals} compares
-     * only the {@code @Id}, because every other attribute is mutable state.
+     * @implNote {@link CostWithEmbeddedId#equals(Object) equals} compares only the {@code @Id}, because every other
+     * attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<CostWithEmbeddedId> equals_verifier_() {

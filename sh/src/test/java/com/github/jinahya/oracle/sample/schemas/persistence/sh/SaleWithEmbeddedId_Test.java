@@ -40,8 +40,8 @@ class SaleWithEmbeddedId_Test extends _Test<SaleWithEmbeddedId> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link SaleWithEmbeddedId#equals(Object) equals} compares
-     * only the {@code @Id}, because every other attribute is mutable state.
+     * @implNote {@link SaleWithEmbeddedId#equals(Object) equals} compares only the {@code @Id}, because every other
+     * attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<SaleWithEmbeddedId> equals_verifier_() {

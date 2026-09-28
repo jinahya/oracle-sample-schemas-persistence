@@ -74,7 +74,8 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_JOB_ID = "jobId";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_MANAGER_ID = "MANAGER_ID";
 
@@ -84,7 +85,8 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_MANAGER_ID = "managerId";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
 
@@ -94,7 +96,8 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_DEPARTMENT_ID = "departmentId";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_LOCATION_ID = "LOCATION_ID";
 
@@ -104,7 +107,8 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_LOCATION_ID = "locationId";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
 
@@ -114,7 +118,8 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_FIRST_NAME = "FIRST_NAME";
 
@@ -124,7 +129,8 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_FIRST_NAME = "firstName";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LAST_NAME} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LAST_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_LAST_NAME = "LAST_NAME";
 
@@ -144,7 +150,8 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_COMMISSION_PCT = "COMMISSION_PCT";
 
@@ -154,7 +161,8 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_COMMISSION_PCT = "commissionPct";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_DEPARTMENT_NAME = "DEPARTMENT_NAME";
 
@@ -164,7 +172,8 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_DEPARTMENT_NAME = "departmentName";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_JOB_TITLE = "JOB_TITLE";
 
@@ -184,7 +193,8 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_CITY = "city";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_STATE_PROVINCE = "STATE_PROVINCE";
 
@@ -194,7 +204,8 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_STATE_PROVINCE = "stateProvince";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_NAME = "COUNTRY_NAME";
 
@@ -204,7 +215,8 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_COUNTRY_NAME = "countryName";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_REGION_NAME = "REGION_NAME";
 
@@ -212,9 +224,10 @@ public class EmpDetailsView {
      * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_NAME} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_REGION_NAME = "regionName";
+
     /**
-     * The length of the {@value #COLUMN_NAME_JOB_ID} column, which the view projects from
-     * {@link Job}. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_JOB_ID} column, which the view projects from {@link Job}. The value is
+     * {@value}.
      */
     public static final int COLUMN_LENGTH_JOB_ID = Job.COLUMN_LENGTH_JOB_ID;
 
@@ -224,8 +237,8 @@ public class EmpDetailsView {
     public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
     /**
-     * The length of the {@value #COLUMN_NAME_COUNTRY_ID} column, which the view projects from
-     * {@link Country}. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_COUNTRY_ID} column, which the view projects from {@link Country}. The
+     * value is {@value}.
      */
     public static final int COLUMN_LENGTH_COUNTRY_ID = Country.COLUMN_LENGTH_COUNTRY_ID;
 
@@ -235,8 +248,8 @@ public class EmpDetailsView {
     public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
     /**
-     * The length of the {@value #COLUMN_NAME_FIRST_NAME} column, which the view projects from
-     * {@link Employee}. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_FIRST_NAME} column, which the view projects from {@link Employee}. The
+     * value is {@value}.
      */
     public static final int COLUMN_LENGTH_FIRST_NAME = Employee.COLUMN_LENGTH_FIRST_NAME;
 
@@ -246,8 +259,8 @@ public class EmpDetailsView {
     public static final int SIZE_MAX_FIRST_NAME = COLUMN_LENGTH_FIRST_NAME;
 
     /**
-     * The length of the {@value #COLUMN_NAME_LAST_NAME} column, which the view projects from
-     * {@link Employee}. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_LAST_NAME} column, which the view projects from {@link Employee}. The
+     * value is {@value}.
      */
     public static final int COLUMN_LENGTH_LAST_NAME = Employee.COLUMN_LENGTH_LAST_NAME;
 
@@ -257,8 +270,8 @@ public class EmpDetailsView {
     public static final int SIZE_MAX_LAST_NAME = COLUMN_LENGTH_LAST_NAME;
 
     /**
-     * The length of the {@value #COLUMN_NAME_DEPARTMENT_NAME} column, which the view projects from
-     * {@link Department}. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_DEPARTMENT_NAME} column, which the view projects from {@link Department}.
+     * The value is {@value}.
      */
     public static final int COLUMN_LENGTH_DEPARTMENT_NAME = Department.COLUMN_LENGTH_DEPARTMENT_NAME;
 
@@ -268,8 +281,8 @@ public class EmpDetailsView {
     public static final int SIZE_MAX_DEPARTMENT_NAME = COLUMN_LENGTH_DEPARTMENT_NAME;
 
     /**
-     * The length of the {@value #COLUMN_NAME_JOB_TITLE} column, which the view projects from
-     * {@link Job}. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_JOB_TITLE} column, which the view projects from {@link Job}. The value is
+     * {@value}.
      */
     public static final int COLUMN_LENGTH_JOB_TITLE = Job.COLUMN_LENGTH_JOB_TITLE;
 
@@ -279,8 +292,8 @@ public class EmpDetailsView {
     public static final int SIZE_MAX_JOB_TITLE = COLUMN_LENGTH_JOB_TITLE;
 
     /**
-     * The length of the {@value #COLUMN_NAME_CITY} column, which the view projects from
-     * {@link Location}. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_CITY} column, which the view projects from {@link Location}. The value is
+     * {@value}.
      */
     public static final int COLUMN_LENGTH_CITY = Location.COLUMN_LENGTH_CITY;
 
@@ -290,8 +303,8 @@ public class EmpDetailsView {
     public static final int SIZE_MAX_CITY = COLUMN_LENGTH_CITY;
 
     /**
-     * The length of the {@value #COLUMN_NAME_STATE_PROVINCE} column, which the view projects from
-     * {@link Location}. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_STATE_PROVINCE} column, which the view projects from {@link Location}. The
+     * value is {@value}.
      */
     public static final int COLUMN_LENGTH_STATE_PROVINCE = Location.COLUMN_LENGTH_STATE_PROVINCE;
 
@@ -301,8 +314,8 @@ public class EmpDetailsView {
     public static final int SIZE_MAX_STATE_PROVINCE = COLUMN_LENGTH_STATE_PROVINCE;
 
     /**
-     * The length of the {@value #COLUMN_NAME_COUNTRY_NAME} column, which the view projects from
-     * {@link Country}. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_COUNTRY_NAME} column, which the view projects from {@link Country}. The
+     * value is {@value}.
      */
     public static final int COLUMN_LENGTH_COUNTRY_NAME = Country.COLUMN_LENGTH_COUNTRY_NAME;
 
@@ -312,8 +325,8 @@ public class EmpDetailsView {
     public static final int SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
 
     /**
-     * The length of the {@value #COLUMN_NAME_REGION_NAME} column, which the view projects from
-     * {@link Region}. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_REGION_NAME} column, which the view projects from {@link Region}. The
+     * value is {@value}.
      */
     public static final int COLUMN_LENGTH_REGION_NAME = Region.COLUMN_LENGTH_REGION_NAME;
 
@@ -334,8 +347,8 @@ public class EmpDetailsView {
     public static final int COLUMN_SCALE_SALARY = Employee.COLUMN_SCALE_SALARY;
 
     /**
-     * The precision of the {@value #COLUMN_NAME_COMMISSION_PCT} column, which the view projects from
-     * {@link Employee}. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_COMMISSION_PCT} column, which the view projects from {@link Employee}.
+     * The value is {@value}.
      */
     public static final int COLUMN_PRECISION_COMMISSION_PCT = Employee.COLUMN_PRECISION_COMMISSION_PCT;
 
@@ -406,7 +419,8 @@ public class EmpDetailsView {
     @Nonnull
     @Basic(optional = false)
     @Size(max = SIZE_MAX_JOB_ID)
-    @Column(name = COLUMN_NAME_JOB_ID, nullable = false, insertable = false, updatable = false, length = COLUMN_LENGTH_JOB_ID)
+    @Column(name = COLUMN_NAME_JOB_ID, nullable = false, insertable = false, updatable = false,
+            length = COLUMN_LENGTH_JOB_ID)
     private String jobId;
 
     @jakarta.annotation.Nullable
@@ -425,56 +439,67 @@ public class EmpDetailsView {
 
     @Basic(optional = true)
     @Size(max = SIZE_MAX_COUNTRY_ID)
-    @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = true, insertable = false, updatable = false, length = COLUMN_LENGTH_COUNTRY_ID)
+    @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = true, insertable = false, updatable = false,
+            length = COLUMN_LENGTH_COUNTRY_ID)
     private String countryId;
 
     @Size(max = SIZE_MAX_FIRST_NAME)
-    @Column(name = COLUMN_NAME_FIRST_NAME, nullable = true, insertable = false, updatable = false, length = COLUMN_LENGTH_FIRST_NAME)
+    @Column(name = COLUMN_NAME_FIRST_NAME, nullable = true, insertable = false, updatable = false,
+            length = COLUMN_LENGTH_FIRST_NAME)
     private String firstName;
 
     @Basic(optional = false)
     @Size(max = SIZE_MAX_LAST_NAME)
-    @Column(name = COLUMN_NAME_LAST_NAME, nullable = false, insertable = false, updatable = false, length = COLUMN_LENGTH_LAST_NAME)
+    @Column(name = COLUMN_NAME_LAST_NAME, nullable = false, insertable = false, updatable = false,
+            length = COLUMN_LENGTH_LAST_NAME)
     private String lastName;
 
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_SALARY, nullable = true, insertable = false, updatable = false, precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY)
+    @Column(name = COLUMN_NAME_SALARY, nullable = true, insertable = false, updatable = false,
+            precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY)
     private BigDecimal salary;
 
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_COMMISSION_PCT, nullable = true, insertable = false, updatable = false, precision = COLUMN_PRECISION_COMMISSION_PCT, scale = COLUMN_SCALE_COMMISSION_PCT)
+    @Column(name = COLUMN_NAME_COMMISSION_PCT, nullable = true, insertable = false, updatable = false,
+            precision = COLUMN_PRECISION_COMMISSION_PCT, scale = COLUMN_SCALE_COMMISSION_PCT)
     private BigDecimal commissionPct;
 
     @Size(max = SIZE_MAX_DEPARTMENT_NAME)
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_DEPARTMENT_NAME, nullable = false, insertable = false, updatable = false, length = COLUMN_LENGTH_DEPARTMENT_NAME)
+    @Column(name = COLUMN_NAME_DEPARTMENT_NAME, nullable = false, insertable = false, updatable = false,
+            length = COLUMN_LENGTH_DEPARTMENT_NAME)
     private String departmentName;
 
     @Size(max = SIZE_MAX_JOB_TITLE)
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_JOB_TITLE, nullable = false, insertable = false, updatable = false, length = COLUMN_LENGTH_JOB_TITLE)
+    @Column(name = COLUMN_NAME_JOB_TITLE, nullable = false, insertable = false, updatable = false,
+            length = COLUMN_LENGTH_JOB_TITLE)
     private String jobTitle;
 
     @Size(max = SIZE_MAX_CITY)
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_CITY, nullable = false, insertable = false, updatable = false, length = COLUMN_LENGTH_CITY)
+    @Column(name = COLUMN_NAME_CITY, nullable = false, insertable = false, updatable = false,
+            length = COLUMN_LENGTH_CITY)
     private String city;
 
     @Size(max = SIZE_MAX_STATE_PROVINCE)
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_STATE_PROVINCE, nullable = true, insertable = false, updatable = false, length = COLUMN_LENGTH_STATE_PROVINCE)
+    @Column(name = COLUMN_NAME_STATE_PROVINCE, nullable = true, insertable = false, updatable = false,
+            length = COLUMN_LENGTH_STATE_PROVINCE)
     private String stateProvince;
 
     @Size(max = SIZE_MAX_COUNTRY_NAME)
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_COUNTRY_NAME, nullable = true, insertable = false, updatable = false, length = COLUMN_LENGTH_COUNTRY_NAME)
+    @Column(name = COLUMN_NAME_COUNTRY_NAME, nullable = true, insertable = false, updatable = false,
+            length = COLUMN_LENGTH_COUNTRY_NAME)
     private String countryName;
 
     @Size(max = SIZE_MAX_REGION_NAME)
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_REGION_NAME, nullable = true, insertable = false, updatable = false, length = COLUMN_LENGTH_REGION_NAME)
+    @Column(name = COLUMN_NAME_REGION_NAME, nullable = true, insertable = false, updatable = false,
+            length = COLUMN_LENGTH_REGION_NAME)
     private String regionName;
 }

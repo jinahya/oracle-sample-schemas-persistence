@@ -23,6 +23,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -42,40 +43,40 @@ public class SaleId {
     // --------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The name of the attribute which maps the {@value SaleWithEmbeddedId#COLUMN_NAME_PROD_ID} column. The value
-     * is {@value}.
+     * The name of the attribute which maps the {@value SaleWithEmbeddedId#COLUMN_NAME_PROD_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
     // --------------------------------------------------------------------------------------------------------- CUST_ID
 
     /**
-     * The name of the attribute which maps the {@value SaleWithEmbeddedId#COLUMN_NAME_CUST_ID} column. The value
-     * is {@value}.
+     * The name of the attribute which maps the {@value SaleWithEmbeddedId#COLUMN_NAME_CUST_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_ID = "custId";
 
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the attribute which maps the {@value SaleWithEmbeddedId#COLUMN_NAME_TIME_ID} column. The value
-     * is {@value}.
+     * The name of the attribute which maps the {@value SaleWithEmbeddedId#COLUMN_NAME_TIME_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
-     * The name of the attribute which maps the {@value SaleWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column. The value
-     * is {@value}.
+     * The name of the attribute which maps the {@value SaleWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the attribute which maps the {@value SaleWithEmbeddedId#COLUMN_NAME_PROMO_ID} column. The value
-     * is {@value}.
+     * The name of the attribute which maps the {@value SaleWithEmbeddedId#COLUMN_NAME_PROMO_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
@@ -91,11 +92,11 @@ public class SaleId {
     /**
      * Creates a new instance with the specified column values.
      *
-     * @param prodId the {@value SaleWithEmbeddedId#COLUMN_NAME_PROD_ID} column value.
-     * @param custId the {@value SaleWithEmbeddedId#COLUMN_NAME_CUST_ID} column value.
-     * @param timeId the {@value SaleWithEmbeddedId#COLUMN_NAME_TIME_ID} column value.
+     * @param prodId    the {@value SaleWithEmbeddedId#COLUMN_NAME_PROD_ID} column value.
+     * @param custId    the {@value SaleWithEmbeddedId#COLUMN_NAME_CUST_ID} column value.
+     * @param timeId    the {@value SaleWithEmbeddedId#COLUMN_NAME_TIME_ID} column value.
      * @param channelId the {@value SaleWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column value.
-     * @param promoId the {@value SaleWithEmbeddedId#COLUMN_NAME_PROMO_ID} column value.
+     * @param promoId   the {@value SaleWithEmbeddedId#COLUMN_NAME_PROMO_ID} column value.
      */
     public SaleId(final Integer prodId,
                   final Long custId,
@@ -261,5 +262,4 @@ public class SaleId {
     @Basic(optional = false)
     @Column(name = SaleWithEmbeddedId.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
     private Integer promoId;
-
 }

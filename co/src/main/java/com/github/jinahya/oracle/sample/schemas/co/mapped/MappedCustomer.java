@@ -20,8 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.co.mapped;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.co.Order;
-import com.github.jinahya.oracle.sample.schemas.co.Shipment;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;

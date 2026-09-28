@@ -40,8 +40,8 @@ class Product_Test extends _Test<Product> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Product#equals(Object) equals} compares only the {@code @Id} -- the surrogate key -- because every
-     * other attribute is mutable state.
+     * @implNote {@link Product#equals(Object) equals} compares only the {@code @Id} -- the surrogate key -- because
+     * every other attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<Product> equals_verifier_() {

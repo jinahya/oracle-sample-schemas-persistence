@@ -159,6 +159,7 @@ public class Country {
      * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_TOTAL_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_TOTAL_ID = "countryTotalId";
+
     /**
      * The length of the {@value #COLUMN_NAME_COUNTRY_NAME} column. The value is {@value}.
      */

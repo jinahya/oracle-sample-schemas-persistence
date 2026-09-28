@@ -31,7 +31,8 @@ class SupplementaryDemographics_Persister extends __Persister<SupplementaryDemog
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public SupplementaryDemographics apply(final EntityManager entityManager, final SupplementaryDemographics entityInstance) {
+    public SupplementaryDemographics apply(final EntityManager entityManager,
+                                           final SupplementaryDemographics entityInstance) {
         return super.apply(entityManager, entityInstance);
     }
 }

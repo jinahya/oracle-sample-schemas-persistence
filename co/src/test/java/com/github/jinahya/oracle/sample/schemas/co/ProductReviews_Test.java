@@ -37,8 +37,8 @@ class ProductReviews_Test extends _Test<ProductReviews> {
     // ------------------------------------------------------------------------------------------------- equals/hashCode
 
     /**
-     * Does nothing; {@link ProductReviews} declares no {@code equals(Object)}, so there is no value
-     * equality to verify.
+     * Does nothing; {@link ProductReviews} declares no {@code equals(Object)}, so there is no value equality to
+     * verify.
      */
     @Override
     @Test

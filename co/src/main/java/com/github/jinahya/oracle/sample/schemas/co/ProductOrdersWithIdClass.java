@@ -28,14 +28,14 @@ import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value ProductOrdersWithIdClass#TABLE_NAME} view, whose composite primary key is
- * mapped with an
- * {@link jakarta.persistence.IdClass @IdClass}.
+ * mapped with an {@link jakarta.persistence.IdClass @IdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see ProductOrdersWithEmbeddedId
@@ -315,5 +315,4 @@ public class ProductOrdersWithIdClass {
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_ORDER_COUNT, nullable = true, insertable = false, updatable = false)
     private Long orderCount;
-
 }

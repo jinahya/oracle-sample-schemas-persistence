@@ -30,9 +30,9 @@ import org.jboss.weld.junit5.auto.EnableAutoWeld;
  *
  * @param <T> the type of the entity under test.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @apiNote This class exists to name the module's producer: the container annotations have to sit where the producer
- * is known, and {@link __Persistence_IT} is shared by every module. Everything a subclass uses is inherited from
- * there; this adds nothing but the wiring.
+ * @apiNote This class exists to name the module's producer: the container annotations have to sit where the producer is
+ * known, and {@link __Persistence_IT} is shared by every module. Everything a subclass uses is inherited from there;
+ * this adds nothing but the wiring.
  */
 @AddBeanClasses(_Persistence_IT_Producer.class)
 @EnableAutoWeld

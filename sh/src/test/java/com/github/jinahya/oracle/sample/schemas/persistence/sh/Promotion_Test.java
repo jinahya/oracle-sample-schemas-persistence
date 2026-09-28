@@ -40,8 +40,8 @@ class Promotion_Test extends _Test<Promotion> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Promotion#equals(Object) equals} compares only the {@code @Id} -- the surrogate key -- because every
-     * other attribute is mutable state.
+     * @implNote {@link Promotion#equals(Object) equals} compares only the {@code @Id} -- the surrogate key -- because
+     * every other attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<Promotion> equals_verifier_() {

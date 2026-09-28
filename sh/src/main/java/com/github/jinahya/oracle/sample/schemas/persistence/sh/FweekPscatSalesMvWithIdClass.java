@@ -28,6 +28,7 @@ import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -35,8 +36,7 @@ import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value FweekPscatSalesMvWithIdClass#TABLE_NAME} materialized view, whose composite
- * primary key is mapped with an
- * {@link jakarta.persistence.IdClass @IdClass}.
+ * primary key is mapped with an {@link jakarta.persistence.IdClass @IdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see FweekPscatSalesMvWithEmbeddedId
@@ -359,5 +359,4 @@ public class FweekPscatSalesMvWithIdClass {
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_DOLLARS, nullable = true, insertable = false, updatable = false)
     private BigDecimal dollars;
-
 }

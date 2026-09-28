@@ -40,8 +40,8 @@ class Order_Test extends _Test<Order> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Order#equals(Object) equals} compares only the {@code @Id}
-     * {@code orderId} -- the surrogate key -- because every other attribute is mutable state.
+     * @implNote {@link Order#equals(Object) equals} compares only the {@code @Id} {@code orderId} -- the surrogate key
+     * -- because every other attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<Order> equals_verifier_() {

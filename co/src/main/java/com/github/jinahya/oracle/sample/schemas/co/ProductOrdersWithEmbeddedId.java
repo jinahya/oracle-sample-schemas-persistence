@@ -27,14 +27,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value ProductOrdersWithEmbeddedId#TABLE_NAME} view, whose composite primary key is
- * mapped with an
- * {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
+ * mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see ProductOrdersWithIdClass
@@ -72,9 +72,9 @@ public class ProductOrdersWithEmbeddedId {
     public static final String ATTRIBUTE_NAME_PRODUCT_NAME = "productName";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_NAME} column -- a path
-     * into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
-     * actually lives. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_NAME} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID_PRODUCT_NAME = "id.productName";
 
@@ -102,9 +102,9 @@ public class ProductOrdersWithEmbeddedId {
     public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_STATUS} column -- a path
-     * into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
-     * actually lives. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_STATUS} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID_ORDER_STATUS = "id.orderStatus";
 
@@ -218,8 +218,7 @@ public class ProductOrdersWithEmbeddedId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute with the specified
-     * value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute with the specified value.
      *
      * @param productName new value for {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute.
      */
@@ -242,8 +241,7 @@ public class ProductOrdersWithEmbeddedId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute with the specified
-     * value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute with the specified value.
      *
      * @param orderStatus new value for {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
      */
@@ -308,5 +306,4 @@ public class ProductOrdersWithEmbeddedId {
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_ORDER_COUNT, nullable = true, insertable = false, updatable = false)
     private Long orderCount;
-
 }

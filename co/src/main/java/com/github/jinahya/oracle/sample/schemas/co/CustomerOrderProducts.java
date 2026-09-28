@@ -27,6 +27,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -48,7 +49,8 @@ public class CustomerOrderProducts {
     // -------------------------------------------------------------------------------------------------------- ORDER_ID
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_ID} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_ORDER_ID = "ORDER_ID";
 
@@ -461,5 +463,4 @@ public class CustomerOrderProducts {
             updatable = false,
             length = COLUMN_LENGTH_ITEMS)
     private String items;
-
 }

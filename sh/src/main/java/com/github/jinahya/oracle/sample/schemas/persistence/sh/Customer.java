@@ -152,7 +152,8 @@ public class Customer {
     public static final int COLUMN_LENGTH_CUST_MARITAL_STATUS = 20;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_MARITAL_STATUS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_MARITAL_STATUS} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_MARITAL_STATUS = "custMaritalStatus";
 
@@ -174,7 +175,8 @@ public class Customer {
     public static final int COLUMN_LENGTH_CUST_STREET_ADDRESS = 40;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_STREET_ADDRESS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_STREET_ADDRESS} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_STREET_ADDRESS = "custStreetAddress";
 
@@ -252,7 +254,8 @@ public class Customer {
     public static final int COLUMN_LENGTH_CUST_STATE_PROVINCE = 40;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_STATE_PROVINCE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_STATE_PROVINCE} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_STATE_PROVINCE = "custStateProvince";
 
@@ -269,7 +272,8 @@ public class Customer {
     public static final String COLUMN_NAME_CUST_STATE_PROVINCE_ID = "CUST_STATE_PROVINCE_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_STATE_PROVINCE_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_STATE_PROVINCE_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_STATE_PROVINCE_ID = "custStateProvinceId";
 
@@ -298,7 +302,8 @@ public class Customer {
     public static final int COLUMN_LENGTH_CUST_MAIN_PHONE_NUMBER = 25;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_MAIN_PHONE_NUMBER} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_MAIN_PHONE_NUMBER} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_MAIN_PHONE_NUMBER = "custMainPhoneNumber";
 

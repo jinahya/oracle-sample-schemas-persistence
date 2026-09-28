@@ -39,8 +39,8 @@ class ProductOrdersWithEmbeddedId_Persistence_Test extends _Persistence_Test<Pro
 
     /**
      * Does nothing; {@value ProductOrdersWithEmbeddedId#TABLE_NAME} is a view, so there is nothing to insert a
-     * randomized instance into. The provider generates a table for it into the in-memory database,
-     * which would make this pass for the wrong reason, and the real object is read-only.
+     * randomized instance into. The provider generates a table for it into the in-memory database, which would make
+     * this pass for the wrong reason, and the real object is read-only.
      */
     @Disabled("a view: nothing is inserted into it")
     @Override

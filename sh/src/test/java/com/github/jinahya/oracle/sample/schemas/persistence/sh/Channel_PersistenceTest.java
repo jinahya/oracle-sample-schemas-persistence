@@ -20,7 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-
 /**
  * Verifies the mappings of {@link Channel} against the schema generated into the in-memory database.
  *

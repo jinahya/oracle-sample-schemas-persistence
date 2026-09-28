@@ -31,6 +31,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -38,11 +39,10 @@ import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value CostWithIdClass#TABLE_NAME} table, whose composite primary key is mapped with
- * an
- * {@link jakarta.persistence.IdClass @IdClass}.
+ * an {@link jakarta.persistence.IdClass @IdClass}.
  * <p>
- * The table declares no primary key; the four dimension columns are its grain, and the
- * {@code CANDIDATE_KEYS} section of {@code src/test/sql/COSTS.sql} is what measured them.
+ * The table declares no primary key; the four dimension columns are its grain, and the {@code CANDIDATE_KEYS} section
+ * of {@code src/test/sql/COSTS.sql} is what measured them.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see CostWithEmbeddedId
@@ -60,7 +60,8 @@ public class CostWithIdClass {
     // --------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_ID = "PROD_ID";
 
@@ -78,7 +79,8 @@ public class CostWithIdClass {
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_TIME_ID = "TIME_ID";
 
@@ -522,5 +524,4 @@ public class CostWithIdClass {
             precision = COLUMN_PRECISION_UNIT_PRICE,
             scale = COLUMN_SCALE_UNIT_PRICE)
     private BigDecimal unitPrice;
-
 }

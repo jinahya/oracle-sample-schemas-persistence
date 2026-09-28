@@ -40,8 +40,8 @@ class ProductOrdersWithEmbeddedId_Test extends _Test<ProductOrdersWithEmbeddedId
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link ProductOrdersWithEmbeddedId#equals(Object) equals} compares
-     * only the {@code @Id}, because every other attribute is mutable state.
+     * @implNote {@link ProductOrdersWithEmbeddedId#equals(Object) equals} compares only the {@code @Id}, because every
+     * other attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<ProductOrdersWithEmbeddedId> equals_verifier_() {

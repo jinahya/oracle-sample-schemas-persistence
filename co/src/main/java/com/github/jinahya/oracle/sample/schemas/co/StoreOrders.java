@@ -23,15 +23,16 @@ package com.github.jinahya.oracle.sample.schemas.co;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Size;
+
 import java.math.BigDecimal;
 
 /**
  * A class for the {@value StoreOrders#TABLE_NAME} view.
  * <p>
- * The {@code GROUPING SETS} key {@code (STORE_NAME, ORDER_STATUS)} has no duplicates, but both columns
- * are {@code NULL} in the subtotal and grand-total rows, and an {@code @Id} may not be null. So this is
- * not an {@link jakarta.persistence.Entity @Entity}: the columns it projects are written out here, and
- * every one of them is read-only. See {@code doc/IDs.asciidoc}.
+ * The {@code GROUPING SETS} key {@code (STORE_NAME, ORDER_STATUS)} has no duplicates, but both columns are {@code NULL}
+ * in the subtotal and grand-total rows, and an {@code @Id} may not be null. So this is not an
+ * {@link jakarta.persistence.Entity @Entity}: the columns it projects are written out here, and every one of them is
+ * read-only. See {@code doc/IDs.asciidoc}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -112,7 +113,8 @@ public class StoreOrders {
     // -------------------------------------------------------------------------------------------------------- LATITUDE
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_LATITUDE} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_LATITUDE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_LATITUDE = "LATITUDE";
 
@@ -423,5 +425,4 @@ public class StoreOrders {
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_TOTAL_SALES, nullable = true, insertable = false, updatable = false)
     private BigDecimal totalSales;
-
 }

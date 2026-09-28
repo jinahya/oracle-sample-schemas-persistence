@@ -40,8 +40,8 @@ class CalMonthSalesMv_Test extends _Test<CalMonthSalesMv> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link CalMonthSalesMv#equals(Object) equals} compares
-     * only the {@code @Id}, because every other attribute is mutable state.
+     * @implNote {@link CalMonthSalesMv#equals(Object) equals} compares only the {@code @Id}, because every other
+     * attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<CalMonthSalesMv> equals_verifier_() {

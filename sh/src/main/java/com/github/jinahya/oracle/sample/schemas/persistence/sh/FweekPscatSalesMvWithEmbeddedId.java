@@ -27,6 +27,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -34,8 +35,7 @@ import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value FweekPscatSalesMvWithEmbeddedId#TABLE_NAME} materialized view, whose
- * composite primary key is mapped with an
- * {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
+ * composite primary key is mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see FweekPscatSalesMvWithIdClass
@@ -63,9 +63,9 @@ public class FweekPscatSalesMvWithEmbeddedId {
     public static final String ATTRIBUTE_NAME_WEEK_ENDING_DAY = "weekEndingDay";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_WEEK_ENDING_DAY} column -- a path
-     * into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
-     * actually lives. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_WEEK_ENDING_DAY} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID_WEEK_ENDING_DAY = "id.weekEndingDay";
 
@@ -93,9 +93,9 @@ public class FweekPscatSalesMvWithEmbeddedId {
     public static final String ATTRIBUTE_NAME_PROD_SUBCATEGORY = "prodSubcategory";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY} column -- a path
-     * into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
-     * actually lives. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID_PROD_SUBCATEGORY = "id.prodSubcategory";
 
@@ -126,9 +126,9 @@ public class FweekPscatSalesMvWithEmbeddedId {
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column -- a path
-     * into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
-     * actually lives. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID_CHANNEL_ID = "id.channelId";
 
@@ -146,9 +146,9 @@ public class FweekPscatSalesMvWithEmbeddedId {
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column -- a path
-     * into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
-     * actually lives. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID_PROMO_ID = "id.promoId";
 
@@ -235,8 +235,7 @@ public class FweekPscatSalesMvWithEmbeddedId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute with the specified
-     * value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute with the specified value.
      *
      * @param weekEndingDay new value for {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
      */
@@ -259,8 +258,7 @@ public class FweekPscatSalesMvWithEmbeddedId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute with the specified
-     * value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute with the specified value.
      *
      * @param prodSubcategory new value for {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute.
      */
@@ -283,8 +281,7 @@ public class FweekPscatSalesMvWithEmbeddedId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified
-     * value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified value.
      *
      * @param channelId new value for {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
      */
@@ -307,8 +304,7 @@ public class FweekPscatSalesMvWithEmbeddedId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified
-     * value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified value.
      *
      * @param promoId new value for {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
      */
@@ -349,5 +345,4 @@ public class FweekPscatSalesMvWithEmbeddedId {
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_DOLLARS, nullable = true, insertable = false, updatable = false)
     private BigDecimal dollars;
-
 }

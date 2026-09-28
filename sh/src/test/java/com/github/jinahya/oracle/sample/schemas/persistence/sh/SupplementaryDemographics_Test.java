@@ -40,8 +40,8 @@ class SupplementaryDemographics_Test extends _Test<SupplementaryDemographics> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link SupplementaryDemographics#equals(Object) equals} compares only the {@code @Id} -- the surrogate key -- because every
-     * other attribute is mutable state.
+     * @implNote {@link SupplementaryDemographics#equals(Object) equals} compares only the {@code @Id} -- the surrogate
+     * key -- because every other attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<SupplementaryDemographics> equals_verifier_() {

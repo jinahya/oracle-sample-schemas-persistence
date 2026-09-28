@@ -40,8 +40,8 @@ class FweekPscatSalesMvId_Test extends _Test<FweekPscatSalesMvId> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link FweekPscatSalesMvId#equals(Object) equals} compares
-     * only the {@code @Id}, because every other attribute is mutable state.
+     * @implNote {@link FweekPscatSalesMvId#equals(Object) equals} compares only the {@code @Id}, because every other
+     * attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<FweekPscatSalesMvId> equals_verifier_() {

@@ -40,8 +40,8 @@ class ProfitsWithIdClass_Test extends _Test<ProfitsWithIdClass> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link ProfitsWithIdClass#equals(Object) equals} compares
-     * only the {@code @Id}, because every other attribute is mutable state.
+     * @implNote {@link ProfitsWithIdClass#equals(Object) equals} compares only the {@code @Id}, because every other
+     * attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<ProfitsWithIdClass> equals_verifier_() {

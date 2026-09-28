@@ -23,6 +23,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -42,32 +43,32 @@ public class CostId {
     // --------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The name of the attribute which maps the {@value CostWithEmbeddedId#COLUMN_NAME_PROD_ID} column. The value
-     * is {@value}.
+     * The name of the attribute which maps the {@value CostWithEmbeddedId#COLUMN_NAME_PROD_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the attribute which maps the {@value CostWithEmbeddedId#COLUMN_NAME_TIME_ID} column. The value
-     * is {@value}.
+     * The name of the attribute which maps the {@value CostWithEmbeddedId#COLUMN_NAME_TIME_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the attribute which maps the {@value CostWithEmbeddedId#COLUMN_NAME_PROMO_ID} column. The value
-     * is {@value}.
+     * The name of the attribute which maps the {@value CostWithEmbeddedId#COLUMN_NAME_PROMO_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
-     * The name of the attribute which maps the {@value CostWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column. The value
-     * is {@value}.
+     * The name of the attribute which maps the {@value CostWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
@@ -83,9 +84,9 @@ public class CostId {
     /**
      * Creates a new instance with the specified column values.
      *
-     * @param prodId the {@value CostWithEmbeddedId#COLUMN_NAME_PROD_ID} column value.
-     * @param timeId the {@value CostWithEmbeddedId#COLUMN_NAME_TIME_ID} column value.
-     * @param promoId the {@value CostWithEmbeddedId#COLUMN_NAME_PROMO_ID} column value.
+     * @param prodId    the {@value CostWithEmbeddedId#COLUMN_NAME_PROD_ID} column value.
+     * @param timeId    the {@value CostWithEmbeddedId#COLUMN_NAME_TIME_ID} column value.
+     * @param promoId   the {@value CostWithEmbeddedId#COLUMN_NAME_PROMO_ID} column value.
      * @param channelId the {@value CostWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column value.
      */
     public CostId(final Integer prodId, final LocalDate timeId, final Integer promoId, final Long channelId) {
@@ -221,5 +222,4 @@ public class CostId {
     @Basic(optional = false)
     @Column(name = CostWithEmbeddedId.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
     private Long channelId;
-
 }

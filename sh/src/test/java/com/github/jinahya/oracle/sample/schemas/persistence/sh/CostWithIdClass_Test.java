@@ -40,8 +40,8 @@ class CostWithIdClass_Test extends _Test<CostWithIdClass> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link CostWithIdClass#equals(Object) equals} compares
-     * only the {@code @Id}, because every other attribute is mutable state.
+     * @implNote {@link CostWithIdClass#equals(Object) equals} compares only the {@code @Id}, because every other
+     * attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<CostWithIdClass> equals_verifier_() {

@@ -82,8 +82,8 @@ public class Inventory {
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
     /**
-     * The name of the entity attribute, of {@link ManyToOne} mapping, which maps the
-     * {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
+     * The name of the entity attribute, of {@link ManyToOne} mapping, which maps the {@value #COLUMN_NAME_STORE_ID}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
@@ -95,8 +95,8 @@ public class Inventory {
     public static final String COLUMN_NAME_PRODUCT_ID = "PRODUCT_ID";
 
     /**
-     * The name of the entity attribute, of {@link ManyToOne} mapping, which maps the
-     * {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
+     * The name of the entity attribute, of {@link ManyToOne} mapping, which maps the {@value #COLUMN_NAME_PRODUCT_ID}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
@@ -139,8 +139,8 @@ public class Inventory {
      * @return {@inheritDoc}
      * @implSpec Equality is by ({@value #COLUMN_NAME_STORE_ID}, {@value #COLUMN_NAME_PRODUCT_ID}), the pair the table
      * declares unique, read through the {@value #ATTRIBUTE_NAME_STORE} and {@value #ATTRIBUTE_NAME_PRODUCT}
-     * associations which map those two columns; both are read through their getters, which is what makes the
-     * comparison correct for an instance which is still a lazy proxy.
+     * associations which map those two columns; both are read through their getters, which is what makes the comparison
+     * correct for an instance which is still a lazy proxy.
      */
     @Override
     public final boolean equals(final Object obj) {

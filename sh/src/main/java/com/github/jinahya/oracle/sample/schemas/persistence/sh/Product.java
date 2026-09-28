@@ -132,7 +132,8 @@ public class Product {
     public static final String COLUMN_NAME_PROD_SUBCATEGORY_ID = "PROD_SUBCATEGORY_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_SUBCATEGORY_ID = "prodSubcategoryId";
 
@@ -149,7 +150,8 @@ public class Product {
     public static final int COLUMN_LENGTH_PROD_SUBCATEGORY_DESC = 2000;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY_DESC} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY_DESC} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_SUBCATEGORY_DESC = "prodSubcategoryDesc";
 
@@ -239,7 +241,8 @@ public class Product {
     public static final int COLUMN_LENGTH_PROD_UNIT_OF_MEASURE = 20;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_UNIT_OF_MEASURE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_UNIT_OF_MEASURE} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_UNIT_OF_MEASURE = "prodUnitOfMeasure";
 

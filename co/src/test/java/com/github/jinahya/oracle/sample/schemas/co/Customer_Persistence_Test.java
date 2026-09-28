@@ -47,9 +47,9 @@ class Customer_Persistence_Test extends _Persistence_Test<Customer> {
                 final var found = em
                         .createQuery(
                                 """
-                                SELECT e
-                                FROM Customer e
-                                WHERE e.emailAddress = :emailAddress""",
+                                        SELECT e
+                                        FROM Customer e
+                                        WHERE e.emailAddress = :emailAddress""",
                                 targetClass
                         )
                         .setParameter(Customer_.emailAddress.getName(), v.getEmailAddress())
