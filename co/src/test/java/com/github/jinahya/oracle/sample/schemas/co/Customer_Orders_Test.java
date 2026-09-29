@@ -20,7 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.test.__Persistence_TestUtils;
+import com.github.jinahya.oracle.sample.schemas.persistence.test.___Persistence_TestUtils;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -67,7 +67,7 @@ class Customer_Orders_Test {
     @DisplayName("a persisted customer's orders are reachable from the customer")
     @Test
     void orders_ReachableFromCustomer_() {
-        __Persistence_TestUtils.applyInTransactionAndRollback(entityManager, em -> {
+        ___Persistence_TestUtils.applyInTransactionAndRollback(entityManager, em -> {
             final var found = em.createQuery(
                             "SELECT c FROM Customer c LEFT JOIN FETCH c.orders", Customer.class)
                     .setMaxResults(1)

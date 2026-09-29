@@ -1,8 +1,11 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
+import com.github.jinahya.persistence.test.util.__PersisterUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -38,7 +41,83 @@ class Customer_Persistence_Test extends _Persistence_Test<Customer> {
     }
 
     @Nested
-    class FindByEmailAddress_Test {
+    class SelectListOrderByCustomerIdAsc_Test {
+
+        @DisplayName("a query-language query selects the customers just persisted, ordered by identifier")
+        @Test
+        void __QueryLanguage() {
+            applyEntityManagerInTransactionAndRollback(em -> {
+                final var persisted = List.of(
+                        __PersisterUtils.newPersistedInstanceOf(em, targetClass),
+                        __PersisterUtils.newPersistedInstanceOf(em, targetClass),
+                        __PersisterUtils.newPersistedInstanceOf(em, targetClass)
+                );
+                final var found = em
+                        .createQuery(
+                                """
+                                        SELECT e
+                                        FROM Customer e
+                                        ORDER BY e.customerId ASC""",
+                                targetClass
+                        )
+                        .getResultList();
+                assertThat(found)
+                        .as("the customers ordered by %s", Customer_.customerId.getName())
+                        .containsAll(persisted)
+                        .extracting(Customer::getCustomerId)
+                        .isSorted();
+                return found;
+            });
+        }
+
+        @DisplayName("the named query selects the customers just persisted, ordered by identifier")
+        @Test
+        void __NamedQuery() {
+            applyEntityManagerInTransactionAndRollback(em -> {
+                final var persisted = List.of(
+                        __PersisterUtils.newPersistedInstanceOf(em, targetClass),
+                        __PersisterUtils.newPersistedInstanceOf(em, targetClass),
+                        __PersisterUtils.newPersistedInstanceOf(em, targetClass)
+                );
+                final var found = em
+                        .createNamedQuery("Customer.selectListOrderByCustomerIdAsc", targetClass)
+                        .getResultList();
+                assertThat(found)
+                        .as("the customers ordered by %s", Customer_.customerId.getName())
+                        .containsAll(persisted)
+                        .extracting(Customer::getCustomerId)
+                        .isSorted();
+                return found;
+            });
+        }
+
+        @DisplayName("a criteria query selects the customers just persisted, ordered by identifier")
+        @Test
+        void __CriteriaApi() {
+            applyEntityManagerInTransactionAndRollback(em -> {
+                final var persisted = List.of(
+                        __PersisterUtils.newPersistedInstanceOf(em, targetClass),
+                        __PersisterUtils.newPersistedInstanceOf(em, targetClass),
+                        __PersisterUtils.newPersistedInstanceOf(em, targetClass)
+                );
+                final var builder = em.getCriteriaBuilder();
+                final var query = builder.createQuery(targetClass);
+                final var root = query.from(targetClass);
+                query.select(root);
+                query.orderBy(builder.asc(root.get(Customer_.customerId)));
+                final var found = em.createQuery(query).getResultList();
+                assertThat(found)
+                        .as("the customers ordered by %s", Customer_.customerId.getName())
+                        .containsAll(persisted)
+                        .extracting(Customer::getCustomerId)
+                        .isSorted();
+                return found;
+            });
+        }
+    }
+
+    @Nested
+    class SelectOneByEmailAddress_Test {
 
         @DisplayName("a query-language query selects the customer just persisted")
         @Test
@@ -66,7 +145,7 @@ class Customer_Persistence_Test extends _Persistence_Test<Customer> {
         void __NamedQuery() {
             applyNewPersistedTargetInstanceAndRollback((em, v) -> {
                 final var found = em
-                        .createNamedQuery("Customer.selectSingleByEmailAddress", targetClass)
+                        .createNamedQuery("Customer.selectOneByEmailAddress", targetClass)
                         .setParameter(Customer_.emailAddress.getName(), v.getEmailAddress())
                         .getSingleResult();
                 assertThat(found)

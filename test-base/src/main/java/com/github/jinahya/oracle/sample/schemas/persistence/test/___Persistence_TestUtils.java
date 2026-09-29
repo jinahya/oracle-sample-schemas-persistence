@@ -42,7 +42,7 @@ import java.util.function.Function;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public final class __Persistence_TestUtils {
+public final class ___Persistence_TestUtils {
 
     /**
      * Applies the specified resultFunction to the specified entity manager, inside a transaction, and hands the
@@ -195,7 +195,7 @@ public final class __Persistence_TestUtils {
     }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-    private __Persistence_TestUtils() {
+    private ___Persistence_TestUtils() {
         throw new AssertionError("instantiation is not allowed");
     }
 }

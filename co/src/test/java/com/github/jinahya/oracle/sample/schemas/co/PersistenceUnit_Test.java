@@ -20,7 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.test.__Persistence_TestUtils;
+import com.github.jinahya.oracle.sample.schemas.persistence.test.___Persistence_TestUtils;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -64,8 +64,8 @@ class PersistenceUnit_Test {
     @Test
     void generatedSchema_IsQueryable_() {
         entityManagerFactory.getMetamodel().getEntities().forEach(e -> {
-            final var count = __Persistence_TestUtils.applyInTransactionAndRollback(
-                    entityManager, em -> __Persistence_TestUtils.count(em, e));
+            final var count = ___Persistence_TestUtils.applyInTransactionAndRollback(
+                    entityManager, em -> ___Persistence_TestUtils.count(em, e));
             assertThat(count).as("row count of %s", e.getName()).isNotNegative();
         });
     }

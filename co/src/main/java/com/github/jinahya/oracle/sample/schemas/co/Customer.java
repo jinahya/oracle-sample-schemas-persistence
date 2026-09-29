@@ -45,7 +45,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @NamedQuery(
-        name = "Customer.selectSingleByEmailAddress",
+        name = "Customer.selectOneByEmailAddress",
         query = """
                 SELECT e
                 FROM Customer e
