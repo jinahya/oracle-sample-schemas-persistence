@@ -102,7 +102,7 @@ public abstract class __Persistence_IT<T> extends __Test<T> {
     @Test
     protected void selectRandom() {
         applyEntityManagerInTransactionAndRollback(em -> {
-            __Persistence_TestUtils.selectRandom(em, targetClass).ifPresent(this::randomSelected);
+            ___Persistence_TestUtils.selectRandom(em, targetClass).ifPresent(this::randomSelected);
             return null;
         });
     }
@@ -178,11 +178,11 @@ public abstract class __Persistence_IT<T> extends __Test<T> {
      * @return the result of the {@code function}.
      * @implNote The rollback is what keeps one test from being visible to the next, and, here, what keeps the sample
      * data as the installer left it.
-     * @see __Persistence_TestUtils#applyInTransactionAndRollback(EntityManager, Function)
+     * @see ___Persistence_TestUtils#applyInTransactionAndRollback(EntityManager, Function)
      */
     protected <R> R applyEntityManagerInTransactionAndRollback(
             final Function<? super EntityManager, ? extends R> function) {
-        return __Persistence_TestUtils.applyInTransactionAndRollback(entityManager, function);
+        return ___Persistence_TestUtils.applyInTransactionAndRollback(entityManager, function);
     }
 
     /**
@@ -194,11 +194,11 @@ public abstract class __Persistence_IT<T> extends __Test<T> {
      * @return the result of the {@code function}.
      * @implNote What this writes reaches the installed sample data and stays there, which no test here wants by
      * accident. Use it only for a row the test cannot do without, and clean it up; otherwise take the rolled-back one.
-     * @see __Persistence_TestUtils#applyInTransactionAndCommit(EntityManager, Function)
+     * @see ___Persistence_TestUtils#applyInTransactionAndCommit(EntityManager, Function)
      */
     protected <R> R applyEntityManagerInTransactionAndCommit(
             final Function<? super EntityManager, ? extends R> function) {
-        return __Persistence_TestUtils.applyInTransactionAndCommit(entityManager, function);
+        return ___Persistence_TestUtils.applyInTransactionAndCommit(entityManager, function);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

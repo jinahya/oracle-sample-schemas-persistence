@@ -28,11 +28,13 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.metamodel.Attribute;
 import jakarta.persistence.metamodel.ManagedType;
+import jakarta.persistence.metamodel.Type;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
@@ -165,6 +167,135 @@ public abstract class __Persistence_Test<T> extends __Test<T> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Verifies {@link EntityManager#find(Class, Object) find} against a newly persisted instance of
+     * {@link #targetClass}.
+     */
+    @Nested
+    class Find_Test {
+
+        /**
+         * Aborts, rather than fails, when {@link #targetClass} cannot be randomized, cannot be persisted, or does not
+         * carry the shape of identifier these tests address.
+         *
+         * @implNote Not every entity has a randomizer and a persister -- a view has no use for one -- and
+         * {@link #applyNewPersistedTargetInstanceAndRollback(BiFunction)} throws for those, with a message about the
+         * missing class rather than about {@code find}. This is the same forgiveness
+         * {@link #_persist_RandomizedInstance()} shows, said out loud so the tests are reported as skipped.
+         * <p>
+         * The identifier has to be a single basic attribute. An {@link jakarta.persistence.IdClass IdClass} is left
+         * out because assembling one generically is more than this base class knows how to do. An
+         * {@link jakarta.persistence.EmbeddedId EmbeddedId} is left out because of the two entities which have one
+         * here, both derive a component of it through {@link jakarta.persistence.MapsId @MapsId}, and the two
+         * providers disagree about that component: Hibernate copies the association's identifier into the embedded
+         * one as it flushes, EclipseLink writes the column but leaves the component of the managed instance
+         * {@code null}, so there is no identifier to hand {@code find} which is right under both. The row itself is
+         * written correctly either way, and {@link #_persist_RandomizedInstance()} is what covers that.
+         */
+        @BeforeEach
+        void assumeTargetClassIsPersistableAndAddressable() {
+            assumeTrue(
+                    ObjectRandomizerUtils.newRandomizerInstanceOf(targetClass).isPresent(),
+                    () -> targetClass + " has no usable randomizer"
+            );
+            assumeTrue(
+                    EntityPersisterUtils.newPersisterInstanceOf(targetClass).isPresent(),
+                    () -> targetClass + " has no usable persister"
+            );
+            final var entityType = entityManagerFactory.getMetamodel().entity(targetClass);
+            assumeTrue(
+                    entityType.hasSingleIdAttribute(),
+                    () -> targetClass + " is mapped with an id class"
+            );
+            assumeTrue(
+                    entityType.getIdType().getPersistenceType() == Type.PersistenceType.BASIC,
+                    () -> targetClass + " is mapped with an embedded identifier"
+            );
+        }
+
+        /**
+         * Returns the identifier of the specified instance, read from the field the metamodel says maps it.
+         *
+         * @param instance the instance whose identifier to read.
+         * @return the identifier of the {@code instance}.
+         * @implNote {@link jakarta.persistence.PersistenceUnitUtil#getIdentifier(Object)} is the API for this, and is
+         * not what this uses. EclipseLink answers it by instantiating the identifier class through
+         * {@link Class#getConstructor(Class[])}, which sees public constructors only, and the identifier classes here
+         * declare the no-arg constructor {@code protected} -- which is what the specification asks of an embeddable.
+         * Reading the mapped field instead keeps this test off that difference, and off the question of which
+         * provider is right.
+         * @implSpec An entity which maps its identifier by property rather than by field aborts rather than fails;
+         * none here does.
+         */
+        private Object identifierOf(final T instance) {
+            final var entityType = entityManagerFactory.getMetamodel().entity(targetClass);
+            final var member = entityType.getId(entityType.getIdType().getJavaType()).getJavaMember();
+            assumeTrue(
+                    member instanceof Field,
+                    () -> targetClass + " maps its identifier by property, not by field"
+            );
+            final var field = (Field) member;
+            field.setAccessible(true);
+            try {
+                return field.get(instance);
+            } catch (final IllegalAccessException iae) {
+                throw new AssertionError("failed to read " + field, iae);
+            }
+        }
+
+        /**
+         * Verifies that {@code find} answers the very instance just persisted, while it is still managed.
+         *
+         * @implNote The flush is what makes the identifier readable at all: Hibernate writes a row whose identifier
+         * comes from an {@code IDENTITY} column as {@code persist} is called, and EclipseLink does not, so without it
+         * the identifier is still {@code null} under one provider and not the other.
+         */
+        @DisplayName("find returns the very instance just persisted")
+        @Test
+        void __() {
+            applyNewPersistedTargetInstanceAndRollback((em, v) -> {
+                em.flush();
+                final var found = em.find(targetClass, identifierOf(v));
+                assertThat(found)
+                        .as("the %s found by its identifier", targetClass.getSimpleName())
+                        .isSameAs(v);
+                return found;
+            });
+        }
+
+        /**
+         * Verifies that {@code find} still reaches the persisted row once the persistence context no longer holds it.
+         *
+         * @implNote What comes back is compared by identifier, not with {@link Object#equals(Object)}. An entity here
+         * is free to base its equality on an association -- {@code Inventory} compares its store and its product --
+         * and the reloaded instance holds proxies for those, which do not compare equal to the instances the
+         * randomizer built. That is a property of the entity, not a fault in {@code find}, and asserting the
+         * identifier is what this test can promise of every entity alike.
+         * @implSpec {@link EntityManager#clear() clear} drops what is still pending, so the flush above it is not
+         * decoration: without it the row is never written and {@code find} answers {@code null}.
+         */
+        @DisplayName("find reaches the persisted row once the context is cleared")
+        @Test
+        void __Clear() {
+            applyNewPersistedTargetInstanceAndRollback((em, v) -> {
+                em.flush();
+                final var identifier = identifierOf(v);
+                em.clear();
+                final var found = em.find(targetClass, identifier);
+                assertThat(found)
+                        .as("the %s found by its identifier, from the database", targetClass.getSimpleName())
+                        .isNotNull()
+                        .isNotSameAs(v);
+                assertThat(identifierOf(found))
+                        .as("the identifier of the %s found", targetClass.getSimpleName())
+                        .isEqualTo(identifier);
+                return found;
+            });
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
     /**
      * Verifies that a randomized instance of {@link #targetClass} can be persisted and flushed.
      *
@@ -244,11 +375,11 @@ public abstract class __Persistence_Test<T> extends __Test<T> {
      * @return the result of the {@code function}.
      * @implNote The rollback is what keeps one test from being visible to the next, on a schema which is recreated per
      * container anyway.
-     * @see __Persistence_TestUtils#applyInTransactionAndRollback(EntityManager, Function)
+     * @see ___Persistence_TestUtils#applyInTransactionAndRollback(EntityManager, Function)
      */
     protected <R> R applyEntityManagerInTransactionAndRollback(
             final Function<? super EntityManager, ? extends R> function) {
-        return __Persistence_TestUtils.applyInTransactionAndRollback(entityManager, function);
+        return ___Persistence_TestUtils.applyInTransactionAndRollback(entityManager, function);
     }
 
     /**
@@ -261,11 +392,11 @@ public abstract class __Persistence_Test<T> extends __Test<T> {
      * @implNote What this writes survives the transaction, but not the container: the schema is generated per container
      * and the in-memory database goes with it. Still the exception -- a test whose writes nothing later has to read
      * wants the rolled-back one.
-     * @see __Persistence_TestUtils#applyInTransactionAndCommit(EntityManager, Function)
+     * @see ___Persistence_TestUtils#applyInTransactionAndCommit(EntityManager, Function)
      */
     protected <R> R applyEntityManagerInTransactionAndCommit(
             final Function<? super EntityManager, ? extends R> function) {
-        return __Persistence_TestUtils.applyInTransactionAndCommit(entityManager, function);
+        return ___Persistence_TestUtils.applyInTransactionAndCommit(entityManager, function);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
