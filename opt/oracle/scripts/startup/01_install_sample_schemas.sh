@@ -78,7 +78,7 @@ EOSQL
         # SQLcl lives, and that install is the one that fills all nine tables.
         if grep -q 'SP2-0158.*"LOAD"' "${workdir}/${schema}.out"; then
             echo "sample-schemas: ${schema} installed (partial: tables bulk-loaded via" \
-                 "SQLcl 'LOAD' are empty -- docker-compose-up.sh finishes the job)"
+                 "SQLcl 'LOAD' are empty -- _docker-compose-up.sh finishes the job)"
         fi
         if grep -qE 'ORA-[0-9]+' "${workdir}/${schema}.out"; then
             echo "sample-schemas: ${schema} FAILED"

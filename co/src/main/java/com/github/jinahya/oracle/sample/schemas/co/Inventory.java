@@ -69,41 +69,42 @@ public class Inventory {
     public static final String COLUMN_NAME_INVENTORY_ID = "INVENTORY_ID";
 
     /**
-     * The name of the entity attribute from which the {@value #COLUMN_NAME_INVENTORY_ID} column maps. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_INVENTORY_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_INVENTORY_ID = "inventoryId";
 
     // -------------------------------------------------------------------------------------------------------- STORE_ID
 
     /**
-     * The name of the table column to which the {@code storeId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
     /**
-     * The name of the entity attribute, of {@link ManyToOne} mapping, which maps the
-     * {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
+     * The name of the entity attribute, of {@link ManyToOne} mapping, which maps the {@value #COLUMN_NAME_STORE_ID}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
     // ------------------------------------------------------------------------------------------------------ PRODUCT_ID
 
     /**
-     * The name of the table column to which the {@code productId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_ID = "PRODUCT_ID";
 
     /**
-     * The name of the entity attribute, of {@link ManyToOne} mapping, which maps the
-     * {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
+     * The name of the entity attribute, of {@link ManyToOne} mapping, which maps the {@value #COLUMN_NAME_PRODUCT_ID}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
     // ----------------------------------------------------------------------------------------------- PRODUCT_INVENTORY
 
     /**
-     * The name of the table column to which the {@code productInventory} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_INVENTORY = "PRODUCT_INVENTORY";
 
@@ -139,8 +140,8 @@ public class Inventory {
      * @return {@inheritDoc}
      * @implSpec Equality is by ({@value #COLUMN_NAME_STORE_ID}, {@value #COLUMN_NAME_PRODUCT_ID}), the pair the table
      * declares unique, read through the {@value #ATTRIBUTE_NAME_STORE} and {@value #ATTRIBUTE_NAME_PRODUCT}
-     * associations which map those two columns; both are read through their getters, which is what makes the
-     * comparison correct for an instance which is still a lazy proxy.
+     * associations which map those two columns; both are read through their getters, which is what makes the comparison
+     * correct for an instance which is still a lazy proxy.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -166,9 +167,9 @@ public class Inventory {
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     /**
-     * Tests whether {@code productInventory} attribute is non-negative.
+     * Tests whether {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute is non-negative.
      *
-     * @return {@code true} if {@code productInventory} is non-negative; {@code false} otherwise.
+     * @return {@code true} if {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} is non-negative; {@code false} otherwise.
      */
     protected boolean isProductInventoryNonNegative() {
         if (productInventory == null) {
@@ -242,9 +243,9 @@ public class Inventory {
     // ------------------------------------------------------------------------------------------------ productInventory
 
     /**
-     * Returns current value of {@code productInventory} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute.
      *
-     * @return current value of {@code productInventory} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute.
      */
     @Nonnull
     public Long getProductInventory() {
@@ -252,16 +253,16 @@ public class Inventory {
     }
 
     /**
-     * Replaces current value of {@code productInventory} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute with the specified value.
      *
-     * @param productInventory new value for {@code productInventory} attribute.
+     * @param productInventory new value for {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute.
      */
     public void setProductInventory(@Nonnull final Long productInventory) {
         this.productInventory = productInventory;
     }
 
     /**
-     * Adjusts current value of {@code productInventory} attribute by the specified delta.
+     * Adjusts current value of {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute by the specified delta.
      *
      * @param delta the delta to adjust.
      */
@@ -270,7 +271,7 @@ public class Inventory {
     }
 
     /**
-     * Increases current value of {@code productInventory} attribute by the specified quantity.
+     * Increases current value of {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute by the specified quantity.
      *
      * @param quantity the quantity to adjust which should be non-negative.
      */
@@ -282,7 +283,7 @@ public class Inventory {
     }
 
     /**
-     * Decreases current value of {@code productInventory} attribute by the specified quantity.
+     * Decreases current value of {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute by the specified quantity.
      *
      * @param quantity the quantity to adjust which should be non-negative.
      */

@@ -87,8 +87,7 @@ public class Region {
     public static final String COLUMN_NAME_REGION_ID = "REGION_ID";
 
     /**
-     * The name of the entity attribute from which the {@value #COLUMN_NAME_REGION_ID} column maps. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
 
@@ -106,20 +105,17 @@ public class Region {
     public static final int COLUMN_LENGTH_REGION_NAME = 25;
 
     /**
-     * The name of the entity attribute from which the {@value #COLUMN_NAME_REGION_NAME} column maps. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_NAME} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_REGION_NAME = "regionName";
 
     /**
-     * The value for the {@link Size#min()} of the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute. The value is
-     * {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_REGION_NAME = 0;
 
     /**
-     * The value for the {@link Size#max()} of the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute. The value is
-     * {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_REGION_NAME = COLUMN_LENGTH_REGION_NAME;
 
@@ -165,9 +161,9 @@ public class Region {
     // -------------------------------------------------------------------------------------------------------- regionId
 
     /**
-     * Returns current value of {@code regionId} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_REGION_ID} attribute.
      *
-     * @return the current value of {@code regionId} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_REGION_ID} attribute.
      */
     @Nonnull
     public Long getRegionId() {
@@ -175,9 +171,9 @@ public class Region {
     }
 
     /**
-     * Replaces current value of {@code regionId} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_REGION_ID} attribute with the specified value.
      *
-     * @param regionId new value for the {@code regionId} attribute.
+     * @param regionId new value for {@value #ATTRIBUTE_NAME_REGION_ID} attribute.
      */
     protected void setRegionId(@Nonnull final Long regionId) {
         this.regionId = regionId;

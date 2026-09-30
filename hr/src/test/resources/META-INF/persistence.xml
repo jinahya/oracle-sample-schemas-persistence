@@ -24,7 +24,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence ${persistence.schemaLocation}"
              version="${persistence.version}">
-  <persistence-unit name="__testPU" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="__hr_testPU" transaction-type="RESOURCE_LOCAL">
     <description>Persistence Unit for an In-Memory DB</description>
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
@@ -41,6 +41,7 @@
     <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId</class>-->
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Location</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Region</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
     <properties>
@@ -67,7 +68,7 @@
       <property name="hibernate.use_sql_comment" value="true"/>
     </properties>
   </persistence-unit>
-  <persistence-unit name="__itPU" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="__hr_itPU" transaction-type="RESOURCE_LOCAL">
     <description>Persistence Unit for a Physical Database</description>
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
@@ -82,6 +83,7 @@
     <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId</class>-->
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Location</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Region</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
     <properties>

@@ -1,0 +1,98 @@
+= HR — identifiers
+:toc: left
+:toclevels: 3
+:sectanchors:
+
+Which column(s) each table and view of the `HR` schema maps as a Jakarta Persistence
+`@Id`, and which ones cannot map one at all.
+
+For a table the answer is usually declared: its `PRIMARY KEY` is the identifier, and the
+schema guarantees it for any data. For a view — and for the few tables that declare no key
+— there is nothing to read off the dictionary, so the answer has to be measured.
+
+Each `src/test/sql/<NAME>.sql` that needs measuring ends in a `CANDIDATE_KEYS` section
+holding the two queries the numbers below come from: a single-pass profile counting the
+rows, the non-nulls and the distinct values of every column, and a
+`GROUP BY ... HAVING COUNT(1) > 1` duplicate check on the candidate the profile suggests.
+A column is a single-column candidate when its `NOT_NULLS` and its `DISTINCTS` both equal
+`ROW_COUNT`.
+
+Measured against `db-sample-schemas` as installed by `_docker-compose-up.sh`. A measured
+count describes the shipped data; only a key backed by a constraint, or by a view's own
+`GROUP BY`, is guaranteed to hold for any data.
+
+== Tables
+
+Every `HR` table declares a primary key, so none of them needs measuring; the `@Id` is the
+key the schema already names.
+
+[cols="3,3,3,3",options="header"]
+|===
+| Table | `PRIMARY KEY` | `UNIQUE` | Mapped by
+
+| `COUNTRIES`   | `COUNTRY_ID`               | —       | `Country`
+| `DEPARTMENTS` | `DEPARTMENT_ID`            | —       | `Department`
+| `EMPLOYEES`   | `EMPLOYEE_ID`              | `EMAIL` | `Employee`
+| `JOBS`        | `JOB_ID`                   | —       | `Job`
+| `JOB_HISTORY` | `EMPLOYEE_ID, START_DATE`  | —       | `JobHistoryWithEmbeddedId`, `JobHistoryWithIdClass`
+| `LOCATIONS`   | `LOCATION_ID`              | —       | `Location`
+| `REGIONS`     | `REGION_ID`                | —       | `Region`
+|===
+
+`EMPLOYEES.EMAIL` is `NOT NULL` as well as unique, so it would work as a natural `@Id` —
+and is exactly the kind of column an application is expected to let people change, so the
+surrogate stays the identifier.
+
+`JOB_HISTORY` is the one composite key, which is why the module maps it twice — once with
+an `@EmbeddedId` and once with an `@IdClass`, over the shared `JobHistoryId`. Only one of
+the two is listed in `persistence.xml`; see `CLAUDE.md` on `exclude-unlisted-classes`.
+
+== Views
+
+[cols="3,4,2,4",options="header"]
+|===
+| View | Narrowest unique column(s) | `@Id`? | Why
+
+| `EMP_DETAILS_VIEW`
+| `EMPLOYEE_ID`
+| yes, single
+| `EMPLOYEES`' primary key, joined to at most one row of every other table. Mapped by
+  `EmpDetailsView`.
+|===
+
+=== EMP_DETAILS_VIEW
+
+106 rows — 107 employees, less the one with no `DEPARTMENT_ID`, which the view's
+equi-joins drop.
+
+[cols="3,2,2",options="header"]
+|===
+| Column | Non-nulls | Distincts
+| `EMPLOYEE_ID`     | 106 | 106
+| `LAST_NAME`       | 106 | 102
+| `FIRST_NAME`      | 106 |  91
+| `SALARY`          | 106 |  58
+| `JOB_ID`          | 106 |  19
+| `JOB_TITLE`       | 106 |  19
+| `MANAGER_ID`      | 105 |  18
+| `DEPARTMENT_ID`   | 106 |  11
+| `DEPARTMENT_NAME` | 106 |  11
+| `CITY`            | 106 |   7
+| `COMMISSION_PCT`  |  34 |   7
+| `LOCATION_ID`     | 106 |   7
+| `STATE_PROVINCE`  | 105 |   6
+| `COUNTRY_ID`      | 106 |   4
+| `COUNTRY_NAME`    | 106 |   4
+| `REGION_NAME`     | 106 |   2
+|===
+
+`EMPLOYEE_ID` is the `@Id`, and `EmpDetailsView` already maps it as one. Every join in the
+view leads from an employee through a foreign key to at most one department, job, location,
+country and region, so the view neither multiplies nor merges employee rows: one row per
+employee is structural.
+
+`LAST_NAME` comes closest after it and is still not unique — 102 distinct values over 106
+rows.
+
+`COMMISSION_PCT` (34 non-nulls) and `MANAGER_ID` / `STATE_PROVINCE` (105) are the nullable
+columns; map them as nullable attributes.

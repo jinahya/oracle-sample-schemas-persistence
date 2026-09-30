@@ -20,10 +20,15 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Persister;
+import com.github.jinahya.persistence.test.util.AbstractEntityPersister;
 import jakarta.persistence.EntityManager;
 
-class SupplementaryDemographics_Persister extends __Persister<SupplementaryDemographics> {
+/**
+ * A persister which persists {@link SupplementaryDemographics} instances.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class SupplementaryDemographics_Persister extends AbstractEntityPersister<SupplementaryDemographics> {
 
     SupplementaryDemographics_Persister() {
         super(SupplementaryDemographics.class);
@@ -31,7 +36,8 @@ class SupplementaryDemographics_Persister extends __Persister<SupplementaryDemog
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    public SupplementaryDemographics apply(final EntityManager entityManager, final SupplementaryDemographics entityInstance) {
+    public SupplementaryDemographics apply(final EntityManager entityManager,
+                                           final SupplementaryDemographics entityInstance) {
         return super.apply(entityManager, entityInstance);
     }
 }

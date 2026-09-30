@@ -20,11 +20,20 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Persister;
-import com.github.jinahya.persistence.test.util.__PersisterUtils;
+import com.github.jinahya.persistence.test.util.AbstractEntityPersister;
+import com.github.jinahya.persistence.test.util.EntityPersisterUtils;
 import jakarta.persistence.EntityManager;
 
-class Order_Persister extends __Persister<Order> {
+/**
+ * A persister which persists {@link Order} instances.
+ * <p>
+ * Each instance is given a newly persisted {@link Customer} and a newly persisted {@link Store} first, so that its
+ * {@code customer} and its {@code store} -- neither of which is nullable -- refer to rows which are already in the
+ * database.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Order_Persister extends AbstractEntityPersister<Order> {
 
     Order_Persister() {
         super(Order.class);
@@ -33,8 +42,8 @@ class Order_Persister extends __Persister<Order> {
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     public Order apply(final EntityManager entityManager, final Order entityInstance) {
-        entityInstance.setCustomer(__PersisterUtils.newPersistedInstanceOf(entityManager, Customer.class));
-        entityInstance.setStore(__PersisterUtils.newPersistedInstanceOf(entityManager, Store.class));
+        entityInstance.setCustomer(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Customer.class));
+        entityInstance.setStore(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Store.class));
         return super.apply(entityManager, entityInstance);
     }
 }

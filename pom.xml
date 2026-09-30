@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.github.jinahya</groupId>
@@ -55,7 +54,6 @@
     <module>co</module>
     <module>hr</module>
     <module>sh</module>
-    <module>util</module>
   </modules>
 
   <scm>
@@ -83,22 +81,26 @@
     <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>
     <maven.compiler.testTarget>${maven.compiler.testSource}</maven.compiler.testTarget>
     <maven.compiler.testRelease>${maven.compiler.testSource}</maven.compiler.testRelease>
-    <doclint>none</doclint>
+    <!-- The sources are clean under -Xdoclint:all; keep them that way. -->
+    <doclint>all</doclint>
     <sonar.organization>jinahya-github</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     <!-- Jakarta EE 11 is the only supported platform generation. -->
     <!-- The platform values live here, deliberately *not* in a profile, so that no -->
-    <!-- profile combination can move the platform out from under the implementations. -->
+    <!-- profile can move the platform out from under the implementations. -->
     <persistence.version>3.2</persistence.version>
     <persistence.schemaLocation>https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd</persistence.schemaLocation>
-    <!-- the Jakarta Persistence provider; overridden by __eclipselink-5.0-jakarta-ee-11 -->
+    <!-- the Jakarta Persistence provider; overridden by jakarta-ee-11-eclipselink -->
     <persistence-unit.provider>org.hibernate.jpa.HibernatePersistenceProvider</persistence-unit.provider>
     <metamodel.generator.groupId>org.hibernate.orm</metamodel.generator.groupId>
     <metamodel.generator.artifactId>hibernate-jpamodelgen</metamodel.generator.artifactId>
     <metamodel.generator.version>${version.org.hibernate.orm}</metamodel.generator.version>
     <version.maven-failsafe>${version.maven-surefire}</version.maven-failsafe>
     <version.maven-surefire>3.6.0</version.maven-surefire>
-    <version.jinahya-persistence>0.6.0</version.jinahya-persistence>
+    <version.jinahya-persistence>0.6.1</version.jinahya-persistence>
+    <!-- https://www.oracle.com/kr/database/technologies/appdev/jdbc-downloads.html -->
+    <!-- https://central.sonatype.com/artifact/com.oracle.database.jdbc/ojdbc17/versions -->
+    <version.com.oracle.database.jdbc>23.26.0.0.0</version.com.oracle.database.jdbc>
     <!-- https://central.sonatype.com/artifact/ch.qos.logback/logback-classic/versions -->
     <!-- https://central.sonatype.com/artifact/ch.qos.logback/logback-parent -->
     <version.ch.qus.logback>1.6.3</version.ch.qus.logback>
@@ -145,20 +147,33 @@
 
   <dependencyManagement>
     <dependencies>
+
       <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
         <version>${version.ch.qus.logback}</version>
+      </dependency>
+      <dependency><!-- https://central.sonatype.com/artifact/com.fasterxml.jackson/jackson-bom/versions -->
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>2.20.1</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.h2database</groupId>
         <artifactId>h2</artifactId>
         <version>${version.com.h2database}</version>
       </dependency>
-      <dependency><!-- https://central.sonatype.com/artifact/com.fasterxml.jackson/jackson-bom/versions -->
-        <groupId>com.fasterxml.jackson</groupId>
-        <artifactId>jackson-bom</artifactId>
-        <version>2.20.1</version>
+      <dependency>
+        <groupId>com.oracle.database.jdbc</groupId>
+        <artifactId>ojdbc17</artifactId>
+        <version>${version.com.oracle.database.jdbc}</version>
+      </dependency>
+      <dependency><!-- https://central.sonatype.com/artifact/jakarta.platform/jakarta.jakartaee-bom/versions -->
+        <groupId>jakarta.platform</groupId>
+        <artifactId>jakarta.jakartaee-bom</artifactId>
+        <version>${version.jakarta.jakartaee-bom}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -171,13 +186,6 @@
         <groupId>org.assertj</groupId>
         <artifactId>assertj-core</artifactId>
         <version>${version.org.assertj}</version>
-      </dependency>
-      <dependency><!-- https://central.sonatype.com/artifact/jakarta.platform/jakarta.jakartaee-bom/versions -->
-        <groupId>jakarta.platform</groupId>
-        <artifactId>jakarta.jakartaee-bom</artifactId>
-        <version>${version.jakarta.jakartaee-bom}</version>
-        <type>pom</type>
-        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.eclipse.persistence</groupId>
@@ -209,11 +217,6 @@
         <artifactId>weld-junit5</artifactId>
         <version>${version.org.jboss.weld}</version>
       </dependency>
-      <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-junit-jupiter</artifactId>
-        <version>${version.org.mockito}</version>
-      </dependency>
       <dependency><!-- https://search.maven.org/artifact/org.junit/junit-bom -->
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
@@ -222,12 +225,18 @@
         <scope>import</scope>
       </dependency>
       <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-junit-jupiter</artifactId>
+        <version>${version.org.mockito}</version>
+      </dependency>
+      <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-bom</artifactId>
         <version>${version.org.slf4j}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+
     </dependencies>
   </dependencyManagement>
   <dependencies>
@@ -236,45 +245,11 @@
       <artifactId>h2</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency><!-- https://www.oracle.com/kr/database/technologies/appdev/jdbc-downloads.html -->
-      <groupId>com.oracle.database.jdbc</groupId>
-      <artifactId>ojdbc17</artifactId>
-      <!-- https://central.sonatype.com/artifact/com.oracle.database.jdbc/ojdbc17/versions -->
-      <!--      <version>23.8.0.25.04</version>-->
-      <!--      <version>23.9.0.25.07</version>-->
-      <version>23.26.0.0.0</version>
-      <scope>provided</scope>
-    </dependency>
     <dependency>
       <groupId>io.github.jinahya</groupId>
       <artifactId>jinahya-persistence-test-utils</artifactId>
       <version>${version.jinahya-persistence}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.annotation</groupId>
-      <artifactId>jakarta.annotation-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.enterprise</groupId>
-      <artifactId>jakarta.enterprise.cdi-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.inject</groupId>
-      <artifactId>jakarta.inject-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.persistence</groupId>
-      <artifactId>jakarta.persistence-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.validation</groupId>
-      <artifactId>jakarta.validation-api</artifactId>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>nl.jqno.equalsverifier</groupId>
@@ -358,10 +333,23 @@
           <version>3.12.0</version>
           <configuration>
             <additionalOptions>
-              <additionalOption>-Xdoclint:${doclint}</additionalOption>
+              <additionalOption>-Xdoclint:${doclint},-missing</additionalOption>
             </additionalOptions>
-            <failOnError>false</failOnError>
-            <failOnWarnings>false</failOnWarnings>
+            <failOnError>true</failOnError>
+            <failOnWarnings>true</failOnWarnings>
+            <!-- A bare `javadoc:javadoc` / `javadoc:test-javadoc` from the command line lands in the -->
+            <!-- default-cli execution, which no reportSet reaches and which cannot be scoped per goal. -->
+            <!-- So this level carries what BOTH goals can live with: the test sources are all -->
+            <!-- package-private, which `protected` finds nothing in, and their constructors and @Test -->
+            <!-- methods carry no javadoc by convention. The strict settings live in the site's main -->
+            <!-- reportSet below, which is what actually gates the published apidocs. -->
+            <show>package</show>
+            <!-- The generated static metamodel is not ours to document: every member of it carries -->
+            <!-- a bare @see and no main description, which -Xdoclint:all reports. It shares the -->
+            <!-- package with the entities, so excludePackageNames cannot reach it; exclude by file. -->
+            <sourceFileExcludes>
+              <sourceFileExclude>**/*_.java</sourceFileExclude>
+            </sourceFileExcludes>
             <links>
 <!--              <link>https://www.javadoc.io/doc/jakarta.platform/jakarta.jakartaee-api/${version.jakarta.jakartaee-bom}</link>-->
 <!--              <link>https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence</link>-->
@@ -495,6 +483,21 @@
               </rules>
             </configuration>
           </execution>
+          <execution>
+            <!-- a -P naming a profile that does not exist is silently ignored by Maven; this turns
+                 that into a build failure. The provider profile ids are named from
+                 _mvn_jakarta_ee_11.sh and from the CI matrix, so a rename that misses one of them
+                 would otherwise just run the default provider twice and look green. -->
+            <id>enforce-require-profile-ids-exist</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireProfileIdsExist/>
+              </rules>
+            </configuration>
+          </execution>
         </executions>
       </plugin>
       <plugin>
@@ -554,6 +557,40 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <id>main</id>
+            <configuration>
+              <!-- The published apidocs: public API only, and every element of it documented. -->
+              <show>protected</show>
+              <additionalOptions combine.self="override">
+                <additionalOption>-Xdoclint:${doclint}</additionalOption>
+              </additionalOptions>
+            </configuration>
+            <reports>
+              <report>javadoc-no-fork</report>
+              <report>aggregate-no-fork</report>
+            </reports>
+          </reportSet>
+          <reportSet>
+            <id>tests</id>
+            <configuration>
+              <!-- Every test class is package-private, so the default `protected` finds nothing to -->
+              <!-- document, and javadoc reports that as an error. -->
+              <show>package</show>
+              <!-- Package-private constructors and @Test methods carry no javadoc by convention, so -->
+              <!-- check references and syntax rather than presence. combine.self is required: without -->
+              <!-- it Maven merges the list and the plugin-level -Xdoclint:${doclint} comes along too. -->
+              <additionalOptions combine.self="override">
+                <additionalOption>-Xdoclint:all,-missing</additionalOption>
+              </additionalOptions>
+            </configuration>
+            <reports>
+              <report>test-javadoc-no-fork</report>
+              <report>test-aggregate-no-fork</report>
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -612,16 +649,65 @@
       </build>
     </profile>
 
+    <!-- ============================================================== persistence provider ==== -->
+    <!-- The only implementation axis in this build. The other specs have a single implementation
+         each (Hibernate Validator + Expressly for Jakarta Validation, Weld for CDI), pinned to
+         their Jakarta EE 11 aligned release in <properties>; there is nothing to choose there, so
+         they have no profiles.
+         These two profiles do not choose a VERSION either: both provider versions live in
+         <properties>, one per provider. A profile decides only which provider is on the test
+         classpath, and which metamodel generator the annotation processor path uses. -->
     <profile>
-      <id>__eclipselink-5.0-jakarta-ee-11</id>
-      <!-- https://eclipse.dev/eclipselink/releases/5.0.html -->
-      <!-- Jakarta Persistence: 3.2 / Jakarta EE: 11 / latest stable series -->
+      <id>jakarta-ee-11-hibernate-orm</id>
+      <!-- https://hibernate.org/orm/releases/ -->
+      <!-- Jakarta Persistence: 3.2 / Jakarta EE: 11; version: version.org.hibernate.orm -->
+      <!-- the provider defaults in <properties> are this profile's; it only adds the dependency -->
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.hibernate.orm</groupId>
+          <artifactId>hibernate-core</artifactId>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>jakarta-ee-11-eclipselink</id>
+      <!-- https://eclipse.dev/eclipselink/releases/index.html -->
+      <!-- Jakarta Persistence: 3.2 / Jakarta EE: 11; version: version.org.eclipse.persistence -->
       <properties>
-        <version.org.eclipse.persistence>5.0.1</version.org.eclipse.persistence>
         <persistence-unit.provider>org.eclipse.persistence.jpa.PersistenceProvider</persistence-unit.provider>
-        <metamodel.generator.groupId>org.eclipse.persistence</metamodel.generator.groupId>
-        <metamodel.generator.artifactId>org.eclipse.persistence.jpa.modelgen.processor</metamodel.generator.artifactId>
-        <metamodel.generator.version>${version.org.eclipse.persistence}</metamodel.generator.version>
+        <!--
+          This profile deliberately does NOT override the metamodel generator: it inherits
+          hibernate-jpamodelgen from the root <properties>, and EclipseLink is the runtime provider only.
+
+          EclipseLink's own processor is commented out below. It works, but it reads a persistence.xml at
+          annotation-processing time and generates nothing without one — and the annotation processor path
+          sees main resources, not test resources. Using it therefore forces every module's persistence.xml
+          into src/main/resources/META-INF, which is also what gets packaged: the published jars then carry
+          the test descriptor, with the H2 datasource, the sa/dmlonly credentials, hbm2ddl.auto=create-drop
+          and whichever <provider> the releasing profile happened to bake in. Spring's
+          DefaultPersistenceUnitManager reads classpath*:META-INF/persistence.xml — every jar — so that
+          descriptor is in scope for any consumer, which is the opposite of what a mapping library should
+          ship. Keeping the descriptors under src/test/resources keeps the jars to entities and metamodel.
+
+          hibernate-jpamodelgen reads @Entity directly and needs no descriptor, and the canonical static
+          metamodel is defined by the specification (Jakarta Persistence 3.2, 6.2), so the Customer_ classes
+          it emits are provider-neutral and EclipseLink runs against them unchanged. Verified: both
+          providers green, 129 tests, with the descriptors in src/test/resources.
+
+          What this costs: the EclipseLink profile no longer exercises EclipseLink's metamodel processor.
+          It still exercises EclipseLink as the persistence provider — every *_Persistence_Test and
+          *_Persistence_IT runs against it — which is the behavioural difference this profile exists for.
+
+          To go back, uncomment the three properties AND move every module's META-INF back to
+          src/main/resources; neither half works without the other.
+        -->
+        <!--        <metamodel.generator.groupId>org.eclipse.persistence</metamodel.generator.groupId>-->
+        <!--        <metamodel.generator.artifactId>org.eclipse.persistence.jpa.modelgen.processor</metamodel.generator.artifactId>-->
+        <!--        <metamodel.generator.version>${version.org.eclipse.persistence}</metamodel.generator.version>-->
       </properties>
       <dependencies>
         <dependency>
@@ -630,80 +716,6 @@
           <scope>test</scope>
         </dependency>
       </dependencies>
-    </profile>
-    <profile>
-      <id>__hibernate-orm-7.4-jakarta-ee-11</id>
-      <!-- https://hibernate.org/orm/releases/7.4/ -->
-      <!-- Jakarta Persistence: 3.2 / Jakarta EE: 11 / latest stable series -->
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <properties>
-        <version.org.hibernate.orm>7.4.9.Final</version.org.hibernate.orm>
-      </properties>
-      <dependencies>
-        <dependency>
-          <groupId>org.hibernate.orm</groupId>
-          <artifactId>hibernate-core</artifactId>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>__hibernate-orm-7.2-jakarta-ee-11</id>
-      <!-- https://hibernate.org/orm/releases/7.2/ -->
-      <!-- Jakarta Persistence: 3.2 / Jakarta EE: 11 / limited support -->
-      <properties>
-        <!-- https://central.sonatype.com/artifact/org.hibernate.orm/hibernate-core/versions -->
-        <version.org.hibernate.orm>7.2.25.Final</version.org.hibernate.orm>
-      </properties>
-      <dependencies>
-        <dependency>
-          <groupId>org.hibernate.orm</groupId>
-          <artifactId>hibernate-core</artifactId>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
-      <id>___hibernate-validator-9.0-jakarta-ee-11</id>
-      <!-- https://hibernate.org/validator/releases/9.0/ -->
-      <!-- Jakarta Validation: 3.1 / Jakarta EE: 11 / limited support -->
-      <properties>
-        <!-- https://central.sonatype.com/artifact/org.hibernate.validator/hibernate-validator/versions -->
-        <version.org.hibernate.validator>9.0.1.Final</version.org.hibernate.validator>
-        <!-- hibernate-validator: 9 / expressly: 6 -->
-        <!-- https://central.sonatype.com/artifact/org.glassfish.expressly/expressly/versions -->
-        <version.org.glassfish.expressly>6.0.0</version.org.glassfish.expressly>
-      </properties>
-    </profile>
-    <profile>
-      <id>___hibernate-validator-9.1-jakarta-ee-11</id>
-      <!-- https://hibernate.org/validator/releases/9.1/ -->
-      <!-- Jakarta Validation: 3.1 / Jakarta EE: 11 / latest stable series -->
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <properties>
-        <!-- https://central.sonatype.com/artifact/org.hibernate.validator/hibernate-validator/versions -->
-        <version.org.hibernate.validator>9.1.3.Final</version.org.hibernate.validator>
-        <!-- hibernate-validator: 9 / expressly: 6 -->
-        <!-- https://central.sonatype.com/artifact/org.glassfish.expressly/expressly/versions -->
-        <version.org.glassfish.expressly>6.0.0</version.org.glassfish.expressly>
-      </properties>
-    </profile>
-    <profile>
-      <id>___weld-6-jakarta-ee-11</id>
-      <!-- Jakarta CDI: 4.1 / Jakarta EE: 11 -->
-      <!-- note: version.org.jboss.weld is the weld-junit5 (weld-testing) version; -->
-      <!--       weld-junit5 5.0.x pulls weld-se-core 6.0.x, i.e. Weld 6 / CDI 4.1 -->
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <properties>
-        <!-- https://central.sonatype.com/artifact/org.jboss.weld/weld-junit5/versions -->
-        <version.org.jboss.weld>5.0.3.Final</version.org.jboss.weld>
-      </properties>
     </profile>
   </profiles>
 </project>

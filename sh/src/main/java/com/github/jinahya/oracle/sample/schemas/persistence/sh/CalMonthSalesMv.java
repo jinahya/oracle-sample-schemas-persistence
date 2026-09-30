@@ -20,31 +20,36 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * A class for the {@value CalMonthSalesMv#TABLE_NAME} materialized view.
- * <p>
- * A materialized view carries no primary key, so this is not an {@link jakarta.persistence.Entity @Entity}: the columns it projects
- * are written out here, and every one of them is read-only.
+ * An entity class for mapping the {@value CalMonthSalesMv#TABLE_NAME} materialized view.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@Entity
+@Table(name = CalMonthSalesMv.TABLE_NAME)
 public class CalMonthSalesMv {
 
     /**
-     * The name of the database materialized view to which this class maps. The value is {@value}.
+     * The name of the database materialized view to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "CAL_MONTH_SALES_MV";
 
-    // ---------------------------------------------------------------------------------------------- CALENDAR_MONTH_DESC
+    // --------------------------------------------------------------------------------------------- CALENDAR_MONTH_DESC
 
     /**
-     * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute maps. The value is {@value}.
+     * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_MONTH_DESC = "CALENDAR_MONTH_DESC";
 
@@ -59,14 +64,16 @@ public class CalMonthSalesMv {
     public static final int SIZE_MAX_CALENDAR_MONTH_DESC = COLUMN_LENGTH_CALENDAR_MONTH_DESC;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_DESC} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_DESC} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_MONTH_DESC = "calendarMonthDesc";
 
-    // ---------------------------------------------------------------------------------------------------------- DOLLARS
+    // --------------------------------------------------------------------------------------------------------- DOLLARS
 
     /**
-     * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_DOLLARS} attribute maps. The value is {@value}.
+     * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_DOLLARS} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_DOLLARS = "DOLLARS";
 
@@ -94,7 +101,33 @@ public class CalMonthSalesMv {
                '}';
     }
 
-    // ------------------------------------------------------------------------------------------------ calendarMonthDesc
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
+    @Override
+    public final boolean equals(final Object obj) {
+        if (!(obj instanceof CalMonthSalesMv that)) {
+            return false;
+        }
+        return Objects.equals(calendarMonthDesc, that.calendarMonthDesc);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
+    @Override
+    public final int hashCode() {
+        return Objects.hashCode(calendarMonthDesc);
+    }
+
+    // ----------------------------------------------------------------------------------------------- calendarMonthDesc
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute.
@@ -114,7 +147,7 @@ public class CalMonthSalesMv {
         this.calendarMonthDesc = calendarMonthDesc;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- dollars
+    // --------------------------------------------------------------------------------------------------------- dollars
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DOLLARS} attribute.
@@ -134,13 +167,23 @@ public class CalMonthSalesMv {
         this.dollars = dollars;
     }
 
+    // ---------------------------------------------------------------------------------------------------------------- 
 
-    // -----------------------------------------------------------------------------------------------------------------
-
+    @Id
     @Size(max = SIZE_MAX_CALENDAR_MONTH_DESC)
-    @Column(name = COLUMN_NAME_CALENDAR_MONTH_DESC, insertable = false, updatable = false, length = COLUMN_LENGTH_CALENDAR_MONTH_DESC)
+    @NotNull
+    @Basic(optional = false)
+    // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
+    // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
+    // primary key field", EclipseLink-46. Nothing writes to a view anyway.
+    @Column(name = COLUMN_NAME_CALENDAR_MONTH_DESC,
+            nullable = false,
+            insertable = true,
+            updatable = false,
+            length = COLUMN_LENGTH_CALENDAR_MONTH_DESC)
     private String calendarMonthDesc;
 
-    @Column(name = COLUMN_NAME_DOLLARS, insertable = false, updatable = false)
+    @Basic(optional = true)
+    @Column(name = COLUMN_NAME_DOLLARS, nullable = true, insertable = false, updatable = false)
     private BigDecimal dollars;
 }

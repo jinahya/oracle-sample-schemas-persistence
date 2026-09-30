@@ -79,168 +79,177 @@ public class Product {
     // ------------------------------------------------------------------------------------------ PRODUCT_ID / productId
 
     /**
-     * The name of the table column to which the {@code productId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_ID = "PRODUCT_ID";
 
     /**
-     * The name of the attribute which maps the {@code PRODUCT_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_ID = "productId";
 
     // -------------------------------------------------------------------------------------- PRODUCT_NAME / productName
 
     /**
-     * The name of the table column to which the {@code productName} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_NAME = "PRODUCT_NAME";
 
     /**
-     * The length of the {@code PRODUCT_NAME} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_PRODUCT_NAME} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_PRODUCT_NAME = 255;
 
     /**
-     * The name of the attribute which maps the {@code PRODUCT_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_NAME} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_NAME = "productName";
 
     /**
-     * The maximum size of the {@code productName} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_PRODUCT_NAME = COLUMN_LENGTH_PRODUCT_NAME;
 
     // ------------------------------------------------------------------------------------------ UNIT_PRICE / unitPrice
 
     /**
-     * The name of the table column to which the {@code unitPrice} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_UNIT_PRICE = "UNIT_PRICE";
 
     /**
-     * The precision of the {@code UNIT_PRICE} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_UNIT_PRICE = 10;
 
     /**
-     * The scale of the {@code UNIT_PRICE} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_UNIT_PRICE = 2;
 
     /**
-     * The name of the attribute which maps the {@code UNIT_PRICE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_UNIT_PRICE = "unitPrice";
 
     /**
-     * The maximum value of the {@code unitPrice} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is {@value}.
      */
     public static final String DECIMAL_MAX_UNIT_PRICE = "+99999999.99";
 
     /**
-     * The minimum value of the {@code unitPrice} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is {@value}.
      */
     public static final String DECIMAL_MIN_UNIT_PRICE = "-99999999.99";
 
     // -------------------------------------------------------------------------------- PRODUCT_DETAILS / productDetails
 
     /**
-     * The name of the table column to which the {@code productDetails} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_DETAILS = "PRODUCT_DETAILS";
 
     /**
-     * The name of the attribute which maps the {@code PRODUCT_DETAILS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_DETAILS} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_DETAILS = "productDetails";
 
     // ------------------------------------------------------------------------------------ PRODUCT_IMAGE / productImage
 
     /**
-     * The name of the table column to which the {@code productImage} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_IMAGE = "PRODUCT_IMAGE";
 
     /**
-     * The name of the attribute which maps the {@code PRODUCT_IMAGE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_IMAGE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_IMAGE = "productImage";
 
     // --------------------------------------------------------------------------------- IMAGE_MIME_TYPE / imageMimeType
 
     /**
-     * The name of the table column to which the {@code imageMimeType} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_IMAGE_MIME_TYPE = "IMAGE_MIME_TYPE";
 
     /**
-     * The length of the {@code IMAGE_MIME_TYPE} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_IMAGE_MIME_TYPE} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_IMAGE_MIME_TYPE = 512;
 
     /**
-     * The name of the attribute which maps the {@code IMAGE_MIME_TYPE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_IMAGE_MIME_TYPE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_IMAGE_MIME_TYPE = "imageMimeType";
 
     /**
-     * The maximum size of the {@code imageMimeType} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_IMAGE_MIME_TYPE = COLUMN_LENGTH_IMAGE_MIME_TYPE;
 
     // ---------------------------------------------------------------------------------- IMAGE_FILENAME / imageFilename
 
     /**
-     * The name of the table column to which the {@code imageFilename} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_IMAGE_FILENAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_IMAGE_FILENAME = "IMAGE_FILENAME";
 
     /**
-     * The length of the {@code IMAGE_FILENAME} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_IMAGE_FILENAME} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_IMAGE_FILENAME = 512;
 
     /**
-     * The name of the attribute which maps the {@code IMAGE_FILENAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_IMAGE_FILENAME} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_IMAGE_FILENAME = "imageFilename";
 
     /**
-     * The maximum size of the {@code imageFilename} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_IMAGE_FILENAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_IMAGE_FILENAME = COLUMN_LENGTH_IMAGE_FILENAME;
 
     // ------------------------------------------------------------------------------------ IMAGE_CHARSET / imageCharset
 
     /**
-     * The name of the table column to which the {@code imageCharset} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_IMAGE_CHARSET} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_IMAGE_CHARSET = "IMAGE_CHARSET";
 
     /**
-     * The length of the {@code IMAGE_CHARSET} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_IMAGE_CHARSET} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_IMAGE_CHARSET = 512;
 
     /**
-     * The name of the attribute which maps the {@code IMAGE_CHARSET} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_IMAGE_CHARSET} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_IMAGE_CHARSET = "imageCharset";
 
     /**
-     * The maximum size of the {@code imageCharset} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_IMAGE_CHARSET} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_IMAGE_CHARSET = COLUMN_LENGTH_IMAGE_CHARSET;
 
     // --------------------------------------------------------------------------- IMAGE_LAST_UPDATED / imageLastUpdated
 
     /**
-     * The name of the table column to which the {@code imageLastUpdated} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_IMAGE_LAST_UPDATED = "IMAGE_LAST_UPDATED";
 
     /**
-     * The name of the attribute which maps the {@code IMAGE_LAST_UPDATED} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_IMAGE_LAST_UPDATED} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_IMAGE_LAST_UPDATED = "imageLastUpdated";
 
@@ -304,18 +313,18 @@ public class Product {
     // ------------------------------------------------------------------------------------------------------- productId
 
     /**
-     * Returns current value of {@code productId} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
      *
-     * @return current value of the {@code productId} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
      */
     public Long getProductId() {
         return productId;
     }
 
     /**
-     * Replaces current value of {@code productId} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute with the specified value.
      *
-     * @param productId new value for the {@code productId} attribute.
+     * @param productId new value for {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
      */
     protected void setProductId(final Long productId) {
         this.productId = productId;
@@ -385,11 +394,13 @@ public class Product {
     }
 
     /**
-     * Returns current value of the {@code productDetails} attribute, mapped by the specified function.
+     * Returns current value of the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute, mapped by the specified
+     * function.
      *
      * @param <R>    the type of the mapped value.
-     * @param mapper the function to apply to current value of the {@code productDetails} attribute.
-     * @return the mapped value; {@code null} when the {@code productDetails} attribute is {@code null}.
+     * @param mapper the function to apply to current value of the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute.
+     * @return the mapped value; {@code null} when the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute is
+     * {@code null}.
      */
     public <R> R getProductDetailsAsMapped(final Function<? super byte[], ? extends R> mapper) {
         return Optional.ofNullable(getProductDetails())
@@ -398,8 +409,8 @@ public class Product {
     }
 
     /**
-     * Replaces current value of the {@code productDetails} attribute with the specified value, mapped by the specified
-     * function.
+     * Replaces current value of the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute with the specified value, mapped
+     * by the specified function.
      *
      * @param <T>            the type of the specified value.
      * @param productDetails the value to map and set.

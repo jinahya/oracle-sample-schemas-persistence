@@ -45,7 +45,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @NamedQuery(
-        name = "Customer.selectSingleByEmailAddress",
+        name = "Customer.selectOneByEmailAddress",
         query = """
                 SELECT e
                 FROM Customer e
@@ -93,66 +93,69 @@ public class Customer {
     // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
 
     /**
-     * The name of the table column to which the {@code customerId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUSTOMER_ID = "CUSTOMER_ID";
 
     /**
-     * The name of the attribute which maps the {@code CUSTOMER_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUSTOMER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER_ID = "customerId";
 
     // --------------------------------------------------------------------------------------------------- EMAIL_ADDRESS
 
     /**
-     * The name of the table column to which the {@code emailAddress} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_EMAIL_ADDRESS = "EMAIL_ADDRESS";
 
     /**
-     * The length of the {@code EMAIL_ADDRESS} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_EMAIL_ADDRESS} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_NAME_EMAIL_ADDRESS = 255;
 
     /**
-     * The name of the attribute which maps the {@code EMAIL_ADDRESS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_EMAIL_ADDRESS} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMAIL_ADDRESS = "emailAddress";
 
     /**
-     * The minimum size of the {@code emailAddress} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_NAME_EMAIL_ADDRESS = 0;
 
     /**
-     * The maximum size of the {@code emailAddress} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_NAME_EMAIL_ADDRESS = COLUMN_LENGTH_NAME_EMAIL_ADDRESS;
 
     // -------------------------------------------------------------------------------------------- FULL_NAME / fullName
 
     /**
-     * The name of the table column to which the {@code fullName} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FULL_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_FULL_NAME = "FULL_NAME";
 
     /**
-     * The length of the {@code FULL_NAME} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_FULL_NAME} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_NAME_FULL_NAME = 255;
 
     /**
-     * The name of the attribute which maps the {@code FULL_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FULL_NAME} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_FULL_NAME = "fullName";
 
     /**
-     * The minimum size of the {@code fullName} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_FULL_NAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_NAME_FULL_NAME = 0;
 
     /**
-     * The maximum size of the {@code fullName} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_FULL_NAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_NAME_FULL_NAME = COLUMN_LENGTH_NAME_FULL_NAME;
 
@@ -210,18 +213,18 @@ public class Customer {
     // ------------------------------------------------------------------------------------------------------ customerId
 
     /**
-     * Returns current value of {@code customerId} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
      *
-     * @return current value of {@code customerId} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
      */
     public Long getCustomerId() {
         return customerId;
     }
 
     /**
-     * Replaces current value of {@code customerId} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute with the specified value.
      *
-     * @param customerId new value for {@code customerId} attribute.
+     * @param customerId new value for {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
      */
     protected void setCustomerId(final Long customerId) {
         this.customerId = customerId;
@@ -294,7 +297,7 @@ public class Customer {
     /**
      * Returns the shipments dispatched to this customer.
      *
-     * @return returns the shipments dispatched to this customer.
+     * @return the shipments dispatched to this customer.
      */
     public List<Shipment> getShipments() {
         return shipments;
@@ -303,7 +306,7 @@ public class Customer {
     /**
      * Replaces the shipments dispatched to this customer.
      *
-     * @param shipments replaces the shipments dispatched to this customer.
+     * @param shipments new shipments dispatched to this customer.
      */
     public void setShipments(final List<Shipment> shipments) {
         this.shipments = shipments;

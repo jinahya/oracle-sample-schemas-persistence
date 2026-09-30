@@ -44,24 +44,24 @@ public class CountrySection {
     // ------------------------------------------------------------------------------------------------------------ NAME
 
     /**
-     * The name of the table column to which the {@code name} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_NAME} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_NAME = "NAME";
 
     /**
-     * The name of the attribute which maps the {@code NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_NAME} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_NAME = "name";
 
     // -------------------------------------------------------------------------------------------------------------- ID
 
     /**
-     * The name of the table column to which the {@code id} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_ID} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_ID = "ID";
 
     /**
-     * The name of the attribute which maps the {@code ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID = "id";
 

@@ -28,20 +28,54 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 
+/**
+ * Utilities for testing the {@link ProductDetails} class.
+ * <p>
+ * The methods read an instance back from a stream, or from a byte array, and write one out again, as JSON.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 @Slf4j
 final class ProductDetails_TestUtils {
 
+    /**
+     * Reads a new {@link ProductDetails} instance from the specified input stream, using the specified object mapper.
+     *
+     * @param stream the input stream from which a JSON document is read; must not be {@code null}.
+     * @param mapper the object mapper with which the JSON document is bound; must not be {@code null}.
+     * @return a new {@link ProductDetails} instance bound from the content of the {@code stream}.
+     * @throws IOException if the {@code stream} fails to be read, or its content is not a JSON document which the
+     *                     {@code mapper} can bind to {@link ProductDetails}.
+     */
     static ProductDetails from(final InputStream stream, final ObjectMapper mapper) throws IOException {
         Objects.requireNonNull(stream, "stream is null");
         Objects.requireNonNull(mapper, "mapper is null");
         return mapper.readValue(stream, ProductDetails.class);
     }
 
+    /**
+     * Reads a new {@link ProductDetails} instance from the specified array of bytes, using the specified object
+     * mapper.
+     *
+     * @param bytes  the array of bytes whose content is read as a JSON document; must not be {@code null}.
+     * @param mapper the object mapper with which the JSON document is bound; must not be {@code null}.
+     * @return a new {@link ProductDetails} instance bound from the content of the {@code bytes}.
+     * @throws IOException if the content of the {@code bytes} is not a JSON document which the {@code mapper} can bind
+     *                     to {@link ProductDetails}.
+     */
     static ProductDetails from(final byte[] bytes, final ObjectMapper mapper) throws IOException {
         Objects.requireNonNull(bytes, "bytes is null");
         return from(new ByteArrayInputStream(bytes), mapper);
     }
 
+    /**
+     * Writes the specified {@link ProductDetails} instance as a JSON document, using the specified object mapper.
+     *
+     * @param value  the instance to write; must not be {@code null}.
+     * @param mapper the object mapper with which the instance is written; must not be {@code null}.
+     * @return an array of bytes containing the JSON document written from the {@code value}.
+     * @throws IOException if the {@code mapper} fails to write the {@code value}.
+     */
     public static byte[] toBytes(final ProductDetails value, final ObjectMapper mapper) throws IOException {
         Objects.requireNonNull(value, "value is null");
         Objects.requireNonNull(mapper, "mapper is null");

@@ -20,11 +20,20 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Persister;
-import com.github.jinahya.persistence.test.util.__PersisterUtils;
+import com.github.jinahya.persistence.test.util.AbstractEntityPersister;
+import com.github.jinahya.persistence.test.util.EntityPersisterUtils;
 import jakarta.persistence.EntityManager;
 
-class Inventory_Persister extends __Persister<Inventory> {
+/**
+ * A persister which persists {@link Inventory} instances.
+ * <p>
+ * Each instance is given a newly persisted {@link Store} and a newly persisted {@link Product} first, so that its
+ * {@code store} and its {@code product} -- neither of which is nullable -- refer to rows which are already in the
+ * database.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Inventory_Persister extends AbstractEntityPersister<Inventory> {
 
     Inventory_Persister() {
         super(Inventory.class);
@@ -33,8 +42,8 @@ class Inventory_Persister extends __Persister<Inventory> {
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     public Inventory apply(final EntityManager entityManager, final Inventory entityInstance) {
-        entityInstance.setStore(__PersisterUtils.newPersistedInstanceOf(entityManager, Store.class));
-        entityInstance.setProduct(__PersisterUtils.newPersistedInstanceOf(entityManager, Product.class));
+        entityInstance.setStore(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Store.class));
+        entityInstance.setProduct(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class));
         return super.apply(entityManager, entityInstance);
     }
 }

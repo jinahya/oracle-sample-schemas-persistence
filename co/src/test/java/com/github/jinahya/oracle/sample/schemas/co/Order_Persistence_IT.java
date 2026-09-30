@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.co;
 
-import com.github.jinahya.oracle.sample.schemas.persistence.test._Persistence_IT;
 
 /*-
  * #%L

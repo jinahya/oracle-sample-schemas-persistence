@@ -54,31 +54,32 @@ import java.util.Optional;
 public class Employee {
 
     /**
-     * The name of the database table to which this entity is mapped. The value is {@value}.
+     * The name of the database table to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "EMPLOYEES";
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
-     * The name of the table column to which the {@code employeeId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_EMPLOYEE_ID = "EMPLOYEE_ID";
 
     /**
-     * The precision of the {@code EMPLOYEE_ID} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_EMPLOYEE_ID = 6;
 
     /**
-     * The scale of the {@code EMPLOYEE_ID} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_EMPLOYEE_ID = 0;
 
     // TODO: use decimal
 
     /**
-     * The minimum value of the {@code EMPLOYEE_ID} column.
+     * The minimum value of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MIN_EMPLOYEE_ID = 0xFF_F0_BD_C1;
 
@@ -88,168 +89,172 @@ public class Employee {
 //    public static final int COLUMN_MAX_EMPLOYEE_ID = 0x00_0F_42_3F; // +999999
 
     /**
-     * The maximum value of the {@code EMPLOYEE_ID} column.
+     * The maximum value of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_EMPLOYEE_ID = 0b0000_0000_0000_1111_0100_0010_0011_1111;
 
     // +999999
 
     /**
-     * The name of the attribute which maps the {@code EMPLOYEE_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
 
     // TODO: remove casting when COLUMN_MIN_EMPLOYEE_ID uses decimal
 
     /**
-     * The minimum value of the {@code employeeId} attribute.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = (long) COLUMN_MIN_EMPLOYEE_ID;
 
     /**
-     * The maximum value of the {@code employeeId} attribute.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
 
     // ------------------------------------------------------------------------------------------------------ FIRST_NAME
 
     /**
-     * The name of the table column to which the {@code firstName} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_FIRST_NAME = "FIRST_NAME";
 
     /**
-     * The length of the {@code FIRST_NAME} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_FIRST_NAME} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_FIRST_NAME = 20;
 
     /**
-     * The name of the attribute which maps the {@code FIRST_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FIRST_NAME} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_FIRST_NAME = "firstName";
 
     /**
-     * The minimum size of the {@code firstName} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_FIRST_NAME = 0;
 
     /**
-     * The maximum size of the {@code firstName} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_FIRST_NAME = COLUMN_LENGTH_FIRST_NAME;
 
     // ------------------------------------------------------------------------------------------------------- LAST_NAME
 
     /**
-     * The name of the table column to which the {@code lastName} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LAST_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_LAST_NAME = "LAST_NAME";
 
     /**
-     * The length of the {@code LAST_NAME} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_LAST_NAME} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_LAST_NAME = 25;
 
     /**
-     * The name of the attribute which maps the {@code LAST_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LAST_NAME} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LAST_NAME = "lastName";
 
     /**
-     * The minimum size of the {@code lastName} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_LAST_NAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_LAST_NAME = 0;
 
     /**
-     * The maximum size of the {@code lastName} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_LAST_NAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_LAST_NAME = COLUMN_LENGTH_LAST_NAME;
 
     // ----------------------------------------------------------------------------------------------------------- EMAIL
 
     /**
-     * The name of the table column to which the {@code email} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMAIL} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_EMAIL = "EMAIL";
 
     /**
-     * The length of the {@code EMAIL} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_EMAIL} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_EMAIL = 25;
 
     /**
-     * The name of the attribute which maps the {@code EMAIL} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_EMAIL} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMAIL = "email";
 
     /**
-     * The minimum size of the {@code email} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_EMAIL} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_EMAIL = 0;
 
     /**
-     * The maximum size of the {@code email} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_EMAIL} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_EMAIL = COLUMN_LENGTH_EMAIL;
 
     // ---------------------------------------------------------------------------------------------------- PHONE_NUMBER
 
     /**
-     * The name of the table column to which the {@code phoneNumber} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PHONE_NUMBER} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PHONE_NUMBER = "PHONE_NUMBER";
 
     /**
-     * The length of the {@code PHONE_NUMBER} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_PHONE_NUMBER} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_PHONE_NUMBER = 20;
 
     /**
-     * The name of the attribute which maps the {@code PHONE_NUMBER} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PHONE_NUMBER} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PHONE_NUMBER = "phoneNumber";
 
     /**
-     * The minimum size of the {@code phoneNumber} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_PHONE_NUMBER} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_PHONE_NUMBER = 0;
 
     /**
-     * The maximum size of the {@code phoneNumber} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PHONE_NUMBER} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_PHONE_NUMBER = COLUMN_LENGTH_PHONE_NUMBER;
 
     // ------------------------------------------------------------------------------------------------------- HIRE_DATE
 
     /**
-     * The name of the table column to which the {@code hireDate} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_HIRE_DATE = "HIRE_DATE";
 
     /**
-     * The name of the attribute which maps the {@code HIRE_DATE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_HIRE_DATE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_HIRE_DATE = "hireDate";
 
     // ---------------------------------------------------------------------------------------------------------- JOB_ID
 
     /**
-     * The name of the table column to which the {@code jobId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_JOB_ID = "JOB_ID";
 
     /**
-     * The length of the {@code JOB_ID} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_JOB_ID} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_JOB_ID = 10;
 
     /**
-     * The minimum size of the {@code jobId} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_JOB} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_JOB_ID = 0;
 
     /**
-     * The maximum size of the {@code jobId} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_JOB} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
@@ -261,17 +266,17 @@ public class Employee {
     // ---------------------------------------------------------------------------------------------------------- SALARY
 
     /**
-     * The name of the table column to which the {@code salary} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SALARY} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_SALARY = "SALARY";
 
     /**
-     * The precision of the {@code SALARY} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_SALARY} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_SALARY = 8;
 
     /**
-     * The scale of the {@code SALARY} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_SALARY} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_SALARY = 2;
 
@@ -285,103 +290,105 @@ public class Employee {
     // TODO: check the checks/EMP_SALARY_MIN
 
     /**
-     * The maximum value of the {@code SALARY} column.
+     * The maximum value of the {@value #COLUMN_NAME_SALARY} column. The value is {@value}.
      */
     public static final double COLUMN_MAX_SALARY = +999999.99d;
 
     /**
-     * The name of the attribute which maps the {@code SALARY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_SALARY} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
 
     /**
-     * The exclusive minimum value of the {@code salary} attribute. The value is {@value}.
+     * The exclusive minimum value of the {@value #ATTRIBUTE_NAME_SALARY} attribute. The value is {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE = "-000000.00";
 
     // TODO: check the checks/EMP_SALARY_MIN
 
     /**
-     * The maximum value of the {@code salary} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_SALARY} attribute. The value is {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_SALARY = "+999999.99";
 
     // -------------------------------------------------------------------------------------------------- COMMISSION_PCT
 
     /**
-     * The name of the table column to which the {@code commissionPct} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_COMMISSION_PCT = "COMMISSION_PCT";
 
     /**
-     * The precision of the {@code COMMISSION_PCT} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_COMMISSION_PCT} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_COMMISSION_PCT = 2;
 
     /**
-     * The scale of the {@code COMMISSION_PCT} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_COMMISSION_PCT} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_COMMISSION_PCT = 2;
 
     /**
-     * The minimum value of the {@code COMMISSION_PCT} column.
+     * The minimum value of the {@value #COLUMN_NAME_COMMISSION_PCT} column. The value is {@value}.
      */
     public static final double COLUMN_MIN_COMMISSION_PCT = -0.99d;
 
     /**
-     * The maximum value of the {@code COMMISSION_PCT} column.
+     * The maximum value of the {@value #COLUMN_NAME_COMMISSION_PCT} column. The value is {@value}.
      */
     public static final double COLUMN_MAX_COMMISSION_PCT = +0.99d;
 
     /**
-     * The name of the attribute which maps the {@code COMMISSION_PCT} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COMMISSION_PCT} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COMMISSION_PCT = "commissionPct";
 
     /**
-     * The minimum value of the {@code commissionPct} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute. The value is {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT = "-0.99";
 
     /**
-     * The maximum value of the {@code commissionPct} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute. The value is {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT = "+0.99";
 
     // ------------------------------------------------------------------------------------------------------ MANAGER_ID
 
     /**
-     * The name of the table column to which the {@code managerId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MANAGER} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_MANAGER_ID = "MANAGER_ID";
 
     /**
-     * The precision of the {@code MANAGER_ID} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_MANAGER_ID} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_MANAGER_ID = 6;
 
     /**
-     * The scale of the {@code MANAGER_ID} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_MANAGER_ID} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_MANAGER_ID = 0;
 
     /**
-     * The minimum value of the {@code MANAGER_ID} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_MANAGER_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MIN_MANAGER_ID = -999999;
 
     /**
-     * The maximum value of the {@code MANAGER_ID} column.
+     * The maximum value of the {@value #COLUMN_NAME_MANAGER_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_MANAGER_ID = +999999;
 
     /**
-     * The minimum value of the {@code managerId} attribute.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_MANAGER} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MIN_MANAGER_ID = COLUMN_MIN_MANAGER_ID;
 
     /**
-     * The maximum value of the {@code managerId} attribute.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_MANAGER} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MAX_MANAGER_ID = COLUMN_MAX_MANAGER_ID;
 
@@ -393,24 +400,25 @@ public class Employee {
     // ------------------------------------------------------------------------------------ DEPARTMENT_ID / departmentId
 
     /**
-     * The name of the table column to which the {@code departmentId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
 
     /**
-     * The precision of the {@code DEPARTMENT_ID} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_DEPARTMENT_ID = 4;
 
     /**
-     * The scale of the {@code DEPARTMENT_ID} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_DEPARTMENT_ID = 0;
 
     // TODO: use decimal
 
     /**
-     * The minimum value of the {@code DEPARTMENT_ID} column.
+     * The minimum value of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MIN_DEPARTMENT_ID = 0xFF_FF_D8_F1;
 
@@ -418,7 +426,7 @@ public class Employee {
     // TODO: use decimal
 
     /**
-     * The maximum value of the {@code DEPARTMENT_ID} column.
+     * The maximum value of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_DEPARTMENT_ID = 0x00_00_27_0F;
 
@@ -427,7 +435,7 @@ public class Employee {
     // TODO: assign COLUMN_MIN_DEPARTMENT_ID
 
     /**
-     * The minimum value of the {@code departmentId} attribute.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MIN_DEPARTMENT_ID = 0xFF_FF_FF_FF_FF_FF_D8_F1L;
 
@@ -435,7 +443,7 @@ public class Employee {
     // TODO: assign COLUMN_MAX_DEPARTMENT_ID
 
     /**
-     * The maximum value of the {@code departmentId} attribute.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MAX_DEPARTMENT_ID = 0x00_00_00_00_00_00_27_0FL;
 
@@ -548,9 +556,10 @@ public class Employee {
 //    @jakarta.validation.constraints.AssertTrue
 
     /**
-     * Indicates whether the {@code commissionPct} attribute is non-negative.
+     * Indicates whether the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is non-negative.
      *
-     * @return {@code true} if the {@code commissionPct} attribute is non-negative; {@code false} otherwise.
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is non-negative; {@code false}
+     * otherwise.
      */
     protected boolean isCommissionPctNonNegative() {
         if (commissionPct == null) {
@@ -562,10 +571,11 @@ public class Employee {
     //    @jakarta.validation.constraints.AssertTrue
 
     /**
-     * Indicates whether the {@code salary} attribute is greater than or equal to the {@code minSalary} of the job.
+     * Indicates whether the {@value #ATTRIBUTE_NAME_SALARY} attribute is greater than or equal to the
+     * {@value Job#ATTRIBUTE_NAME_MIN_SALARY} of the job.
      *
-     * @return {@code true} if the {@code salary} attribute is greater than or equal to the {@code minSalary} of the
-     * job; {@code false} otherwise.
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_SALARY} attribute is greater than or equal to the
+     * {@value Job#ATTRIBUTE_NAME_MIN_SALARY} of the job; {@code false} otherwise.
      */
     protected boolean isSalaryGreaterThanOrEqualToJobMinSalary() {
         if (salary == null || job == null || job.getMinSalary() == null) {
@@ -579,7 +589,7 @@ public class Employee {
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
      *
-     * @return the current value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
      */
     @Nonnull
     public Integer getEmployeeId() {
@@ -769,7 +779,7 @@ public class Employee {
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_MANAGER} attribute.
      *
-     * @return current value of the {@value #ATTRIBUTE_NAME_MANAGER} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_MANAGER} attribute.
      */
     @Nonnull
     public Employee getManager() {
@@ -779,7 +789,7 @@ public class Employee {
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_MANAGER} attribute with the specified value.
      *
-     * @param manager new value for the {@value #ATTRIBUTE_NAME_MANAGER} attribute.
+     * @param manager new value for {@value #ATTRIBUTE_NAME_MANAGER} attribute.
      */
     public void setManager(@Nonnull final Employee manager) {
         this.manager = manager;
@@ -788,9 +798,10 @@ public class Employee {
     // ----------------------------------------------------------------------------------------------- this.jobMinSalary
 
     /**
-     * Returns current value of {@code jobMinSalary} attribute.
+     * Returns the {@value Job#ATTRIBUTE_NAME_MIN_SALARY} of the {@value #ATTRIBUTE_NAME_JOB} of this employee.
      *
-     * @return current value of {@code jobMinSalary} attribute.
+     * @return the {@value Job#ATTRIBUTE_NAME_MIN_SALARY} of the {@value #ATTRIBUTE_NAME_JOB} of this employee;
+     * {@code null} when no job is assigned.
      */
     @jakarta.annotation.Nullable
     protected BigDecimal getJobMinSalary() {
@@ -804,9 +815,10 @@ public class Employee {
     // ----------------------------------------------------------------------------------------------- this.jobMaxSalary
 
     /**
-     * Returns current value of {@code jobMaxSalary} attribute.
+     * Returns the {@value Job#ATTRIBUTE_NAME_MAX_SALARY} of the {@value #ATTRIBUTE_NAME_JOB} of this employee.
      *
-     * @return current value of {@code jobMaxSalary} attribute.
+     * @return the {@value Job#ATTRIBUTE_NAME_MAX_SALARY} of the {@value #ATTRIBUTE_NAME_JOB} of this employee;
+     * {@code null} when no job is assigned.
      */
     @jakarta.annotation.Nullable
     protected BigDecimal getJobMaxSalary() {

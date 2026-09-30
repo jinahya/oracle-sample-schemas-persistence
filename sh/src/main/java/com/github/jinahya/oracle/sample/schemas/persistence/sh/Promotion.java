@@ -42,14 +42,15 @@ import java.util.Objects;
 public class Promotion {
 
     /**
-     * The name of the database table to which this class maps. The value is {@value}.
+     * The name of the database table to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "PROMOTIONS";
 
     // ------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the table column to which the {@code promoId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
 
@@ -61,7 +62,8 @@ public class Promotion {
     // ----------------------------------------------------------------------------------------------------- PROMO_NAME
 
     /**
-     * The name of the table column to which the {@code promoName} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROMO_NAME = "PROMO_NAME";
 
@@ -83,7 +85,8 @@ public class Promotion {
     // ---------------------------------------------------------------------------------------------- PROMO_SUBCATEGORY
 
     /**
-     * The name of the table column to which the {@code promoSubcategory} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROMO_SUBCATEGORY = "PROMO_SUBCATEGORY";
 
@@ -105,19 +108,22 @@ public class Promotion {
     // ------------------------------------------------------------------------------------------- PROMO_SUBCATEGORY_ID
 
     /**
-     * The name of the table column to which the {@code promoSubcategoryId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY_ID} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_SUBCATEGORY_ID = "PROMO_SUBCATEGORY_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_SUBCATEGORY_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_SUBCATEGORY_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_SUBCATEGORY_ID = "promoSubcategoryId";
 
     // ------------------------------------------------------------------------------------------------- PROMO_CATEGORY
 
     /**
-     * The name of the table column to which the {@code promoCategory} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_CATEGORY} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROMO_CATEGORY = "PROMO_CATEGORY";
 
@@ -139,7 +145,8 @@ public class Promotion {
     // ---------------------------------------------------------------------------------------------- PROMO_CATEGORY_ID
 
     /**
-     * The name of the table column to which the {@code promoCategoryId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_CATEGORY_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROMO_CATEGORY_ID = "PROMO_CATEGORY_ID";
 
@@ -151,7 +158,8 @@ public class Promotion {
     // ----------------------------------------------------------------------------------------------------- PROMO_COST
 
     /**
-     * The name of the table column to which the {@code promoCost} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_COST} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROMO_COST = "PROMO_COST";
 
@@ -163,7 +171,8 @@ public class Promotion {
     // ----------------------------------------------------------------------------------------------- PROMO_BEGIN_DATE
 
     /**
-     * The name of the table column to which the {@code promoBeginDate} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_BEGIN_DATE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROMO_BEGIN_DATE = "PROMO_BEGIN_DATE";
 
@@ -175,7 +184,8 @@ public class Promotion {
     // ------------------------------------------------------------------------------------------------- PROMO_END_DATE
 
     /**
-     * The name of the table column to which the {@code promoEndDate} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_END_DATE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROMO_END_DATE = "PROMO_END_DATE";
 
@@ -187,7 +197,8 @@ public class Promotion {
     // ---------------------------------------------------------------------------------------------------- PROMO_TOTAL
 
     /**
-     * The name of the table column to which the {@code promoTotal} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_TOTAL} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROMO_TOTAL = "PROMO_TOTAL";
 
@@ -209,7 +220,8 @@ public class Promotion {
     // ------------------------------------------------------------------------------------------------- PROMO_TOTAL_ID
 
     /**
-     * The name of the table column to which the {@code promoTotalId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_TOTAL_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROMO_TOTAL_ID = "PROMO_TOTAL_ID";
 

@@ -24,7 +24,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence ${persistence.schemaLocation}"
              version="${persistence.version}">
-  <persistence-unit name="__testPU" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="__co_testPU" transaction-type="RESOURCE_LOCAL">
     <description>Persistence Unit for an In-Memory DB</description>
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
@@ -41,6 +41,14 @@
     <class>com.github.jinahya.oracle.sample.schemas.co.Product</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Shipment</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Store</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.CustomerOrderProducts</class>
+    <!-- ProductOrdersWithEmbeddedId and ProductOrdersWithIdClass map PRODUCT_ORDERS, two ways; only one may be listed.
+         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
+         metamodel then throws from getIdClassAttributes(). -->
+    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersWithIdClass</class>-->
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
     <properties>
@@ -67,7 +75,7 @@
       <property name="hibernate.use_sql_comment" value="true"/>
     </properties>
   </persistence-unit>
-  <persistence-unit name="__itPU" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="__co_itPU" transaction-type="RESOURCE_LOCAL">
     <description>Persistence Unit for a Physical Database</description>
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
@@ -86,6 +94,14 @@
     <class>com.github.jinahya.oracle.sample.schemas.co.Shipment</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.Store</class>
     <class>com.github.jinahya.oracle.sample.schemas.co.StoreLogo</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.CustomerOrderProducts</class>
+    <!-- ProductOrdersWithEmbeddedId and ProductOrdersWithIdClass map PRODUCT_ORDERS, two ways; only one may be listed.
+         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
+         metamodel then throws from getIdClassAttributes(). -->
+    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersWithIdClass</class>-->
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
     <properties>

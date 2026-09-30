@@ -40,8 +40,8 @@ class Country_Test extends _Test<Country> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Country#equals(Object) equals} compares only the {@code @Id}
-     * {@code id} -- the surrogate key -- because every other attribute is mutable state.
+     * @implNote {@link Country#equals(Object) equals} compares only the {@code @Id} {@code id} -- the surrogate key --
+     * because every other attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<Country> equals_verifier_() {

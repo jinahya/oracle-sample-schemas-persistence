@@ -20,10 +20,15 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Persister;
+import com.github.jinahya.persistence.test.util.AbstractEntityPersister;
 import jakarta.persistence.EntityManager;
 
-class Time_Persister extends __Persister<Time> {
+/**
+ * A persister which persists {@link Time} instances.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Time_Persister extends AbstractEntityPersister<Time> {
 
     Time_Persister() {
         super(Time.class);

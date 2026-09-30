@@ -82,8 +82,7 @@ public class Department {
     public static final int COLUMN_MAX_DEPARTMENT_ID = +9999;
 
     /**
-     * The name of the entity attribute from which the {@value #COLUMN_NAME_DEPARTMENT_ID} column maps. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DEPARTMENT_ID = "departmentId";
 
@@ -100,69 +99,71 @@ public class Department {
     // ------------------------------------------------------------------------------------------------- DEPARTMENT_NAME
 
     /**
-     * The name of the table column to which the {@code departmentName} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_DEPARTMENT_NAME = "DEPARTMENT_NAME";
 
     /**
-     * The length of the {@code DEPARTMENT_NAME} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_DEPARTMENT_NAME} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_DEPARTMENT_NAME = 30;
 
     /**
-     * The name of the attribute which maps the {@code DEPARTMENT_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_NAME} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DEPARTMENT_NAME = "departmentName";
 
     /**
-     * The minimum size of the {@code departmentName} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_DEPARTMENT_NAME = 0;
 
     /**
-     * The maximum size of the {@code departmentName} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_DEPARTMENT_NAME = COLUMN_LENGTH_DEPARTMENT_NAME;
 
     // ------------------------------------------------------------------------------------------------------ MANAGER_ID
 
     /**
-     * The name of the table column to which the {@code managerId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MANAGER} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_MANAGER_ID = "MANAGER_ID";
 
     /**
-     * Whether the {@code MANAGER_ID} column is nullable. The value is {@value}.
+     * Whether the {@value #COLUMN_NAME_MANAGER_ID} column is nullable. The value is {@value}.
      */
     public static final boolean COLUMN_NULLABLE_MANAGER_ID = true;
 
     /**
-     * The precision of the {@code MANAGER_ID} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_MANAGER_ID} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_MANAGER_ID = 6;
 
     /**
-     * The scale of the {@code MANAGER_ID} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_MANAGER_ID} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_MANAGER_ID = 0;
 
     /**
-     * The minimum value of the {@code MANAGER_ID} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_MANAGER_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MIN_MANAGER_ID = -999999;
 
     /**
-     * The maximum value of the {@code MANAGER_ID} column.
+     * The maximum value of the {@value #COLUMN_NAME_MANAGER_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_MANAGER_ID = +999999;
 
     /**
-     * The minimum value of the {@code managerId} attribute.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_MANAGER} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_MANAGER_ID = COLUMN_MIN_MANAGER_ID;
 
     /**
-     * The maximum value of the {@code managerId} attribute.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_MANAGER} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_MANAGER_ID = COLUMN_MAX_MANAGER_ID;
 
@@ -174,42 +175,43 @@ public class Department {
     // ----------------------------------------------------------------------------------------------------- LOCATION_ID
 
     /**
-     * The name of the table column to which the {@code locationId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOCATION} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_LOCATION_ID = "LOCATION_ID";
 
     /**
-     * Whether the {@code LOCATION_ID} column is nullable. The value is {@value}.
+     * Whether the {@value #COLUMN_NAME_LOCATION_ID} column is nullable. The value is {@value}.
      */
     public static final boolean COLUMN_NULLABLE_LOCATION_ID = true;
 
     /**
-     * The precision of the {@code LOCATION_ID} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_LOCATION_ID} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_LOCATION_ID = 4;
 
     /**
-     * The scale of the {@code LOCATION_ID} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_LOCATION_ID} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_LOCATION_ID = 0;
 
     /**
-     * The minimum value of the {@code LOCATION_ID} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_LOCATION_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MIN_LOCATION_ID = -9999;
 
     /**
-     * The maximum value of the {@code LOCATION_ID} column.
+     * The maximum value of the {@value #COLUMN_NAME_LOCATION_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_LOCATION_ID = +9999;
 
     /**
-     * The minimum value of the {@code locationId} attribute.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_LOCATION} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_LOCATION_ID = COLUMN_MIN_LOCATION_ID;
 
     /**
-     * The maximum value of the {@code locationId} attribute.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_LOCATION} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_LOCATION_ID = COLUMN_MAX_LOCATION_ID;
 
@@ -271,7 +273,7 @@ public class Department {
     /**
      * Returns the current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
      *
-     * @return the current value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
      */
     @Nonnull
     public Integer getDepartmentId() {

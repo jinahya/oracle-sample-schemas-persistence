@@ -20,8 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.test._Persistence_IT;
-
 /**
  * Verifies the mappings of {@link EmpDetailsView} against the installed {@code HR} schema.
  *

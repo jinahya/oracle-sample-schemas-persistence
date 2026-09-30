@@ -39,10 +39,9 @@ class StoreLogo_Test extends _Test<StoreLogo> {
     /**
      * Does nothing; {@link StoreLogo} is not a class {@code EqualsVerifier} has anything to verify.
      *
-     * @implNote Neither {@link StoreLogo} nor {@link _Binary}, which holds its state, declares
-     * {@code equals(Object)}, so instances carry {@link Object}'s
-     * reference equality. There is no value equality to verify, and suppressing every check that follows from that
-     * would leave the test asserting nothing anyway.
+     * @implNote Neither {@link StoreLogo} nor {@link _Binary}, which holds its state, declares {@code equals(Object)},
+     * so instances carry {@link Object}'s reference equality. There is no value equality to verify, and suppressing
+     * every check that follows from that would leave the test asserting nothing anyway.
      */
     @Override
     @Test

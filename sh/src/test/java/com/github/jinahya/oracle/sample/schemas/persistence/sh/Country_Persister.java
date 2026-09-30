@@ -20,10 +20,15 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Persister;
+import com.github.jinahya.persistence.test.util.AbstractEntityPersister;
 import jakarta.persistence.EntityManager;
 
-class Country_Persister extends __Persister<Country> {
+/**
+ * A persister which persists {@link Country} instances.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Country_Persister extends AbstractEntityPersister<Country> {
 
     Country_Persister() {
         super(Country.class);

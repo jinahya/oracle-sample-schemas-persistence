@@ -40,9 +40,8 @@ class ProductImage_Test extends _Test<ProductImage> {
      * Does nothing; {@link ProductImage} is not a class {@code EqualsVerifier} has anything to verify.
      *
      * @implNote Neither {@link ProductImage} nor {@link _Binary}, which holds its state, declares
-     * {@code equals(Object)}, so instances carry {@link Object}'s
-     * reference equality. There is no value equality to verify, and suppressing every check that follows from that
-     * would leave the test asserting nothing anyway.
+     * {@code equals(Object)}, so instances carry {@link Object}'s reference equality. There is no value equality to
+     * verify, and suppressing every check that follows from that would leave the test asserting nothing anyway.
      */
     @Override
     @Test

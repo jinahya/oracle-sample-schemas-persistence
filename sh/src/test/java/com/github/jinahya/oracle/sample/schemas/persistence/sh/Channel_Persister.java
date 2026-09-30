@@ -20,10 +20,15 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Persister;
+import com.github.jinahya.persistence.test.util.AbstractEntityPersister;
 import jakarta.persistence.EntityManager;
 
-class Channel_Persister extends __Persister<Channel> {
+/**
+ * A persister which persists {@link Channel} instances.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Channel_Persister extends AbstractEntityPersister<Channel> {
 
     Channel_Persister() {
         super(Channel.class);

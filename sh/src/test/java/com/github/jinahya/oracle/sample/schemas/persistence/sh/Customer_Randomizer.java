@@ -20,14 +20,20 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Randomizer;
+import com.github.jinahya.object.randomizer.PodamObjectRandomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.List;
 
-class Customer_Randomizer extends __Randomizer.___OfPodam<Customer> {
+/**
+ * A randomizer which produces randomized {@link Customer} instances. The {@value Customer#ATTRIBUTE_NAME_COUNTRY}
+ * attribute is excluded, for {@link Customer_Persister} assigns a persisted one of its own.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Customer_Randomizer extends PodamObjectRandomizer<Customer> {
 
     Customer_Randomizer() {
         super(Customer.class, List.of(

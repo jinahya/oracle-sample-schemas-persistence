@@ -20,14 +20,19 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Randomizer;
+import com.github.jinahya.object.randomizer.PodamObjectRandomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.List;
 
-class Product_Randomizer extends __Randomizer.___OfPodam<Product> {
+/**
+ * A randomizer which produces randomized {@link Product} instances.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Product_Randomizer extends PodamObjectRandomizer<Product> {
 
     Product_Randomizer() {
         super(Product.class, List.of(

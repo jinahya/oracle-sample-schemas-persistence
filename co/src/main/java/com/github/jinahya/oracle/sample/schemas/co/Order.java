@@ -69,110 +69,120 @@ public class Order {
     // -------------------------------------------------------------------------------------------------------- ORDER_ID
 
     /**
-     * The name of the table column to which the {@code orderId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_ORDER_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_ORDER_ID = "ORDER_ID";
 
     /**
-     * The name of the attribute which maps the {@code ORDER_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
 
     // ------------------------------------------------------------------------------------------------------- ORDER_TMS
 
     /**
-     * The name of the table column to which the {@code orderTms} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_ORDER_TMS = "ORDER_TMS";
 
     /**
-     * The fractional seconds precision of the {@code ORDER_TMS} column. The value is {@value}.
+     * The fractional seconds precision of the {@value #COLUMN_NAME_ORDER_TMS} column. The value is {@value}.
      */
     public static final int FRACTIONAL_SECONDS_PRECISION_ORDER_TMS = 6;
 
     /**
-     * The name of the attribute which maps the {@code ORDER_TMS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_TMS} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_TMS = "orderTms";
 
     // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
 
     /**
-     * The name of the table column to which the {@code customerId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUSTOMER} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUSTOMER_ID = "CUSTOMER_ID";
 
     /**
-     * The name of the attribute which maps the {@code CUSTOMER_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUSTOMER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER = "customer";
 
     // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
 
     /**
-     * The name of the table column to which the {@code orderStatus} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_ORDER_STATUS = "ORDER_STATUS";
 
     /**
-     * The length of the {@code ORDER_STATUS} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_ORDER_STATUS} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_ORDER_STATUS = 10;
 
     /**
-     * A value of the {@code ORDER_STATUS} column, for an order which has been cancelled. The value is {@value}.
+     * A value of the {@value #COLUMN_NAME_ORDER_STATUS} column, for an order which has been cancelled. The value is
+     * {@value}.
      */
     public static final String COLUMN_VALUE_ORDER_STATUS_CANCELLED = "CANCELLED";
 
     /**
-     * A value of the {@code ORDER_STATUS} column, for an order which has been completed. The value is {@value}.
+     * A value of the {@value #COLUMN_NAME_ORDER_STATUS} column, for an order which has been completed. The value is
+     * {@value}.
      */
     public static final String COLUMN_VALUE_ORDER_STATUS_COMPLETE = "COMPLETE";
 
     /**
-     * A value of the {@code ORDER_STATUS} column, for an order which is still open. The value is {@value}.
+     * A value of the {@value #COLUMN_NAME_ORDER_STATUS} column, for an order which is still open. The value is
+     * {@value}.
      */
     public static final String COLUMN_VALUE_ORDER_STATUS_OPEN = "OPEN";
 
     /**
-     * A value of the {@code ORDER_STATUS} column, for an order which has been paid for. The value is {@value}.
+     * A value of the {@value #COLUMN_NAME_ORDER_STATUS} column, for an order which has been paid for. The value is
+     * {@value}.
      */
     public static final String COLUMN_VALUE_ORDER_STATUS_PAID = "PAID";
 
     /**
-     * A value of the {@code ORDER_STATUS} column, for an order which has been refunded. The value is {@value}.
+     * A value of the {@value #COLUMN_NAME_ORDER_STATUS} column, for an order which has been refunded. The value is
+     * {@value}.
      */
     public static final String COLUMN_VALUE_ORDER_STATUS_REFUNDED = "REFUNDED";
 
     /**
-     * A value of the {@code ORDER_STATUS} column, for an order which has been shipped. The value is {@value}.
+     * A value of the {@value #COLUMN_NAME_ORDER_STATUS} column, for an order which has been shipped. The value is
+     * {@value}.
      */
     public static final String COLUMN_VALUE_ORDER_STATUS_SHIPPED = "SHIPPED";
 
     /**
-     * The name of the attribute which maps the {@code ORDER_STATUS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_STATUS} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
 
     /**
-     * The minimum size of the {@code orderStatus} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_ORDER_STATUS = 0;
 
     /**
-     * The maximum size of the {@code orderStatus} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_ORDER_STATUS = COLUMN_LENGTH_ORDER_STATUS;
 
     // -------------------------------------------------------------------------------------------------------- STORE_ID
 
     /**
-     * The name of the table column to which the {@code storeId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
     /**
-     * The name of the attribute which maps the {@code STORE_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
@@ -182,32 +192,49 @@ public class Order {
     public static final String ATTRIBUTE_NAME_ORDER_ITEMS = "orderItems";
 
     /**
-     * An enum for {@code orderStatus} attribute.
+     * An enum for the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
      *
      * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
      */
     public enum _OrderStatus {
 
-        /// .
+        /**
+         * A constant for the {@value Order#COLUMN_VALUE_ORDER_STATUS_OPEN} value, for an order which is still open.
+         */
         OPEN,
 
-        /// .
+        /**
+         * A constant for the {@value Order#COLUMN_VALUE_ORDER_STATUS_CANCELLED} value, for an order which has been
+         * cancelled.
+         */
         // 취소?
         CANCELLED,
 
-        /// .
+        /**
+         * A constant for the {@value Order#COLUMN_VALUE_ORDER_STATUS_PAID} value, for an order which has been paid
+         * for.
+         */
         // 지불됨?
         PAID,
 
-        /// .
+        /**
+         * A constant for the {@value Order#COLUMN_VALUE_ORDER_STATUS_REFUNDED} value, for an order which has been
+         * refunded.
+         */
         // (지불) 반환딤?
         REFUNDED,
 
-        /// .
+        /**
+         * A constant for the {@value Order#COLUMN_VALUE_ORDER_STATUS_SHIPPED} value, for an order which has been
+         * shipped.
+         */
         // 출고됨?
         SHIPPED,
 
-        /// .
+        /**
+         * A constant for the {@value Order#COLUMN_VALUE_ORDER_STATUS_COMPLETE} value, for an order which has been
+         * completed.
+         */
         // 완료?
         COMPLETE;
     }
@@ -300,18 +327,18 @@ public class Order {
     // --------------------------------------------------------------------------------------------------------- orderId
 
     /**
-     * Returns current value of {@code orderId} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
      *
-     * @return current value of {@code orderId} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
      */
     public Long getOrderId() {
         return orderId;
     }
 
     /**
-     * Replaces current value of {@code orderId} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute with the specified value.
      *
-     * @param orderId new value for {@code orderId} attribute.
+     * @param orderId new value for {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
      */
     protected void setOrderId(final Long orderId) {
         this.orderId = orderId;
@@ -339,11 +366,11 @@ public class Order {
     }
 
     /**
-     * Returns current value of the {@code orderTms} attribute, mapped by the specified function.
+     * Returns current value of the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute, mapped by the specified function.
      *
      * @param <R>    the type of the mapped value.
-     * @param mapper the function to apply to current value of the {@code orderTms} attribute.
-     * @return the mapped value; {@code null} when the {@code orderTms} attribute is {@code null}.
+     * @param mapper the function to apply to current value of the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute.
+     * @return the mapped value; {@code null} when the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute is {@code null}.
      */
     public <R> R getOrderTmsAsMapped(final Function<? super LocalDateTime, ? extends R> mapper) {
         return Optional.ofNullable(getOrderTms())
@@ -352,8 +379,8 @@ public class Order {
     }
 
     /**
-     * Replaces current value of the {@code orderTms} attribute with the specified value, mapped by the specified
-     * function.
+     * Replaces current value of the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the specified value, mapped by
+     * the specified function.
      *
      * @param <T>      the type of the specified value.
      * @param orderTms the value to map and set.
@@ -368,10 +395,10 @@ public class Order {
     }
 
     /**
-     * Returns current value of the {@code orderTms} attribute, at the specified zone.
+     * Returns current value of the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute, at the specified zone.
      *
      * @param zone the zone to apply.
-     * @return a zoned date-time; {@code null} when the {@code orderTms} attribute is {@code null}.
+     * @return a zoned date-time; {@code null} when the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute is {@code null}.
      */
     public ZonedDateTime getOrderTmsAsZonedDatetime(final ZoneId zone) {
         return getOrderTmsAsMapped(
@@ -380,9 +407,9 @@ public class Order {
     }
 
     /**
-     * Replaces current value of {@code orderTms} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the specified value.
      *
-     * @param orderTms new value for {@code orderTms} attribute.
+     * @param orderTms new value for {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute.
      */
     @Transient
     public void setOrderTmsFromZonedDateTime(final ZonedDateTime orderTms) {
@@ -390,10 +417,10 @@ public class Order {
     }
 
     /**
-     * Returns current value of the {@code orderTms} attribute, at the specified offset.
+     * Returns current value of the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute, at the specified offset.
      *
      * @param offset the offset to apply.
-     * @return an offset date-time; {@code null} when the {@code orderTms} attribute is {@code null}.
+     * @return an offset date-time; {@code null} when the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute is {@code null}.
      */
     public OffsetDateTime getOrderTmsAsOffsetDatetime(final ZoneOffset offset) {
         return getOrderTmsAsMapped(
@@ -402,9 +429,9 @@ public class Order {
     }
 
     /**
-     * Replaces current value of {@code orderTms} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the specified value.
      *
-     * @param orderTms new value for {@code orderTms} attribute.
+     * @param orderTms new value for {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute.
      */
     @Transient
     public void setOrderTmsFromOffsetDateTime(final OffsetDateTime orderTms) {
@@ -415,10 +442,11 @@ public class Order {
     }
 
     /**
-     * Returns current value of {@code orderTms} attribute as an {@link Instant instant} at specified zone.
+     * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute as an {@link Instant instant} at specified
+     * zone.
      *
      * @param zone the zone.
-     * @return {@code orderTms} attribute as an {@link Instant instant} at {@code zone}.
+     * @return {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute as an {@link Instant instant} at {@code zone}.
      */
     public Instant getOrderTmsAsInstant(final ZoneId zone) {
         return Optional.ofNullable(getOrderTmsAsZonedDatetime(zone))
@@ -427,7 +455,8 @@ public class Order {
     }
 
     /**
-     * Replaces current value of {@code orderTms} attribute with the specified instant at specified zone.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the specified instant at specified
+     * zone.
      *
      * @param instant the instant.
      * @param zone    the zone.
@@ -441,10 +470,11 @@ public class Order {
     }
 
     /**
-     * Returns current value of {@code orderTms} attribute as an {@link Instant instant} at specified offset.
+     * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute as an {@link Instant instant} at specified
+     * offset.
      *
      * @param offset the offset.
-     * @return {@code orderTms} attribute as an {@link Instant instant} at {@code offset}.
+     * @return {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute as an {@link Instant instant} at {@code offset}.
      */
     public Instant getOrderTmsAsInstant(final ZoneOffset offset) {
         return Optional.ofNullable(getOrderTmsAsOffsetDatetime(offset))
@@ -453,7 +483,8 @@ public class Order {
     }
 
     /**
-     * Replaces current value of {@code orderTms} attribute with the specified instant at specified offset.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the specified instant at specified
+     * offset.
      *
      * @param orderTms the instant.
      * @param offset   the offset.
@@ -509,11 +540,11 @@ public class Order {
     }
 
     /**
-     * Returns current value of the {@code orderStatus} attribute, mapped by the specified function.
+     * Returns current value of the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute, mapped by the specified function.
      *
      * @param <R>    the type of the mapped value.
-     * @param mapper the function to apply to current value of the {@code orderStatus} attribute.
-     * @return the mapped value; {@code null} when the {@code orderStatus} attribute is {@code null}.
+     * @param mapper the function to apply to current value of the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
+     * @return the mapped value; {@code null} when the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute is {@code null}.
      */
     public <R> R getOrderStatusAsMapped(final Function<? super String, ? extends R> mapper) {
         return Optional.ofNullable(getOrderStatus())
@@ -522,8 +553,8 @@ public class Order {
     }
 
     /**
-     * Replaces current value of the {@code orderStatus} attribute with the specified value, mapped by the specified
-     * function.
+     * Replaces current value of the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute with the specified value, mapped by
+     * the specified function.
      *
      * @param <T>         the type of the specified value.
      * @param orderStatus the value to map and set.
@@ -540,12 +571,13 @@ public class Order {
     }
 
     /**
-     * Returns current value of {@code orderStatus} attribute as an enum value of the specified enum class.
+     * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute as an enum value of the specified enum
+     * class.
      *
      * @param enumClass the enum class.
      * @param <E>       enum type parameter.
-     * @return current value of {@code orderStatus} attribute as an enum value of {@code enumClass}; {@code null} if the
-     * attribute value is currently {@code null}.
+     * @return current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute as an enum value of {@code enumClass};
+     * {@code null} if the attribute value is currently {@code null}.
      * @throws NullPointerException     if {@code enumClass} is {@code null}.
      * @throws IllegalArgumentException when no constant of {@code enumClass} is named by the current value.
      * @see Enum#valueOf(Class, String)
@@ -558,9 +590,9 @@ public class Order {
     }
 
     /**
-     * Replaces current value of {@code orderStatus} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute with the specified value.
      *
-     * @param enumValue new value for {@code orderStatus} attribute.
+     * @param enumValue new value for {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
      */
     @Transient
     public void setOrderStatusFromEnum(final Enum<?> enumValue) {
@@ -585,10 +617,10 @@ public class Order {
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_STORE} attribute with the specified value.
      *
-     * @param stoer new value for {@value #ATTRIBUTE_NAME_STORE} attribute.
+     * @param store new value for {@value #ATTRIBUTE_NAME_STORE} attribute.
      */
-    public void setStore(@Nonnull final Store stoer) {
-        this.store = stoer;
+    public void setStore(@Nonnull final Store store) {
+        this.store = store;
     }
 
     /**

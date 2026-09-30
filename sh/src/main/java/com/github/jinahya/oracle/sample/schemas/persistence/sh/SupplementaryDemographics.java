@@ -39,14 +39,15 @@ import java.util.Objects;
 public class SupplementaryDemographics {
 
     /**
-     * The name of the database table to which this class maps. The value is {@value}.
+     * The name of the database table to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "SUPPLEMENTARY_DEMOGRAPHICS";
 
     // -------------------------------------------------------------------------------------------------------- CUST_ID
 
     /**
-     * The name of the table column to which the {@code custId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_ID = "CUST_ID";
 
@@ -58,7 +59,8 @@ public class SupplementaryDemographics {
     // ------------------------------------------------------------------------------------------------------ EDUCATION
 
     /**
-     * The name of the table column to which the {@code education} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EDUCATION} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_EDUCATION = "EDUCATION";
 
@@ -80,7 +82,8 @@ public class SupplementaryDemographics {
     // ----------------------------------------------------------------------------------------------------- OCCUPATION
 
     /**
-     * The name of the table column to which the {@code occupation} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_OCCUPATION} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_OCCUPATION = "OCCUPATION";
 
@@ -102,7 +105,8 @@ public class SupplementaryDemographics {
     // ------------------------------------------------------------------------------------------------- HOUSEHOLD_SIZE
 
     /**
-     * The name of the table column to which the {@code householdSize} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_HOUSEHOLD_SIZE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_HOUSEHOLD_SIZE = "HOUSEHOLD_SIZE";
 
@@ -124,7 +128,8 @@ public class SupplementaryDemographics {
     // -------------------------------------------------------------------------------------------------- YRS_RESIDENCE
 
     /**
-     * The name of the table column to which the {@code yrsResidence} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_YRS_RESIDENCE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_YRS_RESIDENCE = "YRS_RESIDENCE";
 
@@ -136,7 +141,8 @@ public class SupplementaryDemographics {
     // -------------------------------------------------------------------------------------------------- AFFINITY_CARD
 
     /**
-     * The name of the table column to which the {@code affinityCard} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_AFFINITY_CARD = "AFFINITY_CARD";
 
@@ -148,7 +154,8 @@ public class SupplementaryDemographics {
     // -------------------------------------------------------------------------------------------------------- CRICKET
 
     /**
-     * The name of the table column to which the {@code cricket} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CRICKET} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CRICKET = "CRICKET";
 
@@ -160,7 +167,8 @@ public class SupplementaryDemographics {
     // ------------------------------------------------------------------------------------------------------- BASEBALL
 
     /**
-     * The name of the table column to which the {@code baseball} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_BASEBALL} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_BASEBALL = "BASEBALL";
 
@@ -172,7 +180,7 @@ public class SupplementaryDemographics {
     // --------------------------------------------------------------------------------------------------------- TENNIS
 
     /**
-     * The name of the table column to which the {@code tennis} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_TENNIS} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_TENNIS = "TENNIS";
 
@@ -184,7 +192,7 @@ public class SupplementaryDemographics {
     // --------------------------------------------------------------------------------------------------------- SOCCER
 
     /**
-     * The name of the table column to which the {@code soccer} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SOCCER} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_SOCCER = "SOCCER";
 
@@ -196,7 +204,7 @@ public class SupplementaryDemographics {
     // ----------------------------------------------------------------------------------------------------------- GOLF
 
     /**
-     * The name of the table column to which the {@code golf} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_GOLF} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_GOLF = "GOLF";
 
@@ -208,7 +216,8 @@ public class SupplementaryDemographics {
     // -------------------------------------------------------------------------------------------------------- UNKNOWN
 
     /**
-     * The name of the table column to which the {@code unknown} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNKNOWN} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_UNKNOWN = "UNKNOWN";
 
@@ -220,7 +229,7 @@ public class SupplementaryDemographics {
     // ----------------------------------------------------------------------------------------------------------- MISC
 
     /**
-     * The name of the table column to which the {@code misc} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MISC} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_MISC = "MISC";
 
@@ -232,7 +241,8 @@ public class SupplementaryDemographics {
     // ------------------------------------------------------------------------------------------------------- COMMENTS
 
     /**
-     * The name of the table column to which the {@code comments} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COMMENTS} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_COMMENTS = "COMMENTS";
 
