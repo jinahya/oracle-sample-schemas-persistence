@@ -165,6 +165,13 @@ public abstract class __Persistence_Test<T> extends __Test<T> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    /**
+     * Verifies that a randomized instance of {@link #targetClass} can be persisted and flushed.
+     *
+     * @implNote The work happens in a transaction which is always rolled back, so the row never survives the test.
+     * Absence is forgiven at both steps: a {@link #targetClass} with no registered randomizer, or none with a
+     * registered persister, leaves the chain empty and the test passes without having persisted anything.
+     */
     @Test
     protected void _persist_RandomizedInstance() {
         final var persisted = ObjectRandomizerUtils.newRandomizerInstanceOf(targetClass)

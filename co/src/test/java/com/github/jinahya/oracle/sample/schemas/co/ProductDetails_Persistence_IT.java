@@ -21,6 +21,11 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
+/**
+ * Verifies the mappings of {@link ProductDetails} against the installed {@code CO} schema.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 class ProductDetails_Persistence_IT extends _Persistence_IT<ProductDetails> {
 
     ProductDetails_Persistence_IT() {

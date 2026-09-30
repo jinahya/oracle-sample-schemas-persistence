@@ -82,8 +82,7 @@
     <maven.compiler.testTarget>${maven.compiler.testSource}</maven.compiler.testTarget>
     <maven.compiler.testRelease>${maven.compiler.testSource}</maven.compiler.testRelease>
     <!-- The sources are clean under -Xdoclint:all; keep them that way. -->
-<!--    <doclint>all</doclint>-->
-    <doclint>none</doclint>
+    <doclint>all</doclint>
     <sonar.organization>jinahya-github</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     <!-- Jakarta EE 11 is the only supported platform generation. -->
@@ -338,6 +337,12 @@
             </additionalOptions>
             <failOnError>true</failOnError>
             <failOnWarnings>true</failOnWarnings>
+            <!-- The generated static metamodel is not ours to document: every member of it carries -->
+            <!-- a bare @see and no main description, which -Xdoclint:all reports. It shares the -->
+            <!-- package with the entities, so excludePackageNames cannot reach it; exclude by file. -->
+            <sourceFileExcludes>
+              <sourceFileExclude>**/*_.java</sourceFileExclude>
+            </sourceFileExcludes>
             <links>
 <!--              <link>https://www.javadoc.io/doc/jakarta.platform/jakarta.jakartaee-api/${version.jakarta.jakartaee-bom}</link>-->
 <!--              <link>https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence</link>-->

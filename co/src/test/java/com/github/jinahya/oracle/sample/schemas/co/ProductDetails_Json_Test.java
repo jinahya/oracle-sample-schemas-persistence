@@ -43,6 +43,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Slf4j
 class ProductDetails_Json_Test {
 
+    /**
+     * A class for testing {@link ProductDetails} against the single-document JSON resources.
+     * <p>
+     * Each of {@code PRODUCTS_PRODUCT_DETAILS_1.json} and {@code PRODUCTS_PRODUCT_DETAILS_2.json} holds one
+     * {@value Product#COLUMN_NAME_PRODUCT_DETAILS} value, and is read back into a {@link ProductDetails} instance with
+     * {@link ProductDetails_TestUtils#from(java.io.InputStream, ObjectMapper)}.
+     */
     @Nested
     class ProductDetails_JsonTest {
 

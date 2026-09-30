@@ -46,6 +46,16 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class __UtilsTest {
 
+    /**
+     * A class for testing {@link __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(LocalTime, DayOfWeek)}.
+     * <p>
+     * Each test crosses a time which is, or is not, within the office hours the {@code SECURE_DML} procedure allows
+     * with a weekday which is, or is not, one of those it refuses, and asserts that the routine raises for exactly
+     * those combinations whose weekday it refuses, whatever the time. The group pairing an out-of-office-hours time
+     * with a refused weekday additionally builds a {@link LocalDateTime} carrying both values and feeds it to
+     * {@link __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(java.time.temporal.TemporalAccessor)}, the overload
+     * which derives the time and the weekday from a single temporal.
+     */
     @Nested
     class ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR_Test {
 

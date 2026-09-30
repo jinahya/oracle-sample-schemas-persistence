@@ -37,6 +37,14 @@ class Customer_Persistence_Test extends _Persistence_Test<Customer> {
         super(Customer.class);
     }
 
+    /**
+     * A class for testing the selection of a single {@link Customer} by its
+     * {@value Customer#ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute.
+     * <p>
+     * The same selection is written three ways -- as a query-language query, as the
+     * {@code Customer.selectSingleByEmailAddress} named query, and through the criteria API -- and each asserts that
+     * what comes back is the very instance just persisted, which the persistence context still manages.
+     */
     @Nested
     class FindByEmailAddress_Test {
 
