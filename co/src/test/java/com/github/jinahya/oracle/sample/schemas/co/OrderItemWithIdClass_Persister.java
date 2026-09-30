@@ -20,13 +20,24 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Persister;
-import com.github.jinahya.persistence.test.util.__PersisterUtils;
+import com.github.jinahya.persistence.test.util.AbstractEntityPersister;
+import com.github.jinahya.persistence.test.util.EntityPersisterUtils;
 import jakarta.persistence.EntityManager;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-class OrderItemWithIdClass_Persister extends __Persister<OrderItemWithIdClass> {
+/**
+ * A persister which persists {@link OrderItemWithIdClass} instances.
+ * <p>
+ * Each instance is given a newly persisted {@link Order} and a newly persisted {@link Product} first, so that its
+ * {@code order} and its {@code product} -- neither of which is nullable -- refer to rows which are already in the
+ * database, and a newly persisted {@link Shipment} at random, because that column is nullable. The order is flushed
+ * before it is set, so that the identifier which {@code setOrder} mirrors into the key column is there to copy. The
+ * {@code lineItemId} is assigned here as well: it numbers the item within its order, and is not generated.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class OrderItemWithIdClass_Persister extends AbstractEntityPersister<OrderItemWithIdClass> {
 
     OrderItemWithIdClass_Persister() {
         super(OrderItemWithIdClass.class);
@@ -36,14 +47,14 @@ class OrderItemWithIdClass_Persister extends __Persister<OrderItemWithIdClass> {
 
     @Override
     public OrderItemWithIdClass apply(final EntityManager entityManager, final OrderItemWithIdClass entityInstance) {
-        final var order = __PersisterUtils.newPersistedInstanceOf(entityManager, Order.class);
+        final var order = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Order.class);
         // ORDER_ID is part of the primary key, so the association is still mirrored into it by setOrder, which
         // copies the id it sees; EclipseLink assigns an IDENTITY id only on flush, hence the flush before the set.
         entityManager.flush();
         entityInstance.setOrder(order);
-        entityInstance.setProduct(__PersisterUtils.newPersistedInstanceOf(entityManager, Product.class));
+        entityInstance.setProduct(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class));
         if (ThreadLocalRandom.current().nextBoolean()) {
-            entityInstance.setShipment(__PersisterUtils.newPersistedInstanceOf(entityManager, Shipment.class));
+            entityInstance.setShipment(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Shipment.class));
         }
         // LINE_ITEM_ID is not generated -- it numbers the item within its order -- so nothing but this assigns it.
         entityInstance.setLineItemId(ThreadLocalRandom.current().nextLong(1, 100));

@@ -20,28 +20,55 @@ package com.github.jinahya.oracle.sample.schemas.persistence.test;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__InstantiatorUtils;
-import com.github.jinahya.persistence.test.util.__RandomizerUtils;
+import com.github.jinahya.object.randomizer.ObjectRandomizerUtils;
+import org.junit.platform.commons.util.ReflectionUtils;
 
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * An abstract base class for testing a target class, which the subclass names.
+ *
+ * @param <T> the type of the target class.
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 public abstract class __Test<T> {
 
+    /**
+     * Creates a new instance for the specified target class.
+     *
+     * @param targetClass the class to test.
+     */
     protected __Test(final Class<T> targetClass) {
         super();
         this.targetClass = Objects.requireNonNull(targetClass, "targetClass is null");
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns a new, uninitialized instance of {@link #targetClass}.
+     *
+     * @return a new instance of {@link #targetClass}.
+     */
     public T newTargetInstance() {
-        return __InstantiatorUtils.newInstantiatedInstanceOf(targetClass);
+        return ReflectionUtils.newInstance(targetClass);
     }
 
+    /**
+     * Returns a new instance of {@link #targetClass} with randomized property values.
+     *
+     * @return a new randomized instance of {@link #targetClass}; empty when no randomizer is registered for
+     * {@link #targetClass}.
+     */
     public Optional<T> newRandomizedTargetInstance() {
-        return __RandomizerUtils.newRandomizedInstanceOf(targetClass);
+        return ObjectRandomizerUtils.newRandomizedInstanceOf(targetClass);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * The class which this test targets.
+     */
     protected final Class<T> targetClass;
 }

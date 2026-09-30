@@ -20,11 +20,19 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Persister;
-import com.github.jinahya.persistence.test.util.__PersisterUtils;
+import com.github.jinahya.persistence.test.util.AbstractEntityPersister;
+import com.github.jinahya.persistence.test.util.EntityPersisterUtils;
 import jakarta.persistence.EntityManager;
 
-class Location_Persister extends __Persister<Location> {
+/**
+ * A persister which persists {@link Location} instances.
+ * <p>
+ * Each instance is given a newly persisted {@link Country} first, so that its {@code country} refers to a row which is
+ * already in the database.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Location_Persister extends AbstractEntityPersister<Location> {
 
     Location_Persister() {
         super(Location.class);
@@ -33,7 +41,7 @@ class Location_Persister extends __Persister<Location> {
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     public Location apply(final EntityManager entityManager, final Location entityInstance) {
-        entityInstance.setCountry(__PersisterUtils.newPersistedInstanceOf(entityManager, Country.class));
+        entityInstance.setCountry(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Country.class));
         return super.apply(entityManager, entityInstance);
     }
 }

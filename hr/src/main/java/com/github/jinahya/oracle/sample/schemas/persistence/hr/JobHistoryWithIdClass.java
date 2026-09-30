@@ -90,12 +90,13 @@ public class JobHistoryWithIdClass {
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
-     * A table column name of {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_EMPLOYEE_ID = "EMPLOYEE_ID";
 
     /**
-     * Whether the {@code EMPLOYEE_ID} column is nullable. The value is {@value}.
+     * Whether the {@value #COLUMN_NAME_EMPLOYEE_ID} column is nullable. The value is {@value}.
      */
     public static final boolean COLUMN_NULLABLE_EMPLOYEE_ID = false;
 
@@ -127,8 +128,7 @@ public class JobHistoryWithIdClass {
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
-     * The name of the entity attribute from which the {@value #COLUMN_NAME_EMPLOYEE_ID} column maps. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
 
@@ -149,64 +149,66 @@ public class JobHistoryWithIdClass {
     // ------------------------------------------------------------------------------------------------------ START_DATE
 
     /**
-     * A table column name of {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_START_DATE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_START_DATE = "START_DATE";
 
     /**
-     * Whether the {@code START_DATE} column is nullable. The value is {@value}.
+     * Whether the {@value #COLUMN_NAME_START_DATE} column is nullable. The value is {@value}.
      */
     public static final boolean COLUMN_NULLABLE_START_DATE = false;
 
     // ------------------------------------------------------------------------------------------------------ START_DATE
 
     /**
-     * The name of the entity attribute from which the {@value #COLUMN_NAME_START_DATE} column maps. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_START_DATE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
 
     /**
-     * A comparator for comparing {@link JobHistoryWithIdClass} instances by their {@code startDate} attributes.
+     * A comparator for comparing {@link JobHistoryWithIdClass} instances by their {@value #ATTRIBUTE_NAME_START_DATE}
+     * attributes.
      */
     public static final Comparator<JobHistoryWithIdClass> COMPARING_START_DATE = comparingStartDate();
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
 
     /**
-     * The name of the table column to which the {@code endDate} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_DATE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_END_DATE = "END_DATE";
 
     /**
-     * The name of the attribute which maps the {@code END_DATE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_END_DATE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_END_DATE = "endDate";
 
     // ---------------------------------------------------------------------------------------------------------- JOB_ID
 
     /**
-     * The name of the table column to which the {@code jobId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_JOB_ID = "JOB_ID";
 
     /**
-     * Whether the {@code JOB_ID} column is nullable. The value is {@value}.
+     * Whether the {@value #COLUMN_NAME_JOB_ID} column is nullable. The value is {@value}.
      */
     public static final boolean COLUMN_NULLABLE_JOB_ID = false;
 
     /**
-     * The length of the {@code JOB_ID} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_JOB_ID} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_JOB_ID = 10;
 
     /**
-     * The minimum size of the {@code jobId} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_JOB} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_JOB_ID = 0;
 
     /**
-     * The maximum size of the {@code jobId} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_JOB} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
@@ -218,42 +220,43 @@ public class JobHistoryWithIdClass {
     // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
 
     /**
-     * The name of the table column to which the {@code departmentId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
 
     /**
-     * Whether the {@code DEPARTMENT_ID} column is nullable. The value is {@value}.
+     * Whether the {@value #COLUMN_NAME_DEPARTMENT_ID} column is nullable. The value is {@value}.
      */
     public static final boolean COLUMN_NULLABLE_DEPARTMENT_ID = true;
 
     /**
-     * The precision of the {@code DEPARTMENT_ID} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_DEPARTMENT_ID = 4;
 
     /**
-     * The scale of the {@code DEPARTMENT_ID} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_DEPARTMENT_ID = 0;
 
     /**
-     * The minimum value of the {@code DEPARTMENT_ID} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MIN_DEPARTMENT_ID = -9999;
 
     /**
-     * The maximum value of the {@code DEPARTMENT_ID} column.
+     * The maximum value of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_DEPARTMENT_ID = +9999;
 
     /**
-     * The minimum value of the {@code departmentId} attribute.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MIN_DEPARTMENT_ID = COLUMN_MIN_DEPARTMENT_ID;
 
     /**
-     * The maximum value of the {@code departmentId} attribute.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MAX_DEPARTMENT_ID = COLUMN_MAX_DEPARTMENT_ID;
 
@@ -327,10 +330,11 @@ public class JobHistoryWithIdClass {
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     /**
-     * Indicates whether the {@code endDate} attribute is after the {@code startDate} attribute.
+     * Indicates whether the {@value #ATTRIBUTE_NAME_END_DATE} attribute is after the
+     * {@value #ATTRIBUTE_NAME_START_DATE} attribute.
      *
-     * @return {@code true} if the {@code endDate} attribute is after the {@code startDate} attribute; {@code false}
-     * otherwise.
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_END_DATE} attribute is after the
+     * {@value #ATTRIBUTE_NAME_START_DATE} attribute; {@code false} otherwise.
      */
     @AssertTrue
     protected boolean isEndDateAfterStartDate() {
@@ -348,7 +352,7 @@ public class JobHistoryWithIdClass {
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
      *
-     * @return current value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
      */
     @Nonnull
     public Integer getEmployeeId() {
@@ -360,7 +364,7 @@ public class JobHistoryWithIdClass {
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_EMPLOYEE} attribute.
      *
-     * @return current value of the {@value #ATTRIBUTE_NAME_EMPLOYEE} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_EMPLOYEE} attribute.
      */
     @Nonnull
     public Employee getEmployee() {
@@ -372,7 +376,7 @@ public class JobHistoryWithIdClass {
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute.
      *
-     * @return current value of the {@value #ATTRIBUTE_NAME_START_DATE} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute.
      */
     @Nonnull
     public LocalDate getStartDate() {
@@ -384,7 +388,7 @@ public class JobHistoryWithIdClass {
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute.
      *
-     * @return current value of the {@value #ATTRIBUTE_NAME_END_DATE} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute.
      */
     @Nonnull
     public LocalDate getEndDate() {

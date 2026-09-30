@@ -62,14 +62,14 @@ import java.util.Objects;
 public class OrderItemWithEmbeddedId {
 
     /**
-     * The name of the database table to which this entity is mapped. The value is {@value}.
+     * The name of the database table to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "ORDER_ITEMS";
 
     // -------------------------------------------------------------------------------------------------------- ORDER_ID
 
     /**
-     * The name of the table column to which the {@code orderId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_ORDER} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_ORDER_ID = "ORDER_ID";
 
@@ -81,80 +81,86 @@ public class OrderItemWithEmbeddedId {
     public static final String ATTRIBUTE_NAME_ID_ORDER_ID = "id.orderId";
 
     /**
-     * The name of the attribute which maps the {@code ORDER_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER = "order";
 
     // ---------------------------------------------------------------------------------------------------- LINE_ITEM_ID
 
     /**
-     * The name of the table column to which the {@code lineItemId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value OrderItemId#ATTRIBUTE_NAME_LINE_ITEM_ID} attribute of
+     * {@link OrderItemId} maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_LINE_ITEM_ID = "LINE_ITEM_ID";
 
     // ------------------------------------------------------------------------------------ ORDER_ID / LINE_ITEM_ID / id
 
     /**
-     * The name of the attribute which maps both the {@code ORDER_ID} and the {@code LINE_ITEM_ID} columns, as an
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value is {@value}.
+     * The name of the attribute which maps both the {@value #COLUMN_NAME_ORDER_ID} and the
+     * {@value #COLUMN_NAME_LINE_ITEM_ID} columns, as an {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID = "id";
 
     // -------------------------------------------------------------------------------- PRODUCT_ID / productId / product
 
     /**
-     * The name of the table column to which the {@code productId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_ID = "PRODUCT_ID";
 
     /**
-     * The name of the attribute which maps the {@code PRODUCT_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
     // ------------------------------------------------------------------------------------------------------ UNIT_PRICE
 
     /**
-     * The name of the table column to which the {@code unitPrice} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_UNIT_PRICE = "UNIT_PRICE";
 
     /**
-     * The precision of the {@code UNIT_PRICE} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_UNIT_PRICE = 10;
 
     /**
-     * The scale of the {@code UNIT_PRICE} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_UNIT_PRICE = 2;
 
     /**
-     * The minimum value of the {@code unitPrice} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is {@value}.
      */
     public static final String DECIMAL_MIN_UNIT_PRICE = "00000000.00";
 
     /**
-     * The maximum value of the {@code unitPrice} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is {@value}.
      */
     public static final String DECIMAL_MAX_UNIT_PRICE = "99999999.99";
 
     // -------------------------------------------------------------------------------------------------------- QUANTITY
 
     /**
-     * The name of the table column to which the {@code quantity} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_QUANTITY} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_QUANTITY = "QUANTITY";
 
     // ----------------------------------------------------------------------------- SHIPMENT_ID / shipmentId / shipment
 
     /**
-     * The name of the table column to which the {@code shipmentId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SHIPMENT} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_SHIPMENT_ID = "SHIPMENT_ID";
 
     /**
-     * The name of the attribute which maps the {@code SHIPMENT_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_SHIPMENT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT = "shipment";
 
@@ -201,9 +207,10 @@ public class OrderItemWithEmbeddedId {
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     /**
-     * Indicates whether the {@code unitPrice} attribute is non-negative.
+     * Indicates whether the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute is non-negative.
      *
-     * @return {@code true} if the {@code unitPrice} attribute is non-negative; {@code false} otherwise.
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute is non-negative; {@code false}
+     * otherwise.
      */
     protected boolean isUniPricesNonNegative() {
         if (unitPrice == null) {
@@ -213,9 +220,9 @@ public class OrderItemWithEmbeddedId {
     }
 
     /**
-     * Indicates whether the {@code quantity} attribute is non-negative.
+     * Indicates whether the {@value #ATTRIBUTE_NAME_QUANTITY} attribute is non-negative.
      *
-     * @return {@code true} if the {@code quantity} attribute is non-negative; {@code false} otherwise.
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_QUANTITY} attribute is non-negative; {@code false} otherwise.
      */
     protected boolean isQuantityNonNegative() {
         if (quantity == null) {
@@ -269,18 +276,18 @@ public class OrderItemWithEmbeddedId {
     // -------------------------------------------------------------------------------------------------------------- id
 
     /**
-     * Returns current value of {@code id} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
      *
-     * @return current value of {@code id} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
      */
     public OrderItemId getId() {
         return id;
     }
 
     /**
-     * Replaces current value of {@code id} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ID} attribute with the specified value.
      *
-     * @param id new value for {@code id} attribute.
+     * @param id new value for {@value #ATTRIBUTE_NAME_ID} attribute.
      */
     protected void setId(final OrderItemId id) {
         this.id = id;
@@ -308,7 +315,7 @@ public class OrderItemWithEmbeddedId {
         // no mirroring: @MapsId writes ORDER_ID from this association, and fills id.orderId with it. The id object
         // itself still has to exist, because LINE_ITEM_ID is not generated and nothing else creates it.
         if (getId() == null) {
-            setId(new OrderItemId(null, null));
+            setId(OrderItemId.of(null, null));
         }
     }
 
@@ -336,18 +343,18 @@ public class OrderItemWithEmbeddedId {
     // ------------------------------------------------------------------------------------------------------- unitPrice
 
     /**
-     * Returns current value of {@code unitPrice} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute.
      *
-     * @return current value of {@code unitPrice} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute.
      */
     public BigDecimal getUnitPrice() {
         return unitPrice;
     }
 
     /**
-     * Replaces current value of {@code unitPrice} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute with the specified value.
      *
-     * @param unitPrice new value for {@code unitPrice} attribute.
+     * @param unitPrice new value for {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute.
      */
     protected void setUnitPrice(final BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
@@ -356,18 +363,18 @@ public class OrderItemWithEmbeddedId {
     // -------------------------------------------------------------------------------------------------------- quantity
 
     /**
-     * Returns current value of {@code quantity} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_QUANTITY} attribute.
      *
-     * @return current value of {@code quantity} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_QUANTITY} attribute.
      */
     public Long getQuantity() {
         return quantity;
     }
 
     /**
-     * Replaces current value of {@code quantity} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_QUANTITY} attribute with the specified value.
      *
-     * @param quantity new value for {@code quantity} attribute.
+     * @param quantity new value for {@value #ATTRIBUTE_NAME_QUANTITY} attribute.
      */
     public void setQuantity(final Long quantity) {
         this.quantity = quantity;
@@ -395,8 +402,8 @@ public class OrderItemWithEmbeddedId {
     }
 
     /**
-     * Returns the total price of this order item which is {@code unitPrice} attribute multiplied by {@code quantity}
-     * attribute.
+     * Returns the total price of this order item which is {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute multiplied by
+     * {@value #ATTRIBUTE_NAME_QUANTITY} attribute.
      *
      * @param mc a math context to use.
      * @return the total price of this item.

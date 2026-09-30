@@ -20,10 +20,15 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Persister;
+import com.github.jinahya.persistence.test.util.AbstractEntityPersister;
 import jakarta.persistence.EntityManager;
 
-class Promotion_Persister extends __Persister<Promotion> {
+/**
+ * A persister which persists {@link Promotion} instances.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Promotion_Persister extends AbstractEntityPersister<Promotion> {
 
     Promotion_Persister() {
         super(Promotion.class);

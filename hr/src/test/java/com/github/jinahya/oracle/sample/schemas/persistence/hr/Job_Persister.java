@@ -20,10 +20,17 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Persister;
+import com.github.jinahya.persistence.test.util.AbstractEntityPersister;
 import jakarta.persistence.EntityManager;
 
-class Job_Persister extends __Persister<Job> {
+/**
+ * A persister which persists {@link Job} instances.
+ * <p>
+ * A job references nothing, so an instance is persisted as it arrives.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Job_Persister extends AbstractEntityPersister<Job> {
 
     Job_Persister() {
         super(Job.class);

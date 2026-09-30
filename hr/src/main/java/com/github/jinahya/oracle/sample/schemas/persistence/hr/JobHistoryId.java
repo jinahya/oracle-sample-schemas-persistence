@@ -48,12 +48,14 @@ import java.util.Objects;
 public class JobHistoryId {
 
     /**
-     * The name of the attribute which maps the {@code EMPLOYEE_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value JobHistoryWithEmbeddedId#COLUMN_NAME_EMPLOYEE_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
 
     /**
-     * The name of the attribute which maps the {@code START_DATE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value JobHistoryWithEmbeddedId#COLUMN_NAME_START_DATE} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
 
@@ -95,7 +97,7 @@ public class JobHistoryId {
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
      *
-     * @return current value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
      */
     @Nonnull
     public Integer getEmployeeId() {

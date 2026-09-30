@@ -40,14 +40,15 @@ import java.util.Objects;
 public class Channel {
 
     /**
-     * The name of the database table to which this class maps. The value is {@value}.
+     * The name of the database table to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "CHANNELS";
 
     // ----------------------------------------------------------------------------------------------------- CHANNEL_ID
 
     /**
-     * The name of the table column to which the {@code channelId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
 
@@ -59,7 +60,8 @@ public class Channel {
     // --------------------------------------------------------------------------------------------------- CHANNEL_DESC
 
     /**
-     * The name of the table column to which the {@code channelDesc} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_DESC} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_DESC = "CHANNEL_DESC";
 
@@ -81,7 +83,8 @@ public class Channel {
     // -------------------------------------------------------------------------------------------------- CHANNEL_CLASS
 
     /**
-     * The name of the table column to which the {@code channelClass} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_CLASS} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_CLASS = "CHANNEL_CLASS";
 
@@ -103,7 +106,8 @@ public class Channel {
     // ----------------------------------------------------------------------------------------------- CHANNEL_CLASS_ID
 
     /**
-     * The name of the table column to which the {@code channelClassId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_CLASS_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_CLASS_ID = "CHANNEL_CLASS_ID";
 
@@ -115,7 +119,8 @@ public class Channel {
     // -------------------------------------------------------------------------------------------------- CHANNEL_TOTAL
 
     /**
-     * The name of the table column to which the {@code channelTotal} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_TOTAL = "CHANNEL_TOTAL";
 
@@ -137,7 +142,8 @@ public class Channel {
     // ----------------------------------------------------------------------------------------------- CHANNEL_TOTAL_ID
 
     /**
-     * The name of the table column to which the {@code channelTotalId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_TOTAL_ID = "CHANNEL_TOTAL_ID";
 

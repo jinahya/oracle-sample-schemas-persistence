@@ -26,6 +26,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * A class for testing the {@link Job_TestUtils} class.
+ * <p>
+ * Each nested class covers one of the salary factory methods, and asserts that the value it returns stays within the
+ * range {@link Job} accepts for the corresponding attribute.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 class Job_TestUtilsTest {
 
     @DisplayName("newRandomPositiveMinSalary()")

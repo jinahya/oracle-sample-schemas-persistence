@@ -20,14 +20,19 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Randomizer;
+import com.github.jinahya.object.randomizer.PodamObjectRandomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.List;
 
-class FweekPscatSalesMvWithEmbeddedId_Randomizer extends __Randomizer.___OfPodam<FweekPscatSalesMvWithEmbeddedId> {
+/**
+ * A randomizer which produces randomized {@link FweekPscatSalesMvWithEmbeddedId} instances.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class FweekPscatSalesMvWithEmbeddedId_Randomizer extends PodamObjectRandomizer<FweekPscatSalesMvWithEmbeddedId> {
 
     FweekPscatSalesMvWithEmbeddedId_Randomizer() {
         super(FweekPscatSalesMvWithEmbeddedId.class, List.of(

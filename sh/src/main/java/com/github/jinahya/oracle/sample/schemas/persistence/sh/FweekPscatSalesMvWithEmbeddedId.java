@@ -45,7 +45,7 @@ import java.util.Optional;
 public class FweekPscatSalesMvWithEmbeddedId {
 
     /**
-     * The name of the database materialized view to which this class maps. The value is {@value}.
+     * The name of the database materialized view to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "FWEEK_PSCAT_SALES_MV";
 
@@ -206,18 +206,18 @@ public class FweekPscatSalesMvWithEmbeddedId {
     // -------------------------------------------------------------------------------------------------------------- id
 
     /**
-     * Returns current value of {@code id} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
      *
-     * @return current value of {@code id} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
      */
     public FweekPscatSalesMvId getId() {
         return id;
     }
 
     /**
-     * Replaces current value of {@code id} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ID} attribute with the specified value.
      *
-     * @param id new value for {@code id} attribute.
+     * @param id new value for {@value #ATTRIBUTE_NAME_ID} attribute.
      */
     public void setId(final FweekPscatSalesMvId id) {
         this.id = id;

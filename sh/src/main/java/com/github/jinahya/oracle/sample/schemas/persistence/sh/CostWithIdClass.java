@@ -53,7 +53,7 @@ import java.util.Optional;
 public class CostWithIdClass {
 
     /**
-     * The name of the database table to which this class maps. The value is {@value}.
+     * The name of the database table to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "COSTS";
 
@@ -231,18 +231,19 @@ public class CostWithIdClass {
     // -------------------------------------------------------------------------------------------------------------- id
 
     /**
-     * Returns current value of {@code id} attribute.
+     * Returns a new {@link CostId} holding current values of the identifying attributes.
      *
-     * @return current value of {@code id} attribute.
+     * @return a new {@link CostId} holding current values of the identifying attributes.
      */
     public CostId getId() {
-        return new CostId(getProdId(), getTimeId(), getPromoId(), getChannelId());
+        return CostId.of(getProdId(), getTimeId(), getPromoId(), getChannelId());
     }
 
     /**
-     * Replaces current value of {@code id} attribute with the specified value.
+     * Replaces current values of the identifying attributes with those of the specified identifier.
      *
-     * @param id new value for {@code id} attribute.
+     * @param id the identifier whose values are applied; may be {@code null}, which clears every identifying
+     *           attribute.
      */
     protected void setId(final CostId id) {
         setProdId(

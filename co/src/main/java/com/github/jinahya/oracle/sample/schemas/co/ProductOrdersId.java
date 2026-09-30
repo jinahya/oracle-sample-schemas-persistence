@@ -56,6 +56,22 @@ public class ProductOrdersId {
      */
     public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
 
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+
+    /**
+     * Creates a new instance with the specified column values.
+     *
+     * @param productName the {@value ProductOrdersWithEmbeddedId#COLUMN_NAME_PRODUCT_NAME} column value.
+     * @param orderStatus the {@value ProductOrdersWithEmbeddedId#COLUMN_NAME_ORDER_STATUS} column value.
+     * @return a new instance with the specified column values.
+     */
+    public static ProductOrdersId of(final String productName, final String orderStatus) {
+        final var instance = new ProductOrdersId();
+        instance.setProductName(productName);
+        instance.setOrderStatus(orderStatus);
+        return instance;
+    }
+
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -63,18 +79,6 @@ public class ProductOrdersId {
      */
     public ProductOrdersId() {
         super();
-    }
-
-    /**
-     * Creates a new instance with the specified column values.
-     *
-     * @param productName the {@value ProductOrdersWithEmbeddedId#COLUMN_NAME_PRODUCT_NAME} column value.
-     * @param orderStatus the {@value ProductOrdersWithEmbeddedId#COLUMN_NAME_ORDER_STATUS} column value.
-     */
-    public ProductOrdersId(final String productName, final String orderStatus) {
-        this();
-        setProductName(productName);
-        setOrderStatus(orderStatus);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object

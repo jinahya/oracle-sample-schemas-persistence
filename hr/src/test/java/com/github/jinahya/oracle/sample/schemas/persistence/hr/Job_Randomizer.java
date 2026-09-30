@@ -20,7 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Randomizer;
+import com.github.jinahya.object.randomizer.PodamObjectRandomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -28,7 +28,15 @@ import uk.co.jemos.podam.api.PodamFactory;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-class Job_Randomizer extends __Randomizer.___OfPodam<Job> {
+/**
+ * A randomizer which produces randomized {@link Job} instances.
+ * <p>
+ * The {@code employees} and {@code jobHistories} associations are excluded from randomization, and the two salaries are
+ * assigned after the fact, because {@link Job} constrains them as a pair.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Job_Randomizer extends PodamObjectRandomizer<Job> {
 
     Job_Randomizer() {
         super(Job.class, List.of(

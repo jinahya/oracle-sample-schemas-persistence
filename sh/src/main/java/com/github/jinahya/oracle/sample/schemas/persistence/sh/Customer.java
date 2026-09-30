@@ -45,14 +45,15 @@ import java.util.Objects;
 public class Customer {
 
     /**
-     * The name of the database table to which this class maps. The value is {@value}.
+     * The name of the database table to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "CUSTOMERS";
 
     // -------------------------------------------------------------------------------------------------------- CUST_ID
 
     /**
-     * The name of the table column to which the {@code custId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_ID = "CUST_ID";
 
@@ -64,7 +65,8 @@ public class Customer {
     // ------------------------------------------------------------------------------------------------ CUST_FIRST_NAME
 
     /**
-     * The name of the table column to which the {@code custFirstName} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_FIRST_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_FIRST_NAME = "CUST_FIRST_NAME";
 
@@ -86,7 +88,8 @@ public class Customer {
     // ------------------------------------------------------------------------------------------------- CUST_LAST_NAME
 
     /**
-     * The name of the table column to which the {@code custLastName} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_LAST_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_LAST_NAME = "CUST_LAST_NAME";
 
@@ -108,7 +111,8 @@ public class Customer {
     // ---------------------------------------------------------------------------------------------------- CUST_GENDER
 
     /**
-     * The name of the table column to which the {@code custGender} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_GENDER} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_GENDER = "CUST_GENDER";
 
@@ -130,7 +134,8 @@ public class Customer {
     // --------------------------------------------------------------------------------------------- CUST_YEAR_OF_BIRTH
 
     /**
-     * The name of the table column to which the {@code custYearOfBirth} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_CUST_YEAR_OF_BIRTH = "CUST_YEAR_OF_BIRTH";
 
@@ -142,7 +147,8 @@ public class Customer {
     // -------------------------------------------------------------------------------------------- CUST_MARITAL_STATUS
 
     /**
-     * The name of the table column to which the {@code custMaritalStatus} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_MARITAL_STATUS} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_CUST_MARITAL_STATUS = "CUST_MARITAL_STATUS";
 
@@ -165,7 +171,8 @@ public class Customer {
     // -------------------------------------------------------------------------------------------- CUST_STREET_ADDRESS
 
     /**
-     * The name of the table column to which the {@code custStreetAddress} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_STREET_ADDRESS} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_CUST_STREET_ADDRESS = "CUST_STREET_ADDRESS";
 
@@ -188,7 +195,8 @@ public class Customer {
     // ----------------------------------------------------------------------------------------------- CUST_POSTAL_CODE
 
     /**
-     * The name of the table column to which the {@code custPostalCode} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_POSTAL_CODE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_POSTAL_CODE = "CUST_POSTAL_CODE";
 
@@ -210,7 +218,8 @@ public class Customer {
     // ------------------------------------------------------------------------------------------------------ CUST_CITY
 
     /**
-     * The name of the table column to which the {@code custCity} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_CITY} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_CITY = "CUST_CITY";
 
@@ -232,7 +241,8 @@ public class Customer {
     // --------------------------------------------------------------------------------------------------- CUST_CITY_ID
 
     /**
-     * The name of the table column to which the {@code custCityId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_CITY_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_CITY_ID = "CUST_CITY_ID";
 
@@ -244,7 +254,8 @@ public class Customer {
     // -------------------------------------------------------------------------------------------- CUST_STATE_PROVINCE
 
     /**
-     * The name of the table column to which the {@code custStateProvince} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_CUST_STATE_PROVINCE = "CUST_STATE_PROVINCE";
 
@@ -267,7 +278,8 @@ public class Customer {
     // ----------------------------------------------------------------------------------------- CUST_STATE_PROVINCE_ID
 
     /**
-     * The name of the table column to which the {@code custStateProvinceId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE_ID} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_STATE_PROVINCE_ID = "CUST_STATE_PROVINCE_ID";
 
@@ -280,7 +292,8 @@ public class Customer {
     // ----------------------------------------------------------------------------------------------------- COUNTRY_ID
 
     /**
-     * The name of the table column to which the {@code country} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
 
@@ -292,7 +305,8 @@ public class Customer {
     // ----------------------------------------------------------------------------------------- CUST_MAIN_PHONE_NUMBER
 
     /**
-     * The name of the table column to which the {@code custMainPhoneNumber} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_MAIN_PHONE_NUMBER} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_MAIN_PHONE_NUMBER = "CUST_MAIN_PHONE_NUMBER";
 
@@ -315,7 +329,8 @@ public class Customer {
     // ---------------------------------------------------------------------------------------------- CUST_INCOME_LEVEL
 
     /**
-     * The name of the table column to which the {@code custIncomeLevel} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_INCOME_LEVEL} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_INCOME_LEVEL = "CUST_INCOME_LEVEL";
 
@@ -337,7 +352,8 @@ public class Customer {
     // ---------------------------------------------------------------------------------------------- CUST_CREDIT_LIMIT
 
     /**
-     * The name of the table column to which the {@code custCreditLimit} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_CREDIT_LIMIT} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_CREDIT_LIMIT = "CUST_CREDIT_LIMIT";
 
@@ -349,7 +365,8 @@ public class Customer {
     // ----------------------------------------------------------------------------------------------------- CUST_EMAIL
 
     /**
-     * The name of the table column to which the {@code custEmail} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_EMAIL} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_EMAIL = "CUST_EMAIL";
 
@@ -371,7 +388,8 @@ public class Customer {
     // ----------------------------------------------------------------------------------------------------- CUST_TOTAL
 
     /**
-     * The name of the table column to which the {@code custTotal} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_TOTAL} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_TOTAL = "CUST_TOTAL";
 
@@ -393,7 +411,8 @@ public class Customer {
     // -------------------------------------------------------------------------------------------------- CUST_TOTAL_ID
 
     /**
-     * The name of the table column to which the {@code custTotalId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_TOTAL_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_TOTAL_ID = "CUST_TOTAL_ID";
 
@@ -405,7 +424,8 @@ public class Customer {
     // ---------------------------------------------------------------------------------------------------- CUST_SRC_ID
 
     /**
-     * The name of the table column to which the {@code custSrcId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_SRC_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_SRC_ID = "CUST_SRC_ID";
 
@@ -417,7 +437,8 @@ public class Customer {
     // -------------------------------------------------------------------------------------------------- CUST_EFF_FROM
 
     /**
-     * The name of the table column to which the {@code custEffFrom} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_EFF_FROM} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_EFF_FROM = "CUST_EFF_FROM";
 
@@ -429,7 +450,8 @@ public class Customer {
     // ---------------------------------------------------------------------------------------------------- CUST_EFF_TO
 
     /**
-     * The name of the table column to which the {@code custEffTo} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_EFF_TO} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_EFF_TO = "CUST_EFF_TO";
 
@@ -441,7 +463,8 @@ public class Customer {
     // ----------------------------------------------------------------------------------------------------- CUST_VALID
 
     /**
-     * The name of the table column to which the {@code custValid} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_VALID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUST_VALID = "CUST_VALID";
 

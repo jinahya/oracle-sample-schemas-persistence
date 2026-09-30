@@ -20,10 +20,17 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Persister;
+import com.github.jinahya.persistence.test.util.AbstractEntityPersister;
 import jakarta.persistence.EntityManager;
 
-class Region_Persister extends __Persister<Region> {
+/**
+ * A persister which persists {@link Region} instances.
+ * <p>
+ * A region references nothing, so an instance is persisted as it arrives.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Region_Persister extends AbstractEntityPersister<Region> {
 
     Region_Persister() {
         super(Region.class);

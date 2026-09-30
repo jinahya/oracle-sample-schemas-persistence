@@ -20,14 +20,21 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Randomizer;
+import com.github.jinahya.object.randomizer.PodamObjectRandomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.List;
 
-class StoreLogo_Randomizer extends __Randomizer.___OfPodam<StoreLogo> {
+/**
+ * A randomizer which produces randomized {@link StoreLogo} instances.
+ * <p>
+ * Nothing is excluded from randomization: the class is an embeddable which holds only the logo columns.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class StoreLogo_Randomizer extends PodamObjectRandomizer<StoreLogo> {
 
     StoreLogo_Randomizer() {
         super(StoreLogo.class, List.of());

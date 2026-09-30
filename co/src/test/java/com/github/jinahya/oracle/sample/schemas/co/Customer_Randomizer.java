@@ -20,7 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Randomizer;
+import com.github.jinahya.object.randomizer.PodamObjectRandomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -28,7 +28,17 @@ import uk.co.jemos.podam.api.PodamFactory;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-class Customer_Randomizer extends __Randomizer.___OfPodam<Customer> {
+/**
+ * A randomizer which produces randomized {@link Customer} instances.
+ * <p>
+ * The generated {@code customerId}, and the {@code orders} and {@code shipments} associations, are excluded from
+ * randomization. The {@code emailAddress} is assigned after the fact, because PODAM fills it with a string which no
+ * {@link jakarta.validation.constraints.Email @Email} would accept, and because {@link Customer#equals(Object)}
+ * compares it as the business key.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Customer_Randomizer extends PodamObjectRandomizer<Customer> {
 
     Customer_Randomizer() {
         super(Customer.class, List.of(

@@ -82,6 +82,8 @@
     <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>
     <maven.compiler.testTarget>${maven.compiler.testSource}</maven.compiler.testTarget>
     <maven.compiler.testRelease>${maven.compiler.testSource}</maven.compiler.testRelease>
+    <!-- The sources are clean under -Xdoclint:all; keep them that way. -->
+<!--    <doclint>all</doclint>-->
     <doclint>none</doclint>
     <sonar.organization>jinahya-github</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
@@ -97,7 +99,7 @@
     <metamodel.generator.version>${version.org.hibernate.orm}</metamodel.generator.version>
     <version.maven-failsafe>${version.maven-surefire}</version.maven-failsafe>
     <version.maven-surefire>3.6.0</version.maven-surefire>
-    <version.jinahya-persistence>0.6.0</version.jinahya-persistence>
+    <version.jinahya-persistence>0.6.1</version.jinahya-persistence>
     <!-- https://central.sonatype.com/artifact/ch.qos.logback/logback-classic/versions -->
     <!-- https://central.sonatype.com/artifact/ch.qos.logback/logback-parent -->
     <version.ch.qus.logback>1.6.3</version.ch.qus.logback>
@@ -359,8 +361,8 @@
             <additionalOptions>
               <additionalOption>-Xdoclint:${doclint}</additionalOption>
             </additionalOptions>
-            <failOnError>false</failOnError>
-            <failOnWarnings>false</failOnWarnings>
+            <failOnError>true</failOnError>
+            <failOnWarnings>true</failOnWarnings>
             <links>
 <!--              <link>https://www.javadoc.io/doc/jakarta.platform/jakarta.jakartaee-api/${version.jakarta.jakartaee-bom}</link>-->
 <!--              <link>https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence</link>-->
@@ -568,6 +570,33 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <id>main</id>
+            <reports>
+              <report>javadoc-no-fork</report>
+              <report>aggregate-no-fork</report>
+            </reports>
+          </reportSet>
+          <reportSet>
+            <id>tests</id>
+            <configuration>
+              <!-- Every test class is package-private, so the default `protected` finds nothing to -->
+              <!-- document, and javadoc reports that as an error. -->
+              <show>package</show>
+              <!-- Package-private constructors and @Test methods carry no javadoc by convention, so -->
+              <!-- check references and syntax rather than presence. combine.self is required: without -->
+              <!-- it Maven merges the list and the plugin-level -Xdoclint:${doclint} comes along too. -->
+              <additionalOptions combine.self="override">
+                <additionalOption>-Xdoclint:all,-missing</additionalOption>
+              </additionalOptions>
+            </configuration>
+            <reports>
+              <report>test-javadoc-no-fork</report>
+              <report>test-aggregate-no-fork</report>
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

@@ -41,14 +41,15 @@ import java.util.Objects;
 public class Time {
 
     /**
-     * The name of the database table to which this class maps. The value is {@value}.
+     * The name of the database table to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "TIMES";
 
     // -------------------------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the table column to which the {@code timeId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_TIME_ID = "TIME_ID";
 
@@ -60,7 +61,8 @@ public class Time {
     // ------------------------------------------------------------------------------------------------------- DAY_NAME
 
     /**
-     * The name of the table column to which the {@code dayName} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAY_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_DAY_NAME = "DAY_NAME";
 
@@ -82,7 +84,8 @@ public class Time {
     // --------------------------------------------------------------------------------------------- DAY_NUMBER_IN_WEEK
 
     /**
-     * The name of the table column to which the {@code dayNumberInWeek} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_DAY_NUMBER_IN_WEEK = "DAY_NUMBER_IN_WEEK";
 
@@ -94,7 +97,8 @@ public class Time {
     // -------------------------------------------------------------------------------------------- DAY_NUMBER_IN_MONTH
 
     /**
-     * The name of the table column to which the {@code dayNumberInMonth} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_DAY_NUMBER_IN_MONTH = "DAY_NUMBER_IN_MONTH";
 
@@ -107,7 +111,8 @@ public class Time {
     // ------------------------------------------------------------------------------------------- CALENDAR_WEEK_NUMBER
 
     /**
-     * The name of the table column to which the {@code calendarWeekNumber} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_WEEK_NUMBER = "CALENDAR_WEEK_NUMBER";
 
@@ -120,7 +125,8 @@ public class Time {
     // --------------------------------------------------------------------------------------------- FISCAL_WEEK_NUMBER
 
     /**
-     * The name of the table column to which the {@code fiscalWeekNumber} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_WEEK_NUMBER} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_WEEK_NUMBER = "FISCAL_WEEK_NUMBER";
 
@@ -132,7 +138,8 @@ public class Time {
     // ------------------------------------------------------------------------------------------------ WEEK_ENDING_DAY
 
     /**
-     * The name of the table column to which the {@code weekEndingDay} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_WEEK_ENDING_DAY = "WEEK_ENDING_DAY";
 
@@ -144,7 +151,8 @@ public class Time {
     // --------------------------------------------------------------------------------------------- WEEK_ENDING_DAY_ID
 
     /**
-     * The name of the table column to which the {@code weekEndingDayId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY_ID} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_WEEK_ENDING_DAY_ID = "WEEK_ENDING_DAY_ID";
 
@@ -156,7 +164,8 @@ public class Time {
     // ------------------------------------------------------------------------------------------ CALENDAR_MONTH_NUMBER
 
     /**
-     * The name of the table column to which the {@code calendarMonthNumber} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_MONTH_NUMBER = "CALENDAR_MONTH_NUMBER";
 
@@ -169,7 +178,8 @@ public class Time {
     // -------------------------------------------------------------------------------------------- FISCAL_MONTH_NUMBER
 
     /**
-     * The name of the table column to which the {@code fiscalMonthNumber} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_MONTH_NUMBER = "FISCAL_MONTH_NUMBER";
 
@@ -182,7 +192,8 @@ public class Time {
     // -------------------------------------------------------------------------------------------- CALENDAR_MONTH_DESC
 
     /**
-     * The name of the table column to which the {@code calendarMonthDesc} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_MONTH_DESC = "CALENDAR_MONTH_DESC";
 
@@ -205,7 +216,8 @@ public class Time {
     // ---------------------------------------------------------------------------------------------- CALENDAR_MONTH_ID
 
     /**
-     * The name of the table column to which the {@code calendarMonthId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_MONTH_ID = "CALENDAR_MONTH_ID";
 
@@ -217,7 +229,8 @@ public class Time {
     // ---------------------------------------------------------------------------------------------- FISCAL_MONTH_DESC
 
     /**
-     * The name of the table column to which the {@code fiscalMonthDesc} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_DESC} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_MONTH_DESC = "FISCAL_MONTH_DESC";
 
@@ -239,7 +252,8 @@ public class Time {
     // ------------------------------------------------------------------------------------------------ FISCAL_MONTH_ID
 
     /**
-     * The name of the table column to which the {@code fiscalMonthId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_MONTH_ID = "FISCAL_MONTH_ID";
 
@@ -251,7 +265,8 @@ public class Time {
     // ---------------------------------------------------------------------------------------------- DAYS_IN_CAL_MONTH
 
     /**
-     * The name of the table column to which the {@code daysInCalMonth} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_MONTH} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_DAYS_IN_CAL_MONTH = "DAYS_IN_CAL_MONTH";
 
@@ -263,7 +278,8 @@ public class Time {
     // ---------------------------------------------------------------------------------------------- DAYS_IN_FIS_MONTH
 
     /**
-     * The name of the table column to which the {@code daysInFisMonth} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_MONTH} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_DAYS_IN_FIS_MONTH = "DAYS_IN_FIS_MONTH";
 
@@ -275,7 +291,8 @@ public class Time {
     // ----------------------------------------------------------------------------------------------- END_OF_CAL_MONTH
 
     /**
-     * The name of the table column to which the {@code endOfCalMonth} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_CAL_MONTH} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_END_OF_CAL_MONTH = "END_OF_CAL_MONTH";
 
@@ -287,7 +304,8 @@ public class Time {
     // ----------------------------------------------------------------------------------------------- END_OF_FIS_MONTH
 
     /**
-     * The name of the table column to which the {@code endOfFisMonth} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_FIS_MONTH} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_END_OF_FIS_MONTH = "END_OF_FIS_MONTH";
 
@@ -299,7 +317,8 @@ public class Time {
     // -------------------------------------------------------------------------------------------- CALENDAR_MONTH_NAME
 
     /**
-     * The name of the table column to which the {@code calendarMonthName} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NAME} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_MONTH_NAME = "CALENDAR_MONTH_NAME";
 
@@ -322,7 +341,8 @@ public class Time {
     // ---------------------------------------------------------------------------------------------- FISCAL_MONTH_NAME
 
     /**
-     * The name of the table column to which the {@code fiscalMonthName} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_MONTH_NAME = "FISCAL_MONTH_NAME";
 
@@ -344,7 +364,8 @@ public class Time {
     // ------------------------------------------------------------------------------------------ CALENDAR_QUARTER_DESC
 
     /**
-     * The name of the table column to which the {@code calendarQuarterDesc} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_DESC} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_QUARTER_DESC = "CALENDAR_QUARTER_DESC";
 
@@ -367,7 +388,8 @@ public class Time {
     // -------------------------------------------------------------------------------------------- CALENDAR_QUARTER_ID
 
     /**
-     * The name of the table column to which the {@code calendarQuarterId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_ID} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_QUARTER_ID = "CALENDAR_QUARTER_ID";
 
@@ -380,7 +402,8 @@ public class Time {
     // -------------------------------------------------------------------------------------------- FISCAL_QUARTER_DESC
 
     /**
-     * The name of the table column to which the {@code fiscalQuarterDesc} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_DESC} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_QUARTER_DESC = "FISCAL_QUARTER_DESC";
 
@@ -403,7 +426,8 @@ public class Time {
     // ---------------------------------------------------------------------------------------------- FISCAL_QUARTER_ID
 
     /**
-     * The name of the table column to which the {@code fiscalQuarterId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_QUARTER_ID = "FISCAL_QUARTER_ID";
 
@@ -415,7 +439,8 @@ public class Time {
     // -------------------------------------------------------------------------------------------- DAYS_IN_CAL_QUARTER
 
     /**
-     * The name of the table column to which the {@code daysInCalQuarter} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_QUARTER} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_DAYS_IN_CAL_QUARTER = "DAYS_IN_CAL_QUARTER";
 
@@ -428,7 +453,8 @@ public class Time {
     // -------------------------------------------------------------------------------------------- DAYS_IN_FIS_QUARTER
 
     /**
-     * The name of the table column to which the {@code daysInFisQuarter} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_QUARTER} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_DAYS_IN_FIS_QUARTER = "DAYS_IN_FIS_QUARTER";
 
@@ -441,7 +467,8 @@ public class Time {
     // --------------------------------------------------------------------------------------------- END_OF_CAL_QUARTER
 
     /**
-     * The name of the table column to which the {@code endOfCalQuarter} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_CAL_QUARTER} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_END_OF_CAL_QUARTER = "END_OF_CAL_QUARTER";
 
@@ -453,7 +480,8 @@ public class Time {
     // --------------------------------------------------------------------------------------------- END_OF_FIS_QUARTER
 
     /**
-     * The name of the table column to which the {@code endOfFisQuarter} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_FIS_QUARTER} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_END_OF_FIS_QUARTER = "END_OF_FIS_QUARTER";
 
@@ -465,7 +493,8 @@ public class Time {
     // ---------------------------------------------------------------------------------------- CALENDAR_QUARTER_NUMBER
 
     /**
-     * The name of the table column to which the {@code calendarQuarterNumber} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_QUARTER_NUMBER = "CALENDAR_QUARTER_NUMBER";
 
@@ -478,7 +507,8 @@ public class Time {
     // ------------------------------------------------------------------------------------------ FISCAL_QUARTER_NUMBER
 
     /**
-     * The name of the table column to which the {@code fiscalQuarterNumber} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_QUARTER_NUMBER = "FISCAL_QUARTER_NUMBER";
 
@@ -491,7 +521,8 @@ public class Time {
     // -------------------------------------------------------------------------------------------------- CALENDAR_YEAR
 
     /**
-     * The name of the table column to which the {@code calendarYear} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_YEAR = "CALENDAR_YEAR";
 
@@ -503,7 +534,8 @@ public class Time {
     // ----------------------------------------------------------------------------------------------- CALENDAR_YEAR_ID
 
     /**
-     * The name of the table column to which the {@code calendarYearId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_YEAR_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_YEAR_ID = "CALENDAR_YEAR_ID";
 
@@ -515,7 +547,8 @@ public class Time {
     // ---------------------------------------------------------------------------------------------------- FISCAL_YEAR
 
     /**
-     * The name of the table column to which the {@code fiscalYear} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_YEAR} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_YEAR = "FISCAL_YEAR";
 
@@ -527,7 +560,8 @@ public class Time {
     // ------------------------------------------------------------------------------------------------- FISCAL_YEAR_ID
 
     /**
-     * The name of the table column to which the {@code fiscalYearId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_YEAR_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_YEAR_ID = "FISCAL_YEAR_ID";
 
@@ -539,7 +573,8 @@ public class Time {
     // ----------------------------------------------------------------------------------------------- DAYS_IN_CAL_YEAR
 
     /**
-     * The name of the table column to which the {@code daysInCalYear} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_YEAR} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_DAYS_IN_CAL_YEAR = "DAYS_IN_CAL_YEAR";
 
@@ -551,7 +586,8 @@ public class Time {
     // ----------------------------------------------------------------------------------------------- DAYS_IN_FIS_YEAR
 
     /**
-     * The name of the table column to which the {@code daysInFisYear} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_YEAR} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_DAYS_IN_FIS_YEAR = "DAYS_IN_FIS_YEAR";
 
@@ -563,7 +599,8 @@ public class Time {
     // ------------------------------------------------------------------------------------------------ END_OF_CAL_YEAR
 
     /**
-     * The name of the table column to which the {@code endOfCalYear} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_CAL_YEAR} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_END_OF_CAL_YEAR = "END_OF_CAL_YEAR";
 
@@ -575,7 +612,8 @@ public class Time {
     // ------------------------------------------------------------------------------------------------ END_OF_FIS_YEAR
 
     /**
-     * The name of the table column to which the {@code endOfFisYear} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_FIS_YEAR} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_END_OF_FIS_YEAR = "END_OF_FIS_YEAR";
 

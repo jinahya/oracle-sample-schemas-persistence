@@ -47,7 +47,7 @@ import java.util.Objects;
 public class Country {
 
     /**
-     * The name of the database table to which this class maps. The value is {@value}.
+     * The name of the database table to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "COUNTRIES";
 
@@ -60,57 +60,57 @@ public class Country {
     public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
 
     /**
-     * The length of the {@code COUNTRY_ID} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_COUNTRY_ID} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_COUNTRY_ID = 2;
 
     /**
-     * The name of the attribute which maps the {@code COUNTRY_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
 
     /**
-     * The minimum size of the {@code countryId} attribute.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
     /**
-     * The maximum size of the {@code countryId} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
     // ---------------------------------------------------------------------------------------------------- COUNTRY_NAME
 
     /**
-     * The name of the table column to which the {@code countryName} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_NAME = "COUNTRY_NAME";
 
     /**
-     * The length of the {@code COUNTRY_NAME} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_COUNTRY_NAME} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_COUNTRY_NAME = 60;
 
     /**
-     * The name of the attribute which maps the {@code COUNTRY_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_NAME} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_NAME = "countryName";
 
     /**
-     * The minimum size of the {@code countryName} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_COUNTRY_NAME = 0;
 
     /**
-     * The maximum size of the {@code countryName} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
 
     // ------------------------------------------------------------------------------------------------------- REGION_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_REGION_ID = "REGION_ID";
 
@@ -122,8 +122,7 @@ public class Country {
     public static final String ATTRIBUTE_NAME_LOCATIONS = "locations";
 
     /**
-     * The name of the entity attribute, of  {@link Region}, from which the {@value #COLUMN_NAME_REGION_ID} column maps.
-     * The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_REGION = "region";
 
@@ -163,9 +162,9 @@ public class Country {
     // ------------------------------------------------------------------------------------------------------- countryId
 
     /**
-     * Returns current value of {@code countryId} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
      *
-     * @return the current value of {@code countryId} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
      */
     @Nonnull
     public String getCountryId() {
@@ -173,9 +172,9 @@ public class Country {
     }
 
     /**
-     * Replaces current value of {@code countryId} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the specified value.
      *
-     * @param countryId new value for the {@code countryId} attribute.
+     * @param countryId new value for {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
      */
     protected void setCountryId(@Nonnull final String countryId) {
         this.countryId = countryId;
@@ -184,9 +183,9 @@ public class Country {
     // ----------------------------------------------------------------------------------------------------- countryName
 
     /**
-     * Returns current value of {@code countryName} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
      *
-     * @return the current value of {@code countryName} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
      */
     @jakarta.annotation.Nullable
     public String getCountryName() {
@@ -194,9 +193,9 @@ public class Country {
     }
 
     /**
-     * Replaces current value of {@code countryName} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute with the specified value.
      *
-     * @param countryName new value for the {@code countryName} attribute.
+     * @param countryName new value for {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
      */
     public void setCountryName(@jakarta.annotation.Nullable final String countryName) {
         this.countryName = countryName;

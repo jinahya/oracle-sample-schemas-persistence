@@ -20,8 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.test;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__PersisterUtils;
-import com.github.jinahya.persistence.test.util.__RandomizerUtils;
+import com.github.jinahya.object.randomizer.ObjectRandomizerUtils;
+import com.github.jinahya.persistence.test.util.EntityPersisterUtils;
 import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -67,7 +67,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 public abstract class __Persistence_Test<T> extends __Test<T> {
 
     /**
-     * The prefix of the constants {@link #__()} looks up. The value is {@value}.
+     * The prefix of the constants {@link #_SameValue_ATTRIBUTE_NAME_()} looks up. The value is {@value}.
      */
     private static final String ATTRIBUTE_NAME_CONSTANT_PREFIX = "ATTRIBUTE_NAME_";
 
@@ -167,9 +167,9 @@ public abstract class __Persistence_Test<T> extends __Test<T> {
     // -----------------------------------------------------------------------------------------------------------------
     @Test
     protected void _persist_RandomizedInstance() {
-        final var persisted = __RandomizerUtils.newRandomizerInstanceOf(targetClass)
+        final var persisted = ObjectRandomizerUtils.newRandomizerInstanceOf(targetClass)
                 .map(r -> {
-                    return __PersisterUtils.newPersisterInstanceOf(targetClass)
+                    return EntityPersisterUtils.newPersisterInstanceOf(targetClass)
                             .map(p -> {
                                 return applyEntityManagerInTransactionAndRollback(em -> {
                                     final var v = p.apply(em, r.get());
@@ -191,7 +191,7 @@ public abstract class __Persistence_Test<T> extends __Test<T> {
      * @param <R>      the type of the result.
      * @return the result of the {@code function}.
      * @throws IllegalArgumentException when {@link #targetClass} has no usable randomizer or no usable persister; see
-     *                                  {@link __PersisterUtils#newPersistedInstanceOf(EntityManager, Class)}.
+     *                                  {@link EntityPersisterUtils#newPersistedInstanceOf(EntityManager, Class)}.
      * @implNote The instance is persisted inside the same transaction the {@code function} runs in, so it is still
      * managed when the function sees it, and it is gone when the transaction rolls back.
      */
@@ -199,7 +199,7 @@ public abstract class __Persistence_Test<T> extends __Test<T> {
             final BiFunction<? super EntityManager, ? super T, ? extends R> function) {
         Objects.requireNonNull(function, "function is null");
         return applyEntityManagerInTransactionAndRollback(em -> {
-            final var persisted = __PersisterUtils.newPersistedInstanceOf(em, targetClass);
+            final var persisted = EntityPersisterUtils.newPersistedInstanceOf(em, targetClass);
             return function.apply(em, persisted);
         });
     }
@@ -213,7 +213,7 @@ public abstract class __Persistence_Test<T> extends __Test<T> {
      * @param <R>      the type of the result.
      * @return the result of the {@code function}.
      * @throws IllegalArgumentException when {@link #targetClass} has no usable randomizer or no usable persister; see
-     *                                  {@link __PersisterUtils#newPersistedInstanceOf(EntityManager, Class)}.
+     *                                  {@link EntityPersisterUtils#newPersistedInstanceOf(EntityManager, Class)}.
      * @implNote The persisted row outlives the call, on a database which is thrown away with the container; a test
      * which only needs the instance for the length of the {@code function} wants the rolled-back one.
      */
@@ -221,7 +221,7 @@ public abstract class __Persistence_Test<T> extends __Test<T> {
             final BiFunction<? super EntityManager, ? super T, ? extends R> function) {
         Objects.requireNonNull(function, "function is null");
         return applyEntityManagerInTransactionAndCommit(em -> {
-            final var persisted = __PersisterUtils.newPersistedInstanceOf(em, targetClass);
+            final var persisted = EntityPersisterUtils.newPersistedInstanceOf(em, targetClass);
             return function.apply(em, persisted);
         });
     }

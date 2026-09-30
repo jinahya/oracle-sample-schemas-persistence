@@ -20,11 +20,18 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Persister;
-import com.github.jinahya.persistence.test.util.__PersisterUtils;
+import com.github.jinahya.persistence.test.util.AbstractEntityPersister;
+import com.github.jinahya.persistence.test.util.EntityPersisterUtils;
 import jakarta.persistence.EntityManager;
 
-class CostWithEmbeddedId_Persister extends __Persister<CostWithEmbeddedId> {
+/**
+ * A persister which persists {@link CostWithEmbeddedId} instances. Each instance is first given newly persisted
+ * {@link Product}, {@link Time}, {@link Promotion} and {@link Channel} rows, and their keys copied into the composite
+ * identifier, because every column of that identifier is a foreign key.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class CostWithEmbeddedId_Persister extends AbstractEntityPersister<CostWithEmbeddedId> {
 
     CostWithEmbeddedId_Persister() {
         super(CostWithEmbeddedId.class);
@@ -46,16 +53,16 @@ class CostWithEmbeddedId_Persister extends __Persister<CostWithEmbeddedId> {
     @Override
     public CostWithEmbeddedId apply(final EntityManager entityManager, final CostWithEmbeddedId entityInstance) {
         entityInstance.setProdId(
-                __PersisterUtils.newPersistedInstanceOf(entityManager, Product.class).getProdId()
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class).getProdId()
         );
         entityInstance.setTimeId(
-                __PersisterUtils.newPersistedInstanceOf(entityManager, Time.class).getTimeId()
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Time.class).getTimeId()
         );
         entityInstance.setPromoId(
-                __PersisterUtils.newPersistedInstanceOf(entityManager, Promotion.class).getPromoId()
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Promotion.class).getPromoId()
         );
         entityInstance.setChannelId(
-                __PersisterUtils.newPersistedInstanceOf(entityManager, Channel.class).getChannelId()
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Channel.class).getChannelId()
         );
         return super.apply(entityManager, entityInstance);
     }

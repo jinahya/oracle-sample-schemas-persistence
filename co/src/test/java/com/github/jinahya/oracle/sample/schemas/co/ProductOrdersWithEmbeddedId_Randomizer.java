@@ -20,14 +20,22 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Randomizer;
+import com.github.jinahya.object.randomizer.PodamObjectRandomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.List;
 
-class ProductOrdersWithEmbeddedId_Randomizer extends __Randomizer.___OfPodam<ProductOrdersWithEmbeddedId> {
+/**
+ * A randomizer which produces randomized {@link ProductOrdersWithEmbeddedId} instances.
+ * <p>
+ * Nothing is excluded from randomization: the class maps a view, whose identifier is read from the view rather than
+ * generated, and holds no association.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class ProductOrdersWithEmbeddedId_Randomizer extends PodamObjectRandomizer<ProductOrdersWithEmbeddedId> {
 
     ProductOrdersWithEmbeddedId_Randomizer() {
         super(ProductOrdersWithEmbeddedId.class, List.of(

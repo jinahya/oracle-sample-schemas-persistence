@@ -80,14 +80,7 @@ public class ProfitsId {
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-
-    /**
-     * Creates a new instance.
-     */
-    public ProfitsId() {
-        super();
-    }
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified column values.
@@ -97,18 +90,29 @@ public class ProfitsId {
      * @param prodId    the {@value ProfitsWithEmbeddedId#COLUMN_NAME_PROD_ID} column value.
      * @param promoId   the {@value ProfitsWithEmbeddedId#COLUMN_NAME_PROMO_ID} column value.
      * @param timeId    the {@value ProfitsWithEmbeddedId#COLUMN_NAME_TIME_ID} column value.
+     * @return a new instance with the specified column values.
      */
-    public ProfitsId(final Long channelId,
-                     final Long custId,
-                     final Integer prodId,
-                     final Integer promoId,
-                     final LocalDate timeId) {
-        this();
-        setChannelId(channelId);
-        setCustId(custId);
-        setProdId(prodId);
-        setPromoId(promoId);
-        setTimeId(timeId);
+    public static ProfitsId of(final Long channelId,
+                               final Long custId,
+                               final Integer prodId,
+                               final Integer promoId,
+                               final LocalDate timeId) {
+        final var instance = new ProfitsId();
+        instance.setChannelId(channelId);
+        instance.setCustId(custId);
+        instance.setProdId(prodId);
+        instance.setPromoId(promoId);
+        instance.setTimeId(timeId);
+        return instance;
+    }
+
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    /**
+     * Creates a new instance.
+     */
+    public ProfitsId() {
+        super();
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object

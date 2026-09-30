@@ -37,14 +37,32 @@ import java.util.Objects;
 public class OrderItemId {
 
     /**
-     * The name of the attribute which maps the {@code ORDER_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value OrderItemWithEmbeddedId#COLUMN_NAME_ORDER_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
 
     /**
-     * The name of the attribute which maps the {@code LINE_ITEM_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value OrderItemWithEmbeddedId#COLUMN_NAME_LINE_ITEM_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LINE_ITEM_ID = "lineItemId";
+
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+
+    /**
+     * Creates a new instance with the specified order id and line item id.
+     *
+     * @param orderId    the {@value OrderItemWithEmbeddedId#COLUMN_NAME_ORDER_ID} column value.
+     * @param lineItemId the {@value OrderItemWithEmbeddedId#COLUMN_NAME_LINE_ITEM_ID} column value.
+     * @return a new instance with the specified column values.
+     */
+    public static OrderItemId of(@Nonnull final Long orderId, @Nonnull final Long lineItemId) {
+        final var instance = new OrderItemId();
+        instance.setOrderId(orderId);
+        instance.setLineItemId(lineItemId);
+        return instance;
+    }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -53,18 +71,6 @@ public class OrderItemId {
      */
     protected OrderItemId() {
         super();
-    }
-
-    /**
-     * Creates a new instance with the specified order id and line item id.
-     *
-     * @param orderId    the {@value OrderItemWithEmbeddedId#COLUMN_NAME_ORDER_ID} column value.
-     * @param lineItemId the {@value OrderItemWithEmbeddedId#COLUMN_NAME_LINE_ITEM_ID} column value.
-     */
-    public OrderItemId(@Nonnull final Long orderId, @Nonnull final Long lineItemId) {
-        this();
-        setOrderId(orderId);
-        setLineItemId(lineItemId);
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object

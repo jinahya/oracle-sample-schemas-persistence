@@ -39,46 +39,48 @@ import java.util.Objects;
 public class Country {
 
     /**
-     * The name of the database table to which this class maps. The value is {@value}.
+     * The name of the database table to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "COUNTRIES";
 
     // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
 
     /**
-     * The name of the table column to which the {@code countryId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
 
     /**
-     * The name of the attribute which maps the {@code COUNTRY_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
 
     // ------------------------------------------------------------------------------------------------ COUNTRY_ISO_CODE
 
     /**
-     * The name of the table column to which the {@code countryIsoCode} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ISO_CODE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_ISO_CODE = "COUNTRY_ISO_CODE";
 
     /**
-     * The length of the {@code COUNTRY_ISO_CODE} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_COUNTRY_ISO_CODE} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_COUNTRY_ISO_CODE = 2;
 
     /**
-     * The name of the attribute which maps the {@code COUNTRY_ISO_CODE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ISO_CODE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_ISO_CODE = "countryIsoCode";
 
     /**
-     * The minimum size of the {@code countryIsoCode} attribute.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_COUNTRY_ISO_CODE} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_COUNTRY_ISO_CODE = COLUMN_LENGTH_COUNTRY_ISO_CODE;
 
     /**
-     * The maximum size of the {@code countryIsoCode} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_ISO_CODE} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_COUNTRY_ISO_CODE = SIZE_MIN_COUNTRY_ISO_CODE;
 
@@ -280,18 +282,18 @@ public class Country {
     // ----------------------------------------------------------------------------------------------------- countryName
 
     /**
-     * Returns current value of {@code countryName} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
      *
-     * @return current value of {@code countryName} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
      */
     public String getCountryName() {
         return countryName;
     }
 
     /**
-     * Replaces current value of {@code countryName} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute with the specified value.
      *
-     * @param countryName new value for {@code countryName} attribute.
+     * @param countryName new value for {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
      */
     public void setCountryName(String countryName) {
         this.countryName = countryName;
@@ -300,18 +302,18 @@ public class Country {
     // ------------------------------------------------------------------------------------------------ countrySubregion
 
     /**
-     * Returns current value of {@code countrySubregion} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} attribute.
      *
-     * @return current value of {@code countrySubregion} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} attribute.
      */
     public String getCountrySubregion() {
         return countrySubregion;
     }
 
     /**
-     * Replaces current value of {@code countrySubregion} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} attribute with the specified value.
      *
-     * @param countrySubregion new value for {@code countrySubregion} attribute.
+     * @param countrySubregion new value for {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} attribute.
      */
     public void setCountrySubregion(String countrySubregion) {
         this.countrySubregion = countrySubregion;
@@ -320,18 +322,18 @@ public class Country {
     // ---------------------------------------------------------------------------------------------- countrySubregionId
 
     /**
-     * Returns current value of {@code countrySubregionId} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID} attribute.
      *
-     * @return current value of {@code countrySubregionId} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID} attribute.
      */
     public Long getCountrySubregionId() {
         return countrySubregionId;
     }
 
     /**
-     * Replaces current value of {@code countrySubregionId} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID} attribute with the specified value.
      *
-     * @param countrySubregionId new value for {@code countrySubregionId} attribute.
+     * @param countrySubregionId new value for {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID} attribute.
      */
     public void setCountrySubregionId(Long countrySubregionId) {
         this.countrySubregionId = countrySubregionId;
@@ -340,18 +342,18 @@ public class Country {
     // --------------------------------------------------------------------------------------------------- countryRegion
 
     /**
-     * Returns current value of {@code countryRegion} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_REGION} attribute.
      *
-     * @return current value of {@code countryRegion} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_REGION} attribute.
      */
     public String getCountryRegion() {
         return countryRegion;
     }
 
     /**
-     * Replaces current value of {@code countryRegion} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_REGION} attribute with the specified value.
      *
-     * @param countryRegion new value for {@code countryRegion} attribute.
+     * @param countryRegion new value for {@value #ATTRIBUTE_NAME_COUNTRY_REGION} attribute.
      */
     public void setCountryRegion(String countryRegion) {
         this.countryRegion = countryRegion;
@@ -360,18 +362,18 @@ public class Country {
     // ------------------------------------------------------------------------------------------------- countryRegionId
 
     /**
-     * Returns current value of {@code countryRegionId} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_REGION_ID} attribute.
      *
-     * @return current value of {@code countryRegionId} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_REGION_ID} attribute.
      */
     public Long getCountryRegionId() {
         return countryRegionId;
     }
 
     /**
-     * Replaces current value of {@code countryRegionId} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_REGION_ID} attribute with the specified value.
      *
-     * @param countryRegionId new value for {@code countryRegionId} attribute.
+     * @param countryRegionId new value for {@value #ATTRIBUTE_NAME_COUNTRY_REGION_ID} attribute.
      */
     public void setCountryRegionId(Long countryRegionId) {
         this.countryRegionId = countryRegionId;
@@ -380,18 +382,18 @@ public class Country {
     // ---------------------------------------------------------------------------------------------------- countryTotal
 
     /**
-     * Returns current value of {@code countryTotal} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} attribute.
      *
-     * @return current value of {@code countryTotal} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} attribute.
      */
     public String getCountryTotal() {
         return countryTotal;
     }
 
     /**
-     * Replaces current value of {@code countryTotal} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} attribute with the specified value.
      *
-     * @param countryTotal new value for {@code countryTotal} attribute.
+     * @param countryTotal new value for {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} attribute.
      */
     public void setCountryTotal(String countryTotal) {
         this.countryTotal = countryTotal;
@@ -400,18 +402,18 @@ public class Country {
     // -------------------------------------------------------------------------------------------------- countryTotalId
 
     /**
-     * Returns current value of {@code countryTotalId} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL_ID} attribute.
      *
-     * @return current value of {@code countryTotalId} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL_ID} attribute.
      */
     public Long getCountryTotalId() {
         return countryTotalId;
     }
 
     /**
-     * Replaces current value of {@code countryTotalId} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL_ID} attribute with the specified value.
      *
-     * @param countryTotalId new value for {@code countryTotalId} attribute.
+     * @param countryTotalId new value for {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL_ID} attribute.
      */
     public void setCountryTotalId(Long countryTotalId) {
         this.countryTotalId = countryTotalId;

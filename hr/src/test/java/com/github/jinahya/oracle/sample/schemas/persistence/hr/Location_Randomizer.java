@@ -20,14 +20,22 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Randomizer;
+import com.github.jinahya.object.randomizer.PodamObjectRandomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.List;
 
-class Location_Randomizer extends __Randomizer.___OfPodam<Location> {
+/**
+ * A randomizer which produces randomized {@link Location} instances.
+ * <p>
+ * The {@code country} and {@code departments} associations are excluded from randomization; {@link Location_Persister}
+ * supplies the {@code country}.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Location_Randomizer extends PodamObjectRandomizer<Location> {
 
     Location_Randomizer() {
         super(Location.class, List.of(

@@ -42,7 +42,7 @@ import java.util.Objects;
 public class CustomerOrderProducts {
 
     /**
-     * The name of the database view to which this class maps. The value is {@value}.
+     * The name of the database view to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "CUSTOMER_ORDER_PRODUCTS";
 

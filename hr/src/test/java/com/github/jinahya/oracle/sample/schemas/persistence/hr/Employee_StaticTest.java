@@ -28,6 +28,16 @@ import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * A class for testing the constants declared in the {@link Employee} entity class.
+ * <p>
+ * Each nested class covers one column, and asserts that its {@code COLUMN_*} bounds hold the expected values, and that
+ * the {@code ATTRIBUTE_*} bounds agree with them -- including those declared as {@code String} literals, for the
+ * {@link jakarta.validation.constraints.DecimalMin @DecimalMin} and
+ * {@link jakarta.validation.constraints.DecimalMax @DecimalMax} constraints, which are compared as {@link BigDecimal}.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 class Employee_StaticTest {
 
     @DisplayName("..._EMPLOYEE_ID")

@@ -47,7 +47,7 @@ import java.util.Optional;
 public class FweekPscatSalesMvWithIdClass {
 
     /**
-     * The name of the database materialized view to which this class maps. The value is {@value}.
+     * The name of the database materialized view to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "FWEEK_PSCAT_SALES_MV";
 
@@ -177,18 +177,19 @@ public class FweekPscatSalesMvWithIdClass {
     // -------------------------------------------------------------------------------------------------------------- id
 
     /**
-     * Returns current value of {@code id} attribute.
+     * Returns a new {@link FweekPscatSalesMvId} holding current values of the identifying attributes.
      *
-     * @return current value of {@code id} attribute.
+     * @return a new {@link FweekPscatSalesMvId} holding current values of the identifying attributes.
      */
     public FweekPscatSalesMvId getId() {
-        return new FweekPscatSalesMvId(getWeekEndingDay(), getProdSubcategory(), getChannelId(), getPromoId());
+        return FweekPscatSalesMvId.of(getWeekEndingDay(), getProdSubcategory(), getChannelId(), getPromoId());
     }
 
     /**
-     * Replaces current value of {@code id} attribute with the specified value.
+     * Replaces current values of the identifying attributes with those of the specified identifier.
      *
-     * @param id new value for {@code id} attribute.
+     * @param id the identifier whose values are applied; may be {@code null}, which clears every identifying
+     *           attribute.
      */
     protected void setId(final FweekPscatSalesMvId id) {
         setWeekEndingDay(

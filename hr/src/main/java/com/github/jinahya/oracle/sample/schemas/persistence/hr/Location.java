@@ -93,184 +93,189 @@ import java.util.Objects;
 public class Location {
 
     /**
-     * The name of the database table to which this entity is mapped. The value is {@value}.
+     * The name of the database table to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "LOCATIONS";
 
     // ----------------------------------------------------------------------------------------------------- LOCATION_ID
 
     /**
-     * The name of the table column to which the {@code locationId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_LOCATION_ID = "LOCATION_ID";
 
     /**
-     * The precision of the {@code LOCATION_ID} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_LOCATION_ID} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_LOCATION_ID = 4;
 
     /**
-     * The scale of the {@code LOCATION_ID} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_LOCATION_ID} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_LOCATION_ID = 0;
 
     /**
-     * The minimum value of the {@code LOCATION_ID} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_LOCATION_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MIN_LOCATION_ID = -9999;
 
     /**
-     * The maximum value of the {@code LOCATION_ID} column.
+     * The maximum value of the {@value #COLUMN_NAME_LOCATION_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_LOCATION_ID = +9999;
 
     /**
-     * The name of the attribute which maps the {@code LOCATION_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LOCATION_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LOCATION_ID = "locationId";
 
     /**
-     * The minimum value of the {@code locationId} attribute.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_LOCATION_ID = COLUMN_MIN_LOCATION_ID;
 
     /**
-     * The maximum value of the {@code locationId} attribute.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_LOCATION_ID = COLUMN_MAX_LOCATION_ID;
 
     // -------------------------------------------------------------------------------------------------- STREET_ADDRESS
 
     /**
-     * The name of the table column to which the {@code streetAddress} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STREET_ADDRESS} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_STREET_ADDRESS = "STREET_ADDRESS";
 
     /**
-     * The length of the {@code STREET_ADDRESS} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_STREET_ADDRESS} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_STREET_ADDRESS = 40;
 
     /**
-     * The name of the attribute which maps the {@code STREET_ADDRESS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_STREET_ADDRESS} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STREET_ADDRESS = "streetAddress";
 
     /**
-     * The minimum size of the {@code streetAddress} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_STREET_ADDRESS} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_STREET_ADDRESS = 0;
 
     /**
-     * The maximum size of the {@code streetAddress} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_STREET_ADDRESS} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_STREET_ADDRESS = COLUMN_LENGTH_STREET_ADDRESS;
 
     // ----------------------------------------------------------------------------------------------------- POSTAL_CODE
 
     /**
-     * The name of the table column to which the {@code postalCode} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_POSTAL_CODE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_POSTAL_CODE = "POSTAL_CODE";
 
     /**
-     * The length of the {@code POSTAL_CODE} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_POSTAL_CODE} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_POSTAL_CODE = 12;
 
     /**
-     * The name of the attribute which maps the {@code POSTAL_CODE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_POSTAL_CODE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_POSTAL_CODE = "postalCode";
 
     /**
-     * The minimum size of the {@code postalCode} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_POSTAL_CODE} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_POSTAL_CODE = 0;
 
     /**
-     * The maximum size of the {@code postalCode} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_POSTAL_CODE} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_POSTAL_CODE = COLUMN_LENGTH_POSTAL_CODE;
 
     // ------------------------------------------------------------------------------------------------------------ CITY
 
     /**
-     * The name of the table column to which the {@code city} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CITY} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CITY = "CITY";
 
     /**
-     * The length of the {@code CITY} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_CITY} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_CITY = 30;
 
     /**
-     * The name of the attribute which maps the {@code CITY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CITY} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CITY = "city";
 
     /**
-     * The minimum size of the {@code city} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_CITY} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_CITY = 0;
 
     /**
-     * The maximum size of the {@code city} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CITY} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_CITY = COLUMN_LENGTH_CITY;
 
     // -------------------------------------------------------------------------------------------------- STATE_PROVINCE
 
     /**
-     * The name of the table column to which the {@code stateProvince} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_STATE_PROVINCE = "STATE_PROVINCE";
 
     /**
-     * The length of the {@code STATE_PROVINCE} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_STATE_PROVINCE} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_STATE_PROVINCE = 25;
 
     /**
-     * The name of the attribute which maps the {@code STATE_PROVINCE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_STATE_PROVINCE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_STATE_PROVINCE = "stateProvince";
 
     /**
-     * The minimum size of the {@code stateProvince} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_STATE_PROVINCE = 0;
 
     /**
-     * The maximum size of the {@code stateProvince} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_STATE_PROVINCE = COLUMN_LENGTH_STATE_PROVINCE;
 
     // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
 
     /**
-     * The name of the table column to which the {@code countryId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
 
     /**
-     * Whether the {@code COUNTRY_ID} column is nullable. The value is {@value}.
+     * Whether the {@value #COLUMN_NAME_COUNTRY_ID} column is nullable. The value is {@value}.
      */
     public static final boolean COLUMN_NULLABLE_COUNTRY_ID = true;
 
     /**
-     * The length of the {@code COUNTRY_ID} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_COUNTRY_ID} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_COUNTRY_ID = 2;
 
     /**
-     * The minimum size of the {@code countryId} attribute.
+     * The minimum size of a {@value #COLUMN_NAME_COUNTRY_ID} column value. The value is {@value}.
      */
     public static final int SIZE_MIN_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
     /**
-     * The maximum size of the {@code countryId} attribute.
+     * The maximum size of a {@value #COLUMN_NAME_COUNTRY_ID} column value. The value is {@value}.
      */
     public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
@@ -335,7 +340,7 @@ public class Location {
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
      *
-     * @return the current value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
      */
     @Nonnull
     public Integer getLocationId() {
@@ -345,7 +350,7 @@ public class Location {
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute with the specified value.
      *
-     * @param locationId new value for the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
+     * @param locationId new value for {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
      */
     protected void setLocationId(@Nonnull final Integer locationId) {
         this.locationId = locationId;
@@ -417,9 +422,9 @@ public class Location {
     // --------------------------------------------------------------------------------------------------- stateProvince
 
     /**
-     * Returns current value of {@code stateProvince} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute.
      *
-     * @return current value of {@code stateProvince} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute.
      */
     @jakarta.annotation.Nullable
     public String getStateProvince() {
@@ -427,9 +432,9 @@ public class Location {
     }
 
     /**
-     * Replaces current value of {@code stateProvince} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute with the specified value.
      *
-     * @param stateProvince new value for {@code stateProvince} attribute.
+     * @param stateProvince new value for {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute.
      */
     public void setStateProvince(@jakarta.annotation.Nullable final String stateProvince) {
         this.stateProvince = stateProvince;

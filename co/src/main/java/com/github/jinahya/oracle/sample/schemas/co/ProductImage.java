@@ -100,9 +100,9 @@ public class ProductImage extends _Binary {
     // --------------------------------------------------------------------------------------------------- PRODUCT_IMAGE
 
     /**
-     * Returns current value of {@code productImage} attribute.
+     * Returns current value of {@value Product#ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute.
      *
-     * @return current value of {@code productImage} attribute.
+     * @return current value of {@value Product#ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute.
      */
     @Nullable
     public byte[] getProductImage() {
@@ -116,9 +116,9 @@ public class ProductImage extends _Binary {
     // ------------------------------------------------------------------------------------------------- IMAGE_MIME_TYPE
 
     /**
-     * Returns current value of {@code imageMimeType} attribute.
+     * Returns current value of {@value Product#ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute.
      *
-     * @return current value of {@code imageMimeType} attribute.
+     * @return current value of {@value Product#ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute.
      */
     @Nullable
     public String getImageMimeType() {
@@ -132,9 +132,9 @@ public class ProductImage extends _Binary {
     // -------------------------------------------------------------------------------------------------- IMAGE_FILENAME
 
     /**
-     * Returns current value of {@code imageFilename} attribute.
+     * Returns current value of {@value Product#ATTRIBUTE_NAME_IMAGE_FILENAME} attribute.
      *
-     * @return current value of {@code imageFilename} attribute.
+     * @return current value of {@value Product#ATTRIBUTE_NAME_IMAGE_FILENAME} attribute.
      */
     @Nullable
     public String getImageFilename() {
@@ -148,9 +148,9 @@ public class ProductImage extends _Binary {
     // --------------------------------------------------------------------------------------------------- IMAGE_CHARSET
 
     /**
-     * Returns current value of {@code imageCharset} attribute.
+     * Returns current value of {@value Product#ATTRIBUTE_NAME_IMAGE_CHARSET} attribute.
      *
-     * @return current value of {@code imageCharset} attribute.
+     * @return current value of {@value Product#ATTRIBUTE_NAME_IMAGE_CHARSET} attribute.
      */
     @Nullable
     public String getImageCharset() {
@@ -164,9 +164,9 @@ public class ProductImage extends _Binary {
     // ---------------------------------------------------------------------------------------------- IMAGE_LAST_UPDATED
 
     /**
-     * Returns current value of {@code imageLastUpdated} attribute.
+     * Returns current value of {@value Product#ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute.
      *
-     * @return current value of {@code imageLastUpdated} attribute.
+     * @return current value of {@value Product#ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute.
      */
     @Nullable
     protected LocalDate getImageLastUpdated() {

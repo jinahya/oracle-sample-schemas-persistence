@@ -42,29 +42,30 @@ import java.util.Objects;
 public class EmpDetailsView {
 
     /**
-     * The name of the database view to which this entity is mapped. The value is {@value}.
+     * The name of the database view to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "EMP_DETAILS_VIEW";
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
-     * The name of the table column to which the {@code employeeId} attribute maps.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_EMPLOYEE_ID = Employee.COLUMN_NAME_EMPLOYEE_ID;
 
     /**
-     * The precision of the {@code EMPLOYEE_ID} column.
+     * The precision of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_EMPLOYEE_ID = Employee.COLUMN_PRECISION_EMPLOYEE_ID;
 
     /**
-     * The name of the attribute which maps the {@code EMPLOYEE_ID} column.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = Employee.ATTRIBUTE_NAME_EMPLOYEE_ID;
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_ID} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_JOB_ID} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_JOB_ID = "JOB_ID";
 
@@ -74,7 +75,7 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_JOB_ID = "jobId";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute maps. The value is
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_MANAGER_ID = "MANAGER_ID";
@@ -85,7 +86,7 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_MANAGER_ID = "managerId";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute maps. The value is
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
@@ -96,7 +97,7 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_DEPARTMENT_ID = "departmentId";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute maps. The value is
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_LOCATION_ID = "LOCATION_ID";
@@ -107,7 +108,7 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_LOCATION_ID = "locationId";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps. The value is
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
@@ -118,7 +119,7 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute maps. The value is
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_FIRST_NAME = "FIRST_NAME";
@@ -129,7 +130,7 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_FIRST_NAME = "firstName";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LAST_NAME} attribute maps. The value is
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_LAST_NAME} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_LAST_NAME = "LAST_NAME";
@@ -140,7 +141,7 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_LAST_NAME = "lastName";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SALARY} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_SALARY} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_SALARY = "SALARY";
 
@@ -150,7 +151,7 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute maps. The value is
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_COMMISSION_PCT = "COMMISSION_PCT";
@@ -161,7 +162,7 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_COMMISSION_PCT = "commissionPct";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute maps. The value is
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_DEPARTMENT_NAME = "DEPARTMENT_NAME";
@@ -172,7 +173,7 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_DEPARTMENT_NAME = "departmentName";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute maps. The value is
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_JOB_TITLE = "JOB_TITLE";
@@ -183,7 +184,7 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_JOB_TITLE = "jobTitle";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CITY} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_CITY} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CITY = "CITY";
 
@@ -193,7 +194,7 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_CITY = "city";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute maps. The value is
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_STATE_PROVINCE = "STATE_PROVINCE";
@@ -204,7 +205,7 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_STATE_PROVINCE = "stateProvince";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute maps. The value is
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_NAME = "COUNTRY_NAME";
@@ -215,7 +216,7 @@ public class EmpDetailsView {
     public static final String ATTRIBUTE_NAME_COUNTRY_NAME = "countryName";
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute maps. The value is
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_REGION_NAME = "REGION_NAME";

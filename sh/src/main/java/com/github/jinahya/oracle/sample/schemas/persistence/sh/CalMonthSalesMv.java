@@ -41,7 +41,7 @@ import java.util.Objects;
 public class CalMonthSalesMv {
 
     /**
-     * The name of the database materialized view to which this class maps. The value is {@value}.
+     * The name of the database materialized view to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "CAL_MONTH_SALES_MV";
 

@@ -1,10 +1,15 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.sh;
+/**
+ * Defines the test base classes shared by the schema modules.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+package com.github.jinahya.oracle.sample.schemas.persistence.test;
 
 /*-
  * #%L
- * sh
+ * test-base
  * %%
- * Copyright (C) 2024 - 2026 Jinahya, Inc.
+ * Copyright (C) 2024 - 2025 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,15 +24,3 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * limitations under the License.
  * #L%
  */
-
-/**
- * A class which does nothing, and which cannot be instantiated.
- *
- * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- */
-public final class __NoOp {
-
-    private __NoOp() {
-        throw new AssertionError("instantiation is not allowed");
-    }
-}

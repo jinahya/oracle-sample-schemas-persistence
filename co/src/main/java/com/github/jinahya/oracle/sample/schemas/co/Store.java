@@ -62,314 +62,324 @@ public class Store {
     // ---------------------------------------------------------------------------------------------- STORE_ID / storeId
 
     /**
-     * The name of the table column to which the {@code storeId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
     /**
-     * The name of the attribute which maps the {@code STORE_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE_ID = "storeId";
 
     // ------------------------------------------------------------------------------------------------------ STORE_NAME
 
     /**
-     * The name of the table column to which the {@code storeName} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_STORE_NAME = "STORE_NAME";
 
     /**
-     * The length of the {@code STORE_NAME} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_STORE_NAME} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_STORE_NAME = 255;
 
     /**
-     * The name of the attribute which maps the {@code STORE_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_NAME} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE_NAME = "storeName";
 
     /**
-     * The minimum size of the {@code storeName} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_STORE_NAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_STORE_NAME = 0;
 
     // 1?
 
     /**
-     * The maximum size of the {@code storeName} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_STORE_NAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_STORE_NAME = COLUMN_LENGTH_STORE_NAME;
 
     // ----------------------------------------------------------------------------------------------------- WEB_ADDRESS
 
     /**
-     * The name of the table column to which the {@code webAddress} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_WEB_ADDRESS = "WEB_ADDRESS";
 
     /**
-     * The length of the {@code WEB_ADDRESS} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_WEB_ADDRESS} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_WEB_ADDRESS = 100;
 
     /**
-     * The name of the attribute which maps the {@code WEB_ADDRESS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_WEB_ADDRESS} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_WEB_ADDRESS = "webAddress";
 
     /**
-     * The minimum size of the {@code webAddress} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_WEB_ADDRESS = 0;
 
     // 1?
 
     /**
-     * The maximum size of the {@code webAddress} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_WEB_ADDRESS = COLUMN_LENGTH_WEB_ADDRESS;
 
     // ------------------------------------------------------------------------------------------------ PHYSICAL_ADDRESS
 
     /**
-     * The name of the table column to which the {@code physicalAddress} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PHYSICAL_ADDRESS = "PHYSICAL_ADDRESS";
 
     /**
-     * The length of the {@code PHYSICAL_ADDRESS} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_PHYSICAL_ADDRESS} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_PHYSICAL_ADDRESS = 512;
 
     /**
-     * The name of the attribute which maps the {@code PHYSICAL_ADDRESS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PHYSICAL_ADDRESS} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PHYSICAL_ADDRESS = "physicalAddress";
 
     /**
-     * The minimum size of the {@code physicalAddress} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_PHYSICAL_ADDRESS = 0;
 
     // 1?
 
     /**
-     * The maximum size of the {@code physicalAddress} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_PHYSICAL_ADDRESS = COLUMN_LENGTH_PHYSICAL_ADDRESS;
 
     // -------------------------------------------------------------------------------------------------------- LATITUDE
 
     /**
-     * The name of the table column to which the {@code latitude} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LATITUDE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_LATITUDE = "LATITUDE";
 
     /**
-     * The precision of the {@code LATITUDE} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_LATITUDE} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_LATITUDE = 9;
 
     /**
-     * The scale of the {@code LATITUDE} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_LATITUDE} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_LATITUDE = 6;
 
     /**
-     * The minimum value of the {@code LATITUDE} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_LATITUDE} column. The value is {@value}.
      */
     public static final String COLUMN_MIN_LATITUDE = "-999.999999";
 
     /**
-     * The maximum value of the {@code LATITUDE} column. The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_LATITUDE} column. The value is {@value}.
      */
     public static final String COLUMN_MAX_LATITUDE = "+999.999999";
 
     /**
-     * The name of the attribute which maps the {@code LATITUDE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LATITUDE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LATITUDE = "latitude";
 
     /**
-     * The minimum value of the {@code latitude} attribute, as a decimal string.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute, as a decimal string.
      */
     public static String ATTRIBUTE_DECIMAL_MIN_LATITUDE = _Constants.DECIMAL_MIN_LATITUDE;
 
     /**
-     * The maximum value of the {@code latitude} attribute, as a decimal string.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute, as a decimal string.
      */
     public static String ATTRIBUTE_DECIMAL_MAX_LATITUDE = _Constants.DECIMAL_MAX_LATITUDE;
 
     /**
-     * The minimum value of the {@code latitude} attribute.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute.
      */
     public static BigDecimal ATTRIBUTE_MIN_LATITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MIN_LATITUDE);
 
     /**
-     * The maximum value of the {@code latitude} attribute.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute.
      */
     public static BigDecimal ATTRIBUTE_MAX_LATITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MAX_LATITUDE);
 
     // ------------------------------------------------------------------------------------------------------- LONGITUDE
 
     /**
-     * The name of the table column to which the {@code longitude} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_LONGITUDE = "LONGITUDE";
 
     /**
-     * The precision of the {@code LONGITUDE} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_LONGITUDE} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_LONGITUDE = 9;
 
     /**
-     * The scale of the {@code LONGITUDE} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_LONGITUDE} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_LONGITUDE = 6;
 
     /**
-     * The minimum value of the {@code LONGITUDE} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_LONGITUDE} column. The value is {@value}.
      */
     public static final String COLUMN_MIN_LONGITUDE = "-999.999999";
 
     /**
-     * The maximum value of the {@code LONGITUDE} column. The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_LONGITUDE} column. The value is {@value}.
      */
     public static final String COLUMN_MAX_LONGITUDE = "+999.999999";
 
     /**
-     * The name of the attribute which maps the {@code LONGITUDE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LONGITUDE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LONGITUDE = "longitude";
 
     /**
-     * The minimum value of the {@code longitude} attribute, as a decimal string.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute, as a decimal string.
      */
     public static String ATTRIBUTE_DECIMAL_MIN_LONGITUDE = _Constants.DECIMAL_MIN_LONGITUDE;
 
     /**
-     * The maximum value of the {@code longitude} attribute, as a decimal string.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute, as a decimal string.
      */
     public static String ATTRIBUTE_DECIMAL_MAX_LONGITUDE = _Constants.DECIMAL_MAX_LONGITUDE;
 
     /**
-     * The minimum value of the {@code longitude} attribute.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute.
      */
     public static BigDecimal ATTRIBUTE_MIN_LONGITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MIN_LONGITUDE);
 
     /**
-     * The maximum value of the {@code longitude} attribute.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute.
      */
     public static BigDecimal ATTRIBUTE_MAX_LONGITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MAX_LONGITUDE);
 
     // ------------------------------------------------------------------------------------------------------------ LOGO
 
     /**
-     * The name of the table column to which the {@code logo} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_LOGO = "LOGO";
 
     /**
-     * The name of the attribute which maps the {@code LOGO} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LOGO} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LOGO = "logo";
 
     // -------------------------------------------------------------------------------------------------- LOGO_MIME_TYPE
 
     /**
-     * The name of the table column to which the {@code logoMimeType} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_LOGO_MIME_TYPE = "LOGO_MIME_TYPE";
 
     /**
-     * The length of the {@code LOGO_MIME_TYPE} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_LOGO_MIME_TYPE} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_LOGO_MIME_TYPE = 512;
 
     /**
-     * The name of the attribute which maps the {@code LOGO_MIME_TYPE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LOGO_MIME_TYPE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LOGO_MIME_TYPE = "logoMimeType";
 
     /**
-     * The minimum size of the {@code logoMimeType} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_LOGO_MIME_TYPE = 0;
 
     // 1?
 
     /**
-     * The maximum size of the {@code logoMimeType} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_LOGO_MIME_TYPE = COLUMN_LENGTH_LOGO_MIME_TYPE;
 
     // --------------------------------------------------------------------------------------------------- LOGO_FILENAME
 
     /**
-     * The name of the table column to which the {@code logoFilename} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO_FILENAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_LOGO_FILENAME = "LOGO_FILENAME";
 
     /**
-     * The length of the {@code LOGO_FILENAME} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_LOGO_FILENAME} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_LOGO_FILENAME = 512;
 
     /**
-     * The name of the attribute which maps the {@code LOGO_FILENAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LOGO_FILENAME} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LOGO_FILENAME = "logoFilename";
 
     /**
-     * The minimum size of the {@code logoFilename} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_LOGO_FILENAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_LOGO_FILENAME = 0;
 
     // 1?
 
     /**
-     * The maximum size of the {@code logoFilename} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_LOGO_FILENAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_LOGO_FILENAME = COLUMN_LENGTH_LOGO_FILENAME;
 
     // ---------------------------------------------------------------------------------------------------- LOGO_CHARSET
 
     /**
-     * The name of the table column to which the {@code logoCharset} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO_CHARSET} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_LOGO_CHARSET = "LOGO_CHARSET";
 
     /**
-     * The length of the {@code LOGO_CHARSET} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_LOGO_CHARSET} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_LOGO_CHARSET = 512;
 
     /**
-     * The name of the attribute which maps the {@code LOGO_CHARSET} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LOGO_CHARSET} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LOGO_CHARSET = "logoCharset";
 
     /**
-     * The minimum size of the {@code logoCharset} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_LOGO_CHARSET} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_LOGO_CHARSET = 0;
 
     // 1?
 
     /**
-     * The maximum size of the {@code logoCharset} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_LOGO_CHARSET} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_LOGO_CHARSET = COLUMN_LENGTH_LOGO_CHARSET;
 
     // ----------------------------------------------------------------------------------------------- LOGO_LAST_UPDATED
 
     /**
-     * The name of the table column to which the {@code logoLastUpdated} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_LOGO_LAST_UPDATED = "LOGO_LAST_UPDATED";
 
     /**
-     * The name of the attribute which maps the {@code LOGO_LAST_UPDATED} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LOGO_LAST_UPDATED} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LOGO_LAST_UPDATED = "logoLastUpdated";
 
@@ -456,18 +466,18 @@ public class Store {
     // --------------------------------------------------------------------------------------------------------- storeId
 
     /**
-     * Returns current value of {@code storeId} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
      *
-     * @return current value of the {@code storeId} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
      */
     public Long getStoreId() {
         return storeId;
     }
 
     /**
-     * Replaces current value of {@code storeId} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute with the specified value.
      *
-     * @param storeId new value for the {@code storeId} attribute.
+     * @param storeId new value for {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
      */
     protected void setStoreId(final Long storeId) {
         this.storeId = storeId;
@@ -476,18 +486,18 @@ public class Store {
     // ------------------------------------------------------------------------------------------------------- storeName
 
     /**
-     * Returns current value of {@code storeName} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_STORE_NAME} attribute.
      *
-     * @return current value of the {@code storeName} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_STORE_NAME} attribute.
      */
     public String getStoreName() {
         return storeName;
     }
 
     /**
-     * Replaces current value of {@code storeName} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE_NAME} attribute with the specified value.
      *
-     * @param storeName new value for the {@code storeName} attribute.
+     * @param storeName new value for {@value #ATTRIBUTE_NAME_STORE_NAME} attribute.
      */
     public void setStoreName(final String storeName) {
         this.storeName = storeName;
@@ -572,9 +582,9 @@ public class Store {
     }
 
     /**
-     * Replaces current value of {@code latitude} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LATITUDE} attribute with the specified value.
      *
-     * @param latitude     new value for the {@link #setLatitude(BigDecimal) latitude} attribute.
+     * @param latitude     new value for {@link #setLatitude(BigDecimal) latitude} attribute.
      * @param roundingMode a rounding mode.
      * @see BigDecimal#valueOf(double)
      * @see BigDecimal#setScale(int, RoundingMode)

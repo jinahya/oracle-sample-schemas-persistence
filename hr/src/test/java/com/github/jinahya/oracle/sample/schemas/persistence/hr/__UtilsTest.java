@@ -35,6 +35,15 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * A class for testing the {@link __Utils} class, whose methods mirror the {@code HR} schema's stored routines.
+ * <p>
+ * The nested class covers {@link __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(LocalTime, DayOfWeek)}, over the
+ * four combinations of a time which is, or is not, within office hours and a weekday which is, or is not, one of those
+ * the {@code SECURE_DML} procedure refuses.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 class __UtilsTest {
 
     @Nested

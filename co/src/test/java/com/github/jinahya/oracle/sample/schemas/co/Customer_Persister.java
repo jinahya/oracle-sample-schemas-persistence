@@ -20,10 +20,17 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Persister;
+import com.github.jinahya.persistence.test.util.AbstractEntityPersister;
 import jakarta.persistence.EntityManager;
 
-class Customer_Persister extends __Persister<Customer> {
+/**
+ * A persister which persists {@link Customer} instances.
+ * <p>
+ * A customer references nothing, so an instance is persisted as it arrives.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Customer_Persister extends AbstractEntityPersister<Customer> {
 
     Customer_Persister() {
         super(Customer.class);

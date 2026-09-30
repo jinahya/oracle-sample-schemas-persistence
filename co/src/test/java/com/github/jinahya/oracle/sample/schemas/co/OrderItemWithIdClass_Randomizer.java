@@ -20,14 +20,23 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Randomizer;
+import com.github.jinahya.object.randomizer.PodamObjectRandomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.List;
 
-class OrderItemWithIdClass_Randomizer extends __Randomizer.___OfPodam<OrderItemWithIdClass> {
+/**
+ * A randomizer which produces randomized {@link OrderItemWithIdClass} instances.
+ * <p>
+ * The {@code orderId} and {@code lineItemId} key attributes, and the {@code order}, {@code product} and
+ * {@code shipment} associations, are excluded from randomization; {@link OrderItemWithIdClass_Persister} supplies all
+ * of them.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class OrderItemWithIdClass_Randomizer extends PodamObjectRandomizer<OrderItemWithIdClass> {
 
     OrderItemWithIdClass_Randomizer() {
         super(OrderItemWithIdClass.class, List.of(

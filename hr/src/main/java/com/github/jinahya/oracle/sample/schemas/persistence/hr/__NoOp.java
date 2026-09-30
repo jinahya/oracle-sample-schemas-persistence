@@ -20,6 +20,11 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
+/**
+ * A class which does nothing, and which cannot be instantiated.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 public final class __NoOp {
 
     private __NoOp() {

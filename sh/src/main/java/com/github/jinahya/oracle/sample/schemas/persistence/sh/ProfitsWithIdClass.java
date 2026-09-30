@@ -46,7 +46,7 @@ import java.util.Optional;
 public class ProfitsWithIdClass {
 
     /**
-     * The name of the database view to which this class maps. The value is {@value}.
+     * The name of the database view to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "PROFITS";
 
@@ -263,18 +263,19 @@ public class ProfitsWithIdClass {
     // -------------------------------------------------------------------------------------------------------------- id
 
     /**
-     * Returns current value of {@code id} attribute.
+     * Returns a new {@link ProfitsId} holding current values of the identifying attributes.
      *
-     * @return current value of {@code id} attribute.
+     * @return a new {@link ProfitsId} holding current values of the identifying attributes.
      */
     public ProfitsId getId() {
-        return new ProfitsId(getChannelId(), getCustId(), getProdId(), getPromoId(), getTimeId());
+        return ProfitsId.of(getChannelId(), getCustId(), getProdId(), getPromoId(), getTimeId());
     }
 
     /**
-     * Replaces current value of {@code id} attribute with the specified value.
+     * Replaces current values of the identifying attributes with those of the specified identifier.
      *
-     * @param id new value for {@code id} attribute.
+     * @param id the identifier whose values are applied; may be {@code null}, which clears every identifying
+     *           attribute.
      */
     protected void setId(final ProfitsId id) {
         setChannelId(

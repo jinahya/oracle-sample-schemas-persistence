@@ -20,11 +20,17 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.__Persister;
-import com.github.jinahya.persistence.test.util.__PersisterUtils;
+import com.github.jinahya.persistence.test.util.AbstractEntityPersister;
+import com.github.jinahya.persistence.test.util.EntityPersisterUtils;
 import jakarta.persistence.EntityManager;
 
-class Customer_Persister extends __Persister<Customer> {
+/**
+ * A persister which persists {@link Customer} instances. Each instance is first given a newly persisted
+ * {@link Country}, because the {@value Customer#ATTRIBUTE_NAME_COUNTRY} association is not optional.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class Customer_Persister extends AbstractEntityPersister<Customer> {
 
     Customer_Persister() {
         super(Customer.class);
@@ -33,7 +39,7 @@ class Customer_Persister extends __Persister<Customer> {
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     public Customer apply(final EntityManager entityManager, final Customer entityInstance) {
-        entityInstance.setCountry(__PersisterUtils.newPersistedInstanceOf(entityManager, Country.class));
+        entityInstance.setCountry(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Country.class));
         return super.apply(entityManager, entityInstance);
     }
 }

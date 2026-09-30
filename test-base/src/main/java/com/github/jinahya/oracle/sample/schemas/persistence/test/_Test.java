@@ -32,13 +32,31 @@ import java.util.Objects;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
+/**
+ * An abstract base class for testing an entity class without a persistence context.
+ * <p>
+ * It verifies what every entity class of this project has to satisfy on its own -- a usable {@code toString()}, an
+ * {@code equals}/{@code hashCode} pair, and property accessors which round-trip.
+ *
+ * @param <T> the type of the target class.
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 public abstract class _Test<T> extends __Test<T> {
 
+    /**
+     * Creates a new instance for the specified target class.
+     *
+     * @param targetClass the class to test.
+     */
     protected _Test(final Class<T> targetClass) {
         super(targetClass);
     }
 
     // -------------------------------------------------------------------------------------------------------- toString
+
+    /**
+     * Verifies that {@code toString()} of a new instance of {@link #targetClass} is not blank.
+     */
     @Test
     protected void toString_NotBlank_NewInstance() {
         final var instance = newTargetInstance();
@@ -46,6 +64,9 @@ public abstract class _Test<T> extends __Test<T> {
         assertThat(string).isNotBlank();
     }
 
+    /**
+     * Verifies that {@code toString()} of a new randomized instance of {@link #targetClass} is not blank.
+     */
     @Test
     protected void toString_NotBlank_NewRandomizedInstance() {
         newRandomizedTargetInstance().map(Objects::toString).ifPresent(v -> {
@@ -54,10 +75,20 @@ public abstract class _Test<T> extends __Test<T> {
     }
 
     // ------------------------------------------------------------------------------------------------ equals/hashCode
+
+    /**
+     * Returns an equals-verifier for {@link #targetClass}, which subclasses may further configure.
+     *
+     * @return an equals-verifier for {@link #targetClass}.
+     */
     protected SingleTypeEqualsVerifierApi<T> equals_verifier_() {
         return EqualsVerifier.simple().forClass(targetClass);
     }
 
+    /**
+     * Verifies the {@code equals}/{@code hashCode} contract of {@link #targetClass}, using the verifier which
+     * {@link #equals_verifier_()} returns.
+     */
     @Test
     protected void equals_verify_() {
         final var verifier = equals_verifier_();
@@ -65,6 +96,13 @@ public abstract class _Test<T> extends __Test<T> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Verifies that every non-{@link jakarta.persistence.Transient @Transient} read/write property of
+     * {@link #targetClass} accepts what its own reader returns.
+     *
+     * @throws IntrospectionException when {@link #targetClass} cannot be introspected.
+     */
     @Test
     protected void propertyAccessors_DoNotThrow() throws IntrospectionException {
         final var instance = newTargetInstance();

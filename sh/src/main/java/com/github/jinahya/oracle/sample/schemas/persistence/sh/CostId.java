@@ -72,14 +72,7 @@ public class CostId {
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-
-    /**
-     * Creates a new instance.
-     */
-    public CostId() {
-        super();
-    }
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified column values.
@@ -88,13 +81,27 @@ public class CostId {
      * @param timeId    the {@value CostWithEmbeddedId#COLUMN_NAME_TIME_ID} column value.
      * @param promoId   the {@value CostWithEmbeddedId#COLUMN_NAME_PROMO_ID} column value.
      * @param channelId the {@value CostWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column value.
+     * @return a new instance with the specified column values.
      */
-    public CostId(final Integer prodId, final LocalDate timeId, final Integer promoId, final Long channelId) {
-        this();
-        setProdId(prodId);
-        setTimeId(timeId);
-        setPromoId(promoId);
-        setChannelId(channelId);
+    public static CostId of(final Integer prodId,
+                            final LocalDate timeId,
+                            final Integer promoId,
+                            final Long channelId) {
+        final var instance = new CostId();
+        instance.setProdId(prodId);
+        instance.setTimeId(timeId);
+        instance.setPromoId(promoId);
+        instance.setChannelId(channelId);
+        return instance;
+    }
+
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    /**
+     * Creates a new instance.
+     */
+    public CostId() {
+        super();
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object

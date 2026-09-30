@@ -100,9 +100,9 @@ public class StoreLogo extends _Binary {
     // ------------------------------------------------------------------------------------------------------------ LOGO
 
     /**
-     * Returns current value of {@code logo} attribute.
+     * Returns current value of {@value Store#ATTRIBUTE_NAME_LOGO} attribute.
      *
-     * @return current value of {@code logo} attribute.
+     * @return current value of {@value Store#ATTRIBUTE_NAME_LOGO} attribute.
      */
     @Nullable
     public byte[] getLogo() {
@@ -116,9 +116,9 @@ public class StoreLogo extends _Binary {
     // -------------------------------------------------------------------------------------------------- LOGO_MIME_TYPE
 
     /**
-     * Returns current value of {@code logoMimeType} attribute.
+     * Returns current value of {@value Store#ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute.
      *
-     * @return current value of {@code logoMimeType} attribute.
+     * @return current value of {@value Store#ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute.
      */
     @Nullable
     public String getLogoMimeType() {
@@ -132,9 +132,9 @@ public class StoreLogo extends _Binary {
     // --------------------------------------------------------------------------------------------------- LOGO_FILENAME
 
     /**
-     * Returns current value of {@code logoFilename} attribute.
+     * Returns current value of {@value Store#ATTRIBUTE_NAME_LOGO_FILENAME} attribute.
      *
-     * @return current value of {@code logoFilename} attribute.
+     * @return current value of {@value Store#ATTRIBUTE_NAME_LOGO_FILENAME} attribute.
      */
     @Nullable
     public String getLogoFilename() {
@@ -148,9 +148,9 @@ public class StoreLogo extends _Binary {
     // ---------------------------------------------------------------------------------------------------- LOGO_CHARSET
 
     /**
-     * Returns current value of {@code logoCharset} attribute.
+     * Returns current value of {@value Store#ATTRIBUTE_NAME_LOGO_CHARSET} attribute.
      *
-     * @return current value of {@code logoCharset} attribute.
+     * @return current value of {@value Store#ATTRIBUTE_NAME_LOGO_CHARSET} attribute.
      */
     @Nullable
     public String getLogoCharset() {
@@ -164,9 +164,9 @@ public class StoreLogo extends _Binary {
     // ----------------------------------------------------------------------------------------------- LOGO_LAST_UPDATED
 
     /**
-     * Returns current value of {@code logoLastUpdated} attribute.
+     * Returns current value of {@value Store#ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute.
      *
-     * @return current value of {@code logoLastUpdated} attribute.
+     * @return current value of {@value Store#ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute.
      */
     @Nullable
     protected LocalDate getLogoLastUpdated() {

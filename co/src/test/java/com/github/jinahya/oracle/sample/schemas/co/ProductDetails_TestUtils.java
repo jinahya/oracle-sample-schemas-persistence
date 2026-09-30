@@ -28,6 +28,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
 
+/**
+ * Utilities for testing the {@link ProductDetails} class.
+ * <p>
+ * The methods read an instance back from a stream, or from a byte array, and write one out again, as JSON.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 @Slf4j
 final class ProductDetails_TestUtils {
 

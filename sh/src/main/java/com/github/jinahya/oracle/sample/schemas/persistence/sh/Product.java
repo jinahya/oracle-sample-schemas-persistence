@@ -42,14 +42,15 @@ import java.util.Objects;
 public class Product {
 
     /**
-     * The name of the database table to which this class maps. The value is {@value}.
+     * The name of the database table to which this entity class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "PRODUCTS";
 
     // -------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The name of the table column to which the {@code prodId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_ID = "PROD_ID";
 
@@ -61,7 +62,8 @@ public class Product {
     // ------------------------------------------------------------------------------------------------------ PROD_NAME
 
     /**
-     * The name of the table column to which the {@code prodName} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_NAME} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_NAME = "PROD_NAME";
 
@@ -83,7 +85,8 @@ public class Product {
     // ------------------------------------------------------------------------------------------------------ PROD_DESC
 
     /**
-     * The name of the table column to which the {@code prodDesc} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_DESC} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_DESC = "PROD_DESC";
 
@@ -105,7 +108,8 @@ public class Product {
     // ----------------------------------------------------------------------------------------------- PROD_SUBCATEGORY
 
     /**
-     * The name of the table column to which the {@code prodSubcategory} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_SUBCATEGORY = "PROD_SUBCATEGORY";
 
@@ -127,7 +131,8 @@ public class Product {
     // -------------------------------------------------------------------------------------------- PROD_SUBCATEGORY_ID
 
     /**
-     * The name of the table column to which the {@code prodSubcategoryId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_ID} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_PROD_SUBCATEGORY_ID = "PROD_SUBCATEGORY_ID";
 
@@ -140,7 +145,8 @@ public class Product {
     // ------------------------------------------------------------------------------------------ PROD_SUBCATEGORY_DESC
 
     /**
-     * The name of the table column to which the {@code prodSubcategoryDesc} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_DESC} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_SUBCATEGORY_DESC = "PROD_SUBCATEGORY_DESC";
 
@@ -163,7 +169,8 @@ public class Product {
     // -------------------------------------------------------------------------------------------------- PROD_CATEGORY
 
     /**
-     * The name of the table column to which the {@code prodCategory} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_CATEGORY} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_CATEGORY = "PROD_CATEGORY";
 
@@ -185,7 +192,8 @@ public class Product {
     // ----------------------------------------------------------------------------------------------- PROD_CATEGORY_ID
 
     /**
-     * The name of the table column to which the {@code prodCategoryId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_CATEGORY_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_CATEGORY_ID = "PROD_CATEGORY_ID";
 
@@ -197,7 +205,8 @@ public class Product {
     // --------------------------------------------------------------------------------------------- PROD_CATEGORY_DESC
 
     /**
-     * The name of the table column to which the {@code prodCategoryDesc} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_CATEGORY_DESC} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_PROD_CATEGORY_DESC = "PROD_CATEGORY_DESC";
 
@@ -219,7 +228,8 @@ public class Product {
     // ---------------------------------------------------------------------------------------------- PROD_WEIGHT_CLASS
 
     /**
-     * The name of the table column to which the {@code prodWeightClass} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_WEIGHT_CLASS = "PROD_WEIGHT_CLASS";
 
@@ -231,7 +241,8 @@ public class Product {
     // ------------------------------------------------------------------------------------------- PROD_UNIT_OF_MEASURE
 
     /**
-     * The name of the table column to which the {@code prodUnitOfMeasure} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_UNIT_OF_MEASURE} attribute maps. The value
+     * is {@value}.
      */
     public static final String COLUMN_NAME_PROD_UNIT_OF_MEASURE = "PROD_UNIT_OF_MEASURE";
 
@@ -254,7 +265,8 @@ public class Product {
     // ------------------------------------------------------------------------------------------------- PROD_PACK_SIZE
 
     /**
-     * The name of the table column to which the {@code prodPackSize} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_PACK_SIZE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_PACK_SIZE = "PROD_PACK_SIZE";
 
@@ -276,7 +288,8 @@ public class Product {
     // ---------------------------------------------------------------------------------------------------- SUPPLIER_ID
 
     /**
-     * The name of the table column to which the {@code supplierId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_SUPPLIER_ID = "SUPPLIER_ID";
 
@@ -288,7 +301,8 @@ public class Product {
     // ---------------------------------------------------------------------------------------------------- PROD_STATUS
 
     /**
-     * The name of the table column to which the {@code prodStatus} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_STATUS} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_STATUS = "PROD_STATUS";
 
@@ -310,7 +324,8 @@ public class Product {
     // ------------------------------------------------------------------------------------------------ PROD_LIST_PRICE
 
     /**
-     * The name of the table column to which the {@code prodListPrice} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_LIST_PRICE = "PROD_LIST_PRICE";
 
@@ -322,7 +337,8 @@ public class Product {
     // ------------------------------------------------------------------------------------------------- PROD_MIN_PRICE
 
     /**
-     * The name of the table column to which the {@code prodMinPrice} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_MIN_PRICE = "PROD_MIN_PRICE";
 
@@ -334,7 +350,8 @@ public class Product {
     // ----------------------------------------------------------------------------------------------------- PROD_TOTAL
 
     /**
-     * The name of the table column to which the {@code prodTotal} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_TOTAL} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_TOTAL = "PROD_TOTAL";
 
@@ -356,7 +373,8 @@ public class Product {
     // -------------------------------------------------------------------------------------------------- PROD_TOTAL_ID
 
     /**
-     * The name of the table column to which the {@code prodTotalId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_TOTAL_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_TOTAL_ID = "PROD_TOTAL_ID";
 
@@ -368,7 +386,8 @@ public class Product {
     // ---------------------------------------------------------------------------------------------------- PROD_SRC_ID
 
     /**
-     * The name of the table column to which the {@code prodSrcId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_SRC_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_SRC_ID = "PROD_SRC_ID";
 
@@ -380,7 +399,8 @@ public class Product {
     // -------------------------------------------------------------------------------------------------- PROD_EFF_FROM
 
     /**
-     * The name of the table column to which the {@code prodEffFrom} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_EFF_FROM} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_EFF_FROM = "PROD_EFF_FROM";
 
@@ -392,7 +412,8 @@ public class Product {
     // ---------------------------------------------------------------------------------------------------- PROD_EFF_TO
 
     /**
-     * The name of the table column to which the {@code prodEffTo} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_EFF_TO} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_EFF_TO = "PROD_EFF_TO";
 
@@ -404,7 +425,8 @@ public class Product {
     // ----------------------------------------------------------------------------------------------------- PROD_VALID
 
     /**
-     * The name of the table column to which the {@code prodValid} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_VALID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_VALID = "PROD_VALID";
 

@@ -88,12 +88,13 @@ public class JobHistoryWithEmbeddedId {
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
-     * A table column name of {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_EMPLOYEE_ID = "EMPLOYEE_ID";
 
     /**
-     * Whether the {@code EMPLOYEE_ID} column is nullable. The value is {@value}.
+     * Whether the {@value #COLUMN_NAME_EMPLOYEE_ID} column is nullable. The value is {@value}.
      */
     public static final boolean COLUMN_NULLABLE_EMPLOYEE_ID = false;
 
@@ -125,82 +126,86 @@ public class JobHistoryWithEmbeddedId {
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
-     * The name of the attribute, of the composite identifier, which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column.
-     * The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID_EMPLOYEE_ID = "id.employeeId";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_ID_EMPLOYEE_ID} attribute.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_ID_EMPLOYEE_ID} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MIN_ID_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_ID_EMPLOYEE_ID} attribute.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_ID_EMPLOYEE_ID} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MAX_ID_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
 
     // ------------------------------------------------------------------------------------------------------ START_DATE
 
     /**
-     * A table column name of {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_ID_START_DATE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_START_DATE = "START_DATE";
 
     /**
-     * Whether the {@code START_DATE} column is nullable. The value is {@value}.
+     * Whether the {@value #COLUMN_NAME_START_DATE} column is nullable. The value is {@value}.
      */
     public static final boolean COLUMN_NULLABLE_START_DATE = false;
 
     // ------------------------------------------------------------------------------------------------------ START_DATE
 
     /**
-     * The name of the attribute, of the composite identifier, which maps the {@value #COLUMN_NAME_START_DATE} column.
-     * The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_START_DATE} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID_START_DATE = "id.startDate";
 
     /**
-     * A comparator which compares the {@code startDate} of the composite identifier.
+     * A comparator which compares the {@value JobHistoryId#ATTRIBUTE_NAME_START_DATE} of the composite identifier.
      */
     public static final Comparator<JobHistoryWithEmbeddedId> COMPARING_ID_START_DATE = comparingIdStartDate();
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
 
     /**
-     * The name of the table column to which the {@code endDate} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_DATE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_END_DATE = "END_DATE";
 
     /**
-     * The name of the attribute which maps the {@code END_DATE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_END_DATE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_END_DATE = "endDate";
 
     // ---------------------------------------------------------------------------------------------------------- JOB_ID
 
     /**
-     * The name of the table column to which the {@code jobId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_JOB_ID = "JOB_ID";
 
     /**
-     * Whether the {@code JOB_ID} column is nullable. The value is {@value}.
+     * Whether the {@value #COLUMN_NAME_JOB_ID} column is nullable. The value is {@value}.
      */
     public static final boolean COLUMN_NULLABLE_JOB_ID = false;
 
     /**
-     * The length of the {@code JOB_ID} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_JOB_ID} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_JOB_ID = 10;
 
     /**
-     * The minimum size of the {@code jobId} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_JOB} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_JOB_ID = 0;
 
     /**
-     * The maximum size of the {@code jobId} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_JOB} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
@@ -212,42 +217,43 @@ public class JobHistoryWithEmbeddedId {
     // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
 
     /**
-     * The name of the table column to which the {@code departmentId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
 
     /**
-     * Whether the {@code DEPARTMENT_ID} column is nullable. The value is {@value}.
+     * Whether the {@value #COLUMN_NAME_DEPARTMENT_ID} column is nullable. The value is {@value}.
      */
     public static final boolean COLUMN_NULLABLE_DEPARTMENT_ID = true;
 
     /**
-     * The precision of the {@code DEPARTMENT_ID} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_DEPARTMENT_ID = 4;
 
     /**
-     * The scale of the {@code DEPARTMENT_ID} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_DEPARTMENT_ID = 0;
 
     /**
-     * The minimum value of the {@code DEPARTMENT_ID} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MIN_DEPARTMENT_ID = -9999;
 
     /**
-     * The maximum value of the {@code DEPARTMENT_ID} column.
+     * The maximum value of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_DEPARTMENT_ID = +9999;
 
     /**
-     * The minimum value of the {@code departmentId} attribute.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MIN_DEPARTMENT_ID = COLUMN_MIN_DEPARTMENT_ID;
 
     /**
-     * The maximum value of the {@code departmentId} attribute.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MAX_DEPARTMENT_ID = COLUMN_MAX_DEPARTMENT_ID;
 
@@ -276,10 +282,12 @@ public class JobHistoryWithEmbeddedId {
     }
 
     /**
-     * Returns a comparator which compares the {@code startDate} of the composite identifier.
+     * Returns a comparator which compares the {@value JobHistoryId#ATTRIBUTE_NAME_START_DATE} of the composite
+     * identifier.
      *
      * @param <T> the type of the compared entity.
-     * @return a comparator which compares the {@code startDate} of the composite identifier.
+     * @return a comparator which compares the {@value JobHistoryId#ATTRIBUTE_NAME_START_DATE} of the composite
+     * identifier.
      */
     protected static <T extends JobHistoryWithEmbeddedId> Comparator<T> comparingIdStartDate() {
         return comparingStartDate(v -> v.getId().getStartDate());
@@ -319,10 +327,11 @@ public class JobHistoryWithEmbeddedId {
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     /**
-     * Tests whether current value of {@code END_DATE} attribute is after the value of {@code id.startDate} attribute.
+     * Tests whether current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute is after the value of
+     * {@value #ATTRIBUTE_NAME_ID_START_DATE} attribute.
      *
-     * @return {@code true} if the current value of the {@code END_DATE} attribute is after the {@code id.startDate}
-     * attribute; {@code false} otherwise.
+     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_END_DATE} attribute is after the
+     * {@value #ATTRIBUTE_NAME_ID_START_DATE} attribute; {@code false} otherwise.
      */
     @AssertTrue
     protected boolean isEndDateAfterIdStartDate() {
@@ -340,9 +349,9 @@ public class JobHistoryWithEmbeddedId {
     // -------------------------------------------------------------------------------------------------------------- id
 
     /**
-     * Returns current value of {@code id} attribute.
+     * Returns current value of the composite identifier.
      *
-     * @return current value of the {@code id} attribute.
+     * @return current value of the composite identifier.
      */
     public JobHistoryId getId() {
         return id;
@@ -365,7 +374,7 @@ public class JobHistoryWithEmbeddedId {
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute.
      *
-     * @return current value of the {@value #ATTRIBUTE_NAME_END_DATE} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute.
      */
     @Nonnull
     public LocalDate getEndDate() {

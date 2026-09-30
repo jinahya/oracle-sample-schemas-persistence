@@ -60,105 +60,113 @@ public class Shipment {
     // ----------------------------------------------------------------------------------------------------- SHIPMENT_ID
 
     /**
-     * The name of the table column to which the {@code shipmentId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_SHIPMENT_ID = "SHIPMENT_ID";
 
     /**
-     * The name of the attribute which maps the {@code SHIPMENT_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_SHIPMENT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT_ID = "shipmentId";
 
     // -------------------------------------------------------------------------------------- STORE_ID / storeId / store
 
     /**
-     * The name of the table column to which the {@code storeId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
     /**
-     * The name of the attribute which maps the {@code STORE_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
     // ----------------------------------------------------------------------------- CUSTOMER_ID / customerId / customer
 
     /**
-     * The name of the table column to which the {@code customerId} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUSTOMER} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CUSTOMER_ID = "CUSTOMER_ID";
 
     /**
-     * The name of the attribute which maps the {@code CUSTOMER_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUSTOMER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER = "customer";
 
     // ------------------------------------------------------------------------------ DELIVERY_ADDRESS / deliveryAddress
 
     /**
-     * The name of the table column to which the {@code deliveryAddress} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DELIVERY_ADDRESS} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_DELIVERY_ADDRESS = "DELIVERY_ADDRESS";
 
     /**
-     * The length of the {@code DELIVERY_ADDRESS} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_DELIVERY_ADDRESS} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_DELIVERY_ADDRESS = 512;
 
     /**
-     * The name of the attribute which maps the {@code DELIVERY_ADDRESS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DELIVERY_ADDRESS} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_DELIVERY_ADDRESS = "deliveryAddress";
 
     /**
-     * The maximum size of the {@code deliveryAddress} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_DELIVERY_ADDRESS} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_DELIVERY_ADDRESS = COLUMN_LENGTH_DELIVERY_ADDRESS;
 
     // -------------------------------------------------------------------------------- SHIPMENT_STATUS / shipmentStatus
 
     /**
-     * The name of the table column to which the {@code shipmentStatus} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_SHIPMENT_STATUS = "SHIPMENT_STATUS";
 
     /**
-     * The length of the {@code SHIPMENT_STATUS} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_SHIPMENT_STATUS} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_SHIPMENT_STATUS = 100;
 
     /**
-     * A value of the {@code SHIPMENT_STATUS} column, for a shipment which has been created. The value is {@value}.
+     * A value of the {@value #COLUMN_NAME_SHIPMENT_STATUS} column, for a shipment which has been created. The value is
+     * {@value}.
      */
     public static final String COLUMN_VALUE_SHIPMENT_STATUS_CREATED = "CREATED";
 
     /**
-     * A value of the {@code SHIPMENT_STATUS} column, for a shipment which has been shipped. The value is {@value}.
+     * A value of the {@value #COLUMN_NAME_SHIPMENT_STATUS} column, for a shipment which has been shipped. The value is
+     * {@value}.
      */
     public static final String COLUMN_VALUE_SHIPMENT_STATUS_SHIPPED = "SHIPPED";
 
     /**
-     * A value of the {@code SHIPMENT_STATUS} column, for a shipment which is in transit. The value is {@value}.
+     * A value of the {@value #COLUMN_NAME_SHIPMENT_STATUS} column, for a shipment which is in transit. The value is
+     * {@value}.
      */
     public static final String COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT = "IN-TRANSIT";
 
     /**
-     * A value of the {@code SHIPMENT_STATUS} column, for a shipment which has been delivered. The value is {@value}.
+     * A value of the {@value #COLUMN_NAME_SHIPMENT_STATUS} column, for a shipment which has been delivered. The value
+     * is {@value}.
      */
     public static final String COLUMN_VALUE_SHIPMENT_STATUS_DELIVERED = "DELIVERED";
 
     /**
-     * The name of the attribute which maps the {@code SHIPMENT_STATUS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_SHIPMENT_STATUS} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT_STATUS = "shipmentStatus";
 
     /**
-     * The minimum size of the {@code shipmentStatus} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_SHIPMENT_STATUS = 0;
 
     /**
-     * The maximum size of the {@code shipmentStatus} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_SHIPMENT_STATUS = COLUMN_LENGTH_SHIPMENT_STATUS;
 
@@ -200,25 +208,30 @@ public class Shipment {
     public enum _ShipmentStatus implements __ShipmentStatus<_ShipmentStatus> {
 
         /**
-         * .
+         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_CREATED} value, for a shipment which has
+         * been created.
          */
         // 준비 중?
         CREATED,
 
         /**
-         * .
+         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_SHIPPED} value, for a shipment which has
+         * been shipped.
          */
         // 발송/출고?
         SHIPPED,
 
         /**
-         * .
+         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT} value, for a shipment which is
+         * in transit. It carries its column value explicitly, because the value is not this constant's
+         * {@link Enum#name() name}.
          */
         // 배송/운송 중?
         IN_TRANSIT(COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT),
 
         /**
-         * .
+         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_DELIVERED} value, for a shipment which has
+         * been delivered.
          */
         // 배달됨?
         DELIVERED;
@@ -396,9 +409,9 @@ public class Shipment {
     // ------------------------------------------------------------------------------------------------- deliveryAddress
 
     /**
-     * Returns current value of {@code deliveryAddress} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_DELIVERY_ADDRESS} attribute.
      *
-     * @return current value of {@code deliveryAddress} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_DELIVERY_ADDRESS} attribute.
      */
     @Nonnull
     public String getDeliveryAddress() {
@@ -406,9 +419,9 @@ public class Shipment {
     }
 
     /**
-     * Replaces current value of {@code deliveryAddress} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DELIVERY_ADDRESS} attribute with the specified value.
      *
-     * @param deliveryAddress new value for {@code deliveryAddress} attribute.
+     * @param deliveryAddress new value for {@value #ATTRIBUTE_NAME_DELIVERY_ADDRESS} attribute.
      */
     public void setDeliveryAddress(@Nonnull final String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
@@ -436,11 +449,13 @@ public class Shipment {
     }
 
     /**
-     * Returns current value of the {@code shipmentStatus} attribute, as a constant of the specified enum class.
+     * Returns current value of the {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute, as a constant of the specified
+     * enum class.
      *
      * @param <E>       the enum type.
      * @param enumClass the enum class whose constant is returned.
-     * @return the enum constant; {@code null} when the {@code shipmentStatus} attribute is {@code null}.
+     * @return the enum constant; {@code null} when the {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute is
+     * {@code null}.
      */
     public <E extends Enum<E> & __ShipmentStatus<E>> E getShipmentStatusAsEnum(@Nonnull final Class<E> enumClass) {
         Objects.requireNonNull(enumClass, "enumClass is null");
@@ -450,9 +465,9 @@ public class Shipment {
     }
 
     /**
-     * Replaces current value of {@code shipmentStatus} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute with the specified value.
      *
-     * @param shipmentStatusEnum new value for {@code shipmentStatus} attribute.
+     * @param shipmentStatusEnum new value for {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute.
      */
     @Transient
     public void setShipmentStatusFromEnum(final __ShipmentStatus<?> shipmentStatusEnum) {

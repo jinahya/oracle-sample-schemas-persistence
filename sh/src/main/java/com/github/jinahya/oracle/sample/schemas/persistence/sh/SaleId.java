@@ -80,14 +80,7 @@ public class SaleId {
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-
-    /**
-     * Creates a new instance.
-     */
-    public SaleId() {
-        super();
-    }
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified column values.
@@ -97,18 +90,29 @@ public class SaleId {
      * @param timeId    the {@value SaleWithEmbeddedId#COLUMN_NAME_TIME_ID} column value.
      * @param channelId the {@value SaleWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column value.
      * @param promoId   the {@value SaleWithEmbeddedId#COLUMN_NAME_PROMO_ID} column value.
+     * @return a new instance with the specified column values.
      */
-    public SaleId(final Integer prodId,
-                  final Long custId,
-                  final LocalDate timeId,
-                  final Long channelId,
-                  final Integer promoId) {
-        this();
-        setProdId(prodId);
-        setCustId(custId);
-        setTimeId(timeId);
-        setChannelId(channelId);
-        setPromoId(promoId);
+    public static SaleId of(final Integer prodId,
+                            final Long custId,
+                            final LocalDate timeId,
+                            final Long channelId,
+                            final Integer promoId) {
+        final var instance = new SaleId();
+        instance.setProdId(prodId);
+        instance.setCustId(custId);
+        instance.setTimeId(timeId);
+        instance.setChannelId(channelId);
+        instance.setPromoId(promoId);
+        return instance;
+    }
+
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    /**
+     * Creates a new instance.
+     */
+    public SaleId() {
+        super();
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object

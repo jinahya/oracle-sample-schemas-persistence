@@ -143,7 +143,7 @@ public final class __Persistence_TestUtils {
      * Counts the rows mapped by the specified entity type.
      *
      * @param entityManager the entity manager to count with.
-     * @param entityClass    the entity type to count instances of.
+     * @param entityClass   the entity type to count instances of.
      * @return the number of rows; {@code 0} when the table is empty.
      * @implNote The query is built from {@link EntityType#getName()}, the JPQL name, which {@code @Entity(name = ...)}
      * may set to something other than the simple class name.

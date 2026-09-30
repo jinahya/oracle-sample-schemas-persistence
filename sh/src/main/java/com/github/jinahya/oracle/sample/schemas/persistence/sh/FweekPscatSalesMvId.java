@@ -73,14 +73,7 @@ public class FweekPscatSalesMvId {
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
-
-    /**
-     * Creates a new instance.
-     */
-    public FweekPscatSalesMvId() {
-        super();
-    }
+    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified column values.
@@ -89,16 +82,27 @@ public class FweekPscatSalesMvId {
      * @param prodSubcategory the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_PROD_SUBCATEGORY} column value.
      * @param channelId       the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column value.
      * @param promoId         the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_PROMO_ID} column value.
+     * @return a new instance with the specified column values.
      */
-    public FweekPscatSalesMvId(final LocalDate weekEndingDay,
-                               final String prodSubcategory,
-                               final Long channelId,
-                               final Integer promoId) {
-        this();
-        setWeekEndingDay(weekEndingDay);
-        setProdSubcategory(prodSubcategory);
-        setChannelId(channelId);
-        setPromoId(promoId);
+    public static FweekPscatSalesMvId of(final LocalDate weekEndingDay,
+                                         final String prodSubcategory,
+                                         final Long channelId,
+                                         final Integer promoId) {
+        final var instance = new FweekPscatSalesMvId();
+        instance.setWeekEndingDay(weekEndingDay);
+        instance.setProdSubcategory(prodSubcategory);
+        instance.setChannelId(channelId);
+        instance.setPromoId(promoId);
+        return instance;
+    }
+
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    /**
+     * Creates a new instance.
+     */
+    public FweekPscatSalesMvId() {
+        super();
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object

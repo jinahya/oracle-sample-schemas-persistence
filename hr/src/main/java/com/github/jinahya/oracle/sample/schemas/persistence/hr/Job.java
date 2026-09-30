@@ -79,44 +79,45 @@ public class Job {
     public static final int COLUMN_LENGTH_JOB_ID = 10;
 
     /**
-     * The name of the entity attribute from which the {@value #COLUMN_NAME_JOB_ID} column maps. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_JOB_ID = "jobId";
 
     /**
-     * The value for the {@link Size#min()} of the {@value #ATTRIBUTE_NAME_JOB_ID} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_JOB_ID} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_JOB_ID = 0;
 
     /**
-     * The value for the {@link Size#max()} of the {@value #ATTRIBUTE_NAME_JOB_ID} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_JOB_ID} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
     // ------------------------------------------------------------------------------------------------------- JOB_TITLE
 
     /**
-     * The name of the table column to which the {@code jobTitle} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_JOB_TITLE = "JOB_TITLE";
 
     /**
-     * The length of the {@code JOB_TITLE} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_JOB_TITLE} column. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_JOB_TITLE = 35;
 
     /**
-     * The name of the attribute which maps the {@code JOB_TITLE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_TITLE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_JOB_TITLE = "jobTitle";
 
     /**
-     * The minimum size of the {@code jobTitle} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute. The value is {@value}.
      */
     public static final int SIZE_MIN_JOB_TITLE = 0;
 
     /**
-     * The maximum size of the {@code jobTitle} attribute.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_JOB_TITLE = COLUMN_LENGTH_JOB_TITLE;
 
@@ -139,69 +140,70 @@ public class Job {
     public static final int COLUMN_SCALE_MIN_SALARY = 0;
 
     /**
-     * The minimum value of the {@code MIN_SALARY} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_MIN_SALARY} column. The value is {@value}.
      */
     public static final int COLUMN_MIN_MIN_SALARY = -999999;
 
     /**
-     * The maximum value of the {@code MIN_SALARY} column.
+     * The maximum value of the {@value #COLUMN_NAME_MIN_SALARY} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_MIN_SALARY = +999999;
 
     /**
-     * The name of the attribute which maps the {@code MIN_SALARY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_MIN_SALARY} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_MIN_SALARY = "minSalary";
 
     /**
-     * The minimum value of the {@code minSalary} attribute.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_MIN_SALARY = COLUMN_MIN_MIN_SALARY;
 
     /**
-     * The maximum value of the {@code minSalary} attribute.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_MIN_SALARY = COLUMN_MAX_MIN_SALARY;
 
     // ------------------------------------------------------------------------------------------------------ MAX_SALARY
 
     /**
-     * The name of the table column to which the {@code maxSalary} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_MAX_SALARY = "MAX_SALARY";
 
     /**
-     * The precision of the {@code MAX_SALARY} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_MAX_SALARY} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_MAX_SALARY = 6;
 
     /**
-     * The scale of the {@code MAX_SALARY} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_MAX_SALARY} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_MAX_SALARY = 0;
 
     /**
-     * The minimum value of the {@code MAX_SALARY} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_MAX_SALARY} column. The value is {@value}.
      */
     public static final int COLUMN_MIN_MAX_SALARY = -999999;
 
     /**
-     * The maximum value of the {@code MAX_SALARY} column.
+     * The maximum value of the {@value #COLUMN_NAME_MAX_SALARY} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_MAX_SALARY = +999999;
 
     /**
-     * The name of the attribute which maps the {@code MAX_SALARY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_MAX_SALARY} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_MAX_SALARY = "maxSalary";
 
     /**
-     * The minimum value of the {@code maxSalary} attribute.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_MAX_SALARY = COLUMN_MIN_MAX_SALARY;
 
     /**
-     * The maximum value of the {@code maxSalary} attribute.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_MAX_SALARY = COLUMN_MAX_MAX_SALARY;
 
@@ -221,8 +223,8 @@ public class Job {
     // ----------------------------------------------------------------------------------------------------- COMPARATORS
 
     /**
-     * A comparator compares {@code MIN_SALARY} attribute, in {@link Comparator#naturalOrder() natural order},
-     * {@link Comparator#nullsFirst(Comparator) nulls first}.
+     * A comparator compares {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute, in
+     * {@link Comparator#naturalOrder() natural order}, {@link Comparator#nullsFirst(Comparator) nulls first}.
      */
     public static final Comparator<Job> COMPARATOR_MIN_SALARY_NATURAL_NULLS_FIRST =
             Comparator.comparing(
@@ -231,8 +233,8 @@ public class Job {
             );
 
     /**
-     * A comparator compares {@code MAX_SALARY} attribute, in {@link Comparator#reverseOrder() reverse order},
-     * {@link Comparator#nullsLast(Comparator) nulls last}.
+     * A comparator compares {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute, in
+     * {@link Comparator#reverseOrder() reverse order}, {@link Comparator#nullsLast(Comparator) nulls last}.
      */
     public static final Comparator<Job> COMPARATOR_MAX_SALARY_REVERSE_NULLS_LAST =
             Comparator.comparing(
@@ -275,12 +277,12 @@ public class Job {
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     /**
-     * Tests whether current value of {@code MIN_SALARY} attribute is non-negative.
+     * Tests whether current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is non-negative.
      * <p>
      * Evaluates to {@code true} when the attribute is {@code null}.
      *
-     * @return {@code true} if the current value of the {@code MIN_SALARY} attribute is non-negative; {@code false}
-     * otherwise.
+     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is non-negative;
+     * {@code false} otherwise.
      */
     protected boolean isMinSalaryNonNegative() {
         if (minSalary == null) {
@@ -290,12 +292,12 @@ public class Job {
     }
 
     /**
-     * Tests whether current value of {@code MAX_SALARY} attribute is non-negative.
+     * Tests whether current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute is non-negative.
      * <p>
      * Evaluates to {@code true} when the attribute is {@code null}.
      *
-     * @return {@code true} if the current value of the {@code MAX_SALARY} attribute is non-negative; {@code false}
-     * otherwise.
+     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute is non-negative;
+     * {@code false} otherwise.
      */
     protected boolean isMaxSalaryNonNegative() {
         if (maxSalary == null) {
@@ -305,9 +307,9 @@ public class Job {
     }
 
     /**
-     * Indicates whether the {@code minSalary} attribute is positive.
+     * Indicates whether the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is positive.
      *
-     * @return {@code true} if the {@code minSalary} attribute is positive; {@code false} otherwise.
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is positive; {@code false} otherwise.
      */
     @AssertTrue
     protected boolean isMinSalaryPositive() {
@@ -318,9 +320,9 @@ public class Job {
     }
 
     /**
-     * Indicates whether the {@code maxSalary} attribute is positive.
+     * Indicates whether the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute is positive.
      *
-     * @return {@code true} if the {@code maxSalary} attribute is positive; {@code false} otherwise.
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute is positive; {@code false} otherwise.
      */
     @AssertTrue
     protected boolean isMaxSalaryPositive() {
@@ -331,10 +333,11 @@ public class Job {
     }
 
     /**
-     * Indicates whether the {@code minSalary} attribute is less than or equal to the {@code maxSalary} attribute.
+     * Indicates whether the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or equal to the
+     * {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute.
      *
-     * @return {@code true} if the {@code minSalary} attribute is less than or equal to the {@code maxSalary} attribute;
-     * {@code false} otherwise.
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or equal to the
+     * {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute; {@code false} otherwise.
      */
     @AssertTrue
     protected boolean isMinSalaryLessThanOrEqualToMaxSalary() {
@@ -349,7 +352,7 @@ public class Job {
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
      *
-     * @return current value of the {@value #ATTRIBUTE_NAME_JOB_ID} attribute
+     * @return current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute
      */
     @Nonnull
     public String getJobId() {
@@ -359,7 +362,7 @@ public class Job {
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute with the specified value.
      *
-     * @param jobId new value for the {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
+     * @param jobId new value for {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
      */
     protected void setJobId(@Nonnull final String jobId) {
         this.jobId = jobId;
@@ -389,9 +392,9 @@ public class Job {
     // ------------------------------------------------------------------------------------------------------- minSalary
 
     /**
-     * Returns current value of {@code MIN_SALARY} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute.
      *
-     * @return current value of the {@code MIN_SALARY} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute.
      */
     @jakarta.annotation.Nullable
     public Integer getMinSalary() {
@@ -399,19 +402,20 @@ public class Job {
     }
 
     /**
-     * Replaces current value of {@code MIN_SALARY} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute with the specified value.
      *
-     * @param minSalary new value for the {@code MIN_SALARY} attribute.
+     * @param minSalary new value for {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute.
      */
     public void setMinSalary(@jakarta.annotation.Nullable final Integer minSalary) {
         this.minSalary = minSalary;
     }
 
     /**
-     * Replaces current value of {@code MIN_SALARY} attribute with the specified value while adjusting current value of
-     * {@code MAX_SALARY} attribute to be validated by {@link #isMinSalaryLessThanOrEqualToMaxSalary()} method.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute with the specified value while adjusting
+     * current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute to be validated by
+     * {@link #isMinSalaryLessThanOrEqualToMaxSalary()} method.
      *
-     * @param minSalary new value for the {@code MIN_SALARY} attribute; should be between
+     * @param minSalary new value for {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute; should be between
      *                  {@value #ATTRIBUTE_MIN_MIN_SALARY} and {@value #ATTRIBUTE_MAX_MIN_SALARY}.
      * @deprecated for removal.
      */
@@ -440,9 +444,9 @@ public class Job {
     // ------------------------------------------------------------------------------------------------------- maxSalary
 
     /**
-     * Returns current value of {@code MAX_SALARY} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute.
      *
-     * @return current value of the {@code MAX_SALARY} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute.
      */
     @jakarta.annotation.Nullable
     public Integer getMaxSalary() {
@@ -450,19 +454,20 @@ public class Job {
     }
 
     /**
-     * Replaces current value of {@code MAX_SALARY} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute with the specified value.
      *
-     * @param maxSalary new value for the {@code MAX_SALARY} attribute.
+     * @param maxSalary new value for {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute.
      */
     public void setMaxSalary(@jakarta.annotation.Nullable final Integer maxSalary) {
         this.maxSalary = maxSalary;
     }
 
     /**
-     * Replaces current value of {@code MAX_SALARY} attribute with the specified value while adjusting current value of
-     * {@code MIN_SALARY} attribute to be validated by {@link #isMinSalaryLessThanOrEqualToMaxSalary()} method.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute with the specified value while adjusting
+     * current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute to be validated by
+     * {@link #isMinSalaryLessThanOrEqualToMaxSalary()} method.
      *
-     * @param maxSalary new value for the {@code MAX_SALARY} attribute; should be between
+     * @param maxSalary new value for {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute; should be between
      *                  {@value #ATTRIBUTE_MAX_MAX_SALARY} and {@value #ATTRIBUTE_MIN_MAX_SALARY}.
      * @deprecated for removal.
      */
