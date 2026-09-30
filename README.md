@@ -52,7 +52,7 @@ a JRE -- there is no image to build or maintain.
 Use the wrapper, not `docker-compose up -d` directly:
 
 ```shell
-$ ./docker-compose-up.sh
+$ ./_docker-compose-up.sh
 ==> down -v (cleaning up any previous run) ...
 ==> up -d ...
 ==> waiting for the database to report healthy ...
@@ -100,7 +100,7 @@ $ docker-compose down
 $ rm -rf opt/oracle/oradata
 ```
 
-`SH` installs only partially under SQL\*Plus, which is why `docker-compose-up.sh` reinstalls
+`SH` installs only partially under SQL\*Plus, which is why `_docker-compose-up.sh` reinstalls
 it with SQLcl. `sh_populate.sql` bulk-loads `costs`, `customers`, `promotions`, `sales`,
 `times` and `supplementary_demographics` with `LOAD`; SQL\*Plus reports `SP2-0158` on the
 preceding `SET LOAD` and skips all six. That is a client-side error, not a SQL one, so
@@ -150,11 +150,18 @@ certified for that generation.
 
 Only the persistence provider is varied: each of the other specs has exactly one
 implementation here, pinned to its Jakarta EE 11 aligned release in `<properties>`, so
-there is nothing to choose and no profile for it. Run the build against both providers:
+there is nothing to choose and no profile for it. Run the unit tests against each
+provider:
 
 ```shell
-$ ./_mvn_jakarta_ee_11.sh test
+$ ./_mvn_jakarta_ee_11_test_hibernate-orm.sh
+$ ./_mvn_jakarta_ee_11_test_eclipselink.sh
 ```
+
+The `_verify_` scripts of the same shape go the whole way -- package, javadoc, enforcer --
+and add the integration tests, which want a live Oracle at `localhost:1521/freepdb1`;
+`./_docker-compose-up.sh` brings one up. The `_verify_notests_` pair runs the same
+lifecycle with no test at all, for when there is no database to point at.
 
 Main sources target Java 21; tests target Java 25, so building the tests needs a
 JDK 25 or newer.

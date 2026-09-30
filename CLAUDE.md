@@ -140,7 +140,8 @@ Consequences:
 - When a provider drags in a `jakarta.*` API newer or older than the umbrella BOM,
   align the provider with the platform generation — do not override the API version.
 - Check convergence against both providers, not just the default:
-  `./_mvn_jakarta_ee_11.sh -q enforcer:enforce -Drules=dependencyConvergence`.
+  `./mvnw -q -Pjakarta-ee-11-hibernate-orm enforcer:enforce -Drules=dependencyConvergence`,
+  then the same with `-Pjakarta-ee-11-eclipselink`.
 - Naming any profile on the command line deactivates every `activeByDefault` profile.
   Harmless while the provider is the only axis — `-Pjakarta-ee-11-eclipselink` names
   everything that had to be chosen — but it is why a second axis must not be added
@@ -198,7 +199,23 @@ published jars stay consumable on 21 while the tests use current language featur
 
 ## Testing
 
-`./_mvn_jakarta_ee_11.sh test` runs the build against both providers. `clean` is
-prepended and is not optional: the annotation processor writes a metamodel per
-provider, and without a clean in between the second provider compiles against the
-first's leftovers.
+There is one script per provider per depth, and every one of them prepends `clean`.
+That `clean` is not optional: the annotation processor writes a metamodel per provider,
+and without a clean in between the second provider compiles against the first's
+leftovers.
+
+| runs | Hibernate ORM | EclipseLink |
+| --- | --- | --- |
+| unit tests | `_mvn_jakarta_ee_11_test_hibernate-orm.sh` | `_mvn_jakarta_ee_11_test_eclipselink.sh` |
+| unit tests and ITs | `_mvn_jakarta_ee_11_verify_hibernate-orm.sh` | `_mvn_jakarta_ee_11_verify_eclipselink.sh` |
+| no test, but still compiles them | `_mvn_jakarta_ee_11_verify_notests_hibernate-orm.sh` | `_mvn_jakarta_ee_11_verify_notests_eclipselink.sh` |
+
+The ITs want a live Oracle at `localhost:1521/freepdb1`; `./_docker-compose-up.sh` brings
+one up. The `_verify_notests_` pair is the one to reach for when there is no database.
+
+Which half of a `verify` run executes is chosen by two separate flags, because **as of
+maven-failsafe-plugin 3.6.0 failsafe no longer binds its own `skipTests` parameter to the
+`skipTests` user property**. So `-DskipTests` now reaches surefire alone — passing it to a
+`_verify_` script leaves the ITs running — and `-DskipITs` is what drops the ITs. Under
+3.5.x and earlier `-DskipTests` reached both, so this behaviour is tied to
+`version.maven-failsafe`.

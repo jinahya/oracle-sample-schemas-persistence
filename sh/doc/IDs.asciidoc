@@ -17,7 +17,7 @@ rows, the non-nulls and the distinct values of every column, and a
 A column is a single-column candidate when its `NOT_NULLS` and its `DISTINCTS` both equal
 `ROW_COUNT`.
 
-Measured against `db-sample-schemas` as installed by `docker-compose-up.sh`. A measured
+Measured against `db-sample-schemas` as installed by `_docker-compose-up.sh`. A measured
 count describes the shipped data; only a key backed by a constraint, or by a view's own
 `GROUP BY`, is guaranteed to hold for any data.
 
