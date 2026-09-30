@@ -333,10 +333,17 @@
           <version>3.12.0</version>
           <configuration>
             <additionalOptions>
-              <additionalOption>-Xdoclint:${doclint}</additionalOption>
+              <additionalOption>-Xdoclint:${doclint},-missing</additionalOption>
             </additionalOptions>
             <failOnError>true</failOnError>
             <failOnWarnings>true</failOnWarnings>
+            <!-- A bare `javadoc:javadoc` / `javadoc:test-javadoc` from the command line lands in the -->
+            <!-- default-cli execution, which no reportSet reaches and which cannot be scoped per goal. -->
+            <!-- So this level carries what BOTH goals can live with: the test sources are all -->
+            <!-- package-private, which `protected` finds nothing in, and their constructors and @Test -->
+            <!-- methods carry no javadoc by convention. The strict settings live in the site's main -->
+            <!-- reportSet below, which is what actually gates the published apidocs. -->
+            <show>package</show>
             <!-- The generated static metamodel is not ours to document: every member of it carries -->
             <!-- a bare @see and no main description, which -Xdoclint:all reports. It shares the -->
             <!-- package with the entities, so excludePackageNames cannot reach it; exclude by file. -->
@@ -553,6 +560,13 @@
         <reportSets>
           <reportSet>
             <id>main</id>
+            <configuration>
+              <!-- The published apidocs: public API only, and every element of it documented. -->
+              <show>protected</show>
+              <additionalOptions combine.self="override">
+                <additionalOption>-Xdoclint:${doclint}</additionalOption>
+              </additionalOptions>
+            </configuration>
             <reports>
               <report>javadoc-no-fork</report>
               <report>aggregate-no-fork</report>
