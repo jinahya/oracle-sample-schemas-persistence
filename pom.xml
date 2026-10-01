@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.github.jinahya</groupId>
+  <groupId>io.github.jinahya</groupId>
   <artifactId>oracle-sample-schemas-persistence</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -51,9 +51,9 @@
 
   <modules>
     <module>test-base</module>
-    <module>co</module>
-    <module>hr</module>
-    <module>sh</module>
+    <module>oracle-sample-schemas-persistence-co</module>
+    <module>oracle-sample-schemas-persistence-hr</module>
+    <module>oracle-sample-schemas-persistence-sh</module>
   </modules>
 
   <scm>
@@ -75,10 +75,11 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <!-- https://endoflife.date/eclipse-temurin -->
-    <maven.compiler.source>25</maven.compiler.source>
+    <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     <maven.compiler.release>${maven.compiler.target}</maven.compiler.release>
-    <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>
+<!--    <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>-->
+    <maven.compiler.testSource>25</maven.compiler.testSource>
     <maven.compiler.testTarget>${maven.compiler.testSource}</maven.compiler.testTarget>
     <maven.compiler.testRelease>${maven.compiler.testSource}</maven.compiler.testRelease>
     <!-- The sources are clean under -Xdoclint:all; keep them that way. -->
@@ -98,6 +99,8 @@
     <version.maven-failsafe>${version.maven-surefire}</version.maven-failsafe>
     <version.maven-surefire>3.6.0</version.maven-surefire>
     <version.jinahya-persistence>0.6.1</version.jinahya-persistence>
+    <!-- https://central.sonatype.com/artifact/uk.co.jemos.podam/podam/versions -->
+    <version.uk.co.jemos.podam>8.0.2.RELEASE</version.uk.co.jemos.podam>
     <!-- https://www.oracle.com/kr/database/technologies/appdev/jdbc-downloads.html -->
     <!-- https://central.sonatype.com/artifact/com.oracle.database.jdbc/ojdbc17/versions -->
     <version.com.oracle.database.jdbc>23.26.0.0.0</version.com.oracle.database.jdbc>
@@ -290,7 +293,7 @@
     <dependency>
       <groupId>uk.co.jemos.podam</groupId>
       <artifactId>podam</artifactId>
-      <version>8.0.2.RELEASE</version>
+      <version>${version.uk.co.jemos.podam}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

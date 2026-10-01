@@ -6,8 +6,9 @@ Guidance for Claude Code when working in this repository.
 
 Jakarta Persistence mappings for the
 [Oracle Database Sample Schemas](https://github.com/oracle-samples/db-sample-schemas),
-one Maven module per schema (`co`, `hr`, `sh`), plus `test-base` for the shared test
-base classes.
+one Maven module per schema -- `oracle-sample-schemas-persistence-co`, `-hr` and `-sh`, each in a
+directory of the same name and referred to below by its schema (`co`, `hr`, `sh`) -- plus
+`test-base` for the shared test base classes.
 
 **These are pure Jakarta Persistence modules.** Two rules follow from that:
 

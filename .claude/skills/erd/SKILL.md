@@ -5,8 +5,9 @@ description: Generate or refresh the ER diagrams under a module's doc/erd direct
 
 # Module ERDs
 
-Each persistence module keeps its ER diagrams in `<module>/doc/erd`, as SVG and nothing
-else:
+Each persistence module keeps its ER diagrams in `<module>/doc/erd`, where `<module>` is the
+module's directory (`oracle-sample-schemas-persistence-co`, …) and the script takes the schema (`co`, …).
+They are SVG and nothing else:
 
 | File | Shows |
 | ---- | ----- |
