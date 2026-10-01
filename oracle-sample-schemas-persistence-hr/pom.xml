@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>com.github.jinahya</groupId>
+    <groupId>io.github.jinahya</groupId>
     <artifactId>oracle-sample-schemas-persistence</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>hr</artifactId>
+  <artifactId>oracle-sample-schemas-persistence-hr</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
@@ -27,7 +27,7 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.github.jinahya</groupId>
+      <groupId>io.github.jinahya</groupId>
       <artifactId>test-base</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
@@ -87,5 +87,36 @@
         <filtering>true</filtering>
       </testResource>
     </testResources>
+    <plugins>
+      <!--
+        The randomizers and persisters are compiled with the tests, which use them, and packaged here as a second jar,
+        classified test-companion, which a consumer of hr takes at <scope>test</scope>. A classified jar shares this
+        pom, in which the libraries they need, podam and jinahya-persistence-test-utils, are test-scoped, so it
+        brings none of them; the consumer declares its own. The includes are what keep the tests, persistence.xml,
+        orm-it.xml and logback-test.xml out of it.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>test-companion-jar</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <classesDirectory>${project.build.testOutputDirectory}</classesDirectory>
+              <classifier>test-companion</classifier>
+              <includes>
+                <include>**/*_Randomizer.class</include>
+                <include>**/*_Randomizer$*.class</include>
+                <include>**/*_Persister.class</include>
+                <include>**/*_Persister$*.class</include>
+              </includes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
 </project>

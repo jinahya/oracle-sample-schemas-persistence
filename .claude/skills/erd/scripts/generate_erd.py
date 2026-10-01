@@ -18,6 +18,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+MODULE_DIRS = {m: "oracle-sample-schemas-persistence-" + m for m in ("co", "hr", "sh")}
 DDL_DIRS = {"co": "customer_orders", "hr": "human_resources", "sh": "sales_history"}
 DDL_FILES = {"co": "co_create.sql", "hr": "hr_create.sql", "sh": "sh_create.sql"}
 
@@ -305,7 +306,7 @@ def ddl_constraint(fragment, obj):
 
 
 def parse_module(root, module):
-    src = root / module / "src" / "main" / "java"
+    src = root / MODULE_DIRS[module] / "src" / "main" / "java"
     classes = {}
     for path in sorted(src.rglob("*.java")):
         classes[path.stem] = Klass(path, strip_comments(path.read_text(errors="replace")))
@@ -625,7 +626,7 @@ if __name__ == "__main__":
         tables = sorted(tables + unmapped_nodes(objects, {t["table"] for t in tables}),
                         key=lambda t: t["table"])
         table_of = {e["class"]: e["table"] for e in model["entities"]}
-        out = root / module / "doc" / "erd"
+        out = root / MODULE_DIRS[module] / "doc" / "erd"
         out.mkdir(parents=True, exist_ok=True)
 
         written = {out / ("_%s.svg" % module)}
