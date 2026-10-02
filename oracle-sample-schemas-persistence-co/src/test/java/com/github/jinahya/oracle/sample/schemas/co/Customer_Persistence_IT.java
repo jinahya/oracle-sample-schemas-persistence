@@ -21,7 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
  * #L%
  */
 
-import org.junit.jupiter.api.BeforeAll;
+import com.github.jinahya.persistence.test.util.JinahyaPersistenceTestUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -29,12 +29,12 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
  * Verifies the mappings of {@link Customer} against the installed {@code CO} schema.
@@ -44,44 +44,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class Customer_Persistence_IT extends _Persistence_IT<Customer> {
 
-    /**
-     * Some customers of the installed table, ordered by identifier.
-     *
-     * @implNote Static, and read once, because the argument sources of the nested classes are static methods -- which
-     * is what {@link MethodSource} resolves by a bare name -- and because there is no reason for each test to select
-     * them again.
-     */
-    private static final List<Customer> CUSTOMERS = new ArrayList<>();
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Reads some customers of the installed table into {@link #CUSTOMERS}.
-     *
-     * @implNote {@link TestInstance.Lifecycle#PER_CLASS} is what lets this be an instance method, which it has to be:
-     * the entity manager arrives at an injection point of the test instance, and a {@code static} callback would run
-     * with nothing injected.
-     * <p>
-     * No transaction, and none is needed: this only reads, and a query runs outside one. Nor does the persistence
-     * context have to be cleared afterwards -- each nested class is injected with an entity manager of its own, so what
-     * this leaves managed is gone by the time a test runs, and every {@code find} below really does reach the
-     * database.
-     * @implSpec What lands in {@link #CUSTOMERS} is therefore detached: its identifier and its email address are loaded
-     * and safe to read, a lazy association of it is not.
-     */
-    @BeforeAll
-    void selectSome() {
-        final var entityManager = getEntityManager();
-        CUSTOMERS.clear();
-        CUSTOMERS.addAll(
-                entityManager
-                        .createNamedQuery("Customer.selectListOrderByCustomerIdAsc", Customer.class)
-                        .setMaxResults(5)
-                        .getResultList()
-        );
-        assertThat(CUSTOMERS).isNotEmpty();
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
     Customer_Persistence_IT() {
         super(Customer.class);
@@ -89,10 +51,28 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nested
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     class Find_Test {
 
-        static LongStream customerIds() {
-            return CUSTOMERS.stream().mapToLong(Customer::getCustomerId);
+        /**
+         * Returns some identifiers of the installed table.
+         *
+         * @implNote Selects the identifiers, not the entities, so nothing is left managed and every {@code find} really
+         * does reach the database.
+         */
+        LongStream customerIds() {
+            return getEntityManager()
+                    .createQuery(
+                            """
+                                    SELECT e.customerId
+                                    FROM Customer e
+                                    ORDER BY e.customerId ASC""",
+                            Long.class
+                    )
+                    .setMaxResults(5)
+                    .getResultList()
+                    .stream()
+                    .mapToLong(Long::longValue);
         }
 
         @MethodSource("customerIds")
@@ -104,10 +84,231 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
     }
 
     @Nested
+    class SelectListOrderByCustomerIdAsc_Test {
+
+        @DisplayName("a query-language query selects the installed customers, ordered by identifier")
+        @Test
+        void __QueryLanguage() {
+            final var found = getEntityManager()
+                    .createQuery(
+                            """
+                                    SELECT e
+                                    FROM Customer e
+                                    ORDER BY e.customerId ASC""",
+                            targetClass
+                    )
+                    .getResultList();
+            assertThat(found)
+                    .as("the customers ordered by %s", Customer_.customerId.getName())
+                    .isNotEmpty()
+                    .extracting(Customer::getCustomerId)
+                    .isSorted();
+        }
+
+        @DisplayName("the named query selects the installed customers, ordered by identifier")
+        @Test
+        void __NamedQuery() {
+            final var found = getEntityManager()
+                    .createNamedQuery("Customer.selectListOrderByCustomerIdAsc", targetClass)
+                    .getResultList();
+            assertThat(found)
+                    .as("the customers ordered by %s", Customer_.customerId.getName())
+                    .isNotEmpty()
+                    .extracting(Customer::getCustomerId)
+                    .isSorted();
+        }
+
+        @DisplayName("a criteria query selects the installed customers, ordered by identifier")
+        @Test
+        void __CriteriaApi() {
+            final var entityManager = getEntityManager();
+            final var builder = entityManager.getCriteriaBuilder();
+            final var query = builder.createQuery(targetClass);
+            final var root = query.from(targetClass);
+            query.select(root);
+            query.orderBy(builder.asc(root.get(Customer_.customerId)));
+            final var found = entityManager.createQuery(query).getResultList();
+            assertThat(found)
+                    .as("the customers ordered by %s", Customer_.customerId.getName())
+                    .isNotEmpty()
+                    .extracting(Customer::getCustomerId)
+                    .isSorted();
+        }
+    }
+
+    @Nested
+    class SelectPagesOrderByCustomerIdAsc_Test {
+
+        /**
+         * The maximum number of results of each page.
+         */
+        private static final int MAX_RESULTS = 32;
+
+        private void verify(final List<Customer> page) {
+            assertThat(page)
+                    .as("a page ordered by %s", Customer_.customerId.getName())
+                    .hasSizeLessThanOrEqualTo(MAX_RESULTS)
+                    .extracting(Customer::getCustomerId)
+                    .isSorted();
+        }
+
+        @DisplayName("a query-language query selects all installed customers, page by page, ordered by identifier")
+        @Test
+        void __QueryLanguage() {
+            final var query = getEntityManager()
+                    .createQuery(
+                            """
+                                    SELECT e
+                                    FROM Customer e
+                                    ORDER BY e.customerId ASC""",
+                            targetClass
+                    )
+                    .setMaxResults(MAX_RESULTS);
+            for (var firstResult = 0; ; firstResult += MAX_RESULTS) {
+                final var page = query.setFirstResult(firstResult).getResultList();
+                verify(page);
+                if (page.size() < MAX_RESULTS) {
+                    break;
+                }
+            }
+        }
+
+        @DisplayName("the named query selects all installed customers, page by page, ordered by identifier")
+        @Test
+        void __NamedQuery() {
+            final var query = getEntityManager()
+                    .createNamedQuery("Customer.selectListOrderByCustomerIdAsc", targetClass)
+                    .setMaxResults(MAX_RESULTS);
+            for (var firstResult = 0; ; firstResult += MAX_RESULTS) {
+                final var page = query.setFirstResult(firstResult).getResultList();
+                verify(page);
+                if (page.size() < MAX_RESULTS) {
+                    break;
+                }
+            }
+        }
+
+        @DisplayName("a criteria query selects all installed customers, page by page, ordered by identifier")
+        @Test
+        void __CriteriaApi() {
+            final var entityManager = getEntityManager();
+            final var builder = entityManager.getCriteriaBuilder();
+            final var criteria = builder.createQuery(targetClass);
+            final var root = criteria.from(targetClass);
+            criteria.select(root);
+            criteria.orderBy(builder.asc(root.get(Customer_.customerId)));
+            final var query = entityManager.createQuery(criteria)
+                    .setMaxResults(MAX_RESULTS);
+            for (var firstResult = 0; ; firstResult += MAX_RESULTS) {
+                final var page = query.setFirstResult(firstResult).getResultList();
+                verify(page);
+                if (page.size() < MAX_RESULTS) {
+                    break;
+                }
+            }
+        }
+    }
+
+    @Nested
+    class SelectListOrderByCustomerIdAscCustomerIdGt_Test {
+
+        /**
+         * The maximum number of results of a page.
+         */
+        private static final int MAX_RESULTS = 32;
+
+        /**
+         * Returns the value of {@code customerIdMinExclusive}: the identifier of a random customer, which the page
+         * follows.
+         *
+         * @implNote Assumes the installed table is not empty; the test is aborted, not failed, if it is.
+         */
+        private long customerIdMinExclusive() {
+            final var previous = JinahyaPersistenceTestUtils.selectRandom(getEntityManager(), targetClass);
+            assumeTrue(previous.isPresent(), "no customer to start a page after");
+            return previous.get().getCustomerId();
+        }
+
+        private void verify(final List<Customer> found, final long customerIdMinExclusive) {
+            assertThat(found)
+                    .as("at most %d customers after %d, ordered by %s", MAX_RESULTS, customerIdMinExclusive,
+                        Customer_.customerId.getName())
+                    .hasSizeLessThanOrEqualTo(MAX_RESULTS)
+                    .extracting(Customer::getCustomerId)
+                    .isSorted()
+                    .allSatisfy(v -> assertThat(v).isGreaterThan(customerIdMinExclusive));
+        }
+
+        @DisplayName("a query-language query selects a page of the installed customers, after the previous one")
+        @Test
+        void __QueryLanguage() {
+            final var customerIdMinExclusive = customerIdMinExclusive();
+            final var found = getEntityManager()
+                    .createQuery(
+                            """
+                                    SELECT e
+                                    FROM Customer e
+                                    WHERE e.customerId > :customerIdMinExclusive
+                                    ORDER BY e.customerId ASC""",
+                            targetClass
+                    )
+                    .setParameter("customerIdMinExclusive", customerIdMinExclusive)
+                    .setMaxResults(MAX_RESULTS)
+                    .getResultList();
+            verify(found, customerIdMinExclusive);
+        }
+
+        @DisplayName("the named query selects a page of the installed customers, after the previous one")
+        @Test
+        void __NamedQuery() {
+            final var customerIdMinExclusive = customerIdMinExclusive();
+            final var found = getEntityManager()
+                    .createNamedQuery("Customer.selectListOrderByCustomerIdAscCustomerIdGt", targetClass)
+                    .setParameter("customerIdMinExclusive", customerIdMinExclusive)
+                    .setMaxResults(MAX_RESULTS)
+                    .getResultList();
+            verify(found, customerIdMinExclusive);
+        }
+
+        @DisplayName("a criteria query selects a page of the installed customers, after the previous one")
+        @Test
+        void __CriteriaApi() {
+            final var customerIdMinExclusive = customerIdMinExclusive();
+            final var entityManager = getEntityManager();
+            final var builder = entityManager.getCriteriaBuilder();
+            final var query = builder.createQuery(targetClass);
+            final var root = query.from(targetClass);
+            query.select(root);
+            query.where(builder.greaterThan(root.get(Customer_.customerId), customerIdMinExclusive));
+            query.orderBy(builder.asc(root.get(Customer_.customerId)));
+            final var found = entityManager.createQuery(query)
+                    .setMaxResults(MAX_RESULTS)
+                    .getResultList();
+            verify(found, customerIdMinExclusive);
+        }
+    }
+
+    @Nested
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     class SelectOneByEmailAddress_Test {
 
-        static Stream<String> emailAddresses() {
-            return CUSTOMERS.stream().map(Customer::getEmailAddress);
+        /**
+         * Returns some email addresses of the installed table.
+         *
+         * @implNote Selects the email addresses, not the entities, so nothing is left managed.
+         */
+        Stream<String> emailAddresses() {
+            return getEntityManager()
+                    .createQuery(
+                            """
+                                    SELECT e.emailAddress
+                                    FROM Customer e
+                                    ORDER BY e.customerId ASC""",
+                            String.class
+                    )
+                    .setMaxResults(5)
+                    .getResultList()
+                    .stream();
         }
 
         @DisplayName("a query-language query selects the installed customer")
