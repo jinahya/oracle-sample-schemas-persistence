@@ -50,12 +50,12 @@
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvId</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvWithEmbeddedId</class>
     <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvWithIdClass</class>-->
-    <!-- ProfitsWithEmbeddedId and ProfitsWithIdClass map PROFITS, two ways; only one may be listed.
+    <!-- ProfitWithEmbeddedId and ProfitWithIdClass map PROFITS, two ways; only one may be listed.
          With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
          metamodel then throws from getIdClassAttributes(). -->
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsWithIdClass</class>-->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitWithIdClass</class>-->
     <!-- SaleWithEmbeddedId and SaleWithIdClass map SALES, two ways; only one may be listed.
          With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
          metamodel then throws from getIdClassAttributes(). -->
@@ -116,12 +116,12 @@
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvId</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvWithEmbeddedId</class>
     <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvWithIdClass</class>-->
-    <!-- ProfitsWithEmbeddedId and ProfitsWithIdClass map PROFITS, two ways; only one may be listed.
+    <!-- ProfitWithEmbeddedId and ProfitWithIdClass map PROFITS, two ways; only one may be listed.
          With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
          metamodel then throws from getIdClassAttributes(). -->
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsWithIdClass</class>-->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitWithIdClass</class>-->
     <!-- SaleWithEmbeddedId and SaleWithIdClass map SALES, two ways; only one may be listed.
          With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
          metamodel then throws from getIdClassAttributes(). -->

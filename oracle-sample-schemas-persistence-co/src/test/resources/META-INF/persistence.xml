@@ -32,22 +32,22 @@
     <!-- OrderItemWithEmbeddedId and OrderItemWithIdClass map ORDER_ITEMS, two ways; only one may be listed. With
          both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its metamodel then
          throws from getIdClassAttributes(). -->
-    <class>com.github.jinahya.oracle.sample.schemas.co.Customer</class>
-    <class>com.github.jinahya.oracle.sample.schemas.co.Inventory</class>
-    <class>com.github.jinahya.oracle.sample.schemas.co.Order</class>
-    <class>com.github.jinahya.oracle.sample.schemas.co.OrderItemWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.co.OrderItemWithIdClass</class>-->
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.co.OrderItemId</class>-->
-    <class>com.github.jinahya.oracle.sample.schemas.co.Product</class>
-    <class>com.github.jinahya.oracle.sample.schemas.co.Shipment</class>
-    <class>com.github.jinahya.oracle.sample.schemas.co.Store</class>
-    <class>com.github.jinahya.oracle.sample.schemas.co.CustomerOrderProducts</class>
-    <!-- ProductOrdersWithEmbeddedId and ProductOrdersWithIdClass map PRODUCT_ORDERS, two ways; only one may be listed.
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Customer</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Inventory</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Order</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemWithIdClass</class>-->
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemId</class>-->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Product</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Shipment</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Store</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.CustomerOrderProduct</class>
+    <!-- ProductOrderWithEmbeddedId and ProductOrderWithIdClass map PRODUCT_ORDERS, two ways; only one may be listed.
          With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
          metamodel then throws from getIdClassAttributes(). -->
-    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersWithIdClass</class>-->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductOrderId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductOrderWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductOrderWithIdClass</class>-->
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
@@ -84,23 +84,23 @@
     <!-- OrderItemWithEmbeddedId and OrderItemWithIdClass map ORDER_ITEMS, two ways; only one may be listed. With
          both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its metamodel then
          throws from getIdClassAttributes(). -->
-    <class>com.github.jinahya.oracle.sample.schemas.co.Customer</class>
-    <class>com.github.jinahya.oracle.sample.schemas.co.Inventory</class>
-    <class>com.github.jinahya.oracle.sample.schemas.co.Order</class>
-    <class>com.github.jinahya.oracle.sample.schemas.co.OrderItemWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.co.OrderItemWithIdClass</class>-->
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.co.OrderItemId</class>-->
-    <class>com.github.jinahya.oracle.sample.schemas.co.Product</class>
-    <class>com.github.jinahya.oracle.sample.schemas.co.Shipment</class>
-    <class>com.github.jinahya.oracle.sample.schemas.co.Store</class>
-    <class>com.github.jinahya.oracle.sample.schemas.co.StoreLogo</class>
-    <class>com.github.jinahya.oracle.sample.schemas.co.CustomerOrderProducts</class>
-    <!-- ProductOrdersWithEmbeddedId and ProductOrdersWithIdClass map PRODUCT_ORDERS, two ways; only one may be listed.
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Customer</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Inventory</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Order</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemWithIdClass</class>-->
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemId</class>-->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Product</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Shipment</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Store</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.StoreLogo</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.CustomerOrderProduct</class>
+    <!-- ProductOrderWithEmbeddedId and ProductOrderWithIdClass map PRODUCT_ORDERS, two ways; only one may be listed.
          With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
          metamodel then throws from getIdClassAttributes(). -->
-    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.co.ProductOrdersWithIdClass</class>-->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductOrderId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductOrderWithEmbeddedId</class>
+    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductOrderWithIdClass</class>-->
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>

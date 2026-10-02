@@ -125,7 +125,7 @@ None of the three declares anything, so all three were measured.
 | `CHANNEL_ID`, `CUST_ID`, `PROD_ID`, `PROMO_ID`, `TIME_ID`
 | composite, by data only
 | `SALES`' grain, carried through the join to `COSTS` — but no base table declares it. Mapped by
-  `ProfitsWithIdClass` and `ProfitsWithEmbeddedId`.
+  `ProfitWithIdClass` and `ProfitWithEmbeddedId`.
 
 | `CAL_MONTH_SALES_MV`
 | `CALENDAR_MONTH_DESC`
@@ -164,8 +164,8 @@ duplicate groups and are all `NOT NULL` — the grain of `SALES`, preserved beca
 holds at most one row per `(PROD_ID, TIME_ID, CHANNEL_ID, PROMO_ID)`.
 
 CAUTION: both of those facts inherit the `COSTS` and `SALES` problem above — they are measurements
-of the shipped data, not constraints. `ProfitsWithIdClass` and `ProfitsWithEmbeddedId` map it over
-`ProfitsId` on that basis, and every column is read-only: it is a view.
+of the shipped data, not constraints. `ProfitWithIdClass` and `ProfitWithEmbeddedId` map it over
+`ProfitId` on that basis, and every column is read-only: it is a view.
 
 === CAL_MONTH_SALES_MV
 

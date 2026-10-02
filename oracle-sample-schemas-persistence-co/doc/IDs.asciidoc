@@ -58,25 +58,25 @@ None of the four views declares anything, so all four were measured.
 | `CUSTOMER_ORDER_PRODUCTS`
 | `ORDER_ID`
 | yes, single
-| the view's `GROUP BY` key, and `ORDERS`' primary key. Mapped by `CustomerOrderProducts`.
+| the view's `GROUP BY` key, and `ORDERS`' primary key. Mapped by `CustomerOrderProduct`.
 
 | `PRODUCT_ORDERS`
 | `PRODUCT_NAME`, `ORDER_STATUS`
 | yes, composite
 | the view's whole `GROUP BY` key; both columns are `NOT NULL`. Mapped by
-  `ProductOrdersWithIdClass` and `ProductOrdersWithEmbeddedId`, over `ProductOrdersId`.
+  `ProductOrderWithIdClass` and `ProductOrderWithEmbeddedId`, over `ProductOrderId`.
 
 | `PRODUCT_REVIEWS`
 | `PRODUCT_NAME`, `REVIEW`
 | no
 | `REVIEW` is nullable and 4000 characters wide; uniqueness is a coincidence of the data.
-  Mapped by `ProductReviews`, which is not an `@Entity`.
+  Mapped by `ProductReview`, which is not an `@Entity`.
 
 | `STORE_ORDERS`
 | `STORE_NAME`, `ORDER_STATUS`
 | no
 | the `GROUPING SETS` key, but both are `NULL` in the subtotal and grand-total rows.
-  Mapped by `StoreOrders`, which is not an `@Entity`.
+  Mapped by `StoreOrder`, which is not an `@Entity`.
 |===
 
 === CUSTOMER_ORDER_PRODUCTS
@@ -96,7 +96,7 @@ None of the four views declares anything, so all four were measured.
 | `ORDER_STATUS`  | 1950 |    3
 |===
 
-`ORDER_ID` is the `@Id` of `CustomerOrderProducts`. It is what the view aggregates on, and it arrives from
+`ORDER_ID` is the `@Id` of `CustomerOrderProduct`. It is what the view aggregates on, and it arrives from
 `ORDERS.ORDER_ID`, so one row per order is structural rather than incidental.
 
 `ORDER_TMS` profiles as unique too — 1950 orders that happen to carry 1950 distinct
@@ -117,8 +117,8 @@ timestamps — but nothing forbids two orders sharing one. Do not map it as the 
 
 No single column is unique. `(PRODUCT_NAME, ORDER_STATUS)` is the view's entire `GROUP BY`
 list, so it is unique by construction, and both columns are `NOT NULL` — a composite
-identifier, mapped both ways: `ProductOrdersWithIdClass` and `ProductOrdersWithEmbeddedId`, over
-the shared `ProductOrdersId`. Only the `@EmbeddedId` flavour is listed in `persistence.xml`; see
+identifier, mapped both ways: `ProductOrderWithIdClass` and `ProductOrderWithEmbeddedId`, over
+the shared `ProductOrderId`. Only the `@EmbeddedId` flavour is listed in `persistence.xml`; see
 `CLAUDE.md` on why the two may not both be.
 
 === PRODUCT_REVIEWS
@@ -140,7 +140,7 @@ array carries no review id, and nothing stops a product from collecting the same
 text twice, so its uniqueness here is a property of the shipped data, not of the view.
 
 A row of this view is addressable only by its position in the JSON array, which the view does not
-expose. `ProductReviews` therefore writes the columns out as a plain class — no `@Entity`, no
+expose. `ProductReview` therefore writes the columns out as a plain class — no `@Entity`, no
 `equals`/`hashCode`, every column read-only — rather than claiming an identity it cannot have.
 
 === STORE_ORDERS
@@ -166,5 +166,5 @@ groups, but `STORE_NAME` is `NULL` in 4 rows and `ORDER_STATUS` in 24 — that i
 `GROUPING SETS` marks a subtotal — and an `@Id` attribute may not be null.
 
 Note that `ALL_TAB_COLUMNS` reports both columns as `NOT NULL`, inherited from the base columns
-they are selected from. The data says otherwise, and `StoreOrders` follows the data: it is a plain
+they are selected from. The data says otherwise, and `StoreOrder` follows the data: it is a plain
 class — no `@Entity`, no `equals`/`hashCode` — and maps both columns as nullable.
