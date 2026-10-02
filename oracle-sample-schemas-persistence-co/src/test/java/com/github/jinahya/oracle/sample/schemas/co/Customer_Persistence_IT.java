@@ -24,6 +24,7 @@ package com.github.jinahya.oracle.sample.schemas.co;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -158,6 +159,59 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
                     .as("the customer selected by %s", emailAddress)
                     .extracting(Customer::getEmailAddress)
                     .isEqualTo(emailAddress);
+        }
+    }
+
+    @Nested
+    class SelectListOrderByEmailAddress_Test {
+
+        @DisplayName("a query-language query selects the installed customers, ordered by email address")
+        @Test
+        void __QueryLanguage() {
+            final var found = getEntityManager()
+                    .createQuery(
+                            """
+                                    SELECT e
+                                    FROM Customer e
+                                    ORDER BY e.emailAddress ASC""",
+                            targetClass
+                    )
+                    .getResultList();
+            assertThat(found)
+                    .as("the customers ordered by %s", Customer_.emailAddress.getName())
+                    .isNotEmpty()
+                    .extracting(Customer::getEmailAddress)
+                    .isSorted();
+        }
+
+        @DisplayName("the named query selects the installed customers, ordered by email address")
+        @Test
+        void __NamedQuery() {
+            final var found = getEntityManager()
+                    .createNamedQuery("Customer.selectListOrderByEmailAddressAsc", targetClass)
+                    .getResultList();
+            assertThat(found)
+                    .as("the customers ordered by %s", Customer_.emailAddress.getName())
+                    .isNotEmpty()
+                    .extracting(Customer::getEmailAddress)
+                    .isSorted();
+        }
+
+        @DisplayName("a criteria query selects the installed customers, ordered by email address")
+        @Test
+        void __CriteriaApi() {
+            final var entityManager = getEntityManager();
+            final var builder = entityManager.getCriteriaBuilder();
+            final var query = builder.createQuery(targetClass);
+            final var root = query.from(targetClass);
+            query.select(root);
+            query.orderBy(builder.asc(root.get(Customer_.emailAddress)));
+            final var found = entityManager.createQuery(query).getResultList();
+            assertThat(found)
+                    .as("the customers ordered by %s", Customer_.emailAddress.getName())
+                    .isNotEmpty()
+                    .extracting(Customer::getEmailAddress)
+                    .isSorted();
         }
     }
 }

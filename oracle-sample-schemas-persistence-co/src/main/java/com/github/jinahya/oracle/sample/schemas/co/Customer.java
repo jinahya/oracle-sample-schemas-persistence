@@ -52,14 +52,6 @@ import java.util.Objects;
                 WHERE e.emailAddress = :emailAddress"""
 )
 @NamedQuery(
-        name = "Customer.selectListOrderByEmailAddressAscEmailAddressGt",
-        query = """
-                SELECT e
-                FROM Customer e
-                WHERE e.emailAddress > :emailAddressMinExclusive
-                ORDER BY e.emailAddress ASC"""
-)
-@NamedQuery(
         name = "Customer.selectListOrderByEmailAddressAsc",
         query = """
                 SELECT e
