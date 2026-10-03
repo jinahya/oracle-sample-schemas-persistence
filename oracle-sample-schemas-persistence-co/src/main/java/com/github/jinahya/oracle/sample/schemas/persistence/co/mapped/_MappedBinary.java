@@ -31,8 +31,8 @@ import java.util.Arrays;
 import java.util.Optional;
 
 /**
- * A superclass for a binary payload stored alongside its metadata -- the image of the {@value Product#TABLE_NAME}
- * table, the logo of the {@value Store#TABLE_NAME} table, and anything shaped like them.
+ * A mapped superclass for a binary payload stored alongside its metadata -- the image of the
+ * {@value Product#TABLE_NAME} table, the logo of the {@value Store#TABLE_NAME} table, and anything shaped like them.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @apiNote No column is named here. An embedding attribute names all five with
@@ -40,9 +40,9 @@ import java.util.Optional;
  * would never be read.
  * {@snippet lang = "java":
  *         @Embedded
- *         @AttributeOverride(name = _Binary.ATTRIBUTE_NAME_BYTES,
+ *         @AttributeOverride(name = _MappedBinary.ATTRIBUTE_NAME_BYTES,
  *                            column = @Column(name = Product.COLUMN_NAME_PRODUCT_IMAGE))
- *         @AttributeOverride(name = _Binary.ATTRIBUTE_NAME_MIME_TYPE,
+ *         @AttributeOverride(name = _MappedBinary.ATTRIBUTE_NAME_MIME_TYPE,
  *                            column = @Column(name = Product.COLUMN_NAME_IMAGE_MIME_TYPE,
  *                                             length = Product.COLUMN_LENGTH_IMAGE_MIME_TYPE))
  *         private ProductImage image;
@@ -60,24 +60,28 @@ abstract class _MappedBinary {
     static final String ATTRIBUTE_NAME_BYTES = "bytes";
 
     // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * The name of the attribute which maps the media type of the payload. The value is {@value}.
      */
     static final String ATTRIBUTE_NAME_MIME_TYPE = "mimeType";
 
     // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * The name of the attribute which maps the filename of the payload. The value is {@value}.
      */
     static final String ATTRIBUTE_NAME_FILENAME = "filename";
 
     // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * The name of the attribute which maps the character set of the payload. The value is {@value}.
      */
     static final String ATTRIBUTE_NAME_CHARSET = "charset";
 
     // -----------------------------------------------------------------------------------------------------------------
+
     /**
      * The name of the attribute which maps the date the payload was last updated. The value is {@value}.
      */

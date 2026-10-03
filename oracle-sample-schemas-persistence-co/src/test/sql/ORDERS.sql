@@ -80,4 +80,5 @@ SELECT DISTINCT ORDER_STATUS
 FROM ORDERS
 ORDER BY ORDER_STATUS ASC
 ;
+
 -- ------------------------------------------------------------------------------------------------------------ STORE_ID

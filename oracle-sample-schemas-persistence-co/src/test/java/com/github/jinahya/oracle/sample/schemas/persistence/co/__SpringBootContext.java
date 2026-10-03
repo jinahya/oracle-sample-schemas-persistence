@@ -43,8 +43,8 @@ class __SpringBootContext {
      *
      * @return the managed types of the persistence unit.
      * @implNote Lists what {@code META-INF/persistence.xml} lists, for the same reason it lists them: {@code co} maps
-     * {@code ORDER_ITEMS} and {@code PRODUCT_ORDERS} two ways each, under one entity name, and a unit with both flavours
-     * is not a working unit. A scan of the package would find both.
+     * {@code ORDER_ITEMS} and {@code PRODUCT_ORDERS} two ways each, under one entity name, and a unit with both
+     * flavours is not a working unit. A scan of the package would find both.
      */
     @Bean
     PersistenceManagedTypes persistenceManagedTypes() {

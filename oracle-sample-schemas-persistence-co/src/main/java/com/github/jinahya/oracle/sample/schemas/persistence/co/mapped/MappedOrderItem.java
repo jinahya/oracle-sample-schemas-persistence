@@ -20,7 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co.mapped;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemId;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
@@ -36,60 +35,74 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Objects;
 
+/**
+ * A mapped superclass which holds the mappings of the {@value MappedOrderItem#TABLE_NAME} table, except for its
+ * identifier and its associations.
+ *
+ * @param <T> the type of the identifier; a subclass maps it as it chooses, and exposes it through {@link #getId_()}.
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ * @see MappedOrderItemId
+ */
 @MappedSuperclass
 public abstract class MappedOrderItem<T extends MappedOrderItemId> {
 
     /**
-     * The name of the database table to which this entity class maps. The value is {@value}.
+     * The name of the database table to which this class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = "ORDER_ITEMS";
 
     // -------------------------------------------------------------------------------------------------------- ORDER_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_ORDER} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value MappedOrderItemId#ATTRIBUTE_NAME_ORDER_ID} attribute of
+     * {@link MappedOrderItemId} maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_ORDER_ID = "ORDER_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_ID} column -- a path into the
-     * {@link EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is {@value}.
+     * The path of the attribute which maps the {@value #COLUMN_NAME_ORDER_ID} column, for a subclass whose identifier
+     * is an {@link EmbeddedId @EmbeddedId} named {@value #ATTRIBUTE_NAME_ID}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID_ORDER_ID = "id.orderId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_ID} column. The value is {@value}.
+     * The name of the association, declared by a subclass, which joins on the {@value #COLUMN_NAME_ORDER_ID} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER = "order";
 
     // ---------------------------------------------------------------------------------------------------- LINE_ITEM_ID
 
     /**
-     * The name of the table column to which the {@value OrderItemId#ATTRIBUTE_NAME_LINE_ITEM_ID} attribute of
-     * {@link OrderItemId} maps. The value is {@value}.
+     * The name of the table column to which the {@value MappedOrderItemId#ATTRIBUTE_NAME_LINE_ITEM_ID} attribute of
+     * {@link MappedOrderItemId} maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_LINE_ITEM_ID = "LINE_ITEM_ID";
 
     // ------------------------------------------------------------------------------------ ORDER_ID / LINE_ITEM_ID / id
 
     /**
-     * The name of the attribute which maps both the {@value #COLUMN_NAME_ORDER_ID} and the
-     * {@value #COLUMN_NAME_LINE_ITEM_ID} columns, as an {@link EmbeddedId @EmbeddedId}. The value is {@value}.
+     * The name of the identifier attribute, declared by a subclass, which maps both the {@value #COLUMN_NAME_ORDER_ID}
+     * and the {@value #COLUMN_NAME_LINE_ITEM_ID} columns. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID = "id";
 
     // -------------------------------------------------------------------------------- PRODUCT_ID / productId / product
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT} attribute maps. The value is
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_ID = "PRODUCT_ID";
 
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
+     */
     public static final String ATTRIBUTE_NAME_PRODUCT_ID = "productId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
+     * The name of the association, declared by a subclass, which joins on the {@value #COLUMN_NAME_PRODUCT_ID} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
@@ -134,20 +147,27 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      */
     public static final String COLUMN_NAME_QUANTITY = "QUANTITY";
 
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_QUANTITY} column. The value is {@value}.
+     */
     public static final String ATTRIBUTE_NAME_QUANTITY = "quantity";
 
     // ----------------------------------------------------------------------------- SHIPMENT_ID / shipmentId / shipment
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SHIPMENT} attribute maps. The value is
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_SHIPMENT_ID = "SHIPMENT_ID";
 
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_SHIPMENT_ID} column. The value is {@value}.
+     */
     public static final String ATTRIBUTE_NAME_SHIPMENT_ID = "shipmentId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_SHIPMENT_ID} column. The value is {@value}.
+     * The name of the association, declared by a subclass, which joins on the {@value #COLUMN_NAME_SHIPMENT_ID} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT = "shipment";
 
@@ -258,19 +278,31 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     // -------------------------------------------------------------------------------------------------------------- id
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * Returns the identifier of this order item. A subclass implements this with whichever attributes it maps the
+     * identifier to; {@link #equals(Object)} and {@link #hashCode()} compare by it.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * @return the identifier of this order item; {@code null} if it has none yet.
      */
     @Transient
     protected abstract T getId_();
 
     // ------------------------------------------------------------------------------------------------------- productId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
+     */
     @Nonnull
     public Long getProductId() {
         return productId;
     }
 
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute with the specified value.
+     *
+     * @param productId new value for {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
+     */
     protected void setProductId(@Nonnull final Long productId) {
         this.productId = productId;
     }
@@ -316,11 +348,22 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     }
 
     // ------------------------------------------------------------------------------------------------------ shipmentId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute; {@code null} when not yet shipped.
+     */
     @Nullable
     public Long getShipmentId() {
         return shipmentId;
     }
 
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute with the specified value.
+     *
+     * @param shipmentId new value for {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute; {@code null} for not shipped.
+     */
     protected void setShipmentId(@Nullable final Long shipmentId) {
         this.shipmentId = shipmentId;
     }
@@ -369,8 +412,10 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      * Returns the total price of this order item which is {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute multiplied by
      * {@value #ATTRIBUTE_NAME_QUANTITY} attribute.
      *
-     * @param mc a math context to use.
+     * @param mc a math context to use; {@code null} for an exact result.
      * @return the total price of this item.
+     * @throws IllegalStateException if either {@value #ATTRIBUTE_NAME_UNIT_PRICE} or {@value #ATTRIBUTE_NAME_QUANTITY}
+     *                               attribute is {@code null}.
      */
     @Transient
     public BigDecimal getTotalPrice(@Nullable final MathContext mc) {

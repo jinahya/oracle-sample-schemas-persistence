@@ -43,16 +43,16 @@ public class ProductOrderId {
     // ---------------------------------------------------------------------------------------------------- PRODUCT_NAME
 
     /**
-     * The name of the attribute which maps the {@value ProductOrderWithEmbeddedId#COLUMN_NAME_PRODUCT_NAME} column.
-     * The value is {@value}.
+     * The name of the attribute which maps the {@value ProductOrderWithEmbeddedId#COLUMN_NAME_PRODUCT_NAME} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_NAME = "productName";
 
     // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
 
     /**
-     * The name of the attribute which maps the {@value ProductOrderWithEmbeddedId#COLUMN_NAME_ORDER_STATUS} column.
-     * The value is {@value}.
+     * The name of the attribute which maps the {@value ProductOrderWithEmbeddedId#COLUMN_NAME_ORDER_STATUS} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
 

@@ -47,9 +47,9 @@ class OrderItemWithEmbeddedId_Persister extends AbstractEntityPersister<OrderIte
     public OrderItemWithEmbeddedId apply(final EntityManager entityManager,
                                          final OrderItemWithEmbeddedId entityInstance) {
         final var order = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Order.class);
-        final var product= EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class);
-        final Shipment shipment = ThreadLocalRandom.current().nextBoolean() ? null:
-            EntityPersisterUtils.newPersistedInstanceOf(entityManager, Shipment.class);
+        final var product = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class);
+        final Shipment shipment = ThreadLocalRandom.current().nextBoolean() ? null :
+                                  EntityPersisterUtils.newPersistedInstanceOf(entityManager, Shipment.class);
         entityManager.flush();
         entityInstance.setOrder(order);
         entityInstance.setProduct(product);

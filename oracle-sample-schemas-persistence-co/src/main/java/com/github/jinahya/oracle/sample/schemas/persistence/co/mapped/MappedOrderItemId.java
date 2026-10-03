@@ -30,30 +30,43 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
- * An id class for {@link OrderItemWithEmbeddedId} class.
+ * A superclass for the identifier of the {@value MappedOrderItem#TABLE_NAME} table -- the pair of the
+ * {@value MappedOrderItem#COLUMN_NAME_ORDER_ID} and the {@value MappedOrderItem#COLUMN_NAME_LINE_ITEM_ID} columns.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ * @see MappedOrderItem
+ * @see OrderItemWithEmbeddedId
  */
 public abstract class MappedOrderItemId {
 
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The name of the attribute which maps the {@value OrderItemWithEmbeddedId#COLUMN_NAME_ORDER_ID} column. The value
-     * is {@value}.
+     * The name of the attribute which maps the {@value MappedOrderItem#COLUMN_NAME_ORDER_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
 
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The name of the attribute which maps the {@value OrderItemWithEmbeddedId#COLUMN_NAME_LINE_ITEM_ID} column. The
-     * value is {@value}.
+     * The name of the attribute which maps the {@value MappedOrderItem#COLUMN_NAME_LINE_ITEM_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_LINE_ITEM_ID = "lineItemId";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
+    /**
+     * Creates a new instance of a subclass, with the specified values.
+     *
+     * @param <T>          the type of the identifier.
+     * @param instantiator a supplier of a new, empty instance of {@code T}.
+     * @param orderId      a value for the {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
+     * @param lineItemId   a value for the {@value #ATTRIBUTE_NAME_LINE_ITEM_ID} attribute.
+     * @return the instance supplied by {@code instantiator}, with its attributes set.
+     * @throws NullPointerException if {@code instantiator} is {@code null}, or it supplies {@code null}.
+     */
     protected static <T extends MappedOrderItemId> T of(final Supplier<? extends T> instantiator,
                                                         final Long orderId, final Long lineItemId) {
         Objects.requireNonNull(instantiator, "instantiator is null");
@@ -108,6 +121,11 @@ public abstract class MappedOrderItemId {
         return orderId;
     }
 
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute with the specified value.
+     *
+     * @param orderId new value for {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
+     */
     protected void setOrderId(@Nonnull final Long orderId) {
         this.orderId = orderId;
     }
@@ -124,6 +142,11 @@ public abstract class MappedOrderItemId {
         return lineItemId;
     }
 
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LINE_ITEM_ID} attribute with the specified value.
+     *
+     * @param lineItemId new value for {@value #ATTRIBUTE_NAME_LINE_ITEM_ID} attribute.
+     */
     protected void setLineItemId(@Nonnull final Long lineItemId) {
         this.lineItemId = lineItemId;
     }

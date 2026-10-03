@@ -50,9 +50,9 @@ import java.util.Optional;
 /**
  * An entity class for mapping the {@value Store#TABLE_NAME} table.
  * <p>
- * The {@value #ATTRIBUTE_NAME_STORE_NAME} attribute is unique, and is the natural key on which
- * {@link #equals(Object)} and {@link #hashCode()} are based; the {@code Store.selectSingleByStoreName} named query
- * selects the single store of a given {@code storeName}.
+ * The {@value #ATTRIBUTE_NAME_STORE_NAME} attribute is unique, and is the natural key on which {@link #equals(Object)}
+ * and {@link #hashCode()} are based; the {@code Store.selectSingleByStoreName} named query selects the single store of
+ * a given {@code storeName}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -268,7 +268,8 @@ public class Store {
      * The minimum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute, as a decimal string.
      * <p>
      * The attribute takes geographic degrees, {@code -180} to {@code +180}, which is narrower than what the
-     * {@value #COLUMN_NAME_LONGITUDE} column can hold, {@value #COLUMN_MIN_LONGITUDE} to {@value #COLUMN_MAX_LONGITUDE}.
+     * {@value #COLUMN_NAME_LONGITUDE} column can hold, {@value #COLUMN_MIN_LONGITUDE} to
+     * {@value #COLUMN_MAX_LONGITUDE}.
      */
     public static String ATTRIBUTE_DECIMAL_MIN_LONGITUDE = _DomainConstants.DECIMAL_MIN_LONGITUDE;
 
