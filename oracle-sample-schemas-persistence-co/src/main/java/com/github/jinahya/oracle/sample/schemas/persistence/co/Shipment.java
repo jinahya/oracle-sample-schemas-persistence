@@ -22,10 +22,11 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
 
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
+import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Converter;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -177,33 +178,90 @@ public class Shipment {
     public enum ShipmentStatus {
 
         /**
-         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_CREATED} value, for a shipment which has
-         * been created.
+         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_CREATED} value, for a shipment which
+         * has been created.
          */
         // 준비 중?
         CREATED,
 
         /**
-         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_SHIPPED} value, for a shipment which has
-         * been shipped.
+         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_SHIPPED} value, for a shipment which
+         * has been shipped.
          */
         // 발송/출고?
         SHIPPED,
 
         /**
-         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT} value, for a shipment which is
-         * in transit. It carries its column value explicitly, because the value is not this constant's
-         * {@link Enum#name() name}.
+         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT} value, for a shipment
+         * which is in transit. Note that the column value is not this constant's {@link Enum#name() name}.
          */
-        // 배송/운송 중?
-        IN_TRANSIT,
+        // 배송 중?
+        IN_TRANSIT(COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT),
 
         /**
-         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_DELIVERED} value, for a shipment which has
-         * been delivered.
+         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_DELIVERED} value, for a shipment which
+         * has been delivered.
          */
-        // 배달됨?
+        // 배송 왼료?
         DELIVERED;
+
+        // -------------------------------------------------------------------------------------------------------------
+        ShipmentStatus(final String columnValue) {
+            this.columnValue = columnValue;
+        }
+
+        ShipmentStatus() {
+            this(null);
+        }
+
+        // ------------------------------------------------------------------------------------------------------------- columnValue
+        public String columnValue() {
+            if (columnValue != null) {
+                return columnValue;
+            }
+            return name();
+        }
+
+        // -------------------------------------------------------------------------------------------------------------
+        public final String columnValue;
+    }
+
+    /**
+     * A converter between {@link ShipmentStatus} and the {@value #COLUMN_NAME_SHIPMENT_STATUS} column, by
+     * {@link ShipmentStatus#columnValue()} rather than {@link Enum#name()}.
+     *
+     * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+     */
+    @Converter(autoApply = false)
+    public static class ShipmentStatusConverter implements AttributeConverter<ShipmentStatus, String> {
+
+        /**
+         * Creates a new instance.
+         */
+        public ShipmentStatusConverter() {
+            super();
+        }
+
+        @Override
+        public String convertToDatabaseColumn(final ShipmentStatus attribute) {
+            if (attribute == null) {
+                return null;
+            }
+            return attribute.columnValue();
+        }
+
+        @Override
+        public ShipmentStatus convertToEntityAttribute(final String dbData) {
+            if (dbData == null) {
+                return null;
+            }
+            for (final var value : ShipmentStatus.values()) {
+                if (value.columnValue().equals(dbData)) {
+                    return value;
+                }
+            }
+            throw new IllegalArgumentException("no shipment status for '" + dbData + "'");
+        }
     }
     // ----------------------------------------------------------------------------------------------------- ORDER_ITEMS
 
@@ -460,7 +518,7 @@ public class Shipment {
 
     @Nonnull
     @NotNull
-    @Enumerated(value = EnumType.STRING)
+    @Convert(converter = ShipmentStatusConverter.class)
     @Column(name = COLUMN_NAME_SHIPMENT_STATUS,
             nullable = false,
             insertable = true,

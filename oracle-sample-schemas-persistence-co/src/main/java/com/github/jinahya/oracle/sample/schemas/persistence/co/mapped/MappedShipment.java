@@ -21,10 +21,11 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co.mapped;
  */
 
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.Basic;
 import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
+import jakarta.persistence.Converter;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -238,6 +239,7 @@ public abstract class MappedShipment {
      *
      * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
      */
+    @Converter(autoApply = false)
     public static class ShipmentStatusConverter implements AttributeConverter<ShipmentStatus, String> {
 
         /**
