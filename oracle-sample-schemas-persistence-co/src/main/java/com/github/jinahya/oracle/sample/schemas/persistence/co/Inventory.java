@@ -36,6 +36,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value Inventory#TABLE_NAME} table.
@@ -80,6 +81,8 @@ public class Inventory {
      */
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
+    public static final String ATTRIBUTE_NAME_STORE_ID = "storeId";
+
     /**
      * The name of the entity attribute, of {@link ManyToOne} mapping, which maps the {@value #COLUMN_NAME_STORE_ID}
      * column. The value is {@value}.
@@ -93,6 +96,8 @@ public class Inventory {
      * {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_ID = "PRODUCT_ID";
+
+    public static final String ATTRIBUTE_NAME_PRODUCT_ID = "productId";
 
     /**
      * The name of the entity attribute, of {@link ManyToOne} mapping, which maps the {@value #COLUMN_NAME_PRODUCT_ID}
@@ -127,8 +132,10 @@ public class Inventory {
     public String toString() {
         return super.toString() + '{' +
                "inventoryId=" + inventoryId +
-               ",store=" + store +
-               ",product=" + product +
+               ",storeId=" + storeId +
+//               ",store=" + store +
+               ",productId=" + productId +
+//               ",product=" + product +
                ",productInventory=" + productInventory +
                '}';
     }
@@ -148,8 +155,8 @@ public class Inventory {
         if (!(obj instanceof Inventory that)) {
             return false;
         }
-        return Objects.equals(getStore(), that.getStore())
-               && Objects.equals(getProduct(), that.getProduct());
+        return Objects.equals(getStoreId(), that.getStoreId())
+               && Objects.equals(getProductId(), that.getProductId());
     }
 
     /**
@@ -161,7 +168,7 @@ public class Inventory {
      */
     @Override
     public final int hashCode() {
-        return Objects.hash(getStore(), getProduct());
+        return Objects.hash(getStoreId(), getProductId());
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
@@ -171,6 +178,7 @@ public class Inventory {
      *
      * @return {@code true} if {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} is non-negative; {@code false} otherwise.
      */
+//    @jakarta.validation.constraints.AssertTrue
     protected boolean isProductInventoryNonNegative() {
         if (productInventory == null) {
             return true;
@@ -198,6 +206,17 @@ public class Inventory {
         this.inventoryId = inventoryId;
     }
 
+    // --------------------------------------------------------------------------------------------------------- storeId
+
+    @Nonnull
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    public void setStoreId(@Nonnull final Long storeId) {
+        this.storeId = storeId;
+    }
+
     // ----------------------------------------------------------------------------------------------------------- store
 
     /**
@@ -217,6 +236,19 @@ public class Inventory {
      */
     public void setStore(@Nonnull final Store store) {
         this.store = store;
+        setStoreId(
+                Optional.ofNullable(this.store).map(Store::getStoreId).orElse(null)
+        );
+    }
+
+    // ------------------------------------------------------------------------------------------------------- productId
+    @Nonnull
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(@Nonnull final Long productId) {
+        this.productId = productId;
     }
 
     // --------------------------------------------------------------------------------------------------------- product
@@ -238,6 +270,9 @@ public class Inventory {
      */
     public void setProduct(@Nonnull final Product product) {
         this.product = product;
+        setProductId(
+                Optional.ofNullable(this.product).map(Product::getProductId).orElse(null)
+        );
     }
 
     // ------------------------------------------------------------------------------------------------ productInventory
@@ -309,21 +344,35 @@ public class Inventory {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Valid
     @NotNull
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
-    private Store store;
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
+    private Long storeId;
 
     @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = true, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
+    private Store store;
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
+    @NotNull
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = true, updatable = false)
+    private Long productId;
+
+    @Nonnull
+    @Valid
+    @NotNull
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = false, updatable = false)
     private Product product;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
+//    @jakarta.validation.constraints.PositiveOrZero
     @NotNull
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PRODUCT_INVENTORY, nullable = false, insertable = true, updatable = true)

@@ -42,8 +42,11 @@ class Inventory_Persister extends AbstractEntityPersister<Inventory> {
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     public Inventory apply(final EntityManager entityManager, final Inventory entityInstance) {
-        entityInstance.setStore(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Store.class));
-        entityInstance.setProduct(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class));
+        final var store = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Store.class);
+        final var product = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class);
+        entityManager.flush();
+        entityInstance.setStore(store);
+        entityInstance.setProduct(product);
         return super.apply(entityManager, entityInstance);
     }
 }

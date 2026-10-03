@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  */
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -108,6 +109,12 @@ public class OrderItemWithIdClass {
     public static final String COLUMN_NAME_PRODUCT_ID = "PRODUCT_ID";
 
     /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_ID} column, alongside the
+     * {@value #ATTRIBUTE_NAME_PRODUCT} association. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_PRODUCT_ID = "productId";
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
@@ -157,6 +164,12 @@ public class OrderItemWithIdClass {
     public static final String COLUMN_NAME_SHIPMENT_ID = "SHIPMENT_ID";
 
     /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_SHIPMENT_ID} column, alongside the
+     * {@value #ATTRIBUTE_NAME_SHIPMENT} association. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_SHIPMENT_ID = "shipmentId";
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_SHIPMENT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT = "shipment";
@@ -183,9 +196,16 @@ public class OrderItemWithIdClass {
 
     @Override
     public String toString() {
-        return super.toString() + '{' +
+        return "OrderItemWithIdClass{" +
                "orderId=" + orderId +
-               ",lineItemId=" + lineItemId +
+//               "order=" + order +
+               ", lineItemId=" + lineItemId +
+               ", productId=" + productId +
+//               ", product=" + product +
+               ", unitPrice=" + unitPrice +
+               ", quantity=" + quantity +
+               ", shipmentId=" + shipmentId +
+//               ", shipment=" + shipment +
                '}';
     }
 
@@ -204,71 +224,10 @@ public class OrderItemWithIdClass {
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
-    /**
-     * Indicates whether the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute is non-negative.
-     *
-     * @return {@code true} if the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute is non-negative; {@code false}
-     * otherwise.
-     */
-    protected boolean isUniPricesNonNegative() {
-        if (unitPrice == null) {
-            return true;
-        }
-        return unitPrice.signum() >= 1;
-    }
-
-    /**
-     * Indicates whether the {@value #ATTRIBUTE_NAME_QUANTITY} attribute is non-negative.
-     *
-     * @return {@code true} if the {@value #ATTRIBUTE_NAME_QUANTITY} attribute is non-negative; {@code false} otherwise.
-     */
-    protected boolean isQuantityNonNegative() {
-        if (quantity == null) {
-            return true;
-        }
-        return quantity >= 0;
-    }
-
-    //    @AssertTrue(message = "shipment.customer should be equal to the order.customer")
-    // 일단 DB 상으로는 다 맞다.
-    private boolean isShipmentCustomerEqualToOrderCustomer() {
-//        if (shipment == null) {
-//            return true;
-//        }
-//        final var shipmentCustomer = shipment.getCustomer();
-//        if (shipmentCustomer == null) {
-//            return true;
-//        }
-//        if (order == null) {
-//            return true;
-//        }
-//        final var orderCustomer = order.getCustomer();
-//        if (orderCustomer == null) {
-//            return true;
-//        }
-//        return Objects.equals(shipmentCustomer, orderCustomer);
-        return false;
-    }
-
-    //    @AssertTrue(message = "shipment.store should be equal to the order.store")
-    // 일단 DB 상으로는 다 맞다.
-    private boolean isShipmentStoreEqualToOrderStore() {
-//        if (shipment == null) {
-//            return true;
-//        }
-//        final var shipmentStore = shipment.getStore();
-//        if (shipmentStore == null) {
-//            return true;
-//        }
-//        if (order == null) {
-//            return true;
-//        }
-//        final var orderStore = order.getStore();
-//        if (orderStore == null) {
-//            return true;
-//        }
-//        return Objects.equals(shipmentStore, orderStore);
-        return true;
+    // -----------------------------------------------------------------------------------------------------------------
+    @Transient
+    protected OrderItemId getId() {
+        return OrderItemId.of(getOrderId(), getLineItemId());
     }
 
     // --------------------------------------------------------------------------------------------------------- orderId
@@ -339,6 +298,16 @@ public class OrderItemWithIdClass {
         this.lineItemId = lineItemId;
     }
 
+    // ------------------------------------------------------------------------------------------------------- productId
+    @Nonnull
+    public Long getProductId() {
+        return productId;
+    }
+
+    protected void setProductId(@Nonnull final Long productId) {
+        this.productId = productId;
+    }
+
     // --------------------------------------------------------------------------------------------------------- product
 
     /**
@@ -358,6 +327,11 @@ public class OrderItemWithIdClass {
      */
     protected void setProduct(@Nonnull final Product product) {
         this.product = product;
+        setProductId(
+                Optional.ofNullable(this.product)
+                        .map(Product::getProductId)
+                        .orElse(null)
+        );
     }
 
     // ------------------------------------------------------------------------------------------------------- unitPrice
@@ -400,6 +374,16 @@ public class OrderItemWithIdClass {
         this.quantity = quantity;
     }
 
+    // ------------------------------------------------------------------------------------------------------ shipmentId
+    @Nullable
+    public Long getShipmentId() {
+        return shipmentId;
+    }
+
+    protected void setShipmentId(@Nullable final Long shipmentId) {
+        this.shipmentId = shipmentId;
+    }
+
     // -------------------------------------------------------------------------------------------------------- shipment
 
     /**
@@ -407,7 +391,7 @@ public class OrderItemWithIdClass {
      *
      * @return the shipment which carries this order item; {@code null} when not yet shipped.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public Shipment getShipment() {
         return shipment;
     }
@@ -417,8 +401,13 @@ public class OrderItemWithIdClass {
      *
      * @param shipment new shipment which carries this order item.
      */
-    public void setShipment(@jakarta.annotation.Nullable final Shipment shipment) {
+    public void setShipment(@Nullable final Shipment shipment) {
         this.shipment = shipment;
+        setShipmentId(
+                Optional.ofNullable(this.shipment)
+                        .map(Shipment::getShipmentId)
+                        .orElse(null)
+        );
     }
 
     /**
@@ -429,7 +418,7 @@ public class OrderItemWithIdClass {
      * @return the total price of this item.
      */
     @Transient
-    public BigDecimal getTotalPrice(@jakarta.annotation.Nullable final MathContext mc) {
+    public BigDecimal getTotalPrice(@Nullable final MathContext mc) {
         if (unitPrice == null) {
             throw new IllegalStateException("unitPrice is null");
         }
@@ -455,35 +444,35 @@ public class OrderItemWithIdClass {
 //    public final int hashCode() {
 //        return Objects.hash(orderId, lineItemId);
 //    }
-    // -------------------------------------------------------------------------------------------------------------- id
-
-    /**
-     * Returns a new {@link OrderItemId} holding current values of the identifying attributes.
-     *
-     * @return a new {@link OrderItemId} holding current values of the identifying attributes.
-     */
-    public OrderItemId getId() {
-        return OrderItemId.of(getOrderId(), getLineItemId());
-    }
-
-    /**
-     * Replaces current values of the identifying attributes with those of the specified identifier.
-     *
-     * @param id the identifier whose values are applied; may be {@code null}, which clears every identifying
-     *           attribute.
-     */
-    protected void setId(final OrderItemId id) {
-        setOrderId(
-                Optional.ofNullable(id)
-                        .map(OrderItemId::getOrderId)
-                        .orElse(null)
-        );
-        setLineItemId(
-                Optional.ofNullable(id)
-                        .map(OrderItemId::getLineItemId)
-                        .orElse(null)
-        );
-    }
+//    // -------------------------------------------------------------------------------------------------------------- id
+//
+//    /**
+//     * Returns a new {@link OrderItemId} holding current values of the identifying attributes.
+//     *
+//     * @return a new {@link OrderItemId} holding current values of the identifying attributes.
+//     */
+//    public OrderItemId getId() {
+//        return OrderItemId.of(getOrderId(), getLineItemId());
+//    }
+//
+//    /**
+//     * Replaces current values of the identifying attributes with those of the specified identifier.
+//     *
+//     * @param id the identifier whose values are applied; may be {@code null}, which clears every identifying
+//     *           attribute.
+//     */
+//    protected void setId(final OrderItemId id) {
+//        setOrderId(
+//                Optional.ofNullable(id)
+//                        .map(OrderItemId::getOrderId)
+//                        .orElse(null)
+//        );
+//        setLineItemId(
+//                Optional.ofNullable(id)
+//                        .map(OrderItemId::getLineItemId)
+//                        .orElse(null)
+//        );
+//    }
 
     // -----------------------------------------------------------------------------------------------------------------
 
@@ -500,10 +489,15 @@ public class OrderItemWithIdClass {
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_ORDER_ID, referencedColumnName = COLUMN_NAME_ORDER_ID, nullable = false,
-                insertable = false, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_ORDER_ID,
+                referencedColumnName = COLUMN_NAME_ORDER_ID,
+                nullable = false,
+                insertable = false,
+                updatable = false
+    )
     private Order order;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @NotNull
     @Id
@@ -513,17 +507,28 @@ public class OrderItemWithIdClass {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
+    @NotNull
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_PRODUCT_ID,
+            nullable = false,
+            insertable = true,
+            updatable = false
+    )
+    private Long productId;
+
+    @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_PRODUCT_ID,
                 referencedColumnName = Product.COLUMN_NAME_PRODUCT_ID,
                 nullable = false,
-                insertable = true,
+                insertable = false,
                 updatable = false
     )
     private Product product;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @DecimalMax(DECIMAL_MAX_UNIT_PRICE)
     @DecimalMin(DECIMAL_MIN_UNIT_PRICE)
@@ -544,15 +549,21 @@ public class OrderItemWithIdClass {
     @Column(name = COLUMN_NAME_QUANTITY, nullable = false, insertable = true, updatable = true)
     private Long quantity;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
+    @Basic(optional = true)
+    // the only mutable foreign key here: an item is shipped after it is ordered
+    @Column(name = COLUMN_NAME_SHIPMENT_ID, nullable = true, insertable = true, updatable = true)
+    private Long shipmentId;
+
+    @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_SHIPMENT_ID,
                 referencedColumnName = Shipment.COLUMN_NAME_SHIPMENT_ID,
                 nullable = true,
-                insertable = true,
-                // the only mutable foreign key here: an item is shipped after it is ordered
-                updatable = true
+                insertable = false,
+                updatable = false
     )
     private Shipment shipment;
 }

@@ -53,6 +53,22 @@ import java.util.function.Function;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @NamedQuery(
+        name = "Product.selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
+        query = """
+                SELECT e
+                FROM Product e
+                WHERE e.unitPrice >= :unitPriceMinInclusive AND e.unitPrice < :unitPriceMaxExclusive
+                ORDER BY e.unitPrice ASC"""
+)
+@NamedQuery(
+        name = "Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc",
+        query = """
+                SELECT e
+                FROM Product e
+                WHERE e.unitPrice BETWEEN :unitPriceAfter AND :unitPriceBefore
+                ORDER BY e.unitPrice ASC"""
+)
+@NamedQuery(
         name = "Product.selectListOrderByProductIdAscProductIdGt",
         query = """
                 SELECT e

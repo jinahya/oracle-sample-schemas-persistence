@@ -21,11 +21,11 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  */
 
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.Converter;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,7 +34,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -170,42 +169,12 @@ public class Shipment {
      */
     public static final int SIZE_MAX_SHIPMENT_STATUS = COLUMN_LENGTH_SHIPMENT_STATUS;
 
-    // ----------------------------------------------------------------------------------------------------- ORDER_ITEMS
-
-    /**
-     * The name of the attribute which maps the order items carried by this shipment. The value is {@value}.
-     *
-     * @see OrderItemWithEmbeddedId#ATTRIBUTE_NAME_SHIPMENT
-     */
-    public static final String ATTRIBUTE_NAME_ORDER_ITEMS = "orderItems";
-
-    /**
-     * An interface for enums which map to the {@value #COLUMN_NAME_SHIPMENT_STATUS} column.
-     *
-     * @param <E> enum type parameter
-     * @apiNote The column value is not always the constant's {@link Enum#name() name} -- see
-     * {@link _ShipmentStatus#IN_TRANSIT} -- which is why the mapping goes through {@link #attributeValue()} rather than
-     * through {@link Enum#valueOf(Class, String)}.
-     */
-    public interface __ShipmentStatus<E extends Enum<E> & __ShipmentStatus<E>> {
-
-        /**
-         * Returns the column value of this enum constant.
-         *
-         * @return the column value of this enum constant.
-         */
-        @SuppressWarnings({"unchecked"})
-        default String attributeValue() {
-            return ((E) this).name();
-        }
-    }
-
     /**
      * An enum for the {@value #COLUMN_NAME_SHIPMENT_STATUS} column.
      *
      * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
      */
-    public enum _ShipmentStatus implements __ShipmentStatus<_ShipmentStatus> {
+    public enum ShipmentStatus {
 
         /**
          * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_CREATED} value, for a shipment which has
@@ -227,7 +196,7 @@ public class Shipment {
          * {@link Enum#name() name}.
          */
         // 배송/운송 중?
-        IN_TRANSIT(COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT),
+        IN_TRANSIT,
 
         /**
          * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_DELIVERED} value, for a shipment which has
@@ -235,80 +204,19 @@ public class Shipment {
          */
         // 배달됨?
         DELIVERED;
-
-        // -------------------------------------------------------------------------------------------------------------
-        _ShipmentStatus(final String attributeValue) {
-            this.attributeValue = attributeValue;
-        }
-
-        _ShipmentStatus() {
-            this(null);
-        }
-
-        // ---------------------------------------------------------------------------------------------- attributeValue
-        public String attributeValue() {
-            return Optional.ofNullable(attributeValue)
-                    .orElseGet(__ShipmentStatus.super::attributeValue);
-        }
-
-        // -------------------------------------------------------------------------------------------------------------
-        private final @jakarta.annotation.Nullable String attributeValue;
     }
+    // ----------------------------------------------------------------------------------------------------- ORDER_ITEMS
 
     /**
-     * An attribute converter for the {@link _ShipmentStatus} enum.
+     * The name of the attribute which maps the order items carried by this shipment. The value is {@value}.
      *
-     * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+     * @see OrderItemWithEmbeddedId#ATTRIBUTE_NAME_SHIPMENT
      */
-    @Converter(autoApply = true)
-    public static class _ShipmentStatusConverter implements AttributeConverter<_ShipmentStatus, String> {
+    public static final String ATTRIBUTE_NAME_ORDER_ITEMS = "orderItems";
 
-        /**
-         * Creates a new instance.
-         */
-        public _ShipmentStatusConverter() {
-            super();
-        }
-
-        @Override
-        public String convertToDatabaseColumn(final _ShipmentStatus attribute) {
-            return attribute == null ? null : attribute.attributeValue();
-        }
-
-        @Override
-        public _ShipmentStatus convertToEntityAttribute(final String dbData) {
-            return dbData == null ? null : shipmentStatusOf(_ShipmentStatus.class, dbData);
-        }
-    }
-
-    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
-
-    /**
-     * Finds the constant of the specified enum class whose {@link __ShipmentStatus#attributeValue() attributeValue()}
-     * equals the specified column value.
-     *
-     * @param enumClass      the enum class.
-     * @param attributeValue the column value to look up.
-     * @param <E>            enum type parameter.
-     * @return the matching constant.
-     * @throws IllegalArgumentException when no constant of {@code enumClass} carries {@code attributeValue}.
-     */
-    public static <E extends Enum<E> & __ShipmentStatus<E>> E shipmentStatusOf(
-            @Nonnull final Class<E> enumClass, @Nonnull final String attributeValue) {
-        Objects.requireNonNull(enumClass, "enumClass is null");
-        Objects.requireNonNull(attributeValue, "attributeValue is null");
-        for (final var constant : enumClass.getEnumConstants()) {
-            if (attributeValue.equals(constant.attributeValue())) {
-                return constant;
-            }
-        }
-        throw new IllegalArgumentException("no constant of " + enumClass + " for '" + attributeValue + "'");
-    }
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DELIVERY_ADDRESS} column. The value is {@value}.
-     */
+    // -----------------------------------------------------------------------------------------------------------------
     public static final String ATTRIBUTE_NAME_DELIVERY_ADDRESS = "deliveryAddress";
+
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -324,8 +232,10 @@ public class Shipment {
     public String toString() {
         return super.toString() + '{' +
                "shipmentId=" + shipmentId +
-               ",store=" + store +
-               ",customer=" + customer +
+               ",storeId=" + storeId +
+//               ",store=" + store +
+               ",customerId=" + customerId +
+//               ",customer=" + customer +
                ",deliveryAddress=" + deliveryAddress +
                ",shipmentStatus=" + shipmentStatus +
                '}';
@@ -364,6 +274,17 @@ public class Shipment {
         this.shipmentId = shipmentId;
     }
 
+    // --------------------------------------------------------------------------------------------------------- storeId
+
+    @Nonnull
+    public Long getStoreId() {
+        return storeId;
+    }
+
+    protected void setStoreId(@Nonnull final Long storeId) {
+        this.storeId = storeId;
+    }
+
     // ----------------------------------------------------------------------------------------------------------- store
 
     /**
@@ -383,6 +304,19 @@ public class Shipment {
      */
     public void setStore(@Nonnull final Store store) {
         this.store = store;
+        setStoreId(
+                Optional.ofNullable(this.store).map(Store::getStoreId).orElse(null)
+        );
+    }
+
+    // ------------------------------------------------------------------------------------------------------ customerId
+    @Nonnull
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    protected void setCustomerId(@Nonnull final Long customerId) {
+        this.customerId = customerId;
     }
 
     // -------------------------------------------------------------------------------------------------------- customer
@@ -404,6 +338,9 @@ public class Shipment {
      */
     public void setCustomer(@Nonnull final Customer customer) {
         this.customer = customer;
+        setCustomerId(
+                Optional.ofNullable(this.customer).map(Customer::getCustomerId).orElse(null)
+        );
     }
 
     // ------------------------------------------------------------------------------------------------- deliveryAddress
@@ -435,7 +372,7 @@ public class Shipment {
      * @return current value of {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute.
      */
     @Nonnull
-    public String getShipmentStatus() {
+    public ShipmentStatus getShipmentStatus() {
         return shipmentStatus;
     }
 
@@ -444,38 +381,8 @@ public class Shipment {
      *
      * @param shipmentStatus new value for {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute.
      */
-    public void setShipmentStatus(@Nonnull final String shipmentStatus) {
+    public void setShipmentStatus(@Nonnull final ShipmentStatus shipmentStatus) {
         this.shipmentStatus = shipmentStatus;
-    }
-
-    /**
-     * Returns current value of the {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute, as a constant of the specified
-     * enum class.
-     *
-     * @param <E>       the enum type.
-     * @param enumClass the enum class whose constant is returned.
-     * @return the enum constant; {@code null} when the {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute is
-     * {@code null}.
-     */
-    public <E extends Enum<E> & __ShipmentStatus<E>> E getShipmentStatusAsEnum(@Nonnull final Class<E> enumClass) {
-        Objects.requireNonNull(enumClass, "enumClass is null");
-        return Optional.ofNullable(getShipmentStatus())
-                .map(v -> shipmentStatusOf(enumClass, v))
-                .orElse(null);
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute with the specified value.
-     *
-     * @param shipmentStatusEnum new value for {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute.
-     */
-    @Transient
-    public void setShipmentStatusFromEnum(final __ShipmentStatus<?> shipmentStatusEnum) {
-        setShipmentStatus(
-                Optional.ofNullable(shipmentStatusEnum)
-                        .map(__ShipmentStatus::attributeValue)
-                        .orElse(null)
-        );
     }
 
     // ------------------------------------------------------------------------------------------------------ orderItems
@@ -499,10 +406,6 @@ public class Shipment {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = COLUMN_NAME_SHIPMENT_ID, nullable = false,
@@ -513,20 +416,36 @@ public class Shipment {
             updatable = false)
     private Long shipmentId;
 
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
+    @Valid
+    @NotNull
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
+    private Long storeId;
+
     @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
     private Store store;
 
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
+    @NotNull
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
+    private Long customerId;
+
     @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false)
     private Customer customer;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Size(max = SIZE_MAX_DELIVERY_ADDRESS)
     @NotNull
@@ -540,16 +459,17 @@ public class Shipment {
     private String deliveryAddress;
 
     @Nonnull
-    @Size(max = SIZE_MAX_SHIPMENT_STATUS)
     @NotNull
+    @Enumerated(value = EnumType.STRING)
     @Column(name = COLUMN_NAME_SHIPMENT_STATUS,
             nullable = false,
             insertable = true,
             updatable = true,
             length = COLUMN_LENGTH_SHIPMENT_STATUS
     )
-    private String shipmentStatus;
+    private ShipmentStatus shipmentStatus;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = OrderItemWithEmbeddedId.ATTRIBUTE_NAME_SHIPMENT,
                fetch = FetchType.LAZY,
                cascade = {

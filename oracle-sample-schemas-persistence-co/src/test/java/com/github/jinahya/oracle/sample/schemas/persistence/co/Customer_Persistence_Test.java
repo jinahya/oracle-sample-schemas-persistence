@@ -130,7 +130,7 @@ class Customer_Persistence_Test extends _Persistence_Test<Customer> {
         @DisplayName("a query-language query selects the customer just persisted")
         @Test
         void __QueryLanguage() {
-            applyNewPersistedTargetInstanceAndRollback((em, v) -> {
+            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
                 final var found = em
                         .createQuery(
                                 """
@@ -151,7 +151,7 @@ class Customer_Persistence_Test extends _Persistence_Test<Customer> {
         @DisplayName("the named query selects the customer just persisted")
         @Test
         void __NamedQuery() {
-            applyNewPersistedTargetInstanceAndRollback((em, v) -> {
+            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
                 final var found = em
                         .createNamedQuery("Customer.selectOneByEmailAddress", targetClass)
                         .setParameter(Customer_.emailAddress.getName(), v.getEmailAddress())
@@ -166,7 +166,7 @@ class Customer_Persistence_Test extends _Persistence_Test<Customer> {
         @DisplayName("a criteria query selects the customer just persisted")
         @Test
         void __CriteriaApi() {
-            applyNewPersistedTargetInstanceAndRollback((em, v) -> {
+            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
                 final var builder = em.getCriteriaBuilder();
                 final var query = builder.createQuery(targetClass);
                 final var root = query.from(targetClass);

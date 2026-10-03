@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  * #L%
  */
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,6 +29,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -47,9 +49,18 @@ import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value Store#TABLE_NAME} table.
+ * <p>
+ * The {@value #ATTRIBUTE_NAME_STORE_NAME} attribute is unique, and is the natural key on which
+ * {@link #equals(Object)} and {@link #hashCode()} are based; the {@code Store.selectSingleByStoreName} named query
+ * selects the single store of a given {@code storeName}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@NamedQuery(name = "Store.selectSingleByStoreName",
+            query = """
+                    SELECT e
+                    FROM Store AS e
+                    WHERE e.storeName = :storeName""")
 @Entity
 @Table(name = Store.TABLE_NAME)
 public class Store {
@@ -197,13 +208,18 @@ public class Store {
 
     /**
      * The minimum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute, as a decimal string.
+     * <p>
+     * The attribute takes geographic degrees, {@code -90} to {@code +90}, which is narrower than what the
+     * {@value #COLUMN_NAME_LATITUDE} column can hold, {@value #COLUMN_MIN_LATITUDE} to {@value #COLUMN_MAX_LATITUDE}.
      */
-    public static String ATTRIBUTE_DECIMAL_MIN_LATITUDE = _Constants.DECIMAL_MIN_LATITUDE;
+    public static String ATTRIBUTE_DECIMAL_MIN_LATITUDE = _DomainConstants.DECIMAL_MIN_LATITUDE;
 
     /**
      * The maximum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute, as a decimal string.
+     *
+     * @see #ATTRIBUTE_DECIMAL_MIN_LATITUDE
      */
-    public static String ATTRIBUTE_DECIMAL_MAX_LATITUDE = _Constants.DECIMAL_MAX_LATITUDE;
+    public static String ATTRIBUTE_DECIMAL_MAX_LATITUDE = _DomainConstants.DECIMAL_MAX_LATITUDE;
 
     /**
      * The minimum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute.
@@ -250,13 +266,18 @@ public class Store {
 
     /**
      * The minimum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute, as a decimal string.
+     * <p>
+     * The attribute takes geographic degrees, {@code -180} to {@code +180}, which is narrower than what the
+     * {@value #COLUMN_NAME_LONGITUDE} column can hold, {@value #COLUMN_MIN_LONGITUDE} to {@value #COLUMN_MAX_LONGITUDE}.
      */
-    public static String ATTRIBUTE_DECIMAL_MIN_LONGITUDE = _Constants.DECIMAL_MIN_LONGITUDE;
+    public static String ATTRIBUTE_DECIMAL_MIN_LONGITUDE = _DomainConstants.DECIMAL_MIN_LONGITUDE;
 
     /**
      * The maximum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute, as a decimal string.
+     *
+     * @see #ATTRIBUTE_DECIMAL_MIN_LONGITUDE
      */
-    public static String ATTRIBUTE_DECIMAL_MAX_LONGITUDE = _Constants.DECIMAL_MAX_LONGITUDE;
+    public static String ATTRIBUTE_DECIMAL_MAX_LONGITUDE = _DomainConstants.DECIMAL_MAX_LONGITUDE;
 
     /**
      * The minimum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute.
@@ -430,18 +451,13 @@ public class Store {
                ",physicalAddress=" + physicalAddress +
                ",latitude=" + latitude +
                ",longitude=" + longitude +
-//                ",logo=" + Arrays.toString(logo) + // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                ",logoMimeType=" + logoMimeType +
                ",logoFilename=" + logoFilename +
                ",logoCharset=" + logoCharset +
                ",logoLastUpdated=" + logoLastUpdated +
-//               ",logo=" + logo +
                '}';
     }
 
-    //    @jakarta.annotation.Nullable
-//    @Embedded
-//    private Store_Logo logo;
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Store that)) {
@@ -456,8 +472,17 @@ public class Store {
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
-    // constraint STORE_AT_LEAST_ONE_ADDRESS_C
-    //        check (web_address IS NOT NULL or physical_address IS NOT NULL)
+
+    /**
+     * Indicates whether either the {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute or the
+     * {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute is non-{@code null}, which mirrors the table's
+     * {@code STORE_AT_LEAST_ONE_ADDRESS_C} constraint.
+     * {@snippet lang = "sql":
+     * CHECK (web_address IS NOT NULL OR physical_address IS NOT NULL)
+     *}
+     *
+     * @return {@code true} if either address is non-{@code null}; {@code false} otherwise.
+     */
     @AssertTrue(message = "either webAddress or physicalAddress must be non-null")
     private boolean isEitherWebAddressOrPhysicalAddressNonnull() {
         return webAddress != null || physicalAddress != null;
@@ -510,7 +535,7 @@ public class Store {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public String getWebAddress() {
         return webAddress;
     }
@@ -520,7 +545,7 @@ public class Store {
      *
      * @param webAddress new value for {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute.
      */
-    public void setWebAddress(@jakarta.annotation.Nullable final String webAddress) {
+    public void setWebAddress(@Nullable final String webAddress) {
         this.webAddress = webAddress;
     }
 
@@ -531,7 +556,7 @@ public class Store {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public String getPhysicalAddress() {
         return physicalAddress;
     }
@@ -541,7 +566,7 @@ public class Store {
      *
      * @param physicalAddress new value for {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute.
      */
-    public void setPhysicalAddress(@jakarta.annotation.Nullable final String physicalAddress) {
+    public void setPhysicalAddress(@Nullable final String physicalAddress) {
         this.physicalAddress = physicalAddress;
     }
 
@@ -552,7 +577,7 @@ public class Store {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_LATITUDE} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public BigDecimal getLatitude() {
         return latitude;
     }
@@ -562,7 +587,7 @@ public class Store {
      *
      * @param latitude new value for {@value #ATTRIBUTE_NAME_LATITUDE} attribute.
      */
-    public void setLatitude(@jakarta.annotation.Nullable final BigDecimal latitude) {
+    public void setLatitude(@Nullable final BigDecimal latitude) {
         this.latitude = latitude;
     }
 
@@ -573,7 +598,7 @@ public class Store {
      * @see #getLatitude()
      * @see BigDecimal#doubleValue()
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     @Transient
     public Double getLatitudeAsDouble() {
         return Optional.ofNullable(getLatitude())
@@ -590,8 +615,8 @@ public class Store {
      * @see BigDecimal#setScale(int, RoundingMode)
      * @see #setLatitude(BigDecimal)
      */
-    public void setLatitudeFromDouble(@jakarta.annotation.Nullable final Double latitude,
-                                      @jakarta.annotation.Nullable final RoundingMode roundingMode) {
+    public void setLatitudeFromDouble(@Nullable final Double latitude,
+                                      @Nullable final RoundingMode roundingMode) {
         setLatitude(
                 Optional.ofNullable(latitude)
                         .map(BigDecimal::valueOf)
@@ -607,7 +632,7 @@ public class Store {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_LONGITUDE} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public BigDecimal getLongitude() {
         return longitude;
     }
@@ -617,7 +642,7 @@ public class Store {
      *
      * @param longitude new value for {@value #ATTRIBUTE_NAME_LONGITUDE} attribute.
      */
-    public void setLongitude(@jakarta.annotation.Nullable final BigDecimal longitude) {
+    public void setLongitude(@Nullable final BigDecimal longitude) {
         this.longitude = longitude;
     }
 
@@ -628,7 +653,7 @@ public class Store {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_LOGO} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public byte[] getLogo() {
         return logo;
     }
@@ -638,7 +663,7 @@ public class Store {
      *
      * @param logo new value for {@value #ATTRIBUTE_NAME_LOGO} attribute.
      */
-    public void setLogo(@jakarta.annotation.Nullable final byte[] logo) {
+    public void setLogo(@Nullable final byte[] logo) {
         this.logo = logo;
     }
 
@@ -649,7 +674,7 @@ public class Store {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public String getLogoMimeType() {
         return logoMimeType;
     }
@@ -659,7 +684,7 @@ public class Store {
      *
      * @param logoMimeType new value for {@value #ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute.
      */
-    public void setLogoMimeType(@jakarta.annotation.Nullable final String logoMimeType) {
+    public void setLogoMimeType(@Nullable final String logoMimeType) {
         this.logoMimeType = logoMimeType;
     }
 
@@ -670,7 +695,7 @@ public class Store {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_LOGO_FILENAME} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public String getLogoFilename() {
         return logoFilename;
     }
@@ -680,7 +705,7 @@ public class Store {
      *
      * @param logoFilename new value for {@value #ATTRIBUTE_NAME_LOGO_FILENAME} attribute.
      */
-    public void setLogoFilename(@jakarta.annotation.Nullable final String logoFilename) {
+    public void setLogoFilename(@Nullable final String logoFilename) {
         this.logoFilename = logoFilename;
     }
 
@@ -691,7 +716,7 @@ public class Store {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_LOGO_CHARSET} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public String getLogoCharset() {
         return logoCharset;
     }
@@ -701,7 +726,7 @@ public class Store {
      *
      * @param logoCharset new value for {@value #ATTRIBUTE_NAME_LOGO_CHARSET} attribute.
      */
-    public void setLogoCharset(@jakarta.annotation.Nullable final String logoCharset) {
+    public void setLogoCharset(@Nullable final String logoCharset) {
         this.logoCharset = logoCharset;
     }
 
@@ -712,7 +737,7 @@ public class Store {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public LocalDate getLogoLastUpdated() {
         return logoLastUpdated;
     }
@@ -722,7 +747,7 @@ public class Store {
      *
      * @param logoLastUpdated new value for {@value #ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute.
      */
-    public void setLogoLastUpdated(@jakarta.annotation.Nullable final LocalDate logoLastUpdated) {
+    public void setLogoLastUpdated(@Nullable final LocalDate logoLastUpdated) {
         this.logoLastUpdated = logoLastUpdated;
     }
 
@@ -821,7 +846,7 @@ public class Store {
     )
     private String storeName;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Size(max = SIZE_MAX_WEB_ADDRESS)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_WEB_ADDRESS,
@@ -832,7 +857,7 @@ public class Store {
     )
     private String webAddress;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Size(max = SIZE_MAX_PHYSICAL_ADDRESS)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_PHYSICAL_ADDRESS,
@@ -843,9 +868,11 @@ public class Store {
     )
     private String physicalAddress;
 
-    @jakarta.annotation.Nullable
-    @DecimalMax(value = _Constants.DECIMAL_MAX_LATITUDE, inclusive = true)
-    @DecimalMin(value = _Constants.DECIMAL_MIN_LATITUDE, inclusive = true)
+    @Nullable
+    @DecimalMax(value = _DomainConstants.DECIMAL_MAX_LATITUDE, inclusive = true)
+    @DecimalMin(value = _DomainConstants.DECIMAL_MIN_LATITUDE, inclusive = true)
+    @DecimalMax(value = COLUMN_MAX_LATITUDE, inclusive = true)
+    @DecimalMin(value = COLUMN_MIN_LATITUDE, inclusive = true)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LATITUDE,
             nullable = true,
@@ -856,9 +883,11 @@ public class Store {
     )
     private BigDecimal latitude;
 
-    @jakarta.annotation.Nullable
-    @DecimalMax(value = _Constants.DECIMAL_MAX_LONGITUDE, inclusive = true)
-    @DecimalMin(value = _Constants.DECIMAL_MIN_LONGITUDE, inclusive = true)
+    @Nullable
+    @DecimalMax(value = _DomainConstants.DECIMAL_MAX_LONGITUDE, inclusive = true)
+    @DecimalMin(value = _DomainConstants.DECIMAL_MIN_LONGITUDE, inclusive = true)
+    @DecimalMax(value = COLUMN_MAX_LONGITUDE, inclusive = true)
+    @DecimalMin(value = COLUMN_MIN_LONGITUDE, inclusive = true)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LONGITUDE,
             nullable = true,
@@ -869,13 +898,13 @@ public class Store {
     )
     private BigDecimal longitude;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Lob
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_LOGO, nullable = true, insertable = true, updatable = true)
     private byte[] logo;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Size(min = SIZE_MIN_LOGO_MIME_TYPE, max = SIZE_MAX_LOGO_MIME_TYPE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOGO_MIME_TYPE,
@@ -886,7 +915,7 @@ public class Store {
     )
     private String logoMimeType;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Size(min = SIZE_MIN_LOGO_FILENAME, max = SIZE_MAX_LOGO_FILENAME)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOGO_FILENAME,
@@ -897,7 +926,7 @@ public class Store {
     )
     private String logoFilename;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Size(min = SIZE_MIN_LOGO_CHARSET, max = SIZE_MAX_LOGO_CHARSET)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOGO_CHARSET,
@@ -908,7 +937,7 @@ public class Store {
     )
     private String logoCharset;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOGO_LAST_UPDATED, nullable = true, insertable = true, updatable = true)
     private LocalDate logoLastUpdated;

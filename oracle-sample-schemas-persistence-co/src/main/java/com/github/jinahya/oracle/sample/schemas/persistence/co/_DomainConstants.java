@@ -28,7 +28,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-final class _Constants {
+final class _DomainConstants {
     // -------------------------------------------------------------------------------------------------------- LATITUDE
 
     /**
@@ -55,7 +55,7 @@ final class _Constants {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
-    private _Constants() {
+    private _DomainConstants() {
         throw new AssertionError("instantiation is not allowed");
     }
 }

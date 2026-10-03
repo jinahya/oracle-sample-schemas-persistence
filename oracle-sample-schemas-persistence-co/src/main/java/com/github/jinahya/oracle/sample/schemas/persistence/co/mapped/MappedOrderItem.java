@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.co;
+package com.github.jinahya.oracle.sample.schemas.persistence.co.mapped;
 
 /*-
  * #%L
@@ -20,20 +20,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemId;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.Table;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Transient;
-import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -41,27 +35,9 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Objects;
-import java.util.Optional;
 
-/**
- * An entity class for mapping the {@value OrderItemWithEmbeddedId#TABLE_NAME} table, whose composite primary key is
- * mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
- *
- * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see OrderItemWithIdClass
- */
-@Entity
-@Table(name = OrderItemWithEmbeddedId.TABLE_NAME,
-       uniqueConstraints = {
-               @UniqueConstraint(
-                       columnNames = {
-                               OrderItemWithEmbeddedId.COLUMN_NAME_ORDER_ID,
-                               OrderItemWithEmbeddedId.COLUMN_NAME_PRODUCT_ID,
-                       }
-               )
-       }
-)
-public class OrderItemWithEmbeddedId {
+@MappedSuperclass
+public abstract class MappedOrderItem {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -77,8 +53,7 @@ public class OrderItemWithEmbeddedId {
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
+     * {@link EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID_ORDER_ID = "id.orderId";
 
@@ -99,8 +74,7 @@ public class OrderItemWithEmbeddedId {
 
     /**
      * The name of the attribute which maps both the {@value #COLUMN_NAME_ORDER_ID} and the
-     * {@value #COLUMN_NAME_LINE_ITEM_ID} columns, as an {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value
-     * is {@value}.
+     * {@value #COLUMN_NAME_LINE_ITEM_ID} columns, as an {@link EmbeddedId @EmbeddedId}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID = "id";
 
@@ -138,6 +112,11 @@ public class OrderItemWithEmbeddedId {
     public static final int COLUMN_SCALE_UNIT_PRICE = 2;
 
     /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_UNIT_PRICE = "unitPrice";
+
+    /**
      * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is {@value}.
      */
     public static final String DECIMAL_MIN_UNIT_PRICE = "00000000.00";
@@ -172,17 +151,12 @@ public class OrderItemWithEmbeddedId {
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT = "shipment";
 
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_UNIT_PRICE = "unitPrice";
-
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
      */
-    protected OrderItemWithEmbeddedId() {
+    protected MappedOrderItem() {
         super();
     }
 
@@ -191,31 +165,95 @@ public class OrderItemWithEmbeddedId {
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + id +
-//               ", order=" + order +
+               "id=" + getId_() +
                ", productId=" + productId +
-//               ", product=" + product +
                ", unitPrice=" + unitPrice +
                ", quantity=" + quantity +
                ", shipmentId=" + shipmentId +
-//               ", shipment=" + shipment +
                '}';
     }
 
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof OrderItemWithEmbeddedId that)) {
+        if (!(obj instanceof MappedOrderItem that)) {
             return false;
         }
-        return Objects.equals(getId(), that.getId());
+        return Objects.equals(getId_(), that.getId_());
     }
 
     @Override
     public final int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(getId_());
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
+
+    /**
+     * Indicates whether the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute is non-negative.
+     *
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute is non-negative; {@code false}
+     * otherwise.
+     */
+    protected boolean isUniPricesNonNegative() {
+        if (unitPrice == null) {
+            return true;
+        }
+        return unitPrice.signum() >= 1;
+    }
+
+    /**
+     * Indicates whether the {@value #ATTRIBUTE_NAME_QUANTITY} attribute is non-negative.
+     *
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_QUANTITY} attribute is non-negative; {@code false} otherwise.
+     */
+    protected boolean isQuantityNonNegative() {
+        if (quantity == null) {
+            return true;
+        }
+        return quantity >= 0;
+    }
+
+    //    @AssertTrue(message = "shipment.customer should be equal to the order.customer")
+    // 일단 DB 상으로는 다 맞다.
+    private boolean isShipmentCustomerEqualToOrderCustomer() {
+//        if (shipment == null) {
+//            return true;
+//        }
+//        final var shipmentCustomer = shipment.getCustomer();
+//        if (shipmentCustomer == null) {
+//            return true;
+//        }
+//        if (order == null) {
+//            return true;
+//        }
+//        final var orderCustomer = order.getCustomer();
+//        if (orderCustomer == null) {
+//            return true;
+//        }
+//        return Objects.equals(shipmentCustomer, orderCustomer);
+        return false;
+    }
+
+    //    @AssertTrue(message = "shipment.store should be equal to the order.store")
+    // 일단 DB 상으로는 다 맞다.
+    private boolean isShipmentStoreEqualToOrderStore() {
+//        if (shipment == null) {
+//            return true;
+//        }
+//        final var shipmentStore = shipment.getStore();
+//        if (shipmentStore == null) {
+//            return true;
+//        }
+//        if (order == null) {
+//            return true;
+//        }
+//        final var orderStore = order.getStore();
+//        if (orderStore == null) {
+//            return true;
+//        }
+//        return Objects.equals(shipmentStore, orderStore);
+        return true;
+    }
 
     // -------------------------------------------------------------------------------------------------------------- id
 
@@ -224,57 +262,7 @@ public class OrderItemWithEmbeddedId {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
      */
-    public OrderItemId getId() {
-        return id;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ID} attribute with the specified value.
-     *
-     * @param id new value for {@value #ATTRIBUTE_NAME_ID} attribute.
-     */
-    protected void setId(final OrderItemId id) {
-        this.id = id;
-    }
-
-    // --------------------------------------------------------------------------------------------------------- orderId
-    @Transient
-    public Long getOrderId() {
-        return Optional.ofNullable(getId()).map(OrderItemId::getOrderId).orElse(null);
-    }
-
-    protected void setOrderId(final Long orderId) {
-        Optional.ofNullable(getId())
-                .orElseGet(() -> {
-                    setId(new OrderItemId());
-                    return getId();
-                })
-                .setOrderId(orderId);
-    }
-
-    // ----------------------------------------------------------------------------------------------------------- order
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ORDER} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_ORDER} attribute.
-     */
-    @Nonnull
-    public Order getOrder() {
-        return order;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER} attribute with the specified value.
-     *
-     * @param order new value for {@value #ATTRIBUTE_NAME_ORDER} attribute.
-     */
-    protected void setOrder(@Nonnull final Order order) {
-        this.order = order;
-        setOrderId(
-                Optional.ofNullable(this.order).map(Order::getOrderId).orElse(null)
-        );
-    }
+    protected abstract OrderItemId getId_();
 
     // ------------------------------------------------------------------------------------------------------- productId
     @Nonnull
@@ -284,30 +272,6 @@ public class OrderItemWithEmbeddedId {
 
     protected void setProductId(@Nonnull final Long productId) {
         this.productId = productId;
-    }
-
-    // --------------------------------------------------------------------------------------------------------- product
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
-     */
-    @Nonnull
-    public Product getProduct() {
-        return product;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute with the specified value.
-     *
-     * @param product new value for {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
-     */
-    protected void setProduct(@Nonnull final Product product) {
-        this.product = product;
-        setProductId(
-                Optional.ofNullable(this.product).map(Product::getProductId).orElse(null)
-        );
     }
 
     // ------------------------------------------------------------------------------------------------------- unitPrice
@@ -360,47 +324,6 @@ public class OrderItemWithEmbeddedId {
         this.shipmentId = shipmentId;
     }
 
-    // -------------------------------------------------------------------------------------------------------- shipment
-
-    /**
-     * Returns the shipment which carries this order item.
-     *
-     * @return the shipment which carries this order item; {@code null} when not yet shipped.
-     */
-    @Nullable
-    public Shipment getShipment() {
-        return shipment;
-    }
-
-    /**
-     * Replaces the shipment which carries this order item.
-     *
-     * @param shipment new shipment which carries this order item.
-     */
-    public void setShipment(@Nullable final Shipment shipment) {
-        this.shipment = shipment;
-        setShipmentId(
-                Optional.ofNullable(this.shipment).map(Shipment::getShipmentId).orElse(null)
-        );
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Valid
-    @NotNull
-    @EmbeddedId
-    private OrderItemId id;
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @Valid
-    @NotNull
-    // the association owns ORDER_ID, and the provider copies the order's id into the embedded id; @MapsId is what
-    // ties the two together, so the column is written from here rather than from a mirroring attribute
-    @MapsId(OrderItemId.ATTRIBUTE_NAME_ORDER_ID)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_ORDER_ID, referencedColumnName = Order.COLUMN_NAME_ORDER_ID, nullable = false)
-    private Order order;
-
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @NotNull
@@ -411,18 +334,6 @@ public class OrderItemWithEmbeddedId {
             updatable = false
     )
     private Long productId;
-
-    @Nonnull
-    @Valid
-    @NotNull
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_PRODUCT_ID,
-                referencedColumnName = Product.COLUMN_NAME_PRODUCT_ID,
-                nullable = false,
-                insertable = false,
-                updatable = false
-    )
-    private Product product;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
@@ -450,17 +361,6 @@ public class OrderItemWithEmbeddedId {
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_SHIPMENT_ID, nullable = true, insertable = true, updatable = true)
     private Long shipmentId;
-
-    @Nullable
-    @Valid
-    @ManyToOne(optional = true, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_SHIPMENT_ID,
-                referencedColumnName = Shipment.COLUMN_NAME_SHIPMENT_ID,
-                nullable = true,
-                insertable = false,
-                updatable = false
-    )
-    private Shipment shipment;
 
     // -----------------------------------------------------------------------------------------------------------------
 

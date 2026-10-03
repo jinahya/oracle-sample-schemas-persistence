@@ -42,8 +42,11 @@ class Shipment_Persister extends AbstractEntityPersister<Shipment> {
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     public Shipment apply(final EntityManager entityManager, final Shipment entityInstance) {
-        entityInstance.setStore(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Store.class));
-        entityInstance.setCustomer(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Customer.class));
+        final var store = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Store.class);
+        final var customer = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Customer.class);
+        entityManager.flush();
+        entityInstance.setStore(store);
+        entityInstance.setCustomer(customer);
         return super.apply(entityManager, entityInstance);
     }
 }

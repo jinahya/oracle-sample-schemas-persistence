@@ -61,7 +61,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
          * does reach the database.
          */
         LongStream customerIds() {
-            return getEntityManager()
+            return entityManager()
                     .createQuery(
                             """
                                     SELECT e.customerId
@@ -78,7 +78,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
         @MethodSource("customerIds")
         @ParameterizedTest
         void __(final long customerId) {
-            final var found = getEntityManager().find(targetClass, customerId);
+            final var found = entityManager().find(targetClass, customerId);
             assertThat(found).isNotNull().extracting(Customer::getCustomerId).isEqualTo(customerId);
         }
     }
@@ -89,7 +89,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
         @DisplayName("a query-language query selects the installed customers, ordered by identifier")
         @Test
         void __QueryLanguage() {
-            final var found = getEntityManager()
+            final var found = entityManager()
                     .createQuery(
                             """
                                     SELECT e
@@ -108,7 +108,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
         @DisplayName("the named query selects the installed customers, ordered by identifier")
         @Test
         void __NamedQuery() {
-            final var found = getEntityManager()
+            final var found = entityManager()
                     .createNamedQuery("Customer.selectListOrderByCustomerIdAsc", targetClass)
                     .getResultList();
             assertThat(found)
@@ -121,7 +121,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
         @DisplayName("a criteria query selects the installed customers, ordered by identifier")
         @Test
         void __CriteriaApi() {
-            final var entityManager = getEntityManager();
+            final var entityManager = entityManager();
             final var builder = entityManager.getCriteriaBuilder();
             final var query = builder.createQuery(targetClass);
             final var root = query.from(targetClass);
@@ -155,7 +155,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
         @DisplayName("a query-language query selects all installed customers, page by page, ordered by identifier")
         @Test
         void __QueryLanguage() {
-            final var query = getEntityManager()
+            final var query = entityManager()
                     .createQuery(
                             """
                                     SELECT e
@@ -176,7 +176,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
         @DisplayName("the named query selects all installed customers, page by page, ordered by identifier")
         @Test
         void __NamedQuery() {
-            final var query = getEntityManager()
+            final var query = entityManager()
                     .createNamedQuery("Customer.selectListOrderByCustomerIdAsc", targetClass)
                     .setMaxResults(MAX_RESULTS);
             for (var firstResult = 0; ; firstResult += MAX_RESULTS) {
@@ -191,7 +191,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
         @DisplayName("a criteria query selects all installed customers, page by page, ordered by identifier")
         @Test
         void __CriteriaApi() {
-            final var entityManager = getEntityManager();
+            final var entityManager = entityManager();
             final var builder = entityManager.getCriteriaBuilder();
             final var criteria = builder.createQuery(targetClass);
             final var root = criteria.from(targetClass);
@@ -224,7 +224,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
          * @implNote Assumes the installed table is not empty; the test is aborted, not failed, if it is.
          */
         private long customerIdMinExclusive() {
-            final var previous = JinahyaPersistenceTestUtils.selectRandom(getEntityManager(), targetClass);
+            final var previous = JinahyaPersistenceTestUtils.selectRandom(entityManager(), targetClass);
             assumeTrue(previous.isPresent(), "no customer to start a page after");
             return previous.get().getCustomerId();
         }
@@ -243,7 +243,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
         @Test
         void __QueryLanguage() {
             final var customerIdMinExclusive = customerIdMinExclusive();
-            final var found = getEntityManager()
+            final var found = entityManager()
                     .createQuery(
                             """
                                     SELECT e
@@ -262,7 +262,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
         @Test
         void __NamedQuery() {
             final var customerIdMinExclusive = customerIdMinExclusive();
-            final var found = getEntityManager()
+            final var found = entityManager()
                     .createNamedQuery("Customer.selectListOrderByCustomerIdAscCustomerIdGt", targetClass)
                     .setParameter("customerIdMinExclusive", customerIdMinExclusive)
                     .setMaxResults(MAX_RESULTS)
@@ -274,7 +274,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
         @Test
         void __CriteriaApi() {
             final var customerIdMinExclusive = customerIdMinExclusive();
-            final var entityManager = getEntityManager();
+            final var entityManager = entityManager();
             final var builder = entityManager.getCriteriaBuilder();
             final var query = builder.createQuery(targetClass);
             final var root = query.from(targetClass);
@@ -298,7 +298,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
          * @implNote Selects the email addresses, not the entities, so nothing is left managed.
          */
         Stream<String> emailAddresses() {
-            return getEntityManager()
+            return entityManager()
                     .createQuery(
                             """
                                     SELECT e.emailAddress
@@ -315,7 +315,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
         @MethodSource("emailAddresses")
         @ParameterizedTest
         void __QueryLanguage(final String emailAddress) {
-            final var found = getEntityManager()
+            final var found = entityManager()
                     .createQuery(
                             """
                                     SELECT e
@@ -335,7 +335,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
         @MethodSource("emailAddresses")
         @ParameterizedTest
         void __NamedQuery(final String emailAddress) {
-            final var found = getEntityManager()
+            final var found = entityManager()
                     .createNamedQuery("Customer.selectOneByEmailAddress", targetClass)
                     .setParameter(Customer_.emailAddress.getName(), emailAddress)
                     .getSingleResult();
@@ -349,7 +349,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
         @MethodSource("emailAddresses")
         @ParameterizedTest
         void __CriteriaApi(final String emailAddress) {
-            final var entityManager = getEntityManager();
+            final var entityManager = entityManager();
             final var builder = entityManager.getCriteriaBuilder();
             final var query = builder.createQuery(targetClass);
             final var root = query.from(targetClass);
@@ -369,7 +369,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
         @DisplayName("a query-language query selects the installed customers, ordered by email address")
         @Test
         void __QueryLanguage() {
-            final var found = getEntityManager()
+            final var found = entityManager()
                     .createQuery(
                             """
                                     SELECT e
@@ -388,7 +388,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
         @DisplayName("the named query selects the installed customers, ordered by email address")
         @Test
         void __NamedQuery() {
-            final var found = getEntityManager()
+            final var found = entityManager()
                     .createNamedQuery("Customer.selectListOrderByEmailAddressAsc", targetClass)
                     .getResultList();
             assertThat(found)
@@ -401,7 +401,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
         @DisplayName("a criteria query selects the installed customers, ordered by email address")
         @Test
         void __CriteriaApi() {
-            final var entityManager = getEntityManager();
+            final var entityManager = entityManager();
             final var builder = entityManager.getCriteriaBuilder();
             final var query = builder.createQuery(targetClass);
             final var root = query.from(targetClass);

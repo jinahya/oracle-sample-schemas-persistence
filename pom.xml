@@ -146,6 +146,10 @@
     <version.org.projectlombok>1.18.48</version.org.projectlombok>
     <!-- https://central.sonatype.com/artifact/org.slf4j/slf4j-bom/versions -->
     <version.org.slf4j>2.0.19</version.org.slf4j>
+    <!-- https://central.sonatype.com/artifact/org.springframework.boot/spring-boot-dependencies/versions -->
+    <!-- test scope only, and deliberately NOT imported as a BOM: spring-boot-dependencies manages -->
+    <!-- Hibernate, JUnit, AssertJ, Jackson, H2, ... and would override the versions this build pins -->
+    <version.org.springframework.boot>4.1.1</version.org.springframework.boot>
     <eclipselink.woven>false</eclipselink.woven>
   </properties>
 
@@ -163,6 +167,11 @@
         <version>2.20.1</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency><!-- https://central.sonatype.com/artifact/com.zaxxer/HikariCP/versions -->
+        <groupId>com.zaxxer</groupId>
+        <artifactId>HikariCP</artifactId>
+        <version>7.0.2</version>
       </dependency>
       <dependency>
         <groupId>com.h2database</groupId>
@@ -228,10 +237,25 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <dependency><!-- spring-core asks for 1.0.0, micrometer (via spring-context) for 1.0.1 -->
+        <groupId>org.jspecify</groupId>
+        <artifactId>jspecify</artifactId>
+        <version>1.0.1</version>
+      </dependency>
       <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-junit-jupiter</artifactId>
         <version>${version.org.mockito}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-autoconfigure</artifactId>
+        <version>${version.org.springframework.boot}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-data-jpa-test</artifactId>
+        <version>${version.org.springframework.boot}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>

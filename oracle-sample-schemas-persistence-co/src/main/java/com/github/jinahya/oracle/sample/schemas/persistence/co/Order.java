@@ -21,11 +21,11 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  */
 
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.Converter;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,7 +38,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -174,29 +173,12 @@ public class Order {
      */
     public static final int SIZE_MAX_ORDER_STATUS = COLUMN_LENGTH_ORDER_STATUS;
 
-    // -------------------------------------------------------------------------------------------------------- STORE_ID
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE} attribute maps. The value is {@value}.
-     */
-    public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_STORE = "store";
-
-    /**
-     * The name of the attribute which maps the order items of this order. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ORDER_ITEMS = "orderItems";
-
     /**
      * An enum for the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
      *
      * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
      */
-    public enum _OrderStatus {
+    public enum OrderStatus {
 
         /**
          * A constant for the {@value Order#COLUMN_VALUE_ORDER_STATUS_OPEN} value, for an order which is still open.
@@ -238,56 +220,22 @@ public class Order {
         // 완료?
         COMPLETE;
     }
+    // -------------------------------------------------------------------------------------------------------- STORE_ID
 
     /**
-     * An {@link AttributeConverter} between an enum constant and its {@link Enum#name() name}.
-     *
-     * @param <E> enum type parameter
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE} attribute maps. The value is {@value}.
      */
-    public abstract static class __OrderStatusConverter<E extends Enum<E>> implements AttributeConverter<E, String> {
-        // ------------------------------------------------------------------------------------------------ CONSTRUCTORS
-
-        /**
-         * Creates a new instance for the specified enum class.
-         *
-         * @param enumClass the enum class to convert.
-         */
-        protected __OrderStatusConverter(final Class<E> enumClass) {
-            super();
-            this.enumClass = Objects.requireNonNull(enumClass, "enumClass is null");
-        }
-
-        @Override
-        public String convertToDatabaseColumn(final E attribute) {
-            return attribute == null ? null : attribute.name();
-        }
-
-        @Override
-        public E convertToEntityAttribute(final String dbData) {
-            return dbData == null ? null : Enum.valueOf(enumClass, dbData);
-        }
-
-        // -------------------------------------------------------------------------------------------------------------
-
-        /**
-         * The enum class which this converter converts.
-         */
-        protected final Class<E> enumClass;
-    }
+    public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
     /**
-     * An attribute converter for the {@link _OrderStatus} enum.
-     *
-     * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+     * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
      */
-    @Converter(autoApply = true)
-    public static class _OrderStatusConverter extends __OrderStatusConverter<_OrderStatus> {
-        // ------------------------------------------------------------------------------------------------ CONSTRUCTORS
+    public static final String ATTRIBUTE_NAME_STORE = "store";
 
-        _OrderStatusConverter() {
-            super(_OrderStatus.class);
-        }
-    }
+    /**
+     * The name of the attribute which maps the order items of this order. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_ORDER_ITEMS = "orderItems";
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -305,9 +253,11 @@ public class Order {
         return super.toString() + '{' +
                "orderId=" + orderId +
                ",orderTms=" + orderTms +
-               ",customer=" + customer +
+               ",customeIdr=" + customerId +
+//               ",customer=" + customer +
                ",orderStatus=" + orderStatus +
-               ",store=" + store +
+               ",storeId=" + storeId +
+//               ",store=" + store +
                '}';
     }
 
@@ -497,6 +447,16 @@ public class Order {
         );
     }
 
+    // ------------------------------------------------------------------------------------------------------ customerId
+    @Nonnull
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    protected void setCustomerId(@Nonnull final Long customerId) {
+        this.customerId = customerId;
+    }
+
     // -------------------------------------------------------------------------------------------------------- customer
 
     /**
@@ -516,6 +476,9 @@ public class Order {
      */
     public void setCustomer(@Nonnull final Customer customer) {
         this.customer = customer;
+        setCustomerId(
+                Optional.ofNullable(this.customer).map(Customer::getCustomerId).orElse(null)
+        );
     }
 
     // ----------------------------------------------------------------------------------------------------- orderStatus
@@ -526,7 +489,7 @@ public class Order {
      * @return current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
      */
     @Nonnull
-    public String getOrderStatus() {
+    public OrderStatus getOrderStatus() {
         return orderStatus;
     }
 
@@ -535,71 +498,18 @@ public class Order {
      *
      * @param orderStatus new value for {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
      */
-    public void setOrderStatus(@Nonnull final String orderStatus) {
+    public void setOrderStatus(@Nonnull final OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
 
-    /**
-     * Returns current value of the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute, mapped by the specified function.
-     *
-     * @param <R>    the type of the mapped value.
-     * @param mapper the function to apply to current value of the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
-     * @return the mapped value; {@code null} when the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute is {@code null}.
-     */
-    public <R> R getOrderStatusAsMapped(final Function<? super String, ? extends R> mapper) {
-        return Optional.ofNullable(getOrderStatus())
-                .map(v -> Objects.requireNonNull(mapper, "mapper is null").apply(v))
-                .orElse(null);
+    // --------------------------------------------------------------------------------------------------------- storeId
+    @Nonnull
+    public Long getStoreId() {
+        return storeId;
     }
 
-    /**
-     * Replaces current value of the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute with the specified value, mapped by
-     * the specified function.
-     *
-     * @param <T>         the type of the specified value.
-     * @param orderStatus the value to map and set.
-     * @param mapper      the function which maps the specified value.
-     */
-    public <T> void setOrderStatusFromMapped(final T orderStatus,
-                                             final Function<? super T, ? extends CharSequence> mapper) {
-        setOrderStatus(
-                Optional.ofNullable(orderStatus)
-                        .map(v -> Objects.requireNonNull(mapper, "mapper is null").apply(v))
-                        .map(CharSequence::toString)
-                        .orElse(null)
-        );
-    }
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute as an enum value of the specified enum
-     * class.
-     *
-     * @param enumClass the enum class.
-     * @param <E>       enum type parameter.
-     * @return current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute as an enum value of {@code enumClass};
-     * {@code null} if the attribute value is currently {@code null}.
-     * @throws NullPointerException     if {@code enumClass} is {@code null}.
-     * @throws IllegalArgumentException when no constant of {@code enumClass} is named by the current value.
-     * @see Enum#valueOf(Class, String)
-     */
-    public <E extends Enum<E>> E getOrderStatusAsEnum(final Class<E> enumClass) {
-        Objects.requireNonNull(enumClass, "enumClass is null");
-        return getOrderStatusAsMapped(
-                v -> Enum.valueOf(enumClass, v)
-        );
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute with the specified value.
-     *
-     * @param enumValue new value for {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
-     */
-    @Transient
-    public void setOrderStatusFromEnum(final Enum<?> enumValue) {
-        setOrderStatusFromMapped(
-                enumValue,
-                Enum::name
-        );
+    protected void setStoreId(@Nonnull final Long storeId) {
+        this.storeId = storeId;
     }
 
     // ----------------------------------------------------------------------------------------------------------- store
@@ -621,7 +531,12 @@ public class Order {
      */
     public void setStore(@Nonnull final Store store) {
         this.store = store;
+        setStoreId(
+                Optional.ofNullable(this.store).map(Store::getStoreId).orElse(null)
+        );
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Returns the total price of this order, summed over its order items.
@@ -699,24 +614,39 @@ public class Order {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Valid
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
-    private Customer customer;
+    @NotNull
+    @Basic(optional = false, fetch = FetchType.LAZY)
+    @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
+    private Long customerId;
 
     @Nonnull
-    @Size(max = SIZE_MAX_ORDER_STATUS)
+    @Valid
     @NotNull
-    @Basic(optional = false)
-    @Column(name = COLUMN_NAME_ORDER_STATUS, nullable = false, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_ORDER_STATUS)
-    private String orderStatus;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false)
+    private Customer customer;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_ORDER_STATUS, nullable = false, insertable = true, updatable = true,
+            length = COLUMN_LENGTH_ORDER_STATUS)
+    private OrderStatus orderStatus;
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
+    @NotNull
+    @Basic(optional = false, fetch = FetchType.LAZY)
+    @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
+    private Long storeId;
+
+    @Nonnull
     @Valid
+    @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
     private Store store;
 
     // -----------------------------------------------------------------------------------------------------------------

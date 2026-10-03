@@ -46,11 +46,14 @@ class OrderItemWithEmbeddedId_Persister extends AbstractEntityPersister<OrderIte
     @Override
     public OrderItemWithEmbeddedId apply(final EntityManager entityManager,
                                          final OrderItemWithEmbeddedId entityInstance) {
-        entityInstance.setOrder(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Order.class));
-        entityInstance.setProduct(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class));
-        if (ThreadLocalRandom.current().nextBoolean()) {
-            entityInstance.setShipment(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Shipment.class));
-        }
+        final var order = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Order.class);
+        final var product= EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class);
+        final Shipment shipment = ThreadLocalRandom.current().nextBoolean() ? null:
+            EntityPersisterUtils.newPersistedInstanceOf(entityManager, Shipment.class);
+        entityManager.flush();
+        entityInstance.setOrder(order);
+        entityInstance.setProduct(product);
+        entityInstance.setShipment(shipment);
         // LINE_ITEM_ID is not generated -- it numbers the item within its order -- so nothing but this assigns it.
         entityInstance.getId().setLineItemId(ThreadLocalRandom.current().nextLong(1, 100));
         return super.apply(entityManager, entityInstance);

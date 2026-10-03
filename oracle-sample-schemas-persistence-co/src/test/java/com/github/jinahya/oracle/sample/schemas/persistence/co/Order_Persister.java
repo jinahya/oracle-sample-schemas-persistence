@@ -42,8 +42,11 @@ class Order_Persister extends AbstractEntityPersister<Order> {
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     public Order apply(final EntityManager entityManager, final Order entityInstance) {
-        entityInstance.setCustomer(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Customer.class));
-        entityInstance.setStore(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Store.class));
+        final var customer = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Customer.class);
+        final var store = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Store.class);
+        entityManager.flush();
+        entityInstance.setCustomer(customer);
+        entityInstance.setStore(store);
         return super.apply(entityManager, entityInstance);
     }
 }

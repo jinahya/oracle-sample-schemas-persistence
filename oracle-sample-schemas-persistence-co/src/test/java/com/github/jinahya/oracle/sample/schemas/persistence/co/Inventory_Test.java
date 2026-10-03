@@ -45,6 +45,6 @@ class Inventory_Test extends _Test<Inventory> {
     @Override
     protected SingleTypeEqualsVerifierApi<Inventory> equals_verifier_() {
         return super.equals_verifier_()
-                .withOnlyTheseFields(Inventory.ATTRIBUTE_NAME_STORE, Inventory.ATTRIBUTE_NAME_PRODUCT);
+                .withOnlyTheseFields(Inventory.ATTRIBUTE_NAME_STORE_ID, Inventory.ATTRIBUTE_NAME_PRODUCT_ID);
     }
 }

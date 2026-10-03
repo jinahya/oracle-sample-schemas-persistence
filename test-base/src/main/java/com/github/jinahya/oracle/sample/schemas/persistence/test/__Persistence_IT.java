@@ -28,6 +28,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.metamodel.ManagedType;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.experimental.Accessors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -208,6 +209,7 @@ public abstract class __Persistence_IT<T> extends __Test<T> {
      */
     @__ItPU
     @Inject
+    @Accessors(fluent = true)
     @Getter(AccessLevel.PROTECTED)
     private EntityManager entityManager;
 
@@ -216,6 +218,7 @@ public abstract class __Persistence_IT<T> extends __Test<T> {
      */
     @__ItPU
     @Inject
+    @Accessors(fluent = true)
     @Getter(AccessLevel.PROTECTED)
     private EntityManagerFactory entityManagerFactory;
 
@@ -224,6 +227,7 @@ public abstract class __Persistence_IT<T> extends __Test<T> {
      */
     @__ItPU
     @Inject
+    @Accessors(fluent = true)
     @Getter(AccessLevel.PROTECTED)
     private Instance<EntityManager> entityManagers;
 }

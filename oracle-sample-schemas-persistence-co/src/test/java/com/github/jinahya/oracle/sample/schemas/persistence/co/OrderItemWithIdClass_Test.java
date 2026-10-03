@@ -46,6 +46,7 @@ class OrderItemWithIdClass_Test extends _Test<OrderItemWithIdClass> {
     @Override
     protected SingleTypeEqualsVerifierApi<OrderItemWithIdClass> equals_verifier_() {
         return super.equals_verifier_()
+//                .withOnlyTheseFields(OrderItemWithIdClass.ATTRIBUTE_NAME_PRODUCT_ID, OrderItemWithIdClass.ATTRIBUTE_NAME_ORDER_ID)
                 .suppress(Warning.SURROGATE_KEY);
     }
 }

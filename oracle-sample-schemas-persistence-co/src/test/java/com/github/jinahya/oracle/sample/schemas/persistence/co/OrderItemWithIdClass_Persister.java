@@ -48,14 +48,13 @@ class OrderItemWithIdClass_Persister extends AbstractEntityPersister<OrderItemWi
     @Override
     public OrderItemWithIdClass apply(final EntityManager entityManager, final OrderItemWithIdClass entityInstance) {
         final var order = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Order.class);
-        // ORDER_ID is part of the primary key, so the association is still mirrored into it by setOrder, which
-        // copies the id it sees; EclipseLink assigns an IDENTITY id only on flush, hence the flush before the set.
+        final var product = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class);
+        final Shipment shipment = ThreadLocalRandom.current().nextBoolean() ? null :
+                                  EntityPersisterUtils.newPersistedInstanceOf(entityManager, Shipment.class);
         entityManager.flush();
         entityInstance.setOrder(order);
-        entityInstance.setProduct(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class));
-        if (ThreadLocalRandom.current().nextBoolean()) {
-            entityInstance.setShipment(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Shipment.class));
-        }
+        entityInstance.setProduct(product);
+        entityInstance.setShipment(shipment);
         // LINE_ITEM_ID is not generated -- it numbers the item within its order -- so nothing but this assigns it.
         entityInstance.setLineItemId(ThreadLocalRandom.current().nextLong(1, 100));
         return super.apply(entityManager, entityInstance);
