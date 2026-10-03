@@ -37,7 +37,7 @@ import java.math.MathContext;
 import java.util.Objects;
 
 @MappedSuperclass
-public abstract class MappedOrderItem {
+public abstract class MappedOrderItem<T extends MappedOrderItemId> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -262,7 +262,8 @@ public abstract class MappedOrderItem {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
      */
-    protected abstract OrderItemId getId_();
+    @Transient
+    protected abstract T getId_();
 
     // ------------------------------------------------------------------------------------------------------- productId
     @Nonnull
