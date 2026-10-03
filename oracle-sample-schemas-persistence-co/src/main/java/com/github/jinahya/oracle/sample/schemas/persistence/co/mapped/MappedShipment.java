@@ -22,9 +22,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co.mapped;
 
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
+import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.Convert;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -201,15 +201,72 @@ public abstract class MappedShipment {
          * A constant for the {@value MappedShipment#COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT} value, for a shipment
          * which is in transit. Note that the column value is not this constant's {@link Enum#name() name}.
          */
-        // 배송/운송 중?
-        IN_TRANSIT,
+        // 배송 중?
+        IN_TRANSIT(COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT),
 
         /**
          * A constant for the {@value MappedShipment#COLUMN_VALUE_SHIPMENT_STATUS_DELIVERED} value, for a shipment which
          * has been delivered.
          */
-        // 배달됨?
+        // 배송 왼료?
         DELIVERED;
+
+        // -------------------------------------------------------------------------------------------------------------
+        ShipmentStatus(final String columnValue) {
+            this.columnValue = columnValue;
+        }
+
+        ShipmentStatus() {
+            this(null);
+        }
+
+        // ------------------------------------------------------------------------------------------------------------- columnValue
+        public String columnValue() {
+            if (columnValue != null) {
+                return columnValue;
+            }
+            return name();
+        }
+
+        // -------------------------------------------------------------------------------------------------------------
+        public final String columnValue;
+    }
+
+    /**
+     * A converter between {@link ShipmentStatus} and the {@value #COLUMN_NAME_SHIPMENT_STATUS} column, by
+     * {@link ShipmentStatus#columnValue()} rather than {@link Enum#name()}.
+     *
+     * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+     */
+    public static class ShipmentStatusConverter implements AttributeConverter<ShipmentStatus, String> {
+
+        /**
+         * Creates a new instance.
+         */
+        public ShipmentStatusConverter() {
+            super();
+        }
+
+        @Override
+        public String convertToDatabaseColumn(final ShipmentStatus attribute) {
+            if (attribute == null) {
+                return null;
+            }
+            return attribute.columnValue();
+        }
+
+        @Override
+        public ShipmentStatus convertToEntityAttribute(final String dbData) {
+            if (dbData == null) {
+                return null;
+            }
+            for (final var value : ShipmentStatus.values()) {
+                if (value.columnValue().equals(dbData)) {
+                    return value;
+                }
+            }
+            throw new IllegalArgumentException("no shipment status for '" + dbData + "'");
+        }
     }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
@@ -392,7 +449,7 @@ public abstract class MappedShipment {
 
     @Nonnull
     @NotNull
-    @Enumerated(value = EnumType.STRING)
+    @Convert(converter = ShipmentStatusConverter.class)
     @Column(name = COLUMN_NAME_SHIPMENT_STATUS,
             nullable = false,
             insertable = true,
