@@ -78,12 +78,15 @@ public class OrderItemWithIdClass {
     public static final String COLUMN_NAME_ORDER_ID = "ORDER_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_ID} column. The value is {@value}.
+     * The name of the {@link jakarta.persistence.Id @Id} attribute which maps, and writes, the
+     * {@value #COLUMN_NAME_ORDER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_ID} column. The value is {@value}.
+     * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on the
+     * {@value #COLUMN_NAME_ORDER_ID} column. The association is read-only; the column is written through the
+     * {@value #ATTRIBUTE_NAME_ORDER_ID} attribute. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER = "order";
 
@@ -96,11 +99,12 @@ public class OrderItemWithIdClass {
     public static final String COLUMN_NAME_LINE_ITEM_ID = "LINE_ITEM_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_LINE_ITEM_ID} column. The value is {@value}.
+     * The name of the {@link jakarta.persistence.Id @Id} attribute which maps the {@value #COLUMN_NAME_LINE_ITEM_ID}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LINE_ITEM_ID = "lineItemId";
 
-    // -------------------------------------------------------------------------------- PRODUCT_ID / productId / product
+    // -------------------------------------------------------------------------------------------- PRODUCT_ID / product
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT} attribute maps. The value is
@@ -108,14 +112,10 @@ public class OrderItemWithIdClass {
      */
     public static final String COLUMN_NAME_PRODUCT_ID = "PRODUCT_ID";
 
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_ID} column, alongside the
-     * {@value #ATTRIBUTE_NAME_PRODUCT} association. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_PRODUCT_ID = "productId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
+     * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on the
+     * {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
@@ -155,7 +155,7 @@ public class OrderItemWithIdClass {
      */
     public static final String COLUMN_NAME_QUANTITY = "QUANTITY";
 
-    // ----------------------------------------------------------------------------- SHIPMENT_ID / shipmentId / shipment
+    // ------------------------------------------------------------------------------------------ SHIPMENT_ID / shipment
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_SHIPMENT} attribute maps. The value is
@@ -163,14 +163,10 @@ public class OrderItemWithIdClass {
      */
     public static final String COLUMN_NAME_SHIPMENT_ID = "SHIPMENT_ID";
 
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_SHIPMENT_ID} column, alongside the
-     * {@value #ATTRIBUTE_NAME_SHIPMENT} association. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_SHIPMENT_ID = "shipmentId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_SHIPMENT_ID} column. The value is {@value}.
+     * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on the
+     * {@value #COLUMN_NAME_SHIPMENT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT = "shipment";
 
@@ -200,15 +196,21 @@ public class OrderItemWithIdClass {
                "orderId=" + orderId +
 //               "order=" + order +
                ", lineItemId=" + lineItemId +
-               ", productId=" + productId +
 //               ", product=" + product +
                ", unitPrice=" + unitPrice +
                ", quantity=" + quantity +
-               ", shipmentId=" + shipmentId +
 //               ", shipment=" + shipment +
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the two {@code @Id} attributes, {@value #ATTRIBUTE_NAME_ORDER_ID} and
+     * {@value #ATTRIBUTE_NAME_LINE_ITEM_ID}, alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof OrderItemWithIdClass that)) {
@@ -217,6 +219,12 @@ public class OrderItemWithIdClass {
         return Objects.equals(getId(), that.getId());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the two {@code @Id} attributes, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(getId());
@@ -225,6 +233,13 @@ public class OrderItemWithIdClass {
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns a new {@link OrderItemId} holding current values of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute and
+     * {@value #ATTRIBUTE_NAME_LINE_ITEM_ID} attribute.
+     *
+     * @return a new {@link OrderItemId} holding current values of the two {@code @Id} attributes.
+     */
     @Transient
     protected OrderItemId getId() {
         return OrderItemId.of(getOrderId(), getLineItemId());
@@ -264,7 +279,8 @@ public class OrderItemWithIdClass {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER} attribute with the specified value, and current value
+     * of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute with the specified value's identifier.
      *
      * @param order new value for {@value #ATTRIBUTE_NAME_ORDER} attribute.
      */
@@ -298,16 +314,6 @@ public class OrderItemWithIdClass {
         this.lineItemId = lineItemId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- productId
-    @Nonnull
-    public Long getProductId() {
-        return productId;
-    }
-
-    protected void setProductId(@Nonnull final Long productId) {
-        this.productId = productId;
-    }
-
     // --------------------------------------------------------------------------------------------------------- product
 
     /**
@@ -327,11 +333,6 @@ public class OrderItemWithIdClass {
      */
     protected void setProduct(@Nonnull final Product product) {
         this.product = product;
-        setProductId(
-                Optional.ofNullable(this.product)
-                        .map(Product::getProductId)
-                        .orElse(null)
-        );
     }
 
     // ------------------------------------------------------------------------------------------------------- unitPrice
@@ -374,16 +375,6 @@ public class OrderItemWithIdClass {
         this.quantity = quantity;
     }
 
-    // ------------------------------------------------------------------------------------------------------ shipmentId
-    @Nullable
-    public Long getShipmentId() {
-        return shipmentId;
-    }
-
-    protected void setShipmentId(@Nullable final Long shipmentId) {
-        this.shipmentId = shipmentId;
-    }
-
     // -------------------------------------------------------------------------------------------------------- shipment
 
     /**
@@ -399,23 +390,20 @@ public class OrderItemWithIdClass {
     /**
      * Replaces the shipment which carries this order item.
      *
-     * @param shipment new shipment which carries this order item.
+     * @param shipment new shipment which carries this order item; {@code null} for an item not yet shipped.
      */
     public void setShipment(@Nullable final Shipment shipment) {
         this.shipment = shipment;
-        setShipmentId(
-                Optional.ofNullable(this.shipment)
-                        .map(Shipment::getShipmentId)
-                        .orElse(null)
-        );
     }
 
     /**
      * Returns the total price of this order item which is {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute multiplied by
      * {@value #ATTRIBUTE_NAME_QUANTITY} attribute.
      *
-     * @param mc a math context to use.
+     * @param mc a math context to use; {@code null} for an unlimited precision.
      * @return the total price of this item.
+     * @throws IllegalStateException if either {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute or
+     *                               {@value #ATTRIBUTE_NAME_QUANTITY} attribute is {@code null}.
      */
     @Transient
     public BigDecimal getTotalPrice(@Nullable final MathContext mc) {
@@ -506,15 +494,6 @@ public class OrderItemWithIdClass {
     private Long lineItemId;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = COLUMN_NAME_PRODUCT_ID,
-            nullable = false,
-            insertable = true,
-            updatable = false
-    )
-    private Long productId;
 
     @Nonnull
     @Valid
@@ -523,7 +502,7 @@ public class OrderItemWithIdClass {
     @JoinColumn(name = COLUMN_NAME_PRODUCT_ID,
                 referencedColumnName = Product.COLUMN_NAME_PRODUCT_ID,
                 nullable = false,
-                insertable = false,
+                insertable = true,
                 updatable = false
     )
     private Product product;
@@ -550,11 +529,6 @@ public class OrderItemWithIdClass {
     private Long quantity;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nullable
-    @Basic(optional = true)
-    // the only mutable foreign key here: an item is shipped after it is ordered
-    @Column(name = COLUMN_NAME_SHIPMENT_ID, nullable = true, insertable = true, updatable = true)
-    private Long shipmentId;
 
     @Nullable
     @Valid
@@ -562,8 +536,8 @@ public class OrderItemWithIdClass {
     @JoinColumn(name = COLUMN_NAME_SHIPMENT_ID,
                 referencedColumnName = Shipment.COLUMN_NAME_SHIPMENT_ID,
                 nullable = true,
-                insertable = false,
-                updatable = false
+                insertable = true,
+                updatable = true
     )
     private Shipment shipment;
 }

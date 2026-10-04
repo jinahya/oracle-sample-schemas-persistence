@@ -83,7 +83,10 @@ public class OrderItemWithEmbeddedId {
     public static final String ATTRIBUTE_NAME_ID_ORDER_ID = "id.orderId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_ID} column. The value is {@value}.
+     * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which maps the
+     * {@value #COLUMN_NAME_ORDER_ID} column. The association is {@link jakarta.persistence.MapsId @MapsId} to the
+     * {@value #ATTRIBUTE_NAME_ID_ORDER_ID} attribute, so it is the association which writes the column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER = "order";
 
@@ -104,7 +107,7 @@ public class OrderItemWithEmbeddedId {
      */
     public static final String ATTRIBUTE_NAME_ID = "id";
 
-    // -------------------------------------------------------------------------------- PRODUCT_ID / productId / product
+    // -------------------------------------------------------------------------------------------- PRODUCT_ID / product
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT} attribute maps. The value is
@@ -112,10 +115,10 @@ public class OrderItemWithEmbeddedId {
      */
     public static final String COLUMN_NAME_PRODUCT_ID = "PRODUCT_ID";
 
-    public static final String ATTRIBUTE_NAME_PRODUCT_ID = "productId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
+     * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on the
+     * {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
@@ -155,9 +158,12 @@ public class OrderItemWithEmbeddedId {
      */
     public static final String COLUMN_NAME_QUANTITY = "QUANTITY";
 
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_QUANTITY} column. The value is {@value}.
+     */
     public static final String ATTRIBUTE_NAME_QUANTITY = "quantity";
 
-    // ----------------------------------------------------------------------------- SHIPMENT_ID / shipmentId / shipment
+    // ------------------------------------------------------------------------------------------ SHIPMENT_ID / shipment
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_SHIPMENT} attribute maps. The value is
@@ -165,10 +171,10 @@ public class OrderItemWithEmbeddedId {
      */
     public static final String COLUMN_NAME_SHIPMENT_ID = "SHIPMENT_ID";
 
-    public static final String ATTRIBUTE_NAME_SHIPMENT_ID = "shipmentId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_SHIPMENT_ID} column. The value is {@value}.
+     * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on the
+     * {@value #COLUMN_NAME_SHIPMENT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT = "shipment";
 
@@ -193,15 +199,20 @@ public class OrderItemWithEmbeddedId {
         return super.toString() + '{' +
                "id=" + id +
 //               ", order=" + order +
-               ", productId=" + productId +
 //               ", product=" + product +
                ", unitPrice=" + unitPrice +
                ", quantity=" + quantity +
-               ", shipmentId=" + shipmentId +
 //               ", shipment=" + shipment +
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof OrderItemWithEmbeddedId that)) {
@@ -210,6 +221,12 @@ public class OrderItemWithEmbeddedId {
         return Objects.equals(getId(), that.getId());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(getId());
@@ -238,11 +255,24 @@ public class OrderItemWithEmbeddedId {
     }
 
     // --------------------------------------------------------------------------------------------------------- orderId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_ID_ORDER_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_ID_ORDER_ID} attribute; {@code null} when
+     * {@value #ATTRIBUTE_NAME_ID} attribute is {@code null}.
+     */
     @Transient
     public Long getOrderId() {
         return Optional.ofNullable(getId()).map(OrderItemId::getOrderId).orElse(null);
     }
 
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ID_ORDER_ID} attribute with the specified value, creating the
+     * {@value #ATTRIBUTE_NAME_ID} attribute first when it is {@code null}.
+     *
+     * @param orderId new value for {@value #ATTRIBUTE_NAME_ID_ORDER_ID} attribute.
+     */
     protected void setOrderId(final Long orderId) {
         Optional.ofNullable(getId())
                 .orElseGet(() -> {
@@ -265,7 +295,8 @@ public class OrderItemWithEmbeddedId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER} attribute with the specified value, and current value
+     * of {@value #ATTRIBUTE_NAME_ID_ORDER_ID} attribute with the specified value's identifier.
      *
      * @param order new value for {@value #ATTRIBUTE_NAME_ORDER} attribute.
      */
@@ -274,16 +305,6 @@ public class OrderItemWithEmbeddedId {
         setOrderId(
                 Optional.ofNullable(this.order).map(Order::getOrderId).orElse(null)
         );
-    }
-
-    // ------------------------------------------------------------------------------------------------------- productId
-    @Nonnull
-    public Long getProductId() {
-        return productId;
-    }
-
-    protected void setProductId(@Nonnull final Long productId) {
-        this.productId = productId;
     }
 
     // --------------------------------------------------------------------------------------------------------- product
@@ -305,9 +326,6 @@ public class OrderItemWithEmbeddedId {
      */
     protected void setProduct(@Nonnull final Product product) {
         this.product = product;
-        setProductId(
-                Optional.ofNullable(this.product).map(Product::getProductId).orElse(null)
-        );
     }
 
     // ------------------------------------------------------------------------------------------------------- unitPrice
@@ -350,16 +368,6 @@ public class OrderItemWithEmbeddedId {
         this.quantity = quantity;
     }
 
-    // ------------------------------------------------------------------------------------------------------ shipmentId
-    @Nullable
-    public Long getShipmentId() {
-        return shipmentId;
-    }
-
-    protected void setShipmentId(@Nullable final Long shipmentId) {
-        this.shipmentId = shipmentId;
-    }
-
     // -------------------------------------------------------------------------------------------------------- shipment
 
     /**
@@ -375,13 +383,10 @@ public class OrderItemWithEmbeddedId {
     /**
      * Replaces the shipment which carries this order item.
      *
-     * @param shipment new shipment which carries this order item.
+     * @param shipment new shipment which carries this order item; {@code null} for an item not yet shipped.
      */
     public void setShipment(@Nullable final Shipment shipment) {
         this.shipment = shipment;
-        setShipmentId(
-                Optional.ofNullable(this.shipment).map(Shipment::getShipmentId).orElse(null)
-        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -402,15 +407,6 @@ public class OrderItemWithEmbeddedId {
     private Order order;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = COLUMN_NAME_PRODUCT_ID,
-            nullable = false,
-            insertable = true,
-            updatable = false
-    )
-    private Long productId;
 
     @Nonnull
     @Valid
@@ -419,7 +415,7 @@ public class OrderItemWithEmbeddedId {
     @JoinColumn(name = COLUMN_NAME_PRODUCT_ID,
                 referencedColumnName = Product.COLUMN_NAME_PRODUCT_ID,
                 nullable = false,
-                insertable = false,
+                insertable = true,
                 updatable = false
     )
     private Product product;
@@ -446,10 +442,6 @@ public class OrderItemWithEmbeddedId {
     private Long quantity;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nullable
-    @Basic(optional = true)
-    @Column(name = COLUMN_NAME_SHIPMENT_ID, nullable = true, insertable = true, updatable = true)
-    private Long shipmentId;
 
     @Nullable
     @Valid
@@ -457,8 +449,8 @@ public class OrderItemWithEmbeddedId {
     @JoinColumn(name = COLUMN_NAME_SHIPMENT_ID,
                 referencedColumnName = Shipment.COLUMN_NAME_SHIPMENT_ID,
                 nullable = true,
-                insertable = false,
-                updatable = false
+                insertable = true,
+                updatable = true
     )
     private Shipment shipment;
 
@@ -468,8 +460,10 @@ public class OrderItemWithEmbeddedId {
      * Returns the total price of this order item which is {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute multiplied by
      * {@value #ATTRIBUTE_NAME_QUANTITY} attribute.
      *
-     * @param mc a math context to use.
+     * @param mc a math context to use; {@code null} for an unlimited precision.
      * @return the total price of this item.
+     * @throws IllegalStateException if either {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute or
+     *                               {@value #ATTRIBUTE_NAME_QUANTITY} attribute is {@code null}.
      */
     @Transient
     public BigDecimal getTotalPrice(@Nullable final MathContext mc) {

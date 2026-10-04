@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  */
 
 import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
+import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
 /**
@@ -45,6 +46,7 @@ class Inventory_Test extends _Test<Inventory> {
     @Override
     protected SingleTypeEqualsVerifierApi<Inventory> equals_verifier_() {
         return super.equals_verifier_()
-                .withOnlyTheseFields(Inventory.ATTRIBUTE_NAME_STORE_ID, Inventory.ATTRIBUTE_NAME_PRODUCT_ID);
+                .suppress(Warning.SURROGATE_KEY);
+//                .withOnlyTheseFields(Inventory.ATTRIBUTE_NAME_STORE_ID, Inventory.ATTRIBUTE_NAME_PRODUCT_ID);
     }
 }

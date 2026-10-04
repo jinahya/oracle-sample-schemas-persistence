@@ -21,8 +21,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  */
 
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.Basic;
 import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Converter;
@@ -41,7 +41,6 @@ import jakarta.validation.constraints.Size;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value Shipment#TABLE_NAME} table.
@@ -78,7 +77,8 @@ public class Shipment {
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
+     * The name of the {@link ManyToOne @ManyToOne} association which joins on the {@value #COLUMN_NAME_STORE_ID}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
@@ -91,7 +91,8 @@ public class Shipment {
     public static final String COLUMN_NAME_CUSTOMER_ID = "CUSTOMER_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUSTOMER_ID} column. The value is {@value}.
+     * The name of the {@link ManyToOne @ManyToOne} association which joins on the {@value #COLUMN_NAME_CUSTOMER_ID}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER = "customer";
 
@@ -178,29 +179,29 @@ public class Shipment {
     public enum ShipmentStatus {
 
         /**
-         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_CREATED} value, for a shipment which
-         * has been created.
+         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_CREATED} value, for a shipment which has
+         * been created.
          */
         // 준비 중?
         CREATED,
 
         /**
-         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_SHIPPED} value, for a shipment which
-         * has been shipped.
+         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_SHIPPED} value, for a shipment which has
+         * been shipped.
          */
         // 발송/출고?
         SHIPPED,
 
         /**
-         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT} value, for a shipment
-         * which is in transit. Note that the column value is not this constant's {@link Enum#name() name}.
+         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT} value, for a shipment which is
+         * in transit. Note that the column value is not this constant's {@link Enum#name() name}.
          */
         // 배송 중?
         IN_TRANSIT(COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT),
 
         /**
-         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_DELIVERED} value, for a shipment which
-         * has been delivered.
+         * A constant for the {@value Shipment#COLUMN_VALUE_SHIPMENT_STATUS_DELIVERED} value, for a shipment which has
+         * been delivered.
          */
         // 배송 왼료?
         DELIVERED;
@@ -215,6 +216,14 @@ public class Shipment {
         }
 
         // ------------------------------------------------------------------------------------------------------------- columnValue
+
+        /**
+         * Returns the value of the {@value Shipment#COLUMN_NAME_SHIPMENT_STATUS} column which this constant
+         * represents.
+         *
+         * @return the column value of this constant; the constant's {@link Enum#name() name} unless it declares its
+         * own.
+         */
         public String columnValue() {
             if (columnValue != null) {
                 return columnValue;
@@ -223,6 +232,13 @@ public class Shipment {
         }
 
         // -------------------------------------------------------------------------------------------------------------
+
+        /**
+         * The column value this constant declares; {@code null} for a constant whose column value is its
+         * {@link Enum#name() name}.
+         *
+         * @see #columnValue()
+         */
         public final String columnValue;
     }
 
@@ -273,6 +289,10 @@ public class Shipment {
     public static final String ATTRIBUTE_NAME_ORDER_ITEMS = "orderItems";
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DELIVERY_ADDRESS} column. The value is {@value}.
+     */
     public static final String ATTRIBUTE_NAME_DELIVERY_ADDRESS = "deliveryAddress";
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
@@ -290,15 +310,20 @@ public class Shipment {
     public String toString() {
         return super.toString() + '{' +
                "shipmentId=" + shipmentId +
-               ",storeId=" + storeId +
 //               ",store=" + store +
-               ",customerId=" + customerId +
 //               ",customer=" + customer +
                ",deliveryAddress=" + deliveryAddress +
                ",shipmentStatus=" + shipmentStatus +
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Shipment that)) {
@@ -307,6 +332,12 @@ public class Shipment {
         return Objects.equals(getShipmentId(), that.getShipmentId());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(getShipmentId());
@@ -332,17 +363,6 @@ public class Shipment {
         this.shipmentId = shipmentId;
     }
 
-    // --------------------------------------------------------------------------------------------------------- storeId
-
-    @Nonnull
-    public Long getStoreId() {
-        return storeId;
-    }
-
-    protected void setStoreId(@Nonnull final Long storeId) {
-        this.storeId = storeId;
-    }
-
     // ----------------------------------------------------------------------------------------------------------- store
 
     /**
@@ -362,19 +382,6 @@ public class Shipment {
      */
     public void setStore(@Nonnull final Store store) {
         this.store = store;
-        setStoreId(
-                Optional.ofNullable(this.store).map(Store::getStoreId).orElse(null)
-        );
-    }
-
-    // ------------------------------------------------------------------------------------------------------ customerId
-    @Nonnull
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    protected void setCustomerId(@Nonnull final Long customerId) {
-        this.customerId = customerId;
     }
 
     // -------------------------------------------------------------------------------------------------------- customer
@@ -396,9 +403,6 @@ public class Shipment {
      */
     public void setCustomer(@Nonnull final Customer customer) {
         this.customer = customer;
-        setCustomerId(
-                Optional.ofNullable(this.customer).map(Customer::getCustomerId).orElse(null)
-        );
     }
 
     // ------------------------------------------------------------------------------------------------- deliveryAddress
@@ -475,32 +479,21 @@ public class Shipment {
     private Long shipmentId;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @Valid
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
-    private Long storeId;
 
     @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
     private Store store;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
-    private Long customerId;
 
     @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
     private Customer customer;
 
     // -----------------------------------------------------------------------------------------------------------------

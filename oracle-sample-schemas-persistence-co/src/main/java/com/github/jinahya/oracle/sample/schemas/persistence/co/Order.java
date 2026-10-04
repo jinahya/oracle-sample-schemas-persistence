@@ -105,7 +105,8 @@ public class Order {
     public static final String COLUMN_NAME_CUSTOMER_ID = "CUSTOMER_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUSTOMER_ID} column. The value is {@value}.
+     * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on the
+     * {@value #COLUMN_NAME_CUSTOMER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER = "customer";
 
@@ -223,12 +224,14 @@ public class Order {
     // -------------------------------------------------------------------------------------------------------- STORE_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
+     * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on the
+     * {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
@@ -253,14 +256,19 @@ public class Order {
         return super.toString() + '{' +
                "orderId=" + orderId +
                ",orderTms=" + orderTms +
-               ",customeIdr=" + customerId +
 //               ",customer=" + customer +
                ",orderStatus=" + orderStatus +
-               ",storeId=" + storeId +
 //               ",store=" + store +
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
     @Override
     public boolean equals(final Object obj) {
         if (!(obj instanceof Order that)) {
@@ -269,6 +277,12 @@ public class Order {
         return Objects.equals(getOrderId(), that.getOrderId());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public int hashCode() {
         return Objects.hashCode(getOrderId());
@@ -447,16 +461,6 @@ public class Order {
         );
     }
 
-    // ------------------------------------------------------------------------------------------------------ customerId
-    @Nonnull
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    protected void setCustomerId(@Nonnull final Long customerId) {
-        this.customerId = customerId;
-    }
-
     // -------------------------------------------------------------------------------------------------------- customer
 
     /**
@@ -476,9 +480,6 @@ public class Order {
      */
     public void setCustomer(@Nonnull final Customer customer) {
         this.customer = customer;
-        setCustomerId(
-                Optional.ofNullable(this.customer).map(Customer::getCustomerId).orElse(null)
-        );
     }
 
     // ----------------------------------------------------------------------------------------------------- orderStatus
@@ -502,16 +503,6 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    // --------------------------------------------------------------------------------------------------------- storeId
-    @Nonnull
-    public Long getStoreId() {
-        return storeId;
-    }
-
-    protected void setStoreId(@Nonnull final Long storeId) {
-        this.storeId = storeId;
-    }
-
     // ----------------------------------------------------------------------------------------------------------- store
 
     /**
@@ -531,9 +522,6 @@ public class Order {
      */
     public void setStore(@Nonnull final Store store) {
         this.store = store;
-        setStoreId(
-                Optional.ofNullable(this.store).map(Store::getStoreId).orElse(null)
-        );
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -609,17 +597,12 @@ public class Order {
     private LocalDateTime orderTms;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @NotNull
-    @Basic(optional = false, fetch = FetchType.LAZY)
-    @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
-    private Long customerId;
 
     @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
     private Customer customer;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -632,17 +615,12 @@ public class Order {
     private OrderStatus orderStatus;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @NotNull
-    @Basic(optional = false, fetch = FetchType.LAZY)
-    @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
-    private Long storeId;
 
     @Nonnull
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
     private Store store;
 
     // -----------------------------------------------------------------------------------------------------------------
