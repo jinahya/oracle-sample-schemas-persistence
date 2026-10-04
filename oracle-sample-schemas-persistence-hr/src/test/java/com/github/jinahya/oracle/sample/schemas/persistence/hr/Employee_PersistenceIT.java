@@ -46,6 +46,15 @@ class Employee_PersistenceIT extends _Persistence_IT<Employee> {
     @Nested
     class JobHistory_Test {
 
+        private List<JobHistoryWithIdClass> selectJobHistories(final EntityManager em, final Employee employee) {
+            return em.createQuery(
+                            "SELECT h FROM " + JobHistoryWithIdClass.ENTITY_NAME + " h"
+                            + " WHERE h." + JobHistoryWithIdClass.ATTRIBUTE_NAME_EMPLOYEE_ID + " = :employeeId",
+                            JobHistoryWithIdClass.class)
+                    .setParameter("employeeId", employee.getEmployeeId())
+                    .getResultList();
+        }
+
         /**
          * Changes the job of a new employee, and checks that the {@code UPDATE_JOB_HISTORY} trigger inserted a
          * {@code JOB_HISTORY} row for them.
@@ -136,15 +145,6 @@ class Employee_PersistenceIT extends _Persistence_IT<Employee> {
                         });
                 return null;
             });
-        }
-
-        private List<JobHistoryWithIdClass> selectJobHistories(final EntityManager em, final Employee employee) {
-            return em.createQuery(
-                            "SELECT h FROM " + JobHistoryWithIdClass.ENTITY_NAME + " h"
-                            + " WHERE h." + JobHistoryWithIdClass.ATTRIBUTE_NAME_EMPLOYEE_ID + " = :employeeId",
-                            JobHistoryWithIdClass.class)
-                    .setParameter("employeeId", employee.getEmployeeId())
-                    .getResultList();
         }
     }
 }
