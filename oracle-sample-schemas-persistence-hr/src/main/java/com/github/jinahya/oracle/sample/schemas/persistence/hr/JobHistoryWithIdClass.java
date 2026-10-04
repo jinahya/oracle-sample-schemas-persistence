@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -432,7 +433,7 @@ public class JobHistoryWithIdClass {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public Department getDepartment() {
         return department;
     }
@@ -442,7 +443,7 @@ public class JobHistoryWithIdClass {
      *
      * @param department new value for {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute.
      */
-    public void setDepartment(@jakarta.annotation.Nullable final Department department) {
+    public void setDepartment(@Nullable final Department department) {
         this.department = department;
     }
 
@@ -470,7 +471,7 @@ public class JobHistoryWithIdClass {
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_EMPLOYEE_ID,
-                referencedColumnName = Employee.COLUMN_NAME_DEPARTMENT_ID,
+                referencedColumnName = Employee.COLUMN_NAME_EMPLOYEE_ID,
                 nullable = COLUMN_NULLABLE_EMPLOYEE_ID,
                 insertable = false,
                 updatable = false
@@ -501,6 +502,7 @@ public class JobHistoryWithIdClass {
     )
     LocalDate endDate;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull
@@ -513,7 +515,8 @@ public class JobHistoryWithIdClass {
     )
     private Job job;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_DEPARTMENT_ID,

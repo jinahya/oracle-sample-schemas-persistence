@@ -216,7 +216,7 @@ public class Job {
     /**
      * The name of the attribute which maps the past assignments to this job. The value is {@value}.
      *
-     * @see JobHistoryWithEmbeddedId#ATTRIBUTE_NAME_JOB
+     * @see JobHistoryWithIdClass#ATTRIBUTE_NAME_JOB
      */
     public static final String ATTRIBUTE_NAME_JOB_HISTORIES = "jobHistories";
 
@@ -515,7 +515,7 @@ public class Job {
      *
      * @return the past assignments to this job.
      */
-    List<JobHistoryWithEmbeddedId> getJobHistories() {
+    List<JobHistoryWithIdClass> getJobHistories() {
         return jobHistories;
     }
 
@@ -524,7 +524,7 @@ public class Job {
      *
      * @param jobHistories new past assignments to this job.
      */
-    void setJobHistories(final List<JobHistoryWithEmbeddedId> jobHistories) {
+    void setJobHistories(final List<JobHistoryWithIdClass> jobHistories) {
         this.jobHistories = jobHistories;
     }
 
@@ -590,11 +590,11 @@ public class Job {
     )
     private List<@Valid @NotNull Employee> employees;
 
-    @OneToMany(mappedBy = JobHistoryWithEmbeddedId.ATTRIBUTE_NAME_JOB,
+    @OneToMany(mappedBy = JobHistoryWithIdClass.ATTRIBUTE_NAME_JOB,
                fetch = FetchType.LAZY,
                cascade = {
                },
                orphanRemoval = false
     )
-    private List<@Valid @NotNull JobHistoryWithEmbeddedId> jobHistories;
+    private List<@Valid @NotNull JobHistoryWithIdClass> jobHistories;
 }

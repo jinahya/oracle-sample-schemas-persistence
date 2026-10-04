@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -471,7 +472,7 @@ public class Employee {
     /**
      * The name of the attribute which maps the past job assignments of this employee. The value is {@value}.
      *
-     * @see JobHistoryWithEmbeddedId#ATTRIBUTE_NAME_EMPLOYEE
+     * @see JobHistoryWithIdClass#ATTRIBUTE_NAME_EMPLOYEE
      */
     public static final String ATTRIBUTE_NAME_JOB_HISTORIES = "jobHistories";
 
@@ -612,7 +613,7 @@ public class Employee {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public String getFirstName() {
         return firstName;
     }
@@ -622,7 +623,7 @@ public class Employee {
      *
      * @param firstName new value for {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute.
      */
-    public void setFirstName(@jakarta.annotation.Nullable final String firstName) {
+    public void setFirstName(@Nullable final String firstName) {
         this.firstName = firstName;
     }
 
@@ -675,7 +676,7 @@ public class Employee {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_PHONE_NUMBER} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -685,7 +686,7 @@ public class Employee {
      *
      * @param phoneNumber new value for {@value #ATTRIBUTE_NAME_PHONE_NUMBER} attribute.
      */
-    public void setPhoneNumber(@jakarta.annotation.Nullable final String phoneNumber) {
+    public void setPhoneNumber(@Nullable final String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -739,7 +740,7 @@ public class Employee {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_SALARY} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public BigDecimal getSalary() {
         return salary;
     }
@@ -749,7 +750,7 @@ public class Employee {
      *
      * @param salary new value for {@value #ATTRIBUTE_NAME_SALARY} attribute.
      */
-    public void setSalary(@jakarta.annotation.Nullable final BigDecimal salary) {
+    public void setSalary(@Nullable final BigDecimal salary) {
         this.salary = salary;
     }
 
@@ -760,7 +761,7 @@ public class Employee {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public BigDecimal getCommissionPct() {
         return commissionPct;
     }
@@ -770,7 +771,7 @@ public class Employee {
      *
      * @param commissionPct new value for {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute.
      */
-    public void setCommissionPct(@jakarta.annotation.Nullable final BigDecimal commissionPct) {
+    public void setCommissionPct(@Nullable final BigDecimal commissionPct) {
         this.commissionPct = commissionPct;
     }
 
@@ -803,7 +804,7 @@ public class Employee {
      * @return the {@value Job#ATTRIBUTE_NAME_MIN_SALARY} of the {@value #ATTRIBUTE_NAME_JOB} of this employee;
      * {@code null} when no job is assigned.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     protected BigDecimal getJobMinSalary() {
 //        return this.getJobMinSalary();
         return Optional.ofNullable(job) // accessing the LAZY-fetching attribute !!!!
@@ -820,7 +821,7 @@ public class Employee {
      * @return the {@value Job#ATTRIBUTE_NAME_MAX_SALARY} of the {@value #ATTRIBUTE_NAME_JOB} of this employee;
      * {@code null} when no job is assigned.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     protected BigDecimal getJobMaxSalary() {
 //        return this.getJobMaxSalary();
         return Optional.ofNullable(job) // accessing the LAZY-fetching attribute !!!!
@@ -896,7 +897,7 @@ public class Employee {
      *
      * @return the past job assignments of this employee.
      */
-    List<JobHistoryWithEmbeddedId> getJobHistories() {
+    List<JobHistoryWithIdClass> getJobHistories() {
         return jobHistories;
     }
 
@@ -905,7 +906,7 @@ public class Employee {
      *
      * @param jobHistories new past job assignments of this employee.
      */
-    void setJobHistories(final List<JobHistoryWithEmbeddedId> jobHistories) {
+    void setJobHistories(final List<JobHistoryWithIdClass> jobHistories) {
         this.jobHistories = jobHistories;
     }
 
@@ -928,7 +929,8 @@ public class Employee {
     )
     private Integer employeeId;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
     @Size(min = SIZE_MIN_FIRST_NAME,
           max = SIZE_MAX_FIRST_NAME
     )
@@ -969,7 +971,7 @@ public class Employee {
     )
     private String email;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Size(max = SIZE_MAX_PHONE_NUMBER)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_PHONE_NUMBER,
@@ -987,6 +989,7 @@ public class Employee {
     @Column(name = COLUMN_NAME_HIRE_DATE, nullable = false, insertable = true, updatable = true)
     private LocalDate hireDate;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull
@@ -1003,7 +1006,8 @@ public class Employee {
     )
     private Job job;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
 //    @Positive // @@?
     @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
     @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false)
@@ -1012,7 +1016,7 @@ public class Employee {
             precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY)
     private BigDecimal salary;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT, inclusive = true)
     @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT, inclusive = true)
     @Basic(optional = true, fetch = FetchType.EAGER)
@@ -1020,7 +1024,8 @@ public class Employee {
             precision = COLUMN_PRECISION_COMMISSION_PCT, scale = COLUMN_SCALE_COMMISSION_PCT)
     private BigDecimal commissionPct;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
     @Valid
     @ManyToOne(optional = true,
                fetch = FetchType.LAZY,
@@ -1035,7 +1040,8 @@ public class Employee {
     )
     private Employee manager;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
     @Valid
     @ManyToOne(optional = true,
                fetch = FetchType.LAZY,
@@ -1050,6 +1056,7 @@ public class Employee {
     )
     private Department department;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = Employee.ATTRIBUTE_NAME_MANAGER,
                fetch = FetchType.LAZY,
                cascade = {
@@ -1058,6 +1065,7 @@ public class Employee {
     )
     private List<@Valid @NotNull Employee> subordinates;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = Department.ATTRIBUTE_NAME_MANAGER,
                fetch = FetchType.LAZY,
                cascade = {
@@ -1066,11 +1074,12 @@ public class Employee {
     )
     private List<@Valid @NotNull Department> managedDepartments;
 
-    @OneToMany(mappedBy = JobHistoryWithEmbeddedId.ATTRIBUTE_NAME_EMPLOYEE,
+    // -----------------------------------------------------------------------------------------------------------------
+    @OneToMany(mappedBy = JobHistoryWithIdClass.ATTRIBUTE_NAME_EMPLOYEE,
                fetch = FetchType.LAZY,
                cascade = {
                },
                orphanRemoval = false
     )
-    private List<@Valid @NotNull JobHistoryWithEmbeddedId> jobHistories;
+    private List<@Valid @NotNull JobHistoryWithIdClass> jobHistories;
 }

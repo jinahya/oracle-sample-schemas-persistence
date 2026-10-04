@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -230,7 +231,7 @@ public class Department {
     /**
      * The name of the attribute which maps the past job assignments within this department. The value is {@value}.
      *
-     * @see JobHistoryWithEmbeddedId#ATTRIBUTE_NAME_DEPARTMENT
+     * @see JobHistoryWithIdClass#ATTRIBUTE_NAME_DEPARTMENT
      */
     public static final String ATTRIBUTE_NAME_JOB_HISTORIES = "jobHistories";
 
@@ -250,8 +251,8 @@ public class Department {
         return super.toString() + "{"
                + "id=" + departmentId
                + ",departmentName=" + departmentName
-               + ",manager=" + manager
-               + ",location=" + location
+//               + ",manager=" + manager
+//               + ",location=" + location
                + "}";
     }
 
@@ -317,7 +318,7 @@ public class Department {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_MANAGER} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public Employee getManager() {
         return manager;
     }
@@ -327,7 +328,7 @@ public class Department {
      *
      * @param manager new value for {@value #ATTRIBUTE_NAME_MANAGER} attribute.
      */
-    public void setManager(@jakarta.annotation.Nullable final Employee manager) {
+    public void setManager(@Nullable final Employee manager) {
         this.manager = manager;
     }
 
@@ -338,7 +339,7 @@ public class Department {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_LOCATION} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public Location getLocation() {
         return location;
     }
@@ -348,7 +349,7 @@ public class Department {
      *
      * @param location new value for {@value #ATTRIBUTE_NAME_LOCATION} attribute.
      */
-    public void setLocation(@jakarta.annotation.Nullable final Location location) {
+    public void setLocation(@Nullable final Location location) {
         this.location = location;
     }
 
@@ -368,7 +369,7 @@ public class Department {
      *
      * @return the past job assignments within this department.
      */
-    List<JobHistoryWithEmbeddedId> getJobHistories() {
+    List<JobHistoryWithIdClass> getJobHistories() {
         return jobHistories;
     }
 
@@ -377,14 +378,10 @@ public class Department {
      *
      * @param jobHistories new past job assignments within this department.
      */
-    void setJobHistories(final List<JobHistoryWithEmbeddedId> jobHistories) {
+    void setJobHistories(final List<JobHistoryWithIdClass> jobHistories) {
         this.jobHistories = jobHistories;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
@@ -400,6 +397,7 @@ public class Department {
     )
     private Integer departmentId;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Size(min = SIZE_MIN_DEPARTMENT_NAME, max = SIZE_MAX_DEPARTMENT_NAME)
     @NotNull
@@ -408,6 +406,9 @@ public class Department {
             length = COLUMN_LENGTH_DEPARTMENT_NAME)
     private String departmentName;
 
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
+    @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_MANAGER_ID,
                 nullable = COLUMN_NULLABLE_MANAGER_ID,
@@ -416,7 +417,8 @@ public class Department {
     )
     private Employee manager;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_LOCATION_ID,
@@ -426,6 +428,7 @@ public class Department {
     )
     private Location location;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = Employee.ATTRIBUTE_NAME_DEPARTMENT,
                fetch = FetchType.LAZY,
                cascade = {
@@ -434,11 +437,12 @@ public class Department {
     )
     private List<@Valid @NotNull Employee> employees;
 
-    @OneToMany(mappedBy = JobHistoryWithEmbeddedId.ATTRIBUTE_NAME_DEPARTMENT,
+    // -----------------------------------------------------------------------------------------------------------------
+    @OneToMany(mappedBy = JobHistoryWithIdClass.ATTRIBUTE_NAME_DEPARTMENT,
                fetch = FetchType.LAZY,
                cascade = {
                },
                orphanRemoval = false
     )
-    private List<@Valid @NotNull JobHistoryWithEmbeddedId> jobHistories;
+    private List<@Valid @NotNull JobHistoryWithIdClass> jobHistories;
 }
