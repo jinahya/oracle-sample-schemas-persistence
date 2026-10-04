@@ -459,6 +459,13 @@ public class Store {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by {@value #ATTRIBUTE_NAME_STORE_NAME}, which the table declares unique.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Store that)) {
@@ -467,6 +474,12 @@ public class Store {
         return Objects.equals(storeName, that.storeName);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over {@value #ATTRIBUTE_NAME_STORE_NAME}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(storeName);

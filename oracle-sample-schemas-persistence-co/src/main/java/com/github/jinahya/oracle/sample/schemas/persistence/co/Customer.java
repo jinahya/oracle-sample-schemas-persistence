@@ -189,6 +189,13 @@ public class Customer {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS}, which the table declares unique.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Customer that)) {
@@ -197,6 +204,12 @@ public class Customer {
         return Objects.equals(emailAddress, that.emailAddress);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(emailAddress);

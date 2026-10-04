@@ -313,6 +313,13 @@ public class Product {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Product that)) {
@@ -321,6 +328,12 @@ public class Product {
         return Objects.equals(getProductId(), that.getProductId());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(getProductId());

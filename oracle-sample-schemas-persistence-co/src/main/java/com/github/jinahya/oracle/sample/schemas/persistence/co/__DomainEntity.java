@@ -2,6 +2,12 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
 
 import com.github.jinahya.oracle.sample.schemas.persistence.co.mapped.__MappedDomainEntity;
 
-public interface __DomainEntity<ID> extends __MappedDomainEntity<ID> {
+/**
+ * A marker interface for entities of the {@code CO} schema.
+ *
+ * @param <T> the type of the identifier.
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+public interface __DomainEntity<T> extends __MappedDomainEntity<T> {
 
 }

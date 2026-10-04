@@ -91,6 +91,13 @@ public class ProductOrderId {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by both {@value #ATTRIBUTE_NAME_PRODUCT_NAME} and {@value #ATTRIBUTE_NAME_ORDER_STATUS}.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof ProductOrderId that)) {
@@ -100,6 +107,13 @@ public class ProductOrderId {
                && Objects.equals(orderStatus, that.orderStatus);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over both {@value #ATTRIBUTE_NAME_PRODUCT_NAME} and {@value #ATTRIBUTE_NAME_ORDER_STATUS},
+     * consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hash(productName, orderStatus);

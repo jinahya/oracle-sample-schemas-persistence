@@ -29,7 +29,9 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * An id class for {@link OrderItemWithEmbeddedId} class.
+ * An id class for the {@value OrderItemWithEmbeddedId#TABLE_NAME} table; the
+ * {@link jakarta.persistence.EmbeddedId @EmbeddedId} of {@link OrderItemWithEmbeddedId}, and the
+ * {@link jakarta.persistence.IdClass @IdClass} of {@link OrderItemWithIdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -83,6 +85,13 @@ public class OrderItemId {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by both {@value #ATTRIBUTE_NAME_ORDER_ID} and {@value #ATTRIBUTE_NAME_LINE_ITEM_ID}.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof OrderItemId that)) {
@@ -92,6 +101,13 @@ public class OrderItemId {
                && Objects.equals(lineItemId, that.lineItemId);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over both {@value #ATTRIBUTE_NAME_ORDER_ID} and {@value #ATTRIBUTE_NAME_LINE_ITEM_ID},
+     * consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hash(orderId, lineItemId);
