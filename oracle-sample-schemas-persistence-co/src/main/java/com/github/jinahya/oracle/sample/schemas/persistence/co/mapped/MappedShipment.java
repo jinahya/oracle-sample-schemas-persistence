@@ -37,11 +37,9 @@ import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
 /**
- * A mapped superclass which holds the mappings of the {@value MappedShipment#TABLE_NAME} table, except for its
- * associations.
+ * A mapped superclass which holds the mappings of the {@value MappedShipment#TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see com.github.jinahya.oracle.sample.schemas.persistence.co.Shipment
  */
 @MappedSuperclass
 public abstract class MappedShipment {
@@ -67,7 +65,7 @@ public abstract class MappedShipment {
     // -------------------------------------------------------------------------------------- STORE_ID / storeId / store
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE_Id} attribute maps. The value is
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE_ID} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
@@ -75,11 +73,11 @@ public abstract class MappedShipment {
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
      */
-    public static final String ATTRIBUTE_NAME_STORE_Id = "storeId";
+    public static final String ATTRIBUTE_NAME_STORE_ID = "storeId";
 
     /**
-     * The name of the association, declared by a subclass, which joins on the {@value #COLUMN_NAME_STORE_ID} column.
-     * The value is {@value}.
+     * The name of an attribute, which this class does not declare, joining on the
+     * {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
@@ -97,8 +95,8 @@ public abstract class MappedShipment {
     public static final String ATTRIBUTE_NAME_CUSTOMER_ID = "customerId";
 
     /**
-     * The name of the association, declared by a subclass, which joins on the {@value #COLUMN_NAME_CUSTOMER_ID} column.
-     * The value is {@value}.
+     * The name of an attribute, which this class does not declare, joining on the
+     * {@value #COLUMN_NAME_CUSTOMER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER = "customer";
 
@@ -222,6 +220,14 @@ public abstract class MappedShipment {
         }
 
         // ------------------------------------------------------------------------------------------------------------- columnValue
+
+        /**
+         * Returns the value of the {@value MappedShipment#COLUMN_NAME_SHIPMENT_STATUS} column which this constant
+         * represents.
+         *
+         * @return the column value of this constant; the constant's {@link Enum#name() name} unless it declares its
+         * own.
+         */
         public String columnValue() {
             if (columnValue != null) {
                 return columnValue;
@@ -230,6 +236,13 @@ public abstract class MappedShipment {
         }
 
         // -------------------------------------------------------------------------------------------------------------
+
+        /**
+         * The column value this constant declares; {@code null} for a constant whose column value is its
+         * {@link Enum#name() name}.
+         *
+         * @see #columnValue()
+         */
         public final String columnValue;
     }
 
@@ -293,6 +306,13 @@ public abstract class MappedShipment {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof MappedShipment that)) {
@@ -301,6 +321,12 @@ public abstract class MappedShipment {
         return Objects.equals(getShipmentId(), that.getShipmentId());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(getShipmentId());
@@ -329,9 +355,9 @@ public abstract class MappedShipment {
     // --------------------------------------------------------------------------------------------------------- storeId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_STORE_Id} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_STORE_Id} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
      */
     @Nonnull
     public Long getStoreId() {
@@ -339,9 +365,9 @@ public abstract class MappedShipment {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE_Id} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute with the specified value.
      *
-     * @param storeId new value for {@value #ATTRIBUTE_NAME_STORE_Id} attribute.
+     * @param storeId new value for {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
      */
     protected void setStoreId(@Nonnull final Long storeId) {
         this.storeId = storeId;

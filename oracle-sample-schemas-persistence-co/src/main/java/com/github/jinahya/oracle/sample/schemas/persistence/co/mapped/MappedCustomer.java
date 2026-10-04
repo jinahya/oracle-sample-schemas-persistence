@@ -37,7 +37,6 @@ import java.util.Objects;
  * A mapped superclass which holds the mappings of the {@value MappedCustomer#TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see com.github.jinahya.oracle.sample.schemas.persistence.co.Customer
  */
 @MappedSuperclass
 public abstract class MappedCustomer {
@@ -128,7 +127,7 @@ public abstract class MappedCustomer {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "customerId=" + customerId +
                ",emailAddress=" + emailAddress +
@@ -136,6 +135,13 @@ public abstract class MappedCustomer {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS}, which the table declares unique.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof MappedCustomer that)) {
@@ -144,6 +150,12 @@ public abstract class MappedCustomer {
         return Objects.equals(emailAddress, that.emailAddress);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(emailAddress);

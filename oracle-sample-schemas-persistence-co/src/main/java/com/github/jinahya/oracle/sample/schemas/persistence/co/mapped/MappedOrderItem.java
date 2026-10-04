@@ -37,7 +37,7 @@ import java.util.Objects;
 
 /**
  * A mapped superclass which holds the mappings of the {@value MappedOrderItem#TABLE_NAME} table, except for its
- * identifier and its associations.
+ * identifier.
  *
  * @param <T> the type of the identifier; a subclass maps it as it chooses, and exposes it through {@link #getId_()}.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
@@ -66,8 +66,8 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     public static final String ATTRIBUTE_NAME_ID_ORDER_ID = "id.orderId";
 
     /**
-     * The name of the association, declared by a subclass, which joins on the {@value #COLUMN_NAME_ORDER_ID} column.
-     * The value is {@value}.
+     * The name of an attribute, which this class does not declare, joining on the
+     * {@value #COLUMN_NAME_ORDER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER = "order";
 
@@ -101,8 +101,8 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     public static final String ATTRIBUTE_NAME_PRODUCT_ID = "productId";
 
     /**
-     * The name of the association, declared by a subclass, which joins on the {@value #COLUMN_NAME_PRODUCT_ID} column.
-     * The value is {@value}.
+     * The name of an attribute, which this class does not declare, joining on the
+     * {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
@@ -166,8 +166,8 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     public static final String ATTRIBUTE_NAME_SHIPMENT_ID = "shipmentId";
 
     /**
-     * The name of the association, declared by a subclass, which joins on the {@value #COLUMN_NAME_SHIPMENT_ID} column.
-     * The value is {@value}.
+     * The name of an attribute, which this class does not declare, joining on the
+     * {@value #COLUMN_NAME_SHIPMENT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT = "shipment";
 
@@ -193,6 +193,13 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the identifier a subclass exposes through {@link #getId_()}, alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof MappedOrderItem that)) {
@@ -201,6 +208,13 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
         return Objects.equals(getId_(), that.getId_());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the identifier a subclass exposes through {@link #getId_()}, consistent with
+     * {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(getId_());
@@ -209,10 +223,10 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     /**
-     * Indicates whether the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute is non-negative.
+     * Indicates whether the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute is positive.
      *
-     * @return {@code true} if the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute is non-negative; {@code false}
-     * otherwise.
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute is {@code null} or positive;
+     * {@code false} otherwise.
      */
     protected boolean isUniPricesNonNegative() {
         if (unitPrice == null) {

@@ -31,8 +31,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 /**
- * A mapped superclass for a binary payload stored alongside its metadata -- the image of the
- * {@value Product#TABLE_NAME} table, the logo of the {@value Store#TABLE_NAME} table, and anything shaped like them.
+ * A mapped superclass for a binary payload stored alongside its metadata.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @apiNote No column is named here. An embedding attribute names all five with
@@ -111,9 +110,10 @@ abstract class _MappedBinary {
     // ----------------------------------------------------------------------------------------------------------- bytes
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_BYTES} attribute.
+     * Returns a copy of current value of {@value #ATTRIBUTE_NAME_BYTES} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_BYTES} attribute.
+     * @return a copy of current value of {@value #ATTRIBUTE_NAME_BYTES} attribute; {@code null} when it is
+     * {@code null}.
      */
     @Nullable
     byte[] getBytes() {
@@ -123,9 +123,9 @@ abstract class _MappedBinary {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_BYTES} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_BYTES} attribute with a copy of the specified value.
      *
-     * @param bytes new value for {@value #ATTRIBUTE_NAME_BYTES} attribute.
+     * @param bytes new value for {@value #ATTRIBUTE_NAME_BYTES} attribute; copied, not kept.
      */
     void setBytes(@Nullable final byte[] bytes) {
         this.bytes = Optional.ofNullable(bytes)
