@@ -31,7 +31,8 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * A mapped superclass which holds the mappings of the {@value MappedProfit#TABLE_NAME} view, except for its identifier.
+ * A mapped superclass which holds the mappings of the {@value MappedProfit#TABLE_NAME} view, except for its
+ * identifier.
  *
  * @param <T> the type of the identifier; a subclass maps it as it chooses, and exposes it through {@link #getId_()}.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;

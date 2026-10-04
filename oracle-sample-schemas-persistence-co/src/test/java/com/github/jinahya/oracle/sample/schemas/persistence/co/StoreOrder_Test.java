@@ -24,7 +24,7 @@ import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import org.junit.jupiter.api.Test;
 
 /**
- * A class for testing the {@link StoreOrder}  class.
+ * A class for testing the {@link StoreOrder} class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */

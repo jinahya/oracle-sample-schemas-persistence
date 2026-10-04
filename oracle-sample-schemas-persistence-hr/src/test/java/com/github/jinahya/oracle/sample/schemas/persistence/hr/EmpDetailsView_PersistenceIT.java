@@ -22,6 +22,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 /**
  * Verifies the mappings of {@link EmpDetailsView} against the installed {@code HR} schema.
+ * <p>
+ * The persistence unit does not list {@link EmpDetailsView}, so every test here aborts until it does.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */

@@ -31,9 +31,10 @@ import java.math.BigDecimal;
  * A class which holds the mappings of the {@value MappedProductReview#TABLE_NAME} view.
  * <p>
  * No column, and no combination of columns, identifies a row of this view: the narrowest unique combination is
- * {@code (PRODUCT_NAME, REVIEW)}, and {@code REVIEW} is nullable and 4000 characters wide. So this is not a
- * {@link jakarta.persistence.MappedSuperclass @MappedSuperclass}: the columns the view projects are written out here,
- * and every one of them is read-only.
+ * {@code (PRODUCT_NAME, REVIEW)}, and {@code REVIEW} is nullable and 4000 characters wide. So no
+ * {@link jakarta.persistence.Entity @Entity} can map this view, and this class is not a
+ * {@link jakarta.persistence.MappedSuperclass @MappedSuperclass} for one either: the columns the view projects are
+ * written out here, and every one of them is read-only.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */

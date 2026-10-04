@@ -117,6 +117,10 @@ public abstract class MappedEmployee {
      */
     public static final int SIZE_MIN_FIRST_NAME = 0;
 
+    /**
+     * The minimum size of a {@value #ATTRIBUTE_NAME_FIRST_NAME} value which reads as a name, as opposed to
+     * {@link #SIZE_MIN_FIRST_NAME}, which is what the column accepts. No constraint applies it. The value is {@value}.
+     */
     public static final int SIZE_MIN_FIRST_NAME_SEMANTIC = 2;
 
     /**
@@ -147,6 +151,10 @@ public abstract class MappedEmployee {
      */
     public static final int SIZE_MIN_LAST_NAME = 0;
 
+    /**
+     * The minimum size of a {@value #ATTRIBUTE_NAME_LAST_NAME} value which reads as a name, as opposed to
+     * {@link #SIZE_MIN_LAST_NAME}, which is what the column accepts. No constraint applies it. The value is {@value}.
+     */
     public static final int SIZE_MIN_LAST_NAME_SEMANTIC = 2;
 
     /**
@@ -176,6 +184,10 @@ public abstract class MappedEmployee {
      */
     public static final int SIZE_MIN_EMAIL = 0;
 
+    /**
+     * The minimum size of an {@value #ATTRIBUTE_NAME_EMAIL} value which carries meaning, as opposed to
+     * {@link #SIZE_MIN_EMAIL}, which is what the column accepts. No constraint applies it. The value is {@value}.
+     */
     public static final int SIZE_MIN_EMAIL_SEMANTIC = 1; // a@b.cc
 
     /**
@@ -277,7 +289,8 @@ public abstract class MappedEmployee {
     public static final int COLUMN_SCALE_SALARY = 2;
 
     /**
-     * The exclusive minimum value of the {@value #COLUMN_NAME_SALARY} column. The value is {@value}.
+     * The exclusive minimum value of the {@value #COLUMN_NAME_SALARY} column, as the {@code EMP_SALARY_MIN} check
+     * constraint ({@code salary > 0}) requires. The value is {@value}.
      */
     public static final double COLUMN_MIN_SALARY_EXCLUSIVE = 0;
 
@@ -291,10 +304,15 @@ public abstract class MappedEmployee {
      */
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
 
+    /**
+     * The inclusive minimum value which the {@link DecimalMin @DecimalMin} on the {@value #ATTRIBUTE_NAME_SALARY}
+     * attribute applies. The value is {@value}.
+     */
     public static final String ATTRIBUTE_DECIMAL_MIN_SALARY = "-99999999.99";
 
     /**
-     * The exclusive minimum value of the {@value #ATTRIBUTE_NAME_SALARY} attribute. The value is {@value}.
+     * The exclusive minimum value of the {@value #ATTRIBUTE_NAME_SALARY} attribute, as the {@code EMP_SALARY_MIN} check
+     * constraint ({@code salary > 0}) requires. No constraint applies it. The value is {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MIN_SALARY_SEMANTIC = "-000000.00";
 
@@ -491,8 +509,8 @@ public abstract class MappedEmployee {
     /**
      * Tests whether current value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is positive.
      *
-     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is positive;
-     * {@code false} otherwise.
+     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is positive,
+     * or {@code null}; {@code false} otherwise.
      */
     protected boolean isCommissionPctPositive() {
         if (commissionPct == null) {
@@ -504,8 +522,8 @@ public abstract class MappedEmployee {
     /**
      * Indicates whether the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is non-negative.
      *
-     * @return {@code true} if the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is non-negative; {@code false}
-     * otherwise.
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is non-negative, or {@code null};
+     * {@code false} otherwise.
      */
     protected boolean isCommissionPctNonNegative() {
         if (commissionPct == null) {

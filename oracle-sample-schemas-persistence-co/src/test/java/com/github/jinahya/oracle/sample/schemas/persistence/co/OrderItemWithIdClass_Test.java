@@ -40,8 +40,9 @@ class OrderItemWithIdClass_Test extends _Test<OrderItemWithIdClass> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link OrderItemWithIdClass#equals(Object) equals} compares only the {@code @Id}
-     * {@code orderId and lineItemId} -- the surrogate key -- because every other attribute is mutable state.
+     * @implNote {@link OrderItemWithIdClass#equals(Object) equals} compares only the identifier -- the composite key of
+     * the {@code @Id} attributes {@code orderId} and {@code lineItemId} -- because every other attribute is mutable
+     * state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<OrderItemWithIdClass> equals_verifier_() {

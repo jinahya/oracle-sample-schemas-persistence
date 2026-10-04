@@ -145,6 +145,13 @@ public class Region {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Region that)) {
@@ -153,6 +160,12 @@ public class Region {
         return Objects.equals(getRegionId(), that.getRegionId());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(getRegionId());
@@ -182,9 +195,9 @@ public class Region {
     // ------------------------------------------------------------------------------------------------------ regionName
 
     /**
-     * Returns current value of {@link #regionName} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
      *
-     * @return current value of {@link #regionName} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
      */
     @jakarta.annotation.Nullable
     public String getRegionName() {
@@ -192,9 +205,9 @@ public class Region {
     }
 
     /**
-     * Replaces current value of {@link #regionName} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute with the specified value.
      *
-     * @param regionName new value for {@link #regionName} attribute.
+     * @param regionName new value for {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
      */
     public void setRegionName(@jakarta.annotation.Nullable final String regionName) {
         this.regionName = regionName;

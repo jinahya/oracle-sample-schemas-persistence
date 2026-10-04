@@ -33,8 +33,8 @@ import static com.github.jinahya.oracle.sample.schemas.persistence.test.__Persis
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Boots the persistence unit against the in-memory database and checks that the provider accepts every mapping in the
- * {@code HR} schema.
+ * Boots the persistence unit against the in-memory database and checks that the provider accepts every class the unit
+ * lists for the {@code HR} schema.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */

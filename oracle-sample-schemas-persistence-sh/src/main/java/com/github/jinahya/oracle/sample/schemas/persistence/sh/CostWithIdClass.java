@@ -38,7 +38,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * An entity class for mapping the {@value CostWithIdClass#TABLE_NAME} table, whose composite primary key is mapped with
+ * An entity class for mapping the {@value CostWithIdClass#TABLE_NAME} table, whose composite identifier is mapped with
  * an {@link jakarta.persistence.IdClass @IdClass}.
  * <p>
  * The table declares no primary key; the four dimension columns are its grain, and the {@code CANDIDATE_KEYS} section
@@ -207,7 +207,7 @@ public class CostWithIdClass {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the {@code @Id} alone.
+     * @implSpec Equality is by the four {@code @Id} attributes, compared as the {@link #getId() id} they make up.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -221,7 +221,8 @@ public class CostWithIdClass {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     * @implSpec The hash is over the four {@code @Id} attributes, through {@link #getId()}, consistent with
+     * {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {

@@ -159,10 +159,12 @@ public class MappedInventory {
     }
 
     // ------------------------------------------------------------------------------------------------------ Validation
+
     /**
      * Tests whether {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute is non-negative.
      *
-     * @return {@code true} if {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} is non-negative; {@code false} otherwise.
+     * @return {@code true} if {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} is {@code null} or non-negative; {@code false}
+     * otherwise.
      */
     protected boolean isProductInventoryNonNegative() {
         if (productInventory == null) {

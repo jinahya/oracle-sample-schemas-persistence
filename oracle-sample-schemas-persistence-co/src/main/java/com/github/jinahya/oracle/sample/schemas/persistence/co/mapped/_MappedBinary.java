@@ -31,10 +31,12 @@ import java.util.Arrays;
 import java.util.Optional;
 
 /**
- * A mapped superclass for a binary payload stored alongside its metadata.
+ * A mapped superclass for a binary payload stored alongside its metadata -- shaped like the image of the
+ * {@value Product#TABLE_NAME} table and the logo of the {@value Store#TABLE_NAME} table, which {@link MappedProduct}
+ * and {@link MappedStore} map as plain columns instead.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @apiNote No column is named here. An embedding attribute names all five with
+ * @apiNote No column is named here. An embedding attribute names all five -- two of them below -- with
  * {@link jakarta.persistence.AttributeOverride}, which replaces the column mapping outright, so anything declared here
  * would never be read.
  * {@snippet lang = "java":

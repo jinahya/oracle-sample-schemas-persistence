@@ -20,7 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co.mapped;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemWithEmbeddedId;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;

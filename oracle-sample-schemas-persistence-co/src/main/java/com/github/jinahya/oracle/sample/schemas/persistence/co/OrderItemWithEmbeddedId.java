@@ -115,7 +115,6 @@ public class OrderItemWithEmbeddedId {
      */
     public static final String COLUMN_NAME_PRODUCT_ID = "PRODUCT_ID";
 
-
     /**
      * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on the
      * {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
@@ -170,7 +169,6 @@ public class OrderItemWithEmbeddedId {
      * {@value}.
      */
     public static final String COLUMN_NAME_SHIPMENT_ID = "SHIPMENT_ID";
-
 
     /**
      * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on the
@@ -295,8 +293,8 @@ public class OrderItemWithEmbeddedId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER} attribute with the specified value, and current value
-     * of {@value #ATTRIBUTE_NAME_ID_ORDER_ID} attribute with the specified value's identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER} attribute with the specified value, and current value of
+     * {@value #ATTRIBUTE_NAME_ID_ORDER_ID} attribute with the specified value's identifier.
      *
      * @param order new value for {@value #ATTRIBUTE_NAME_ORDER} attribute.
      */

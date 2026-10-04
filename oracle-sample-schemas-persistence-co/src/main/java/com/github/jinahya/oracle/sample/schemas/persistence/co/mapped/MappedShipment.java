@@ -76,8 +76,8 @@ public abstract class MappedShipment {
     public static final String ATTRIBUTE_NAME_STORE_ID = "storeId";
 
     /**
-     * The name of an attribute, which this class does not declare, joining on the
-     * {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
+     * The name of an attribute, which this class does not declare, joining on the {@value #COLUMN_NAME_STORE_ID}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
@@ -95,8 +95,8 @@ public abstract class MappedShipment {
     public static final String ATTRIBUTE_NAME_CUSTOMER_ID = "customerId";
 
     /**
-     * The name of an attribute, which this class does not declare, joining on the
-     * {@value #COLUMN_NAME_CUSTOMER_ID} column. The value is {@value}.
+     * The name of an attribute, which this class does not declare, joining on the {@value #COLUMN_NAME_CUSTOMER_ID}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER = "customer";
 
@@ -270,6 +270,14 @@ public abstract class MappedShipment {
             return attribute.columnValue();
         }
 
+        /**
+         * {@inheritDoc}
+         *
+         * @param dbData {@inheritDoc}
+         * @return {@inheritDoc}
+         * @throws IllegalArgumentException if {@code dbData} is the column value of no {@link ShipmentStatus}
+         *                                  constant.
+         */
         @Override
         public ShipmentStatus convertToEntityAttribute(final String dbData) {
             if (dbData == null) {

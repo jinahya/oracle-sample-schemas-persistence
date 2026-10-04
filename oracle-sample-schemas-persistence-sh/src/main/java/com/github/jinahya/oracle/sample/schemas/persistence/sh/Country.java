@@ -227,6 +227,13 @@ public class Country {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Country that)) {
@@ -235,6 +242,12 @@ public class Country {
         return Objects.equals(countryId, that.countryId);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(countryId);

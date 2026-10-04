@@ -240,8 +240,8 @@ public abstract class MappedStore {
      * The minimum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute, in geographic degrees. The value is
      * {@value}.
      * <p>
-     * This is narrower than what the {@value #COLUMN_NAME_LONGITUDE} column can hold, {@value #COLUMN_MIN_LONGITUDE}
-     * to {@value #COLUMN_MAX_LONGITUDE}.
+     * This is narrower than what the {@value #COLUMN_NAME_LONGITUDE} column can hold, {@value #COLUMN_MIN_LONGITUDE} to
+     * {@value #COLUMN_MAX_LONGITUDE}.
      */
     public static final String DECIMAL_MIN_LONGITUDE = "-180.000000";
 
@@ -539,8 +539,8 @@ public abstract class MappedStore {
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LATITUDE} attribute as a {@code double} value.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_LATITUDE} attribute as a {@code double} value; {@code null}
-     * when the attribute is {@code null}.
+     * @return current value of {@value #ATTRIBUTE_NAME_LATITUDE} attribute as a {@code double} value; {@code null} when
+     * the attribute is {@code null}.
      * @see BigDecimal#doubleValue()
      */
     @Nullable

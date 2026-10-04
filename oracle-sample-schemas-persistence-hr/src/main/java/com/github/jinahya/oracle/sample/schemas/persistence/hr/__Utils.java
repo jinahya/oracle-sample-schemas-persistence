@@ -46,8 +46,9 @@ final class __Utils {
     // END secure_dml;
 
     /**
-     * Checks whether the {@code SECURE_DML} routine will raise an application
-     * error({@value __Constants#ROUTINE_SECURE_DML_APPLICATION_ERROR_CODE}) for given temporal values.
+     * Checks whether the {@code SECURE_DML} routine would raise an application error
+     * ({@value __Constants#ROUTINE_SECURE_DML_APPLICATION_ERROR_CODE}) at the specified time on the specified day of
+     * the week.
      * <p>
      * {@snippet id = "SECURE_DML" lang = "sql":
      * create PROCEDURE secure_dml IS
@@ -62,18 +63,16 @@ final class __Utils {
      * </p>
      * <hr/>
      * <p>
-     * The routine will raise an application-error when the current time is {@code NOT BETWEEN}
+     * The routine raises the application error when the current time is {@code NOT BETWEEN}
      * {@value __Constants#ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT} and
-     * {@value __Constants#ROUTINE_SECURE_DML_LOCAL_TIME_MAX_TEXT} {@code OR} current weekday is either
-     * {@link DayOfWeek#SATURDAY} or {@link DayOfWeek#SUNDAY}
+     * {@value __Constants#ROUTINE_SECURE_DML_LOCAL_TIME_MAX_TEXT}, {@code OR} the current day of the week is either
+     * {@link DayOfWeek#SATURDAY} or {@link DayOfWeek#SUNDAY}.
      *
-     * @param time    base time; should not be between {@value __Constants#ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT} and
-     *                {@value __Constants#ROUTINE_SECURE_DML_LOCAL_TIME_MAX_TEXT} when the {@code weekday} parameter
-     *                does not meet the described requirements.
-     * @param weekday the base weekday of week; should be either {@link DayOfWeek#SATURDAY} or {@link DayOfWeek#SUNDAY}
-     *                when the {@code time} parameter does meet the described requirements.
-     * @return {@code true} if the {@code SECURE_DML} routine will raise an application error for the {@code time} and
-     * the {@code weekday}, {@code false} otherwise
+     * @param time    the time of day to check.
+     * @param weekday the day of the week to check.
+     * @return {@code true} if the {@code SECURE_DML} routine would raise an application error at the {@code time} on
+     * the {@code weekday}; {@code false} otherwise.
+     * @throws NullPointerException if either {@code time} or {@code weekday} is {@code null}.
      */
     public static boolean ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(final @Nonnull LocalTime time,
                                                                      final @Nonnull DayOfWeek weekday) {
@@ -91,6 +90,9 @@ final class __Utils {
      * @param temporal the temporal to check, which must yield both a {@link java.time.LocalTime} and a
      *                 {@link java.time.DayOfWeek}.
      * @return {@code true} if the routine would raise an error; {@code false} otherwise.
+     * @throws NullPointerException        if {@code temporal} is {@code null}.
+     * @throws java.time.DateTimeException if {@code temporal} yields no {@link java.time.LocalTime} or no
+     *                                     {@link java.time.DayOfWeek}.
      */
     public static boolean ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(final @Nonnull TemporalAccessor temporal) {
         Objects.requireNonNull(temporal, "temporal is null");

@@ -37,9 +37,14 @@ import java.util.Objects;
  * A composite primary key class for mapping {@value JobHistoryWithEmbeddedId#COLUMN_NAME_EMPLOYEE_ID} column and
  * {@value JobHistoryWithEmbeddedId#COLUMN_NAME_START_DATE} column, of {@value JobHistoryWithEmbeddedId#TABLE_NAME}
  * table.
+ * <p>
+ * The class serves both flavours of the table's mapping: it is the {@link jakarta.persistence.EmbeddedId @EmbeddedId}
+ * of {@link JobHistoryWithEmbeddedId}, and the {@link jakarta.persistence.IdClass @IdClass} of
+ * {@link JobHistoryWithIdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see JobHistoryWithEmbeddedId
+ * @see JobHistoryWithIdClass
  * @see <a
  * href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#composite-primary-keys">2.4.1.
  * Composite primary keys</a> (Jakarta Persistence 3.2 Specification Document)
@@ -78,6 +83,13 @@ public class JobHistoryId {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by both {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} and {@value #ATTRIBUTE_NAME_START_DATE}.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof JobHistoryId that)) {
@@ -87,6 +99,13 @@ public class JobHistoryId {
                Objects.equals(startDate, that.startDate);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over both {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} and {@value #ATTRIBUTE_NAME_START_DATE},
+     * consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hash(employeeId, startDate);

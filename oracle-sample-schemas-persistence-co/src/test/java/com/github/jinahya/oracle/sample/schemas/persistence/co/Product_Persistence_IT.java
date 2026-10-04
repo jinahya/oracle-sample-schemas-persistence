@@ -63,7 +63,7 @@ class Product_Persistence_IT extends _Persistence_IT<Product> {
 
     /**
      * Returns two unit prices of the installed table, the lower one first: those at the first and the third quartile of
-     * the installed, non-{@code null}, unit prices.
+     * the installed, distinct, non-{@code null} unit prices.
      *
      * @implNote Selects the unit prices, not the entities, so nothing is left managed. Assumes the installed table has
      * at least two distinct unit prices; the test is aborted, not failed, if it has not.

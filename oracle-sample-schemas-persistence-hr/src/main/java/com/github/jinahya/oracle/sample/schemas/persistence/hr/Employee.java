@@ -284,7 +284,8 @@ public class Employee {
     //    public static final double COLUMN_MIN_SALARY = -999999.99d; // TODO: check the checks/EMP_SALARY_MIN
 
     /**
-     * The exclusive minimum value of the {@value #COLUMN_NAME_SALARY} column. The value is {@value}.
+     * The exclusive minimum value of the {@value #COLUMN_NAME_SALARY} column, as the {@code EMP_SALARY_MIN} check
+     * constraint ({@code salary > 0}) requires. The value is {@value}.
      */
     public static final double COLUMN_MIN_SALARY_EXCLUSIVE = 0;
 
@@ -384,12 +385,12 @@ public class Employee {
     public static final int COLUMN_MAX_MANAGER_ID = +999999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_MANAGER} attribute. The value is {@value}.
+     * The minimum value of the identifier of the {@value #ATTRIBUTE_NAME_MANAGER} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MIN_MANAGER_ID = COLUMN_MIN_MANAGER_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_MANAGER} attribute. The value is {@value}.
+     * The maximum value of the identifier of the {@value #ATTRIBUTE_NAME_MANAGER} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MAX_MANAGER_ID = COLUMN_MAX_MANAGER_ID;
 
@@ -436,7 +437,7 @@ public class Employee {
     // TODO: assign COLUMN_MIN_DEPARTMENT_ID
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
+     * The minimum value of the identifier of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MIN_DEPARTMENT_ID = 0xFF_FF_FF_FF_FF_FF_D8_F1L;
 
@@ -444,7 +445,7 @@ public class Employee {
     // TODO: assign COLUMN_MAX_DEPARTMENT_ID
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
+     * The maximum value of the identifier of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MAX_DEPARTMENT_ID = 0x00_00_00_00_00_00_27_0FL;
 
@@ -504,6 +505,13 @@ public class Employee {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Employee that)) {
@@ -512,6 +520,12 @@ public class Employee {
         return Objects.equals(getEmployeeId(), that.getEmployeeId());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(getEmployeeId());
@@ -524,7 +538,8 @@ public class Employee {
      * of the {@link #getJobMaxSalary()} method.
      *
      * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is less than or equal
-     * to the result of the {@link #getJobMaxSalary()} method; {@code false} otherwise.
+     * to the result of the {@link #getJobMaxSalary()} method, or either of them is {@code null}; {@code false}
+     * otherwise.
      * @see #getJobMaxSalary()
      */
     @SuppressWarnings({
@@ -544,8 +559,8 @@ public class Employee {
     /**
      * Tests whether current value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is positive.
      *
-     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is positive;
-     * {@code false} otherwise.
+     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is positive,
+     * or {@code null}; {@code false} otherwise.
      */
     protected boolean isCommissionPctPositive() {
         if (commissionPct == null) {
@@ -559,8 +574,8 @@ public class Employee {
     /**
      * Indicates whether the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is non-negative.
      *
-     * @return {@code true} if the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is non-negative; {@code false}
-     * otherwise.
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is non-negative, or {@code null};
+     * {@code false} otherwise.
      */
     protected boolean isCommissionPctNonNegative() {
         if (commissionPct == null) {
@@ -576,7 +591,8 @@ public class Employee {
      * {@value Job#ATTRIBUTE_NAME_MIN_SALARY} of the job.
      *
      * @return {@code true} if the {@value #ATTRIBUTE_NAME_SALARY} attribute is greater than or equal to the
-     * {@value Job#ATTRIBUTE_NAME_MIN_SALARY} of the job; {@code false} otherwise.
+     * {@value Job#ATTRIBUTE_NAME_MIN_SALARY} of the job, or there is no salary, no job, or no minimum salary to
+     * compare; {@code false} otherwise.
      */
     protected boolean isSalaryGreaterThanOrEqualToJobMinSalary() {
         if (salary == null || job == null || job.getMinSalary() == null) {
@@ -600,7 +616,7 @@ public class Employee {
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute with the specified value.
      *
-     * @param employeeId the new value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
+     * @param employeeId new value for {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
      */
     protected void setEmployeeId(@Nonnull final Integer employeeId) {
         this.employeeId = employeeId;
@@ -693,7 +709,8 @@ public class Employee {
     // -------------------------------------------------------------------------------------------------------- hireDate
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute -- the date when the employee started on
+     * the current job, as the column's comment has it.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute.
      */
@@ -725,6 +742,9 @@ public class Employee {
 
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_JOB} attribute with the specified value.
+     * <p>
+     * Changing it on a persisted employee makes the database's {@code UPDATE_JOB_HISTORY} trigger insert a
+     * {@value JobHistoryWithIdClass#TABLE_NAME} row, with the previous job and department, when the change is flushed.
      *
      * @param job new value for {@value #ATTRIBUTE_NAME_JOB} attribute.
      */
@@ -802,7 +822,7 @@ public class Employee {
      * Returns the {@value Job#ATTRIBUTE_NAME_MIN_SALARY} of the {@value #ATTRIBUTE_NAME_JOB} of this employee.
      *
      * @return the {@value Job#ATTRIBUTE_NAME_MIN_SALARY} of the {@value #ATTRIBUTE_NAME_JOB} of this employee;
-     * {@code null} when no job is assigned.
+     * {@code null} when no job is assigned, or the job has none.
      */
     @Nullable
     protected BigDecimal getJobMinSalary() {
@@ -819,7 +839,7 @@ public class Employee {
      * Returns the {@value Job#ATTRIBUTE_NAME_MAX_SALARY} of the {@value #ATTRIBUTE_NAME_JOB} of this employee.
      *
      * @return the {@value Job#ATTRIBUTE_NAME_MAX_SALARY} of the {@value #ATTRIBUTE_NAME_JOB} of this employee;
-     * {@code null} when no job is assigned.
+     * {@code null} when no job is assigned, or the job has none.
      */
     @Nullable
     protected BigDecimal getJobMaxSalary() {
@@ -843,6 +863,9 @@ public class Employee {
 
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute with the specified value.
+     * <p>
+     * Changing it on a persisted employee makes the database's {@code UPDATE_JOB_HISTORY} trigger insert a
+     * {@value JobHistoryWithIdClass#TABLE_NAME} row, with the previous job and department, when the change is flushed.
      *
      * @param department new value for {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute.
      */

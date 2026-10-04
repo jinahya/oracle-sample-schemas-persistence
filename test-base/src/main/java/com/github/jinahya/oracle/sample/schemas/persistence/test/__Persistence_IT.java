@@ -40,11 +40,12 @@ import static com.github.jinahya.oracle.sample.schemas.persistence.test.__Persis
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
- * An abstract base class for integration tests which need the physical database, against the persistence unit.
+ * An abstract base class for integration tests which need the physical database, against a module's integration-test
+ * persistence unit.
  * <p>
- * The container is started by weld-testing, with {@link __Persistence_IT_Producer} as its only bean class, so a
- * subclass gets an entity manager on the Oracle database the sample schemas were installed into, connecting as
- * {@code dmlonly}.
+ * The container is started by weld-testing, from a module's own subclass of this class, which names that module's
+ * subclass of {@link __Persistence_IT_Producer} as its bean class; a test then gets an entity manager on the Oracle
+ * database the sample schemas were installed into, connecting as {@code dmlonly}.
  * <p>
  * These run under the {@code failsafe} profile only, and require the container from {@code docker-compose.yml} to be
  * up. Generating a schema is disabled for this unit: the tables are the ones Oracle's own installer created, and the

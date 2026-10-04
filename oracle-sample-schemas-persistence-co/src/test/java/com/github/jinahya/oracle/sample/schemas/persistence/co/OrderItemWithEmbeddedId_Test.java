@@ -40,8 +40,9 @@ class OrderItemWithEmbeddedId_Test extends _Test<OrderItemWithEmbeddedId> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link OrderItemWithEmbeddedId#equals(Object) equals} compares only the {@code @Id} {@code id} -- the
-     * surrogate key -- because every other attribute is mutable state.
+     * @implNote {@link OrderItemWithEmbeddedId#equals(Object) equals} compares only the embedded {@code @Id} {@code id}
+     * -- the composite key of {@code orderId} and {@code lineItemId} -- because every other attribute is mutable
+     * state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<OrderItemWithEmbeddedId> equals_verifier_() {

@@ -48,6 +48,10 @@ import java.util.function.Function;
 /**
  * An entity class for mapping the {@value JobHistoryWithIdClass#TABLE_NAME} table, whose composite primary key is
  * mapped with an {@link jakarta.persistence.IdClass @IdClass}.
+ * <p>
+ * Rows of the table are written by the database's {@code UPDATE_JOB_HISTORY} trigger, which fires when an employee's
+ * job or department changes, with the employee's previous {@code HIRE_DATE} as the {@value #COLUMN_NAME_START_DATE} and
+ * {@code SYSDATE} as the {@value #COLUMN_NAME_END_DATE}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see JobHistoryWithEmbeddedId
@@ -122,7 +126,11 @@ public class JobHistoryWithIdClass {
     public static final int COLUMN_MAX_EMPLOYEE_ID = +999999;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@link Employee employee} joined on the
+     * {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
+     * <p>
+     * The association is neither insertable nor updatable; the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute writes
+     * the column.
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
 
@@ -252,12 +260,12 @@ public class JobHistoryWithIdClass {
     public static final int COLUMN_MAX_DEPARTMENT_ID = +9999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
+     * The minimum value of the identifier of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MIN_DEPARTMENT_ID = COLUMN_MIN_DEPARTMENT_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
+     * The maximum value of the identifier of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MAX_DEPARTMENT_ID = COLUMN_MAX_DEPARTMENT_ID;
 
@@ -286,10 +294,10 @@ public class JobHistoryWithIdClass {
     }
 
     /**
-     * Returns a comparator compares {@value #ATTRIBUTE_NAME_START_DATE} attribute.
+     * Returns a comparator which compares the {@value #ATTRIBUTE_NAME_START_DATE} attribute.
      *
-     * @param <T> the type to be compared.
-     * @return a comparator compares {@value #ATTRIBUTE_NAME_START_DATE} attribute.
+     * @param <T> the type of the compared entity.
+     * @return a comparator which compares the {@value #ATTRIBUTE_NAME_START_DATE} attribute.
      */
     protected static <T extends JobHistoryWithIdClass> Comparator<T> comparingStartDate() {
         return comparingStartDate(JobHistoryWithIdClass::getStartDate);
@@ -314,6 +322,14 @@ public class JobHistoryWithIdClass {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the two {@code @Id} attributes, {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} and
+     * {@value #ATTRIBUTE_NAME_START_DATE}.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof JobHistoryWithIdClass that)) {
@@ -323,6 +339,12 @@ public class JobHistoryWithIdClass {
                Objects.equals(startDate, that.startDate);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the two {@code @Id} attributes, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hash(employeeId, startDate);
@@ -333,9 +355,11 @@ public class JobHistoryWithIdClass {
     /**
      * Indicates whether the {@value #ATTRIBUTE_NAME_END_DATE} attribute is after the
      * {@value #ATTRIBUTE_NAME_START_DATE} attribute.
+     * <p>
+     * Mirrors the {@code JHIST_DATE_INTERVAL} check constraint ({@code end_date > start_date}).
      *
      * @return {@code true} if the {@value #ATTRIBUTE_NAME_END_DATE} attribute is after the
-     * {@value #ATTRIBUTE_NAME_START_DATE} attribute; {@code false} otherwise.
+     * {@value #ATTRIBUTE_NAME_START_DATE} attribute, or either of them is {@code null}; {@code false} otherwise.
      */
     @AssertTrue
     protected boolean isEndDateAfterStartDate() {
@@ -375,7 +399,8 @@ public class JobHistoryWithIdClass {
     // ------------------------------------------------------------------------------------------------------- startDate
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute -- the employee's {@code HIRE_DATE} before
+     * the change which the {@code UPDATE_JOB_HISTORY} trigger recorded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute.
      */
@@ -387,7 +412,8 @@ public class JobHistoryWithIdClass {
     // --------------------------------------------------------------------------------------------------------- endDate
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute -- the last day of the employee in the job,
+     * which the {@code UPDATE_JOB_HISTORY} trigger writes.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute.
      */
@@ -398,6 +424,8 @@ public class JobHistoryWithIdClass {
 
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute with the specified value.
+     * <p>
+     * The column is neither insertable nor updatable, so this changes the instance only, never the row.
      *
      * @param endDate new value for {@value #ATTRIBUTE_NAME_END_DATE} attribute.
      */

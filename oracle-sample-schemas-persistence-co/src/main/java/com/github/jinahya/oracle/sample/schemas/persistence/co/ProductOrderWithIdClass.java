@@ -34,7 +34,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * An entity class for mapping the {@value ProductOrderWithIdClass#TABLE_NAME} view, whose composite primary key is
+ * An entity class for mapping the {@value ProductOrderWithIdClass#TABLE_NAME} view, whose composite identifier is
  * mapped with an {@link jakarta.persistence.IdClass @IdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
@@ -69,7 +69,8 @@ public class ProductOrderWithIdClass {
     public static final int SIZE_MAX_PRODUCT_NAME = COLUMN_LENGTH_PRODUCT_NAME;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_NAME} column. The value is {@value}.
+     * The name of the {@link Id @Id} attribute which maps the {@value #COLUMN_NAME_PRODUCT_NAME} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_NAME = "productName";
 
@@ -92,7 +93,8 @@ public class ProductOrderWithIdClass {
     public static final int SIZE_MAX_ORDER_STATUS = COLUMN_LENGTH_ORDER_STATUS;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_STATUS} column. The value is {@value}.
+     * The name of the {@link Id @Id} attribute which maps the {@value #COLUMN_NAME_ORDER_STATUS} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
 
@@ -148,7 +150,8 @@ public class ProductOrderWithIdClass {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the {@code @Id} alone.
+     * @implSpec Equality is by the two {@code @Id} attributes, {@value #ATTRIBUTE_NAME_PRODUCT_NAME} and
+     * {@value #ATTRIBUTE_NAME_ORDER_STATUS}, alone.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -162,7 +165,7 @@ public class ProductOrderWithIdClass {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     * @implSpec The hash is over the two {@code @Id} attributes, consistent with {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {

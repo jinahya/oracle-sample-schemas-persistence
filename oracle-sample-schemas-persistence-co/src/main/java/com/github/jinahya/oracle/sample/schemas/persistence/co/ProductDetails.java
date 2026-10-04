@@ -31,7 +31,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * A class for mapping {@link Product#COLUMN_NAME_PRODUCT_DETAILS} column.
+ * A class for mapping the JSON document stored in the {@value Product#COLUMN_NAME_PRODUCT_DETAILS} column of the
+ * {@value Product#TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -63,6 +64,13 @@ public class ProductDetails {
                    '}';
         }
 
+        /**
+         * {@inheritDoc}
+         *
+         * @param obj {@inheritDoc}
+         * @return {@inheritDoc}
+         * @implSpec Equality is by both {@code rating} and {@code review}, for an object of exactly this class.
+         */
         @Override
         public boolean equals(final Object obj) {
             if (obj == null || getClass() != obj.getClass()) {
@@ -73,6 +81,12 @@ public class ProductDetails {
                    && Objects.equals(review, casted.review);
         }
 
+        /**
+         * {@inheritDoc}
+         *
+         * @return {@inheritDoc}
+         * @implSpec The hash is over both {@code rating} and {@code review}, consistent with {@link #equals(Object)}.
+         */
         @Override
         public int hashCode() {
             return Objects.hash(rating, review);
@@ -151,6 +165,14 @@ public class ProductDetails {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by every attribute -- {@code colour}, {@code gender}, {@code brand}, {@code description},
+     * {@code sizes} and {@code reviews}.
+     */
     @Override
     public boolean equals(final Object obj) {
         if (!(obj instanceof ProductDetails that)) {
@@ -164,6 +186,12 @@ public class ProductDetails {
                && Objects.equals(reviews, that.reviews);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over every attribute, consistent with {@link #equals(Object)}.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(colour, gender, brand, description, sizes, reviews);

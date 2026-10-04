@@ -31,7 +31,11 @@ import java.util.Objects;
 
 /**
  * An embeddable class for mapping a named section -- a region, a subregion or a total -- of the
- * {@value Country#TABLE_NAME} table.
+ * {@value Country#TABLE_NAME} table: a name column, and the numeric id column that goes with it.
+ * <p>
+ * No entity of this module embeds this class; {@link Country} maps each of those column pairs as plain attributes. The
+ * {@value #COLUMN_NAME_NAME} and {@value #COLUMN_NAME_ID} column names are placeholders, which an embedding entity
+ * would replace with {@link jakarta.persistence.AttributeOverride @AttributeOverride}s.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -84,6 +88,13 @@ public class CountrySection {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by both {@value #ATTRIBUTE_NAME_NAME} and {@value #ATTRIBUTE_NAME_ID}.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof CountrySection that)) {
@@ -93,6 +104,13 @@ public class CountrySection {
                Objects.equals(id, that.id);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over both {@value #ATTRIBUTE_NAME_NAME} and {@value #ATTRIBUTE_NAME_ID}, consistent with
+     * {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hash(name, id);

@@ -82,7 +82,7 @@ public class Inventory {
 
     /**
      * The name of the {@link ManyToOne @ManyToOne} association which joins on the {@value #COLUMN_NAME_STORE_ID}
-     * column.
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
@@ -96,7 +96,7 @@ public class Inventory {
 
     /**
      * The name of the {@link ManyToOne @ManyToOne} association which joins on the {@value #COLUMN_NAME_PRODUCT_ID}
-     * column.
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
@@ -137,10 +137,8 @@ public class Inventory {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by ({@value #COLUMN_NAME_STORE_ID}, {@value #COLUMN_NAME_PRODUCT_ID}), the pair the table
-     * declares unique, read through the {@value #ATTRIBUTE_NAME_STORE} and {@value #ATTRIBUTE_NAME_PRODUCT} attributes
-     * which map those two columns; both are read through their getters, which is what makes the comparison correct for
-     * an instance which is still a lazy proxy.
+     * @implSpec Equality is by the {@code @Id} alone, read through its getter, which is what makes the comparison
+     * correct for an instance which is still a lazy proxy.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -154,8 +152,7 @@ public class Inventory {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over ({@value #COLUMN_NAME_STORE_ID}, {@value #COLUMN_NAME_PRODUCT_ID}), consistent with
-     * {@link #equals(Object)}.
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
@@ -167,7 +164,8 @@ public class Inventory {
     /**
      * Tests whether {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute is non-negative.
      *
-     * @return {@code true} if {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} is non-negative; {@code false} otherwise.
+     * @return {@code true} if {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} is {@code null} or non-negative; {@code false}
+     * otherwise.
      */
 //    @jakarta.validation.constraints.AssertTrue
     protected boolean isProductInventoryNonNegative() {
@@ -210,8 +208,7 @@ public class Inventory {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE} attribute with the specified value, and current value of
-     * {@value #ATTRIBUTE_NAME_STORE} attribute with the specified value's identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE} attribute with the specified value.
      *
      * @param store new value for {@value #ATTRIBUTE_NAME_STORE} attribute.
      */
@@ -232,8 +229,7 @@ public class Inventory {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute with the specified value, and current value
-     * of {@value #ATTRIBUTE_NAME_PRODUCT} attribute with the specified value's identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute with the specified value.
      *
      * @param product new value for {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
      */
@@ -266,6 +262,8 @@ public class Inventory {
      * Adjusts current value of {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute by the specified delta.
      *
      * @param delta the delta to adjust.
+     * @throws NullPointerException if current value of {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute is
+     *                              {@code null}.
      */
     public void adjustProductInventory(final int delta) {
         setProductInventory(getProductInventory() + delta);
@@ -275,6 +273,9 @@ public class Inventory {
      * Increases current value of {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute by the specified quantity.
      *
      * @param quantity the quantity to adjust which should be non-negative.
+     * @throws IllegalArgumentException if {@code quantity} is negative.
+     * @throws NullPointerException     if current value of {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute is
+     *                                  {@code null}.
      */
     public void increaseProductInventoryBy(final int quantity) {
         if (quantity < 0) {
@@ -287,6 +288,9 @@ public class Inventory {
      * Decreases current value of {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute by the specified quantity.
      *
      * @param quantity the quantity to adjust which should be non-negative.
+     * @throws IllegalArgumentException if {@code quantity} is negative.
+     * @throws NullPointerException     if current value of {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute is
+     *                                  {@code null}.
      */
     public void decreaseProductInventoryBy(final int quantity) {
         if (quantity < 0) {

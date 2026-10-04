@@ -36,7 +36,7 @@ import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value FweekPscatSalesMvWithIdClass#TABLE_NAME} materialized view, whose composite
- * primary key is mapped with an {@link jakarta.persistence.IdClass @IdClass}.
+ * identifier is mapped with an {@link jakarta.persistence.IdClass @IdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see FweekPscatSalesMvWithEmbeddedId
@@ -153,7 +153,7 @@ public class FweekPscatSalesMvWithIdClass {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the {@code @Id} alone.
+     * @implSpec Equality is by the four {@code @Id} attributes, compared as the {@link #getId() id} they make up.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -167,7 +167,8 @@ public class FweekPscatSalesMvWithIdClass {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     * @implSpec The hash is over the four {@code @Id} attributes, through {@link #getId()}, consistent with
+     * {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {

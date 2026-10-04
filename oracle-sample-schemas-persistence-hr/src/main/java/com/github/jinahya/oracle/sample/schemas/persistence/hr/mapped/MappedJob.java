@@ -148,7 +148,7 @@ public abstract class MappedJob {
     public static final int ATTRIBUTE_MAX_MIN_SALARY = COLUMN_MAX_MIN_SALARY;
 
     /**
-     * A comparator compares {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute, in
+     * A comparator which compares the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute, in
      * {@link Comparator#naturalOrder() natural order}, {@link Comparator#nullsFirst(Comparator) nulls first}.
      */
     public static final Comparator<MappedJob> COMPARATOR_MIN_SALARY_NATURAL_NULLS_FIRST =
@@ -201,7 +201,7 @@ public abstract class MappedJob {
     public static final int ATTRIBUTE_MAX_MAX_SALARY = COLUMN_MAX_MAX_SALARY;
 
     /**
-     * A comparator compares {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute, in
+     * A comparator which compares the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute, in
      * {@link Comparator#reverseOrder() reverse order}, {@link Comparator#nullsLast(Comparator) nulls last}.
      */
     public static final Comparator<MappedJob> COMPARATOR_MAX_SALARY_REVERSE_NULLS_LAST =
@@ -291,6 +291,8 @@ public abstract class MappedJob {
 
     /**
      * Indicates whether the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is positive.
+     * <p>
+     * Evaluates to {@code true} when the attribute is {@code null}.
      *
      * @return {@code true} if the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is positive; {@code false} otherwise.
      */
@@ -304,6 +306,8 @@ public abstract class MappedJob {
 
     /**
      * Indicates whether the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute is positive.
+     * <p>
+     * Evaluates to {@code true} when the attribute is {@code null}.
      *
      * @return {@code true} if the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute is positive; {@code false} otherwise.
      */
@@ -318,6 +322,8 @@ public abstract class MappedJob {
     /**
      * Indicates whether the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or equal to the
      * {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute.
+     * <p>
+     * Evaluates to {@code true} when either attribute is {@code null}.
      *
      * @return {@code true} if the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or equal to the
      * {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute; {@code false} otherwise.

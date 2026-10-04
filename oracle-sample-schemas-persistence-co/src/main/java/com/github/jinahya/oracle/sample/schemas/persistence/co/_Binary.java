@@ -33,17 +33,17 @@ import java.util.Optional;
  * table, the logo of the {@value Store#TABLE_NAME} table, and anything shaped like them.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @apiNote No column is named here. An embedding attribute names all five with
- * {@link jakarta.persistence.AttributeOverride}, which replaces the column mapping outright, so anything declared here
- * would never be read.
+ * @apiNote No column is named here. Each embeddable subclass -- {@link ProductImage}, {@link StoreLogo} -- names all
+ * five with {@link jakarta.persistence.AttributeOverride}, two of them below, which replaces the column mapping
+ * outright, so anything declared here would never be read.
  * {@snippet lang = "java":
- *         @Embedded
+ *         @Embeddable
  *         @AttributeOverride(name = _Binary.ATTRIBUTE_NAME_BYTES,
  *                            column = @Column(name = Product.COLUMN_NAME_PRODUCT_IMAGE))
  *         @AttributeOverride(name = _Binary.ATTRIBUTE_NAME_MIME_TYPE,
  *                            column = @Column(name = Product.COLUMN_NAME_IMAGE_MIME_TYPE,
  *                                             length = Product.COLUMN_LENGTH_IMAGE_MIME_TYPE))
- *         private ProductImage image;
+ *         public class ProductImage extends _Binary { ... }
  *}
  */
 @MappedSuperclass

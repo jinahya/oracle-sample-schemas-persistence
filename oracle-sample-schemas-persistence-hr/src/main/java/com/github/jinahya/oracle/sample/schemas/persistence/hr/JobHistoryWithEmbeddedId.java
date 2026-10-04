@@ -44,6 +44,9 @@ import java.util.function.Function;
 /**
  * An entity class for mapping the {@value JobHistoryWithEmbeddedId#TABLE_NAME} table, whose composite primary key is
  * mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
+ * <p>
+ * This class and {@link JobHistoryWithIdClass} share the entity name {@value #ENTITY_NAME}, so a persistence unit can
+ * list only one of them.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see JobHistoryWithIdClass
@@ -88,7 +91,7 @@ public class JobHistoryWithEmbeddedId {
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE} attribute maps. The value is
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_ID_EMPLOYEE_ID} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_EMPLOYEE_ID = "EMPLOYEE_ID";
@@ -119,7 +122,11 @@ public class JobHistoryWithEmbeddedId {
     public static final int COLUMN_MAX_EMPLOYEE_ID = +999999;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@link Employee employee} joined on the
+     * {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
+     * <p>
+     * The association is neither insertable nor updatable; the {@value #ATTRIBUTE_NAME_ID_EMPLOYEE_ID} attribute writes
+     * the column.
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
 
@@ -248,12 +255,12 @@ public class JobHistoryWithEmbeddedId {
     public static final int COLUMN_MAX_DEPARTMENT_ID = +9999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
+     * The minimum value of the identifier of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MIN_DEPARTMENT_ID = COLUMN_MIN_DEPARTMENT_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
+     * The maximum value of the identifier of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
      */
     public static final long ATTRIBUTE_MAX_DEPARTMENT_ID = COLUMN_MAX_DEPARTMENT_ID;
 
@@ -311,6 +318,13 @@ public class JobHistoryWithEmbeddedId {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @EmbeddedId} alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof JobHistoryWithEmbeddedId that)) {
@@ -319,6 +333,12 @@ public class JobHistoryWithEmbeddedId {
         return Objects.equals(getId(), that.getId());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @EmbeddedId}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hash(getId());
@@ -329,9 +349,11 @@ public class JobHistoryWithEmbeddedId {
     /**
      * Tests whether current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute is after the value of
      * {@value #ATTRIBUTE_NAME_ID_START_DATE} attribute.
+     * <p>
+     * Mirrors the {@code JHIST_DATE_INTERVAL} check constraint ({@code end_date > start_date}).
      *
      * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_END_DATE} attribute is after the
-     * {@value #ATTRIBUTE_NAME_ID_START_DATE} attribute; {@code false} otherwise.
+     * {@value #ATTRIBUTE_NAME_ID_START_DATE} attribute, or either of them is {@code null}; {@code false} otherwise.
      */
     @AssertTrue
     protected boolean isEndDateAfterIdStartDate() {
@@ -372,7 +394,8 @@ public class JobHistoryWithEmbeddedId {
     // --------------------------------------------------------------------------------------------------------- endDate
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute -- the last day of the employee in the job,
+     * which the {@code UPDATE_JOB_HISTORY} trigger writes.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute.
      */
@@ -383,6 +406,8 @@ public class JobHistoryWithEmbeddedId {
 
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute with the specified value.
+     * <p>
+     * The column is neither insertable nor updatable, so this changes the instance only, never the row.
      *
      * @param endDate new value for {@value #ATTRIBUTE_NAME_END_DATE} attribute.
      */

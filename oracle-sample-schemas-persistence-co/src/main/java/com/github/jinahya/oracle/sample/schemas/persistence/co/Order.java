@@ -224,8 +224,7 @@ public class Order {
     // -------------------------------------------------------------------------------------------------------- STORE_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
@@ -335,6 +334,8 @@ public class Order {
      * @param <R>    the type of the mapped value.
      * @param mapper the function to apply to current value of the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute.
      * @return the mapped value; {@code null} when the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute is {@code null}.
+     * @throws NullPointerException if {@code mapper} is {@code null} while the {@value #ATTRIBUTE_NAME_ORDER_TMS}
+     *                              attribute is not {@code null}.
      */
     public <R> R getOrderTmsAsMapped(final Function<? super LocalDateTime, ? extends R> mapper) {
         return Optional.ofNullable(getOrderTms())
@@ -349,6 +350,7 @@ public class Order {
      * @param <T>      the type of the specified value.
      * @param orderTms the value to map and set.
      * @param mapper   the function which maps the specified value.
+     * @throws NullPointerException if {@code mapper} is {@code null} while {@code orderTms} is not {@code null}.
      */
     public <T> void setOrderTmsFromMapped(final T orderTms, final Function<? super T, LocalDateTime> mapper) {
         setOrderTms(
@@ -363,6 +365,8 @@ public class Order {
      *
      * @param zone the zone to apply.
      * @return a zoned date-time; {@code null} when the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute is {@code null}.
+     * @throws NullPointerException if {@code zone} is {@code null} while the {@value #ATTRIBUTE_NAME_ORDER_TMS}
+     *                              attribute is not {@code null}.
      */
     public ZonedDateTime getOrderTmsAsZonedDatetime(final ZoneId zone) {
         return getOrderTmsAsMapped(
@@ -371,9 +375,10 @@ public class Order {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the local date-time of the specified
+     * zoned date-time.
      *
-     * @param orderTms new value for {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute.
+     * @param orderTms the zoned date-time whose local date-time is set; may be {@code null}.
      */
     @Transient
     public void setOrderTmsFromZonedDateTime(final ZonedDateTime orderTms) {
@@ -385,6 +390,8 @@ public class Order {
      *
      * @param offset the offset to apply.
      * @return an offset date-time; {@code null} when the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute is {@code null}.
+     * @throws NullPointerException if {@code offset} is {@code null} while the {@value #ATTRIBUTE_NAME_ORDER_TMS}
+     *                              attribute is not {@code null}.
      */
     public OffsetDateTime getOrderTmsAsOffsetDatetime(final ZoneOffset offset) {
         return getOrderTmsAsMapped(
@@ -393,9 +400,10 @@ public class Order {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the local date-time of the specified
+     * offset date-time.
      *
-     * @param orderTms new value for {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute.
+     * @param orderTms the offset date-time whose local date-time is set; may be {@code null}.
      */
     @Transient
     public void setOrderTmsFromOffsetDateTime(final OffsetDateTime orderTms) {
@@ -410,7 +418,10 @@ public class Order {
      * zone.
      *
      * @param zone the zone.
-     * @return {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute as an {@link Instant instant} at {@code zone}.
+     * @return {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute as an {@link Instant instant} at {@code zone}; {@code null}
+     * when the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute is {@code null}.
+     * @throws NullPointerException if {@code zone} is {@code null} while the {@value #ATTRIBUTE_NAME_ORDER_TMS}
+     *                              attribute is not {@code null}.
      */
     public Instant getOrderTmsAsInstant(final ZoneId zone) {
         return Optional.ofNullable(getOrderTmsAsZonedDatetime(zone))
@@ -422,8 +433,9 @@ public class Order {
      * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the specified instant at specified
      * zone.
      *
-     * @param instant the instant.
+     * @param instant the instant; may be {@code null}.
      * @param zone    the zone.
+     * @throws NullPointerException if {@code zone} is {@code null} while {@code instant} is not {@code null}.
      */
     public void setOrderTmsFromInstant(final Instant instant, final ZoneId zone) {
         setOrderTmsFromZonedDateTime(
@@ -438,7 +450,10 @@ public class Order {
      * offset.
      *
      * @param offset the offset.
-     * @return {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute as an {@link Instant instant} at {@code offset}.
+     * @return {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute as an {@link Instant instant} at {@code offset};
+     * {@code null} when the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute is {@code null}.
+     * @throws NullPointerException if {@code offset} is {@code null} while the {@value #ATTRIBUTE_NAME_ORDER_TMS}
+     *                              attribute is not {@code null}.
      */
     public Instant getOrderTmsAsInstant(final ZoneOffset offset) {
         return Optional.ofNullable(getOrderTmsAsOffsetDatetime(offset))
@@ -450,8 +465,9 @@ public class Order {
      * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the specified instant at specified
      * offset.
      *
-     * @param orderTms the instant.
+     * @param orderTms the instant; may be {@code null}.
      * @param offset   the offset.
+     * @throws NullPointerException if {@code offset} is {@code null} while {@code orderTms} is not {@code null}.
      */
     public void setOrderTmsFromInstant(final Instant orderTms, final ZoneOffset offset) {
         setOrderTmsFromOffsetDateTime(
@@ -530,6 +546,9 @@ public class Order {
      * Returns the total price of this order, summed over its order items.
      *
      * @return the total price of this order.
+     * @throws IllegalArgumentException if the order items of this order are {@code null}.
+     * @throws IllegalStateException    if the unit price or the quantity of any of its order items is {@code null}.
+     * @see OrderItemWithEmbeddedId#getTotalPrice(java.math.MathContext)
      */
     public BigDecimal getTotalPrice() {
         if (orderItems == null) {
@@ -546,6 +565,8 @@ public class Order {
      *
      * @param product the product whose order item is returned.
      * @return the order item for the {@code product}; {@code null} when this order has none.
+     * @throws NullPointerException  if {@code product} is {@code null}.
+     * @throws IllegalStateException if the order items of this order are {@code null}.
      */
     public @jakarta.annotation.Nullable OrderItemWithEmbeddedId getOrderItem(@Nonnull final Product product) {
         Objects.requireNonNull(product, "product is null");

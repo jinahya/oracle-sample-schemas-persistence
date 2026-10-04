@@ -40,8 +40,8 @@ class JobHistoryWithEmbeddedId_Test extends _Test<JobHistoryWithEmbeddedId> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link JobHistoryWithEmbeddedId#equals(Object) equals} compares only the {@code @Id} {@code id} -- the
-     * surrogate key -- because every other attribute is mutable state.
+     * @implNote {@link JobHistoryWithEmbeddedId#equals(Object) equals} compares only the {@code @EmbeddedId} {@code id}
+     * -- the composite primary key -- because every other attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<JobHistoryWithEmbeddedId> equals_verifier_() {

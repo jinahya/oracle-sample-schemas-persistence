@@ -41,11 +41,15 @@ import java.lang.invoke.MethodHandles;
  * Produces, as CDI beans, the {@link EntityManagerFactory} of a persistence unit, and the {@link EntityManager}s it
  * creates.
  * <p>
- * The unit is named by {@link #persistenceUnitName()}, which a module implements: each schema module declares its own
- * unit under its own name, because a persistence unit name is only required to be unique within the archive that
- * declares it, and every module of this build ends up on one classpath whenever the modules are built or run together.
- * Two units sharing a name there is unspecified behaviour -- the provider takes whichever it finds first -- so the
- * names are kept apart instead.
+ * The unit is named by {@link #persistenceUnitName()}, which a module's subclass implements: each schema module
+ * declares its own unit under its own name, because a persistence unit name is only required to be unique within the
+ * archive that declares it, and every module of this build ends up on one classpath whenever the modules are built or
+ * run together. Two units sharing a name there is unspecified behaviour -- the provider takes whichever it finds
+ * first -- so the names are kept apart instead.
+ * <p>
+ * The subclass also has to override the two producer methods and the two disposer methods, if only to repeat their
+ * annotations: CDI does not inherit producer or disposer methods, so the ones declared here are not seen on a subclass
+ * bean.
  * <p>
  * The unit is bootstrapped the Java SE way, through {@link Persistence#createEntityManagerFactory(String)}, so the
  * provider, the JDBC properties and the listed entity classes are whatever {@code META-INF/persistence.xml} says --
@@ -79,7 +83,7 @@ public abstract class __Persistence_IT_Producer {
     /**
      * A CDI qualifier for the beans of the persistence unit this producer bootstraps.
      * <p>
-     * This module declares two persistence units, so an unqualified {@link EntityManager} would be an
+     * Each schema module declares two persistence units, so an unqualified {@link EntityManager} would be an
      * ambiguous-resolution failure rather than a second bean. The qualifier names the unit at both ends: the producer
      * declares which unit it produces, and an injection point declares which unit it wants.
      * <p>

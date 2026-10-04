@@ -50,14 +50,16 @@ public abstract class MappedProfitId {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The name of the attribute which maps the {@value MappedProfit#COLUMN_NAME_CUST_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value MappedProfit#COLUMN_NAME_CUST_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_ID = "custId";
 
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The name of the attribute which maps the {@value MappedProfit#COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value MappedProfit#COLUMN_NAME_PROD_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
@@ -72,7 +74,8 @@ public abstract class MappedProfitId {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The name of the attribute which maps the {@value MappedProfit#COLUMN_NAME_TIME_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value MappedProfit#COLUMN_NAME_TIME_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 

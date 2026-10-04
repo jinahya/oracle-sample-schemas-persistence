@@ -298,7 +298,8 @@ public class Customer {
     public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column as a
+     * {@link jakarta.persistence.ManyToOne @ManyToOne} association. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY = "country";
 

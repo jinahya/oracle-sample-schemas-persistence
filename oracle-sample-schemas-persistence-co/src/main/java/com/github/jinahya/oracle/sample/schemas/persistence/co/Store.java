@@ -608,7 +608,8 @@ public class Store {
     /**
      * Returns current value of {@link #getLatitude() latitude} attribute as a {@code double} value.
      *
-     * @return current value of {@link #getLatitude() latitude} attribute as a {@code double} value.
+     * @return current value of {@link #getLatitude() latitude} attribute as a {@code double} value; {@code null} when
+     * the attribute is {@code null}.
      * @see #getLatitude()
      * @see BigDecimal#doubleValue()
      */
@@ -621,10 +622,12 @@ public class Store {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LATITUDE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LATITUDE} attribute with the specified {@code double} value,
+     * optionally rescaled to the scale of the {@value #COLUMN_NAME_LATITUDE} column.
      *
-     * @param latitude     new value for {@link #setLatitude(BigDecimal) latitude} attribute.
-     * @param roundingMode a rounding mode.
+     * @param latitude     new value for {@link #setLatitude(BigDecimal) latitude} attribute; may be {@code null}.
+     * @param roundingMode the rounding mode with which the value is rescaled to {@value #COLUMN_SCALE_LATITUDE}
+     *                     fraction digits; {@code null} to keep the value unscaled.
      * @see BigDecimal#valueOf(double)
      * @see BigDecimal#setScale(int, RoundingMode)
      * @see #setLatitude(BigDecimal)

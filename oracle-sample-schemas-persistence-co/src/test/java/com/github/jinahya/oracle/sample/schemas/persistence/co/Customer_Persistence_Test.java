@@ -41,12 +41,12 @@ class Customer_Persistence_Test extends _Persistence_Test<Customer> {
     }
 
     /**
-     * A class for testing the selection of a single {@link Customer} by its
-     * {@value Customer#ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute.
+     * A class for testing the selection of every {@link Customer}, ordered by its
+     * {@value Customer#ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
      * <p>
      * The same selection is written three ways -- as a query-language query, as the
-     * {@code Customer.selectSingleByEmailAddress} named query, and through the criteria API -- and each asserts that
-     * what comes back is the very instance just persisted, which the persistence context still manages.
+     * {@code Customer.selectListOrderByCustomerIdAsc} named query, and through the criteria API -- and each asserts
+     * that what comes back contains the instances just persisted, in ascending order of identifier.
      */
     @Nested
     class SelectListOrderByCustomerIdAsc_Test {
@@ -124,6 +124,14 @@ class Customer_Persistence_Test extends _Persistence_Test<Customer> {
         }
     }
 
+    /**
+     * A class for testing the selection of a single {@link Customer} by its
+     * {@value Customer#ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute.
+     * <p>
+     * The same selection is written three ways -- as a query-language query, as the
+     * {@code Customer.selectOneByEmailAddress} named query, and through the criteria API -- and each asserts that what
+     * comes back is the very instance just persisted, which the persistence context still manages.
+     */
     @Nested
     class SelectOneByEmailAddress_Test {
 

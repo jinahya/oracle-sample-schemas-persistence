@@ -238,6 +238,8 @@ public class Location {
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_STATE_PROVINCE} column. The value is {@value}.
+     *
+     * @see #ATTRIBUTE_NAME_STATE_PROVINCE
      */
     public static final String ATTRIBUTE_STATE_PROVINCE = "stateProvince";
 
@@ -322,6 +324,13 @@ public class Location {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Location that)) {
@@ -330,6 +339,12 @@ public class Location {
         return Objects.equals(locationId, that.locationId);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(locationId);

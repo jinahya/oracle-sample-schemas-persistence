@@ -37,7 +37,7 @@ import java.util.Objects;
 public class FweekPscatSalesMvId {
 
     /**
-     * The name of the database materialized view whose primary key this class maps. The value is {@value}.
+     * The name of the database materialized view whose identifying columns this class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = FweekPscatSalesMvWithEmbeddedId.TABLE_NAME;
 
@@ -117,6 +117,15 @@ public class FweekPscatSalesMvId {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by all of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY},
+     * {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY}, {@value #ATTRIBUTE_NAME_CHANNEL_ID}, and
+     * {@value #ATTRIBUTE_NAME_PROMO_ID}.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof FweekPscatSalesMvId that)) {
@@ -128,6 +137,14 @@ public class FweekPscatSalesMvId {
                && Objects.equals(promoId, that.promoId);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over all of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY},
+     * {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY}, {@value #ATTRIBUTE_NAME_CHANNEL_ID}, and
+     * {@value #ATTRIBUTE_NAME_PROMO_ID}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hash(weekEndingDay, prodSubcategory, channelId, promoId);

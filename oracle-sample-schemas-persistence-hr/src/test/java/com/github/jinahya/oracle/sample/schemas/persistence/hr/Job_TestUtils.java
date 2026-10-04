@@ -44,7 +44,8 @@ public final class Job_TestUtils {
      *
      * @param minSalary the value of the {@code minSalary} attribute; may be {@code null}.
      * @return a new random positive value for the {@code maxSalary} attribute.
-     * @throws IllegalArgumentException if {@code minSalary} is out of range.
+     * @throws IllegalArgumentException if {@code minSalary} is less than {@code 1}, or greater than
+     *                                  {@link Job#ATTRIBUTE_MAX_MIN_SALARY}.
      */
     public static int newRandomPositiveMaxSalary(final Integer minSalary) {
         if (minSalary != null && minSalary < 1) {

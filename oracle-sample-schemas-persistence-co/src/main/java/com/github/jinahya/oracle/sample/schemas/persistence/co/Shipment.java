@@ -266,6 +266,14 @@ public class Shipment {
             return attribute.columnValue();
         }
 
+        /**
+         * {@inheritDoc}
+         *
+         * @param dbData {@inheritDoc}
+         * @return {@inheritDoc}
+         * @throws IllegalArgumentException if {@code dbData} is the column value of no {@link ShipmentStatus}
+         *                                  constant.
+         */
         @Override
         public ShipmentStatus convertToEntityAttribute(final String dbData) {
             if (dbData == null) {

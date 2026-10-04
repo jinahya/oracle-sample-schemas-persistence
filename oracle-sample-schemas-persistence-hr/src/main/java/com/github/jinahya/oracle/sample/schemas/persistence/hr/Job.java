@@ -223,7 +223,7 @@ public class Job {
     // ----------------------------------------------------------------------------------------------------- COMPARATORS
 
     /**
-     * A comparator compares {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute, in
+     * A comparator which compares the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute, in
      * {@link Comparator#naturalOrder() natural order}, {@link Comparator#nullsFirst(Comparator) nulls first}.
      */
     public static final Comparator<Job> COMPARATOR_MIN_SALARY_NATURAL_NULLS_FIRST =
@@ -233,7 +233,7 @@ public class Job {
             );
 
     /**
-     * A comparator compares {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute, in
+     * A comparator which compares the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute, in
      * {@link Comparator#reverseOrder() reverse order}, {@link Comparator#nullsLast(Comparator) nulls last}.
      */
     public static final Comparator<Job> COMPARATOR_MAX_SALARY_REVERSE_NULLS_LAST =
@@ -263,12 +263,25 @@ public class Job {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Job that)) return false;
         return Objects.equals(jobId, that.jobId);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(jobId);
@@ -308,6 +321,8 @@ public class Job {
 
     /**
      * Indicates whether the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is positive.
+     * <p>
+     * Evaluates to {@code true} when the attribute is {@code null}.
      *
      * @return {@code true} if the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is positive; {@code false} otherwise.
      */
@@ -321,6 +336,8 @@ public class Job {
 
     /**
      * Indicates whether the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute is positive.
+     * <p>
+     * Evaluates to {@code true} when the attribute is {@code null}.
      *
      * @return {@code true} if the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute is positive; {@code false} otherwise.
      */
@@ -335,6 +352,8 @@ public class Job {
     /**
      * Indicates whether the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or equal to the
      * {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute.
+     * <p>
+     * Evaluates to {@code true} when either attribute is {@code null}.
      *
      * @return {@code true} if the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or equal to the
      * {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute; {@code false} otherwise.
@@ -411,12 +430,13 @@ public class Job {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute with the specified value while adjusting
-     * current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute to be validated by
-     * {@link #isMinSalaryLessThanOrEqualToMaxSalary()} method.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute with the specified value, and raises
+     * current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute to it when it is less, so that
+     * {@link #isMinSalaryLessThanOrEqualToMaxSalary()} holds.
      *
      * @param minSalary new value for {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute; should be between
      *                  {@value #ATTRIBUTE_MIN_MIN_SALARY} and {@value #ATTRIBUTE_MAX_MIN_SALARY}.
+     * @throws IllegalArgumentException if {@code minSalary} is not {@code null} and out of that range.
      * @deprecated for removal.
      */
     @Deprecated(forRemoval = true)
@@ -463,12 +483,13 @@ public class Job {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute with the specified value while adjusting
-     * current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute to be validated by
-     * {@link #isMinSalaryLessThanOrEqualToMaxSalary()} method.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute with the specified value, and adjusts
+     * current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute, intending that
+     * {@link #isMinSalaryLessThanOrEqualToMaxSalary()} holds.
      *
      * @param maxSalary new value for {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute; should be between
-     *                  {@value #ATTRIBUTE_MAX_MAX_SALARY} and {@value #ATTRIBUTE_MIN_MAX_SALARY}.
+     *                  {@value #ATTRIBUTE_MIN_MAX_SALARY} and {@value #ATTRIBUTE_MAX_MAX_SALARY}.
+     * @throws IllegalArgumentException if {@code maxSalary} is not {@code null} and out of that range.
      * @deprecated for removal.
      */
     @Deprecated(forRemoval = true)

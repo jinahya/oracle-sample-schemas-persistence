@@ -34,6 +34,9 @@ import java.util.Objects;
 
 /**
  * A mapped superclass which holds the mappings of the {@value MappedEmpDetailsView#TABLE_NAME} view.
+ * <p>
+ * Every column is mapped read-only; only the identifier stays insertable, which EclipseLink requires of an
+ * {@link jakarta.persistence.Id @Id}. The setters therefore change the instance only, never the view.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -212,7 +215,8 @@ public abstract class MappedEmpDetailsView {
     public static final int COLUMN_PRECISION_SALARY = 8;
 
     /**
-     * The scale of the {@value #COLUMN_NAME_SALARY} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_SALARY} column, which the view projects from the {@code EMPLOYEES} table.
+     * The value is {@value}.
      */
     public static final int COLUMN_SCALE_SALARY = 2;
 
@@ -236,7 +240,8 @@ public abstract class MappedEmpDetailsView {
     public static final int COLUMN_PRECISION_COMMISSION_PCT = 2;
 
     /**
-     * The scale of the {@value #COLUMN_NAME_COMMISSION_PCT} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_COMMISSION_PCT} column, which the view projects from the {@code EMPLOYEES}
+     * table. The value is {@value}.
      */
     public static final int COLUMN_SCALE_COMMISSION_PCT = 2;
 

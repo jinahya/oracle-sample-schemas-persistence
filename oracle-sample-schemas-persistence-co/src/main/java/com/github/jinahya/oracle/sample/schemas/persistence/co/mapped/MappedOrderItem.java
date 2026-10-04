@@ -66,8 +66,8 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     public static final String ATTRIBUTE_NAME_ID_ORDER_ID = "id.orderId";
 
     /**
-     * The name of an attribute, which this class does not declare, joining on the
-     * {@value #COLUMN_NAME_ORDER_ID} column. The value is {@value}.
+     * The name of an attribute, which this class does not declare, joining on the {@value #COLUMN_NAME_ORDER_ID}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER = "order";
 
@@ -101,8 +101,8 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     public static final String ATTRIBUTE_NAME_PRODUCT_ID = "productId";
 
     /**
-     * The name of an attribute, which this class does not declare, joining on the
-     * {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
+     * The name of an attribute, which this class does not declare, joining on the {@value #COLUMN_NAME_PRODUCT_ID}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
@@ -166,8 +166,8 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     public static final String ATTRIBUTE_NAME_SHIPMENT_ID = "shipmentId";
 
     /**
-     * The name of an attribute, which this class does not declare, joining on the
-     * {@value #COLUMN_NAME_SHIPMENT_ID} column. The value is {@value}.
+     * The name of an attribute, which this class does not declare, joining on the {@value #COLUMN_NAME_SHIPMENT_ID}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT = "shipment";
 
@@ -238,7 +238,8 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     /**
      * Indicates whether the {@value #ATTRIBUTE_NAME_QUANTITY} attribute is non-negative.
      *
-     * @return {@code true} if the {@value #ATTRIBUTE_NAME_QUANTITY} attribute is non-negative; {@code false} otherwise.
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_QUANTITY} attribute is {@code null} or non-negative;
+     * {@code false} otherwise.
      */
     protected boolean isQuantityNonNegative() {
         if (quantity == null) {

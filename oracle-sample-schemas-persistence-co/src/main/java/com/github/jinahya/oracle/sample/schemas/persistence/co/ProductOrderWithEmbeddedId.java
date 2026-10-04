@@ -33,7 +33,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * An entity class for mapping the {@value ProductOrderWithEmbeddedId#TABLE_NAME} view, whose composite primary key is
+ * An entity class for mapping the {@value ProductOrderWithEmbeddedId#TABLE_NAME} view, whose composite identifier is
  * mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
@@ -67,7 +67,10 @@ public class ProductOrderWithEmbeddedId {
     public static final int SIZE_MAX_PRODUCT_NAME = COLUMN_LENGTH_PRODUCT_NAME;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_NAME} column. The value is {@value}.
+     * The name of the attribute, of the {@link ProductOrderId @EmbeddedId}, which maps the
+     * {@value #COLUMN_NAME_PRODUCT_NAME} column. The value is {@value}.
+     *
+     * @see #ATTRIBUTE_NAME_ID_PRODUCT_NAME
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_NAME = "productName";
 
@@ -97,7 +100,10 @@ public class ProductOrderWithEmbeddedId {
     public static final int SIZE_MAX_ORDER_STATUS = COLUMN_LENGTH_ORDER_STATUS;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_STATUS} column. The value is {@value}.
+     * The name of the attribute, of the {@link ProductOrderId @EmbeddedId}, which maps the
+     * {@value #COLUMN_NAME_ORDER_STATUS} column. The value is {@value}.
+     *
+     * @see #ATTRIBUTE_NAME_ID_ORDER_STATUS
      */
     public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
 
@@ -135,7 +141,7 @@ public class ProductOrderWithEmbeddedId {
     public static final String ATTRIBUTE_NAME_ORDER_COUNT = "orderCount";
 
     /**
-     * The name of the attribute which maps the primary key columns, as an
+     * The name of the attribute which maps the identifying columns, as an
      * {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID = "id";
@@ -211,14 +217,16 @@ public class ProductOrderWithEmbeddedId {
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute; {@code null} when
+     * {@value #ATTRIBUTE_NAME_ID} attribute is {@code null}.
      */
     public String getProductName() {
         return Optional.ofNullable(getId()).map(ProductOrderId::getProductName).orElse(null);
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute with the specified value, creating the
+     * {@value #ATTRIBUTE_NAME_ID} attribute first when it is {@code null}.
      *
      * @param productName new value for {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute.
      */
@@ -234,14 +242,16 @@ public class ProductOrderWithEmbeddedId {
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute; {@code null} when
+     * {@value #ATTRIBUTE_NAME_ID} attribute is {@code null}.
      */
     public String getOrderStatus() {
         return Optional.ofNullable(getId()).map(ProductOrderId::getOrderStatus).orElse(null);
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute with the specified value, creating the
+     * {@value #ATTRIBUTE_NAME_ID} attribute first when it is {@code null}.
      *
      * @param orderStatus new value for {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
      */

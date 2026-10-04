@@ -1,5 +1,6 @@
 /**
- * Defines classes which map the tables of the {@code CO} schema, each holding the column mappings of one table.
+ * Defines classes which map the tables and views of the {@code CO} schema, each holding the column mappings of one
+ * table or view.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */

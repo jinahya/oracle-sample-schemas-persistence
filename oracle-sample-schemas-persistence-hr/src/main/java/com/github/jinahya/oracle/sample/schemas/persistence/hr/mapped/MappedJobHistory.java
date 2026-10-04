@@ -318,7 +318,8 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
     // --------------------------------------------------------------------------------------------------------- endDate
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute -- the last day of the employee in the job,
+     * which the {@code UPDATE_JOB_HISTORY} trigger writes.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute.
      */
@@ -329,6 +330,8 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
 
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute with the specified value.
+     * <p>
+     * The column is neither insertable nor updatable, so this changes the instance only, never the row.
      *
      * @param endDate new value for {@value #ATTRIBUTE_NAME_END_DATE} attribute.
      */

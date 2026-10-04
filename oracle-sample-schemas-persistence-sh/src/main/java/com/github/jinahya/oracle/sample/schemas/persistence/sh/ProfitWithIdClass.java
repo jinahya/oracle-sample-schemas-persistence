@@ -34,8 +34,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * An entity class for mapping the {@value ProfitWithIdClass#TABLE_NAME} view, whose composite primary key is mapped
- * with an {@link jakarta.persistence.IdClass @IdClass}.
+ * An entity class for mapping the {@value ProfitWithIdClass#TABLE_NAME} view, whose composite identifier is mapped with
+ * an {@link jakarta.persistence.IdClass @IdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see ProfitWithEmbeddedId
@@ -239,7 +239,7 @@ public class ProfitWithIdClass {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the {@code @Id} alone.
+     * @implSpec Equality is by the five {@code @Id} attributes, compared as the {@link #getId() id} they make up.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -253,7 +253,8 @@ public class ProfitWithIdClass {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     * @implSpec The hash is over the five {@code @Id} attributes, through {@link #getId()}, consistent with
+     * {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {

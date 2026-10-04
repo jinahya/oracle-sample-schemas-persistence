@@ -40,8 +40,9 @@ class JobHistoryWithIdClass_Test extends _Test<JobHistoryWithIdClass> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link JobHistoryWithIdClass#equals(Object) equals} compares only the {@code @Id}
-     * {@code employeeId and startDate} -- the surrogate key -- because every other attribute is mutable state.
+     * @implNote {@link JobHistoryWithIdClass#equals(Object) equals} compares only the two {@code @Id} attributes,
+     * {@code employeeId} and {@code startDate} -- the composite primary key -- because every other attribute is mutable
+     * state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<JobHistoryWithIdClass> equals_verifier_() {

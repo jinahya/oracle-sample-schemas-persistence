@@ -37,7 +37,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * An entity class for mapping the {@value CostWithEmbeddedId#TABLE_NAME} table, whose composite primary key is mapped
+ * An entity class for mapping the {@value CostWithEmbeddedId#TABLE_NAME} table, whose composite identifier is mapped
  * with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  * <p>
  * The table declares no primary key; the four dimension columns are its grain, and the {@code CANDIDATE_KEYS} section
@@ -64,7 +64,8 @@ public class CostWithEmbeddedId {
     public static final String COLUMN_NAME_PROD_ID = "PROD_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     * The name of the {@link CostId} attribute which maps the {@value #COLUMN_NAME_PROD_ID} column; this entity reaches
+     * it as {@value #ATTRIBUTE_NAME_ID_PROD_ID}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
@@ -90,7 +91,8 @@ public class CostWithEmbeddedId {
     public static final String COLUMN_NAME_TIME_ID = "TIME_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column. The value is {@value}.
+     * The name of the {@link CostId} attribute which maps the {@value #COLUMN_NAME_TIME_ID} column; this entity reaches
+     * it as {@value #ATTRIBUTE_NAME_ID_TIME_ID}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
@@ -116,7 +118,8 @@ public class CostWithEmbeddedId {
     public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     * The name of the {@link CostId} attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column; this entity
+     * reaches it as {@value #ATTRIBUTE_NAME_ID_PROMO_ID}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
@@ -142,7 +145,8 @@ public class CostWithEmbeddedId {
     public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     * The name of the {@link CostId} attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column; this entity
+     * reaches it as {@value #ATTRIBUTE_NAME_ID_CHANNEL_ID}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
@@ -206,7 +210,7 @@ public class CostWithEmbeddedId {
     public static final String ATTRIBUTE_NAME_UNIT_PRICE = "unitPrice";
 
     /**
-     * The name of the attribute which maps the primary key columns, as an
+     * The name of the attribute which maps the identifying columns, as an
      * {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID = "id";
@@ -280,16 +284,18 @@ public class CostWithEmbeddedId {
     // ---------------------------------------------------------------------------------------------------------- prodId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute of the {@link #getId() id}.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute of the {@link #getId() id}; {@code null} if
+     * the id is {@code null}.
      */
     public Integer getProdId() {
         return Optional.ofNullable(getId()).map(CostId::getProdId).orElse(null);
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute of the {@link #getId() id} with the
+     * specified value, setting a new id first if there is none.
      *
      * @param prodId new value for {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
      */
@@ -303,16 +309,18 @@ public class CostWithEmbeddedId {
     // ---------------------------------------------------------------------------------------------------------- timeId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute of the {@link #getId() id}.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute of the {@link #getId() id}; {@code null} if
+     * the id is {@code null}.
      */
     public LocalDate getTimeId() {
         return Optional.ofNullable(getId()).map(CostId::getTimeId).orElse(null);
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute of the {@link #getId() id} with the
+     * specified value, setting a new id first if there is none.
      *
      * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
@@ -326,16 +334,18 @@ public class CostWithEmbeddedId {
     // --------------------------------------------------------------------------------------------------------- promoId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute of the {@link #getId() id}.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute of the {@link #getId() id}; {@code null} if
+     * the id is {@code null}.
      */
     public Integer getPromoId() {
         return Optional.ofNullable(getId()).map(CostId::getPromoId).orElse(null);
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute of the {@link #getId() id} with the
+     * specified value, setting a new id first if there is none.
      *
      * @param promoId new value for {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
      */
@@ -349,16 +359,18 @@ public class CostWithEmbeddedId {
     // ------------------------------------------------------------------------------------------------------- channelId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute of the {@link #getId() id}.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute of the {@link #getId() id}; {@code null}
+     * if the id is {@code null}.
      */
     public Long getChannelId() {
         return Optional.ofNullable(getId()).map(CostId::getChannelId).orElse(null);
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute of the {@link #getId() id} with the
+     * specified value, setting a new id first if there is none.
      *
      * @param channelId new value for {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
      */

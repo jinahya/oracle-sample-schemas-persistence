@@ -40,8 +40,8 @@ class Inventory_Test extends _Test<Inventory> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Inventory#equals(Object) equals} compares the business key rather than the surrogate
-     * {@code @Id}, which is null until the row is inserted.
+     * @implNote {@link Inventory#equals(Object) equals} compares only the {@code @Id} {@code inventoryId} -- the
+     * surrogate key -- because every other attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<Inventory> equals_verifier_() {

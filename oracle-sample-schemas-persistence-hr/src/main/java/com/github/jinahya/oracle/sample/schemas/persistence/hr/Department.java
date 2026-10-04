@@ -159,12 +159,12 @@ public class Department {
     public static final int COLUMN_MAX_MANAGER_ID = +999999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_MANAGER} attribute. The value is {@value}.
+     * The minimum value of the identifier of the {@value #ATTRIBUTE_NAME_MANAGER} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_MANAGER_ID = COLUMN_MIN_MANAGER_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_MANAGER} attribute. The value is {@value}.
+     * The maximum value of the identifier of the {@value #ATTRIBUTE_NAME_MANAGER} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_MANAGER_ID = COLUMN_MAX_MANAGER_ID;
 
@@ -207,12 +207,12 @@ public class Department {
     public static final int COLUMN_MAX_LOCATION_ID = +9999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_LOCATION} attribute. The value is {@value}.
+     * The minimum value of the identifier of the {@value #ATTRIBUTE_NAME_LOCATION} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_LOCATION_ID = COLUMN_MIN_LOCATION_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_LOCATION} attribute. The value is {@value}.
+     * The maximum value of the identifier of the {@value #ATTRIBUTE_NAME_LOCATION} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_LOCATION_ID = COLUMN_MAX_LOCATION_ID;
 
@@ -256,6 +256,13 @@ public class Department {
                + "}";
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Department that)) {
@@ -264,6 +271,12 @@ public class Department {
         return Objects.equals(getDepartmentId(), that.getDepartmentId());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(getDepartmentId());
@@ -272,7 +285,7 @@ public class Department {
     // ---------------------------------------------------------------------------------------------------- departmentId
 
     /**
-     * Returns the current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
      */
@@ -282,9 +295,9 @@ public class Department {
     }
 
     /**
-     * Replaces the current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute with the specified value.
      *
-     * @param departmentId the new value for the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
+     * @param departmentId new value for {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
      */
     protected void setDepartmentId(@Nonnull final Integer departmentId) {
         this.departmentId = departmentId;

@@ -36,7 +36,7 @@ import java.util.Objects;
 public class ProductOrderId {
 
     /**
-     * The name of the database view whose primary key this class maps. The value is {@value}.
+     * The name of the database view whose identifying columns this class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = ProductOrderWithEmbeddedId.TABLE_NAME;
 

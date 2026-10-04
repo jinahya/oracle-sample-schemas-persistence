@@ -36,7 +36,7 @@ import java.util.Objects;
 public class ProfitId {
 
     /**
-     * The name of the database view whose primary key this class maps. The value is {@value}.
+     * The name of the database view whose identifying columns this class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = ProfitWithEmbeddedId.TABLE_NAME;
 
@@ -93,10 +93,10 @@ public class ProfitId {
      * @return a new instance with the specified column values.
      */
     public static ProfitId of(final Long channelId,
-                               final Long custId,
-                               final Integer prodId,
-                               final Integer promoId,
-                               final LocalDate timeId) {
+                              final Long custId,
+                              final Integer prodId,
+                              final Integer promoId,
+                              final LocalDate timeId) {
         final var instance = new ProfitId();
         instance.setChannelId(channelId);
         instance.setCustId(custId);
@@ -128,6 +128,14 @@ public class ProfitId {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by all of {@value #ATTRIBUTE_NAME_CHANNEL_ID}, {@value #ATTRIBUTE_NAME_CUST_ID},
+     * {@value #ATTRIBUTE_NAME_PROD_ID}, {@value #ATTRIBUTE_NAME_PROMO_ID}, and {@value #ATTRIBUTE_NAME_TIME_ID}.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof ProfitId that)) {
@@ -140,6 +148,14 @@ public class ProfitId {
                && Objects.equals(timeId, that.timeId);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over all of {@value #ATTRIBUTE_NAME_CHANNEL_ID}, {@value #ATTRIBUTE_NAME_CUST_ID},
+     * {@value #ATTRIBUTE_NAME_PROD_ID}, {@value #ATTRIBUTE_NAME_PROMO_ID}, and {@value #ATTRIBUTE_NAME_TIME_ID},
+     * consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hash(channelId, custId, prodId, promoId, timeId);

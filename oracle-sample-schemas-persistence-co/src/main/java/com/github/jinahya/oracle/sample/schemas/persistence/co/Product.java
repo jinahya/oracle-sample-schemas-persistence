@@ -430,6 +430,7 @@ public class Product {
      * @param mapper the function to apply to current value of the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute.
      * @return the mapped value; {@code null} when the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute is
      * {@code null}.
+     * @throws NullPointerException if {@code mapper} is {@code null}.
      */
     public <R> R getProductDetailsAsMapped(final Function<? super byte[], ? extends R> mapper) {
         return Optional.ofNullable(getProductDetails())
@@ -444,6 +445,7 @@ public class Product {
      * @param <T>            the type of the specified value.
      * @param productDetails the value to map and set.
      * @param mapper         the function which maps the specified value.
+     * @throws NullPointerException if {@code mapper} is {@code null}.
      */
     public <T> void setProductDetailsFromMapped(final T productDetails,
                                                 final Function<? super T, ? extends byte[]> mapper) {
