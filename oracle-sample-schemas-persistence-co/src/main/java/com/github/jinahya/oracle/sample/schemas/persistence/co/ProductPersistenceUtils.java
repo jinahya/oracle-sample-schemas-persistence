@@ -21,7 +21,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  */
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Tuple;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -58,16 +57,17 @@ public final class ProductPersistenceUtils {
             final BiFunction<? super BigDecimal, ? super BigDecimal, ? extends R> mapperFunction) {
         Objects.requireNonNull(entityManager, "entityManager is null");
         Objects.requireNonNull(mapperFunction, "mapperFunction is null");
-        final var tuple = entityManager.createQuery(
+        // Object[] rather than Tuple: EclipseLink returns an Object[] for a multi-select even when asked for a Tuple
+        final var row = entityManager.createQuery(
                         """
                                 SELECT MIN(e.unitPrice), MAX(e.unitPrice)
                                 FROM Product AS e""",
-                        Tuple.class
+                        Object[].class
                 )
                 .getSingleResult(); // an aggregate without GROUP BY always yields exactly one row
         return mapperFunction.apply(
-                tuple.get(0, BigDecimal.class),
-                tuple.get(1, BigDecimal.class)
+                (BigDecimal) row[0],
+                (BigDecimal) row[1]
         );
     }
 
