@@ -41,6 +41,13 @@ FROM JOBS
 WHERE MIN_SALARY IS NULL
 ;
 
+SELECT COUNT(1)
+FROM JOBS
+WHERE MIN_SALARY IS NOT NULL
+  AND MAX_SALARY IS NOT NULL
+  AND MIN_SALARY > MAX_SALARY
+;
+
 
 -- ---------------------------------------------------------------------------------------------------------- MAX_SALARY
 SELECT *
@@ -60,6 +67,14 @@ SELECT COUNT(1)
 FROM JOBS
 WHERE MAX_SALARY IS NULL
 ;
+
+SELECT COUNT(1)
+FROM JOBS
+WHERE MAX_SALARY IS NOT NULL
+  AND MIN_SALARY IS NOT NULL
+  AND MAX_SALARY < MIN_SALARY
+;
+
 
 -- ---------------------------------------------------------------------------------------------------------------------
 SELECT MIN(MIN_SALARY), MAX(MAX_SALARY)
