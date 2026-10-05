@@ -195,6 +195,37 @@ public abstract class MappedStoreOrder {
         super();
     }
 
+    /**
+     * Creates a new instance with the specified attribute values.
+     *
+     * @param total       a value for the {@value #ATTRIBUTE_NAME_TOTAL} attribute.
+     * @param storeName   a value for the {@value #ATTRIBUTE_NAME_STORE_NAME} attribute.
+     * @param address     a value for the {@value #ATTRIBUTE_NAME_ADDRESS} attribute.
+     * @param latitude    a value for the {@value #ATTRIBUTE_NAME_LATITUDE} attribute.
+     * @param longitude   a value for the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute.
+     * @param orderStatus a value for the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
+     * @param orderCount  a value for the {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute.
+     * @param totalSales  a value for the {@value #ATTRIBUTE_NAME_TOTAL_SALES} attribute.
+     */
+    protected MappedStoreOrder(final String total,
+                               final String storeName,
+                               final String address,
+                               final BigDecimal latitude,
+                               final BigDecimal longitude,
+                               final String orderStatus,
+                               final Long orderCount,
+                               final BigDecimal totalSales) {
+        super();
+        this.total = total;
+        this.storeName = storeName;
+        this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.orderStatus = orderStatus;
+        this.orderCount = orderCount;
+        this.totalSales = totalSales;
+    }
+
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override

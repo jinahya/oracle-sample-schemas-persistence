@@ -39,6 +39,24 @@ section rather than at the end of the file:
 
 Section markers are line comments padded with dashes to column 120.
 
+### Classes for views with no key
+
+A view that no column, or combination of columns, identifies — `co`'s `PRODUCT_REVIEWS`
+and `STORE_ORDERS` — cannot be an `@Entity`, so it is mapped by a plain class
+(`ProductReview`, `StoreOrder`, and their abstract `Mapped*` counterparts). Each one has
+exactly two constructors:
+
+- a `protected` no-arg constructor, and
+- an all-args constructor, taking every attribute in field order — `public` on a
+  concrete class, `protected` on an abstract one.
+
+The visibility split is load-bearing. A name-based row mapper (Spring's `JdbcClient` /
+`DataClassRowMapper`) uses a class's single `public` constructor, which has to be the
+all-args one, and matches its parameter names to the columns. Those names survive
+compilation only because the root `pom.xml` sets `maven.compiler.parameters` (`javac
+-parameters`); do not remove it. Jakarta Persistence itself does not need it —
+`@ConstructorResult` and `SELECT NEW` pass arguments by position.
+
 ### The static metamodel, and `ATTRIBUTE_NAME_*`
 
 The **generated static metamodel** (`Customer_`, `Employee_`, …) is available under both
@@ -180,8 +198,8 @@ Rules:
 
 ### Java release
 
-`maven.compiler.release` is 21 for main sources and 25 for test sources, so the
-published jars stay consumable on 21 while the tests use current language features.
+`maven.compiler.release` is 17 for main sources and 25 for test sources, so the
+published jars stay consumable on 17 while the tests use current language features.
 **Building the tests therefore needs a JDK 25 or newer.**
 
 ### Detecting and fixing convergence problems

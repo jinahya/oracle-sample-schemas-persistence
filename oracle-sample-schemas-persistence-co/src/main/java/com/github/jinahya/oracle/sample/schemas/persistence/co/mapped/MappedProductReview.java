@@ -124,6 +124,25 @@ public abstract class MappedProductReview {
         super();
     }
 
+    /**
+     * Creates a new instance with the specified attribute values.
+     *
+     * @param productName a value for the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute.
+     * @param rating      a value for the {@value #ATTRIBUTE_NAME_RATING} attribute.
+     * @param avgRating   a value for the {@value #ATTRIBUTE_NAME_AVG_RATING} attribute.
+     * @param review      a value for the {@value #ATTRIBUTE_NAME_REVIEW} attribute.
+     */
+    protected MappedProductReview(final String productName,
+                                  final Integer rating,
+                                  final BigDecimal avgRating,
+                                  final String review) {
+        super();
+        this.productName = productName;
+        this.rating = rating;
+        this.avgRating = avgRating;
+        this.review = review;
+    }
+
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override

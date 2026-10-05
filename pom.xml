@@ -78,6 +78,9 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     <maven.compiler.release>${maven.compiler.target}</maven.compiler.release>
+    <!-- Keep constructor parameter names in the class files, so that name-based row mappers (e.g., Spring's -->
+    <!-- JdbcClient) can match the all-args constructors of the non-entity view classes to the columns. -->
+    <maven.compiler.parameters>true</maven.compiler.parameters>
 <!--    <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>-->
     <maven.compiler.testSource>25</maven.compiler.testSource>
     <maven.compiler.testTarget>${maven.compiler.testSource}</maven.compiler.testTarget>
