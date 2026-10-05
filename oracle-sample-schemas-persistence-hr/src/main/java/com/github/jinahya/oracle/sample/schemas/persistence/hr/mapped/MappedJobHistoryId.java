@@ -28,7 +28,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -70,7 +70,7 @@ public abstract class MappedJobHistoryId {
      * @throws NullPointerException if {@code instantiator} is {@code null}, or it supplies {@code null}.
      */
     protected static <T extends MappedJobHistoryId> T of(final Supplier<? extends T> instantiator,
-                                                         final Integer employeeId, final LocalDate startDate) {
+                                                         final Integer employeeId, final LocalDateTime startDate) {
         Objects.requireNonNull(instantiator, "instantiator is null");
         final var instance = Objects.requireNonNull(instantiator.get(), "instantiator.get() is null");
         instance.setEmployeeId(employeeId);
@@ -154,7 +154,7 @@ public abstract class MappedJobHistoryId {
      * @return current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute.
      */
     @Nonnull
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
@@ -163,7 +163,7 @@ public abstract class MappedJobHistoryId {
      *
      * @param startDate new value for {@value #ATTRIBUTE_NAME_START_DATE} attribute.
      */
-    protected void setStartDate(@Nonnull final LocalDate startDate) {
+    protected void setStartDate(@Nonnull final LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
@@ -191,5 +191,5 @@ public abstract class MappedJobHistoryId {
             insertable = true,
             updatable = false
     )
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 }

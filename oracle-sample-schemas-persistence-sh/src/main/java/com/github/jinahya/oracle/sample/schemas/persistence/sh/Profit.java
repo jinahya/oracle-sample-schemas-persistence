@@ -29,7 +29,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -393,7 +393,7 @@ public class Profit {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
-    public LocalDate getTimeId() {
+    public LocalDateTime getTimeId() {
         return timeId;
     }
 
@@ -402,7 +402,7 @@ public class Profit {
      *
      * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
-    public void setTimeId(final LocalDate timeId) {
+    public void setTimeId(final LocalDateTime timeId) {
         this.timeId = timeId;
     }
 
@@ -551,7 +551,7 @@ public class Profit {
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
     // primary key field", EclipseLink-46. Nothing writes to a view anyway.
     @Column(name = COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
-    private LocalDate timeId;
+    private LocalDateTime timeId;
 
     @NotNull
     @Basic(optional = false)

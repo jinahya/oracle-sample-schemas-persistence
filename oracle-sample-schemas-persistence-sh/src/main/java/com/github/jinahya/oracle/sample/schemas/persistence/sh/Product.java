@@ -29,7 +29,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -915,7 +915,7 @@ public class Product {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_PROD_EFF_FROM} attribute.
      */
-    public LocalDate getProdEffFrom() {
+    public LocalDateTime getProdEffFrom() {
         return prodEffFrom;
     }
 
@@ -924,7 +924,7 @@ public class Product {
      *
      * @param prodEffFrom new value for {@value #ATTRIBUTE_NAME_PROD_EFF_FROM} attribute.
      */
-    public void setProdEffFrom(final LocalDate prodEffFrom) {
+    public void setProdEffFrom(final LocalDateTime prodEffFrom) {
         this.prodEffFrom = prodEffFrom;
     }
 
@@ -935,7 +935,7 @@ public class Product {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_PROD_EFF_TO} attribute.
      */
-    public LocalDate getProdEffTo() {
+    public LocalDateTime getProdEffTo() {
         return prodEffTo;
     }
 
@@ -944,7 +944,7 @@ public class Product {
      *
      * @param prodEffTo new value for {@value #ATTRIBUTE_NAME_PROD_EFF_TO} attribute.
      */
-    public void setProdEffTo(final LocalDate prodEffTo) {
+    public void setProdEffTo(final LocalDateTime prodEffTo) {
         this.prodEffTo = prodEffTo;
     }
 
@@ -1166,7 +1166,7 @@ public class Product {
             insertable = true,
             updatable = true
     )
-    private LocalDate prodEffFrom;
+    private LocalDateTime prodEffFrom;
 
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_PROD_EFF_TO,
@@ -1174,7 +1174,7 @@ public class Product {
             insertable = true,
             updatable = true
     )
-    private LocalDate prodEffTo;
+    private LocalDateTime prodEffTo;
 
     @Size(max = SIZE_MAX_PROD_VALID)
     @Basic(optional = true)

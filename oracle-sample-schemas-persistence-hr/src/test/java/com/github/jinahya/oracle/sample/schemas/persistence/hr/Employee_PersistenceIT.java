@@ -26,7 +26,7 @@ import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -72,7 +72,7 @@ class Employee_PersistenceIT extends _Persistence_IT<Employee> {
             applyNewPersistedTargetInstanceAndRollback((em, e) -> {
                 // well in the past, so the trigger's END_DATE (SYSDATE) is after its START_DATE, as
                 // JHIST_DATE_INTERVAL requires; the randomized hire date may be today, or later
-                e.setHireDate(LocalDate.now().minusYears(1L));
+                e.setHireDate(LocalDateTime.now().minusYears(1L));
                 em.flush();
                 final var oldJob = e.getJob();
                 final var oldDepartment = e.getDepartment();
@@ -98,7 +98,7 @@ class Employee_PersistenceIT extends _Persistence_IT<Employee> {
             applyNewPersistedTargetInstanceAndRollback((em, e) -> {
                 // well in the past, so the trigger's END_DATE (SYSDATE) is after its START_DATE, as
                 // JHIST_DATE_INTERVAL requires; the randomized hire date may be today, or later
-                e.setHireDate(LocalDate.now().minusYears(1L));
+                e.setHireDate(LocalDateTime.now().minusYears(1L));
                 em.flush();
                 final var oldJob = e.getJob();
                 final var oldDepartment = e.getDepartment();
@@ -129,7 +129,7 @@ class Employee_PersistenceIT extends _Persistence_IT<Employee> {
             applyNewPersistedTargetInstanceAndRollback((em, e) -> {
                 // well in the past, so the trigger's END_DATE (SYSDATE) is after its START_DATE, as
                 // JHIST_DATE_INTERVAL requires; the randomized hire date may be today, or later
-                e.setHireDate(LocalDate.now().minusYears(1L));
+                e.setHireDate(LocalDateTime.now().minusYears(1L));
                 em.flush();
                 final var oldJob = e.getJob();
                 final var oldDepartment = e.getDepartment();

@@ -24,7 +24,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -81,7 +81,7 @@ public class CostId {
      * @return a new instance with the specified column values.
      */
     public static CostId of(final Integer prodId,
-                            final LocalDate timeId,
+                            final LocalDateTime timeId,
                             final Integer promoId,
                             final Long channelId) {
         final var instance = new CostId();
@@ -172,7 +172,7 @@ public class CostId {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
-    public LocalDate getTimeId() {
+    public LocalDateTime getTimeId() {
         return timeId;
     }
 
@@ -181,7 +181,7 @@ public class CostId {
      *
      * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
-    public void setTimeId(final LocalDate timeId) {
+    public void setTimeId(final LocalDateTime timeId) {
         this.timeId = timeId;
     }
 
@@ -233,7 +233,7 @@ public class CostId {
 
     @Basic(optional = false)
     @Column(name = Cost.COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
-    private LocalDate timeId;
+    private LocalDateTime timeId;
 
     @Basic(optional = false)
     @Column(name = Cost.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)

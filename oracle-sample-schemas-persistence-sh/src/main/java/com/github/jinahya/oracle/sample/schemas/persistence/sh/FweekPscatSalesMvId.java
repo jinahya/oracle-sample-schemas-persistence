@@ -25,7 +25,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.Size;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -85,7 +85,7 @@ public class FweekPscatSalesMvId {
      * @param promoId         the {@value FweekPscatSalesMv#COLUMN_NAME_PROMO_ID} column value.
      * @return a new instance with the specified column values.
      */
-    public static FweekPscatSalesMvId of(final LocalDate weekEndingDay,
+    public static FweekPscatSalesMvId of(final LocalDateTime weekEndingDay,
                                          final String prodSubcategory,
                                          final Long channelId,
                                          final Integer promoId) {
@@ -158,7 +158,7 @@ public class FweekPscatSalesMvId {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
      */
-    public LocalDate getWeekEndingDay() {
+    public LocalDateTime getWeekEndingDay() {
         return weekEndingDay;
     }
 
@@ -167,7 +167,7 @@ public class FweekPscatSalesMvId {
      *
      * @param weekEndingDay new value for {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
      */
-    public void setWeekEndingDay(final LocalDate weekEndingDay) {
+    public void setWeekEndingDay(final LocalDateTime weekEndingDay) {
         this.weekEndingDay = weekEndingDay;
     }
 
@@ -238,7 +238,7 @@ public class FweekPscatSalesMvId {
             nullable = false,
             insertable = true,
             updatable = false)
-    private LocalDate weekEndingDay;
+    private LocalDateTime weekEndingDay;
 
     @Size(max = FweekPscatSalesMv.SIZE_MAX_PROD_SUBCATEGORY)
     @Basic(optional = false)

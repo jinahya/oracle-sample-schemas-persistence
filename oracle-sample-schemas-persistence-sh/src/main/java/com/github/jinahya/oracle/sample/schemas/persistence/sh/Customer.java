@@ -32,7 +32,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -956,7 +956,7 @@ public class Customer {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_CUST_EFF_FROM} attribute.
      */
-    public LocalDate getCustEffFrom() {
+    public LocalDateTime getCustEffFrom() {
         return custEffFrom;
     }
 
@@ -965,7 +965,7 @@ public class Customer {
      *
      * @param custEffFrom new value for {@value #ATTRIBUTE_NAME_CUST_EFF_FROM} attribute.
      */
-    public void setCustEffFrom(final LocalDate custEffFrom) {
+    public void setCustEffFrom(final LocalDateTime custEffFrom) {
         this.custEffFrom = custEffFrom;
     }
 
@@ -976,7 +976,7 @@ public class Customer {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_CUST_EFF_TO} attribute.
      */
-    public LocalDate getCustEffTo() {
+    public LocalDateTime getCustEffTo() {
         return custEffTo;
     }
 
@@ -985,7 +985,7 @@ public class Customer {
      *
      * @param custEffTo new value for {@value #ATTRIBUTE_NAME_CUST_EFF_TO} attribute.
      */
-    public void setCustEffTo(final LocalDate custEffTo) {
+    public void setCustEffTo(final LocalDateTime custEffTo) {
         this.custEffTo = custEffTo;
     }
 
@@ -1215,7 +1215,7 @@ public class Customer {
             insertable = true,
             updatable = true
     )
-    private LocalDate custEffFrom;
+    private LocalDateTime custEffFrom;
 
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_CUST_EFF_TO,
@@ -1223,7 +1223,7 @@ public class Customer {
             insertable = true,
             updatable = true
     )
-    private LocalDate custEffTo;
+    private LocalDateTime custEffTo;
 
     @Size(max = SIZE_MAX_CUST_VALID)
     @Basic(optional = true)

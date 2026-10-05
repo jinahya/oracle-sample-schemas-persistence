@@ -33,7 +33,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.Optional;
@@ -324,7 +324,7 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
      * @return current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute.
      */
     @Nonnull
-    public LocalDate getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
@@ -335,7 +335,7 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
      *
      * @param endDate new value for {@value #ATTRIBUTE_NAME_END_DATE} attribute.
      */
-    protected void setEndDate(@Nonnull final LocalDate endDate) {
+    protected void setEndDate(@Nonnull final LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
@@ -386,7 +386,7 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_END_DATE, nullable = false, insertable = false, updatable = false)
-    private LocalDate endDate;
+    private LocalDateTime endDate;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull

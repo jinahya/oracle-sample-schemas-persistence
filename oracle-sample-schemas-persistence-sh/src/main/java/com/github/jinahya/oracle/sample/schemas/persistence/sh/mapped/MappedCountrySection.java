@@ -1,10 +1,10 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.sh;
+package com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
 
 /*-
  * #%L
  * sh
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,28 +22,26 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.FetchType;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
 /**
- * An embeddable class for mapping a named section -- a region, a subregion or a total -- of the
- * {@value Country#TABLE_NAME} table: a name column, and the numeric id column that goes with it.
+ * A superclass for a named section -- a region, a subregion or a total -- of the {@value MappedCountry#TABLE_NAME}
+ * table: a name column, and the numeric id column that goes with it.
  * <p>
- * No entity of this module embeds this class yet; {@link Country} maps each of those column pairs as plain attributes.
  * The class declares no column names: an embedding entity names both columns of each section with
  * {@link jakarta.persistence.AttributeOverride @AttributeOverride}s, e.g. {@code (COUNTRY_SUBREGION,
  * COUNTRY_SUBREGION_ID)} and {@code (COUNTRY_REGION, COUNTRY_REGION_ID)}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ * @see MappedCountry
  */
-@Embeddable
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public class CountrySection {
+public abstract class MappedCountrySection {
 
     // ------------------------------------------------------------------------------------------------------------ NAME
 
@@ -64,7 +62,7 @@ public class CountrySection {
     /**
      * Creates a new instance.
      */
-    protected CountrySection() {
+    protected MappedCountrySection() {
         super();
     }
 
@@ -87,11 +85,11 @@ public class CountrySection {
      */
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof CountrySection that)) {
+        if (!(obj instanceof MappedCountrySection that)) {
             return false;
         }
-        return Objects.equals(name, that.name) &&
-               Objects.equals(id, that.id);
+        return Objects.equals(getName(), that.getName())
+               && Objects.equals(getId(), that.getId());
     }
 
     /**
@@ -103,7 +101,7 @@ public class CountrySection {
      */
     @Override
     public final int hashCode() {
-        return Objects.hash(name, id);
+        return Objects.hash(getName(), getId());
     }
 
     // ------------------------------------------------------------------------------------------------------------ name

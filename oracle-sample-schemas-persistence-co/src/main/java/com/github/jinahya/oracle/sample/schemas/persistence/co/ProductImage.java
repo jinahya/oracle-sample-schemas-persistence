@@ -25,7 +25,7 @@ import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * An embeddable class for mapping the image columns of the {@value Product#TABLE_NAME} table.
@@ -195,7 +195,7 @@ public class ProductImage extends _Binary {
      * @return current value of {@value Product#ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute.
      */
     @Nullable
-    public LocalDate getImageLastUpdated() {
+    public LocalDateTime getImageLastUpdated() {
         return getLastUpdated();
     }
 
@@ -204,7 +204,7 @@ public class ProductImage extends _Binary {
      *
      * @param imageLastUpdated new value for {@value Product#ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute.
      */
-    public void setImageLastUpdated(@Nullable final LocalDate imageLastUpdated) {
+    public void setImageLastUpdated(@Nullable final LocalDateTime imageLastUpdated) {
         setLastUpdated(imageLastUpdated);
     }
 }

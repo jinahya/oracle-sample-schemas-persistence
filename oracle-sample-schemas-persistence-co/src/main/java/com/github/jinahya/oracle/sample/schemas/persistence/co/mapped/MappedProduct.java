@@ -37,7 +37,7 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -497,7 +497,7 @@ public abstract class MappedProduct {
      * @return current value of {@value #ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute.
      */
     @Nullable
-    public LocalDate getImageLastUpdated() {
+    public LocalDateTime getImageLastUpdated() {
         return imageLastUpdated;
     }
 
@@ -506,7 +506,7 @@ public abstract class MappedProduct {
      *
      * @param imageLastUpdated new value for {@value #ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute.
      */
-    public void setImageLastUpdated(@Nullable final LocalDate imageLastUpdated) {
+    public void setImageLastUpdated(@Nullable final LocalDateTime imageLastUpdated) {
         this.imageLastUpdated = imageLastUpdated;
     }
 
@@ -601,5 +601,5 @@ public abstract class MappedProduct {
     @Nullable
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_IMAGE_LAST_UPDATED, nullable = true, insertable = true, updatable = true)
-    private LocalDate imageLastUpdated;
+    private LocalDateTime imageLastUpdated;
 }

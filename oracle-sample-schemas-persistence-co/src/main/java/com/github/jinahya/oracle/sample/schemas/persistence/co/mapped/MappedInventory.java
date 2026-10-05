@@ -134,7 +134,7 @@ public abstract class MappedInventory implements __MappedDomainEntity<Long> {
         if (!(obj instanceof MappedInventory that)) {
             return false;
         }
-        return Objects.equals(getProducId(), that.getProducId())
+        return Objects.equals(getProductId(), that.getProductId())
                && Objects.equals(getStoreId(), that.getStoreId());
     }
 
@@ -147,7 +147,7 @@ public abstract class MappedInventory implements __MappedDomainEntity<Long> {
      */
     @Override
     public final int hashCode() {
-        return Objects.hash(getProducId(), getStoreId());
+        return Objects.hash(getProductId(), getStoreId());
     }
 
     // ------------------------------------------------------------------------------------------------------ Validation
@@ -202,7 +202,7 @@ public abstract class MappedInventory implements __MappedDomainEntity<Long> {
      *
      * @param storeId new value for {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
      */
-    protected void setStore(@Nonnull final Long storeId) {
+    protected void setStoreId(@Nonnull final Long storeId) {
         this.storeId = storeId;
     }
 
@@ -214,7 +214,7 @@ public abstract class MappedInventory implements __MappedDomainEntity<Long> {
      * @return current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
      */
     @Nonnull
-    public Long getProducId() {
+    public Long getProductId() {
         return productId;
     }
 

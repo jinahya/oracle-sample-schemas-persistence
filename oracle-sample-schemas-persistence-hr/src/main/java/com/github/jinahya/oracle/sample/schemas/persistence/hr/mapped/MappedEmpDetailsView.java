@@ -523,7 +523,7 @@ public abstract class MappedEmpDetailsView {
      * @return current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
      */
     @Nullable
-    public Short getDepartmentId() {
+    public Integer getDepartmentId() {
         return departmentId;
     }
 
@@ -532,7 +532,7 @@ public abstract class MappedEmpDetailsView {
      *
      * @param departmentId new value for {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
      */
-    public void setDepartmentId(@Nullable final Short departmentId) {
+    public void setDepartmentId(@Nullable final Integer departmentId) {
         this.departmentId = departmentId;
     }
 
@@ -544,7 +544,7 @@ public abstract class MappedEmpDetailsView {
      * @return current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
      */
     @Nullable
-    public Short getLocationId() {
+    public Integer getLocationId() {
         return locationId;
     }
 
@@ -553,7 +553,7 @@ public abstract class MappedEmpDetailsView {
      *
      * @param locationId new value for {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
      */
-    public void setLocationId(@Nullable final Short locationId) {
+    public void setLocationId(@Nullable final Integer locationId) {
         this.locationId = locationId;
     }
 
@@ -824,12 +824,12 @@ public abstract class MappedEmpDetailsView {
     @Nullable
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_DEPARTMENT_ID, nullable = true, insertable = false, updatable = false)
-    private Short departmentId;
+    private Integer departmentId;
 
     @Nullable
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOCATION_ID, nullable = true, insertable = false, updatable = false)
-    private Short locationId;
+    private Integer locationId;
 
     @Nullable
     @Size(max = SIZE_MAX_COUNTRY_ID)

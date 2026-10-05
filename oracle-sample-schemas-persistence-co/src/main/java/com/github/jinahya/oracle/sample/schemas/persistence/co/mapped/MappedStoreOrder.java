@@ -213,7 +213,7 @@ public abstract class MappedStoreOrder {
                                final BigDecimal latitude,
                                final BigDecimal longitude,
                                final String orderStatus,
-                               final Long orderCount,
+                               final BigDecimal orderCount,
                                final BigDecimal totalSales) {
         super();
         this.total = total;
@@ -369,7 +369,7 @@ public abstract class MappedStoreOrder {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute.
      */
-    public Long getOrderCount() {
+    public BigDecimal getOrderCount() {
         return orderCount;
     }
 
@@ -378,7 +378,7 @@ public abstract class MappedStoreOrder {
      *
      * @param orderCount new value for {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute.
      */
-    public void setOrderCount(final Long orderCount) {
+    public void setOrderCount(final BigDecimal orderCount) {
         this.orderCount = orderCount;
     }
 
@@ -449,7 +449,7 @@ public abstract class MappedStoreOrder {
 
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_ORDER_COUNT, nullable = true, insertable = false, updatable = false)
-    private Long orderCount;
+    private BigDecimal orderCount;
 
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_TOTAL_SALES, nullable = true, insertable = false, updatable = false)

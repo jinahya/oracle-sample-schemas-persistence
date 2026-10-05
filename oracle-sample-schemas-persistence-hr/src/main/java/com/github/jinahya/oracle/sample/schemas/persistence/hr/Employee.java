@@ -40,7 +40,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -715,7 +715,7 @@ public class Employee {
      * @return current value of {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute.
      */
     @Nonnull
-    public LocalDate getHireDate() {
+    public LocalDateTime getHireDate() {
         return hireDate;
     }
 
@@ -724,7 +724,7 @@ public class Employee {
      *
      * @param hireDate new value for {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute.
      */
-    public void setHireDate(@Nonnull final LocalDate hireDate) {
+    public void setHireDate(@Nonnull final LocalDateTime hireDate) {
         this.hireDate = hireDate;
     }
 
@@ -1010,7 +1010,7 @@ public class Employee {
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_HIRE_DATE, nullable = false, insertable = true, updatable = true)
-    private LocalDate hireDate;
+    private LocalDateTime hireDate;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull

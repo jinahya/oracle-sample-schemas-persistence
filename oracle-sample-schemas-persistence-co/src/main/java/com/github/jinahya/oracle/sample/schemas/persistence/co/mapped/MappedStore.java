@@ -39,7 +39,7 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -683,7 +683,7 @@ public abstract class MappedStore {
      * @return current value of {@value #ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute.
      */
     @Nullable
-    public LocalDate getLogoLastUpdated() {
+    public LocalDateTime getLogoLastUpdated() {
         return logoLastUpdated;
     }
 
@@ -692,7 +692,7 @@ public abstract class MappedStore {
      *
      * @param logoLastUpdated new value for {@value #ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute.
      */
-    public void setLogoLastUpdated(@Nullable final LocalDate logoLastUpdated) {
+    public void setLogoLastUpdated(@Nullable final LocalDateTime logoLastUpdated) {
         this.logoLastUpdated = logoLastUpdated;
     }
 
@@ -820,5 +820,5 @@ public abstract class MappedStore {
     @Nullable
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOGO_LAST_UPDATED, nullable = true, insertable = true, updatable = true)
-    private LocalDate logoLastUpdated;
+    private LocalDateTime logoLastUpdated;
 }

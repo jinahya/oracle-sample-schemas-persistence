@@ -25,7 +25,7 @@ import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -88,7 +88,7 @@ public abstract class MappedFweekPscatSalesMvId {
      * @throws NullPointerException if {@code instantiator} is {@code null}, or it supplies {@code null}.
      */
     protected static <T extends MappedFweekPscatSalesMvId> T of(final Supplier<? extends T> instantiator,
-                                                                final LocalDate weekEndingDay,
+                                                                final LocalDateTime weekEndingDay,
                                                                 final String prodSubcategory,
                                                                 final Long channelId,
                                                                 final Integer promoId) {
@@ -162,7 +162,7 @@ public abstract class MappedFweekPscatSalesMvId {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
      */
-    public LocalDate getWeekEndingDay() {
+    public LocalDateTime getWeekEndingDay() {
         return weekEndingDay;
     }
 
@@ -171,7 +171,7 @@ public abstract class MappedFweekPscatSalesMvId {
      *
      * @param weekEndingDay new value for {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
      */
-    protected void setWeekEndingDay(final LocalDate weekEndingDay) {
+    protected void setWeekEndingDay(final LocalDateTime weekEndingDay) {
         this.weekEndingDay = weekEndingDay;
     }
 
@@ -245,7 +245,7 @@ public abstract class MappedFweekPscatSalesMvId {
             nullable = false,
             insertable = true,
             updatable = false)
-    private LocalDate weekEndingDay;
+    private LocalDateTime weekEndingDay;
 
     @Size(max = MappedFweekPscatSalesMv.SIZE_MAX_PROD_SUBCATEGORY)
     @NotNull

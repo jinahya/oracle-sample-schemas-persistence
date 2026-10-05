@@ -26,7 +26,7 @@ import jakarta.annotation.Nullable;
 import jakarta.persistence.Lob;
 import jakarta.persistence.MappedSuperclass;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -207,7 +207,7 @@ abstract class _MappedBinary {
      * @return current value of {@value #ATTRIBUTE_NAME_LAST_UPDATED} attribute.
      */
     @Nullable
-    protected LocalDate getLastUpdated() {
+    protected LocalDateTime getLastUpdated() {
         return lastUpdated;
     }
 
@@ -216,7 +216,7 @@ abstract class _MappedBinary {
      *
      * @param lastUpdated new value for {@value #ATTRIBUTE_NAME_LAST_UPDATED} attribute.
      */
-    protected void setLastUpdated(@Nullable final LocalDate lastUpdated) {
+    protected void setLastUpdated(@Nullable final LocalDateTime lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 
@@ -235,5 +235,5 @@ abstract class _MappedBinary {
     private String charset;
 
     @Nullable
-    private LocalDate lastUpdated;
+    private LocalDateTime lastUpdated;
 }

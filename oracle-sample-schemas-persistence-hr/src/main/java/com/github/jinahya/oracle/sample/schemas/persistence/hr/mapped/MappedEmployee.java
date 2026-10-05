@@ -35,7 +35,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -645,7 +645,7 @@ public abstract class MappedEmployee {
      * @return current value of {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute.
      */
     @Nonnull
-    public LocalDate getHireDate() {
+    public LocalDateTime getHireDate() {
         return hireDate;
     }
 
@@ -654,7 +654,7 @@ public abstract class MappedEmployee {
      *
      * @param hireDate new value for {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute.
      */
-    public void setHireDate(@Nonnull final LocalDate hireDate) {
+    public void setHireDate(@Nonnull final LocalDateTime hireDate) {
         this.hireDate = hireDate;
     }
 
@@ -832,7 +832,7 @@ public abstract class MappedEmployee {
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_HIRE_DATE, nullable = false, insertable = true, updatable = true)
-    private LocalDate hireDate;
+    private LocalDateTime hireDate;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull

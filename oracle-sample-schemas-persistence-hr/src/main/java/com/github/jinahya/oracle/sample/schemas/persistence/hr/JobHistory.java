@@ -40,7 +40,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Function;
@@ -287,7 +287,7 @@ public class JobHistory {
     // -------------------------------------------------------------------------------------------------- STATIC_METHODS
 
     static <T extends JobHistory> Comparator<T> comparingStartDate(
-            @Nonnull final Function<? super T, LocalDate> startDateExtractor) {
+            @Nonnull final Function<? super T, LocalDateTime> startDateExtractor) {
         Objects.requireNonNull(startDateExtractor, "startDateExtractor is null");
         return Comparator.comparing(startDateExtractor);
     }
@@ -404,7 +404,7 @@ public class JobHistory {
      * @return current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute.
      */
     @Nonnull
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
@@ -417,7 +417,7 @@ public class JobHistory {
      * @return current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute.
      */
     @Nonnull
-    public LocalDate getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
@@ -428,7 +428,7 @@ public class JobHistory {
      *
      * @param endDate new value for {@value #ATTRIBUTE_NAME_END_DATE} attribute.
      */
-    protected void setEndDate(@Nonnull final LocalDate endDate) {
+    protected void setEndDate(@Nonnull final LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
@@ -515,7 +515,7 @@ public class JobHistory {
             insertable = true, // fuck eclipselink
             updatable = false
     )
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
@@ -527,7 +527,7 @@ public class JobHistory {
             insertable = false,
             updatable = false
     )
-    LocalDate endDate;
+    LocalDateTime endDate;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull

@@ -25,7 +25,7 @@ import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * An embeddable class for mapping the logo columns of the {@value Store#TABLE_NAME} table.
@@ -194,7 +194,7 @@ public class StoreLogo extends _Binary {
      * @return current value of {@value Store#ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute.
      */
     @Nullable
-    public LocalDate getLogoLastUpdated() {
+    public LocalDateTime getLogoLastUpdated() {
         return getLastUpdated();
     }
 
@@ -203,7 +203,7 @@ public class StoreLogo extends _Binary {
      *
      * @param logoLastUpdated new value for {@value Store#ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute.
      */
-    public void setLogoLastUpdated(@Nullable final LocalDate logoLastUpdated) {
+    public void setLogoLastUpdated(@Nullable final LocalDateTime logoLastUpdated) {
         setLastUpdated(logoLastUpdated);
     }
 }

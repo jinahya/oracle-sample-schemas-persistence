@@ -32,7 +32,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -356,7 +356,7 @@ public class Sale {
      * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute of the {@link #getId() id}; {@code null} if
      * the id is {@code null}.
      */
-    public LocalDate getTimeId() {
+    public LocalDateTime getTimeId() {
         return Optional.ofNullable(getId()).map(SaleId::getTimeId).orElse(null);
     }
 
@@ -366,7 +366,7 @@ public class Sale {
      *
      * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
-    protected void setTimeId(final LocalDate timeId) {
+    protected void setTimeId(final LocalDateTime timeId) {
         if (getId() == null) {
             setId(new SaleId());
         }

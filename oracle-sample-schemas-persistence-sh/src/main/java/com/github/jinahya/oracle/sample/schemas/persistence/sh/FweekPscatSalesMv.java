@@ -30,7 +30,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -222,7 +222,7 @@ public class FweekPscatSalesMv {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
      */
-    public LocalDate getWeekEndingDay() {
+    public LocalDateTime getWeekEndingDay() {
         return weekEndingDay;
     }
 
@@ -231,7 +231,7 @@ public class FweekPscatSalesMv {
      *
      * @param weekEndingDay new value for {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
      */
-    public void setWeekEndingDay(final LocalDate weekEndingDay) {
+    public void setWeekEndingDay(final LocalDateTime weekEndingDay) {
         this.weekEndingDay = weekEndingDay;
     }
 
@@ -324,7 +324,7 @@ public class FweekPscatSalesMv {
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
     // primary key field", EclipseLink-46. Nothing writes to a view anyway.
     @Column(name = COLUMN_NAME_WEEK_ENDING_DAY, nullable = false, insertable = true, updatable = false)
-    private LocalDate weekEndingDay;
+    private LocalDateTime weekEndingDay;
 
     @Id
     @Size(max = SIZE_MAX_PROD_SUBCATEGORY)

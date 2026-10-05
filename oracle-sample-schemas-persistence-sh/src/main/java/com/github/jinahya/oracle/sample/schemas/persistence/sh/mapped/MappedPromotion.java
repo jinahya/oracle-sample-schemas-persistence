@@ -28,7 +28,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -439,7 +439,7 @@ public abstract class MappedPromotion {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_PROMO_BEGIN_DATE} attribute.
      */
-    public LocalDate getPromoBeginDate() {
+    public LocalDateTime getPromoBeginDate() {
         return promoBeginDate;
     }
 
@@ -448,7 +448,7 @@ public abstract class MappedPromotion {
      *
      * @param promoBeginDate new value for {@value #ATTRIBUTE_NAME_PROMO_BEGIN_DATE} attribute.
      */
-    public void setPromoBeginDate(final LocalDate promoBeginDate) {
+    public void setPromoBeginDate(final LocalDateTime promoBeginDate) {
         this.promoBeginDate = promoBeginDate;
     }
 
@@ -459,7 +459,7 @@ public abstract class MappedPromotion {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_PROMO_END_DATE} attribute.
      */
-    public LocalDate getPromoEndDate() {
+    public LocalDateTime getPromoEndDate() {
         return promoEndDate;
     }
 
@@ -468,7 +468,7 @@ public abstract class MappedPromotion {
      *
      * @param promoEndDate new value for {@value #ATTRIBUTE_NAME_PROMO_END_DATE} attribute.
      */
-    public void setPromoEndDate(final LocalDate promoEndDate) {
+    public void setPromoEndDate(final LocalDateTime promoEndDate) {
         this.promoEndDate = promoEndDate;
     }
 
@@ -586,7 +586,7 @@ public abstract class MappedPromotion {
             insertable = true,
             updatable = true
     )
-    private LocalDate promoBeginDate;
+    private LocalDateTime promoBeginDate;
 
     @NotNull
     @Basic(optional = false)
@@ -595,7 +595,7 @@ public abstract class MappedPromotion {
             insertable = true,
             updatable = true
     )
-    private LocalDate promoEndDate;
+    private LocalDateTime promoEndDate;
 
     @Size(max = SIZE_MAX_PROMO_TOTAL)
     @NotNull

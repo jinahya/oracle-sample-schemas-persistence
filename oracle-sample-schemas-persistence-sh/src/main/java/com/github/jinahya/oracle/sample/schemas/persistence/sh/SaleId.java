@@ -24,7 +24,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -90,7 +90,7 @@ public class SaleId {
      */
     public static SaleId of(final Integer prodId,
                             final Long custId,
-                            final LocalDate timeId,
+                            final LocalDateTime timeId,
                             final Long channelId,
                             final Integer promoId) {
         final var instance = new SaleId();
@@ -204,7 +204,7 @@ public class SaleId {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
-    public LocalDate getTimeId() {
+    public LocalDateTime getTimeId() {
         return timeId;
     }
 
@@ -213,7 +213,7 @@ public class SaleId {
      *
      * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
-    public void setTimeId(final LocalDate timeId) {
+    public void setTimeId(final LocalDateTime timeId) {
         this.timeId = timeId;
     }
 
@@ -269,7 +269,7 @@ public class SaleId {
 
     @Basic(optional = false)
     @Column(name = Sale.COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
-    private LocalDate timeId;
+    private LocalDateTime timeId;
 
     @Basic(optional = false)
     @Column(name = Sale.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)

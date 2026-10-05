@@ -30,7 +30,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -136,12 +136,12 @@ public class JobHistoryId {
      * @return current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute.
      */
     @Nonnull
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
     // TODO: remove if it's not used anymore
-    void setStartDate(final LocalDate startDate) {
+    void setStartDate(final LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
@@ -170,5 +170,5 @@ public class JobHistoryId {
             insertable = true, // eclipselink
             updatable = false
     )
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 }

@@ -24,7 +24,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -83,7 +83,7 @@ public abstract class MappedCostId {
      */
     protected static <T extends MappedCostId> T of(final Supplier<? extends T> instantiator,
                                                    final Integer prodId,
-                                                   final LocalDate timeId,
+                                                   final LocalDateTime timeId,
                                                    final Integer promoId,
                                                    final Long channelId) {
         Objects.requireNonNull(instantiator, "instantiator is null");
@@ -175,7 +175,7 @@ public abstract class MappedCostId {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
-    public LocalDate getTimeId() {
+    public LocalDateTime getTimeId() {
         return timeId;
     }
 
@@ -184,7 +184,7 @@ public abstract class MappedCostId {
      *
      * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
-    protected void setTimeId(final LocalDate timeId) {
+    protected void setTimeId(final LocalDateTime timeId) {
         this.timeId = timeId;
     }
 
@@ -237,7 +237,7 @@ public abstract class MappedCostId {
     @NotNull
     @Basic(optional = false)
     @Column(name = MappedCost.COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
-    private LocalDate timeId;
+    private LocalDateTime timeId;
 
     @NotNull
     @Basic(optional = false)

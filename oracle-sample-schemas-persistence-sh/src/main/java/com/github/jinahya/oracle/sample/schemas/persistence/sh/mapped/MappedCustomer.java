@@ -27,7 +27,7 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -950,7 +950,7 @@ public abstract class MappedCustomer {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_CUST_EFF_FROM} attribute.
      */
-    public LocalDate getCustEffFrom() {
+    public LocalDateTime getCustEffFrom() {
         return custEffFrom;
     }
 
@@ -959,7 +959,7 @@ public abstract class MappedCustomer {
      *
      * @param custEffFrom new value for {@value #ATTRIBUTE_NAME_CUST_EFF_FROM} attribute.
      */
-    public void setCustEffFrom(final LocalDate custEffFrom) {
+    public void setCustEffFrom(final LocalDateTime custEffFrom) {
         this.custEffFrom = custEffFrom;
     }
 
@@ -970,7 +970,7 @@ public abstract class MappedCustomer {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_CUST_EFF_TO} attribute.
      */
-    public LocalDate getCustEffTo() {
+    public LocalDateTime getCustEffTo() {
         return custEffTo;
     }
 
@@ -979,7 +979,7 @@ public abstract class MappedCustomer {
      *
      * @param custEffTo new value for {@value #ATTRIBUTE_NAME_CUST_EFF_TO} attribute.
      */
-    public void setCustEffTo(final LocalDate custEffTo) {
+    public void setCustEffTo(final LocalDateTime custEffTo) {
         this.custEffTo = custEffTo;
     }
 
@@ -1204,7 +1204,7 @@ public abstract class MappedCustomer {
             insertable = true,
             updatable = true
     )
-    private LocalDate custEffFrom;
+    private LocalDateTime custEffFrom;
 
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_CUST_EFF_TO,
@@ -1212,7 +1212,7 @@ public abstract class MappedCustomer {
             insertable = true,
             updatable = true
     )
-    private LocalDate custEffTo;
+    private LocalDateTime custEffTo;
 
     @Size(max = SIZE_MAX_CUST_VALID)
     @Basic(optional = true)

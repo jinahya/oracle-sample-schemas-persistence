@@ -27,7 +27,7 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -708,7 +708,7 @@ public abstract class MappedTime {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
-    public LocalDate getTimeId() {
+    public LocalDateTime getTimeId() {
         return timeId;
     }
 
@@ -717,7 +717,7 @@ public abstract class MappedTime {
      *
      * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
-    protected void setTimeId(final LocalDate timeId) {
+    protected void setTimeId(final LocalDateTime timeId) {
         this.timeId = timeId;
     }
 
@@ -828,7 +828,7 @@ public abstract class MappedTime {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
      */
-    public LocalDate getWeekEndingDay() {
+    public LocalDateTime getWeekEndingDay() {
         return weekEndingDay;
     }
 
@@ -837,7 +837,7 @@ public abstract class MappedTime {
      *
      * @param weekEndingDay new value for {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
      */
-    public void setWeekEndingDay(final LocalDate weekEndingDay) {
+    public void setWeekEndingDay(final LocalDateTime weekEndingDay) {
         this.weekEndingDay = weekEndingDay;
     }
 
@@ -1028,7 +1028,7 @@ public abstract class MappedTime {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_MONTH} attribute.
      */
-    public LocalDate getEndOfCalMonth() {
+    public LocalDateTime getEndOfCalMonth() {
         return endOfCalMonth;
     }
 
@@ -1037,7 +1037,7 @@ public abstract class MappedTime {
      *
      * @param endOfCalMonth new value for {@value #ATTRIBUTE_NAME_END_OF_CAL_MONTH} attribute.
      */
-    public void setEndOfCalMonth(final LocalDate endOfCalMonth) {
+    public void setEndOfCalMonth(final LocalDateTime endOfCalMonth) {
         this.endOfCalMonth = endOfCalMonth;
     }
 
@@ -1048,7 +1048,7 @@ public abstract class MappedTime {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_MONTH} attribute.
      */
-    public LocalDate getEndOfFisMonth() {
+    public LocalDateTime getEndOfFisMonth() {
         return endOfFisMonth;
     }
 
@@ -1057,7 +1057,7 @@ public abstract class MappedTime {
      *
      * @param endOfFisMonth new value for {@value #ATTRIBUTE_NAME_END_OF_FIS_MONTH} attribute.
      */
-    public void setEndOfFisMonth(final LocalDate endOfFisMonth) {
+    public void setEndOfFisMonth(final LocalDateTime endOfFisMonth) {
         this.endOfFisMonth = endOfFisMonth;
     }
 
@@ -1228,7 +1228,7 @@ public abstract class MappedTime {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_QUARTER} attribute.
      */
-    public LocalDate getEndOfCalQuarter() {
+    public LocalDateTime getEndOfCalQuarter() {
         return endOfCalQuarter;
     }
 
@@ -1237,7 +1237,7 @@ public abstract class MappedTime {
      *
      * @param endOfCalQuarter new value for {@value #ATTRIBUTE_NAME_END_OF_CAL_QUARTER} attribute.
      */
-    public void setEndOfCalQuarter(final LocalDate endOfCalQuarter) {
+    public void setEndOfCalQuarter(final LocalDateTime endOfCalQuarter) {
         this.endOfCalQuarter = endOfCalQuarter;
     }
 
@@ -1248,7 +1248,7 @@ public abstract class MappedTime {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_QUARTER} attribute.
      */
-    public LocalDate getEndOfFisQuarter() {
+    public LocalDateTime getEndOfFisQuarter() {
         return endOfFisQuarter;
     }
 
@@ -1257,7 +1257,7 @@ public abstract class MappedTime {
      *
      * @param endOfFisQuarter new value for {@value #ATTRIBUTE_NAME_END_OF_FIS_QUARTER} attribute.
      */
-    public void setEndOfFisQuarter(final LocalDate endOfFisQuarter) {
+    public void setEndOfFisQuarter(final LocalDateTime endOfFisQuarter) {
         this.endOfFisQuarter = endOfFisQuarter;
     }
 
@@ -1428,7 +1428,7 @@ public abstract class MappedTime {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_YEAR} attribute.
      */
-    public LocalDate getEndOfCalYear() {
+    public LocalDateTime getEndOfCalYear() {
         return endOfCalYear;
     }
 
@@ -1437,7 +1437,7 @@ public abstract class MappedTime {
      *
      * @param endOfCalYear new value for {@value #ATTRIBUTE_NAME_END_OF_CAL_YEAR} attribute.
      */
-    public void setEndOfCalYear(final LocalDate endOfCalYear) {
+    public void setEndOfCalYear(final LocalDateTime endOfCalYear) {
         this.endOfCalYear = endOfCalYear;
     }
 
@@ -1448,7 +1448,7 @@ public abstract class MappedTime {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_YEAR} attribute.
      */
-    public LocalDate getEndOfFisYear() {
+    public LocalDateTime getEndOfFisYear() {
         return endOfFisYear;
     }
 
@@ -1457,14 +1457,14 @@ public abstract class MappedTime {
      *
      * @param endOfFisYear new value for {@value #ATTRIBUTE_NAME_END_OF_FIS_YEAR} attribute.
      */
-    public void setEndOfFisYear(final LocalDate endOfFisYear) {
+    public void setEndOfFisYear(final LocalDateTime endOfFisYear) {
         this.endOfFisYear = endOfFisYear;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
     @Id
     @Column(name = COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
-    private LocalDate timeId;
+    private LocalDateTime timeId;
 
     @Size(max = SIZE_MAX_DAY_NAME)
     @NotNull
@@ -1520,7 +1520,7 @@ public abstract class MappedTime {
             insertable = true,
             updatable = true
     )
-    private LocalDate weekEndingDay;
+    private LocalDateTime weekEndingDay;
 
     @NotNull
     @Basic(optional = false)
@@ -1614,7 +1614,7 @@ public abstract class MappedTime {
             insertable = true,
             updatable = true
     )
-    private LocalDate endOfCalMonth;
+    private LocalDateTime endOfCalMonth;
 
     @NotNull
     @Basic(optional = false)
@@ -1623,7 +1623,7 @@ public abstract class MappedTime {
             insertable = true,
             updatable = true
     )
-    private LocalDate endOfFisMonth;
+    private LocalDateTime endOfFisMonth;
 
     @Size(max = SIZE_MAX_CALENDAR_MONTH_NAME)
     @NotNull
@@ -1712,7 +1712,7 @@ public abstract class MappedTime {
             insertable = true,
             updatable = true
     )
-    private LocalDate endOfCalQuarter;
+    private LocalDateTime endOfCalQuarter;
 
     @NotNull
     @Basic(optional = false)
@@ -1721,7 +1721,7 @@ public abstract class MappedTime {
             insertable = true,
             updatable = true
     )
-    private LocalDate endOfFisQuarter;
+    private LocalDateTime endOfFisQuarter;
 
     @NotNull
     @Basic(optional = false)
@@ -1802,7 +1802,7 @@ public abstract class MappedTime {
             insertable = true,
             updatable = true
     )
-    private LocalDate endOfCalYear;
+    private LocalDateTime endOfCalYear;
 
     @NotNull
     @Basic(optional = false)
@@ -1811,5 +1811,5 @@ public abstract class MappedTime {
             insertable = true,
             updatable = true
     )
-    private LocalDate endOfFisYear;
+    private LocalDateTime endOfFisYear;
 }

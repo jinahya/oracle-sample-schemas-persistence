@@ -24,7 +24,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -99,7 +99,7 @@ public abstract class MappedProfitId {
                                                      final Long custId,
                                                      final Integer prodId,
                                                      final Integer promoId,
-                                                     final LocalDate timeId) {
+                                                     final LocalDateTime timeId) {
         Objects.requireNonNull(instantiator, "instantiator is null");
         final var instance = Objects.requireNonNull(instantiator.get(), "instantiator.get() is null");
         instance.setChannelId(channelId);
@@ -252,7 +252,7 @@ public abstract class MappedProfitId {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
-    public LocalDate getTimeId() {
+    public LocalDateTime getTimeId() {
         return timeId;
     }
 
@@ -261,7 +261,7 @@ public abstract class MappedProfitId {
      *
      * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
-    protected void setTimeId(final LocalDate timeId) {
+    protected void setTimeId(final LocalDateTime timeId) {
         this.timeId = timeId;
     }
 
@@ -304,5 +304,5 @@ public abstract class MappedProfitId {
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
     // primary key field", EclipseLink-46. Nothing writes to a view anyway.
     @Column(name = MappedProfit.COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
-    private LocalDate timeId;
+    private LocalDateTime timeId;
 }
