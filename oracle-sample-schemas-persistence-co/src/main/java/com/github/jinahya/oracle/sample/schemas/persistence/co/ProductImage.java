@@ -30,9 +30,9 @@ import java.time.LocalDate;
 /**
  * An embeddable class for mapping the image columns of the {@value Product#TABLE_NAME} table.
  * <p>
- * The accessors of this class are public, and named after the columns, so that code which takes this value from
- * its {@link Product} reads and changes it here. They delegate to the protected accessors of {@link _Binary}, which
- * hold the state; a change is persisted with the {@link Product} which embeds this value.
+ * The accessors of this class are public, and named after the columns, so that code which takes this value from its
+ * {@link Product} reads and changes it here. They delegate to the protected accessors of {@link _Binary}, which hold
+ * the state; a change is persisted with the {@link Product} which embeds this value.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @apiNote The state is inherited from {@link _Binary}, which names no column; the overrides below bind each inherited
@@ -106,8 +106,8 @@ public class ProductImage extends _Binary {
     /**
      * Returns a copy of current value of {@value Product#ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute.
      *
-     * @return a copy of current value of {@value Product#ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute; {@code null}
-     * when it is {@code null}.
+     * @return a copy of current value of {@value Product#ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute; {@code null} when it
+     * is {@code null}.
      */
     @Nullable
     public byte[] getProductImage() {
@@ -115,8 +115,8 @@ public class ProductImage extends _Binary {
     }
 
     /**
-     * Replaces current value of {@value Product#ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute with a copy of the
-     * specified value.
+     * Replaces current value of {@value Product#ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute with a copy of the specified
+     * value.
      *
      * @param productImage new value for {@value Product#ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute; copied, not kept.
      */

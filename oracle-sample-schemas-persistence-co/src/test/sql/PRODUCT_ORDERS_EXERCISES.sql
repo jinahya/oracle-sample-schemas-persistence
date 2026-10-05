@@ -25,8 +25,8 @@
 --
 -- Parameters are bind variables (:name); the IDE or SQL*Plus prompts for them when a statement runs.
 --
--- PRODUCT_ORDERS has one row per product name and order status. It is queried through ProductOrderWithEmbeddedId, whose
--- key is v.id.productName and v.id.orderStatus, both Strings.
+-- PRODUCT_ORDERS has one row per product name and order status. It is queried through ProductOrder, whose key is
+-- v.id.productName and v.id.orderStatus, both Strings.
 --
 
 

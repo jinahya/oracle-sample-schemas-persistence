@@ -40,12 +40,11 @@ class Shipment_Test extends _Test<Shipment> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Shipment#equals(Object) equals} compares only the generated {@code @Id}, {@code shipmentId},
-     * the surrogate key, and {@link Shipment#hashCode() hashCode} is constant, so that the hash does not change when
-     * the {@code @Id} is assigned on persist. That takes three warnings suppressed:
-     * {@link Warning#SURROGATE_KEY} for the former, {@link Warning#STRICT_HASHCODE} for the latter, and
-     * {@link Warning#IDENTICAL_COPY_FOR_VERSIONED_ENTITY} because an instance whose {@code @Id} is still
-     * {@code null} equals itself only.
+     * @implNote {@link Shipment#equals(Object) equals} compares only the generated {@code @Id}, {@code shipmentId}, the
+     * surrogate key, and {@link Shipment#hashCode() hashCode} is constant, so that the hash does not change when the
+     * {@code @Id} is assigned on persist. That takes three warnings suppressed: {@link Warning#SURROGATE_KEY} for the
+     * former, {@link Warning#STRICT_HASHCODE} for the latter, and {@link Warning#IDENTICAL_COPY_FOR_VERSIONED_ENTITY}
+     * because an instance whose {@code @Id} is still {@code null} equals itself only.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<Shipment> equals_verifier_() {

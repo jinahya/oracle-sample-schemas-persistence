@@ -48,12 +48,12 @@ the two may not both be.
 | Table | `PRIMARY KEY` | `UNIQUE` | Mapped by
 
 | `CHANNELS`                   | `CHANNEL_ID` | — | `Channel`
-| `COSTS`                      | **none**     | **none** | `CostWithIdClass`, `CostWithEmbeddedId`
+| `COSTS`                      | **none**     | **none** | `Cost`
 | `COUNTRIES`                  | `COUNTRY_ID` | — | `Country`
 | `CUSTOMERS`                  | `CUST_ID`    | — | `Customer`
 | `PRODUCTS`                   | `PROD_ID`    | — | `Product`
 | `PROMOTIONS`                 | `PROMO_ID`   | — | `Promotion`
-| `SALES`                      | **none**     | **none** | `SaleWithIdClass`, `SaleWithEmbeddedId`
+| `SALES`                      | **none**     | **none** | `Sale`
 | `SUPPLEMENTARY_DEMOGRAPHICS` | `CUST_ID`    | — | `SupplementaryDemographics`
 | `TIMES`                      | `TIME_ID`    | — | `Time`
 |===
@@ -80,8 +80,8 @@ No single column is anywhere near unique. `(PROD_ID, TIME_ID, PROMO_ID, CHANNEL_
 duplicate groups and all four are `NOT NULL` — the grain the table is obviously meant to
 have, and the four columns `PROFITS` joins on.
 
-`CostWithIdClass` and `CostWithEmbeddedId` map it both ways over the shared `CostId`, each of the
-four columns carrying a read-only `@ManyToOne` to its dimension alongside the `@Id`.
+`Cost` maps it with an `@EmbeddedId`, `CostId`, each of the four columns carrying a read-only
+`@ManyToOne` to its dimension alongside the identifier.
 
 CAUTION: it is a measurement, not a constraint. Nothing in the schema stops a second cost row for
 the same product, day, promotion and channel from appearing, and the JPA identity built on those
@@ -107,7 +107,7 @@ the database will defend.
 `(PROD_ID, CUST_ID, TIME_ID, CHANNEL_ID, PROMO_ID)` has no duplicate groups and all five are
 `NOT NULL`. `QUANTITY_SOLD` holds a single distinct value across the whole table.
 
-`SaleWithIdClass` and `SaleWithEmbeddedId` map it both ways over the shared `SaleId`.
+`Sale` maps it with an `@EmbeddedId`, `SaleId`.
 
 CAUTION: the same caveat as `COSTS`, and a sharper one: a second sale of the same product to the
 same customer on the same day through the same channel under the same promotion is an ordinary
@@ -125,7 +125,7 @@ None of the three declares anything, so all three were measured.
 | `CHANNEL_ID`, `CUST_ID`, `PROD_ID`, `PROMO_ID`, `TIME_ID`
 | composite, by data only
 | `SALES`' grain, carried through the join to `COSTS` — but no base table declares it. Mapped by
-  `ProfitWithIdClass` and `ProfitWithEmbeddedId`.
+  `Profit`, with an `@IdClass`, `ProfitId`.
 
 | `CAL_MONTH_SALES_MV`
 | `CALENDAR_MONTH_DESC`
@@ -136,7 +136,7 @@ None of the three declares anything, so all three were measured.
 | `WEEK_ENDING_DAY`, `PROD_SUBCATEGORY`, `CHANNEL_ID`, `PROMO_ID`
 | yes, composite
 | the materialized query's whole `GROUP BY` key; all four are `NOT NULL`. Mapped by
-  `FweekPscatSalesMvWithIdClass` and `FweekPscatSalesMvWithEmbeddedId`.
+  `FweekPscatSalesMv`, with an `@IdClass`, `FweekPscatSalesMvId`.
 |===
 
 === PROFITS
@@ -164,8 +164,8 @@ duplicate groups and are all `NOT NULL` — the grain of `SALES`, preserved beca
 holds at most one row per `(PROD_ID, TIME_ID, CHANNEL_ID, PROMO_ID)`.
 
 CAUTION: both of those facts inherit the `COSTS` and `SALES` problem above — they are measurements
-of the shipped data, not constraints. `ProfitWithIdClass` and `ProfitWithEmbeddedId` map it over
-`ProfitId` on that basis, and every column is read-only: it is a view.
+of the shipped data, not constraints. `Profit` maps it with an `@IdClass`,
+`ProfitId`, on that basis, and every column is read-only: it is a view.
 
 === CAL_MONTH_SALES_MV
 
@@ -200,6 +200,5 @@ is the aggregate, not the key.
 |===
 
 `(WEEK_ENDING_DAY, PROD_SUBCATEGORY, CHANNEL_ID, PROMO_ID)` is the materialized query's whole
-`GROUP BY` list and every one of the four is `NOT NULL` — a composite identifier, mapped both ways
-by `FweekPscatSalesMvWithIdClass` and `FweekPscatSalesMvWithEmbeddedId` over the shared
-`FweekPscatSalesMvId`. `DOLLARS` is the aggregate.
+`GROUP BY` list and every one of the four is `NOT NULL` — a composite identifier, which
+`FweekPscatSalesMv` maps with an `@IdClass`, `FweekPscatSalesMvId`. `DOLLARS` is the aggregate.

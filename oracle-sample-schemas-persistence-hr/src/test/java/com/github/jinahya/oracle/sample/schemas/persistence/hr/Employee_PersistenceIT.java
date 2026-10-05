@@ -46,11 +46,11 @@ class Employee_PersistenceIT extends _Persistence_IT<Employee> {
     @Nested
     class JobHistory_Test {
 
-        private List<JobHistoryWithIdClass> selectJobHistories(final EntityManager em, final Employee employee) {
+        private List<JobHistory> selectJobHistories(final EntityManager em, final Employee employee) {
             return em.createQuery(
-                            "SELECT h FROM " + JobHistoryWithIdClass.ENTITY_NAME + " h"
-                            + " WHERE h." + JobHistoryWithIdClass.ATTRIBUTE_NAME_EMPLOYEE_ID + " = :employeeId",
-                            JobHistoryWithIdClass.class)
+                            "SELECT h FROM " + JobHistory.ENTITY_NAME + " h"
+                            + " WHERE h." + JobHistory.ATTRIBUTE_NAME_EMPLOYEE_ID + " = :employeeId",
+                            JobHistory.class)
                     .setParameter("employeeId", employee.getEmployeeId())
                     .getResultList();
         }

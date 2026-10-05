@@ -17,13 +17,12 @@ Intermediate and Advanced.
 * *JPQL* is Jakarta Persistence 3.2 against this module's entities. Parameters are named parameters (`:year`), bound
   with `+Query#setParameter+`.
 
-The facts table `SALES` is mapped twice -- `SaleWithEmbeddedId` and `SaleWithIdClass` -- and so are `COSTS`, `PROFITS`
-and `+FWEEK_PSCAT_SALES_MV+`. The test persistence units list the `...WithEmbeddedId` flavours, so that is what the JPQL
-below uses. The two flavours differ only in how a key column is reached: `s.id.timeId` with the embedded id,
-`s.timeId` with the id class. Where possible the JPQL goes through the `+@ManyToOne+` associations instead
-(`s.product`, `s.customer`, `s.time`, `s.channel`, `s.promotion`), which both `Sale` and `Cost` flavours have, so the
-query works unchanged under either one. `ProfitWithEmbeddedId` and `FweekPscatSalesMvWithEmbeddedId` have no
-associations; they are joined to the dimensions through their key attributes (`+p.prodId = pr.id.prodId+`).
+The four composite keys are mapped two ways. `Sale` and `Cost`, the facts tables, map theirs with an `+@EmbeddedId+`,
+so a key column is reached through the identifier, `s.id.timeId`; `Profit` and `FweekPscatSalesMv`, the view and the
+materialized view, map theirs with an `+@IdClass+`, so it is an attribute of the entity itself, `pr.timeId`. Where
+possible the JPQL on `Sale` and `Cost` goes through their `+@ManyToOne+` associations instead (`s.product`,
+`s.customer`, `s.time`, `s.channel`, `s.promotion`). `Profit` and `FweekPscatSalesMv` have no associations; they are
+joined to the dimensions through their key attributes (`+p.prodId = pr.prodId+`).
 
 The installed data covers calendar years 2019 to 2022.
 
@@ -222,14 +221,13 @@ ORDER BY TIME_ID, PROD_ID
 [source,jpaql]
 ----
 SELECT c
-FROM CostWithEmbeddedId c
+FROM Cost c
 WHERE c.time.timeId BETWEEN :fromDay AND :toDay
   AND c.unitPrice < c.unitCost
 ORDER BY c.time.timeId, c.product.prodId
 ----
 
-`c.time.timeId` names the same column as `c.id.timeId` (`c.timeId` with `CostWithIdClass`), through an association
-both flavours have, so the query runs unchanged under either one.
+`c.time.timeId` names the same column as `c.id.timeId`, through the association.
 
 === Intermediate
 
@@ -254,7 +252,7 @@ ORDER BY AVG_MARGIN
 [source,jpaql]
 ----
 SELECT c.product.prodId, AVG(c.unitCost), AVG(c.unitPrice), AVG(c.unitPrice - c.unitCost) AS avgMargin
-FROM CostWithEmbeddedId c
+FROM Cost c
 WHERE c.time.timeId BETWEEN :fromDay AND :toDay
 GROUP BY c.product.prodId
 ORDER BY avgMargin
@@ -289,7 +287,7 @@ ORDER BY TIME_ID
 [source,jpaql]
 ----
 SELECT c.id.timeId, p.unitPrice, c.unitPrice
-FROM CostWithEmbeddedId c, CostWithEmbeddedId p
+FROM Cost c, Cost p
 WHERE c.id.prodId = :prodId
   AND c.id.channelId = :channelId
   AND c.id.promoId = :promoId
@@ -297,7 +295,7 @@ WHERE c.id.prodId = :prodId
   AND p.id.channelId = c.id.channelId
   AND p.id.promoId = c.id.promoId
   AND p.id.timeId = (SELECT MAX(p2.id.timeId)
-                     FROM CostWithEmbeddedId p2
+                     FROM Cost p2
                      WHERE p2.id.prodId = c.id.prodId
                        AND p2.id.channelId = c.id.channelId
                        AND p2.id.promoId = c.id.promoId
@@ -309,7 +307,7 @@ ORDER BY c.id.timeId
 `LAG` reads the previous recorded day's price, and the first day, which has none, drops out because `+<>+` against
 `NULL` is never true. JPQL has no window functions, so the correlated subquery finds each record's previous day and a
 second `Cost` variable reads the price on it: one lookup per row, which is fine for one product's history and heavy
-for the whole table. With `CostWithIdClass` drop the `.id`.
+for the whole table.
 
 == COUNTRIES
 
@@ -578,13 +576,11 @@ ORDER BY DOLLARS DESC NULLS LAST, PROD_SUBCATEGORY
 [source,jpaql]
 ----
 SELECT f
-FROM FweekPscatSalesMvWithEmbeddedId f
-WHERE f.id.weekEndingDay = :weekEndingDay
-  AND f.id.channelId = :channelId
-ORDER BY f.dollars DESC NULLS LAST, f.id.prodSubcategory
+FROM FweekPscatSalesMv f
+WHERE f.weekEndingDay = :weekEndingDay
+  AND f.channelId = :channelId
+ORDER BY f.dollars DESC NULLS LAST, f.prodSubcategory
 ----
-
-With `FweekPscatSalesMvWithIdClass` drop the `.id`.
 
 === Intermediate
 
@@ -606,11 +602,11 @@ ORDER BY REVENUE DESC NULLS LAST
 
 [source,jpaql]
 ----
-SELECT f.id.prodSubcategory, SUM(f.dollars) AS revenue
-FROM FweekPscatSalesMvWithEmbeddedId f
-WHERE f.id.channelId = :channelId
-  AND f.id.weekEndingDay BETWEEN :fromDay AND :toDay
-GROUP BY f.id.prodSubcategory
+SELECT f.prodSubcategory, SUM(f.dollars) AS revenue
+FROM FweekPscatSalesMv f
+WHERE f.channelId = :channelId
+  AND f.weekEndingDay BETWEEN :fromDay AND :toDay
+GROUP BY f.prodSubcategory
 ORDER BY revenue DESC NULLS LAST
 ----
 
@@ -641,23 +637,22 @@ ORDER BY PROD_SUBCATEGORY
 
 [source,jpaql]
 ----
-SELECT f.id.prodSubcategory, f.id.weekEndingDay, SUM(f.dollars)
-FROM FweekPscatSalesMvWithEmbeddedId f
-WHERE f.id.channelId = :channelId
-  AND f.id.weekEndingDay BETWEEN :fromDay AND :toDay
-GROUP BY f.id.prodSubcategory, f.id.weekEndingDay
+SELECT f.prodSubcategory, f.weekEndingDay, SUM(f.dollars)
+FROM FweekPscatSalesMv f
+WHERE f.channelId = :channelId
+  AND f.weekEndingDay BETWEEN :fromDay AND :toDay
+GROUP BY f.prodSubcategory, f.weekEndingDay
 HAVING SUM(f.dollars) >= ALL (SELECT SUM(f2.dollars)
-                              FROM FweekPscatSalesMvWithEmbeddedId f2
-                              WHERE f2.id.channelId = :channelId
-                                AND f2.id.weekEndingDay BETWEEN :fromDay AND :toDay
-                                AND f2.id.prodSubcategory = f.id.prodSubcategory
-                              GROUP BY f2.id.weekEndingDay)
-ORDER BY f.id.prodSubcategory
+                              FROM FweekPscatSalesMv f2
+                              WHERE f2.channelId = :channelId
+                                AND f2.weekEndingDay BETWEEN :fromDay AND :toDay
+                                AND f2.prodSubcategory = f.prodSubcategory
+                              GROUP BY f2.weekEndingDay)
+ORDER BY f.prodSubcategory
 ----
 
 `+FWEEK_PSCAT_SALES_MV+` already holds weekly revenue per subcategory, channel and promotion, so this never touches
-`SALES`. The JPQL replaces `+RANK() = 1+` with a correlated `+>= ALL+` subquery; both keep ties. With
-`FweekPscatSalesMvWithIdClass` drop the `.id`: `f.prodSubcategory`, `f.weekEndingDay`, `f.channelId`.
+`SALES`. The JPQL replaces `+RANK() = 1+` with a correlated `+>= ALL+` subquery; both keep ties.
 
 == PRODUCTS
 
@@ -762,13 +757,11 @@ ORDER BY TIME_ID, PROD_ID, CUST_ID
 [source,jpaql]
 ----
 SELECT pr
-FROM ProfitWithEmbeddedId pr
-WHERE pr.id.timeId BETWEEN :fromDay AND :toDay
+FROM Profit pr
+WHERE pr.timeId BETWEEN :fromDay AND :toDay
   AND pr.amountSold < pr.totalCost
-ORDER BY pr.id.timeId, pr.id.prodId, pr.id.custId
+ORDER BY pr.timeId, pr.prodId, pr.custId
 ----
-
-With `ProfitWithIdClass` drop the `.id`.
 
 === Intermediate
 
@@ -793,13 +786,13 @@ FETCH FIRST 10 ROWS ONLY
 
 [source,jpaql]
 ----
-SELECT pr.id.prodId,
+SELECT pr.prodId,
        SUM(pr.amountSold),
        SUM(pr.amountSold - pr.totalCost),
        SUM(pr.amountSold - pr.totalCost) / SUM(pr.amountSold) AS marginRatio
-FROM ProfitWithEmbeddedId pr
-WHERE pr.id.timeId BETWEEN :fromDay AND :toDay
-GROUP BY pr.id.prodId
+FROM Profit pr
+WHERE pr.timeId BETWEEN :fromDay AND :toDay
+GROUP BY pr.prodId
 ORDER BY marginRatio
 ----
 
@@ -829,15 +822,15 @@ ORDER BY PROD_ID
 
 [source,jpaql]
 ----
-SELECT pr.id.prodId,
-       SUM(CASE WHEN EXTRACT(YEAR FROM pr.id.timeId) = :previousYear THEN pr.amountSold - pr.totalCost ELSE 0 END),
-       SUM(CASE WHEN EXTRACT(YEAR FROM pr.id.timeId) = :currentYear THEN pr.amountSold - pr.totalCost ELSE 0 END)
-FROM ProfitWithEmbeddedId pr
-WHERE EXTRACT(YEAR FROM pr.id.timeId) IN (:previousYear, :currentYear)
-GROUP BY pr.id.prodId
-HAVING SUM(CASE WHEN EXTRACT(YEAR FROM pr.id.timeId) = :currentYear THEN pr.amountSold - pr.totalCost ELSE 0 END)
-     < SUM(CASE WHEN EXTRACT(YEAR FROM pr.id.timeId) = :previousYear THEN pr.amountSold - pr.totalCost ELSE 0 END)
-ORDER BY pr.id.prodId
+SELECT pr.prodId,
+       SUM(CASE WHEN EXTRACT(YEAR FROM pr.timeId) = :previousYear THEN pr.amountSold - pr.totalCost ELSE 0 END),
+       SUM(CASE WHEN EXTRACT(YEAR FROM pr.timeId) = :currentYear THEN pr.amountSold - pr.totalCost ELSE 0 END)
+FROM Profit pr
+WHERE EXTRACT(YEAR FROM pr.timeId) IN (:previousYear, :currentYear)
+GROUP BY pr.prodId
+HAVING SUM(CASE WHEN EXTRACT(YEAR FROM pr.timeId) = :currentYear THEN pr.amountSold - pr.totalCost ELSE 0 END)
+     < SUM(CASE WHEN EXTRACT(YEAR FROM pr.timeId) = :previousYear THEN pr.amountSold - pr.totalCost ELSE 0 END)
+ORDER BY pr.prodId
 ----
 
 The year comes from the sale date itself, so the view is read alone; _Reconcile sale dates with the calendar_ shows
@@ -980,14 +973,13 @@ ORDER BY AMOUNT_SOLD DESC, PROD_ID, CUST_ID
 [source,jpaql]
 ----
 SELECT s
-FROM SaleWithEmbeddedId s
+FROM Sale s
 WHERE s.time.timeId = :day
   AND s.channel.channelId = :channelId
 ORDER BY s.amountSold DESC
 ----
 
-`s.time.timeId` and `s.channel.channelId` name key columns through associations both flavours have, so the query runs
-unchanged with `SaleWithIdClass`.
+`s.time.timeId` and `s.channel.channelId` name key columns through the associations.
 
 === Intermediate
 
@@ -1010,7 +1002,7 @@ FETCH FIRST 10 ROWS ONLY
 [source,jpaql]
 ----
 SELECT s.customer.custId, COUNT(s), SUM(s.quantitySold), SUM(s.amountSold) AS spent
-FROM SaleWithEmbeddedId s
+FROM Sale s
 WHERE s.time.timeId BETWEEN :fromDay AND :toDay
 GROUP BY s.customer.custId
 ORDER BY spent DESC
@@ -1041,8 +1033,8 @@ ORDER BY TIME_ID
 [source,jpaql]
 ----
 SELECT s.id.timeId, MAX(s2.id.timeId)
-FROM SaleWithEmbeddedId s
-         LEFT JOIN SaleWithEmbeddedId s2 ON s2.id.custId = s.id.custId
+FROM Sale s
+         LEFT JOIN Sale s2 ON s2.id.custId = s.id.custId
     AND s2.id.timeId < s.id.timeId
 WHERE s.id.custId = :custId
 GROUP BY s.id.timeId
@@ -1053,7 +1045,7 @@ ORDER BY s.id.timeId
 JPQL has no window functions and no date subtraction: the self-join pairs each day with every earlier sale of the same
 customer, `MAX` keeps the latest, and the `LEFT JOIN` keeps the first day with a `null` previous one. Compute the gap
 in Java with `ChronoUnit.DAYS.between`. The join is quadratic in the customer's sales lines, which is fine for one
-customer. With `SaleWithIdClass` drop the `.id`.
+customer.
 
 == SUPPLEMENTARY_DEMOGRAPHICS
 
@@ -1251,7 +1243,7 @@ ORDER BY s.TIME_ID DESC, p.PROD_NAME
 [source,jpaql]
 ----
 SELECT t.timeId, p.prodName, ch.channelDesc, s.quantitySold, s.amountSold
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.time t
          JOIN s.product p
          JOIN s.channel ch
@@ -1308,7 +1300,7 @@ ORDER BY REVENUE DESC
 [source,jpaql]
 ----
 SELECT ch.channelDesc, SUM(s.quantitySold) AS units, SUM(s.amountSold) AS revenue
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.channel ch
          JOIN s.time t
 WHERE t.calendarYear = :year
@@ -1337,7 +1329,7 @@ ORDER BY t.CALENDAR_QUARTER_DESC, REVENUE DESC
 [source,jpaql]
 ----
 SELECT t.calendarQuarterDesc, p.prodCategory, SUM(s.amountSold) AS revenue
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.product p
          JOIN s.time t
 WHERE t.calendarYear = :year
@@ -1365,7 +1357,7 @@ FETCH FIRST 10 ROWS ONLY
 [source,jpaql]
 ----
 SELECT p.prodId, p.prodName, SUM(s.quantitySold) AS units, SUM(s.amountSold) AS revenue
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.product p
          JOIN s.time t
 WHERE t.calendarYear = :year
@@ -1397,7 +1389,7 @@ ORDER BY REVENUE DESC
 [source,jpaql]
 ----
 SELECT co.countryName, SUM(s.amountSold) AS revenue
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.customer cu
          JOIN cu.country co
          JOIN s.time t
@@ -1432,7 +1424,7 @@ ORDER BY REVENUE DESC
 ----
 SELECT pr.promoId, pr.promoName, pr.promoCategory, pr.promoCost,
        SUM(s.quantitySold) AS units, SUM(s.amountSold) AS revenue
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.promotion pr
          JOIN s.time t
 WHERE t.calendarYear = :year
@@ -1459,7 +1451,7 @@ ORDER BY t.FISCAL_MONTH_DESC
 [source,jpaql]
 ----
 SELECT t.fiscalMonthDesc, SUM(s.amountSold)
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.time t
 WHERE t.fiscalYear = :fiscalYear
 GROUP BY t.fiscalMonthDesc
@@ -1490,7 +1482,7 @@ ORDER BY ch.CHANNEL_DESC
 SELECT ch.channelDesc,
        SUM(CASE WHEN t.dayNumberInWeek IN (6, 7) THEN s.amountSold ELSE 0 END),
        SUM(CASE WHEN t.dayNumberInWeek IN (6, 7) THEN 0 ELSE s.amountSold END)
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.channel ch
          JOIN s.time t
 WHERE t.calendarYear = :year
@@ -1524,7 +1516,7 @@ ORDER BY cu.CUST_GENDER, REVENUE DESC
 [source,jpaql]
 ----
 SELECT cu.custGender, COALESCE(cu.custMaritalStatus, 'unknown'), COUNT(DISTINCT cu), SUM(s.amountSold) AS revenue
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.customer cu
          JOIN s.time t
 WHERE t.calendarYear = :year
@@ -1556,7 +1548,7 @@ ORDER BY REVENUE DESC
 [source,jpaql]
 ----
 SELECT d.education, COUNT(DISTINCT cu), SUM(s.amountSold) AS revenue
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.customer cu
          JOIN SupplementaryDemographics d ON d.custId = cu.custId
          JOIN s.time t
@@ -1592,7 +1584,7 @@ ORDER BY REALISED_RATIO
 ----
 SELECT p.prodId, p.prodName, p.prodListPrice,
        SUM(s.amountSold) / SUM(s.quantitySold) AS realisedPrice
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.product p
          JOIN s.time t
 WHERE t.calendarYear = :year
@@ -1623,7 +1615,7 @@ ORDER BY p.PROD_ID
 ----
 SELECT p
 FROM Product p
-WHERE NOT EXISTS (SELECT s FROM SaleWithEmbeddedId s WHERE s.product = p)
+WHERE NOT EXISTS (SELECT s FROM Sale s WHERE s.product = p)
 ORDER BY p.prodId
 ----
 
@@ -1642,7 +1634,7 @@ ORDER BY DORMANT_CUSTOMERS DESC
 SELECT co.countryName, COUNT(cu) AS dormant
 FROM Customer cu
          JOIN cu.country co
-WHERE NOT EXISTS (SELECT s FROM SaleWithEmbeddedId s WHERE s.customer = cu)
+WHERE NOT EXISTS (SELECT s FROM Sale s WHERE s.customer = cu)
 GROUP BY co.countryName
 ORDER BY dormant DESC
 ----
@@ -1672,22 +1664,22 @@ WHERE t.CALENDAR_YEAR = :currentYear
 [source,jpaql]
 ----
 SELECT s.customer.custId
-FROM SaleWithEmbeddedId s
+FROM Sale s
 WHERE s.time.calendarYear = :previousYear
 EXCEPT
 SELECT s2.customer.custId
-FROM SaleWithEmbeddedId s2
+FROM Sale s2
 WHERE s2.time.calendarYear = :currentYear
 ----
 
 [source,jpaql]
 ----
 SELECT DISTINCT cu
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.customer cu
 WHERE s.time.calendarYear = :previousYear
   AND NOT EXISTS (SELECT s2
-                  FROM SaleWithEmbeddedId s2
+                  FROM Sale s2
                   WHERE s2.customer = cu
                     AND s2.time.calendarYear = :currentYear)
 ----
@@ -1721,12 +1713,12 @@ WHERE t.CALENDAR_YEAR = :year
 [source,jpaql]
 ----
 SELECT s.customer.custId
-FROM SaleWithEmbeddedId s
+FROM Sale s
 WHERE s.time.calendarYear = :year
   AND s.channel.channelDesc = :channelA
 INTERSECT
 SELECT s2.customer.custId
-FROM SaleWithEmbeddedId s2
+FROM Sale s2
 WHERE s2.time.calendarYear = :year
   AND s2.channel.channelDesc = :channelB
 ----
@@ -1755,7 +1747,7 @@ ORDER BY PROD_CATEGORY, RNK
 [source,jpaql]
 ----
 SELECT p.prodCategory, p.prodName, SUM(s.amountSold) AS revenue
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.product p
          JOIN s.time t
 WHERE t.calendarYear = :year
@@ -1796,10 +1788,10 @@ ORDER BY MARGIN DESC
 [source,jpaql]
 ----
 SELECT p.prodCategory, SUM(s.amountSold) AS revenue, SUM(s.amountSold - s.quantitySold * c.unitCost) AS margin
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.product p
          JOIN s.time t
-         JOIN CostWithEmbeddedId c ON c.id.prodId = s.id.prodId
+         JOIN Cost c ON c.id.prodId = s.id.prodId
     AND c.id.timeId = s.id.timeId
     AND c.id.channelId = s.id.channelId
     AND c.id.promoId = s.id.promoId
@@ -1824,20 +1816,7 @@ ORDER BY MARGIN DESC
 [source,jpaql]
 ----
 SELECT p.prodCategory, SUM(pr.amountSold) AS revenue, SUM(pr.amountSold - pr.totalCost) AS margin
-FROM ProfitWithEmbeddedId pr, Product p, Time t
-WHERE p.prodId = pr.id.prodId
-  AND t.timeId = pr.id.timeId
-  AND t.calendarYear = :year
-GROUP BY p.prodCategory
-ORDER BY margin DESC
-----
-
-With `ProfitWithIdClass` listed in the persistence unit instead, the key attributes sit on the entity itself:
-
-[source,jpaql]
-----
-SELECT p.prodCategory, SUM(pr.amountSold) AS revenue, SUM(pr.amountSold - pr.totalCost) AS margin
-FROM ProfitWithIdClass pr, Product p, Time t
+FROM Profit pr, Product p, Time t
 WHERE p.prodId = pr.prodId
   AND t.timeId = pr.timeId
   AND t.calendarYear = :year
@@ -1845,15 +1824,13 @@ GROUP BY p.prodCategory
 ORDER BY margin DESC
 ----
 
-With `SaleWithIdClass` and `CostWithIdClass`, drop the `.id` from the key paths (`+c.prodId = s.prodId+`, ...).
-
 Both forms are inner joins: a sale without a matching `COSTS` row (there are a few thousand) drops out of revenue as
 well as cost. Use `LEFT JOIN` and `+COALESCE(c.UNIT_COST, 0)+` (in JPQL, `COALESCE(c.unitCost, 0)`) if revenue has to
 reconcile with the other reports.
 
 Two EclipseLink 5.0.1 quirks shape the JPQL above, and both forms run under Hibernate as well:
 
-* An entity join (`JOIN CostWithEmbeddedId c ON ...`) followed by an association join (`JOIN s.product p`) fails to
+* An entity join (`JOIN Cost c ON ...`) followed by an association join (`JOIN s.product p`) fails to
   parse, so the entity join comes last.
 * An entity join to `Time` (`JOIN Time t ON ...`) fails to parse, while the same join to `Product` or `Channel` works;
   the `PROFITS` query therefore lists its entities in `FROM` and joins them in `WHERE`.
@@ -1889,7 +1866,7 @@ ORDER BY GROWTH DESC NULLS LAST
 SELECT ch.channelDesc,
        SUM(CASE WHEN t.calendarYear = :previousYear THEN s.amountSold ELSE 0 END),
        SUM(CASE WHEN t.calendarYear = :currentYear THEN s.amountSold ELSE 0 END)
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.channel ch
          JOIN s.time t
 WHERE t.calendarYear IN (:previousYear, :currentYear)
@@ -1924,21 +1901,21 @@ ORDER BY GROUPING(ch.CHANNEL_DESC), ch.CHANNEL_DESC, GROUPING(t.CALENDAR_QUARTER
 [source,jpaql]
 ----
 SELECT ch.channelDesc, t.calendarQuarterDesc, SUM(s.amountSold)
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.channel ch
          JOIN s.time t
 WHERE t.calendarYear = :year
 GROUP BY ch.channelDesc, t.calendarQuarterDesc
 UNION ALL
 SELECT ch2.channelDesc, 'All quarters', SUM(s2.amountSold)
-FROM SaleWithEmbeddedId s2
+FROM Sale s2
          JOIN s2.channel ch2
          JOIN s2.time t2
 WHERE t2.calendarYear = :year
 GROUP BY ch2.channelDesc
 UNION ALL
 SELECT 'All channels', 'All quarters', SUM(s3.amountSold)
-FROM SaleWithEmbeddedId s3
+FROM Sale s3
          JOIN s3.time t3
 WHERE t3.calendarYear = :year
 ----
@@ -2007,21 +1984,10 @@ WHERE EXTRACT(YEAR FROM s.TIME_ID) = :year
 [source,jpaql]
 ----
 SELECT COUNT(s)
-FROM SaleWithEmbeddedId s
+FROM Sale s
          JOIN s.time t
 WHERE EXTRACT(YEAR FROM s.id.timeId) = :year
   AND t.calendarYear <> EXTRACT(YEAR FROM s.id.timeId)
-----
-
-With `SaleWithIdClass` listed instead, the key attribute is on the entity:
-
-[source,jpaql]
-----
-SELECT COUNT(s)
-FROM SaleWithIdClass s
-         JOIN s.time t
-WHERE EXTRACT(YEAR FROM s.timeId) = :year
-  AND t.calendarYear <> EXTRACT(YEAR FROM s.timeId)
 ----
 
 `EXTRACT` (with `YEAR`, `QUARTER`, `MONTH`, `WEEK`, `DAY`, ...) is new in Jakarta Persistence 3.2. A JPQL `GROUP BY`

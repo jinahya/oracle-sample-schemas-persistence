@@ -473,7 +473,7 @@ public class Employee {
     /**
      * The name of the attribute which maps the past job assignments of this employee. The value is {@value}.
      *
-     * @see JobHistoryWithIdClass#ATTRIBUTE_NAME_EMPLOYEE
+     * @see JobHistory#ATTRIBUTE_NAME_EMPLOYEE
      */
     public static final String ATTRIBUTE_NAME_JOB_HISTORIES = "jobHistories";
 
@@ -744,7 +744,7 @@ public class Employee {
      * Replaces current value of {@value #ATTRIBUTE_NAME_JOB} attribute with the specified value.
      * <p>
      * Changing it on a persisted employee makes the database's {@code UPDATE_JOB_HISTORY} trigger insert a
-     * {@value JobHistoryWithIdClass#TABLE_NAME} row, with the previous job and department, when the change is flushed.
+     * {@value JobHistory#TABLE_NAME} row, with the previous job and department, when the change is flushed.
      *
      * @param job new value for {@value #ATTRIBUTE_NAME_JOB} attribute.
      */
@@ -865,7 +865,7 @@ public class Employee {
      * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute with the specified value.
      * <p>
      * Changing it on a persisted employee makes the database's {@code UPDATE_JOB_HISTORY} trigger insert a
-     * {@value JobHistoryWithIdClass#TABLE_NAME} row, with the previous job and department, when the change is flushed.
+     * {@value JobHistory#TABLE_NAME} row, with the previous job and department, when the change is flushed.
      *
      * @param department new value for {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute.
      */
@@ -920,7 +920,7 @@ public class Employee {
      *
      * @return the past job assignments of this employee.
      */
-    List<JobHistoryWithIdClass> getJobHistories() {
+    List<JobHistory> getJobHistories() {
         return jobHistories;
     }
 
@@ -929,7 +929,7 @@ public class Employee {
      *
      * @param jobHistories new past job assignments of this employee.
      */
-    void setJobHistories(final List<JobHistoryWithIdClass> jobHistories) {
+    void setJobHistories(final List<JobHistory> jobHistories) {
         this.jobHistories = jobHistories;
     }
 
@@ -1098,11 +1098,11 @@ public class Employee {
     private List<@Valid @NotNull Department> managedDepartments;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @OneToMany(mappedBy = JobHistoryWithIdClass.ATTRIBUTE_NAME_EMPLOYEE,
+    @OneToMany(mappedBy = JobHistory.ATTRIBUTE_NAME_EMPLOYEE,
                fetch = FetchType.LAZY,
                cascade = {
                },
                orphanRemoval = false
     )
-    private List<@Valid @NotNull JobHistoryWithIdClass> jobHistories;
+    private List<@Valid @NotNull JobHistory> jobHistories;
 }

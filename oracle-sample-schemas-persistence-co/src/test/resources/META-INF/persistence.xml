@@ -39,16 +39,14 @@
     <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemWithIdClass</class>-->
     <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemId</class>-->
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Product</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductImage</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Shipment</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Shipment$ShipmentStatusConverter</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Store</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.StoreLogo</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.CustomerOrderProduct</class>
-    <!-- ProductOrderWithEmbeddedId and ProductOrderWithIdClass map PRODUCT_ORDERS, two ways; only one may be listed.
-         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
-         metamodel then throws from getIdClassAttributes(). -->
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductOrderId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductOrderWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductOrderWithIdClass</class>-->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductOrder</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
@@ -92,17 +90,14 @@
     <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemWithIdClass</class>-->
     <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemId</class>-->
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Product</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductImage</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Shipment</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Shipment$ShipmentStatusConverter</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Store</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.StoreLogo</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.CustomerOrderProduct</class>
-    <!-- ProductOrderWithEmbeddedId and ProductOrderWithIdClass map PRODUCT_ORDERS, two ways; only one may be listed.
-         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
-         metamodel then throws from getIdClassAttributes(). -->
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductOrderId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductOrderWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductOrderWithIdClass</class>-->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductOrder</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>

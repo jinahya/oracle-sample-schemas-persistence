@@ -58,7 +58,7 @@ class __SpringBootContext {
                 Store.class.getName(),
                 CustomerOrderProduct.class.getName(),
                 ProductOrderId.class.getName(),
-                ProductOrderWithEmbeddedId.class.getName()
+                ProductOrder.class.getName()
         );
     }
 }

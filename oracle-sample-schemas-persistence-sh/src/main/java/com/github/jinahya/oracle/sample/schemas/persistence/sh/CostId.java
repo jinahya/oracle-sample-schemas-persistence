@@ -28,7 +28,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * An id class for the {@link CostWithEmbeddedId} and {@link CostWithIdClass} entity classes.
+ * An embeddable class for the composite identifier of the {@link Cost} entity class, which maps it with an
+ * {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -38,37 +39,33 @@ public class CostId {
     /**
      * The name of the database table whose identifying columns this class maps. The value is {@value}.
      */
-    public static final String TABLE_NAME = CostWithEmbeddedId.TABLE_NAME;
+    public static final String TABLE_NAME = Cost.TABLE_NAME;
 
     // --------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The name of the attribute which maps the {@value CostWithEmbeddedId#COLUMN_NAME_PROD_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value Cost#COLUMN_NAME_PROD_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the attribute which maps the {@value CostWithEmbeddedId#COLUMN_NAME_TIME_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value Cost#COLUMN_NAME_TIME_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the attribute which maps the {@value CostWithEmbeddedId#COLUMN_NAME_PROMO_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value Cost#COLUMN_NAME_PROMO_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
-     * The name of the attribute which maps the {@value CostWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value Cost#COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
@@ -77,10 +74,10 @@ public class CostId {
     /**
      * Creates a new instance with the specified column values.
      *
-     * @param prodId    the {@value CostWithEmbeddedId#COLUMN_NAME_PROD_ID} column value.
-     * @param timeId    the {@value CostWithEmbeddedId#COLUMN_NAME_TIME_ID} column value.
-     * @param promoId   the {@value CostWithEmbeddedId#COLUMN_NAME_PROMO_ID} column value.
-     * @param channelId the {@value CostWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column value.
+     * @param prodId    the {@value Cost#COLUMN_NAME_PROD_ID} column value.
+     * @param timeId    the {@value Cost#COLUMN_NAME_TIME_ID} column value.
+     * @param promoId   the {@value Cost#COLUMN_NAME_PROMO_ID} column value.
+     * @param channelId the {@value Cost#COLUMN_NAME_CHANNEL_ID} column value.
      * @return a new instance with the specified column values.
      */
     public static CostId of(final Integer prodId,
@@ -231,18 +228,18 @@ public class CostId {
     // ---------------------------------------------------------------------------------------------------------------- 
 
     @Basic(optional = false)
-    @Column(name = CostWithEmbeddedId.COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = Cost.COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
     private Integer prodId;
 
     @Basic(optional = false)
-    @Column(name = CostWithEmbeddedId.COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = Cost.COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
     private LocalDate timeId;
 
     @Basic(optional = false)
-    @Column(name = CostWithEmbeddedId.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = Cost.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
     private Integer promoId;
 
     @Basic(optional = false)
-    @Column(name = CostWithEmbeddedId.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = Cost.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
     private Long channelId;
 }

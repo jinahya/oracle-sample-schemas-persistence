@@ -16,9 +16,8 @@ last section.
 A few things to keep in mind while reading the JPQL:
 
 * The entity names are the class names — `Region`, `Country`, `Location`, `Department`, `Employee`, `Job` — except
-  for `+JOB_HISTORY+`, whose entity name is `JobHistory`. The persistence units list `JobHistoryWithIdClass`, so the
-  solutions use its attributes (`h.employeeId`, `h.startDate`); `JobHistoryWithEmbeddedId` is shown as well where
-  its path (`h.id.employeeId`, `h.id.startDate`) differs.
+  for `+JOB_HISTORY+`, mapped by `JobHistory`. It maps its composite key with an `+@IdClass+`, so the key attributes
+  are on the entity itself (`h.employeeId`, `h.startDate`).
 * Foreign keys are mapped as associations only. There is no `Employee.departmentId` or `Department.locationId`
   attribute: navigate instead, as `e.department.departmentId` or `d.location.locationId`, or compare the association
   with an entity parameter, as `+e.department = :department+`.
@@ -1865,8 +1864,6 @@ WHERE NOT EXISTS (SELECT 1 FROM JOB_HISTORY h WHERE h.EMPLOYEE_ID = e.EMPLOYEE_I
 ORDER BY e.HIRE_DATE ASC
 ----
 
-`JobHistoryWithIdClass`
-
 [source,jpaql]
 ----
 SELECT e.employeeId, e.firstName, e.lastName, e.hireDate
@@ -1875,21 +1872,8 @@ WHERE NOT EXISTS (SELECT h FROM JobHistory h WHERE h.employeeId = e.employeeId)
 ORDER BY e.hireDate ASC
 ----
 
-`JobHistoryWithEmbeddedId`
-
-[source,jpaql]
-----
-SELECT e.employeeId, e.firstName, e.lastName, e.hireDate
-FROM Employee e
-WHERE NOT EXISTS (SELECT h FROM JobHistory h WHERE h.id.employeeId = e.employeeId)
-ORDER BY e.hireDate ASC
-----
-
-This form needs a unit that lists `JobHistoryWithEmbeddedId`. Against the module's units, which list
-`JobHistoryWithIdClass`, EclipseLink rejects `h.id`; Hibernate happens to accept it.
-
-Either flavour can also go through the association, `+h.employee = e+`, which is the same in both — or skip the
-subquery altogether with `WHERE e.jobHistories IS EMPTY`.
+The subquery can also go through the association, `+h.employee = e+` — or be skipped altogether with
+`WHERE e.jobHistories IS EMPTY`.
 
 === Advanced
 

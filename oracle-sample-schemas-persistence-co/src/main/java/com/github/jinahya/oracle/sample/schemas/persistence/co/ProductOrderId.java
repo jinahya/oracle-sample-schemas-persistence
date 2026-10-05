@@ -28,7 +28,8 @@ import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
 /**
- * An id class for the {@link ProductOrderWithEmbeddedId} and {@link ProductOrderWithIdClass} entity classes.
+ * An embeddable class for the composite identifier of the {@link ProductOrder} entity class, which maps it with an
+ * {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -38,21 +39,21 @@ public class ProductOrderId {
     /**
      * The name of the database view whose identifying columns this class maps. The value is {@value}.
      */
-    public static final String TABLE_NAME = ProductOrderWithEmbeddedId.TABLE_NAME;
+    public static final String TABLE_NAME = ProductOrder.TABLE_NAME;
 
     // ---------------------------------------------------------------------------------------------------- PRODUCT_NAME
 
     /**
-     * The name of the attribute which maps the {@value ProductOrderWithEmbeddedId#COLUMN_NAME_PRODUCT_NAME} column. The
-     * value is {@value}.
+     * The name of the attribute which maps the {@value ProductOrder#COLUMN_NAME_PRODUCT_NAME} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_NAME = "productName";
 
     // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
 
     /**
-     * The name of the attribute which maps the {@value ProductOrderWithEmbeddedId#COLUMN_NAME_ORDER_STATUS} column. The
-     * value is {@value}.
+     * The name of the attribute which maps the {@value ProductOrder#COLUMN_NAME_ORDER_STATUS} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
 
@@ -61,8 +62,8 @@ public class ProductOrderId {
     /**
      * Creates a new instance with the specified column values.
      *
-     * @param productName the {@value ProductOrderWithEmbeddedId#COLUMN_NAME_PRODUCT_NAME} column value.
-     * @param orderStatus the {@value ProductOrderWithEmbeddedId#COLUMN_NAME_ORDER_STATUS} column value.
+     * @param productName the {@value ProductOrder#COLUMN_NAME_PRODUCT_NAME} column value.
+     * @param orderStatus the {@value ProductOrder#COLUMN_NAME_ORDER_STATUS} column value.
      * @return a new instance with the specified column values.
      */
     public static ProductOrderId of(final String productName, final String orderStatus) {
@@ -161,21 +162,21 @@ public class ProductOrderId {
 
     // ---------------------------------------------------------------------------------------------------------------- 
 
-    @Size(max = ProductOrderWithEmbeddedId.SIZE_MAX_PRODUCT_NAME)
+    @Size(max = ProductOrder.SIZE_MAX_PRODUCT_NAME)
     @Basic(optional = false)
-    @Column(name = ProductOrderWithEmbeddedId.COLUMN_NAME_PRODUCT_NAME,
+    @Column(name = ProductOrder.COLUMN_NAME_PRODUCT_NAME,
             nullable = false,
             insertable = true,
             updatable = false,
-            length = ProductOrderWithEmbeddedId.COLUMN_LENGTH_PRODUCT_NAME)
+            length = ProductOrder.COLUMN_LENGTH_PRODUCT_NAME)
     private String productName;
 
-    @Size(max = ProductOrderWithEmbeddedId.SIZE_MAX_ORDER_STATUS)
+    @Size(max = ProductOrder.SIZE_MAX_ORDER_STATUS)
     @Basic(optional = false)
-    @Column(name = ProductOrderWithEmbeddedId.COLUMN_NAME_ORDER_STATUS,
+    @Column(name = ProductOrder.COLUMN_NAME_ORDER_STATUS,
             nullable = false,
             insertable = true,
             updatable = false,
-            length = ProductOrderWithEmbeddedId.COLUMN_LENGTH_ORDER_STATUS)
+            length = ProductOrder.COLUMN_LENGTH_ORDER_STATUS)
     private String orderStatus;
 }

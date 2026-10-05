@@ -30,9 +30,9 @@ import java.time.LocalDate;
 /**
  * An embeddable class for mapping the logo columns of the {@value Store#TABLE_NAME} table.
  * <p>
- * The accessors of this class are public, and named after the columns, so that code which takes this value from
- * its {@link Store} reads and changes it here. They delegate to the protected accessors of {@link _Binary}, which
- * hold the state; a change is persisted with the {@link Store} which embeds this value.
+ * The accessors of this class are public, and named after the columns, so that code which takes this value from its
+ * {@link Store} reads and changes it here. They delegate to the protected accessors of {@link _Binary}, which hold the
+ * state; a change is persisted with the {@link Store} which embeds this value.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @apiNote The state is inherited from {@link _Binary}, which names no column; the overrides below bind each inherited

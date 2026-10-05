@@ -29,7 +29,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * An id class for the {@link FweekPscatSalesMvWithEmbeddedId} and {@link FweekPscatSalesMvWithIdClass} entity classes.
+ * A class for the composite identifier of the {@link FweekPscatSalesMv} entity class, which maps it with an
+ * {@link jakarta.persistence.IdClass @IdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -39,37 +40,37 @@ public class FweekPscatSalesMvId {
     /**
      * The name of the database materialized view whose identifying columns this class maps. The value is {@value}.
      */
-    public static final String TABLE_NAME = FweekPscatSalesMvWithEmbeddedId.TABLE_NAME;
+    public static final String TABLE_NAME = FweekPscatSalesMv.TABLE_NAME;
 
     // ------------------------------------------------------------------------------------------------- WEEK_ENDING_DAY
 
     /**
-     * The name of the attribute which maps the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_WEEK_ENDING_DAY}
-     * column. The value is {@value}.
+     * The name of the attribute which maps the {@value FweekPscatSalesMv#COLUMN_NAME_WEEK_ENDING_DAY} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_WEEK_ENDING_DAY = "weekEndingDay";
 
     // ------------------------------------------------------------------------------------------------ PROD_SUBCATEGORY
 
     /**
-     * The name of the attribute which maps the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_PROD_SUBCATEGORY}
-     * column. The value is {@value}.
+     * The name of the attribute which maps the {@value FweekPscatSalesMv#COLUMN_NAME_PROD_SUBCATEGORY} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_SUBCATEGORY = "prodSubcategory";
 
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
-     * The name of the attribute which maps the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column.
-     * The value is {@value}.
+     * The name of the attribute which maps the {@value FweekPscatSalesMv#COLUMN_NAME_CHANNEL_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the attribute which maps the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_PROMO_ID} column.
-     * The value is {@value}.
+     * The name of the attribute which maps the {@value FweekPscatSalesMv#COLUMN_NAME_PROMO_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
@@ -78,10 +79,10 @@ public class FweekPscatSalesMvId {
     /**
      * Creates a new instance with the specified column values.
      *
-     * @param weekEndingDay   the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_WEEK_ENDING_DAY} column value.
-     * @param prodSubcategory the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_PROD_SUBCATEGORY} column value.
-     * @param channelId       the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column value.
-     * @param promoId         the {@value FweekPscatSalesMvWithEmbeddedId#COLUMN_NAME_PROMO_ID} column value.
+     * @param weekEndingDay   the {@value FweekPscatSalesMv#COLUMN_NAME_WEEK_ENDING_DAY} column value.
+     * @param prodSubcategory the {@value FweekPscatSalesMv#COLUMN_NAME_PROD_SUBCATEGORY} column value.
+     * @param channelId       the {@value FweekPscatSalesMv#COLUMN_NAME_CHANNEL_ID} column value.
+     * @param promoId         the {@value FweekPscatSalesMv#COLUMN_NAME_PROMO_ID} column value.
      * @return a new instance with the specified column values.
      */
     public static FweekPscatSalesMvId of(final LocalDate weekEndingDay,
@@ -233,30 +234,30 @@ public class FweekPscatSalesMvId {
     // ---------------------------------------------------------------------------------------------------------------- 
 
     @Basic(optional = false)
-    @Column(name = FweekPscatSalesMvWithEmbeddedId.COLUMN_NAME_WEEK_ENDING_DAY,
+    @Column(name = FweekPscatSalesMv.COLUMN_NAME_WEEK_ENDING_DAY,
             nullable = false,
             insertable = true,
             updatable = false)
     private LocalDate weekEndingDay;
 
-    @Size(max = FweekPscatSalesMvWithEmbeddedId.SIZE_MAX_PROD_SUBCATEGORY)
+    @Size(max = FweekPscatSalesMv.SIZE_MAX_PROD_SUBCATEGORY)
     @Basic(optional = false)
-    @Column(name = FweekPscatSalesMvWithEmbeddedId.COLUMN_NAME_PROD_SUBCATEGORY,
+    @Column(name = FweekPscatSalesMv.COLUMN_NAME_PROD_SUBCATEGORY,
             nullable = false,
             insertable = true,
             updatable = false,
-            length = FweekPscatSalesMvWithEmbeddedId.COLUMN_LENGTH_PROD_SUBCATEGORY)
+            length = FweekPscatSalesMv.COLUMN_LENGTH_PROD_SUBCATEGORY)
     private String prodSubcategory;
 
     @Basic(optional = false)
-    @Column(name = FweekPscatSalesMvWithEmbeddedId.COLUMN_NAME_CHANNEL_ID,
+    @Column(name = FweekPscatSalesMv.COLUMN_NAME_CHANNEL_ID,
             nullable = false,
             insertable = true,
             updatable = false)
     private Long channelId;
 
     @Basic(optional = false)
-    @Column(name = FweekPscatSalesMvWithEmbeddedId.COLUMN_NAME_PROMO_ID,
+    @Column(name = FweekPscatSalesMv.COLUMN_NAME_PROMO_ID,
             nullable = false,
             insertable = true,
             updatable = false)

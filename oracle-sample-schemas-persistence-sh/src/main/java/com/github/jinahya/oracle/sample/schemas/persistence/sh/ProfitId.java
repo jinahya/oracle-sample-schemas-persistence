@@ -28,7 +28,8 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 /**
- * An id class for the {@link ProfitWithEmbeddedId} and {@link ProfitWithIdClass} entity classes.
+ * A class for the composite identifier of the {@link Profit} entity class, which maps it with an
+ * {@link jakarta.persistence.IdClass @IdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -38,45 +39,40 @@ public class ProfitId {
     /**
      * The name of the database view whose identifying columns this class maps. The value is {@value}.
      */
-    public static final String TABLE_NAME = ProfitWithEmbeddedId.TABLE_NAME;
+    public static final String TABLE_NAME = Profit.TABLE_NAME;
 
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
-     * The name of the attribute which maps the {@value ProfitWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column. The value
-     * is {@value}.
+     * The name of the attribute which maps the {@value Profit#COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
     // --------------------------------------------------------------------------------------------------------- CUST_ID
 
     /**
-     * The name of the attribute which maps the {@value ProfitWithEmbeddedId#COLUMN_NAME_CUST_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value Profit#COLUMN_NAME_CUST_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_ID = "custId";
 
     // --------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The name of the attribute which maps the {@value ProfitWithEmbeddedId#COLUMN_NAME_PROD_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value Profit#COLUMN_NAME_PROD_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the attribute which maps the {@value ProfitWithEmbeddedId#COLUMN_NAME_PROMO_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value Profit#COLUMN_NAME_PROMO_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the attribute which maps the {@value ProfitWithEmbeddedId#COLUMN_NAME_TIME_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value Profit#COLUMN_NAME_TIME_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
@@ -85,11 +81,11 @@ public class ProfitId {
     /**
      * Creates a new instance with the specified column values.
      *
-     * @param channelId the {@value ProfitWithEmbeddedId#COLUMN_NAME_CHANNEL_ID} column value.
-     * @param custId    the {@value ProfitWithEmbeddedId#COLUMN_NAME_CUST_ID} column value.
-     * @param prodId    the {@value ProfitWithEmbeddedId#COLUMN_NAME_PROD_ID} column value.
-     * @param promoId   the {@value ProfitWithEmbeddedId#COLUMN_NAME_PROMO_ID} column value.
-     * @param timeId    the {@value ProfitWithEmbeddedId#COLUMN_NAME_TIME_ID} column value.
+     * @param channelId the {@value Profit#COLUMN_NAME_CHANNEL_ID} column value.
+     * @param custId    the {@value Profit#COLUMN_NAME_CUST_ID} column value.
+     * @param prodId    the {@value Profit#COLUMN_NAME_PROD_ID} column value.
+     * @param promoId   the {@value Profit#COLUMN_NAME_PROMO_ID} column value.
+     * @param timeId    the {@value Profit#COLUMN_NAME_TIME_ID} column value.
      * @return a new instance with the specified column values.
      */
     public static ProfitId of(final Long channelId,
@@ -264,22 +260,22 @@ public class ProfitId {
     // ---------------------------------------------------------------------------------------------------------------- 
 
     @Basic(optional = false)
-    @Column(name = ProfitWithEmbeddedId.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = Profit.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
     private Long channelId;
 
     @Basic(optional = false)
-    @Column(name = ProfitWithEmbeddedId.COLUMN_NAME_CUST_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = Profit.COLUMN_NAME_CUST_ID, nullable = false, insertable = true, updatable = false)
     private Long custId;
 
     @Basic(optional = false)
-    @Column(name = ProfitWithEmbeddedId.COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = Profit.COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
     private Integer prodId;
 
     @Basic(optional = false)
-    @Column(name = ProfitWithEmbeddedId.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = Profit.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
     private Integer promoId;
 
     @Basic(optional = false)
-    @Column(name = ProfitWithEmbeddedId.COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = Profit.COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
     private LocalDate timeId;
 }

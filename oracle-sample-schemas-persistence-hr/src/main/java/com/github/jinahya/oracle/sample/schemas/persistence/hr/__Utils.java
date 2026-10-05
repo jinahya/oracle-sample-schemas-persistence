@@ -47,8 +47,8 @@ final class __Utils {
 
     /**
      * Checks whether the {@code SECURE_DML} routine would raise an application error
-     * ({@value __DomainConstants#ROUTINE_SECURE_DML_APPLICATION_ERROR_CODE}) at the specified time on the specified day of
-     * the week.
+     * ({@value __DomainConstants#ROUTINE_SECURE_DML_APPLICATION_ERROR_CODE}) at the specified time on the specified day
+     * of the week.
      * <p>
      * {@snippet id = "SECURE_DML" lang = "sql":
      * create PROCEDURE secure_dml IS
@@ -65,8 +65,8 @@ final class __Utils {
      * <p>
      * The routine raises the application error when the current time is {@code NOT BETWEEN}
      * {@value __DomainConstants#ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT} and
-     * {@value __DomainConstants#ROUTINE_SECURE_DML_LOCAL_TIME_MAX_TEXT}, {@code OR} the current day of the week is either
-     * {@link DayOfWeek#SATURDAY} or {@link DayOfWeek#SUNDAY}.
+     * {@value __DomainConstants#ROUTINE_SECURE_DML_LOCAL_TIME_MAX_TEXT}, {@code OR} the current day of the week is
+     * either {@link DayOfWeek#SATURDAY} or {@link DayOfWeek#SUNDAY}.
      *
      * @param time    the time of day to check.
      * @param weekday the day of the week to check.

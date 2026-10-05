@@ -231,7 +231,7 @@ public class Department {
     /**
      * The name of the attribute which maps the past job assignments within this department. The value is {@value}.
      *
-     * @see JobHistoryWithIdClass#ATTRIBUTE_NAME_DEPARTMENT
+     * @see JobHistory#ATTRIBUTE_NAME_DEPARTMENT
      */
     public static final String ATTRIBUTE_NAME_JOB_HISTORIES = "jobHistories";
 
@@ -382,7 +382,7 @@ public class Department {
      *
      * @return the past job assignments within this department.
      */
-    List<JobHistoryWithIdClass> getJobHistories() {
+    List<JobHistory> getJobHistories() {
         return jobHistories;
     }
 
@@ -391,7 +391,7 @@ public class Department {
      *
      * @param jobHistories new past job assignments within this department.
      */
-    void setJobHistories(final List<JobHistoryWithIdClass> jobHistories) {
+    void setJobHistories(final List<JobHistory> jobHistories) {
         this.jobHistories = jobHistories;
     }
 
@@ -451,11 +451,11 @@ public class Department {
     private List<@Valid @NotNull Employee> employees;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @OneToMany(mappedBy = JobHistoryWithIdClass.ATTRIBUTE_NAME_DEPARTMENT,
+    @OneToMany(mappedBy = JobHistory.ATTRIBUTE_NAME_DEPARTMENT,
                fetch = FetchType.LAZY,
                cascade = {
                },
                orphanRemoval = false
     )
-    private List<@Valid @NotNull JobHistoryWithIdClass> jobHistories;
+    private List<@Valid @NotNull JobHistory> jobHistories;
 }

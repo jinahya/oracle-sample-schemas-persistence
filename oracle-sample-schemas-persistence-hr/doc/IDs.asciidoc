@@ -34,7 +34,7 @@ key the schema already names.
 | `DEPARTMENTS` | `DEPARTMENT_ID`            | —       | `Department`
 | `EMPLOYEES`   | `EMPLOYEE_ID`              | `EMAIL` | `Employee`
 | `JOBS`        | `JOB_ID`                   | —       | `Job`
-| `JOB_HISTORY` | `EMPLOYEE_ID, START_DATE`  | —       | `JobHistoryWithEmbeddedId`, `JobHistoryWithIdClass`
+| `JOB_HISTORY` | `EMPLOYEE_ID, START_DATE`  | —       | `JobHistory`
 | `LOCATIONS`   | `LOCATION_ID`              | —       | `Location`
 | `REGIONS`     | `REGION_ID`                | —       | `Region`
 |===
@@ -43,9 +43,8 @@ key the schema already names.
 and is exactly the kind of column an application is expected to let people change, so the
 surrogate stays the identifier.
 
-`JOB_HISTORY` is the one composite key, which is why the module maps it twice — once with
-an `@EmbeddedId` and once with an `@IdClass`, over the shared `JobHistoryId`. Only one of
-the two is listed in `persistence.xml`; see `CLAUDE.md` on `exclude-unlisted-classes`.
+`JOB_HISTORY` is the one composite key. `JobHistory` maps it with an `@IdClass`,
+`JobHistoryId`.
 
 == Views
 

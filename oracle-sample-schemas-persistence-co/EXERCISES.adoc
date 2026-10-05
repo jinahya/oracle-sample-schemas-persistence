@@ -9,7 +9,7 @@ marketing or finance would ask of a small retail chain, each answered with a que
 request, followed by one or more solutions. The `sql` blocks are Oracle SQL against the installed schema
 (see link:README.md[README.md]), with `:name` bind variables. The `jpaql` blocks are Jakarta Persistence 3.2 query
 language against this module's entities -- `Customer`, `Store`, `Product`, `Order`, `OrderItemWithEmbeddedId`,
-`Shipment`, `Inventory`, and the views `CustomerOrderProduct` and `ProductOrderWithEmbeddedId` -- with named
+`Shipment`, `Inventory`, and the views `CustomerOrderProduct` and `ProductOrder` -- with named
 parameters of the same names.
 
 The problems are grouped by what they read. Each table and view of the schema has a section, in the order of
@@ -30,9 +30,10 @@ A few things about the mappings shape the JPQL below:
   `+ORDER_ITEMS+` does not have: EclipseLink fails on any `JOIN o.orderItems`, Hibernate on `KEY(...)`. The queries
   below therefore start from `OrderItemWithEmbeddedId` and navigate `oi.order`, or join it to an order with a
   Jakarta Persistence 3.2 entity join, `+JOIN OrderItemWithEmbeddedId oi ON oi.order = o+`.
-* The persistence units list `OrderItemWithEmbeddedId` and `ProductOrderWithEmbeddedId`. `OrderItemWithIdClass` and
-  `ProductOrderWithIdClass` map the same table and view the other way; their queries are shown where the id path
-  differs (`oi.id.lineItemId` against `oi.lineItemId`), and need a unit that lists them instead.
+* The persistence units list `OrderItemWithEmbeddedId`. `OrderItemWithIdClass` maps the same table the other way;
+  its queries are shown where the id path differs (`oi.id.lineItemId` against `oi.lineItemId`), and need a unit that
+  lists it instead. `ProductOrder` maps `+PRODUCT_ORDERS+` with an `+@EmbeddedId+`, so its key is
+  `v.id.productName` and `v.id.orderStatus`.
 * `+STORE_ORDERS+` and `+PRODUCT_REVIEWS+` are not entities (`StoreOrder`, `ProductReview`), and
   `+PRODUCTS.PRODUCT_DETAILS+` is a JSON document mapped as a `+byte[]+` LOB. Queries over them are SQL only, and the
   note says how to approach them from Jakarta Persistence.
@@ -835,7 +836,7 @@ let in.
 
 == PRODUCT_ORDERS
 
-`+PRODUCT_ORDERS+` has one row per product name and order status. It is queried through `ProductOrderWithEmbeddedId`,
+`+PRODUCT_ORDERS+` has one row per product name and order status. It is queried through `ProductOrder`,
 whose key is `v.id.productName` and `v.id.orderStatus`, both ``String``s.
 
 === Basic
@@ -857,16 +858,8 @@ ORDER BY total_sales DESC
 [source,jpaql]
 ----
 SELECT v
-FROM ProductOrderWithEmbeddedId v
+FROM ProductOrder v
 WHERE v.id.orderStatus = :orderStatus
-ORDER BY v.totalSales DESC
-----
-
-[source,jpaql]
-----
-SELECT v
-FROM ProductOrderWithIdClass v
-WHERE v.orderStatus = :orderStatus
 ORDER BY v.totalSales DESC
 ----
 
@@ -890,7 +883,7 @@ ORDER BY sales DESC
 [source,jpaql]
 ----
 SELECT v.id.productName, SUM(v.orderCount), SUM(v.totalSales)
-FROM ProductOrderWithEmbeddedId v
+FROM ProductOrder v
 GROUP BY v.id.productName
 ORDER BY SUM(v.totalSales) DESC
 ----
@@ -924,7 +917,7 @@ ORDER BY lost_pct DESC, product_name
 SELECT v.id.productName,
        SUM(v.orderCount),
        SUM(CASE WHEN v.id.orderStatus IN ('CANCELLED', 'REFUNDED') THEN v.orderCount ELSE 0 END)
-FROM ProductOrderWithEmbeddedId v
+FROM ProductOrder v
 GROUP BY v.id.productName
 HAVING SUM(CASE WHEN v.id.orderStatus IN ('CANCELLED', 'REFUNDED') THEN v.orderCount ELSE 0 END)
            * 100 > :percent * SUM(v.orderCount)

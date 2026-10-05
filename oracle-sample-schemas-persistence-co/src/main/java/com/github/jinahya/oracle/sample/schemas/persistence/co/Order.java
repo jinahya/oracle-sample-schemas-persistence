@@ -288,9 +288,9 @@ public class Order {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the generated {@code @Id} alone, the other instance's read through its getter, which
-     * is what makes the comparison correct when the other instance is still a lazy proxy. An instance whose
-     * {@code @Id} is still {@code null} -- one not yet persisted -- equals itself only.
+     * @implSpec Equality is by the generated {@code @Id} alone, the other instance's read through its getter, which is
+     * what makes the comparison correct when the other instance is still a lazy proxy. An instance whose {@code @Id} is
+     * still {@code null} -- one not yet persisted -- equals itself only.
      */
     @Override
     public boolean equals(final Object obj) {

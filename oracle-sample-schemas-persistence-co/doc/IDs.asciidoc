@@ -64,7 +64,7 @@ None of the four views declares anything, so all four were measured.
 | `PRODUCT_NAME`, `ORDER_STATUS`
 | yes, composite
 | the view's whole `GROUP BY` key; both columns are `NOT NULL`. Mapped by
-  `ProductOrderWithIdClass` and `ProductOrderWithEmbeddedId`, over `ProductOrderId`.
+  `ProductOrder`, with an `@EmbeddedId`, `ProductOrderId`.
 
 | `PRODUCT_REVIEWS`
 | `PRODUCT_NAME`, `REVIEW`
@@ -117,9 +117,7 @@ timestamps — but nothing forbids two orders sharing one. Do not map it as the 
 
 No single column is unique. `(PRODUCT_NAME, ORDER_STATUS)` is the view's entire `GROUP BY`
 list, so it is unique by construction, and both columns are `NOT NULL` — a composite
-identifier, mapped both ways: `ProductOrderWithIdClass` and `ProductOrderWithEmbeddedId`, over
-the shared `ProductOrderId`. Only the `@EmbeddedId` flavour is listed in `persistence.xml`; see
-`CLAUDE.md` on why the two may not both be.
+identifier, which `ProductOrder` maps with an `@EmbeddedId`, `ProductOrderId`.
 
 === PRODUCT_REVIEWS
 

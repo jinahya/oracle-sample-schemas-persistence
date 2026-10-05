@@ -91,9 +91,10 @@ not seen -- the injection point fails with `WELD-001408`.
 
 Every persistence unit carries `<exclude-unlisted-classes>true</exclude-unlisted-classes>`,
 and it stays: a module deliberately leaves classes out, and the flag is what keeps them out.
-`hr` maps `JobHistory` twice (`JobHistoryWithEmbeddedId`, `JobHistoryWithIdClass`) under one
-entity name and lists one of them; `co` does the same for `ORDER_ITEMS`, and `sh` for `COSTS`,
-`SALES`, `PROFITS` and `FWEEK_PSCAT_SALES_MV`. Both flavours in one unit is not a working unit.
+`co` maps `ORDER_ITEMS` twice (`OrderItemWithEmbeddedId`, `OrderItemWithIdClass`) and lists one
+of them; both flavours in one unit is not a working unit. Every other composite key is mapped once:
+with an `@EmbeddedId` by `co`'s `ProductOrder` and `sh`'s `Sale` and `Cost`, and with an
+`@IdClass` by `hr`'s `JobHistory` and `sh`'s `Profit` and `FweekPscatSalesMv`.
 
 Under EclipseLink's metamodel processor this used to fail at *compile* time as well —
 `EclipseLink-7237`, entity name not unique — because that processor attaches every `@Entity` in
