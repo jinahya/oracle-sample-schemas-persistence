@@ -7,7 +7,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co.mapped;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public abstract class MappedInventorySearchCriteria<T extends MappedInventory>
-        implements _MappedSearchCriteria<T, Long> {
+        implements __MappedSearchCriteria<T, Long> {
 
     /**
      * Creates a new instance.

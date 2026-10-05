@@ -212,14 +212,14 @@ public class Store {
      * The attribute takes geographic degrees, {@code -90} to {@code +90}, which is narrower than what the
      * {@value #COLUMN_NAME_LATITUDE} column can hold, {@value #COLUMN_MIN_LATITUDE} to {@value #COLUMN_MAX_LATITUDE}.
      */
-    public static String ATTRIBUTE_DECIMAL_MIN_LATITUDE = _DomainConstants.DECIMAL_MIN_LATITUDE;
+    public static String ATTRIBUTE_DECIMAL_MIN_LATITUDE = __DomainConstants.DECIMAL_MIN_LATITUDE;
 
     /**
      * The maximum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute, as a decimal string.
      *
      * @see #ATTRIBUTE_DECIMAL_MIN_LATITUDE
      */
-    public static String ATTRIBUTE_DECIMAL_MAX_LATITUDE = _DomainConstants.DECIMAL_MAX_LATITUDE;
+    public static String ATTRIBUTE_DECIMAL_MAX_LATITUDE = __DomainConstants.DECIMAL_MAX_LATITUDE;
 
     /**
      * The minimum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute.
@@ -271,14 +271,14 @@ public class Store {
      * {@value #COLUMN_NAME_LONGITUDE} column can hold, {@value #COLUMN_MIN_LONGITUDE} to
      * {@value #COLUMN_MAX_LONGITUDE}.
      */
-    public static String ATTRIBUTE_DECIMAL_MIN_LONGITUDE = _DomainConstants.DECIMAL_MIN_LONGITUDE;
+    public static String ATTRIBUTE_DECIMAL_MIN_LONGITUDE = __DomainConstants.DECIMAL_MIN_LONGITUDE;
 
     /**
      * The maximum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute, as a decimal string.
      *
      * @see #ATTRIBUTE_DECIMAL_MIN_LONGITUDE
      */
-    public static String ATTRIBUTE_DECIMAL_MAX_LONGITUDE = _DomainConstants.DECIMAL_MAX_LONGITUDE;
+    public static String ATTRIBUTE_DECIMAL_MAX_LONGITUDE = __DomainConstants.DECIMAL_MAX_LONGITUDE;
 
     /**
      * The minimum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute.
@@ -886,8 +886,8 @@ public class Store {
     private String physicalAddress;
 
     @Nullable
-    @DecimalMax(value = _DomainConstants.DECIMAL_MAX_LATITUDE, inclusive = true)
-    @DecimalMin(value = _DomainConstants.DECIMAL_MIN_LATITUDE, inclusive = true)
+    @DecimalMax(value = __DomainConstants.DECIMAL_MAX_LATITUDE, inclusive = true)
+    @DecimalMin(value = __DomainConstants.DECIMAL_MIN_LATITUDE, inclusive = true)
     @DecimalMax(value = COLUMN_MAX_LATITUDE, inclusive = true)
     @DecimalMin(value = COLUMN_MIN_LATITUDE, inclusive = true)
     @Basic(optional = true)
@@ -901,8 +901,8 @@ public class Store {
     private BigDecimal latitude;
 
     @Nullable
-    @DecimalMax(value = _DomainConstants.DECIMAL_MAX_LONGITUDE, inclusive = true)
-    @DecimalMin(value = _DomainConstants.DECIMAL_MIN_LONGITUDE, inclusive = true)
+    @DecimalMax(value = __DomainConstants.DECIMAL_MAX_LONGITUDE, inclusive = true)
+    @DecimalMin(value = __DomainConstants.DECIMAL_MIN_LONGITUDE, inclusive = true)
     @DecimalMax(value = COLUMN_MAX_LONGITUDE, inclusive = true)
     @DecimalMin(value = COLUMN_MIN_LONGITUDE, inclusive = true)
     @Basic(optional = true)

@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.hr;
+package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 
 /*-
  * #%L
- * hr
+ * sh
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
@@ -25,9 +25,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public final class _NoOp {
+public final class __NoOp {
 
-    private _NoOp() {
+    private __NoOp() {
         throw new AssertionError("instantiation is not allowed");
     }
 }

@@ -2,7 +2,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
 
 import java.util.Objects;
 
-public abstract class _DomainEntity_Test<T extends _DomainEntity<U>, U> {
+public abstract class _DomainEntity_Test<T extends __DomainEntity<U>, U> {
 
     protected _DomainEntity_Test(final Class<T> entityClass, final Class<U> idClass) {
         super();

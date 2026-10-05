@@ -40,7 +40,7 @@ import java.time.LocalDateTime;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedOrder implements _MappedDomainEntity<Long> {
+public abstract class MappedOrder implements __MappedDomainEntity<Long> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

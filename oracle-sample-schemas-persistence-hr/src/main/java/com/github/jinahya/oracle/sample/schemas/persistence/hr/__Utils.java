@@ -32,7 +32,7 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-final class _Utils {
+final class __Utils {
     // -------------------------------------------------------------------------------------------------- STATIC_METHODS
 
     // create PROCEDURE secure_dml
@@ -47,7 +47,7 @@ final class _Utils {
 
     /**
      * Checks whether the {@code SECURE_DML} routine would raise an application error
-     * ({@value _DomainConstants#ROUTINE_SECURE_DML_APPLICATION_ERROR_CODE}) at the specified time on the specified day of
+     * ({@value __DomainConstants#ROUTINE_SECURE_DML_APPLICATION_ERROR_CODE}) at the specified time on the specified day of
      * the week.
      * <p>
      * {@snippet id = "SECURE_DML" lang = "sql":
@@ -64,8 +64,8 @@ final class _Utils {
      * <hr/>
      * <p>
      * The routine raises the application error when the current time is {@code NOT BETWEEN}
-     * {@value _DomainConstants#ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT} and
-     * {@value _DomainConstants#ROUTINE_SECURE_DML_LOCAL_TIME_MAX_TEXT}, {@code OR} the current day of the week is either
+     * {@value __DomainConstants#ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT} and
+     * {@value __DomainConstants#ROUTINE_SECURE_DML_LOCAL_TIME_MAX_TEXT}, {@code OR} the current day of the week is either
      * {@link DayOfWeek#SATURDAY} or {@link DayOfWeek#SUNDAY}.
      *
      * @param time    the time of day to check.
@@ -78,10 +78,10 @@ final class _Utils {
                                                                      final @Nonnull DayOfWeek weekday) {
         Objects.requireNonNull(time, "time is null");
         Objects.requireNonNull(weekday, "weekday is null");
-        return (time.isBefore(_DomainConstants.ROUTINE_SECURE_DML_LOCAL_TIME_MIN)
-                && time.isAfter(_DomainConstants.ROUTINE_SECURE_DML_LOCAL_TIME_MAX))
+        return (time.isBefore(__DomainConstants.ROUTINE_SECURE_DML_LOCAL_TIME_MIN)
+                && time.isAfter(__DomainConstants.ROUTINE_SECURE_DML_LOCAL_TIME_MAX))
                ||
-               _DomainConstants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.contains(weekday);
+               __DomainConstants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.contains(weekday);
     }
 
     /**
@@ -104,7 +104,7 @@ final class _Utils {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
-    private _Utils() {
+    private __Utils() {
         throw new AssertionError("instantiation is not allowed");
     }
 }

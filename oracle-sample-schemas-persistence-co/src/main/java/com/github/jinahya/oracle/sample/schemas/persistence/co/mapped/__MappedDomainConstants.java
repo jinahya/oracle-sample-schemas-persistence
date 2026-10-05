@@ -1,22 +1,22 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.co.mapped;
 
-import com.github.jinahya.oracle.sample.schemas.persistence.co._DomainConstants;
+import com.github.jinahya.oracle.sample.schemas.persistence.co.__DomainConstants;
 
 /**
  * The superclass of the constants shared by the classes of the {@code CO} schema; it permits only
- * {@link _DomainConstants}.
+ * {@link __DomainConstants}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public sealed abstract class _MappedDomainConstants permits _DomainConstants {
+public sealed abstract class __MappedDomainConstants permits __DomainConstants {
 
     /**
      * Creates a new instance.
      */
-    protected _MappedDomainConstants() {
+    protected __MappedDomainConstants() {
         super();
     }
 }

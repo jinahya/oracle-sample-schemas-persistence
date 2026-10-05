@@ -2,7 +2,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co.mapped;
 
 import java.util.Objects;
 
-public abstract class _MappedDomainEntity_Test<T extends _MappedDomainEntity<U>, U> {
+public abstract class _MappedDomainEntity_Test<T extends __MappedDomainEntity<U>, U> {
 
     protected _MappedDomainEntity_Test(final Class<T> entityClass, final Class<U> idClass) {
         super();

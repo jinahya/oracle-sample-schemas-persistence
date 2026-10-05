@@ -10,6 +10,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public interface _MappedSearchCriteria<T extends _MappedDomainEntity<U>, U> {
+public interface __MappedSearchCriteria<T extends __MappedDomainEntity<U>, U> {
 
 }

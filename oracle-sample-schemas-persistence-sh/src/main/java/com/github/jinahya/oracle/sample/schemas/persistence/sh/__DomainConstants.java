@@ -20,14 +20,21 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.__MappedDomainConstants;
+
 /**
- * A class which does nothing, and which cannot be instantiated.
+ * Constants shared by the entity classes of the {@code SH} schema.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public final class _NoOp {
+@SuppressWarnings({
+        "java:S101" // Class names should comply with a naming convention
+})
+public final class __DomainConstants extends __MappedDomainConstants {
 
-    private _NoOp() {
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    private __DomainConstants() {
         throw new AssertionError("instantiation is not allowed");
     }
 }

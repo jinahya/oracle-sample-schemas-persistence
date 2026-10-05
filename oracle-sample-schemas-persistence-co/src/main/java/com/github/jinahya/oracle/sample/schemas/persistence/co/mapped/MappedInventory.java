@@ -41,7 +41,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedInventory implements _MappedDomainEntity<Long> {
+public abstract class MappedInventory implements __MappedDomainEntity<Long> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
