@@ -253,7 +253,7 @@ public abstract class MappedShipment {
      * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
      */
     @Converter(autoApply = false)
-    public static class ShipmentStatusConverter implements AttributeConverter<ShipmentStatus, String> {
+    public static final class ShipmentStatusConverter implements AttributeConverter<ShipmentStatus, String> {
 
         /**
          * Creates a new instance.

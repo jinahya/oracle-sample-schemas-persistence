@@ -43,6 +43,21 @@ class Store_Persistence_Test extends _Persistence_Test<Store> {
     @Nested
     class SelectSingleByStoreName_Test {
 
+        @DisplayName("the named query selects the store just persisted")
+        @Test
+        void __NamedQuery() {
+            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+                final var found = em
+                        .createNamedQuery("Store.selectSingleByStoreName", targetClass)
+                        .setParameter("storeName", v.getStoreName())
+                        .getSingleResult();
+                assertThat(found)
+                        .as("the store selected by %s", v.getStoreName())
+                        .isSameAs(v);
+                return found;
+            });
+        }
+
         @DisplayName("a query-language query selects the store just persisted")
         @Test
         void __QueryLanguage() {
@@ -55,22 +70,7 @@ class Store_Persistence_Test extends _Persistence_Test<Store> {
                                         WHERE e.storeName = :storeName""",
                                 targetClass
                         )
-                        .setParameter(Store_.storeName.getName(), v.getStoreName())
-                        .getSingleResult();
-                assertThat(found)
-                        .as("the store selected by %s", v.getStoreName())
-                        .isSameAs(v);
-                return found;
-            });
-        }
-
-        @DisplayName("the named query selects the store just persisted")
-        @Test
-        void __NamedQuery() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
-                final var found = em
-                        .createNamedQuery("Store.selectSingleByStoreName", targetClass)
-                        .setParameter(Store_.storeName.getName(), v.getStoreName())
+                        .setParameter("storeName", v.getStoreName())
                         .getSingleResult();
                 assertThat(found)
                         .as("the store selected by %s", v.getStoreName())

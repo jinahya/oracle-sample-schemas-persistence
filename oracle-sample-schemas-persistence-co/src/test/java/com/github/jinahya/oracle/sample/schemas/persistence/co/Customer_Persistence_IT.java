@@ -86,6 +86,19 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
     @Nested
     class SelectListOrderByCustomerIdAsc_Test {
 
+        @DisplayName("the named query selects the installed customers, ordered by identifier")
+        @Test
+        void __NamedQuery() {
+            final var found = entityManager()
+                    .createNamedQuery("Customer.selectListOrderByCustomerIdAsc", targetClass)
+                    .getResultList();
+            assertThat(found)
+                    .as("the customers ordered by %s", Customer_.customerId.getName())
+                    .isNotEmpty()
+                    .extracting(Customer::getCustomerId)
+                    .isSorted();
+        }
+
         @DisplayName("a query-language query selects the installed customers, ordered by identifier")
         @Test
         void __QueryLanguage() {
@@ -97,19 +110,6 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
                                     ORDER BY e.customerId ASC""",
                             targetClass
                     )
-                    .getResultList();
-            assertThat(found)
-                    .as("the customers ordered by %s", Customer_.customerId.getName())
-                    .isNotEmpty()
-                    .extracting(Customer::getCustomerId)
-                    .isSorted();
-        }
-
-        @DisplayName("the named query selects the installed customers, ordered by identifier")
-        @Test
-        void __NamedQuery() {
-            final var found = entityManager()
-                    .createNamedQuery("Customer.selectListOrderByCustomerIdAsc", targetClass)
                     .getResultList();
             assertThat(found)
                     .as("the customers ordered by %s", Customer_.customerId.getName())
@@ -152,6 +152,21 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
                     .isSorted();
         }
 
+        @DisplayName("the named query selects all installed customers, page by page, ordered by identifier")
+        @Test
+        void __NamedQuery() {
+            final var query = entityManager()
+                    .createNamedQuery("Customer.selectListOrderByCustomerIdAsc", targetClass)
+                    .setMaxResults(MAX_RESULTS);
+            for (var firstResult = 0; ; firstResult += MAX_RESULTS) {
+                final var page = query.setFirstResult(firstResult).getResultList();
+                verify(page);
+                if (page.size() < MAX_RESULTS) {
+                    break;
+                }
+            }
+        }
+
         @DisplayName("a query-language query selects all installed customers, page by page, ordered by identifier")
         @Test
         void __QueryLanguage() {
@@ -163,21 +178,6 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
                                     ORDER BY e.customerId ASC""",
                             targetClass
                     )
-                    .setMaxResults(MAX_RESULTS);
-            for (var firstResult = 0; ; firstResult += MAX_RESULTS) {
-                final var page = query.setFirstResult(firstResult).getResultList();
-                verify(page);
-                if (page.size() < MAX_RESULTS) {
-                    break;
-                }
-            }
-        }
-
-        @DisplayName("the named query selects all installed customers, page by page, ordered by identifier")
-        @Test
-        void __NamedQuery() {
-            final var query = entityManager()
-                    .createNamedQuery("Customer.selectListOrderByCustomerIdAsc", targetClass)
                     .setMaxResults(MAX_RESULTS);
             for (var firstResult = 0; ; firstResult += MAX_RESULTS) {
                 final var page = query.setFirstResult(firstResult).getResultList();
@@ -239,6 +239,18 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
                     .allSatisfy(v -> assertThat(v).isGreaterThan(customerIdMinExclusive));
         }
 
+        @DisplayName("the named query selects a page of the installed customers, after the previous one")
+        @Test
+        void __NamedQuery() {
+            final var customerIdMinExclusive = customerIdMinExclusive();
+            final var found = entityManager()
+                    .createNamedQuery("Customer.selectListOrderByCustomerIdAscCustomerIdGt", targetClass)
+                    .setParameter("customerIdMinExclusive", customerIdMinExclusive)
+                    .setMaxResults(MAX_RESULTS)
+                    .getResultList();
+            verify(found, customerIdMinExclusive);
+        }
+
         @DisplayName("a query-language query selects a page of the installed customers, after the previous one")
         @Test
         void __QueryLanguage() {
@@ -252,18 +264,6 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
                                     ORDER BY e.customerId ASC""",
                             targetClass
                     )
-                    .setParameter("customerIdMinExclusive", customerIdMinExclusive)
-                    .setMaxResults(MAX_RESULTS)
-                    .getResultList();
-            verify(found, customerIdMinExclusive);
-        }
-
-        @DisplayName("the named query selects a page of the installed customers, after the previous one")
-        @Test
-        void __NamedQuery() {
-            final var customerIdMinExclusive = customerIdMinExclusive();
-            final var found = entityManager()
-                    .createNamedQuery("Customer.selectListOrderByCustomerIdAscCustomerIdGt", targetClass)
                     .setParameter("customerIdMinExclusive", customerIdMinExclusive)
                     .setMaxResults(MAX_RESULTS)
                     .getResultList();
@@ -311,6 +311,20 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
                     .stream();
         }
 
+        @DisplayName("the named query selects the installed customer")
+        @MethodSource("emailAddresses")
+        @ParameterizedTest
+        void __NamedQuery(final String emailAddress) {
+            final var found = entityManager()
+                    .createNamedQuery("Customer.selectOneByEmailAddress", targetClass)
+                    .setParameter("emailAddress", emailAddress)
+                    .getSingleResult();
+            assertThat(found)
+                    .as("the customer selected by %s", emailAddress)
+                    .extracting(Customer::getEmailAddress)
+                    .isEqualTo(emailAddress);
+        }
+
         @DisplayName("a query-language query selects the installed customer")
         @MethodSource("emailAddresses")
         @ParameterizedTest
@@ -323,21 +337,7 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
                                     WHERE e.emailAddress = :emailAddress""",
                             targetClass
                     )
-                    .setParameter(Customer_.emailAddress.getName(), emailAddress)
-                    .getSingleResult();
-            assertThat(found)
-                    .as("the customer selected by %s", emailAddress)
-                    .extracting(Customer::getEmailAddress)
-                    .isEqualTo(emailAddress);
-        }
-
-        @DisplayName("the named query selects the installed customer")
-        @MethodSource("emailAddresses")
-        @ParameterizedTest
-        void __NamedQuery(final String emailAddress) {
-            final var found = entityManager()
-                    .createNamedQuery("Customer.selectOneByEmailAddress", targetClass)
-                    .setParameter(Customer_.emailAddress.getName(), emailAddress)
+                    .setParameter("emailAddress", emailAddress)
                     .getSingleResult();
             assertThat(found)
                     .as("the customer selected by %s", emailAddress)
@@ -366,6 +366,19 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
     @Nested
     class SelectListOrderByEmailAddress_Test {
 
+        @DisplayName("the named query selects the installed customers, ordered by email address")
+        @Test
+        void __NamedQuery() {
+            final var found = entityManager()
+                    .createNamedQuery("Customer.selectListOrderByEmailAddressAsc", targetClass)
+                    .getResultList();
+            assertThat(found)
+                    .as("the customers ordered by %s", Customer_.emailAddress.getName())
+                    .isNotEmpty()
+                    .extracting(Customer::getEmailAddress)
+                    .isSorted();
+        }
+
         @DisplayName("a query-language query selects the installed customers, ordered by email address")
         @Test
         void __QueryLanguage() {
@@ -377,19 +390,6 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
                                     ORDER BY e.emailAddress ASC""",
                             targetClass
                     )
-                    .getResultList();
-            assertThat(found)
-                    .as("the customers ordered by %s", Customer_.emailAddress.getName())
-                    .isNotEmpty()
-                    .extracting(Customer::getEmailAddress)
-                    .isSorted();
-        }
-
-        @DisplayName("the named query selects the installed customers, ordered by email address")
-        @Test
-        void __NamedQuery() {
-            final var found = entityManager()
-                    .createNamedQuery("Customer.selectListOrderByEmailAddressAsc", targetClass)
                     .getResultList();
             assertThat(found)
                     .as("the customers ordered by %s", Customer_.emailAddress.getName())

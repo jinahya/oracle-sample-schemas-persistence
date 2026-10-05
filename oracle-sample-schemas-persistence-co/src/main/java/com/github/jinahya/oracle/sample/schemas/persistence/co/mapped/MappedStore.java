@@ -40,6 +40,7 @@ import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -374,7 +375,7 @@ public abstract class MappedStore {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "storeId=" + storeId +
                ",storeName=" + storeName +
@@ -382,6 +383,7 @@ public abstract class MappedStore {
                ",physicalAddress=" + physicalAddress +
                ",latitude=" + latitude +
                ",longitude=" + longitude +
+//               ",logo=" + Arrays.toString(logo) +
                ",logoMimeType=" + logoMimeType +
                ",logoFilename=" + logoFilename +
                ",logoCharset=" + logoCharset +

@@ -29,6 +29,10 @@ import java.time.LocalDate;
 
 /**
  * An embeddable class for mapping the logo columns of the {@value Store#TABLE_NAME} table.
+ * <p>
+ * The accessors of this class are public, and named after the columns, so that code which takes this value from
+ * its {@link Store} reads and changes it here. They delegate to the protected accessors of {@link _Binary}, which
+ * hold the state; a change is persisted with the {@link Store} which embeds this value.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @apiNote The state is inherited from {@link _Binary}, which names no column; the overrides below bind each inherited
@@ -100,16 +104,22 @@ public class StoreLogo extends _Binary {
     // ------------------------------------------------------------------------------------------------------------ LOGO
 
     /**
-     * Returns current value of {@value Store#ATTRIBUTE_NAME_LOGO} attribute.
+     * Returns a copy of current value of {@value Store#ATTRIBUTE_NAME_LOGO} attribute.
      *
-     * @return current value of {@value Store#ATTRIBUTE_NAME_LOGO} attribute.
+     * @return a copy of current value of {@value Store#ATTRIBUTE_NAME_LOGO} attribute; {@code null} when it is
+     * {@code null}.
      */
     @Nullable
     public byte[] getLogo() {
         return getBytes();
     }
 
-    void setLogo(@Nullable final byte[] logo) {
+    /**
+     * Replaces current value of {@value Store#ATTRIBUTE_NAME_LOGO} attribute with a copy of the specified value.
+     *
+     * @param logo new value for {@value Store#ATTRIBUTE_NAME_LOGO} attribute; copied, not kept.
+     */
+    public void setLogo(@Nullable final byte[] logo) {
         setBytes(logo);
     }
 
@@ -125,7 +135,12 @@ public class StoreLogo extends _Binary {
         return getMimeType();
     }
 
-    void setLogoMimeType(@Nullable final String logoMimeType) {
+    /**
+     * Replaces current value of {@value Store#ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute with the specified value.
+     *
+     * @param logoMimeType new value for {@value Store#ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute.
+     */
+    public void setLogoMimeType(@Nullable final String logoMimeType) {
         setMimeType(logoMimeType);
     }
 
@@ -141,7 +156,12 @@ public class StoreLogo extends _Binary {
         return getFilename();
     }
 
-    void setLogoFilename(@Nullable final String logoFilename) {
+    /**
+     * Replaces current value of {@value Store#ATTRIBUTE_NAME_LOGO_FILENAME} attribute with the specified value.
+     *
+     * @param logoFilename new value for {@value Store#ATTRIBUTE_NAME_LOGO_FILENAME} attribute.
+     */
+    public void setLogoFilename(@Nullable final String logoFilename) {
         setFilename(logoFilename);
     }
 
@@ -157,7 +177,12 @@ public class StoreLogo extends _Binary {
         return getCharset();
     }
 
-    void setLogoCharset(@Nullable final String logoCharset) {
+    /**
+     * Replaces current value of {@value Store#ATTRIBUTE_NAME_LOGO_CHARSET} attribute with the specified value.
+     *
+     * @param logoCharset new value for {@value Store#ATTRIBUTE_NAME_LOGO_CHARSET} attribute.
+     */
+    public void setLogoCharset(@Nullable final String logoCharset) {
         setCharset(logoCharset);
     }
 
@@ -169,11 +194,16 @@ public class StoreLogo extends _Binary {
      * @return current value of {@value Store#ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute.
      */
     @Nullable
-    protected LocalDate getLogoLastUpdated() {
+    public LocalDate getLogoLastUpdated() {
         return getLastUpdated();
     }
 
-    void setLogoLastUpdated(@Nullable final LocalDate logoLastUpdated) {
+    /**
+     * Replaces current value of {@value Store#ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute with the specified value.
+     *
+     * @param logoLastUpdated new value for {@value Store#ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute.
+     */
+    public void setLogoLastUpdated(@Nullable final LocalDate logoLastUpdated) {
         setLastUpdated(logoLastUpdated);
     }
 }

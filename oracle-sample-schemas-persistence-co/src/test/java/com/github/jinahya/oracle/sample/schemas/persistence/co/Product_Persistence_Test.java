@@ -110,6 +110,24 @@ class Product_Persistence_Test extends _Persistence_Test<Product> {
                             .isLessThan(UNIT_PRICE_MAX));
         }
 
+        @DisplayName("the named query selects the products just persisted, in a half-open unit price range")
+        @Test
+        void __NamedQuery() {
+            applyEntityManagerInTransactionAndRollback(em -> {
+                final var persisted = persistProducts(em);
+                final var found = em
+                        .createNamedQuery(
+                                "Product.selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
+                                targetClass
+                        )
+                        .setParameter("unitPriceMinInclusive", UNIT_PRICE_MIN)
+                        .setParameter("unitPriceMaxExclusive", UNIT_PRICE_MAX)
+                        .getResultList();
+                verify(persisted, found);
+                return found;
+            });
+        }
+
         @DisplayName("a query-language query selects the products just persisted, in a half-open unit price range")
         @Test
         void __QueryLanguage() {
@@ -122,24 +140,6 @@ class Product_Persistence_Test extends _Persistence_Test<Product> {
                                         FROM Product e
                                         WHERE e.unitPrice >= :unitPriceMinInclusive AND e.unitPrice < :unitPriceMaxExclusive
                                         ORDER BY e.unitPrice ASC""",
-                                targetClass
-                        )
-                        .setParameter("unitPriceMinInclusive", UNIT_PRICE_MIN)
-                        .setParameter("unitPriceMaxExclusive", UNIT_PRICE_MAX)
-                        .getResultList();
-                verify(persisted, found);
-                return found;
-            });
-        }
-
-        @DisplayName("the named query selects the products just persisted, in a half-open unit price range")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerInTransactionAndRollback(em -> {
-                final var persisted = persistProducts(em);
-                final var found = em
-                        .createNamedQuery(
-                                "Product.selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
                                 targetClass
                         )
                         .setParameter("unitPriceMinInclusive", UNIT_PRICE_MIN)
@@ -187,6 +187,21 @@ class Product_Persistence_Test extends _Persistence_Test<Product> {
                     .allSatisfy(v -> assertThat(v).isBetween(UNIT_PRICE_MIN, UNIT_PRICE_MAX));
         }
 
+        @DisplayName("the named query selects the products just persisted, in a closed unit price range")
+        @Test
+        void __NamedQuery() {
+            applyEntityManagerInTransactionAndRollback(em -> {
+                final var persisted = persistProducts(em);
+                final var found = em
+                        .createNamedQuery("Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc", targetClass)
+                        .setParameter("unitPriceAfter", UNIT_PRICE_MIN)
+                        .setParameter("unitPriceBefore", UNIT_PRICE_MAX)
+                        .getResultList();
+                verify(persisted, found);
+                return found;
+            });
+        }
+
         @DisplayName("a query-language query selects the products just persisted, in a closed unit price range")
         @Test
         void __QueryLanguage() {
@@ -201,21 +216,6 @@ class Product_Persistence_Test extends _Persistence_Test<Product> {
                                         ORDER BY e.unitPrice ASC""",
                                 targetClass
                         )
-                        .setParameter("unitPriceAfter", UNIT_PRICE_MIN)
-                        .setParameter("unitPriceBefore", UNIT_PRICE_MAX)
-                        .getResultList();
-                verify(persisted, found);
-                return found;
-            });
-        }
-
-        @DisplayName("the named query selects the products just persisted, in a closed unit price range")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerInTransactionAndRollback(em -> {
-                final var persisted = persistProducts(em);
-                final var found = em
-                        .createNamedQuery("Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc", targetClass)
                         .setParameter("unitPriceAfter", UNIT_PRICE_MIN)
                         .setParameter("unitPriceBefore", UNIT_PRICE_MAX)
                         .getResultList();

@@ -23,35 +23,25 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co.mapped;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Function;
 
 /**
  * An entity class for mapping the {@value MappedOrder#TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@Entity
-@Table(name = MappedOrder.TABLE_NAME)
-public class MappedOrder {
+@MappedSuperclass
+public abstract class MappedOrder implements _MappedDomainEntity<Long> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -253,7 +243,7 @@ public class MappedOrder {
      * @implSpec Equality is by the {@code @Id} alone.
      */
     @Override
-    public boolean equals(final Object obj) {
+    public final boolean equals(final Object obj) {
         if (!(obj instanceof MappedOrder that)) {
             return false;
         }
@@ -267,7 +257,7 @@ public class MappedOrder {
      * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
      */
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hashCode(getOrderId());
     }
 
@@ -310,155 +300,6 @@ public class MappedOrder {
      */
     public void setOrderTms(@Nonnull final LocalDateTime orderTms) {
         this.orderTms = orderTms;
-    }
-
-    /**
-     * Returns current value of the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute, mapped by the specified function.
-     *
-     * @param <R>    the type of the mapped value.
-     * @param mapper the function to apply to current value of the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute.
-     * @return the mapped value; {@code null} when the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute is {@code null}.
-     * @throws NullPointerException if {@code mapper} is {@code null} while the {@value #ATTRIBUTE_NAME_ORDER_TMS}
-     *                              attribute is not {@code null}.
-     */
-    public <R> R getOrderTmsAsMapped(final Function<? super LocalDateTime, ? extends R> mapper) {
-        return Optional.ofNullable(getOrderTms())
-                .map(v -> Objects.requireNonNull(mapper, "mapper is null").apply(v))
-                .orElse(null);
-    }
-
-    /**
-     * Replaces current value of the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the specified value, mapped by
-     * the specified function.
-     *
-     * @param <T>      the type of the specified value.
-     * @param orderTms the value to map and set.
-     * @param mapper   the function which maps the specified value.
-     * @throws NullPointerException if {@code mapper} is {@code null} while {@code orderTms} is not {@code null}.
-     */
-    public <T> void setOrderTmsFromMapped(final T orderTms, final Function<? super T, LocalDateTime> mapper) {
-        setOrderTms(
-                Optional.ofNullable(orderTms)
-                        .map(v -> Objects.requireNonNull(mapper, "mapper is null").apply(v))
-                        .orElse(null)
-        );
-    }
-
-    /**
-     * Returns current value of the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute, at the specified zone.
-     *
-     * @param zone the zone to apply.
-     * @return a zoned date-time; {@code null} when the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute is {@code null}.
-     * @throws NullPointerException if {@code zone} is {@code null} while the {@value #ATTRIBUTE_NAME_ORDER_TMS}
-     *                              attribute is not {@code null}.
-     */
-    public ZonedDateTime getOrderTmsAsZonedDatetime(final ZoneId zone) {
-        return getOrderTmsAsMapped(
-                v -> v.atZone(Objects.requireNonNull(zone, "zone is null"))
-        );
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the local date-time of the specified
-     * zoned date-time.
-     *
-     * @param orderTms the zoned date-time whose local date-time is set; may be {@code null}.
-     */
-    @Transient
-    public void setOrderTmsFromZonedDateTime(final ZonedDateTime orderTms) {
-        setOrderTmsFromMapped(orderTms, ZonedDateTime::toLocalDateTime);
-    }
-
-    /**
-     * Returns current value of the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute, at the specified offset.
-     *
-     * @param offset the offset to apply.
-     * @return an offset date-time; {@code null} when the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute is {@code null}.
-     * @throws NullPointerException if {@code offset} is {@code null} while the {@value #ATTRIBUTE_NAME_ORDER_TMS}
-     *                              attribute is not {@code null}.
-     */
-    public OffsetDateTime getOrderTmsAsOffsetDatetime(final ZoneOffset offset) {
-        return getOrderTmsAsMapped(
-                v -> v.atOffset(Objects.requireNonNull(offset, "offset is null"))
-        );
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the local date-time of the specified
-     * offset date-time.
-     *
-     * @param orderTms the offset date-time whose local date-time is set; may be {@code null}.
-     */
-    @Transient
-    public void setOrderTmsFromOffsetDateTime(final OffsetDateTime orderTms) {
-        setOrderTmsFromMapped(
-                orderTms,
-                OffsetDateTime::toLocalDateTime
-        );
-    }
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute as an {@link Instant instant} at specified
-     * zone.
-     *
-     * @param zone the zone.
-     * @return {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute as an {@link Instant instant} at {@code zone}; {@code null}
-     * when the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute is {@code null}.
-     * @throws NullPointerException if {@code zone} is {@code null} while the {@value #ATTRIBUTE_NAME_ORDER_TMS}
-     *                              attribute is not {@code null}.
-     */
-    public Instant getOrderTmsAsInstant(final ZoneId zone) {
-        return Optional.ofNullable(getOrderTmsAsZonedDatetime(zone))
-                .map(ZonedDateTime::toInstant)
-                .orElse(null);
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the specified instant at specified
-     * zone.
-     *
-     * @param instant the instant; may be {@code null}.
-     * @param zone    the zone.
-     * @throws NullPointerException if {@code zone} is {@code null} while {@code instant} is not {@code null}.
-     */
-    public void setOrderTmsFromInstant(final Instant instant, final ZoneId zone) {
-        setOrderTmsFromZonedDateTime(
-                Optional.ofNullable(instant)
-                        .map(v -> v.atZone(Objects.requireNonNull(zone, "zone is null")))
-                        .orElse(null)
-        );
-    }
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute as an {@link Instant instant} at specified
-     * offset.
-     *
-     * @param offset the offset.
-     * @return {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute as an {@link Instant instant} at {@code offset};
-     * {@code null} when the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute is {@code null}.
-     * @throws NullPointerException if {@code offset} is {@code null} while the {@value #ATTRIBUTE_NAME_ORDER_TMS}
-     *                              attribute is not {@code null}.
-     */
-    public Instant getOrderTmsAsInstant(final ZoneOffset offset) {
-        return Optional.ofNullable(getOrderTmsAsOffsetDatetime(offset))
-                .map(OffsetDateTime::toInstant)
-                .orElse(null);
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the specified instant at specified
-     * offset.
-     *
-     * @param orderTms the instant; may be {@code null}.
-     * @param offset   the offset.
-     * @throws NullPointerException if {@code offset} is {@code null} while {@code orderTms} is not {@code null}.
-     */
-    public void setOrderTmsFromInstant(final Instant orderTms, final ZoneOffset offset) {
-        setOrderTmsFromOffsetDateTime(
-                Optional.ofNullable(orderTms)
-                        .map(v -> v.atOffset(Objects.requireNonNull(offset, "offset is null")))
-                        .orElse(null)
-        );
     }
 
     // ------------------------------------------------------------------------------------------------------ customerId

@@ -23,33 +23,25 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co.mapped;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
 /**
- * An entity class for mapping the {@value MappedInventory#TABLE_NAME} table.
+ * A mapped superclass which holds the mappings of the {@value MappedInventory#TABLE_NAME} table.
+ * <p>
+ * A mapped superclass cannot carry a {@link jakarta.persistence.Table @Table}, so the unique constraint over
+ * {@value MappedInventory#COLUMN_NAME_STORE_ID} and {@value MappedInventory#COLUMN_NAME_PRODUCT_ID} is declared by the
+ * entity which extends this class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@Entity
-@Table(name = MappedInventory.TABLE_NAME,
-       uniqueConstraints = {
-               @UniqueConstraint(
-                       columnNames = {
-                               MappedInventory.COLUMN_NAME_STORE_ID,
-                               MappedInventory.COLUMN_NAME_PRODUCT_ID
-                       }
-               )
-       }
-)
-public class MappedInventory {
+@MappedSuperclass
+public abstract class MappedInventory implements _MappedDomainEntity<Long> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

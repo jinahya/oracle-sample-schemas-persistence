@@ -45,6 +45,11 @@ The **generated static metamodel** (`Customer_`, `Employee_`, …) is available 
 providers, and is what persistence-context code uses: a criteria path is
 `root.get(Customer_.emailAddress)`, not a string.
 
+That covers criteria paths only. A **query parameter name is not an attribute name**: it is
+whatever the query text declares, so `setParameter` takes the literal from the query —
+`setParameter("storeToMatch", …)` for `WHERE e.store = :storeToMatch` — and never
+`Inventory_.store.getName()`, which only happens to match while the two are spelled alike.
+
 That works because **both profiles generate it with `hibernate-jpamodelgen`**. The EclipseLink
 profile picks the provider and nothing else: it inherits `metamodel.generator.*` from the root
 `<properties>` rather than overriding it, and EclipseLink's own processor sits commented out

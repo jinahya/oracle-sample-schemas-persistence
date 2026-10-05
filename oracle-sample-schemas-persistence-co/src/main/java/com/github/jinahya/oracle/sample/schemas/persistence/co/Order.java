@@ -33,6 +33,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapKeyColumn;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
@@ -56,6 +57,27 @@ import java.util.function.Function;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@NamedQuery(name = "Order.selectListByCustomerOderIdGtOrderByOrderTmsDesc",
+            query = """
+                    SELECT e
+                    FROM Order AS e
+                    WHERE e.customer = :customer
+                      AND e.orderId >= :orderIdMinExclusive
+                    ORDER BY e.orderTms DESC"""
+)
+@NamedQuery(name = "Order.selectListByCustomerOrderByOrderTmsDesc",
+            query = """
+                    SELECT e
+                    FROM Order AS e
+                    WHERE e.customer = :customer
+                    ORDER BY e.orderTms DESC"""
+)
+@NamedQuery(name = "Order.countByCustomerOrderByOrderTmsDesc",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Order AS e
+                    WHERE e.customer = :customer"""
+)
 @Entity
 @Table(name = Order.TABLE_NAME)
 public class Order {

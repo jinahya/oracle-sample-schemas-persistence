@@ -30,6 +30,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
@@ -42,6 +43,26 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@NamedQuery(name = "Inventory.selectOneByProductOrderByProductInventoryAsc",
+            query = """
+                    SELECT e
+                    FROM Inventory AS e
+                    WHERE e.product = :product
+                    ORDER BY e.productInventory ASC"""
+)
+@NamedQuery(name = "Inventory.selectListByStoreOrderByProductInventoryAsc",
+            query = """
+                    SELECT e
+                    FROM Inventory AS e
+                    WHERE e.store = :store
+                    ORDER BY e.productInventory ASC"""
+)
+@NamedQuery(name = "Inventory.selectOneByStoreAndProduct",
+            query = """
+                    SELECT e
+                    FROM Inventory AS e
+                    WHERE e.store = :store AND e.product = :product"""
+)
 @Entity
 @Table(name = Inventory.TABLE_NAME,
        uniqueConstraints = {

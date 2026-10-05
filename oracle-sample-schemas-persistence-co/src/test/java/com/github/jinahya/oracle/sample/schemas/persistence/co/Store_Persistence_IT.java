@@ -66,6 +66,20 @@ class Store_Persistence_IT extends _Persistence_IT<Store> {
                     .stream();
         }
 
+        @DisplayName("the named query selects the installed store")
+        @MethodSource("storeNames")
+        @ParameterizedTest
+        void __NamedQuery(final String storeName) {
+            final var found = entityManager()
+                    .createNamedQuery("Store.selectSingleByStoreName", targetClass)
+                    .setParameter("storeName", storeName)
+                    .getSingleResult();
+            assertThat(found)
+                    .as("the store selected by %s", storeName)
+                    .extracting(Store::getStoreName)
+                    .isEqualTo(storeName);
+        }
+
         @DisplayName("a query-language query selects the installed store")
         @MethodSource("storeNames")
         @ParameterizedTest
@@ -78,21 +92,7 @@ class Store_Persistence_IT extends _Persistence_IT<Store> {
                                     WHERE e.storeName = :storeName""",
                             targetClass
                     )
-                    .setParameter(Store_.storeName.getName(), storeName)
-                    .getSingleResult();
-            assertThat(found)
-                    .as("the store selected by %s", storeName)
-                    .extracting(Store::getStoreName)
-                    .isEqualTo(storeName);
-        }
-
-        @DisplayName("the named query selects the installed store")
-        @MethodSource("storeNames")
-        @ParameterizedTest
-        void __NamedQuery(final String storeName) {
-            final var found = entityManager()
-                    .createNamedQuery("Store.selectSingleByStoreName", targetClass)
-                    .setParameter(Store_.storeName.getName(), storeName)
+                    .setParameter("storeName", storeName)
                     .getSingleResult();
             assertThat(found)
                     .as("the store selected by %s", storeName)

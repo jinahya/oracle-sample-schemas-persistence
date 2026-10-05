@@ -102,6 +102,21 @@ class Product_Persistence_IT extends _Persistence_IT<Product> {
                             .isLessThan(unitPriceMaxExclusive));
         }
 
+        @DisplayName("the named query selects the installed products in a half-open unit price range")
+        @Test
+        void __NamedQuery() {
+            final var range = unitPriceRange();
+            final var found = entityManager()
+                    .createNamedQuery(
+                            "Product.selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
+                            targetClass
+                    )
+                    .setParameter("unitPriceMinInclusive", range[0])
+                    .setParameter("unitPriceMaxExclusive", range[1])
+                    .getResultList();
+            verify(found, range[0], range[1]);
+        }
+
         @DisplayName("a query-language query selects the installed products in a half-open unit price range")
         @Test
         void __QueryLanguage() {
@@ -113,21 +128,6 @@ class Product_Persistence_IT extends _Persistence_IT<Product> {
                                     FROM Product e
                                     WHERE e.unitPrice >= :unitPriceMinInclusive AND e.unitPrice < :unitPriceMaxExclusive
                                     ORDER BY e.unitPrice ASC""",
-                            targetClass
-                    )
-                    .setParameter("unitPriceMinInclusive", range[0])
-                    .setParameter("unitPriceMaxExclusive", range[1])
-                    .getResultList();
-            verify(found, range[0], range[1]);
-        }
-
-        @DisplayName("the named query selects the installed products in a half-open unit price range")
-        @Test
-        void __NamedQuery() {
-            final var range = unitPriceRange();
-            final var found = entityManager()
-                    .createNamedQuery(
-                            "Product.selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
                             targetClass
                     )
                     .setParameter("unitPriceMinInclusive", range[0])
@@ -169,6 +169,18 @@ class Product_Persistence_IT extends _Persistence_IT<Product> {
                     .allSatisfy(v -> assertThat(v).isBetween(unitPriceAfter, unitPriceBefore));
         }
 
+        @DisplayName("the named query selects the installed products in a closed unit price range")
+        @Test
+        void __NamedQuery() {
+            final var range = unitPriceRange();
+            final var found = entityManager()
+                    .createNamedQuery("Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc", targetClass)
+                    .setParameter("unitPriceAfter", range[0])
+                    .setParameter("unitPriceBefore", range[1])
+                    .getResultList();
+            verify(found, range[0], range[1]);
+        }
+
         @DisplayName("a query-language query selects the installed products in a closed unit price range")
         @Test
         void __QueryLanguage() {
@@ -182,18 +194,6 @@ class Product_Persistence_IT extends _Persistence_IT<Product> {
                                     ORDER BY e.unitPrice ASC""",
                             targetClass
                     )
-                    .setParameter("unitPriceAfter", range[0])
-                    .setParameter("unitPriceBefore", range[1])
-                    .getResultList();
-            verify(found, range[0], range[1]);
-        }
-
-        @DisplayName("the named query selects the installed products in a closed unit price range")
-        @Test
-        void __NamedQuery() {
-            final var range = unitPriceRange();
-            final var found = entityManager()
-                    .createNamedQuery("Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc", targetClass)
                     .setParameter("unitPriceAfter", range[0])
                     .setParameter("unitPriceBefore", range[1])
                     .getResultList();

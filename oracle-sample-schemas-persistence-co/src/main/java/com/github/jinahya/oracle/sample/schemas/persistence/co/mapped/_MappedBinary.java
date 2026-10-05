@@ -100,8 +100,9 @@ abstract class _MappedBinary {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
+//               "bytes=" + Arrays.toString(bytes) +
                "mimeType=" + mimeType +
                ",filename=" + filename +
                ",charset=" + charset +
@@ -118,7 +119,7 @@ abstract class _MappedBinary {
      * {@code null}.
      */
     @Nullable
-    byte[] getBytes() {
+    protected byte[] getBytes() {
         return Optional.ofNullable(bytes)
                 .map(v -> Arrays.copyOf(v, v.length))
                 .orElse(null);
@@ -129,7 +130,7 @@ abstract class _MappedBinary {
      *
      * @param bytes new value for {@value #ATTRIBUTE_NAME_BYTES} attribute; copied, not kept.
      */
-    void setBytes(@Nullable final byte[] bytes) {
+    protected void setBytes(@Nullable final byte[] bytes) {
         this.bytes = Optional.ofNullable(bytes)
                 .map(v -> Arrays.copyOf(v, v.length))
                 .orElse(null);
@@ -143,7 +144,7 @@ abstract class _MappedBinary {
      * @return current value of {@value #ATTRIBUTE_NAME_MIME_TYPE} attribute.
      */
     @Nullable
-    String getMimeType() {
+    protected String getMimeType() {
         return mimeType;
     }
 
@@ -152,7 +153,7 @@ abstract class _MappedBinary {
      *
      * @param mimeType new value for {@value #ATTRIBUTE_NAME_MIME_TYPE} attribute.
      */
-    void setMimeType(@Nullable final String mimeType) {
+    protected void setMimeType(@Nullable final String mimeType) {
         this.mimeType = mimeType;
     }
 
@@ -164,7 +165,7 @@ abstract class _MappedBinary {
      * @return current value of {@value #ATTRIBUTE_NAME_FILENAME} attribute.
      */
     @Nullable
-    String getFilename() {
+    protected String getFilename() {
         return filename;
     }
 
@@ -173,7 +174,7 @@ abstract class _MappedBinary {
      *
      * @param filename new value for {@value #ATTRIBUTE_NAME_FILENAME} attribute.
      */
-    void setFilename(@Nullable final String filename) {
+    protected void setFilename(@Nullable final String filename) {
         this.filename = filename;
     }
 
@@ -185,7 +186,7 @@ abstract class _MappedBinary {
      * @return current value of {@value #ATTRIBUTE_NAME_CHARSET} attribute.
      */
     @Nullable
-    String getCharset() {
+    protected String getCharset() {
         return charset;
     }
 
@@ -194,7 +195,7 @@ abstract class _MappedBinary {
      *
      * @param charset new value for {@value #ATTRIBUTE_NAME_CHARSET} attribute.
      */
-    void setCharset(@Nullable final String charset) {
+    protected void setCharset(@Nullable final String charset) {
         this.charset = charset;
     }
 
@@ -206,7 +207,7 @@ abstract class _MappedBinary {
      * @return current value of {@value #ATTRIBUTE_NAME_LAST_UPDATED} attribute.
      */
     @Nullable
-    LocalDate getLastUpdated() {
+    protected LocalDate getLastUpdated() {
         return lastUpdated;
     }
 
@@ -215,7 +216,7 @@ abstract class _MappedBinary {
      *
      * @param lastUpdated new value for {@value #ATTRIBUTE_NAME_LAST_UPDATED} attribute.
      */
-    void setLastUpdated(@Nullable final LocalDate lastUpdated) {
+    protected void setLastUpdated(@Nullable final LocalDate lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 

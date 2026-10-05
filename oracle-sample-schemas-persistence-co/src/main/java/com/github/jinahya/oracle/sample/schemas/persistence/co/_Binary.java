@@ -31,6 +31,10 @@ import java.util.Optional;
 /**
  * A superclass for a binary payload stored alongside its metadata -- the image of the {@value Product#TABLE_NAME}
  * table, the logo of the {@value Store#TABLE_NAME} table, and anything shaped like them.
+ * <p>
+ * The accessors here are protected and named after the state, not the columns. Each subclass wraps them in public
+ * accessors named after its own columns -- {@link ProductImage#getProductImage()}, {@link StoreLogo#getLogo()} -- which
+ * are what the code embedding the subclass uses.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @apiNote No column is named here. Each embeddable subclass -- {@link ProductImage}, {@link StoreLogo} -- names all
@@ -50,7 +54,7 @@ import java.util.Optional;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-abstract class _Binary {
+public abstract class _Binary {
 
     /**
      * The name of the attribute which maps the binary payload. The value is {@value}.
@@ -101,23 +105,24 @@ abstract class _Binary {
     // ----------------------------------------------------------------------------------------------------------- bytes
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_BYTES} attribute.
+     * Returns a copy of current value of {@value #ATTRIBUTE_NAME_BYTES} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_BYTES} attribute.
+     * @return a copy of current value of {@value #ATTRIBUTE_NAME_BYTES} attribute; {@code null} when it is
+     * {@code null}.
      */
     @Nullable
-    byte[] getBytes() {
+    protected byte[] getBytes() {
         return Optional.ofNullable(bytes)
                 .map(v -> Arrays.copyOf(v, v.length))
                 .orElse(null);
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_BYTES} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_BYTES} attribute with a copy of the specified value.
      *
-     * @param bytes new value for {@value #ATTRIBUTE_NAME_BYTES} attribute.
+     * @param bytes new value for {@value #ATTRIBUTE_NAME_BYTES} attribute; copied, not kept.
      */
-    void setBytes(@Nullable final byte[] bytes) {
+    protected void setBytes(@Nullable final byte[] bytes) {
         this.bytes = Optional.ofNullable(bytes)
                 .map(v -> Arrays.copyOf(v, v.length))
                 .orElse(null);
@@ -131,7 +136,7 @@ abstract class _Binary {
      * @return current value of {@value #ATTRIBUTE_NAME_MIME_TYPE} attribute.
      */
     @Nullable
-    String getMimeType() {
+    protected String getMimeType() {
         return mimeType;
     }
 
@@ -140,7 +145,7 @@ abstract class _Binary {
      *
      * @param mimeType new value for {@value #ATTRIBUTE_NAME_MIME_TYPE} attribute.
      */
-    void setMimeType(@Nullable final String mimeType) {
+    protected void setMimeType(@Nullable final String mimeType) {
         this.mimeType = mimeType;
     }
 
@@ -152,7 +157,7 @@ abstract class _Binary {
      * @return current value of {@value #ATTRIBUTE_NAME_FILENAME} attribute.
      */
     @Nullable
-    String getFilename() {
+    protected String getFilename() {
         return filename;
     }
 
@@ -161,7 +166,7 @@ abstract class _Binary {
      *
      * @param filename new value for {@value #ATTRIBUTE_NAME_FILENAME} attribute.
      */
-    void setFilename(@Nullable final String filename) {
+    protected void setFilename(@Nullable final String filename) {
         this.filename = filename;
     }
 
@@ -173,7 +178,7 @@ abstract class _Binary {
      * @return current value of {@value #ATTRIBUTE_NAME_CHARSET} attribute.
      */
     @Nullable
-    String getCharset() {
+    protected String getCharset() {
         return charset;
     }
 
@@ -182,7 +187,7 @@ abstract class _Binary {
      *
      * @param charset new value for {@value #ATTRIBUTE_NAME_CHARSET} attribute.
      */
-    void setCharset(@Nullable final String charset) {
+    protected void setCharset(@Nullable final String charset) {
         this.charset = charset;
     }
 
@@ -194,7 +199,7 @@ abstract class _Binary {
      * @return current value of {@value #ATTRIBUTE_NAME_LAST_UPDATED} attribute.
      */
     @Nullable
-    LocalDate getLastUpdated() {
+    protected LocalDate getLastUpdated() {
         return lastUpdated;
     }
 
@@ -203,7 +208,7 @@ abstract class _Binary {
      *
      * @param lastUpdated new value for {@value #ATTRIBUTE_NAME_LAST_UPDATED} attribute.
      */
-    void setLastUpdated(@Nullable final LocalDate lastUpdated) {
+    protected void setLastUpdated(@Nullable final LocalDate lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
 

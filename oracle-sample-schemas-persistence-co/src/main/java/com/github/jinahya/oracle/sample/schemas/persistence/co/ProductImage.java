@@ -29,6 +29,10 @@ import java.time.LocalDate;
 
 /**
  * An embeddable class for mapping the image columns of the {@value Product#TABLE_NAME} table.
+ * <p>
+ * The accessors of this class are public, and named after the columns, so that code which takes this value from
+ * its {@link Product} reads and changes it here. They delegate to the protected accessors of {@link _Binary}, which
+ * hold the state; a change is persisted with the {@link Product} which embeds this value.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @apiNote The state is inherited from {@link _Binary}, which names no column; the overrides below bind each inherited
@@ -100,16 +104,23 @@ public class ProductImage extends _Binary {
     // --------------------------------------------------------------------------------------------------- PRODUCT_IMAGE
 
     /**
-     * Returns current value of {@value Product#ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute.
+     * Returns a copy of current value of {@value Product#ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute.
      *
-     * @return current value of {@value Product#ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute.
+     * @return a copy of current value of {@value Product#ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute; {@code null}
+     * when it is {@code null}.
      */
     @Nullable
     public byte[] getProductImage() {
         return getBytes();
     }
 
-    void setProductImage(@Nullable final byte[] productImage) {
+    /**
+     * Replaces current value of {@value Product#ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute with a copy of the
+     * specified value.
+     *
+     * @param productImage new value for {@value Product#ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute; copied, not kept.
+     */
+    public void setProductImage(@Nullable final byte[] productImage) {
         setBytes(productImage);
     }
 
@@ -125,7 +136,12 @@ public class ProductImage extends _Binary {
         return getMimeType();
     }
 
-    void setImageMimeType(@Nullable final String imageMimeType) {
+    /**
+     * Replaces current value of {@value Product#ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute with the specified value.
+     *
+     * @param imageMimeType new value for {@value Product#ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute.
+     */
+    public void setImageMimeType(@Nullable final String imageMimeType) {
         setMimeType(imageMimeType);
     }
 
@@ -141,7 +157,12 @@ public class ProductImage extends _Binary {
         return getFilename();
     }
 
-    void setImageFilename(@Nullable final String imageFilename) {
+    /**
+     * Replaces current value of {@value Product#ATTRIBUTE_NAME_IMAGE_FILENAME} attribute with the specified value.
+     *
+     * @param imageFilename new value for {@value Product#ATTRIBUTE_NAME_IMAGE_FILENAME} attribute.
+     */
+    public void setImageFilename(@Nullable final String imageFilename) {
         setFilename(imageFilename);
     }
 
@@ -157,7 +178,12 @@ public class ProductImage extends _Binary {
         return getCharset();
     }
 
-    void setImageCharset(@Nullable final String imageCharset) {
+    /**
+     * Replaces current value of {@value Product#ATTRIBUTE_NAME_IMAGE_CHARSET} attribute with the specified value.
+     *
+     * @param imageCharset new value for {@value Product#ATTRIBUTE_NAME_IMAGE_CHARSET} attribute.
+     */
+    public void setImageCharset(@Nullable final String imageCharset) {
         setCharset(imageCharset);
     }
 
@@ -169,11 +195,16 @@ public class ProductImage extends _Binary {
      * @return current value of {@value Product#ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute.
      */
     @Nullable
-    protected LocalDate getImageLastUpdated() {
+    public LocalDate getImageLastUpdated() {
         return getLastUpdated();
     }
 
-    void setImageLastUpdated(@Nullable final LocalDate imageLastUpdated) {
+    /**
+     * Replaces current value of {@value Product#ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute with the specified value.
+     *
+     * @param imageLastUpdated new value for {@value Product#ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute.
+     */
+    public void setImageLastUpdated(@Nullable final LocalDate imageLastUpdated) {
         setLastUpdated(imageLastUpdated);
     }
 }
