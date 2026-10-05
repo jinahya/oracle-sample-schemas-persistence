@@ -40,7 +40,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * An entity class for mapping the {@value Shipment#TABLE_NAME} table.
@@ -330,25 +329,31 @@ public class Shipment {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the {@code @Id} alone.
+     * @implSpec Equality is by the generated {@code @Id} alone, the other instance's read through its getter, which
+     * is what makes the comparison correct when the other instance is still a lazy proxy. An instance whose
+     * {@code @Id} is still {@code null} -- one not yet persisted -- equals itself only.
      */
     @Override
     public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (!(obj instanceof Shipment that)) {
             return false;
         }
-        return Objects.equals(getShipmentId(), that.getShipmentId());
+        return shipmentId != null && shipmentId.equals(that.getShipmentId());
     }
 
     /**
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     * @implSpec The hash is constant -- the class's -- so that it does not change when the generated {@code @Id} is
+     * assigned on persist, which would lose an instance already held in a hash-based collection.
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(getShipmentId());
+        return getClass().hashCode();
     }
 
     // ------------------------------------------------------------------------------------------------------ shipmentId
