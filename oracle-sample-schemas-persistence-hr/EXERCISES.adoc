@@ -1,0 +1,2090 @@
+= EXERCISES
+:toc: left
+:toclevels: 3
+:sectanchors:
+:source-highlighter: rouge
+
+Exercises for the `HR` sample schema. Each problem is a request that someone working for the company — an HR
+manager, payroll, a department head, facilities, an auditor — might bring to you; answer it with a query. Every
+solution is given twice: as Oracle SQL against the installed schema (see the link:README.md[README] for its tables and
+columns), and as JPQL — the Jakarta Persistence 3.2 query language — against this module's entities.
+
+The problems are grouped by the table or view they read, in the order of the README, and within each by difficulty:
+Basic, Intermediate and Advanced. A problem that joins, or subqueries, more than one table is under Whole schema, the
+last section.
+
+A few things to keep in mind while reading the JPQL:
+
+* The entity names are the class names — `Region`, `Country`, `Location`, `Department`, `Employee`, `Job` — except
+  for `+JOB_HISTORY+`, whose entity name is `JobHistory`. The persistence units list `JobHistoryWithIdClass`, so the
+  solutions use its attributes (`h.employeeId`, `h.startDate`); `JobHistoryWithEmbeddedId` is shown as well where
+  its path (`h.id.employeeId`, `h.id.startDate`) differs.
+* Foreign keys are mapped as associations only. There is no `Employee.departmentId` or `Department.locationId`
+  attribute: navigate instead, as `e.department.departmentId` or `d.location.locationId`, or compare the association
+  with an entity parameter, as `+e.department = :department+`.
+* `+EMP_DETAILS_VIEW+` is mapped by `EmpDetailsView`, but that class is not listed in the persistence units, so no
+  JPQL here queries it.
+* Parameters are named (`:departmentId`). Bind them with `setParameter`; Oracle tools such as SQL{asterisk}Plus and SQLcl
+  prompt for, or take, the same names as bind variables.
+
+== COUNTRIES
+
+=== Basic
+
+[[HR-COUNTRIES-B-01]]
+==== HR-COUNTRIES-B-01 Country by code
+
+The shipping form has a two-letter country code, such as `US`, and needs the country's name.
+
+[source,sql]
+----
+SELECT COUNTRY_NAME
+FROM COUNTRIES
+WHERE COUNTRY_ID = :countryId
+----
+
+[source,jpaql]
+----
+SELECT c.countryName
+FROM Country c
+WHERE c.countryId = :countryId
+----
+
+[[HR-COUNTRIES-B-02]]
+==== HR-COUNTRIES-B-02 Countries of a region
+
+A regional director wants the countries of their region (given the region id), alphabetically.
+
+[source,sql]
+----
+SELECT COUNTRY_ID, COUNTRY_NAME
+FROM COUNTRIES
+WHERE REGION_ID = :regionId
+ORDER BY COUNTRY_NAME ASC
+----
+
+[source,jpaql]
+----
+SELECT c.countryId, c.countryName
+FROM Country c
+WHERE c.region.regionId = :regionId
+ORDER BY c.countryName ASC
+----
+
+`Region.regionId` is a `Long` (the column is an unconstrained `NUMBER`), so bind a `Long`, e.g. `10L`.
+
+[[HR-COUNTRIES-B-03]]
+==== HR-COUNTRIES-B-03 Country names too long for a badge
+
+The badge printer's country field holds 20 characters. Which country names will not fit?
+
+[source,sql]
+----
+SELECT COUNTRY_ID, COUNTRY_NAME, LENGTH(COUNTRY_NAME) AS NAME_LENGTH
+FROM COUNTRIES
+WHERE LENGTH(COUNTRY_NAME) > :maxLength
+ORDER BY NAME_LENGTH DESC
+----
+
+[source,jpaql]
+----
+SELECT c.countryId, c.countryName, LENGTH(c.countryName) AS nameLength
+FROM Country c
+WHERE LENGTH(c.countryName) > :maxLength
+ORDER BY nameLength DESC
+----
+
+=== Intermediate
+
+[[HR-COUNTRIES-I-01]]
+==== HR-COUNTRIES-I-01 Countries per region
+
+The regional directors compare territories: how many countries each region covers, most first.
+
+[source,sql]
+----
+SELECT REGION_ID, COUNT(*) AS COUNTRIES
+FROM COUNTRIES
+GROUP BY REGION_ID
+ORDER BY COUNTRIES DESC, REGION_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT c.region.regionId, COUNT(c) AS countries
+FROM Country c
+GROUP BY c.region.regionId
+ORDER BY countries DESC, c.region.regionId ASC
+----
+
+The region's name is in `REGIONS`; this table has only its id. A country without a region would form a group of its
+own, with a null id — none does in the installed data.
+
+=== Advanced
+
+[[HR-COUNTRIES-A-01]]
+==== HR-COUNTRIES-A-01 Regions above the average size
+
+Head office wants the regions that cover more countries than a region does on average.
+
+[source,sql]
+----
+SELECT REGION_ID, COUNT(*) AS COUNTRIES
+FROM COUNTRIES
+GROUP BY REGION_ID
+HAVING COUNT(*) > (SELECT COUNT(*) / COUNT(DISTINCT REGION_ID) FROM COUNTRIES)
+ORDER BY COUNTRIES DESC
+----
+
+[source,jpaql]
+----
+SELECT c.region.regionId, COUNT(c) AS countries
+FROM Country c
+GROUP BY c.region.regionId
+HAVING COUNT(c) > (SELECT COUNT(x) * 1.0 / COUNT(DISTINCT x.region) FROM Country x)
+ORDER BY countries DESC
+----
+
+The average is the number of countries over the number of regions that have any. `COUNT` returns a `Long`, and in
+JPQL — as in Java — dividing one integer by another truncates, under both providers; `+* 1.0+` keeps the fraction.
+Oracle's `+/+` never truncates.
+
+== DEPARTMENTS
+
+=== Basic
+
+[[HR-DEPARTMENTS-B-01]]
+==== HR-DEPARTMENTS-B-01 Departments in a building
+
+Facilities is planning work on one site (given the location) and needs the departments housed there.
+
+[source,sql]
+----
+SELECT *
+FROM DEPARTMENTS
+WHERE LOCATION_ID = :locationId
+ORDER BY DEPARTMENT_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT d
+FROM Department d
+WHERE d.location.locationId = :locationId
+ORDER BY d.departmentId ASC
+----
+
+[source,jpaql]
+----
+SELECT d
+FROM Department d
+WHERE d.location = :location
+ORDER BY d.departmentId ASC
+----
+
+[[HR-DEPARTMENTS-B-02]]
+==== HR-DEPARTMENTS-B-02 Departments without a manager
+
+HR is filling vacant management posts and wants every department with no manager on record.
+
+[source,sql]
+----
+SELECT DEPARTMENT_ID, DEPARTMENT_NAME
+FROM DEPARTMENTS
+WHERE MANAGER_ID IS NULL
+ORDER BY DEPARTMENT_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT d.departmentId, d.departmentName
+FROM Department d
+WHERE d.manager IS NULL
+ORDER BY d.departmentId ASC
+----
+
+Sixteen departments in the installed data — the same sixteen that have no staff (see _Departments with nobody in them_
+under Whole schema).
+
+=== Intermediate
+
+[[HR-DEPARTMENTS-I-01]]
+==== HR-DEPARTMENTS-I-01 Departments per site
+
+Facilities sizes each site's reception by the number of departments it houses.
+
+[source,sql]
+----
+SELECT LOCATION_ID, COUNT(*) AS DEPARTMENTS
+FROM DEPARTMENTS
+GROUP BY LOCATION_ID
+ORDER BY DEPARTMENTS DESC, LOCATION_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT d.location.locationId, COUNT(d) AS departments
+FROM Department d
+GROUP BY d.location.locationId
+ORDER BY departments DESC, d.location.locationId ASC
+----
+
+[[HR-DEPARTMENTS-I-02]]
+==== HR-DEPARTMENTS-I-02 Departments at a glance
+
+HR's quarterly dashboard shows three numbers: how many departments there are, how many of them have a manager, and on
+how many sites they sit.
+
+[source,sql]
+----
+SELECT COUNT(*) AS DEPARTMENTS, COUNT(MANAGER_ID) AS MANAGED, COUNT(DISTINCT LOCATION_ID) AS SITES
+FROM DEPARTMENTS
+----
+
+[source,jpaql]
+----
+SELECT COUNT(d), COUNT(d.manager), COUNT(DISTINCT d.location)
+FROM Department d
+----
+
+[source,jpaql]
+----
+SELECT COUNT(d), COUNT(m), COUNT(DISTINCT l)
+FROM Department d
+         LEFT JOIN d.manager m
+         LEFT JOIN d.location l
+----
+
+`COUNT` of a column or of an association counts the rows where it is not null, which is what makes the second number
+differ from the first: 27 departments, 11 managed, on 7 sites. Hibernate ORM returns that for both JPQL forms.
+EclipseLink 5.0.1, however, turns `d.manager` in the first form into an inner join to `EMPLOYEES`, which drops the
+unmanaged departments from `COUNT(d)` as well, and returns 11, 11, 7. The explicit `LEFT JOIN` form gives 27, 11, 7
+under both.
+
+=== Advanced
+
+[[HR-DEPARTMENTS-A-01]]
+==== HR-DEPARTMENTS-A-01 Next free department number
+
+Department numbers go up in tens. Before creating a department, HR wants the lowest number that follows an existing
+department and is not taken yet.
+
+[source,sql]
+----
+SELECT MIN(d.DEPARTMENT_ID + 10) AS NEXT_FREE
+FROM DEPARTMENTS d
+WHERE NOT EXISTS (SELECT 1 FROM DEPARTMENTS x WHERE x.DEPARTMENT_ID = d.DEPARTMENT_ID + 10)
+----
+
+[source,jpaql]
+----
+SELECT MIN(d.departmentId + 10)
+FROM Department d
+WHERE NOT EXISTS (SELECT x FROM Department x WHERE x.departmentId = d.departmentId + 10)
+----
+
+The installed numbering has no gaps, so the answer is 280; once a department is deleted, its number is the answer
+instead, which `+MAX(DEPARTMENT_ID) + 10+` would skip. Two sessions asking at once get the same number, so this answers
+a planning question; it does not hand out keys. Strictly, the JPQL grammar takes only a path inside `MIN`, not an
+expression; both providers accept it.
+
+== EMPLOYEES
+
+=== Basic
+
+[[HR-EMPLOYEES-B-01]]
+==== HR-EMPLOYEES-B-01 Look up a colleague by e-mail
+
+The service desk has an e-mail ID, such as `SKING`, from a ticket and needs the employee it belongs to.
+
+[source,sql]
+----
+SELECT *
+FROM EMPLOYEES
+WHERE EMAIL = :email
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Employee e
+WHERE e.email = :email
+----
+
+`EMAIL` is unique, so `getSingleResult()` fits. The column holds only the part before the `+@+` (`SKING`, not an
+address).
+
+[[HR-EMPLOYEES-B-02]]
+==== HR-EMPLOYEES-B-02 A department's staff list
+
+A department head wants everyone in their department (given the department), sorted by last name and then first
+name, with anyone whose first name is missing listed first.
+
+[source,sql]
+----
+SELECT *
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID = :departmentId
+ORDER BY LAST_NAME ASC, FIRST_NAME ASC NULLS FIRST
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Employee e
+WHERE e.department.departmentId = :departmentId
+ORDER BY e.lastName ASC, e.firstName ASC NULLS FIRST
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Employee e
+WHERE e.department = :department
+ORDER BY e.lastName ASC, e.firstName ASC NULLS FIRST
+----
+
+The first form takes the id; the second takes a `Department` the caller already holds.
+
+[[HR-EMPLOYEES-B-03]]
+==== HR-EMPLOYEES-B-03 Seniority list for a job
+
+When a job is restructured, the union agreement protects the longest-serving holders first. HR needs everyone
+currently in a given job, longest-serving first.
+
+[source,sql]
+----
+SELECT *
+FROM EMPLOYEES
+WHERE JOB_ID = :jobId
+ORDER BY HIRE_DATE ASC, EMPLOYEE_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Employee e
+WHERE e.job.jobId = :jobId
+ORDER BY e.hireDate ASC, e.employeeId ASC
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Employee e
+WHERE e.job = :job
+ORDER BY e.hireDate ASC, e.employeeId ASC
+----
+
+The second sort key keeps employees hired on the same day in a stable order.
+
+[[HR-EMPLOYEES-B-04]]
+==== HR-EMPLOYEES-B-04 Who is on commission
+
+Sales operations wants the employees who earn a commission, highest rate first.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, COMMISSION_PCT
+FROM EMPLOYEES
+WHERE COMMISSION_PCT IS NOT NULL
+ORDER BY COMMISSION_PCT DESC, LAST_NAME ASC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.firstName, e.lastName, e.commissionPct
+FROM Employee e
+WHERE e.commissionPct IS NOT NULL
+ORDER BY e.commissionPct DESC, e.lastName ASC
+----
+
+[[HR-EMPLOYEES-B-05]]
+==== HR-EMPLOYEES-B-05 Staff with no department
+
+An auditor checking the org chart wants every employee who is not assigned to a department.
+
+[source,sql]
+----
+SELECT *
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID IS NULL
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Employee e
+WHERE e.department IS NULL
+----
+
+The installed data has one such employee (Kimberely Grant). Write `e.department IS NULL`, not
+`e.department.departmentId IS NULL`: the latter navigates through a null association, which providers are free to
+turn into an inner join that finds nobody.
+
+[[HR-EMPLOYEES-B-06]]
+==== HR-EMPLOYEES-B-06 Hired in a period
+
+HR is preparing the probation review for everyone hired in a given period (from and to dates, both inclusive).
+
+[source,sql]
+----
+SELECT *
+FROM EMPLOYEES
+WHERE HIRE_DATE BETWEEN :fromDate AND :toDate
+ORDER BY HIRE_DATE ASC
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Employee e
+WHERE e.hireDate BETWEEN :fromDate AND :toDate
+ORDER BY e.hireDate ASC
+----
+
+`hireDate` is a `java.time.LocalDate`, so bind `LocalDate` values. In SQL, `BETWEEN` is inclusive at both ends only
+because every `+HIRE_DATE+` in the data is at midnight; a `DATE` with a time-of-day after `:toDate` would be missed.
+
+[[HR-EMPLOYEES-B-07]]
+==== HR-EMPLOYEES-B-07 Name search at reception
+
+Reception has part of a surname over the phone and needs the matching employees, whatever the case typed.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, PHONE_NUMBER
+FROM EMPLOYEES
+WHERE UPPER(LAST_NAME) LIKE UPPER(:pattern)
+ORDER BY LAST_NAME ASC, FIRST_NAME ASC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.firstName, e.lastName, e.phoneNumber
+FROM Employee e
+WHERE UPPER(e.lastName) LIKE :pattern
+ORDER BY e.lastName ASC, e.firstName ASC
+----
+
+The caller passes the wildcard, e.g. `+K%+` for "starts with K". In JPQL the pattern of `LIKE` must be a string literal
+or an input parameter, not an expression, so the caller also upper-cases it (`+input.toUpperCase() + "%"+`) rather than
+the query wrapping it in `UPPER(...)` or appending the `+%+` with `+||+`.
+
+[[HR-EMPLOYEES-B-08]]
+==== HR-EMPLOYEES-B-08 Staff of several departments
+
+The operations director wants one list of everyone in Shipping, IT and Sales (departments 50, 60 and 80).
+
+[source,sql]
+----
+SELECT *
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID IN (50, 60, 80)
+ORDER BY DEPARTMENT_ID ASC, LAST_NAME ASC
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Employee e
+WHERE e.department.departmentId IN :departmentIds
+ORDER BY e.department.departmentId ASC, e.lastName ASC
+----
+
+`:departmentIds` is a collection-valued parameter — bind a `List.of(50, 60, 80)`. A JDBC `+?+` cannot stand for a
+list, which is why the SQL spells the values out.
+
+=== Intermediate
+
+[[HR-EMPLOYEES-I-01]]
+==== HR-EMPLOYEES-I-01 Above the company average
+
+The board asks who earns more than the company-wide average salary.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, SALARY
+FROM EMPLOYEES
+WHERE SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES)
+ORDER BY SALARY DESC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.firstName, e.lastName, e.salary
+FROM Employee e
+WHERE e.salary > (SELECT AVG(x.salary) FROM Employee x)
+ORDER BY e.salary DESC
+----
+
+[[HR-EMPLOYEES-I-02]]
+==== HR-EMPLOYEES-I-02 Total monthly pay including commission
+
+Payroll needs each employee's expected monthly pay: salary plus commission, where commission is a rate on salary and is
+absent for most staff. Label each employee as commissioned or salaried.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, LAST_NAME, SALARY, COMMISSION_PCT,
+       SALARY * (1 + COALESCE(COMMISSION_PCT, 0)) AS TOTAL_PAY,
+       CASE WHEN COMMISSION_PCT IS NULL THEN 'Salaried' ELSE 'Commissioned' END AS PAY_TYPE
+FROM EMPLOYEES
+ORDER BY TOTAL_PAY DESC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.lastName, e.salary, e.commissionPct,
+       e.salary * (1 + COALESCE(e.commissionPct, 0)) AS totalPay,
+       CASE WHEN e.commissionPct IS NULL THEN 'Salaried' ELSE 'Commissioned' END
+FROM Employee e
+ORDER BY totalPay DESC
+----
+
+Without `COALESCE`, `+SALARY * (1 + NULL)+` is null and every salaried employee would have no pay at all.
+
+[[HR-EMPLOYEES-I-03]]
+==== HR-EMPLOYEES-I-03 Headcount per pay grade
+
+HR reports headcount in three pay grades: under 5,000, 5,000 up to 10,000, and 10,000 or more.
+
+[source,sql]
+----
+SELECT CASE
+           WHEN SALARY < 5000 THEN 'Low'
+           WHEN SALARY < 10000 THEN 'Medium'
+           ELSE 'High'
+           END  AS GRADE,
+       COUNT(*) AS HEADCOUNT
+FROM EMPLOYEES
+GROUP BY CASE
+             WHEN SALARY < 5000 THEN 'Low'
+             WHEN SALARY < 10000 THEN 'Medium'
+             ELSE 'High'
+             END
+----
+
+[source,jpaql]
+----
+SELECT SUM(CASE WHEN e.salary < 5000 THEN 1 ELSE 0 END),
+       SUM(CASE WHEN e.salary >= 5000 AND e.salary < 10000 THEN 1 ELSE 0 END),
+       SUM(CASE WHEN e.salary >= 10000 THEN 1 ELSE 0 END)
+FROM Employee e
+----
+
+JPQL's `GROUP BY` takes only paths and identification variables, not a `CASE` expression, so the portable answer
+turns the grades into columns of a single row instead of rows.
+
+[[HR-EMPLOYEES-I-04]]
+==== HR-EMPLOYEES-I-04 Earning more than the boss
+
+An auditor flags any employee paid more than their direct manager.
+
+[source,sql]
+----
+SELECT e.EMPLOYEE_ID, e.LAST_NAME, e.SALARY, m.EMPLOYEE_ID AS MANAGER_ID, m.LAST_NAME AS MANAGER, m.SALARY AS MANAGER_SALARY
+FROM EMPLOYEES e
+         JOIN EMPLOYEES m ON m.EMPLOYEE_ID = e.MANAGER_ID
+WHERE e.SALARY > m.SALARY
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.lastName, e.salary, m.employeeId, m.lastName, m.salary
+FROM Employee e
+         JOIN e.manager m
+WHERE e.salary > m.salary
+----
+
+[[HR-EMPLOYEES-I-05]]
+==== HR-EMPLOYEES-I-05 Span of control
+
+The COO wants every manager with the number of people reporting directly to them, most first.
+
+[source,sql]
+----
+SELECT m.EMPLOYEE_ID, m.FIRST_NAME, m.LAST_NAME, COUNT(*) AS DIRECT_REPORTS
+FROM EMPLOYEES m
+         JOIN EMPLOYEES e ON e.MANAGER_ID = m.EMPLOYEE_ID
+GROUP BY m.EMPLOYEE_ID, m.FIRST_NAME, m.LAST_NAME
+ORDER BY DIRECT_REPORTS DESC, m.EMPLOYEE_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT m.employeeId, m.firstName, m.lastName, COUNT(s) AS directReports
+FROM Employee m
+         JOIN m.subordinates s
+GROUP BY m.employeeId, m.firstName, m.lastName
+ORDER BY directReports DESC, m.employeeId ASC
+----
+
+[source,jpaql]
+----
+SELECT m, SIZE(m.subordinates) AS directReports
+FROM Employee m
+WHERE m.subordinates IS NOT EMPTY
+ORDER BY directReports DESC, m.employeeId ASC
+----
+
+A result variable cannot be filtered on in `WHERE` — `+WHERE directReports > 0+` is not JPQL. Filter on the collection
+itself (`IS NOT EMPTY`, or `+SIZE(m.subordinates) > 0+`), or let the inner join drop managers with nobody.
+
+=== Advanced
+
+[[HR-EMPLOYEES-A-01]]
+==== HR-EMPLOYEES-A-01 Top earner of each department
+
+Each department head is told who their best-paid employee is; ties are all reported.
+
+[source,sql]
+----
+SELECT e.DEPARTMENT_ID, e.EMPLOYEE_ID, e.LAST_NAME, e.SALARY
+FROM EMPLOYEES e
+WHERE e.SALARY = (SELECT MAX(x.SALARY) FROM EMPLOYEES x WHERE x.DEPARTMENT_ID = e.DEPARTMENT_ID)
+ORDER BY e.DEPARTMENT_ID ASC
+----
+
+[source,sql]
+----
+SELECT DEPARTMENT_ID, EMPLOYEE_ID, LAST_NAME, SALARY
+FROM (SELECT e.*, RANK() OVER (PARTITION BY DEPARTMENT_ID ORDER BY SALARY DESC) AS RNK
+      FROM EMPLOYEES e)
+WHERE RNK = 1
+ORDER BY DEPARTMENT_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT e.department.departmentId, e.employeeId, e.lastName, e.salary
+FROM Employee e
+WHERE e.salary = (SELECT MAX(x.salary) FROM Employee x WHERE x.department = e.department)
+ORDER BY e.department.departmentId ASC
+----
+
+The correlated subquery skips the employee without a department (`+x.department = NULL+` is never true); the analytic
+form keeps them as a partition of their own. JPQL has no window functions (`RANK() OVER (...)`), so the correlated
+subquery is the portable form.
+
+[[HR-EMPLOYEES-A-02]]
+==== HR-EMPLOYEES-A-02 Three best-paid per department
+
+Ahead of the bonus round, each department head wants their three highest salaries and who earns them.
+
+[source,sql]
+----
+SELECT DEPARTMENT_ID, EMPLOYEE_ID, LAST_NAME, SALARY, RNK
+FROM (SELECT e.*, DENSE_RANK() OVER (PARTITION BY DEPARTMENT_ID ORDER BY SALARY DESC) AS RNK
+      FROM EMPLOYEES e
+      WHERE DEPARTMENT_ID IS NOT NULL)
+WHERE RNK <= 3
+ORDER BY DEPARTMENT_ID ASC, RNK ASC
+----
+
+[source,jpaql]
+----
+SELECT e.department.departmentId, e.employeeId, e.lastName, e.salary
+FROM Employee e
+WHERE e.department IS NOT NULL
+  AND (SELECT COUNT(DISTINCT x.salary)
+       FROM Employee x
+       WHERE x.department = e.department
+         AND x.salary > e.salary) < 3
+ORDER BY e.department.departmentId ASC, e.salary DESC
+----
+
+The JPQL counts how many distinct salaries in the same department beat this one; fewer than three means it is among
+the top three — the same as `+DENSE_RANK() <= 3+`. The `IS NOT NULL` test matters: for the employee without a
+department the subquery counts nobody, and zero is less than three.
+
+[[HR-EMPLOYEES-A-03]]
+==== HR-EMPLOYEES-A-03 Everyone under a manager
+
+For a reorganisation, HR needs everyone who reports to a given manager, directly or indirectly, with their depth below
+that manager.
+
+[source,sql]
+----
+SELECT LEVEL - 1 AS DEPTH, EMPLOYEE_ID, LAST_NAME, MANAGER_ID,
+       SYS_CONNECT_BY_PATH(LAST_NAME, '/') AS CHAIN
+FROM EMPLOYEES
+WHERE LEVEL > 1
+START WITH EMPLOYEE_ID = :managerId
+CONNECT BY PRIOR EMPLOYEE_ID = MANAGER_ID
+ORDER SIBLINGS BY LAST_NAME
+----
+
+[source,sql]
+----
+WITH CHAIN (EMPLOYEE_ID, LAST_NAME, MANAGER_ID, DEPTH) AS (
+    SELECT EMPLOYEE_ID, LAST_NAME, MANAGER_ID, 0
+    FROM EMPLOYEES
+    WHERE EMPLOYEE_ID = :managerId
+    UNION ALL
+    SELECT e.EMPLOYEE_ID, e.LAST_NAME, e.MANAGER_ID, c.DEPTH + 1
+    FROM EMPLOYEES e
+             JOIN CHAIN c ON e.MANAGER_ID = c.EMPLOYEE_ID)
+SELECT DEPTH, EMPLOYEE_ID, LAST_NAME, MANAGER_ID
+FROM CHAIN
+WHERE DEPTH > 0
+ORDER BY DEPTH ASC, LAST_NAME ASC
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Employee e
+         JOIN e.manager m1
+         LEFT JOIN m1.manager m2
+         LEFT JOIN m2.manager m3
+WHERE m1.employeeId = :managerId
+   OR m2.employeeId = :managerId
+   OR m3.employeeId = :managerId
+ORDER BY e.lastName ASC
+----
+
+JPQL has no recursive query — neither `CONNECT BY` nor a recursive `WITH`. The JPQL above unrolls a fixed number of
+levels (three, enough for any manager's subtree in the installed data, whose chain from the president is four deep).
+For an unbounded depth, query level by level from Java — `SELECT e FROM Employee e WHERE e.manager IN :managers`,
+feeding each level's result back in as `:managers` until it comes back empty — or walk `subordinates` in memory.
+
+[[HR-EMPLOYEES-A-04]]
+==== HR-EMPLOYEES-A-04 Out-earning a whole department
+
+Before a salary benchmark, HR asks two things about a reference department (given its id): who earns more than
+_everyone_ in it, and who earns more than _at least one_ person in it.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, LAST_NAME, SALARY
+FROM EMPLOYEES
+WHERE SALARY > ALL (SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID = :departmentId)
+ORDER BY SALARY DESC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.lastName, e.salary
+FROM Employee e
+WHERE e.salary > ALL (SELECT x.salary FROM Employee x WHERE x.department.departmentId = :departmentId)
+ORDER BY e.salary DESC
+----
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, LAST_NAME, SALARY
+FROM EMPLOYEES
+WHERE SALARY > ANY (SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID = :departmentId)
+ORDER BY SALARY DESC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.lastName, e.salary
+FROM Employee e
+WHERE e.salary > ANY (SELECT x.salary FROM Employee x WHERE x.department.departmentId = :departmentId)
+ORDER BY e.salary DESC
+----
+
+`SALARY` is nullable. A single null in the subquery makes `+> ALL+` unknown for every row — nobody qualifies — while
+`+> ANY+` just ignores it. No salary is null in the installed data. Also note that `+> ALL+` of an empty subquery (a
+department with no staff) is true for everyone.
+
+[[HR-EMPLOYEES-A-05]]
+==== HR-EMPLOYEES-A-05 Work anniversaries
+
+HR sends a card on every work anniversary. Given a month (1–12), list who joined in that month and how many years they
+complete this year.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, HIRE_DATE,
+       EXTRACT(YEAR FROM SYSDATE) - EXTRACT(YEAR FROM HIRE_DATE) AS YEARS
+FROM EMPLOYEES
+WHERE EXTRACT(MONTH FROM HIRE_DATE) = :month
+ORDER BY EXTRACT(DAY FROM HIRE_DATE) ASC, LAST_NAME ASC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.firstName, e.lastName, e.hireDate,
+       EXTRACT(YEAR FROM LOCAL DATE) - EXTRACT(YEAR FROM e.hireDate)
+FROM Employee e
+WHERE EXTRACT(MONTH FROM e.hireDate) = :month
+ORDER BY EXTRACT(DAY FROM e.hireDate) ASC, e.lastName ASC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.firstName, e.lastName, e.hireDate,
+       EXTRACT(YEAR FROM CURRENT_DATE) - EXTRACT(YEAR FROM e.hireDate)
+FROM Employee e
+WHERE EXTRACT(MONTH FROM e.hireDate) = :month
+ORDER BY EXTRACT(DAY FROM e.hireDate) ASC, e.lastName ASC
+----
+
+`EXTRACT` and `LOCAL DATE` (a `java.time.LocalDate` evaluated on the database server) are new in Jakarta
+Persistence 3.2; `:month` is an `Integer`. EclipseLink 5.0.1 fails to compile `LOCAL DATE` (an internal
+`NullPointerException` in its parser), so the second form falls back to `+CURRENT_DATE+`, which both providers accept.
+Subtracting calendar years counts the year about to be completed, which is what the card says.
+
+[[HR-EMPLOYEES-A-06]]
+==== HR-EMPLOYEES-A-06 Badges and e-mail migration
+
+IT is moving everyone to full e-mail addresses and reprinting badges. For each employee they need a proposed address
+(`+first.last@example.com+`, lower case), the badge line (`+EMP-+` and the id, then the last name and first initial), the
+phone number with dashes instead of dots, and its last four digits for the desk extension.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID,
+       LOWER(COALESCE(FIRST_NAME, '') || '.' || LAST_NAME) || '@example.com' AS PROPOSED_EMAIL,
+       'EMP-' || TO_CHAR(EMPLOYEE_ID) || ' ' || LAST_NAME || ', ' || SUBSTR(FIRST_NAME, 1, 1) || '.' AS BADGE,
+       REPLACE(PHONE_NUMBER, '.', '-') AS PHONE,
+       SUBSTR(PHONE_NUMBER, -4) AS LAST_FOUR
+FROM EMPLOYEES
+ORDER BY EMPLOYEE_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId,
+       LOWER(COALESCE(e.firstName, '') || '.' || e.lastName) || '@example.com',
+       'EMP-' || CAST(e.employeeId AS STRING) || ' ' || e.lastName || ', ' || LEFT(e.firstName, 1) || '.',
+       REPLACE(e.phoneNumber, '.', '-'),
+       RIGHT(e.phoneNumber, 4)
+FROM Employee e
+ORDER BY e.employeeId ASC
+----
+
+`+||+`, `CAST(... AS STRING)`, `LEFT`, `RIGHT` and `REPLACE` are all new in Jakarta Persistence 3.2 (earlier versions
+have `CONCAT` and `SUBSTRING`). In Oracle, `+||+` treats a null as an empty string, so the SQL badge still comes out for
+a missing first name; standard SQL — and so JPQL on other databases — yields null for the whole expression, which is
+why the e-mail column wraps `firstName` in `COALESCE`.
+
+Hibernate ORM runs this as written. EclipseLink 5.0.1 passes `CAST(... AS STRING)` through to Oracle verbatim, which
+rejects it (`+ORA-00902: invalid datatype+`); under EclipseLink, replace the cast with the Oracle function through
+`+FUNCTION('TO_CHAR', e.employeeId)+` — standard JPQL syntax, but no longer database-neutral.
+
+== EMP_DETAILS_VIEW
+
+`EmpDetailsView` maps this view, but is not listed in the persistence units, so the problems here are
+solved in SQL only. The view inner-joins all six tables, which leaves out the employee without a department.
+
+=== Basic
+
+[[HR-EMP_DETAILS_VIEW-B-01]]
+==== HR-EMP_DETAILS_VIEW-B-01 Staff on a site
+
+Reception at one site (given its city, such as `Seattle`) wants the staff who work there, with their job titles and
+departments.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, JOB_TITLE, DEPARTMENT_NAME
+FROM EMP_DETAILS_VIEW
+WHERE CITY = :city
+ORDER BY LAST_NAME ASC, FIRST_NAME ASC
+----
+
+=== Intermediate
+
+[[HR-EMP_DETAILS_VIEW-I-01]]
+==== HR-EMP_DETAILS_VIEW-I-01 Payroll by country
+
+Finance books the monthly salary cost per country, grouped under its region.
+
+[source,sql]
+----
+SELECT REGION_NAME, COUNTRY_NAME, COUNT(*) AS HEADCOUNT, SUM(SALARY) AS MONTHLY_COST
+FROM EMP_DETAILS_VIEW
+GROUP BY REGION_NAME, COUNTRY_NAME
+ORDER BY REGION_NAME ASC, MONTHLY_COST DESC
+----
+
+The same question against the tables is _Headcount by country and region_, under Whole schema; the view has already
+done the five joins.
+
+=== Advanced
+
+[[HR-EMP_DETAILS_VIEW-A-01]]
+==== HR-EMP_DETAILS_VIEW-A-01 Best-paid in each region
+
+Each regional director is told who the best-paid people in their region are — the three highest salaries, ties
+included.
+
+[source,sql]
+----
+SELECT REGION_NAME, EMPLOYEE_ID, LAST_NAME, JOB_TITLE, SALARY, RNK
+FROM (SELECT v.*, DENSE_RANK() OVER (PARTITION BY REGION_NAME ORDER BY SALARY DESC) AS RNK
+      FROM EMP_DETAILS_VIEW v)
+WHERE RNK <= 3
+ORDER BY REGION_NAME ASC, RNK ASC, LAST_NAME ASC
+----
+
+== JOBS
+
+=== Basic
+
+[[HR-JOBS-B-01]]
+==== HR-JOBS-B-01 Salary bands, unset values flagged
+
+Compensation is reviewing the job catalogue. They want it twice: by minimum salary, lowest first, with any job that
+has no minimum listed first; and by maximum salary, highest first, with any job that has no maximum listed last.
+
+____
+https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a5587[4.10. ORDER BY Clause]
+
+The keyword `NULLS` specifies the ordering of null values, either `FIRST` or `LAST`.
+
+* `FIRST` means that results are sorted so that all null values occur before all non-null values.
+
+* `LAST` means that results are sorted so that all null values occur after all non-null values.
+
+If `NULLS` is not specified, the database determines whether null values occur first or last.
+____
+
+[source,sql]
+----
+SELECT *
+FROM JOBS
+ORDER BY MIN_SALARY ASC NULLS FIRST, JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT j
+FROM Job j
+ORDER BY j.minSalary ASC NULLS FIRST, j.jobId ASC
+----
+
+[source,sql]
+----
+SELECT *
+FROM JOBS
+ORDER BY MAX_SALARY DESC NULLS LAST, JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT j
+FROM Job j
+ORDER BY j.maxSalary DESC NULLS LAST, j.jobId ASC
+----
+
+Every job in the installed data has both values, so the `NULLS` clauses decide nothing yet; they make the order
+explicit for the day a job is added without a band. Oracle sorts nulls last ascending and first descending by default
+— the opposite of what was asked here.
+
+[[HR-JOBS-B-02]]
+==== HR-JOBS-B-02 Clerical jobs
+
+Workforce planning wants every clerk job in the catalogue; their ids all end in `+_CLERK+`.
+
+[source,sql]
+----
+SELECT *
+FROM JOBS
+WHERE JOB_ID LIKE '%\_CLERK' ESCAPE '\'
+ORDER BY JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT j
+FROM Job j
+WHERE j.jobId LIKE '%\_CLERK' ESCAPE '\'
+ORDER BY j.jobId ASC
+----
+
+Without `ESCAPE`, the `+_+` is a single-character wildcard and would also match, say, `XCLERK`.
+
+[[HR-JOBS-B-03]]
+==== HR-JOBS-B-03 Jobs an offer fits
+
+A recruiter has a salary figure in mind and asks which jobs' bands it falls within.
+
+[source,sql]
+----
+SELECT JOB_ID, JOB_TITLE, MIN_SALARY, MAX_SALARY
+FROM JOBS
+WHERE :salary BETWEEN MIN_SALARY AND MAX_SALARY
+ORDER BY MIN_SALARY ASC, JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT j.jobId, j.jobTitle, j.minSalary, j.maxSalary
+FROM Job j
+WHERE :salary BETWEEN j.minSalary AND j.maxSalary
+ORDER BY j.minSalary ASC, j.jobId ASC
+----
+
+The bounds are ``Integer``s, so bind an `Integer`. A job with no minimum or no maximum never matches, as `BETWEEN` a
+null bound is unknown.
+
+=== Intermediate
+
+[[HR-JOBS-I-01]]
+==== HR-JOBS-I-01 Widest pay bands
+
+Compensation suspects some bands are too loose. They want the jobs whose maximum is at least twice the minimum, with
+the band's width and that ratio, widest ratio first.
+
+[source,sql]
+----
+SELECT JOB_ID, JOB_TITLE, MAX_SALARY - MIN_SALARY AS WIDTH, ROUND(MAX_SALARY / MIN_SALARY, 2) AS RATIO
+FROM JOBS
+WHERE MAX_SALARY >= 2 * MIN_SALARY
+ORDER BY RATIO DESC, JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT j.jobId, j.jobTitle, j.maxSalary - j.minSalary, ROUND(j.maxSalary * 1.0 / j.minSalary, 2) AS ratio
+FROM Job j
+WHERE j.maxSalary >= 2 * j.minSalary
+ORDER BY ratio DESC, j.jobId ASC
+----
+
+Both salary attributes are ``Integer``s; without `+* 1.0+` the JPQL division is an integer division, under both
+providers, and every ratio here would come out as 2.
+
+[[HR-JOBS-I-02]]
+==== HR-JOBS-I-02 The catalogue at a glance
+
+Workforce planning's summary of the job catalogue: how many jobs, the lowest minimum, the highest maximum, and the
+average band midpoint.
+
+[source,sql]
+----
+SELECT COUNT(*) AS JOBS, MIN(MIN_SALARY) AS LOWEST, MAX(MAX_SALARY) AS HIGHEST,
+       ROUND((AVG(MIN_SALARY) + AVG(MAX_SALARY)) / 2, 2) AS AVERAGE_MIDPOINT
+FROM JOBS
+----
+
+[source,jpaql]
+----
+SELECT COUNT(j), MIN(j.minSalary), MAX(j.maxSalary),
+       ROUND((AVG(j.minSalary) + AVG(j.maxSalary)) / 2, 2)
+FROM Job j
+----
+
+The JPQL grammar allows only a path inside `AVG`, so the midpoint is the mean of the two averages rather than the
+average of `+(minSalary + maxSalary) / 2+`. The two agree as long as no job lacks either bound.
+
+=== Advanced
+
+[[HR-JOBS-A-01]]
+==== HR-JOBS-A-01 Bands inside another band
+
+Compensation suspects redundant grades: which jobs have a band that lies entirely within another job's band?
+
+[source,sql]
+----
+SELECT i.JOB_ID, i.MIN_SALARY, i.MAX_SALARY,
+       o.JOB_ID AS WITHIN_JOB, o.MIN_SALARY AS WITHIN_MIN, o.MAX_SALARY AS WITHIN_MAX
+FROM JOBS i
+         JOIN JOBS o ON o.JOB_ID <> i.JOB_ID
+    AND o.MIN_SALARY <= i.MIN_SALARY
+    AND i.MAX_SALARY <= o.MAX_SALARY
+ORDER BY i.JOB_ID ASC, o.JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT i.jobId, i.minSalary, i.maxSalary, o.jobId, o.minSalary, o.maxSalary
+FROM Job i,
+     Job o
+WHERE o <> i
+  AND o.minSalary <= i.minSalary
+  AND i.maxSalary <= o.maxSalary
+ORDER BY i.jobId ASC, o.jobId ASC
+----
+
+Jobs with identical bands — `+AC_ACCOUNT+` and `+FI_ACCOUNT+`, `+AC_MGR+` and `+FI_MGR+`, `+PU_CLERK+` and `+SH_CLERK+` — each
+lie within the other, so they appear in both directions.
+
+[[HR-JOBS-A-02]]
+==== HR-JOBS-A-02 The next step up
+
+For career planning, HR wants, for each job, the job whose band starts lowest above the top of this job's band — the
+next rung on the pay ladder.
+
+[source,sql]
+----
+SELECT j.JOB_ID, j.MAX_SALARY, n.JOB_ID AS NEXT_JOB, n.MIN_SALARY AS NEXT_MIN
+FROM JOBS j
+         JOIN JOBS n ON n.MIN_SALARY = (SELECT MIN(x.MIN_SALARY) FROM JOBS x WHERE x.MIN_SALARY > j.MAX_SALARY)
+ORDER BY j.MAX_SALARY ASC, j.JOB_ID ASC, n.JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT j.jobId, j.maxSalary, n.jobId, n.minSalary
+FROM Job j,
+     Job n
+WHERE n.minSalary = (SELECT MIN(x.minSalary) FROM Job x WHERE x.minSalary > j.maxSalary)
+ORDER BY j.maxSalary ASC, j.jobId ASC, n.jobId ASC
+----
+
+Jobs at the top of the ladder have no next step: the subquery returns null and the job drops out. Ties for the next
+minimum are all reported.
+
+== JOB_HISTORY
+
+=== Basic
+
+[[HR-JOB_HISTORY-B-01]]
+==== HR-JOB_HISTORY-B-01 One employee's earlier positions
+
+An employee asks HR for the positions they held before their current one (given the employee id), oldest first.
+
+[source,sql]
+----
+SELECT START_DATE, END_DATE, JOB_ID, DEPARTMENT_ID
+FROM JOB_HISTORY
+WHERE EMPLOYEE_ID = :employeeId
+ORDER BY START_DATE ASC
+----
+
+[source,jpaql]
+----
+SELECT h
+FROM JobHistory h
+WHERE h.employeeId = :employeeId
+ORDER BY h.startDate ASC
+----
+
+[[HR-JOB_HISTORY-B-02]]
+==== HR-JOB_HISTORY-B-02 Positions closed in a period
+
+For an audit, HR wants every earlier position that ended within a given period (from and to dates, both inclusive).
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, START_DATE, END_DATE, JOB_ID, DEPARTMENT_ID
+FROM JOB_HISTORY
+WHERE END_DATE BETWEEN :fromDate AND :toDate
+ORDER BY END_DATE ASC, EMPLOYEE_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT h
+FROM JobHistory h
+WHERE h.endDate BETWEEN :fromDate AND :toDate
+ORDER BY h.endDate ASC, h.employeeId ASC
+----
+
+=== Intermediate
+
+[[HR-JOB_HISTORY-I-01]]
+==== HR-JOB_HISTORY-I-01 Turnover per job
+
+Workforce planning wants, per job, how many times someone has moved on from it, and how many different people that
+was.
+
+[source,sql]
+----
+SELECT JOB_ID, COUNT(*) AS POSITIONS, COUNT(DISTINCT EMPLOYEE_ID) AS PEOPLE
+FROM JOB_HISTORY
+GROUP BY JOB_ID
+ORDER BY POSITIONS DESC, JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT h.job.jobId, COUNT(h) AS positions, COUNT(DISTINCT h.employeeId)
+FROM JobHistory h
+GROUP BY h.job.jobId
+ORDER BY positions DESC, h.job.jobId ASC
+----
+
+Jobs nobody has left do not appear; listing them with zero needs `JOBS`.
+
+[[HR-JOB_HISTORY-I-02]]
+==== HR-JOB_HISTORY-I-02 Moved more than once
+
+HR wants the employees with more than one earlier position, with the first start and the last end on record.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, COUNT(*) AS POSITIONS, MIN(START_DATE) AS FIRST_START, MAX(END_DATE) AS LAST_END
+FROM JOB_HISTORY
+GROUP BY EMPLOYEE_ID
+HAVING COUNT(*) > 1
+ORDER BY EMPLOYEE_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT h.employeeId, COUNT(h), MIN(h.startDate), MAX(h.endDate)
+FROM JobHistory h
+GROUP BY h.employeeId
+HAVING COUNT(h) > 1
+ORDER BY h.employeeId ASC
+----
+
+=== Advanced
+
+[[HR-JOB_HISTORY-A-01]]
+==== HR-JOB_HISTORY-A-01 Consecutive moves
+
+Internal mobility wants each step recorded within the history: an earlier position, and the earlier position the same
+employee held next — from which job to which, and when.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, FROM_JOB, TO_JOB, MOVED_ON
+FROM (SELECT EMPLOYEE_ID, JOB_ID AS FROM_JOB,
+             LEAD(JOB_ID) OVER (PARTITION BY EMPLOYEE_ID ORDER BY START_DATE)     AS TO_JOB,
+             LEAD(START_DATE) OVER (PARTITION BY EMPLOYEE_ID ORDER BY START_DATE) AS MOVED_ON
+      FROM JOB_HISTORY)
+WHERE TO_JOB IS NOT NULL
+ORDER BY EMPLOYEE_ID ASC, MOVED_ON ASC
+----
+
+[source,jpaql]
+----
+SELECT h.employeeId, h.job.jobId, n.job.jobId, n.startDate
+FROM JobHistory h,
+     JobHistory n
+WHERE n.employeeId = h.employeeId
+  AND n.startDate = (SELECT MIN(x.startDate)
+                     FROM JobHistory x
+                     WHERE x.employeeId = h.employeeId
+                       AND x.startDate > h.startDate)
+ORDER BY h.employeeId ASC, n.startDate ASC
+----
+
+JPQL has no `LEAD`; the correlated subquery finds the next start date instead. Both stop at the last recorded
+position: the step from it into the current job needs `EMPLOYEES` (see _Career timeline of one employee_, under Whole
+schema).
+
+[[HR-JOB_HISTORY-A-02]]
+==== HR-JOB_HISTORY-A-02 Overlapping positions
+
+An auditor checks the history's integrity: no employee should have two earlier positions whose dates overlap.
+
+[source,sql]
+----
+SELECT a.EMPLOYEE_ID, a.START_DATE, a.END_DATE, b.START_DATE AS OTHER_START, b.END_DATE AS OTHER_END
+FROM JOB_HISTORY a
+         JOIN JOB_HISTORY b ON b.EMPLOYEE_ID = a.EMPLOYEE_ID
+    AND b.START_DATE > a.START_DATE
+    AND b.START_DATE <= a.END_DATE
+ORDER BY a.EMPLOYEE_ID ASC, a.START_DATE ASC
+----
+
+[source,jpaql]
+----
+SELECT a.employeeId, a.startDate, a.endDate, b.startDate, b.endDate
+FROM JobHistory a,
+     JobHistory b
+WHERE b.employeeId = a.employeeId
+  AND b.startDate > a.startDate
+  AND b.startDate <= a.endDate
+ORDER BY a.employeeId ASC, a.startDate ASC
+----
+
+Nobody is returned, which is the answer an auditor hopes for. `+b.START_DATE > a.START_DATE+` reports each overlapping
+pair once and keeps a position from matching itself; the primary key already rules out two positions starting on the
+same day.
+
+== LOCATIONS
+
+=== Basic
+
+[[HR-LOCATIONS-B-01]]
+==== HR-LOCATIONS-B-01 Sites in a country
+
+Facilities lists the company's sites in one country (given its code, such as `US`).
+
+[source,sql]
+----
+SELECT LOCATION_ID, STREET_ADDRESS, CITY, STATE_PROVINCE
+FROM LOCATIONS
+WHERE COUNTRY_ID = :countryId
+ORDER BY CITY ASC
+----
+
+[source,jpaql]
+----
+SELECT l.locationId, l.streetAddress, l.city, l.stateProvince
+FROM Location l
+WHERE l.country.countryId = :countryId
+ORDER BY l.city ASC
+----
+
+[[HR-LOCATIONS-B-02]]
+==== HR-LOCATIONS-B-02 Sites without a postal code
+
+The mail room cannot send parcels to a site without a postal code. Which sites lack one?
+
+[source,sql]
+----
+SELECT LOCATION_ID, STREET_ADDRESS, CITY, COUNTRY_ID
+FROM LOCATIONS
+WHERE POSTAL_CODE IS NULL
+----
+
+[source,jpaql]
+----
+SELECT l.locationId, l.streetAddress, l.city, l.country.countryId
+FROM Location l
+WHERE l.postalCode IS NULL
+----
+
+The installed data has one, the London office.
+
+=== Intermediate
+
+[[HR-LOCATIONS-I-01]]
+==== HR-LOCATIONS-I-01 Sites per country
+
+Facilities reports how many sites the company has in each country, most first.
+
+[source,sql]
+----
+SELECT COUNTRY_ID, COUNT(*) AS SITES
+FROM LOCATIONS
+GROUP BY COUNTRY_ID
+ORDER BY SITES DESC, COUNTRY_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT l.country.countryId, COUNT(l) AS sites
+FROM Location l
+GROUP BY l.country.countryId
+ORDER BY sites DESC, l.country.countryId ASC
+----
+
+[[HR-LOCATIONS-I-02]]
+==== HR-LOCATIONS-I-02 Address labels
+
+The mail room prints one address line per site: street, city, then the state or province and the postal code where
+there is one.
+
+[source,sql]
+----
+SELECT LOCATION_ID,
+       STREET_ADDRESS || ', ' || CITY
+           || CASE WHEN STATE_PROVINCE IS NOT NULL THEN ', ' || STATE_PROVINCE END
+           || CASE WHEN POSTAL_CODE IS NOT NULL THEN ' ' || POSTAL_CODE END AS LABEL
+FROM LOCATIONS
+ORDER BY LOCATION_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT l.locationId,
+       l.streetAddress || ', ' || l.city
+           || CASE WHEN l.stateProvince IS NULL THEN '' ELSE ', ' || l.stateProvince END
+           || CASE WHEN l.postalCode IS NULL THEN '' ELSE ' ' || l.postalCode END
+FROM Location l
+ORDER BY l.locationId ASC
+----
+
+Oracle's `+||+` treats a null as an empty string, so the SQL needs the `CASE` only to leave out the separator. On other
+databases a null makes the whole concatenation null, which is why the JPQL turns each missing part into `+''+`
+explicitly.
+
+=== Advanced
+
+[[HR-LOCATIONS-A-01]]
+==== HR-LOCATIONS-A-01 The country with the most sites
+
+Facilities wants the country, or countries if tied, with the most sites.
+
+[source,sql]
+----
+SELECT COUNTRY_ID, COUNT(*) AS SITES
+FROM LOCATIONS
+GROUP BY COUNTRY_ID
+HAVING COUNT(*) >= ALL (SELECT COUNT(*) FROM LOCATIONS GROUP BY COUNTRY_ID)
+----
+
+[source,jpaql]
+----
+SELECT l.country.countryId, COUNT(l)
+FROM Location l
+GROUP BY l.country.countryId
+HAVING COUNT(l) >= ALL (SELECT COUNT(x) FROM Location x GROUP BY x.country.countryId)
+----
+
+`+>= ALL+` keeps ties. Sorting and taking the first row (`FETCH FIRST 1 ROW ONLY`, or `setMaxResults(1)`) would pick one
+of them arbitrarily.
+
+== REGIONS
+
+=== Basic
+
+[[HR-REGIONS-B-01]]
+==== HR-REGIONS-B-01 Region by name
+
+A report parameter arrives as a region name typed by a user, in whatever case; the report needs the region.
+
+[source,sql]
+----
+SELECT REGION_ID, REGION_NAME
+FROM REGIONS
+WHERE UPPER(REGION_NAME) = UPPER(:regionName)
+----
+
+[source,jpaql]
+----
+SELECT r
+FROM Region r
+WHERE UPPER(r.regionName) = UPPER(:regionName)
+----
+
+Unlike the pattern of `LIKE` (see _Name search at reception_, under EMPLOYEES), an operand of `+=+` may be any string
+expression, so the query can upper-case the parameter itself.
+
+[[HR-REGIONS-B-02]]
+==== HR-REGIONS-B-02 The region list
+
+The reporting tool's drop-down lists every region by name.
+
+[source,sql]
+----
+SELECT REGION_ID, REGION_NAME
+FROM REGIONS
+ORDER BY REGION_NAME ASC
+----
+
+[source,jpaql]
+----
+SELECT r
+FROM Region r
+ORDER BY r.regionName ASC
+----
+
+=== Intermediate
+
+[[HR-REGIONS-I-01]]
+==== HR-REGIONS-I-01 A number for a new region
+
+Head office is opening a region. Region ids go up in tens; which id comes next?
+
+[source,sql]
+----
+SELECT COALESCE(MAX(REGION_ID), 0) + 10 AS NEXT_REGION_ID
+FROM REGIONS
+----
+
+[source,jpaql]
+----
+SELECT COALESCE(MAX(r.regionId), 0) + 10
+FROM Region r
+----
+
+`MAX` of an empty table is null, which `COALESCE` turns into a first id of 10. Two sessions asking at once get the same
+number; a sequence or identity column is how keys are handed out safely.
+
+=== Advanced
+
+[[HR-REGIONS-A-01]]
+==== HR-REGIONS-A-01 Initials that clash
+
+The map legend abbreviates each region to its initial. Which regions share an initial with another region?
+
+[source,sql]
+----
+SELECT r.REGION_ID, r.REGION_NAME
+FROM REGIONS r
+WHERE EXISTS (SELECT 1
+              FROM REGIONS o
+              WHERE o.REGION_ID <> r.REGION_ID
+                AND SUBSTR(o.REGION_NAME, 1, 1) = SUBSTR(r.REGION_NAME, 1, 1))
+ORDER BY r.REGION_NAME ASC
+----
+
+[source,jpaql]
+----
+SELECT r
+FROM Region r
+WHERE EXISTS (SELECT o
+              FROM Region o
+              WHERE o <> r
+                AND SUBSTRING(o.regionName, 1, 1) = SUBSTRING(r.regionName, 1, 1))
+ORDER BY r.regionName ASC
+----
+
+Africa, Americas and Asia all abbreviate to `A`. A region with no name has no initial — `SUBSTR` of null is null, and
+equals nothing — so it never clashes.
+
+== Whole schema
+
+Problems that join, or subquery, more than one table.
+
+=== Basic
+
+[[HR-SCHEMA-B-01]]
+==== HR-SCHEMA-B-01 Who manages a department
+
+A new starter asks who runs a department (given the department id).
+
+[source,sql]
+----
+SELECT d.DEPARTMENT_NAME, m.EMPLOYEE_ID, m.FIRST_NAME, m.LAST_NAME, m.EMAIL
+FROM DEPARTMENTS d
+         JOIN EMPLOYEES m ON m.EMPLOYEE_ID = d.MANAGER_ID
+WHERE d.DEPARTMENT_ID = :departmentId
+----
+
+[source,jpaql]
+----
+SELECT d.departmentName, m.employeeId, m.firstName, m.lastName, m.email
+FROM Department d
+         JOIN d.manager m
+WHERE d.departmentId = :departmentId
+----
+
+A department with no manager gives no row; a `LEFT JOIN` would return the department with an empty manager instead.
+
+[[HR-SCHEMA-B-02]]
+==== HR-SCHEMA-B-02 An employee's job title
+
+The payslip shows the employee's job title, not the job id.
+
+[source,sql]
+----
+SELECT e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, j.JOB_TITLE
+FROM EMPLOYEES e
+         JOIN JOBS j ON j.JOB_ID = e.JOB_ID
+WHERE e.EMPLOYEE_ID = :employeeId
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.firstName, e.lastName, e.job.jobTitle
+FROM Employee e
+WHERE e.employeeId = :employeeId
+----
+
+`e.job.jobTitle` is an implicit inner join, which loses nobody because every employee has a job. The same shortcut
+through `e.department` would lose the employee without one (see _Company directory_).
+
+[[HR-SCHEMA-B-03]]
+==== HR-SCHEMA-B-03 Countries of a region, by name
+
+A regional director knows their region by name, not by id, and wants its countries.
+
+[source,sql]
+----
+SELECT c.COUNTRY_ID, c.COUNTRY_NAME
+FROM COUNTRIES c
+         JOIN REGIONS r ON r.REGION_ID = c.REGION_ID
+WHERE r.REGION_NAME = :regionName
+ORDER BY c.COUNTRY_NAME ASC
+----
+
+[source,jpaql]
+----
+SELECT c.countryId, c.countryName
+FROM Country c
+         JOIN c.region r
+WHERE r.regionName = :regionName
+ORDER BY c.countryName ASC
+----
+
+=== Intermediate
+
+[[HR-SCHEMA-I-01]]
+==== HR-SCHEMA-I-01 Headcount per department
+
+HR wants every department with its headcount, largest first, including departments that have nobody.
+
+[source,sql]
+----
+SELECT d.DEPARTMENT_ID, d.DEPARTMENT_NAME, COUNT(e.EMPLOYEE_ID) AS HEADCOUNT
+FROM DEPARTMENTS d
+         LEFT JOIN EMPLOYEES e ON e.DEPARTMENT_ID = d.DEPARTMENT_ID
+GROUP BY d.DEPARTMENT_ID, d.DEPARTMENT_NAME
+ORDER BY HEADCOUNT DESC, d.DEPARTMENT_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT d.departmentId, d.departmentName, COUNT(e) AS headcount
+FROM Department d
+         LEFT JOIN d.employees e
+GROUP BY d.departmentId, d.departmentName
+ORDER BY headcount DESC, d.departmentId ASC
+----
+
+[source,jpaql]
+----
+SELECT d, SIZE(d.employees) AS headcount
+FROM Department d
+ORDER BY headcount DESC, d.departmentId ASC
+----
+
+`+COUNT(e.EMPLOYEE_ID)+`, not `+COUNT(*)+`: an outer-joined department with no employees still produces one row, and
+`+COUNT(*)+` would count it as 1. The specification has `SIZE` return zero for an empty collection, and Hibernate ORM
+returns all 27 departments for the second JPQL; EclipseLink 5.0.1, however, translates `SIZE` in the select list into
+an inner join and returns only the 11 departments that have staff. The `LEFT JOIN` form gives 27 under both.
+
+[[HR-SCHEMA-I-02]]
+==== HR-SCHEMA-I-02 Monthly payroll by department
+
+Payroll needs the monthly salary cost of each department, highest first, to plan next year's budget.
+
+[source,sql]
+----
+SELECT d.DEPARTMENT_ID, d.DEPARTMENT_NAME, SUM(e.SALARY) AS MONTHLY_COST
+FROM EMPLOYEES e
+         JOIN DEPARTMENTS d ON d.DEPARTMENT_ID = e.DEPARTMENT_ID
+GROUP BY d.DEPARTMENT_ID, d.DEPARTMENT_NAME
+ORDER BY MONTHLY_COST DESC
+----
+
+[source,jpaql]
+----
+SELECT d.departmentId, d.departmentName, SUM(e.salary) AS monthlyCost
+FROM Employee e
+         JOIN e.department d
+GROUP BY d.departmentId, d.departmentName
+ORDER BY monthlyCost DESC
+----
+
+The employee without a department drops out of the inner join; their salary belongs to no department's budget.
+
+[[HR-SCHEMA-I-03]]
+==== HR-SCHEMA-I-03 Departments above a size
+
+Facilities allocates a floor warden to every department with at least a given number of staff.
+
+[source,sql]
+----
+SELECT d.DEPARTMENT_ID, d.DEPARTMENT_NAME, COUNT(*) AS HEADCOUNT
+FROM DEPARTMENTS d
+         JOIN EMPLOYEES e ON e.DEPARTMENT_ID = d.DEPARTMENT_ID
+GROUP BY d.DEPARTMENT_ID, d.DEPARTMENT_NAME
+HAVING COUNT(*) >= :minHeadcount
+ORDER BY HEADCOUNT DESC
+----
+
+[source,jpaql]
+----
+SELECT d.departmentId, d.departmentName, COUNT(e) AS headcount
+FROM Department d
+         JOIN d.employees e
+GROUP BY d.departmentId, d.departmentName
+HAVING COUNT(e) >= :minHeadcount
+ORDER BY headcount DESC
+----
+
+[source,jpaql]
+----
+SELECT d
+FROM Department d
+WHERE SIZE(d.employees) >= :minHeadcount
+ORDER BY d.departmentId ASC
+----
+
+`COUNT` returns `Long`, so bind `:minHeadcount` as a `Long` in the `HAVING` form. A result variable such as
+`headcount` may be used in `ORDER BY`, but not in `WHERE` or `HAVING`.
+
+[[HR-SCHEMA-I-04]]
+==== HR-SCHEMA-I-04 Company directory
+
+Internal communications is printing the directory: every employee with job title, department name and city. Staff
+with no department must still appear.
+
+[source,sql]
+----
+SELECT e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, j.JOB_TITLE, d.DEPARTMENT_NAME, l.CITY
+FROM EMPLOYEES e
+         JOIN JOBS j ON j.JOB_ID = e.JOB_ID
+         LEFT JOIN DEPARTMENTS d ON d.DEPARTMENT_ID = e.DEPARTMENT_ID
+         LEFT JOIN LOCATIONS l ON l.LOCATION_ID = d.LOCATION_ID
+ORDER BY e.LAST_NAME ASC, e.FIRST_NAME ASC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.firstName, e.lastName, j.jobTitle, d.departmentName, l.city
+FROM Employee e
+         JOIN e.job j
+         LEFT JOIN e.department d
+         LEFT JOIN d.location l
+ORDER BY e.lastName ASC, e.firstName ASC
+----
+
+Writing `e.department.departmentName` in the select list instead would be an implicit inner join and lose the
+employee without a department. `+EMP_DETAILS_VIEW+` holds much the same columns, but joins with inner joins, so it has
+106 rows to ``EMPLOYEES``' 107.
+
+[[HR-SCHEMA-I-05]]
+==== HR-SCHEMA-I-05 Actual pay against the band
+
+Compensation wants, per job, how many people hold it and the lowest, average and highest salary actually paid, next to
+the job's band.
+
+[source,sql]
+----
+SELECT j.JOB_ID, j.JOB_TITLE, COUNT(*) AS HOLDERS,
+       MIN(e.SALARY) AS LOWEST, ROUND(AVG(e.SALARY), 2) AS AVERAGE, MAX(e.SALARY) AS HIGHEST,
+       j.MIN_SALARY, j.MAX_SALARY
+FROM JOBS j
+         JOIN EMPLOYEES e ON e.JOB_ID = j.JOB_ID
+GROUP BY j.JOB_ID, j.JOB_TITLE, j.MIN_SALARY, j.MAX_SALARY
+ORDER BY j.JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT j.jobId, j.jobTitle, COUNT(e),
+       MIN(e.salary), ROUND(AVG(e.salary), 2), MAX(e.salary),
+       j.minSalary, j.maxSalary
+FROM Job j
+         JOIN j.employees e
+GROUP BY j.jobId, j.jobTitle, j.minSalary, j.maxSalary
+ORDER BY j.jobId ASC
+----
+
+[[HR-SCHEMA-I-06]]
+==== HR-SCHEMA-I-06 Due for a promotion conversation
+
+HR wants the people paid in the top tenth of their job's band — at or above 90% of the band maximum — because they
+have little room left to grow without a new role.
+
+[source,sql]
+----
+SELECT e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, e.JOB_ID, e.SALARY, j.MAX_SALARY
+FROM EMPLOYEES e
+         JOIN JOBS j ON j.JOB_ID = e.JOB_ID
+WHERE e.SALARY >= j.MAX_SALARY * 0.9
+ORDER BY e.SALARY / j.MAX_SALARY DESC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.firstName, e.lastName, j.jobId, e.salary, j.maxSalary
+FROM Employee e
+         JOIN e.job j
+WHERE e.salary >= j.maxSalary * 0.9
+ORDER BY e.salary / j.maxSalary DESC
+----
+
+An auditor's twin question — anyone paid _outside_ the band, `e.salary NOT BETWEEN j.minSalary AND j.maxSalary` —
+returns nobody in the installed data, which is the answer an auditor hopes for.
+
+[[HR-SCHEMA-I-07]]
+==== HR-SCHEMA-I-07 Departments with nobody in them
+
+Facilities wants to reclaim space from departments that have no employees, and to know whether each still has a manager
+on record.
+
+[source,sql]
+----
+SELECT d.DEPARTMENT_ID, d.DEPARTMENT_NAME, d.MANAGER_ID
+FROM DEPARTMENTS d
+WHERE NOT EXISTS (SELECT 1 FROM EMPLOYEES e WHERE e.DEPARTMENT_ID = d.DEPARTMENT_ID)
+ORDER BY d.DEPARTMENT_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT d.departmentId, d.departmentName, m.employeeId
+FROM Department d
+         LEFT JOIN d.manager m
+WHERE d.employees IS EMPTY
+ORDER BY d.departmentId ASC
+----
+
+Sixteen of the twenty-seven departments are empty in the installed data, and none of those has a manager.
+
+[[HR-SCHEMA-I-08]]
+==== HR-SCHEMA-I-08 Headcount by country and region
+
+The regional directors want headcount per country, grouped under their region.
+
+[source,sql]
+----
+SELECT r.REGION_NAME, c.COUNTRY_NAME, COUNT(*) AS HEADCOUNT
+FROM EMPLOYEES e
+         JOIN DEPARTMENTS d ON d.DEPARTMENT_ID = e.DEPARTMENT_ID
+         JOIN LOCATIONS l ON l.LOCATION_ID = d.LOCATION_ID
+         JOIN COUNTRIES c ON c.COUNTRY_ID = l.COUNTRY_ID
+         JOIN REGIONS r ON r.REGION_ID = c.REGION_ID
+GROUP BY r.REGION_NAME, c.COUNTRY_NAME
+ORDER BY r.REGION_NAME ASC, HEADCOUNT DESC
+----
+
+[source,jpaql]
+----
+SELECT r.regionName, c.countryName, COUNT(e) AS headcount
+FROM Employee e
+         JOIN e.department d
+         JOIN d.location l
+         JOIN l.country c
+         JOIN c.region r
+GROUP BY r.regionName, c.countryName
+ORDER BY r.regionName ASC, headcount DESC
+----
+
+[[HR-SCHEMA-I-09]]
+==== HR-SCHEMA-I-09 Employees who have changed roles
+
+HR wants the employees with at least one earlier position on record, and how many.
+
+[source,sql]
+----
+SELECT e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, COUNT(*) AS EARLIER_POSITIONS
+FROM EMPLOYEES e
+         JOIN JOB_HISTORY h ON h.EMPLOYEE_ID = e.EMPLOYEE_ID
+GROUP BY e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME
+ORDER BY EARLIER_POSITIONS DESC, e.EMPLOYEE_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.firstName, e.lastName, SIZE(e.jobHistories) AS earlierPositions
+FROM Employee e
+WHERE e.jobHistories IS NOT EMPTY
+ORDER BY earlierPositions DESC, e.employeeId ASC
+----
+
+[[HR-SCHEMA-I-10]]
+==== HR-SCHEMA-I-10 Never moved
+
+For a retention study, HR wants the employees who have no earlier position on record at all — they still hold the job
+and department they joined in.
+
+[source,sql]
+----
+SELECT e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, e.HIRE_DATE
+FROM EMPLOYEES e
+WHERE NOT EXISTS (SELECT 1 FROM JOB_HISTORY h WHERE h.EMPLOYEE_ID = e.EMPLOYEE_ID)
+ORDER BY e.HIRE_DATE ASC
+----
+
+`JobHistoryWithIdClass`
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.firstName, e.lastName, e.hireDate
+FROM Employee e
+WHERE NOT EXISTS (SELECT h FROM JobHistory h WHERE h.employeeId = e.employeeId)
+ORDER BY e.hireDate ASC
+----
+
+`JobHistoryWithEmbeddedId`
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.firstName, e.lastName, e.hireDate
+FROM Employee e
+WHERE NOT EXISTS (SELECT h FROM JobHistory h WHERE h.id.employeeId = e.employeeId)
+ORDER BY e.hireDate ASC
+----
+
+This form needs a unit that lists `JobHistoryWithEmbeddedId`. Against the module's units, which list
+`JobHistoryWithIdClass`, EclipseLink rejects `h.id`; Hibernate happens to accept it.
+
+Either flavour can also go through the association, `+h.employee = e+`, which is the same in both — or skip the
+subquery altogether with `WHERE e.jobHistories IS EMPTY`.
+
+=== Advanced
+
+[[HR-SCHEMA-A-01]]
+==== HR-SCHEMA-A-01 Past positions in another department
+
+Internal mobility wants every earlier position held in a department other than the employee's current one: who moved,
+from where, to where.
+
+[source,sql]
+----
+SELECT h.EMPLOYEE_ID, h.START_DATE, h.END_DATE, h.JOB_ID,
+       h.DEPARTMENT_ID AS FROM_DEPARTMENT, e.DEPARTMENT_ID AS TO_DEPARTMENT
+FROM JOB_HISTORY h
+         JOIN EMPLOYEES e ON e.EMPLOYEE_ID = h.EMPLOYEE_ID
+WHERE h.DEPARTMENT_ID <> e.DEPARTMENT_ID
+ORDER BY h.EMPLOYEE_ID ASC, h.START_DATE ASC
+----
+
+[source,jpaql]
+----
+SELECT h.employeeId, h.startDate, h.endDate, h.job.jobId, hd.departmentId, ed.departmentId
+FROM JobHistory h
+         JOIN h.employee e
+         JOIN h.department hd
+         JOIN e.department ed
+WHERE hd <> ed
+ORDER BY h.employeeId ASC, h.startDate ASC
+----
+
+Both drop rows where either department is null, since `+<>+` against null is unknown — fine for "moved between two
+departments", wrong for "left a department for none".
+
+[[HR-SCHEMA-A-02]]
+==== HR-SCHEMA-A-02 Career timeline of one employee
+
+An employee asks HR for their record: every position they have held, the current one included, in date order.
+
+[source,sql]
+----
+SELECT h.START_DATE, h.END_DATE, h.JOB_ID, j.JOB_TITLE, h.DEPARTMENT_ID
+FROM JOB_HISTORY h
+         JOIN JOBS j ON j.JOB_ID = h.JOB_ID
+WHERE h.EMPLOYEE_ID = :employeeId
+UNION ALL
+SELECT e.HIRE_DATE, NULL, e.JOB_ID, j.JOB_TITLE, e.DEPARTMENT_ID
+FROM EMPLOYEES e
+         JOIN JOBS j ON j.JOB_ID = e.JOB_ID
+WHERE e.EMPLOYEE_ID = :employeeId
+ORDER BY 1
+----
+
+[source,jpaql]
+----
+SELECT h.startDate, j.jobId, j.jobTitle
+FROM JobHistory h
+         JOIN h.job j
+WHERE h.employeeId = :employeeId
+UNION ALL
+SELECT e.hireDate, j.jobId, j.jobTitle
+FROM Employee e
+         JOIN e.job j
+WHERE e.employeeId = :employeeId
+----
+
+`UNION`, `INTERSECT` and `EXCEPT` are new in Jakarta Persistence 3.2. The grammar attaches an `ORDER BY` to one
+operand, not to the union as a whole, so sort the combined list in Java. The SQL's untyped `NULL` end date has no
+portable JPQL counterpart either, and is left out. Read the result with care: `+HIRE_DATE+` is not moved when an
+employee changes job, so the current position's start date is the original hire date, and for six of the employees
+with history it is earlier than the end of their last recorded position (see the link:README.md[README]).
+
+[[HR-SCHEMA-A-03]]
+==== HR-SCHEMA-A-03 Back in an earlier job
+
+HR wants the employees whose current job is one they held before — boomerangs within the company.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, JOB_ID
+FROM JOB_HISTORY
+INTERSECT
+SELECT EMPLOYEE_ID, JOB_ID
+FROM EMPLOYEES
+ORDER BY 1
+----
+
+[source,jpaql]
+----
+SELECT h.employeeId, h.job.jobId
+FROM JobHistory h
+INTERSECT
+SELECT e.employeeId, e.job.jobId
+FROM Employee e
+----
+
+[source,jpaql]
+----
+SELECT DISTINCT e.employeeId, e.job.jobId
+FROM Employee e
+         JOIN e.jobHistories h
+WHERE h.job = e.job
+----
+
+The `INTERSECT` form needs Jakarta Persistence 3.2; the join works with any version.
+
+[[HR-SCHEMA-A-04]]
+==== HR-SCHEMA-A-04 Offices with no department
+
+Facilities is reviewing the property list: which locations host no department at all?
+
+[source,sql]
+----
+SELECT LOCATION_ID
+FROM LOCATIONS
+MINUS
+SELECT LOCATION_ID
+FROM DEPARTMENTS
+----
+
+[source,jpaql]
+----
+SELECT l.locationId
+FROM Location l
+EXCEPT
+SELECT d.location.locationId
+FROM Department d
+----
+
+[source,jpaql]
+----
+SELECT l
+FROM Location l
+WHERE l.departments IS EMPTY
+ORDER BY l.locationId ASC
+----
+
+Oracle spells set difference `MINUS` (23ai also accepts `EXCEPT`); JPQL spells it `EXCEPT`. Every department has a
+location, so the second operand has no nulls to worry about.
+
+[[HR-SCHEMA-A-05]]
+==== HR-SCHEMA-A-05 Department roster in one round trip
+
+The intranet's site page shows, for one location, each department and its staff. Loading departments and then each
+department's employees one by one is the N+1 problem; the page needs a single query.
+
+[source,sql]
+----
+SELECT d.*, e.*
+FROM DEPARTMENTS d
+         LEFT JOIN EMPLOYEES e ON e.DEPARTMENT_ID = d.DEPARTMENT_ID
+WHERE d.LOCATION_ID = :locationId
+ORDER BY d.DEPARTMENT_ID ASC, e.LAST_NAME ASC
+----
+
+[source,jpaql]
+----
+SELECT DISTINCT d
+FROM Department d
+         LEFT JOIN FETCH d.employees
+WHERE d.location.locationId = :locationId
+ORDER BY d.departmentId ASC
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Employee e
+         JOIN FETCH e.job
+         LEFT JOIN FETCH e.department
+WHERE e.department.departmentId = :departmentId
+ORDER BY e.lastName ASC
+----
+
+Every association here is `LAZY`, so without `FETCH` each `getEmployees()` or `getJob()` call outside the query would
+issue its own `SELECT`. `DISTINCT` removes the repeated `Department` the collection join produces. Do not combine a
+collection fetch join with `setMaxResults`: the limit applies to joined rows, so providers either paginate in memory
+or cut a department's staff list short.
+
+'''
+
+
+References — https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2[Jakarta Persistence 3.2]:
+
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#set-operators-in-select-statements[4.2.1.1. Set Operators in Select Statements]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#joins[4.4.5. Joins]
+  and https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a4931[4.4.5.3. Fetch Joins]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#like-expressions[4.6.6. Like Expressions]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a5139[4.6.8. Empty Collection Comparison Expressions]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#exists-expressions[4.6.10. Exists Expressions]
+  and https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#all-or-any-expressions[4.6.11. All or Any Expressions]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a5196[4.6.12. Subqueries]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#string-concatenation-operator[4.7.6. String concatenation operator],
+  https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#built-in-string-arithmetic-and-datetime-functional-expressions[4.7.7. Built-in String, Arithmetic, and Datetime Functional Expressions]
+  and https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#typecasts[4.7.8. Typecasts]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#case-expressions[4.7.10. Case Expressions]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a5410[4.8. GROUP BY, HAVING]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a5587[4.10. ORDER BY Clause]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#bnf[4.12. BNF]
