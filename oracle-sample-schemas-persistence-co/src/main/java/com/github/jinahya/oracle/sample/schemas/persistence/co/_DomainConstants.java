@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.co.mapped._MappedDomainConstants;
+
 /**
  * Constants shared by the entity classes of the {@code CO} schema.
  *
@@ -28,7 +30,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-final class _DomainConstants {
+public final class _DomainConstants extends _MappedDomainConstants {
+
     // -------------------------------------------------------------------------------------------------------- LATITUDE
 
     /**

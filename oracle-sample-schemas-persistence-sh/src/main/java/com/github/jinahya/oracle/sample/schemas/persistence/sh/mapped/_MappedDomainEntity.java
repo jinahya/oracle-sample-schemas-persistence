@@ -6,6 +6,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
  * @param <T> the type of the identifier.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public interface __MappedDomainEntity<T> {
+public interface _MappedDomainEntity<T> {
 
 }

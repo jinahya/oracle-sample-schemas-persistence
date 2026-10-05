@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped._MappedDomainConstants;
+
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.List;
@@ -32,7 +34,7 @@ import java.util.List;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-final class __Constants {
+public final class _DomainConstants extends _MappedDomainConstants {
 
     // ------------------------------------------------------------------------------------------- routines / SECURE_DML
     static final String ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT = "08:00";
@@ -52,7 +54,7 @@ final class __Constants {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
-    private __Constants() {
+    private _DomainConstants() {
         throw new AssertionError("instantiation is not allowed");
     }
 }

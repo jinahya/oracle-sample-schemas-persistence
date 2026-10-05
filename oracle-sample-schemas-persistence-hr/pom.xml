@@ -89,6 +89,47 @@
     </testResources>
     <plugins>
       <!--
+        With src/main/java/module-info.java the tests are compiled and run patched into the hr module, which reads
+        only what that descriptor requires. The test libraries (equalsverifier, among others) need java.desktop for
+        java.beans, which the entities do not, so it is added here rather than required by the module.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>default-testCompile</id>
+            <configuration>
+              <compilerArgs combine.children="append">
+                <arg>--add-modules</arg>
+                <arg>java.desktop</arg>
+                <arg>--add-reads</arg>
+                <arg>com.github.jinahya.oracle.sample.schemas.persistence.hr=java.desktop</arg>
+              </compilerArgs>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <!--
+        Run on the module path, the patched tests would have to be granted a read of every named test library (slf4j,
+        Weld, the provider, ...) one by one. They run on the class path instead, as they did before the descriptor.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <useModulePath>false</useModulePath>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${version.maven-failsafe}</version>
+        <configuration>
+          <useModulePath>false</useModulePath>
+        </configuration>
+      </plugin>
+      <!--
         The randomizers and persisters are compiled with the tests, which use them, and packaged here as a second jar,
         classified test-companion, which a consumer of hr takes at <scope>test</scope>. A classified jar shares this
         pom, in which the libraries they need, podam and jinahya-persistence-test-utils, are test-scoped, so it

@@ -378,6 +378,14 @@
             <sourceFileExcludes>
               <sourceFileExclude>**/*_.java</sourceFileExclude>
             </sourceFileExcludes>
+            <!-- The exclusion above only keeps the metamodel off the list of files to document. With a -->
+            <!-- module-info.java, javadoc runs in module mode and reads the whole module from the source -->
+            <!-- path it is given, generated sources included, so the metamodel was linted all the -->
+            <!-- same, and its javadoc, which quotes each @NamedQuery verbatim, fails on a `<` as -->
+            <!-- malformed HTML. Without a source path javadoc reads the listed files only. `sourcepath` -->
+            <!-- cannot do this instead: javadoc and test-javadoc share it, so it would point both at -->
+            <!-- the same directory. -->
+            <disableSourcepathUsage>true</disableSourcepathUsage>
             <links>
 <!--              <link>https://www.javadoc.io/doc/jakarta.platform/jakarta.jakartaee-api/${version.jakarta.jakartaee-bom}</link>-->
 <!--              <link>https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence</link>-->
