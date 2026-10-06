@@ -70,7 +70,7 @@
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
-    <mapping-file>META-INF/orm-it.xml</mapping-file>
+    <mapping-file>META-INF/hr/orm-it.xml</mapping-file>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Country</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Department</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Employee</class>

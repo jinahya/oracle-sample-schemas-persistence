@@ -20,14 +20,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
+import com.github.jinahya.oracle.sample.schemas.persistence.test.__Test;
 
 /**
  * A class for testing the {@link JobHistoryId} composite primary key class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class JobHistoryId_Test extends _Test<JobHistoryId> {
+class JobHistoryId_Test extends __Test<JobHistoryId> {
 
     JobHistoryId_Test() {
         super(JobHistoryId.class);

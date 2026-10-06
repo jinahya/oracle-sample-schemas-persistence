@@ -20,19 +20,28 @@ package com.github.jinahya.oracle.sample.schemas.persistence.test;
  * #L%
  */
 
-import com.github.jinahya.object.randomizer.ObjectRandomizerUtils;
-import org.junit.platform.commons.util.ReflectionUtils;
+import jakarta.persistence.Transient;
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
+import org.junit.jupiter.api.Test;
 
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
 import java.util.Objects;
-import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 /**
- * An abstract base class for testing a target class, which the subclass names.
+ * An abstract base class for testing an entity class without a persistence context.
+ * <p>
+ * It verifies what every entity class of this project has to satisfy on its own -- a usable {@code toString()}, an
+ * {@code equals}/{@code hashCode} pair, and property accessors which round-trip.
  *
  * @param <T> the type of the target class.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public abstract class __Test<T> {
+public abstract class __Test<T> extends ___Test<T> {
 
     /**
      * Creates a new instance for the specified target class.
@@ -40,35 +49,77 @@ public abstract class __Test<T> {
      * @param targetClass the class to test.
      */
     protected __Test(final Class<T> targetClass) {
-        super();
-        this.targetClass = Objects.requireNonNull(targetClass, "targetClass is null");
+        super(targetClass);
+    }
+
+    // -------------------------------------------------------------------------------------------------------- toString
+
+    /**
+     * Verifies that {@code toString()} of a new instance of {@link #targetClass} is not blank.
+     */
+    @Test
+    protected void toString_NotBlank_NewInstance() {
+        final var instance = newTargetInstance();
+        final var string = instance.toString();
+        assertThat(string).isNotBlank();
+    }
+
+    /**
+     * Verifies that {@code toString()} of a new randomized instance of {@link #targetClass} is not blank.
+     */
+    @Test
+    protected void toString_NotBlank_NewRandomizedInstance() {
+        newRandomizedTargetInstance().map(Objects::toString).ifPresent(v -> {
+            assertThat(v).isNotBlank();
+        });
+    }
+
+    // ------------------------------------------------------------------------------------------------ equals/hashCode
+
+    /**
+     * Returns an equals-verifier for {@link #targetClass}, which subclasses may further configure.
+     *
+     * @return an equals-verifier for {@link #targetClass}.
+     */
+    protected SingleTypeEqualsVerifierApi<T> equals_verifier_() {
+        return EqualsVerifier.simple().forClass(targetClass);
+    }
+
+    /**
+     * Verifies the {@code equals}/{@code hashCode} contract of {@link #targetClass}, using the verifier which
+     * {@link #equals_verifier_()} returns.
+     */
+    @Test
+    protected void equals_verify_() {
+        final var verifier = equals_verifier_();
+        verifier.verify();
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns a new, uninitialized instance of {@link #targetClass}.
+     * Verifies that every non-{@link jakarta.persistence.Transient @Transient} read/write property of
+     * {@link #targetClass} accepts what its own reader returns.
      *
-     * @return a new instance of {@link #targetClass}.
+     * @throws IntrospectionException when {@link #targetClass} cannot be introspected.
      */
-    public T newTargetInstance() {
-        return ReflectionUtils.newInstance(targetClass);
+    @Test
+    protected void propertyAccessors_DoNotThrow() throws IntrospectionException {
+        final var instance = newTargetInstance();
+        final java.beans.BeanInfo info = Introspector.getBeanInfo(targetClass);
+        for (final var descriptor : info.getPropertyDescriptors()) {
+            final var reader = descriptor.getReadMethod();
+            final var writer = descriptor.getWriteMethod();
+            if (reader == null || writer == null
+                || reader.isAnnotationPresent(Transient.class)
+                || writer.isAnnotationPresent(Transient.class)) {
+                continue;
+            }
+            reader.setAccessible(true);
+            writer.setAccessible(true);
+            assertThatCode(() -> writer.invoke(instance, reader.invoke(instance)))
+                    .as("%s.%s(%s())", targetClass.getSimpleName(), writer.getName(), reader.getName())
+                    .doesNotThrowAnyException();
+        }
     }
-
-    /**
-     * Returns a new instance of {@link #targetClass} with randomized property values.
-     *
-     * @return a new randomized instance of {@link #targetClass}; empty when no randomizer is registered for
-     * {@link #targetClass}.
-     */
-    public Optional<T> newRandomizedTargetInstance() {
-        return ObjectRandomizerUtils.newRandomizedInstanceOf(targetClass);
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * The class which this test targets.
-     */
-    protected final Class<T> targetClass;
 }

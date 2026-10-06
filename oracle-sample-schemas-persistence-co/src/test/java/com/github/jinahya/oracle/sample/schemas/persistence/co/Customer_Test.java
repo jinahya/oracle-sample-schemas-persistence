@@ -20,7 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
+import com.github.jinahya.oracle.sample.schemas.persistence.test.__Test;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
 /**
@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Customer_Test extends _Test<Customer> {
+class Customer_Test extends __Test<Customer> {
 
     Customer_Test() {
         super(Customer.class);

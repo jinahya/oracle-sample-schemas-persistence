@@ -26,17 +26,22 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.metamodel.ManagedType;
+import jakarta.persistence.metamodel.Type;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static com.github.jinahya.oracle.sample.schemas.persistence.test.__Persistence_IT_Producer.__ItPU;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
@@ -59,7 +64,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
         "java:S101", // Class names should comply with a naming convention
         "java:S118"  // "abstract" classes should not have "public" constructors
 })
-public abstract class __Persistence_IT<T> extends __Test<T> {
+public abstract class __Persistence_IT<T> extends ___Test<T> {
 
     /**
      * Creates a new instance for the specified persistence class.
@@ -87,6 +92,90 @@ public abstract class __Persistence_IT<T> extends __Test<T> {
                         .anyMatch(c -> c == targetClass),
                 () -> targetClass + " is not a managed type of the persistence unit"
         );
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Verifies {@link EntityManager#find(Class, Object) find} against a row the installer put in the database.
+     */
+    @Nested
+    class Find_Test {
+
+        /**
+         * Aborts, rather than fails, when {@link #targetClass} does not carry the shape of identifier these tests
+         * address.
+         *
+         * @implNote The identifier has to be a single basic attribute, for the reasons the unit-test counterpart,
+         * {@code __Persistence_Test.Find_Test}, gives.
+         */
+        @BeforeEach
+        void assumeTargetClassIsAddressable() {
+            final var entityType = entityManagerFactory.getMetamodel().getEntities().stream()
+                    .filter(t -> t.getJavaType() == targetClass)
+                    .findFirst();
+            assumeTrue(entityType.isPresent(), () -> targetClass + " is not an entity");
+            assumeTrue(
+                    entityType.get().hasSingleIdAttribute(),
+                    () -> targetClass + " is mapped with an id class"
+            );
+            assumeTrue(
+                    entityType.get().getIdType().getPersistenceType() == Type.PersistenceType.BASIC,
+                    () -> targetClass + " is mapped with an embedded identifier"
+            );
+        }
+
+        /**
+         * Returns the identifier of the specified instance, read from the field the metamodel says maps it.
+         *
+         * @param instance the instance whose identifier to read.
+         * @return the identifier of the {@code instance}.
+         * @implNote Reads the mapped field rather than calling
+         * {@link jakarta.persistence.PersistenceUnitUtil#getIdentifier(Object)}, for the reasons the unit-test
+         * counterpart gives.
+         */
+        private Object identifierOf(final T instance) {
+            final var entityType = entityManagerFactory.getMetamodel().entity(targetClass);
+            final var member = entityType.getId(entityType.getIdType().getJavaType()).getJavaMember();
+            assumeTrue(
+                    member instanceof Field,
+                    () -> targetClass + " maps its identifier by property, not by field"
+            );
+            final var field = (Field) member;
+            field.setAccessible(true);
+            try {
+                return field.get(instance);
+            } catch (final IllegalAccessException iae) {
+                throw new AssertionError("failed to read " + field, iae);
+            }
+        }
+
+        /**
+         * Verifies that {@code find} reaches a randomly selected row once the persistence context no longer holds it.
+         *
+         * @implNote Compared by identifier, not with {@link Object#equals(Object)}, for the reasons the unit-test
+         * counterpart gives. An empty table is not a failure; the test aborts, since the table's content is the
+         * installer's.
+         */
+        @DisplayName("find reaches a randomly selected row once the context is cleared")
+        @Test
+        void __() {
+            applyEntityManagerInTransactionAndRollback(em -> {
+                final var selected = ___Persistence_TestUtils.selectRandom(em, targetClass);
+                assumeTrue(selected.isPresent(), () -> "no row of " + targetClass + " is installed");
+                final var identifier = identifierOf(selected.get());
+                em.clear();
+                final var found = em.find(targetClass, identifier);
+                assertThat(found)
+                        .as("the %s found by its identifier, from the database", targetClass.getSimpleName())
+                        .isNotNull()
+                        .isNotSameAs(selected.get());
+                assertThat(identifierOf(found))
+                        .as("the identifier of the %s found", targetClass.getSimpleName())
+                        .isEqualTo(identifier);
+                return null;
+            });
+        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------

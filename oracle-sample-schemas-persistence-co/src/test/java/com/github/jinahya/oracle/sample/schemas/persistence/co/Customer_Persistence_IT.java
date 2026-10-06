@@ -30,7 +30,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
-import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -50,39 +49,6 @@ class Customer_Persistence_IT extends _Persistence_IT<Customer> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nested
-    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-    class Find_Test {
-
-        /**
-         * Returns some identifiers of the installed table.
-         *
-         * @implNote Selects the identifiers, not the entities, so nothing is left managed and every {@code find} really
-         * does reach the database.
-         */
-        LongStream customerIds() {
-            return entityManager()
-                    .createQuery(
-                            """
-                                    SELECT e.customerId
-                                    FROM Customer e
-                                    ORDER BY e.customerId ASC""",
-                            Long.class
-                    )
-                    .setMaxResults(5)
-                    .getResultList()
-                    .stream()
-                    .mapToLong(Long::longValue);
-        }
-
-        @MethodSource("customerIds")
-        @ParameterizedTest
-        void __(final long customerId) {
-            final var found = entityManager().find(targetClass, customerId);
-            assertThat(found).isNotNull().extracting(Customer::getCustomerId).isEqualTo(customerId);
-        }
-    }
-
     @Nested
     class SelectListOrderByCustomerIdAsc_Test {
 

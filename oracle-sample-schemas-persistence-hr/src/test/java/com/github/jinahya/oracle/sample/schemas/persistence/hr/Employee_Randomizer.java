@@ -25,6 +25,8 @@ import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 /**
@@ -33,6 +35,11 @@ import java.util.List;
  * The {@code job}, {@code manager}, {@code department}, {@code subordinates}, {@code managedDepartments} and
  * {@code jobHistories} associations are excluded from randomization; {@link Employee_Persister} supplies the
  * {@code job} and the {@code department}.
+ * <p>
+ * The {@code hireDate} is set a year in the past rather than randomized. The {@code UPDATE_JOB_HISTORY} trigger of the
+ * installed schema copies it, as {@code START_DATE}, into a {@code JOB_HISTORY} row whose {@code END_DATE} is
+ * {@code SYSDATE}, and {@code JHIST_DATE_INTERVAL} requires the latter to be after the former; a randomized date may be
+ * today, or later.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -67,6 +74,8 @@ class Employee_Randomizer extends PodamObjectRandomizer<Employee> {
 
     @Override
     public Employee get() {
-        return super.get();
+        final var instance = super.get();
+        instance.setHireDate(LocalDateTime.now().minusYears(1L).truncatedTo(ChronoUnit.DAYS));
+        return instance;
     }
 }

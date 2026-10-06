@@ -53,8 +53,8 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  * An abstract base class for tests which need a persistence context, against a module's unit-test persistence unit.
  * <p>
  * The container is started by weld-testing, from a module's own subclass of this class, which names that module's
- * subclass of {@link __Persistence_Test_Producer} as its bean class; a test then gets an entity manager on an
- * in-memory database whose schema the provider generates.
+ * subclass of {@link __Persistence_Test_Producer} as its bean class; a test then gets an entity manager on an in-memory
+ * database whose schema the provider generates.
  * <p>
  * Nothing here reaches the Oracle database; a test which needs the real data extends {@link __Persistence_IT} and is
  * named {@code *_IT} so that failsafe, not surefire, runs it.
@@ -68,7 +68,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
         "java:S101", // Class names should comply with a naming convention
         "java:S118"  // "abstract" classes should not have "public" constructors
 })
-public abstract class __Persistence_Test<T> extends __Test<T> {
+public abstract class __Persistence_Test<T> extends ___Test<T> {
 
     /**
      * The prefix of the constants {@link #_SameValue_ATTRIBUTE_NAME_()} looks up. The value is {@value}.
@@ -188,12 +188,12 @@ public abstract class __Persistence_Test<T> extends __Test<T> {
          * <p>
          * The identifier has to be a single basic attribute. An {@link jakarta.persistence.IdClass IdClass} is left out
          * because assembling one generically is more than this base class knows how to do. An
-         * {@link jakarta.persistence.EmbeddedId EmbeddedId} is left out because an entity may derive a component of
-         * it through {@link jakarta.persistence.MapsId @MapsId} -- {@code CO}'s {@code OrderItemWithEmbeddedId}
-         * does -- and the two providers disagree about that component: Hibernate copies the association's identifier
-         * into the embedded one as it flushes, EclipseLink writes the column but leaves the component of the managed
-         * instance {@code null}, so there is no identifier to hand {@code find} which is right under both. The row
-         * itself is written correctly either way, and {@link #_persist_RandomizedInstance()} is what covers that.
+         * {@link jakarta.persistence.EmbeddedId EmbeddedId} is left out because an entity may derive a component of it
+         * through {@link jakarta.persistence.MapsId @MapsId} -- {@code CO}'s {@code OrderItemWithEmbeddedId} does --
+         * and the two providers disagree about that component: Hibernate copies the association's identifier into the
+         * embedded one as it flushes, EclipseLink writes the column but leaves the component of the managed instance
+         * {@code null}, so there is no identifier to hand {@code find} which is right under both. The row itself is
+         * written correctly either way, and {@link #_persist_RandomizedInstance()} is what covers that.
          */
         @BeforeEach
         void assumeTargetClassIsPersistableAndAddressable() {

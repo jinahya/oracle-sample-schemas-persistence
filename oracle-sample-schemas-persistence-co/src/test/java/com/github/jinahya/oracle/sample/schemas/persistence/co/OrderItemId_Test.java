@@ -20,14 +20,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
+import com.github.jinahya.oracle.sample.schemas.persistence.test.__Test;
 
 /**
  * A class for testing the {@link OrderItemId} id class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class OrderItemId_Test extends _Test<OrderItemId> {
+class OrderItemId_Test extends __Test<OrderItemId> {
 
     OrderItemId_Test() {
         super(OrderItemId.class);

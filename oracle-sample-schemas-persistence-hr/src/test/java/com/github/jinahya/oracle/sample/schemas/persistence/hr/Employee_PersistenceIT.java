@@ -26,7 +26,6 @@ import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -63,16 +62,14 @@ class Employee_PersistenceIT extends _Persistence_IT<Employee> {
          * visible to a query in it until the rollback. Nothing else writes {@code JOB_HISTORY} here, so any row for the
          * employee is the trigger's.
          *
-         * @implNote The trigger also fires on an {@code UPDATE} which only sets {@code JOB_ID} to the value it already
-         * has. Hibernate ORM, which updates every column by default, does that when the hire date alone is flushed, so
-         * there may be a second row: it, too, records the old job and department.
+         * @implNote The hire date is left as {@link Employee_Randomizer} set it, a year in the past, rather than set
+         * here: changing it would be an {@code UPDATE} of its own, and Hibernate ORM, which writes every column by
+         * default, would include {@code JOB_ID} in it and fire the trigger with the persisted hire date.
          */
         @Test
         void _NewJobHistoryPopulated_JobChanged() {
             applyNewPersistedTargetInstanceAndRollback((em, e) -> {
-                // well in the past, so the trigger's END_DATE (SYSDATE) is after its START_DATE, as
-                // JHIST_DATE_INTERVAL requires; the randomized hire date may be today, or later
-                e.setHireDate(LocalDateTime.now().minusYears(1L));
+                // the INSERT, on its own; otherwise EclipseLink writes the new value into it, and no UPDATE fires
                 em.flush();
                 final var oldJob = e.getJob();
                 final var oldDepartment = e.getDepartment();
@@ -96,9 +93,7 @@ class Employee_PersistenceIT extends _Persistence_IT<Employee> {
         @Test
         void _NewJobHistoryPopulated_DepartmentChanged() {
             applyNewPersistedTargetInstanceAndRollback((em, e) -> {
-                // well in the past, so the trigger's END_DATE (SYSDATE) is after its START_DATE, as
-                // JHIST_DATE_INTERVAL requires; the randomized hire date may be today, or later
-                e.setHireDate(LocalDateTime.now().minusYears(1L));
+                // the INSERT, on its own; otherwise EclipseLink writes the new value into it, and no UPDATE fires
                 em.flush();
                 final var oldJob = e.getJob();
                 final var oldDepartment = e.getDepartment();
@@ -127,9 +122,7 @@ class Employee_PersistenceIT extends _Persistence_IT<Employee> {
         @Test
         void _NewJobHistoryPopulated_BothChanged() {
             applyNewPersistedTargetInstanceAndRollback((em, e) -> {
-                // well in the past, so the trigger's END_DATE (SYSDATE) is after its START_DATE, as
-                // JHIST_DATE_INTERVAL requires; the randomized hire date may be today, or later
-                e.setHireDate(LocalDateTime.now().minusYears(1L));
+                // the INSERT, on its own; otherwise EclipseLink writes the new value into it, and no UPDATE fires
                 em.flush();
                 final var oldJob = e.getJob();
                 final var oldDepartment = e.getDepartment();

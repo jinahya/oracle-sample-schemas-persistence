@@ -21,11 +21,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 /**
  * Verifies the mappings of {@link Country} against the schema generated into the in-memory database.
  *
@@ -35,15 +30,5 @@ class Country_PersistenceTest extends _Persistence_Test<Country> {
 
     Country_PersistenceTest() {
         super(Country.class);
-    }
-
-    @Nested
-    class Find_Test {
-
-        @Test
-        void __() {
-            final var found = entityManager().find(targetClass, "__");
-            assertThat(found).isNull();
-        }
     }
 }

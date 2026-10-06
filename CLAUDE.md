@@ -93,7 +93,7 @@ usual way.
 `hibernate-jpamodelgen` needs no descriptor; it reads `@Entity` directly. And the canonical
 static metamodel is defined by the specification, so the classes it emits are provider-neutral
 and EclipseLink runs against them unchanged. Every module's `persistence.xml` and `orm-it.xml`
-therefore live in **`src/test/resources/META-INF`**, and the jars carry entities and metamodel
+therefore live under **`src/test/resources/META-INF`**, and the jars carry entities and metamodel
 only.
 
 What this gives up is coverage of EclipseLink's metamodel processor. EclipseLink is still
@@ -113,6 +113,13 @@ the module extends. The shared `__Persistence_Test_Producer` is abstract and sup
 the name. Note that its four `@Produces`/`@Disposes` methods **are overridden in each module
 producer**: CDI does not inherit producer or disposer methods, and an inherited `@Produces` is simply
 not seen -- the injection point fails with `WELD-001408`.
+
+The same goes, as for unit names, for any resource a unit names by path. `orm-it.xml`, which
+sets the IT unit's default schema, lives at `META-INF/<schema>/orm-it.xml` -- `META-INF/co/orm-it.xml`, and so on -- and each
+module's `persistence.xml` names its own. Were all three at `META-INF/orm-it.xml`, one classpath would
+resolve every unit's `<mapping-file>` to the first copy found, and two of the three modules' ITs would
+look for their tables in the wrong schema. Running an abstract base class such as `__Persistence_IT`
+from the IDE does exactly that: it collects the subclasses of every module into one JVM.
 
 Every persistence unit carries `<exclude-unlisted-classes>true</exclude-unlisted-classes>`,
 and it stays: a module deliberately leaves classes out, and the flag is what keeps them out.
