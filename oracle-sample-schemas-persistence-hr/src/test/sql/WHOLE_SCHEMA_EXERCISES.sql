@@ -226,8 +226,7 @@ ORDER BY 1
 -- --------------------------------------------------------------------------- HR-SCHEMA-A-04 Offices with no department
 -- Facilities is reviewing the property list: which locations host no department at all?
 SELECT LOCATION_ID
-FROM LOCATIONS
-MINUS
+FROM LOCATIONS MINUS
 SELECT LOCATION_ID
 FROM DEPARTMENTS
 ;
