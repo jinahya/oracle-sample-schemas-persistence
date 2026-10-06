@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 
-
 /*-
  * #%L
  * sh
@@ -21,14 +20,16 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
+
 /**
- * Verifies the mappings of {@link CountrySection} against the installed {@code SH} schema.
+ * A class for testing the {@link CountrySection} embeddable class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class CountrySection__PersistenceIT extends _Persistence_IT<CountrySection> {
+class CountrySection_Test extends _Test<CountrySection> {
 
-    CountrySection__PersistenceIT() {
+    CountrySection_Test() {
         super(CountrySection.class);
     }
 }

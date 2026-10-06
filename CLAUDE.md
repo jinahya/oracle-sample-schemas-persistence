@@ -15,11 +15,18 @@ directory of the same name and referred to below by its schema (`co`, `hr`, `sh`
 - No dependency on `io.github.jinahya:jinahya-persistence-*`, or on any other
   persistence helper library. Everything the entities need comes from
   `jakarta.persistence`, `jakarta.validation` and `jakarta.annotation`.
-- **Every entity is standalone.** There is no `mapped` package, no
-  `@MappedSuperclass` hierarchy and no builder layer: one class holds its own
-  column constants, fields, accessors, `toString`, and `equals`/`hashCode`. Do not
-  reintroduce a shared entity superclass to remove duplication between entities —
-  the duplication is the point, because it keeps each mapping readable on its own.
+- **Every entity is standalone.** No entity extends a superclass and there is no
+  builder layer: one class holds its own column constants, fields, accessors,
+  `toString`, and `equals`/`hashCode`. Do not introduce a shared entity superclass
+  to remove duplication between entities — the duplication is the point, because
+  it keeps each mapping readable on its own.
+- **The `mapped` package is a parallel, independent mapping.** Each module also
+  exports a `<schema>.mapped` package with one abstract `@MappedSuperclass` per
+  table or view (`MappedCountry`, `MappedStoreOrder`, …), for readers who want to
+  extend a mapping rather than use the concrete entity. The entities do **not**
+  extend these classes; the two sets are kept in step by hand, so a change to an
+  entity's columns, constants or `equals`/`hashCode` is made in its `Mapped*`
+  counterpart too.
 
 ### Member order inside an entity
 

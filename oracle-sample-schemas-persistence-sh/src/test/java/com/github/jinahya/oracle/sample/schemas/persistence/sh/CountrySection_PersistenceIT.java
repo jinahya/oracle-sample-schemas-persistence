@@ -22,13 +22,13 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  */
 
 /**
- * Verifies the mappings of {@link CountrySection} against the schema generated into the in-memory database.
+ * Verifies the mappings of {@link CountrySection} against the installed {@code SH} schema.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class CountrySection__PersistenceTest extends _Persistence_Test<CountrySection> {
+class CountrySection_PersistenceIT extends _Persistence_IT<CountrySection> {
 
-    CountrySection__PersistenceTest() {
+    CountrySection_PersistenceIT() {
         super(CountrySection.class);
     }
 }

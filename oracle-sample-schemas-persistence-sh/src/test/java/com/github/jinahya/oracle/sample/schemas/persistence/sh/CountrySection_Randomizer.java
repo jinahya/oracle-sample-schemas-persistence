@@ -32,9 +32,9 @@ import java.util.List;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class CountrySection__Randomizer extends PodamObjectRandomizer<CountrySection> {
+class CountrySection_Randomizer extends PodamObjectRandomizer<CountrySection> {
 
-    CountrySection__Randomizer() {
+    CountrySection_Randomizer() {
         super(CountrySection.class, List.of(
 
         ));
