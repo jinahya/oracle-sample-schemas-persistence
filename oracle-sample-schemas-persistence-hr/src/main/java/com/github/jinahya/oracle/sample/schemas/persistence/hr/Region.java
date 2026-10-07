@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -200,7 +201,7 @@ public class Region {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public String getRegionName() {
         return regionName;
     }
@@ -210,7 +211,7 @@ public class Region {
      *
      * @param regionName new value for {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
      */
-    public void setRegionName(@jakarta.annotation.Nullable final String regionName) {
+    public void setRegionName(@Nullable final String regionName) {
         this.regionName = regionName;
     }
 
@@ -224,23 +225,25 @@ public class Region {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_REGION_ID, nullable = false, insertable = true, updatable = false)
     private Long regionId;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
     @Size(min = SIZE_MIN_REGION_NAME, max = SIZE_MAX_REGION_NAME)
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_REGION_NAME, nullable = true, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_REGION_NAME)
+    @Column(name = COLUMN_NAME_REGION_NAME,
+            nullable = true,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_REGION_NAME
+    )
     private String regionName;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(
             mappedBy = Country.ATTRIBUTE_NAME_REGION,
             fetch = FetchType.LAZY,
