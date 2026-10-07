@@ -317,7 +317,10 @@ public class JobHistory {
     public String toString() {
         return super.toString() + '{' +
                "employeeId=" + employeeId +
+//               ",employee=" + employee +
                ",startDate=" + startDate +
+//               ",job=" + job +
+//               ",department=" + department +
                '}';
     }
 

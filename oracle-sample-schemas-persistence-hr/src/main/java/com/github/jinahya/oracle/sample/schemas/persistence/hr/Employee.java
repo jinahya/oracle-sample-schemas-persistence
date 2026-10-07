@@ -497,11 +497,14 @@ public class Employee {
                ",email=" + email +
                ",phoneNumber=" + phoneNumber +
                ",hireDate=" + hireDate +
-               ",job=" + job +
+//               ",job=" + job +
                ",salary=" + salary +
                ",commissionPct=" + commissionPct +
-               ",manager=" + manager +
-               ",department=" + department +
+//               ",manager=" + manager +
+//               ",department=" + department +
+//               ",subordinates=" + subordinates +
+//               ",managedDepartments=" + managedDepartments +
+//               ",jobHistories=" + jobHistories +
                '}';
     }
 

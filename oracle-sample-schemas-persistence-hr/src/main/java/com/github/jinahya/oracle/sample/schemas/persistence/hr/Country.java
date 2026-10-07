@@ -36,6 +36,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -56,6 +57,18 @@ import java.util.Objects;
                     SELECT e
                     FROM Country AS e
                     WHERE e.region = :region
+                    ORDER BY e.countryId ASC"""
+)
+@NamedQuery(name = "Country.selectListOrderByCountryNameAsc",
+            query = """
+                    SELECT e
+                    FROM Country AS e
+                    ORDER BY e.countryName ASC"""
+)
+@NamedQuery(name = "Country.selectListOrderByCountryIdAsc",
+            query = """
+                    SELECT e
+                    FROM Country AS e
                     ORDER BY e.countryId ASC"""
 )
 @Entity
@@ -142,6 +155,13 @@ public class Country implements __DomainEntity<String> {
      */
     public static final String ATTRIBUTE_NAME_REGION = "region";
 
+    // -----------------------------------------------------------------------------------------------------------------
+    static final Comparator<Country> comparingCountryId = Comparator.comparing(Country::getCountryId);
+
+    static Comparator<Country> comparingCountryName(final Comparator<? super String> nameComparator) {
+        return Comparator.comparing(Country::getCountryName, nameComparator);
+    }
+
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -157,7 +177,8 @@ public class Country implements __DomainEntity<String> {
         return super.toString() + '{' +
                "countryId=" + countryId +
                ",countryName=" + countryName +
-               ",region=" + region +
+//               ",region=" + region +
+//               ",locations=" + locations +
                '}';
     }
 

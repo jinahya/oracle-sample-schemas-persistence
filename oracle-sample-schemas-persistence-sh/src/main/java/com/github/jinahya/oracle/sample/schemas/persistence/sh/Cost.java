@@ -230,6 +230,10 @@ public class Cost {
     public String toString() {
         return super.toString() + '{' +
                "id=" + id +
+//               ",product=" + product +
+//               ",time=" + time +
+//               ",promotion=" + promotion +
+//               ",channel=" + channel +
                ",unitCost=" + unitCost +
                ",unitPrice=" + unitPrice +
                '}';

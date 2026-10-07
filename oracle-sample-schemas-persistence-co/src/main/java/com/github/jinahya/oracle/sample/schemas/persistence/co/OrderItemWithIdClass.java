@@ -192,7 +192,7 @@ public class OrderItemWithIdClass {
     public String toString() {
         return "OrderItemWithIdClass{" +
                "orderId=" + orderId +
-//               "order=" + order +
+//               ", order=" + order +
                ", lineItemId=" + lineItemId +
 //               ", product=" + product +
                ", unitPrice=" + unitPrice +

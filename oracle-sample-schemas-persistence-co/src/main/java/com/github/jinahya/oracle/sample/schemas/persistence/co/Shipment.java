@@ -321,6 +321,7 @@ public class Shipment {
 //               ",customer=" + customer +
                ",deliveryAddress=" + deliveryAddress +
                ",shipmentStatus=" + shipmentStatus +
+//               ",orderItems=" + orderItems +
                '}';
     }
 

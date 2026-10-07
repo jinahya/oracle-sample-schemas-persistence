@@ -253,6 +253,8 @@ public class Department {
                + ",departmentName=" + departmentName
 //               + ",manager=" + manager
 //               + ",location=" + location
+//               + ",employees=" + employees
+//               + ",jobHistories=" + jobHistories
                + "}";
     }
 

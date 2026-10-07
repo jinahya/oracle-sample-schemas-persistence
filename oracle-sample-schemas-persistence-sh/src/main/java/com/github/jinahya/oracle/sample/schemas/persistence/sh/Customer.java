@@ -510,7 +510,7 @@ public class Customer {
                ",custCityId=" + custCityId +
                ",custStateProvince=" + custStateProvince +
                ",custStateProvinceId=" + custStateProvinceId +
-               ",country=" + country +
+//               ",country=" + country +
                ",custMainPhoneNumber=" + custMainPhoneNumber +
                ",custIncomeLevel=" + custIncomeLevel +
                ",custCreditLimit=" + custCreditLimit +

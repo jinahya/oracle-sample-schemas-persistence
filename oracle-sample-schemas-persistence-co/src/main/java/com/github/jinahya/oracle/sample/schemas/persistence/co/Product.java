@@ -310,6 +310,8 @@ public class Product {
                ",imageFilename=" + imageFilename +
                ",imageCharset=" + imageCharset +
                ",imageLastUpdated=" + imageLastUpdated +
+//               ",orderItems=" + orderItems +
+//               ",inventories=" + inventories +
                '}';
     }
 

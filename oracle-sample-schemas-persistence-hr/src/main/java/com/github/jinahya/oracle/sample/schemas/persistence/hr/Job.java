@@ -260,6 +260,8 @@ public class Job {
                ",jobTitle=" + jobTitle +
                ",minSalary=" + minSalary +
                ",maxSalary=" + maxSalary +
+//               ",employees=" + employees +
+//               ",jobHistories=" + jobHistories +
                '}';
     }
 

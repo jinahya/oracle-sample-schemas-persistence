@@ -186,6 +186,8 @@ public class Customer {
                "customerId=" + customerId +
                ",emailAddress=" + emailAddress +
                ",fullName=" + fullName +
+//               ",orders=" + orders +
+//               ",shipments=" + shipments +
                '}';
     }
 

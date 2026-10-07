@@ -456,6 +456,9 @@ public class Store {
                ",logoFilename=" + logoFilename +
                ",logoCharset=" + logoCharset +
                ",logoLastUpdated=" + logoLastUpdated +
+//               ",orders=" + orders +
+//               ",shipments=" + shipments +
+//               ",inventories=" + inventories +
                '}';
     }
 

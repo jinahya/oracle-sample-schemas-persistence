@@ -320,7 +320,8 @@ public class Location {
                ",postalCode=" + postalCode +
                ",city=" + city +
                ",stateProvince=" + stateProvince +
-               ",country=" + country +
+//               ",country=" + country +
+//               ",departments=" + departments +
                '}';
     }
 

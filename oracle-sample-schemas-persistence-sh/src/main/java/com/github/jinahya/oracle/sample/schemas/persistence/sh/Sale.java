@@ -247,6 +247,11 @@ public class Sale {
     public String toString() {
         return super.toString() + '{' +
                "id=" + id +
+//               ",product=" + product +
+//               ",customer=" + customer +
+//               ",time=" + time +
+//               ",channel=" + channel +
+//               ",promotion=" + promotion +
                ",quantitySold=" + quantitySold +
                ",amountSold=" + amountSold +
                '}';

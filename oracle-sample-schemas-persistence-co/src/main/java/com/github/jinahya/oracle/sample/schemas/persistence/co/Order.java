@@ -280,6 +280,7 @@ public class Order {
 //               ",customer=" + customer +
                ",orderStatus=" + orderStatus +
 //               ",store=" + store +
+//               ",orderItems=" + orderItems +
                '}';
     }
 

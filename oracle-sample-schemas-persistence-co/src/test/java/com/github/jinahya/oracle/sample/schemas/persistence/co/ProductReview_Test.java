@@ -20,7 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.test.__Test;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -28,7 +27,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class ProductReview_Test extends __Test<ProductReview> {
+class ProductReview_Test extends _Test<ProductReview> {
 
     ProductReview_Test() {
         super(ProductReview.class);
