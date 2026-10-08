@@ -25,6 +25,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -39,7 +40,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = Promotion.TABLE_NAME)
-public class Promotion {
+public class Promotion implements __DomainEntity<Integer> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -58,6 +59,16 @@ public class Promotion {
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROMO_ID = 6;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROMO_ID = 0;
 
     // ----------------------------------------------------------------------------------------------------- PROMO_NAME
 
@@ -517,6 +528,7 @@ public class Promotion {
     // --------------------------------------------------------------------------------------------------------------- 
 
     @Id
+    @Digits(integer = COLUMN_PRECISION_PROMO_ID - COLUMN_SCALE_PROMO_ID, fraction = COLUMN_SCALE_PROMO_ID)
     @Column(name = COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
     private Integer promoId;
 
@@ -572,6 +584,7 @@ public class Promotion {
     private Long promoCategoryId;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_PROMO_COST - COLUMN_SCALE_PROMO_COST, fraction = COLUMN_SCALE_PROMO_COST)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROMO_COST,
             nullable = false,

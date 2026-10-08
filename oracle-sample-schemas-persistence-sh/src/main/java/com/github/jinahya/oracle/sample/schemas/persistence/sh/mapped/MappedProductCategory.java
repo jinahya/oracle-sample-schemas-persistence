@@ -19,7 +19,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
  * limitations under the License.
  * #L%
  */
-
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.FetchType;
@@ -29,42 +28,73 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * A superclass for a named section -- a region, a subregion or a total -- of the {@value MappedCountry#TABLE_NAME}
- * table: a name column, and the numeric id column that goes with it.
+ * A superclass for a category -- a category or a subcategory -- of the {@value MappedProduct#TABLE_NAME} table: a
+ * name column, the numeric id column, and the description column that go with it.
  * <p>
- * The class declares no column names: an embedding entity names both columns of each section with
- * {@link jakarta.persistence.AttributeOverride @AttributeOverride}s, e.g. {@code (COUNTRY_SUBREGION,
- * COUNTRY_SUBREGION_ID)} and {@code (COUNTRY_REGION, COUNTRY_REGION_ID)}.
+ * The class declares no column names: an embedding entity names all three columns of each category with
+ * {@link jakarta.persistence.AttributeOverride @AttributeOverride}s.
+ * <table>
+ *   <caption>Categories of the {@value MappedProduct#TABLE_NAME} table</caption>
+ *   <thead>
+ *     <tr>
+ *       <th>category</th>
+ *       <th>{@value #ATTRIBUTE_NAME_NAME}</th>
+ *       <th>{@value #ATTRIBUTE_NAME_ID}</th>
+ *       <th>{@value #ATTRIBUTE_NAME_DESC}</th>
+ *     </tr>
+ *   </thead>
+ *   <tbody>
+ *     <tr>
+ *       <td>subcategory</td>
+ *       <td>{@value MappedProduct#COLUMN_NAME_PROD_SUBCATEGORY}</td>
+ *       <td>{@value MappedProduct#COLUMN_NAME_PROD_SUBCATEGORY_ID}</td>
+ *       <td>{@value MappedProduct#COLUMN_NAME_PROD_SUBCATEGORY_DESC}</td>
+ *     </tr>
+ *     <tr>
+ *       <td>category</td>
+ *       <td>{@value MappedProduct#COLUMN_NAME_PROD_CATEGORY}</td>
+ *       <td>{@value MappedProduct#COLUMN_NAME_PROD_CATEGORY_ID}</td>
+ *       <td>{@value MappedProduct#COLUMN_NAME_PROD_CATEGORY_DESC}</td>
+ *     </tr>
+ *   </tbody>
+ * </table>
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see MappedCountry
+ * @see MappedProduct
  */
 @MappedSuperclass
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public abstract class MappedCountrySection {
+public abstract class MappedProductCategory {
 
     // ------------------------------------------------------------------------------------------------------------ NAME
 
     /**
-     * The name of the attribute which maps the name column of a section. The value is {@value}.
+     * The name of the attribute which maps the name column of a category. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_NAME = "name";
 
     // -------------------------------------------------------------------------------------------------------------- ID
 
     /**
-     * The name of the attribute which maps the id column of a section. The value is {@value}.
+     * The name of the attribute which maps the id column of a category. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID = "id";
+
+    // ------------------------------------------------------------------------------------------------------------ DESC
+
+    /**
+     * The name of the attribute which maps the description column of a category. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_DESC = "desc";
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
      */
-    protected MappedCountrySection() {
+    protected MappedProductCategory() {
         super();
     }
 
@@ -75,6 +105,7 @@ public abstract class MappedCountrySection {
         return super.toString() + '{' +
                "name=" + name +
                ",id=" + id +
+               ",desc=" + desc +
                '}';
     }
 
@@ -83,27 +114,29 @@ public abstract class MappedCountrySection {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by both {@value #ATTRIBUTE_NAME_NAME} and {@value #ATTRIBUTE_NAME_ID}.
+     * @implSpec Equality is by all of {@value #ATTRIBUTE_NAME_NAME}, {@value #ATTRIBUTE_NAME_ID} and
+     * {@value #ATTRIBUTE_NAME_DESC}.
      */
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedCountrySection that)) {
+        if (!(obj instanceof MappedProductCategory that)) {
             return false;
         }
         return Objects.equals(getName(), that.getName())
-               && Objects.equals(getId(), that.getId());
+               && Objects.equals(getId(), that.getId())
+               && Objects.equals(getDesc(), that.getDesc());
     }
 
     /**
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over both {@value #ATTRIBUTE_NAME_NAME} and {@value #ATTRIBUTE_NAME_ID}, consistent with
-     * {@link #equals(Object)}.
+     * @implSpec The hash is over all of {@value #ATTRIBUTE_NAME_NAME}, {@value #ATTRIBUTE_NAME_ID} and
+     * {@value #ATTRIBUTE_NAME_DESC}, consistent with {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
-        return Objects.hash(getName(), getId());
+        return Objects.hash(getName(), getId(), getDesc());
     }
 
     // ------------------------------------------------------------------------------------------------------------ name
@@ -148,12 +181,33 @@ public abstract class MappedCountrySection {
         this.id = id;
     }
 
+    // ------------------------------------------------------------------------------------------------------------ desc
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_DESC} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_DESC} attribute.
+     */
+    @Nonnull
+    public String getDesc() {
+        return desc;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DESC} attribute with the specified value.
+     *
+     * @param desc new value for {@value #ATTRIBUTE_NAME_DESC} attribute.
+     */
+    public void setDesc(@Nonnull final String desc) {
+        this.desc = desc;
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
     @Nonnull
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    // no @Column: the embedding entity defines both columns of each section -- name, length, nullability --
+    // no @Column: the embedding entity defines all three columns of each category -- name, length, nullability --
     // through an @AttributeOverride, which replaces any @Column declared here
     private String name;
 
@@ -161,4 +215,9 @@ public abstract class MappedCountrySection {
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     private Long id;
+
+    @Nonnull
+    @NotNull
+    @Basic(optional = false, fetch = FetchType.EAGER)
+    private String desc;
 }

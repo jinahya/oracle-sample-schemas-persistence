@@ -29,6 +29,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -48,7 +49,7 @@ import java.util.Optional;
  */
 @Entity
 @Table(name = Cost.TABLE_NAME)
-public class Cost {
+public class Cost implements __DomainEntity<CostId> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -481,6 +482,7 @@ public class Cost {
     private Channel channel;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_UNIT_COST - COLUMN_SCALE_UNIT_COST, fraction = COLUMN_SCALE_UNIT_COST)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_COST,
             nullable = false,
@@ -491,6 +493,7 @@ public class Cost {
     private BigDecimal unitCost;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE, fraction = COLUMN_SCALE_UNIT_PRICE)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_PRICE,
             nullable = false,

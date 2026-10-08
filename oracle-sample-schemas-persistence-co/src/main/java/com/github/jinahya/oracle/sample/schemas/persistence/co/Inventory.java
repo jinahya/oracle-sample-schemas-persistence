@@ -72,7 +72,7 @@ import jakarta.validation.constraints.NotNull;
                )
        }
 )
-public class Inventory {
+public class Inventory implements __DomainEntity<Long> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

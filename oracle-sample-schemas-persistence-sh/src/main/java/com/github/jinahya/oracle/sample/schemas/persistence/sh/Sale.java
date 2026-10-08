@@ -29,6 +29,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -48,7 +49,7 @@ import java.util.Optional;
  */
 @Entity
 @Table(name = Sale.TABLE_NAME)
-public class Sale {
+public class Sale implements __DomainEntity<SaleId> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -81,6 +82,16 @@ public class Sale {
      * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID_PROD_ID = "id.prodId";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROD_ID = 6;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROD_ID = 0;
 
     // --------------------------------------------------------------------------------------------------------- CUST_ID
 
@@ -163,6 +174,16 @@ public class Sale {
      */
     public static final String ATTRIBUTE_NAME_ID_CHANNEL_ID = "id.channelId";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_CHANNEL_ID = 1;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_CHANNEL_ID = 0;
+
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
@@ -190,6 +211,16 @@ public class Sale {
      */
     public static final String ATTRIBUTE_NAME_ID_PROMO_ID = "id.promoId";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROMO_ID = 6;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROMO_ID = 0;
+
     // --------------------------------------------------------------------------------------------------- QUANTITY_SOLD
 
     /**
@@ -202,6 +233,16 @@ public class Sale {
      * The name of the attribute which maps the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_QUANTITY_SOLD = "quantitySold";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_QUANTITY_SOLD = 3;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_QUANTITY_SOLD = 0;
 
     // ----------------------------------------------------------------------------------------------------- AMOUNT_SOLD
 
@@ -536,11 +577,14 @@ public class Sale {
     private Promotion promotion;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_QUANTITY_SOLD - COLUMN_SCALE_QUANTITY_SOLD,
+            fraction = COLUMN_SCALE_QUANTITY_SOLD)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_QUANTITY_SOLD, nullable = false, insertable = true, updatable = true)
     private Integer quantitySold;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_AMOUNT_SOLD - COLUMN_SCALE_AMOUNT_SOLD, fraction = COLUMN_SCALE_AMOUNT_SOLD)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_AMOUNT_SOLD,
             nullable = false,

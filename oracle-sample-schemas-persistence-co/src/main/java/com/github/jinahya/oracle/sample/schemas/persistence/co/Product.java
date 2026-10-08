@@ -85,7 +85,7 @@ import java.util.function.Function;
 )
 @Entity
 @Table(name = Product.TABLE_NAME)
-public class Product {
+public class Product implements __DomainEntity<Long> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

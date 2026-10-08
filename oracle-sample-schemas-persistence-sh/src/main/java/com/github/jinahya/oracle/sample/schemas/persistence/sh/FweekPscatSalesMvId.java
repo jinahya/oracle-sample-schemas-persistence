@@ -23,6 +23,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
@@ -249,6 +250,8 @@ public class FweekPscatSalesMvId {
             length = FweekPscatSalesMv.COLUMN_LENGTH_PROD_SUBCATEGORY)
     private String prodSubcategory;
 
+    @Digits(integer = FweekPscatSalesMv.COLUMN_PRECISION_CHANNEL_ID - FweekPscatSalesMv.COLUMN_SCALE_CHANNEL_ID,
+            fraction = FweekPscatSalesMv.COLUMN_SCALE_CHANNEL_ID)
     @Basic(optional = false)
     @Column(name = FweekPscatSalesMv.COLUMN_NAME_CHANNEL_ID,
             nullable = false,
@@ -256,6 +259,8 @@ public class FweekPscatSalesMvId {
             updatable = false)
     private Long channelId;
 
+    @Digits(integer = FweekPscatSalesMv.COLUMN_PRECISION_PROMO_ID - FweekPscatSalesMv.COLUMN_SCALE_PROMO_ID,
+            fraction = FweekPscatSalesMv.COLUMN_SCALE_PROMO_ID)
     @Basic(optional = false)
     @Column(name = FweekPscatSalesMv.COLUMN_NAME_PROMO_ID,
             nullable = false,

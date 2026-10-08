@@ -20,6 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 /**
  * Verifies the mappings of {@link Profit} against the installed {@code SH} schema.
  *
@@ -29,5 +32,18 @@ class Profit_PersistenceIT extends _Persistence_IT<Profit> {
 
     Profit_PersistenceIT() {
         super(Profit.class);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Does nothing; {@value Profit#TABLE_NAME} is a view, so there is nothing to insert a randomized instance into. The
+     * installed object is read-only.
+     */
+    @Disabled("a view: nothing is inserted into it")
+    @Override
+    @Test
+    protected void _persist_RandomizedInstance() {
+        // empty
     }
 }

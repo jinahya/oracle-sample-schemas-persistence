@@ -24,6 +24,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -56,6 +57,16 @@ public abstract class MappedProduct {
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROD_ID = 6;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROD_ID = 0;
 
     // ------------------------------------------------------------------------------------------------------- PROD_NAME
 
@@ -236,6 +247,16 @@ public abstract class MappedProduct {
      */
     public static final String ATTRIBUTE_NAME_PROD_WEIGHT_CLASS = "prodWeightClass";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_PROD_WEIGHT_CLASS} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROD_WEIGHT_CLASS = 3;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROD_WEIGHT_CLASS} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROD_WEIGHT_CLASS = 0;
+
     // -------------------------------------------------------------------------------------------- PROD_UNIT_OF_MEASURE
 
     /**
@@ -295,6 +316,16 @@ public abstract class MappedProduct {
      * The name of the attribute which maps the {@value #COLUMN_NAME_SUPPLIER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SUPPLIER_ID = "supplierId";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_SUPPLIER_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_SUPPLIER_ID = 6;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_SUPPLIER_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_SUPPLIER_ID = 0;
 
     // ----------------------------------------------------------------------------------------------------- PROD_STATUS
 
@@ -970,6 +1001,7 @@ public abstract class MappedProduct {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Id
+    @Digits(integer = COLUMN_PRECISION_PROD_ID - COLUMN_SCALE_PROD_ID, fraction = COLUMN_SCALE_PROD_ID)
     @Column(name = COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
     private Integer prodId;
 
@@ -1058,6 +1090,8 @@ public abstract class MappedProduct {
     private String prodCategoryDesc;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_PROD_WEIGHT_CLASS - COLUMN_SCALE_PROD_WEIGHT_CLASS,
+            fraction = COLUMN_SCALE_PROD_WEIGHT_CLASS)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROD_WEIGHT_CLASS,
             nullable = false,
@@ -1088,6 +1122,7 @@ public abstract class MappedProduct {
     private String prodPackSize;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_SUPPLIER_ID - COLUMN_SCALE_SUPPLIER_ID, fraction = COLUMN_SCALE_SUPPLIER_ID)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_SUPPLIER_ID,
             nullable = false,
@@ -1108,6 +1143,8 @@ public abstract class MappedProduct {
     private String prodStatus;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_PROD_LIST_PRICE - COLUMN_SCALE_PROD_LIST_PRICE,
+            fraction = COLUMN_SCALE_PROD_LIST_PRICE)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROD_LIST_PRICE,
             nullable = false,
@@ -1119,6 +1156,8 @@ public abstract class MappedProduct {
     private BigDecimal prodListPrice;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_PROD_MIN_PRICE - COLUMN_SCALE_PROD_MIN_PRICE,
+            fraction = COLUMN_SCALE_PROD_MIN_PRICE)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROD_MIN_PRICE,
             nullable = false,

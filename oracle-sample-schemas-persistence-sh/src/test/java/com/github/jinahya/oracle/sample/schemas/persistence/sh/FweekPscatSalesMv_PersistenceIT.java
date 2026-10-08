@@ -20,6 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 /**
  * Verifies the mappings of {@link FweekPscatSalesMv} against the installed {@code SH} schema.
  *
@@ -29,5 +32,18 @@ class FweekPscatSalesMv_PersistenceIT extends _Persistence_IT<FweekPscatSalesMv>
 
     FweekPscatSalesMv_PersistenceIT() {
         super(FweekPscatSalesMv.class);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Does nothing; {@value FweekPscatSalesMv#TABLE_NAME} is a materialized view, so there is nothing to insert a
+     * randomized instance into. The installed object is read-only.
+     */
+    @Disabled("a materialized view: nothing is inserted into it")
+    @Override
+    @Test
+    protected void _persist_RandomizedInstance() {
+        // empty
     }
 }

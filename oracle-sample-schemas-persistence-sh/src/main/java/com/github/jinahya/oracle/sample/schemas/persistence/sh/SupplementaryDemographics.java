@@ -25,6 +25,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
@@ -36,7 +37,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = SupplementaryDemographics.TABLE_NAME)
-public class SupplementaryDemographics {
+public class SupplementaryDemographics implements __DomainEntity<Long> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -151,6 +152,16 @@ public class SupplementaryDemographics {
      */
     public static final String ATTRIBUTE_NAME_AFFINITY_CARD = "affinityCard";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_AFFINITY_CARD} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_AFFINITY_CARD = 10;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_AFFINITY_CARD} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_AFFINITY_CARD = 0;
+
     // -------------------------------------------------------------------------------------------------------- CRICKET
 
     /**
@@ -163,6 +174,16 @@ public class SupplementaryDemographics {
      * The name of the attribute which maps the {@value #COLUMN_NAME_CRICKET} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CRICKET = "cricket";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_CRICKET} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_CRICKET = 10;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_CRICKET} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_CRICKET = 0;
 
     // ------------------------------------------------------------------------------------------------------- BASEBALL
 
@@ -177,6 +198,16 @@ public class SupplementaryDemographics {
      */
     public static final String ATTRIBUTE_NAME_BASEBALL = "baseball";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_BASEBALL} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_BASEBALL = 10;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_BASEBALL} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_BASEBALL = 0;
+
     // --------------------------------------------------------------------------------------------------------- TENNIS
 
     /**
@@ -188,6 +219,16 @@ public class SupplementaryDemographics {
      * The name of the attribute which maps the {@value #COLUMN_NAME_TENNIS} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_TENNIS = "tennis";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_TENNIS} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_TENNIS = 10;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_TENNIS} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_TENNIS = 0;
 
     // --------------------------------------------------------------------------------------------------------- SOCCER
 
@@ -201,6 +242,16 @@ public class SupplementaryDemographics {
      */
     public static final String ATTRIBUTE_NAME_SOCCER = "soccer";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_SOCCER} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_SOCCER = 10;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_SOCCER} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_SOCCER = 0;
+
     // ----------------------------------------------------------------------------------------------------------- GOLF
 
     /**
@@ -212,6 +263,16 @@ public class SupplementaryDemographics {
      * The name of the attribute which maps the {@value #COLUMN_NAME_GOLF} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_GOLF = "golf";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_GOLF} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_GOLF = 10;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_GOLF} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_GOLF = 0;
 
     // -------------------------------------------------------------------------------------------------------- UNKNOWN
 
@@ -226,6 +287,16 @@ public class SupplementaryDemographics {
      */
     public static final String ATTRIBUTE_NAME_UNKNOWN = "unknown";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_UNKNOWN} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_UNKNOWN = 10;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_UNKNOWN} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_UNKNOWN = 0;
+
     // ----------------------------------------------------------------------------------------------------------- MISC
 
     /**
@@ -237,6 +308,16 @@ public class SupplementaryDemographics {
      * The name of the attribute which maps the {@value #COLUMN_NAME_MISC} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_MISC = "misc";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_MISC} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_MISC = 10;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_MISC} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_MISC = 0;
 
     // ------------------------------------------------------------------------------------------------------- COMMENTS
 
@@ -643,6 +724,8 @@ public class SupplementaryDemographics {
     )
     private Long yrsResidence;
 
+    @Digits(integer = COLUMN_PRECISION_AFFINITY_CARD - COLUMN_SCALE_AFFINITY_CARD,
+            fraction = COLUMN_SCALE_AFFINITY_CARD)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_AFFINITY_CARD,
             nullable = true,
@@ -651,6 +734,7 @@ public class SupplementaryDemographics {
     )
     private Long affinityCard;
 
+    @Digits(integer = COLUMN_PRECISION_CRICKET - COLUMN_SCALE_CRICKET, fraction = COLUMN_SCALE_CRICKET)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_CRICKET,
             nullable = true,
@@ -659,6 +743,7 @@ public class SupplementaryDemographics {
     )
     private Long cricket;
 
+    @Digits(integer = COLUMN_PRECISION_BASEBALL - COLUMN_SCALE_BASEBALL, fraction = COLUMN_SCALE_BASEBALL)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_BASEBALL,
             nullable = true,
@@ -667,6 +752,7 @@ public class SupplementaryDemographics {
     )
     private Long baseball;
 
+    @Digits(integer = COLUMN_PRECISION_TENNIS - COLUMN_SCALE_TENNIS, fraction = COLUMN_SCALE_TENNIS)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_TENNIS,
             nullable = true,
@@ -675,6 +761,7 @@ public class SupplementaryDemographics {
     )
     private Long tennis;
 
+    @Digits(integer = COLUMN_PRECISION_SOCCER - COLUMN_SCALE_SOCCER, fraction = COLUMN_SCALE_SOCCER)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_SOCCER,
             nullable = true,
@@ -683,6 +770,7 @@ public class SupplementaryDemographics {
     )
     private Long soccer;
 
+    @Digits(integer = COLUMN_PRECISION_GOLF - COLUMN_SCALE_GOLF, fraction = COLUMN_SCALE_GOLF)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_GOLF,
             nullable = true,
@@ -691,6 +779,7 @@ public class SupplementaryDemographics {
     )
     private Long golf;
 
+    @Digits(integer = COLUMN_PRECISION_UNKNOWN - COLUMN_SCALE_UNKNOWN, fraction = COLUMN_SCALE_UNKNOWN)
     @Basic(optional = true)
     // quoted: UNKNOWN is a reserved identifier -- H2 rejects the generated DDL without the quotes, and the quoted
     // name is the upper-case one Oracle holds, so the mapping stays correct against the installed schema too
@@ -701,6 +790,7 @@ public class SupplementaryDemographics {
     )
     private Long unknown;
 
+    @Digits(integer = COLUMN_PRECISION_MISC - COLUMN_SCALE_MISC, fraction = COLUMN_SCALE_MISC)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_MISC,
             nullable = true,

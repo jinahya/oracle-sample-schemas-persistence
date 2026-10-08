@@ -20,10 +20,12 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
  * #L%
  */
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -32,6 +34,14 @@ import java.util.Objects;
 
 /**
  * A mapped superclass which holds the mappings of the {@value MappedCustomer#TABLE_NAME} table.
+ * <p>
+ * The {@value MappedCustomer#COLUMN_NAME_COUNTRY_ID} column is mapped read-only
+ * ({@code insertable = false, updatable = false}), with a {@code protected} getter and no setter, for
+ * {@link #toString()} and for queries. How the relationship behind each is mapped -- fetch type, cascade, whether there
+ * is an association at all -- is the extending entity's decision, so the extending entity also owns its writable
+ * mapping, by an association's {@link jakarta.persistence.JoinColumn @JoinColumn} or by an
+ * {@link jakarta.persistence.AttributeOverride @AttributeOverride}. <strong>An extending entity which maps neither
+ * never writes it.</strong> Being read-only, it is populated by a load or a refresh only.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -137,6 +147,16 @@ public abstract class MappedCustomer {
      * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_YEAR_OF_BIRTH} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH = "custYearOfBirth";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_CUST_YEAR_OF_BIRTH} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_CUST_YEAR_OF_BIRTH = 4;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_CUST_YEAR_OF_BIRTH} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_CUST_YEAR_OF_BIRTH = 0;
 
     // --------------------------------------------------------------------------------------------- CUST_MARITAL_STATUS
 
@@ -786,21 +806,16 @@ public abstract class MappedCustomer {
     // ------------------------------------------------------------------------------------------------------- countryId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute, which is {@code null} until this
+     * instance is loaded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
+     * @apiNote This method is {@code protected}, not package-private, so that a lazy proxy, which is a subclass in
+     * another package, can override it.
      */
-    public Long getCountryId() {
+    @Nullable
+    protected Long getCountryId() {
         return countryId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the specified value.
-     *
-     * @param countryId new value for {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
-     */
-    protected void setCountryId(final Long countryId) {
-        this.countryId = countryId;
     }
 
     // --------------------------------------------------------------------------------------------- custMainPhoneNumber
@@ -1042,6 +1057,8 @@ public abstract class MappedCustomer {
     private String custGender;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_CUST_YEAR_OF_BIRTH - COLUMN_SCALE_CUST_YEAR_OF_BIRTH,
+            fraction = COLUMN_SCALE_CUST_YEAR_OF_BIRTH)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_CUST_YEAR_OF_BIRTH,
             nullable = false,
@@ -1122,12 +1139,11 @@ public abstract class MappedCustomer {
     )
     private Long custStateProvinceId;
 
-    @NotNull
-    @Basic(optional = false)
+    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
     @Column(name = COLUMN_NAME_COUNTRY_ID,
             nullable = false,
-            insertable = true,
-            updatable = true
+            insertable = false,
+            updatable = false
     )
     private Long countryId;
 

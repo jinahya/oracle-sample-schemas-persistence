@@ -63,7 +63,7 @@ import java.util.Optional;
                     WHERE e.storeName = :storeName""")
 @Entity
 @Table(name = Store.TABLE_NAME)
-public class Store {
+public class Store implements __DomainEntity<Long> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

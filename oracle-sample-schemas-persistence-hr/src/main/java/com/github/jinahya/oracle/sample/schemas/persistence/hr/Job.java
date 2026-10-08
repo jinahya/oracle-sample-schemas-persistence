@@ -59,7 +59,7 @@ import java.util.Objects;
 )
 @Entity
 @Table(name = Job.TABLE_NAME)
-public class Job {
+public class Job implements __DomainEntity<String> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -553,9 +553,6 @@ public class Job {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Size(min = SIZE_MIN_JOB_ID, max = SIZE_MAX_JOB_ID)
     @NotNull
@@ -568,6 +565,7 @@ public class Job {
     )
     private String jobId;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Size(min = SIZE_MIN_JOB_TITLE, max = SIZE_MAX_JOB_TITLE)
     @NotNull
@@ -605,6 +603,7 @@ public class Job {
     )
     private Integer maxSalary;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = Employee.ATTRIBUTE_NAME_JOB,
                fetch = FetchType.LAZY,
                cascade = {
@@ -613,6 +612,7 @@ public class Job {
     )
     private List<@Valid @NotNull Employee> employees;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = JobHistory.ATTRIBUTE_NAME_JOB,
                fetch = FetchType.LAZY,
                cascade = {

@@ -21,11 +21,11 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co.mapped;
  */
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,6 +36,14 @@ import java.time.LocalDateTime;
 
 /**
  * An entity class for mapping the {@value MappedOrder#TABLE_NAME} table.
+ * <p>
+ * The {@value MappedOrder#COLUMN_NAME_CUSTOMER_ID} and {@value MappedOrder#COLUMN_NAME_STORE_ID} columns are mapped
+ * read-only ({@code insertable = false, updatable = false}), with a {@code protected} getter and no setter, for
+ * {@link #toString()} and for queries. How the relationship behind each is mapped -- fetch type, cascade, whether there
+ * is an association at all -- is the extending entity's decision, so the extending entity also owns their writable
+ * mapping, by an association's {@link jakarta.persistence.JoinColumn @JoinColumn} or by an
+ * {@link jakarta.persistence.AttributeOverride @AttributeOverride}. <strong>An extending entity which maps neither
+ * never writes them.</strong> Being read-only, they are populated by a load or a refresh only.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -310,22 +318,16 @@ public abstract class MappedOrder implements __MappedDomainEntity<Long> {
     // ------------------------------------------------------------------------------------------------------ customerId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute, which is {@code null} until this
+     * instance is loaded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
+     * @apiNote This method is {@code protected}, not package-private, so that a lazy proxy, which is a subclass in
+     * another package, can override it.
      */
-    @Nonnull
-    public Long getCustomerId() {
+    @Nullable
+    protected Long getCustomerId() {
         return customerId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute with the specified value.
-     *
-     * @param customerId new value for {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
-     */
-    protected void setCustomerId(@Nonnull final Long customerId) {
-        this.customerId = customerId;
     }
 
     // ----------------------------------------------------------------------------------------------------- orderStatus
@@ -352,22 +354,16 @@ public abstract class MappedOrder implements __MappedDomainEntity<Long> {
     // --------------------------------------------------------------------------------------------------------- storeId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute, which is {@code null} until this
+     * instance is loaded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
+     * @apiNote This method is {@code protected}, not package-private, so that a lazy proxy, which is a subclass in
+     * another package, can override it.
      */
-    @Nonnull
-    public Long getStoreId() {
+    @Nullable
+    protected Long getStoreId() {
         return storeId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute with the specified value.
-     *
-     * @param storeId new value for {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
-     */
-    protected void setStoreId(@Nonnull final Long storeId) {
-        this.storeId = storeId;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -391,10 +387,8 @@ public abstract class MappedOrder implements __MappedDomainEntity<Long> {
     private LocalDateTime orderTms;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @NotNull
-    @Basic(optional = false, fetch = FetchType.LAZY)
-    @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
+    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false)
     private Long customerId;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -407,9 +401,7 @@ public abstract class MappedOrder implements __MappedDomainEntity<Long> {
     private OrderStatus orderStatus;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
+    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
     private Long storeId;
 }

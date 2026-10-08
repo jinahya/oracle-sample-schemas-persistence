@@ -38,6 +38,14 @@ import java.util.Objects;
 /**
  * A mapped superclass which holds the mappings of the {@value MappedOrderItem#TABLE_NAME} table, except for its
  * identifier.
+ * <p>
+ * The {@value MappedOrderItem#COLUMN_NAME_PRODUCT_ID} and {@value MappedOrderItem#COLUMN_NAME_SHIPMENT_ID} columns are
+ * mapped read-only ({@code insertable = false, updatable = false}), with a {@code protected} getter and no setter, for
+ * {@link #toString()} and for queries. How the relationship behind each is mapped -- fetch type, cascade, whether there
+ * is an association at all -- is the extending entity's decision, so the extending entity also owns their writable
+ * mapping, by an association's {@link jakarta.persistence.JoinColumn @JoinColumn} or by an
+ * {@link jakarta.persistence.AttributeOverride @AttributeOverride}. <strong>An extending entity which maps neither
+ * never writes them.</strong> Being read-only, they are populated by a load or a refresh only.
  *
  * @param <T> the type of the identifier; a subclass maps it as it chooses, and exposes it through {@link #getId_()}.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
@@ -304,22 +312,16 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     // ------------------------------------------------------------------------------------------------------- productId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute, which is {@code null} until this
+     * instance is loaded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
+     * @apiNote This method is {@code protected}, not package-private, so that a lazy proxy, which is a subclass in
+     * another package, can override it.
      */
-    @Nonnull
-    public Long getProductId() {
+    @Nullable
+    protected Long getProductId() {
         return productId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute with the specified value.
-     *
-     * @param productId new value for {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
-     */
-    protected void setProductId(@Nonnull final Long productId) {
-        this.productId = productId;
     }
 
     // ------------------------------------------------------------------------------------------------------- unitPrice
@@ -365,31 +367,23 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     // ------------------------------------------------------------------------------------------------------ shipmentId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute, which is {@code null} until this
+     * instance is loaded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute; {@code null} when not yet shipped.
+     * @apiNote This method is {@code protected}, not package-private, so that a lazy proxy, which is a subclass in
+     * another package, can override it.
      */
     @Nullable
-    public Long getShipmentId() {
+    protected Long getShipmentId() {
         return shipmentId;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute with the specified value.
-     *
-     * @param shipmentId new value for {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute; {@code null} for not shipped.
-     */
-    protected void setShipmentId(@Nullable final Long shipmentId) {
-        this.shipmentId = shipmentId;
-    }
-
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @NotNull
-    @Basic(optional = false)
+    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
     @Column(name = COLUMN_NAME_PRODUCT_ID,
             nullable = false,
-            insertable = true,
+            insertable = false,
             updatable = false
     )
     private Long productId;
@@ -416,9 +410,8 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     private Long quantity;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nullable
-    @Basic(optional = true)
-    @Column(name = COLUMN_NAME_SHIPMENT_ID, nullable = true, insertable = true, updatable = true)
+    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    @Column(name = COLUMN_NAME_SHIPMENT_ID, nullable = true, insertable = false, updatable = false)
     private Long shipmentId;
 
     // -----------------------------------------------------------------------------------------------------------------

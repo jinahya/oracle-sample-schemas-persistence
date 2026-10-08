@@ -22,6 +22,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
@@ -267,6 +268,8 @@ public abstract class MappedProfitId {
 
     // -----------------------------------------------------------------------------------------------------------------
     @NotNull
+    @Digits(integer = MappedProfit.COLUMN_PRECISION_CHANNEL_ID - MappedProfit.COLUMN_SCALE_CHANNEL_ID,
+            fraction = MappedProfit.COLUMN_SCALE_CHANNEL_ID)
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
@@ -283,6 +286,8 @@ public abstract class MappedProfitId {
     private Long custId;
 
     @NotNull
+    @Digits(integer = MappedProfit.COLUMN_PRECISION_PROD_ID - MappedProfit.COLUMN_SCALE_PROD_ID,
+            fraction = MappedProfit.COLUMN_SCALE_PROD_ID)
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
@@ -291,6 +296,8 @@ public abstract class MappedProfitId {
     private Integer prodId;
 
     @NotNull
+    @Digits(integer = MappedProfit.COLUMN_PRECISION_PROMO_ID - MappedProfit.COLUMN_SCALE_PROMO_ID,
+            fraction = MappedProfit.COLUMN_SCALE_PROMO_ID)
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the

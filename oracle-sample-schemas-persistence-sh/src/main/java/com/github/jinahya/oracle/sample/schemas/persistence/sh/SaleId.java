@@ -23,6 +23,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.Digits;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -259,6 +260,7 @@ public class SaleId {
 
     // ---------------------------------------------------------------------------------------------------------------- 
 
+    @Digits(integer = Sale.COLUMN_PRECISION_PROD_ID - Sale.COLUMN_SCALE_PROD_ID, fraction = Sale.COLUMN_SCALE_PROD_ID)
     @Basic(optional = false)
     @Column(name = Sale.COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
     private Integer prodId;
@@ -271,10 +273,14 @@ public class SaleId {
     @Column(name = Sale.COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
     private LocalDateTime timeId;
 
+    @Digits(integer = Sale.COLUMN_PRECISION_CHANNEL_ID - Sale.COLUMN_SCALE_CHANNEL_ID,
+            fraction = Sale.COLUMN_SCALE_CHANNEL_ID)
     @Basic(optional = false)
     @Column(name = Sale.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
     private Long channelId;
 
+    @Digits(integer = Sale.COLUMN_PRECISION_PROMO_ID - Sale.COLUMN_SCALE_PROMO_ID,
+            fraction = Sale.COLUMN_SCALE_PROMO_ID)
     @Basic(optional = false)
     @Column(name = Sale.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
     private Integer promoId;

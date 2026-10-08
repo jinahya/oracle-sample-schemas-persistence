@@ -80,7 +80,7 @@ import java.util.function.Function;
                )
        }
 )
-public class JobHistory {
+public class JobHistory implements __DomainEntity<JobHistoryId> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

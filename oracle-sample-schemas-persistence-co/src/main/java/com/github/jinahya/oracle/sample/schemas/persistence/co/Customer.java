@@ -75,7 +75,7 @@ import java.util.Objects;
 )
 @Entity
 @Table(name = Customer.TABLE_NAME)
-public class Customer {
+public class Customer implements __DomainEntity<Long> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

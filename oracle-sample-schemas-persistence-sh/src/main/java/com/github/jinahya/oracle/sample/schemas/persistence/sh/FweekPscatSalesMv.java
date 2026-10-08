@@ -26,6 +26,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -44,7 +45,7 @@ import java.util.Optional;
 @Entity
 @IdClass(FweekPscatSalesMvId.class)
 @Table(name = FweekPscatSalesMv.TABLE_NAME)
-public class FweekPscatSalesMv {
+public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
 
     /**
      * The name of the database materialized view to which this entity class maps. The value is {@value}.
@@ -113,6 +114,16 @@ public class FweekPscatSalesMv {
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_CHANNEL_ID = 1;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_CHANNEL_ID = 0;
+
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
@@ -125,6 +136,16 @@ public class FweekPscatSalesMv {
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROMO_ID = 6;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROMO_ID = 0;
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -342,6 +363,7 @@ public class FweekPscatSalesMv {
 
     @Id
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_CHANNEL_ID - COLUMN_SCALE_CHANNEL_ID, fraction = COLUMN_SCALE_CHANNEL_ID)
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
@@ -351,6 +373,7 @@ public class FweekPscatSalesMv {
 
     @Id
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_PROMO_ID - COLUMN_SCALE_PROMO_ID, fraction = COLUMN_SCALE_PROMO_ID)
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the

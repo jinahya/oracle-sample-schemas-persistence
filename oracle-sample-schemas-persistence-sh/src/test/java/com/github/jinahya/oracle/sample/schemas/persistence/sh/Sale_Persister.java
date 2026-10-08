@@ -24,10 +24,16 @@ import com.github.jinahya.persistence.test.util.AbstractEntityPersister;
 import com.github.jinahya.persistence.test.util.EntityPersisterUtils;
 import jakarta.persistence.EntityManager;
 
+import java.util.stream.LongStream;
+
 /**
  * A persister which persists {@link Sale} instances. Each instance is first given newly persisted {@link Product},
  * {@link Customer}, {@link Time}, {@link Channel} and {@link Promotion} rows, and their keys copied into the composite
  * identifier, because every column of that identifier is a foreign key.
+ * <p>
+ * The {@link Channel} is the exception: {@code CHANNELS.CHANNEL_ID} is an unbounded {@code NUMBER}, while the
+ * {@code SALES.CHANNEL_ID} referencing it holds {@value Sale#COLUMN_PRECISION_CHANNEL_ID} digit(s) only, so a randomized
+ * channel key does not fit a sale. The channel is given the lowest key which fits and is not taken yet.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -58,15 +64,29 @@ class Sale_Persister extends AbstractEntityPersister<Sale> {
         entityInstance.setCustId(
                 EntityPersisterUtils.newPersistedInstanceOf(entityManager, Customer.class).getCustId()
         );
-        entityInstance.setTimeId(
-                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Time.class).getTimeId()
-        );
-        entityInstance.setChannelId(
-                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Channel.class).getChannelId()
-        );
+        entityInstance.setTimeId(Time_Persister.newPersistedInstanceBeforeEarliest(entityManager).getTimeId());
+        final var channel = new Channel_Randomizer().get();
+        channel.setChannelId(freeChannelId(entityManager));
+        entityInstance.setChannelId(new Channel_Persister().apply(entityManager, channel).getChannelId());
         entityInstance.setPromoId(
                 EntityPersisterUtils.newPersistedInstanceOf(entityManager, Promotion.class).getPromoId()
         );
         return super.apply(entityManager, entityInstance);
+    }
+
+    /**
+     * Returns the lowest channel key which fits {@code SALES.CHANNEL_ID} and is not taken by a {@link Channel} yet.
+     */
+    private static Long freeChannelId(final EntityManager entityManager) {
+        final var bound = (long) Math.pow(10, Sale.COLUMN_PRECISION_CHANNEL_ID - Sale.COLUMN_SCALE_CHANNEL_ID);
+        final var taken = entityManager
+                .createQuery("SELECT c.channelId FROM Channel c WHERE c.channelId < :bound", Long.class)
+                .setParameter("bound", bound)
+                .getResultList();
+        return LongStream.range(0L, bound)
+                .filter(v -> !taken.contains(v))
+                .boxed()
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("no channel key below " + bound + " is free"));
     }
 }

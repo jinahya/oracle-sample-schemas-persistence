@@ -26,6 +26,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -43,7 +44,7 @@ import java.util.Optional;
 @Entity
 @IdClass(ProfitId.class)
 @Table(name = Profit.TABLE_NAME)
-public class Profit {
+public class Profit implements __DomainEntity<ProfitId> {
 
     /**
      * The name of the database view to which this entity class maps. The value is {@value}.
@@ -62,6 +63,16 @@ public class Profit {
      * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_CHANNEL_ID = 1;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_CHANNEL_ID = 0;
 
     // --------------------------------------------------------------------------------------------------------- CUST_ID
 
@@ -87,6 +98,16 @@ public class Profit {
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROD_ID = 6;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROD_ID = 0;
+
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
@@ -99,6 +120,16 @@ public class Profit {
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROMO_ID = 6;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROMO_ID = 0;
 
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
@@ -193,6 +224,16 @@ public class Profit {
      * The name of the attribute which maps the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_QUANTITY_SOLD = "quantitySold";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_QUANTITY_SOLD = 3;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_QUANTITY_SOLD = 0;
 
     // ------------------------------------------------------------------------------------------------------ TOTAL_COST
 
@@ -510,6 +551,7 @@ public class Profit {
 
     @Id
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_CHANNEL_ID - COLUMN_SCALE_CHANNEL_ID, fraction = COLUMN_SCALE_CHANNEL_ID)
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
@@ -528,6 +570,7 @@ public class Profit {
 
     @Id
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_PROD_ID - COLUMN_SCALE_PROD_ID, fraction = COLUMN_SCALE_PROD_ID)
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
@@ -537,6 +580,7 @@ public class Profit {
 
     @Id
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_PROMO_ID - COLUMN_SCALE_PROMO_ID, fraction = COLUMN_SCALE_PROMO_ID)
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
@@ -554,6 +598,7 @@ public class Profit {
     private LocalDateTime timeId;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_UNIT_COST - COLUMN_SCALE_UNIT_COST, fraction = COLUMN_SCALE_UNIT_COST)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_COST,
             nullable = false,
@@ -564,6 +609,7 @@ public class Profit {
     private BigDecimal unitCost;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE, fraction = COLUMN_SCALE_UNIT_PRICE)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_PRICE,
             nullable = false,
@@ -574,6 +620,7 @@ public class Profit {
     private BigDecimal unitPrice;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_AMOUNT_SOLD - COLUMN_SCALE_AMOUNT_SOLD, fraction = COLUMN_SCALE_AMOUNT_SOLD)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_AMOUNT_SOLD,
             nullable = false,
@@ -584,6 +631,8 @@ public class Profit {
     private BigDecimal amountSold;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_QUANTITY_SOLD - COLUMN_SCALE_QUANTITY_SOLD,
+            fraction = COLUMN_SCALE_QUANTITY_SOLD)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_QUANTITY_SOLD, nullable = false, insertable = false, updatable = false)
     private Integer quantitySold;

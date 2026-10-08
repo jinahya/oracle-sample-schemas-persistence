@@ -179,6 +179,15 @@ public abstract class __Persistence_IT<T> extends ___Test<T> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Test
+    protected void _persist_RandomizedInstance() {
+        applyNewPersistedTargetInstanceAndRollback((em, v) -> {
+            em.flush();
+            return null;
+        });
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     /**
      * Selects a random instance of {@link #targetClass}, from the installed schema, and hands it to

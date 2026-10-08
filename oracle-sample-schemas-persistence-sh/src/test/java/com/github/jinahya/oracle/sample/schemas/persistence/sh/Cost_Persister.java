@@ -55,9 +55,7 @@ class Cost_Persister extends AbstractEntityPersister<Cost> {
         entityInstance.setProdId(
                 EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class).getProdId()
         );
-        entityInstance.setTimeId(
-                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Time.class).getTimeId()
-        );
+        entityInstance.setTimeId(Time_Persister.newPersistedInstanceBeforeEarliest(entityManager).getTimeId());
         entityInstance.setPromoId(
                 EntityPersisterUtils.newPersistedInstanceOf(entityManager, Promotion.class).getPromoId()
         );

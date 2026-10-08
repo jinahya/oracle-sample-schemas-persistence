@@ -36,6 +36,14 @@ import java.util.Objects;
 
 /**
  * A mapped superclass which holds the mappings of the {@value MappedLocation#TABLE_NAME} table.
+ * <p>
+ * The {@value MappedLocation#COLUMN_NAME_COUNTRY_ID} column is mapped read-only
+ * ({@code insertable = false, updatable = false}), with a {@code protected} getter and no setter, for
+ * {@link #toString()} and for queries. How the relationship behind each is mapped -- fetch type, cascade, whether there
+ * is an association at all -- is the extending entity's decision, so the extending entity also owns its writable
+ * mapping, by an association's {@link jakarta.persistence.JoinColumn @JoinColumn} or by an
+ * {@link jakarta.persistence.AttributeOverride @AttributeOverride}. <strong>An extending entity which maps neither
+ * never writes it.</strong> Being read-only, it is populated by a load or a refresh only.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -391,22 +399,16 @@ public abstract class MappedLocation {
     // ------------------------------------------------------------------------------------------------------- countryId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute, which is {@code null} until this
+     * instance is loaded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
+     * @apiNote This method is {@code protected}, not package-private, so that a lazy proxy, which is a subclass in
+     * another package, can override it.
      */
     @Nullable
-    public String getCountryId() {
+    protected String getCountryId() {
         return countryId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the specified value.
-     *
-     * @param countryId new value for {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
-     */
-    protected void setCountryId(@Nullable final String countryId) {
-        this.countryId = countryId;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -471,13 +473,11 @@ public abstract class MappedLocation {
     private String stateProvince;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nullable
-    @Size(min = SIZE_MIN_COUNTRY_ID, max = SIZE_MAX_COUNTRY_ID)
-    @Basic(optional = COLUMN_NULLABLE_COUNTRY_ID)
+    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
     @Column(name = COLUMN_NAME_COUNTRY_ID,
             nullable = COLUMN_NULLABLE_COUNTRY_ID,
-            insertable = true,
-            updatable = true,
+            insertable = false,
+            updatable = false,
             length = COLUMN_LENGTH_COUNTRY_ID
     )
     private String countryId;

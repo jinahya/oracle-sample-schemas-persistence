@@ -52,7 +52,7 @@ import java.util.Optional;
  */
 @Entity
 @Table(name = Employee.TABLE_NAME)
-public class Employee {
+public class Employee implements __DomainEntity<Integer> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

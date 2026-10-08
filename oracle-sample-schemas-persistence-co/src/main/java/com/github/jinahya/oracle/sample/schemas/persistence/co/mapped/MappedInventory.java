@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co.mapped;
  */
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
@@ -29,14 +30,24 @@ import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 
-import java.util.Objects;
-
 /**
  * A mapped superclass which holds the mappings of the {@value MappedInventory#TABLE_NAME} table.
  * <p>
  * A mapped superclass cannot carry a {@link jakarta.persistence.Table @Table}, so the unique constraint over
  * {@value MappedInventory#COLUMN_NAME_STORE_ID} and {@value MappedInventory#COLUMN_NAME_PRODUCT_ID} is declared by the
  * entity which extends this class.
+ * <p>
+ * The {@value MappedInventory#COLUMN_NAME_STORE_ID} and {@value MappedInventory#COLUMN_NAME_PRODUCT_ID} columns are
+ * mapped read-only ({@code insertable = false, updatable = false}) and have no setters. They are here for
+ * {@link #equals(Object)}, {@link #hashCode()}, {@link #toString()} and for queries, not for writing: how the
+ * {@code STORES} and {@code PRODUCTS} relationships are mapped -- fetch type, cascade, whether there is an association at
+ * all -- is the extending entity's decision, so the extending entity also owns the writable mapping of each column,
+ * by an association's {@link jakarta.persistence.JoinColumn @JoinColumn} or by an
+ * {@link jakarta.persistence.AttributeOverride @AttributeOverride}. <strong>An extending entity which maps neither
+ * never writes these columns.</strong>
+ * <p>
+ * Being read-only, both attributes are populated by a load or a refresh only; they stay {@code null} on an instance
+ * which has not been loaded yet, whatever its associations hold.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -126,28 +137,40 @@ public abstract class MappedInventory implements __MappedDomainEntity<Long> {
      * @return {@inheritDoc}
      * @implSpec Equality is by ({@value #COLUMN_NAME_STORE_ID}, {@value #COLUMN_NAME_PRODUCT_ID}), the pair the table
      * declares unique, read through the {@value #ATTRIBUTE_NAME_STORE_ID} and {@value #ATTRIBUTE_NAME_PRODUCT_ID}
-     * attributes which map those two columns; both are read through their getters, which is what makes the comparison
-     * correct for an instance which is still a lazy proxy.
+     * attributes which map those two columns; both are read through their {@code protected} getters, which a lazy
+     * proxy can override, and which is what makes the comparison correct for an instance which is still a proxy.
+     * Both attributes are read-only and stay {@code null} until the instance is loaded, so an instance missing either
+     * one equals itself only; otherwise every instance not yet loaded would equal every other.
      */
     @Override
     public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (!(obj instanceof MappedInventory that)) {
             return false;
         }
-        return Objects.equals(getProductId(), that.getProductId())
-               && Objects.equals(getStoreId(), that.getStoreId());
+        final var storeId = getStoreId();
+        final var productId = getProductId();
+        if (storeId == null || productId == null) {
+            return false;
+        }
+        return storeId.equals(that.getStoreId())
+               && productId.equals(that.getProductId());
     }
 
     /**
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over ({@value #COLUMN_NAME_STORE_ID}, {@value #COLUMN_NAME_PRODUCT_ID}), consistent with
-     * {@link #equals(Object)}.
+     * @implSpec The hash is constant, so that it does not change when ({@value #COLUMN_NAME_STORE_ID},
+     * {@value #COLUMN_NAME_PRODUCT_ID}) goes from {@code null} to loaded, which would lose an instance already held in
+     * a hash-based collection. It is {@code MappedInventory}'s rather than {@link #getClass()}'s, because a lazy
+     * proxy's class is a generated subclass and must hash alike to the instance it stands for.
      */
     @Override
     public final int hashCode() {
-        return Objects.hash(getProductId(), getStoreId());
+        return MappedInventory.class.hashCode();
     }
 
     // ------------------------------------------------------------------------------------------------------ Validation
@@ -188,43 +211,31 @@ public abstract class MappedInventory implements __MappedDomainEntity<Long> {
     // ----------------------------------------------------------------------------------------------------------- store
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute, which is {@code null} until this instance
+     * is loaded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
+     * @apiNote This method is {@code protected}, not package-private, so that a lazy proxy, which is a subclass in
+     * another package, can override it.
      */
-    @Nonnull
-    public Long getStoreId() {
+    @Nullable
+    protected Long getStoreId() {
         return storeId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute with the specified value.
-     *
-     * @param storeId new value for {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
-     */
-    protected void setStoreId(@Nonnull final Long storeId) {
-        this.storeId = storeId;
     }
 
     // --------------------------------------------------------------------------------------------------------- product
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute, which is {@code null} until this
+     * instance is loaded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
+     * @apiNote This method is {@code protected}, not package-private, so that a lazy proxy, which is a subclass in
+     * another package, can override it.
      */
-    @Nonnull
-    public Long getProductId() {
+    @Nullable
+    protected Long getProductId() {
         return productId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute with the specified value.
-     *
-     * @param productId new value for {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
-     */
-    protected void setProductId(@Nonnull final Long productId) {
-        this.productId = productId;
     }
 
     // ------------------------------------------------------------------------------------------------ productInventory
@@ -297,16 +308,12 @@ public abstract class MappedInventory implements __MappedDomainEntity<Long> {
     private Long inventoryId;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
+    // read-only: the extending entity owns the writable mapping of each column. No @NotNull, since the field is
+    // legitimately null until a load; the constraint belongs on the mapping which writes the column.
+    @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
     private Long storeId;
 
-    @Nonnull
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = false, updatable = false)
     private Long productId;
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -25,6 +25,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -259,6 +260,7 @@ public abstract class MappedCost<T extends MappedCostId> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_UNIT_COST - COLUMN_SCALE_UNIT_COST, fraction = COLUMN_SCALE_UNIT_COST)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_COST,
             nullable = false,
@@ -269,6 +271,7 @@ public abstract class MappedCost<T extends MappedCostId> {
     private BigDecimal unitCost;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE, fraction = COLUMN_SCALE_UNIT_PRICE)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_PRICE,
             nullable = false,

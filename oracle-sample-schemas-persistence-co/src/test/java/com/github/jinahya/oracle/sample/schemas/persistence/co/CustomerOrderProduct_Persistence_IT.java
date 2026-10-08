@@ -20,6 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  * #L%
  */
 
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 /**
  * Verifies the mappings of {@link CustomerOrderProduct} against the installed {@code CO} schema.
  *
@@ -29,5 +32,18 @@ class CustomerOrderProduct_Persistence_IT extends _Persistence_IT<CustomerOrderP
 
     CustomerOrderProduct_Persistence_IT() {
         super(CustomerOrderProduct.class);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Does nothing; {@value CustomerOrderProduct#TABLE_NAME} is a view, so there is nothing to insert a randomized
+     * instance into. The installed object is read-only.
+     */
+    @Disabled("a view: nothing is inserted into it")
+    @Override
+    @Test
+    protected void _persist_RandomizedInstance() {
+        // empty
     }
 }

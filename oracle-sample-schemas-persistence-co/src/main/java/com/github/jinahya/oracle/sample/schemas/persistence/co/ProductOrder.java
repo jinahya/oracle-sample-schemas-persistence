@@ -41,7 +41,7 @@ import java.util.Optional;
  */
 @Entity
 @Table(name = ProductOrder.TABLE_NAME)
-public class ProductOrder {
+public class ProductOrder implements __DomainEntity<ProductOrderId> {
 
     /**
      * The name of the database view to which this entity class maps. The value is {@value}.

@@ -101,6 +101,16 @@ public abstract class MappedFweekPscatSalesMv<T extends MappedFweekPscatSalesMvI
      */
     public static final String ATTRIBUTE_NAME_ID_CHANNEL_ID = "id.channelId";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_CHANNEL_ID = 1;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_CHANNEL_ID = 0;
+
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
@@ -123,6 +133,16 @@ public abstract class MappedFweekPscatSalesMv<T extends MappedFweekPscatSalesMvI
      * and {@value #COLUMN_NAME_PROMO_ID} columns. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID = "id";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROMO_ID = 6;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROMO_ID = 0;
 
     // --------------------------------------------------------------------------------------------------------- DOLLARS
 

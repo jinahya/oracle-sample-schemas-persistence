@@ -28,10 +28,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -41,6 +38,14 @@ import java.util.Optional;
 /**
  * A mapped superclass which holds the mappings of the {@value MappedJobHistory#TABLE_NAME} table, except for its
  * identifier.
+ * <p>
+ * The {@value MappedJobHistory#COLUMN_NAME_JOB_ID} and {@value MappedJobHistory#COLUMN_NAME_DEPARTMENT_ID} columns are
+ * mapped read-only ({@code insertable = false, updatable = false}), with a {@code protected} getter and no setter, for
+ * {@link #toString()} and for queries. How the relationship behind each is mapped -- fetch type, cascade, whether there
+ * is an association at all -- is the extending entity's decision, so the extending entity also owns their writable
+ * mapping, by an association's {@link jakarta.persistence.JoinColumn @JoinColumn} or by an
+ * {@link jakarta.persistence.AttributeOverride @AttributeOverride}. <strong>An extending entity which maps neither
+ * never writes them.</strong> Being read-only, they are populated by a load or a refresh only.
  *
  * @param <T> the type of the identifier; a subclass maps it as it chooses, and exposes it through {@link #id_()}.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
@@ -342,43 +347,31 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
     // ----------------------------------------------------------------------------------------------------------- jobId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute, which is {@code null} until this
+     * instance is loaded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
+     * @apiNote This method is {@code protected}, not package-private, so that a lazy proxy, which is a subclass in
+     * another package, can override it.
      */
-    @Nonnull
-    public String getJobId() {
+    @Nullable
+    protected String getJobId() {
         return jobId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute with the specified value.
-     *
-     * @param jobId new value for {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
-     */
-    protected void setJobId(@Nonnull final String jobId) {
-        this.jobId = jobId;
     }
 
     // ---------------------------------------------------------------------------------------------------- departmentId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute, which is {@code null} until this
+     * instance is loaded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
+     * @apiNote This method is {@code protected}, not package-private, so that a lazy proxy, which is a subclass in
+     * another package, can override it.
      */
     @Nullable
-    public Integer getDepartmentId() {
+    protected Integer getDepartmentId() {
         return departmentId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute with the specified value.
-     *
-     * @param departmentId new value for {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
-     */
-    protected void setDepartmentId(@Nullable final Integer departmentId) {
-        this.departmentId = departmentId;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -389,27 +382,21 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
     private LocalDateTime endDate;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @Size(min = SIZE_MIN_JOB_ID, max = SIZE_MAX_JOB_ID)
-    @NotNull
-    @Basic(optional = COLUMN_NULLABLE_JOB_ID)
+    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
     @Column(name = COLUMN_NAME_JOB_ID,
             nullable = COLUMN_NULLABLE_JOB_ID,
-            insertable = true,
-            updatable = true,
+            insertable = false,
+            updatable = false,
             length = COLUMN_LENGTH_JOB_ID
     )
     private String jobId;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nullable
-    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
-    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
-    @Basic(optional = COLUMN_NULLABLE_DEPARTMENT_ID)
+    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
     @Column(name = COLUMN_NAME_DEPARTMENT_ID,
             nullable = COLUMN_NULLABLE_DEPARTMENT_ID,
-            insertable = true,
-            updatable = true,
+            insertable = false,
+            updatable = false,
             precision = COLUMN_PRECISION_DEPARTMENT_ID,
             scale = COLUMN_SCALE_DEPARTMENT_ID
     )

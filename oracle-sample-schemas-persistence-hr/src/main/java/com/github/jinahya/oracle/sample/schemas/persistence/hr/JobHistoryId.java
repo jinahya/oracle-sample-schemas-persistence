@@ -146,7 +146,6 @@ public class JobHistoryId {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
     @Max(JobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
     @Min(JobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
     @NotNull

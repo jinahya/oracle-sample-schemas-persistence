@@ -22,6 +22,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -261,6 +262,9 @@ public abstract class MappedFweekPscatSalesMvId {
     private String prodSubcategory;
 
     @NotNull
+    @Digits(integer = MappedFweekPscatSalesMv.COLUMN_PRECISION_CHANNEL_ID
+                      - MappedFweekPscatSalesMv.COLUMN_SCALE_CHANNEL_ID,
+            fraction = MappedFweekPscatSalesMv.COLUMN_SCALE_CHANNEL_ID)
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
@@ -272,6 +276,9 @@ public abstract class MappedFweekPscatSalesMvId {
     private Long channelId;
 
     @NotNull
+    @Digits(integer = MappedFweekPscatSalesMv.COLUMN_PRECISION_PROMO_ID
+                      - MappedFweekPscatSalesMv.COLUMN_SCALE_PROMO_ID,
+            fraction = MappedFweekPscatSalesMv.COLUMN_SCALE_PROMO_ID)
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the

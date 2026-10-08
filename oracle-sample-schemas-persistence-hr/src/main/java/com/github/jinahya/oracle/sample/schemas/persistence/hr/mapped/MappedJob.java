@@ -42,7 +42,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedJob {
+public abstract class MappedJob implements __MappedDomainEntity<String> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.
@@ -222,7 +222,7 @@ public abstract class MappedJob {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "jobId=" + jobId +
                ",jobTitle=" + jobTitle +
@@ -433,6 +433,7 @@ public abstract class MappedJob {
     )
     private String jobId;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Size(min = SIZE_MIN_JOB_TITLE, max = SIZE_MAX_JOB_TITLE)
     @NotNull

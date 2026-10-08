@@ -48,7 +48,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = Shipment.TABLE_NAME)
-public class Shipment {
+public class Shipment implements __DomainEntity<Long> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

@@ -21,6 +21,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 /**
  * Verifies the mappings of {@link JobHistory} against the installed {@code HR} schema.
  *
@@ -30,5 +33,19 @@ class JobHistory_PersistenceIT extends _Persistence_IT<JobHistory> {
 
     JobHistory_PersistenceIT() {
         super(JobHistory.class);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Does nothing; rows of {@value JobHistory#TABLE_NAME} are written by the database's {@code UPDATE_JOB_HISTORY}
+     * trigger, and the mapping leaves {@value JobHistory#COLUMN_NAME_END_DATE} -- which is not nullable -- out of every
+     * insert, so no randomized instance can be persisted.
+     */
+    @Disabled("written by the UPDATE_JOB_HISTORY trigger: nothing is inserted into it")
+    @Override
+    @Test
+    protected void _persist_RandomizedInstance() {
+        // empty
     }
 }

@@ -80,7 +80,7 @@ import java.util.function.Function;
 )
 @Entity
 @Table(name = Order.TABLE_NAME)
-public class Order {
+public class Order implements __DomainEntity<Long> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

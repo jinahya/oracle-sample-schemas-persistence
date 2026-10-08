@@ -47,7 +47,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = Department.TABLE_NAME)
-public class Department {
+public class Department implements __DomainEntity<Integer> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

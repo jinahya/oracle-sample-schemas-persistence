@@ -36,6 +36,14 @@ import java.util.Objects;
 
 /**
  * A mapped superclass which holds the mappings of the {@value MappedDepartment#TABLE_NAME} table.
+ * <p>
+ * The {@value MappedDepartment#COLUMN_NAME_MANAGER_ID} and {@value MappedDepartment#COLUMN_NAME_LOCATION_ID} columns
+ * are mapped read-only ({@code insertable = false, updatable = false}), with a {@code protected} getter and no setter,
+ * for {@link #toString()} and for queries. How the relationship behind each is mapped -- fetch type, cascade, whether
+ * there is an association at all -- is the extending entity's decision, so the extending entity also owns their
+ * writable mapping, by an association's {@link jakarta.persistence.JoinColumn @JoinColumn} or by an
+ * {@link jakarta.persistence.AttributeOverride @AttributeOverride}. <strong>An extending entity which maps neither
+ * never writes them.</strong> Being read-only, they are populated by a load or a refresh only.
  *
  * @author Myoungkwon Hwang
  */
@@ -306,43 +314,31 @@ public abstract class MappedDepartment {
     // ------------------------------------------------------------------------------------------------------- managerId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute, which is {@code null} until this
+     * instance is loaded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute.
+     * @apiNote This method is {@code protected}, not package-private, so that a lazy proxy, which is a subclass in
+     * another package, can override it.
      */
     @Nullable
-    public Integer getManagerId() {
+    protected Integer getManagerId() {
         return managerId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute with the specified value.
-     *
-     * @param managerId new value for {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute.
-     */
-    protected void setManagerId(@Nullable final Integer managerId) {
-        this.managerId = managerId;
     }
 
     // ------------------------------------------------------------------------------------------------------ locationId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute, which is {@code null} until this
+     * instance is loaded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
+     * @apiNote This method is {@code protected}, not package-private, so that a lazy proxy, which is a subclass in
+     * another package, can override it.
      */
     @Nullable
-    public Integer getLocationId() {
+    protected Integer getLocationId() {
         return locationId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute with the specified value.
-     *
-     * @param locationId new value for {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
-     */
-    protected void setLocationId(@Nullable final Integer locationId) {
-        this.locationId = locationId;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -374,28 +370,22 @@ public abstract class MappedDepartment {
     private String departmentName;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nullable
-    @Max(ATTRIBUTE_MAX_MANAGER_ID)
-    @Min(ATTRIBUTE_MIN_MANAGER_ID)
-    @Basic(optional = COLUMN_NULLABLE_MANAGER_ID)
+    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
     @Column(name = COLUMN_NAME_MANAGER_ID,
             nullable = COLUMN_NULLABLE_MANAGER_ID,
-            insertable = true,
-            updatable = true,
+            insertable = false,
+            updatable = false,
             precision = COLUMN_PRECISION_MANAGER_ID,
             scale = COLUMN_SCALE_MANAGER_ID
     )
     private Integer managerId;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Nullable
-    @Max(ATTRIBUTE_MAX_LOCATION_ID)
-    @Min(ATTRIBUTE_MIN_LOCATION_ID)
-    @Basic(optional = COLUMN_NULLABLE_LOCATION_ID)
+    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
     @Column(name = COLUMN_NAME_LOCATION_ID,
             nullable = COLUMN_NULLABLE_LOCATION_ID,
-            insertable = true,
-            updatable = true,
+            insertable = false,
+            updatable = false,
             precision = COLUMN_PRECISION_LOCATION_ID,
             scale = COLUMN_SCALE_LOCATION_ID
     )

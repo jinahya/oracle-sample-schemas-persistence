@@ -162,7 +162,7 @@ public abstract class MappedChannel {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "channelId=" + channelId +
                ",channelDesc=" + channelDesc +
@@ -324,6 +324,7 @@ public abstract class MappedChannel {
     @Column(name = COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
     private Long channelId;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Size(max = SIZE_MAX_CHANNEL_DESC)
     @NotNull
     @Basic(optional = false)
@@ -335,6 +336,7 @@ public abstract class MappedChannel {
     )
     private String channelDesc;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Size(max = SIZE_MAX_CHANNEL_CLASS)
     @NotNull
     @Basic(optional = false)
@@ -355,6 +357,7 @@ public abstract class MappedChannel {
     )
     private Long channelClassId;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Size(max = SIZE_MAX_CHANNEL_TOTAL)
     @NotNull
     @Basic(optional = false)
