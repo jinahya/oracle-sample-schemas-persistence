@@ -35,11 +35,11 @@ jobs:
         distribution: 'temurin'
         cache: maven
     # `verify`, not `package`: it runs everything bound up to and including verify -- the unit
-    # tests against each module's __<module>_testPU persistence unit (H2, in-memory, schema generated
+    # tests against each module's <module>-test persistence unit (H2, in-memory, schema generated
     # from the mappings), jacoco and the licence check -- so a green run here means that path is
     # verified end to end.
     #
-    # The __<module>_itPU integration tests are NOT run, and cannot be: maven-failsafe-plugin is declared
+    # The <module>-it integration tests are NOT run, and cannot be: maven-failsafe-plugin is declared
     # only inside the `failsafe` profile, so `verify` without -Pfailsafe never reaches an *_IT
     # class. Those need the Oracle database from docker-compose.yml, with the sample schemas
     # installed; see the `integration` job note below.

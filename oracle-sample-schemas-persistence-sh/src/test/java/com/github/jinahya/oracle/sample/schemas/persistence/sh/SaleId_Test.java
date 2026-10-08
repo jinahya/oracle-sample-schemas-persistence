@@ -20,7 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
@@ -40,8 +39,8 @@ class SaleId_Test extends _Test<SaleId> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link SaleId#equals(Object) equals} compares only the {@code @Id}, because every other attribute is
-     * mutable state.
+     * @implNote {@link SaleId#equals(Object) equals} compares every attribute; each one is a column of the composite
+     * key this class holds.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<SaleId> equals_verifier_() {

@@ -24,7 +24,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence ${persistence.schemaLocation}"
              version="${persistence.version}">
-  <persistence-unit name="__sh_testPU" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="sh-test" transaction-type="RESOURCE_LOCAL">
     <description>Persistence Unit for an In-Memory DB</description>
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
@@ -38,30 +38,14 @@
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SupplementaryDemographics</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Time</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CalMonthSalesMv</class>
-    <!-- CostWithEmbeddedId and CostWithIdClass map COSTS, two ways; only one may be listed.
-         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
-         metamodel then throws from getIdClassAttributes(). -->
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CostId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CostWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CostWithIdClass</class>-->
-    <!-- FweekPscatSalesMvWithEmbeddedId and FweekPscatSalesMvWithIdClass map FWEEK_PSCAT_SALES_MV, two ways; only one may be listed.
-         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
-         metamodel then throws from getIdClassAttributes(). -->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Cost</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvWithIdClass</class>-->
-    <!-- ProfitsWithEmbeddedId and ProfitsWithIdClass map PROFITS, two ways; only one may be listed.
-         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
-         metamodel then throws from getIdClassAttributes(). -->
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsWithIdClass</class>-->
-    <!-- SaleWithEmbeddedId and SaleWithIdClass map SALES, two ways; only one may be listed.
-         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
-         metamodel then throws from getIdClassAttributes(). -->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMv</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Profit</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SaleId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SaleWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SaleWithIdClass</class>-->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Sale</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
@@ -89,12 +73,12 @@
       <property name="hibernate.use_sql_comment" value="true"/>
     </properties>
   </persistence-unit>
-  <persistence-unit name="__sh_itPU" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="sh-it" transaction-type="RESOURCE_LOCAL">
     <description>Persistence Unit for a Physical Database</description>
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
-    <mapping-file>META-INF/orm-it.xml</mapping-file>
+    <mapping-file>META-INF/sh/orm-it.xml</mapping-file>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Country</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Channel</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CountrySection</class>
@@ -104,30 +88,14 @@
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SupplementaryDemographics</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Time</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CalMonthSalesMv</class>
-    <!-- CostWithEmbeddedId and CostWithIdClass map COSTS, two ways; only one may be listed.
-         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
-         metamodel then throws from getIdClassAttributes(). -->
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CostId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CostWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CostWithIdClass</class>-->
-    <!-- FweekPscatSalesMvWithEmbeddedId and FweekPscatSalesMvWithIdClass map FWEEK_PSCAT_SALES_MV, two ways; only one may be listed.
-         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
-         metamodel then throws from getIdClassAttributes(). -->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Cost</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvWithIdClass</class>-->
-    <!-- ProfitsWithEmbeddedId and ProfitsWithIdClass map PROFITS, two ways; only one may be listed.
-         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
-         metamodel then throws from getIdClassAttributes(). -->
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitsWithIdClass</class>-->
-    <!-- SaleWithEmbeddedId and SaleWithIdClass map SALES, two ways; only one may be listed.
-         With both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its
-         metamodel then throws from getIdClassAttributes(). -->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMv</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitId</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Profit</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SaleId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SaleWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SaleWithIdClass</class>-->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Sale</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
@@ -147,6 +115,11 @@
       <!--      <property name="eclipselink.weaving" value="true"/>-->
       <!-- https://wiki.eclipse.org/EclipseLink/Examples/JPA/DDL -->
       <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.OraclePlatform"/>
+      <!-- EclipseLink cannot read an Oracle identity value back; this points each identity-keyed entity at the
+           sequence Oracle backs its column with. Compiled under the EclipseLink profile only; Hibernate ignores
+           eclipselink.* properties. -->
+      <property name="eclipselink.session.customizer"
+                value="com.github.jinahya.oracle.sample.schemas.persistence.sh._EclipseLink_IdentitySequences"/>
       <!-- /////////////////////////////////////////////////////////////////////////////////////////////// hibernate -->
       <!--      <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>-->
       <property name="hibernate.format_sql" value="true"/>

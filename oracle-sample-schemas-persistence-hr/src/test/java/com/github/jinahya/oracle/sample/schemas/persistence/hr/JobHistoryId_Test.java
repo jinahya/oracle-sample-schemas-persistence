@@ -20,8 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
-
 /**
  * A class for testing the {@link JobHistoryId} composite primary key class.
  *

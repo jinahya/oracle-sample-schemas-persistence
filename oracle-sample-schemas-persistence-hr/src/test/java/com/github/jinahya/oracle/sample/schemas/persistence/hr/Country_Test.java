@@ -20,7 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
@@ -40,7 +39,7 @@ class Country_Test extends _Test<Country> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Country#equals(Object) equals} compares only the {@code @Id} {@code countryId} -- the surrogate
+     * @implNote {@link Country#equals(Object) equals} compares only the {@code @Id} {@code countryId} -- the primary
      * key -- because every other attribute is mutable state.
      */
     @Override

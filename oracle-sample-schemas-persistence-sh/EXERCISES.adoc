@@ -1,0 +1,2003 @@
+= EXERCISES
+:toc: left
+:toclevels: 3
+:sectanchors:
+:source-highlighter: rouge
+
+Exercises for the Sales History (SH) schema: requests that the people running the business -- the sales director,
+the channel managers, the promotions team, finance, the product line managers -- would bring to an analyst, each
+followed by a query that answers it. Try each one before reading the solution.
+
+The problems are grouped by what they read. Each table, view and materialized view of the schema has a section of its
+own, in the order of the link:README.md[module README], holding the problems that read that object alone; _Whole schema_,
+the last section, holds the ones that join or subquery several. Within a section the problems are split into Basic,
+Intermediate and Advanced.
+
+* *SQL* is Oracle SQL against the installed schema (`SH`). Parameters are written as bind variables (`:year`).
+* *JPQL* is Jakarta Persistence 3.2 against this module's entities. Parameters are named parameters (`:year`), bound
+  with `+Query#setParameter+`.
+
+The four composite keys are mapped two ways. `Sale` and `Cost`, the facts tables, map theirs with an `+@EmbeddedId+`,
+so a key column is reached through the identifier, `s.id.timeId`; `Profit` and `FweekPscatSalesMv`, the view and the
+materialized view, map theirs with an `+@IdClass+`, so it is an attribute of the entity itself, `pr.timeId`. Where
+possible the JPQL on `Sale` and `Cost` goes through their `+@ManyToOne+` associations instead (`s.product`,
+`s.customer`, `s.time`, `s.channel`, `s.promotion`). `Profit` and `FweekPscatSalesMv` have no associations; they are
+joined to the dimensions through their key attributes (`+p.prodId = pr.prodId+`).
+
+The installed data covers calendar years 2019 to 2022.
+
+== CAL_MONTH_SALES_MV
+
+=== Basic
+
+[[SH-CAL_MONTH_SALES_MV-B-01]]
+==== SH-CAL_MONTH_SALES_MV-B-01 Monthly revenue at a glance
+
+The sales director wants total revenue for each month between `:fromMonth` and `:toMonth` (`+YYYY-MM+`, e.g. `+2021-01+`
+and `+2021-12+`), without waiting for a scan of the facts table.
+
+[source,sql]
+----
+SELECT CALENDAR_MONTH_DESC, DOLLARS
+FROM CAL_MONTH_SALES_MV
+WHERE CALENDAR_MONTH_DESC BETWEEN :fromMonth AND :toMonth
+ORDER BY CALENDAR_MONTH_DESC
+----
+
+[source,jpaql]
+----
+SELECT m
+FROM CalMonthSalesMv m
+WHERE m.calendarMonthDesc BETWEEN :fromMonth AND :toMonth
+ORDER BY m.calendarMonthDesc
+----
+
+`+CAL_MONTH_SALES_MV+` is a materialized view holding `+SUM(AMOUNT_SOLD)+` per calendar month, and the `+YYYY-MM+` format
+makes a string `BETWEEN` select whole months correctly.
+
+=== Intermediate
+
+[[SH-CAL_MONTH_SALES_MV-I-01]]
+==== SH-CAL_MONTH_SALES_MV-I-01 Months above the average
+
+The sales director wants the months between `:fromMonth` and `:toMonth` whose revenue beat the average month of that
+same period, best first.
+
+[source,sql]
+----
+SELECT CALENDAR_MONTH_DESC, DOLLARS
+FROM CAL_MONTH_SALES_MV
+WHERE CALENDAR_MONTH_DESC BETWEEN :fromMonth AND :toMonth
+  AND DOLLARS > (SELECT AVG(DOLLARS)
+                 FROM CAL_MONTH_SALES_MV
+                 WHERE CALENDAR_MONTH_DESC BETWEEN :fromMonth AND :toMonth)
+ORDER BY DOLLARS DESC
+----
+
+[source,jpaql]
+----
+SELECT m
+FROM CalMonthSalesMv m
+WHERE m.calendarMonthDesc BETWEEN :fromMonth AND :toMonth
+  AND m.dollars > (SELECT AVG(m2.dollars)
+                   FROM CalMonthSalesMv m2
+                   WHERE m2.calendarMonthDesc BETWEEN :fromMonth AND :toMonth)
+ORDER BY m.dollars DESC
+----
+
+The subquery repeats the period on purpose: the average has to be taken over the same months, not over the whole
+view.
+
+=== Advanced
+
+[[SH-CAL_MONTH_SALES_MV-A-01]]
+==== SH-CAL_MONTH_SALES_MV-A-01 Running total of monthly revenue
+
+Finance wants each month's revenue between `:fromMonth` and `:toMonth`, with the year-to-date running total next to
+it.
+
+[source,sql]
+----
+SELECT CALENDAR_MONTH_DESC,
+       DOLLARS,
+       SUM(DOLLARS) OVER (ORDER BY CALENDAR_MONTH_DESC) AS RUNNING_TOTAL
+FROM CAL_MONTH_SALES_MV
+WHERE CALENDAR_MONTH_DESC BETWEEN :fromMonth AND :toMonth
+ORDER BY CALENDAR_MONTH_DESC
+----
+
+[source,jpaql]
+----
+SELECT m.calendarMonthDesc, m.dollars, SUM(m2.dollars)
+FROM CalMonthSalesMv m, CalMonthSalesMv m2
+WHERE m.calendarMonthDesc BETWEEN :fromMonth AND :toMonth
+  AND m2.calendarMonthDesc BETWEEN :fromMonth AND m.calendarMonthDesc
+GROUP BY m.calendarMonthDesc, m.dollars
+ORDER BY m.calendarMonthDesc
+----
+
+JPQL has no window functions; the self-join sums, for each month, every month from `:fromMonth` up to it. That is
+quadratic in the number of months, which is harmless for a twelve-month range of a 48-row materialized view; for
+anything larger, run the ordered query and accumulate in Java.
+
+== CHANNELS
+
+=== Basic
+
+[[SH-CHANNELS-B-01]]
+==== SH-CHANNELS-B-01 Routes to market
+
+The sales operations team is drawing up an overview of the routes to market, and wants every sales channel listed
+under its channel class (Direct, Indirect, Others), alphabetically within each class.
+
+[source,sql]
+----
+SELECT CHANNEL_CLASS, CHANNEL_ID, CHANNEL_DESC
+FROM CHANNELS
+ORDER BY CHANNEL_CLASS, CHANNEL_DESC
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Channel c
+ORDER BY c.channelClass, c.channelDesc
+----
+
+=== Intermediate
+
+[[SH-CHANNELS-I-01]]
+==== SH-CHANNELS-I-01 Channels per class
+
+The sales operations team wants to know how many channels each channel class has.
+
+[source,sql]
+----
+SELECT CHANNEL_CLASS, COUNT(*) AS CHANNELS
+FROM CHANNELS
+GROUP BY CHANNEL_CLASS
+ORDER BY CHANNELS DESC, CHANNEL_CLASS
+----
+
+[source,jpaql]
+----
+SELECT c.channelClass, COUNT(c) AS channels
+FROM Channel c
+GROUP BY c.channelClass
+ORDER BY channels DESC, c.channelClass
+----
+
+=== Advanced
+
+[[SH-CHANNELS-A-01]]
+==== SH-CHANNELS-A-01 Channel classes on one line
+
+For a slide, the sales operations team wants one line per channel class that has more than one channel, naming its
+channels alphabetically: `Direct: Direct Sales, Tele Sales`.
+
+[source,sql]
+----
+SELECT CHANNEL_CLASS || ': ' || LISTAGG(CHANNEL_DESC, ', ') WITHIN GROUP (ORDER BY CHANNEL_DESC) AS LINE
+FROM CHANNELS
+GROUP BY CHANNEL_CLASS
+HAVING COUNT(*) > 1
+ORDER BY CHANNEL_CLASS
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Channel c
+WHERE c.channelClass IN (SELECT c2.channelClass
+                         FROM Channel c2
+                         GROUP BY c2.channelClass
+                         HAVING COUNT(c2) > 1)
+ORDER BY c.channelClass, c.channelDesc
+----
+
+JPQL has no string aggregation (`LISTAGG`, `+STRING_AGG+`). The subquery keeps out the classes with a single channel,
+and the ordered channels are joined in Java:
+`+Collectors.groupingBy(Channel::getChannelClass, TreeMap::new, Collectors.mapping(Channel::getChannelDesc, Collectors.joining(", ")))+`.
+
+== COSTS
+
+=== Basic
+
+[[SH-COSTS-B-01]]
+==== SH-COSTS-B-01 Prices below cost
+
+Finance wants every cost record between `:fromDay` and `:toDay` whose unit price is below its unit cost: a product
+priced at a loss on that day, through that channel, under that promotion.
+
+[source,sql]
+----
+SELECT TIME_ID, PROD_ID, CHANNEL_ID, PROMO_ID, UNIT_COST, UNIT_PRICE
+FROM COSTS
+WHERE TIME_ID BETWEEN :fromDay AND :toDay
+  AND UNIT_PRICE < UNIT_COST
+ORDER BY TIME_ID, PROD_ID
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Cost c
+WHERE c.time.timeId BETWEEN :fromDay AND :toDay
+  AND c.unitPrice < c.unitCost
+ORDER BY c.time.timeId, c.product.prodId
+----
+
+`c.time.timeId` names the same column as `c.id.timeId`, through the association.
+
+=== Intermediate
+
+[[SH-COSTS-I-01]]
+==== SH-COSTS-I-01 Average unit margin per product
+
+Pricing wants, for each product, its average unit cost, average unit price and average unit margin between `:fromDay`
+and `:toDay`, thinnest margin first.
+
+[source,sql]
+----
+SELECT PROD_ID,
+       AVG(UNIT_COST)              AS AVG_COST,
+       AVG(UNIT_PRICE)             AS AVG_PRICE,
+       AVG(UNIT_PRICE - UNIT_COST) AS AVG_MARGIN
+FROM COSTS
+WHERE TIME_ID BETWEEN :fromDay AND :toDay
+GROUP BY PROD_ID
+ORDER BY AVG_MARGIN
+----
+
+[source,jpaql]
+----
+SELECT c.product.prodId, AVG(c.unitCost), AVG(c.unitPrice), AVG(c.unitPrice - c.unitCost) AS avgMargin
+FROM Cost c
+WHERE c.time.timeId BETWEEN :fromDay AND :toDay
+GROUP BY c.product.prodId
+ORDER BY avgMargin
+----
+
+Each `COSTS` row is one day, channel and promotion, so this is an average per price record, not weighted by the units
+sold; a margin weighted by sales needs `SALES` as well (see _Gross margin by category_). JPQL's `AVG` returns a
+`Double` whatever it averages, so round it before showing money.
+
+=== Advanced
+
+[[SH-COSTS-A-01]]
+==== SH-COSTS-A-01 When did a price change?
+
+The `:channelId` channel manager wants the days on which the unit price of product `:prodId` under promotion
+`:promoId` (e.g. `3`, `120`, `999`) changed, with the price before and after.
+
+[source,sql]
+----
+SELECT TIME_ID, PREVIOUS_PRICE, UNIT_PRICE
+FROM (SELECT TIME_ID,
+             UNIT_PRICE,
+             LAG(UNIT_PRICE) OVER (ORDER BY TIME_ID) AS PREVIOUS_PRICE
+      FROM COSTS
+      WHERE PROD_ID = :prodId
+        AND CHANNEL_ID = :channelId
+        AND PROMO_ID = :promoId)
+WHERE UNIT_PRICE <> PREVIOUS_PRICE
+ORDER BY TIME_ID
+----
+
+[source,jpaql]
+----
+SELECT c.id.timeId, p.unitPrice, c.unitPrice
+FROM Cost c, Cost p
+WHERE c.id.prodId = :prodId
+  AND c.id.channelId = :channelId
+  AND c.id.promoId = :promoId
+  AND p.id.prodId = c.id.prodId
+  AND p.id.channelId = c.id.channelId
+  AND p.id.promoId = c.id.promoId
+  AND p.id.timeId = (SELECT MAX(p2.id.timeId)
+                     FROM Cost p2
+                     WHERE p2.id.prodId = c.id.prodId
+                       AND p2.id.channelId = c.id.channelId
+                       AND p2.id.promoId = c.id.promoId
+                       AND p2.id.timeId < c.id.timeId)
+  AND c.unitPrice <> p.unitPrice
+ORDER BY c.id.timeId
+----
+
+`LAG` reads the previous recorded day's price, and the first day, which has none, drops out because `+<>+` against
+`NULL` is never true. JPQL has no window functions, so the correlated subquery finds each record's previous day and a
+second `Cost` variable reads the price on it: one lookup per row, which is fine for one product's history and heavy
+for the whole table.
+
+== COUNTRIES
+
+=== Basic
+
+[[SH-COUNTRIES-B-01]]
+==== SH-COUNTRIES-B-01 Countries of a sales region
+
+The regional sales director for `:region` (e.g. `Europe`) wants the countries of that region, grouped by subregion.
+
+[source,sql]
+----
+SELECT COUNTRY_SUBREGION, COUNTRY_ISO_CODE, COUNTRY_NAME
+FROM COUNTRIES
+WHERE COUNTRY_REGION = :region
+ORDER BY COUNTRY_SUBREGION, COUNTRY_NAME
+----
+
+[source,jpaql]
+----
+SELECT c.countrySubregion, c.countryIsoCode, c.countryName
+FROM Country c
+WHERE c.countryRegion = :region
+ORDER BY c.countrySubregion, c.countryName
+----
+
+=== Intermediate
+
+[[SH-COUNTRIES-I-01]]
+==== SH-COUNTRIES-I-01 Countries per subregion
+
+The regional directors want the number of countries in each region and subregion.
+
+[source,sql]
+----
+SELECT COUNTRY_REGION, COUNTRY_SUBREGION, COUNT(*) AS COUNTRIES
+FROM COUNTRIES
+GROUP BY COUNTRY_REGION, COUNTRY_SUBREGION
+ORDER BY COUNTRY_REGION, COUNTRY_SUBREGION
+----
+
+[source,jpaql]
+----
+SELECT c.countryRegion, c.countrySubregion, COUNT(c)
+FROM Country c
+GROUP BY c.countryRegion, c.countrySubregion
+ORDER BY c.countryRegion, c.countrySubregion
+----
+
+=== Advanced
+
+[[SH-COUNTRIES-A-01]]
+==== SH-COUNTRIES-A-01 Is the geography hierarchy consistent?
+
+`COUNTRIES` is a snowflaked dimension: every row repeats its subregion and its region, by name and by id. Before the
+regional roll-ups are trusted, the data-warehouse team wants proof that each subregion id carries one name and belongs
+to one region. List the subregion ids that break either rule.
+
+[source,sql]
+----
+SELECT COUNTRY_SUBREGION_ID,
+       COUNT(DISTINCT COUNTRY_SUBREGION) AS NAMES,
+       COUNT(DISTINCT COUNTRY_REGION_ID) AS REGIONS
+FROM COUNTRIES
+GROUP BY COUNTRY_SUBREGION_ID
+HAVING COUNT(DISTINCT COUNTRY_SUBREGION) > 1
+    OR COUNT(DISTINCT COUNTRY_REGION_ID) > 1
+----
+
+[source,jpaql]
+----
+SELECT c.countrySubregionId, COUNT(DISTINCT c.countrySubregion), COUNT(DISTINCT c.countryRegionId)
+FROM Country c
+GROUP BY c.countrySubregionId
+HAVING COUNT(DISTINCT c.countrySubregion) > 1
+    OR COUNT(DISTINCT c.countryRegionId) > 1
+----
+
+On the installed data one subregion fails: `52798`, Southern America, has two region ids. Argentina and Brazil carry
+`+COUNTRY_REGION_ID+` `52801`, while Chile carries `52798`, its own subregion id, although all three name the region
+`Americas`; a roll-up by region id splits Chile off from the rest of the Americas. Grouped by `+COUNTRY_REGION_ID+` and
+counting distinct `+COUNTRY_REGION+`, the same check covers the level above, and that one passes.
+
+== CUSTOMERS
+
+=== Basic
+
+[[SH-CUSTOMERS-B-01]]
+==== SH-CUSTOMERS-B-01 Look up a customer by surname
+
+A customer-service agent has the caller on the phone and types the first few letters of the surname, `:prefix`, in
+whatever case. Find the matching customers.
+
+[source,sql]
+----
+SELECT CUST_ID, CUST_FIRST_NAME, CUST_LAST_NAME, CUST_CITY, CUST_EMAIL
+FROM CUSTOMERS
+WHERE UPPER(CUST_LAST_NAME) LIKE UPPER(:prefix || '%')
+ORDER BY CUST_LAST_NAME, CUST_FIRST_NAME, CUST_ID
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE UPPER(c.custLastName) LIKE UPPER(:prefix || '%')
+ORDER BY c.custLastName, c.custFirstName, c.custId
+----
+
+A prefix containing `+%+` or `+_+` would act as a wildcard; escape it (`+LIKE ... ESCAPE '\'+`) if the input is not trusted.
+
+[[SH-CUSTOMERS-B-02]]
+==== SH-CUSTOMERS-B-02 Customers in selected income bands
+
+Marketing is planning a mail drop in `:city` (e.g. `Los Angeles`) aimed at the lower income bands, `:levels`
+(e.g. `A: Below 30,000`, `+B: 30,000 - 49,999+`).
+
+[source,sql]
+----
+SELECT CUST_ID, CUST_FIRST_NAME, CUST_LAST_NAME, CUST_STREET_ADDRESS, CUST_POSTAL_CODE, CUST_INCOME_LEVEL
+FROM CUSTOMERS
+WHERE CUST_CITY = :city
+  AND CUST_INCOME_LEVEL IN ('A: Below 30,000', 'B: 30,000 - 49,999')
+ORDER BY CUST_INCOME_LEVEL, CUST_LAST_NAME
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE c.custCity = :city
+  AND c.custIncomeLevel IN :levels
+ORDER BY c.custIncomeLevel, c.custLastName
+----
+
+`:levels` is bound to a `+Collection<String>+`. Oracle SQL has no collection-valued bind of this kind, so the SQL spells
+the list out.
+
+[[SH-CUSTOMERS-B-03]]
+==== SH-CUSTOMERS-B-03 Customers without a marital status
+
+The data-quality team suspects that many customer records have no marital status. How many are there?
+
+[source,sql]
+----
+SELECT COUNT(*)
+FROM CUSTOMERS
+WHERE CUST_MARITAL_STATUS IS NULL
+----
+
+[source,jpaql]
+----
+SELECT COUNT(c)
+FROM Customer c
+WHERE c.custMaritalStatus IS NULL
+----
+
+[[SH-CUSTOMERS-B-04]]
+==== SH-CUSTOMERS-B-04 Income bands, unknowns last
+
+The credit team wants the customers of `:city` ordered by income band, highest credit limit first within a band, and
+the customers whose income band is unknown at the end of the list rather than the start.
+
+[source,sql]
+----
+SELECT CUST_ID, CUST_LAST_NAME, CUST_INCOME_LEVEL, CUST_CREDIT_LIMIT
+FROM CUSTOMERS
+WHERE CUST_CITY = :city
+ORDER BY CUST_INCOME_LEVEL ASC NULLS LAST, CUST_CREDIT_LIMIT DESC
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE c.custCity = :city
+ORDER BY c.custIncomeLevel ASC NULLS LAST, c.custCreditLimit DESC
+----
+
+Oracle sorts `NULL` last for `ASC` anyway; `NULLS LAST` makes it independent of the database. `NULLS FIRST` /
+`NULLS LAST` are new in Jakarta Persistence 3.2.
+
+=== Intermediate
+
+[[SH-CUSTOMERS-I-01]]
+==== SH-CUSTOMERS-I-01 Email addresses shared by several customers
+
+The data-quality team wants the e-mail addresses on file for more than one customer, most shared first.
+
+[source,sql]
+----
+SELECT CUST_EMAIL, COUNT(*) AS CUSTOMERS
+FROM CUSTOMERS
+WHERE CUST_EMAIL IS NOT NULL
+GROUP BY CUST_EMAIL
+HAVING COUNT(*) > 1
+ORDER BY CUSTOMERS DESC, CUST_EMAIL
+----
+
+[source,jpaql]
+----
+SELECT c.custEmail, COUNT(c) AS customers
+FROM Customer c
+WHERE c.custEmail IS NOT NULL
+GROUP BY c.custEmail
+HAVING COUNT(c) > 1
+ORDER BY customers DESC, c.custEmail
+----
+
+`GROUP BY` puts all the ``NULL``s in one group, so without the `IS NOT NULL` the customers with no address would be
+reported as sharing one. On the installed data several hundred addresses are shared.
+
+=== Advanced
+
+[[SH-CUSTOMERS-A-01]]
+==== SH-CUSTOMERS-A-01 Credit limits above the band average
+
+The credit-risk team is reviewing `:city`, and wants its customers whose credit limit is above the average credit
+limit of their income band across the whole customer base, highest band first.
+
+[source,sql]
+----
+SELECT cu.CUST_ID, cu.CUST_LAST_NAME, cu.CUST_INCOME_LEVEL, cu.CUST_CREDIT_LIMIT
+FROM CUSTOMERS cu
+WHERE cu.CUST_CITY = :city
+  AND cu.CUST_CREDIT_LIMIT > (SELECT AVG(cu2.CUST_CREDIT_LIMIT)
+                              FROM CUSTOMERS cu2
+                              WHERE cu2.CUST_INCOME_LEVEL = cu.CUST_INCOME_LEVEL)
+ORDER BY cu.CUST_INCOME_LEVEL DESC, cu.CUST_CREDIT_LIMIT DESC
+----
+
+[source,jpaql]
+----
+SELECT cu
+FROM Customer cu
+WHERE cu.custCity = :city
+  AND cu.custCreditLimit > (SELECT AVG(cu2.custCreditLimit)
+                            FROM Customer cu2
+                            WHERE cu2.custIncomeLevel = cu.custIncomeLevel)
+ORDER BY cu.custIncomeLevel DESC, cu.custCreditLimit DESC
+----
+
+The subquery is correlated: it is evaluated per income band of the outer row, over every city. Customers with no income
+band drop out, since `+=+` never matches `NULL`. In SQL, `+AVG(...) OVER (PARTITION BY CUST_INCOME_LEVEL)+` computes the
+same average in one pass, but only before the city filter, so it needs an inline view; JPQL has neither.
+
+== FWEEK_PSCAT_SALES_MV
+
+=== Basic
+
+[[SH-FWEEK_PSCAT_SALES_MV-B-01]]
+==== SH-FWEEK_PSCAT_SALES_MV-B-01 One week's sales by subcategory
+
+The `:channelId` channel manager wants the sales of the week ending `:weekEndingDay` (a Sunday, e.g. `+2021-01-17+`)
+through that channel, by subcategory and promotion, best first.
+
+[source,sql]
+----
+SELECT PROD_SUBCATEGORY, PROMO_ID, DOLLARS
+FROM FWEEK_PSCAT_SALES_MV
+WHERE WEEK_ENDING_DAY = :weekEndingDay
+  AND CHANNEL_ID = :channelId
+ORDER BY DOLLARS DESC NULLS LAST, PROD_SUBCATEGORY
+----
+
+[source,jpaql]
+----
+SELECT f
+FROM FweekPscatSalesMv f
+WHERE f.weekEndingDay = :weekEndingDay
+  AND f.channelId = :channelId
+ORDER BY f.dollars DESC NULLS LAST, f.prodSubcategory
+----
+
+=== Intermediate
+
+[[SH-FWEEK_PSCAT_SALES_MV-I-01]]
+==== SH-FWEEK_PSCAT_SALES_MV-I-01 Subcategory revenue over a period
+
+The `:channelId` channel manager wants each subcategory's revenue through that channel for the weeks ending between
+`:fromDay` and `:toDay`, across all promotions, biggest first.
+
+[source,sql]
+----
+SELECT PROD_SUBCATEGORY, SUM(DOLLARS) AS REVENUE
+FROM FWEEK_PSCAT_SALES_MV
+WHERE CHANNEL_ID = :channelId
+  AND WEEK_ENDING_DAY BETWEEN :fromDay AND :toDay
+GROUP BY PROD_SUBCATEGORY
+ORDER BY REVENUE DESC NULLS LAST
+----
+
+[source,jpaql]
+----
+SELECT f.prodSubcategory, SUM(f.dollars) AS revenue
+FROM FweekPscatSalesMv f
+WHERE f.channelId = :channelId
+  AND f.weekEndingDay BETWEEN :fromDay AND :toDay
+GROUP BY f.prodSubcategory
+ORDER BY revenue DESC NULLS LAST
+----
+
+Each row of the view is one promotion's revenue for the week, so a subcategory's total is the sum over its promotions.
+
+=== Advanced
+
+[[SH-FWEEK_PSCAT_SALES_MV-A-01]]
+==== SH-FWEEK_PSCAT_SALES_MV-A-01 Best week of each subcategory
+
+The `:channelId` channel manager (e.g. `3`, Direct Sales) wants, for each product subcategory, the week in which it
+sold best through that channel between `:fromDay` and `:toDay`, across all promotions.
+
+[source,sql]
+----
+SELECT PROD_SUBCATEGORY, WEEK_ENDING_DAY, DOLLARS
+FROM (SELECT f.PROD_SUBCATEGORY,
+             f.WEEK_ENDING_DAY,
+             SUM(f.DOLLARS)                                                                  AS DOLLARS,
+             RANK() OVER (PARTITION BY f.PROD_SUBCATEGORY ORDER BY SUM(f.DOLLARS) DESC NULLS LAST) AS RNK
+      FROM FWEEK_PSCAT_SALES_MV f
+      WHERE f.CHANNEL_ID = :channelId
+        AND f.WEEK_ENDING_DAY BETWEEN :fromDay AND :toDay
+      GROUP BY f.PROD_SUBCATEGORY, f.WEEK_ENDING_DAY)
+WHERE RNK = 1
+ORDER BY PROD_SUBCATEGORY
+----
+
+[source,jpaql]
+----
+SELECT f.prodSubcategory, f.weekEndingDay, SUM(f.dollars)
+FROM FweekPscatSalesMv f
+WHERE f.channelId = :channelId
+  AND f.weekEndingDay BETWEEN :fromDay AND :toDay
+GROUP BY f.prodSubcategory, f.weekEndingDay
+HAVING SUM(f.dollars) >= ALL (SELECT SUM(f2.dollars)
+                              FROM FweekPscatSalesMv f2
+                              WHERE f2.channelId = :channelId
+                                AND f2.weekEndingDay BETWEEN :fromDay AND :toDay
+                                AND f2.prodSubcategory = f.prodSubcategory
+                              GROUP BY f2.weekEndingDay)
+ORDER BY f.prodSubcategory
+----
+
+`+FWEEK_PSCAT_SALES_MV+` already holds weekly revenue per subcategory, channel and promotion, so this never touches
+`SALES`. The JPQL replaces `+RANK() = 1+` with a correlated `+>= ALL+` subquery; both keep ties.
+
+== PRODUCTS
+
+=== Basic
+
+[[SH-PRODUCTS-B-01]]
+==== SH-PRODUCTS-B-01 Products in a price band
+
+The product line manager for `:category` (e.g. `Golf`, `Tennis`) is reviewing the range between `:minPrice` and
+`:maxPrice` and wants those products, most expensive first.
+
+[source,sql]
+----
+SELECT PROD_ID, PROD_NAME, PROD_SUBCATEGORY, PROD_LIST_PRICE, PROD_MIN_PRICE
+FROM PRODUCTS
+WHERE PROD_CATEGORY = :category
+  AND PROD_LIST_PRICE BETWEEN :minPrice AND :maxPrice
+ORDER BY PROD_LIST_PRICE DESC, PROD_NAME
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE p.prodCategory = :category
+  AND p.prodListPrice BETWEEN :minPrice AND :maxPrice
+ORDER BY p.prodListPrice DESC, p.prodName
+----
+
+=== Intermediate
+
+[[SH-PRODUCTS-I-01]]
+==== SH-PRODUCTS-I-01 Products priced above the average
+
+Pricing wants the products whose list price is above the average list price of the whole catalogue.
+
+[source,sql]
+----
+SELECT PROD_ID, PROD_NAME, PROD_CATEGORY, PROD_LIST_PRICE
+FROM PRODUCTS
+WHERE PROD_LIST_PRICE > (SELECT AVG(PROD_LIST_PRICE) FROM PRODUCTS)
+ORDER BY PROD_LIST_PRICE DESC
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE p.prodListPrice > (SELECT AVG(p2.prodListPrice) FROM Product p2)
+ORDER BY p.prodListPrice DESC
+----
+
+=== Advanced
+
+[[SH-PRODUCTS-A-01]]
+==== SH-PRODUCTS-A-01 Most expensive product of each subcategory
+
+The product line managers want the most expensive product of every subcategory, by list price.
+
+[source,sql]
+----
+SELECT p.PROD_CATEGORY, p.PROD_SUBCATEGORY, p.PROD_ID, p.PROD_NAME, p.PROD_LIST_PRICE
+FROM PRODUCTS p
+WHERE p.PROD_LIST_PRICE = (SELECT MAX(p2.PROD_LIST_PRICE)
+                           FROM PRODUCTS p2
+                           WHERE p2.PROD_SUBCATEGORY_ID = p.PROD_SUBCATEGORY_ID)
+ORDER BY p.PROD_CATEGORY, p.PROD_SUBCATEGORY, p.PROD_ID
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE p.prodListPrice = (SELECT MAX(p2.prodListPrice)
+                         FROM Product p2
+                         WHERE p2.prodSubcategoryId = p.prodSubcategoryId)
+ORDER BY p.prodCategory, p.prodSubcategory, p.prodId
+----
+
+A subcategory with two products at the top price returns both. The window-function form,
+`+RANK() OVER (PARTITION BY PROD_SUBCATEGORY_ID ORDER BY PROD_LIST_PRICE DESC)+` in an inline view, keeps ties too and is
+SQL only.
+
+== PROFITS
+
+=== Basic
+
+[[SH-PROFITS-B-01]]
+==== SH-PROFITS-B-01 Loss-making sales
+
+Finance wants the sales between `:fromDay` and `:toDay` whose invoiced amount was below what the goods cost.
+
+[source,sql]
+----
+SELECT TIME_ID, PROD_ID, CUST_ID, CHANNEL_ID, PROMO_ID, QUANTITY_SOLD, AMOUNT_SOLD, TOTAL_COST
+FROM PROFITS
+WHERE TIME_ID BETWEEN :fromDay AND :toDay
+  AND AMOUNT_SOLD < TOTAL_COST
+ORDER BY TIME_ID, PROD_ID, CUST_ID
+----
+
+[source,jpaql]
+----
+SELECT pr
+FROM Profit pr
+WHERE pr.timeId BETWEEN :fromDay AND :toDay
+  AND pr.amountSold < pr.totalCost
+ORDER BY pr.timeId, pr.prodId, pr.custId
+----
+
+=== Intermediate
+
+[[SH-PROFITS-I-01]]
+==== SH-PROFITS-I-01 Thinnest margins
+
+Finance wants the ten products with the lowest margin ratio between `:fromDay` and `:toDay`, with the revenue and margin
+behind it.
+
+[source,sql]
+----
+SELECT PROD_ID,
+       SUM(AMOUNT_SOLD)                                 AS REVENUE,
+       SUM(AMOUNT_SOLD - TOTAL_COST)                    AS MARGIN,
+       SUM(AMOUNT_SOLD - TOTAL_COST) / SUM(AMOUNT_SOLD) AS MARGIN_RATIO
+FROM PROFITS
+WHERE TIME_ID BETWEEN :fromDay AND :toDay
+GROUP BY PROD_ID
+ORDER BY MARGIN_RATIO
+FETCH FIRST 10 ROWS ONLY
+----
+
+[source,jpaql]
+----
+SELECT pr.prodId,
+       SUM(pr.amountSold),
+       SUM(pr.amountSold - pr.totalCost),
+       SUM(pr.amountSold - pr.totalCost) / SUM(pr.amountSold) AS marginRatio
+FROM Profit pr
+WHERE pr.timeId BETWEEN :fromDay AND :toDay
+GROUP BY pr.prodId
+ORDER BY marginRatio
+----
+
+Limit the JPQL with `query.setMaxResults(10)`. No product lost money over 2021 as a whole, although over a thousand
+single sales did (see _Loss-making sales_).
+
+=== Advanced
+
+[[SH-PROFITS-A-01]]
+==== SH-PROFITS-A-01 Products whose margin shrank
+
+Finance wants the products whose margin in calendar year `:currentYear` was lower than in `:previousYear`, with both
+margins.
+
+[source,sql]
+----
+SELECT PROD_ID,
+       SUM(CASE WHEN EXTRACT(YEAR FROM TIME_ID) = :previousYear THEN AMOUNT_SOLD - TOTAL_COST ELSE 0 END) AS PREVIOUS,
+       SUM(CASE WHEN EXTRACT(YEAR FROM TIME_ID) = :currentYear THEN AMOUNT_SOLD - TOTAL_COST ELSE 0 END)  AS CURRENT_
+FROM PROFITS
+WHERE EXTRACT(YEAR FROM TIME_ID) IN (:previousYear, :currentYear)
+GROUP BY PROD_ID
+HAVING SUM(CASE WHEN EXTRACT(YEAR FROM TIME_ID) = :currentYear THEN AMOUNT_SOLD - TOTAL_COST ELSE 0 END)
+     < SUM(CASE WHEN EXTRACT(YEAR FROM TIME_ID) = :previousYear THEN AMOUNT_SOLD - TOTAL_COST ELSE 0 END)
+ORDER BY PROD_ID
+----
+
+[source,jpaql]
+----
+SELECT pr.prodId,
+       SUM(CASE WHEN EXTRACT(YEAR FROM pr.timeId) = :previousYear THEN pr.amountSold - pr.totalCost ELSE 0 END),
+       SUM(CASE WHEN EXTRACT(YEAR FROM pr.timeId) = :currentYear THEN pr.amountSold - pr.totalCost ELSE 0 END)
+FROM Profit pr
+WHERE EXTRACT(YEAR FROM pr.timeId) IN (:previousYear, :currentYear)
+GROUP BY pr.prodId
+HAVING SUM(CASE WHEN EXTRACT(YEAR FROM pr.timeId) = :currentYear THEN pr.amountSold - pr.totalCost ELSE 0 END)
+     < SUM(CASE WHEN EXTRACT(YEAR FROM pr.timeId) = :previousYear THEN pr.amountSold - pr.totalCost ELSE 0 END)
+ORDER BY pr.prodId
+----
+
+The year comes from the sale date itself, so the view is read alone; _Reconcile sale dates with the calendar_ shows
+that it agrees with `+TIMES.CALENDAR_YEAR+`. Conditional aggregation puts both years side by side in one pass, and the
+`HAVING` compares them. A condition on `EXTRACT(...)` cannot use an index on `+TIME_ID+`; on a large table bind the first
+and last day instead (`+TIME_ID BETWEEN :fromDay AND :toDay+`).
+
+== PROMOTIONS
+
+=== Basic
+
+[[SH-PROMOTIONS-B-01]]
+==== SH-PROMOTIONS-B-01 Promotions running on a day
+
+A store manager asks which promotions are running on `:day`, ending soonest first.
+
+[source,sql]
+----
+SELECT PROMO_ID, PROMO_NAME, PROMO_CATEGORY, PROMO_BEGIN_DATE, PROMO_END_DATE
+FROM PROMOTIONS
+WHERE :day BETWEEN PROMO_BEGIN_DATE AND PROMO_END_DATE
+ORDER BY PROMO_END_DATE, PROMO_NAME
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Promotion p
+WHERE :day BETWEEN p.promoBeginDate AND p.promoEndDate
+ORDER BY p.promoEndDate, p.promoName
+----
+
+`:day` is a `java.time.LocalDate`.
+
+[[SH-PROMOTIONS-B-02]]
+==== SH-PROMOTIONS-B-02 Kinds of promotion
+
+The promotions team wants the distinct promotion categories it has run (TV, radio, internet, ...).
+
+[source,sql]
+----
+SELECT DISTINCT PROMO_CATEGORY
+FROM PROMOTIONS
+ORDER BY PROMO_CATEGORY
+----
+
+[source,jpaql]
+----
+SELECT DISTINCT p.promoCategory
+FROM Promotion p
+ORDER BY p.promoCategory
+----
+
+=== Intermediate
+
+[[SH-PROMOTIONS-I-01]]
+==== SH-PROMOTIONS-I-01 Promotion spend by category
+
+The promotions team wants, for each promotion category, the number of promotions it has run and what they cost in
+total and on average, ignoring the `NO PROMOTION` placeholder.
+
+[source,sql]
+----
+SELECT PROMO_CATEGORY, COUNT(*) AS PROMOTIONS, SUM(PROMO_COST) AS TOTAL_COST, AVG(PROMO_COST) AS AVERAGE_COST
+FROM PROMOTIONS
+WHERE PROMO_CATEGORY <> 'NO PROMOTION'
+GROUP BY PROMO_CATEGORY
+ORDER BY TOTAL_COST DESC
+----
+
+[source,jpaql]
+----
+SELECT p.promoCategory, COUNT(p), SUM(p.promoCost) AS totalCost, AVG(p.promoCost)
+FROM Promotion p
+WHERE p.promoCategory <> 'NO PROMOTION'
+GROUP BY p.promoCategory
+ORDER BY totalCost DESC
+----
+
+=== Advanced
+
+[[SH-PROMOTIONS-A-01]]
+==== SH-PROMOTIONS-A-01 Clashing promotions
+
+The promotions team suspects that promotions of the same subcategory run on top of each other and compete for the same
+customers. For category `:promoCategory` (e.g. `radio`), list every pair of promotions of one subcategory whose dates
+overlap.
+
+[source,sql]
+----
+SELECT a.PROMO_SUBCATEGORY,
+       a.PROMO_ID         AS FIRST_ID,
+       a.PROMO_BEGIN_DATE AS FIRST_BEGIN,
+       a.PROMO_END_DATE   AS FIRST_END,
+       b.PROMO_ID         AS SECOND_ID,
+       b.PROMO_BEGIN_DATE AS SECOND_BEGIN,
+       b.PROMO_END_DATE   AS SECOND_END
+FROM PROMOTIONS a
+         JOIN PROMOTIONS b ON b.PROMO_SUBCATEGORY_ID = a.PROMO_SUBCATEGORY_ID
+    AND b.PROMO_ID > a.PROMO_ID
+    AND b.PROMO_BEGIN_DATE <= a.PROMO_END_DATE
+    AND a.PROMO_BEGIN_DATE <= b.PROMO_END_DATE
+WHERE a.PROMO_CATEGORY = :promoCategory
+ORDER BY a.PROMO_SUBCATEGORY, a.PROMO_BEGIN_DATE, a.PROMO_ID, b.PROMO_ID
+----
+
+[source,jpaql]
+----
+SELECT a, b
+FROM Promotion a
+         JOIN Promotion b ON b.promoSubcategoryId = a.promoSubcategoryId
+    AND b.promoId > a.promoId
+    AND b.promoBeginDate <= a.promoEndDate
+    AND a.promoBeginDate <= b.promoEndDate
+WHERE a.promoCategory = :promoCategory
+ORDER BY a.promoSubcategory, a.promoBeginDate, a.promoId, b.promoId
+----
+
+Two date ranges overlap exactly when each begins no later than the other ends. `+b.PROMO_ID > a.PROMO_ID+` reports each
+pair once and keeps a promotion from clashing with itself.
+
+== SALES
+
+=== Basic
+
+[[SH-SALES-B-01]]
+==== SH-SALES-B-01 A day's takings through one channel
+
+Finance is checking the takings of `:day` through channel `:channelId`: every sales line, biggest amount first.
+
+[source,sql]
+----
+SELECT PROD_ID, CUST_ID, PROMO_ID, QUANTITY_SOLD, AMOUNT_SOLD
+FROM SALES
+WHERE TIME_ID = :day
+  AND CHANNEL_ID = :channelId
+ORDER BY AMOUNT_SOLD DESC, PROD_ID, CUST_ID
+----
+
+[source,jpaql]
+----
+SELECT s
+FROM Sale s
+WHERE s.time.timeId = :day
+  AND s.channel.channelId = :channelId
+ORDER BY s.amountSold DESC
+----
+
+`s.time.timeId` and `s.channel.channelId` name key columns through the associations.
+
+=== Intermediate
+
+[[SH-SALES-I-01]]
+==== SH-SALES-I-01 Top spenders of a period
+
+The loyalty programme wants the ten customers who spent the most between `:fromDay` and `:toDay`, with the number of
+sales lines and units behind it.
+
+[source,sql]
+----
+SELECT CUST_ID, COUNT(*) AS LINES, SUM(QUANTITY_SOLD) AS UNITS, SUM(AMOUNT_SOLD) AS SPENT
+FROM SALES
+WHERE TIME_ID BETWEEN :fromDay AND :toDay
+GROUP BY CUST_ID
+ORDER BY SPENT DESC
+FETCH FIRST 10 ROWS ONLY
+----
+
+[source,jpaql]
+----
+SELECT s.customer.custId, COUNT(s), SUM(s.quantitySold), SUM(s.amountSold) AS spent
+FROM Sale s
+WHERE s.time.timeId BETWEEN :fromDay AND :toDay
+GROUP BY s.customer.custId
+ORDER BY spent DESC
+----
+
+Limit the JPQL with `query.setMaxResults(10)`. A date range on `+TIME_ID+` needs no `TIMES` join; a calendar or fiscal
+period does (see _Revenue by fiscal month_).
+
+=== Advanced
+
+[[SH-SALES-A-01]]
+==== SH-SALES-A-01 Days between a customer's purchases
+
+The retention team studies buying rhythm. For customer `:custId`, list each day they bought something and the day of
+their previous purchase, so the gap between the two can be measured.
+
+[source,sql]
+----
+SELECT TIME_ID,
+       LAG(TIME_ID) OVER (ORDER BY TIME_ID)           AS PREVIOUS_DAY,
+       TIME_ID - LAG(TIME_ID) OVER (ORDER BY TIME_ID) AS DAYS_BETWEEN
+FROM (SELECT DISTINCT TIME_ID
+      FROM SALES
+      WHERE CUST_ID = :custId)
+ORDER BY TIME_ID
+----
+
+[source,jpaql]
+----
+SELECT s.id.timeId, MAX(s2.id.timeId)
+FROM Sale s
+         LEFT JOIN Sale s2 ON s2.id.custId = s.id.custId
+    AND s2.id.timeId < s.id.timeId
+WHERE s.id.custId = :custId
+GROUP BY s.id.timeId
+ORDER BY s.id.timeId
+----
+
+`LAG` needs the distinct days first, or a day with several sales lines would count as its own previous purchase.
+JPQL has no window functions and no date subtraction: the self-join pairs each day with every earlier sale of the same
+customer, `MAX` keeps the latest, and the `LEFT JOIN` keeps the first day with a `null` previous one. Compute the gap
+in Java with `ChronoUnit.DAYS.between`. The join is quadratic in the customer's sales lines, which is fine for one
+customer.
+
+== SUPPLEMENTARY_DEMOGRAPHICS
+
+=== Basic
+
+[[SH-SUPPLEMENTARY_DEMOGRAPHICS-B-01]]
+==== SH-SUPPLEMENTARY_DEMOGRAPHICS-B-01 Card holders in an occupation
+
+The loyalty programme is inviting its affinity-card holders of occupation `:occupation` (e.g. `Exec.`) to a focus group,
+and wants their customer ids with education, household size and years of residence.
+
+[source,sql]
+----
+SELECT CUST_ID, EDUCATION, HOUSEHOLD_SIZE, YRS_RESIDENCE
+FROM SUPPLEMENTARY_DEMOGRAPHICS
+WHERE OCCUPATION = :occupation
+  AND AFFINITY_CARD = 1
+ORDER BY CUST_ID
+----
+
+[source,jpaql]
+----
+SELECT d
+FROM SupplementaryDemographics d
+WHERE d.occupation = :occupation
+  AND d.affinityCard = 1
+ORDER BY d.custId
+----
+
+=== Intermediate
+
+[[SH-SUPPLEMENTARY_DEMOGRAPHICS-I-01]]
+==== SH-SUPPLEMENTARY_DEMOGRAPHICS-I-01 Card take-up by household size
+
+The loyalty programme wants, for each household size, how many customers there are and how many of them hold an
+affinity card.
+
+[source,sql]
+----
+SELECT HOUSEHOLD_SIZE, COUNT(*) AS CUSTOMERS, SUM(AFFINITY_CARD) AS CARD_HOLDERS
+FROM SUPPLEMENTARY_DEMOGRAPHICS
+GROUP BY HOUSEHOLD_SIZE
+ORDER BY HOUSEHOLD_SIZE
+----
+
+[source,jpaql]
+----
+SELECT d.householdSize, COUNT(d), SUM(d.affinityCard)
+FROM SupplementaryDemographics d
+GROUP BY d.householdSize
+ORDER BY d.householdSize
+----
+
+`+AFFINITY_CARD+` is `0` or `1`, so summing it counts the holders.
+
+=== Advanced
+
+[[SH-SUPPLEMENTARY_DEMOGRAPHICS-A-01]]
+==== SH-SUPPLEMENTARY_DEMOGRAPHICS-A-01 Occupations ahead of the overall take-up
+
+The loyalty programme wants the occupations whose affinity-card take-up rate is above the rate across all customers,
+highest first.
+
+[source,sql]
+----
+SELECT OCCUPATION, COUNT(*) AS CUSTOMERS, AVG(AFFINITY_CARD) AS TAKE_UP
+FROM SUPPLEMENTARY_DEMOGRAPHICS
+GROUP BY OCCUPATION
+HAVING AVG(AFFINITY_CARD) > (SELECT AVG(AFFINITY_CARD) FROM SUPPLEMENTARY_DEMOGRAPHICS)
+ORDER BY TAKE_UP DESC
+----
+
+[source,jpaql]
+----
+SELECT d.occupation, COUNT(d), AVG(d.affinityCard) AS takeUp
+FROM SupplementaryDemographics d
+GROUP BY d.occupation
+HAVING AVG(d.affinityCard) > (SELECT AVG(d2.affinityCard) FROM SupplementaryDemographics d2)
+ORDER BY takeUp DESC
+----
+
+The average of a `0`/`1` column is the share of ones. The top of the list on the installed data is `+Armed-F+`: one
+holder out of two customers. Add `+AND COUNT(*) >= :minCustomers+` to the `HAVING` to ignore occupations too small to
+mean anything.
+
+== TIMES
+
+=== Basic
+
+[[SH-TIMES-B-01]]
+==== SH-TIMES-B-01 Which fiscal period is a day in?
+
+Finance closes the books by fiscal period, which does not line up with the calendar. Given `:day`, which fiscal year,
+quarter and month, and which calendar month and quarter, does it fall in?
+
+[source,sql]
+----
+SELECT TIME_ID, FISCAL_YEAR, FISCAL_QUARTER_DESC, FISCAL_MONTH_DESC, CALENDAR_QUARTER_DESC, CALENDAR_MONTH_DESC
+FROM TIMES
+WHERE TIME_ID = :day
+----
+
+[source,jpaql]
+----
+SELECT t.timeId, t.fiscalYear, t.fiscalQuarterDesc, t.fiscalMonthDesc, t.calendarQuarterDesc, t.calendarMonthDesc
+FROM Time t
+WHERE t.timeId = :day
+----
+
+`+TIME_ID+` is the primary key, so `+EntityManager#find(Time.class, day)+` answers it too.
+
+=== Intermediate
+
+[[SH-TIMES-I-01]]
+==== SH-TIMES-I-01 Fiscal month boundaries
+
+Finance wants the first and last day, and the number of days, of each fiscal month of fiscal year `:fiscalYear`.
+
+[source,sql]
+----
+SELECT FISCAL_MONTH_DESC, MIN(TIME_ID) AS FIRST_DAY, MAX(TIME_ID) AS LAST_DAY, COUNT(*) AS DAYS
+FROM TIMES
+WHERE FISCAL_YEAR = :fiscalYear
+GROUP BY FISCAL_MONTH_DESC
+ORDER BY FISCAL_MONTH_DESC
+----
+
+[source,jpaql]
+----
+SELECT t.fiscalMonthDesc, MIN(t.timeId), MAX(t.timeId), COUNT(t)
+FROM Time t
+WHERE t.fiscalYear = :fiscalYear
+GROUP BY t.fiscalMonthDesc
+ORDER BY t.fiscalMonthDesc
+----
+
+The fiscal year does not start on 1 January: fiscal 2021 runs from 27 December 2020, in months of five and four weeks.
+
+=== Advanced
+
+[[SH-TIMES-A-01]]
+==== SH-TIMES-A-01 Fiscal months that disagree with themselves
+
+`TIMES` repeats the length and the last day of each fiscal month on every day of it (`+DAYS_IN_FIS_MONTH+`,
+`+END_OF_FIS_MONTH+`). Finance uses them for per-day averages, and wants the fiscal months where they disagree with the
+days the table actually holds.
+
+[source,sql]
+----
+SELECT FISCAL_MONTH_DESC, COUNT(*) AS DAYS, DAYS_IN_FIS_MONTH, MAX(TIME_ID) AS LAST_DAY, END_OF_FIS_MONTH
+FROM TIMES
+GROUP BY FISCAL_MONTH_DESC, DAYS_IN_FIS_MONTH, END_OF_FIS_MONTH
+HAVING COUNT(*) <> DAYS_IN_FIS_MONTH
+    OR MAX(TIME_ID) <> END_OF_FIS_MONTH
+ORDER BY FISCAL_MONTH_DESC
+----
+
+[source,jpaql]
+----
+SELECT t.fiscalMonthDesc, COUNT(t), t.daysInFisMonth, MAX(t.timeId), t.endOfFisMonth
+FROM Time t
+GROUP BY t.fiscalMonthDesc, t.daysInFisMonth, t.endOfFisMonth
+HAVING COUNT(t) <> t.daysInFisMonth
+    OR MAX(t.timeId) <> t.endOfFisMonth
+ORDER BY t.fiscalMonthDesc
+----
+
+Grouping by the two repeated columns as well means a month whose days disagree among themselves shows up as several
+groups, each failing the count. On the installed data three months are reported: `+2020-02+` holds 29 days but records 28
+(the leap day), `+2021-03+` holds 27 but records 28, and `+2024-01+` is cut off by the end of the table on 31 December 2023.
+The same check on the calendar columns (`+DAYS_IN_CAL_MONTH+`, `+END_OF_CAL_MONTH+`) reports nothing.
+
+== Whole schema
+
+Problems that join or subquery more than one of the objects above.
+
+=== Basic
+
+[[SH-SCHEMA-B-01]]
+==== SH-SCHEMA-B-01 A customer's purchase history
+
+A customer-service agent needs the purchase history of customer `:custId`, newest first: day, product, channel,
+quantity and amount.
+
+[source,sql]
+----
+SELECT s.TIME_ID, p.PROD_NAME, ch.CHANNEL_DESC, s.QUANTITY_SOLD, s.AMOUNT_SOLD
+FROM SALES s
+         JOIN PRODUCTS p ON p.PROD_ID = s.PROD_ID
+         JOIN CHANNELS ch ON ch.CHANNEL_ID = s.CHANNEL_ID
+WHERE s.CUST_ID = :custId
+ORDER BY s.TIME_ID DESC, p.PROD_NAME
+----
+
+[source,jpaql]
+----
+SELECT t.timeId, p.prodName, ch.channelDesc, s.quantitySold, s.amountSold
+FROM Sale s
+         JOIN s.time t
+         JOIN s.product p
+         JOIN s.channel ch
+WHERE s.customer.custId = :custId
+ORDER BY t.timeId DESC, p.prodName
+----
+
+[[SH-SCHEMA-B-02]]
+==== SH-SCHEMA-B-02 Customers with their country, in one round trip
+
+The account-management screen lists the customers of `:city` together with their country and region. ``Customer``'s
+`country` association is lazy, so listing them naively issues one more query per country. Load both in one query.
+
+[source,sql]
+----
+SELECT cu.CUST_ID, cu.CUST_FIRST_NAME, cu.CUST_LAST_NAME, co.COUNTRY_ID, co.COUNTRY_NAME, co.COUNTRY_REGION
+FROM CUSTOMERS cu
+         JOIN COUNTRIES co ON co.COUNTRY_ID = cu.COUNTRY_ID
+WHERE cu.CUST_CITY = :city
+ORDER BY cu.CUST_LAST_NAME, cu.CUST_FIRST_NAME
+----
+
+[source,jpaql]
+----
+SELECT cu
+FROM Customer cu
+         JOIN FETCH cu.country
+WHERE cu.custCity = :city
+ORDER BY cu.custLastName, cu.custFirstName
+----
+
+`JOIN FETCH` returns `Customer` entities whose `getCountry()` is already initialised. Both providers accept an
+identification variable on a fetch join (`JOIN FETCH cu.country co`), but the specification does not, so filter
+through a separate join if you need one.
+
+[[SH-SCHEMA-B-03]]
+==== SH-SCHEMA-B-03 Revenue by channel
+
+The sales director wants units sold and revenue per channel for calendar year `:year`, biggest channel first.
+
+[source,sql]
+----
+SELECT ch.CHANNEL_DESC,
+       SUM(s.QUANTITY_SOLD) AS UNITS,
+       SUM(s.AMOUNT_SOLD)   AS REVENUE
+FROM SALES s
+         JOIN CHANNELS ch ON ch.CHANNEL_ID = s.CHANNEL_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY ch.CHANNEL_DESC
+ORDER BY REVENUE DESC
+----
+
+[source,jpaql]
+----
+SELECT ch.channelDesc, SUM(s.quantitySold) AS units, SUM(s.amountSold) AS revenue
+FROM Sale s
+         JOIN s.channel ch
+         JOIN s.time t
+WHERE t.calendarYear = :year
+GROUP BY ch.channelDesc
+ORDER BY revenue DESC
+----
+
+=== Intermediate
+
+[[SH-SCHEMA-I-01]]
+==== SH-SCHEMA-I-01 Category revenue by quarter
+
+Each product line manager wants revenue for their category per calendar quarter of `:year`, to see seasonality.
+
+[source,sql]
+----
+SELECT t.CALENDAR_QUARTER_DESC, p.PROD_CATEGORY, SUM(s.AMOUNT_SOLD) AS REVENUE
+FROM SALES s
+         JOIN PRODUCTS p ON p.PROD_ID = s.PROD_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY t.CALENDAR_QUARTER_DESC, p.PROD_CATEGORY
+ORDER BY t.CALENDAR_QUARTER_DESC, REVENUE DESC
+----
+
+[source,jpaql]
+----
+SELECT t.calendarQuarterDesc, p.prodCategory, SUM(s.amountSold) AS revenue
+FROM Sale s
+         JOIN s.product p
+         JOIN s.time t
+WHERE t.calendarYear = :year
+GROUP BY t.calendarQuarterDesc, p.prodCategory
+ORDER BY t.calendarQuarterDesc, revenue DESC
+----
+
+[[SH-SCHEMA-I-02]]
+==== SH-SCHEMA-I-02 Ten best sellers
+
+Merchandising wants the ten products that sold the most units in `:year`, with the revenue they brought in.
+
+[source,sql]
+----
+SELECT p.PROD_ID, p.PROD_NAME, SUM(s.QUANTITY_SOLD) AS UNITS, SUM(s.AMOUNT_SOLD) AS REVENUE
+FROM SALES s
+         JOIN PRODUCTS p ON p.PROD_ID = s.PROD_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY p.PROD_ID, p.PROD_NAME
+ORDER BY UNITS DESC
+FETCH FIRST 10 ROWS ONLY
+----
+
+[source,jpaql]
+----
+SELECT p.prodId, p.prodName, SUM(s.quantitySold) AS units, SUM(s.amountSold) AS revenue
+FROM Sale s
+         JOIN s.product p
+         JOIN s.time t
+WHERE t.calendarYear = :year
+GROUP BY p.prodId, p.prodName
+ORDER BY units DESC
+----
+
+JPQL has no `FETCH FIRST`; limit the result with `query.setMaxResults(10)`. Ties at tenth place are cut arbitrarily
+either way (`FETCH FIRST 10 ROWS WITH TIES` keeps them in Oracle SQL).
+
+[[SH-SCHEMA-I-03]]
+==== SH-SCHEMA-I-03 Countries above a revenue target
+
+Finance wants the countries whose customers spent more than `:threshold` in `:year`.
+
+[source,sql]
+----
+SELECT co.COUNTRY_NAME, SUM(s.AMOUNT_SOLD) AS REVENUE
+FROM SALES s
+         JOIN CUSTOMERS cu ON cu.CUST_ID = s.CUST_ID
+         JOIN COUNTRIES co ON co.COUNTRY_ID = cu.COUNTRY_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY co.COUNTRY_NAME
+HAVING SUM(s.AMOUNT_SOLD) > :threshold
+ORDER BY REVENUE DESC
+----
+
+[source,jpaql]
+----
+SELECT co.countryName, SUM(s.amountSold) AS revenue
+FROM Sale s
+         JOIN s.customer cu
+         JOIN cu.country co
+         JOIN s.time t
+WHERE t.calendarYear = :year
+GROUP BY co.countryName
+HAVING SUM(s.amountSold) > :threshold
+ORDER BY revenue DESC
+----
+
+[[SH-SCHEMA-I-04]]
+==== SH-SCHEMA-I-04 Promotions that moved revenue
+
+The promotions team wants to know which promotions actually moved revenue in calendar year `:year`: for each
+promotion with sales that year, its revenue and units next to what the promotion cost. Sales made without a
+promotion are booked against the `NO PROMOTION` promotion and do not count.
+
+[source,sql]
+----
+SELECT pr.PROMO_ID, pr.PROMO_NAME, pr.PROMO_CATEGORY, pr.PROMO_COST,
+       SUM(s.QUANTITY_SOLD) AS UNITS,
+       SUM(s.AMOUNT_SOLD)   AS REVENUE
+FROM SALES s
+         JOIN PROMOTIONS pr ON pr.PROMO_ID = s.PROMO_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+  AND pr.PROMO_CATEGORY <> 'NO PROMOTION'
+GROUP BY pr.PROMO_ID, pr.PROMO_NAME, pr.PROMO_CATEGORY, pr.PROMO_COST
+ORDER BY REVENUE DESC
+----
+
+[source,jpaql]
+----
+SELECT pr.promoId, pr.promoName, pr.promoCategory, pr.promoCost,
+       SUM(s.quantitySold) AS units, SUM(s.amountSold) AS revenue
+FROM Sale s
+         JOIN s.promotion pr
+         JOIN s.time t
+WHERE t.calendarYear = :year
+  AND pr.promoCategory <> 'NO PROMOTION'
+GROUP BY pr.promoId, pr.promoName, pr.promoCategory, pr.promoCost
+ORDER BY revenue DESC
+----
+
+[[SH-SCHEMA-I-05]]
+==== SH-SCHEMA-I-05 Revenue by fiscal month
+
+Finance reports by fiscal period. Give revenue per fiscal month of fiscal year `:fiscalYear`.
+
+[source,sql]
+----
+SELECT t.FISCAL_MONTH_DESC, SUM(s.AMOUNT_SOLD) AS REVENUE
+FROM SALES s
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.FISCAL_YEAR = :fiscalYear
+GROUP BY t.FISCAL_MONTH_DESC
+ORDER BY t.FISCAL_MONTH_DESC
+----
+
+[source,jpaql]
+----
+SELECT t.fiscalMonthDesc, SUM(s.amountSold)
+FROM Sale s
+         JOIN s.time t
+WHERE t.fiscalYear = :fiscalYear
+GROUP BY t.fiscalMonthDesc
+ORDER BY t.fiscalMonthDesc
+----
+
+[[SH-SCHEMA-I-06]]
+==== SH-SCHEMA-I-06 Weekend versus weekday
+
+Each channel manager wants to know how their channel's `:year` revenue splits between weekends and weekdays.
+(`+DAY_NUMBER_IN_WEEK+` runs from 1, Monday, to 7, Sunday.)
+
+[source,sql]
+----
+SELECT ch.CHANNEL_DESC,
+       SUM(CASE WHEN t.DAY_NUMBER_IN_WEEK IN (6, 7) THEN s.AMOUNT_SOLD ELSE 0 END) AS WEEKEND,
+       SUM(CASE WHEN t.DAY_NUMBER_IN_WEEK IN (6, 7) THEN 0 ELSE s.AMOUNT_SOLD END) AS WEEKDAY
+FROM SALES s
+         JOIN CHANNELS ch ON ch.CHANNEL_ID = s.CHANNEL_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY ch.CHANNEL_DESC
+ORDER BY ch.CHANNEL_DESC
+----
+
+[source,jpaql]
+----
+SELECT ch.channelDesc,
+       SUM(CASE WHEN t.dayNumberInWeek IN (6, 7) THEN s.amountSold ELSE 0 END),
+       SUM(CASE WHEN t.dayNumberInWeek IN (6, 7) THEN 0 ELSE s.amountSold END)
+FROM Sale s
+         JOIN s.channel ch
+         JOIN s.time t
+WHERE t.calendarYear = :year
+GROUP BY ch.channelDesc
+ORDER BY ch.channelDesc
+----
+
+The `CASE` sits inside the aggregate on purpose. A JPQL `GROUP BY` item is a path expression or an identification
+variable, so grouping _by_ a `CASE` expression is not portable; aggregating each bucket into its own column is.
+
+[[SH-SCHEMA-I-07]]
+==== SH-SCHEMA-I-07 Revenue by gender and marital status
+
+Marketing wants `:year` revenue and the number of buying customers by gender and marital status, with customers of
+unrecorded marital status shown as `unknown` rather than as a blank.
+
+[source,sql]
+----
+SELECT cu.CUST_GENDER,
+       COALESCE(cu.CUST_MARITAL_STATUS, 'unknown') AS MARITAL_STATUS,
+       COUNT(DISTINCT cu.CUST_ID)                  AS CUSTOMERS,
+       SUM(s.AMOUNT_SOLD)                          AS REVENUE
+FROM SALES s
+         JOIN CUSTOMERS cu ON cu.CUST_ID = s.CUST_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY cu.CUST_GENDER, COALESCE(cu.CUST_MARITAL_STATUS, 'unknown')
+ORDER BY cu.CUST_GENDER, REVENUE DESC
+----
+
+[source,jpaql]
+----
+SELECT cu.custGender, COALESCE(cu.custMaritalStatus, 'unknown'), COUNT(DISTINCT cu), SUM(s.amountSold) AS revenue
+FROM Sale s
+         JOIN s.customer cu
+         JOIN s.time t
+WHERE t.calendarYear = :year
+GROUP BY cu.custGender, cu.custMaritalStatus
+ORDER BY cu.custGender, revenue DESC
+----
+
+The JPQL groups by the column itself and applies `COALESCE` in the select list, which is portable; grouping by the
+`COALESCE` expression is not (see the previous problem).
+
+[[SH-SCHEMA-I-08]]
+==== SH-SCHEMA-I-08 Affinity-card holders by education
+
+The loyalty programme wants to know what its affinity-card holders (`+AFFINITY_CARD = 1+`) spent in `:year`, broken
+down by education level.
+
+[source,sql]
+----
+SELECT d.EDUCATION, COUNT(DISTINCT s.CUST_ID) AS CUSTOMERS, SUM(s.AMOUNT_SOLD) AS REVENUE
+FROM SALES s
+         JOIN SUPPLEMENTARY_DEMOGRAPHICS d ON d.CUST_ID = s.CUST_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+  AND d.AFFINITY_CARD = 1
+GROUP BY d.EDUCATION
+ORDER BY REVENUE DESC
+----
+
+[source,jpaql]
+----
+SELECT d.education, COUNT(DISTINCT cu), SUM(s.amountSold) AS revenue
+FROM Sale s
+         JOIN s.customer cu
+         JOIN SupplementaryDemographics d ON d.custId = cu.custId
+         JOIN s.time t
+WHERE t.calendarYear = :year
+  AND d.affinityCard = 1
+GROUP BY d.education
+ORDER BY revenue DESC
+----
+
+`SupplementaryDemographics` has no association with `Customer` -- it shares the key, not a mapped relationship -- so
+JPQL reaches it with an entity join on `custId`.
+
+[[SH-SCHEMA-I-09]]
+==== SH-SCHEMA-I-09 Realised price against list price
+
+The product line managers suspect heavy discounting. For each product, compare the average price actually realised
+per unit in `:year` with its list price.
+
+[source,sql]
+----
+SELECT p.PROD_ID, p.PROD_NAME, p.PROD_LIST_PRICE,
+       SUM(s.AMOUNT_SOLD) / SUM(s.QUANTITY_SOLD)                     AS REALISED_PRICE,
+       SUM(s.AMOUNT_SOLD) / SUM(s.QUANTITY_SOLD) / p.PROD_LIST_PRICE AS REALISED_RATIO
+FROM SALES s
+         JOIN PRODUCTS p ON p.PROD_ID = s.PROD_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY p.PROD_ID, p.PROD_NAME, p.PROD_LIST_PRICE
+ORDER BY REALISED_RATIO
+----
+
+[source,jpaql]
+----
+SELECT p.prodId, p.prodName, p.prodListPrice,
+       SUM(s.amountSold) / SUM(s.quantitySold) AS realisedPrice
+FROM Sale s
+         JOIN s.product p
+         JOIN s.time t
+WHERE t.calendarYear = :year
+GROUP BY p.prodId, p.prodName, p.prodListPrice
+ORDER BY p.prodId
+----
+
+Dividing a sum of `BigDecimal` by a sum of `Integer` gives a `BigDecimal`, but its scale is up to the provider; round
+it in Java (`setScale`) rather than relying on it.
+
+=== Advanced
+
+[[SH-SCHEMA-A-01]]
+==== SH-SCHEMA-A-01 Dormant products and customers
+
+Two clean-up requests. Merchandising wants the products that have never been sold; marketing wants the number of
+customers, per country, who have never bought anything.
+
+[source,sql]
+----
+SELECT p.PROD_ID, p.PROD_NAME
+FROM PRODUCTS p
+WHERE NOT EXISTS (SELECT 1 FROM SALES s WHERE s.PROD_ID = p.PROD_ID)
+ORDER BY p.PROD_ID
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE NOT EXISTS (SELECT s FROM Sale s WHERE s.product = p)
+ORDER BY p.prodId
+----
+
+[source,sql]
+----
+SELECT co.COUNTRY_NAME, COUNT(*) AS DORMANT_CUSTOMERS
+FROM CUSTOMERS cu
+         JOIN COUNTRIES co ON co.COUNTRY_ID = cu.COUNTRY_ID
+WHERE NOT EXISTS (SELECT 1 FROM SALES s WHERE s.CUST_ID = cu.CUST_ID)
+GROUP BY co.COUNTRY_NAME
+ORDER BY DORMANT_CUSTOMERS DESC
+----
+
+[source,jpaql]
+----
+SELECT co.countryName, COUNT(cu) AS dormant
+FROM Customer cu
+         JOIN cu.country co
+WHERE NOT EXISTS (SELECT s FROM Sale s WHERE s.customer = cu)
+GROUP BY co.countryName
+ORDER BY dormant DESC
+----
+
+On the installed data every product has sold, so the first query returns no rows -- an answer, not an error.
+`NOT IN (SELECT ...)` would also work here only because `+SALES.PROD_ID+` and `+SALES.CUST_ID+` are `NOT NULL`;
+`NOT EXISTS` does not depend on that.
+
+[[SH-SCHEMA-A-02]]
+==== SH-SCHEMA-A-02 Lapsed customers
+
+The retention team wants the customers who bought something in `:previousYear` but nothing in `:currentYear`.
+
+[source,sql]
+----
+SELECT s.CUST_ID
+FROM SALES s
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :previousYear
+MINUS
+SELECT s.CUST_ID
+FROM SALES s
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :currentYear
+----
+
+[source,jpaql]
+----
+SELECT s.customer.custId
+FROM Sale s
+WHERE s.time.calendarYear = :previousYear
+EXCEPT
+SELECT s2.customer.custId
+FROM Sale s2
+WHERE s2.time.calendarYear = :currentYear
+----
+
+[source,jpaql]
+----
+SELECT DISTINCT cu
+FROM Sale s
+         JOIN s.customer cu
+WHERE s.time.calendarYear = :previousYear
+  AND NOT EXISTS (SELECT s2
+                  FROM Sale s2
+                  WHERE s2.customer = cu
+                    AND s2.time.calendarYear = :currentYear)
+----
+
+`EXCEPT` (Oracle's `MINUS`), `UNION` and `INTERSECT` are new in Jakarta Persistence 3.2, and like their SQL
+counterparts they remove duplicates. The `NOT EXISTS` form returns whole `Customer` entities instead of ids.
+
+[[SH-SCHEMA-A-03]]
+==== SH-SCHEMA-A-03 Customers who buy through two channels
+
+The channel managers for `Internet` and `Direct Sales` want to know which customers bought through both of their
+channels in `:year`.
+
+[source,sql]
+----
+SELECT s.CUST_ID
+FROM SALES s
+         JOIN CHANNELS ch ON ch.CHANNEL_ID = s.CHANNEL_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+  AND ch.CHANNEL_DESC = :channelA
+INTERSECT
+SELECT s.CUST_ID
+FROM SALES s
+         JOIN CHANNELS ch ON ch.CHANNEL_ID = s.CHANNEL_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+  AND ch.CHANNEL_DESC = :channelB
+----
+
+[source,jpaql]
+----
+SELECT s.customer.custId
+FROM Sale s
+WHERE s.time.calendarYear = :year
+  AND s.channel.channelDesc = :channelA
+INTERSECT
+SELECT s2.customer.custId
+FROM Sale s2
+WHERE s2.time.calendarYear = :year
+  AND s2.channel.channelDesc = :channelB
+----
+
+[[SH-SCHEMA-A-04]]
+==== SH-SCHEMA-A-04 Top three products of each category
+
+Each product line manager wants the three products of their category with the highest revenue in `:year`.
+
+[source,sql]
+----
+SELECT PROD_CATEGORY, PROD_NAME, REVENUE, RNK
+FROM (SELECT p.PROD_CATEGORY,
+             p.PROD_NAME,
+             SUM(s.AMOUNT_SOLD)                                                         AS REVENUE,
+             RANK() OVER (PARTITION BY p.PROD_CATEGORY ORDER BY SUM(s.AMOUNT_SOLD) DESC) AS RNK
+      FROM SALES s
+               JOIN PRODUCTS p ON p.PROD_ID = s.PROD_ID
+               JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+      WHERE t.CALENDAR_YEAR = :year
+      GROUP BY p.PROD_CATEGORY, p.PROD_ID, p.PROD_NAME)
+WHERE RNK <= 3
+ORDER BY PROD_CATEGORY, RNK
+----
+
+[source,jpaql]
+----
+SELECT p.prodCategory, p.prodName, SUM(s.amountSold) AS revenue
+FROM Sale s
+         JOIN s.product p
+         JOIN s.time t
+WHERE t.calendarYear = :year
+GROUP BY p.prodCategory, p.prodId, p.prodName
+ORDER BY p.prodCategory, revenue DESC
+----
+
+JPQL has no window functions (`RANK`, `+ROW_NUMBER+`) and no subquery in `FROM`, so there is no portable JPQL for
+"top N per group". The JPQL above returns every product, ordered within each category; keep the first three rows of
+each category in Java (for example, `Collectors.groupingBy` and `limit(3)`), or run the SQL as a native query.
+
+[[SH-SCHEMA-A-05]]
+==== SH-SCHEMA-A-05 Gross margin by category
+
+Finance wants the gross margin of each product category in `:year`: revenue minus cost, where the cost of a sale is
+the quantity sold times the unit cost recorded in `COSTS` for the same product, day, channel and promotion.
+
+[source,sql]
+----
+SELECT p.PROD_CATEGORY,
+       SUM(s.AMOUNT_SOLD)                                       AS REVENUE,
+       SUM(s.QUANTITY_SOLD * c.UNIT_COST)                       AS COST,
+       SUM(s.AMOUNT_SOLD - s.QUANTITY_SOLD * c.UNIT_COST)       AS MARGIN,
+       SUM(s.AMOUNT_SOLD - s.QUANTITY_SOLD * c.UNIT_COST)
+           / SUM(s.AMOUNT_SOLD)                                 AS MARGIN_RATIO
+FROM SALES s
+         JOIN COSTS c ON c.PROD_ID = s.PROD_ID
+    AND c.TIME_ID = s.TIME_ID
+    AND c.CHANNEL_ID = s.CHANNEL_ID
+    AND c.PROMO_ID = s.PROMO_ID
+         JOIN PRODUCTS p ON p.PROD_ID = s.PROD_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY p.PROD_CATEGORY
+ORDER BY MARGIN DESC
+----
+
+[source,jpaql]
+----
+SELECT p.prodCategory, SUM(s.amountSold) AS revenue, SUM(s.amountSold - s.quantitySold * c.unitCost) AS margin
+FROM Sale s
+         JOIN s.product p
+         JOIN s.time t
+         JOIN Cost c ON c.id.prodId = s.id.prodId
+    AND c.id.timeId = s.id.timeId
+    AND c.id.channelId = s.id.channelId
+    AND c.id.promoId = s.id.promoId
+WHERE t.calendarYear = :year
+GROUP BY p.prodCategory
+ORDER BY margin DESC
+----
+
+The `PROFITS` view already performs that join and carries `+TOTAL_COST = UNIT_COST * QUANTITY_SOLD+`:
+
+[source,sql]
+----
+SELECT p.PROD_CATEGORY, SUM(pr.AMOUNT_SOLD) AS REVENUE, SUM(pr.AMOUNT_SOLD - pr.TOTAL_COST) AS MARGIN
+FROM PROFITS pr
+         JOIN PRODUCTS p ON p.PROD_ID = pr.PROD_ID
+         JOIN TIMES t ON t.TIME_ID = pr.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY p.PROD_CATEGORY
+ORDER BY MARGIN DESC
+----
+
+[source,jpaql]
+----
+SELECT p.prodCategory, SUM(pr.amountSold) AS revenue, SUM(pr.amountSold - pr.totalCost) AS margin
+FROM Profit pr, Product p, Time t
+WHERE p.prodId = pr.prodId
+  AND t.timeId = pr.timeId
+  AND t.calendarYear = :year
+GROUP BY p.prodCategory
+ORDER BY margin DESC
+----
+
+Both forms are inner joins: a sale without a matching `COSTS` row (there are a few thousand) drops out of revenue as
+well as cost. Use `LEFT JOIN` and `+COALESCE(c.UNIT_COST, 0)+` (in JPQL, `COALESCE(c.unitCost, 0)`) if revenue has to
+reconcile with the other reports.
+
+Two EclipseLink 5.0.1 quirks shape the JPQL above, and both forms run under Hibernate as well:
+
+* An entity join (`JOIN Cost c ON ...`) followed by an association join (`JOIN s.product p`) fails to
+  parse, so the entity join comes last.
+* An entity join to `Time` (`JOIN Time t ON ...`) fails to parse, while the same join to `Product` or `Channel` works;
+  the `PROFITS` query therefore lists its entities in `FROM` and joins them in `WHERE`.
+
+The `COSTS` join compares key attributes rather than the associations (`+c.product = s.product+`, ...): the
+association form is valid JPQL and works as an inner join, but EclipseLink resolves each comparison by joining the
+dimension table, and in a `LEFT JOIN` the SQL it produces references those tables before they are declared.
+
+[[SH-SCHEMA-A-06]]
+==== SH-SCHEMA-A-06 Year-over-year growth by channel
+
+The sales director wants each channel's revenue in `:previousYear` and `:currentYear` side by side, with the growth
+rate.
+
+[source,sql]
+----
+SELECT ch.CHANNEL_DESC,
+       SUM(CASE WHEN t.CALENDAR_YEAR = :previousYear THEN s.AMOUNT_SOLD ELSE 0 END) AS PREVIOUS,
+       SUM(CASE WHEN t.CALENDAR_YEAR = :currentYear THEN s.AMOUNT_SOLD ELSE 0 END)  AS CURRENT_,
+       (SUM(CASE WHEN t.CALENDAR_YEAR = :currentYear THEN s.AMOUNT_SOLD ELSE 0 END)
+           - SUM(CASE WHEN t.CALENDAR_YEAR = :previousYear THEN s.AMOUNT_SOLD ELSE 0 END))
+           / NULLIF(SUM(CASE WHEN t.CALENDAR_YEAR = :previousYear THEN s.AMOUNT_SOLD ELSE 0 END), 0) AS GROWTH
+FROM SALES s
+         JOIN CHANNELS ch ON ch.CHANNEL_ID = s.CHANNEL_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR IN (:previousYear, :currentYear)
+GROUP BY ch.CHANNEL_DESC
+ORDER BY GROWTH DESC NULLS LAST
+----
+
+[source,jpaql]
+----
+SELECT ch.channelDesc,
+       SUM(CASE WHEN t.calendarYear = :previousYear THEN s.amountSold ELSE 0 END),
+       SUM(CASE WHEN t.calendarYear = :currentYear THEN s.amountSold ELSE 0 END)
+FROM Sale s
+         JOIN s.channel ch
+         JOIN s.time t
+WHERE t.calendarYear IN (:previousYear, :currentYear)
+GROUP BY ch.channelDesc
+ORDER BY ch.channelDesc
+----
+
+Conditional aggregation pivots the two years into columns in one pass and is portable. The growth rate is best
+computed in Java from the two sums, where a zero previous year can be handled explicitly; in SQL, `NULLIF` turns it
+into `NULL` instead of a division error. The SQL alternative with one row per year is `LAG(...) OVER (PARTITION BY
+channel ORDER BY year)`, which has no JPQL equivalent.
+
+[[SH-SCHEMA-A-07]]
+==== SH-SCHEMA-A-07 Channel and quarter subtotals
+
+For the quarterly business review, the sales director wants `:year` revenue per channel and calendar quarter, with a
+subtotal per channel and a grand total, in one result.
+
+[source,sql]
+----
+SELECT CASE WHEN GROUPING(ch.CHANNEL_DESC) = 1 THEN 'All channels' ELSE ch.CHANNEL_DESC END        AS CHANNEL,
+       CASE WHEN GROUPING(t.CALENDAR_QUARTER_DESC) = 1 THEN 'All quarters' ELSE t.CALENDAR_QUARTER_DESC END AS QUARTER,
+       SUM(s.AMOUNT_SOLD)                                                                           AS REVENUE
+FROM SALES s
+         JOIN CHANNELS ch ON ch.CHANNEL_ID = s.CHANNEL_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY ROLLUP (ch.CHANNEL_DESC, t.CALENDAR_QUARTER_DESC)
+ORDER BY GROUPING(ch.CHANNEL_DESC), ch.CHANNEL_DESC, GROUPING(t.CALENDAR_QUARTER_DESC), t.CALENDAR_QUARTER_DESC
+----
+
+[source,jpaql]
+----
+SELECT ch.channelDesc, t.calendarQuarterDesc, SUM(s.amountSold)
+FROM Sale s
+         JOIN s.channel ch
+         JOIN s.time t
+WHERE t.calendarYear = :year
+GROUP BY ch.channelDesc, t.calendarQuarterDesc
+UNION ALL
+SELECT ch2.channelDesc, 'All quarters', SUM(s2.amountSold)
+FROM Sale s2
+         JOIN s2.channel ch2
+         JOIN s2.time t2
+WHERE t2.calendarYear = :year
+GROUP BY ch2.channelDesc
+UNION ALL
+SELECT 'All channels', 'All quarters', SUM(s3.amountSold)
+FROM Sale s3
+         JOIN s3.time t3
+WHERE t3.calendarYear = :year
+----
+
+JPQL has no `ROLLUP`, `CUBE`, `GROUPING SETS` or `GROUPING()`. One portable way is a `UNION ALL` of one grouped query
+per level, as above; it reads the facts table once per level, and the rows still need sorting in Java. The other is to
+run only the detailed query and add the subtotals up in Java.
+
+[[SH-SCHEMA-A-08]]
+==== SH-SCHEMA-A-08 Mailing labels
+
+The direct-mail agency wants one line per customer of `:city` in country `:isoCode` (e.g. `Los Angeles`, `US`): an
+account reference `+C-<id>+`, the name as initial and upper-case surname, the street address, the postal code and city,
+and the phone number with its dashes removed.
+
+[source,sql]
+----
+SELECT 'C-' || TO_CHAR(cu.CUST_ID)                              AS ACCOUNT,
+       SUBSTR(cu.CUST_FIRST_NAME, 1, 1) || '. ' || UPPER(cu.CUST_LAST_NAME) AS NAME,
+       cu.CUST_STREET_ADDRESS                                    AS STREET,
+       cu.CUST_POSTAL_CODE || ' ' || cu.CUST_CITY                AS TOWN,
+       REPLACE(cu.CUST_MAIN_PHONE_NUMBER, '-', '')               AS PHONE
+FROM CUSTOMERS cu
+         JOIN COUNTRIES co ON co.COUNTRY_ID = cu.COUNTRY_ID
+WHERE cu.CUST_CITY = :city
+  AND co.COUNTRY_ISO_CODE = :isoCode
+ORDER BY cu.CUST_LAST_NAME, cu.CUST_FIRST_NAME
+----
+
+[source,jpaql]
+----
+SELECT 'C-' || CAST(cu.custId AS STRING),
+       LEFT(cu.custFirstName, 1) || '. ' || UPPER(cu.custLastName),
+       cu.custStreetAddress,
+       cu.custPostalCode || ' ' || cu.custCity,
+       REPLACE(cu.custMainPhoneNumber, '-', '')
+FROM Customer cu
+         JOIN cu.country co
+WHERE cu.custCity = :city
+  AND co.countryIsoCode = :isoCode
+ORDER BY cu.custLastName, cu.custFirstName
+----
+
+`+||+`, `CAST`, `LEFT` (and `RIGHT`) and `REPLACE` are new in Jakarta Persistence 3.2. Before it, the same needed
+`CONCAT`, `SUBSTRING` and a provider-specific function.
+
+EclipseLink 5.0.1 passes `CAST(... AS STRING)` through to Oracle as written, and Oracle rejects it (`ORA-00902: invalid
+datatype``+); Hibernate translates it. Under EclipseLink select +``cu.custId` and format the reference in Java.
+
+[[SH-SCHEMA-A-09]]
+==== SH-SCHEMA-A-09 Reconcile sale dates with the calendar
+
+Before signing off a year-end report, finance wants proof that the calendar dimension and the facts agree: how many
+sales of `:year` (by the sale date itself) are attributed to a different `+CALENDAR_YEAR+` in `TIMES`? The expected
+answer is zero.
+
+[source,sql]
+----
+SELECT COUNT(*)
+FROM SALES s
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE EXTRACT(YEAR FROM s.TIME_ID) = :year
+  AND t.CALENDAR_YEAR <> EXTRACT(YEAR FROM s.TIME_ID)
+----
+
+[source,jpaql]
+----
+SELECT COUNT(s)
+FROM Sale s
+         JOIN s.time t
+WHERE EXTRACT(YEAR FROM s.id.timeId) = :year
+  AND t.calendarYear <> EXTRACT(YEAR FROM s.id.timeId)
+----
+
+`EXTRACT` (with `YEAR`, `QUARTER`, `MONTH`, `WEEK`, `DAY`, ...) is new in Jakarta Persistence 3.2. A JPQL `GROUP BY`
+cannot group by it portably, so a per-year breakdown still goes through `TIMES` (`GROUP BY t.calendarYear`).
+
+== References
+
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2[Jakarta Persistence 3.2 specification]
+  -- chapter 4, _Query Language_
+* https://jakarta.ee/specifications/persistence/3.2/[Jakarta Persistence 3.2 release] -- what is new in 3.2
+* https://github.com/oracle-samples/db-sample-schemas[Oracle Database Sample Schemas] -- `+sales_history+`
+* https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/[Oracle Database SQL Language Reference]
+* https://docs.oracle.com/en/database/oracle/oracle-database/23/dwhsg/sql-aggregation-data-warehouses.html[Oracle Database Data Warehousing Guide: SQL for Aggregation]

@@ -25,11 +25,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -39,7 +40,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = Product.TABLE_NAME)
-public class Product {
+public class Product implements __DomainEntity<Integer> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -58,6 +59,16 @@ public class Product {
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROD_ID = 6;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROD_ID = 0;
 
     // ------------------------------------------------------------------------------------------------------ PROD_NAME
 
@@ -238,6 +249,16 @@ public class Product {
      */
     public static final String ATTRIBUTE_NAME_PROD_WEIGHT_CLASS = "prodWeightClass";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_PROD_WEIGHT_CLASS} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROD_WEIGHT_CLASS = 3;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROD_WEIGHT_CLASS} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROD_WEIGHT_CLASS = 0;
+
     // ------------------------------------------------------------------------------------------- PROD_UNIT_OF_MEASURE
 
     /**
@@ -298,6 +319,16 @@ public class Product {
      */
     public static final String ATTRIBUTE_NAME_SUPPLIER_ID = "supplierId";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_SUPPLIER_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_SUPPLIER_ID = 6;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_SUPPLIER_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_SUPPLIER_ID = 0;
+
     // ---------------------------------------------------------------------------------------------------- PROD_STATUS
 
     /**
@@ -330,6 +361,16 @@ public class Product {
     public static final String COLUMN_NAME_PROD_LIST_PRICE = "PROD_LIST_PRICE";
 
     /**
+     * The precision of the {@value #COLUMN_NAME_PROD_LIST_PRICE} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROD_LIST_PRICE = 8;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROD_LIST_PRICE} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROD_LIST_PRICE = 2;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_LIST_PRICE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_LIST_PRICE = "prodListPrice";
@@ -341,6 +382,16 @@ public class Product {
      * {@value}.
      */
     public static final String COLUMN_NAME_PROD_MIN_PRICE = "PROD_MIN_PRICE";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_PROD_MIN_PRICE} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROD_MIN_PRICE = 8;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROD_MIN_PRICE} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROD_MIN_PRICE = 2;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_MIN_PRICE} column. The value is {@value}.
@@ -444,26 +495,6 @@ public class Product {
      * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_VALID} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_PROD_VALID = COLUMN_LENGTH_PROD_VALID;
-
-    /**
-     * The precision of the {@value #COLUMN_NAME_PROD_LIST_PRICE} column. The value is {@value}.
-     */
-    public static final int COLUMN_PRECISION_PROD_LIST_PRICE = 8;
-
-    /**
-     * The scale of the {@value #COLUMN_NAME_PROD_LIST_PRICE} column. The value is {@value}.
-     */
-    public static final int COLUMN_SCALE_PROD_LIST_PRICE = 2;
-
-    /**
-     * The precision of the {@value #COLUMN_NAME_PROD_MIN_PRICE} column. The value is {@value}.
-     */
-    public static final int COLUMN_PRECISION_PROD_MIN_PRICE = 8;
-
-    /**
-     * The scale of the {@value #COLUMN_NAME_PROD_MIN_PRICE} column. The value is {@value}.
-     */
-    public static final int COLUMN_SCALE_PROD_MIN_PRICE = 2;
     // --------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -915,7 +946,7 @@ public class Product {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_PROD_EFF_FROM} attribute.
      */
-    public LocalDate getProdEffFrom() {
+    public LocalDateTime getProdEffFrom() {
         return prodEffFrom;
     }
 
@@ -924,7 +955,7 @@ public class Product {
      *
      * @param prodEffFrom new value for {@value #ATTRIBUTE_NAME_PROD_EFF_FROM} attribute.
      */
-    public void setProdEffFrom(final LocalDate prodEffFrom) {
+    public void setProdEffFrom(final LocalDateTime prodEffFrom) {
         this.prodEffFrom = prodEffFrom;
     }
 
@@ -935,7 +966,7 @@ public class Product {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_PROD_EFF_TO} attribute.
      */
-    public LocalDate getProdEffTo() {
+    public LocalDateTime getProdEffTo() {
         return prodEffTo;
     }
 
@@ -944,7 +975,7 @@ public class Product {
      *
      * @param prodEffTo new value for {@value #ATTRIBUTE_NAME_PROD_EFF_TO} attribute.
      */
-    public void setProdEffTo(final LocalDate prodEffTo) {
+    public void setProdEffTo(final LocalDateTime prodEffTo) {
         this.prodEffTo = prodEffTo;
     }
 
@@ -969,13 +1000,12 @@ public class Product {
     }
 
     // --------------------------------------------------------------------------------------------------------------- 
-    // --------------------------------------------------------------------------------------------------------------- 
-    // --------------------------------------------------------------------------------------------------------------- 
-
     @Id
+    @Digits(integer = COLUMN_PRECISION_PROD_ID - COLUMN_SCALE_PROD_ID, fraction = COLUMN_SCALE_PROD_ID)
     @Column(name = COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
     private Integer prodId;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Size(max = SIZE_MAX_PROD_NAME)
     @NotNull
     @Basic(optional = false)
@@ -998,6 +1028,7 @@ public class Product {
     )
     private String prodDesc;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Size(max = SIZE_MAX_PROD_SUBCATEGORY)
     @NotNull
     @Basic(optional = false)
@@ -1029,6 +1060,7 @@ public class Product {
     )
     private String prodSubcategoryDesc;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Size(max = SIZE_MAX_PROD_CATEGORY)
     @NotNull
     @Basic(optional = false)
@@ -1060,7 +1092,10 @@ public class Product {
     )
     private String prodCategoryDesc;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_PROD_WEIGHT_CLASS - COLUMN_SCALE_PROD_WEIGHT_CLASS,
+            fraction = COLUMN_SCALE_PROD_WEIGHT_CLASS)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROD_WEIGHT_CLASS,
             nullable = false,
@@ -1091,6 +1126,7 @@ public class Product {
     private String prodPackSize;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_SUPPLIER_ID - COLUMN_SCALE_SUPPLIER_ID, fraction = COLUMN_SCALE_SUPPLIER_ID)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_SUPPLIER_ID,
             nullable = false,
@@ -1111,6 +1147,8 @@ public class Product {
     private String prodStatus;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_PROD_LIST_PRICE - COLUMN_SCALE_PROD_LIST_PRICE,
+            fraction = COLUMN_SCALE_PROD_LIST_PRICE)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROD_LIST_PRICE,
             nullable = false,
@@ -1122,6 +1160,8 @@ public class Product {
     private BigDecimal prodListPrice;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_PROD_MIN_PRICE - COLUMN_SCALE_PROD_MIN_PRICE,
+            fraction = COLUMN_SCALE_PROD_MIN_PRICE)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROD_MIN_PRICE,
             nullable = false,
@@ -1166,7 +1206,7 @@ public class Product {
             insertable = true,
             updatable = true
     )
-    private LocalDate prodEffFrom;
+    private LocalDateTime prodEffFrom;
 
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_PROD_EFF_TO,
@@ -1174,7 +1214,7 @@ public class Product {
             insertable = true,
             updatable = true
     )
-    private LocalDate prodEffTo;
+    private LocalDateTime prodEffTo;
 
     @Size(max = SIZE_MAX_PROD_VALID)
     @Basic(optional = true)

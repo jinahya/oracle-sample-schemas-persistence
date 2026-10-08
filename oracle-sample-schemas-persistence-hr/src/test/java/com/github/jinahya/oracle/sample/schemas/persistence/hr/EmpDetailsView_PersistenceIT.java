@@ -20,8 +20,13 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+
 /**
  * Verifies the mappings of {@link EmpDetailsView} against the installed {@code HR} schema.
+ * <p>
+ * The persistence unit does not list {@link EmpDetailsView}, so every test here aborts until it does.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -29,5 +34,18 @@ class EmpDetailsView_PersistenceIT extends _Persistence_IT<EmpDetailsView> {
 
     EmpDetailsView_PersistenceIT() {
         super(EmpDetailsView.class);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Does nothing; {@value EmpDetailsView#TABLE_NAME} is a view, so there is nothing to insert a randomized instance
+     * into. The installed object is read-only.
+     */
+    @Disabled("a view: nothing is inserted into it")
+    @Override
+    @Test
+    protected void _persist_RandomizedInstance() {
+        // empty
     }
 }

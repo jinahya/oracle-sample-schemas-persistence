@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,7 +47,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = Department.TABLE_NAME)
-public class Department {
+public class Department implements __DomainEntity<Integer> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -158,12 +159,12 @@ public class Department {
     public static final int COLUMN_MAX_MANAGER_ID = +999999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_MANAGER} attribute. The value is {@value}.
+     * The minimum value of the identifier of the {@value #ATTRIBUTE_NAME_MANAGER} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_MANAGER_ID = COLUMN_MIN_MANAGER_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_MANAGER} attribute. The value is {@value}.
+     * The maximum value of the identifier of the {@value #ATTRIBUTE_NAME_MANAGER} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_MANAGER_ID = COLUMN_MAX_MANAGER_ID;
 
@@ -206,12 +207,12 @@ public class Department {
     public static final int COLUMN_MAX_LOCATION_ID = +9999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_LOCATION} attribute. The value is {@value}.
+     * The minimum value of the identifier of the {@value #ATTRIBUTE_NAME_LOCATION} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_LOCATION_ID = COLUMN_MIN_LOCATION_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_LOCATION} attribute. The value is {@value}.
+     * The maximum value of the identifier of the {@value #ATTRIBUTE_NAME_LOCATION} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_LOCATION_ID = COLUMN_MAX_LOCATION_ID;
 
@@ -230,7 +231,7 @@ public class Department {
     /**
      * The name of the attribute which maps the past job assignments within this department. The value is {@value}.
      *
-     * @see JobHistoryWithEmbeddedId#ATTRIBUTE_NAME_DEPARTMENT
+     * @see JobHistory#ATTRIBUTE_NAME_DEPARTMENT
      */
     public static final String ATTRIBUTE_NAME_JOB_HISTORIES = "jobHistories";
 
@@ -250,11 +251,20 @@ public class Department {
         return super.toString() + "{"
                + "id=" + departmentId
                + ",departmentName=" + departmentName
-               + ",manager=" + manager
-               + ",location=" + location
+//               + ",manager=" + manager
+//               + ",location=" + location
+//               + ",employees=" + employees
+//               + ",jobHistories=" + jobHistories
                + "}";
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Department that)) {
@@ -263,6 +273,12 @@ public class Department {
         return Objects.equals(getDepartmentId(), that.getDepartmentId());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(getDepartmentId());
@@ -271,7 +287,7 @@ public class Department {
     // ---------------------------------------------------------------------------------------------------- departmentId
 
     /**
-     * Returns the current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
      */
@@ -281,9 +297,9 @@ public class Department {
     }
 
     /**
-     * Replaces the current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute with the specified value.
      *
-     * @param departmentId the new value for the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
+     * @param departmentId new value for {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
      */
     protected void setDepartmentId(@Nonnull final Integer departmentId) {
         this.departmentId = departmentId;
@@ -317,7 +333,7 @@ public class Department {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_MANAGER} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public Employee getManager() {
         return manager;
     }
@@ -327,7 +343,7 @@ public class Department {
      *
      * @param manager new value for {@value #ATTRIBUTE_NAME_MANAGER} attribute.
      */
-    public void setManager(@jakarta.annotation.Nullable final Employee manager) {
+    public void setManager(@Nullable final Employee manager) {
         this.manager = manager;
     }
 
@@ -338,7 +354,7 @@ public class Department {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_LOCATION} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public Location getLocation() {
         return location;
     }
@@ -348,7 +364,7 @@ public class Department {
      *
      * @param location new value for {@value #ATTRIBUTE_NAME_LOCATION} attribute.
      */
-    public void setLocation(@jakarta.annotation.Nullable final Location location) {
+    public void setLocation(@Nullable final Location location) {
         this.location = location;
     }
 
@@ -368,7 +384,7 @@ public class Department {
      *
      * @return the past job assignments within this department.
      */
-    List<JobHistoryWithEmbeddedId> getJobHistories() {
+    List<JobHistory> getJobHistories() {
         return jobHistories;
     }
 
@@ -377,14 +393,10 @@ public class Department {
      *
      * @param jobHistories new past job assignments within this department.
      */
-    void setJobHistories(final List<JobHistoryWithEmbeddedId> jobHistories) {
+    void setJobHistories(final List<JobHistory> jobHistories) {
         this.jobHistories = jobHistories;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
@@ -400,6 +412,7 @@ public class Department {
     )
     private Integer departmentId;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Size(min = SIZE_MIN_DEPARTMENT_NAME, max = SIZE_MAX_DEPARTMENT_NAME)
     @NotNull
@@ -408,6 +421,9 @@ public class Department {
             length = COLUMN_LENGTH_DEPARTMENT_NAME)
     private String departmentName;
 
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
+    @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_MANAGER_ID,
                 nullable = COLUMN_NULLABLE_MANAGER_ID,
@@ -416,7 +432,8 @@ public class Department {
     )
     private Employee manager;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_LOCATION_ID,
@@ -426,6 +443,7 @@ public class Department {
     )
     private Location location;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = Employee.ATTRIBUTE_NAME_DEPARTMENT,
                fetch = FetchType.LAZY,
                cascade = {
@@ -434,11 +452,12 @@ public class Department {
     )
     private List<@Valid @NotNull Employee> employees;
 
-    @OneToMany(mappedBy = JobHistoryWithEmbeddedId.ATTRIBUTE_NAME_DEPARTMENT,
+    // -----------------------------------------------------------------------------------------------------------------
+    @OneToMany(mappedBy = JobHistory.ATTRIBUTE_NAME_DEPARTMENT,
                fetch = FetchType.LAZY,
                cascade = {
                },
                orphanRemoval = false
     )
-    private List<@Valid @NotNull JobHistoryWithEmbeddedId> jobHistories;
+    private List<@Valid @NotNull JobHistory> jobHistories;
 }

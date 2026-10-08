@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -71,7 +72,7 @@ import java.util.Objects;
 )
 @Entity
 @Table(name = Region.TABLE_NAME)
-public class Region {
+public class Region implements __DomainEntity<Long> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -142,9 +143,17 @@ public class Region {
         return super.toString() + '{' +
                "regionId=" + regionId +
                ",regionName=" + regionName +
+//               ",countries=" + countries +
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Region that)) {
@@ -153,6 +162,12 @@ public class Region {
         return Objects.equals(getRegionId(), that.getRegionId());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(getRegionId());
@@ -182,21 +197,21 @@ public class Region {
     // ------------------------------------------------------------------------------------------------------ regionName
 
     /**
-     * Returns current value of {@link #regionName} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
      *
-     * @return current value of {@link #regionName} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public String getRegionName() {
         return regionName;
     }
 
     /**
-     * Replaces current value of {@link #regionName} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute with the specified value.
      *
-     * @param regionName new value for {@link #regionName} attribute.
+     * @param regionName new value for {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
      */
-    public void setRegionName(@jakarta.annotation.Nullable final String regionName) {
+    public void setRegionName(@Nullable final String regionName) {
         this.regionName = regionName;
     }
 
@@ -210,23 +225,25 @@ public class Region {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_REGION_ID, nullable = false, insertable = true, updatable = false)
     private Long regionId;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
     @Size(min = SIZE_MIN_REGION_NAME, max = SIZE_MAX_REGION_NAME)
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_REGION_NAME, nullable = true, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_REGION_NAME)
+    @Column(name = COLUMN_NAME_REGION_NAME,
+            nullable = true,
+            insertable = true,
+            updatable = true,
+            length = COLUMN_LENGTH_REGION_NAME
+    )
     private String regionName;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(
             mappedBy = Country.ATTRIBUTE_NAME_REGION,
             fetch = FetchType.LAZY,

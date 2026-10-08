@@ -20,7 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.test._Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
@@ -40,7 +39,7 @@ class Job_Test extends _Test<Job> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Job#equals(Object) equals} compares only the {@code @Id} {@code jobId} -- the surrogate key --
+     * @implNote {@link Job#equals(Object) equals} compares only the {@code @Id} {@code jobId} -- the primary key --
      * because every other attribute is mutable state.
      */
     @Override

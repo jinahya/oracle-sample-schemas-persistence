@@ -30,16 +30,16 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * A composite primary key class for mapping {@value JobHistoryWithEmbeddedId#COLUMN_NAME_EMPLOYEE_ID} column and
- * {@value JobHistoryWithEmbeddedId#COLUMN_NAME_START_DATE} column, of {@value JobHistoryWithEmbeddedId#TABLE_NAME}
- * table.
+ * A composite primary key class for mapping {@value JobHistory#COLUMN_NAME_EMPLOYEE_ID} column and
+ * {@value JobHistory#COLUMN_NAME_START_DATE} column, of {@value JobHistory#TABLE_NAME} table; the
+ * {@link jakarta.persistence.IdClass @IdClass} of {@link JobHistory}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see JobHistoryWithEmbeddedId
+ * @see JobHistory
  * @see <a
  * href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#composite-primary-keys">2.4.1.
  * Composite primary keys</a> (Jakarta Persistence 3.2 Specification Document)
@@ -48,14 +48,14 @@ import java.util.Objects;
 public class JobHistoryId {
 
     /**
-     * The name of the attribute which maps the {@value JobHistoryWithEmbeddedId#COLUMN_NAME_EMPLOYEE_ID} column. The
-     * value is {@value}.
+     * The name of the attribute which maps the {@value JobHistory#COLUMN_NAME_EMPLOYEE_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
 
     /**
-     * The name of the attribute which maps the {@value JobHistoryWithEmbeddedId#COLUMN_NAME_START_DATE} column. The
-     * value is {@value}.
+     * The name of the attribute which maps the {@value JobHistory#COLUMN_NAME_START_DATE} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
 
@@ -78,6 +78,13 @@ public class JobHistoryId {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by both {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} and {@value #ATTRIBUTE_NAME_START_DATE}.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof JobHistoryId that)) {
@@ -87,6 +94,13 @@ public class JobHistoryId {
                Objects.equals(startDate, that.startDate);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over both {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} and {@value #ATTRIBUTE_NAME_START_DATE},
+     * consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hash(employeeId, startDate);
@@ -122,39 +136,38 @@ public class JobHistoryId {
      * @return current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute.
      */
     @Nonnull
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
     // TODO: remove if it's not used anymore
-    void setStartDate(final LocalDate startDate) {
+    void setStartDate(final LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
-    @Max(JobHistoryWithEmbeddedId.ATTRIBUTE_MAX_ID_EMPLOYEE_ID)
-    @Min(JobHistoryWithEmbeddedId.ATTRIBUTE_MIN_ID_EMPLOYEE_ID)
+    @Max(JobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
+    @Min(JobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = JobHistoryWithEmbeddedId.COLUMN_NAME_EMPLOYEE_ID,
-            nullable = JobHistoryWithEmbeddedId.COLUMN_NULLABLE_EMPLOYEE_ID,
+    @Column(name = JobHistory.COLUMN_NAME_EMPLOYEE_ID,
+            nullable = JobHistory.COLUMN_NULLABLE_EMPLOYEE_ID,
 //                insertable = false,
             insertable = true, // eclipselink
             updatable = false,
-            precision = JobHistoryWithEmbeddedId.COLUMN_PRECISION_EMPLOYEE_ID,
-            scale = JobHistoryWithEmbeddedId.COLUMN_SCALE_EMPLOYEE_ID
+            precision = JobHistory.COLUMN_PRECISION_EMPLOYEE_ID,
+            scale = JobHistory.COLUMN_SCALE_EMPLOYEE_ID
     )
     private Integer employeeId;
 
     @PastOrPresent
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = JobHistoryWithEmbeddedId.COLUMN_NAME_START_DATE,
-            nullable = JobHistoryWithEmbeddedId.COLUMN_NULLABLE_START_DATE,
+    @Column(name = JobHistory.COLUMN_NAME_START_DATE,
+            nullable = JobHistory.COLUMN_NULLABLE_START_DATE,
 //                insertable = false,
             insertable = true, // eclipselink
             updatable = false
     )
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 }

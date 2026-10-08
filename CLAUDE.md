@@ -7,19 +7,26 @@ Guidance for Claude Code when working in this repository.
 Jakarta Persistence mappings for the
 [Oracle Database Sample Schemas](https://github.com/oracle-samples/db-sample-schemas),
 one Maven module per schema -- `oracle-sample-schemas-persistence-co`, `-hr` and `-sh`, each in a
-directory of the same name and referred to below by its schema (`co`, `hr`, `sh`) -- plus
-`test-base` for the shared test base classes.
+directory of the same name and referred to below by its schema (`co`, `hr`, `sh`). The modules are
+independent of each other, tests included: each carries its own test bases in its own test package.
 
 **These are pure Jakarta Persistence modules.** Two rules follow from that:
 
 - No dependency on `io.github.jinahya:jinahya-persistence-*`, or on any other
   persistence helper library. Everything the entities need comes from
   `jakarta.persistence`, `jakarta.validation` and `jakarta.annotation`.
-- **Every entity is standalone.** There is no `mapped` package, no
-  `@MappedSuperclass` hierarchy and no builder layer: one class holds its own
-  column constants, fields, accessors, `toString`, and `equals`/`hashCode`. Do not
-  reintroduce a shared entity superclass to remove duplication between entities —
-  the duplication is the point, because it keeps each mapping readable on its own.
+- **Every entity is standalone.** No entity extends a superclass and there is no
+  builder layer: one class holds its own column constants, fields, accessors,
+  `toString`, and `equals`/`hashCode`. Do not introduce a shared entity superclass
+  to remove duplication between entities — the duplication is the point, because
+  it keeps each mapping readable on its own.
+- **The `mapped` package is a parallel, independent mapping.** Each module also
+  exports a `<schema>.mapped` package with one abstract `@MappedSuperclass` per
+  table or view (`MappedCountry`, `MappedStoreOrder`, …), for readers who want to
+  extend a mapping rather than use the concrete entity. The entities do **not**
+  extend these classes; the two sets are kept in step by hand, so a change to an
+  entity's columns, constants or `equals`/`hashCode` is made in its `Mapped*`
+  counterpart too.
 
 ### Member order inside an entity
 
@@ -39,11 +46,34 @@ section rather than at the end of the file:
 
 Section markers are line comments padded with dashes to column 120.
 
+### Classes for views with no key
+
+A view that no column, or combination of columns, identifies — `co`'s `PRODUCT_REVIEWS`
+and `STORE_ORDERS` — cannot be an `@Entity`, so it is mapped by a plain class
+(`ProductReview`, `StoreOrder`, and their abstract `Mapped*` counterparts). Each one has
+exactly two constructors:
+
+- a `protected` no-arg constructor, and
+- an all-args constructor, taking every attribute in field order — `public` on a
+  concrete class, `protected` on an abstract one.
+
+The visibility split is load-bearing. A name-based row mapper (Spring's `JdbcClient` /
+`DataClassRowMapper`) uses a class's single `public` constructor, which has to be the
+all-args one, and matches its parameter names to the columns. Those names survive
+compilation only because the root `pom.xml` sets `maven.compiler.parameters` (`javac
+-parameters`); do not remove it. Jakarta Persistence itself does not need it —
+`@ConstructorResult` and `SELECT NEW` pass arguments by position.
+
 ### The static metamodel, and `ATTRIBUTE_NAME_*`
 
 The **generated static metamodel** (`Customer_`, `Employee_`, …) is available under both
 providers, and is what persistence-context code uses: a criteria path is
 `root.get(Customer_.emailAddress)`, not a string.
+
+That covers criteria paths only. A **query parameter name is not an attribute name**: it is
+whatever the query text declares, so `setParameter` takes the literal from the query —
+`setParameter("storeToMatch", …)` for `WHERE e.store = :storeToMatch` — and never
+`Inventory_.store.getName()`, which only happens to match while the two are spelled alike.
 
 That works because **both profiles generate it with `hibernate-jpamodelgen`**. The EclipseLink
 profile picks the provider and nothing else: it inherits `metamodel.generator.*` from the root
@@ -63,37 +93,54 @@ usual way.
 `hibernate-jpamodelgen` needs no descriptor; it reads `@Entity` directly. And the canonical
 static metamodel is defined by the specification, so the classes it emits are provider-neutral
 and EclipseLink runs against them unchanged. Every module's `persistence.xml` and `orm-it.xml`
-therefore live in **`src/test/resources/META-INF`**, and the jars carry entities and metamodel
+therefore live under **`src/test/resources/META-INF`**, and the jars carry entities and metamodel
 only.
 
 What this gives up is coverage of EclipseLink's metamodel processor. EclipseLink is still
 exercised as the persistence provider — every `*_Persistence_Test` and `*_Persistence_IT` runs
 against it — which is the behavioural difference the profile exists for.
 
-Each module names its persistence units after itself -- `__co_testPU` / `__co_itPU`, and so on --
-because a unit name is only required to be unique within the archive that declares it, while every
-module of this build lands on one classpath whenever they are built or run together (an IDE running
-the whole project, or a reader depending on two modules at once). Two units sharing a name there is
-unspecified: the provider takes whichever descriptor it finds first, silently, and every test of the
-other modules then aborts with "not a managed type". Hibernate says so as `HHH008518`.
+Each module names its persistence units after its schema -- `co-test` / `co-it`, `hr-test` /
+`hr-it`, `sh-test` / `sh-it` -- because a unit name is only required to be unique within the
+archive that declares it, while the modules' test classpaths can still meet in one JVM: an IDE
+running every test of the project (a JUnit configuration searching *In whole project*) does exactly
+that. Two units sharing a name there is unspecified: the provider takes whichever descriptor it
+finds first, silently, and every test of the other modules then aborts with "not a managed type" --
+reported as skipped, not failed. Hibernate says so as `HHH008518`.
 
-That name lives in a per-module producer -- `_Persistence_Test_Producer` and its three siblings --
-which `_Persistence_Test` names in its `@AddBeanClasses`, and which every `*_Persistence_Test` of
-the module extends. The shared `__Persistence_Test_Producer` is abstract and supplies everything but
-the name. Note that its four `@Produces`/`@Disposes` methods **are overridden in each module
-producer**: CDI does not inherit producer or disposer methods, and an inherited `@Produces` is simply
-not seen -- the injection point fails with `WELD-001408`.
+The same goes for any resource a unit names by path. `orm-it.xml`, which sets the IT unit's default
+schema, lives at `META-INF/<schema>/orm-it.xml` -- `META-INF/co/orm-it.xml`, and so on -- and each
+module's `persistence.xml` names its own. Were all three at `META-INF/orm-it.xml`, one JVM would
+resolve every unit's `<mapping-file>` to the first copy found, and two of the three modules' ITs
+would look for their tables in the wrong schema.
+
+### Test bases, one copy per module
+
+There is no shared test module. Each module has, in its own test package, its own
+`_Persistence_Test` / `_Persistence_IT` base classes, their CDI producers
+`_Persistence_Test_Producer` / `_Persistence_IT_Producer`, and the helpers `__Test`, `___Test` and
+`___Persistence_TestUtils`. Every `*_Persistence_Test` / `*_Persistence_IT` extends its module's
+base, which names the producer in its own `@AddBeanClasses`; the producer holds the unit name as
+its `PERSISTENCE_UNIT_NAME` constant.
+
+Keep the producers concrete. These classes used to live in a shared `test-base` module, with an
+abstract producer that a subclass in each module completed by supplying the name -- and since CDI
+does not inherit producer or disposer methods (an inherited `@Produces` is simply not seen, and the
+injection point fails with `WELD-001408`), each subclass had to re-declare all four just to supply
+it. As with the `Mapped*` classes, the copies are kept in step by hand: a fix to one module's test
+base is carried to the other two, unless it is specific to that module.
 
 Every persistence unit carries `<exclude-unlisted-classes>true</exclude-unlisted-classes>`,
-and it stays: a module deliberately leaves classes out, and the flag is what keeps them out.
-`hr` maps `JobHistory` twice (`JobHistoryWithEmbeddedId`, `JobHistoryWithIdClass`) under one
-entity name and lists one of them; `co` does the same for `ORDER_ITEMS`, and `sh` for `COSTS`,
-`SALES`, `PROFITS` and `FWEEK_PSCAT_SALES_MV`. Both flavours in one unit is not a working unit.
+and it stays: the unit lists exactly the classes it means, and the flag keeps anything else out.
 
-Under EclipseLink's metamodel processor this used to fail at *compile* time as well —
-`EclipseLink-7237`, entity name not unique — because that processor attaches every `@Entity` in
-the compilation to the unit it finds. With `hibernate-jpamodelgen` no processor reads the
-descriptor, so that particular compile failure is gone; the runtime reason for the flag is not.
+Every composite identifier is mapped once, in one style. The database declares two composite
+primary keys, one per module, and each module shows one style on it: `co`'s `ORDER_ITEMS` is
+`OrderItem` with an `@EmbeddedId` (`OrderItemId`, plus an `@MapsId` to `Order`), and `hr`'s
+`JOB_HISTORY` is `JobHistory` with an `@IdClass` (`JobHistoryId`). Do not add the other style
+alongside -- a class name carries no `WithEmbeddedId` / `WithIdClass` postfix because there is only
+ever one. `co`'s `ProductOrder` (over a view) also uses an `@EmbeddedId`. `sh` declares no composite
+key; the identifiers it chooses for its unkeyed tables and views use both styles -- `@EmbeddedId`
+for `Sale` and `Cost`, `@IdClass` for `Profit` and `FweekPscatSalesMv`.
 
 The entity's own `ATTRIBUTE_NAME_*` constants stay, for the places a metamodel reference
 cannot go: an annotation value must be a compile-time constant, so `mappedBy` takes
@@ -174,8 +221,8 @@ Rules:
 
 ### Java release
 
-`maven.compiler.release` is 21 for main sources and 25 for test sources, so the
-published jars stay consumable on 21 while the tests use current language features.
+`maven.compiler.release` is 17 for main sources and 25 for test sources, so the
+published jars stay consumable on 17 while the tests use current language features.
 **Building the tests therefore needs a JDK 25 or newer.**
 
 ### Detecting and fixing convergence problems

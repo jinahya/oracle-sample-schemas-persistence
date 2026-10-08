@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,12 +35,15 @@ import java.util.Objects;
 
 /**
  * An entity class for mapping the {@value EmpDetailsView#TABLE_NAME} view.
+ * <p>
+ * Every column is mapped read-only; only the identifier stays insertable, which EclipseLink requires of an
+ * {@link Id @Id}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @Entity
 @Table(name = EmpDetailsView.TABLE_NAME)
-public class EmpDetailsView {
+public class EmpDetailsView implements __DomainEntity<Integer> {
 
     /**
      * The name of the database view to which this entity class maps. The value is {@value}.
@@ -55,7 +59,8 @@ public class EmpDetailsView {
     public static final String COLUMN_NAME_EMPLOYEE_ID = Employee.COLUMN_NAME_EMPLOYEE_ID;
 
     /**
-     * The precision of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_EMPLOYEE_ID} column, which the view projects from {@link Employee}. The
+     * value is {@value}.
      */
     public static final int COLUMN_PRECISION_EMPLOYEE_ID = Employee.COLUMN_PRECISION_EMPLOYEE_ID;
 
@@ -343,7 +348,8 @@ public class EmpDetailsView {
     public static final int COLUMN_PRECISION_SALARY = Employee.COLUMN_PRECISION_SALARY;
 
     /**
-     * The scale of the {@value #COLUMN_NAME_SALARY} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_SALARY} column, which the view projects from {@link Employee}. The value is
+     * {@value}.
      */
     public static final int COLUMN_SCALE_SALARY = Employee.COLUMN_SCALE_SALARY;
 
@@ -354,7 +360,8 @@ public class EmpDetailsView {
     public static final int COLUMN_PRECISION_COMMISSION_PCT = Employee.COLUMN_PRECISION_COMMISSION_PCT;
 
     /**
-     * The scale of the {@value #COLUMN_NAME_COMMISSION_PCT} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_COMMISSION_PCT} column, which the view projects from {@link Employee}. The
+     * value is {@value}.
      */
     public static final int COLUMN_SCALE_COMMISSION_PCT = Employee.COLUMN_SCALE_COMMISSION_PCT;
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
@@ -406,6 +413,342 @@ public class EmpDetailsView {
         return Objects.hashCode(employeeId);
     }
 
+    // ------------------------------------------------------------------------------------------------------ employeeId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
+     */
+    @Nonnull
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute with the specified value.
+     *
+     * @param employeeId new value for {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
+     */
+    protected void setEmployeeId(@Nonnull final Integer employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    // ----------------------------------------------------------------------------------------------------------- jobId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
+     */
+    @Nonnull
+    public String getJobId() {
+        return jobId;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute with the specified value.
+     *
+     * @param jobId new value for {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
+     */
+    public void setJobId(@Nonnull final String jobId) {
+        this.jobId = jobId;
+    }
+
+    // ------------------------------------------------------------------------------------------------------- managerId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute.
+     */
+    @Nullable
+    public Integer getManagerId() {
+        return managerId;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute with the specified value.
+     *
+     * @param managerId new value for {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute.
+     */
+    public void setManagerId(@Nullable final Integer managerId) {
+        this.managerId = managerId;
+    }
+
+    // ---------------------------------------------------------------------------------------------------- departmentId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
+     */
+    @Nullable
+    public Integer getDepartmentId() {
+        return departmentId;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute with the specified value.
+     *
+     * @param departmentId new value for {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
+     */
+    public void setDepartmentId(@Nullable final Integer departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    // ------------------------------------------------------------------------------------------------------ locationId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
+     */
+    @Nullable
+    public Integer getLocationId() {
+        return locationId;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute with the specified value.
+     *
+     * @param locationId new value for {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
+     */
+    public void setLocationId(@Nullable final Integer locationId) {
+        this.locationId = locationId;
+    }
+
+    // ------------------------------------------------------------------------------------------------------- countryId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
+     */
+    @Nullable
+    public String getCountryId() {
+        return countryId;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the specified value.
+     *
+     * @param countryId new value for {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
+     */
+    public void setCountryId(@Nullable final String countryId) {
+        this.countryId = countryId;
+    }
+
+    // ------------------------------------------------------------------------------------------------------- firstName
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute.
+     */
+    @Nullable
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute with the specified value.
+     *
+     * @param firstName new value for {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute.
+     */
+    public void setFirstName(@Nullable final String firstName) {
+        this.firstName = firstName;
+    }
+
+    // -------------------------------------------------------------------------------------------------------- lastName
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_LAST_NAME} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_LAST_NAME} attribute.
+     */
+    @Nonnull
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LAST_NAME} attribute with the specified value.
+     *
+     * @param lastName new value for {@value #ATTRIBUTE_NAME_LAST_NAME} attribute.
+     */
+    public void setLastName(@Nonnull final String lastName) {
+        this.lastName = lastName;
+    }
+
+    // ---------------------------------------------------------------------------------------------------------- salary
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_SALARY} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_SALARY} attribute.
+     */
+    @Nullable
+    public BigDecimal getSalary() {
+        return salary;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_SALARY} attribute with the specified value.
+     *
+     * @param salary new value for {@value #ATTRIBUTE_NAME_SALARY} attribute.
+     */
+    public void setSalary(@Nullable final BigDecimal salary) {
+        this.salary = salary;
+    }
+
+    // --------------------------------------------------------------------------------------------------- commissionPct
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute.
+     */
+    @Nullable
+    public BigDecimal getCommissionPct() {
+        return commissionPct;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute with the specified value.
+     *
+     * @param commissionPct new value for {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute.
+     */
+    public void setCommissionPct(@Nullable final BigDecimal commissionPct) {
+        this.commissionPct = commissionPct;
+    }
+
+    // -------------------------------------------------------------------------------------------------- departmentName
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute.
+     */
+    @Nonnull
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute with the specified value.
+     *
+     * @param departmentName new value for {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute.
+     */
+    public void setDepartmentName(@Nonnull final String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    // -------------------------------------------------------------------------------------------------------- jobTitle
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute.
+     */
+    @Nonnull
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute with the specified value.
+     *
+     * @param jobTitle new value for {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute.
+     */
+    public void setJobTitle(@Nonnull final String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    // ------------------------------------------------------------------------------------------------------------ city
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_CITY} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_CITY} attribute.
+     */
+    @Nonnull
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CITY} attribute with the specified value.
+     *
+     * @param city new value for {@value #ATTRIBUTE_NAME_CITY} attribute.
+     */
+    public void setCity(@Nonnull final String city) {
+        this.city = city;
+    }
+
+    // --------------------------------------------------------------------------------------------------- stateProvince
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute.
+     */
+    @Nullable
+    public String getStateProvince() {
+        return stateProvince;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute with the specified value.
+     *
+     * @param stateProvince new value for {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute.
+     */
+    public void setStateProvince(@Nullable final String stateProvince) {
+        this.stateProvince = stateProvince;
+    }
+
+    // ----------------------------------------------------------------------------------------------------- countryName
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
+     */
+    @Nullable
+    public String getCountryName() {
+        return countryName;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute with the specified value.
+     *
+     * @param countryName new value for {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
+     */
+    public void setCountryName(@Nullable final String countryName) {
+        this.countryName = countryName;
+    }
+
+    // ------------------------------------------------------------------------------------------------------ regionName
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
+     */
+    @Nullable
+    public String getRegionName() {
+        return regionName;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute with the specified value.
+     *
+     * @param regionName new value for {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
+     */
+    public void setRegionName(@Nullable final String regionName) {
+        this.regionName = regionName;
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
 
     @Id
@@ -432,11 +775,11 @@ public class EmpDetailsView {
     @jakarta.annotation.Nullable
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_DEPARTMENT_ID, nullable = true, insertable = false, updatable = false)
-    private Short departmentId;
+    private Integer departmentId;
 
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOCATION_ID, nullable = true, insertable = false, updatable = false)
-    private Short locationId;
+    private Integer locationId;
 
     @Basic(optional = true)
     @Size(max = SIZE_MAX_COUNTRY_ID)

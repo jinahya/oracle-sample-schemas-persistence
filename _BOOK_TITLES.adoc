@@ -1,0 +1,71 @@
+= Book Title Candidates
+
+== Chosen
+
+*Jakarta Persistence, Applied: Mapping the Classic Sample Schemas*
+
+== _Jakarta Persistence, Applied_ subtitles
+
+* Jakarta Persistence, Applied: Mapping the Classic Sample Schemas
+* Jakarta Persistence, Applied: Real Schemas, from Entity to Repository
+* Jakarta Persistence, Applied: Mapping Well-Known Sample Databases, with Spring Data, Jakarta Data and jOOQ
+* Jakarta Persistence, Applied: Real-World Schemas, Real-World Mappings
+* Jakarta Persistence, Applied: Entities, Repositories, and What Lies Beyond the Key
+
+== Centred on Jakarta Persistence
+
+* Jakarta Persistence by Sample Schemas
+** Mapping Sakila and Oracle's HR, CO and SH, and Putting Them to Work with Spring Data, Jakarta Data and jOOQ
+* Jakarta Persistence, Applied: Mapping Sakila, HR, CO and SH
+* Real-Schema Jakarta Persistence
+* Jakarta Persistence in the Wild
+
+== The jOOQ angle -- where an entity stops
+
+* Jakarta Persistence and Its Edges
+* Identity Required
+* Every Table Has a Story (Not Every Table Has a Key)
+
+== Short title, descriptive subtitle
+
+* Mapped: Jakarta Persistence over Well-Known Sample Schemas, with Spring/Jakarta Data and jOOQ
+* Mapped: Jakarta Persistence for the Databases You Already Know
+* Entity: Jakarta Persistence Against the Classic Sample Schemas
+
+== The two-layer route
+
+* Entities to Repositories: Jakarta Persistence and Data, One Sample Schema at a Time
+* Map It, Then Query It: Sample Schemas through Jakarta Persistence and Spring/Jakarta Data
+* Two Layers Deep: Persistence and Data over the Classic Sample Schemas
+* Entities Before Repositories
+
+== The per-schema walk
+
+* Schema by Schema: From Table to Repository with Jakarta Persistence and Spring / Jakarta Data
+* Schema by Schema: Jakarta Persistence and Data, from Sakila to Sales History
+* Walking the Sample Schemas
+* Table to Repository
+
+== The schemas as the cast
+
+* Sakila, Scott and Friends
+* Well-Known Schemas, Done Properly
+
+== The "sample schemas" angle
+
+* Mapping the Classics: Jakarta Persistence over the Sample Schemas Everyone Knows
+* From Sakila to Sales History: Real Schemas, Real Mappings
+* Sample Schemas, Seriously
+
+== As a series
+
+* Persistence by Example / Repositories by Example
+* Schema-First JPA / Schema-First Spring Data
+* Schema-First Persistence
+** Jakarta Persistence and Jakarta/Spring Data against Sakila, Oracle HR/CO/SH, and AdventureWorks
+* Jakarta Persistence, Applied / Jakarta Data, Applied / Spring Data, Applied
+
+== Short and memorable
+
+* The Sakila Files
+* Legacy-Shaped JPA

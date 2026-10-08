@@ -1,0 +1,2184 @@
+= EXERCISES
+:toc: left
+:toclevels: 3
+:sectanchors:
+:source-highlighter: rouge
+
+Exercises for the Customer Orders (CO) schema: business questions that a store manager, a merchandiser, logistics,
+marketing or finance would ask of a small retail chain, each answered with a query. Every problem is stated as a
+request, followed by one or more solutions. The `sql` blocks are Oracle SQL against the installed schema
+(see link:README.md[README.md]), with `:name` bind variables. The `jpaql` blocks are Jakarta Persistence 3.2 query
+language against this module's entities -- `Customer`, `Store`, `Product`, `Order`, `OrderItem`,
+`Shipment`, `Inventory`, and the views `CustomerOrderProduct` and `ProductOrder` -- with named
+parameters of the same names.
+
+The problems are grouped by what they read. Each table and view of the schema has a section, in the order of
+link:README.md[README.md], holding the problems whose SQL reads that one object -- a self-join or a subquery on it
+included. _Whole schema_, the last section, holds the problems that join or subquery more than one. Every section
+goes from Basic through Intermediate to Advanced.
+
+A few things about the mappings shape the JPQL below:
+
+* Foreign keys are mapped as associations only. `Order` has `customer` and `store`, not `customerId`/`storeId`, so a
+  key is reached as `o.customer.customerId`, or the entity itself is compared: `+o.customer = :customer+`.
+* `+ORDERS.ORDER_STATUS+` is `Order.OrderStatus`, mapped `+@Enumerated(EnumType.STRING)+`. Compare it with an enum
+  parameter or a fully qualified enum literal, never with a string.
+* `+SHIPMENTS.SHIPMENT_STATUS+` is `Shipment.ShipmentStatus`, mapped through `ShipmentStatusConverter`, because the
+  column holds `+IN-TRANSIT+` and the constant is `+IN_TRANSIT+`. Bind the enum as a parameter.
+* `Order.orderItems` is a `+Map<Product, OrderItem>+` whose key is mapped with `+@MapKeyColumn+`, which is
+  meant for basic keys. For an entity key the providers look for a join column named `+orderItems_KEY+`, which
+  `+ORDER_ITEMS+` does not have: EclipseLink fails on any `JOIN o.orderItems`, Hibernate on `KEY(...)`. The queries
+  below therefore start from `OrderItem` and navigate `oi.order`, or join it to an order with a
+  Jakarta Persistence 3.2 entity join, `+JOIN OrderItem oi ON oi.order = o+`.
+* `OrderItem` maps `+ORDER_ITEMS+` with an `+@EmbeddedId+`, `OrderItemId`, so its key is `oi.id.orderId` and
+  `oi.id.lineItemId`. `ProductOrder` maps `+PRODUCT_ORDERS+` with an `+@EmbeddedId+`, so its key is
+  `v.id.productName` and `v.id.orderStatus`.
+* `+STORE_ORDERS+` and `+PRODUCT_REVIEWS+` are not entities (`StoreOrder`, `ProductReview`), and
+  `+PRODUCTS.PRODUCT_DETAILS+` is a JSON document mapped as a `+byte[]+` LOB. Queries over them are SQL only, and the
+  note says how to approach them from Jakarta Persistence.
+
+== CUSTOMERS
+
+=== Basic
+
+[[CO-CUSTOMERS-B-01]]
+==== CO-CUSTOMERS-B-01 Pull up a customer by email address
+
+The support desk has a caller who gives their email address. Find the customer account for it.
+
+[source,sql]
+----
+SELECT customer_id, email_address, full_name
+FROM customers
+WHERE email_address = :emailAddress
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE c.emailAddress = :emailAddress
+----
+
+`+EMAIL_ADDRESS+` is unique, so `getSingleResult()` fits; it throws `NoResultException` for an unknown address.
+
+[[CO-CUSTOMERS-B-02]]
+==== CO-CUSTOMERS-B-02 Search customers by the start of their name
+
+The caller's name was only half heard. List the customers whose full name starts with the given text, ignoring case,
+in alphabetical order.
+
+[source,sql]
+----
+SELECT customer_id, full_name, email_address
+FROM customers
+WHERE UPPER(full_name) LIKE UPPER(:prefix) || '%'
+ORDER BY full_name
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE UPPER(c.fullName) LIKE :pattern
+ORDER BY c.fullName
+----
+
+A JPQL `LIKE` pattern must be a string literal or an input parameter, so the pattern is built in Java:
+`+prefix.toUpperCase() + "%"+`. Escape `+%+` and `+_+` in the prefix (with an `ESCAPE` clause) if users may type them.
+
+=== Intermediate
+
+[[CO-CUSTOMERS-I-01]]
+==== CO-CUSTOMERS-I-01 Email addresses that break the house style
+
+Accounts are meant to be opened as `+first.last@...+`. Data quality wants the customers whose email address, before the
+`+@+`, is not their full name in lower case with the spaces turned into dots.
+
+[source,sql]
+----
+SELECT customer_id, full_name, email_address
+FROM customers
+WHERE SUBSTR(email_address, 1, INSTR(email_address, '@') - 1) <> LOWER(REPLACE(full_name, ' ', '.'))
+ORDER BY full_name
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE SUBSTRING(c.emailAddress, 1, LOCATE('@', c.emailAddress) - 1) <> LOWER(REPLACE(c.fullName, ' ', '.'))
+ORDER BY c.fullName
+----
+
+The result is a list to review, not a list of mistakes: a customer with a middle name, such as `Norman Simon Lobregat`
+at `+norman.s.lobregat@...+`, is reported too.
+
+=== Advanced
+
+[[CO-CUSTOMERS-A-01]]
+==== CO-CUSTOMERS-A-01 Possible duplicate accounts
+
+Before a mailing, marketing wants pairs of accounts that may belong to one person: the same name, ignoring case and
+surrounding spaces, or the same email address before the `+@+` at a different domain.
+
+[source,sql]
+----
+SELECT a.customer_id, a.full_name, a.email_address,
+       b.customer_id AS other_customer_id, b.full_name AS other_full_name, b.email_address AS other_email_address
+FROM customers a
+         JOIN customers b ON b.customer_id > a.customer_id
+WHERE UPPER(TRIM(b.full_name)) = UPPER(TRIM(a.full_name))
+   OR SUBSTR(b.email_address, 1, INSTR(b.email_address, '@') - 1)
+          = SUBSTR(a.email_address, 1, INSTR(a.email_address, '@') - 1)
+ORDER BY a.customer_id, b.customer_id
+----
+
+[source,jpaql]
+----
+SELECT a, b
+FROM Customer a
+         JOIN Customer b ON b.customerId > a.customerId
+WHERE UPPER(TRIM(b.fullName)) = UPPER(TRIM(a.fullName))
+   OR SUBSTRING(b.emailAddress, 1, LOCATE('@', b.emailAddress) - 1)
+          = SUBSTRING(a.emailAddress, 1, LOCATE('@', a.emailAddress) - 1)
+ORDER BY a.customerId, b.customerId
+----
+
+`+b.customer_id > a.customer_id+` reports each pair once and never pairs an account with itself. The installed data has
+no such pair, so the answer is empty.
+
+== CUSTOMER_ORDER_PRODUCTS
+
+`+CUSTOMER_ORDER_PRODUCTS+` has one row per order, with the customer's name and email address, the order's total, and
+its product names in `ITEMS`. `CustomerOrderProduct` maps it as a read-only entity whose `orderStatus` is a `String`.
+
+=== Basic
+
+[[CO-CUSTOMER_ORDER_PRODUCTS-B-01]]
+==== CO-CUSTOMER_ORDER_PRODUCTS-B-01 Orders that included a product
+
+A supplier has recalled a product. Customer care wants every order that included it, with who placed it, the most
+recent first.
+
+[source,sql]
+----
+SELECT order_id, order_tms, full_name, email_address, items
+FROM customer_order_products
+WHERE items LIKE '%' || :productName || '%'
+ORDER BY order_tms DESC
+----
+
+[source,jpaql]
+----
+SELECT v
+FROM CustomerOrderProduct v
+WHERE v.items LIKE :itemsPattern
+ORDER BY v.orderTms DESC
+----
+
+Bind `+"%" + productName + "%"+`. `ITEMS` is a comma-separated list of names, so this matches any product whose name
+contains the one asked for; matching on `+PRODUCT_ID+` instead needs `+ORDER_ITEMS+` (see _Whole schema_).
+
+=== Intermediate
+
+[[CO-CUSTOMER_ORDER_PRODUCTS-I-01]]
+==== CO-CUSTOMER_ORDER_PRODUCTS-I-01 Average basket per customer
+
+Marketing wants, per customer, the number of completed orders, what they came to and the average order value, the
+biggest spenders first.
+
+[source,sql]
+----
+SELECT customer_id, full_name, COUNT(*) AS orders, SUM(order_total) AS total_spent,
+       ROUND(AVG(order_total), 2) AS average_order
+FROM customer_order_products
+WHERE order_status = 'COMPLETE'
+GROUP BY customer_id, full_name
+ORDER BY total_spent DESC, full_name
+----
+
+[source,jpaql]
+----
+SELECT v.customerId, v.fullName, COUNT(v), SUM(v.orderTotal), AVG(v.orderTotal)
+FROM CustomerOrderProduct v
+WHERE v.orderStatus = 'COMPLETE'
+GROUP BY v.customerId, v.fullName
+ORDER BY SUM(v.orderTotal) DESC, v.fullName
+----
+
+The view's `orderStatus` is a `String`, so a string literal is right here, unlike for `Order.orderStatus`.
+
+=== Advanced
+
+[[CO-CUSTOMER_ORDER_PRODUCTS-A-01]]
+==== CO-CUSTOMER_ORDER_PRODUCTS-A-01 Each customer's biggest order
+
+For a thank-you letter, marketing wants each customer's most valuable order. A tie gives a customer more than one row.
+
+[source,sql]
+----
+SELECT customer_id, full_name, order_id, order_tms, order_total
+FROM (SELECT v.*, RANK() OVER (PARTITION BY v.customer_id ORDER BY v.order_total DESC) AS rnk
+      FROM customer_order_products v)
+WHERE rnk = 1
+ORDER BY order_total DESC, full_name
+----
+
+[source,jpaql]
+----
+SELECT v
+FROM CustomerOrderProduct v
+WHERE v.orderTotal = (SELECT MAX(v2.orderTotal)
+                      FROM CustomerOrderProduct v2
+                      WHERE v2.customerId = v.customerId)
+ORDER BY v.orderTotal DESC, v.fullName
+----
+
+JPQL has no window functions; a correlated subquery takes the maximum per customer instead. The view aggregates
+`+ORDER_ITEMS+` on every read, so the subquery form evaluates it again for each row; the `RANK()` form reads it once.
+
+== INVENTORY
+
+=== Basic
+
+[[CO-INVENTORY-B-01]]
+==== CO-INVENTORY-B-01 How many are on the shelf?
+
+A shop assistant asks how many units of a product their store holds.
+
+[source,sql]
+----
+SELECT product_inventory
+FROM inventory
+WHERE store_id = :storeId
+  AND product_id = :productId
+----
+
+[source,jpaql]
+----
+SELECT i.productInventory
+FROM Inventory i
+WHERE i.store.storeId = :storeId
+  AND i.product.productId = :productId
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Inventory AS e
+WHERE e.store = :store AND e.product = :product
+----
+
+`+(STORE_ID, PRODUCT_ID)+` is unique, so there is at most one row. No row means the store does not stock the product at
+all, which is not the same as a stock of `0`. The second JPQL form is the named query
+`Inventory.selectOneByStoreAndProduct`; it takes the `Store` and the `Product` themselves and selects the whole
+`Inventory`.
+
+[[CO-INVENTORY-B-02]]
+==== CO-INVENTORY-B-02 Where a product is running lowest
+
+A merchandiser wants every store's stock of a product, lowest first, to see which stores need it replenished first.
+
+[source,sql]
+----
+SELECT *
+FROM inventory
+WHERE product_id = :productId
+ORDER BY product_inventory ASC
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Inventory AS e
+WHERE e.product = :product
+ORDER BY e.productInventory ASC
+----
+
+The JPQL is the named query `Inventory.selectOneByProductOrderByProductInventoryAsc`. A product is stocked at many
+stores, so it returns a list -- one row per store -- despite the `selectOne` in its name. Stores with the same stock
+come back in no particular order; add `e.store.storeId` to the `ORDER BY` for a stable order.
+
+[[CO-INVENTORY-B-03]]
+==== CO-INVENTORY-B-03 A store's emptiest shelves
+
+A store manager wants every product their store stocks, lowest stock first, to plan the next order.
+
+[source,sql]
+----
+SELECT *
+FROM inventory
+WHERE store_id = :storeId
+ORDER BY product_inventory ASC
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Inventory AS e
+WHERE e.store = :store
+ORDER BY e.productInventory ASC
+----
+
+The JPQL is the named query `Inventory.selectListByStoreOrderByProductInventoryAsc`. Products with the same stock come
+back in no particular order; add `e.product.productId` to the `ORDER BY` for a stable order.
+
+=== Intermediate
+
+[[CO-INVENTORY-I-01]]
+==== CO-INVENTORY-I-01 What each store holds
+
+The regional manager wants, per store, how many products it stocks, how many units it holds in all, and how many of its
+products are down to zero.
+
+[source,sql]
+----
+SELECT store_id, COUNT(*) AS products, SUM(product_inventory) AS units,
+       COUNT(CASE WHEN product_inventory = 0 THEN 1 END) AS empty_shelves
+FROM inventory
+GROUP BY store_id
+ORDER BY store_id
+----
+
+[source,jpaql]
+----
+SELECT i.store.storeId, COUNT(i), SUM(i.productInventory),
+       SUM(CASE WHEN i.productInventory = 0 THEN 1 ELSE 0 END)
+FROM Inventory i
+GROUP BY i.store.storeId
+ORDER BY i.store.storeId
+----
+
+`i.store.storeId` is the foreign key itself, so no join to `STORES` is needed; the store's name does need one (see
+_Running low_). The 3.2 grammar gives `SUM` a path argument only; both providers accept an expression, as they do for
+`+unitPrice * quantity+` elsewhere in this file.
+
+=== Advanced
+
+[[CO-INVENTORY-A-01]]
+==== CO-INVENTORY-A-01 Stores that carry everything another store carries
+
+A store is closing for a refit. The regional manager wants the stores that carry every product it carries, to send its
+customers to.
+
+[source,sql]
+----
+SELECT DISTINCT i.store_id
+FROM inventory i
+WHERE i.store_id <> :storeId
+  AND NOT EXISTS (SELECT 1
+                  FROM inventory r
+                  WHERE r.store_id = :storeId
+                    AND NOT EXISTS (SELECT 1
+                                    FROM inventory x
+                                    WHERE x.store_id = i.store_id
+                                      AND x.product_id = r.product_id))
+ORDER BY i.store_id
+----
+
+[source,jpaql]
+----
+SELECT DISTINCT i.store.storeId
+FROM Inventory i
+WHERE i.store.storeId <> :storeId
+  AND NOT EXISTS (SELECT r
+                  FROM Inventory r
+                  WHERE r.store.storeId = :storeId
+                    AND NOT EXISTS (SELECT x
+                                    FROM Inventory x
+                                    WHERE x.store = i.store
+                                      AND x.product = r.product))
+ORDER BY i.store.storeId
+----
+
+This is relational division, written as a double negative: a store qualifies when there is no product of the closing
+store that it lacks. A row counts as "carried" even at a stock of `0`; add `+AND x.productInventory > 0+` to require stock
+on the shelf. Store 1 (`Online`) carries all 46 products, so no other store qualifies for it; for store 20 the answer
+is stores 1, 4, 9, 10, 14 and 19.
+
+== ORDERS
+
+=== Basic
+
+[[CO-ORDERS-B-01]]
+==== CO-ORDERS-B-01 A customer's order history
+
+Show a customer all of their orders, the most recent first.
+
+[source,sql]
+----
+SELECT order_id, order_tms, order_status, store_id
+FROM orders
+WHERE customer_id = :customerId
+ORDER BY order_tms DESC
+----
+
+[source,jpaql]
+----
+SELECT o
+FROM Order o
+WHERE o.customer.customerId = :customerId
+ORDER BY o.orderTms DESC
+----
+
+[source,jpaql]
+----
+SELECT o
+FROM Order o
+WHERE o.customer = :customer
+ORDER BY o.orderTms DESC
+----
+
+`o.customer.customerId` is the association's own key, so it needs no join to `CUSTOMERS`. The second form binds a
+`Customer` (a reference from `getReference` is enough).
+
+[[CO-ORDERS-B-02]]
+==== CO-ORDERS-B-02 Orders that went wrong
+
+Finance reviews every order that was cancelled or refunded, newest first.
+
+[source,sql]
+----
+SELECT order_id, order_tms, order_status, customer_id, store_id
+FROM orders
+WHERE order_status IN ('CANCELLED', 'REFUNDED')
+ORDER BY order_tms DESC
+----
+
+[source,jpaql]
+----
+SELECT o
+FROM Order o
+WHERE o.orderStatus IN :statuses
+ORDER BY o.orderTms DESC
+----
+
+[source,jpaql]
+----
+SELECT o
+FROM Order o
+WHERE o.orderStatus IN (com.github.jinahya.oracle.sample.schemas.persistence.co.Order.OrderStatus.CANCELLED,
+                        com.github.jinahya.oracle.sample.schemas.persistence.co.Order.OrderStatus.REFUNDED)
+ORDER BY o.orderTms DESC
+----
+
+`:statuses` is a `+List<Order.OrderStatus>+`. An enum literal in JPQL is the constant's fully qualified name; a string
+such as `+'CANCELLED'+` is not comparable with an enum attribute.
+
+[[CO-ORDERS-B-03]]
+==== CO-ORDERS-B-03 A store's orders for a period
+
+A store manager wants the orders taken at their store during a period: on or after `:fromTms`, and before `:toTms`.
+
+[source,sql]
+----
+SELECT order_id, order_tms, order_status, customer_id
+FROM orders
+WHERE store_id = :storeId
+  AND order_tms >= :fromTms
+  AND order_tms < :toTms
+ORDER BY order_tms
+----
+
+[source,jpaql]
+----
+SELECT o
+FROM Order o
+WHERE o.store.storeId = :storeId
+  AND o.orderTms >= :fromTms
+  AND o.orderTms < :toTms
+ORDER BY o.orderTms
+----
+
+`+ORDER_TMS+` is a `TIMESTAMP`, mapped as `LocalDateTime`. A half-open range lets consecutive periods meet without
+overlapping; `BETWEEN` includes both ends, so an order at exactly `:toTms` would be counted in two periods.
+
+=== Intermediate
+
+[[CO-ORDERS-I-01]]
+==== CO-ORDERS-I-01 Where orders stand
+
+Operations wants the number of orders in each status, with the first and the last order placed in it.
+
+[source,sql]
+----
+SELECT order_status, COUNT(*) AS orders, MIN(order_tms) AS first_order_tms, MAX(order_tms) AS last_order_tms
+FROM orders
+GROUP BY order_status
+ORDER BY orders DESC
+----
+
+[source,jpaql]
+----
+SELECT o.orderStatus, COUNT(o), MIN(o.orderTms), MAX(o.orderTms)
+FROM Order o
+GROUP BY o.orderStatus
+ORDER BY COUNT(o) DESC
+----
+
+Only the statuses that occur are returned: the installed orders are all `COMPLETE`, `CANCELLED` or `REFUNDED`. To show
+all six with zeros, iterate `Order.OrderStatus.values()` in Java and fill in the counts.
+
+=== Advanced
+
+[[CO-ORDERS-A-01]]
+==== CO-ORDERS-A-01 Customers of two stores, or of one only
+
+Two store managers plan a joint promotion. Marketing wants (a) the customers who have ordered from both stores,
+(b) those who ordered from the first store but never from the second, and (c) everyone who ordered from either.
+
+[source,sql]
+----
+SELECT customer_id FROM orders WHERE store_id = :storeA
+INTERSECT
+SELECT customer_id FROM orders WHERE store_id = :storeB
+----
+
+[source,jpaql]
+----
+SELECT o.customer.customerId FROM Order o WHERE o.store.storeId = :storeA
+INTERSECT
+SELECT o.customer.customerId FROM Order o WHERE o.store.storeId = :storeB
+----
+
+[source,sql]
+----
+SELECT customer_id FROM orders WHERE store_id = :storeA
+MINUS
+SELECT customer_id FROM orders WHERE store_id = :storeB
+----
+
+[source,jpaql]
+----
+SELECT o.customer.customerId FROM Order o WHERE o.store.storeId = :storeA
+EXCEPT
+SELECT o.customer.customerId FROM Order o WHERE o.store.storeId = :storeB
+----
+
+[source,sql]
+----
+SELECT customer_id FROM orders WHERE store_id = :storeA
+UNION
+SELECT customer_id FROM orders WHERE store_id = :storeB
+----
+
+[source,jpaql]
+----
+SELECT o.customer.customerId FROM Order o WHERE o.store.storeId = :storeA
+UNION
+SELECT o.customer.customerId FROM Order o WHERE o.store.storeId = :storeB
+----
+
+`UNION`, `INTERSECT` and `EXCEPT` are new in Jakarta Persistence 3.2. Oracle's traditional spelling of `EXCEPT` is
+`MINUS`; 21c and later accept `EXCEPT` as well. Without `ALL` they remove duplicates, as in SQL.
+
+[[CO-ORDERS-A-02]]
+==== CO-ORDERS-A-02 Time between a customer's orders
+
+Customer care, looking at one customer, wants each of their orders next to the one before it, to see how often they
+come back.
+
+[source,sql]
+----
+SELECT order_id, order_tms,
+       LAG(order_tms) OVER (ORDER BY order_tms) AS previous_order_tms,
+       EXTRACT(DAY FROM order_tms - LAG(order_tms) OVER (ORDER BY order_tms)) AS days_since_previous
+FROM orders
+WHERE customer_id = :customerId
+ORDER BY order_tms
+----
+
+[source,jpaql]
+----
+SELECT o.orderId, o.orderTms,
+       (SELECT MAX(p.orderTms) FROM Order p WHERE p.customer = o.customer AND p.orderTms < o.orderTms)
+FROM Order o
+WHERE o.customer.customerId = :customerId
+ORDER BY o.orderTms
+----
+
+Without `LAG()`, the previous order is the latest one placed before this one, a correlated subquery in the select list;
+it is null for the first order. Subtracting two ``TIMESTAMP``s gives an `INTERVAL DAY TO SECOND` in Oracle; in Java, take
+`Duration.between(previous, current).toDays()`.
+
+== ORDER_ITEMS
+
+`+ORDER_ITEMS+` is queried through `OrderItem` (see the note on `Order.orderItems` above); its order and
+line number are `oi.id.orderId` and `oi.id.lineItemId`.
+
+=== Basic
+
+[[CO-ORDER_ITEMS-B-01]]
+==== CO-ORDER_ITEMS-B-01 Bulk lines
+
+Fraud prevention watches for bulk buying. List the order lines of `:minQuantity` units or more, the largest first.
+
+[source,sql]
+----
+SELECT order_id, line_item_id, product_id, unit_price, quantity
+FROM order_items
+WHERE quantity >= :minQuantity
+ORDER BY quantity DESC, order_id, line_item_id
+----
+
+[source,jpaql]
+----
+SELECT oi
+FROM OrderItem oi
+WHERE oi.quantity >= :minQuantity
+ORDER BY oi.quantity DESC, oi.id.orderId, oi.id.lineItemId
+----
+
+No line of the installed data has more than five units.
+
+=== Intermediate
+
+[[CO-ORDER_ITEMS-I-01]]
+==== CO-ORDER_ITEMS-I-01 Orders worth more than an amount
+
+Fraud prevention also reviews every order worth more than `:amount`, with its number of lines and units, from the
+lines alone.
+
+[source,sql]
+----
+SELECT order_id, COUNT(*) AS lines, SUM(quantity) AS units, SUM(unit_price * quantity) AS order_total
+FROM order_items
+GROUP BY order_id
+HAVING SUM(unit_price * quantity) > :amount
+ORDER BY order_total DESC
+----
+
+[source,jpaql]
+----
+SELECT oi.id.orderId, COUNT(oi), SUM(oi.quantity), SUM(oi.unitPrice * oi.quantity)
+FROM OrderItem oi
+GROUP BY oi.id.orderId
+HAVING SUM(oi.unitPrice * oi.quantity) > :amount
+ORDER BY SUM(oi.unitPrice * oi.quantity) DESC
+----
+
+Grouping by `oi.id.orderId`, the key column, rather than by `oi.order` keeps the query on `+ORDER_ITEMS+` alone.
+
+=== Advanced
+
+[[CO-ORDER_ITEMS-A-01]]
+==== CO-ORDER_ITEMS-A-01 Each order's main line
+
+Customer care settles a complaint about an order against its main line: the line with the largest value. List it for
+every order; a tie gives an order more than one row.
+
+[source,sql]
+----
+SELECT order_id, line_item_id, product_id, unit_price * quantity AS line_total
+FROM (SELECT oi.*, RANK() OVER (PARTITION BY oi.order_id ORDER BY oi.unit_price * oi.quantity DESC) AS rnk
+      FROM order_items oi)
+WHERE rnk = 1
+ORDER BY order_id, line_item_id
+----
+
+[source,jpaql]
+----
+SELECT oi.id.orderId, oi.id.lineItemId, oi.product.productId, oi.unitPrice * oi.quantity
+FROM OrderItem oi
+WHERE oi.unitPrice * oi.quantity >= ALL (SELECT oi2.unitPrice * oi2.quantity
+                                         FROM OrderItem oi2
+                                         WHERE oi2.id.orderId = oi.id.orderId)
+ORDER BY oi.id.orderId, oi.id.lineItemId
+----
+
+`+>= ALL+` over the order's own lines stands in for `RANK()`; the subquery is never empty, because it contains the line
+itself.
+
+== PRODUCTS
+
+=== Basic
+
+[[CO-PRODUCTS-B-01]]
+==== CO-PRODUCTS-B-01 Gift ideas within a budget
+
+A merchandiser is building a "gifts between $X and $Y" page. List the products whose list price lies in the range,
+cheapest first, and by name where prices tie.
+
+[source,sql]
+----
+SELECT product_id, product_name, unit_price
+FROM products
+WHERE unit_price BETWEEN :minPrice AND :maxPrice
+ORDER BY unit_price, product_name
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE p.unitPrice BETWEEN :minPrice AND :maxPrice
+ORDER BY p.unitPrice, p.productName
+----
+
+[[CO-PRODUCTS-B-02]]
+==== CO-PRODUCTS-B-02 Price list, most expensive first
+
+Print the catalogue from the most to the least expensive. `+UNIT_PRICE+` is nullable, and a product without a price yet
+belongs at the bottom of the list, not the top.
+
+[source,sql]
+----
+SELECT product_id, product_name, unit_price
+FROM products
+ORDER BY unit_price DESC NULLS LAST, product_name
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+ORDER BY p.unitPrice DESC NULLS LAST, p.productName
+----
+
+Oracle sorts nulls as the highest value, so a plain `DESC` would put unpriced products first.
+
+[[CO-PRODUCTS-B-03]]
+==== CO-PRODUCTS-B-03 Products still waiting for a price
+
+Before the catalogue goes to print, the merchandiser wants every product that has no list price.
+
+[source,sql]
+----
+SELECT product_id, product_name
+FROM products
+WHERE unit_price IS NULL
+ORDER BY product_name
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE p.unitPrice IS NULL
+ORDER BY p.productName
+----
+
+`+unit_price = NULL+` would never be true, in either language. The installed data has no such product, so the answer is
+empty.
+
+=== Intermediate
+
+[[CO-PRODUCTS-I-01]]
+==== CO-PRODUCTS-I-01 Products priced above average
+
+Merchandising wants the products whose list price is above the catalogue's average list price.
+
+[source,sql]
+----
+SELECT product_id, product_name, unit_price
+FROM products
+WHERE unit_price > (SELECT AVG(unit_price) FROM products)
+ORDER BY unit_price DESC
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE p.unitPrice > (SELECT AVG(p2.unitPrice) FROM Product p2)
+ORDER BY p.unitPrice DESC
+----
+
+[[CO-PRODUCTS-I-02]]
+==== CO-PRODUCTS-I-02 The range by department
+
+The buyer for each department -- boys', girls', men's and women's -- wants the number of products and the price range of
+their department. The department is the `gender` field of the JSON in `+PRODUCT_DETAILS+`.
+
+[source,sql]
+----
+SELECT JSON_VALUE(product_details, '$.gender') AS department,
+       COUNT(*) AS products,
+       MIN(unit_price) AS cheapest, MAX(unit_price) AS dearest, ROUND(AVG(unit_price), 2) AS average_price
+FROM products
+GROUP BY JSON_VALUE(product_details, '$.gender')
+ORDER BY department
+----
+
+SQL only: JPQL cannot look inside the `+byte[]+` document. From Jakarta Persistence, read each product's
+`ProductDetails` (see _Brands and reviews from the product JSON_) and group in Java, or run the SQL as a native query.
+
+=== Advanced
+
+[[CO-PRODUCTS-A-01]]
+==== CO-PRODUCTS-A-01 The ten most expensive products, ties included
+
+The window display takes the ten most expensive products, and a product priced the same as the tenth goes in too.
+
+[source,sql]
+----
+SELECT product_id, product_name, unit_price
+FROM products
+WHERE unit_price IS NOT NULL
+ORDER BY unit_price DESC
+FETCH FIRST 10 ROWS WITH TIES
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE p.unitPrice IS NOT NULL
+  AND (SELECT COUNT(p2) FROM Product p2 WHERE p2.unitPrice > p.unitPrice) < 10
+ORDER BY p.unitPrice DESC
+----
+
+`setMaxResults(10)` would cut a tie at the tenth place arbitrarily. Counting the products that are strictly more
+expensive keeps every product tied there. Without `IS NOT NULL`, an unpriced product would count none above it and be
+let in.
+
+== PRODUCT_ORDERS
+
+`+PRODUCT_ORDERS+` has one row per product name and order status. It is queried through `ProductOrder`,
+whose key is `v.id.productName` and `v.id.orderStatus`, both ``String``s.
+
+=== Basic
+
+[[CO-PRODUCT_ORDERS-B-01]]
+==== CO-PRODUCT_ORDERS-B-01 Which products get refunded?
+
+Customer care suspects a quality problem. For one order status (say `REFUNDED`), list the products with the value and
+number of such orders, the largest value first.
+
+[source,sql]
+----
+SELECT product_name, total_sales, order_count
+FROM product_orders
+WHERE order_status = :orderStatus
+ORDER BY total_sales DESC
+----
+
+[source,jpaql]
+----
+SELECT v
+FROM ProductOrder v
+WHERE v.id.orderStatus = :orderStatus
+ORDER BY v.totalSales DESC
+----
+
+`+PRODUCT_ORDERS+` is keyed by `+(PRODUCT_NAME, ORDER_STATUS)+`, and `orderStatus` is a `String` here: bind `+"REFUNDED"+`.
+
+=== Intermediate
+
+[[CO-PRODUCT_ORDERS-I-01]]
+==== CO-PRODUCT_ORDERS-I-01 Sales per product, whatever happened to the order
+
+Merchandising wants each product's number of orders and their value, over every status, the largest value first.
+
+[source,sql]
+----
+SELECT product_name, SUM(order_count) AS orders, SUM(total_sales) AS sales
+FROM product_orders
+GROUP BY product_name
+ORDER BY sales DESC
+----
+
+[source,jpaql]
+----
+SELECT v.id.productName, SUM(v.orderCount), SUM(v.totalSales)
+FROM ProductOrder v
+GROUP BY v.id.productName
+ORDER BY SUM(v.totalSales) DESC
+----
+
+An order has one status, so adding the counts over the statuses counts each order once.
+
+=== Advanced
+
+[[CO-PRODUCT_ORDERS-A-01]]
+==== CO-PRODUCT_ORDERS-A-01 Products that are often cancelled or refunded
+
+Quality assurance wants the products whose cancelled and refunded orders make up more than `:percent` per cent (say
+5) of all their orders, with both counts.
+
+[source,sql]
+----
+SELECT product_name,
+       SUM(order_count) AS orders,
+       SUM(CASE WHEN order_status IN ('CANCELLED', 'REFUNDED') THEN order_count ELSE 0 END) AS lost_orders,
+       ROUND(100 * SUM(CASE WHEN order_status IN ('CANCELLED', 'REFUNDED') THEN order_count ELSE 0 END)
+                 / SUM(order_count), 1) AS lost_pct
+FROM product_orders
+GROUP BY product_name
+HAVING SUM(CASE WHEN order_status IN ('CANCELLED', 'REFUNDED') THEN order_count ELSE 0 END)
+           * 100 > :percent * SUM(order_count)
+ORDER BY lost_pct DESC, product_name
+----
+
+[source,jpaql]
+----
+SELECT v.id.productName,
+       SUM(v.orderCount),
+       SUM(CASE WHEN v.id.orderStatus IN ('CANCELLED', 'REFUNDED') THEN v.orderCount ELSE 0 END)
+FROM ProductOrder v
+GROUP BY v.id.productName
+HAVING SUM(CASE WHEN v.id.orderStatus IN ('CANCELLED', 'REFUNDED') THEN v.orderCount ELSE 0 END)
+           * 100 > :percent * SUM(v.orderCount)
+ORDER BY v.id.productName
+----
+
+A `CASE` inside `SUM` counts a subset of the rows of a group, which `WHERE` cannot do without losing the total. The 3.2
+grammar gives `SUM` a path argument only; both providers accept the `CASE`. Work out the percentage in Java. The
+comparison is kept in whole numbers: Hibernate types `:percent` after `SUM(v.orderCount)`, a `Long`, and refuses a
+fractional share such as `0.05`.
+
+== PRODUCT_REVIEWS
+
+`+PRODUCT_REVIEWS+` turns the `reviews` array of each product's JSON into rows. `ProductReview` is a plain class, not an
+entity, and is not in the persistence unit, so the problems in this section are SQL only; from Jakarta Persistence, run
+them as native queries. A product with no reviews has one row whose `RATING` and `REVIEW` are null.
+
+=== Basic
+
+[[CO-PRODUCT_REVIEWS-B-01]]
+==== CO-PRODUCT_REVIEWS-B-01 Read a product's reviews
+
+A shopper asks what other people thought of a product. Show its reviews, the best first.
+
+[source,sql]
+----
+SELECT rating, review
+FROM product_reviews
+WHERE product_name = :productName
+ORDER BY rating DESC NULLS LAST
+----
+
+=== Intermediate
+
+[[CO-PRODUCT_REVIEWS-I-01]]
+==== CO-PRODUCT_REVIEWS-I-01 Products with mostly poor reviews
+
+Quality assurance wants the products where more than half of the reviews give 3 or less, with the number of each.
+
+[source,sql]
+----
+SELECT product_name,
+       COUNT(rating) AS reviews,
+       COUNT(CASE WHEN rating <= 3 THEN 1 END) AS poor_reviews
+FROM product_reviews
+GROUP BY product_name
+HAVING COUNT(CASE WHEN rating <= 3 THEN 1 END) * 2 > COUNT(rating)
+ORDER BY poor_reviews DESC, product_name
+----
+
+`COUNT(rating)` skips the null row of a product without reviews, which `+COUNT(*)+` would count.
+
+=== Advanced
+
+[[CO-PRODUCT_REVIEWS-A-01]]
+==== CO-PRODUCT_REVIEWS-A-01 Each product's harshest review
+
+Before a supplier meeting, the buyer wants the lowest-rated review of every product, and how far it falls below the
+product's average.
+
+[source,sql]
+----
+SELECT product_name, rating, avg_rating, avg_rating - rating AS below_average, review
+FROM (SELECT r.*, ROW_NUMBER() OVER (PARTITION BY r.product_name ORDER BY r.rating, r.review) AS rn
+      FROM product_reviews r
+      WHERE r.rating IS NOT NULL)
+WHERE rn = 1
+ORDER BY below_average DESC, product_name
+----
+
+`+ROW_NUMBER()+` picks exactly one review per product, breaking a tie on the rating by the review's text; `RANK()` would
+keep every tied review. `+AVG_RATING+` is already in the view, one value per product.
+
+== SHIPMENTS
+
+=== Basic
+
+[[CO-SHIPMENTS-B-01]]
+==== CO-SHIPMENTS-B-01 Shipments on the road
+
+Logistics wants every shipment that is currently in transit, with the address it is heading to.
+
+[source,sql]
+----
+SELECT shipment_id, store_id, customer_id, delivery_address
+FROM shipments
+WHERE shipment_status = 'IN-TRANSIT'
+ORDER BY shipment_id
+----
+
+[source,jpaql]
+----
+SELECT s
+FROM Shipment s
+WHERE s.shipmentStatus = :shipmentStatus
+ORDER BY s.shipmentId
+----
+
+Bind `+Shipment.ShipmentStatus.IN_TRANSIT+`. The attribute goes through `ShipmentStatusConverter`, which writes
+`+IN-TRANSIT+`; whether a converter is applied to a literal in a query is not something to rely on, so use a parameter.
+
+[[CO-SHIPMENTS-B-02]]
+==== CO-SHIPMENTS-B-02 Shipments to a town
+
+A courier reports a road closure around one town. Find the shipments whose delivery address mentions it.
+
+[source,sql]
+----
+SELECT shipment_id, delivery_address, shipment_status
+FROM shipments
+WHERE delivery_address LIKE '%' || :town || '%'
+ORDER BY shipment_id
+----
+
+[source,jpaql]
+----
+SELECT s
+FROM Shipment s
+WHERE s.deliveryAddress LIKE :pattern
+ORDER BY s.shipmentId
+----
+
+Bind `+"%" + town + "%"+`, for instance `+%Jobstown%+`.
+
+=== Intermediate
+
+[[CO-SHIPMENTS-I-01]]
+==== CO-SHIPMENTS-I-01 Open shipments per store
+
+Logistics wants, per store, the number of shipments in each status other than `DELIVERED`.
+
+[source,sql]
+----
+SELECT store_id, shipment_status, COUNT(*) AS shipments
+FROM shipments
+WHERE shipment_status <> 'DELIVERED'
+GROUP BY store_id, shipment_status
+ORDER BY store_id, shipment_status
+----
+
+[source,jpaql]
+----
+SELECT s.store.storeId, s.shipmentStatus, COUNT(s)
+FROM Shipment s
+WHERE s.shipmentStatus <> :delivered
+GROUP BY s.store.storeId, s.shipmentStatus
+ORDER BY s.store.storeId, s.shipmentStatus
+----
+
+Bind `Shipment.ShipmentStatus.DELIVERED`. The result holds `Shipment.ShipmentStatus` constants, converted back from the
+column; the order is that of the column's text, `CREATED`, `+IN-TRANSIT+`, `SHIPPED`. On the installed data every
+open shipment leaves from store 1, `Online`.
+
+=== Advanced
+
+[[CO-SHIPMENTS-A-01]]
+==== CO-SHIPMENTS-A-01 Shipments that could travel together
+
+Before dispatch, logistics wants to merge shipments that are still `CREATED` and go from the same store to the same
+customer at the same address. List them in pairs.
+
+[source,sql]
+----
+SELECT a.shipment_id, b.shipment_id AS other_shipment_id, a.store_id, a.customer_id, a.delivery_address
+FROM shipments a
+         JOIN shipments b ON b.store_id = a.store_id
+                         AND b.customer_id = a.customer_id
+                         AND b.delivery_address = a.delivery_address
+                         AND b.shipment_id > a.shipment_id
+WHERE a.shipment_status = 'CREATED'
+  AND b.shipment_status = 'CREATED'
+ORDER BY a.shipment_id, b.shipment_id
+----
+
+[source,jpaql]
+----
+SELECT a.shipmentId, b.shipmentId, a.store.storeId, a.customer.customerId, a.deliveryAddress
+FROM Shipment a
+         JOIN Shipment b ON b.store = a.store
+                        AND b.customer = a.customer
+                        AND b.deliveryAddress = a.deliveryAddress
+                        AND b.shipmentId > a.shipmentId
+WHERE a.shipmentStatus = :created
+  AND b.shipmentStatus = :created
+ORDER BY a.shipmentId, b.shipmentId
+----
+
+Bind `Shipment.ShipmentStatus.CREATED`. A self-join with `+b.shipment_id > a.shipment_id+` lists each pair once; three
+mergeable shipments give three pairs. `+GROUP BY store_id, customer_id, delivery_address HAVING COUNT(*) > 1+` lists the
+groups instead.
+
+== STORES
+
+=== Basic
+
+[[CO-STORES-B-01]]
+==== CO-STORES-B-01 One contact line per store
+
+Customer service wants a store list with a single address for each: the web address of the online store, and the
+postal address of every other one.
+
+[source,sql]
+----
+SELECT store_name, COALESCE(web_address, physical_address) AS address
+FROM stores
+ORDER BY store_name
+----
+
+[source,jpaql]
+----
+SELECT s.storeName, COALESCE(s.webAddress, s.physicalAddress)
+FROM Store s
+ORDER BY s.storeName
+----
+
+A check constraint guarantees that at least one of the two addresses is present, so the result is never null.
+
+[[CO-STORES-B-02]]
+==== CO-STORES-B-02 Stores from north to south
+
+For a map legend, list the stores from the northernmost to the southernmost. Stores without coordinates (the online
+store) go at the end.
+
+[source,sql]
+----
+SELECT store_name, latitude, longitude
+FROM stores
+ORDER BY latitude DESC NULLS LAST
+----
+
+[source,jpaql]
+----
+SELECT s.storeName, s.latitude, s.longitude
+FROM Store s
+ORDER BY s.latitude DESC NULLS LAST
+----
+
+=== Intermediate
+
+[[CO-STORES-I-01]]
+==== CO-STORES-I-01 Tidy store names for a sign
+
+The signage team needs store names without spaces, for file names: `New York City` becomes `+New-York-City+`, and the
+last four characters of each are used as a short code.
+
+[source,sql]
+----
+SELECT store_name,
+       REPLACE(store_name, ' ', '-') AS slug,
+       UPPER(SUBSTR(store_name, -4)) AS short_code
+FROM stores
+ORDER BY store_name
+----
+
+[source,jpaql]
+----
+SELECT s.storeName, REPLACE(s.storeName, ' ', '-'), UPPER(RIGHT(s.storeName, 4))
+FROM Store s
+ORDER BY s.storeName
+----
+
+`REPLACE`, `LEFT` and `RIGHT` were added to JPQL in 3.2.
+
+=== Advanced
+
+[[CO-STORES-A-01]]
+==== CO-STORES-A-01 Each store's nearest neighbour
+
+The regional manager pairs every physical store with its nearest other store, to share stock between them.
+
+[source,sql]
+----
+SELECT s.store_name, n.store_name AS nearest_store,
+       ROUND(SQRT(POWER(n.latitude - s.latitude, 2) + POWER(n.longitude - s.longitude, 2)), 2) AS degrees_apart
+FROM stores s
+         JOIN stores n ON n.store_id <> s.store_id
+WHERE s.latitude IS NOT NULL
+  AND n.latitude IS NOT NULL
+  AND POWER(n.latitude - s.latitude, 2) + POWER(n.longitude - s.longitude, 2)
+      = (SELECT MIN(POWER(m.latitude - s.latitude, 2) + POWER(m.longitude - s.longitude, 2))
+         FROM stores m
+         WHERE m.store_id <> s.store_id)
+ORDER BY s.store_name
+----
+
+[source,jpaql]
+----
+SELECT s.storeName, n.storeName,
+       SQRT(POWER(n.latitude - s.latitude, 2) + POWER(n.longitude - s.longitude, 2))
+FROM Store s
+         JOIN Store n ON n.storeId <> s.storeId
+WHERE s.latitude IS NOT NULL
+  AND n.latitude IS NOT NULL
+  AND POWER(n.latitude - s.latitude, 2) + POWER(n.longitude - s.longitude, 2)
+      = (SELECT MIN(POWER(m.latitude - s.latitude, 2) + POWER(m.longitude - s.longitude, 2))
+         FROM Store m
+         WHERE m.storeId <> s.storeId)
+ORDER BY s.storeName
+----
+
+The distance is measured in degrees on a flat map, which is crude: a degree of longitude shrinks towards the poles,
+and the map does not wrap at 180°. It is enough to find a neighbour, not to quote kilometres; in SQL, the haversine
+formula (`SIN`, `COS`, `ACOS`) gives the great-circle distance, and JPQL has no trigonometric functions. `MIN` skips the
+online store, whose coordinates are null. `POWER` and `SQRT` are 3.2 additions.
+
+== STORE_ORDERS
+
+`+STORE_ORDERS+` aggregates the orders with `GROUPING SETS`. `TOTAL` tells the rows apart: it is null on a row per store
+and status, `STORE TOTAL` on a row per store, `STATUS TOTAL` on a row per status, and `GRAND TOTAL` on the one row for
+the chain. `StoreOrder` is a plain class, not an entity, and is not in the persistence unit, so the problems in this
+section are SQL only; from Jakarta Persistence, run them as native queries.
+
+=== Basic
+
+[[CO-STORE_ORDERS-B-01]]
+==== CO-STORE_ORDERS-B-01 Store totals, best first
+
+The regional manager wants each store's number of orders and sales, best first, with the address to put on the
+report.
+
+[source,sql]
+----
+SELECT store_name, address, order_count, total_sales
+FROM store_orders
+WHERE total = 'STORE TOTAL'
+ORDER BY total_sales DESC
+----
+
+Leaving out the `WHERE` mixes in the per-status rows, which would count every order twice.
+
+=== Intermediate
+
+[[CO-STORE_ORDERS-I-01]]
+==== CO-STORE_ORDERS-I-01 Stores that lose orders
+
+Customer care wants the stores with cancelled or refunded orders, with how many there were and what they were worth,
+the largest loss first.
+
+[source,sql]
+----
+SELECT store_name, SUM(order_count) AS lost_orders, SUM(total_sales) AS lost_sales
+FROM store_orders
+WHERE total IS NULL
+  AND order_status IN ('CANCELLED', 'REFUNDED')
+GROUP BY store_name
+ORDER BY lost_sales DESC, store_name
+----
+
+`TOTAL IS NULL` keeps the rows per store and status; the `STATUS TOTAL` rows have `CANCELLED` and `REFUNDED` too, but no
+store.
+
+=== Advanced
+
+[[CO-STORE_ORDERS-A-01]]
+==== CO-STORE_ORDERS-A-01 Each store's losses against its own sales and the chain's
+
+Finance wants each store's cancelled and refunded sales as a share of the store's own sales and of the whole chain's.
+
+[source,sql]
+----
+SELECT d.store_name,
+       SUM(d.total_sales) AS lost_sales,
+       ROUND(100 * SUM(d.total_sales) / MAX(st.total_sales), 1) AS pct_of_store,
+       ROUND(100 * SUM(d.total_sales) / MAX(g.total_sales), 2) AS pct_of_chain
+FROM store_orders d
+         JOIN store_orders st ON st.total = 'STORE TOTAL' AND st.store_name = d.store_name
+         CROSS JOIN (SELECT total_sales FROM store_orders WHERE total = 'GRAND TOTAL') g
+WHERE d.total IS NULL
+  AND d.order_status IN ('CANCELLED', 'REFUNDED')
+GROUP BY d.store_name
+ORDER BY pct_of_store DESC, d.store_name
+----
+
+All three figures come from the one view: the detail rows, the store's `STORE TOTAL` row and the `GRAND TOTAL` row.
+`MAX` only carries the single store and chain totals through the `GROUP BY`. Each reference to the view computes its
+`GROUPING SETS` again; over the base tables, `+RATIO_TO_REPORT+` gives the same in one pass.
+
+== Whole schema
+
+Problems that join, or subquery, more than one table or view.
+
+=== Basic
+
+[[CO-SCHEMA-B-01]]
+==== CO-SCHEMA-B-01 Who placed an order, and where
+
+Customer care has an order number. Show the order with the customer's name and email address and the store it was
+placed at.
+
+[source,sql]
+----
+SELECT o.order_id, o.order_tms, o.order_status, c.full_name, c.email_address, s.store_name
+FROM orders o
+         JOIN customers c ON c.customer_id = o.customer_id
+         JOIN stores s ON s.store_id = o.store_id
+WHERE o.order_id = :orderId
+----
+
+[source,jpaql]
+----
+SELECT o.orderId, o.orderTms, o.orderStatus, c.fullName, c.emailAddress, s.storeName
+FROM Order o
+         JOIN o.customer c
+         JOIN o.store s
+WHERE o.orderId = :orderId
+----
+
+Selecting fields rather than the `Store` keeps its `logo` LOB out of the query.
+
+[[CO-SCHEMA-B-02]]
+==== CO-SCHEMA-B-02 Print a receipt
+
+A customer asks for a receipt. List the lines of one order: line number, product, unit price, quantity and line
+total.
+
+[source,sql]
+----
+SELECT oi.line_item_id, p.product_name, oi.unit_price, oi.quantity,
+       oi.unit_price * oi.quantity AS line_total
+FROM order_items oi
+         JOIN products p ON p.product_id = oi.product_id
+WHERE oi.order_id = :orderId
+ORDER BY oi.line_item_id
+----
+
+[source,jpaql]
+----
+SELECT oi.id.lineItemId, p.productName, oi.unitPrice, oi.quantity, oi.unitPrice * oi.quantity
+FROM OrderItem oi
+         JOIN oi.product p
+WHERE oi.id.orderId = :orderId
+ORDER BY oi.id.lineItemId
+----
+
+`+@EmbeddedId+` puts the key columns under `oi.id`. `hr`'s `JobHistory`, mapped with an `+@IdClass+`, has them on the
+entity itself.
+
+[[CO-SCHEMA-B-03]]
+==== CO-SCHEMA-B-03 Running low
+
+The warehouse wants every store and product whose stock is below `:threshold`, the emptiest shelves first.
+
+[source,sql]
+----
+SELECT s.store_name, p.product_name, i.product_inventory
+FROM inventory i
+         JOIN stores s ON s.store_id = i.store_id
+         JOIN products p ON p.product_id = i.product_id
+WHERE i.product_inventory < :threshold
+ORDER BY i.product_inventory, s.store_name, p.product_name
+----
+
+[source,jpaql]
+----
+SELECT s.storeName, p.productName, i.productInventory
+FROM Inventory i
+         JOIN i.store s
+         JOIN i.product p
+WHERE i.productInventory < :threshold
+ORDER BY i.productInventory, s.storeName, p.productName
+----
+
+=== Intermediate
+
+[[CO-SCHEMA-I-01]]
+==== CO-SCHEMA-I-01 What each order came to
+
+Show a customer what each of their orders cost in total, newest first.
+
+[source,sql]
+----
+SELECT o.order_id, o.order_tms, o.order_status,
+       SUM(oi.unit_price * oi.quantity) AS order_total
+FROM orders o
+         JOIN order_items oi ON oi.order_id = o.order_id
+WHERE o.customer_id = :customerId
+GROUP BY o.order_id, o.order_tms, o.order_status
+ORDER BY o.order_tms DESC
+----
+
+[source,jpaql]
+----
+SELECT o.orderId, o.orderTms, o.orderStatus, SUM(oi.unitPrice * oi.quantity)
+FROM OrderItem oi
+         JOIN oi.order o
+WHERE o.customer.customerId = :customerId
+GROUP BY o.orderId, o.orderTms, o.orderStatus
+ORDER BY o.orderTms DESC
+----
+
+[source,jpaql]
+----
+SELECT v
+FROM CustomerOrderProduct v
+WHERE v.customerId = :customerId
+ORDER BY v.orderTms DESC
+----
+
+The `+CUSTOMER_ORDER_PRODUCTS+` view already holds `+ORDER_TOTAL+` per order, plus the product names in `ITEMS`. Its
+`orderStatus` is a plain `String`, not the enum.
+
+[[CO-SCHEMA-I-02]]
+==== CO-SCHEMA-I-02 Stores that pass a revenue target
+
+Finance wants the revenue of completed orders per store, keeping only the stores above a target, best first.
+
+[source,sql]
+----
+SELECT s.store_id, s.store_name, SUM(oi.unit_price * oi.quantity) AS revenue
+FROM stores s
+         JOIN orders o ON o.store_id = s.store_id
+         JOIN order_items oi ON oi.order_id = o.order_id
+WHERE o.order_status = 'COMPLETE'
+GROUP BY s.store_id, s.store_name
+HAVING SUM(oi.unit_price * oi.quantity) > :target
+ORDER BY revenue DESC
+----
+
+[source,jpaql]
+----
+SELECT s.storeId, s.storeName, SUM(oi.unitPrice * oi.quantity) AS revenue
+FROM OrderItem oi
+         JOIN oi.order o
+         JOIN o.store s
+WHERE o.orderStatus = :status
+GROUP BY s.storeId, s.storeName
+HAVING SUM(oi.unitPrice * oi.quantity) > :target
+ORDER BY revenue DESC
+----
+
+Bind `Order.OrderStatus.COMPLETE`. A result variable (`revenue`) may be used in `ORDER BY`, but not in `HAVING`.
+
+[[CO-SCHEMA-I-03]]
+==== CO-SCHEMA-I-03 Best sellers
+
+Merchandising wants the ten products that sold the most units, counting completed orders only.
+
+[source,sql]
+----
+SELECT p.product_id, p.product_name, SUM(oi.quantity) AS units_sold
+FROM products p
+         JOIN order_items oi ON oi.product_id = p.product_id
+         JOIN orders o ON o.order_id = oi.order_id
+WHERE o.order_status = 'COMPLETE'
+GROUP BY p.product_id, p.product_name
+ORDER BY units_sold DESC, p.product_name
+FETCH FIRST 10 ROWS ONLY
+----
+
+[source,jpaql]
+----
+SELECT p.productId, p.productName, SUM(oi.quantity) AS unitsSold
+FROM OrderItem oi
+         JOIN oi.product p
+         JOIN oi.order o
+WHERE o.orderStatus = :status
+GROUP BY p.productId, p.productName
+ORDER BY unitsSold DESC, p.productName
+----
+
+JPQL has no row-limiting clause; call `setMaxResults(10)` on the query. Ties at the tenth place are cut arbitrarily in
+both.
+
+[[CO-SCHEMA-I-04]]
+==== CO-SCHEMA-I-04 Regular customers
+
+Marketing wants the customers who have placed at least `:minOrders` orders, with their order count, most orders first.
+
+[source,sql]
+----
+SELECT c.customer_id, c.full_name, c.email_address, COUNT(*) AS order_count
+FROM customers c
+         JOIN orders o ON o.customer_id = c.customer_id
+GROUP BY c.customer_id, c.full_name, c.email_address
+HAVING COUNT(*) >= :minOrders
+ORDER BY order_count DESC, c.full_name
+----
+
+[source,jpaql]
+----
+SELECT c, COUNT(o) AS orderCount
+FROM Customer c
+         JOIN c.orders o
+GROUP BY c
+HAVING COUNT(o) >= :minOrders
+ORDER BY orderCount DESC, c.fullName
+----
+
+Grouping by an entity is allowed when it has no eagerly fetched LOB; `Customer` has none. `Store` has one, its
+`logo`, so a store is grouped by its fields instead.
+
+[[CO-SCHEMA-I-05]]
+==== CO-SCHEMA-I-05 Has the price drifted?
+
+Each order line records the price actually charged. Merchandising wants, per product, the lowest and highest price
+it was ever sold at, next to today's list price, for the products where the two disagree.
+
+[source,sql]
+----
+SELECT p.product_id, p.product_name, p.unit_price AS list_price,
+       MIN(oi.unit_price) AS lowest_sold, MAX(oi.unit_price) AS highest_sold
+FROM products p
+         JOIN order_items oi ON oi.product_id = p.product_id
+GROUP BY p.product_id, p.product_name, p.unit_price
+HAVING MIN(oi.unit_price) <> p.unit_price
+    OR MAX(oi.unit_price) <> p.unit_price
+ORDER BY p.product_name
+----
+
+[source,jpaql]
+----
+SELECT p.productId, p.productName, p.unitPrice, MIN(oi.unitPrice), MAX(oi.unitPrice)
+FROM Product p
+         JOIN p.orderItems oi
+GROUP BY p.productId, p.productName, p.unitPrice
+HAVING MIN(oi.unitPrice) <> p.unitPrice
+    OR MAX(oi.unitPrice) <> p.unitPrice
+ORDER BY p.productName
+----
+
+[[CO-SCHEMA-I-06]]
+==== CO-SCHEMA-I-06 Out of stock everywhere
+
+Purchasing wants the products that cannot be bought anywhere: the total stock across all stores is zero, or no store
+carries them at all.
+
+[source,sql]
+----
+SELECT p.product_id, p.product_name, COALESCE(SUM(i.product_inventory), 0) AS total_stock
+FROM products p
+         LEFT JOIN inventory i ON i.product_id = p.product_id
+GROUP BY p.product_id, p.product_name
+HAVING COALESCE(SUM(i.product_inventory), 0) = 0
+ORDER BY p.product_name
+----
+
+[source,jpaql]
+----
+SELECT p.productId, p.productName, COALESCE(SUM(i.productInventory), 0)
+FROM Product p
+         LEFT JOIN p.inventories i
+GROUP BY p.productId, p.productName
+HAVING COALESCE(SUM(i.productInventory), 0) = 0
+ORDER BY p.productName
+----
+
+The outer join keeps the products with no `INVENTORY` row; `SUM` over nothing is null, hence the `COALESCE`.
+
+[[CO-SCHEMA-I-07]]
+==== CO-SCHEMA-I-07 Small, medium and large baskets
+
+Marketing sorts orders into bands by their total: under 100 is small, under 300 is medium, anything else is large.
+List each order with its total and band.
+
+[source,sql]
+----
+SELECT o.order_id,
+       SUM(oi.unit_price * oi.quantity) AS order_total,
+       CASE
+           WHEN SUM(oi.unit_price * oi.quantity) < 100 THEN 'SMALL'
+           WHEN SUM(oi.unit_price * oi.quantity) < 300 THEN 'MEDIUM'
+           ELSE 'LARGE'
+           END AS basket
+FROM orders o
+         JOIN order_items oi ON oi.order_id = o.order_id
+GROUP BY o.order_id
+ORDER BY o.order_id
+----
+
+[source,jpaql]
+----
+SELECT v.orderId,
+       v.orderTotal,
+       CASE
+           WHEN v.orderTotal < 100 THEN 'SMALL'
+           WHEN v.orderTotal < 300 THEN 'MEDIUM'
+           ELSE 'LARGE'
+           END
+FROM CustomerOrderProduct v
+ORDER BY v.orderId
+----
+
+Counting orders per band needs a `GROUP BY` on the `CASE` (or a subquery in `FROM`); SQL can, but a JPQL
+`+groupby_item+` is only a path or an identification variable. Count in Java, or run the SQL as a native query.
+
+[[CO-SCHEMA-I-08]]
+==== CO-SCHEMA-I-08 Orders not fully shipped
+
+Logistics wants the orders that still have lines with no shipment assigned, and how many such lines each has.
+
+[source,sql]
+----
+SELECT o.order_id, o.order_status, COUNT(*) AS unshipped_lines
+FROM orders o
+         JOIN order_items oi ON oi.order_id = o.order_id
+WHERE oi.shipment_id IS NULL
+GROUP BY o.order_id, o.order_status
+ORDER BY unshipped_lines DESC, o.order_id
+----
+
+[source,jpaql]
+----
+SELECT o.orderId, o.orderStatus, COUNT(oi)
+FROM OrderItem oi
+         JOIN oi.order o
+WHERE oi.shipment IS NULL
+GROUP BY o.orderId, o.orderStatus
+ORDER BY COUNT(oi) DESC, o.orderId
+----
+
+`oi.shipment IS NULL` tests the foreign key without joining `SHIPMENTS`.
+
+=== Advanced
+
+[[CO-SCHEMA-A-01]]
+==== CO-SCHEMA-A-01 Customers who never ordered
+
+Marketing wants to send a first-purchase voucher to every registered customer who has never placed an order.
+
+[source,sql]
+----
+SELECT c.customer_id, c.full_name, c.email_address
+FROM customers c
+WHERE NOT EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.customer_id)
+ORDER BY c.full_name
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE NOT EXISTS (SELECT o FROM Order o WHERE o.customer = c)
+ORDER BY c.fullName
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE c.orders IS EMPTY
+ORDER BY c.fullName
+----
+
+`IS EMPTY` reads the inverse side, `Customer.orders`, and providers translate it to the same `NOT EXISTS`.
+
+[[CO-SCHEMA-A-02]]
+==== CO-SCHEMA-A-02 Products nobody bought
+
+Merchandising wants to delist products that have never appeared on any order.
+
+[source,sql]
+----
+SELECT p.product_id, p.product_name
+FROM products p
+WHERE NOT EXISTS (SELECT 1 FROM order_items oi WHERE oi.product_id = p.product_id)
+ORDER BY p.product_name
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE NOT EXISTS (SELECT oi FROM OrderItem oi WHERE oi.product = p)
+ORDER BY p.productName
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE p.orderItems IS EMPTY
+ORDER BY p.productName
+----
+
+[[CO-SCHEMA-A-03]]
+==== CO-SCHEMA-A-03 Win back lapsed customers
+
+Marketing wants to win back the customers who used to order but have placed nothing since `:cutoff`. Show the date of
+their last order.
+
+[source,sql]
+----
+SELECT c.customer_id, c.full_name, c.email_address, MAX(o.order_tms) AS last_order_tms
+FROM customers c
+         JOIN orders o ON o.customer_id = c.customer_id
+GROUP BY c.customer_id, c.full_name, c.email_address
+HAVING MAX(o.order_tms) < :cutoff
+ORDER BY last_order_tms
+----
+
+[source,jpaql]
+----
+SELECT c, MAX(o.orderTms) AS lastOrderTms
+FROM Customer c
+         JOIN c.orders o
+GROUP BY c
+HAVING MAX(o.orderTms) < :cutoff
+ORDER BY lastOrderTms
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE EXISTS (SELECT o FROM Order o WHERE o.customer = c)
+  AND NOT EXISTS (SELECT o FROM Order o WHERE o.customer = c AND o.orderTms >= :cutoff)
+ORDER BY c.fullName
+----
+
+The inner join already drops customers who never ordered; the second form says the same with `EXISTS`.
+
+[[CO-SCHEMA-A-04]]
+==== CO-SCHEMA-A-04 Each store's best seller
+
+Each store manager wants to know their store's best-selling product by units, over all orders. A tie gives a store
+more than one row.
+
+[source,sql]
+----
+SELECT store_name, product_name, units_sold
+FROM (SELECT s.store_name, p.product_name, SUM(oi.quantity) AS units_sold,
+             RANK() OVER (PARTITION BY s.store_id ORDER BY SUM(oi.quantity) DESC) AS rnk
+      FROM stores s
+               JOIN orders o ON o.store_id = s.store_id
+               JOIN order_items oi ON oi.order_id = o.order_id
+               JOIN products p ON p.product_id = oi.product_id
+      GROUP BY s.store_id, s.store_name, p.product_id, p.product_name)
+WHERE rnk = 1
+ORDER BY store_name, product_name
+----
+
+[source,jpaql]
+----
+SELECT s.storeName, p.productName, SUM(oi.quantity)
+FROM OrderItem oi
+         JOIN oi.order o
+         JOIN o.store s
+         JOIN oi.product p
+GROUP BY s.storeId, s.storeName, p.productId, p.productName
+HAVING SUM(oi.quantity) >= ALL (SELECT SUM(oi2.quantity)
+                                FROM OrderItem oi2
+                                WHERE oi2.order.store.storeId = s.storeId
+                                GROUP BY oi2.product.productId)
+ORDER BY s.storeName, p.productName
+----
+
+JPQL has no window functions. `+>= ALL+` over a correlated, grouped subquery gives the top 1 per store. The subquery
+groups by `oi2.product.productId`, not by `oi2.product`: EclipseLink expands an entity in `GROUP BY` to all of its
+columns, and Oracle cannot group by the product's LOBs (`+ORA-22848+`). For the top N,
+either run the `RANK()` SQL as a native query, or select per store ordered by units with `setMaxResults(N)`.
+
+[[CO-SCHEMA-A-05]]
+==== CO-SCHEMA-A-05 Rebalance stock between stores
+
+Some stores have run out of a product while others hold plenty of it. Before ordering more from suppliers, operations
+wants to move stock between stores — inventory rebalancing. A store is _short_ of a product below `:minStock` units,
+and needs enough to reach `:targetStock`; a store holding more than `:targetStock` can give away the excess. For every
+shortage, propose the nearest store with a surplus of the same product, and how many units to move.
+
+[source,sql]
+----
+WITH short AS (SELECT store_id, product_id, :targetStock - product_inventory AS need
+               FROM inventory
+               WHERE product_inventory < :minStock),
+     spare AS (SELECT store_id, product_id, product_inventory - :targetStock AS surplus
+               FROM inventory
+               WHERE product_inventory > :targetStock),
+     pairs AS (SELECT sh.store_id AS to_store_id, sp.store_id AS from_store_id, sh.product_id, sh.need, sp.surplus,
+                      ROUND(6371 * ACOS(LEAST(1,
+                            SIN(t.latitude * ACOS(-1) / 180) * SIN(f.latitude * ACOS(-1) / 180)
+                          + COS(t.latitude * ACOS(-1) / 180) * COS(f.latitude * ACOS(-1) / 180)
+                          * COS((t.longitude - f.longitude) * ACOS(-1) / 180)))) AS km
+               FROM short sh
+                        JOIN spare sp ON sp.product_id = sh.product_id AND sp.store_id <> sh.store_id
+                        JOIN stores t ON t.store_id = sh.store_id
+                        JOIN stores f ON f.store_id = sp.store_id),
+     ranked AS (SELECT p.*,
+                       ROW_NUMBER() OVER (PARTITION BY to_store_id, product_id
+                                          ORDER BY km ASC NULLS LAST, surplus DESC) AS rn
+                FROM pairs p)
+SELECT t.store_name AS to_store, f.store_name AS from_store, r.product_id, r.km,
+       LEAST(r.need, r.surplus) AS transfer_qty
+FROM ranked r
+         JOIN stores t ON t.store_id = r.to_store_id
+         JOIN stores f ON f.store_id = r.from_store_id
+WHERE r.rn = 1
+ORDER BY r.km NULLS LAST, t.store_name, r.product_id
+----
+
+The distance is the great-circle distance between the stores' coordinates, a stand-in for the cost of shipping. The
+`Online` store has no coordinates, so its distance is null and it is proposed only when no physical store can help.
+With `:minStock` 2 and `:targetStock` 10, 64 shortages can be covered from 136 candidate pairs; the nearest is
+Vienna sending one unit of product 9 to Utrecht, 915 km away.
+
+[source,jpaql]
+----
+SELECT need.store.storeName, spare.store.storeName, need.product.productId,
+       :targetStock - need.productInventory, spare.productInventory - :targetStock
+FROM Inventory need
+         JOIN Inventory spare ON spare.product = need.product AND spare.store <> need.store
+WHERE need.productInventory < :minStock
+  AND spare.productInventory > :targetStock
+ORDER BY need.store.storeName, need.product.productId
+----
+
+JPQL has neither trigonometric functions nor window functions, so it stops at the candidate pairs — every shortage
+with every store that could cover it. Compute the distances from `Store.latitude` / `Store.longitude` and keep the
+nearest donor in Java.
+
+Both solutions propose each shortage independently, so one donor can be promised to several shortages beyond its
+surplus. To turn proposals into transfers, walk them nearest first, decrease each donor's remaining surplus as you go,
+and apply each move — the donor's `productInventory` down, the receiver's up — in one transaction, so stock is never
+counted twice or lost in between.
+
+[[CO-SCHEMA-A-06]]
+==== CO-SCHEMA-A-06 Customers who come back for the same product
+
+Merchandising wants the customers who bought the same product in more than one order -- a sign of a consumable or a
+favourite.
+
+[source,sql]
+----
+SELECT c.full_name, p.product_name, COUNT(DISTINCT o.order_id) AS times_ordered
+FROM customers c
+         JOIN orders o ON o.customer_id = c.customer_id
+         JOIN order_items oi ON oi.order_id = o.order_id
+         JOIN products p ON p.product_id = oi.product_id
+GROUP BY c.customer_id, c.full_name, p.product_id, p.product_name
+HAVING COUNT(DISTINCT o.order_id) > 1
+ORDER BY times_ordered DESC, c.full_name, p.product_name
+----
+
+[source,jpaql]
+----
+SELECT c.fullName, p.productName, COUNT(DISTINCT o) AS timesOrdered
+FROM Customer c
+         JOIN c.orders o
+         JOIN OrderItem oi ON oi.order = o
+         JOIN oi.product p
+GROUP BY c.customerId, c.fullName, p.productId, p.productName
+HAVING COUNT(DISTINCT o) > 1
+ORDER BY timesOrdered DESC, c.fullName, p.productName
+----
+
+`+JOIN OrderItem oi ON oi.order = o+` is an entity join with an `ON` condition, rather than a path join.
+A product appears at most once per order (`+ORDER_ITEMS_PRODUCT_U+`), so `COUNT(oi)` would give the same number here.
+
+[[CO-SCHEMA-A-07]]
+==== CO-SCHEMA-A-07 Shipments that do not match their orders
+
+Logistics audits order lines whose shipment goes to a different customer, or leaves from a different store, than the
+order they belong to.
+
+[source,sql]
+----
+SELECT oi.order_id, oi.line_item_id, oi.shipment_id,
+       o.customer_id AS order_customer_id, sh.customer_id AS shipment_customer_id,
+       o.store_id AS order_store_id, sh.store_id AS shipment_store_id
+FROM order_items oi
+         JOIN orders o ON o.order_id = oi.order_id
+         JOIN shipments sh ON sh.shipment_id = oi.shipment_id
+WHERE sh.customer_id <> o.customer_id
+   OR sh.store_id <> o.store_id
+ORDER BY oi.order_id, oi.line_item_id
+----
+
+[source,jpaql]
+----
+SELECT oi
+FROM OrderItem oi
+         JOIN oi.order o
+         JOIN oi.shipment sh
+WHERE sh.customer <> o.customer
+   OR sh.store <> o.store
+ORDER BY oi.id.orderId, oi.id.lineItemId
+----
+
+Comparing entities compares their keys, so no join to `CUSTOMERS` or `STORES` is needed. The installed data is
+consistent, and the answer is empty.
+
+[[CO-SCHEMA-A-08]]
+==== CO-SCHEMA-A-08 Complete orders that were never delivered
+
+An order is marked `COMPLETE` when the customer has received it. Customer care wants the complete orders that have at
+least one line whose shipment is not `DELIVERED`, or that has no shipment at all.
+
+[source,sql]
+----
+SELECT o.order_id, o.order_tms, o.customer_id
+FROM orders o
+WHERE o.order_status = 'COMPLETE'
+  AND EXISTS (SELECT 1
+              FROM order_items oi
+                       LEFT JOIN shipments sh ON sh.shipment_id = oi.shipment_id
+              WHERE oi.order_id = o.order_id
+                AND (sh.shipment_id IS NULL OR sh.shipment_status <> 'DELIVERED'))
+ORDER BY o.order_tms
+----
+
+[source,jpaql]
+----
+SELECT o
+FROM Order o
+WHERE o.orderStatus = :complete
+  AND EXISTS (SELECT oi
+              FROM OrderItem oi
+                       LEFT JOIN oi.shipment sh
+              WHERE oi.order = o
+                AND (sh IS NULL OR sh.shipmentStatus <> :delivered))
+ORDER BY o.orderTms
+----
+
+Bind `Order.OrderStatus.COMPLETE` and `Shipment.ShipmentStatus.DELIVERED`. On the installed data the answer runs to
+several hundred orders.
+
+[[CO-SCHEMA-A-09]]
+==== CO-SCHEMA-A-09 Orders with a premium line
+
+Finance wants the orders containing at least one line charged above `:price` per unit, and, separately, the products
+whose list price is now above every price they were ever sold at.
+
+[source,sql]
+----
+SELECT o.order_id, o.order_tms
+FROM orders o
+WHERE :price < ANY (SELECT oi.unit_price FROM order_items oi WHERE oi.order_id = o.order_id)
+ORDER BY o.order_id
+----
+
+[source,jpaql]
+----
+SELECT o
+FROM Order o
+WHERE :price < ANY (SELECT oi.unitPrice FROM OrderItem oi WHERE oi.order = o)
+ORDER BY o.orderId
+----
+
+[source,sql]
+----
+SELECT p.product_id, p.product_name, p.unit_price
+FROM products p
+WHERE p.unit_price > ALL (SELECT oi.unit_price FROM order_items oi WHERE oi.product_id = p.product_id)
+  AND EXISTS (SELECT 1 FROM order_items oi WHERE oi.product_id = p.product_id)
+ORDER BY p.product_name
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE p.unitPrice > ALL (SELECT oi.unitPrice FROM OrderItem oi WHERE oi.product = p)
+  AND p.orderItems IS NOT EMPTY
+ORDER BY p.productName
+----
+
+`+> ALL+` over an empty subquery is true, which is why products never sold are excluded explicitly.
+
+[[CO-SCHEMA-A-10]]
+==== CO-SCHEMA-A-10 Masked contact details and order references
+
+Customer service shows a masked email on screen -- the first three characters, `+***+`, then the domain -- and quotes
+orders as `+ORD-<id>/<year>+`.
+
+[source,sql]
+----
+SELECT c.full_name,
+       SUBSTR(c.email_address, 1, 3) || '***' || SUBSTR(c.email_address, INSTR(c.email_address, '@'))
+           AS masked_email,
+       'ORD-' || o.order_id || '/' || EXTRACT(YEAR FROM o.order_tms) AS order_reference
+FROM orders o
+         JOIN customers c ON c.customer_id = o.customer_id
+WHERE o.order_id = :orderId
+----
+
+[source,jpaql]
+----
+SELECT c.fullName,
+       LEFT(c.emailAddress, 3) || '***' || SUBSTRING(c.emailAddress, LOCATE('@', c.emailAddress)),
+       'ORD-' || CAST(o.orderId AS STRING) || '/' || CAST(EXTRACT(YEAR FROM o.orderTms) AS STRING)
+FROM Order o
+         JOIN o.customer c
+WHERE o.orderId = :orderId
+----
+
+`+||+`, `LEFT`, `CAST(... AS STRING)` and `EXTRACT` are new in 3.2; before it, `CONCAT` and `SUBSTRING` were the only
+way. The operands of `+||+` are strings, and JPQL, unlike SQL, does not promise to convert a number implicitly, hence the
+casts. EclipseLink 5.0 passes `AS STRING` through to Oracle unchanged, which rejects it (`+ORA-00902+`); under that
+provider, select `o.orderId` and `EXTRACT(YEAR FROM o.orderTms)` and format the reference in Java.
+
+[[CO-SCHEMA-A-11]]
+==== CO-SCHEMA-A-11 This year's orders so far
+
+Finance wants the number and value of the orders placed since the start of the current year, by month.
+
+[source,sql]
+----
+SELECT EXTRACT(MONTH FROM o.order_tms) AS order_month,
+       COUNT(DISTINCT o.order_id) AS orders,
+       SUM(oi.unit_price * oi.quantity) AS revenue
+FROM orders o
+         JOIN order_items oi ON oi.order_id = o.order_id
+WHERE o.order_tms >= TRUNC(SYSDATE, 'YYYY')
+  AND o.order_tms < LOCALTIMESTAMP
+GROUP BY EXTRACT(MONTH FROM o.order_tms)
+ORDER BY order_month
+----
+
+[source,jpaql]
+----
+SELECT o.orderId, o.orderTms, SUM(oi.unitPrice * oi.quantity)
+FROM OrderItem oi
+         JOIN oi.order o
+WHERE o.orderTms >= :yearStart
+  AND o.orderTms < LOCAL DATETIME
+GROUP BY o.orderId, o.orderTms
+ORDER BY o.orderTms
+----
+
+[source,jpaql]
+----
+SELECT EXTRACT(MONTH FROM o.orderTms), COUNT(DISTINCT o), SUM(oi.unitPrice * oi.quantity)
+FROM OrderItem oi
+         JOIN oi.order o
+WHERE o.orderTms >= :yearStart
+  AND o.orderTms < LOCAL DATETIME
+GROUP BY EXTRACT(MONTH FROM o.orderTms)
+ORDER BY EXTRACT(MONTH FROM o.orderTms)
+----
+
+Bind `:yearStart` to `LocalDate.now().withDayOfYear(1).atStartOfDay()`. `LOCAL DATETIME` is the 3.2 spelling of "now"
+as a `LocalDateTime`. A 3.2 `+groupby_item+` is a path or an identification variable, so the first JPQL form is the
+portable one, summed by month in Java; the second groups by `EXTRACT(MONTH FROM ...)`, which both Hibernate 7 and
+EclipseLink 5 accept but the specification does not promise. (EclipseLink 5.0 also fails to compile
+`EXTRACT(... FROM LOCAL DATE)`, which is why the year is not derived inside the query.) The installed orders are from
+2021 and 2022, so on the sample data the answer is empty; bind an earlier `:yearStart` to see rows.
+
+[[CO-SCHEMA-A-12]]
+==== CO-SCHEMA-A-12 Packing slips in one round trip
+
+The warehouse prints a packing slip for each shipment: the lines it carries and each line's product. Loading the items
+and then each product lazily costs one query per line; load them together.
+
+[source,sql]
+----
+SELECT oi.order_id, oi.line_item_id, p.product_name, oi.quantity, sh.delivery_address
+FROM shipments sh
+         JOIN order_items oi ON oi.shipment_id = sh.shipment_id
+         JOIN products p ON p.product_id = oi.product_id
+WHERE sh.shipment_id = :shipmentId
+ORDER BY oi.order_id, oi.line_item_id
+----
+
+[source,jpaql]
+----
+SELECT oi
+FROM OrderItem oi
+         JOIN FETCH oi.product
+         JOIN FETCH oi.shipment
+WHERE oi.shipment.shipmentId = :shipmentId
+ORDER BY oi.id.orderId, oi.id.lineItemId
+----
+
+[source,jpaql]
+----
+SELECT o
+FROM Order o
+         JOIN FETCH o.customer
+         JOIN FETCH o.store
+WHERE o.orderId = :orderId
+----
+
+A fetch join takes no identification variable in the specification, so a chain such as shipment → items → product is
+written from the many side, as above; going the other way needs an entity graph (`jakarta.persistence.fetchgraph`).
+
+[[CO-SCHEMA-A-13]]
+==== CO-SCHEMA-A-13 Store ranking and share of sales
+
+The regional manager wants each store's revenue, its rank, its share of the chain's total, and a running total from
+the best store down.
+
+[source,sql]
+----
+SELECT s.store_name,
+       SUM(oi.unit_price * oi.quantity) AS revenue,
+       RANK() OVER (ORDER BY SUM(oi.unit_price * oi.quantity) DESC) AS revenue_rank,
+       ROUND(100 * RATIO_TO_REPORT(SUM(oi.unit_price * oi.quantity)) OVER (), 2) AS share_pct,
+       SUM(SUM(oi.unit_price * oi.quantity))
+           OVER (ORDER BY SUM(oi.unit_price * oi.quantity) DESC
+               ROWS UNBOUNDED PRECEDING) AS running_total
+FROM stores s
+         JOIN orders o ON o.store_id = s.store_id
+         JOIN order_items oi ON oi.order_id = o.order_id
+GROUP BY s.store_id, s.store_name
+ORDER BY revenue_rank
+----
+
+[source,jpaql]
+----
+SELECT s.storeName, SUM(oi.unitPrice * oi.quantity) AS revenue
+FROM OrderItem oi
+         JOIN oi.order o
+         JOIN o.store s
+GROUP BY s.storeId, s.storeName
+ORDER BY revenue DESC
+----
+
+There is no portable JPQL for `RANK()`, `+RATIO_TO_REPORT+` or a running `SUM() OVER`. Fetch the revenue per store,
+already ordered, and compute rank, share and running total in Java; or run the SQL as a native query. The
+`+STORE_ORDERS+` view (not an entity, see `StoreOrder`) adds the `GROUPING SETS` subtotals per status and the grand
+total:
+
+[source,sql]
+----
+SELECT total, store_name, order_status, order_count, total_sales
+FROM store_orders
+ORDER BY store_name NULLS LAST, order_status NULLS FIRST
+----
+
+[[CO-SCHEMA-A-14]]
+==== CO-SCHEMA-A-14 Brands and reviews from the product JSON
+
+Merchandising wants every product of a brand with its colour, and the products whose average review score is 8 or
+better. The brand, colour and reviews live in the JSON document in `+PRODUCTS.PRODUCT_DETAILS+`.
+
+[source,sql]
+----
+SELECT p.product_id, p.product_name,
+       JSON_VALUE(p.product_details, '$.colour') AS colour
+FROM products p
+WHERE JSON_VALUE(p.product_details, '$.brand') = :brand
+ORDER BY p.product_name
+----
+
+[source,sql]
+----
+SELECT product_name, ROUND(AVG(rating), 2) AS avg_rating, COUNT(*) AS reviews
+FROM product_reviews
+GROUP BY product_name
+HAVING AVG(rating) >= 8
+ORDER BY avg_rating DESC, product_name
+----
+
+No portable JPQL equivalent: `productDetails` is a `+byte[]+` LOB, and JPQL has no JSON operators. Either load the
+products, bind each document to `ProductDetails` through `Product.getProductDetailsAsMapped(...)` with a JSON library,
+and filter in Java; or run the SQL as a native query. `+FUNCTION('JSON_VALUE', ...)+` reaches the database function,
+but its result type and its portability are the provider's business, not the specification's. `+PRODUCT_REVIEWS+` is mapped only as the plain class `ProductReview`, not as an entity.
+
+== References
+
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a4665[Jakarta Persistence 3.2, chapter 4: Query Language]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#set-operators-in-select-statements[4.2.1.1. Set Operators in Select Statements]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a4931[4.4.5.3. Fetch Joins]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#like-expressions[4.6.6. Like Expressions]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a5139[4.6.8. Empty Collection Comparison Expressions]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#exists-expressions[4.6.10. Exists Expressions]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#all-or-any-expressions[4.6.11. All or Any Expressions]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#literals[4.7.1. Literals]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#string-concatenation-operator[4.7.6. String concatenation operator]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#built-in-string-arithmetic-and-datetime-functional-expressions[4.7.7. Built-in String, Arithmetic, and Datetime Functional Expressions]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#typecasts[4.7.8. Typecasts]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#case-expressions[4.7.10. Case Expressions]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a5410[4.8. GROUP BY, HAVING]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a5587[4.10. ORDER BY Clause]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#bnf[4.12. BNF]
+* https://github.com/oracle-samples/db-sample-schemas/tree/main/customer_orders[Oracle Database Sample Schemas: Customer Orders]

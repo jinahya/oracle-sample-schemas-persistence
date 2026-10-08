@@ -23,6 +23,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 import com.github.jinahya.persistence.test.util.AbstractEntityPersister;
 import jakarta.persistence.EntityManager;
 
+import java.time.LocalDateTime;
+
 /**
  * A persister which persists {@link Time} instances.
  *
@@ -38,5 +40,30 @@ class Time_Persister extends AbstractEntityPersister<Time> {
     @Override
     public Time apply(final EntityManager entityManager, final Time entityInstance) {
         return super.apply(entityManager, entityInstance);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Persists a randomized {@link Time} whose key is the day before the earliest one installed, for a row of a table
+     * partitioned by {@code TIME_ID}.
+     *
+     * @param entityManager an entity manager.
+     * @return the persisted instance.
+     * @implNote {@code SALES} and {@code COSTS} are range-partitioned by {@code TIME_ID}, and the sample data fills
+     * {@code TIMES} for every day those partitions are bounded by; a randomized key -- today, say -- falls past the
+     * last partition ({@code ORA-14400}). The first partition of each has no lower bound, so the day before the
+     * earliest installed {@code TIMES} row fits both, and is not taken. With no row installed, the randomized key is
+     * kept.
+     */
+    static Time newPersistedInstanceBeforeEarliest(final EntityManager entityManager) {
+        final var earliest = entityManager
+                .createQuery("SELECT MIN(t.timeId) FROM Time t", LocalDateTime.class)
+                .getSingleResult();
+        final var instance = new Time_Randomizer().get();
+        if (earliest != null) {
+            instance.setTimeId(earliest.toLocalDate().minusDays(1L).atStartOfDay());
+        }
+        return new Time_Persister().apply(entityManager, instance);
     }
 }

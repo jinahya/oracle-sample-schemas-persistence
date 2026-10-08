@@ -41,7 +41,7 @@ upstream schema under `objects`.
 Rendering is Graphviz, so `dot` must be on `PATH` (`brew install graphviz`); the script
 stops with that message if it is missing. Each run rewrites every diagram for the module
 and deletes files in `doc/erd` it did not write, so a dropped entity takes its diagram with
-it. `test-base` has no entities and gets no directory.
+it.
 
 ## Where the facts come from
 
@@ -65,7 +65,7 @@ has no upstream type, so the diagram falls back to the Java type. That is correc
 those are exactly the columns whose type the mapping alone decides.
 
 The generator resolves `COLUMN_NAME_*` / `TABLE_NAME` constants, including cross-class
-references such as `OrderItemWithEmbeddedId.COLUMN_NAME_PRODUCT_ID`, so it depends on the
+references such as `OrderItem.COLUMN_NAME_PRODUCT_ID`, so it depends on the
 conventions in CLAUDE.md: every mapped column names itself through a constant, and every
 entity declares `TABLE_NAME`.
 

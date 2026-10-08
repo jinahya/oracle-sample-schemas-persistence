@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,12 +29,14 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,9 +45,35 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@NamedQuery(name = "Country.selectListByRegionOrderByCountryNameAsc",
+            query = """
+                    SELECT e
+                    FROM Country AS e
+                    WHERE e.region = :region
+                    ORDER BY e.countryName ASC"""
+)
+@NamedQuery(name = "Country.selectListByRegionOrderByCountryIdAsc",
+            query = """
+                    SELECT e
+                    FROM Country AS e
+                    WHERE e.region = :region
+                    ORDER BY e.countryId ASC"""
+)
+@NamedQuery(name = "Country.selectListOrderByCountryNameAsc",
+            query = """
+                    SELECT e
+                    FROM Country AS e
+                    ORDER BY e.countryName ASC"""
+)
+@NamedQuery(name = "Country.selectListOrderByCountryIdAsc",
+            query = """
+                    SELECT e
+                    FROM Country AS e
+                    ORDER BY e.countryId ASC"""
+)
 @Entity
 @Table(name = Country.TABLE_NAME)
-public class Country {
+public class Country implements __DomainEntity<String> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -126,6 +155,13 @@ public class Country {
      */
     public static final String ATTRIBUTE_NAME_REGION = "region";
 
+    // -----------------------------------------------------------------------------------------------------------------
+    static final Comparator<Country> comparingCountryId = Comparator.comparing(Country::getCountryId);
+
+    static Comparator<Country> comparingCountryName(final Comparator<? super String> nameComparator) {
+        return Comparator.comparing(Country::getCountryName, nameComparator);
+    }
+
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -136,16 +172,23 @@ public class Country {
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
-
     @Override
     public String toString() {
         return super.toString() + '{' +
                "countryId=" + countryId +
                ",countryName=" + countryName +
-               ",region=" + region +
+//               ",region=" + region +
+//               ",locations=" + locations +
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Country that)) {
@@ -154,6 +197,12 @@ public class Country {
         return Objects.equals(getCountryId(), that.getCountryId());
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(getCountryId());
@@ -187,7 +236,7 @@ public class Country {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public String getCountryName() {
         return countryName;
     }
@@ -197,7 +246,7 @@ public class Country {
      *
      * @param countryName new value for {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
      */
-    public void setCountryName(@jakarta.annotation.Nullable final String countryName) {
+    public void setCountryName(@Nullable final String countryName) {
         this.countryName = countryName;
     }
 
@@ -208,7 +257,7 @@ public class Country {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_REGION} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public Region getRegion() {
         return region;
     }
@@ -218,7 +267,7 @@ public class Country {
      *
      * @param region new value for {@value #ATTRIBUTE_NAME_REGION} attribute.
      */
-    public void setRegion(@jakarta.annotation.Nullable final Region region) {
+    public void setRegion(@Nullable final Region region) {
         this.region = region;
     }
 
@@ -232,10 +281,6 @@ public class Country {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Size(min = SIZE_MIN_COUNTRY_ID, max = SIZE_MAX_COUNTRY_ID)
     @NotNull
@@ -245,14 +290,16 @@ public class Country {
             length = COLUMN_LENGTH_COUNTRY_ID)
     private String countryId;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
     @Size(min = SIZE_MIN_COUNTRY_NAME, max = SIZE_MAX_COUNTRY_NAME)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_COUNTRY_NAME, nullable = true, insertable = true, updatable = true,
             length = COLUMN_LENGTH_COUNTRY_NAME)
     private String countryName;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = {})
     @JoinColumn(name = COLUMN_NAME_REGION_ID, nullable = true,
@@ -261,6 +308,7 @@ public class Country {
     )
     private Region region;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = Location.ATTRIBUTE_NAME_COUNTRY,
                fetch = FetchType.LAZY,
                cascade = {

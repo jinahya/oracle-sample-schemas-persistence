@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -90,7 +91,7 @@ import java.util.Objects;
 )
 @Entity
 @Table(name = Location.TABLE_NAME)
-public class Location {
+public class Location implements __DomainEntity<Integer> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -238,6 +239,8 @@ public class Location {
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_STATE_PROVINCE} column. The value is {@value}.
+     *
+     * @see #ATTRIBUTE_NAME_STATE_PROVINCE
      */
     public static final String ATTRIBUTE_STATE_PROVINCE = "stateProvince";
 
@@ -318,10 +321,18 @@ public class Location {
                ",postalCode=" + postalCode +
                ",city=" + city +
                ",stateProvince=" + stateProvince +
-               ",country=" + country +
+//               ",country=" + country +
+//               ",departments=" + departments +
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Location that)) {
@@ -330,6 +341,12 @@ public class Location {
         return Objects.equals(locationId, that.locationId);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(locationId);
@@ -363,7 +380,7 @@ public class Location {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_STREET_ADDRESS} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public String getStreetAddress() {
         return streetAddress;
     }
@@ -373,7 +390,7 @@ public class Location {
      *
      * @param streetAddress new value for {@value #ATTRIBUTE_NAME_STREET_ADDRESS} attribute.
      */
-    public void setStreetAddress(@jakarta.annotation.Nullable final String streetAddress) {
+    public void setStreetAddress(@Nullable final String streetAddress) {
         this.streetAddress = streetAddress;
     }
 
@@ -384,7 +401,7 @@ public class Location {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_POSTAL_CODE} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public String getPostalCode() {
         return postalCode;
     }
@@ -394,7 +411,7 @@ public class Location {
      *
      * @param postalCode new value for {@value #ATTRIBUTE_NAME_POSTAL_CODE} attribute.
      */
-    public void setPostalCode(@jakarta.annotation.Nullable final String postalCode) {
+    public void setPostalCode(@Nullable final String postalCode) {
         this.postalCode = postalCode;
     }
 
@@ -426,7 +443,7 @@ public class Location {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public String getStateProvince() {
         return stateProvince;
     }
@@ -436,7 +453,7 @@ public class Location {
      *
      * @param stateProvince new value for {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute.
      */
-    public void setStateProvince(@jakarta.annotation.Nullable final String stateProvince) {
+    public void setStateProvince(@Nullable final String stateProvince) {
         this.stateProvince = stateProvince;
     }
 
@@ -447,7 +464,7 @@ public class Location {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY} attribute.
      */
-    @jakarta.annotation.Nullable
+    @Nullable
     public Country getCountry() {
         return country;
     }
@@ -457,7 +474,7 @@ public class Location {
      *
      * @param country new value for {@value #ATTRIBUTE_NAME_COUNTRY} attribute.
      */
-    public void setCountry(@jakarta.annotation.Nullable final Country country) {
+    public void setCountry(@Nullable final Country country) {
         this.country = country;
     }
 
@@ -477,10 +494,6 @@ public class Location {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
     @Max(ATTRIBUTE_MAX_LOCATION_ID)
     @Min(ATTRIBUTE_MIN_LOCATION_ID)
@@ -495,7 +508,8 @@ public class Location {
     )
     private Integer locationId;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
     @Size(min = SIZE_MIN_STREET_ADDRESS, max = SIZE_MAX_STREET_ADDRESS)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_STREET_ADDRESS,
@@ -506,7 +520,7 @@ public class Location {
     )
     private String streetAddress;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Size(min = SIZE_MIN_POSTAL_CODE, max = SIZE_MAX_POSTAL_CODE)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_POSTAL_CODE,
@@ -529,7 +543,7 @@ public class Location {
     )
     private String city;
 
-    @jakarta.annotation.Nullable
+    @Nullable
     @Size(max = SIZE_MAX_STATE_PROVINCE)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_STATE_PROVINCE,
@@ -540,15 +554,18 @@ public class Location {
     )
     private String stateProvince;
 
-    @jakarta.annotation.Nullable
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
     @JoinColumn(name = Location.COLUMN_NAME_COUNTRY_ID,
                 nullable = COLUMN_NULLABLE_COUNTRY_ID,
                 insertable = true,
-                updatable = true)
+                updatable = true
+    )
     private Country country;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(
             mappedBy = Department.ATTRIBUTE_NAME_LOCATION,
             fetch = FetchType.LAZY,

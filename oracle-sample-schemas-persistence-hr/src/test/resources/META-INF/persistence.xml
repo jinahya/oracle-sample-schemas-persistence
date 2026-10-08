@@ -24,21 +24,18 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence ${persistence.schemaLocation}"
              version="${persistence.version}">
-  <persistence-unit name="__hr_testPU" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="hr-test" transaction-type="RESOURCE_LOCAL">
     <description>Persistence Unit for an In-Memory DB</description>
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
-    <!-- JobHistoryWithEmbeddedId and JobHistoryWithIdClass map the same table, two ways. Only one may be listed: with both,
-         EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour and its metamodel
-         rejects getIdClassAttributes(). -->
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Country</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Department</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Employee</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.EmpDetailsView</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Job</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId</class>-->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistory</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Location</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Region</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
@@ -68,19 +65,19 @@
       <property name="hibernate.use_sql_comment" value="true"/>
     </properties>
   </persistence-unit>
-  <persistence-unit name="__hr_itPU" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="hr-it" transaction-type="RESOURCE_LOCAL">
     <description>Persistence Unit for a Physical Database</description>
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
-    <mapping-file>META-INF/orm-it.xml</mapping-file>
+    <mapping-file>META-INF/hr/orm-it.xml</mapping-file>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Country</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Department</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Employee</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.EmpDetailsView</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Job</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId</class>-->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistory</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Location</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Region</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
@@ -101,6 +98,11 @@
       <!--      <property name="eclipselink.weaving" value="true"/>-->
       <!-- https://wiki.eclipse.org/EclipseLink/Examples/JPA/DDL -->
       <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.OraclePlatform"/>
+      <!-- EclipseLink cannot read an Oracle identity value back; this points each identity-keyed entity at the
+           sequence Oracle backs its column with. Compiled under the EclipseLink profile only; Hibernate ignores
+           eclipselink.* properties. -->
+      <property name="eclipselink.session.customizer"
+                value="com.github.jinahya.oracle.sample.schemas.persistence.hr._EclipseLink_IdentitySequences"/>
       <!-- /////////////////////////////////////////////////////////////////////////////////////////////// hibernate -->
       <!--      <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>-->
       <property name="hibernate.format_sql" value="true"/>

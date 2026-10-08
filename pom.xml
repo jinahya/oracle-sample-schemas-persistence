@@ -50,7 +50,6 @@
   </developers>
 
   <modules>
-    <module>test-base</module>
     <module>oracle-sample-schemas-persistence-co</module>
     <module>oracle-sample-schemas-persistence-hr</module>
     <module>oracle-sample-schemas-persistence-sh</module>
@@ -78,6 +77,9 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     <maven.compiler.release>${maven.compiler.target}</maven.compiler.release>
+    <!-- Keep constructor parameter names in the class files, so that name-based row mappers (e.g., Spring's -->
+    <!-- JdbcClient) can match the all-args constructors of the non-entity view classes to the columns. -->
+    <maven.compiler.parameters>true</maven.compiler.parameters>
 <!--    <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>-->
     <maven.compiler.testSource>25</maven.compiler.testSource>
     <maven.compiler.testTarget>${maven.compiler.testSource}</maven.compiler.testTarget>
@@ -98,7 +100,8 @@
     <metamodel.generator.version>${version.org.hibernate.orm}</metamodel.generator.version>
     <version.maven-failsafe>${version.maven-surefire}</version.maven-failsafe>
     <version.maven-surefire>3.6.0</version.maven-surefire>
-    <version.jinahya-persistence>0.6.1</version.jinahya-persistence>
+<!--    <version.jinahya-persistence>0.6.1</version.jinahya-persistence>-->
+    <version.jinahya-persistence>0.6.2-SNAPSHOT</version.jinahya-persistence>
     <!-- https://central.sonatype.com/artifact/uk.co.jemos.podam/podam/versions -->
     <version.uk.co.jemos.podam>8.0.2.RELEASE</version.uk.co.jemos.podam>
     <!-- https://www.oracle.com/kr/database/technologies/appdev/jdbc-downloads.html -->
@@ -353,6 +356,14 @@
             <sourceFileExcludes>
               <sourceFileExclude>**/*_.java</sourceFileExclude>
             </sourceFileExcludes>
+            <!-- The exclusion above only keeps the metamodel off the list of files to document. With a -->
+            <!-- module-info.java, javadoc runs in module mode and reads the whole module from the source -->
+            <!-- path it is given, generated sources included, so the metamodel was linted all the -->
+            <!-- same, and its javadoc, which quotes each @NamedQuery verbatim, fails on a `<` as -->
+            <!-- malformed HTML. Without a source path javadoc reads the listed files only. `sourcepath` -->
+            <!-- cannot do this instead: javadoc and test-javadoc share it, so it would point both at -->
+            <!-- the same directory. -->
+            <disableSourcepathUsage>true</disableSourcepathUsage>
             <links>
 <!--              <link>https://www.javadoc.io/doc/jakarta.platform/jakarta.jakartaee-api/${version.jakarta.jakartaee-bom}</link>-->
 <!--              <link>https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence</link>-->
@@ -569,9 +580,36 @@
               <additionalOptions combine.self="override">
                 <additionalOption>-Xdoclint:${doclint}</additionalOption>
               </additionalOptions>
+              <!-- In module mode javadoc reads the whole module from its source path, so the generated -->
+              <!-- metamodel there would be linted with -missing on, which it cannot pass. This reportSet -->
+              <!-- runs javadoc-no-fork alone, so here, unlike the plugin level, the source path can be -->
+              <!-- narrowed to the hand-written sources without misdirecting test-javadoc. -->
+              <disableSourcepathUsage>false</disableSourcepathUsage>
+              <sourcepath>${project.build.sourceDirectory}</sourcepath>
             </configuration>
             <reports>
               <report>javadoc-no-fork</report>
+            </reports>
+          </reportSet>
+          <reportSet>
+            <id>aggregate</id>
+            <configuration>
+              <show>protected</show>
+              <!-- The aggregate passes each module's generated sources to javadoc in its patched source -->
+              <!-- path, whatever disableSourcepathUsage says, so the generated metamodel is linted with -->
+              <!-- the entities, and fails, having no main descriptions and quoting named queries -->
+              <!-- verbatim. Each module's own javadoc-no-fork report above already lints every one of -->
+              <!-- its sources strictly, so the aggregate, which adds no source of its own, lints none. -->
+              <!-- Both the plugin-level additionalOption and the plugin's own doclint parameter, which -->
+              <!-- otherwise reads the ${doclint} property, pass javadoc an -Xdoclint; clear the one and -->
+              <!-- turn the other off. -->
+              <additionalOptions combine.self="override"/>
+              <doclint>none</doclint>
+              <!-- Even unlinted, javadoc warns of a named query's `<` quoted in the metamodel as invalid -->
+              <!-- HTML input, and that warning is the metamodel's, not ours. -->
+              <failOnWarnings>false</failOnWarnings>
+            </configuration>
+            <reports>
               <report>aggregate-no-fork</report>
             </reports>
           </reportSet>
@@ -587,9 +625,39 @@
               <additionalOptions combine.self="override">
                 <additionalOption>-Xdoclint:all,-missing</additionalOption>
               </additionalOptions>
+              <!-- test-javadoc links the test apidocs to the main ones, ../apidocs, whenever those exist, -->
+              <!-- and no parameter turns that off. The test sources are documented in the unnamed module -->
+              <!-- and the main ones in a named module, which javadoc warns of, outside doclint. So a -->
+              <!-- warning does not fail this report; an error, a broken reference among them, does. -->
+              <failOnWarnings>false</failOnWarnings>
             </configuration>
             <reports>
               <report>test-javadoc-no-fork</report>
+            </reports>
+          </reportSet>
+          <reportSet>
+            <id>test-aggregate</id>
+            <configuration>
+              <show>package</show>
+              <!-- The aggregate patches each module's test sources into that named module, which reads -->
+              <!-- only what its descriptor requires; the test libraries are in the unnamed module, and -->
+              <!-- need java.desktop for java.beans, as the test compilation of each module does. -->
+              <additionalOptions combine.self="override">
+                <additionalOption>-Xdoclint:all,-missing</additionalOption>
+                <additionalOption>--add-modules java.desktop</additionalOption>
+                <additionalOption>--add-reads com.github.jinahya.oracle.sample.schemas.persistence.co=java.desktop</additionalOption>
+                <additionalOption>--add-reads com.github.jinahya.oracle.sample.schemas.persistence.hr=java.desktop</additionalOption>
+                <additionalOption>--add-reads com.github.jinahya.oracle.sample.schemas.persistence.sh=java.desktop</additionalOption>
+                <additionalOption>--add-reads com.github.jinahya.oracle.sample.schemas.persistence.co=ALL-UNNAMED</additionalOption>
+                <additionalOption>--add-reads com.github.jinahya.oracle.sample.schemas.persistence.hr=ALL-UNNAMED</additionalOption>
+                <additionalOption>--add-reads com.github.jinahya.oracle.sample.schemas.persistence.sh=ALL-UNNAMED</additionalOption>
+              </additionalOptions>
+              <!-- The metamodel is patched in with the main sources, and javadoc warns of a named -->
+              <!-- query's `<` it quotes as invalid HTML input; each module's own test-javadoc-no-fork -->
+              <!-- report above still fails on a warning of the test sources. -->
+              <failOnWarnings>false</failOnWarnings>
+            </configuration>
+            <reports>
               <report>test-aggregate-no-fork</report>
             </reports>
           </reportSet>

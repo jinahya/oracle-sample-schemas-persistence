@@ -194,6 +194,8 @@ effective-pom.xml
 *.iml
 .idea
 !.idea/codeStyles
+# IDE AI tooling (AI Assistant / Junie): project MCP config, machine-specific
+.ai/
 
 
 # ----------------------------------------------------------------------------------------------------------------------

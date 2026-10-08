@@ -75,12 +75,12 @@ class __UtilsTest {
         }
 
         private static Stream<DayOfWeek> dayOn() {
-            return __Constants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.stream();
+            return __DomainConstants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.stream();
         }
 
         private static Stream<DayOfWeek> dayNotOn() {
             return Arrays.stream(DayOfWeek.values())
-                    .filter(v -> !__Constants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.contains(v));
+                    .filter(v -> !__DomainConstants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.contains(v));
         }
 
         private static Stream<Arguments> nowNotBetween_dayOn() {

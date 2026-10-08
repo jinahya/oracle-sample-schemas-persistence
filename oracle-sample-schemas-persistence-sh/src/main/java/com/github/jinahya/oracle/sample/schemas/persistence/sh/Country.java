@@ -36,7 +36,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = Country.TABLE_NAME)
-public class Country {
+public class Country implements __DomainEntity<Long> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -227,6 +227,13 @@ public class Country {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by the {@code @Id} alone.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Country that)) {
@@ -235,6 +242,12 @@ public class Country {
         return Objects.equals(countryId, that.countryId);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hashCode(countryId);

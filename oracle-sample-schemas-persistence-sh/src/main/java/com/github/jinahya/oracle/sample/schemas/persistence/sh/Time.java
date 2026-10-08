@@ -25,10 +25,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -38,7 +39,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = Time.TABLE_NAME)
-public class Time {
+public class Time implements __DomainEntity<LocalDateTime> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -94,6 +95,16 @@ public class Time {
      */
     public static final String ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK = "dayNumberInWeek";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_DAY_NUMBER_IN_WEEK} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_DAY_NUMBER_IN_WEEK = 1;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_DAY_NUMBER_IN_WEEK} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_DAY_NUMBER_IN_WEEK = 0;
+
     // -------------------------------------------------------------------------------------------- DAY_NUMBER_IN_MONTH
 
     /**
@@ -107,6 +118,16 @@ public class Time {
      * {@value}.
      */
     public static final String ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH = "dayNumberInMonth";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_DAY_NUMBER_IN_MONTH} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_DAY_NUMBER_IN_MONTH = 2;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_DAY_NUMBER_IN_MONTH} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_DAY_NUMBER_IN_MONTH = 0;
 
     // ------------------------------------------------------------------------------------------- CALENDAR_WEEK_NUMBER
 
@@ -122,6 +143,16 @@ public class Time {
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER = "calendarWeekNumber";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_CALENDAR_WEEK_NUMBER} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_CALENDAR_WEEK_NUMBER = 2;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_CALENDAR_WEEK_NUMBER} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_CALENDAR_WEEK_NUMBER = 0;
+
     // --------------------------------------------------------------------------------------------- FISCAL_WEEK_NUMBER
 
     /**
@@ -134,6 +165,16 @@ public class Time {
      * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_WEEK_NUMBER} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_FISCAL_WEEK_NUMBER = "fiscalWeekNumber";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_FISCAL_WEEK_NUMBER} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_FISCAL_WEEK_NUMBER = 2;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_FISCAL_WEEK_NUMBER} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_FISCAL_WEEK_NUMBER = 0;
 
     // ------------------------------------------------------------------------------------------------ WEEK_ENDING_DAY
 
@@ -175,6 +216,16 @@ public class Time {
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER = "calendarMonthNumber";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_CALENDAR_MONTH_NUMBER} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_CALENDAR_MONTH_NUMBER = 2;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_CALENDAR_MONTH_NUMBER} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_CALENDAR_MONTH_NUMBER = 0;
+
     // -------------------------------------------------------------------------------------------- FISCAL_MONTH_NUMBER
 
     /**
@@ -188,6 +239,16 @@ public class Time {
      * {@value}.
      */
     public static final String ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER = "fiscalMonthNumber";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_FISCAL_MONTH_NUMBER} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_FISCAL_MONTH_NUMBER = 2;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_FISCAL_MONTH_NUMBER} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_FISCAL_MONTH_NUMBER = 0;
 
     // -------------------------------------------------------------------------------------------- CALENDAR_MONTH_DESC
 
@@ -504,6 +565,16 @@ public class Time {
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER = "calendarQuarterNumber";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_CALENDAR_QUARTER_NUMBER} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_CALENDAR_QUARTER_NUMBER = 1;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_CALENDAR_QUARTER_NUMBER} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_CALENDAR_QUARTER_NUMBER = 0;
+
     // ------------------------------------------------------------------------------------------ FISCAL_QUARTER_NUMBER
 
     /**
@@ -518,6 +589,16 @@ public class Time {
      */
     public static final String ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER = "fiscalQuarterNumber";
 
+    /**
+     * The precision of the {@value #COLUMN_NAME_FISCAL_QUARTER_NUMBER} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_FISCAL_QUARTER_NUMBER = 1;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_FISCAL_QUARTER_NUMBER} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_FISCAL_QUARTER_NUMBER = 0;
+
     // -------------------------------------------------------------------------------------------------- CALENDAR_YEAR
 
     /**
@@ -530,6 +611,16 @@ public class Time {
      * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_YEAR} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_YEAR = "calendarYear";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_CALENDAR_YEAR} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_CALENDAR_YEAR = 4;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_CALENDAR_YEAR} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_CALENDAR_YEAR = 0;
 
     // ----------------------------------------------------------------------------------------------- CALENDAR_YEAR_ID
 
@@ -556,6 +647,16 @@ public class Time {
      * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_YEAR} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_FISCAL_YEAR = "fiscalYear";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_FISCAL_YEAR} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_FISCAL_YEAR = 4;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_FISCAL_YEAR} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_FISCAL_YEAR = 0;
 
     // ------------------------------------------------------------------------------------------------- FISCAL_YEAR_ID
 
@@ -709,7 +810,7 @@ public class Time {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
-    public LocalDate getTimeId() {
+    public LocalDateTime getTimeId() {
         return timeId;
     }
 
@@ -718,7 +819,7 @@ public class Time {
      *
      * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
-    public void setTimeId(final LocalDate timeId) {
+    public void setTimeId(final LocalDateTime timeId) {
         this.timeId = timeId;
     }
 
@@ -829,7 +930,7 @@ public class Time {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
      */
-    public LocalDate getWeekEndingDay() {
+    public LocalDateTime getWeekEndingDay() {
         return weekEndingDay;
     }
 
@@ -838,7 +939,7 @@ public class Time {
      *
      * @param weekEndingDay new value for {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
      */
-    public void setWeekEndingDay(final LocalDate weekEndingDay) {
+    public void setWeekEndingDay(final LocalDateTime weekEndingDay) {
         this.weekEndingDay = weekEndingDay;
     }
 
@@ -1029,7 +1130,7 @@ public class Time {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_MONTH} attribute.
      */
-    public LocalDate getEndOfCalMonth() {
+    public LocalDateTime getEndOfCalMonth() {
         return endOfCalMonth;
     }
 
@@ -1038,7 +1139,7 @@ public class Time {
      *
      * @param endOfCalMonth new value for {@value #ATTRIBUTE_NAME_END_OF_CAL_MONTH} attribute.
      */
-    public void setEndOfCalMonth(final LocalDate endOfCalMonth) {
+    public void setEndOfCalMonth(final LocalDateTime endOfCalMonth) {
         this.endOfCalMonth = endOfCalMonth;
     }
 
@@ -1049,7 +1150,7 @@ public class Time {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_MONTH} attribute.
      */
-    public LocalDate getEndOfFisMonth() {
+    public LocalDateTime getEndOfFisMonth() {
         return endOfFisMonth;
     }
 
@@ -1058,7 +1159,7 @@ public class Time {
      *
      * @param endOfFisMonth new value for {@value #ATTRIBUTE_NAME_END_OF_FIS_MONTH} attribute.
      */
-    public void setEndOfFisMonth(final LocalDate endOfFisMonth) {
+    public void setEndOfFisMonth(final LocalDateTime endOfFisMonth) {
         this.endOfFisMonth = endOfFisMonth;
     }
 
@@ -1229,7 +1330,7 @@ public class Time {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_QUARTER} attribute.
      */
-    public LocalDate getEndOfCalQuarter() {
+    public LocalDateTime getEndOfCalQuarter() {
         return endOfCalQuarter;
     }
 
@@ -1238,7 +1339,7 @@ public class Time {
      *
      * @param endOfCalQuarter new value for {@value #ATTRIBUTE_NAME_END_OF_CAL_QUARTER} attribute.
      */
-    public void setEndOfCalQuarter(final LocalDate endOfCalQuarter) {
+    public void setEndOfCalQuarter(final LocalDateTime endOfCalQuarter) {
         this.endOfCalQuarter = endOfCalQuarter;
     }
 
@@ -1249,7 +1350,7 @@ public class Time {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_QUARTER} attribute.
      */
-    public LocalDate getEndOfFisQuarter() {
+    public LocalDateTime getEndOfFisQuarter() {
         return endOfFisQuarter;
     }
 
@@ -1258,7 +1359,7 @@ public class Time {
      *
      * @param endOfFisQuarter new value for {@value #ATTRIBUTE_NAME_END_OF_FIS_QUARTER} attribute.
      */
-    public void setEndOfFisQuarter(final LocalDate endOfFisQuarter) {
+    public void setEndOfFisQuarter(final LocalDateTime endOfFisQuarter) {
         this.endOfFisQuarter = endOfFisQuarter;
     }
 
@@ -1429,7 +1530,7 @@ public class Time {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_YEAR} attribute.
      */
-    public LocalDate getEndOfCalYear() {
+    public LocalDateTime getEndOfCalYear() {
         return endOfCalYear;
     }
 
@@ -1438,7 +1539,7 @@ public class Time {
      *
      * @param endOfCalYear new value for {@value #ATTRIBUTE_NAME_END_OF_CAL_YEAR} attribute.
      */
-    public void setEndOfCalYear(final LocalDate endOfCalYear) {
+    public void setEndOfCalYear(final LocalDateTime endOfCalYear) {
         this.endOfCalYear = endOfCalYear;
     }
 
@@ -1449,7 +1550,7 @@ public class Time {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_YEAR} attribute.
      */
-    public LocalDate getEndOfFisYear() {
+    public LocalDateTime getEndOfFisYear() {
         return endOfFisYear;
     }
 
@@ -1458,7 +1559,7 @@ public class Time {
      *
      * @param endOfFisYear new value for {@value #ATTRIBUTE_NAME_END_OF_FIS_YEAR} attribute.
      */
-    public void setEndOfFisYear(final LocalDate endOfFisYear) {
+    public void setEndOfFisYear(final LocalDateTime endOfFisYear) {
         this.endOfFisYear = endOfFisYear;
     }
 
@@ -1466,7 +1567,7 @@ public class Time {
 
     @Id
     @Column(name = COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
-    private LocalDate timeId;
+    private LocalDateTime timeId;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Size(max = SIZE_MAX_DAY_NAME)
@@ -1481,6 +1582,8 @@ public class Time {
     private String dayName;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_DAY_NUMBER_IN_WEEK - COLUMN_SCALE_DAY_NUMBER_IN_WEEK,
+            fraction = COLUMN_SCALE_DAY_NUMBER_IN_WEEK)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_DAY_NUMBER_IN_WEEK,
             nullable = false,
@@ -1490,6 +1593,8 @@ public class Time {
     private Integer dayNumberInWeek;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_DAY_NUMBER_IN_MONTH - COLUMN_SCALE_DAY_NUMBER_IN_MONTH,
+            fraction = COLUMN_SCALE_DAY_NUMBER_IN_MONTH)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_DAY_NUMBER_IN_MONTH,
             nullable = false,
@@ -1499,6 +1604,8 @@ public class Time {
     private Integer dayNumberInMonth;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_CALENDAR_WEEK_NUMBER - COLUMN_SCALE_CALENDAR_WEEK_NUMBER,
+            fraction = COLUMN_SCALE_CALENDAR_WEEK_NUMBER)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_CALENDAR_WEEK_NUMBER,
             nullable = false,
@@ -1508,6 +1615,8 @@ public class Time {
     private Integer calendarWeekNumber;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_FISCAL_WEEK_NUMBER - COLUMN_SCALE_FISCAL_WEEK_NUMBER,
+            fraction = COLUMN_SCALE_FISCAL_WEEK_NUMBER)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_FISCAL_WEEK_NUMBER,
             nullable = false,
@@ -1523,7 +1632,7 @@ public class Time {
             insertable = true,
             updatable = true
     )
-    private LocalDate weekEndingDay;
+    private LocalDateTime weekEndingDay;
 
     @NotNull
     @Basic(optional = false)
@@ -1535,6 +1644,8 @@ public class Time {
     private Long weekEndingDayId;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_CALENDAR_MONTH_NUMBER - COLUMN_SCALE_CALENDAR_MONTH_NUMBER,
+            fraction = COLUMN_SCALE_CALENDAR_MONTH_NUMBER)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_CALENDAR_MONTH_NUMBER,
             nullable = false,
@@ -1544,6 +1655,8 @@ public class Time {
     private Integer calendarMonthNumber;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_FISCAL_MONTH_NUMBER - COLUMN_SCALE_FISCAL_MONTH_NUMBER,
+            fraction = COLUMN_SCALE_FISCAL_MONTH_NUMBER)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_FISCAL_MONTH_NUMBER,
             nullable = false,
@@ -1617,7 +1730,7 @@ public class Time {
             insertable = true,
             updatable = true
     )
-    private LocalDate endOfCalMonth;
+    private LocalDateTime endOfCalMonth;
 
     @NotNull
     @Basic(optional = false)
@@ -1626,7 +1739,7 @@ public class Time {
             insertable = true,
             updatable = true
     )
-    private LocalDate endOfFisMonth;
+    private LocalDateTime endOfFisMonth;
 
     @Size(max = SIZE_MAX_CALENDAR_MONTH_NAME)
     @NotNull
@@ -1715,7 +1828,7 @@ public class Time {
             insertable = true,
             updatable = true
     )
-    private LocalDate endOfCalQuarter;
+    private LocalDateTime endOfCalQuarter;
 
     @NotNull
     @Basic(optional = false)
@@ -1724,9 +1837,11 @@ public class Time {
             insertable = true,
             updatable = true
     )
-    private LocalDate endOfFisQuarter;
+    private LocalDateTime endOfFisQuarter;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_CALENDAR_QUARTER_NUMBER - COLUMN_SCALE_CALENDAR_QUARTER_NUMBER,
+            fraction = COLUMN_SCALE_CALENDAR_QUARTER_NUMBER)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_CALENDAR_QUARTER_NUMBER,
             nullable = false,
@@ -1736,6 +1851,8 @@ public class Time {
     private Integer calendarQuarterNumber;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_FISCAL_QUARTER_NUMBER - COLUMN_SCALE_FISCAL_QUARTER_NUMBER,
+            fraction = COLUMN_SCALE_FISCAL_QUARTER_NUMBER)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_FISCAL_QUARTER_NUMBER,
             nullable = false,
@@ -1745,6 +1862,8 @@ public class Time {
     private Integer fiscalQuarterNumber;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_CALENDAR_YEAR - COLUMN_SCALE_CALENDAR_YEAR,
+            fraction = COLUMN_SCALE_CALENDAR_YEAR)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_CALENDAR_YEAR,
             nullable = false,
@@ -1763,6 +1882,7 @@ public class Time {
     private Long calendarYearId;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_FISCAL_YEAR - COLUMN_SCALE_FISCAL_YEAR, fraction = COLUMN_SCALE_FISCAL_YEAR)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_FISCAL_YEAR,
             nullable = false,
@@ -1805,7 +1925,7 @@ public class Time {
             insertable = true,
             updatable = true
     )
-    private LocalDate endOfCalYear;
+    private LocalDateTime endOfCalYear;
 
     @NotNull
     @Basic(optional = false)
@@ -1814,5 +1934,5 @@ public class Time {
             insertable = true,
             updatable = true
     )
-    private LocalDate endOfFisYear;
+    private LocalDateTime endOfFisYear;
 }

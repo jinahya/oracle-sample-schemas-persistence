@@ -25,18 +25,57 @@ FROM EMPLOYEES
 ;
 
 -- ---------------------------------------------------------------------------------------------------------- FIRST_NAME
-SELECT MIN(LENGTH(FIRST_NAME)), MAX(LENGTH(FIRST_NAME))
+SELECT MIN(LENGTH(TRIM(FIRST_NAME))), MAX(LENGTH(TRIM(FIRST_NAME)))
 FROM EMPLOYEES
 ;
 
--- ----------------------------------------------------------------------------------------------------------- LAST_NAME
-SELECT MIN(LENGTH(LAST_NAME)), MAX(LENGTH(LAST_NAME))
+-- the MIN/MAX above cannot tell whether a FIRST_NAME is blank: TRIM of an all-space value is '', which Oracle treats as
+-- NULL, and MIN/MAX skip NULLs. List those rows directly.
+-- FIRST_NAME is nullable, so this covers both a missing and a blank first name.
+-- no rows: every employee has a FIRST_NAME with at least one non-space character.
+SELECT EMPLOYEE_ID, FIRST_NAME
 FROM EMPLOYEES
+WHERE TRIM(FIRST_NAME) IS NULL
+;
+
+-- a FIRST_NAME which is not blank but carries leading or trailing spaces, which the trimmed lengths above hide.
+-- no rows: no FIRST_NAME is padded, so the trimmed and the stored lengths agree.
+SELECT EMPLOYEE_ID, '[' || FIRST_NAME || ']' AS FIRST_NAME
+FROM EMPLOYEES
+WHERE FIRST_NAME <> TRIM(FIRST_NAME)
+;
+
+-- ----------------------------------------------------------------------------------------------------------- LAST_NAME
+SELECT MIN(LENGTH(TRIM(LAST_NAME))), MAX(LENGTH(TRIM(LAST_NAME)))
+FROM EMPLOYEES
+;
+
+-- the MIN/MAX above cannot tell whether a LAST_NAME is blank: TRIM of an all-space value is '', which Oracle treats as
+-- NULL, and MIN/MAX skip NULLs. List those rows directly.
+-- LAST_NAME is NOT NULL, so only a blank last name -- all spaces -- can match.
+-- no rows: every employee has a LAST_NAME with at least one non-space character.
+SELECT EMPLOYEE_ID, LAST_NAME
+FROM EMPLOYEES
+WHERE TRIM(LAST_NAME) IS NULL
+;
+
+-- a LAST_NAME which is not blank but carries leading or trailing spaces, which the trimmed lengths above hide.
+-- no rows: no LAST_NAME is padded, so the trimmed and the stored lengths agree.
+SELECT EMPLOYEE_ID, '[' || LAST_NAME || ']' AS LAST_NAME
+FROM EMPLOYEES
+WHERE LAST_NAME <> TRIM(LAST_NAME)
 ;
 
 -- --------------------------------------------------------------------------------------------------------------- EMAIL
 SELECT MIN(LENGTH(EMAIL)), MAX(LENGTH(EMAIL))
 FROM EMPLOYEES
+;
+
+-- EMAIL holds only the local part of an address -- the user id before the '@', e.g. SKING -- not a full address.
+-- no rows: no EMAIL contains an '@', so none is a full address.
+SELECT EMPLOYEE_ID, EMAIL
+FROM EMPLOYEES
+WHERE INSTR(EMAIL, '@') > 0
 ;
 
 -- https://github.com/hibernate/hibernate-validator/blob/main/engine/src/main/java/org/hibernate/validator/internal/constraintvalidators/AbstractEmailValidator.java#L37
@@ -52,8 +91,23 @@ WHERE NOT REGEXP_LIKE(EMAIL, '[a-z0-9!#$%&''*+/=?^_`{|}~\u0080-\uFFFF-]')
 
 
 -- -------------------------------------------------------------------------------------------------------- PHONE_NUMBER
+SELECT MIN(LENGTH(PHONE_NUMBER)), MAX(LENGTH(PHONE_NUMBER))
+FROM EMPLOYEES
+;
+
+-- PHONE_NUMBER holds groups of digits separated by dots, e.g. 1.515.555.0100 -- no '+', spaces, dashes or parentheses.
+-- counts the values which are anything else; a NULL is not counted, since REGEXP_LIKE of NULL is unknown.
+-- 0: every PHONE_NUMBER is dot-separated digit groups.
+SELECT COUNT(1)
+FROM EMPLOYEES
+WHERE NOT REGEXP_LIKE(PHONE_NUMBER, '^\d+(\.\d+)*$')
+;
 
 -- ----------------------------------------------------------------------------------------------------------- HIRE_DATE
+SELECT MIN(LENGTH(HIRE_DATE)), MAX(LENGTH(HIRE_DATE))
+FROM EMPLOYEES
+;
+
 SELECT MIN(HIRE_DATE), MAX(HIRE_DATE)
 FROM EMPLOYEES
 ;

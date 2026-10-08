@@ -1,0 +1,1039 @@
+# Registry of the exercises of every module, in EXERCISES.adoc and src/test/sql/*_EXERCISES.sql.
+#
+# An id is <MODULE>-<SECTION>-<TIER>-<NN>: the module (CO, HR, SH), the table or view the exercise reads alone, or
+# SCHEMA for one that reads more than one, the tier (B for Basic, I for Intermediate, A for Advanced), and a number
+# within that section and tier.
+#
+# Ids are permanent. A new exercise takes the next unused number of its section and tier; an exercise that moves or
+# changes tier keeps its id; an id of a removed exercise is marked `retired: true` and never reused. EXERCISES.adoc
+# carries each id as the anchor and the prefix of the exercise's heading, and the *_EXERCISES.sql files repeat it in
+# the marker above the statement.
+#
+# `named-queries` lists the entity's @NamedQuery that answers the exercise, by its name; the nested test class of that
+# query, in the entity's *_Persistence_Test and *_Persistence_IT, names the exercise id in its javadoc.
+
+
+# ---- co
+
+- id: CO-CUSTOMERS-B-01
+  module: co
+  section: "CUSTOMERS"
+  tier: Basic
+  title: "Pull up a customer by email address"
+- id: CO-CUSTOMERS-B-02
+  module: co
+  section: "CUSTOMERS"
+  tier: Basic
+  title: "Search customers by the start of their name"
+- id: CO-CUSTOMERS-I-01
+  module: co
+  section: "CUSTOMERS"
+  tier: Intermediate
+  title: "Email addresses that break the house style"
+- id: CO-CUSTOMERS-A-01
+  module: co
+  section: "CUSTOMERS"
+  tier: Advanced
+  title: "Possible duplicate accounts"
+- id: CO-CUSTOMER_ORDER_PRODUCTS-B-01
+  module: co
+  section: "CUSTOMER_ORDER_PRODUCTS"
+  tier: Basic
+  title: "Orders that included a product"
+- id: CO-CUSTOMER_ORDER_PRODUCTS-I-01
+  module: co
+  section: "CUSTOMER_ORDER_PRODUCTS"
+  tier: Intermediate
+  title: "Average basket per customer"
+- id: CO-CUSTOMER_ORDER_PRODUCTS-A-01
+  module: co
+  section: "CUSTOMER_ORDER_PRODUCTS"
+  tier: Advanced
+  title: "Each customer's biggest order"
+- id: CO-INVENTORY-B-01
+  module: co
+  section: "INVENTORY"
+  tier: Basic
+  title: "How many are on the shelf?"
+  named-queries:
+    - Inventory.selectOneByStoreAndProduct
+- id: CO-INVENTORY-B-02
+  module: co
+  section: "INVENTORY"
+  tier: Basic
+  title: "Where a product is running lowest"
+  named-queries:
+    - Inventory.selectOneByProductOrderByProductInventoryAsc
+- id: CO-INVENTORY-B-03
+  module: co
+  section: "INVENTORY"
+  tier: Basic
+  title: "A store's emptiest shelves"
+  named-queries:
+    - Inventory.selectListByStoreOrderByProductInventoryAsc
+- id: CO-INVENTORY-I-01
+  module: co
+  section: "INVENTORY"
+  tier: Intermediate
+  title: "What each store holds"
+- id: CO-INVENTORY-A-01
+  module: co
+  section: "INVENTORY"
+  tier: Advanced
+  title: "Stores that carry everything another store carries"
+- id: CO-ORDERS-B-01
+  module: co
+  section: "ORDERS"
+  tier: Basic
+  title: "A customer's order history"
+- id: CO-ORDERS-B-02
+  module: co
+  section: "ORDERS"
+  tier: Basic
+  title: "Orders that went wrong"
+- id: CO-ORDERS-B-03
+  module: co
+  section: "ORDERS"
+  tier: Basic
+  title: "A store's orders for a period"
+- id: CO-ORDERS-I-01
+  module: co
+  section: "ORDERS"
+  tier: Intermediate
+  title: "Where orders stand"
+- id: CO-ORDERS-A-01
+  module: co
+  section: "ORDERS"
+  tier: Advanced
+  title: "Customers of two stores, or of one only"
+- id: CO-ORDERS-A-02
+  module: co
+  section: "ORDERS"
+  tier: Advanced
+  title: "Time between a customer's orders"
+- id: CO-ORDER_ITEMS-B-01
+  module: co
+  section: "ORDER_ITEMS"
+  tier: Basic
+  title: "Bulk lines"
+- id: CO-ORDER_ITEMS-I-01
+  module: co
+  section: "ORDER_ITEMS"
+  tier: Intermediate
+  title: "Orders worth more than an amount"
+- id: CO-ORDER_ITEMS-A-01
+  module: co
+  section: "ORDER_ITEMS"
+  tier: Advanced
+  title: "Each order's main line"
+- id: CO-PRODUCTS-B-01
+  module: co
+  section: "PRODUCTS"
+  tier: Basic
+  title: "Gift ideas within a budget"
+- id: CO-PRODUCTS-B-02
+  module: co
+  section: "PRODUCTS"
+  tier: Basic
+  title: "Price list, most expensive first"
+- id: CO-PRODUCTS-B-03
+  module: co
+  section: "PRODUCTS"
+  tier: Basic
+  title: "Products still waiting for a price"
+- id: CO-PRODUCTS-I-01
+  module: co
+  section: "PRODUCTS"
+  tier: Intermediate
+  title: "Products priced above average"
+- id: CO-PRODUCTS-I-02
+  module: co
+  section: "PRODUCTS"
+  tier: Intermediate
+  title: "The range by department"
+- id: CO-PRODUCTS-A-01
+  module: co
+  section: "PRODUCTS"
+  tier: Advanced
+  title: "The ten most expensive products, ties included"
+- id: CO-PRODUCT_ORDERS-B-01
+  module: co
+  section: "PRODUCT_ORDERS"
+  tier: Basic
+  title: "Which products get refunded?"
+- id: CO-PRODUCT_ORDERS-I-01
+  module: co
+  section: "PRODUCT_ORDERS"
+  tier: Intermediate
+  title: "Sales per product, whatever happened to the order"
+- id: CO-PRODUCT_ORDERS-A-01
+  module: co
+  section: "PRODUCT_ORDERS"
+  tier: Advanced
+  title: "Products that are often cancelled or refunded"
+- id: CO-PRODUCT_REVIEWS-B-01
+  module: co
+  section: "PRODUCT_REVIEWS"
+  tier: Basic
+  title: "Read a product's reviews"
+- id: CO-PRODUCT_REVIEWS-I-01
+  module: co
+  section: "PRODUCT_REVIEWS"
+  tier: Intermediate
+  title: "Products with mostly poor reviews"
+- id: CO-PRODUCT_REVIEWS-A-01
+  module: co
+  section: "PRODUCT_REVIEWS"
+  tier: Advanced
+  title: "Each product's harshest review"
+- id: CO-SHIPMENTS-B-01
+  module: co
+  section: "SHIPMENTS"
+  tier: Basic
+  title: "Shipments on the road"
+- id: CO-SHIPMENTS-B-02
+  module: co
+  section: "SHIPMENTS"
+  tier: Basic
+  title: "Shipments to a town"
+- id: CO-SHIPMENTS-I-01
+  module: co
+  section: "SHIPMENTS"
+  tier: Intermediate
+  title: "Open shipments per store"
+- id: CO-SHIPMENTS-A-01
+  module: co
+  section: "SHIPMENTS"
+  tier: Advanced
+  title: "Shipments that could travel together"
+- id: CO-STORES-B-01
+  module: co
+  section: "STORES"
+  tier: Basic
+  title: "One contact line per store"
+- id: CO-STORES-B-02
+  module: co
+  section: "STORES"
+  tier: Basic
+  title: "Stores from north to south"
+- id: CO-STORES-I-01
+  module: co
+  section: "STORES"
+  tier: Intermediate
+  title: "Tidy store names for a sign"
+- id: CO-STORES-A-01
+  module: co
+  section: "STORES"
+  tier: Advanced
+  title: "Each store's nearest neighbour"
+- id: CO-STORE_ORDERS-B-01
+  module: co
+  section: "STORE_ORDERS"
+  tier: Basic
+  title: "Store totals, best first"
+- id: CO-STORE_ORDERS-I-01
+  module: co
+  section: "STORE_ORDERS"
+  tier: Intermediate
+  title: "Stores that lose orders"
+- id: CO-STORE_ORDERS-A-01
+  module: co
+  section: "STORE_ORDERS"
+  tier: Advanced
+  title: "Each store's losses against its own sales and the chain's"
+- id: CO-SCHEMA-B-01
+  module: co
+  section: "Whole schema"
+  tier: Basic
+  title: "Who placed an order, and where"
+- id: CO-SCHEMA-B-02
+  module: co
+  section: "Whole schema"
+  tier: Basic
+  title: "Print a receipt"
+- id: CO-SCHEMA-B-03
+  module: co
+  section: "Whole schema"
+  tier: Basic
+  title: "Running low"
+- id: CO-SCHEMA-I-01
+  module: co
+  section: "Whole schema"
+  tier: Intermediate
+  title: "What each order came to"
+- id: CO-SCHEMA-I-02
+  module: co
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Stores that pass a revenue target"
+- id: CO-SCHEMA-I-03
+  module: co
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Best sellers"
+- id: CO-SCHEMA-I-04
+  module: co
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Regular customers"
+- id: CO-SCHEMA-I-05
+  module: co
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Has the price drifted?"
+- id: CO-SCHEMA-I-06
+  module: co
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Out of stock everywhere"
+- id: CO-SCHEMA-I-07
+  module: co
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Small, medium and large baskets"
+- id: CO-SCHEMA-I-08
+  module: co
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Orders not fully shipped"
+- id: CO-SCHEMA-A-01
+  module: co
+  section: "Whole schema"
+  tier: Advanced
+  title: "Customers who never ordered"
+- id: CO-SCHEMA-A-02
+  module: co
+  section: "Whole schema"
+  tier: Advanced
+  title: "Products nobody bought"
+- id: CO-SCHEMA-A-03
+  module: co
+  section: "Whole schema"
+  tier: Advanced
+  title: "Win back lapsed customers"
+- id: CO-SCHEMA-A-04
+  module: co
+  section: "Whole schema"
+  tier: Advanced
+  title: "Each store's best seller"
+- id: CO-SCHEMA-A-05
+  module: co
+  section: "Whole schema"
+  tier: Advanced
+  title: "Rebalance stock between stores"
+- id: CO-SCHEMA-A-06
+  module: co
+  section: "Whole schema"
+  tier: Advanced
+  title: "Customers who come back for the same product"
+- id: CO-SCHEMA-A-07
+  module: co
+  section: "Whole schema"
+  tier: Advanced
+  title: "Shipments that do not match their orders"
+- id: CO-SCHEMA-A-08
+  module: co
+  section: "Whole schema"
+  tier: Advanced
+  title: "Complete orders that were never delivered"
+- id: CO-SCHEMA-A-09
+  module: co
+  section: "Whole schema"
+  tier: Advanced
+  title: "Orders with a premium line"
+- id: CO-SCHEMA-A-10
+  module: co
+  section: "Whole schema"
+  tier: Advanced
+  title: "Masked contact details and order references"
+- id: CO-SCHEMA-A-11
+  module: co
+  section: "Whole schema"
+  tier: Advanced
+  title: "This year's orders so far"
+- id: CO-SCHEMA-A-12
+  module: co
+  section: "Whole schema"
+  tier: Advanced
+  title: "Packing slips in one round trip"
+- id: CO-SCHEMA-A-13
+  module: co
+  section: "Whole schema"
+  tier: Advanced
+  title: "Store ranking and share of sales"
+- id: CO-SCHEMA-A-14
+  module: co
+  section: "Whole schema"
+  tier: Advanced
+  title: "Brands and reviews from the product JSON"
+
+# ---- hr
+
+- id: HR-COUNTRIES-B-01
+  module: hr
+  section: "COUNTRIES"
+  tier: Basic
+  title: "Country by code"
+- id: HR-COUNTRIES-B-02
+  module: hr
+  section: "COUNTRIES"
+  tier: Basic
+  title: "Countries of a region"
+- id: HR-COUNTRIES-B-03
+  module: hr
+  section: "COUNTRIES"
+  tier: Basic
+  title: "Country names too long for a badge"
+- id: HR-COUNTRIES-I-01
+  module: hr
+  section: "COUNTRIES"
+  tier: Intermediate
+  title: "Countries per region"
+- id: HR-COUNTRIES-A-01
+  module: hr
+  section: "COUNTRIES"
+  tier: Advanced
+  title: "Regions above the average size"
+- id: HR-DEPARTMENTS-B-01
+  module: hr
+  section: "DEPARTMENTS"
+  tier: Basic
+  title: "Departments in a building"
+- id: HR-DEPARTMENTS-B-02
+  module: hr
+  section: "DEPARTMENTS"
+  tier: Basic
+  title: "Departments without a manager"
+- id: HR-DEPARTMENTS-I-01
+  module: hr
+  section: "DEPARTMENTS"
+  tier: Intermediate
+  title: "Departments per site"
+- id: HR-DEPARTMENTS-I-02
+  module: hr
+  section: "DEPARTMENTS"
+  tier: Intermediate
+  title: "Departments at a glance"
+- id: HR-DEPARTMENTS-A-01
+  module: hr
+  section: "DEPARTMENTS"
+  tier: Advanced
+  title: "Next free department number"
+- id: HR-EMPLOYEES-B-01
+  module: hr
+  section: "EMPLOYEES"
+  tier: Basic
+  title: "Look up a colleague by e-mail"
+- id: HR-EMPLOYEES-B-02
+  module: hr
+  section: "EMPLOYEES"
+  tier: Basic
+  title: "A department's staff list"
+- id: HR-EMPLOYEES-B-03
+  module: hr
+  section: "EMPLOYEES"
+  tier: Basic
+  title: "Seniority list for a job"
+- id: HR-EMPLOYEES-B-04
+  module: hr
+  section: "EMPLOYEES"
+  tier: Basic
+  title: "Who is on commission"
+- id: HR-EMPLOYEES-B-05
+  module: hr
+  section: "EMPLOYEES"
+  tier: Basic
+  title: "Staff with no department"
+- id: HR-EMPLOYEES-B-06
+  module: hr
+  section: "EMPLOYEES"
+  tier: Basic
+  title: "Hired in a period"
+- id: HR-EMPLOYEES-B-07
+  module: hr
+  section: "EMPLOYEES"
+  tier: Basic
+  title: "Name search at reception"
+- id: HR-EMPLOYEES-B-08
+  module: hr
+  section: "EMPLOYEES"
+  tier: Basic
+  title: "Staff of several departments"
+- id: HR-EMPLOYEES-I-01
+  module: hr
+  section: "EMPLOYEES"
+  tier: Intermediate
+  title: "Above the company average"
+- id: HR-EMPLOYEES-I-02
+  module: hr
+  section: "EMPLOYEES"
+  tier: Intermediate
+  title: "Total monthly pay including commission"
+- id: HR-EMPLOYEES-I-03
+  module: hr
+  section: "EMPLOYEES"
+  tier: Intermediate
+  title: "Headcount per pay grade"
+- id: HR-EMPLOYEES-I-04
+  module: hr
+  section: "EMPLOYEES"
+  tier: Intermediate
+  title: "Earning more than the boss"
+- id: HR-EMPLOYEES-I-05
+  module: hr
+  section: "EMPLOYEES"
+  tier: Intermediate
+  title: "Span of control"
+- id: HR-EMPLOYEES-A-01
+  module: hr
+  section: "EMPLOYEES"
+  tier: Advanced
+  title: "Top earner of each department"
+- id: HR-EMPLOYEES-A-02
+  module: hr
+  section: "EMPLOYEES"
+  tier: Advanced
+  title: "Three best-paid per department"
+- id: HR-EMPLOYEES-A-03
+  module: hr
+  section: "EMPLOYEES"
+  tier: Advanced
+  title: "Everyone under a manager"
+- id: HR-EMPLOYEES-A-04
+  module: hr
+  section: "EMPLOYEES"
+  tier: Advanced
+  title: "Out-earning a whole department"
+- id: HR-EMPLOYEES-A-05
+  module: hr
+  section: "EMPLOYEES"
+  tier: Advanced
+  title: "Work anniversaries"
+- id: HR-EMPLOYEES-A-06
+  module: hr
+  section: "EMPLOYEES"
+  tier: Advanced
+  title: "Badges and e-mail migration"
+- id: HR-EMP_DETAILS_VIEW-B-01
+  module: hr
+  section: "EMP_DETAILS_VIEW"
+  tier: Basic
+  title: "Staff on a site"
+- id: HR-EMP_DETAILS_VIEW-I-01
+  module: hr
+  section: "EMP_DETAILS_VIEW"
+  tier: Intermediate
+  title: "Payroll by country"
+- id: HR-EMP_DETAILS_VIEW-A-01
+  module: hr
+  section: "EMP_DETAILS_VIEW"
+  tier: Advanced
+  title: "Best-paid in each region"
+- id: HR-JOBS-B-01
+  module: hr
+  section: "JOBS"
+  tier: Basic
+  title: "Salary bands, unset values flagged"
+- id: HR-JOBS-B-02
+  module: hr
+  section: "JOBS"
+  tier: Basic
+  title: "Clerical jobs"
+- id: HR-JOBS-B-03
+  module: hr
+  section: "JOBS"
+  tier: Basic
+  title: "Jobs an offer fits"
+- id: HR-JOBS-I-01
+  module: hr
+  section: "JOBS"
+  tier: Intermediate
+  title: "Widest pay bands"
+- id: HR-JOBS-I-02
+  module: hr
+  section: "JOBS"
+  tier: Intermediate
+  title: "The catalogue at a glance"
+- id: HR-JOBS-A-01
+  module: hr
+  section: "JOBS"
+  tier: Advanced
+  title: "Bands inside another band"
+- id: HR-JOBS-A-02
+  module: hr
+  section: "JOBS"
+  tier: Advanced
+  title: "The next step up"
+- id: HR-JOB_HISTORY-B-01
+  module: hr
+  section: "JOB_HISTORY"
+  tier: Basic
+  title: "One employee's earlier positions"
+- id: HR-JOB_HISTORY-B-02
+  module: hr
+  section: "JOB_HISTORY"
+  tier: Basic
+  title: "Positions closed in a period"
+- id: HR-JOB_HISTORY-I-01
+  module: hr
+  section: "JOB_HISTORY"
+  tier: Intermediate
+  title: "Turnover per job"
+- id: HR-JOB_HISTORY-I-02
+  module: hr
+  section: "JOB_HISTORY"
+  tier: Intermediate
+  title: "Moved more than once"
+- id: HR-JOB_HISTORY-A-01
+  module: hr
+  section: "JOB_HISTORY"
+  tier: Advanced
+  title: "Consecutive moves"
+- id: HR-JOB_HISTORY-A-02
+  module: hr
+  section: "JOB_HISTORY"
+  tier: Advanced
+  title: "Overlapping positions"
+- id: HR-LOCATIONS-B-01
+  module: hr
+  section: "LOCATIONS"
+  tier: Basic
+  title: "Sites in a country"
+- id: HR-LOCATIONS-B-02
+  module: hr
+  section: "LOCATIONS"
+  tier: Basic
+  title: "Sites without a postal code"
+- id: HR-LOCATIONS-I-01
+  module: hr
+  section: "LOCATIONS"
+  tier: Intermediate
+  title: "Sites per country"
+- id: HR-LOCATIONS-I-02
+  module: hr
+  section: "LOCATIONS"
+  tier: Intermediate
+  title: "Address labels"
+- id: HR-LOCATIONS-A-01
+  module: hr
+  section: "LOCATIONS"
+  tier: Advanced
+  title: "The country with the most sites"
+- id: HR-REGIONS-B-01
+  module: hr
+  section: "REGIONS"
+  tier: Basic
+  title: "Region by name"
+- id: HR-REGIONS-B-02
+  module: hr
+  section: "REGIONS"
+  tier: Basic
+  title: "The region list"
+- id: HR-REGIONS-I-01
+  module: hr
+  section: "REGIONS"
+  tier: Intermediate
+  title: "A number for a new region"
+- id: HR-REGIONS-A-01
+  module: hr
+  section: "REGIONS"
+  tier: Advanced
+  title: "Initials that clash"
+- id: HR-SCHEMA-B-01
+  module: hr
+  section: "Whole schema"
+  tier: Basic
+  title: "Who manages a department"
+- id: HR-SCHEMA-B-02
+  module: hr
+  section: "Whole schema"
+  tier: Basic
+  title: "An employee's job title"
+- id: HR-SCHEMA-B-03
+  module: hr
+  section: "Whole schema"
+  tier: Basic
+  title: "Countries of a region, by name"
+- id: HR-SCHEMA-I-01
+  module: hr
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Headcount per department"
+- id: HR-SCHEMA-I-02
+  module: hr
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Monthly payroll by department"
+- id: HR-SCHEMA-I-03
+  module: hr
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Departments above a size"
+- id: HR-SCHEMA-I-04
+  module: hr
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Company directory"
+- id: HR-SCHEMA-I-05
+  module: hr
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Actual pay against the band"
+- id: HR-SCHEMA-I-06
+  module: hr
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Due for a promotion conversation"
+- id: HR-SCHEMA-I-07
+  module: hr
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Departments with nobody in them"
+- id: HR-SCHEMA-I-08
+  module: hr
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Headcount by country and region"
+- id: HR-SCHEMA-I-09
+  module: hr
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Employees who have changed roles"
+- id: HR-SCHEMA-I-10
+  module: hr
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Never moved"
+- id: HR-SCHEMA-A-01
+  module: hr
+  section: "Whole schema"
+  tier: Advanced
+  title: "Past positions in another department"
+- id: HR-SCHEMA-A-02
+  module: hr
+  section: "Whole schema"
+  tier: Advanced
+  title: "Career timeline of one employee"
+- id: HR-SCHEMA-A-03
+  module: hr
+  section: "Whole schema"
+  tier: Advanced
+  title: "Back in an earlier job"
+- id: HR-SCHEMA-A-04
+  module: hr
+  section: "Whole schema"
+  tier: Advanced
+  title: "Offices with no department"
+- id: HR-SCHEMA-A-05
+  module: hr
+  section: "Whole schema"
+  tier: Advanced
+  title: "Department roster in one round trip"
+
+# ---- sh
+
+- id: SH-CAL_MONTH_SALES_MV-B-01
+  module: sh
+  section: "CAL_MONTH_SALES_MV"
+  tier: Basic
+  title: "Monthly revenue at a glance"
+- id: SH-CAL_MONTH_SALES_MV-I-01
+  module: sh
+  section: "CAL_MONTH_SALES_MV"
+  tier: Intermediate
+  title: "Months above the average"
+- id: SH-CAL_MONTH_SALES_MV-A-01
+  module: sh
+  section: "CAL_MONTH_SALES_MV"
+  tier: Advanced
+  title: "Running total of monthly revenue"
+- id: SH-CHANNELS-B-01
+  module: sh
+  section: "CHANNELS"
+  tier: Basic
+  title: "Routes to market"
+- id: SH-CHANNELS-I-01
+  module: sh
+  section: "CHANNELS"
+  tier: Intermediate
+  title: "Channels per class"
+- id: SH-CHANNELS-A-01
+  module: sh
+  section: "CHANNELS"
+  tier: Advanced
+  title: "Channel classes on one line"
+- id: SH-COSTS-B-01
+  module: sh
+  section: "COSTS"
+  tier: Basic
+  title: "Prices below cost"
+- id: SH-COSTS-I-01
+  module: sh
+  section: "COSTS"
+  tier: Intermediate
+  title: "Average unit margin per product"
+- id: SH-COSTS-A-01
+  module: sh
+  section: "COSTS"
+  tier: Advanced
+  title: "When did a price change?"
+- id: SH-COUNTRIES-B-01
+  module: sh
+  section: "COUNTRIES"
+  tier: Basic
+  title: "Countries of a sales region"
+- id: SH-COUNTRIES-I-01
+  module: sh
+  section: "COUNTRIES"
+  tier: Intermediate
+  title: "Countries per subregion"
+- id: SH-COUNTRIES-A-01
+  module: sh
+  section: "COUNTRIES"
+  tier: Advanced
+  title: "Is the geography hierarchy consistent?"
+- id: SH-CUSTOMERS-B-01
+  module: sh
+  section: "CUSTOMERS"
+  tier: Basic
+  title: "Look up a customer by surname"
+- id: SH-CUSTOMERS-B-02
+  module: sh
+  section: "CUSTOMERS"
+  tier: Basic
+  title: "Customers in selected income bands"
+- id: SH-CUSTOMERS-B-03
+  module: sh
+  section: "CUSTOMERS"
+  tier: Basic
+  title: "Customers without a marital status"
+- id: SH-CUSTOMERS-B-04
+  module: sh
+  section: "CUSTOMERS"
+  tier: Basic
+  title: "Income bands, unknowns last"
+- id: SH-CUSTOMERS-I-01
+  module: sh
+  section: "CUSTOMERS"
+  tier: Intermediate
+  title: "Email addresses shared by several customers"
+- id: SH-CUSTOMERS-A-01
+  module: sh
+  section: "CUSTOMERS"
+  tier: Advanced
+  title: "Credit limits above the band average"
+- id: SH-FWEEK_PSCAT_SALES_MV-B-01
+  module: sh
+  section: "FWEEK_PSCAT_SALES_MV"
+  tier: Basic
+  title: "One week's sales by subcategory"
+- id: SH-FWEEK_PSCAT_SALES_MV-I-01
+  module: sh
+  section: "FWEEK_PSCAT_SALES_MV"
+  tier: Intermediate
+  title: "Subcategory revenue over a period"
+- id: SH-FWEEK_PSCAT_SALES_MV-A-01
+  module: sh
+  section: "FWEEK_PSCAT_SALES_MV"
+  tier: Advanced
+  title: "Best week of each subcategory"
+- id: SH-PRODUCTS-B-01
+  module: sh
+  section: "PRODUCTS"
+  tier: Basic
+  title: "Products in a price band"
+- id: SH-PRODUCTS-I-01
+  module: sh
+  section: "PRODUCTS"
+  tier: Intermediate
+  title: "Products priced above the average"
+- id: SH-PRODUCTS-A-01
+  module: sh
+  section: "PRODUCTS"
+  tier: Advanced
+  title: "Most expensive product of each subcategory"
+- id: SH-PROFITS-B-01
+  module: sh
+  section: "PROFITS"
+  tier: Basic
+  title: "Loss-making sales"
+- id: SH-PROFITS-I-01
+  module: sh
+  section: "PROFITS"
+  tier: Intermediate
+  title: "Thinnest margins"
+- id: SH-PROFITS-A-01
+  module: sh
+  section: "PROFITS"
+  tier: Advanced
+  title: "Products whose margin shrank"
+- id: SH-PROMOTIONS-B-01
+  module: sh
+  section: "PROMOTIONS"
+  tier: Basic
+  title: "Promotions running on a day"
+- id: SH-PROMOTIONS-B-02
+  module: sh
+  section: "PROMOTIONS"
+  tier: Basic
+  title: "Kinds of promotion"
+- id: SH-PROMOTIONS-I-01
+  module: sh
+  section: "PROMOTIONS"
+  tier: Intermediate
+  title: "Promotion spend by category"
+- id: SH-PROMOTIONS-A-01
+  module: sh
+  section: "PROMOTIONS"
+  tier: Advanced
+  title: "Clashing promotions"
+- id: SH-SALES-B-01
+  module: sh
+  section: "SALES"
+  tier: Basic
+  title: "A day's takings through one channel"
+- id: SH-SALES-I-01
+  module: sh
+  section: "SALES"
+  tier: Intermediate
+  title: "Top spenders of a period"
+- id: SH-SALES-A-01
+  module: sh
+  section: "SALES"
+  tier: Advanced
+  title: "Days between a customer's purchases"
+- id: SH-SUPPLEMENTARY_DEMOGRAPHICS-B-01
+  module: sh
+  section: "SUPPLEMENTARY_DEMOGRAPHICS"
+  tier: Basic
+  title: "Card holders in an occupation"
+- id: SH-SUPPLEMENTARY_DEMOGRAPHICS-I-01
+  module: sh
+  section: "SUPPLEMENTARY_DEMOGRAPHICS"
+  tier: Intermediate
+  title: "Card take-up by household size"
+- id: SH-SUPPLEMENTARY_DEMOGRAPHICS-A-01
+  module: sh
+  section: "SUPPLEMENTARY_DEMOGRAPHICS"
+  tier: Advanced
+  title: "Occupations ahead of the overall take-up"
+- id: SH-TIMES-B-01
+  module: sh
+  section: "TIMES"
+  tier: Basic
+  title: "Which fiscal period is a day in?"
+- id: SH-TIMES-I-01
+  module: sh
+  section: "TIMES"
+  tier: Intermediate
+  title: "Fiscal month boundaries"
+- id: SH-TIMES-A-01
+  module: sh
+  section: "TIMES"
+  tier: Advanced
+  title: "Fiscal months that disagree with themselves"
+- id: SH-SCHEMA-B-01
+  module: sh
+  section: "Whole schema"
+  tier: Basic
+  title: "A customer's purchase history"
+- id: SH-SCHEMA-B-02
+  module: sh
+  section: "Whole schema"
+  tier: Basic
+  title: "Customers with their country, in one round trip"
+- id: SH-SCHEMA-B-03
+  module: sh
+  section: "Whole schema"
+  tier: Basic
+  title: "Revenue by channel"
+- id: SH-SCHEMA-I-01
+  module: sh
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Category revenue by quarter"
+- id: SH-SCHEMA-I-02
+  module: sh
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Ten best sellers"
+- id: SH-SCHEMA-I-03
+  module: sh
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Countries above a revenue target"
+- id: SH-SCHEMA-I-04
+  module: sh
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Promotions that moved revenue"
+- id: SH-SCHEMA-I-05
+  module: sh
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Revenue by fiscal month"
+- id: SH-SCHEMA-I-06
+  module: sh
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Weekend versus weekday"
+- id: SH-SCHEMA-I-07
+  module: sh
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Revenue by gender and marital status"
+- id: SH-SCHEMA-I-08
+  module: sh
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Affinity-card holders by education"
+- id: SH-SCHEMA-I-09
+  module: sh
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Realised price against list price"
+- id: SH-SCHEMA-A-01
+  module: sh
+  section: "Whole schema"
+  tier: Advanced
+  title: "Dormant products and customers"
+- id: SH-SCHEMA-A-02
+  module: sh
+  section: "Whole schema"
+  tier: Advanced
+  title: "Lapsed customers"
+- id: SH-SCHEMA-A-03
+  module: sh
+  section: "Whole schema"
+  tier: Advanced
+  title: "Customers who buy through two channels"
+- id: SH-SCHEMA-A-04
+  module: sh
+  section: "Whole schema"
+  tier: Advanced
+  title: "Top three products of each category"
+- id: SH-SCHEMA-A-05
+  module: sh
+  section: "Whole schema"
+  tier: Advanced
+  title: "Gross margin by category"
+- id: SH-SCHEMA-A-06
+  module: sh
+  section: "Whole schema"
+  tier: Advanced
+  title: "Year-over-year growth by channel"
+- id: SH-SCHEMA-A-07
+  module: sh
+  section: "Whole schema"
+  tier: Advanced
+  title: "Channel and quarter subtotals"
+- id: SH-SCHEMA-A-08
+  module: sh
+  section: "Whole schema"
+  tier: Advanced
+  title: "Mailing labels"
+- id: SH-SCHEMA-A-09
+  module: sh
+  section: "Whole schema"
+  tier: Advanced
+  title: "Reconcile sale dates with the calendar"

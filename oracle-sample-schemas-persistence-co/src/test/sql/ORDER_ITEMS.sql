@@ -35,6 +35,22 @@ HAVING COUNT(1) > 1
 ORDER BY ORDER_ID, LINE_ITEM_ID
 ;
 
+-- orders whose LINE_ITEM_IDs have a gap; (ORDER_ID, LINE_ITEM_ID) is the primary key, so no id repeats within an order
+SELECT ORDER_ID, MIN(LINE_ITEM_ID), MAX(LINE_ITEM_ID), COUNT(1)
+FROM ORDER_ITEMS
+GROUP BY ORDER_ID
+HAVING MAX(LINE_ITEM_ID) - MIN(LINE_ITEM_ID) + 1 <> COUNT(1)
+ORDER BY ORDER_ID
+;
+
+-- orders whose LINE_ITEM_IDs do not start at 1
+SELECT ORDER_ID, MIN(LINE_ITEM_ID)
+FROM ORDER_ITEMS
+GROUP BY ORDER_ID
+HAVING MIN(LINE_ITEM_ID) <> 1
+ORDER BY ORDER_ID
+;
+
 -- ---------------------------------------------------------------------------------------------------------- PRODUCT_ID
 
 -- ---------------------------------------------------------------------------------------------------------- UNIT_PRICE
@@ -55,10 +71,22 @@ FROM ORDER_ITEMS oi
 WHERE oi.UNIT_PRICE = p.UNIT_PRICE
 ;
 
+SELECT COUNT(1)
+FROM ORDER_ITEMS oi
+         JOIN PRODUCTS p ON oi.PRODUCT_ID = p.PRODUCT_ID
+WHERE oi.UNIT_PRICE > p.UNIT_PRICE
+;
+
 SELECT oi.PRODUCT_ID, oi.UNIT_PRICE, p.PRODUCT_ID, p.UNIT_PRICE
 FROM ORDER_ITEMS oi
          JOIN PRODUCTS p ON oi.PRODUCT_ID = p.PRODUCT_ID
 WHERE oi.UNIT_PRICE <> p.UNIT_PRICE
+;
+
+SELECT oi.PRODUCT_ID, oi.UNIT_PRICE, p.PRODUCT_ID, p.UNIT_PRICE
+FROM ORDER_ITEMS oi
+         JOIN PRODUCTS p ON oi.PRODUCT_ID = p.PRODUCT_ID
+WHERE oi.UNIT_PRICE > p.UNIT_PRICE
 ;
 
 -- ------------------------------------------------------------------------------------------------------------ QUANTITY

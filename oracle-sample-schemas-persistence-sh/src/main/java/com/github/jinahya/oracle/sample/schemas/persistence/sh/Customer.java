@@ -29,10 +29,11 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -42,7 +43,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = Customer.TABLE_NAME)
-public class Customer {
+public class Customer implements __DomainEntity<Long> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -143,6 +144,16 @@ public class Customer {
      * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_YEAR_OF_BIRTH} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH = "custYearOfBirth";
+
+    /**
+     * The precision of the {@value #COLUMN_NAME_CUST_YEAR_OF_BIRTH} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_CUST_YEAR_OF_BIRTH = 4;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_CUST_YEAR_OF_BIRTH} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_CUST_YEAR_OF_BIRTH = 0;
 
     // -------------------------------------------------------------------------------------------- CUST_MARITAL_STATUS
 
@@ -298,7 +309,8 @@ public class Customer {
     public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column as a
+     * {@link jakarta.persistence.ManyToOne @ManyToOne} association. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY = "country";
 
@@ -509,7 +521,7 @@ public class Customer {
                ",custCityId=" + custCityId +
                ",custStateProvince=" + custStateProvince +
                ",custStateProvinceId=" + custStateProvinceId +
-               ",country=" + country +
+//               ",country=" + country +
                ",custMainPhoneNumber=" + custMainPhoneNumber +
                ",custIncomeLevel=" + custIncomeLevel +
                ",custCreditLimit=" + custCreditLimit +
@@ -955,7 +967,7 @@ public class Customer {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_CUST_EFF_FROM} attribute.
      */
-    public LocalDate getCustEffFrom() {
+    public LocalDateTime getCustEffFrom() {
         return custEffFrom;
     }
 
@@ -964,7 +976,7 @@ public class Customer {
      *
      * @param custEffFrom new value for {@value #ATTRIBUTE_NAME_CUST_EFF_FROM} attribute.
      */
-    public void setCustEffFrom(final LocalDate custEffFrom) {
+    public void setCustEffFrom(final LocalDateTime custEffFrom) {
         this.custEffFrom = custEffFrom;
     }
 
@@ -975,7 +987,7 @@ public class Customer {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_CUST_EFF_TO} attribute.
      */
-    public LocalDate getCustEffTo() {
+    public LocalDateTime getCustEffTo() {
         return custEffTo;
     }
 
@@ -984,7 +996,7 @@ public class Customer {
      *
      * @param custEffTo new value for {@value #ATTRIBUTE_NAME_CUST_EFF_TO} attribute.
      */
-    public void setCustEffTo(final LocalDate custEffTo) {
+    public void setCustEffTo(final LocalDateTime custEffTo) {
         this.custEffTo = custEffTo;
     }
 
@@ -1050,6 +1062,8 @@ public class Customer {
     private String custGender;
 
     @NotNull
+    @Digits(integer = COLUMN_PRECISION_CUST_YEAR_OF_BIRTH - COLUMN_SCALE_CUST_YEAR_OF_BIRTH,
+            fraction = COLUMN_SCALE_CUST_YEAR_OF_BIRTH)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_CUST_YEAR_OF_BIRTH,
             nullable = false,
@@ -1214,7 +1228,7 @@ public class Customer {
             insertable = true,
             updatable = true
     )
-    private LocalDate custEffFrom;
+    private LocalDateTime custEffFrom;
 
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_CUST_EFF_TO,
@@ -1222,7 +1236,7 @@ public class Customer {
             insertable = true,
             updatable = true
     )
-    private LocalDate custEffTo;
+    private LocalDateTime custEffTo;
 
     @Size(max = SIZE_MAX_CUST_VALID)
     @Basic(optional = true)

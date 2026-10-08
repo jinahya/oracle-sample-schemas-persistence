@@ -22,7 +22,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.FetchType;
 import jakarta.validation.constraints.NotNull;
@@ -31,7 +30,12 @@ import java.util.Objects;
 
 /**
  * An embeddable class for mapping a named section -- a region, a subregion or a total -- of the
- * {@value Country#TABLE_NAME} table.
+ * {@value Country#TABLE_NAME} table: a name column, and the numeric id column that goes with it.
+ * <p>
+ * No entity of this module embeds this class yet; {@link Country} maps each of those column pairs as plain attributes.
+ * The class declares no column names: an embedding entity names both columns of each section with
+ * {@link jakarta.persistence.AttributeOverride @AttributeOverride}s, e.g.
+ * {@code (COUNTRY_SUBREGION, COUNTRY_SUBREGION_ID)} and {@code (COUNTRY_REGION, COUNTRY_REGION_ID)}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -44,24 +48,14 @@ public class CountrySection {
     // ------------------------------------------------------------------------------------------------------------ NAME
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_NAME} attribute maps. The value is {@value}.
-     */
-    public static final String COLUMN_NAME_NAME = "NAME";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the name column of a section. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_NAME = "name";
 
     // -------------------------------------------------------------------------------------------------------------- ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_ID} attribute maps. The value is {@value}.
-     */
-    public static final String COLUMN_NAME_ID = "ID";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ID} column. The value is {@value}.
+     * The name of the attribute which maps the id column of a section. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID = "id";
 
@@ -84,6 +78,13 @@ public class CountrySection {
                '}';
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param obj {@inheritDoc}
+     * @return {@inheritDoc}
+     * @implSpec Equality is by both {@value #ATTRIBUTE_NAME_NAME} and {@value #ATTRIBUTE_NAME_ID}.
+     */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof CountrySection that)) {
@@ -93,6 +94,13 @@ public class CountrySection {
                Objects.equals(id, that.id);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     * @implSpec The hash is over both {@value #ATTRIBUTE_NAME_NAME} and {@value #ATTRIBUTE_NAME_ID}, consistent with
+     * {@link #equals(Object)}.
+     */
     @Override
     public final int hashCode() {
         return Objects.hash(name, id);
@@ -145,15 +153,12 @@ public class CountrySection {
     @Nonnull
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    // no length, and hence no SIZE_MAX_NAME: this embeddable is meant to be reused for each of the section column
-    // pairs, whose name columns are of different widths, so the owning entity supplies the length through an
-    // @AttributeOverride rather than the embeddable fixing one here
-    @Column(name = COLUMN_NAME_NAME, nullable = false, insertable = true, updatable = false)
+    // no @Column: the embedding entity defines both columns of each section -- name, length, nullability --
+    // through an @AttributeOverride, which replaces any @Column declared here
     private String name;
 
     @Nonnull
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_ID, nullable = false, insertable = true, updatable = false)
     private Long id;
 }
