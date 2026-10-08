@@ -20,7 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.test.___Persistence_TestUtils;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -29,7 +28,7 @@ import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.github.jinahya.oracle.sample.schemas.persistence.test.__Persistence_Test_Producer.__TestPU;
+import static com.github.jinahya.oracle.sample.schemas.persistence.co._Persistence_Test_Producer.__TestPU;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**

@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.test;
+package com.github.jinahya.oracle.sample.schemas.persistence.co;
 
 /*-
  * #%L
- * test-base
+ * co
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
@@ -36,7 +36,7 @@ import java.util.function.Function;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @apiNote Every method here takes the entity manager it works with, so the same method serves either persistence unit
  * and nothing here has to know which one the caller is on. Obtaining an entity manager is not this class's business:
- * {@link __Persistence_Test_Producer} and {@link __Persistence_IT_Producer} produce them as CDI beans, and a test which
+ * {@link _Persistence_Test_Producer} and {@link _Persistence_IT_Producer} produce them as CDI beans, and a test which
  * needs one injects it rather than opening one here.
  */
 @SuppressWarnings({

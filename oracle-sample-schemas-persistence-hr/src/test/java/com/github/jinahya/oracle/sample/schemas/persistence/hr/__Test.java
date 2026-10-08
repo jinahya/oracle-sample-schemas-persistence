@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.test;
+package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 /*-
  * #%L
- * test-base
+ * hr
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%

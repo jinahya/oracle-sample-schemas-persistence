@@ -50,7 +50,6 @@
   </developers>
 
   <modules>
-    <module>test-base</module>
     <module>oracle-sample-schemas-persistence-co</module>
     <module>oracle-sample-schemas-persistence-hr</module>
     <module>oracle-sample-schemas-persistence-sh</module>
@@ -609,10 +608,6 @@
               <!-- Even unlinted, javadoc warns of a named query's `<` quoted in the metamodel as invalid -->
               <!-- HTML input, and that warning is the metamodel's, not ours. -->
               <failOnWarnings>false</failOnWarnings>
-              <!-- co, hr and sh are named modules; test-base, which holds the test base classes and is no -->
-              <!-- part of the published API, is not, and javadoc cannot aggregate named and unnamed -->
-              <!-- modules into one report. -->
-              <skippedModules>test-base</skippedModules>
             </configuration>
             <reports>
               <report>aggregate-no-fork</report>
@@ -657,7 +652,6 @@
                 <additionalOption>--add-reads com.github.jinahya.oracle.sample.schemas.persistence.hr=ALL-UNNAMED</additionalOption>
                 <additionalOption>--add-reads com.github.jinahya.oracle.sample.schemas.persistence.sh=ALL-UNNAMED</additionalOption>
               </additionalOptions>
-              <skippedModules>test-base</skippedModules>
               <!-- The metamodel is patched in with the main sources, and javadoc warns of a named -->
               <!-- query's `<` it quotes as invalid HTML input; each module's own test-javadoc-no-fork -->
               <!-- report above still fails on a warning of the test sources. -->
