@@ -41,7 +41,7 @@ upstream schema under `objects`.
 Rendering is Graphviz, so `dot` must be on `PATH` (`brew install graphviz`); the script
 stops with that message if it is missing. Each run rewrites every diagram for the module
 and deletes files in `doc/erd` it did not write, so a dropped entity takes its diagram with
-it. `test-base` has no entities and gets no directory.
+it.
 
 ## Where the facts come from
 

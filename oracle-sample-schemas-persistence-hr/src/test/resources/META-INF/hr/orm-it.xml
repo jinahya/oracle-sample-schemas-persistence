@@ -20,7 +20,7 @@
   -->
 
 <!--
-  The schema the __itPU persistence unit reads.
+  The schema the hr-it persistence unit reads.
 
   The entities map unqualified table names, on purpose, so that nothing in src/main knows which
   schema it was installed into. The integration-test unit connects as a DML-only user which owns
@@ -29,7 +29,7 @@
   with ORA-00942.
 
   <persistence-unit-defaults><schema> is the standard, provider-neutral way to say it: it qualifies
-  every table of this unit, and only of this unit, so __testPU keeps mapping unqualified names into
+  every table of this unit, and only of this unit, so hr-test keeps mapping unqualified names into
   the in-memory database.
   -->
 <entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"

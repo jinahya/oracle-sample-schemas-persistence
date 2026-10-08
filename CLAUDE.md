@@ -7,8 +7,8 @@ Guidance for Claude Code when working in this repository.
 Jakarta Persistence mappings for the
 [Oracle Database Sample Schemas](https://github.com/oracle-samples/db-sample-schemas),
 one Maven module per schema -- `oracle-sample-schemas-persistence-co`, `-hr` and `-sh`, each in a
-directory of the same name and referred to below by its schema (`co`, `hr`, `sh`) -- plus
-`test-base` for the shared test base classes.
+directory of the same name and referred to below by its schema (`co`, `hr`, `sh`). The modules are
+independent of each other, tests included: each carries its own test bases in its own test package.
 
 **These are pure Jakarta Persistence modules.** Two rules follow from that:
 
@@ -100,26 +100,35 @@ What this gives up is coverage of EclipseLink's metamodel processor. EclipseLink
 exercised as the persistence provider — every `*_Persistence_Test` and `*_Persistence_IT` runs
 against it — which is the behavioural difference the profile exists for.
 
-Each module names its persistence units after itself -- `__co_testPU` / `__co_itPU`, and so on --
-because a unit name is only required to be unique within the archive that declares it, while every
-module of this build lands on one classpath whenever they are built or run together (an IDE running
-the whole project, or a reader depending on two modules at once). Two units sharing a name there is
-unspecified: the provider takes whichever descriptor it finds first, silently, and every test of the
-other modules then aborts with "not a managed type". Hibernate says so as `HHH008518`.
+Each module names its persistence units after its schema -- `co-test` / `co-it`, `hr-test` /
+`hr-it`, `sh-test` / `sh-it` -- because a unit name is only required to be unique within the
+archive that declares it, while the modules' test classpaths can still meet in one JVM: an IDE
+running every test of the project (a JUnit configuration searching *In whole project*) does exactly
+that. Two units sharing a name there is unspecified: the provider takes whichever descriptor it
+finds first, silently, and every test of the other modules then aborts with "not a managed type" --
+reported as skipped, not failed. Hibernate says so as `HHH008518`.
 
-That name lives in a per-module producer -- `_Persistence_Test_Producer` and its three siblings --
-which `_Persistence_Test` names in its `@AddBeanClasses`, and which every `*_Persistence_Test` of
-the module extends. The shared `__Persistence_Test_Producer` is abstract and supplies everything but
-the name. Note that its four `@Produces`/`@Disposes` methods **are overridden in each module
-producer**: CDI does not inherit producer or disposer methods, and an inherited `@Produces` is simply
-not seen -- the injection point fails with `WELD-001408`.
+The same goes for any resource a unit names by path. `orm-it.xml`, which sets the IT unit's default
+schema, lives at `META-INF/<schema>/orm-it.xml` -- `META-INF/co/orm-it.xml`, and so on -- and each
+module's `persistence.xml` names its own. Were all three at `META-INF/orm-it.xml`, one JVM would
+resolve every unit's `<mapping-file>` to the first copy found, and two of the three modules' ITs
+would look for their tables in the wrong schema.
 
-The same goes, as for unit names, for any resource a unit names by path. `orm-it.xml`, which
-sets the IT unit's default schema, lives at `META-INF/<schema>/orm-it.xml` -- `META-INF/co/orm-it.xml`, and so on -- and each
-module's `persistence.xml` names its own. Were all three at `META-INF/orm-it.xml`, one classpath would
-resolve every unit's `<mapping-file>` to the first copy found, and two of the three modules' ITs would
-look for their tables in the wrong schema. Running an abstract base class such as `__Persistence_IT`
-from the IDE does exactly that: it collects the subclasses of every module into one JVM.
+### Test bases, one copy per module
+
+There is no shared test module. Each module has, in its own test package, its own
+`_Persistence_Test` / `_Persistence_IT` base classes, their CDI producers
+`_Persistence_Test_Producer` / `_Persistence_IT_Producer`, and the helpers `__Test`, `___Test` and
+`___Persistence_TestUtils`. Every `*_Persistence_Test` / `*_Persistence_IT` extends its module's
+base, which names the producer in its own `@AddBeanClasses`; the producer holds the unit name as
+its `PERSISTENCE_UNIT_NAME` constant.
+
+Keep the producers concrete. These classes used to live in a shared `test-base` module, with an
+abstract producer that a subclass in each module completed by supplying the name -- and since CDI
+does not inherit producer or disposer methods (an inherited `@Produces` is simply not seen, and the
+injection point fails with `WELD-001408`), each subclass had to re-declare all four just to supply
+it. As with the `Mapped*` classes, the copies are kept in step by hand: a fix to one module's test
+base is carried to the other two, unless it is specific to that module.
 
 Every persistence unit carries `<exclude-unlisted-classes>true</exclude-unlisted-classes>`,
 and it stays: a module deliberately leaves classes out, and the flag is what keeps them out.
