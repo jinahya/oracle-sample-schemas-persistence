@@ -30,12 +30,12 @@ import jakarta.persistence.metamodel.Type;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.Accessors;
+import org.jboss.weld.junit5.auto.AddBeanClasses;
+import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.jboss.weld.junit5.auto.EnableAutoWeld;
 
 import java.lang.reflect.Field;
 import java.util.Objects;
@@ -50,8 +50,8 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  * An abstract base class for integration tests which need the physical database, against a module's integration-test
  * persistence unit.
  * <p>
- * The container is started by weld-testing, with {@link _Persistence_IT_Producer} as its bean class; a test then gets an entity manager on the Oracle
- * database the sample schemas were installed into, connecting as {@code dmlonly}.
+ * The container is started by weld-testing, with {@link _Persistence_IT_Producer} as its bean class; a test then gets
+ * an entity manager on the Oracle database the sample schemas were installed into, connecting as {@code dmlonly}.
  * <p>
  * These run under the {@code failsafe} profile only, and require the container from {@code docker-compose.yml} to be
  * up. Generating a schema is disabled for this unit: the tables are the ones Oracle's own installer created, and the

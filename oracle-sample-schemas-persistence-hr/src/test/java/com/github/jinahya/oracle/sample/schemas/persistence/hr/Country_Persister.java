@@ -37,9 +37,9 @@ import java.util.stream.Stream;
  * Each instance is given a newly persisted {@link Region} first, so that its {@code region} refers to a row which is
  * already in the database.
  * <p>
- * Its {@code countryId}, a {@value Country#COLUMN_LENGTH_COUNTRY_ID}-character key, is replaced with an upper-case
- * code no row takes: a randomized one collides, now and then, with the 25 codes the sample data installs, and fails
- * with {@code ORA-00001}.
+ * Its {@code countryId}, a {@value Country#COLUMN_LENGTH_COUNTRY_ID}-character key, is replaced with an upper-case code
+ * no row takes: a randomized one collides, now and then, with the 25 codes the sample data installs, and fails with
+ * {@code ORA-00001}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */

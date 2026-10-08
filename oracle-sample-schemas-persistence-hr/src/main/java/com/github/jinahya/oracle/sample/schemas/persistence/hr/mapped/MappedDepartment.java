@@ -314,8 +314,8 @@ public abstract class MappedDepartment {
     // ------------------------------------------------------------------------------------------------------- managerId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute, which is {@code null} until this
-     * instance is loaded.
+     * Returns current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute, which is {@code null} until this instance
+     * is loaded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute.
      * @apiNote This method is {@code protected}, not package-private, so that a lazy proxy, which is a subclass in

@@ -32,8 +32,8 @@ import java.util.stream.LongStream;
  * identifier, because every column of that identifier is a foreign key.
  * <p>
  * The {@link Channel} is the exception: {@code CHANNELS.CHANNEL_ID} is an unbounded {@code NUMBER}, while the
- * {@code SALES.CHANNEL_ID} referencing it holds {@value Sale#COLUMN_PRECISION_CHANNEL_ID} digit(s) only, so a randomized
- * channel key does not fit a sale. The channel is given the lowest key which fits and is not taken yet.
+ * {@code SALES.CHANNEL_ID} referencing it holds {@value Sale#COLUMN_PRECISION_CHANNEL_ID} digit(s) only, so a
+ * randomized channel key does not fit a sale. The channel is given the lowest key which fits and is not taken yet.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */

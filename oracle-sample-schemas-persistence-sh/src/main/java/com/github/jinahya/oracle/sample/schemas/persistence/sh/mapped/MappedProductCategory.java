@@ -19,6 +19,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
  * limitations under the License.
  * #L%
  */
+
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.FetchType;
@@ -28,8 +29,8 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * A superclass for a category -- a category or a subcategory -- of the {@value MappedProduct#TABLE_NAME} table: a
- * name column, the numeric id column, and the description column that go with it.
+ * A superclass for a category -- a category or a subcategory -- of the {@value MappedProduct#TABLE_NAME} table: a name
+ * column, the numeric id column, and the description column that go with it.
  * <p>
  * The class declares no column names: an embedding entity names all three columns of each category with
  * {@link jakarta.persistence.AttributeOverride @AttributeOverride}s.

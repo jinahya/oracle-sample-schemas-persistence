@@ -44,8 +44,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * An entity class for mapping the {@value OrderItem#TABLE_NAME} table, whose composite primary key is
- * mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
+ * An entity class for mapping the {@value OrderItem#TABLE_NAME} table, whose composite primary key is mapped with an
+ * {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */

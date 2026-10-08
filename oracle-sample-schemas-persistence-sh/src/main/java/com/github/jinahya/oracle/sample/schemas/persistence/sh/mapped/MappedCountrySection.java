@@ -33,8 +33,8 @@ import java.util.Objects;
  * table: a name column, and the numeric id column that goes with it.
  * <p>
  * The class declares no column names: an embedding entity names both columns of each section with
- * {@link jakarta.persistence.AttributeOverride @AttributeOverride}s, e.g. {@code (COUNTRY_SUBREGION,
- * COUNTRY_SUBREGION_ID)} and {@code (COUNTRY_REGION, COUNTRY_REGION_ID)}.
+ * {@link jakarta.persistence.AttributeOverride @AttributeOverride}s, e.g.
+ * {@code (COUNTRY_SUBREGION, COUNTRY_SUBREGION_ID)} and {@code (COUNTRY_REGION, COUNTRY_REGION_ID)}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedCountry

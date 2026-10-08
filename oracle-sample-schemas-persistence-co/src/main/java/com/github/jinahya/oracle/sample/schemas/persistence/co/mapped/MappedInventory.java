@@ -40,8 +40,8 @@ import jakarta.validation.constraints.NotNull;
  * The {@value MappedInventory#COLUMN_NAME_STORE_ID} and {@value MappedInventory#COLUMN_NAME_PRODUCT_ID} columns are
  * mapped read-only ({@code insertable = false, updatable = false}) and have no setters. They are here for
  * {@link #equals(Object)}, {@link #hashCode()}, {@link #toString()} and for queries, not for writing: how the
- * {@code STORES} and {@code PRODUCTS} relationships are mapped -- fetch type, cascade, whether there is an association at
- * all -- is the extending entity's decision, so the extending entity also owns the writable mapping of each column,
+ * {@code STORES} and {@code PRODUCTS} relationships are mapped -- fetch type, cascade, whether there is an association
+ * at all -- is the extending entity's decision, so the extending entity also owns the writable mapping of each column,
  * by an association's {@link jakarta.persistence.JoinColumn @JoinColumn} or by an
  * {@link jakarta.persistence.AttributeOverride @AttributeOverride}. <strong>An extending entity which maps neither
  * never writes these columns.</strong>
@@ -137,10 +137,10 @@ public abstract class MappedInventory implements __MappedDomainEntity<Long> {
      * @return {@inheritDoc}
      * @implSpec Equality is by ({@value #COLUMN_NAME_STORE_ID}, {@value #COLUMN_NAME_PRODUCT_ID}), the pair the table
      * declares unique, read through the {@value #ATTRIBUTE_NAME_STORE_ID} and {@value #ATTRIBUTE_NAME_PRODUCT_ID}
-     * attributes which map those two columns; both are read through their {@code protected} getters, which a lazy
-     * proxy can override, and which is what makes the comparison correct for an instance which is still a proxy.
-     * Both attributes are read-only and stay {@code null} until the instance is loaded, so an instance missing either
-     * one equals itself only; otherwise every instance not yet loaded would equal every other.
+     * attributes which map those two columns; both are read through their {@code protected} getters, which a lazy proxy
+     * can override, and which is what makes the comparison correct for an instance which is still a proxy. Both
+     * attributes are read-only and stay {@code null} until the instance is loaded, so an instance missing either one
+     * equals itself only; otherwise every instance not yet loaded would equal every other.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -226,8 +226,8 @@ public abstract class MappedInventory implements __MappedDomainEntity<Long> {
     // --------------------------------------------------------------------------------------------------------- product
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute, which is {@code null} until this
-     * instance is loaded.
+     * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute, which is {@code null} until this instance
+     * is loaded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
      * @apiNote This method is {@code protected}, not package-private, so that a lazy proxy, which is a subclass in

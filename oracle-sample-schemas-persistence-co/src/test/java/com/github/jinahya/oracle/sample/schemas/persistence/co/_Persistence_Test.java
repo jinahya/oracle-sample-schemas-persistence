@@ -33,12 +33,12 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
+import org.jboss.weld.junit5.auto.AddBeanClasses;
+import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.jboss.weld.junit5.auto.EnableAutoWeld;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -54,8 +54,8 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 /**
  * An abstract base class for tests which need a persistence context, against a module's unit-test persistence unit.
  * <p>
- * The container is started by weld-testing, with {@link _Persistence_Test_Producer} as its bean class; a test then gets an entity manager on an in-memory
- * database whose schema the provider generates.
+ * The container is started by weld-testing, with {@link _Persistence_Test_Producer} as its bean class; a test then gets
+ * an entity manager on an in-memory database whose schema the provider generates.
  * <p>
  * Nothing here reaches the Oracle database; a test which needs the real data extends {@link _Persistence_IT} and is
  * named {@code *_IT} so that failsafe, not surefire, runs it.
@@ -192,11 +192,11 @@ public abstract class _Persistence_Test<T> extends ___Test<T> {
          * The identifier has to be a single basic attribute. An {@link jakarta.persistence.IdClass IdClass} is left out
          * because assembling one generically is more than this base class knows how to do. An
          * {@link jakarta.persistence.EmbeddedId EmbeddedId} is left out because an entity may derive a component of it
-         * through {@link jakarta.persistence.MapsId @MapsId} -- {@code CO}'s {@code OrderItem} does --
-         * and the two providers disagree about that component: Hibernate copies the association's identifier into the
-         * embedded one as it flushes, EclipseLink writes the column but leaves the component of the managed instance
-         * {@code null}, so there is no identifier to hand {@code find} which is right under both. The row itself is
-         * written correctly either way, and {@link #_persist_RandomizedInstance()} is what covers that.
+         * through {@link jakarta.persistence.MapsId @MapsId} -- {@code CO}'s {@code OrderItem} does -- and the two
+         * providers disagree about that component: Hibernate copies the association's identifier into the embedded one
+         * as it flushes, EclipseLink writes the column but leaves the component of the managed instance {@code null},
+         * so there is no identifier to hand {@code find} which is right under both. The row itself is written correctly
+         * either way, and {@link #_persist_RandomizedInstance()} is what covers that.
          */
         @BeforeEach
         void assumeTargetClassIsPersistableAndAddressable() {

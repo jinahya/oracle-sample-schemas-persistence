@@ -806,8 +806,8 @@ public abstract class MappedCustomer {
     // ------------------------------------------------------------------------------------------------------- countryId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute, which is {@code null} until this
-     * instance is loaded.
+     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute, which is {@code null} until this instance
+     * is loaded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
      * @apiNote This method is {@code protected}, not package-private, so that a lazy proxy, which is a subclass in

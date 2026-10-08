@@ -40,6 +40,7 @@ class MappedInventory_Test {
      * A concrete extension, standing in for an entity.
      */
     private static class Concrete extends MappedInventory {
+
     }
 
     /**
@@ -93,8 +94,8 @@ class MappedInventory_Test {
      * @implNote Equality is by the business key ({@code storeId}, {@code productId}), not by the {@code @Id}, and an
      * instance missing either equals itself only, while the hash is constant. That takes three warnings suppressed:
      * {@link Warning#STRICT_HASHCODE} for the constant hash, {@link Warning#IDENTICAL_COPY_FOR_VERSIONED_ENTITY} for an
-     * unloaded instance equalling itself only, and {@link Warning#ALL_FIELDS_SHOULD_BE_USED} for the fields outside
-     * the key.
+     * unloaded instance equalling itself only, and {@link Warning#ALL_FIELDS_SHOULD_BE_USED} for the fields outside the
+     * key.
      */
     @Test
     void equals_verify_() {

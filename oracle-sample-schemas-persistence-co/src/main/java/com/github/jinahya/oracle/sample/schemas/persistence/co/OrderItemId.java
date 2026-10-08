@@ -29,8 +29,8 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * An id class for the {@value OrderItem#TABLE_NAME} table; the {@link jakarta.persistence.EmbeddedId @EmbeddedId}
- * of {@link OrderItem}.
+ * An id class for the {@value OrderItem#TABLE_NAME} table; the {@link jakarta.persistence.EmbeddedId @EmbeddedId} of
+ * {@link OrderItem}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -38,14 +38,13 @@ import java.util.Objects;
 public class OrderItemId {
 
     /**
-     * The name of the attribute which maps the {@value OrderItem#COLUMN_NAME_ORDER_ID} column. The value
-     * is {@value}.
+     * The name of the attribute which maps the {@value OrderItem#COLUMN_NAME_ORDER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
 
     /**
-     * The name of the attribute which maps the {@value OrderItem#COLUMN_NAME_LINE_ITEM_ID} column. The
-     * value is {@value}.
+     * The name of the attribute which maps the {@value OrderItem#COLUMN_NAME_LINE_ITEM_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_LINE_ITEM_ID = "lineItemId";
 

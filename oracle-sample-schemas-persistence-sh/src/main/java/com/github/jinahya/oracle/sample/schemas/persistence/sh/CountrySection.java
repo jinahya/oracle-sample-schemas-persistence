@@ -34,8 +34,8 @@ import java.util.Objects;
  * <p>
  * No entity of this module embeds this class yet; {@link Country} maps each of those column pairs as plain attributes.
  * The class declares no column names: an embedding entity names both columns of each section with
- * {@link jakarta.persistence.AttributeOverride @AttributeOverride}s, e.g. {@code (COUNTRY_SUBREGION,
- * COUNTRY_SUBREGION_ID)} and {@code (COUNTRY_REGION, COUNTRY_REGION_ID)}.
+ * {@link jakarta.persistence.AttributeOverride @AttributeOverride}s, e.g.
+ * {@code (COUNTRY_SUBREGION, COUNTRY_SUBREGION_ID)} and {@code (COUNTRY_REGION, COUNTRY_REGION_ID)}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */

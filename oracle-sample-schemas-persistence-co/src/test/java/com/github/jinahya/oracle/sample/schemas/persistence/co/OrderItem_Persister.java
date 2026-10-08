@@ -45,7 +45,7 @@ class OrderItem_Persister extends AbstractEntityPersister<OrderItem> {
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     public OrderItem apply(final EntityManager entityManager,
-                                         final OrderItem entityInstance) {
+                           final OrderItem entityInstance) {
         final var order = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Order.class);
         final var product = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class);
         final Shipment shipment = ThreadLocalRandom.current().nextBoolean() ? null :

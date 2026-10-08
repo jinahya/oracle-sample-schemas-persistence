@@ -42,9 +42,9 @@ import java.lang.invoke.MethodHandles;
  * creates.
  * <p>
  * The unit is the one named {@value #PERSISTENCE_UNIT_NAME}, which this module's {@code META-INF/persistence.xml}
- * declares. A persistence unit name is only required to be unique within the archive that declares it, and every
- * module of this build may end up on one classpath -- an IDE running every test of the project, say -- so each module
- * names its units after its own schema, {@code CO}.
+ * declares. A persistence unit name is only required to be unique within the archive that declares it, and every module
+ * of this build may end up on one classpath -- an IDE running every test of the project, say -- so each module names
+ * its units after its own schema, {@code CO}.
  * <p>
  * The unit is bootstrapped the Java SE way, through {@link Persistence#createEntityManagerFactory(String)}, so the
  * provider, the JDBC properties and the listed entity classes are whatever {@code META-INF/persistence.xml} says --

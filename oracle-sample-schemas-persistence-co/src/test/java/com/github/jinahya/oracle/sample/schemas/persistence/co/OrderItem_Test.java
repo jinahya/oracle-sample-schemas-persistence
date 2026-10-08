@@ -39,9 +39,8 @@ class OrderItem_Test extends _Test<OrderItem> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link OrderItem#equals(Object) equals} compares only the embedded {@code @Id} {@code id}
-     * -- the composite key of {@code orderId} and {@code lineItemId} -- because every other attribute is mutable
-     * state.
+     * @implNote {@link OrderItem#equals(Object) equals} compares only the embedded {@code @Id} {@code id} -- the
+     * composite key of {@code orderId} and {@code lineItemId} -- because every other attribute is mutable state.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<OrderItem> equals_verifier_() {
