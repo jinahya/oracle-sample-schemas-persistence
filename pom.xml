@@ -101,7 +101,7 @@
     <version.maven-failsafe>${version.maven-surefire}</version.maven-failsafe>
     <version.maven-surefire>3.6.0</version.maven-surefire>
 <!--    <version.jinahya-persistence>0.6.1</version.jinahya-persistence>-->
-    <version.jinahya-persistence>0.6.2-SNAPSHOT</version.jinahya-persistence>
+    <version.jinahya-persistence>0.6.5</version.jinahya-persistence>
     <!-- https://central.sonatype.com/artifact/uk.co.jemos.podam/podam/versions -->
     <version.uk.co.jemos.podam>8.0.2.RELEASE</version.uk.co.jemos.podam>
     <!-- https://www.oracle.com/kr/database/technologies/appdev/jdbc-downloads.html -->
