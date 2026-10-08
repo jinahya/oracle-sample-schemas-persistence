@@ -577,7 +577,7 @@ public class Order implements __DomainEntity<Long> {
      * @return the total price of this order.
      * @throws IllegalArgumentException if the order items of this order are {@code null}.
      * @throws IllegalStateException    if the unit price or the quantity of any of its order items is {@code null}.
-     * @see OrderItemWithEmbeddedId#getTotalPrice(java.math.MathContext)
+     * @see OrderItem#getTotalPrice(java.math.MathContext)
      */
     public BigDecimal getTotalPrice() {
         if (orderItems == null) {
@@ -597,7 +597,7 @@ public class Order implements __DomainEntity<Long> {
      * @throws NullPointerException  if {@code product} is {@code null}.
      * @throws IllegalStateException if the order items of this order are {@code null}.
      */
-    public @jakarta.annotation.Nullable OrderItemWithEmbeddedId getOrderItem(@Nonnull final Product product) {
+    public @jakarta.annotation.Nullable OrderItem getOrderItem(@Nonnull final Product product) {
         Objects.requireNonNull(product, "product is null");
         if (orderItems == null) {
             throw new IllegalStateException("orderItems is null");
@@ -605,7 +605,7 @@ public class Order implements __DomainEntity<Long> {
         return orderItems.get(product);
     }
 
-    void addOrderItem(@Nonnull final OrderItemWithEmbeddedId orderItem) {
+    void addOrderItem(@Nonnull final OrderItem orderItem) {
         Objects.requireNonNull(orderItem, "orderItem is null");
         // TODO: check the orderStatus!!!
         final var previous = getOrderItem(orderItem.getProduct());
@@ -617,7 +617,7 @@ public class Order implements __DomainEntity<Long> {
     }
 
     @jakarta.annotation.Nullable
-    OrderItemWithEmbeddedId removeOrderItem(@Nonnull final Product product) {
+    OrderItem removeOrderItem(@Nonnull final Product product) {
         Objects.requireNonNull(product, "product is null");
         if (orderItems == null) {
             throw new IllegalStateException("orderItems is null");
@@ -674,13 +674,13 @@ public class Order implements __DomainEntity<Long> {
     private Store store;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @MapKeyColumn(name = OrderItemWithEmbeddedId.COLUMN_NAME_PRODUCT_ID)
-    @OneToMany(mappedBy = OrderItemWithEmbeddedId.ATTRIBUTE_NAME_ORDER,
+    @MapKeyColumn(name = OrderItem.COLUMN_NAME_PRODUCT_ID)
+    @OneToMany(mappedBy = OrderItem.ATTRIBUTE_NAME_ORDER,
                fetch = FetchType.LAZY,
                cascade = {
                        // TODO: add, may be all?
                },
                orphanRemoval = true
     )
-    private Map<Product, OrderItemWithEmbeddedId> orderItems;
+    private Map<Product, OrderItem> orderItems;
 }

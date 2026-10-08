@@ -65,7 +65,7 @@ has no upstream type, so the diagram falls back to the Java type. That is correc
 those are exactly the columns whose type the mapping alone decides.
 
 The generator resolves `COLUMN_NAME_*` / `TABLE_NAME` constants, including cross-class
-references such as `OrderItemWithEmbeddedId.COLUMN_NAME_PRODUCT_ID`, so it depends on the
+references such as `OrderItem.COLUMN_NAME_PRODUCT_ID`, so it depends on the
 conventions in CLAUDE.md: every mapped column names itself through a constant, and every
 entity declares `TABLE_NAME`.
 

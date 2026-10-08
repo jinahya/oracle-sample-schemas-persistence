@@ -8,7 +8,7 @@ Exercises for the Customer Orders (CO) schema: business questions that a store m
 marketing or finance would ask of a small retail chain, each answered with a query. Every problem is stated as a
 request, followed by one or more solutions. The `sql` blocks are Oracle SQL against the installed schema
 (see link:README.md[README.md]), with `:name` bind variables. The `jpaql` blocks are Jakarta Persistence 3.2 query
-language against this module's entities -- `Customer`, `Store`, `Product`, `Order`, `OrderItemWithEmbeddedId`,
+language against this module's entities -- `Customer`, `Store`, `Product`, `Order`, `OrderItem`,
 `Shipment`, `Inventory`, and the views `CustomerOrderProduct` and `ProductOrder` -- with named
 parameters of the same names.
 
@@ -25,14 +25,13 @@ A few things about the mappings shape the JPQL below:
   parameter or a fully qualified enum literal, never with a string.
 * `+SHIPMENTS.SHIPMENT_STATUS+` is `Shipment.ShipmentStatus`, mapped through `ShipmentStatusConverter`, because the
   column holds `+IN-TRANSIT+` and the constant is `+IN_TRANSIT+`. Bind the enum as a parameter.
-* `Order.orderItems` is a `+Map<Product, OrderItemWithEmbeddedId>+` whose key is mapped with `+@MapKeyColumn+`, which is
+* `Order.orderItems` is a `+Map<Product, OrderItem>+` whose key is mapped with `+@MapKeyColumn+`, which is
   meant for basic keys. For an entity key the providers look for a join column named `+orderItems_KEY+`, which
   `+ORDER_ITEMS+` does not have: EclipseLink fails on any `JOIN o.orderItems`, Hibernate on `KEY(...)`. The queries
-  below therefore start from `OrderItemWithEmbeddedId` and navigate `oi.order`, or join it to an order with a
-  Jakarta Persistence 3.2 entity join, `+JOIN OrderItemWithEmbeddedId oi ON oi.order = o+`.
-* The persistence units list `OrderItemWithEmbeddedId`. `OrderItemWithIdClass` maps the same table the other way;
-  its queries are shown where the id path differs (`oi.id.lineItemId` against `oi.lineItemId`), and need a unit that
-  lists it instead. `ProductOrder` maps `+PRODUCT_ORDERS+` with an `+@EmbeddedId+`, so its key is
+  below therefore start from `OrderItem` and navigate `oi.order`, or join it to an order with a
+  Jakarta Persistence 3.2 entity join, `+JOIN OrderItem oi ON oi.order = o+`.
+* `OrderItem` maps `+ORDER_ITEMS+` with an `+@EmbeddedId+`, `OrderItemId`, so its key is `oi.id.orderId` and
+  `oi.id.lineItemId`. `ProductOrder` maps `+PRODUCT_ORDERS+` with an `+@EmbeddedId+`, so its key is
   `v.id.productName` and `v.id.orderStatus`.
 * `+STORE_ORDERS+` and `+PRODUCT_REVIEWS+` are not entities (`StoreOrder`, `ProductReview`), and
   `+PRODUCTS.PRODUCT_DETAILS+` is a JSON document mapped as a `+byte[]+` LOB. Queries over them are SQL only, and the
@@ -605,7 +604,7 @@ it is null for the first order. Subtracting two ``TIMESTAMP``s gives an `INTERVA
 
 == ORDER_ITEMS
 
-`+ORDER_ITEMS+` is queried through `OrderItemWithEmbeddedId` (see the note on `Order.orderItems` above); its order and
+`+ORDER_ITEMS+` is queried through `OrderItem` (see the note on `Order.orderItems` above); its order and
 line number are `oi.id.orderId` and `oi.id.lineItemId`.
 
 === Basic
@@ -626,7 +625,7 @@ ORDER BY quantity DESC, order_id, line_item_id
 [source,jpaql]
 ----
 SELECT oi
-FROM OrderItemWithEmbeddedId oi
+FROM OrderItem oi
 WHERE oi.quantity >= :minQuantity
 ORDER BY oi.quantity DESC, oi.id.orderId, oi.id.lineItemId
 ----
@@ -653,7 +652,7 @@ ORDER BY order_total DESC
 [source,jpaql]
 ----
 SELECT oi.id.orderId, COUNT(oi), SUM(oi.quantity), SUM(oi.unitPrice * oi.quantity)
-FROM OrderItemWithEmbeddedId oi
+FROM OrderItem oi
 GROUP BY oi.id.orderId
 HAVING SUM(oi.unitPrice * oi.quantity) > :amount
 ORDER BY SUM(oi.unitPrice * oi.quantity) DESC
@@ -681,9 +680,9 @@ ORDER BY order_id, line_item_id
 [source,jpaql]
 ----
 SELECT oi.id.orderId, oi.id.lineItemId, oi.product.productId, oi.unitPrice * oi.quantity
-FROM OrderItemWithEmbeddedId oi
+FROM OrderItem oi
 WHERE oi.unitPrice * oi.quantity >= ALL (SELECT oi2.unitPrice * oi2.quantity
-                                         FROM OrderItemWithEmbeddedId oi2
+                                         FROM OrderItem oi2
                                          WHERE oi2.id.orderId = oi.id.orderId)
 ORDER BY oi.id.orderId, oi.id.lineItemId
 ----
@@ -1346,22 +1345,13 @@ ORDER BY oi.line_item_id
 [source,jpaql]
 ----
 SELECT oi.id.lineItemId, p.productName, oi.unitPrice, oi.quantity, oi.unitPrice * oi.quantity
-FROM OrderItemWithEmbeddedId oi
+FROM OrderItem oi
          JOIN oi.product p
 WHERE oi.id.orderId = :orderId
 ORDER BY oi.id.lineItemId
 ----
 
-[source,jpaql]
-----
-SELECT oi.lineItemId, p.productName, oi.unitPrice, oi.quantity, oi.unitPrice * oi.quantity
-FROM OrderItemWithIdClass oi
-         JOIN oi.product p
-WHERE oi.orderId = :orderId
-ORDER BY oi.lineItemId
-----
-
-The two differ only in the id path: `+@EmbeddedId+` puts the key columns under `oi.id`, `+@IdClass+` puts them on the
+`+@EmbeddedId+` puts the key columns under `oi.id`. `hr`'s `JobHistory`, mapped with an `+@IdClass+`, has them on the
 entity itself.
 
 [[CO-SCHEMA-B-03]]
@@ -1410,7 +1400,7 @@ ORDER BY o.order_tms DESC
 [source,jpaql]
 ----
 SELECT o.orderId, o.orderTms, o.orderStatus, SUM(oi.unitPrice * oi.quantity)
-FROM OrderItemWithEmbeddedId oi
+FROM OrderItem oi
          JOIN oi.order o
 WHERE o.customer.customerId = :customerId
 GROUP BY o.orderId, o.orderTms, o.orderStatus
@@ -1448,7 +1438,7 @@ ORDER BY revenue DESC
 [source,jpaql]
 ----
 SELECT s.storeId, s.storeName, SUM(oi.unitPrice * oi.quantity) AS revenue
-FROM OrderItemWithEmbeddedId oi
+FROM OrderItem oi
          JOIN oi.order o
          JOIN o.store s
 WHERE o.orderStatus = :status
@@ -1479,7 +1469,7 @@ FETCH FIRST 10 ROWS ONLY
 [source,jpaql]
 ----
 SELECT p.productId, p.productName, SUM(oi.quantity) AS unitsSold
-FROM OrderItemWithEmbeddedId oi
+FROM OrderItem oi
          JOIN oi.product p
          JOIN oi.order o
 WHERE o.orderStatus = :status
@@ -1630,7 +1620,7 @@ ORDER BY unshipped_lines DESC, o.order_id
 [source,jpaql]
 ----
 SELECT o.orderId, o.orderStatus, COUNT(oi)
-FROM OrderItemWithEmbeddedId oi
+FROM OrderItem oi
          JOIN oi.order o
 WHERE oi.shipment IS NULL
 GROUP BY o.orderId, o.orderStatus
@@ -1689,7 +1679,7 @@ ORDER BY p.product_name
 ----
 SELECT p
 FROM Product p
-WHERE NOT EXISTS (SELECT oi FROM OrderItemWithEmbeddedId oi WHERE oi.product = p)
+WHERE NOT EXISTS (SELECT oi FROM OrderItem oi WHERE oi.product = p)
 ORDER BY p.productName
 ----
 
@@ -1761,13 +1751,13 @@ ORDER BY store_name, product_name
 [source,jpaql]
 ----
 SELECT s.storeName, p.productName, SUM(oi.quantity)
-FROM OrderItemWithEmbeddedId oi
+FROM OrderItem oi
          JOIN oi.order o
          JOIN o.store s
          JOIN oi.product p
 GROUP BY s.storeId, s.storeName, p.productId, p.productName
 HAVING SUM(oi.quantity) >= ALL (SELECT SUM(oi2.quantity)
-                                FROM OrderItemWithEmbeddedId oi2
+                                FROM OrderItem oi2
                                 WHERE oi2.order.store.storeId = s.storeId
                                 GROUP BY oi2.product.productId)
 ORDER BY s.storeName, p.productName
@@ -1864,14 +1854,14 @@ ORDER BY times_ordered DESC, c.full_name, p.product_name
 SELECT c.fullName, p.productName, COUNT(DISTINCT o) AS timesOrdered
 FROM Customer c
          JOIN c.orders o
-         JOIN OrderItemWithEmbeddedId oi ON oi.order = o
+         JOIN OrderItem oi ON oi.order = o
          JOIN oi.product p
 GROUP BY c.customerId, c.fullName, p.productId, p.productName
 HAVING COUNT(DISTINCT o) > 1
 ORDER BY timesOrdered DESC, c.fullName, p.productName
 ----
 
-`+JOIN OrderItemWithEmbeddedId oi ON oi.order = o+` is an entity join with an `ON` condition, rather than a path join.
+`+JOIN OrderItem oi ON oi.order = o+` is an entity join with an `ON` condition, rather than a path join.
 A product appears at most once per order (`+ORDER_ITEMS_PRODUCT_U+`), so `COUNT(oi)` would give the same number here.
 
 [[CO-SCHEMA-A-07]]
@@ -1896,7 +1886,7 @@ ORDER BY oi.order_id, oi.line_item_id
 [source,jpaql]
 ----
 SELECT oi
-FROM OrderItemWithEmbeddedId oi
+FROM OrderItem oi
          JOIN oi.order o
          JOIN oi.shipment sh
 WHERE sh.customer <> o.customer
@@ -1932,7 +1922,7 @@ SELECT o
 FROM Order o
 WHERE o.orderStatus = :complete
   AND EXISTS (SELECT oi
-              FROM OrderItemWithEmbeddedId oi
+              FROM OrderItem oi
                        LEFT JOIN oi.shipment sh
               WHERE oi.order = o
                 AND (sh IS NULL OR sh.shipmentStatus <> :delivered))
@@ -1960,7 +1950,7 @@ ORDER BY o.order_id
 ----
 SELECT o
 FROM Order o
-WHERE :price < ANY (SELECT oi.unitPrice FROM OrderItemWithEmbeddedId oi WHERE oi.order = o)
+WHERE :price < ANY (SELECT oi.unitPrice FROM OrderItem oi WHERE oi.order = o)
 ORDER BY o.orderId
 ----
 
@@ -1977,7 +1967,7 @@ ORDER BY p.product_name
 ----
 SELECT p
 FROM Product p
-WHERE p.unitPrice > ALL (SELECT oi.unitPrice FROM OrderItemWithEmbeddedId oi WHERE oi.product = p)
+WHERE p.unitPrice > ALL (SELECT oi.unitPrice FROM OrderItem oi WHERE oi.product = p)
   AND p.orderItems IS NOT EMPTY
 ORDER BY p.productName
 ----
@@ -2037,7 +2027,7 @@ ORDER BY order_month
 [source,jpaql]
 ----
 SELECT o.orderId, o.orderTms, SUM(oi.unitPrice * oi.quantity)
-FROM OrderItemWithEmbeddedId oi
+FROM OrderItem oi
          JOIN oi.order o
 WHERE o.orderTms >= :yearStart
   AND o.orderTms < LOCAL DATETIME
@@ -2048,7 +2038,7 @@ ORDER BY o.orderTms
 [source,jpaql]
 ----
 SELECT EXTRACT(MONTH FROM o.orderTms), COUNT(DISTINCT o), SUM(oi.unitPrice * oi.quantity)
-FROM OrderItemWithEmbeddedId oi
+FROM OrderItem oi
          JOIN oi.order o
 WHERE o.orderTms >= :yearStart
   AND o.orderTms < LOCAL DATETIME
@@ -2082,7 +2072,7 @@ ORDER BY oi.order_id, oi.line_item_id
 [source,jpaql]
 ----
 SELECT oi
-FROM OrderItemWithEmbeddedId oi
+FROM OrderItem oi
          JOIN FETCH oi.product
          JOIN FETCH oi.shipment
 WHERE oi.shipment.shipmentId = :shipmentId
@@ -2126,7 +2116,7 @@ ORDER BY revenue_rank
 [source,jpaql]
 ----
 SELECT s.storeName, SUM(oi.unitPrice * oi.quantity) AS revenue
-FROM OrderItemWithEmbeddedId oi
+FROM OrderItem oi
          JOIN oi.order o
          JOIN o.store s
 GROUP BY s.storeId, s.storeName

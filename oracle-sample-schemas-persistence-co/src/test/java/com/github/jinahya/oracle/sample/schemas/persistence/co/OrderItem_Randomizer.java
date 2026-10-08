@@ -28,21 +28,21 @@ import uk.co.jemos.podam.api.PodamFactory;
 import java.util.List;
 
 /**
- * A randomizer which produces randomized {@link OrderItemWithEmbeddedId} instances.
+ * A randomizer which produces randomized {@link OrderItem} instances.
  * <p>
  * The embedded {@code id}, and the {@code order}, {@code product} and {@code shipment} associations, are excluded from
- * randomization; {@link OrderItemWithEmbeddedId_Persister} supplies all of them.
+ * randomization; {@link OrderItem_Persister} supplies all of them.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class OrderItemWithEmbeddedId_Randomizer extends PodamObjectRandomizer<OrderItemWithEmbeddedId> {
+class OrderItem_Randomizer extends PodamObjectRandomizer<OrderItem> {
 
-    OrderItemWithEmbeddedId_Randomizer() {
-        super(OrderItemWithEmbeddedId.class, List.of(
-                OrderItemWithEmbeddedId.ATTRIBUTE_NAME_ID,
-                OrderItemWithEmbeddedId.ATTRIBUTE_NAME_ORDER,
-                OrderItemWithEmbeddedId.ATTRIBUTE_NAME_PRODUCT,
-                OrderItemWithEmbeddedId.ATTRIBUTE_NAME_SHIPMENT
+    OrderItem_Randomizer() {
+        super(OrderItem.class, List.of(
+                OrderItem.ATTRIBUTE_NAME_ID,
+                OrderItem.ATTRIBUTE_NAME_ORDER,
+                OrderItem.ATTRIBUTE_NAME_PRODUCT,
+                OrderItem.ATTRIBUTE_NAME_SHIPMENT
         ));
     }
 
@@ -63,7 +63,7 @@ class OrderItemWithEmbeddedId_Randomizer extends PodamObjectRandomizer<OrderItem
     }
 
     @Override
-    public OrderItemWithEmbeddedId get() {
+    public OrderItem get() {
         return super.get();
     }
 }

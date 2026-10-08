@@ -24,7 +24,7 @@
 --
 -- Parameters are bind variables (:name); the IDE or SQL*Plus prompts for them when a statement runs.
 --
--- ORDER_ITEMS is queried through OrderItemWithEmbeddedId (see the note on Order.orderItems above); its order and line
+-- ORDER_ITEMS is queried through OrderItem (see the note on Order.orderItems above); its order and line
 -- number are oi.id.orderId and oi.id.lineItemId.
 --
 

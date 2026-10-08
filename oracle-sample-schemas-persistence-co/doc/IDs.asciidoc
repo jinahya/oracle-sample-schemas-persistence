@@ -33,7 +33,7 @@ key the schema already names.
 | `CUSTOMERS`   | `CUSTOMER_ID`             | `EMAIL_ADDRESS`          | `Customer`
 | `INVENTORY`   | `INVENTORY_ID`            | `STORE_ID, PRODUCT_ID`   | `Inventory`
 | `ORDERS`      | `ORDER_ID`                | —                        | `Order`
-| `ORDER_ITEMS` | `ORDER_ID, LINE_ITEM_ID`  | `PRODUCT_ID, ORDER_ID`   | `OrderItemWithEmbeddedId`, `OrderItemWithIdClass`
+| `ORDER_ITEMS` | `ORDER_ID, LINE_ITEM_ID`  | `PRODUCT_ID, ORDER_ID`   | `OrderItem`
 | `PRODUCTS`    | `PRODUCT_ID`              | —                        | `Product`
 | `SHIPMENTS`   | `SHIPMENT_ID`             | —                        | `Shipment`
 | `STORES`      | `STORE_ID`                | `STORE_NAME`             | `Store`
@@ -44,8 +44,9 @@ key as well — `CUSTOMERS.EMAIL_ADDRESS` and `STORES.STORE_NAME` would each wor
 natural `@Id`. The surrogate is the better identifier all the same: an email address and a
 store name are both things an application is expected to change.
 
-`ORDER_ITEMS` is the one composite key, which is why the module maps it twice — once with
-an `@EmbeddedId` and once with an `@IdClass`, over the shared `OrderItemId`.
+`ORDER_ITEMS` is the one composite key, mapped with an `@EmbeddedId`, `OrderItemId`. This module
+is where the project shows that style on a declared key; `hr` shows the other, an `@IdClass`, on
+`JOB_HISTORY`.
 
 == Views
 

@@ -291,7 +291,7 @@ public class Shipment implements __DomainEntity<Long> {
     /**
      * The name of the attribute which maps the order items carried by this shipment. The value is {@value}.
      *
-     * @see OrderItemWithEmbeddedId#ATTRIBUTE_NAME_SHIPMENT
+     * @see OrderItem#ATTRIBUTE_NAME_SHIPMENT
      */
     public static final String ATTRIBUTE_NAME_ORDER_ITEMS = "orderItems";
 
@@ -468,7 +468,7 @@ public class Shipment implements __DomainEntity<Long> {
      *
      * @return the order items carried by this shipment.
      */
-    public List<OrderItemWithEmbeddedId> getOrderItems() {
+    public List<OrderItem> getOrderItems() {
         return orderItems;
     }
 
@@ -477,7 +477,7 @@ public class Shipment implements __DomainEntity<Long> {
      *
      * @param orderItems new order items carried by this shipment.
      */
-    public void setOrderItems(final List<OrderItemWithEmbeddedId> orderItems) {
+    public void setOrderItems(final List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
 
@@ -535,11 +535,11 @@ public class Shipment implements __DomainEntity<Long> {
     private ShipmentStatus shipmentStatus;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @OneToMany(mappedBy = OrderItemWithEmbeddedId.ATTRIBUTE_NAME_SHIPMENT,
+    @OneToMany(mappedBy = OrderItem.ATTRIBUTE_NAME_SHIPMENT,
                fetch = FetchType.LAZY,
                cascade = {
                },
                orphanRemoval = false
     )
-    private List<@Valid @NotNull OrderItemWithEmbeddedId> orderItems;
+    private List<@Valid @NotNull OrderItem> orderItems;
 }

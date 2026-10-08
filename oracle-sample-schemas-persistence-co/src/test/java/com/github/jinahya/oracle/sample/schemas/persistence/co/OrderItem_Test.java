@@ -24,14 +24,14 @@ import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
 /**
- * A class for testing the {@link OrderItemWithIdClass} entity class.
+ * A class for testing the {@link OrderItem} entity class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class OrderItemWithIdClass_Test extends _Test<OrderItemWithIdClass> {
+class OrderItem_Test extends _Test<OrderItem> {
 
-    OrderItemWithIdClass_Test() {
-        super(OrderItemWithIdClass.class);
+    OrderItem_Test() {
+        super(OrderItem.class);
     }
 
     // ------------------------------------------------------------------------------------------------- equals/hashCode
@@ -39,14 +39,13 @@ class OrderItemWithIdClass_Test extends _Test<OrderItemWithIdClass> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link OrderItemWithIdClass#equals(Object) equals} compares only the identifier -- the composite key of
-     * the {@code @Id} attributes {@code orderId} and {@code lineItemId} -- because every other attribute is mutable
+     * @implNote {@link OrderItem#equals(Object) equals} compares only the embedded {@code @Id} {@code id}
+     * -- the composite key of {@code orderId} and {@code lineItemId} -- because every other attribute is mutable
      * state.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<OrderItemWithIdClass> equals_verifier_() {
+    protected SingleTypeEqualsVerifierApi<OrderItem> equals_verifier_() {
         return super.equals_verifier_()
-//                .withOnlyTheseFields(OrderItemWithIdClass.ATTRIBUTE_NAME_PRODUCT_ID, OrderItemWithIdClass.ATTRIBUTE_NAME_ORDER_ID)
                 .suppress(Warning.SURROGATE_KEY);
     }
 }

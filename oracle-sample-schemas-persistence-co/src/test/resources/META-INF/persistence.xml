@@ -29,15 +29,10 @@
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
-    <!-- OrderItemWithEmbeddedId and OrderItemWithIdClass map ORDER_ITEMS, two ways; only one may be listed. With
-         both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its metamodel then
-         throws from getIdClassAttributes(). -->
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Customer</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Inventory</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Order</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemWithIdClass</class>-->
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemId</class>-->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItem</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Product</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductImage</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Shipment</class>
@@ -80,15 +75,10 @@
     <!--    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
     <mapping-file>META-INF/co/orm-it.xml</mapping-file>
-    <!-- OrderItemWithEmbeddedId and OrderItemWithIdClass map ORDER_ITEMS, two ways; only one may be listed. With
-         both, EclipseLink stops reporting a single id attribute for the @EmbeddedId flavour, and its metamodel then
-         throws from getIdClassAttributes(). -->
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Customer</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Inventory</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Order</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemWithEmbeddedId</class>
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemWithIdClass</class>-->
-    <!--    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItemId</class>-->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.OrderItem</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Product</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductImage</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Shipment</class>

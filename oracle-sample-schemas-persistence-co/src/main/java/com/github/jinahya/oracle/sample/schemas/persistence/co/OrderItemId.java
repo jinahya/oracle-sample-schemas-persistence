@@ -29,9 +29,8 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * An id class for the {@value OrderItemWithEmbeddedId#TABLE_NAME} table; the
- * {@link jakarta.persistence.EmbeddedId @EmbeddedId} of {@link OrderItemWithEmbeddedId}, and the
- * {@link jakarta.persistence.IdClass @IdClass} of {@link OrderItemWithIdClass}.
+ * An id class for the {@value OrderItem#TABLE_NAME} table; the {@link jakarta.persistence.EmbeddedId @EmbeddedId}
+ * of {@link OrderItem}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -39,13 +38,13 @@ import java.util.Objects;
 public class OrderItemId {
 
     /**
-     * The name of the attribute which maps the {@value OrderItemWithEmbeddedId#COLUMN_NAME_ORDER_ID} column. The value
+     * The name of the attribute which maps the {@value OrderItem#COLUMN_NAME_ORDER_ID} column. The value
      * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
 
     /**
-     * The name of the attribute which maps the {@value OrderItemWithEmbeddedId#COLUMN_NAME_LINE_ITEM_ID} column. The
+     * The name of the attribute which maps the {@value OrderItem#COLUMN_NAME_LINE_ITEM_ID} column. The
      * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LINE_ITEM_ID = "lineItemId";
@@ -55,8 +54,8 @@ public class OrderItemId {
     /**
      * Creates a new instance with the specified order id and line item id.
      *
-     * @param orderId    the {@value OrderItemWithEmbeddedId#COLUMN_NAME_ORDER_ID} column value.
-     * @param lineItemId the {@value OrderItemWithEmbeddedId#COLUMN_NAME_LINE_ITEM_ID} column value.
+     * @param orderId    the {@value OrderItem#COLUMN_NAME_ORDER_ID} column value.
+     * @param lineItemId the {@value OrderItem#COLUMN_NAME_LINE_ITEM_ID} column value.
      * @return a new instance with the specified column values.
      */
     public static OrderItemId of(@Nonnull final Long orderId, @Nonnull final Long lineItemId) {
@@ -148,16 +147,16 @@ public class OrderItemId {
     // -----------------------------------------------------------------------------------------------------------------
 
     @Nonnull
-    // no @NotNull: OrderItemWithEmbeddedId maps this through @MapsId, so the provider fills it at flush -- later than
+    // no @NotNull: OrderItem maps this through @MapsId, so the provider fills it at flush -- later than
     // the prePersist at which EclipseLink validates. The column stays NOT NULL.
     @Basic(optional = false)
-    @Column(name = OrderItemWithEmbeddedId.COLUMN_NAME_ORDER_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = OrderItem.COLUMN_NAME_ORDER_ID, nullable = false, insertable = true, updatable = false)
     private Long orderId;
 
     @Nonnull
     @NotNull
     @Basic(optional = false)
-    @Column(name = OrderItemWithEmbeddedId.COLUMN_NAME_LINE_ITEM_ID, nullable = false, insertable = true,
+    @Column(name = OrderItem.COLUMN_NAME_LINE_ITEM_ID, nullable = false, insertable = true,
             updatable = false)
     private Long lineItemId;
 }

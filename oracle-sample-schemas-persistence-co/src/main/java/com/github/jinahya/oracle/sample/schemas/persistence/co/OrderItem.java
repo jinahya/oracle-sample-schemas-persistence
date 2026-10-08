@@ -44,24 +44,23 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * An entity class for mapping the {@value OrderItemWithEmbeddedId#TABLE_NAME} table, whose composite primary key is
+ * An entity class for mapping the {@value OrderItem#TABLE_NAME} table, whose composite primary key is
  * mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see OrderItemWithIdClass
  */
 @Entity
-@Table(name = OrderItemWithEmbeddedId.TABLE_NAME,
+@Table(name = OrderItem.TABLE_NAME,
        uniqueConstraints = {
                @UniqueConstraint(
                        columnNames = {
-                               OrderItemWithEmbeddedId.COLUMN_NAME_ORDER_ID,
-                               OrderItemWithEmbeddedId.COLUMN_NAME_PRODUCT_ID,
+                               OrderItem.COLUMN_NAME_ORDER_ID,
+                               OrderItem.COLUMN_NAME_PRODUCT_ID,
                        }
                )
        }
 )
-public class OrderItemWithEmbeddedId implements __DomainEntity<OrderItemId> {
+public class OrderItem implements __DomainEntity<OrderItemId> {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -186,7 +185,7 @@ public class OrderItemWithEmbeddedId implements __DomainEntity<OrderItemId> {
     /**
      * Creates a new instance.
      */
-    protected OrderItemWithEmbeddedId() {
+    protected OrderItem() {
         super();
     }
 
@@ -213,7 +212,7 @@ public class OrderItemWithEmbeddedId implements __DomainEntity<OrderItemId> {
      */
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof OrderItemWithEmbeddedId that)) {
+        if (!(obj instanceof OrderItem that)) {
             return false;
         }
         return Objects.equals(getId(), that.getId());

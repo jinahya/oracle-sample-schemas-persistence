@@ -27,26 +27,25 @@ import jakarta.persistence.EntityManager;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * A persister which persists {@link OrderItemWithIdClass} instances.
+ * A persister which persists {@link OrderItem} instances.
  * <p>
  * Each instance is given a newly persisted {@link Order} and a newly persisted {@link Product} first, so that its
  * {@code order} and its {@code product} -- neither of which is nullable -- refer to rows which are already in the
- * database, and a newly persisted {@link Shipment} at random, because that column is nullable. The order is flushed
- * before it is set, so that the identifier which {@code setOrder} mirrors into the key column is there to copy. The
- * {@code lineItemId} is assigned here as well: it numbers the item within its order, and is not generated.
+ * database, and a newly persisted {@link Shipment} at random, because that column is nullable. The {@code lineItemId}
+ * is assigned here as well: it numbers the item within its order, and is not generated.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class OrderItemWithIdClass_Persister extends AbstractEntityPersister<OrderItemWithIdClass> {
+class OrderItem_Persister extends AbstractEntityPersister<OrderItem> {
 
-    OrderItemWithIdClass_Persister() {
-        super(OrderItemWithIdClass.class);
+    OrderItem_Persister() {
+        super(OrderItem.class);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-
     @Override
-    public OrderItemWithIdClass apply(final EntityManager entityManager, final OrderItemWithIdClass entityInstance) {
+    public OrderItem apply(final EntityManager entityManager,
+                                         final OrderItem entityInstance) {
         final var order = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Order.class);
         final var product = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class);
         final Shipment shipment = ThreadLocalRandom.current().nextBoolean() ? null :
@@ -56,7 +55,7 @@ class OrderItemWithIdClass_Persister extends AbstractEntityPersister<OrderItemWi
         entityInstance.setProduct(product);
         entityInstance.setShipment(shipment);
         // LINE_ITEM_ID is not generated -- it numbers the item within its order -- so nothing but this assigns it.
-        entityInstance.setLineItemId(ThreadLocalRandom.current().nextLong(1, 100));
+        entityInstance.getId().setLineItemId(ThreadLocalRandom.current().nextLong(1, 100));
         return super.apply(entityManager, entityInstance);
     }
 }

@@ -92,12 +92,6 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
      */
     public static final int COLUMN_MAX_EMPLOYEE_ID = +999999;
 
-//    /**
-//     * The path of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column, for a subclass whose
-//     * identifier is an {@link EmbeddedId @EmbeddedId} named {@value #ATTRIBUTE_NAME_ID}. The value is {@value}.
-//     */
-//    public static final String ATTRIBUTE_NAME_ID_EMPLOYEE_ID = "id.employeeId";
-
     /**
      * The minimum value of the {@value MappedJobHistoryId#ATTRIBUTE_NAME_EMPLOYEE_ID} attribute of
      * {@link MappedJobHistoryId}. The value is {@value}.
@@ -123,26 +117,12 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
      */
     public static final boolean COLUMN_NULLABLE_START_DATE = false;
 
-//    /**
-//     * The path of the attribute which maps the {@value #COLUMN_NAME_START_DATE} column, for a subclass whose
-//     * identifier is an {@link EmbeddedId @EmbeddedId} named {@value #ATTRIBUTE_NAME_ID}. The value is {@value}.
-//     */
-//    public static final String ATTRIBUTE_NAME_ID_START_DATE = "id.startDate";
-
     /**
      * A comparator which compares the {@value MappedJobHistoryId#ATTRIBUTE_NAME_START_DATE} of the identifier a
      * subclass exposes through {@link #id_()}.
      */
     public static final Comparator<MappedJobHistory<?>> COMPARING_ID_START_DATE =
             Comparator.comparing(v -> v.id_().getStartDate());
-
-//    // ----------------------------------------------------------------------------------- EMPLOYEE_ID / START_DATE / id
-//
-//    /**
-//     * The name of the identifier attribute, declared by a subclass, which maps both the
-//     * {@value #COLUMN_NAME_EMPLOYEE_ID} and the {@value #COLUMN_NAME_START_DATE} columns. The value is {@value}.
-//     */
-//    public static final String ATTRIBUTE_NAME_ID = "id";
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
 

@@ -192,7 +192,7 @@ public abstract class _Persistence_Test<T> extends ___Test<T> {
          * The identifier has to be a single basic attribute. An {@link jakarta.persistence.IdClass IdClass} is left out
          * because assembling one generically is more than this base class knows how to do. An
          * {@link jakarta.persistence.EmbeddedId EmbeddedId} is left out because an entity may derive a component of it
-         * through {@link jakarta.persistence.MapsId @MapsId} -- {@code CO}'s {@code OrderItemWithEmbeddedId} does --
+         * through {@link jakarta.persistence.MapsId @MapsId} -- {@code CO}'s {@code OrderItem} does --
          * and the two providers disagree about that component: Hibernate copies the association's identifier into the
          * embedded one as it flushes, EclipseLink writes the column but leaves the component of the managed instance
          * {@code null}, so there is no identifier to hand {@code find} which is right under both. The row itself is

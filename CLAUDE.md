@@ -131,16 +131,16 @@ it. As with the `Mapped*` classes, the copies are kept in step by hand: a fix to
 base is carried to the other two, unless it is specific to that module.
 
 Every persistence unit carries `<exclude-unlisted-classes>true</exclude-unlisted-classes>`,
-and it stays: a module deliberately leaves classes out, and the flag is what keeps them out.
-`co` maps `ORDER_ITEMS` twice (`OrderItemWithEmbeddedId`, `OrderItemWithIdClass`) and lists one
-of them; both flavours in one unit is not a working unit. Every other composite key is mapped once:
-with an `@EmbeddedId` by `co`'s `ProductOrder` and `sh`'s `Sale` and `Cost`, and with an
-`@IdClass` by `hr`'s `JobHistory` and `sh`'s `Profit` and `FweekPscatSalesMv`.
+and it stays: the unit lists exactly the classes it means, and the flag keeps anything else out.
 
-Under EclipseLink's metamodel processor this used to fail at *compile* time as well —
-`EclipseLink-7237`, entity name not unique — because that processor attaches every `@Entity` in
-the compilation to the unit it finds. With `hibernate-jpamodelgen` no processor reads the
-descriptor, so that particular compile failure is gone; the runtime reason for the flag is not.
+Every composite identifier is mapped once, in one style. The database declares two composite
+primary keys, one per module, and each module shows one style on it: `co`'s `ORDER_ITEMS` is
+`OrderItem` with an `@EmbeddedId` (`OrderItemId`, plus an `@MapsId` to `Order`), and `hr`'s
+`JOB_HISTORY` is `JobHistory` with an `@IdClass` (`JobHistoryId`). Do not add the other style
+alongside -- a class name carries no `WithEmbeddedId` / `WithIdClass` postfix because there is only
+ever one. `co`'s `ProductOrder` (over a view) also uses an `@EmbeddedId`. `sh` declares no composite
+key; the identifiers it chooses for its unkeyed tables and views use both styles -- `@EmbeddedId`
+for `Sale` and `Cost`, `@IdClass` for `Profit` and `FweekPscatSalesMv`.
 
 The entity's own `ATTRIBUTE_NAME_*` constants stay, for the places a metamodel reference
 cannot go: an annotation value must be a compile-time constant, so `mappedBy` takes

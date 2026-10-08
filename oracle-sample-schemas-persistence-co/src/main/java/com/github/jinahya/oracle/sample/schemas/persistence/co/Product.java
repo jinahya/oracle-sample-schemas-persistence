@@ -274,7 +274,7 @@ public class Product implements __DomainEntity<Long> {
     /**
      * The name of the attribute which maps the order items which order this product. The value is {@value}.
      *
-     * @see OrderItemWithEmbeddedId#ATTRIBUTE_NAME_PRODUCT
+     * @see OrderItem#ATTRIBUTE_NAME_PRODUCT
      */
     public static final String ATTRIBUTE_NAME_ORDER_ITEMS = "orderItems";
 
@@ -576,7 +576,7 @@ public class Product implements __DomainEntity<Long> {
      *
      * @return the order items which order this product.
      */
-    public List<OrderItemWithEmbeddedId> getOrderItems() {
+    public List<OrderItem> getOrderItems() {
         return orderItems;
     }
 
@@ -585,7 +585,7 @@ public class Product implements __DomainEntity<Long> {
      *
      * @param orderItems new order items which order this product.
      */
-    public void setOrderItems(final List<OrderItemWithEmbeddedId> orderItems) {
+    public void setOrderItems(final List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
 
@@ -699,13 +699,13 @@ public class Product implements __DomainEntity<Long> {
     private LocalDateTime imageLastUpdated;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @OneToMany(mappedBy = OrderItemWithEmbeddedId.ATTRIBUTE_NAME_PRODUCT,
+    @OneToMany(mappedBy = OrderItem.ATTRIBUTE_NAME_PRODUCT,
                fetch = FetchType.LAZY,
                cascade = {
                },
                orphanRemoval = false
     )
-    private List<@Valid @NotNull OrderItemWithEmbeddedId> orderItems;
+    private List<@Valid @NotNull OrderItem> orderItems;
 
     @OneToMany(mappedBy = Inventory.ATTRIBUTE_NAME_PRODUCT,
                fetch = FetchType.LAZY,
