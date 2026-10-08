@@ -26,11 +26,6 @@
       <artifactId>jackson-databind</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency><!-- the pool Spring Boot's DataSource auto-configuration needs for a non-embedded database -->
-      <groupId>com.zaxxer</groupId>
-      <artifactId>HikariCP</artifactId>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>io.github.jinahya</groupId>
       <artifactId>test-base</artifactId>
@@ -81,23 +76,6 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-jdk-platform-logging</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-autoconfigure</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-data-jpa-test</artifactId>
-      <scope>test</scope>
-      <exclusions>
-        <!-- the provider on the test classpath is the provider profile's to choose, not Spring Boot's -->
-        <exclusion>
-          <groupId>org.hibernate.orm</groupId>
-          <artifactId>hibernate-core</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
   </dependencies>
@@ -184,9 +162,6 @@
   </build>
 
   <profiles>
-    <!-- Spring Boot's JPA auto-configuration is Hibernate's, and hibernate-core is excluded from the Spring Boot
-         dependencies above, so under EclipseLink there is no provider for the Spring tests to start with. They are
-         compiled, but not run. -->
     <profile>
       <id>jakarta-ee-11-eclipselink</id>
       <build>
@@ -211,25 +186,6 @@
                 </configuration>
               </execution>
             </executions>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <configuration>
-              <excludes combine.children="append">
-                <exclude>**/*_DataJpaTest.java</exclude>
-              </excludes>
-            </configuration>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <version>${version.maven-failsafe}</version>
-            <configuration>
-              <excludes combine.children="append">
-                <exclude>**/*_SpringBootIT.java</exclude>
-              </excludes>
-            </configuration>
           </plugin>
         </plugins>
       </build>
