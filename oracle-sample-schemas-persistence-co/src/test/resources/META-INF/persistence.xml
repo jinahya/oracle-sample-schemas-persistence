@@ -24,7 +24,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence ${persistence.schemaLocation}"
              version="${persistence.version}">
-  <persistence-unit name="co" transaction-type="RESOURCE_LOCAL">
+  <persistence-unit name="co-test" transaction-type="RESOURCE_LOCAL">
     <description>Persistence Unit for an In-Memory DB</description>
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->

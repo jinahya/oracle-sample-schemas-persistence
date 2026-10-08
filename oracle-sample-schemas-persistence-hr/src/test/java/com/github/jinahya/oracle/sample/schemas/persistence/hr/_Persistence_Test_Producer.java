@@ -74,7 +74,7 @@ class _Persistence_Test_Producer {
     /**
      * The name of the persistence unit this producer bootstraps. The value is {@value}.
      */
-    static final String PERSISTENCE_UNIT_NAME = "hr";
+    static final String PERSISTENCE_UNIT_NAME = "hr-test";
 
     private static final System.Logger logger = System.getLogger(MethodHandles.lookup().lookupClass().getName());
 
