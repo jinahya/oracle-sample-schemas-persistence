@@ -514,6 +514,24 @@
           </execution>
         </executions>
       </plugin>
+      <!--
+        As io.github.jinahya:jinahya-parent:1.1.0 configures it: the tag is the bare version, nothing is pushed, and
+        release:perform builds from the local repository and runs install, not deploy. -DskipITs, because the ITs need
+        the Oracle container, and release:prepare runs `clean verify`.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <!-- https://central.sonatype.com/artifact/org.apache.maven.plugins/maven-release-plugin/versions -->
+        <version>3.3.1</version>
+        <configuration>
+          <tagNameFormat>@{project.version}</tagNameFormat>
+          <pushChanges>false</pushChanges>
+          <localCheckout>true</localCheckout>
+          <goals>install</goals>
+          <arguments>-DskipITs</arguments>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
