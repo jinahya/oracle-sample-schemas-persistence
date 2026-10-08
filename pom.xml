@@ -4,7 +4,7 @@
 
   <groupId>io.github.jinahya</groupId>
   <artifactId>oracle-sample-schemas-persistence</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <packaging>pom</packaging>
 
   <name>${project.artifactId}</name>
@@ -59,7 +59,7 @@
     <connection>scm:git:git@github.com:jinahya/${project.artifactId}.git</connection>
     <developerConnection>scm:git:git@github.com:jinahya/${project.artifactId}.git</developerConnection>
     <url>https://github.com:jinahya/${project.artifactId}</url>
-    <tag>HEAD</tag>
+    <tag>oracle-sample-schemas-persistence-0.0.1</tag>
   </scm>
   <issueManagement>
     <system>GitHub Issues</system>
@@ -464,7 +464,7 @@
             <id>enforce-dependency-convergence</id>
             <configuration>
               <rules>
-                <dependencyConvergence/>
+                <dependencyConvergence />
               </rules>
             </configuration>
             <goals>
@@ -508,7 +508,7 @@
             </goals>
             <configuration>
               <rules>
-                <requireProfileIdsExist/>
+                <requireProfileIdsExist />
               </rules>
             </configuration>
           </execution>
@@ -603,7 +603,7 @@
               <!-- Both the plugin-level additionalOption and the plugin's own doclint parameter, which -->
               <!-- otherwise reads the ${doclint} property, pass javadoc an -Xdoclint; clear the one and -->
               <!-- turn the other off. -->
-              <additionalOptions combine.self="override"/>
+              <additionalOptions combine.self="override" />
               <doclint>none</doclint>
               <!-- Even unlinted, javadoc warns of a named query's `<` quoted in the metamodel as invalid -->
               <!-- HTML input, and that warning is the metamodel's, not ours. -->
