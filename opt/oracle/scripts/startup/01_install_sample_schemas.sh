@@ -112,6 +112,16 @@ GRANT
     DELETE ANY TABLE
     TO dmlonly
 ;
+-- EclipseLink cannot read an Oracle identity value back, so the co IT unit's session customizer
+-- (_EclipseLink_IdentitySequences) takes each value from the sequence Oracle backs the identity column
+-- with. Those sequences are named by Oracle (ISEQ\$\$_<n>), so they are looked up rather than listed;
+-- this grants nothing on any other object, and changes nothing in the schemas themselves.
+BEGIN
+    FOR s IN (SELECT owner, sequence_name FROM dba_tab_identity_cols WHERE owner IN ('CO', 'HR', 'SH')) LOOP
+        EXECUTE IMMEDIATE 'GRANT SELECT ON "' || s.owner || '"."' || s.sequence_name || '" TO dmlonly';
+    END LOOP;
+END;
+/
 exit
 EOSQL
     if grep -qE 'ORA-[0-9]+|SP2-[0-9]+' "${workdir}/dmlonly.out"; then
