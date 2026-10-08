@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.co;
+package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 
 /*-
  * #%L
- * co
+ * sh
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%

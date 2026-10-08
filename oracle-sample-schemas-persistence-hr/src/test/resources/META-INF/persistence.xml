@@ -98,6 +98,11 @@
       <!--      <property name="eclipselink.weaving" value="true"/>-->
       <!-- https://wiki.eclipse.org/EclipseLink/Examples/JPA/DDL -->
       <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.OraclePlatform"/>
+      <!-- EclipseLink cannot read an Oracle identity value back; this points each identity-keyed entity at the
+           sequence Oracle backs its column with. Compiled under the EclipseLink profile only; Hibernate ignores
+           eclipselink.* properties. -->
+      <property name="eclipselink.session.customizer"
+                value="com.github.jinahya.oracle.sample.schemas.persistence.hr._EclipseLink_IdentitySequences"/>
       <!-- /////////////////////////////////////////////////////////////////////////////////////////////// hibernate -->
       <!--      <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>-->
       <property name="hibernate.format_sql" value="true"/>
