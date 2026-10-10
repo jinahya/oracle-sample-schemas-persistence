@@ -37,6 +37,8 @@
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductImage</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Shipment</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Shipment$ShipmentStatusConverter</class>
+    <!-- unused here; on the mapped branch Shipment inherits MappedShipment's shipmentStatus, and its converter -->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.mapped.MappedShipment$ShipmentStatusConverter</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Store</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.StoreLogo</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.CustomerOrderProduct</class>
@@ -83,6 +85,8 @@
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.ProductImage</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Shipment</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Shipment$ShipmentStatusConverter</class>
+    <!-- unused here; on the mapped branch Shipment inherits MappedShipment's shipmentStatus, and its converter -->
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.co.mapped.MappedShipment$ShipmentStatusConverter</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.Store</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.StoreLogo</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.co.CustomerOrderProduct</class>
