@@ -37,7 +37,11 @@ independent of each other, tests included: each carries its own test bases in it
   neither. The two markers are unrelated -- `__DomainEntity` does not extend
   `__MappedDomainEntity` -- and the same goes for `__DomainConstants` and
   `__MappedDomainConstants`, two independent `final` classes. Nothing in the
-  concrete package imports anything from `mapped`.
+  concrete package imports anything from `mapped`, and nothing in `mapped`
+  imports anything from the concrete package. ArchUnit enforces both directions,
+  on main classes: `___PackageSeparation_Test` in each module's test package, and
+  `mapped.___MappedPackageSeparation_Test`. A constant the compiler inlines leaves
+  no dependency behind, so the rule cannot see one; keep to it anyway.
 - **Every `Mapped*` class's `toString`, `equals` and `hashCode` are `final`.**
   A class that cannot compare by an identifier -- a view with no key, or the
   embeddable base `_MappedBinary` -- omits `equals`/`hashCode` and keeps

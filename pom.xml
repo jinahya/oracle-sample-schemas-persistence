@@ -112,6 +112,10 @@
     <version.ch.qus.logback>1.6.5</version.ch.qus.logback>
     <!-- https://central.sonatype.com/artifact/com.h2database/h2/versions -->
     <version.com.h2database>2.5.252</version.com.h2database>
+    <!-- https://central.sonatype.com/artifact/com.tngtech.archunit/archunit-junit5/versions -->
+    <!-- note: archunit-junit5, not archunit-junit6; the latter is built on the JUnit 6 platform, -->
+    <!--       which version.org.junit (JUnit 5) does not provide -->
+    <version.com.tngtech.archunit>1.5.1</version.com.tngtech.archunit>
     <!-- https://jakarta.ee/specifications/platform/11/ -->
     <!-- https://central.sonatype.com/artifact/jakarta.platform/jakarta.jakartaee-bom/versions -->
     <!-- 11.0.0 manages: jakarta.persistence-api 3.2.0, jakarta.validation-api 3.1.1, -->
@@ -175,6 +179,11 @@
         <groupId>com.oracle.database.jdbc</groupId>
         <artifactId>ojdbc17</artifactId>
         <version>${version.com.oracle.database.jdbc}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.tngtech.archunit</groupId>
+        <artifactId>archunit-junit5</artifactId>
+        <version>${version.com.tngtech.archunit}</version>
       </dependency>
       <dependency><!-- https://central.sonatype.com/artifact/jakarta.platform/jakarta.jakartaee-bom/versions -->
         <groupId>jakarta.platform</groupId>
@@ -249,6 +258,11 @@
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.tngtech.archunit</groupId>
+      <artifactId>archunit-junit5</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
