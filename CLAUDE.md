@@ -28,6 +28,21 @@ independent of each other, tests included: each carries its own test bases in it
   extend these classes; the two sets are kept in step by hand, so a change to an
   entity's columns, constants or `equals`/`hashCode` is made in its `Mapped*`
   counterpart too.
+- **Each package has its own markers, and neither package refers to the other.**
+  Every class that maps a table or a view implements its own package's marker:
+  `__DomainEntity<T>` in the concrete package, `__MappedDomainEntity<T>` in
+  `mapped`. `T` is the identifier type: `Void` for a view with no key, the
+  `<T>` type variable for an `@EmbeddedId` `Mapped*`, and the `Mapped*Id` class
+  for an `@IdClass` `Mapped*`. Id classes, embeddables and helpers implement
+  neither. The two markers are unrelated -- `__DomainEntity` does not extend
+  `__MappedDomainEntity` -- and the same goes for `__DomainConstants` and
+  `__MappedDomainConstants`, two independent `final` classes. Nothing in the
+  concrete package imports anything from `mapped`.
+- **Every `Mapped*` class's `toString`, `equals` and `hashCode` are `final`.**
+  A class that cannot compare by an identifier -- a view with no key, or the
+  embeddable base `_MappedBinary` -- omits `equals`/`hashCode` and keeps
+  identity equality. In the concrete classes these methods use basic attributes
+  and the `@EmbeddedId` only, never an association.
 
 ### Member order inside an entity
 
