@@ -16,67 +16,57 @@ independent of each other, tests included: each carries its own test bases in it
   other persistence helper library. Everything the entities need comes from
   `jakarta.persistence`, `jakarta.validation` and `jakarta.annotation`. Tests may
   use `jinahya-persistence-*` (e.g. `jinahya-persistence-test-utils`, `test` scope).
-- **Every entity is standalone.** No entity extends a superclass and there is no
-  builder layer: one class holds its own column constants, fields, accessors,
-  `toString`, and `equals`/`hashCode`. Do not introduce a shared entity superclass
-  to remove duplication between entities — the duplication is the point, because
-  it keeps each mapping readable on its own.
-- **The `mapped` package is a parallel, independent mapping.** Each module also
-  exports a `<schema>.mapped` package with one abstract `@MappedSuperclass` per
-  table or view (`MappedCountry`, `MappedStoreOrder`, …), for readers who want to
-  extend a mapping rather than use the concrete entity. The entities do **not**
-  extend these classes; the two sets are kept in step by hand, so a change to an
-  entity's columns, constants or `equals`/`hashCode` is made in its `Mapped*`
-  counterpart too.
-- **Each package has its own markers, and neither package refers to the other.**
-  Every class that maps a table or a view implements its own package's marker:
-  `__DomainEntity<T>` in the concrete package, `__MappedDomainEntity<T>` in
-  `mapped`. `T` is the identifier type: `Void` for a view with no key, the
-  `<T>` type variable for an `@EmbeddedId` `Mapped*`, and the `Mapped*Id` class
-  for an `@IdClass` `Mapped*`. Id classes, embeddables and helpers implement
-  neither. The two markers are unrelated -- `__DomainEntity` does not extend
-  `__MappedDomainEntity` -- and the same goes for `__DomainConstants` and
-  `__MappedDomainConstants`, two independent `final` classes. Nothing in the
-  concrete package imports anything from `mapped`, and nothing in `mapped`
-  imports anything from the concrete package. ArchUnit enforces both directions,
-  on main classes: `___PackageSeparation_Test` in each module's test package, and
-  `mapped.___MappedPackageSeparation_Test`. A constant the compiler inlines leaves
-  no dependency behind, so the rule cannot see one; keep to it anyway.
-- **Every `Mapped*` class's `toString`, `equals` and `hashCode` are `final`.**
-  A class that cannot compare by an identifier -- a view with no key, or the
-  embeddable base `_MappedBinary` -- omits `equals`/`hashCode` and keeps
-  identity equality. In the concrete classes these methods use basic attributes
-  and the `@EmbeddedId` only, never an association.
+- **This checkout is the `mapped` branch.** `develop` holds the concrete classes alone, each one
+  standalone, as the material for readers. This branch adds a further topic: a `<schema>.mapped`
+  package, which exists only here, with one abstract `@MappedSuperclass` per table or view
+  (`MappedCountry`, `MappedStoreOrder`, …), and the concrete classes reshaped to extend it.
+- **Each concrete class extends its `Mapped*` counterpart, and keeps only what the superclass
+  cannot provide**: associations, nested types `Mapped*` does not declare, static factories,
+  constructors, `getIdValue()` for an `@EmbeddedId`, overrides widening a `protected` setter to
+  `public`, and `protected` overrides of the members that the concrete package itself calls and
+  `Mapped*` declares `protected` (a `protected` member of `<schema>.mapped` is not reachable from
+  the rest of `<schema>`; one declared in the concrete class is). Its duplicated constants, fields,
+  accessors, nested types and `toString` / `equals` / `hashCode` go. A nested type it inherits
+  still resolves through it: `Order.OrderStatus` is `MappedOrder.OrderStatus`.
+- **The markers stay unrelated.** A concrete class implements `__DomainEntity<T>`, and is a
+  `__MappedDomainEntity` through its superclass; `__DomainEntity` does not extend
+  `__MappedDomainEntity`, because an `@IdClass` entity would then implement the latter with two
+  type arguments (`JobHistoryId` and `MappedJobHistoryId`), which does not compile. `T` is the
+  identifier type: `Void` for a view with no key, the `<T>` type variable for an `@EmbeddedId`
+  `Mapped*`, and the `Mapped*Id` class for an `@IdClass` `Mapped*`.
+- **Nothing in `mapped` refers to the concrete package.** ArchUnit enforces it on main classes,
+  with `mapped.___MappedPackageSeparation_Test`; each module's `___PackageSeparation_Test` asserts
+  that every `__DomainEntity` of the concrete package is a `__MappedDomainEntity`.
+- **Every `Mapped*` class's `toString`, `equals` and `hashCode` are `final`.** A class that cannot
+  compare by an identifier -- a view with no key, or the embeddable base `_MappedBinary` -- omits
+  `equals`/`hashCode` and keeps identity equality. These methods use basic attributes and the
+  `@EmbeddedId` only, never an association.
 
-### The `mapped` branch -- this branch
+### Merging `develop`
 
-**This checkout is the `mapped` branch.** The separation above is permanent on `develop`; here
-the concrete classes take the other shape. Each one extends its `Mapped*` counterpart and keeps
-only what the superclass cannot provide: associations, nested types, static factories,
-constructors, `getIdValue()` for an `@EmbeddedId`, and overrides that widen a `protected` getter
-to `public`. Its fields, its `toString` / `equals` / `hashCode` (all `final` in `Mapped*`) and its
-other accessors go. The markers, constants classes and test bases change their declarations only:
-`__DomainEntity` extends `__MappedDomainEntity`, and so on.
+Merges go one way only: `develop` is merged into `mapped`, never the other way, in small, frequent
+steps, with `rerere` enabled. Since `develop` has no `mapped` package, a change it makes to a
+concrete class's columns, constants or validation is carried into the `Mapped*` counterpart here,
+by hand, in the merge. A conflict in a concrete class is resolved by keeping this branch's
+version and making `develop`'s change in `Mapped*`. The branch builds as
+`<version>-mapped-SNAPSHOT`, so its artifacts never overwrite `develop`'s; a conflict on a
+`<version>` line keeps the `-mapped` suffix.
 
-The tests and ITs are `develop`'s, unchanged, except where a test describes what a concrete class
-now inherits; their passing here is what shows the two shapes behave alike. These files are this
-branch's own, kept through merges by `merge=ours` in `.gitattributes`:
+The tests and ITs are `develop`'s, except where a test describes what a concrete class now
+inherits; their passing here, under both providers, is what shows the two shapes behave alike.
+These files are this branch's own, kept through merges by `merge=ours` in `.gitattributes`:
 
 - this `CLAUDE.md`;
-- each module's `___PackageSeparation_Test`, whose rule is turned around here;
+- each module's `___PackageSeparation_Test`, whose rule is the one above;
 - `co`'s `Inventory_Test`: `develop`'s `Inventory` compares by its `@Id`, while here it inherits
   `MappedInventory`'s `equals`, by the business key (`storeId`, `productId`), so its verifier is
   configured for that.
 
-`mapped.___MappedPackageSeparation_Test` holds on both branches and is not one of them. Run
-`git config merge.ours.driver true` once per clone, or the attribute does nothing.
-
-Merges go one way only: `develop` is merged into `mapped`, never the other way, and in small,
-frequent steps, with `rerere` enabled. A conflict in a concrete class is resolved by carrying
-`develop`'s change into the `Mapped*` class and keeping this branch's deletions. The branch builds
-as `<version>-mapped-SNAPSHOT`, so its artifacts never overwrite `develop`'s; a conflict on a
-`<version>` line keeps the `-mapped` suffix. Modules are converted one at a time, `co` first, with
-the full verify under both providers after each.
+Run `git config merge.ours.driver true` once per clone, or the attribute does nothing. What exists
+only here -- the `mapped` packages, `___MappedPackageSeparation_Test`, the `mapped` exports in
+`module-info.java`, the `archunit-junit5` dependency, `MappedShipment$ShipmentStatusConverter` in
+`co`'s units -- `develop` removed in `5f96372`, and the merge of it kept this branch's versions; a
+later merge does not touch them again.
 
 ### Member order inside an entity
 
