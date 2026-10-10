@@ -2,6 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <parent>
+    <groupId>io.github.jinahya</groupId>
+    <artifactId>jinahya-parent</artifactId>
+    <version>1.1.1</version>
+  </parent>
+
   <groupId>io.github.jinahya</groupId>
   <artifactId>oracle-sample-schemas-persistence</artifactId>
   <version>0.0.2-SNAPSHOT</version>
@@ -71,8 +77,6 @@
   </ciManagement>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <!-- https://endoflife.date/eclipse-temurin -->
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
@@ -518,25 +522,6 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
-      <!--
-        As io.github.jinahya:jinahya-parent:1.1.0 configures it: the tag is the bare version, nothing is pushed, and
-        release:perform builds from the local repository and runs install, not deploy. -DskipITs, because the ITs need
-        the Oracle container, and release:prepare runs `clean verify`.
-      -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <!-- https://central.sonatype.com/artifact/org.apache.maven.plugins/maven-release-plugin/versions -->
-        <version>3.3.1</version>
-        <configuration>
-          <autoVersionSubmodules>true</autoVersionSubmodules>
-          <tagNameFormat>@{project.version}</tagNameFormat>
-          <pushChanges>false</pushChanges>
-          <localCheckout>true</localCheckout>
-          <goals>install</goals>
-          <arguments>-DskipITs</arguments>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
