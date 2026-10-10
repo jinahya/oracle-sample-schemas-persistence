@@ -48,6 +48,19 @@ independent of each other, tests included: each carries its own test bases in it
   identity equality. In the concrete classes these methods use basic attributes
   and the `@EmbeddedId` only, never an association.
 
+### The `mapped` branch
+
+The separation above is permanent on `develop`: the concrete classes are read on their own, so
+they keep every duplicate. A long-lived branch, `mapped`, holds the other shape, where each
+concrete class extends its `Mapped*` counterpart and keeps only what the superclass cannot
+provide. It runs the same tests and ITs, unchanged; their passing there is what shows the two
+shapes behave alike.
+
+Merges go one way only: `develop` is merged into `mapped`, never the other way. On `mapped`,
+`CLAUDE.md` and `___PackageSeparation_Test` are its own copies, kept through merges by
+`merge=ours`. A conflict in a concrete class is resolved there by carrying `develop`'s change into
+the `Mapped*` class and keeping the branch's deletions.
+
 ### Member order inside an entity
 
 Every entity lays its members out in this order, and new members go into the matching
