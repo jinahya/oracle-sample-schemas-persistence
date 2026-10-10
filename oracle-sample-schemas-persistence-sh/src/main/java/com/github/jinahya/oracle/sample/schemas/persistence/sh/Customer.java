@@ -155,6 +155,19 @@ public class Customer implements __DomainEntity<Long> {
      */
     public static final int COLUMN_SCALE_CUST_YEAR_OF_BIRTH = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_CUST_YEAR_OF_BIRTH =
+            COLUMN_PRECISION_CUST_YEAR_OF_BIRTH - COLUMN_SCALE_CUST_YEAR_OF_BIRTH;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH} attribute. The value
+     * is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_CUST_YEAR_OF_BIRTH = COLUMN_SCALE_CUST_YEAR_OF_BIRTH;
+
     // -------------------------------------------------------------------------------------------- CUST_MARITAL_STATUS
 
     /**
@@ -1063,8 +1076,8 @@ public class Customer implements __DomainEntity<Long> {
     private String custGender;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_CUST_YEAR_OF_BIRTH - COLUMN_SCALE_CUST_YEAR_OF_BIRTH,
-            fraction = COLUMN_SCALE_CUST_YEAR_OF_BIRTH)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_CUST_YEAR_OF_BIRTH,
+            fraction = ATTRIBUTE_DIGITS_FRACTION_CUST_YEAR_OF_BIRTH)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_CUST_YEAR_OF_BIRTH,
             nullable = false,

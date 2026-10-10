@@ -110,6 +110,19 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
      */
     public static final int COLUMN_SCALE_DAY_NUMBER_IN_WEEK = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_DAY_NUMBER_IN_WEEK =
+            COLUMN_PRECISION_DAY_NUMBER_IN_WEEK - COLUMN_SCALE_DAY_NUMBER_IN_WEEK;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK} attribute. The value
+     * is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_DAY_NUMBER_IN_WEEK = COLUMN_SCALE_DAY_NUMBER_IN_WEEK;
+
     // --------------------------------------------------------------------------------------------- DAY_NUMBER_IN_MONTH
 
     /**
@@ -133,6 +146,19 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
      * The scale of the {@value #COLUMN_NAME_DAY_NUMBER_IN_MONTH} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_DAY_NUMBER_IN_MONTH = 0;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_DAY_NUMBER_IN_MONTH =
+            COLUMN_PRECISION_DAY_NUMBER_IN_MONTH - COLUMN_SCALE_DAY_NUMBER_IN_MONTH;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH} attribute. The value
+     * is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_DAY_NUMBER_IN_MONTH = COLUMN_SCALE_DAY_NUMBER_IN_MONTH;
 
     // -------------------------------------------------------------------------------------------- CALENDAR_WEEK_NUMBER
 
@@ -158,6 +184,19 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
      */
     public static final int COLUMN_SCALE_CALENDAR_WEEK_NUMBER = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER} attribute. The value
+     * is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_CALENDAR_WEEK_NUMBER =
+            COLUMN_PRECISION_CALENDAR_WEEK_NUMBER - COLUMN_SCALE_CALENDAR_WEEK_NUMBER;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER} attribute. The value
+     * is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_CALENDAR_WEEK_NUMBER = COLUMN_SCALE_CALENDAR_WEEK_NUMBER;
+
     // ---------------------------------------------------------------------------------------------- FISCAL_WEEK_NUMBER
 
     /**
@@ -180,6 +219,19 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
      * The scale of the {@value #COLUMN_NAME_FISCAL_WEEK_NUMBER} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_FISCAL_WEEK_NUMBER = 0;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_FISCAL_WEEK_NUMBER} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_FISCAL_WEEK_NUMBER =
+            COLUMN_PRECISION_FISCAL_WEEK_NUMBER - COLUMN_SCALE_FISCAL_WEEK_NUMBER;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_FISCAL_WEEK_NUMBER} attribute. The value
+     * is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_FISCAL_WEEK_NUMBER = COLUMN_SCALE_FISCAL_WEEK_NUMBER;
 
     // ------------------------------------------------------------------------------------------------- WEEK_ENDING_DAY
 
@@ -231,6 +283,19 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
      */
     public static final int COLUMN_SCALE_CALENDAR_MONTH_NUMBER = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER} attribute. The value
+     * is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_CALENDAR_MONTH_NUMBER =
+            COLUMN_PRECISION_CALENDAR_MONTH_NUMBER - COLUMN_SCALE_CALENDAR_MONTH_NUMBER;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER} attribute. The
+     * value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_CALENDAR_MONTH_NUMBER = COLUMN_SCALE_CALENDAR_MONTH_NUMBER;
+
     // --------------------------------------------------------------------------------------------- FISCAL_MONTH_NUMBER
 
     /**
@@ -254,6 +319,19 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
      * The scale of the {@value #COLUMN_NAME_FISCAL_MONTH_NUMBER} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_FISCAL_MONTH_NUMBER = 0;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_FISCAL_MONTH_NUMBER =
+            COLUMN_PRECISION_FISCAL_MONTH_NUMBER - COLUMN_SCALE_FISCAL_MONTH_NUMBER;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER} attribute. The value
+     * is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_FISCAL_MONTH_NUMBER = COLUMN_SCALE_FISCAL_MONTH_NUMBER;
 
     // --------------------------------------------------------------------------------------------- CALENDAR_MONTH_DESC
 
@@ -580,6 +658,19 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
      */
     public static final int COLUMN_SCALE_CALENDAR_QUARTER_NUMBER = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER} attribute. The
+     * value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_CALENDAR_QUARTER_NUMBER =
+            COLUMN_PRECISION_CALENDAR_QUARTER_NUMBER - COLUMN_SCALE_CALENDAR_QUARTER_NUMBER;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER} attribute. The
+     * value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_CALENDAR_QUARTER_NUMBER = COLUMN_SCALE_CALENDAR_QUARTER_NUMBER;
+
     // ------------------------------------------------------------------------------------------- FISCAL_QUARTER_NUMBER
 
     /**
@@ -604,6 +695,19 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
      */
     public static final int COLUMN_SCALE_FISCAL_QUARTER_NUMBER = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER} attribute. The value
+     * is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_FISCAL_QUARTER_NUMBER =
+            COLUMN_PRECISION_FISCAL_QUARTER_NUMBER - COLUMN_SCALE_FISCAL_QUARTER_NUMBER;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER} attribute. The
+     * value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_FISCAL_QUARTER_NUMBER = COLUMN_SCALE_FISCAL_QUARTER_NUMBER;
+
     // --------------------------------------------------------------------------------------------------- CALENDAR_YEAR
 
     /**
@@ -626,6 +730,19 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
      * The scale of the {@value #COLUMN_NAME_CALENDAR_YEAR} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_CALENDAR_YEAR = 0;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_CALENDAR_YEAR =
+            COLUMN_PRECISION_CALENDAR_YEAR - COLUMN_SCALE_CALENDAR_YEAR;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_CALENDAR_YEAR = COLUMN_SCALE_CALENDAR_YEAR;
 
     // ------------------------------------------------------------------------------------------------ CALENDAR_YEAR_ID
 
@@ -662,6 +779,19 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
      * The scale of the {@value #COLUMN_NAME_FISCAL_YEAR} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_FISCAL_YEAR = 0;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_FISCAL_YEAR} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_FISCAL_YEAR =
+            COLUMN_PRECISION_FISCAL_YEAR - COLUMN_SCALE_FISCAL_YEAR;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_FISCAL_YEAR} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_FISCAL_YEAR = COLUMN_SCALE_FISCAL_YEAR;
 
     // -------------------------------------------------------------------------------------------------- FISCAL_YEAR_ID
 
@@ -2065,8 +2195,8 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
     private String dayName;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_DAY_NUMBER_IN_WEEK - COLUMN_SCALE_DAY_NUMBER_IN_WEEK,
-            fraction = COLUMN_SCALE_DAY_NUMBER_IN_WEEK)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_DAY_NUMBER_IN_WEEK,
+            fraction = ATTRIBUTE_DIGITS_FRACTION_DAY_NUMBER_IN_WEEK)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_DAY_NUMBER_IN_WEEK,
             nullable = false,
@@ -2076,8 +2206,8 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
     private Integer dayNumberInWeek;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_DAY_NUMBER_IN_MONTH - COLUMN_SCALE_DAY_NUMBER_IN_MONTH,
-            fraction = COLUMN_SCALE_DAY_NUMBER_IN_MONTH)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_DAY_NUMBER_IN_MONTH,
+            fraction = ATTRIBUTE_DIGITS_FRACTION_DAY_NUMBER_IN_MONTH)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_DAY_NUMBER_IN_MONTH,
             nullable = false,
@@ -2087,8 +2217,8 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
     private Integer dayNumberInMonth;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_CALENDAR_WEEK_NUMBER - COLUMN_SCALE_CALENDAR_WEEK_NUMBER,
-            fraction = COLUMN_SCALE_CALENDAR_WEEK_NUMBER)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_CALENDAR_WEEK_NUMBER,
+            fraction = ATTRIBUTE_DIGITS_FRACTION_CALENDAR_WEEK_NUMBER)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_CALENDAR_WEEK_NUMBER,
             nullable = false,
@@ -2098,8 +2228,8 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
     private Integer calendarWeekNumber;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_FISCAL_WEEK_NUMBER - COLUMN_SCALE_FISCAL_WEEK_NUMBER,
-            fraction = COLUMN_SCALE_FISCAL_WEEK_NUMBER)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_FISCAL_WEEK_NUMBER,
+            fraction = ATTRIBUTE_DIGITS_FRACTION_FISCAL_WEEK_NUMBER)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_FISCAL_WEEK_NUMBER,
             nullable = false,
@@ -2127,8 +2257,8 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
     private Long weekEndingDayId;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_CALENDAR_MONTH_NUMBER - COLUMN_SCALE_CALENDAR_MONTH_NUMBER,
-            fraction = COLUMN_SCALE_CALENDAR_MONTH_NUMBER)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_CALENDAR_MONTH_NUMBER,
+            fraction = ATTRIBUTE_DIGITS_FRACTION_CALENDAR_MONTH_NUMBER)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_CALENDAR_MONTH_NUMBER,
             nullable = false,
@@ -2138,8 +2268,8 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
     private Integer calendarMonthNumber;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_FISCAL_MONTH_NUMBER - COLUMN_SCALE_FISCAL_MONTH_NUMBER,
-            fraction = COLUMN_SCALE_FISCAL_MONTH_NUMBER)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_FISCAL_MONTH_NUMBER,
+            fraction = ATTRIBUTE_DIGITS_FRACTION_FISCAL_MONTH_NUMBER)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_FISCAL_MONTH_NUMBER,
             nullable = false,
@@ -2323,8 +2453,8 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
     private LocalDateTime endOfFisQuarter;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_CALENDAR_QUARTER_NUMBER - COLUMN_SCALE_CALENDAR_QUARTER_NUMBER,
-            fraction = COLUMN_SCALE_CALENDAR_QUARTER_NUMBER)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_CALENDAR_QUARTER_NUMBER,
+            fraction = ATTRIBUTE_DIGITS_FRACTION_CALENDAR_QUARTER_NUMBER)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_CALENDAR_QUARTER_NUMBER,
             nullable = false,
@@ -2334,8 +2464,8 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
     private Integer calendarQuarterNumber;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_FISCAL_QUARTER_NUMBER - COLUMN_SCALE_FISCAL_QUARTER_NUMBER,
-            fraction = COLUMN_SCALE_FISCAL_QUARTER_NUMBER)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_FISCAL_QUARTER_NUMBER,
+            fraction = ATTRIBUTE_DIGITS_FRACTION_FISCAL_QUARTER_NUMBER)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_FISCAL_QUARTER_NUMBER,
             nullable = false,
@@ -2345,8 +2475,7 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
     private Integer fiscalQuarterNumber;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_CALENDAR_YEAR - COLUMN_SCALE_CALENDAR_YEAR,
-            fraction = COLUMN_SCALE_CALENDAR_YEAR)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_CALENDAR_YEAR, fraction = ATTRIBUTE_DIGITS_FRACTION_CALENDAR_YEAR)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_CALENDAR_YEAR,
             nullable = false,
@@ -2365,7 +2494,7 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
     private Long calendarYearId;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_FISCAL_YEAR - COLUMN_SCALE_FISCAL_YEAR, fraction = COLUMN_SCALE_FISCAL_YEAR)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_FISCAL_YEAR, fraction = ATTRIBUTE_DIGITS_FRACTION_FISCAL_YEAR)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_FISCAL_YEAR,
             nullable = false,

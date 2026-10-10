@@ -45,6 +45,19 @@ public abstract class MappedProfitId {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_CHANNEL_ID =
+            MappedProfit.COLUMN_PRECISION_CHANNEL_ID - MappedProfit.COLUMN_SCALE_CHANNEL_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_CHANNEL_ID = MappedProfit.COLUMN_SCALE_CHANNEL_ID;
+
+    /**
      * The name of the attribute which maps the {@value MappedProfit#COLUMN_NAME_CHANNEL_ID} column. The value is
      * {@value}.
      */
@@ -61,12 +74,35 @@ public abstract class MappedProfitId {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_PROD_ID =
+            MappedProfit.COLUMN_PRECISION_PROD_ID - MappedProfit.COLUMN_SCALE_PROD_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_PROD_ID = MappedProfit.COLUMN_SCALE_PROD_ID;
+
+    /**
      * The name of the attribute which maps the {@value MappedProfit#COLUMN_NAME_PROD_ID} column. The value is
      * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
     // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_PROMO_ID =
+            MappedProfit.COLUMN_PRECISION_PROMO_ID - MappedProfit.COLUMN_SCALE_PROMO_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_PROMO_ID = MappedProfit.COLUMN_SCALE_PROMO_ID;
 
     /**
      * The name of the attribute which maps the {@value MappedProfit#COLUMN_NAME_PROMO_ID} column. The value is
@@ -270,8 +306,7 @@ public abstract class MappedProfitId {
 
     // -----------------------------------------------------------------------------------------------------------------
     @NotNull
-    @Digits(integer = MappedProfit.COLUMN_PRECISION_CHANNEL_ID - MappedProfit.COLUMN_SCALE_CHANNEL_ID,
-            fraction = MappedProfit.COLUMN_SCALE_CHANNEL_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_CHANNEL_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_CHANNEL_ID)
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
@@ -288,8 +323,7 @@ public abstract class MappedProfitId {
     private Long custId;
 
     @NotNull
-    @Digits(integer = MappedProfit.COLUMN_PRECISION_PROD_ID - MappedProfit.COLUMN_SCALE_PROD_ID,
-            fraction = MappedProfit.COLUMN_SCALE_PROD_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROD_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_PROD_ID)
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
@@ -298,8 +332,7 @@ public abstract class MappedProfitId {
     private Integer prodId;
 
     @NotNull
-    @Digits(integer = MappedProfit.COLUMN_PRECISION_PROMO_ID - MappedProfit.COLUMN_SCALE_PROMO_ID,
-            fraction = MappedProfit.COLUMN_SCALE_PROMO_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROMO_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_PROMO_ID)
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the

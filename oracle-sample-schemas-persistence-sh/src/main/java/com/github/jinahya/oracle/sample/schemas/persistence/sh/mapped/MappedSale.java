@@ -182,6 +182,19 @@ public abstract class MappedSale<T extends MappedSaleId> implements __MappedDoma
      */
     public static final int COLUMN_SCALE_QUANTITY_SOLD = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_QUANTITY_SOLD =
+            COLUMN_PRECISION_QUANTITY_SOLD - COLUMN_SCALE_QUANTITY_SOLD;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_QUANTITY_SOLD = COLUMN_SCALE_QUANTITY_SOLD;
+
     // ----------------------------------------------------------------------------------------------------- AMOUNT_SOLD
 
     /**
@@ -199,6 +212,19 @@ public abstract class MappedSale<T extends MappedSaleId> implements __MappedDoma
      * The scale of the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_AMOUNT_SOLD = 2;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_AMOUNT_SOLD =
+            COLUMN_PRECISION_AMOUNT_SOLD - COLUMN_SCALE_AMOUNT_SOLD;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_AMOUNT_SOLD = COLUMN_SCALE_AMOUNT_SOLD;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value is {@value}.
@@ -305,14 +331,13 @@ public abstract class MappedSale<T extends MappedSaleId> implements __MappedDoma
 
     // -----------------------------------------------------------------------------------------------------------------
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_QUANTITY_SOLD - COLUMN_SCALE_QUANTITY_SOLD,
-            fraction = COLUMN_SCALE_QUANTITY_SOLD)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_QUANTITY_SOLD, fraction = ATTRIBUTE_DIGITS_FRACTION_QUANTITY_SOLD)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_QUANTITY_SOLD, nullable = false, insertable = true, updatable = true)
     private Integer quantitySold;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_AMOUNT_SOLD - COLUMN_SCALE_AMOUNT_SOLD, fraction = COLUMN_SCALE_AMOUNT_SOLD)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_AMOUNT_SOLD, fraction = ATTRIBUTE_DIGITS_FRACTION_AMOUNT_SOLD)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_AMOUNT_SOLD,
             nullable = false,

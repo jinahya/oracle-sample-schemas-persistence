@@ -74,6 +74,18 @@ public abstract class MappedProfit implements __MappedDomainEntity<MappedProfitI
      */
     public static final int COLUMN_SCALE_CHANNEL_ID = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_CHANNEL_ID = COLUMN_PRECISION_CHANNEL_ID - COLUMN_SCALE_CHANNEL_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_CHANNEL_ID = COLUMN_SCALE_CHANNEL_ID;
+
     // --------------------------------------------------------------------------------------------------------- CUST_ID
 
     /**
@@ -110,6 +122,16 @@ public abstract class MappedProfit implements __MappedDomainEntity<MappedProfitI
      */
     public static final int COLUMN_SCALE_PROD_ID = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_PROD_ID = COLUMN_PRECISION_PROD_ID - COLUMN_SCALE_PROD_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_PROD_ID = COLUMN_SCALE_PROD_ID;
+
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
@@ -133,6 +155,17 @@ public abstract class MappedProfit implements __MappedDomainEntity<MappedProfitI
      * The scale of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_PROMO_ID = 0;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_PROMO_ID = COLUMN_PRECISION_PROMO_ID - COLUMN_SCALE_PROMO_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_PROMO_ID = COLUMN_SCALE_PROMO_ID;
 
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
@@ -166,6 +199,17 @@ public abstract class MappedProfit implements __MappedDomainEntity<MappedProfitI
     public static final int COLUMN_SCALE_UNIT_COST = 2;
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_UNIT_COST = COLUMN_PRECISION_UNIT_COST - COLUMN_SCALE_UNIT_COST;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_UNIT_COST = COLUMN_SCALE_UNIT_COST;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_COST} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_UNIT_COST = "unitCost";
@@ -189,6 +233,18 @@ public abstract class MappedProfit implements __MappedDomainEntity<MappedProfitI
     public static final int COLUMN_SCALE_UNIT_PRICE = 2;
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_UNIT_PRICE = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_UNIT_PRICE = COLUMN_SCALE_UNIT_PRICE;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_UNIT_PRICE = "unitPrice";
@@ -210,6 +266,19 @@ public abstract class MappedProfit implements __MappedDomainEntity<MappedProfitI
      * The scale of the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_AMOUNT_SOLD = 2;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_AMOUNT_SOLD =
+            COLUMN_PRECISION_AMOUNT_SOLD - COLUMN_SCALE_AMOUNT_SOLD;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_AMOUNT_SOLD = COLUMN_SCALE_AMOUNT_SOLD;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value is {@value}.
@@ -238,6 +307,19 @@ public abstract class MappedProfit implements __MappedDomainEntity<MappedProfitI
      * The scale of the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_QUANTITY_SOLD = 0;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_QUANTITY_SOLD =
+            COLUMN_PRECISION_QUANTITY_SOLD - COLUMN_SCALE_QUANTITY_SOLD;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_QUANTITY_SOLD = COLUMN_SCALE_QUANTITY_SOLD;
 
     // ------------------------------------------------------------------------------------------------------ TOTAL_COST
 
@@ -516,7 +598,7 @@ public abstract class MappedProfit implements __MappedDomainEntity<MappedProfitI
 
     @Id
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_CHANNEL_ID - COLUMN_SCALE_CHANNEL_ID, fraction = COLUMN_SCALE_CHANNEL_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_CHANNEL_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_CHANNEL_ID)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
     private Long channelId;
@@ -529,14 +611,14 @@ public abstract class MappedProfit implements __MappedDomainEntity<MappedProfitI
 
     @Id
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_PROD_ID - COLUMN_SCALE_PROD_ID, fraction = COLUMN_SCALE_PROD_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROD_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_PROD_ID)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
     private Integer prodId;
 
     @Id
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_PROMO_ID - COLUMN_SCALE_PROMO_ID, fraction = COLUMN_SCALE_PROMO_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROMO_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_PROMO_ID)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
     private Integer promoId;
@@ -549,7 +631,7 @@ public abstract class MappedProfit implements __MappedDomainEntity<MappedProfitI
 
     // -----------------------------------------------------------------------------------------------------------------
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_UNIT_COST - COLUMN_SCALE_UNIT_COST, fraction = COLUMN_SCALE_UNIT_COST)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_UNIT_COST, fraction = ATTRIBUTE_DIGITS_FRACTION_UNIT_COST)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_COST,
             nullable = false,
@@ -560,7 +642,7 @@ public abstract class MappedProfit implements __MappedDomainEntity<MappedProfitI
     private BigDecimal unitCost;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE, fraction = COLUMN_SCALE_UNIT_PRICE)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_UNIT_PRICE, fraction = ATTRIBUTE_DIGITS_FRACTION_UNIT_PRICE)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_PRICE,
             nullable = false,
@@ -571,7 +653,7 @@ public abstract class MappedProfit implements __MappedDomainEntity<MappedProfitI
     private BigDecimal unitPrice;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_AMOUNT_SOLD - COLUMN_SCALE_AMOUNT_SOLD, fraction = COLUMN_SCALE_AMOUNT_SOLD)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_AMOUNT_SOLD, fraction = ATTRIBUTE_DIGITS_FRACTION_AMOUNT_SOLD)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_AMOUNT_SOLD,
             nullable = false,
@@ -582,8 +664,7 @@ public abstract class MappedProfit implements __MappedDomainEntity<MappedProfitI
     private BigDecimal amountSold;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_QUANTITY_SOLD - COLUMN_SCALE_QUANTITY_SOLD,
-            fraction = COLUMN_SCALE_QUANTITY_SOLD)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_QUANTITY_SOLD, fraction = ATTRIBUTE_DIGITS_FRACTION_QUANTITY_SOLD)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_QUANTITY_SOLD, nullable = false, insertable = false, updatable = false)
     private Integer quantitySold;

@@ -35,6 +35,8 @@ import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.DecimalMax;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -181,6 +183,17 @@ public abstract class MappedStore implements __MappedDomainEntity<Long> {
     public static final String COLUMN_MAX_LATITUDE = "+999.999999";
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_LATITUDE = COLUMN_PRECISION_LATITUDE - COLUMN_SCALE_LATITUDE;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_LATITUDE = COLUMN_SCALE_LATITUDE;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_LATITUDE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LATITUDE = "latitude";
@@ -229,6 +242,17 @@ public abstract class MappedStore implements __MappedDomainEntity<Long> {
      * The maximum value of the {@value #COLUMN_NAME_LONGITUDE} column. The value is {@value}.
      */
     public static final String COLUMN_MAX_LONGITUDE = "+999.999999";
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_LONGITUDE = COLUMN_PRECISION_LONGITUDE - COLUMN_SCALE_LONGITUDE;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_LONGITUDE = COLUMN_SCALE_LONGITUDE;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_LONGITUDE} column. The value is {@value}.
@@ -752,11 +776,9 @@ public abstract class MappedStore implements __MappedDomainEntity<Long> {
 //    @DecimalMax(value = DECIMAL_MAX_LATITUDE, inclusive = true)
     // TODO: remove; not constrained by the DDL -- STORES.LATITUDE is NUMBER(9,6) with no check; -90..+90 is a domain range
 //    @DecimalMin(value = DECIMAL_MIN_LATITUDE, inclusive = true)
-    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
-//    @DecimalMax(value = COLUMN_MAX_LATITUDE, inclusive = true)
-    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
-//    @DecimalMin(value = COLUMN_MIN_LATITUDE, inclusive = true)
-    @Digits(integer = COLUMN_PRECISION_LATITUDE - COLUMN_SCALE_LATITUDE, fraction = COLUMN_SCALE_LATITUDE)
+    @DecimalMax(value = COLUMN_MAX_LATITUDE, inclusive = true)
+    @DecimalMin(value = COLUMN_MIN_LATITUDE, inclusive = true)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_LATITUDE, fraction = ATTRIBUTE_DIGITS_FRACTION_LATITUDE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LATITUDE,
             nullable = true,
@@ -772,11 +794,9 @@ public abstract class MappedStore implements __MappedDomainEntity<Long> {
 //    @DecimalMax(value = DECIMAL_MAX_LONGITUDE, inclusive = true)
     // TODO: remove; not constrained by the DDL -- STORES.LONGITUDE is NUMBER(9,6) with no check; -180..+180 is a domain range
 //    @DecimalMin(value = DECIMAL_MIN_LONGITUDE, inclusive = true)
-    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
-//    @DecimalMax(value = COLUMN_MAX_LONGITUDE, inclusive = true)
-    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
-//    @DecimalMin(value = COLUMN_MIN_LONGITUDE, inclusive = true)
-    @Digits(integer = COLUMN_PRECISION_LONGITUDE - COLUMN_SCALE_LONGITUDE, fraction = COLUMN_SCALE_LONGITUDE)
+    @DecimalMax(value = COLUMN_MAX_LONGITUDE, inclusive = true)
+    @DecimalMin(value = COLUMN_MIN_LONGITUDE, inclusive = true)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_LONGITUDE, fraction = ATTRIBUTE_DIGITS_FRACTION_LONGITUDE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LONGITUDE,
             nullable = true,

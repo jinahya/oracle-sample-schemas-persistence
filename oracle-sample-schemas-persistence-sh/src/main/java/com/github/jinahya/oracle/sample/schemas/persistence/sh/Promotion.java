@@ -70,6 +70,17 @@ public class Promotion implements __DomainEntity<Integer> {
      */
     public static final int COLUMN_SCALE_PROMO_ID = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_PROMO_ID = COLUMN_PRECISION_PROMO_ID - COLUMN_SCALE_PROMO_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_PROMO_ID = COLUMN_SCALE_PROMO_ID;
+
     // ----------------------------------------------------------------------------------------------------- PROMO_NAME
 
     /**
@@ -250,6 +261,18 @@ public class Promotion implements __DomainEntity<Integer> {
      * The scale of the {@value #COLUMN_NAME_PROMO_COST} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_PROMO_COST = 2;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROMO_COST} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_PROMO_COST = COLUMN_PRECISION_PROMO_COST - COLUMN_SCALE_PROMO_COST;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROMO_COST} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_PROMO_COST = COLUMN_SCALE_PROMO_COST;
     // --------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -529,7 +552,7 @@ public class Promotion implements __DomainEntity<Integer> {
 
     @NotNull
     @Id
-    @Digits(integer = COLUMN_PRECISION_PROMO_ID - COLUMN_SCALE_PROMO_ID, fraction = COLUMN_SCALE_PROMO_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROMO_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_PROMO_ID)
     @Column(name = COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
     private Integer promoId;
 
@@ -585,7 +608,7 @@ public class Promotion implements __DomainEntity<Integer> {
     private Long promoCategoryId;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_PROMO_COST - COLUMN_SCALE_PROMO_COST, fraction = COLUMN_SCALE_PROMO_COST)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROMO_COST, fraction = ATTRIBUTE_DIGITS_FRACTION_PROMO_COST)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROMO_COST,
             nullable = false,

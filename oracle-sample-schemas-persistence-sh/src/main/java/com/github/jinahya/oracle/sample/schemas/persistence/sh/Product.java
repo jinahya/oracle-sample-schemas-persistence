@@ -70,6 +70,16 @@ public class Product implements __DomainEntity<Integer> {
      */
     public static final int COLUMN_SCALE_PROD_ID = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_PROD_ID = COLUMN_PRECISION_PROD_ID - COLUMN_SCALE_PROD_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_PROD_ID = COLUMN_SCALE_PROD_ID;
+
     // ------------------------------------------------------------------------------------------------------ PROD_NAME
 
     /**
@@ -259,6 +269,19 @@ public class Product implements __DomainEntity<Integer> {
      */
     public static final int COLUMN_SCALE_PROD_WEIGHT_CLASS = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_PROD_WEIGHT_CLASS =
+            COLUMN_PRECISION_PROD_WEIGHT_CLASS - COLUMN_SCALE_PROD_WEIGHT_CLASS;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_PROD_WEIGHT_CLASS = COLUMN_SCALE_PROD_WEIGHT_CLASS;
+
     // ------------------------------------------------------------------------------------------- PROD_UNIT_OF_MEASURE
 
     /**
@@ -329,6 +352,19 @@ public class Product implements __DomainEntity<Integer> {
      */
     public static final int COLUMN_SCALE_SUPPLIER_ID = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_SUPPLIER_ID =
+            COLUMN_PRECISION_SUPPLIER_ID - COLUMN_SCALE_SUPPLIER_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_SUPPLIER_ID = COLUMN_SCALE_SUPPLIER_ID;
+
     // ---------------------------------------------------------------------------------------------------- PROD_STATUS
 
     /**
@@ -371,6 +407,19 @@ public class Product implements __DomainEntity<Integer> {
     public static final int COLUMN_SCALE_PROD_LIST_PRICE = 2;
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_PROD_LIST_PRICE =
+            COLUMN_PRECISION_PROD_LIST_PRICE - COLUMN_SCALE_PROD_LIST_PRICE;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_PROD_LIST_PRICE = COLUMN_SCALE_PROD_LIST_PRICE;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_LIST_PRICE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_LIST_PRICE = "prodListPrice";
@@ -392,6 +441,19 @@ public class Product implements __DomainEntity<Integer> {
      * The scale of the {@value #COLUMN_NAME_PROD_MIN_PRICE} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_PROD_MIN_PRICE = 2;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_PROD_MIN_PRICE =
+            COLUMN_PRECISION_PROD_MIN_PRICE - COLUMN_SCALE_PROD_MIN_PRICE;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_PROD_MIN_PRICE = COLUMN_SCALE_PROD_MIN_PRICE;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_MIN_PRICE} column. The value is {@value}.
@@ -1002,7 +1064,7 @@ public class Product implements __DomainEntity<Integer> {
     // --------------------------------------------------------------------------------------------------------------- 
     @NotNull
     @Id
-    @Digits(integer = COLUMN_PRECISION_PROD_ID - COLUMN_SCALE_PROD_ID, fraction = COLUMN_SCALE_PROD_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROD_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_PROD_ID)
     @Column(name = COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
     private Integer prodId;
 
@@ -1095,8 +1157,8 @@ public class Product implements __DomainEntity<Integer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_PROD_WEIGHT_CLASS - COLUMN_SCALE_PROD_WEIGHT_CLASS,
-            fraction = COLUMN_SCALE_PROD_WEIGHT_CLASS)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROD_WEIGHT_CLASS,
+            fraction = ATTRIBUTE_DIGITS_FRACTION_PROD_WEIGHT_CLASS)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROD_WEIGHT_CLASS,
             nullable = false,
@@ -1127,7 +1189,7 @@ public class Product implements __DomainEntity<Integer> {
     private String prodPackSize;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_SUPPLIER_ID - COLUMN_SCALE_SUPPLIER_ID, fraction = COLUMN_SCALE_SUPPLIER_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_SUPPLIER_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_SUPPLIER_ID)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_SUPPLIER_ID,
             nullable = false,
@@ -1148,8 +1210,7 @@ public class Product implements __DomainEntity<Integer> {
     private String prodStatus;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_PROD_LIST_PRICE - COLUMN_SCALE_PROD_LIST_PRICE,
-            fraction = COLUMN_SCALE_PROD_LIST_PRICE)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROD_LIST_PRICE, fraction = ATTRIBUTE_DIGITS_FRACTION_PROD_LIST_PRICE)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROD_LIST_PRICE,
             nullable = false,
@@ -1161,8 +1222,7 @@ public class Product implements __DomainEntity<Integer> {
     private BigDecimal prodListPrice;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_PROD_MIN_PRICE - COLUMN_SCALE_PROD_MIN_PRICE,
-            fraction = COLUMN_SCALE_PROD_MIN_PRICE)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROD_MIN_PRICE, fraction = ATTRIBUTE_DIGITS_FRACTION_PROD_MIN_PRICE)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROD_MIN_PRICE,
             nullable = false,

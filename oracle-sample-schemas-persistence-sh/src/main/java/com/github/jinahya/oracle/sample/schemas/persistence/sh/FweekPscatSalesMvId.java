@@ -63,12 +63,37 @@ public class FweekPscatSalesMvId {
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_CHANNEL_ID =
+            FweekPscatSalesMv.COLUMN_PRECISION_CHANNEL_ID - FweekPscatSalesMv.COLUMN_SCALE_CHANNEL_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_CHANNEL_ID = FweekPscatSalesMv.COLUMN_SCALE_CHANNEL_ID;
+
+    /**
      * The name of the attribute which maps the {@value FweekPscatSalesMv#COLUMN_NAME_CHANNEL_ID} column. The value is
      * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_PROMO_ID =
+            FweekPscatSalesMv.COLUMN_PRECISION_PROMO_ID - FweekPscatSalesMv.COLUMN_SCALE_PROMO_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_PROMO_ID = FweekPscatSalesMv.COLUMN_SCALE_PROMO_ID;
 
     /**
      * The name of the attribute which maps the {@value FweekPscatSalesMv#COLUMN_NAME_PROMO_ID} column. The value is
@@ -256,8 +281,7 @@ public class FweekPscatSalesMvId {
             length = FweekPscatSalesMv.COLUMN_LENGTH_PROD_SUBCATEGORY)
     private String prodSubcategory;
 
-    @Digits(integer = FweekPscatSalesMv.COLUMN_PRECISION_CHANNEL_ID - FweekPscatSalesMv.COLUMN_SCALE_CHANNEL_ID,
-            fraction = FweekPscatSalesMv.COLUMN_SCALE_CHANNEL_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_CHANNEL_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_CHANNEL_ID)
     @NotNull
     @Basic(optional = false)
     @Column(name = FweekPscatSalesMv.COLUMN_NAME_CHANNEL_ID,
@@ -266,8 +290,7 @@ public class FweekPscatSalesMvId {
             updatable = false)
     private Long channelId;
 
-    @Digits(integer = FweekPscatSalesMv.COLUMN_PRECISION_PROMO_ID - FweekPscatSalesMv.COLUMN_SCALE_PROMO_ID,
-            fraction = FweekPscatSalesMv.COLUMN_SCALE_PROMO_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROMO_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_PROMO_ID)
     @NotNull
     @Basic(optional = false)
     @Column(name = FweekPscatSalesMv.COLUMN_NAME_PROMO_ID,

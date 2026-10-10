@@ -46,6 +46,17 @@ public class SaleId {
     // --------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_PROD_ID =
+            Sale.COLUMN_PRECISION_PROD_ID - Sale.COLUMN_SCALE_PROD_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_PROD_ID = Sale.COLUMN_SCALE_PROD_ID;
+
+    /**
      * The name of the attribute which maps the {@value Sale#COLUMN_NAME_PROD_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
@@ -67,11 +78,36 @@ public class SaleId {
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_CHANNEL_ID =
+            Sale.COLUMN_PRECISION_CHANNEL_ID - Sale.COLUMN_SCALE_CHANNEL_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_CHANNEL_ID = Sale.COLUMN_SCALE_CHANNEL_ID;
+
+    /**
      * The name of the attribute which maps the {@value Sale#COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_PROMO_ID =
+            Sale.COLUMN_PRECISION_PROMO_ID - Sale.COLUMN_SCALE_PROMO_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_PROMO_ID = Sale.COLUMN_SCALE_PROMO_ID;
 
     /**
      * The name of the attribute which maps the {@value Sale#COLUMN_NAME_PROMO_ID} column. The value is {@value}.
@@ -262,7 +298,7 @@ public class SaleId {
     // ---------------------------------------------------------------------------------------------------------------- 
 
     @NotNull
-    @Digits(integer = Sale.COLUMN_PRECISION_PROD_ID - Sale.COLUMN_SCALE_PROD_ID, fraction = Sale.COLUMN_SCALE_PROD_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROD_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_PROD_ID)
     @Basic(optional = false)
     @Column(name = Sale.COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
     private Integer prodId;
@@ -278,15 +314,13 @@ public class SaleId {
     private LocalDateTime timeId;
 
     @NotNull
-    @Digits(integer = Sale.COLUMN_PRECISION_CHANNEL_ID - Sale.COLUMN_SCALE_CHANNEL_ID,
-            fraction = Sale.COLUMN_SCALE_CHANNEL_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_CHANNEL_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_CHANNEL_ID)
     @Basic(optional = false)
     @Column(name = Sale.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
     private Long channelId;
 
     @NotNull
-    @Digits(integer = Sale.COLUMN_PRECISION_PROMO_ID - Sale.COLUMN_SCALE_PROMO_ID,
-            fraction = Sale.COLUMN_SCALE_PROMO_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROMO_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_PROMO_ID)
     @Basic(optional = false)
     @Column(name = Sale.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
     private Integer promoId;

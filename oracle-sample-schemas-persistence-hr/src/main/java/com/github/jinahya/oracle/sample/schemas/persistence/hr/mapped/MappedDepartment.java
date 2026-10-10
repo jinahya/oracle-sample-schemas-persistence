@@ -30,6 +30,8 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
 
 import java.util.Objects;
 
@@ -81,6 +83,18 @@ public abstract class MappedDepartment implements __MappedDomainEntity<Integer> 
      * The maximum value of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_DEPARTMENT_ID = +9999;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_DEPARTMENT_ID = COLUMN_PRECISION_DEPARTMENT_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_DEPARTMENT_ID = 0;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
@@ -159,6 +173,18 @@ public abstract class MappedDepartment implements __MappedDomainEntity<Integer> 
     public static final int COLUMN_MAX_MANAGER_ID = +999999;
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_MANAGER_ID = COLUMN_PRECISION_MANAGER_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_MANAGER_ID = 0;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_MANAGER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_MANAGER_ID = "managerId";
@@ -205,6 +231,18 @@ public abstract class MappedDepartment implements __MappedDomainEntity<Integer> 
      * The maximum value of the {@value #COLUMN_NAME_LOCATION_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_LOCATION_ID = +9999;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_LOCATION_ID = COLUMN_PRECISION_LOCATION_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_LOCATION_ID = 0;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_LOCATION_ID} column. The value is {@value}.
@@ -342,11 +380,9 @@ public abstract class MappedDepartment implements __MappedDomainEntity<Integer> 
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
-    @Digits(integer = COLUMN_PRECISION_DEPARTMENT_ID, fraction = 0)
+    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
+    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_DEPARTMENT_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_DEPARTMENT_ID)
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_DEPARTMENT_ID,
@@ -373,11 +409,9 @@ public abstract class MappedDepartment implements __MappedDomainEntity<Integer> 
 
     // -----------------------------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class documentation
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Max(ATTRIBUTE_MAX_MANAGER_ID)
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Min(ATTRIBUTE_MIN_MANAGER_ID)
-    @Digits(integer = COLUMN_PRECISION_MANAGER_ID, fraction = 0)
+    @Max(ATTRIBUTE_MAX_MANAGER_ID)
+    @Min(ATTRIBUTE_MIN_MANAGER_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_MANAGER_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_MANAGER_ID)
     @Column(name = COLUMN_NAME_MANAGER_ID,
             nullable = COLUMN_NULLABLE_MANAGER_ID,
             insertable = false,
@@ -389,11 +423,9 @@ public abstract class MappedDepartment implements __MappedDomainEntity<Integer> 
 
     // -----------------------------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class documentation
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Max(ATTRIBUTE_MAX_LOCATION_ID)
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Min(ATTRIBUTE_MIN_LOCATION_ID)
-    @Digits(integer = COLUMN_PRECISION_LOCATION_ID, fraction = 0)
+    @Max(ATTRIBUTE_MAX_LOCATION_ID)
+    @Min(ATTRIBUTE_MIN_LOCATION_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_LOCATION_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_LOCATION_ID)
     @Column(name = COLUMN_NAME_LOCATION_ID,
             nullable = COLUMN_NULLABLE_LOCATION_ID,
             insertable = false,

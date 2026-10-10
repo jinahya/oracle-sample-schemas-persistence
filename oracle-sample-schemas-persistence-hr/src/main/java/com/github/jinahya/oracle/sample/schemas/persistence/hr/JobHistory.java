@@ -37,6 +37,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -140,6 +142,18 @@ public class JobHistory implements __DomainEntity<JobHistoryId> {
     public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
 
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_EMPLOYEE_ID = JobHistory.COLUMN_PRECISION_EMPLOYEE_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_EMPLOYEE_ID = 0;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
@@ -455,11 +469,9 @@ public class JobHistory implements __DomainEntity<JobHistoryId> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Max(JobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Min(JobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
-    @Digits(integer = JobHistory.COLUMN_PRECISION_EMPLOYEE_ID, fraction = 0)
+    @Max(JobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
+    @Min(JobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_EMPLOYEE_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_EMPLOYEE_ID)
     @NotNull
     @Id // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     @Column(name = JobHistory.COLUMN_NAME_EMPLOYEE_ID,

@@ -74,6 +74,18 @@ public class Profit implements __DomainEntity<ProfitId> {
      */
     public static final int COLUMN_SCALE_CHANNEL_ID = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_CHANNEL_ID = COLUMN_PRECISION_CHANNEL_ID - COLUMN_SCALE_CHANNEL_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_CHANNEL_ID = COLUMN_SCALE_CHANNEL_ID;
+
     // --------------------------------------------------------------------------------------------------------- CUST_ID
 
     /**
@@ -108,6 +120,16 @@ public class Profit implements __DomainEntity<ProfitId> {
      */
     public static final int COLUMN_SCALE_PROD_ID = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_PROD_ID = COLUMN_PRECISION_PROD_ID - COLUMN_SCALE_PROD_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_PROD_ID = COLUMN_SCALE_PROD_ID;
+
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
@@ -130,6 +152,17 @@ public class Profit implements __DomainEntity<ProfitId> {
      * The scale of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_PROMO_ID = 0;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_PROMO_ID = COLUMN_PRECISION_PROMO_ID - COLUMN_SCALE_PROMO_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_PROMO_ID = COLUMN_SCALE_PROMO_ID;
 
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
@@ -162,6 +195,17 @@ public class Profit implements __DomainEntity<ProfitId> {
     public static final int COLUMN_SCALE_UNIT_COST = 2;
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_UNIT_COST = COLUMN_PRECISION_UNIT_COST - COLUMN_SCALE_UNIT_COST;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_UNIT_COST = COLUMN_SCALE_UNIT_COST;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_COST} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_UNIT_COST = "unitCost";
@@ -185,6 +229,18 @@ public class Profit implements __DomainEntity<ProfitId> {
     public static final int COLUMN_SCALE_UNIT_PRICE = 2;
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_UNIT_PRICE = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_UNIT_PRICE = COLUMN_SCALE_UNIT_PRICE;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_UNIT_PRICE = "unitPrice";
@@ -206,6 +262,19 @@ public class Profit implements __DomainEntity<ProfitId> {
      * The scale of the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_AMOUNT_SOLD = 2;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_AMOUNT_SOLD =
+            COLUMN_PRECISION_AMOUNT_SOLD - COLUMN_SCALE_AMOUNT_SOLD;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_AMOUNT_SOLD = COLUMN_SCALE_AMOUNT_SOLD;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value is {@value}.
@@ -234,6 +303,19 @@ public class Profit implements __DomainEntity<ProfitId> {
      * The scale of the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_QUANTITY_SOLD = 0;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_QUANTITY_SOLD =
+            COLUMN_PRECISION_QUANTITY_SOLD - COLUMN_SCALE_QUANTITY_SOLD;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_QUANTITY_SOLD = COLUMN_SCALE_QUANTITY_SOLD;
 
     // ------------------------------------------------------------------------------------------------------ TOTAL_COST
 
@@ -551,7 +633,7 @@ public class Profit implements __DomainEntity<ProfitId> {
 
     @Id
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_CHANNEL_ID - COLUMN_SCALE_CHANNEL_ID, fraction = COLUMN_SCALE_CHANNEL_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_CHANNEL_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_CHANNEL_ID)
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
@@ -570,7 +652,7 @@ public class Profit implements __DomainEntity<ProfitId> {
 
     @Id
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_PROD_ID - COLUMN_SCALE_PROD_ID, fraction = COLUMN_SCALE_PROD_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROD_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_PROD_ID)
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
@@ -580,7 +662,7 @@ public class Profit implements __DomainEntity<ProfitId> {
 
     @Id
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_PROMO_ID - COLUMN_SCALE_PROMO_ID, fraction = COLUMN_SCALE_PROMO_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROMO_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_PROMO_ID)
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
@@ -598,7 +680,7 @@ public class Profit implements __DomainEntity<ProfitId> {
     private LocalDateTime timeId;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_UNIT_COST - COLUMN_SCALE_UNIT_COST, fraction = COLUMN_SCALE_UNIT_COST)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_UNIT_COST, fraction = ATTRIBUTE_DIGITS_FRACTION_UNIT_COST)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_COST,
             nullable = false,
@@ -609,7 +691,7 @@ public class Profit implements __DomainEntity<ProfitId> {
     private BigDecimal unitCost;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE, fraction = COLUMN_SCALE_UNIT_PRICE)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_UNIT_PRICE, fraction = ATTRIBUTE_DIGITS_FRACTION_UNIT_PRICE)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_PRICE,
             nullable = false,
@@ -620,7 +702,7 @@ public class Profit implements __DomainEntity<ProfitId> {
     private BigDecimal unitPrice;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_AMOUNT_SOLD - COLUMN_SCALE_AMOUNT_SOLD, fraction = COLUMN_SCALE_AMOUNT_SOLD)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_AMOUNT_SOLD, fraction = ATTRIBUTE_DIGITS_FRACTION_AMOUNT_SOLD)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_AMOUNT_SOLD,
             nullable = false,
@@ -631,8 +713,7 @@ public class Profit implements __DomainEntity<ProfitId> {
     private BigDecimal amountSold;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_QUANTITY_SOLD - COLUMN_SCALE_QUANTITY_SOLD,
-            fraction = COLUMN_SCALE_QUANTITY_SOLD)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_QUANTITY_SOLD, fraction = ATTRIBUTE_DIGITS_FRACTION_QUANTITY_SOLD)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_QUANTITY_SOLD, nullable = false, insertable = false, updatable = false)
     private Integer quantitySold;

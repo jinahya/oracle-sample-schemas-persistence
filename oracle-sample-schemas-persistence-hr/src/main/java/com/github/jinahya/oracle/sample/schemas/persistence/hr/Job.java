@@ -33,6 +33,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
 
 import java.util.Comparator;
 import java.util.List;
@@ -148,6 +150,18 @@ public class Job implements __DomainEntity<String> {
     public static final int COLUMN_MAX_MIN_SALARY = +999999;
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_MIN_SALARY = COLUMN_PRECISION_MIN_SALARY;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_MIN_SALARY = 0;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_MIN_SALARY} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_MIN_SALARY = "minSalary";
@@ -189,6 +203,18 @@ public class Job implements __DomainEntity<String> {
      * The maximum value of the {@value #COLUMN_NAME_MAX_SALARY} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_MAX_SALARY = +999999;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_MAX_SALARY = COLUMN_PRECISION_MAX_SALARY;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_MAX_SALARY = 0;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_MAX_SALARY} column. The value is {@value}.
@@ -579,11 +605,9 @@ public class Job implements __DomainEntity<String> {
     private String jobTitle;
 
     @jakarta.annotation.Nullable
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Max(ATTRIBUTE_MAX_MIN_SALARY)
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Min(ATTRIBUTE_MIN_MIN_SALARY)
-    @Digits(integer = COLUMN_PRECISION_MIN_SALARY, fraction = 0)
+    @Max(ATTRIBUTE_MAX_MIN_SALARY)
+    @Min(ATTRIBUTE_MIN_MIN_SALARY)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_MIN_SALARY, fraction = ATTRIBUTE_DIGITS_FRACTION_MIN_SALARY)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_MIN_SALARY,
             nullable = true,
@@ -595,11 +619,9 @@ public class Job implements __DomainEntity<String> {
     private Integer minSalary;
 
     @jakarta.annotation.Nullable
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Max(ATTRIBUTE_MAX_MAX_SALARY)
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Min(ATTRIBUTE_MIN_MAX_SALARY)
-    @Digits(integer = COLUMN_PRECISION_MAX_SALARY, fraction = 0)
+    @Max(ATTRIBUTE_MAX_MAX_SALARY)
+    @Min(ATTRIBUTE_MIN_MAX_SALARY)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_MAX_SALARY, fraction = ATTRIBUTE_DIGITS_FRACTION_MAX_SALARY)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_MAX_SALARY,
             nullable = true,

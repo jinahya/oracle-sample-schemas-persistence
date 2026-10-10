@@ -120,6 +120,17 @@ public class StoreOrder implements __DomainEntity<Void> {
     public static final String COLUMN_NAME_LATITUDE = "LATITUDE";
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_LATITUDE = 3;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_LATITUDE = 6;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_LATITUDE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LATITUDE = "latitude";
@@ -131,6 +142,17 @@ public class StoreOrder implements __DomainEntity<Void> {
      * {@value}.
      */
     public static final String COLUMN_NAME_LONGITUDE = "LONGITUDE";
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_LONGITUDE = 3;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_LONGITUDE = 6;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_LONGITUDE} column. The value is {@value}.
@@ -435,12 +457,14 @@ public class StoreOrder implements __DomainEntity<Void> {
             length = COLUMN_LENGTH_ADDRESS)
     private String address;
 
-    @Digits(integer = 3, fraction = 6) // STORES.LATITUDE NUMBER(9,6), projected as is
+    // STORES.LATITUDE NUMBER(9,6), projected as is
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_LATITUDE, fraction = ATTRIBUTE_DIGITS_FRACTION_LATITUDE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LATITUDE, nullable = true, insertable = false, updatable = false)
     private BigDecimal latitude;
 
-    @Digits(integer = 3, fraction = 6) // STORES.LONGITUDE NUMBER(9,6), projected as is
+    // STORES.LONGITUDE NUMBER(9,6), projected as is
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_LONGITUDE, fraction = ATTRIBUTE_DIGITS_FRACTION_LONGITUDE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LONGITUDE, nullable = true, insertable = false, updatable = false)
     private BigDecimal longitude;

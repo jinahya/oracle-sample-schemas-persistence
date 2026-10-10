@@ -153,6 +153,17 @@ public class Cost implements __DomainEntity<CostId> {
     public static final int COLUMN_SCALE_UNIT_COST = 2;
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_UNIT_COST = COLUMN_PRECISION_UNIT_COST - COLUMN_SCALE_UNIT_COST;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_UNIT_COST = COLUMN_SCALE_UNIT_COST;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_COST} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_UNIT_COST = "unitCost";
@@ -174,6 +185,18 @@ public class Cost implements __DomainEntity<CostId> {
      * The scale of the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_UNIT_PRICE = 2;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_UNIT_PRICE = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_UNIT_PRICE = COLUMN_SCALE_UNIT_PRICE;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
@@ -453,7 +476,7 @@ public class Cost implements __DomainEntity<CostId> {
     private Channel channel;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_UNIT_COST - COLUMN_SCALE_UNIT_COST, fraction = COLUMN_SCALE_UNIT_COST)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_UNIT_COST, fraction = ATTRIBUTE_DIGITS_FRACTION_UNIT_COST)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_COST,
             nullable = false,
@@ -464,7 +487,7 @@ public class Cost implements __DomainEntity<CostId> {
     private BigDecimal unitCost;
 
     @NotNull
-    @Digits(integer = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE, fraction = COLUMN_SCALE_UNIT_PRICE)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_UNIT_PRICE, fraction = ATTRIBUTE_DIGITS_FRACTION_UNIT_PRICE)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_PRICE,
             nullable = false,

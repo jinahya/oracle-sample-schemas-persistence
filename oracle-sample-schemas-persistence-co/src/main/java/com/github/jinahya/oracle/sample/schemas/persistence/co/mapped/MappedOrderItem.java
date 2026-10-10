@@ -29,6 +29,7 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.DecimalMax;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -131,6 +132,18 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> implements __
      * The scale of the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_UNIT_PRICE = 2;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_UNIT_PRICE = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_UNIT_PRICE = COLUMN_SCALE_UNIT_PRICE;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
@@ -391,11 +404,10 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> implements __
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
-//    @DecimalMax(DECIMAL_MAX_UNIT_PRICE)
+    @DecimalMax(DECIMAL_MAX_UNIT_PRICE)
     // TODO: remove; not constrained by the DDL -- ORDER_ITEMS.UNIT_PRICE is NUMBER(10,2) with no check; the lower bound of 0 is narrower than the column
 //    @DecimalMin(DECIMAL_MIN_UNIT_PRICE)
-    @Digits(integer = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE, fraction = COLUMN_SCALE_UNIT_PRICE)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_UNIT_PRICE, fraction = ATTRIBUTE_DIGITS_FRACTION_UNIT_PRICE)
     @NotNull
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_PRICE,

@@ -161,6 +161,19 @@ public abstract class MappedSupplementaryDemographics implements __MappedDomainE
      */
     public static final int COLUMN_SCALE_AFFINITY_CARD = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_AFFINITY_CARD =
+            COLUMN_PRECISION_AFFINITY_CARD - COLUMN_SCALE_AFFINITY_CARD;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_AFFINITY_CARD = COLUMN_SCALE_AFFINITY_CARD;
+
     // --------------------------------------------------------------------------------------------------------- CRICKET
 
     /**
@@ -183,6 +196,16 @@ public abstract class MappedSupplementaryDemographics implements __MappedDomainE
      * The scale of the {@value #COLUMN_NAME_CRICKET} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_CRICKET = 0;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_CRICKET} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_CRICKET = COLUMN_PRECISION_CRICKET - COLUMN_SCALE_CRICKET;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_CRICKET} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_CRICKET = COLUMN_SCALE_CRICKET;
 
     // -------------------------------------------------------------------------------------------------------- BASEBALL
 
@@ -207,6 +230,17 @@ public abstract class MappedSupplementaryDemographics implements __MappedDomainE
      */
     public static final int COLUMN_SCALE_BASEBALL = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_BASEBALL} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_BASEBALL = COLUMN_PRECISION_BASEBALL - COLUMN_SCALE_BASEBALL;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_BASEBALL} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_BASEBALL = COLUMN_SCALE_BASEBALL;
+
     // ---------------------------------------------------------------------------------------------------------- TENNIS
 
     /**
@@ -228,6 +262,16 @@ public abstract class MappedSupplementaryDemographics implements __MappedDomainE
      * The scale of the {@value #COLUMN_NAME_TENNIS} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_TENNIS = 0;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_TENNIS} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_TENNIS = COLUMN_PRECISION_TENNIS - COLUMN_SCALE_TENNIS;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_TENNIS} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_TENNIS = COLUMN_SCALE_TENNIS;
 
     // ---------------------------------------------------------------------------------------------------------- SOCCER
 
@@ -251,6 +295,16 @@ public abstract class MappedSupplementaryDemographics implements __MappedDomainE
      */
     public static final int COLUMN_SCALE_SOCCER = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_SOCCER} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_SOCCER = COLUMN_PRECISION_SOCCER - COLUMN_SCALE_SOCCER;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_SOCCER} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_SOCCER = COLUMN_SCALE_SOCCER;
+
     // ------------------------------------------------------------------------------------------------------------ GOLF
 
     /**
@@ -272,6 +326,16 @@ public abstract class MappedSupplementaryDemographics implements __MappedDomainE
      * The scale of the {@value #COLUMN_NAME_GOLF} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_GOLF = 0;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_GOLF} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_GOLF = COLUMN_PRECISION_GOLF - COLUMN_SCALE_GOLF;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_GOLF} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_GOLF = COLUMN_SCALE_GOLF;
 
     // --------------------------------------------------------------------------------------------------------- UNKNOWN
 
@@ -296,6 +360,16 @@ public abstract class MappedSupplementaryDemographics implements __MappedDomainE
      */
     public static final int COLUMN_SCALE_UNKNOWN = 0;
 
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_UNKNOWN} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_UNKNOWN = COLUMN_PRECISION_UNKNOWN - COLUMN_SCALE_UNKNOWN;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_UNKNOWN} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_UNKNOWN = COLUMN_SCALE_UNKNOWN;
+
     // ------------------------------------------------------------------------------------------------------------ MISC
 
     /**
@@ -317,6 +391,16 @@ public abstract class MappedSupplementaryDemographics implements __MappedDomainE
      * The scale of the {@value #COLUMN_NAME_MISC} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_MISC = 0;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_MISC} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_MISC = COLUMN_PRECISION_MISC - COLUMN_SCALE_MISC;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_MISC} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_MISC = COLUMN_SCALE_MISC;
 
     // -------------------------------------------------------------------------------------------------------- COMMENTS
 
@@ -722,8 +806,7 @@ public abstract class MappedSupplementaryDemographics implements __MappedDomainE
     )
     private Long yrsResidence;
 
-    @Digits(integer = COLUMN_PRECISION_AFFINITY_CARD - COLUMN_SCALE_AFFINITY_CARD,
-            fraction = COLUMN_SCALE_AFFINITY_CARD)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_AFFINITY_CARD, fraction = ATTRIBUTE_DIGITS_FRACTION_AFFINITY_CARD)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_AFFINITY_CARD,
             nullable = true,
@@ -732,7 +815,7 @@ public abstract class MappedSupplementaryDemographics implements __MappedDomainE
     )
     private Long affinityCard;
 
-    @Digits(integer = COLUMN_PRECISION_CRICKET - COLUMN_SCALE_CRICKET, fraction = COLUMN_SCALE_CRICKET)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_CRICKET, fraction = ATTRIBUTE_DIGITS_FRACTION_CRICKET)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_CRICKET,
             nullable = true,
@@ -741,7 +824,7 @@ public abstract class MappedSupplementaryDemographics implements __MappedDomainE
     )
     private Long cricket;
 
-    @Digits(integer = COLUMN_PRECISION_BASEBALL - COLUMN_SCALE_BASEBALL, fraction = COLUMN_SCALE_BASEBALL)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_BASEBALL, fraction = ATTRIBUTE_DIGITS_FRACTION_BASEBALL)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_BASEBALL,
             nullable = true,
@@ -750,7 +833,7 @@ public abstract class MappedSupplementaryDemographics implements __MappedDomainE
     )
     private Long baseball;
 
-    @Digits(integer = COLUMN_PRECISION_TENNIS - COLUMN_SCALE_TENNIS, fraction = COLUMN_SCALE_TENNIS)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_TENNIS, fraction = ATTRIBUTE_DIGITS_FRACTION_TENNIS)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_TENNIS,
             nullable = true,
@@ -759,7 +842,7 @@ public abstract class MappedSupplementaryDemographics implements __MappedDomainE
     )
     private Long tennis;
 
-    @Digits(integer = COLUMN_PRECISION_SOCCER - COLUMN_SCALE_SOCCER, fraction = COLUMN_SCALE_SOCCER)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_SOCCER, fraction = ATTRIBUTE_DIGITS_FRACTION_SOCCER)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_SOCCER,
             nullable = true,
@@ -768,7 +851,7 @@ public abstract class MappedSupplementaryDemographics implements __MappedDomainE
     )
     private Long soccer;
 
-    @Digits(integer = COLUMN_PRECISION_GOLF - COLUMN_SCALE_GOLF, fraction = COLUMN_SCALE_GOLF)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_GOLF, fraction = ATTRIBUTE_DIGITS_FRACTION_GOLF)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_GOLF,
             nullable = true,
@@ -777,7 +860,7 @@ public abstract class MappedSupplementaryDemographics implements __MappedDomainE
     )
     private Long golf;
 
-    @Digits(integer = COLUMN_PRECISION_UNKNOWN - COLUMN_SCALE_UNKNOWN, fraction = COLUMN_SCALE_UNKNOWN)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_UNKNOWN, fraction = ATTRIBUTE_DIGITS_FRACTION_UNKNOWN)
     @Basic(optional = true)
     // quoted: UNKNOWN is a reserved identifier -- H2 rejects the generated DDL without the quotes, and the quoted
     // name is the upper-case one Oracle holds, so the mapping stays correct against the installed schema too
@@ -788,7 +871,7 @@ public abstract class MappedSupplementaryDemographics implements __MappedDomainE
     )
     private Long unknown;
 
-    @Digits(integer = COLUMN_PRECISION_MISC - COLUMN_SCALE_MISC, fraction = COLUMN_SCALE_MISC)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_MISC, fraction = ATTRIBUTE_DIGITS_FRACTION_MISC)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_MISC,
             nullable = true,
