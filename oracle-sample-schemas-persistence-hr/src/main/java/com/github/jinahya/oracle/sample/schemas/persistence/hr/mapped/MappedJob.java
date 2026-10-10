@@ -42,7 +42,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedJob implements __MappedDomainEntity<String> {
+public abstract class MappedJob {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.

@@ -43,7 +43,7 @@ import java.util.Objects;
  * @see MappedSaleId
  */
 @MappedSuperclass
-public abstract class MappedSale<T extends MappedSaleId> implements __MappedDomainEntity<T> {
+public abstract class MappedSale<T extends MappedSaleId> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.

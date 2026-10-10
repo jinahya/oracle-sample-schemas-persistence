@@ -22,8 +22,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 /**
  * A marker interface for classes which map a table or a view of the {@code HR} schema.
- * <p>
- * This interface is independent of {@code mapped.__MappedDomainEntity}; neither extends the other.
  *
  * @param <T> the type of the identifier; {@link Void} for a class which maps a view with no key.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;

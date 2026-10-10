@@ -36,7 +36,7 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@AnalyzeClasses(packagesOf = __MappedDomainEntity.class, importOptions = ImportOption.DoNotIncludeTests.class)
+@AnalyzeClasses(packages = ___MappedPackageSeparation_Test.PACKAGE, importOptions = ImportOption.DoNotIncludeTests.class)
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
@@ -45,7 +45,7 @@ class ___MappedPackageSeparation_Test {
     /**
      * The name of the package under test.
      */
-    private static final String PACKAGE = __MappedDomainEntity.class.getPackageName();
+    static final String PACKAGE = "com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped";
 
     /**
      * The name of the parent package, the one this package must not depend on.

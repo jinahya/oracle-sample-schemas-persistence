@@ -44,7 +44,7 @@ import java.util.Optional;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> {
+public abstract class MappedTime {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.

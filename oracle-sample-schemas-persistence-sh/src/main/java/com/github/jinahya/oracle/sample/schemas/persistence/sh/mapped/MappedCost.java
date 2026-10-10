@@ -45,7 +45,7 @@ import java.util.Objects;
  * @see MappedCostId
  */
 @MappedSuperclass
-public abstract class MappedCost implements __MappedDomainEntity<MappedCostId> {
+public abstract class MappedCost {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.

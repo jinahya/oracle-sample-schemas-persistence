@@ -49,7 +49,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedLocation implements __MappedDomainEntity<Integer> {
+public abstract class MappedLocation {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.

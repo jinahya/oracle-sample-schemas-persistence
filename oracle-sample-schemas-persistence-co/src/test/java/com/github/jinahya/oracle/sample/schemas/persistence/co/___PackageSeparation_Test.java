@@ -20,18 +20,18 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.co.mapped.__MappedDomainEntity;
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
+import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAPackage;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 /**
  * Verifies, on the {@code mapped} branch, that every class of this package which maps a table or a view of the
- * {@code CO} schema -- every implementation of {@link __DomainEntity} -- is a {@link __MappedDomainEntity} too, which on
- * this branch it is by extending its {@code mapped} counterpart.
+ * {@code CO} schema -- every implementation of {@link __DomainEntity} -- extends a class of the {@code mapped}
+ * subpackage, its {@code Mapped*} counterpart.
  * <p>
  * This is this branch's own copy, kept through merges from {@code develop} by {@code merge=ours}; {@code develop}'s
  * asserts the opposite, that this package depends on nothing in {@code mapped}. The converse,
@@ -51,7 +51,7 @@ class ___PackageSeparation_Test {
     private static final String PACKAGE = __DomainEntity.class.getPackageName();
 
     @ArchTest
-    static final ArchRule domainEntities_AreMappedDomainEntities_ =
+    static final ArchRule domainEntities_ExtendMappedClasses_ =
             classes().that().resideInAPackage(PACKAGE).and().implement(__DomainEntity.class)
-                    .should().beAssignableTo(__MappedDomainEntity.class);
+                    .should().beAssignableTo(resideInAPackage(PACKAGE + ".mapped"));
 }

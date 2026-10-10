@@ -39,7 +39,7 @@ import java.util.Objects;
  * @see MappedFweekPscatSalesMvId
  */
 @MappedSuperclass
-public abstract class MappedFweekPscatSalesMv<T extends MappedFweekPscatSalesMvId> implements __MappedDomainEntity<T> {
+public abstract class MappedFweekPscatSalesMv<T extends MappedFweekPscatSalesMvId> {
 
     /**
      * The name of the database materialized view to which this class maps. The value is {@value}.

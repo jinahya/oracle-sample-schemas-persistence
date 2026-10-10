@@ -39,7 +39,7 @@ import java.util.Objects;
  * @see MappedProductOrderId
  */
 @MappedSuperclass
-public abstract class MappedProductOrder<T extends MappedProductOrderId> implements __MappedDomainEntity<T> {
+public abstract class MappedProductOrder<T extends MappedProductOrderId> {
 
     /**
      * The name of the database view to which this class maps. The value is {@value}.

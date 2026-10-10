@@ -43,7 +43,7 @@ import java.util.Objects;
  * @see MappedProfitId
  */
 @MappedSuperclass
-public abstract class MappedProfit implements __MappedDomainEntity<MappedProfitId> {
+public abstract class MappedProfit {
 
     /**
      * The name of the database view to which this class maps. The value is {@value}.

@@ -37,7 +37,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedCustomerOrderProduct implements __MappedDomainEntity<Long> {
+public abstract class MappedCustomerOrderProduct {
 
     /**
      * The name of the database view to which this class maps. The value is {@value}.

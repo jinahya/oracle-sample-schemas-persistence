@@ -50,7 +50,7 @@ import java.util.Optional;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedStore implements __MappedDomainEntity<Long> {
+public abstract class MappedStore {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.

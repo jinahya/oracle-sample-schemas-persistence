@@ -53,7 +53,7 @@ import java.util.Objects;
  * @see MappedOrderItemId
  */
 @MappedSuperclass
-public abstract class MappedOrderItem<T extends MappedOrderItemId> implements __MappedDomainEntity<T> {
+public abstract class MappedOrderItem<T extends MappedOrderItemId> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.

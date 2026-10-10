@@ -28,15 +28,15 @@ independent of each other, tests included: each carries its own test bases in it
   the rest of `<schema>`; one declared in the concrete class is). Its duplicated constants, fields,
   accessors, nested types and `toString` / `equals` / `hashCode` go. A nested type it inherits
   still resolves through it: `Order.OrderStatus` is `MappedOrder.OrderStatus`.
-- **The markers stay unrelated.** A concrete class implements `__DomainEntity<T>`, and is a
-  `__MappedDomainEntity` through its superclass; `__DomainEntity` does not extend
-  `__MappedDomainEntity`, because an `@IdClass` entity would then implement the latter with two
-  type arguments (`JobHistoryId` and `MappedJobHistoryId`), which does not compile. `T` is the
-  identifier type: `Void` for a view with no key, the `<T>` type variable for an `@EmbeddedId`
-  `Mapped*`, and the `Mapped*Id` class for an `@IdClass` `Mapped*`.
+- **The `mapped` package has no marker and no constants class.** A concrete class implements
+  `__DomainEntity<T>`, as on `develop` (`T` is the identifier type, `Void` for a view with no key);
+  a `Mapped*` class implements nothing of its own. A marker there would have no reader: nothing
+  is typed by it, and linking it to `__DomainEntity` cannot compile for an `@IdClass` entity, whose
+  two id types (`JobHistoryId`, `MappedJobHistoryId`) would give the one interface two type
+  arguments.
 - **Nothing in `mapped` refers to the concrete package.** ArchUnit enforces it on main classes,
   with `mapped.___MappedPackageSeparation_Test`; each module's `___PackageSeparation_Test` asserts
-  that every `__DomainEntity` of the concrete package is a `__MappedDomainEntity`.
+  that every `__DomainEntity` of the concrete package extends a class of `<schema>.mapped`.
 - **Every `Mapped*` class's `toString`, `equals` and `hashCode` are `final`.** A class that cannot
   compare by an identifier -- a view with no key, or the embeddable base `_MappedBinary` -- omits
   `equals`/`hashCode` and keeps identity equality. These methods use basic attributes and the

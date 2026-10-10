@@ -52,7 +52,7 @@ import jakarta.validation.constraints.NotNull;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedInventory implements __MappedDomainEntity<Long> {
+public abstract class MappedInventory {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

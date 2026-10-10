@@ -42,7 +42,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedEmpDetailsView implements __MappedDomainEntity<Integer> {
+public abstract class MappedEmpDetailsView {
 
     /**
      * The name of the database view to which this class maps. The value is {@value}.

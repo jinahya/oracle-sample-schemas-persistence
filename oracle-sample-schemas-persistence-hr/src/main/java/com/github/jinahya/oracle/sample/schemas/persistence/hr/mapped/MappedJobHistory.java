@@ -61,7 +61,7 @@ import java.util.Objects;
  * @see MappedJobHistoryId
  */
 @MappedSuperclass
-public abstract class MappedJobHistory implements __MappedDomainEntity<MappedJobHistoryId> {
+public abstract class MappedJobHistory {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.

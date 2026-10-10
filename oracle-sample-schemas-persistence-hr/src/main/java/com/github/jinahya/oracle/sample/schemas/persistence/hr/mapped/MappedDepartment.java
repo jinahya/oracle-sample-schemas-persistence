@@ -49,7 +49,7 @@ import java.util.Objects;
  * @author Myoungkwon Hwang
  */
 @MappedSuperclass
-public abstract class MappedDepartment implements __MappedDomainEntity<Integer> {
+public abstract class MappedDepartment {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.

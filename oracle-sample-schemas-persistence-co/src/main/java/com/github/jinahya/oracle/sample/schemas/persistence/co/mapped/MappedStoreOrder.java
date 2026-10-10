@@ -38,7 +38,7 @@ import java.math.BigDecimal;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public abstract class MappedStoreOrder implements __MappedDomainEntity<Void> {
+public abstract class MappedStoreOrder {
 
     /**
      * The name of the database view to which this class maps. The value is {@value}.
