@@ -397,6 +397,20 @@
               </tag>
             </tags>
           </configuration>
+          <executions>
+            <!-- Bound by io.github.jinahya:central-parent's `central` profile. In module mode the jar goal -->
+            <!-- passes the generated sources in its patched module path whatever disableSourcepathUsage says, so the -->
+            <!-- metamodel, which quotes each @NamedQuery verbatim, fails on a `<` as malformed HTML. As the -->
+            <!-- site's main reportSet does, narrow the source path to the hand-written sources; this -->
+            <!-- execution runs the jar goal alone, so test-javadoc is not misdirected. -->
+            <execution>
+              <id>attach-javadocs</id>
+              <configuration>
+                <disableSourcepathUsage>false</disableSourcepathUsage>
+                <sourcepath>${project.build.sourceDirectory}</sourcepath>
+              </configuration>
+            </execution>
+          </executions>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
