@@ -33,6 +33,8 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.DecimalMax;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -106,6 +108,18 @@ public abstract class MappedProduct implements __MappedDomainEntity<Long> {
      * The scale of the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_UNIT_PRICE = 2;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_UNIT_PRICE = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_UNIT_PRICE = COLUMN_SCALE_UNIT_PRICE;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
@@ -542,11 +556,9 @@ public abstract class MappedProduct implements __MappedDomainEntity<Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
-//    @DecimalMax(value = DECIMAL_MAX_UNIT_PRICE, inclusive = true)
-    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
-//    @DecimalMin(value = DECIMAL_MIN_UNIT_PRICE, inclusive = true)
-    @Digits(integer = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE, fraction = COLUMN_SCALE_UNIT_PRICE)
+    @DecimalMax(value = DECIMAL_MAX_UNIT_PRICE, inclusive = true)
+    @DecimalMin(value = DECIMAL_MIN_UNIT_PRICE, inclusive = true)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_UNIT_PRICE, fraction = ATTRIBUTE_DIGITS_FRACTION_UNIT_PRICE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_UNIT_PRICE,
             nullable = true,

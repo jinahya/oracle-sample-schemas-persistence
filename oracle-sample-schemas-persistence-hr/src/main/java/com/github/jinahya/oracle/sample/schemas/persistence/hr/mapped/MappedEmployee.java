@@ -28,9 +28,13 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -85,6 +89,18 @@ public abstract class MappedEmployee implements __MappedDomainEntity<Integer> {
      * The maximum value of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_EMPLOYEE_ID = +999999;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_EMPLOYEE_ID = COLUMN_PRECISION_EMPLOYEE_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_EMPLOYEE_ID = 0;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
@@ -307,6 +323,16 @@ public abstract class MappedEmployee implements __MappedDomainEntity<Integer> {
     public static final double COLUMN_MAX_SALARY = +999999.99d;
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_SALARY} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_SALARY = COLUMN_PRECISION_SALARY - COLUMN_SCALE_SALARY;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_SALARY} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_SALARY = COLUMN_SCALE_SALARY;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_SALARY} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
@@ -348,6 +374,19 @@ public abstract class MappedEmployee implements __MappedDomainEntity<Integer> {
      * The maximum value of the {@value #COLUMN_NAME_COMMISSION_PCT} column. The value is {@value}.
      */
     public static final double COLUMN_MAX_COMMISSION_PCT = +0.99d;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_COMMISSION_PCT =
+            COLUMN_PRECISION_COMMISSION_PCT - COLUMN_SCALE_COMMISSION_PCT;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_COMMISSION_PCT = COLUMN_SCALE_COMMISSION_PCT;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_COMMISSION_PCT} column. The value is {@value}.
@@ -393,6 +432,18 @@ public abstract class MappedEmployee implements __MappedDomainEntity<Integer> {
     public static final int COLUMN_MAX_MANAGER_ID = +999999;
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_MANAGER_ID = COLUMN_PRECISION_MANAGER_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_MANAGER_ID = 0;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_MANAGER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_MANAGER_ID = "managerId";
@@ -434,6 +485,18 @@ public abstract class MappedEmployee implements __MappedDomainEntity<Integer> {
      * The maximum value of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_DEPARTMENT_ID = +9999;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_DEPARTMENT_ID = COLUMN_PRECISION_DEPARTMENT_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_DEPARTMENT_ID = 0;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
@@ -747,11 +810,9 @@ public abstract class MappedEmployee implements __MappedDomainEntity<Integer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Max(ATTRIBUTE_MAX_EMPLOYEE_ID)
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
-    @Digits(integer = COLUMN_PRECISION_EMPLOYEE_ID, fraction = 0)
+    @Max(ATTRIBUTE_MAX_EMPLOYEE_ID)
+    @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_EMPLOYEE_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_EMPLOYEE_ID)
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_EMPLOYEE_ID,
@@ -836,9 +897,8 @@ public abstract class MappedEmployee implements __MappedDomainEntity<Integer> {
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @Positive // EMP_SALARY_MIN: CHECK (salary > 0)
-    @Digits(integer = COLUMN_PRECISION_SALARY - COLUMN_SCALE_SALARY, fraction = COLUMN_SCALE_SALARY)
-    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
-//    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_SALARY, fraction = ATTRIBUTE_DIGITS_FRACTION_SALARY)
+    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
     // TODO: remove; duplicates @Positive, which already states EMP_SALARY_MIN (salary > 0)
 //    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false)
     @Basic(optional = true, fetch = FetchType.EAGER)
@@ -852,12 +912,9 @@ public abstract class MappedEmployee implements __MappedDomainEntity<Integer> {
     private BigDecimal salary;
 
     @Nullable
-    @Digits(integer = COLUMN_PRECISION_COMMISSION_PCT - COLUMN_SCALE_COMMISSION_PCT,
-            fraction = COLUMN_SCALE_COMMISSION_PCT)
-    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
-//    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT, inclusive = true)
-    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
-//    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT, inclusive = true)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_COMMISSION_PCT, fraction = ATTRIBUTE_DIGITS_FRACTION_COMMISSION_PCT)
+    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT, inclusive = true)
+    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT, inclusive = true)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_COMMISSION_PCT,
             nullable = true,
@@ -870,11 +927,9 @@ public abstract class MappedEmployee implements __MappedDomainEntity<Integer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class documentation
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Max(ATTRIBUTE_MAX_MANAGER_ID)
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Min(ATTRIBUTE_MIN_MANAGER_ID)
-    @Digits(integer = COLUMN_PRECISION_MANAGER_ID, fraction = 0)
+    @Max(ATTRIBUTE_MAX_MANAGER_ID)
+    @Min(ATTRIBUTE_MIN_MANAGER_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_MANAGER_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_MANAGER_ID)
     @Column(name = COLUMN_NAME_MANAGER_ID,
             nullable = true,
             insertable = false,
@@ -886,11 +941,9 @@ public abstract class MappedEmployee implements __MappedDomainEntity<Integer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class documentation
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
-    @Digits(integer = COLUMN_PRECISION_DEPARTMENT_ID, fraction = 0)
+    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
+    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_DEPARTMENT_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_DEPARTMENT_ID)
     @Column(name = COLUMN_NAME_DEPARTMENT_ID,
             nullable = true,
             insertable = false,

@@ -40,11 +40,16 @@ import java.util.List;
  * installed schema copies it, as {@code START_DATE}, into a {@code JOB_HISTORY} row whose {@code END_DATE} is
  * {@code SYSDATE}, and {@code JHIST_DATE_INTERVAL} requires the latter to be after the former; a randomized date may be
  * today, or later.
+ * <p>
+ * The {@code commissionPct} is set to the column's scale. Podam generates it within {@code @Digits}, but a zero it
+ * generates has a scale of {@code 0}, and Hibernate Validator counts such a zero as one integral digit, rejecting it
+ * against {@code @Digits(integer = 0, ...)}; the same zero at the column's scale, {@code 0.00}, is accepted.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Employee_Randomizer extends PodamObjectRandomizer<Employee> {
 
+    // -----------------------------------------------------------------------------------------------------------------
     Employee_Randomizer() {
         super(Employee.class, List.of(
                 Employee.ATTRIBUTE_NAME_JOB,
@@ -74,8 +79,12 @@ class Employee_Randomizer extends PodamObjectRandomizer<Employee> {
 
     @Override
     public Employee get() {
-        final var instance = super.get();
-        instance.setHireDate(LocalDateTime.now().minusYears(1L).truncatedTo(ChronoUnit.DAYS));
-        return instance;
+        final var value = super.get();
+        value.setHireDate(LocalDateTime.now().minusYears(1L).truncatedTo(ChronoUnit.DAYS));
+        final var commissionPct = value.getCommissionPct();
+        if (commissionPct != null) {
+            value.setCommissionPct(commissionPct.setScale(Employee.COLUMN_SCALE_COMMISSION_PCT));
+        }
+        return value;
     }
 }

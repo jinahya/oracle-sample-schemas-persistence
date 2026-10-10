@@ -31,6 +31,8 @@ import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -89,6 +91,18 @@ public abstract class MappedJobHistory implements __MappedDomainEntity<MappedJob
      * The precision of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_EMPLOYEE_ID = 6;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_EMPLOYEE_ID = COLUMN_PRECISION_EMPLOYEE_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_EMPLOYEE_ID = 0;
 
     /**
      * The scale of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
@@ -217,6 +231,18 @@ public abstract class MappedJobHistory implements __MappedDomainEntity<MappedJob
      * The maximum value of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_DEPARTMENT_ID = +9999;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_DEPARTMENT_ID = COLUMN_PRECISION_DEPARTMENT_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_DEPARTMENT_ID = 0;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
@@ -375,11 +401,9 @@ public abstract class MappedJobHistory implements __MappedDomainEntity<MappedJob
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Max(ATTRIBUTE_MAX_EMPLOYEE_ID)
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
-    @Digits(integer = COLUMN_PRECISION_EMPLOYEE_ID, fraction = 0)
+    @Max(ATTRIBUTE_MAX_EMPLOYEE_ID)
+    @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_EMPLOYEE_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_EMPLOYEE_ID)
     @NotNull
     @Id
     @Basic(optional = false, fetch = FetchType.EAGER)
@@ -425,11 +449,9 @@ public abstract class MappedJobHistory implements __MappedDomainEntity<MappedJob
 
     // -----------------------------------------------------------------------------------------------------------------
     // read-only, like every column of this table; see the class documentation
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
-    @Digits(integer = COLUMN_PRECISION_DEPARTMENT_ID, fraction = 0)
+    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
+    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_DEPARTMENT_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_DEPARTMENT_ID)
     @Column(name = COLUMN_NAME_DEPARTMENT_ID,
             nullable = COLUMN_NULLABLE_DEPARTMENT_ID,
             insertable = false,

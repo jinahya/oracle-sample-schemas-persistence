@@ -64,6 +64,18 @@ public abstract class MappedEmpDetailsView implements __MappedDomainEntity<Integ
     public static final int COLUMN_PRECISION_EMPLOYEE_ID = 6;
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_EMPLOYEE_ID = COLUMN_PRECISION_EMPLOYEE_ID;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_EMPLOYEE_ID = 0;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
@@ -100,6 +112,18 @@ public abstract class MappedEmpDetailsView implements __MappedDomainEntity<Integ
     public static final String COLUMN_NAME_MANAGER_ID = "MANAGER_ID";
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_MANAGER_ID = 6;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_MANAGER_ID = 0;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_MANAGER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_MANAGER_ID = "managerId";
@@ -113,6 +137,18 @@ public abstract class MappedEmpDetailsView implements __MappedDomainEntity<Integ
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_DEPARTMENT_ID = 4;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_DEPARTMENT_ID = 0;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DEPARTMENT_ID = "departmentId";
@@ -124,6 +160,18 @@ public abstract class MappedEmpDetailsView implements __MappedDomainEntity<Integ
      * {@value}.
      */
     public static final String COLUMN_NAME_LOCATION_ID = "LOCATION_ID";
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_LOCATION_ID = 4;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_LOCATION_ID = 0;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_LOCATION_ID} column. The value is {@value}.
@@ -222,6 +270,16 @@ public abstract class MappedEmpDetailsView implements __MappedDomainEntity<Integ
     public static final int COLUMN_SCALE_SALARY = 2;
 
     /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_SALARY} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_SALARY = COLUMN_PRECISION_SALARY - COLUMN_SCALE_SALARY;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_SALARY} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_SALARY = COLUMN_SCALE_SALARY;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_SALARY} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
@@ -245,6 +303,19 @@ public abstract class MappedEmpDetailsView implements __MappedDomainEntity<Integ
      * table. The value is {@value}.
      */
     public static final int COLUMN_SCALE_COMMISSION_PCT = 2;
+
+    /**
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_INTEGER_COMMISSION_PCT =
+            COLUMN_PRECISION_COMMISSION_PCT - COLUMN_SCALE_COMMISSION_PCT;
+
+    /**
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute. The value is
+     * {@value}.
+     */
+    public static final int ATTRIBUTE_DIGITS_FRACTION_COMMISSION_PCT = COLUMN_SCALE_COMMISSION_PCT;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_COMMISSION_PCT} column. The value is {@value}.
@@ -792,7 +863,7 @@ public abstract class MappedEmpDetailsView implements __MappedDomainEntity<Integ
     // -----------------------------------------------------------------------------------------------------------------
     @Id
     @Nonnull
-    @Digits(integer = COLUMN_PRECISION_EMPLOYEE_ID, fraction = 0)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_EMPLOYEE_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_EMPLOYEE_ID)
     @NotNull
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
@@ -819,19 +890,19 @@ public abstract class MappedEmpDetailsView implements __MappedDomainEntity<Integ
     private String jobId;
 
     @Nullable
-    @Digits(integer = 6, fraction = 0)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_MANAGER_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_MANAGER_ID)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_MANAGER_ID, nullable = true, insertable = false, updatable = false)
     private Integer managerId;
 
     @Nullable
-    @Digits(integer = 4, fraction = 0)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_DEPARTMENT_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_DEPARTMENT_ID)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_DEPARTMENT_ID, nullable = true, insertable = false, updatable = false)
     private Integer departmentId;
 
     @Nullable
-    @Digits(integer = 4, fraction = 0)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_LOCATION_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_LOCATION_ID)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOCATION_ID, nullable = true, insertable = false, updatable = false)
     private Integer locationId;
@@ -871,7 +942,7 @@ public abstract class MappedEmpDetailsView implements __MappedDomainEntity<Integ
     private String lastName;
 
     @Nullable
-    @Digits(integer = COLUMN_PRECISION_SALARY - COLUMN_SCALE_SALARY, fraction = COLUMN_SCALE_SALARY)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_SALARY, fraction = ATTRIBUTE_DIGITS_FRACTION_SALARY)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_SALARY,
             nullable = true,
@@ -883,8 +954,7 @@ public abstract class MappedEmpDetailsView implements __MappedDomainEntity<Integ
     private BigDecimal salary;
 
     @Nullable
-    @Digits(integer = COLUMN_PRECISION_COMMISSION_PCT - COLUMN_SCALE_COMMISSION_PCT,
-            fraction = COLUMN_SCALE_COMMISSION_PCT)
+    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_COMMISSION_PCT, fraction = ATTRIBUTE_DIGITS_FRACTION_COMMISSION_PCT)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_COMMISSION_PCT,
             nullable = true,
