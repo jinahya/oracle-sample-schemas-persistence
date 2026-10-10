@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Channel_Test extends _Test<Channel> {
+class Channel_Test extends _DomainEntity_Test<Channel, Long> {
 
     Channel_Test() {
         super(Channel.class);

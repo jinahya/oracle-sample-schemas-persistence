@@ -42,7 +42,7 @@ import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import static com.github.jinahya.oracle.sample.schemas.persistence.co._Persistence_IT_Producer.__ItPU;
+import static com.github.jinahya.oracle.sample.schemas.persistence.co._DomainEntity_Persistence_IT_Producer.__ItPU;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -50,31 +50,33 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  * An abstract base class for integration tests which need the physical database, against a module's integration-test
  * persistence unit.
  * <p>
- * The container is started by weld-testing, with {@link _Persistence_IT_Producer} as its bean class; a test then gets
- * an entity manager on the Oracle database the sample schemas were installed into, connecting as {@code dmlonly}.
+ * The container is started by weld-testing, with {@link _DomainEntity_Persistence_IT_Producer} as its bean class; a
+ * test then gets an entity manager on the Oracle database the sample schemas were installed into, connecting as
+ * {@code dmlonly}.
  * <p>
  * These run under the {@code failsafe} profile only, and require the container from {@code docker-compose.yml} to be
  * up. Generating a schema is disabled for this unit: the tables are the ones Oracle's own installer created, and the
  * mappings are verified against them rather than the other way round.
  *
  * @param <T> the type of the entity under test.
+ * @param <U> the type of the identifier of the entity.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see _Persistence_IT_Producer
+ * @see _DomainEntity_Persistence_IT_Producer
  */
-@AddBeanClasses(_Persistence_IT_Producer.class)
+@AddBeanClasses(_DomainEntity_Persistence_IT_Producer.class)
 @EnableAutoWeld
 @SuppressWarnings({
         "java:S101", // Class names should comply with a naming convention
-        "java:S118"  // "abstract" classes should not have "public" constructors
+        "java:S118"  // Abstract class names should comply with a naming convention
 })
-public abstract class _Persistence_IT<T> extends ___Test<T> {
+abstract class _DomainEntity_Persistence_IT<T extends __DomainEntity<U>, U> extends __Test<T> {
 
     /**
      * Creates a new instance for the specified persistence class.
      *
      * @param targetClass the class of the entity under test.
      */
-    protected _Persistence_IT(final Class<T> targetClass) {
+    protected _DomainEntity_Persistence_IT(final Class<T> targetClass) {
         super(targetClass);
     }
 
@@ -110,7 +112,7 @@ public abstract class _Persistence_IT<T> extends ___Test<T> {
          * address.
          *
          * @implNote The identifier has to be a single basic attribute, for the reasons the unit-test counterpart,
-         * {@code _Persistence_Test.Find_Test}, gives.
+         * {@code _DomainEntity_Persistence_Test.Find_Test}, gives.
          */
         @BeforeEach
         void assumeTargetClassIsAddressable() {

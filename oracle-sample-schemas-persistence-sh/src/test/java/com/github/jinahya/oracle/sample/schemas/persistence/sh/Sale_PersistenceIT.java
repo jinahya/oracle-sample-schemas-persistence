@@ -25,7 +25,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Sale_PersistenceIT extends _Persistence_IT<Sale> {
+class Sale_PersistenceIT extends _DomainEntity_Persistence_IT<Sale, SaleId> {
 
     Sale_PersistenceIT() {
         super(Sale.class);

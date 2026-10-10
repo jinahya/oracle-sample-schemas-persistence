@@ -20,28 +20,36 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.object.randomizer.ObjectRandomizerUtils;
 import jakarta.persistence.Transient;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.util.ReflectionUtils;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.util.Objects;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 /**
- * An abstract base class for testing an entity class without a persistence context.
+ * The root of every test base of this package; it holds the target class, and what a test of any kind does with it.
  * <p>
- * It verifies what every entity class of this project has to satisfy on its own -- a usable {@code toString()}, an
- * {@code equals}/{@code hashCode} pair, and property accessors which round-trip.
+ * The checks a class has to pass on its own -- a usable {@code toString()}, an {@code equals}/{@code hashCode} pair,
+ * and property accessors which round-trip -- are plain methods here, not tests. {@link _NonEntity_Test} and
+ * {@link _DomainEntity_Test} declare them as tests; {@link _DomainEntity_Persistence_Test} and
+ * {@link _DomainEntity_Persistence_IT} do not, so they do not run them again.
  *
  * @param <T> the type of the target class.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public abstract class __Test<T> extends ___Test<T> {
+@SuppressWarnings({
+        "java:S101", // Class names should comply with a naming convention
+        "java:S118"  // Abstract class names should comply with a naming convention
+})
+abstract class __Test<T> {
 
     /**
      * Creates a new instance for the specified target class.
@@ -49,7 +57,29 @@ public abstract class __Test<T> extends ___Test<T> {
      * @param targetClass the class to test.
      */
     protected __Test(final Class<T> targetClass) {
-        super(targetClass);
+        super();
+        this.targetClass = Objects.requireNonNull(targetClass, "targetClass is null");
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Returns a new, uninitialized instance of {@link #targetClass}.
+     *
+     * @return a new instance of {@link #targetClass}.
+     */
+    public T newTargetInstance() {
+        return ReflectionUtils.newInstance(targetClass);
+    }
+
+    /**
+     * Returns a new instance of {@link #targetClass} with randomized property values.
+     *
+     * @return a new randomized instance of {@link #targetClass}; empty when no randomizer is registered for
+     * {@link #targetClass}.
+     */
+    public Optional<T> newRandomizedTargetInstance() {
+        return ObjectRandomizerUtils.newRandomizedInstanceOf(targetClass);
     }
 
     // -------------------------------------------------------------------------------------------------------- toString
@@ -57,7 +87,6 @@ public abstract class __Test<T> extends ___Test<T> {
     /**
      * Verifies that {@code toString()} of a new instance of {@link #targetClass} is not blank.
      */
-    @Test
     protected void toString_NotBlank_NewInstance() {
         final var instance = newTargetInstance();
         final var string = instance.toString();
@@ -67,7 +96,6 @@ public abstract class __Test<T> extends ___Test<T> {
     /**
      * Verifies that {@code toString()} of a new randomized instance of {@link #targetClass} is not blank.
      */
-    @Test
     protected void toString_NotBlank_NewRandomizedInstance() {
         newRandomizedTargetInstance().map(Objects::toString).ifPresent(v -> {
             assertThat(v).isNotBlank();
@@ -89,7 +117,6 @@ public abstract class __Test<T> extends ___Test<T> {
      * Verifies the {@code equals}/{@code hashCode} contract of {@link #targetClass}, using the verifier which
      * {@link #equals_verifier_()} returns.
      */
-    @Test
     protected void equals_verify_() {
         final var verifier = equals_verifier_();
         verifier.verify();
@@ -103,7 +130,6 @@ public abstract class __Test<T> extends ___Test<T> {
      *
      * @throws IntrospectionException when {@link #targetClass} cannot be introspected.
      */
-    @Test
     protected void propertyAccessors_DoNotThrow() throws IntrospectionException {
         final var instance = newTargetInstance();
         final java.beans.BeanInfo info = Introspector.getBeanInfo(targetClass);
@@ -122,4 +148,11 @@ public abstract class __Test<T> extends ___Test<T> {
                     .doesNotThrowAnyException();
         }
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * The class which this test targets.
+     */
+    protected final Class<T> targetClass;
 }

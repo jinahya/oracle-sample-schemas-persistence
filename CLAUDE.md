@@ -132,12 +132,29 @@ would look for their tables in the wrong schema.
 
 ### Test bases, one copy per module
 
-There is no shared test module. Each module has, in its own test package, its own
-`_Persistence_Test` / `_Persistence_IT` base classes, their CDI producers
-`_Persistence_Test_Producer` / `_Persistence_IT_Producer`, and the helpers `__Test`, `___Test` and
-`___Persistence_TestUtils`. Every `*_Persistence_Test` / `*_Persistence_IT` extends its module's
-base, which names the producer in its own `@AddBeanClasses`; the producer holds the unit name as
-its `PERSISTENCE_UNIT_NAME` constant.
+There is no shared test module. Each module has, in its own test package, its own test bases,
+their CDI producers `_DomainEntity_Persistence_Test_Producer` /
+`_DomainEntity_Persistence_IT_Producer`, and the helper `___Persistence_TestUtils`. The bases are
+one root and four siblings, none of which extends another:
+
+| base | tests | for |
+| --- | --- | --- |
+| `__Test<T>` | nothing itself | the root: the target class, its factories, and the checks below as plain methods |
+| `_NonEntity_Test<T>` | `toString`, `equals`/`hashCode`, accessors | a class with no identity: an id class, an embeddable, a mapped JSON document |
+| `_DomainEntity_Test<T extends __DomainEntity<U>, U>` | the same, and any check only such a class has | a class mapping a table or a view, keyless views included (`U` is `Void`) |
+| `_DomainEntity_Persistence_Test<T extends __DomainEntity<U>, U>` | the mapping, against the `<schema>-test` unit | an entity |
+| `_DomainEntity_Persistence_IT<T extends __DomainEntity<U>, U>` | the mapping, against the `<schema>-it` unit | an entity |
+
+A class gets one of the first two, and an entity also gets the last two. `U` is the identifier
+type its `__DomainEntity<U>` names, so a class without the marker cannot get a persistence test.
+
+The checks live in `__Test` as plain methods, and `_NonEntity_Test` and `_DomainEntity_Test` each
+re-declare them with `@Test`; that is what keeps the persistence bases, which extend the same root,
+from running them again. Do not move a `@Test` up into `__Test`, and do not add a base between
+the root and a sibling: a level earns its place only with a check of its own.
+
+Each persistence base names its producer in its own `@AddBeanClasses`; the producer holds the unit
+name as its `PERSISTENCE_UNIT_NAME` constant.
 
 Keep the producers concrete. These classes used to live in a shared `test-base` module, with an
 abstract producer that a subclass in each module completed by supplying the name -- and since CDI

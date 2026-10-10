@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class JobHistory_Test extends _Test<JobHistory> {
+class JobHistory_Test extends _DomainEntity_Test<JobHistory, JobHistoryId> {
 
     JobHistory_Test() {
         super(JobHistory.class);

@@ -23,12 +23,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
+import java.time.LocalDateTime;
+
 /**
  * A class for testing the {@link Time} entity class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Time_Test extends _Test<Time> {
+class Time_Test extends _DomainEntity_Test<Time, LocalDateTime> {
 
     Time_Test() {
         super(Time.class);

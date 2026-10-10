@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Country_PersistenceTest extends _Persistence_Test<Country> {
+class Country_PersistenceTest extends _DomainEntity_Persistence_Test<Country, String> {
 
     // -----------------------------------------------------------------------------------------------------------------
     Country_PersistenceTest() {

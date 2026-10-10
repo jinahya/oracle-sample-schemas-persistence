@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class Product_Persistence_Test extends _Persistence_Test<Product> {
+class Product_Persistence_Test extends _DomainEntity_Persistence_Test<Product, Long> {
 
     private static BigDecimal unitPriceMin;
 

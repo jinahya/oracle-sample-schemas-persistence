@@ -25,7 +25,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Customer_PersistenceTest extends _Persistence_Test<Customer> {
+class Customer_PersistenceTest extends _DomainEntity_Persistence_Test<Customer, Long> {
 
     Customer_PersistenceTest() {
         super(Customer.class);

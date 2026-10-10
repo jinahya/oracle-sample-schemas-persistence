@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Profit_PersistenceTest extends _Persistence_Test<Profit> {
+class Profit_PersistenceTest extends _DomainEntity_Persistence_Test<Profit, ProfitId> {
 
     Profit_PersistenceTest() {
         super(Profit.class);

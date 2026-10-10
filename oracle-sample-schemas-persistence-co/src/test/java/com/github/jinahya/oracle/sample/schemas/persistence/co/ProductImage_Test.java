@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class ProductImage_Test extends _Test<ProductImage> {
+class ProductImage_Test extends _NonEntity_Test<ProductImage> {
 
     ProductImage_Test() {
         super(ProductImage.class);

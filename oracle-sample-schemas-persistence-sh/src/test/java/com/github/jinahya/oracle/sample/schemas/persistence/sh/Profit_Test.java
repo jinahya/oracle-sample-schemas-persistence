@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Profit_Test extends _Test<Profit> {
+class Profit_Test extends _DomainEntity_Test<Profit, ProfitId> {
 
     Profit_Test() {
         super(Profit.class);

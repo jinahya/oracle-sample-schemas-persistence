@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Inventory_Test extends _Test<Inventory> {
+class Inventory_Test extends _DomainEntity_Test<Inventory, Long> {
 
     Inventory_Test() {
         super(Inventory.class);

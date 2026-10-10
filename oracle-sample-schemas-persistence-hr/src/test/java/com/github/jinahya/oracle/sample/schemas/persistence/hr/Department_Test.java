@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Department_Test extends _Test<Department> {
+class Department_Test extends _DomainEntity_Test<Department, Integer> {
 
     Department_Test() {
         super(Department.class);

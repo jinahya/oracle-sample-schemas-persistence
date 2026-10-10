@@ -31,7 +31,7 @@ import java.util.Set;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @Slf4j
-class Country_PersistenceIT extends _Persistence_IT<Country> {
+class Country_PersistenceIT extends _DomainEntity_Persistence_IT<Country, Long> {
 
     private static final Set<String> LOCALE_COUNTRY_ISO_CODES = Set.of(Locale.getISOCountries());
 

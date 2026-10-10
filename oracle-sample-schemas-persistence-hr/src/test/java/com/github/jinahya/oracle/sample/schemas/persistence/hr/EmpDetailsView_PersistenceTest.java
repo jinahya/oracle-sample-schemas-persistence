@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class EmpDetailsView_PersistenceTest extends _Persistence_Test<EmpDetailsView> {
+class EmpDetailsView_PersistenceTest extends _DomainEntity_Persistence_Test<EmpDetailsView, Integer> {
 
     EmpDetailsView_PersistenceTest() {
         super(EmpDetailsView.class);

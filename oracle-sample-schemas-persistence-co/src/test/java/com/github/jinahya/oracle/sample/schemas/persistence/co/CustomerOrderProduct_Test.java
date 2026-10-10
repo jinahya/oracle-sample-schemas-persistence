@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class CustomerOrderProduct_Test extends _Test<CustomerOrderProduct> {
+class CustomerOrderProduct_Test extends _DomainEntity_Test<CustomerOrderProduct, Long> {
 
     CustomerOrderProduct_Test() {
         super(CustomerOrderProduct.class);

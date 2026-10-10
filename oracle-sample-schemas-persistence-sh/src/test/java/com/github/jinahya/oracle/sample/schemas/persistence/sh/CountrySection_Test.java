@@ -25,7 +25,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class CountrySection_Test extends _Test<CountrySection> {
+class CountrySection_Test extends _NonEntity_Test<CountrySection> {
 
     CountrySection_Test() {
         super(CountrySection.class);

@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class SupplementaryDemographics_Test extends _Test<SupplementaryDemographics> {
+class SupplementaryDemographics_Test extends _DomainEntity_Test<SupplementaryDemographics, Long> {
 
     SupplementaryDemographics_Test() {
         super(SupplementaryDemographics.class);

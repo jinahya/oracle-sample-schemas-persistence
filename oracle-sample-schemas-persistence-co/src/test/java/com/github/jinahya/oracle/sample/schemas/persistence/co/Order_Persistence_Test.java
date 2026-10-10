@@ -26,7 +26,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Order_Persistence_Test extends _Persistence_Test<Order> {
+class Order_Persistence_Test extends _DomainEntity_Persistence_Test<Order, Long> {
 
     Order_Persistence_Test() {
         super(Order.class);

@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class StoreLogo_Test extends _Test<StoreLogo> {
+class StoreLogo_Test extends _NonEntity_Test<StoreLogo> {
 
     StoreLogo_Test() {
         super(StoreLogo.class);

@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Region_Test extends _Test<Region> {
+class Region_Test extends _DomainEntity_Test<Region, Long> {
 
     Region_Test() {
         super(Region.class);

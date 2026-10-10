@@ -25,7 +25,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Channel_PersistenceIT extends _Persistence_IT<Channel> {
+class Channel_PersistenceIT extends _DomainEntity_Persistence_IT<Channel, Long> {
 
     Channel_PersistenceIT() {
         super(Channel.class);

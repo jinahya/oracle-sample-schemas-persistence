@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class FweekPscatSalesMv_Test extends _Test<FweekPscatSalesMv> {
+class FweekPscatSalesMv_Test extends _DomainEntity_Test<FweekPscatSalesMv, FweekPscatSalesMvId> {
 
     FweekPscatSalesMv_Test() {
         super(FweekPscatSalesMv.class);

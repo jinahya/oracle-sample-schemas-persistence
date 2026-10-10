@@ -28,7 +28,7 @@ import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.github.jinahya.oracle.sample.schemas.persistence.hr._Persistence_Test_Producer.__TestPU;
+import static com.github.jinahya.oracle.sample.schemas.persistence.hr._DomainEntity_Persistence_Test_Producer.__TestPU;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@AddBeanClasses(_Persistence_Test_Producer.class)
+@AddBeanClasses(_DomainEntity_Persistence_Test_Producer.class)
 @EnableAutoWeld
 class PersistenceUnit_Test {
 
@@ -52,7 +52,7 @@ class PersistenceUnit_Test {
     void metamodel_HasEveryEntityWithAnId_() {
         final var entities = entityManagerFactory.getMetamodel().getEntities();
         assertThat(entities)
-                .as("entity types of %s", _Persistence_Test_Producer.PERSISTENCE_UNIT_NAME)
+                .as("entity types of %s", _DomainEntity_Persistence_Test_Producer.PERSISTENCE_UNIT_NAME)
                 .isNotEmpty()
                 .allSatisfy(e -> assertThat(e.hasSingleIdAttribute() || !e.getIdClassAttributes().isEmpty())
                         .as("%s has an id", e.getName())

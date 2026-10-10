@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class CalMonthSalesMv_Test extends _Test<CalMonthSalesMv> {
+class CalMonthSalesMv_Test extends _DomainEntity_Test<CalMonthSalesMv, String> {
 
     CalMonthSalesMv_Test() {
         super(CalMonthSalesMv.class);

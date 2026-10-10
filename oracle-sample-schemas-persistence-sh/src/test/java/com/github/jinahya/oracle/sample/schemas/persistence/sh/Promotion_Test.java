@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Promotion_Test extends _Test<Promotion> {
+class Promotion_Test extends _DomainEntity_Test<Promotion, Integer> {
 
     Promotion_Test() {
         super(Promotion.class);

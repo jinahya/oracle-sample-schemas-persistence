@@ -36,13 +36,13 @@ import java.util.function.Function;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @apiNote Every method here takes the entity manager it works with, so the same method serves either persistence unit
  * and nothing here has to know which one the caller is on. Obtaining an entity manager is not this class's business:
- * {@link _Persistence_Test_Producer} and {@link _Persistence_IT_Producer} produce them as CDI beans, and a test which
- * needs one injects it rather than opening one here.
+ * {@link _DomainEntity_Persistence_Test_Producer} and {@link _DomainEntity_Persistence_IT_Producer} produce them as CDI
+ * beans, and a test which needs one injects it rather than opening one here.
  */
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public final class ___Persistence_TestUtils {
+final class ___Persistence_TestUtils {
 
     /**
      * Applies the specified resultFunction to the specified entity manager, inside a transaction, and hands the

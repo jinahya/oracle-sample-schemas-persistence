@@ -25,7 +25,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class OrderItemId_Test extends _Test<OrderItemId> {
+class OrderItemId_Test extends _NonEntity_Test<OrderItemId> {
 
     OrderItemId_Test() {
         super(OrderItemId.class);

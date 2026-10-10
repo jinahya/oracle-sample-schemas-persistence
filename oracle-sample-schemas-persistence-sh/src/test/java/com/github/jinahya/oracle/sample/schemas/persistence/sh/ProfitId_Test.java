@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class ProfitId_Test extends _Test<ProfitId> {
+class ProfitId_Test extends _NonEntity_Test<ProfitId> {
 
     ProfitId_Test() {
         super(ProfitId.class);

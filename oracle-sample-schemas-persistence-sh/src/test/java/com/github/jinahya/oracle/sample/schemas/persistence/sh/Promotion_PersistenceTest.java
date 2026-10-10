@@ -25,7 +25,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Promotion_PersistenceTest extends _Persistence_Test<Promotion> {
+class Promotion_PersistenceTest extends _DomainEntity_Persistence_Test<Promotion, Integer> {
 
     Promotion_PersistenceTest() {
         super(Promotion.class);
