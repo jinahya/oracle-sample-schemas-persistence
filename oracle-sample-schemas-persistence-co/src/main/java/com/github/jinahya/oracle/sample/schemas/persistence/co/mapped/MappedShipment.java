@@ -310,7 +310,7 @@ public abstract class MappedShipment implements __MappedDomainEntity<Long> {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "shipmentId=" + shipmentId +
                ",storeId=" + storeId +

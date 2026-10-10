@@ -229,7 +229,7 @@ public abstract class MappedCountry implements __MappedDomainEntity<Long> {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "countryId=" + countryId +
                ",countryIsoCode=" + countryIsoCode +

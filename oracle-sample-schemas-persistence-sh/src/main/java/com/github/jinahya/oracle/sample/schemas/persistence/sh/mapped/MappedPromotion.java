@@ -261,7 +261,7 @@ public abstract class MappedPromotion implements __MappedDomainEntity<Integer> {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "promoId=" + promoId +
                ",promoName=" + promoName +

@@ -253,7 +253,7 @@ public abstract class MappedLocation implements __MappedDomainEntity<Integer> {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "locationId=" + locationId +
                ",streetAddress=" + streetAddress +

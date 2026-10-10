@@ -166,7 +166,7 @@ public abstract class MappedCost implements __MappedDomainEntity<MappedCostId> {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "prodId=" + prodId +
                ",timeId=" + timeId +

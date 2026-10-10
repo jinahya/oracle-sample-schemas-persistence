@@ -142,7 +142,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> impleme
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "id=" + getIdValue() +
                ",totalSales=" + totalSales +

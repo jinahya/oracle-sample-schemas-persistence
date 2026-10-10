@@ -462,7 +462,7 @@ public abstract class MappedEmployee implements __MappedDomainEntity<Integer> {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "employeeId=" + employeeId +
                ",firstName=" + firstName +

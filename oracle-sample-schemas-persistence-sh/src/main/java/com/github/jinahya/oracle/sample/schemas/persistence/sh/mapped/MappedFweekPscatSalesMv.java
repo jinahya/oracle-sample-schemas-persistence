@@ -170,7 +170,7 @@ public abstract class MappedFweekPscatSalesMv<T extends MappedFweekPscatSalesMvI
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "id=" + getIdValue() +
                ",dollars=" + dollars +

@@ -264,7 +264,7 @@ public abstract class MappedProfit implements __MappedDomainEntity<MappedProfitI
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "channelId=" + channelId +
                ",custId=" + custId +

@@ -230,7 +230,7 @@ public abstract class MappedStoreOrder implements __MappedDomainEntity<Void> {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "total=" + total +
                ",storeName=" + storeName +

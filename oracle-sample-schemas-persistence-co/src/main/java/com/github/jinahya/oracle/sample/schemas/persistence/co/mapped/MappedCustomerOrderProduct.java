@@ -199,7 +199,7 @@ public abstract class MappedCustomerOrderProduct implements __MappedDomainEntity
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "orderId=" + orderId +
                ",orderTms=" + orderTms +

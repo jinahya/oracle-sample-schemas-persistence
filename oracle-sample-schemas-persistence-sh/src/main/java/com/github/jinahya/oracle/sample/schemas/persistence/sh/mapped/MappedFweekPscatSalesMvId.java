@@ -116,7 +116,7 @@ public abstract class MappedFweekPscatSalesMvId {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "weekEndingDay=" + weekEndingDay +
                ",prodSubcategory=" + prodSubcategory +

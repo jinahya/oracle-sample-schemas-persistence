@@ -217,7 +217,7 @@ public abstract class MappedSale<T extends MappedSaleId> implements __MappedDoma
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "id=" + getIdValue() +
                ",quantitySold=" + quantitySold +

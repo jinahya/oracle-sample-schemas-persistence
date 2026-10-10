@@ -509,7 +509,7 @@ public abstract class MappedCustomer implements __MappedDomainEntity<Long> {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "custId=" + custId +
                ",custFirstName=" + custFirstName +

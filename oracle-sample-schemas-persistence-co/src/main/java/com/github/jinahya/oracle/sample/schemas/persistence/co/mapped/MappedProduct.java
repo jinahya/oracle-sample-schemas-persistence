@@ -242,7 +242,7 @@ public abstract class MappedProduct implements __MappedDomainEntity<Long> {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "productId=" + productId +
                ",productName=" + productName +

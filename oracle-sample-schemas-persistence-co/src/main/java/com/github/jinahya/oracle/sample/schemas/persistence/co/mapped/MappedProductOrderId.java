@@ -89,7 +89,7 @@ public abstract class MappedProductOrderId {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "productName=" + productName +
                ",orderStatus=" + orderStatus +

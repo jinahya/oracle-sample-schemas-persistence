@@ -740,7 +740,7 @@ public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "timeId=" + timeId +
                ",dayName=" + dayName +

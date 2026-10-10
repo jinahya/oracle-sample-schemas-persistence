@@ -406,7 +406,7 @@ public abstract class MappedEmpDetailsView implements __MappedDomainEntity<Integ
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "employeeId=" + employeeId +
                ",jobId=" + jobId +

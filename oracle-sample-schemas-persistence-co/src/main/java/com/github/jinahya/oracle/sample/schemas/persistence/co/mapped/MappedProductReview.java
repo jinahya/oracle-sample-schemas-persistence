@@ -146,7 +146,7 @@ public abstract class MappedProductReview implements __MappedDomainEntity<Void> 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "productName=" + productName +
                ",rating=" + rating +

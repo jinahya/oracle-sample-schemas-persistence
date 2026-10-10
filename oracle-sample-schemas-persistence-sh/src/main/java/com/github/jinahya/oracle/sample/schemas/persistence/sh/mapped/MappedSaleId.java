@@ -121,7 +121,7 @@ public abstract class MappedSaleId {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "prodId=" + prodId +
                ",custId=" + custId +
