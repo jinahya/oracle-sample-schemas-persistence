@@ -48,18 +48,29 @@ independent of each other, tests included: each carries its own test bases in it
   identity equality. In the concrete classes these methods use basic attributes
   and the `@EmbeddedId` only, never an association.
 
-### The `mapped` branch
+### The `mapped` branch -- this branch
 
-The separation above is permanent on `develop`: the concrete classes are read on their own, so
-they keep every duplicate. A long-lived branch, `mapped`, holds the other shape, where each
-concrete class extends its `Mapped*` counterpart and keeps only what the superclass cannot
-provide. It runs the same tests and ITs, unchanged; their passing there is what shows the two
-shapes behave alike.
+**This checkout is the `mapped` branch.** The separation above is permanent on `develop`; here
+the concrete classes take the other shape. Each one extends its `Mapped*` counterpart and keeps
+only what the superclass cannot provide: associations, nested types, static factories,
+constructors, `getIdValue()` for an `@EmbeddedId`, and overrides that widen a `protected` getter
+to `public`. Its fields, its `toString` / `equals` / `hashCode` (all `final` in `Mapped*`) and its
+other accessors go. The markers, constants classes and test bases change their declarations only:
+`__DomainEntity` extends `__MappedDomainEntity`, and so on.
 
-Merges go one way only: `develop` is merged into `mapped`, never the other way. On `mapped`,
-`CLAUDE.md` and `___PackageSeparation_Test` are its own copies, kept through merges by
-`merge=ours`. A conflict in a concrete class is resolved there by carrying `develop`'s change into
-the `Mapped*` class and keeping the branch's deletions.
+The tests and ITs are `develop`'s, unchanged; their passing here is what shows the two shapes
+behave alike. Two files are this branch's own, kept through merges by `merge=ours` in
+`.gitattributes`: this `CLAUDE.md`, and each module's `___PackageSeparation_Test`, whose rule is
+turned around here once that module is converted. `mapped.___MappedPackageSeparation_Test` holds
+on both branches and is not one of them. Run `git config merge.ours.driver true` once per clone,
+or the attribute does nothing.
+
+Merges go one way only: `develop` is merged into `mapped`, never the other way, and in small,
+frequent steps, with `rerere` enabled. A conflict in a concrete class is resolved by carrying
+`develop`'s change into the `Mapped*` class and keeping this branch's deletions. The branch builds
+as `<version>-mapped-SNAPSHOT`, so its artifacts never overwrite `develop`'s; a conflict on a
+`<version>` line keeps the `-mapped` suffix. Modules are converted one at a time, `co` first, with
+the full verify under both providers after each.
 
 ### Member order inside an entity
 
