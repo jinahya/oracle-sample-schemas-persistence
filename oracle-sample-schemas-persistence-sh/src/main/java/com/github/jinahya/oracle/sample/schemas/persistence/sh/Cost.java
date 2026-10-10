@@ -153,7 +153,8 @@ public class Cost implements __DomainEntity<CostId> {
     public static final int COLUMN_SCALE_UNIT_COST = 2;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is {@value}.
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_DIGITS_INTEGER_UNIT_COST = COLUMN_PRECISION_UNIT_COST - COLUMN_SCALE_UNIT_COST;
 

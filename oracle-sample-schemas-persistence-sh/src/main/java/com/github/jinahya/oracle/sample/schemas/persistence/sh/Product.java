@@ -76,7 +76,8 @@ public class Product implements __DomainEntity<Integer> {
     public static final int ATTRIBUTE_DIGITS_INTEGER_PROD_ID = COLUMN_PRECISION_PROD_ID - COLUMN_SCALE_PROD_ID;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_DIGITS_FRACTION_PROD_ID = COLUMN_SCALE_PROD_ID;
 

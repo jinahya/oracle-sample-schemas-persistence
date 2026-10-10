@@ -205,7 +205,8 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     public static final int ATTRIBUTE_DIGITS_INTEGER_CRICKET = COLUMN_PRECISION_CRICKET - COLUMN_SCALE_CRICKET;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_CRICKET} attribute. The value is {@value}.
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_CRICKET} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_DIGITS_FRACTION_CRICKET = COLUMN_SCALE_CRICKET;
 
@@ -368,7 +369,8 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     public static final int ATTRIBUTE_DIGITS_INTEGER_UNKNOWN = COLUMN_PRECISION_UNKNOWN - COLUMN_SCALE_UNKNOWN;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_UNKNOWN} attribute. The value is {@value}.
+     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_UNKNOWN} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_DIGITS_FRACTION_UNKNOWN = COLUMN_SCALE_UNKNOWN;
 

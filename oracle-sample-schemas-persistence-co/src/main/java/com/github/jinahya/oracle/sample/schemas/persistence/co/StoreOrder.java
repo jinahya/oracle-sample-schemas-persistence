@@ -144,7 +144,8 @@ public class StoreOrder implements __DomainEntity<Void> {
     public static final String COLUMN_NAME_LONGITUDE = "LONGITUDE";
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute. The value is {@value}.
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_DIGITS_INTEGER_LONGITUDE = 3;
 

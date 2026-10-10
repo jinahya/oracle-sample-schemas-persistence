@@ -272,7 +272,8 @@ public class Store implements __DomainEntity<Long> {
     public static final String COLUMN_MAX_LONGITUDE = "+999.999999";
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute. The value is {@value}.
+     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_DIGITS_INTEGER_LONGITUDE = COLUMN_PRECISION_LONGITUDE - COLUMN_SCALE_LONGITUDE;
 
