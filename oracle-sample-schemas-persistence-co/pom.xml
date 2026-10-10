@@ -12,6 +12,8 @@
   <version>0.0.4-SNAPSHOT</version>
   <packaging>jar</packaging>
 
+  <name>${project.artifactId}</name>
+
   <description>Customer Orders</description>
 
   <dependencies>
