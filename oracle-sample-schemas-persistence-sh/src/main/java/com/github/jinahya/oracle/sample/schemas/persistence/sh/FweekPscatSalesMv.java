@@ -20,17 +20,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
+import com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.MappedFweekPscatSalesMv;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -42,20 +39,7 @@ import java.util.Optional;
  */
 @Entity
 @Table(name = FweekPscatSalesMv.TABLE_NAME)
-public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
-
-    /**
-     * The name of the database materialized view to which this entity class maps. The value is {@value}.
-     */
-    public static final String TABLE_NAME = "FWEEK_PSCAT_SALES_MV";
-
-    // ------------------------------------------------------------------------------------------------- WEEK_ENDING_DAY
-
-    /**
-     * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute maps.
-     * The value is {@value}.
-     */
-    public static final String COLUMN_NAME_WEEK_ENDING_DAY = "WEEK_ENDING_DAY";
+public class FweekPscatSalesMv extends MappedFweekPscatSalesMv<FweekPscatSalesMvId> implements __DomainEntity<FweekPscatSalesMvId> {
 
     /**
      * The name of the {@link FweekPscatSalesMvId} attribute which maps the {@value #COLUMN_NAME_WEEK_ENDING_DAY}
@@ -64,63 +48,10 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
     public static final String ATTRIBUTE_NAME_WEEK_ENDING_DAY = "weekEndingDay";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_WEEK_ENDING_DAY} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_WEEK_ENDING_DAY = "id.weekEndingDay";
-
-    // ------------------------------------------------------------------------------------------------ PROD_SUBCATEGORY
-
-    /**
-     * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute maps.
-     * The value is {@value}.
-     */
-    public static final String COLUMN_NAME_PROD_SUBCATEGORY = "PROD_SUBCATEGORY";
-
-    /**
-     * The length of the {@value #COLUMN_NAME_PROD_SUBCATEGORY} column. The value is {@value}.
-     */
-    public static final int COLUMN_LENGTH_PROD_SUBCATEGORY = 50;
-
-    /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MAX_PROD_SUBCATEGORY = COLUMN_LENGTH_PROD_SUBCATEGORY;
-
-    /**
      * The name of the {@link FweekPscatSalesMvId} attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY}
      * column; this entity reaches it as {@value #ATTRIBUTE_NAME_ID_PROD_SUBCATEGORY}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_SUBCATEGORY = "prodSubcategory";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_PROD_SUBCATEGORY = "id.prodSubcategory";
-
-    // --------------------------------------------------------------------------------------------------------- DOLLARS
-
-    /**
-     * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_DOLLARS} attribute maps. The value
-     * is {@value}.
-     */
-    public static final String COLUMN_NAME_DOLLARS = "DOLLARS";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DOLLARS} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_DOLLARS = "dollars";
-
-    // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
-
-    /**
-     * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute maps. The
-     * value is {@value}.
-     */
-    public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
 
     /**
      * The name of the {@link FweekPscatSalesMvId} attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column;
@@ -129,60 +60,10 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_CHANNEL_ID = "id.channelId";
-
-    /**
-     * The precision of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_PRECISION_CHANNEL_ID = 1;
-
-    /**
-     * The scale of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_SCALE_CHANNEL_ID = 0;
-
-    // -------------------------------------------------------------------------------------------------------- PROMO_ID
-
-    /**
-     * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps. The value
-     * is {@value}.
-     */
-    public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
-
-    /**
      * The name of the {@link FweekPscatSalesMvId} attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column; this
      * entity reaches it as {@value #ATTRIBUTE_NAME_ID_PROMO_ID}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_PROMO_ID = "id.promoId";
-
-    /**
-     * The precision of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_PRECISION_PROMO_ID = 6;
-
-    /**
-     * The scale of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_SCALE_PROMO_ID = 0;
-
-    // -------------------------------------------------------------------------------------------------------------- id
-
-    /**
-     * The name of the attribute which maps the identifying columns, as an
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID = "id";
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -191,42 +72,6 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
      */
     protected FweekPscatSalesMv() {
         super();
-    }
-
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
-
-    @Override
-    public String toString() {
-        return super.toString() + '{' +
-               "id=" + id +
-               ",dollars=" + dollars +
-               '}';
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param obj {@inheritDoc}
-     * @return {@inheritDoc}
-     * @implSpec Equality is by the {@code @Id} alone.
-     */
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof FweekPscatSalesMv that)) {
-            return false;
-        }
-        return Objects.equals(id, that.id);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return {@inheritDoc}
-     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
-     */
-    @Override
-    public final int hashCode() {
-        return Objects.hashCode(id);
     }
 
     // -------------------------------------------------------------------------------------------------------------- id
@@ -349,26 +194,6 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
         getId().setPromoId(promoId);
     }
 
-    // --------------------------------------------------------------------------------------------------------- dollars
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_DOLLARS} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_DOLLARS} attribute.
-     */
-    public BigDecimal getDollars() {
-        return dollars;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DOLLARS} attribute with the specified value.
-     *
-     * @param dollars new value for {@value #ATTRIBUTE_NAME_DOLLARS} attribute.
-     */
-    public void setDollars(final BigDecimal dollars) {
-        this.dollars = dollars;
-    }
-
     // ---------------------------------------------------------------------------------------------------------------- 
 
     @Valid
@@ -376,7 +201,10 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
     @EmbeddedId
     private FweekPscatSalesMvId id;
 
-    @Basic(optional = true)
-    @Column(name = COLUMN_NAME_DOLLARS, nullable = true, insertable = false, updatable = false)
-    private BigDecimal dollars;
+    // ------------------------------------------------------------------------------------------------------ getIdValue
+
+    @Override
+    protected FweekPscatSalesMvId getIdValue() {
+        return getId();
+    }
 }

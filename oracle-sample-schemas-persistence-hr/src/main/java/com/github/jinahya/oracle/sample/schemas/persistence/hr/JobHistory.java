@@ -20,10 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedJobHistory;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -34,8 +33,6 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
@@ -85,50 +82,12 @@ import java.util.function.Function;
                )
        }
 )
-public class JobHistory implements __DomainEntity<JobHistoryId> {
-
-    /**
-     * The name of the database table to which this entity class maps. The value is {@value}.
-     */
-    public static final String TABLE_NAME = "JOB_HISTORY";
+public class JobHistory extends MappedJobHistory implements __DomainEntity<JobHistoryId> {
 
     /**
      * The name of the entity. The value is {@value}.
      */
     public static final String ENTITY_NAME = "JobHistory";
-
-    // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_EMPLOYEE_ID = "EMPLOYEE_ID";
-
-    /**
-     * Whether the {@value #COLUMN_NAME_EMPLOYEE_ID} column is nullable. The value is {@value}.
-     */
-    public static final boolean COLUMN_NULLABLE_EMPLOYEE_ID = false;
-
-    /**
-     * The precision of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_PRECISION_EMPLOYEE_ID = 6;
-
-    /**
-     * The scale of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_SCALE_EMPLOYEE_ID = 0;
-
-    /**
-     * The minimum value of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_MIN_EMPLOYEE_ID = -999999;
-
-    /**
-     * The maximum value of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_MAX_EMPLOYEE_ID = +999999;
 
     /**
      * The name of the attribute which maps the {@link Employee employee} joined on the
@@ -139,139 +98,10 @@ public class JobHistory implements __DomainEntity<JobHistoryId> {
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
 
-    // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
-
-    /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is {@value}.
-     *
-     * @see #COLUMN_MIN_EMPLOYEE_ID
-     */
-    public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
-
-    /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is {@value}.
-     *
-     * @see #COLUMN_MAX_EMPLOYEE_ID
-     */
-    public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
-
-    // ------------------------------------------------------------------------------------------------------ START_DATE
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_START_DATE} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_START_DATE = "START_DATE";
-
-    /**
-     * Whether the {@value #COLUMN_NAME_START_DATE} column is nullable. The value is {@value}.
-     */
-    public static final boolean COLUMN_NULLABLE_START_DATE = false;
-
-    // ------------------------------------------------------------------------------------------------------ START_DATE
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_START_DATE} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
-
-    /**
-     * A comparator for comparing {@link JobHistory} instances by their {@value #ATTRIBUTE_NAME_START_DATE} attributes.
-     */
-    public static final Comparator<JobHistory> COMPARING_START_DATE = comparingStartDate();
-
-    // -------------------------------------------------------------------------------------------------------- END_DATE
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_DATE} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_END_DATE = "END_DATE";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_END_DATE} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_END_DATE = "endDate";
-
-    // ---------------------------------------------------------------------------------------------------------- JOB_ID
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB} attribute maps. The value is {@value}.
-     */
-    public static final String COLUMN_NAME_JOB_ID = "JOB_ID";
-
-    /**
-     * Whether the {@value #COLUMN_NAME_JOB_ID} column is nullable. The value is {@value}.
-     */
-    public static final boolean COLUMN_NULLABLE_JOB_ID = false;
-
-    /**
-     * The length of the {@value #COLUMN_NAME_JOB_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_LENGTH_JOB_ID = 10;
-
-    /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_JOB} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MIN_JOB_ID = 0;
-
-    /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_JOB} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
-
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_JOB = "job";
-
-    // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
-
-    /**
-     * Whether the {@value #COLUMN_NAME_DEPARTMENT_ID} column is nullable. The value is {@value}.
-     */
-    public static final boolean COLUMN_NULLABLE_DEPARTMENT_ID = true;
-
-    /**
-     * The precision of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_PRECISION_DEPARTMENT_ID = 4;
-
-    /**
-     * The scale of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_SCALE_DEPARTMENT_ID = 0;
-
-    /**
-     * The minimum value of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_MIN_DEPARTMENT_ID = -9999;
-
-    /**
-     * The maximum value of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_MAX_DEPARTMENT_ID = +9999;
-
-    /**
-     * The minimum value of the identifier of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
-     */
-    public static final long ATTRIBUTE_MIN_DEPARTMENT_ID = COLUMN_MIN_DEPARTMENT_ID;
-
-    /**
-     * The maximum value of the identifier of the {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute. The value is {@value}.
-     */
-    public static final long ATTRIBUTE_MAX_DEPARTMENT_ID = COLUMN_MAX_DEPARTMENT_ID;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
@@ -316,81 +146,6 @@ public class JobHistory implements __DomainEntity<JobHistoryId> {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
-
-    @Override
-    public String toString() {
-        return super.toString() + '{' +
-               "employeeId=" + employeeId +
-//               ",employee=" + employee +
-               ",startDate=" + startDate +
-//               ",job=" + job +
-//               ",department=" + department +
-               '}';
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param obj {@inheritDoc}
-     * @return {@inheritDoc}
-     * @implSpec Equality is by the two {@code @Id} attributes, {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} and
-     * {@value #ATTRIBUTE_NAME_START_DATE}.
-     */
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof JobHistory that)) {
-            return false;
-        }
-        return Objects.equals(getEmployeeId(), that.getEmployeeId()) &&
-               Objects.equals(getStartDate(), that.getStartDate());
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return {@inheritDoc}
-     * @implSpec The hash is over the two {@code @Id} attributes, consistent with {@link #equals(Object)}.
-     */
-    @Override
-    public final int hashCode() {
-        return Objects.hash(getEmployeeId(), getStartDate());
-    }
-
-    // ------------------------------------------------------------------------------------------------- Bean-Validation
-
-    /**
-     * Indicates whether the {@value #ATTRIBUTE_NAME_END_DATE} attribute is after the
-     * {@value #ATTRIBUTE_NAME_START_DATE} attribute.
-     * <p>
-     * Mirrors the {@code JHIST_DATE_INTERVAL} check constraint ({@code end_date > start_date}).
-     *
-     * @return {@code true} if the {@value #ATTRIBUTE_NAME_END_DATE} attribute is after the
-     * {@value #ATTRIBUTE_NAME_START_DATE} attribute, or either of them is {@code null}; {@code false} otherwise.
-     */
-    @AssertTrue
-    protected boolean isEndDateAfterStartDate() {
-        if (endDate == null) {
-            return true;
-        }
-        if (startDate == null) {
-            return true;
-        }
-        return endDate.isAfter(startDate);
-    }
-
-    // ------------------------------------------------------------------------------------------------------ employeeId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
-     */
-    @Nonnull
-    public Integer getEmployeeId() {
-        return employeeId;
-    }
-
     // -------------------------------------------------------------------------------------------------------- employee
 
     /**
@@ -401,32 +156,6 @@ public class JobHistory implements __DomainEntity<JobHistoryId> {
     @Nonnull
     public Employee getEmployee() {
         return employee;
-    }
-
-    // ------------------------------------------------------------------------------------------------------- startDate
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute -- the employee's {@code HIRE_DATE} before
-     * the change which the {@code UPDATE_JOB_HISTORY} trigger recorded.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute.
-     */
-    @Nonnull
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    // --------------------------------------------------------------------------------------------------------- endDate
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute -- the last day of the employee in the job,
-     * which the {@code UPDATE_JOB_HISTORY} trigger writes.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute.
-     */
-    @Nonnull
-    public LocalDateTime getEndDate() {
-        return endDate;
     }
 
     // ------------------------------------------------------------------------------------------------------------- job
@@ -453,24 +182,6 @@ public class JobHistory implements __DomainEntity<JobHistoryId> {
         return department;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Max(JobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
-    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
-//    @Min(JobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
-    @Digits(integer = JobHistory.COLUMN_PRECISION_EMPLOYEE_ID, fraction = 0)
-    @NotNull
-    @Id // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    @Column(name = JobHistory.COLUMN_NAME_EMPLOYEE_ID,
-            nullable = false,
-            insertable = true,
-            updatable = false,
-            precision = JobHistory.COLUMN_PRECISION_EMPLOYEE_ID,
-            scale = JobHistory.COLUMN_SCALE_EMPLOYEE_ID
-    )
-    private Integer employeeId;
-
     @Nonnull
     @Valid
     @NotNull
@@ -482,32 +193,6 @@ public class JobHistory implements __DomainEntity<JobHistoryId> {
                 updatable = false
     )
     private Employee employee;
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    // TODO: remove; not constrained by the DDL -- JOB_HISTORY.START_DATE is DATE with no check
-//    @PastOrPresent
-    @NotNull
-    @Id
-    @Column(name = JobHistory.COLUMN_NAME_START_DATE,
-            nullable = false,
-            insertable = true,
-            updatable = false
-    )
-    private LocalDateTime startDate;
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    // TODO: remove; not constrained by the DDL -- JOB_HISTORY.END_DATE is DATE with no check
-//    @PastOrPresent // @@?
-    @NotNull
-    @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_END_DATE,
-            nullable = false,
-            insertable = false,
-            updatable = false
-    )
-    private LocalDateTime endDate;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull

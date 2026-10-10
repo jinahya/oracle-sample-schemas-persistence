@@ -20,22 +20,22 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.__MappedDomainEntity;
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 
 /**
- * Verifies that no class of this package, the concrete mapping of the {@code HR} schema, depends on anything in its
- * {@code mapped} subpackage; the two are independent mappings, kept in step by hand.
+ * Verifies, on the {@code mapped} branch, that every class of this package which maps a table or a view of the
+ * {@code HR} schema -- every implementation of {@link __DomainEntity} -- is a {@link __MappedDomainEntity} too, which on
+ * this branch it is by extending its {@code mapped} counterpart.
  * <p>
- * Only main classes are imported, and the rule covers this package alone, not its subpackages. A constant the compiler
- * inlines, a {@code COLUMN_NAME_*} for instance, leaves no dependency in the class file, and so is not seen.
- * <p>
- * This is the rule a branch whose classes extend the {@code mapped} ones turns around; the converse,
- * {@code mapped.___MappedPackageSeparation_Test}, holds everywhere.
+ * This is this branch's own copy, kept through merges from {@code develop} by {@code merge=ours}; {@code develop}'s
+ * asserts the opposite, that this package depends on nothing in {@code mapped}. The converse,
+ * {@code mapped.___MappedPackageSeparation_Test}, holds on both.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -51,7 +51,7 @@ class ___PackageSeparation_Test {
     private static final String PACKAGE = __DomainEntity.class.getPackageName();
 
     @ArchTest
-    static final ArchRule classes_DoNotDependOnMappedPackage_ =
-            noClasses().that().resideInAPackage(PACKAGE)
-                    .should().dependOnClassesThat().resideInAPackage(PACKAGE + ".mapped..");
+    static final ArchRule domainEntities_AreMappedDomainEntities_ =
+            classes().that().resideInAPackage(PACKAGE).and().implement(__DomainEntity.class)
+                    .should().beAssignableTo(__MappedDomainEntity.class);
 }

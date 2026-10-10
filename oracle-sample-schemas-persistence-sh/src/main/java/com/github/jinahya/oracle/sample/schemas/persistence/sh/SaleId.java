@@ -20,14 +20,10 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
+import com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.MappedSaleId;
 import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * An embeddable class for the composite identifier of the {@link Sale} entity class, which maps it with an
@@ -36,47 +32,12 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @Embeddable
-public class SaleId {
+public class SaleId extends MappedSaleId {
 
     /**
      * The name of the database table whose identifying columns this class maps. The value is {@value}.
      */
     public static final String TABLE_NAME = Sale.TABLE_NAME;
-
-    // --------------------------------------------------------------------------------------------------------- PROD_ID
-
-    /**
-     * The name of the attribute which maps the {@value Sale#COLUMN_NAME_PROD_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
-
-    // --------------------------------------------------------------------------------------------------------- CUST_ID
-
-    /**
-     * The name of the attribute which maps the {@value Sale#COLUMN_NAME_CUST_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_CUST_ID = "custId";
-
-    // --------------------------------------------------------------------------------------------------------- TIME_ID
-
-    /**
-     * The name of the attribute which maps the {@value Sale#COLUMN_NAME_TIME_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
-
-    // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
-
-    /**
-     * The name of the attribute which maps the {@value Sale#COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
-
-    // -------------------------------------------------------------------------------------------------------- PROMO_ID
-
-    /**
-     * The name of the attribute which maps the {@value Sale#COLUMN_NAME_PROMO_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -113,81 +74,14 @@ public class SaleId {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
-
-    @Override
-    public String toString() {
-        return super.toString() + '{' +
-               "prodId=" + prodId +
-               ",custId=" + custId +
-               ",timeId=" + timeId +
-               ",channelId=" + channelId +
-               ",promoId=" + promoId +
-               '}';
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param obj {@inheritDoc}
-     * @return {@inheritDoc}
-     * @implSpec Equality is by all of {@value #ATTRIBUTE_NAME_PROD_ID}, {@value #ATTRIBUTE_NAME_CUST_ID},
-     * {@value #ATTRIBUTE_NAME_TIME_ID}, {@value #ATTRIBUTE_NAME_CHANNEL_ID}, and {@value #ATTRIBUTE_NAME_PROMO_ID}.
-     */
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof SaleId that)) {
-            return false;
-        }
-        return Objects.equals(prodId, that.prodId)
-               && Objects.equals(custId, that.custId)
-               && Objects.equals(timeId, that.timeId)
-               && Objects.equals(channelId, that.channelId)
-               && Objects.equals(promoId, that.promoId);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return {@inheritDoc}
-     * @implSpec The hash is over all of {@value #ATTRIBUTE_NAME_PROD_ID}, {@value #ATTRIBUTE_NAME_CUST_ID},
-     * {@value #ATTRIBUTE_NAME_TIME_ID}, {@value #ATTRIBUTE_NAME_CHANNEL_ID}, and {@value #ATTRIBUTE_NAME_PROMO_ID},
-     * consistent with {@link #equals(Object)}.
-     */
-    @Override
-    public final int hashCode() {
-        return Objects.hash(prodId, custId, timeId, channelId, promoId);
-    }
-
-    // ---------------------------------------------------------------------------------------------------------- prodId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
-     */
-    public Integer getProdId() {
-        return prodId;
-    }
-
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute with the specified value.
      *
      * @param prodId new value for {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
      */
+    @Override
     public void setProdId(final Integer prodId) {
-        this.prodId = prodId;
-    }
-
-    // ---------------------------------------------------------------------------------------------------------- custId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute.
-     */
-    public Long getCustId() {
-        return custId;
+        super.setProdId(prodId);
     }
 
     /**
@@ -195,19 +89,9 @@ public class SaleId {
      *
      * @param custId new value for {@value #ATTRIBUTE_NAME_CUST_ID} attribute.
      */
+    @Override
     public void setCustId(final Long custId) {
-        this.custId = custId;
-    }
-
-    // ---------------------------------------------------------------------------------------------------------- timeId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
-     */
-    public LocalDateTime getTimeId() {
-        return timeId;
+        super.setCustId(custId);
     }
 
     /**
@@ -215,19 +99,9 @@ public class SaleId {
      *
      * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
+    @Override
     public void setTimeId(final LocalDateTime timeId) {
-        this.timeId = timeId;
-    }
-
-    // ------------------------------------------------------------------------------------------------------- channelId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
-     */
-    public Long getChannelId() {
-        return channelId;
+        super.setTimeId(timeId);
     }
 
     /**
@@ -235,19 +109,9 @@ public class SaleId {
      *
      * @param channelId new value for {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
      */
+    @Override
     public void setChannelId(final Long channelId) {
-        this.channelId = channelId;
-    }
-
-    // --------------------------------------------------------------------------------------------------------- promoId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
-     */
-    public Integer getPromoId() {
-        return promoId;
+        super.setChannelId(channelId);
     }
 
     /**
@@ -255,39 +119,8 @@ public class SaleId {
      *
      * @param promoId new value for {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
      */
+    @Override
     public void setPromoId(final Integer promoId) {
-        this.promoId = promoId;
+        super.setPromoId(promoId);
     }
-
-    // ---------------------------------------------------------------------------------------------------------------- 
-
-    @NotNull
-    @Digits(integer = Sale.COLUMN_PRECISION_PROD_ID - Sale.COLUMN_SCALE_PROD_ID, fraction = Sale.COLUMN_SCALE_PROD_ID)
-    @Basic(optional = false)
-    @Column(name = Sale.COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
-    private Integer prodId;
-
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = Sale.COLUMN_NAME_CUST_ID, nullable = false, insertable = true, updatable = false)
-    private Long custId;
-
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = Sale.COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
-    private LocalDateTime timeId;
-
-    @NotNull
-    @Digits(integer = Sale.COLUMN_PRECISION_CHANNEL_ID - Sale.COLUMN_SCALE_CHANNEL_ID,
-            fraction = Sale.COLUMN_SCALE_CHANNEL_ID)
-    @Basic(optional = false)
-    @Column(name = Sale.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
-    private Long channelId;
-
-    @NotNull
-    @Digits(integer = Sale.COLUMN_PRECISION_PROMO_ID - Sale.COLUMN_SCALE_PROMO_ID,
-            fraction = Sale.COLUMN_SCALE_PROMO_ID)
-    @Basic(optional = false)
-    @Column(name = Sale.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
-    private Integer promoId;
 }

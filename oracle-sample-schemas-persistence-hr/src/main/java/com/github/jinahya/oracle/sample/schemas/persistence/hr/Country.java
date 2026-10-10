@@ -20,13 +20,10 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import jakarta.annotation.Nonnull;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedCountry;
 import jakarta.annotation.Nullable;
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
@@ -34,11 +31,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * An entity class for mapping the {@value Country#TABLE_NAME} table.
@@ -73,75 +68,7 @@ import java.util.Objects;
 )
 @Entity
 @Table(name = Country.TABLE_NAME)
-public class Country implements __DomainEntity<String> {
-
-    /**
-     * The name of the database table to which this entity class maps. The value is {@value}.
-     */
-    public static final String TABLE_NAME = "COUNTRIES";
-
-    // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
-
-    /**
-     * The length of the {@value #COLUMN_NAME_COUNTRY_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_LENGTH_COUNTRY_ID = 2;
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
-
-    /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MIN_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
-
-    /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
-
-    // ---------------------------------------------------------------------------------------------------- COUNTRY_NAME
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_COUNTRY_NAME = "COUNTRY_NAME";
-
-    /**
-     * The length of the {@value #COLUMN_NAME_COUNTRY_NAME} column. The value is {@value}.
-     */
-    public static final int COLUMN_LENGTH_COUNTRY_NAME = 60;
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_NAME} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_COUNTRY_NAME = "countryName";
-
-    /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MIN_COUNTRY_NAME = 0;
-
-    /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
-
-    // ------------------------------------------------------------------------------------------------------- REGION_ID
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION} attribute maps. The value is {@value}.
-     */
-    public static final String COLUMN_NAME_REGION_ID = "REGION_ID";
+public class Country extends MappedCountry implements __DomainEntity<String> {
 
     /**
      * The name of the attribute which maps the {@link Location location}s of this country. The value is {@value}.
@@ -171,83 +98,16 @@ public class Country implements __DomainEntity<String> {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
-    @Override
-    public String toString() {
-        return super.toString() + '{' +
-               "countryId=" + countryId +
-               ",countryName=" + countryName +
-//               ",region=" + region +
-//               ",locations=" + locations +
-               '}';
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param obj {@inheritDoc}
-     * @return {@inheritDoc}
-     * @implSpec Equality is by the {@code @Id} alone.
-     */
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof Country that)) {
-            return false;
-        }
-        return Objects.equals(getCountryId(), that.getCountryId());
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return {@inheritDoc}
-     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
-     */
-    @Override
-    public final int hashCode() {
-        return Objects.hashCode(getCountryId());
-    }
-
     // ------------------------------------------------------------------------------------------------------- countryId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
+     * {@inheritDoc}
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
+     * @implNote Overridden, unchanged, so that the classes of this package can call it.
      */
-    @Nonnull
-    public String getCountryId() {
-        return countryId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the specified value.
-     *
-     * @param countryId new value for {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
-     */
-    protected void setCountryId(@Nonnull final String countryId) {
-        this.countryId = countryId;
-    }
-
-    // ----------------------------------------------------------------------------------------------------- countryName
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
-     */
-    @Nullable
-    public String getCountryName() {
-        return countryName;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute with the specified value.
-     *
-     * @param countryName new value for {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
-     */
-    public void setCountryName(@Nullable final String countryName) {
-        this.countryName = countryName;
+    @Override
+    protected void setCountryId(final String countryId) {
+        super.setCountryId(countryId);
     }
 
     // ---------------------------------------------------------------------------------------------------------- region
@@ -279,26 +139,6 @@ public class Country implements __DomainEntity<String> {
     void setLocations(final List<Location> locations) {
         this.locations = locations;
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    // TODO: remove; not constrained by the DDL -- COUNTRIES.COUNTRY_ID is CHAR(2); a length sets no minimum
-//    @Size(min = SIZE_MIN_COUNTRY_ID, max = SIZE_MAX_COUNTRY_ID)
-    @Size(max = SIZE_MAX_COUNTRY_ID)
-    @NotNull
-    @Id
-    @Basic(optional = false)
-    @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = false, insertable = true, updatable = false,
-            length = COLUMN_LENGTH_COUNTRY_ID)
-    private String countryId;
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nullable
-    @Size(min = SIZE_MIN_COUNTRY_NAME, max = SIZE_MAX_COUNTRY_NAME)
-    @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_COUNTRY_NAME, nullable = true, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_COUNTRY_NAME)
-    private String countryName;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable

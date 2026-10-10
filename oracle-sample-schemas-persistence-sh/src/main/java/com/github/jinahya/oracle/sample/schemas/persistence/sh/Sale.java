@@ -20,8 +20,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
+import com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.MappedSale;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,12 +28,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -49,20 +45,7 @@ import java.util.Optional;
  */
 @Entity
 @Table(name = Sale.TABLE_NAME)
-public class Sale implements __DomainEntity<SaleId> {
-
-    /**
-     * The name of the database table to which this entity class maps. The value is {@value}.
-     */
-    public static final String TABLE_NAME = "SALES";
-
-    // --------------------------------------------------------------------------------------------------------- PROD_ID
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_PROD_ID = "PROD_ID";
+public class Sale extends MappedSale<SaleId> implements __DomainEntity<SaleId> {
 
     /**
      * The name of the {@link SaleId} attribute which maps the {@value #COLUMN_NAME_PROD_ID} column; this entity reaches
@@ -77,31 +60,6 @@ public class Sale implements __DomainEntity<SaleId> {
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_PROD_ID = "id.prodId";
-
-    /**
-     * The precision of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_PRECISION_PROD_ID = 6;
-
-    /**
-     * The scale of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_SCALE_PROD_ID = 0;
-
-    // --------------------------------------------------------------------------------------------------------- CUST_ID
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_ID} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_CUST_ID = "CUST_ID";
-
-    /**
      * The name of the {@link SaleId} attribute which maps the {@value #COLUMN_NAME_CUST_ID} column; this entity reaches
      * it as {@value #ATTRIBUTE_NAME_ID_CUST_ID}. The value is {@value}.
      */
@@ -112,21 +70,6 @@ public class Sale implements __DomainEntity<SaleId> {
      * {@link jakarta.persistence.ManyToOne @ManyToOne} association. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER = "customer";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_CUST_ID = "id.custId";
-
-    // --------------------------------------------------------------------------------------------------------- TIME_ID
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_TIME_ID = "TIME_ID";
 
     /**
      * The name of the {@link SaleId} attribute which maps the {@value #COLUMN_NAME_TIME_ID} column; this entity reaches
@@ -141,21 +84,6 @@ public class Sale implements __DomainEntity<SaleId> {
     public static final String ATTRIBUTE_NAME_TIME = "time";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_TIME_ID = "id.timeId";
-
-    // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
-
-    /**
      * The name of the {@link SaleId} attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column; this entity
      * reaches it as {@value #ATTRIBUTE_NAME_ID_CHANNEL_ID}. The value is {@value}.
      */
@@ -166,31 +94,6 @@ public class Sale implements __DomainEntity<SaleId> {
      * {@link jakarta.persistence.ManyToOne @ManyToOne} association. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL = "channel";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_CHANNEL_ID = "id.channelId";
-
-    /**
-     * The precision of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_PRECISION_CHANNEL_ID = 1;
-
-    /**
-     * The scale of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_SCALE_CHANNEL_ID = 0;
-
-    // -------------------------------------------------------------------------------------------------------- PROMO_ID
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
 
     /**
      * The name of the {@link SaleId} attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column; this entity
@@ -204,75 +107,6 @@ public class Sale implements __DomainEntity<SaleId> {
      */
     public static final String ATTRIBUTE_NAME_PROMOTION = "promotion";
 
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_PROMO_ID = "id.promoId";
-
-    /**
-     * The precision of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_PRECISION_PROMO_ID = 6;
-
-    /**
-     * The scale of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
-     */
-    public static final int COLUMN_SCALE_PROMO_ID = 0;
-
-    // --------------------------------------------------------------------------------------------------- QUANTITY_SOLD
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_QUANTITY_SOLD = "QUANTITY_SOLD";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_QUANTITY_SOLD = "quantitySold";
-
-    /**
-     * The precision of the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The value is {@value}.
-     */
-    public static final int COLUMN_PRECISION_QUANTITY_SOLD = 3;
-
-    /**
-     * The scale of the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The value is {@value}.
-     */
-    public static final int COLUMN_SCALE_QUANTITY_SOLD = 0;
-
-    // ----------------------------------------------------------------------------------------------------- AMOUNT_SOLD
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_AMOUNT_SOLD = "AMOUNT_SOLD";
-
-    /**
-     * The precision of the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value is {@value}.
-     */
-    public static final int COLUMN_PRECISION_AMOUNT_SOLD = 10;
-
-    /**
-     * The scale of the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value is {@value}.
-     */
-    public static final int COLUMN_SCALE_AMOUNT_SOLD = 2;
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_AMOUNT_SOLD = "amountSold";
-
-    /**
-     * The name of the attribute which maps the identifying columns, as an
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID = "id";
-
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -280,48 +114,6 @@ public class Sale implements __DomainEntity<SaleId> {
      */
     protected Sale() {
         super();
-    }
-
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
-
-    @Override
-    public String toString() {
-        return super.toString() + '{' +
-               "id=" + id +
-//               ",product=" + product +
-//               ",customer=" + customer +
-//               ",time=" + time +
-//               ",channel=" + channel +
-//               ",promotion=" + promotion +
-               ",quantitySold=" + quantitySold +
-               ",amountSold=" + amountSold +
-               '}';
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param obj {@inheritDoc}
-     * @return {@inheritDoc}
-     * @implSpec Equality is by the {@code @Id} alone.
-     */
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof Sale that)) {
-            return false;
-        }
-        return Objects.equals(id, that.id);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return {@inheritDoc}
-     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
-     */
-    @Override
-    public final int hashCode() {
-        return Objects.hashCode(id);
     }
 
     // -------------------------------------------------------------------------------------------------------------- id
@@ -469,46 +261,6 @@ public class Sale implements __DomainEntity<SaleId> {
         getId().setPromoId(promoId);
     }
 
-    // ---------------------------------------------------------------------------------------------------- quantitySold
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute.
-     */
-    public Integer getQuantitySold() {
-        return quantitySold;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute with the specified value.
-     *
-     * @param quantitySold new value for {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute.
-     */
-    public void setQuantitySold(final Integer quantitySold) {
-        this.quantitySold = quantitySold;
-    }
-
-    // ------------------------------------------------------------------------------------------------------ amountSold
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute.
-     */
-    public BigDecimal getAmountSold() {
-        return amountSold;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute with the specified value.
-     *
-     * @param amountSold new value for {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute.
-     */
-    public void setAmountSold(final BigDecimal amountSold) {
-        this.amountSold = amountSold;
-    }
-
     // ---------------------------------------------------------------------------------------------------------------- 
 
     @Valid
@@ -576,21 +328,10 @@ public class Sale implements __DomainEntity<SaleId> {
                 updatable = false)
     private Promotion promotion;
 
-    @NotNull
-    @Digits(integer = COLUMN_PRECISION_QUANTITY_SOLD - COLUMN_SCALE_QUANTITY_SOLD,
-            fraction = COLUMN_SCALE_QUANTITY_SOLD)
-    @Basic(optional = false)
-    @Column(name = COLUMN_NAME_QUANTITY_SOLD, nullable = false, insertable = true, updatable = true)
-    private Integer quantitySold;
+    // ------------------------------------------------------------------------------------------------------ getIdValue
 
-    @NotNull
-    @Digits(integer = COLUMN_PRECISION_AMOUNT_SOLD - COLUMN_SCALE_AMOUNT_SOLD, fraction = COLUMN_SCALE_AMOUNT_SOLD)
-    @Basic(optional = false)
-    @Column(name = COLUMN_NAME_AMOUNT_SOLD,
-            nullable = false,
-            insertable = true,
-            updatable = true,
-            precision = COLUMN_PRECISION_AMOUNT_SOLD,
-            scale = COLUMN_SCALE_AMOUNT_SOLD)
-    private BigDecimal amountSold;
+    @Override
+    protected SaleId getIdValue() {
+        return getId();
+    }
 }

@@ -20,16 +20,13 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  * #L%
  */
 
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
+import com.github.jinahya.oracle.sample.schemas.persistence.co.mapped.MappedProductOrder;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
-import java.math.BigDecimal;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -41,30 +38,7 @@ import java.util.Optional;
  */
 @Entity
 @Table(name = ProductOrder.TABLE_NAME)
-public class ProductOrder implements __DomainEntity<ProductOrderId> {
-
-    /**
-     * The name of the database view to which this entity class maps. The value is {@value}.
-     */
-    public static final String TABLE_NAME = "PRODUCT_ORDERS";
-
-    // ---------------------------------------------------------------------------------------------------- PRODUCT_NAME
-
-    /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_PRODUCT_NAME = "PRODUCT_NAME";
-
-    /**
-     * The length of the {@value #COLUMN_NAME_PRODUCT_NAME} column. The value is {@value}.
-     */
-    public static final int COLUMN_LENGTH_PRODUCT_NAME = 255;
-
-    /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MAX_PRODUCT_NAME = COLUMN_LENGTH_PRODUCT_NAME;
+public class ProductOrder extends MappedProductOrder<ProductOrderId> implements __DomainEntity<ProductOrderId> {
 
     /**
      * The name of the attribute, of the {@link ProductOrderId @EmbeddedId}, which maps the
@@ -75,76 +49,12 @@ public class ProductOrder implements __DomainEntity<ProductOrderId> {
     public static final String ATTRIBUTE_NAME_PRODUCT_NAME = "productName";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_NAME} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_PRODUCT_NAME = "id.productName";
-
-    // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
-
-    /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_ORDER_STATUS = "ORDER_STATUS";
-
-    /**
-     * The length of the {@value #COLUMN_NAME_ORDER_STATUS} column. The value is {@value}.
-     */
-    public static final int COLUMN_LENGTH_ORDER_STATUS = 10;
-
-    /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MAX_ORDER_STATUS = COLUMN_LENGTH_ORDER_STATUS;
-
-    /**
      * The name of the attribute, of the {@link ProductOrderId @EmbeddedId}, which maps the
      * {@value #COLUMN_NAME_ORDER_STATUS} column. The value is {@value}.
      *
      * @see #ATTRIBUTE_NAME_ID_ORDER_STATUS
      */
     public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_STATUS} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_ORDER_STATUS = "id.orderStatus";
-
-    // ----------------------------------------------------------------------------------------------------- TOTAL_SALES
-
-    /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_TOTAL_SALES} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_TOTAL_SALES = "TOTAL_SALES";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_TOTAL_SALES} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_TOTAL_SALES = "totalSales";
-
-    // ----------------------------------------------------------------------------------------------------- ORDER_COUNT
-
-    /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_ORDER_COUNT = "ORDER_COUNT";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_COUNT} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ORDER_COUNT = "orderCount";
-
-    /**
-     * The name of the attribute which maps the identifying columns, as an
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID = "id";
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -153,43 +63,6 @@ public class ProductOrder implements __DomainEntity<ProductOrderId> {
      */
     protected ProductOrder() {
         super();
-    }
-
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
-
-    @Override
-    public String toString() {
-        return super.toString() + '{' +
-               "id=" + id +
-               ",totalSales=" + totalSales +
-               ",orderCount=" + orderCount +
-               '}';
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param obj {@inheritDoc}
-     * @return {@inheritDoc}
-     * @implSpec Equality is by the {@code @Id} alone.
-     */
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof ProductOrder that)) {
-            return false;
-        }
-        return Objects.equals(id, that.id);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return {@inheritDoc}
-     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
-     */
-    @Override
-    public final int hashCode() {
-        return Objects.hashCode(id);
     }
 
     // -------------------------------------------------------------------------------------------------------------- id
@@ -262,46 +135,6 @@ public class ProductOrder implements __DomainEntity<ProductOrderId> {
         getId().setOrderStatus(orderStatus);
     }
 
-    // ------------------------------------------------------------------------------------------------------ totalSales
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_TOTAL_SALES} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_TOTAL_SALES} attribute.
-     */
-    public BigDecimal getTotalSales() {
-        return totalSales;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_TOTAL_SALES} attribute with the specified value.
-     *
-     * @param totalSales new value for {@value #ATTRIBUTE_NAME_TOTAL_SALES} attribute.
-     */
-    public void setTotalSales(final BigDecimal totalSales) {
-        this.totalSales = totalSales;
-    }
-
-    // ------------------------------------------------------------------------------------------------------ orderCount
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute.
-     */
-    public Long getOrderCount() {
-        return orderCount;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute with the specified value.
-     *
-     * @param orderCount new value for {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute.
-     */
-    public void setOrderCount(final Long orderCount) {
-        this.orderCount = orderCount;
-    }
-
     // ---------------------------------------------------------------------------------------------------------------- 
 
     @Valid
@@ -309,11 +142,10 @@ public class ProductOrder implements __DomainEntity<ProductOrderId> {
     @EmbeddedId
     private ProductOrderId id;
 
-    @Basic(optional = true)
-    @Column(name = COLUMN_NAME_TOTAL_SALES, nullable = true, insertable = false, updatable = false)
-    private BigDecimal totalSales;
+    // ------------------------------------------------------------------------------------------------------ getIdValue
 
-    @Basic(optional = true)
-    @Column(name = COLUMN_NAME_ORDER_COUNT, nullable = true, insertable = false, updatable = false)
-    private Long orderCount;
+    @Override
+    protected ProductOrderId getIdValue() {
+        return getId();
+    }
 }

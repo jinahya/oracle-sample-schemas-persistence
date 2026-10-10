@@ -20,13 +20,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.co.mapped.MappedOrderItemId;
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.NotNull;
-
-import java.util.Objects;
 
 /**
  * An id class for the {@value OrderItem#TABLE_NAME} table; the {@link jakarta.persistence.EmbeddedId @EmbeddedId} of
@@ -35,18 +31,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @Embeddable
-public class OrderItemId {
-
-    /**
-     * The name of the attribute which maps the {@value OrderItem#COLUMN_NAME_ORDER_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
-
-    /**
-     * The name of the attribute which maps the {@value OrderItem#COLUMN_NAME_LINE_ITEM_ID} column. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_LINE_ITEM_ID = "lineItemId";
+public class OrderItemId extends MappedOrderItemId {
 
     // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
 
@@ -73,89 +58,27 @@ public class OrderItemId {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
-
-    @Override
-    public String toString() {
-        return super.toString() + '{' +
-               "orderId=" + orderId +
-               ",lineItemId=" + lineItemId +
-               '}';
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param obj {@inheritDoc}
-     * @return {@inheritDoc}
-     * @implSpec Equality is by both {@value #ATTRIBUTE_NAME_ORDER_ID} and {@value #ATTRIBUTE_NAME_LINE_ITEM_ID}.
-     */
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof OrderItemId that)) {
-            return false;
-        }
-        return Objects.equals(orderId, that.orderId)
-               && Objects.equals(lineItemId, that.lineItemId);
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return {@inheritDoc}
-     * @implSpec The hash is over both {@value #ATTRIBUTE_NAME_ORDER_ID} and {@value #ATTRIBUTE_NAME_LINE_ITEM_ID},
-     * consistent with {@link #equals(Object)}.
-     */
-    @Override
-    public final int hashCode() {
-        return Objects.hash(orderId, lineItemId);
-    }
-
     // --------------------------------------------------------------------------------------------------------- orderId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
+     * {@inheritDoc}
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
+     * @implNote Overridden, unchanged, so that {@link OrderItem}, in this package, can set it.
      */
-    @Nonnull
-    public Long getOrderId() {
-        return orderId;
-    }
-
-    void setOrderId(@Nonnull final Long orderId) {
-        this.orderId = orderId;
+    @Override
+    protected void setOrderId(@Nonnull final Long orderId) {
+        super.setOrderId(orderId);
     }
 
     // ------------------------------------------------------------------------------------------------------ lineItemId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_LINE_ITEM_ID} attribute.
+     * {@inheritDoc}
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_LINE_ITEM_ID} attribute.
+     * @implNote Overridden, unchanged, so that {@link OrderItem}, in this package, can set it.
      */
-    @Nonnull
-    public Long getLineItemId() {
-        return lineItemId;
+    @Override
+    protected void setLineItemId(@Nonnull final Long lineItemId) {
+        super.setLineItemId(lineItemId);
     }
-
-    void setLineItemId(@Nonnull final Long lineItemId) {
-        this.lineItemId = lineItemId;
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    @Nonnull
-    // no @NotNull: OrderItem maps this through @MapsId, so the provider fills it at flush -- later than
-    // the prePersist at which EclipseLink validates. The column stays NOT NULL.
-    @Basic(optional = false)
-    @Column(name = OrderItem.COLUMN_NAME_ORDER_ID, nullable = false, insertable = true, updatable = false)
-    private Long orderId;
-
-    @Nonnull
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = OrderItem.COLUMN_NAME_LINE_ITEM_ID, nullable = false, insertable = true,
-            updatable = false)
-    private Long lineItemId;
 }

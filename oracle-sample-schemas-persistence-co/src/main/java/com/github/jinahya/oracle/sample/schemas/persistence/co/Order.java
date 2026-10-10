@@ -20,16 +20,10 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.co.mapped.MappedOrder;
 import jakarta.annotation.Nonnull;
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapKey;
@@ -80,175 +74,13 @@ import java.util.function.Function;
 )
 @Entity
 @Table(name = Order.TABLE_NAME)
-public class Order implements __DomainEntity<Long> {
-
-    /**
-     * The name of the database table to which this entity class maps. The value is {@value}.
-     */
-    public static final String TABLE_NAME = "ORDERS";
-
-    // -------------------------------------------------------------------------------------------------------- ORDER_ID
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_ORDER_ID} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_ORDER_ID = "ORDER_ID";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
-
-    // ------------------------------------------------------------------------------------------------------- ORDER_TMS
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_ORDER_TMS = "ORDER_TMS";
-
-    /**
-     * The fractional seconds precision of the {@value #COLUMN_NAME_ORDER_TMS} column. The value is {@value}.
-     */
-    public static final int FRACTIONAL_SECONDS_PRECISION_ORDER_TMS = 6;
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_TMS} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ORDER_TMS = "orderTms";
-
-    // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUSTOMER} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_CUSTOMER_ID = "CUSTOMER_ID";
+public class Order extends MappedOrder implements __DomainEntity<Long> {
 
     /**
      * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on the
      * {@value #COLUMN_NAME_CUSTOMER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER = "customer";
-
-    // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_ORDER_STATUS = "ORDER_STATUS";
-
-    /**
-     * The length of the {@value #COLUMN_NAME_ORDER_STATUS} column. The value is {@value}.
-     */
-    public static final int COLUMN_LENGTH_ORDER_STATUS = 10;
-
-    /**
-     * A value of the {@value #COLUMN_NAME_ORDER_STATUS} column, for an order which has been cancelled. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_VALUE_ORDER_STATUS_CANCELLED = "CANCELLED";
-
-    /**
-     * A value of the {@value #COLUMN_NAME_ORDER_STATUS} column, for an order which has been completed. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_VALUE_ORDER_STATUS_COMPLETE = "COMPLETE";
-
-    /**
-     * A value of the {@value #COLUMN_NAME_ORDER_STATUS} column, for an order which is still open. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_VALUE_ORDER_STATUS_OPEN = "OPEN";
-
-    /**
-     * A value of the {@value #COLUMN_NAME_ORDER_STATUS} column, for an order which has been paid for. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_VALUE_ORDER_STATUS_PAID = "PAID";
-
-    /**
-     * A value of the {@value #COLUMN_NAME_ORDER_STATUS} column, for an order which has been refunded. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_VALUE_ORDER_STATUS_REFUNDED = "REFUNDED";
-
-    /**
-     * A value of the {@value #COLUMN_NAME_ORDER_STATUS} column, for an order which has been shipped. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_VALUE_ORDER_STATUS_SHIPPED = "SHIPPED";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_STATUS} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
-
-    /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MIN_ORDER_STATUS = 0;
-
-    /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MAX_ORDER_STATUS = COLUMN_LENGTH_ORDER_STATUS;
-
-    /**
-     * An enum for the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
-     *
-     * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
-     */
-    public enum OrderStatus {
-
-        /**
-         * A constant for the {@value Order#COLUMN_VALUE_ORDER_STATUS_OPEN} value, for an order which is still open.
-         */
-        OPEN,
-
-        /**
-         * A constant for the {@value Order#COLUMN_VALUE_ORDER_STATUS_CANCELLED} value, for an order which has been
-         * cancelled.
-         */
-        // 취소?
-        CANCELLED,
-
-        /**
-         * A constant for the {@value Order#COLUMN_VALUE_ORDER_STATUS_PAID} value, for an order which has been paid
-         * for.
-         */
-        // 지불됨?
-        PAID,
-
-        /**
-         * A constant for the {@value Order#COLUMN_VALUE_ORDER_STATUS_REFUNDED} value, for an order which has been
-         * refunded.
-         */
-        // (지불) 반환딤?
-        REFUNDED,
-
-        /**
-         * A constant for the {@value Order#COLUMN_VALUE_ORDER_STATUS_SHIPPED} value, for an order which has been
-         * shipped.
-         */
-        // 출고됨?
-        SHIPPED,
-
-        /**
-         * A constant for the {@value Order#COLUMN_VALUE_ORDER_STATUS_COMPLETE} value, for an order which has been
-         * completed.
-         */
-        // 완료?
-        COMPLETE;
-    }
-    // -------------------------------------------------------------------------------------------------------- STORE_ID
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE} attribute maps. The value is {@value}.
-     */
-    public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
     /**
      * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on the
@@ -268,93 +100,6 @@ public class Order implements __DomainEntity<Long> {
      */
     protected Order() {
         super();
-    }
-
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
-
-    @Override
-    public String toString() {
-        return super.toString() + '{' +
-               "orderId=" + orderId +
-               ",orderTms=" + orderTms +
-//               ",customer=" + customer +
-               ",orderStatus=" + orderStatus +
-//               ",store=" + store +
-//               ",orderItems=" + orderItems +
-               '}';
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param obj {@inheritDoc}
-     * @return {@inheritDoc}
-     * @implSpec Equality is by the generated {@code @Id} alone, the other instance's read through its getter, which is
-     * what makes the comparison correct when the other instance is still a lazy proxy. An instance whose {@code @Id} is
-     * still {@code null} -- one not yet persisted -- equals itself only.
-     */
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Order that)) {
-            return false;
-        }
-        return orderId != null && orderId.equals(that.getOrderId());
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return {@inheritDoc}
-     * @implSpec The hash is constant -- the class's -- so that it does not change when the generated {@code @Id} is
-     * assigned on persist, which would lose an instance already held in a hash-based collection.
-     */
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
-
-    // --------------------------------------------------------------------------------------------------------- orderId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
-     */
-    public Long getOrderId() {
-        return orderId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute with the specified value.
-     *
-     * @param orderId new value for {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
-     */
-    protected void setOrderId(final Long orderId) {
-        this.orderId = orderId;
-    }
-
-    // -------------------------------------------------------------------------------------------------------- orderTms
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute.
-     */
-    @Nonnull
-    public LocalDateTime getOrderTms() {
-        return orderTms;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the specified value.
-     *
-     * @param orderTms new value for {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute.
-     */
-    public void setOrderTms(@Nonnull final LocalDateTime orderTms) {
-        this.orderTms = orderTms;
     }
 
     /**
@@ -527,27 +272,6 @@ public class Order implements __DomainEntity<Long> {
         this.customer = customer;
     }
 
-    // ----------------------------------------------------------------------------------------------------- orderStatus
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
-     */
-    @Nonnull
-    public OrderStatus getOrderStatus() {
-        return orderStatus;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute with the specified value.
-     *
-     * @param orderStatus new value for {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
-     */
-    public void setOrderStatus(@Nonnull final OrderStatus orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
     // ----------------------------------------------------------------------------------------------------------- store
 
     /**
@@ -627,27 +351,6 @@ public class Order implements __DomainEntity<Long> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    // no @NotNull: database-generated identity; the value is null when the provider validates at pre-persist
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = COLUMN_NAME_ORDER_ID,
-            nullable = false,
-            // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
-            // insertable=false on a @GeneratedValue @Id -- it treats the mapping as read-only and
-            // fails descriptor initialisation with EclipseLink-46/EclipseLink-41. Verified on 5.0.1.
-            insertable = true,
-            updatable = false
-    )
-    private Long orderId;
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = COLUMN_NAME_ORDER_TMS, nullable = false, insertable = true, updatable = false)
-    private LocalDateTime orderTms;
-
-    // -----------------------------------------------------------------------------------------------------------------
 
     @Nonnull
     @Valid
@@ -655,15 +358,6 @@ public class Order implements __DomainEntity<Long> {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
     private Customer customer;
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Basic(optional = false)
-    @Column(name = COLUMN_NAME_ORDER_STATUS, nullable = false, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_ORDER_STATUS)
-    private OrderStatus orderStatus;
 
     // -----------------------------------------------------------------------------------------------------------------
 

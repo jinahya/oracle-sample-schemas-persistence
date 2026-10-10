@@ -20,22 +20,16 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-import jakarta.persistence.Basic;
-import jakarta.persistence.Column;
+import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.MappedRegion;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * An entity class for mapping the {@value Region#TABLE_NAME} table.
@@ -72,53 +66,7 @@ import java.util.Objects;
 )
 @Entity
 @Table(name = Region.TABLE_NAME)
-public class Region implements __DomainEntity<Long> {
-
-    /**
-     * The name of the database table to which this entity class maps. The value is {@value}.
-     */
-    public static final String TABLE_NAME = "REGIONS";
-
-    // -------------------------------------------------------------------------------------------- REGION_ID / regionId
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION_ID} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_REGION_ID = "REGION_ID";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_ID} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
-
-    // ---------------------------------------------------------------------------------------- REGION_NAME / regionName
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute maps. The value is
-     * {@value}.
-     */
-    public static final String COLUMN_NAME_REGION_NAME = "REGION_NAME";
-
-    /**
-     * The length of the {@value #COLUMN_NAME_REGION_NAME} column. The value is {@value}.
-     */
-    public static final int COLUMN_LENGTH_REGION_NAME = 25;
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_NAME} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_REGION_NAME = "regionName";
-
-    /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MIN_REGION_NAME = 0;
-
-    /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MAX_REGION_NAME = COLUMN_LENGTH_REGION_NAME;
+public class Region extends MappedRegion implements __DomainEntity<Long> {
 
     /**
      * The name of the attribute which maps the {@link Country countries} of this region. The value is {@value}.
@@ -136,85 +84,6 @@ public class Region implements __DomainEntity<Long> {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
-
-    @Override
-    public String toString() {
-        return super.toString() + '{' +
-               "regionId=" + regionId +
-               ",regionName=" + regionName +
-//               ",countries=" + countries +
-               '}';
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @param obj {@inheritDoc}
-     * @return {@inheritDoc}
-     * @implSpec Equality is by the {@code @Id} alone.
-     */
-    @Override
-    public final boolean equals(final Object obj) {
-        if (!(obj instanceof Region that)) {
-            return false;
-        }
-        return Objects.equals(getRegionId(), that.getRegionId());
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @return {@inheritDoc}
-     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
-     */
-    @Override
-    public final int hashCode() {
-        return Objects.hashCode(getRegionId());
-    }
-
-    // -------------------------------------------------------------------------------------------------------- regionId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_REGION_ID} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_REGION_ID} attribute.
-     */
-    @Nonnull
-    public Long getRegionId() {
-        return regionId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_REGION_ID} attribute with the specified value.
-     *
-     * @param regionId new value for {@value #ATTRIBUTE_NAME_REGION_ID} attribute.
-     */
-    protected void setRegionId(@Nonnull final Long regionId) {
-        this.regionId = regionId;
-    }
-
-    // ------------------------------------------------------------------------------------------------------ regionName
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
-     */
-    @Nullable
-    public String getRegionName() {
-        return regionName;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute with the specified value.
-     *
-     * @param regionName new value for {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
-     */
-    public void setRegionName(@Nullable final String regionName) {
-        this.regionName = regionName;
-    }
-
     // ------------------------------------------------------------------------------------------------------- countries
     List<Country> getCountries() {
         return countries;
@@ -223,25 +92,6 @@ public class Region implements __DomainEntity<Long> {
     void setCountries(final List<Country> countries) {
         this.countries = countries;
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nonnull
-    @NotNull
-    @Id
-    @Column(name = COLUMN_NAME_REGION_ID, nullable = false, insertable = true, updatable = false)
-    private Long regionId;
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @Nullable
-    @Size(min = SIZE_MIN_REGION_NAME, max = SIZE_MAX_REGION_NAME)
-    @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_REGION_NAME,
-            nullable = true,
-            insertable = true,
-            updatable = true,
-            length = COLUMN_LENGTH_REGION_NAME
-    )
-    private String regionName;
 
     // -----------------------------------------------------------------------------------------------------------------
     @OneToMany(
