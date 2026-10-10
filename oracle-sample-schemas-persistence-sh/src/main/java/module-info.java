@@ -37,8 +37,6 @@ module com.github.jinahya.oracle.sample.schemas.persistence.sh {
     requires transitive jakarta.validation;
 
     exports com.github.jinahya.oracle.sample.schemas.persistence.sh;
-    exports com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
 
     opens com.github.jinahya.oracle.sample.schemas.persistence.sh;
-    opens com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
 }

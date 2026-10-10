@@ -441,36 +441,6 @@ profile beside a note on how to go back. What this gives up is coverage of Eclip
 processor; EclipseLink is still exercised as the persistence provider by every
 `*_Persistence_Test` and `*_Persistence_IT`.
 
-**No generic `@EmbeddedId` in a `@MappedSuperclass`.** A mapped superclass cannot declare its
-identifier as a type variable for an extending entity to bind:
-
-```java
-@MappedSuperclass
-public abstract class MappedOrderItem<T extends MappedOrderItemId> {
-    @EmbeddedId
-    private T id;    // EclipseLink-7246 at deployment
-}
-```
-
-Hibernate (7.4.12) resolves `T` to the extending entity's type argument and maps it; EclipseLink
-(5.0.2) fails predeployment with
-
-```
-EclipseLink-7246: The Entity class [class ...MappedOrderItem] has an embedded attribute [id] of
-type [class java.lang.String] which is NOT an Embeddable class.
-```
-
-Jakarta Persistence leaves a persistent attribute typed by a type variable undefined, so this is
-not portable, and EclipseLink resolves one only on some mapping paths. It builds its metadata from
-class files, one class at a time, and the embedded-id path decides whether a type is embeddable
-before any subclass's type argument is known; the unresolved variable falls back to a default
-type -- the `String` in the message -- which then fails the check. That is why the `@EmbeddedId`
-flavoured `Mapped*` classes (`MappedOrderItem`, `MappedProductOrder`, `MappedSale`,
-`MappedFweekPscatSalesMv`) leave the identifier to the extending entity, which declares it with a
-concrete type and implements `getIdValue()`. An `@IdClass` identifier has no such problem, since
-its `@Id` attributes are of basic types, so `MappedJobHistory`, `MappedCost` and `MappedProfit` map
-them themselves and need no type parameter at all.
-
 **H2 identifier case.** The in-memory test URL carries
 `;database_to_upper=false;MODE=LEGACY` because of
 [eclipselink#1393](https://github.com/eclipse-ee4j/eclipselink/issues/1393).

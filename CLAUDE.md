@@ -21,45 +21,25 @@ independent of each other, tests included: each carries its own test bases in it
   `toString`, and `equals`/`hashCode`. Do not introduce a shared entity superclass
   to remove duplication between entities — the duplication is the point, because
   it keeps each mapping readable on its own.
-- **The `mapped` package is a parallel, independent mapping.** Each module also
-  exports a `<schema>.mapped` package with one abstract `@MappedSuperclass` per
-  table or view (`MappedCountry`, `MappedStoreOrder`, …), for readers who want to
-  extend a mapping rather than use the concrete entity. The entities do **not**
-  extend these classes; the two sets are kept in step by hand, so a change to an
-  entity's columns, constants or `equals`/`hashCode` is made in its `Mapped*`
-  counterpart too.
-- **Each package has its own markers, and neither package refers to the other.**
-  Every class that maps a table or a view implements its own package's marker:
-  `__DomainEntity<T>` in the concrete package, `__MappedDomainEntity<T>` in
-  `mapped`. `T` is the identifier type: `Void` for a view with no key, the
-  `<T>` type variable for an `@EmbeddedId` `Mapped*`, and the `Mapped*Id` class
-  for an `@IdClass` `Mapped*`. Id classes, embeddables and helpers implement
-  neither. The two markers are unrelated -- `__DomainEntity` does not extend
-  `__MappedDomainEntity` -- and the same goes for `__DomainConstants` and
-  `__MappedDomainConstants`, two independent `final` classes. Nothing in the
-  concrete package imports anything from `mapped`, and nothing in `mapped`
-  imports anything from the concrete package. ArchUnit enforces both directions,
-  on main classes: `___PackageSeparation_Test` in each module's test package, and
-  `mapped.___MappedPackageSeparation_Test`. A constant the compiler inlines leaves
-  no dependency behind, so the rule cannot see one; keep to it anyway.
-- **Every `Mapped*` class's `toString`, `equals` and `hashCode` are `final`.**
-  A class that cannot compare by an identifier -- a view with no key, or the
-  embeddable base `_MappedBinary` -- omits `equals`/`hashCode` and keeps
-  identity equality. In the concrete classes these methods use basic attributes
-  and the `@EmbeddedId` only, never an association.
+- **Every class that maps a table or a view implements `__DomainEntity<T>`.** `T`
+  is the identifier type, `Void` for a view with no key. Id classes, embeddables
+  and helpers do not implement it.
+- **`toString`, `equals` and `hashCode` use basic attributes and the `@EmbeddedId`
+  only, never an association.** A class that cannot compare by an identifier --
+  a view with no key, or the embeddable base `_Binary` -- omits `equals`/`hashCode`
+  and keeps identity equality.
 
 ### The `mapped` branch
 
-The separation above is permanent on `develop`: the concrete classes are read on their own, so
-they keep every duplicate. A long-lived branch, `mapped`, holds the other shape, where each
-concrete class extends its `Mapped*` counterpart and keeps only what the superclass cannot
-provide. It runs the same tests and ITs, unchanged; their passing there is what shows the two
-shapes behave alike.
+This branch is the material for readers: each concrete class stands on its own. A long-lived
+branch, `mapped`, holds a further topic, kept off this branch for that reason: a `<schema>.mapped`
+package with one abstract `@MappedSuperclass` per table or view (`MappedCountry`,
+`MappedStoreOrder`, …), and the concrete classes reshaped to extend them. That branch runs this
+branch's tests and ITs, so their passing there shows the two shapes behave alike.
 
-Merges go one way only: `develop` is merged into `mapped`, never the other way. On `mapped`,
-`CLAUDE.md` and `___PackageSeparation_Test` are its own copies, kept through merges by
-`merge=ours`. A conflict in a concrete class is resolved there by carrying `develop`'s change into
-the `Mapped*` class and keeping the branch's deletions.
+Merges go one way only: `develop` is merged into `mapped`, never the other way. A change to a
+concrete class's columns, constants or validation here is carried into its `Mapped*` counterpart
+there, when the branch takes the merge.
 
 ### Member order inside an entity
 
@@ -83,12 +63,10 @@ Section markers are line comments padded with dashes to column 120.
 
 A view that no column, or combination of columns, identifies — `co`'s `PRODUCT_REVIEWS`
 and `STORE_ORDERS` — cannot be an `@Entity`, so it is mapped by a plain class
-(`ProductReview`, `StoreOrder`, and their abstract `Mapped*` counterparts). Each one has
-exactly two constructors:
+(`ProductReview`, `StoreOrder`). Each one has exactly two constructors:
 
 - a `protected` no-arg constructor, and
-- an all-args constructor, taking every attribute in field order — `public` on a
-  concrete class, `protected` on an abstract one.
+- a `public` all-args constructor, taking every attribute in field order.
 
 The visibility split is load-bearing. A name-based row mapper (Spring's `JdbcClient` /
 `DataClassRowMapper`) uses a class's single `public` constructor, which has to be the
@@ -177,7 +155,7 @@ Keep the producers concrete. These classes used to live in a shared `test-base` 
 abstract producer that a subclass in each module completed by supplying the name -- and since CDI
 does not inherit producer or disposer methods (an inherited `@Produces` is simply not seen, and the
 injection point fails with `WELD-001408`), each subclass had to re-declare all four just to supply
-it. As with the `Mapped*` classes, the copies are kept in step by hand: a fix to one module's test
+it. The copies are kept in step by hand: a fix to one module's test
 base is carried to the other two, unless it is specific to that module.
 
 Every persistence unit carries `<exclude-unlisted-classes>true</exclude-unlisted-classes>`,
@@ -192,14 +170,6 @@ ever one. `co`'s `ProductOrder` (over a view) also uses an `@EmbeddedId`. `sh` d
 key; the identifiers it chooses for its unkeyed tables and views use both styles, one of each per
 kind of object -- of the tables, `Sale` uses an `@EmbeddedId` and `Cost` an `@IdClass`; of the
 views, `FweekPscatSalesMv` uses an `@EmbeddedId` and `Profit` an `@IdClass`.
-
-The `Mapped*` counterparts split the same way. An `@IdClass` one (`MappedJobHistory`, `MappedCost`,
-`MappedProfit`) maps the `@Id` attributes itself, as basic types, and compares by them, so it takes
-no type parameter: an extending entity adds only `@IdClass(...)`. An `@EmbeddedId` one
-(`MappedOrderItem`, `MappedProductOrder`, `MappedSale`, `MappedFweekPscatSalesMv`) cannot declare
-the identifier, because EclipseLink rejects an `@EmbeddedId` typed by a type variable
-(`EclipseLink-7246`); it takes the id type as `<T>`, and the extending entity declares the
-`@EmbeddedId` and implements `getIdValue()`, by which the class compares.
 
 The entity's own `ATTRIBUTE_NAME_*` constants stay, for the places a metamodel reference
 cannot go: an annotation value must be a compile-time constant, so `mappedBy` takes
