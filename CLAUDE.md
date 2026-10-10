@@ -34,11 +34,14 @@ independent of each other, tests included: each carries its own test bases in it
   is typed by it, and linking it to `__DomainEntity` cannot compile for an `@IdClass` entity, whose
   two id types (`JobHistoryId`, `MappedJobHistoryId`) would give the one interface two type
   arguments.
+- **The `mapped` package holds no embeddable candidates.** An embeddable no entity embeds -- `co`'s
+  `ProductImage` and `StoreLogo` over `_Binary`, `sh`'s `CountrySection` -- exists only as the
+  concrete class, as on `develop`, and extends nothing of `mapped`.
 - **Nothing in `mapped` refers to the concrete package.** ArchUnit enforces it on main classes,
   with `mapped.___MappedPackageSeparation_Test`; each module's `___PackageSeparation_Test` asserts
   that every `__DomainEntity` of the concrete package extends a class of `<schema>.mapped`.
 - **Every `Mapped*` class's `toString`, `equals` and `hashCode` are `final`.** A class that cannot
-  compare by an identifier -- a view with no key, or the embeddable base `_MappedBinary` -- omits
+  compare by an identifier -- a view with no key -- omits
   `equals`/`hashCode` and keeps identity equality. These methods use basic attributes and the
   `@EmbeddedId` only, never an association.
 

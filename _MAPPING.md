@@ -869,8 +869,6 @@ Declared by an embeddable that declares no `@Column` and that no entity embeds y
 
 - [`CountrySection.name`](oracle-sample-schemas-persistence-sh/src/main/java/com/github/jinahya/oracle/sample/schemas/persistence/sh/CountrySection.java#L158) `String`
 - [`CountrySection.id`](oracle-sample-schemas-persistence-sh/src/main/java/com/github/jinahya/oracle/sample/schemas/persistence/sh/CountrySection.java#L163) `Long`
-- [`MappedCountrySection.name`](oracle-sample-schemas-persistence-sh/src/main/java/com/github/jinahya/oracle/sample/schemas/persistence/sh/mapped/MappedCountrySection.java#L156) `String`
-- [`MappedCountrySection.id`](oracle-sample-schemas-persistence-sh/src/main/java/com/github/jinahya/oracle/sample/schemas/persistence/sh/mapped/MappedCountrySection.java#L161) `Long`
 
 ## Annex A: identity-backed columns
 

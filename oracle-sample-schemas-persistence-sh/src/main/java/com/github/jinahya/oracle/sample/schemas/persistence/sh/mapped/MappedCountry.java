@@ -23,13 +23,10 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
-import java.util.Optional;
-import java.util.function.BiFunction;
 
 /**
  * A mapped superclass which holds the mappings of the {@value MappedCountry#TABLE_NAME} table.
@@ -496,113 +493,4 @@ public abstract class MappedCountry {
     @NotNull
     @Column(name = COLUMN_NAME_COUNTRY_TOTAL_ID, nullable = false)
     private Long countryTotalId;
-
-    // --------------------------------------------------------------------------- countrySubregion / countrySubregionId
-
-    /**
-     * Applies the current values of {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} and
-     * {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID} attributes to the specified function, and returns the result.
-     *
-     * @param function the function to be applied with the current values of {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION}
-     *                 and {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID} attributes.
-     * @param <T>      result type parameter
-     * @return the result of the {@code function}.
-     */
-    @Transient
-    public <T extends MappedCountrySection> T getCountrySubregionSection(
-            final BiFunction<? super String, ? super Long, ? extends T> function) {
-        Objects.requireNonNull(function, "function is null");
-        return function.apply(getCountrySubregion(), getCountrySubregionId());
-    }
-
-    /**
-     * Replaces current values of {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} and
-     * {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID} attributes with the {@link MappedCountrySection#getName() name} and
-     * the {@link MappedCountrySection#getId() id} of the specified section, or with {@code null}s when the section is
-     * {@code null}.
-     *
-     * @param countrySubregionSection the section whose name and id replace current values of
-     *                                {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} and
-     *                                {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID} attributes; may be {@code null}.
-     */
-    public void setCountrySubregionSection(final MappedCountrySection countrySubregionSection) {
-        setCountrySubregion(
-                Optional.ofNullable(countrySubregionSection).map(MappedCountrySection::getName).orElse(null)
-        );
-        setCountrySubregionId(
-                Optional.ofNullable(countrySubregionSection).map(MappedCountrySection::getId).orElse(null)
-        );
-    }
-
-    // --------------------------------------------------------------------------------- countryRegion / countryRegionId
-
-    /**
-     * Applies the current values of {@value #ATTRIBUTE_NAME_COUNTRY_REGION} and
-     * {@value #ATTRIBUTE_NAME_COUNTRY_REGION_ID} attributes to the specified function, and returns the result.
-     *
-     * @param function the function to be applied with the current values of {@value #ATTRIBUTE_NAME_COUNTRY_REGION} and
-     *                 {@value #ATTRIBUTE_NAME_COUNTRY_REGION_ID} attributes.
-     * @param <T>      result type parameter
-     * @return the result of the {@code function}.
-     */
-    @Transient
-    public <T extends MappedCountrySection> T getCountryRegionSection(
-            final BiFunction<? super String, ? super Long, ? extends T> function) {
-        Objects.requireNonNull(function, "function is null");
-        return function.apply(getCountryRegion(), getCountryRegionId());
-    }
-
-    /**
-     * Replaces current values of {@value #ATTRIBUTE_NAME_COUNTRY_REGION} and {@value #ATTRIBUTE_NAME_COUNTRY_REGION_ID}
-     * attributes with the {@link MappedCountrySection#getName() name} and the {@link MappedCountrySection#getId() id}
-     * of the specified section, or with {@code null}s when the section is {@code null}.
-     *
-     * @param countryRegionSection the section whose name and id replace current values of
-     *                             {@value #ATTRIBUTE_NAME_COUNTRY_REGION} and
-     *                             {@value #ATTRIBUTE_NAME_COUNTRY_REGION_ID} attributes; may be {@code null}.
-     */
-    public void setCountryRegionSection(final MappedCountrySection countryRegionSection) {
-        setCountryRegion(
-                Optional.ofNullable(countryRegionSection).map(MappedCountrySection::getName).orElse(null)
-        );
-        setCountryRegionId(
-                Optional.ofNullable(countryRegionSection).map(MappedCountrySection::getId).orElse(null)
-        );
-    }
-
-    // ----------------------------------------------------------------------------------- countryTotal / countryTotalId
-
-    /**
-     * Applies the current values of {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} and
-     * {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL_ID} attributes to the specified function, and returns the result.
-     *
-     * @param function the function to be applied with the current values of {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} and
-     *                 {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL_ID} attributes.
-     * @param <T>      result type parameter
-     * @return the result of the {@code function}.
-     */
-    @Transient
-    public <T extends MappedCountrySection> T getCountryTotalSection(
-            final BiFunction<? super String, ? super Long, ? extends T> function) {
-        Objects.requireNonNull(function, "function is null");
-        return function.apply(getCountryTotal(), getCountryTotalId());
-    }
-
-    /**
-     * Replaces current values of {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} and {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL_ID}
-     * attributes with the {@link MappedCountrySection#getName() name} and the {@link MappedCountrySection#getId() id}
-     * of the specified section, or with {@code null}s when the section is {@code null}.
-     *
-     * @param countryTotalSection the section whose name and id replace current values of
-     *                            {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} and {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL_ID}
-     *                            attributes; may be {@code null}.
-     */
-    public void setCountryTotalSection(final MappedCountrySection countryTotalSection) {
-        setCountryTotal(
-                Optional.ofNullable(countryTotalSection).map(MappedCountrySection::getName).orElse(null)
-        );
-        setCountryTotalId(
-                Optional.ofNullable(countryTotalSection).map(MappedCountrySection::getId).orElse(null)
-        );
-    }
 }
