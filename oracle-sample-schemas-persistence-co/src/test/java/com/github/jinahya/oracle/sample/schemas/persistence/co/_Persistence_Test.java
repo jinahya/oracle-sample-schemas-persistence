@@ -91,6 +91,27 @@ public abstract class _Persistence_Test<T> extends ___Test<T> {
     }
 
     /**
+     * Finds the field of the specified name declared by the specified class or by any of its superclasses, nearest
+     * first.
+     *
+     * @param clazz the class to start from.
+     * @param name  the name of the field.
+     * @return the field found; {@code null} when neither the class nor any of its superclasses declares it.
+     * @implNote This walks the superclasses itself rather than calling {@link Class#getField(String)}, which finds
+     * {@code public} fields only, so a constant of any visibility, declared by the class or inherited by it, is found.
+     */
+    private static Field findDeclaredField(final Class<?> clazz, final String name) {
+        for (Class<?> c = clazz; c != null; c = c.getSuperclass()) {
+            try {
+                return c.getDeclaredField(name);
+            } catch (final NoSuchFieldException nsfe) {
+                // not on this level; try the superclass
+            }
+        }
+        return null;
+    }
+
+    /**
      * Creates a new instance for the specified persistence class.
      *
      * @param targetClass the class of the entity under test.
@@ -108,7 +129,8 @@ public abstract class _Persistence_Test<T> extends ___Test<T> {
      * @implNote The lookup runs from the attribute to the constant, never the other way round: an attribute with no
      * matching constant is skipped, because whether every attribute ought to have one is a different question than
      * whether the constants which do exist are right. The constant is read reflectively rather than compared against a
-     * hand-written list, so an entity gains this check by declaring the constant and nothing else.
+     * hand-written list, so an entity gains this check by declaring the constant and nothing else. The constant is
+     * looked up on the class and then on each of its superclasses, so one the class inherits is checked as well.
      * <p>
      * Absence is the only thing this forgives. A field which is there under the constant's name has to be a constant --
      * {@code static final String} -- and is a failure when it is not, rather than something to skip past: skipping it
@@ -124,10 +146,8 @@ public abstract class _Persistence_Test<T> extends ___Test<T> {
         for (final var attribute : managedType.getAttributes()) {
             final var attributeName = attribute.getName();
             final var constantName = ATTRIBUTE_NAME_CONSTANT_PREFIX + toUpperSnakeCase(attributeName);
-            final Field constant;
-            try {
-                constant = targetClass.getDeclaredField(constantName);
-            } catch (final NoSuchFieldException nsfe) {
+            final var constant = findDeclaredField(targetClass, constantName);
+            if (constant == null) {
                 continue; // existence is not this test's concern
             }
             final var modifiers = constant.getModifiers();
