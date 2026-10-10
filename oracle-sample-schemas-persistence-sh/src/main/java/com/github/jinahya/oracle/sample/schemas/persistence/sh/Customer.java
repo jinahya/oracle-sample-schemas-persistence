@@ -547,7 +547,7 @@ public class Customer implements __DomainEntity<Long> {
         if (!(obj instanceof Customer that)) {
             return false;
         }
-        return Objects.equals(custId, that.custId);
+        return Objects.equals(getCustId(), that.getCustId());
     }
 
     /**
@@ -558,7 +558,7 @@ public class Customer implements __DomainEntity<Long> {
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(custId);
+        return Objects.hashCode(getCustId());
     }
     // --------------------------------------------------------------------------------------------------------- custId
 
@@ -1024,6 +1024,7 @@ public class Customer implements __DomainEntity<Long> {
     // --------------------------------------------------------------------------------------------------------------- 
     // --------------------------------------------------------------------------------------------------------------- 
 
+    @NotNull
     @Id
     @Column(name = COLUMN_NAME_CUST_ID, nullable = false, insertable = true, updatable = false)
     private Long custId;

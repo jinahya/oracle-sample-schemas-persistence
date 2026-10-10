@@ -38,7 +38,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedRegion {
+public abstract class MappedRegion implements __MappedDomainEntity<Long> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.

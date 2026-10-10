@@ -111,7 +111,7 @@ public class Shipment implements __DomainEntity<Long> {
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_DELIVERY_ADDRESS} column. The value is {@value}.
      */
-    public static final String ATTRIBUTE_DELIVERY_ADDRESS = "deliveryAddress";
+    public static final String ATTRIBUTE_NAME_DELIVERY_ADDRESS = "deliveryAddress";
 
     /**
      * The maximum size of the {@value #ATTRIBUTE_NAME_DELIVERY_ADDRESS} attribute. The value is {@value}.
@@ -295,13 +295,6 @@ public class Shipment implements __DomainEntity<Long> {
      */
     public static final String ATTRIBUTE_NAME_ORDER_ITEMS = "orderItems";
 
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DELIVERY_ADDRESS} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_DELIVERY_ADDRESS = "deliveryAddress";
-
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -342,6 +335,7 @@ public class Shipment implements __DomainEntity<Long> {
         if (!(obj instanceof Shipment that)) {
             return false;
         }
+        final var shipmentId = getShipmentId();
         return shipmentId != null && shipmentId.equals(that.getShipmentId());
     }
 
@@ -349,12 +343,14 @@ public class Shipment implements __DomainEntity<Long> {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is constant -- the class's -- so that it does not change when the generated {@code @Id} is
-     * assigned on persist, which would lose an instance already held in a hash-based collection.
+     * @implSpec The hash is constant so that it does not change when the generated {@code @Id} is assigned on persist,
+     * which would lose an instance already held in a hash-based collection. It is {@code Shipment}'s rather than
+     * {@link #getClass()}'s, because a lazy proxy's class is a generated subclass and must hash alike to the instance
+     * it stands for.
      */
     @Override
     public final int hashCode() {
-        return getClass().hashCode();
+        return Shipment.class.hashCode();
     }
 
     // ------------------------------------------------------------------------------------------------------ shipmentId
@@ -482,6 +478,7 @@ public class Shipment implements __DomainEntity<Long> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    // no @NotNull: database-generated identity; the value is null when the provider validates at pre-persist
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = COLUMN_NAME_SHIPMENT_ID, nullable = false,

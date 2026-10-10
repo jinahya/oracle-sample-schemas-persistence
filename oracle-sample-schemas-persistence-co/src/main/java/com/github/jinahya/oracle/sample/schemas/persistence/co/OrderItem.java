@@ -34,8 +34,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -419,8 +418,11 @@ public class OrderItem implements __DomainEntity<OrderItemId> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @DecimalMax(DECIMAL_MAX_UNIT_PRICE)
-    @DecimalMin(DECIMAL_MIN_UNIT_PRICE)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMax(DECIMAL_MAX_UNIT_PRICE)
+    // TODO: remove; not constrained by the DDL -- ORDER_ITEMS.UNIT_PRICE is NUMBER(10,2) with no check; the lower bound of 0 is narrower than the column
+//    @DecimalMin(DECIMAL_MIN_UNIT_PRICE)
+    @Digits(integer = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE, fraction = COLUMN_SCALE_UNIT_PRICE)
     @NotNull
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_PRICE,

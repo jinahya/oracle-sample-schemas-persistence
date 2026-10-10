@@ -239,7 +239,7 @@ public class Country implements __DomainEntity<Long> {
         if (!(obj instanceof Country that)) {
             return false;
         }
-        return Objects.equals(countryId, that.countryId);
+        return Objects.equals(getCountryId(), that.getCountryId());
     }
 
     /**
@@ -250,7 +250,7 @@ public class Country implements __DomainEntity<Long> {
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(countryId);
+        return Objects.hashCode(getCountryId());
     }
     // ------------------------------------------------------------------------------------------------------ countryId
 
@@ -433,6 +433,7 @@ public class Country implements __DomainEntity<Long> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @NotNull
     @Id
     @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = false, insertable = true, updatable = false)
     private Long countryId;

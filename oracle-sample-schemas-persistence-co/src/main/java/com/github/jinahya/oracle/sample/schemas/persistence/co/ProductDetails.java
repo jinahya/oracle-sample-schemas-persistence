@@ -22,8 +22,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
 
 import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -134,8 +132,10 @@ public class ProductDetails {
         }
 
         // -------------------------------------------------------------------------------------------------------------
-        @Max(10L)
-        @Min(1L)
+        // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON check; 1-10 is from a column comment
+//        @Max(10L)
+        // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON check; 1-10 is from a column comment
+//        @Min(1L)
         private Integer rating;
 
         @Nullable
@@ -319,16 +319,20 @@ public class ProductDetails {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    @NotBlank
+    // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON check
+//    @NotBlank
     private String colour;
 
-    @NotBlank
+    // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON check
+//    @NotBlank
     private String gender;
 
-    @NotBlank
+    // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON check
+//    @NotBlank
     private String brand;
 
-    @NotBlank
+    // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON check
+//    @NotBlank
     private String description;
 
     private List<@NotBlank String> sizes;

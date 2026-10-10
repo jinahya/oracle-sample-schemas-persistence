@@ -259,6 +259,7 @@ public abstract class MappedOrder implements __MappedDomainEntity<Long> {
         if (!(obj instanceof MappedOrder that)) {
             return false;
         }
+        final var orderId = getOrderId();
         return orderId != null && orderId.equals(that.getOrderId());
     }
 
@@ -266,12 +267,14 @@ public abstract class MappedOrder implements __MappedDomainEntity<Long> {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is constant -- the class's -- so that it does not change when the generated {@code @Id} is
-     * assigned on persist, which would lose an instance already held in a hash-based collection.
+     * @implSpec The hash is constant so that it does not change when the generated {@code @Id} is assigned on persist,
+     * which would lose an instance already held in a hash-based collection. It is {@code MappedOrder}'s rather than
+     * {@link #getClass()}'s, because a lazy proxy's class is a generated subclass and must hash alike to the instance
+     * it stands for.
      */
     @Override
     public final int hashCode() {
-        return getClass().hashCode();
+        return MappedOrder.class.hashCode();
     }
 
     // --------------------------------------------------------------------------------------------------------- orderId
@@ -367,6 +370,7 @@ public abstract class MappedOrder implements __MappedDomainEntity<Long> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    // no @NotNull: database-generated identity; the value is null when the provider validates at pre-persist
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = COLUMN_NAME_ORDER_ID,
@@ -388,6 +392,7 @@ public abstract class MappedOrder implements __MappedDomainEntity<Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // no @NotNull: read-only duplicate of a column the extending entity writes; null until a load
     @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false)
     private Long customerId;
 
@@ -402,6 +407,7 @@ public abstract class MappedOrder implements __MappedDomainEntity<Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // no @NotNull: read-only duplicate of a column the extending entity writes; null until a load
     @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
     private Long storeId;
 }

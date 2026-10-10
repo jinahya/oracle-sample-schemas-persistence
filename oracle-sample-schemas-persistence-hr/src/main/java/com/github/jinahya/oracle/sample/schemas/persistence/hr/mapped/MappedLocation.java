@@ -27,8 +27,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -48,7 +47,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedLocation {
+public abstract class MappedLocation implements __MappedDomainEntity<Integer> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.
@@ -413,8 +412,11 @@ public abstract class MappedLocation {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Max(ATTRIBUTE_MAX_LOCATION_ID)
-    @Min(ATTRIBUTE_MIN_LOCATION_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(ATTRIBUTE_MAX_LOCATION_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(ATTRIBUTE_MIN_LOCATION_ID)
+    @Digits(integer = COLUMN_PRECISION_LOCATION_ID, fraction = 0)
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_LOCATION_ID,
@@ -474,6 +476,7 @@ public abstract class MappedLocation {
 
     // -----------------------------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    @Size(max = SIZE_MAX_COUNTRY_ID)
     @Column(name = COLUMN_NAME_COUNTRY_ID,
             nullable = COLUMN_NULLABLE_COUNTRY_ID,
             insertable = false,

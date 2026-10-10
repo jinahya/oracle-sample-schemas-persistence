@@ -22,6 +22,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
@@ -32,10 +33,15 @@ import java.util.function.Supplier;
  * A superclass for the identifier of the {@value MappedCost#TABLE_NAME} table -- the
  * {@value MappedCost#COLUMN_NAME_PROD_ID}, the {@value MappedCost#COLUMN_NAME_TIME_ID}, the
  * {@value MappedCost#COLUMN_NAME_PROMO_ID}, and the {@value MappedCost#COLUMN_NAME_CHANNEL_ID} columns.
+ * <p>
+ * An entity extending {@link MappedCost} names a subclass of this class with its {@link jakarta.persistence.IdClass
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ * @IdClass}; the column mappings below are not read there, since the {@code @Id} attributes of {@link MappedCost} map
+ * the columns.
  * @see MappedCost
  */
+@MappedSuperclass
 public abstract class MappedCostId {
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -107,7 +113,7 @@ public abstract class MappedCostId {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "prodId=" + prodId +
                ",timeId=" + timeId +

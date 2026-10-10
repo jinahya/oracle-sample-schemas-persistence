@@ -9,9 +9,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,14 +20,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped.__MappedDomainEntity;
-
 /**
- * A marker interface for entities of the {@code HR} schema.
+ * A marker interface for classes which map a table or a view of the {@code HR} schema.
+ * <p>
+ * This interface is independent of {@code mapped.__MappedDomainEntity}; neither extends the other.
  *
- * @param <T> the type of the identifier.
+ * @param <T> the type of the identifier; {@link Void} for a class which maps a view with no key.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public interface __DomainEntity<T> extends __MappedDomainEntity<T> {
+public interface __DomainEntity<T> {
 
 }

@@ -22,25 +22,28 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * A mapped superclass which holds the mappings of the {@value MappedProfit#TABLE_NAME} view, except for its
- * identifier.
+ * A mapped superclass which holds the mappings of the {@value MappedProfit#TABLE_NAME} view, including the five
+ * {@link Id @Id} attributes of its composite identifier.
+ * <p>
+ * The identifier is mapped with an {@link jakarta.persistence.IdClass @IdClass}: an extending entity names its id
+ * class, a subclass of {@link MappedProfitId}, with {@code @IdClass} and inherits the {@code @Id} attributes from
+ * here.
  *
- * @param <T> the type of the identifier; a subclass maps it as it chooses, and exposes it through {@link #getId_()}.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedProfitId
  */
 @MappedSuperclass
-public abstract class MappedProfit<T extends MappedProfitId> {
+public abstract class MappedProfit implements __MappedDomainEntity<MappedProfitId> {
 
     /**
      * The name of the database view to which this class maps. The value is {@value}.
@@ -50,16 +53,16 @@ public abstract class MappedProfit<T extends MappedProfitId> {
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
-     * The name of the view column to which the {@value MappedProfitId#ATTRIBUTE_NAME_CHANNEL_ID} attribute of
-     * {@link MappedProfitId} maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
 
     /**
-     * The path of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column, for a subclass whose identifier
-     * is an {@link EmbeddedId @EmbeddedId} named {@value #ATTRIBUTE_NAME_ID}. The value is {@value}.
+     * The name of the {@link Id @Id} attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is
+     * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_CHANNEL_ID = "id.channelId";
+    public static final String ATTRIBUTE_NAME_CHANNEL_ID = MappedProfitId.ATTRIBUTE_NAME_CHANNEL_ID;
 
     /**
      * The precision of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
@@ -74,30 +77,28 @@ public abstract class MappedProfit<T extends MappedProfitId> {
     // --------------------------------------------------------------------------------------------------------- CUST_ID
 
     /**
-     * The name of the view column to which the {@value MappedProfitId#ATTRIBUTE_NAME_CUST_ID} attribute of
-     * {@link MappedProfitId} maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_CUST_ID} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_ID = "CUST_ID";
 
     /**
-     * The path of the attribute which maps the {@value #COLUMN_NAME_CUST_ID} column, for a subclass whose identifier is
-     * an {@link EmbeddedId @EmbeddedId} named {@value #ATTRIBUTE_NAME_ID}. The value is {@value}.
+     * The name of the {@link Id @Id} attribute which maps the {@value #COLUMN_NAME_CUST_ID} column. The value is
+     * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_CUST_ID = "id.custId";
+    public static final String ATTRIBUTE_NAME_CUST_ID = MappedProfitId.ATTRIBUTE_NAME_CUST_ID;
 
     // --------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The name of the view column to which the {@value MappedProfitId#ATTRIBUTE_NAME_PROD_ID} attribute of
-     * {@link MappedProfitId} maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_ID = "PROD_ID";
 
     /**
-     * The path of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column, for a subclass whose identifier is
-     * an {@link EmbeddedId @EmbeddedId} named {@value #ATTRIBUTE_NAME_ID}. The value is {@value}.
+     * The name of the {@link Id @Id} attribute which maps the {@value #COLUMN_NAME_PROD_ID} column. The value is
+     * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_PROD_ID = "id.prodId";
+    public static final String ATTRIBUTE_NAME_PROD_ID = MappedProfitId.ATTRIBUTE_NAME_PROD_ID;
 
     /**
      * The precision of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
@@ -112,16 +113,16 @@ public abstract class MappedProfit<T extends MappedProfitId> {
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the view column to which the {@value MappedProfitId#ATTRIBUTE_NAME_PROMO_ID} attribute of
-     * {@link MappedProfitId} maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
 
     /**
-     * The path of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column, for a subclass whose identifier
-     * is an {@link EmbeddedId @EmbeddedId} named {@value #ATTRIBUTE_NAME_ID}. The value is {@value}.
+     * The name of the {@link Id @Id} attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column. The value is
+     * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_PROMO_ID = "id.promoId";
+    public static final String ATTRIBUTE_NAME_PROMO_ID = MappedProfitId.ATTRIBUTE_NAME_PROMO_ID;
 
     /**
      * The precision of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
@@ -136,25 +137,15 @@ public abstract class MappedProfit<T extends MappedProfitId> {
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the view column to which the {@value MappedProfitId#ATTRIBUTE_NAME_TIME_ID} attribute of
-     * {@link MappedProfitId} maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_TIME_ID = "TIME_ID";
 
     /**
-     * The path of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column, for a subclass whose identifier is
-     * an {@link EmbeddedId @EmbeddedId} named {@value #ATTRIBUTE_NAME_ID}. The value is {@value}.
+     * The name of the {@link Id @Id} attribute which maps the {@value #COLUMN_NAME_TIME_ID} column. The value is
+     * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_TIME_ID = "id.timeId";
-
-    // -------------------------------------------------------- CHANNEL_ID / CUST_ID / PROD_ID / PROMO_ID / TIME_ID / id
-
-    /**
-     * The name of the identifier attribute, declared by a subclass, which maps all of the
-     * {@value #COLUMN_NAME_CHANNEL_ID}, {@value #COLUMN_NAME_CUST_ID}, {@value #COLUMN_NAME_PROD_ID},
-     * {@value #COLUMN_NAME_PROMO_ID}, and {@value #COLUMN_NAME_TIME_ID} columns. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID = "id";
+    public static final String ATTRIBUTE_NAME_TIME_ID = MappedProfitId.ATTRIBUTE_NAME_TIME_ID;
 
     // ------------------------------------------------------------------------------------------------------- UNIT_COST
 
@@ -275,7 +266,11 @@ public abstract class MappedProfit<T extends MappedProfitId> {
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + getId_() +
+               "channelId=" + channelId +
+               ",custId=" + custId +
+               ",prodId=" + prodId +
+               ",promoId=" + promoId +
+               ",timeId=" + timeId +
                ",unitCost=" + unitCost +
                ",unitPrice=" + unitPrice +
                ",amountSold=" + amountSold +
@@ -289,38 +284,130 @@ public abstract class MappedProfit<T extends MappedProfitId> {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the identifier a subclass exposes through {@link #getId_()}, alone.
+     * @implSpec Equality is by the five {@link Id @Id} attributes alone.
      */
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedProfit<?> that)) {
+        if (!(obj instanceof MappedProfit that)) {
             return false;
         }
-        return Objects.equals(getId_(), that.getId_());
+        return Objects.equals(getChannelId(), that.getChannelId())
+               && Objects.equals(getCustId(), that.getCustId())
+               && Objects.equals(getProdId(), that.getProdId())
+               && Objects.equals(getPromoId(), that.getPromoId())
+               && Objects.equals(getTimeId(), that.getTimeId());
     }
 
     /**
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the identifier a subclass exposes through {@link #getId_()}, consistent with
-     * {@link #equals(Object)}.
+     * @implSpec The hash is over the five {@link Id @Id} attributes, consistent with {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(getId_());
+        return Objects.hash(getChannelId(), getCustId(), getProdId(), getPromoId(), getTimeId());
     }
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------------------- channelId
 
     /**
-     * Returns the identifier of this profit. A subclass implements this with whichever attributes it maps the
-     * identifier to; {@link #equals(Object)} and {@link #hashCode()} compare by it.
+     * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
      *
-     * @return the identifier of this profit; {@code null} if it has none yet.
+     * @return current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
      */
-    @Transient
-    protected abstract T getId_();
+    public Long getChannelId() {
+        return channelId;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified value.
+     *
+     * @param channelId new value for {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
+     */
+    protected void setChannelId(final Long channelId) {
+        this.channelId = channelId;
+    }
+
+    // ---------------------------------------------------------------------------------------------------------- custId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute.
+     */
+    public Long getCustId() {
+        return custId;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute with the specified value.
+     *
+     * @param custId new value for {@value #ATTRIBUTE_NAME_CUST_ID} attribute.
+     */
+    protected void setCustId(final Long custId) {
+        this.custId = custId;
+    }
+
+    // ---------------------------------------------------------------------------------------------------------- prodId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
+     */
+    public Integer getProdId() {
+        return prodId;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute with the specified value.
+     *
+     * @param prodId new value for {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
+     */
+    protected void setProdId(final Integer prodId) {
+        this.prodId = prodId;
+    }
+
+    // --------------------------------------------------------------------------------------------------------- promoId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
+     */
+    public Integer getPromoId() {
+        return promoId;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified value.
+     *
+     * @param promoId new value for {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
+     */
+    protected void setPromoId(final Integer promoId) {
+        this.promoId = promoId;
+    }
+
+    // ---------------------------------------------------------------------------------------------------------- timeId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
+     */
+    public LocalDateTime getTimeId() {
+        return timeId;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute with the specified value.
+     *
+     * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
+     */
+    protected void setTimeId(final LocalDateTime timeId) {
+        this.timeId = timeId;
+    }
 
     // -------------------------------------------------------------------------------------------------------- unitCost
 
@@ -421,6 +508,44 @@ public abstract class MappedProfit<T extends MappedProfitId> {
     public void setTotalCost(final BigDecimal totalCost) {
         this.totalCost = totalCost;
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // insertable=true is the JPA default; it is spelled out on each @Id because EclipseLink rejects insertable=false
+    // on an @Id -- "There should be one non-read-only mapping defined for the primary key field", EclipseLink-46.
+    // Nothing writes to a view anyway.
+
+    @Id
+    @NotNull
+    @Digits(integer = COLUMN_PRECISION_CHANNEL_ID - COLUMN_SCALE_CHANNEL_ID, fraction = COLUMN_SCALE_CHANNEL_ID)
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
+    private Long channelId;
+
+    @Id
+    @NotNull
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_CUST_ID, nullable = false, insertable = true, updatable = false)
+    private Long custId;
+
+    @Id
+    @NotNull
+    @Digits(integer = COLUMN_PRECISION_PROD_ID - COLUMN_SCALE_PROD_ID, fraction = COLUMN_SCALE_PROD_ID)
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
+    private Integer prodId;
+
+    @Id
+    @NotNull
+    @Digits(integer = COLUMN_PRECISION_PROMO_ID - COLUMN_SCALE_PROMO_ID, fraction = COLUMN_SCALE_PROMO_ID)
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
+    private Integer promoId;
+
+    @Id
+    @NotNull
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
+    private LocalDateTime timeId;
 
     // -----------------------------------------------------------------------------------------------------------------
     @NotNull

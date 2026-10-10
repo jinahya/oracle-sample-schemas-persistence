@@ -8,9 +8,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
 /*-
  * #%L
- * hr
+ * oracle-sample-schemas-persistence-hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

@@ -790,7 +790,7 @@ public class Time implements __DomainEntity<LocalDateTime> {
         if (!(obj instanceof Time that)) {
             return false;
         }
-        return Objects.equals(timeId, that.timeId);
+        return Objects.equals(getTimeId(), that.getTimeId());
     }
 
     /**
@@ -801,7 +801,7 @@ public class Time implements __DomainEntity<LocalDateTime> {
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(timeId);
+        return Objects.hashCode(getTimeId());
     }
     // --------------------------------------------------------------------------------------------------------- timeId
 
@@ -1565,6 +1565,7 @@ public class Time implements __DomainEntity<LocalDateTime> {
 
     // ---------------------------------------------------------------------------------------------------------------
 
+    @NotNull
     @Id
     @Column(name = COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
     private LocalDateTime timeId;

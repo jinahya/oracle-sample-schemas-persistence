@@ -22,6 +22,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co.mapped;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
@@ -35,6 +37,7 @@ import java.util.function.Supplier;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedProductOrder
  */
+@MappedSuperclass
 public abstract class MappedProductOrderId {
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -163,6 +166,7 @@ public abstract class MappedProductOrderId {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Size(max = MappedProductOrder.SIZE_MAX_PRODUCT_NAME)
+    @NotNull
     @Basic(optional = false)
     @Column(name = MappedProductOrder.COLUMN_NAME_PRODUCT_NAME,
             nullable = false,
@@ -172,6 +176,7 @@ public abstract class MappedProductOrderId {
     private String productName;
 
     @Size(max = MappedProductOrder.SIZE_MAX_ORDER_STATUS)
+    @NotNull
     @Basic(optional = false)
     @Column(name = MappedProductOrder.COLUMN_NAME_ORDER_STATUS,
             nullable = false,

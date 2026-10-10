@@ -24,12 +24,19 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.Year;
+import java.time.YearMonth;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * A mapped superclass which holds the mappings of the {@value MappedTime#TABLE_NAME} table.
@@ -37,7 +44,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedTime {
+public abstract class MappedTime implements __MappedDomainEntity<LocalDateTime> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.
@@ -822,6 +829,60 @@ public abstract class MappedTime {
         this.timeId = timeId;
     }
 
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute as a local date.
+     * <p>
+     * The {@value #COLUMN_NAME_TIME_ID} column is a {@code DATE}, which carries a time of day; this method
+     * <em>discards</em> it. That is lossless only while the column holds midnight, which its type does not guarantee.
+     *
+     * @return the local date part of current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute; {@code null} when the
+     * attribute is {@code null}.
+     * @see #getTimeId()
+     * @see LocalDateTime#toLocalDate()
+     */
+    @Transient
+    public LocalDate getTimeIdAsLocalDate() {
+        return Optional.ofNullable(getTimeId())
+                .map(LocalDateTime::toLocalDate)
+                .orElse(null);
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute with the start of the specified local date.
+     *
+     * @param timeId the local date whose start is set; may be {@code null}.
+     * @throws IllegalArgumentException if {@code timeId} is before {@code 1582-10-15} or after {@code 9999-12-31}.
+     * @see #setTimeId(LocalDateTime)
+     * @see #getTimeIdAsLocalDate()
+     */
+    @Transient
+    protected void setTimeIdFromLocalDate(final LocalDate timeId) {
+        setTimeId(
+                Optional.ofNullable(timeId)
+                        .map(MappedTime::atStartOfStorableDay)
+                        .orElse(null)
+        );
+    }
+
+    /**
+     * Returns the start of the specified local date, after checking that an Oracle {@code DATE} stores it as the same
+     * calendar date.
+     * <p>
+     * A {@link LocalDate} is in the proleptic Gregorian calendar, while an Oracle {@code DATE} ends at
+     * {@code 9999-12-31} and holds dates before {@code 1582-10-15} in the Julian calendar. A date outside that range
+     * would either be rejected by the database, or be stored as, and read back as, another date.
+     *
+     * @param date the local date to check.
+     * @return the start of {@code date}.
+     * @throws IllegalArgumentException if {@code date} is before {@code 1582-10-15} or after {@code 9999-12-31}.
+     */
+    private static LocalDateTime atStartOfStorableDay(final LocalDate date) {
+        if (date.isBefore(LocalDate.of(1582, 10, 15)) || date.isAfter(LocalDate.of(9999, 12, 31))) {
+            throw new IllegalArgumentException("date not storable as an Oracle DATE: " + date);
+        }
+        return date.atStartOfDay();
+    }
+
     // --------------------------------------------------------------------------------------------------------- dayName
 
     /**
@@ -860,6 +921,47 @@ public abstract class MappedTime {
      */
     public void setDayNumberInWeek(final Integer dayNumberInWeek) {
         this.dayNumberInWeek = dayNumberInWeek;
+    }
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK} attribute as a day-of-week.
+     * <p>
+     * This method assumes ISO-8601 numbering, from {@code 1} (Monday) to {@code 7} (Sunday). The type of the
+     * {@value #COLUMN_NAME_DAY_NUMBER_IN_WEEK} column guarantees neither the range nor the numbering; a value numbered
+     * from another day results in a wrong day, silently.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK} attribute as a day-of-week; {@code null}
+     * when the attribute is {@code null}.
+     * @throws java.time.DateTimeException if the value is not between {@code 1} and {@code 7}.
+     * @see #getDayNumberInWeek()
+     * @see DayOfWeek#of(int)
+     */
+    @Transient
+    public DayOfWeek getDayNumberInWeekAsDayOfWeek() {
+        return Optional.ofNullable(getDayNumberInWeek())
+                .map(DayOfWeek::of)
+                .orElse(null);
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK} attribute with the ISO-8601 number of the
+     * specified day-of-week, from {@code 1} (Monday) to {@code 7} (Sunday).
+     * <p>
+     * The numbering is this method's; the type of the {@value #COLUMN_NAME_DAY_NUMBER_IN_WEEK} column does not define
+     * one, and rows numbered from another day are not consistent with the value this method sets.
+     *
+     * @param dayNumberInWeek the day-of-week whose number is set; may be {@code null}.
+     * @see #setDayNumberInWeek(Integer)
+     * @see #getDayNumberInWeekAsDayOfWeek()
+     * @see DayOfWeek#getValue()
+     */
+    @Transient
+    public void setDayNumberInWeekFromDayOfWeek(final DayOfWeek dayNumberInWeek) {
+        setDayNumberInWeek(
+                Optional.ofNullable(dayNumberInWeek)
+                        .map(DayOfWeek::getValue)
+                        .orElse(null)
+        );
     }
 
     // ------------------------------------------------------------------------------------------------ dayNumberInMonth
@@ -942,6 +1044,43 @@ public abstract class MappedTime {
         this.weekEndingDay = weekEndingDay;
     }
 
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute as a local date.
+     * <p>
+     * The {@value #COLUMN_NAME_WEEK_ENDING_DAY} column is a {@code DATE}, which carries a time of day; this method
+     * <em>discards</em> it. That is lossless only while the column holds midnight, which its type does not guarantee.
+     *
+     * @return the local date part of current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute; {@code null}
+     * when the attribute is {@code null}.
+     * @see #getWeekEndingDay()
+     * @see LocalDateTime#toLocalDate()
+     */
+    @Transient
+    public LocalDate getWeekEndingDayAsLocalDate() {
+        return Optional.ofNullable(getWeekEndingDay())
+                .map(LocalDateTime::toLocalDate)
+                .orElse(null);
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute with the start of the specified
+     * local date.
+     *
+     * @param weekEndingDay the local date whose start is set; may be {@code null}.
+     * @throws IllegalArgumentException if {@code weekEndingDay} is before {@code 1582-10-15} or after
+     *                                  {@code 9999-12-31}.
+     * @see #setWeekEndingDay(LocalDateTime)
+     * @see #getWeekEndingDayAsLocalDate()
+     */
+    @Transient
+    public void setWeekEndingDayFromLocalDate(final LocalDate weekEndingDay) {
+        setWeekEndingDay(
+                Optional.ofNullable(weekEndingDay)
+                        .map(MappedTime::atStartOfStorableDay)
+                        .orElse(null)
+        );
+    }
+
     // ------------------------------------------------------------------------------------------------- weekEndingDayId
 
     /**
@@ -982,6 +1121,42 @@ public abstract class MappedTime {
         this.calendarMonthNumber = calendarMonthNumber;
     }
 
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER} attribute as a month-of-year.
+     * <p>
+     * The type of the {@value #COLUMN_NAME_CALENDAR_MONTH_NUMBER} column does not guarantee the range.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER} attribute as a month-of-year;
+     * {@code null} when the attribute is {@code null}.
+     * @throws java.time.DateTimeException if the value is not between {@code 1} and {@code 12}.
+     * @see #getCalendarMonthNumber()
+     * @see Month#of(int)
+     */
+    @Transient
+    public Month getCalendarMonthNumberAsMonth() {
+        return Optional.ofNullable(getCalendarMonthNumber())
+                .map(Month::of)
+                .orElse(null);
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER} attribute with the number of the
+     * specified month-of-year, from {@code 1} (January) to {@code 12} (December).
+     *
+     * @param calendarMonthNumber the month-of-year whose number is set; may be {@code null}.
+     * @see #setCalendarMonthNumber(Integer)
+     * @see #getCalendarMonthNumberAsMonth()
+     * @see Month#getValue()
+     */
+    @Transient
+    public void setCalendarMonthNumberFromMonth(final Month calendarMonthNumber) {
+        setCalendarMonthNumber(
+                Optional.ofNullable(calendarMonthNumber)
+                        .map(Month::getValue)
+                        .orElse(null)
+        );
+    }
+
     // ----------------------------------------------------------------------------------------------- fiscalMonthNumber
 
     /**
@@ -1020,6 +1195,53 @@ public abstract class MappedTime {
      */
     public void setCalendarMonthDesc(final String calendarMonthDesc) {
         this.calendarMonthDesc = calendarMonthDesc;
+    }
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute as a year-month.
+     * <p>
+     * This method assumes the {@code yyyy-MM} format, e.g. {@code 2019-05}, which the type of the
+     * {@value #COLUMN_NAME_CALENDAR_MONTH_DESC} column does not guarantee.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute as a year-month; {@code null}
+     * when the attribute is {@code null}.
+     * @throws java.time.format.DateTimeParseException if the value is not in the {@code yyyy-MM} format.
+     * @see #getCalendarMonthDesc()
+     * @see YearMonth#parse(CharSequence)
+     */
+    @Transient
+    public YearMonth getCalendarMonthDescAsYearMonth() {
+        return Optional.ofNullable(getCalendarMonthDesc())
+                .map(YearMonth::parse)
+                .orElse(null);
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute with the specified year-month,
+     * in the {@code yyyy-MM} format.
+     * <p>
+     * A year outside {@code 0} to {@code 9999} prints in another format, e.g. {@code 10000-01} or {@code -0001-01},
+     * which {@link #getCalendarMonthDescAsYearMonth()} could not parse back; such a year-month is rejected.
+     *
+     * @param calendarMonthDesc the year-month to set; may be {@code null}.
+     * @throws IllegalArgumentException if the year of {@code calendarMonthDesc} is not between {@code 0} and
+     *                                  {@code 9999}.
+     * @see #setCalendarMonthDesc(String)
+     * @see #getCalendarMonthDescAsYearMonth()
+     * @see YearMonth#toString()
+     */
+    @Transient
+    public void setCalendarMonthDescFromYearMonth(final YearMonth calendarMonthDesc) {
+        setCalendarMonthDesc(
+                Optional.ofNullable(calendarMonthDesc)
+                        .map(v -> {
+                            if (v.getYear() < 0 || v.getYear() > 9999) {
+                                throw new IllegalArgumentException("year not between 0 and 9999: " + v);
+                            }
+                            return v.toString();
+                        })
+                        .orElse(null)
+        );
     }
 
     // ------------------------------------------------------------------------------------------------- calendarMonthId
@@ -1142,6 +1364,43 @@ public abstract class MappedTime {
         this.endOfCalMonth = endOfCalMonth;
     }
 
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_MONTH} attribute as a local date.
+     * <p>
+     * The {@value #COLUMN_NAME_END_OF_CAL_MONTH} column is a {@code DATE}, which carries a time of day; this method
+     * <em>discards</em> it. That is lossless only while the column holds midnight, which its type does not guarantee.
+     *
+     * @return the local date part of current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_MONTH} attribute; {@code null}
+     * when the attribute is {@code null}.
+     * @see #getEndOfCalMonth()
+     * @see LocalDateTime#toLocalDate()
+     */
+    @Transient
+    public LocalDate getEndOfCalMonthAsLocalDate() {
+        return Optional.ofNullable(getEndOfCalMonth())
+                .map(LocalDateTime::toLocalDate)
+                .orElse(null);
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_MONTH} attribute with the start of the specified
+     * local date.
+     *
+     * @param endOfCalMonth the local date whose start is set; may be {@code null}.
+     * @throws IllegalArgumentException if {@code endOfCalMonth} is before {@code 1582-10-15} or after
+     *                                  {@code 9999-12-31}.
+     * @see #setEndOfCalMonth(LocalDateTime)
+     * @see #getEndOfCalMonthAsLocalDate()
+     */
+    @Transient
+    public void setEndOfCalMonthFromLocalDate(final LocalDate endOfCalMonth) {
+        setEndOfCalMonth(
+                Optional.ofNullable(endOfCalMonth)
+                        .map(MappedTime::atStartOfStorableDay)
+                        .orElse(null)
+        );
+    }
+
     // --------------------------------------------------------------------------------------------------- endOfFisMonth
 
     /**
@@ -1160,6 +1419,43 @@ public abstract class MappedTime {
      */
     public void setEndOfFisMonth(final LocalDateTime endOfFisMonth) {
         this.endOfFisMonth = endOfFisMonth;
+    }
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_MONTH} attribute as a local date.
+     * <p>
+     * The {@value #COLUMN_NAME_END_OF_FIS_MONTH} column is a {@code DATE}, which carries a time of day; this method
+     * <em>discards</em> it. That is lossless only while the column holds midnight, which its type does not guarantee.
+     *
+     * @return the local date part of current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_MONTH} attribute; {@code null}
+     * when the attribute is {@code null}.
+     * @see #getEndOfFisMonth()
+     * @see LocalDateTime#toLocalDate()
+     */
+    @Transient
+    public LocalDate getEndOfFisMonthAsLocalDate() {
+        return Optional.ofNullable(getEndOfFisMonth())
+                .map(LocalDateTime::toLocalDate)
+                .orElse(null);
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_MONTH} attribute with the start of the specified
+     * local date.
+     *
+     * @param endOfFisMonth the local date whose start is set; may be {@code null}.
+     * @throws IllegalArgumentException if {@code endOfFisMonth} is before {@code 1582-10-15} or after
+     *                                  {@code 9999-12-31}.
+     * @see #setEndOfFisMonth(LocalDateTime)
+     * @see #getEndOfFisMonthAsLocalDate()
+     */
+    @Transient
+    public void setEndOfFisMonthFromLocalDate(final LocalDate endOfFisMonth) {
+        setEndOfFisMonth(
+                Optional.ofNullable(endOfFisMonth)
+                        .map(MappedTime::atStartOfStorableDay)
+                        .orElse(null)
+        );
     }
 
     // ----------------------------------------------------------------------------------------------- calendarMonthName
@@ -1342,6 +1638,43 @@ public abstract class MappedTime {
         this.endOfCalQuarter = endOfCalQuarter;
     }
 
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_QUARTER} attribute as a local date.
+     * <p>
+     * The {@value #COLUMN_NAME_END_OF_CAL_QUARTER} column is a {@code DATE}, which carries a time of day; this method
+     * <em>discards</em> it. That is lossless only while the column holds midnight, which its type does not guarantee.
+     *
+     * @return the local date part of current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_QUARTER} attribute;
+     * {@code null} when the attribute is {@code null}.
+     * @see #getEndOfCalQuarter()
+     * @see LocalDateTime#toLocalDate()
+     */
+    @Transient
+    public LocalDate getEndOfCalQuarterAsLocalDate() {
+        return Optional.ofNullable(getEndOfCalQuarter())
+                .map(LocalDateTime::toLocalDate)
+                .orElse(null);
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_QUARTER} attribute with the start of the specified
+     * local date.
+     *
+     * @param endOfCalQuarter the local date whose start is set; may be {@code null}.
+     * @throws IllegalArgumentException if {@code endOfCalQuarter} is before {@code 1582-10-15} or after
+     *                                  {@code 9999-12-31}.
+     * @see #setEndOfCalQuarter(LocalDateTime)
+     * @see #getEndOfCalQuarterAsLocalDate()
+     */
+    @Transient
+    public void setEndOfCalQuarterFromLocalDate(final LocalDate endOfCalQuarter) {
+        setEndOfCalQuarter(
+                Optional.ofNullable(endOfCalQuarter)
+                        .map(MappedTime::atStartOfStorableDay)
+                        .orElse(null)
+        );
+    }
+
     // ------------------------------------------------------------------------------------------------- endOfFisQuarter
 
     /**
@@ -1360,6 +1693,43 @@ public abstract class MappedTime {
      */
     public void setEndOfFisQuarter(final LocalDateTime endOfFisQuarter) {
         this.endOfFisQuarter = endOfFisQuarter;
+    }
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_QUARTER} attribute as a local date.
+     * <p>
+     * The {@value #COLUMN_NAME_END_OF_FIS_QUARTER} column is a {@code DATE}, which carries a time of day; this method
+     * <em>discards</em> it. That is lossless only while the column holds midnight, which its type does not guarantee.
+     *
+     * @return the local date part of current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_QUARTER} attribute;
+     * {@code null} when the attribute is {@code null}.
+     * @see #getEndOfFisQuarter()
+     * @see LocalDateTime#toLocalDate()
+     */
+    @Transient
+    public LocalDate getEndOfFisQuarterAsLocalDate() {
+        return Optional.ofNullable(getEndOfFisQuarter())
+                .map(LocalDateTime::toLocalDate)
+                .orElse(null);
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_QUARTER} attribute with the start of the specified
+     * local date.
+     *
+     * @param endOfFisQuarter the local date whose start is set; may be {@code null}.
+     * @throws IllegalArgumentException if {@code endOfFisQuarter} is before {@code 1582-10-15} or after
+     *                                  {@code 9999-12-31}.
+     * @see #setEndOfFisQuarter(LocalDateTime)
+     * @see #getEndOfFisQuarterAsLocalDate()
+     */
+    @Transient
+    public void setEndOfFisQuarterFromLocalDate(final LocalDate endOfFisQuarter) {
+        setEndOfFisQuarter(
+                Optional.ofNullable(endOfFisQuarter)
+                        .map(MappedTime::atStartOfStorableDay)
+                        .orElse(null)
+        );
     }
 
     // ------------------------------------------------------------------------------------------- calendarQuarterNumber
@@ -1420,6 +1790,47 @@ public abstract class MappedTime {
      */
     public void setCalendarYear(final Integer calendarYear) {
         this.calendarYear = calendarYear;
+    }
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute as a year.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute as a year; {@code null} when the
+     * attribute is {@code null}.
+     * @see #getCalendarYear()
+     * @see Year#of(int)
+     */
+    @Transient
+    public Year getCalendarYearAsYear() {
+        return Optional.ofNullable(getCalendarYear())
+                .map(Year::of)
+                .orElse(null);
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute with the value of the specified year.
+     *
+     * @param calendarYear the year whose value is set; may be {@code null}.
+     * @throws IllegalArgumentException if the value of {@code calendarYear} has more than
+     *                                  {@value #COLUMN_PRECISION_CALENDAR_YEAR} digits.
+     * @see #setCalendarYear(Integer)
+     * @see #getCalendarYearAsYear()
+     * @see Year#getValue()
+     */
+    @Transient
+    public void setCalendarYearFromYear(final Year calendarYear) {
+        setCalendarYear(
+                Optional.ofNullable(calendarYear)
+                        .map(Year::getValue)
+                        .map(v -> {
+                            if (Math.abs(v) > 9999) {
+                                throw new IllegalArgumentException(
+                                        "more than " + COLUMN_PRECISION_CALENDAR_YEAR + " digits: " + v);
+                            }
+                            return v;
+                        })
+                        .orElse(null)
+        );
     }
 
     // -------------------------------------------------------------------------------------------------- calendarYearId
@@ -1542,6 +1953,43 @@ public abstract class MappedTime {
         this.endOfCalYear = endOfCalYear;
     }
 
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_YEAR} attribute as a local date.
+     * <p>
+     * The {@value #COLUMN_NAME_END_OF_CAL_YEAR} column is a {@code DATE}, which carries a time of day; this method
+     * <em>discards</em> it. That is lossless only while the column holds midnight, which its type does not guarantee.
+     *
+     * @return the local date part of current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_YEAR} attribute; {@code null}
+     * when the attribute is {@code null}.
+     * @see #getEndOfCalYear()
+     * @see LocalDateTime#toLocalDate()
+     */
+    @Transient
+    public LocalDate getEndOfCalYearAsLocalDate() {
+        return Optional.ofNullable(getEndOfCalYear())
+                .map(LocalDateTime::toLocalDate)
+                .orElse(null);
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_YEAR} attribute with the start of the specified
+     * local date.
+     *
+     * @param endOfCalYear the local date whose start is set; may be {@code null}.
+     * @throws IllegalArgumentException if {@code endOfCalYear} is before {@code 1582-10-15} or after
+     *                                  {@code 9999-12-31}.
+     * @see #setEndOfCalYear(LocalDateTime)
+     * @see #getEndOfCalYearAsLocalDate()
+     */
+    @Transient
+    public void setEndOfCalYearFromLocalDate(final LocalDate endOfCalYear) {
+        setEndOfCalYear(
+                Optional.ofNullable(endOfCalYear)
+                        .map(MappedTime::atStartOfStorableDay)
+                        .orElse(null)
+        );
+    }
+
     // ---------------------------------------------------------------------------------------------------- endOfFisYear
 
     /**
@@ -1562,7 +2010,45 @@ public abstract class MappedTime {
         this.endOfFisYear = endOfFisYear;
     }
 
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_YEAR} attribute as a local date.
+     * <p>
+     * The {@value #COLUMN_NAME_END_OF_FIS_YEAR} column is a {@code DATE}, which carries a time of day; this method
+     * <em>discards</em> it. That is lossless only while the column holds midnight, which its type does not guarantee.
+     *
+     * @return the local date part of current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_YEAR} attribute; {@code null}
+     * when the attribute is {@code null}.
+     * @see #getEndOfFisYear()
+     * @see LocalDateTime#toLocalDate()
+     */
+    @Transient
+    public LocalDate getEndOfFisYearAsLocalDate() {
+        return Optional.ofNullable(getEndOfFisYear())
+                .map(LocalDateTime::toLocalDate)
+                .orElse(null);
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_YEAR} attribute with the start of the specified
+     * local date.
+     *
+     * @param endOfFisYear the local date whose start is set; may be {@code null}.
+     * @throws IllegalArgumentException if {@code endOfFisYear} is before {@code 1582-10-15} or after
+     *                                  {@code 9999-12-31}.
+     * @see #setEndOfFisYear(LocalDateTime)
+     * @see #getEndOfFisYearAsLocalDate()
+     */
+    @Transient
+    public void setEndOfFisYearFromLocalDate(final LocalDate endOfFisYear) {
+        setEndOfFisYear(
+                Optional.ofNullable(endOfFisYear)
+                        .map(MappedTime::atStartOfStorableDay)
+                        .orElse(null)
+        );
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
+    @NotNull
     @Id
     @Column(name = COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
     private LocalDateTime timeId;

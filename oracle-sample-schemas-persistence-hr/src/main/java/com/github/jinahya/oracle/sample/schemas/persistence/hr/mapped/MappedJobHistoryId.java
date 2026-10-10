@@ -24,8 +24,8 @@ import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
@@ -39,6 +39,7 @@ import java.util.function.Supplier;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedJobHistory
  */
+@MappedSuperclass
 public abstract class MappedJobHistoryId {
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -169,8 +170,11 @@ public abstract class MappedJobHistoryId {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Max(MappedJobHistory.ATTRIBUTE_MAX_ID_EMPLOYEE_ID)
-    @Min(MappedJobHistory.ATTRIBUTE_MIN_ID_EMPLOYEE_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(MappedJobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(MappedJobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
+    @Digits(integer = MappedJobHistory.COLUMN_PRECISION_EMPLOYEE_ID, fraction = 0)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = MappedJobHistory.COLUMN_NAME_EMPLOYEE_ID,

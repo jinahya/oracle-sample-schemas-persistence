@@ -33,12 +33,13 @@ import java.util.Objects;
  * A mapped superclass which holds the mappings of the {@value MappedProductOrder#TABLE_NAME} view, except for its
  * identifier.
  *
- * @param <T> the type of the identifier; a subclass maps it as it chooses, and exposes it through {@link #getId_()}.
+ * @param <T> the type of the identifier; a subclass maps it as it chooses, and exposes it through
+ *            {@link #getIdValue()}.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedProductOrderId
  */
 @MappedSuperclass
-public abstract class MappedProductOrder<T extends MappedProductOrderId> {
+public abstract class MappedProductOrder<T extends MappedProductOrderId> implements __MappedDomainEntity<T> {
 
     /**
      * The name of the database view to which this class maps. The value is {@value}.
@@ -143,7 +144,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + getId_() +
+               "id=" + getIdValue() +
                ",totalSales=" + totalSales +
                ",orderCount=" + orderCount +
                '}';
@@ -154,26 +155,26 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the identifier a subclass exposes through {@link #getId_()}, alone.
+     * @implSpec Equality is by the identifier a subclass exposes through {@link #getIdValue()}, alone.
      */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof MappedProductOrder<?> that)) {
             return false;
         }
-        return Objects.equals(getId_(), that.getId_());
+        return Objects.equals(getIdValue(), that.getIdValue());
     }
 
     /**
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the identifier a subclass exposes through {@link #getId_()}, consistent with
+     * @implSpec The hash is over the identifier a subclass exposes through {@link #getIdValue()}, consistent with
      * {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(getId_());
+        return Objects.hashCode(getIdValue());
     }
 
     // -------------------------------------------------------------------------------------------------------------- id
@@ -185,7 +186,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
      * @return the identifier of this product order; {@code null} if it has none yet.
      */
     @Transient
-    protected abstract T getId_();
+    protected abstract T getIdValue();
 
     // ------------------------------------------------------------------------------------------------------ totalSales
 

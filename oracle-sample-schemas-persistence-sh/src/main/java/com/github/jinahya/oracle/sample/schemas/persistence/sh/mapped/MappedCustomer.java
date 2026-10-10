@@ -46,7 +46,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedCustomer {
+public abstract class MappedCustomer implements __MappedDomainEntity<Long> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.
@@ -1019,6 +1019,7 @@ public abstract class MappedCustomer {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @NotNull
     @Id
     @Column(name = COLUMN_NAME_CUST_ID, nullable = false, insertable = true, updatable = false)
     private Long custId;
@@ -1140,6 +1141,7 @@ public abstract class MappedCustomer {
     private Long custStateProvinceId;
 
     // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // no @NotNull: being read-only, this attribute is still null at the prePersist at which the provider validates
     @Column(name = COLUMN_NAME_COUNTRY_ID,
             nullable = false,
             insertable = false,

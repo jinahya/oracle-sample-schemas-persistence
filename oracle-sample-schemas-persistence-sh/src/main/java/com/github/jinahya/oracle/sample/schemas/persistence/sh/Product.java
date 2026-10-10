@@ -546,7 +546,7 @@ public class Product implements __DomainEntity<Integer> {
         if (!(obj instanceof Product that)) {
             return false;
         }
-        return Objects.equals(prodId, that.prodId);
+        return Objects.equals(getProdId(), that.getProdId());
     }
 
     /**
@@ -557,7 +557,7 @@ public class Product implements __DomainEntity<Integer> {
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(prodId);
+        return Objects.hashCode(getProdId());
     }
     // --------------------------------------------------------------------------------------------------------- prodId
 
@@ -1000,6 +1000,7 @@ public class Product implements __DomainEntity<Integer> {
     }
 
     // --------------------------------------------------------------------------------------------------------------- 
+    @NotNull
     @Id
     @Digits(integer = COLUMN_PRECISION_PROD_ID - COLUMN_SCALE_PROD_ID, fraction = COLUMN_SCALE_PROD_ID)
     @Column(name = COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)

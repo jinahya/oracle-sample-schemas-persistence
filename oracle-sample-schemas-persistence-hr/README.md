@@ -1,4 +1,4 @@
-# hr
+# The HR schema
 
 ## Schema
 

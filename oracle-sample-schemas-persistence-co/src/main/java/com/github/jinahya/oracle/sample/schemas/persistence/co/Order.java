@@ -32,7 +32,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapKeyColumn;
+import jakarta.persistence.MapKey;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -57,12 +57,12 @@ import java.util.function.Function;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(name = "Order.selectListByCustomerOderIdGtOrderByOrderTmsDesc",
+@NamedQuery(name = "Order.selectListByCustomerOrderIdGtOrderByOrderTmsDesc",
             query = """
                     SELECT e
                     FROM Order AS e
                     WHERE e.customer = :customer
-                      AND e.orderId >= :orderIdMinExclusive
+                      AND e.orderId > :orderIdMinExclusive
                     ORDER BY e.orderTms DESC"""
 )
 @NamedQuery(name = "Order.selectListByCustomerOrderByOrderTmsDesc",
@@ -612,7 +612,7 @@ public class Order implements __DomainEntity<Long> {
         if (previous != null) {
             previous.setQuantity(previous.getQuantity() + orderItem.getQuantity());
         } else {
-            addOrderItem(orderItem);
+            orderItems.put(orderItem.getProduct(), orderItem);
         }
     }
 
@@ -627,6 +627,7 @@ public class Order implements __DomainEntity<Long> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    // no @NotNull: database-generated identity; the value is null when the provider validates at pre-persist
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = COLUMN_NAME_ORDER_ID,
@@ -674,7 +675,7 @@ public class Order implements __DomainEntity<Long> {
     private Store store;
 
     // -----------------------------------------------------------------------------------------------------------------
-    @MapKeyColumn(name = OrderItem.COLUMN_NAME_PRODUCT_ID)
+    @MapKey(name = OrderItem.ATTRIBUTE_NAME_PRODUCT)
     @OneToMany(mappedBy = OrderItem.ATTRIBUTE_NAME_ORDER,
                fetch = FetchType.LAZY,
                cascade = {

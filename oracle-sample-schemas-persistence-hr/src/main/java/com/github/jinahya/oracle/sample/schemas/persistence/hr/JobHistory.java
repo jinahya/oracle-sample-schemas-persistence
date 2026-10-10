@@ -35,10 +35,8 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -52,6 +50,11 @@ import java.util.function.Function;
  * Rows of the table are written by the database's {@code UPDATE_JOB_HISTORY} trigger, which fires when an employee's
  * job or department changes, with the employee's previous {@code HIRE_DATE} as the {@value #COLUMN_NAME_START_DATE} and
  * {@code SYSDATE} as the {@value #COLUMN_NAME_END_DATE}.
+ * <p>
+ * The mapping is therefore read-only: no attribute has a setter, and every column except the two {@code @Id} ones is
+ * neither insertable nor updatable. The {@code @Id} columns stay {@code insertable = true} only because EclipseLink
+ * rejects an identifier with no writable mapping (EclipseLink-46); nothing inserts through them, since
+ * {@value #COLUMN_NAME_END_DATE}, which is not nullable, is left out of every insert.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see JobHistoryId
@@ -60,13 +63,15 @@ import java.util.function.Function;
             query = """
                     SELECT e
                     FROM JobHistory e
-                    WHERE e.employee = :employee"""
+                    WHERE e.employee = :employee
+                    ORDER BY e.startDate DESC"""
 )
 @NamedQuery(name = "JobHistory.selectList_WhereEmployeeIdEqualTo_OrderByStartDateDesc",
             query = """
                     SELECT e
                     FROM JobHistory e
-                    WHERE e.employeeId = :employeeId"""
+                    WHERE e.employeeId = :employeeId
+                    ORDER BY e.startDate DESC"""
 )
 @Entity(name = JobHistory.ENTITY_NAME)
 @IdClass(JobHistoryId.class)
@@ -337,8 +342,8 @@ public class JobHistory implements __DomainEntity<JobHistoryId> {
         if (!(obj instanceof JobHistory that)) {
             return false;
         }
-        return Objects.equals(employeeId, that.employeeId) &&
-               Objects.equals(startDate, that.startDate);
+        return Objects.equals(getEmployeeId(), that.getEmployeeId()) &&
+               Objects.equals(getStartDate(), that.getStartDate());
     }
 
     /**
@@ -349,7 +354,7 @@ public class JobHistory implements __DomainEntity<JobHistoryId> {
      */
     @Override
     public final int hashCode() {
-        return Objects.hash(employeeId, startDate);
+        return Objects.hash(getEmployeeId(), getStartDate());
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
@@ -424,17 +429,6 @@ public class JobHistory implements __DomainEntity<JobHistoryId> {
         return endDate;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute with the specified value.
-     * <p>
-     * The column is neither insertable nor updatable, so this changes the instance only, never the row.
-     *
-     * @param endDate new value for {@value #ATTRIBUTE_NAME_END_DATE} attribute.
-     */
-    protected void setEndDate(@Nonnull final LocalDateTime endDate) {
-        this.endDate = endDate;
-    }
-
     // ------------------------------------------------------------------------------------------------------------- job
 
     /**
@@ -445,15 +439,6 @@ public class JobHistory implements __DomainEntity<JobHistoryId> {
     @Nonnull
     public Job getJob() {
         return job;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB} attribute with the specified value.
-     *
-     * @param job new value for {@value #ATTRIBUTE_NAME_JOB} attribute.
-     */
-    public void setJob(@Nonnull final Job job) {
-        this.job = job;
     }
 
     // ------------------------------------------------------------------------------------------------------ department
@@ -468,28 +453,18 @@ public class JobHistory implements __DomainEntity<JobHistoryId> {
         return department;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute with the specified value.
-     *
-     * @param department new value for {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute.
-     */
-    public void setDepartment(@Nullable final Department department) {
-        this.department = department;
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Max(JobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
-    @Min(JobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(JobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(JobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
+    @Digits(integer = JobHistory.COLUMN_PRECISION_EMPLOYEE_ID, fraction = 0)
     @NotNull
     @Id // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     @Column(name = JobHistory.COLUMN_NAME_EMPLOYEE_ID,
             nullable = false,
-//            insertable = false,
-            insertable = true, // fuck eclipselink
+            insertable = true,
             updatable = false,
             precision = JobHistory.COLUMN_PRECISION_EMPLOYEE_ID,
             scale = JobHistory.COLUMN_SCALE_EMPLOYEE_ID
@@ -508,20 +483,22 @@ public class JobHistory implements __DomainEntity<JobHistoryId> {
     )
     private Employee employee;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @PastOrPresent
+    // TODO: remove; not constrained by the DDL -- JOB_HISTORY.START_DATE is DATE with no check
+//    @PastOrPresent
     @NotNull
-    @Id // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    @Id
     @Column(name = JobHistory.COLUMN_NAME_START_DATE,
             nullable = false,
-//            insertable = false,
-            insertable = true, // fuck eclipselink
+            insertable = true,
             updatable = false
     )
     private LocalDateTime startDate;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
+    // TODO: remove; not constrained by the DDL -- JOB_HISTORY.END_DATE is DATE with no check
 //    @PastOrPresent // @@?
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
@@ -530,7 +507,7 @@ public class JobHistory implements __DomainEntity<JobHistoryId> {
             insertable = false,
             updatable = false
     )
-    LocalDateTime endDate;
+    private LocalDateTime endDate;
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
@@ -540,8 +517,8 @@ public class JobHistory implements __DomainEntity<JobHistoryId> {
     @JoinColumn(name = COLUMN_NAME_JOB_ID,
                 referencedColumnName = Job.COLUMN_NAME_JOB_ID,
                 nullable = COLUMN_NULLABLE_JOB_ID,
-                insertable = true,
-                updatable = true
+                insertable = false,
+                updatable = false
     )
     private Job job;
 
@@ -552,8 +529,8 @@ public class JobHistory implements __DomainEntity<JobHistoryId> {
     @JoinColumn(name = COLUMN_NAME_DEPARTMENT_ID,
                 referencedColumnName = Department.COLUMN_NAME_DEPARTMENT_ID,
                 nullable = COLUMN_NULLABLE_DEPARTMENT_ID,
-                insertable = true,
-                updatable = true
+                insertable = false,
+                updatable = false
     )
     private Department department;
 }

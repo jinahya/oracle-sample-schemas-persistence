@@ -50,9 +50,10 @@ class __UtilsTest {
      * A class for testing {@link __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(LocalTime, DayOfWeek)}.
      * <p>
      * Each test crosses a time which is, or is not, within the office hours the {@code SECURE_DML} procedure allows
-     * with a weekday which is, or is not, one of those it refuses, and asserts that the routine raises for exactly
-     * those combinations whose weekday it refuses, whatever the time. The group pairing an out-of-office-hours time
-     * with a refused weekday additionally builds a {@link LocalDateTime} carrying both values and feeds it to
+     * with a weekday which is, or is not, one of those it refuses, and asserts that the routine raises unless the time
+     * is within the hours and the weekday is not refused. Times are compared to the minute, as the routine compares
+     * {@code TO_CHAR(SYSDATE, 'HH24:MI')}. The group pairing an out-of-office-hours time with a refused weekday
+     * additionally builds a {@link LocalDateTime} carrying both values and feeds it to
      * {@link __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(java.time.temporal.TemporalAccessor)}, the overload
      * which derives the time and the weekday from a single temporal.
      */
@@ -63,13 +64,15 @@ class __UtilsTest {
             return Stream.of(
                     LocalTime.of(8, 0),
                     LocalTime.of(13, 0),
-                    LocalTime.of(18, 0)
+                    LocalTime.of(18, 0),
+                    LocalTime.of(18, 0, 59)
             );
         }
 
         private static Stream<LocalTime> nowNotBetween() {
             return Stream.of(
                     LocalTime.of(7, 59),
+                    LocalTime.of(7, 59, 59),
                     LocalTime.of(18, 1)
             );
         }
@@ -116,7 +119,7 @@ class __UtilsTest {
         void nowNotBetween_dayNotOn__(final LocalTime now, final DayOfWeek day) {
             assertThat(
                     __Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(now, day)
-            ).isFalse();
+            ).isTrue();
         }
 
         @MethodSource({"nowBetween_dayOn"})

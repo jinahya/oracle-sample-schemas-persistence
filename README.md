@@ -142,9 +142,9 @@ certified for that generation.
 
 | Spec | Version | Implementation | Version |
 | --- | --- | --- | --- |
-| Jakarta Persistence | 3.2 | Hibernate ORM | 7.4.9.Final |
-| Jakarta Persistence | 3.2 | EclipseLink | 5.0.1 |
-| Jakarta Validation | 3.1 | Hibernate Validator | 9.1.3.Final |
+| Jakarta Persistence | 3.2 | Hibernate ORM | 7.4.12.Final |
+| Jakarta Persistence | 3.2 | EclipseLink | 5.0.2 |
+| Jakarta Validation | 3.1 | Hibernate Validator | 9.1.4.Final |
 | Jakarta Expression Language | 6.0 | Expressly | 6.0.0 |
 | Jakarta CDI | 4.1 | Weld (weld-junit5) | 5.0.3.Final |
 
@@ -354,14 +354,15 @@ a `BEFORE INSERT` trigger:
 
 ## EclipseLink
 
-Activated by `-Pjakarta-ee-11-eclipselink`, which swaps the provider class, the
-metamodel annotation processor and the runtime jar in one move:
+Activated by `-Pjakarta-ee-11-eclipselink`, which swaps the provider class and the runtime jar.
+It does not swap the metamodel annotation processor: both profiles generate the static metamodel
+with `hibernate-jpamodelgen` (see below).
 
 | | |
 | --- | --- |
-| Version | 5.0.1 (`version.org.eclipse.persistence`) |
+| Version | 5.0.2 (`version.org.eclipse.persistence`) |
 | Provider | `org.eclipse.persistence.jpa.PersistenceProvider` |
-| Metamodel processor | `org.eclipse.persistence:org.eclipse.persistence.jpa.modelgen.processor` |
+| Metamodel processor | `org.hibernate.orm:hibernate-jpamodelgen`, inherited from the root `<properties>` |
 
 * [EclipseLink 5.0 release](https://eclipse.dev/eclipselink/releases/5.0.html) —
   Jakarta Persistence 3.2 / Jakarta EE 11
@@ -424,12 +425,51 @@ mapping. Each module's integration-test unit therefore names a session customize
   `opt/oracle/scripts/startup/01_install_sample_schemas.sh` grants it on every identity
   sequence it finds, looked up rather than listed; nothing in the schemas themselves changes.
 
-**The metamodel processor needs a `persistence.xml`,** which is why each module keeps
-one in `src/main/resources/META-INF` rather than in test resources: EclipseLink's processor
-generates nothing without one, so `Customer_` and friends would not exist under this profile.
-Every unit also sets `<exclude-unlisted-classes>true</exclude-unlisted-classes>`, or the
-processor attaches every `@Entity` in the compilation to the unit and `hr` fails to compile
-with `EclipseLink-7237` over the two `JobHistory` mappings sharing an entity name.
+**EclipseLink's metamodel processor needs a `persistence.xml`, so it is not used.** It reads a
+descriptor at annotation-processing time and generates nothing without one, and the processor
+path sees main resources, not test resources. Using it would force every module's descriptor into
+`src/main/resources/META-INF`, which is also what gets packaged: the published jars would carry
+the test descriptor -- the H2 datasource, the `sa` / `dmlonly` credentials,
+`hbm2ddl.auto=create-drop` and whichever `<provider>` the releasing profile baked in -- and
+Spring's `DefaultPersistenceUnitManager`, reading `classpath*:META-INF/persistence.xml`, would
+hand it to any consumer. So the profile inherits `hibernate-jpamodelgen` from the root
+`<properties>`, which reads `@Entity` directly and needs no descriptor; the canonical static
+metamodel is defined by the specification, so the `Customer_` classes it emits are
+provider-neutral and EclipseLink runs against them unchanged. Every module's `persistence.xml`
+lives under `src/test/resources/META-INF`, and EclipseLink's processor sits commented out in the
+profile beside a note on how to go back. What this gives up is coverage of EclipseLink's
+processor; EclipseLink is still exercised as the persistence provider by every
+`*_Persistence_Test` and `*_Persistence_IT`.
+
+**No generic `@EmbeddedId` in a `@MappedSuperclass`.** A mapped superclass cannot declare its
+identifier as a type variable for an extending entity to bind:
+
+```java
+@MappedSuperclass
+public abstract class MappedOrderItem<T extends MappedOrderItemId> {
+    @EmbeddedId
+    private T id;    // EclipseLink-7246 at deployment
+}
+```
+
+Hibernate (7.4.12) resolves `T` to the extending entity's type argument and maps it; EclipseLink
+(5.0.2) fails predeployment with
+
+```
+EclipseLink-7246: The Entity class [class ...MappedOrderItem] has an embedded attribute [id] of
+type [class java.lang.String] which is NOT an Embeddable class.
+```
+
+Jakarta Persistence leaves a persistent attribute typed by a type variable undefined, so this is
+not portable, and EclipseLink resolves one only on some mapping paths. It builds its metadata from
+class files, one class at a time, and the embedded-id path decides whether a type is embeddable
+before any subclass's type argument is known; the unresolved variable falls back to a default
+type -- the `String` in the message -- which then fails the check. That is why the `@EmbeddedId`
+flavoured `Mapped*` classes (`MappedOrderItem`, `MappedProductOrder`, `MappedSale`,
+`MappedFweekPscatSalesMv`) leave the identifier to the extending entity, which declares it with a
+concrete type and implements `getIdValue()`. An `@IdClass` identifier has no such problem, since
+its `@Id` attributes are of basic types, so `MappedJobHistory`, `MappedCost` and `MappedProfit` map
+them themselves and need no type parameter at all.
 
 **H2 identifier case.** The in-memory test URL carries
 `;database_to_upper=false;MODE=LEGACY` because of
@@ -448,10 +488,10 @@ The default provider — `-Pjakarta-ee-11-hibernate-orm`, or no `-P` at all — 
 
 | | |
 | --- | --- |
-| Version | 7.4.9.Final (`version.org.hibernate.orm`) |
+| Version | 7.4.12.Final (`version.org.hibernate.orm`) |
 | Provider | `org.hibernate.jpa.HibernatePersistenceProvider` |
 | Metamodel processor | `org.hibernate.orm:hibernate-jpamodelgen` |
-| Validator | 9.1.3.Final (`version.org.hibernate.validator`), with Expressly 6 |
+| Validator | 9.1.4.Final (`version.org.hibernate.validator`), with Expressly 6 |
 
 * [ORM releases](https://hibernate.org/orm/releases/) ·
   [7.4](https://hibernate.org/orm/releases/7.4/) ·

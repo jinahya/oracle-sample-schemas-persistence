@@ -295,6 +295,7 @@ public abstract class MappedInventory implements __MappedDomainEntity<Long> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    // no @NotNull: database-generated identity; the value is null when the provider validates at pre-persist
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = COLUMN_NAME_INVENTORY_ID,

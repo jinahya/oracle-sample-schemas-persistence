@@ -24,6 +24,7 @@ import jakarta.annotation.Nonnull;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAccessor;
 import java.util.Objects;
 
@@ -66,7 +67,8 @@ final class __Utils {
      * The routine raises the application error when the current time is {@code NOT BETWEEN}
      * {@value __DomainConstants#ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT} and
      * {@value __DomainConstants#ROUTINE_SECURE_DML_LOCAL_TIME_MAX_TEXT}, {@code OR} the current day of the week is
-     * either {@link DayOfWeek#SATURDAY} or {@link DayOfWeek#SUNDAY}.
+     * either {@link DayOfWeek#SATURDAY} or {@link DayOfWeek#SUNDAY}. As the routine compares the time as
+     * {@code HH24:MI}, the {@code time} is compared to the minute; e.g., {@code 18:00:59} is still within the hours.
      *
      * @param time    the time of day to check.
      * @param weekday the day of the week to check.
@@ -78,8 +80,10 @@ final class __Utils {
                                                                      final @Nonnull DayOfWeek weekday) {
         Objects.requireNonNull(time, "time is null");
         Objects.requireNonNull(weekday, "weekday is null");
-        return (time.isBefore(__DomainConstants.ROUTINE_SECURE_DML_LOCAL_TIME_MIN)
-                && time.isAfter(__DomainConstants.ROUTINE_SECURE_DML_LOCAL_TIME_MAX))
+        // the routine compares TO_CHAR(SYSDATE, 'HH24:MI'), so anything finer than minutes is ignored
+        final var minutes = time.truncatedTo(ChronoUnit.MINUTES);
+        return minutes.isBefore(__DomainConstants.ROUTINE_SECURE_DML_LOCAL_TIME_MIN)
+               || minutes.isAfter(__DomainConstants.ROUTINE_SECURE_DML_LOCAL_TIME_MAX)
                ||
                __DomainConstants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.contains(weekday);
     }

@@ -24,6 +24,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -260,28 +261,33 @@ public class ProfitId {
 
     // ---------------------------------------------------------------------------------------------------------------- 
 
+    @NotNull
     @Digits(integer = Profit.COLUMN_PRECISION_CHANNEL_ID - Profit.COLUMN_SCALE_CHANNEL_ID,
             fraction = Profit.COLUMN_SCALE_CHANNEL_ID)
     @Basic(optional = false)
     @Column(name = Profit.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
     private Long channelId;
 
+    @NotNull
     @Basic(optional = false)
     @Column(name = Profit.COLUMN_NAME_CUST_ID, nullable = false, insertable = true, updatable = false)
     private Long custId;
 
+    @NotNull
     @Digits(integer = Profit.COLUMN_PRECISION_PROD_ID - Profit.COLUMN_SCALE_PROD_ID,
             fraction = Profit.COLUMN_SCALE_PROD_ID)
     @Basic(optional = false)
     @Column(name = Profit.COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
     private Integer prodId;
 
+    @NotNull
     @Digits(integer = Profit.COLUMN_PRECISION_PROMO_ID - Profit.COLUMN_SCALE_PROMO_ID,
             fraction = Profit.COLUMN_SCALE_PROMO_ID)
     @Basic(optional = false)
     @Column(name = Profit.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
     private Integer promoId;
 
+    @NotNull
     @Basic(optional = false)
     @Column(name = Profit.COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
     private LocalDateTime timeId;

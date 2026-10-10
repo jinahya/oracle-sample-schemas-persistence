@@ -168,6 +168,7 @@ public class Inventory implements __DomainEntity<Long> {
         if (!(obj instanceof Inventory that)) {
             return false;
         }
+        final var inventoryId = getInventoryId();
         return inventoryId != null && inventoryId.equals(that.getInventoryId());
     }
 
@@ -175,12 +176,14 @@ public class Inventory implements __DomainEntity<Long> {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is constant -- the class's -- so that it does not change when the generated {@code @Id} is
-     * assigned on persist, which would lose an instance already held in a hash-based collection.
+     * @implSpec The hash is constant so that it does not change when the generated {@code @Id} is assigned on persist,
+     * which would lose an instance already held in a hash-based collection. It is {@code Inventory}'s rather than
+     * {@link #getClass()}'s, because a lazy proxy's class is a generated subclass and must hash alike to the instance
+     * it stands for.
      */
     @Override
     public final int hashCode() {
-        return getClass().hashCode();
+        return Inventory.class.hashCode();
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
@@ -324,6 +327,7 @@ public class Inventory implements __DomainEntity<Long> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    // no @NotNull: database-generated identity; the value is null when the provider validates at pre-persist
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = COLUMN_NAME_INVENTORY_ID,

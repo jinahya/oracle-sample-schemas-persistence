@@ -34,10 +34,8 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
@@ -332,6 +330,7 @@ public class Product implements __DomainEntity<Long> {
         if (!(obj instanceof Product that)) {
             return false;
         }
+        final var productId = getProductId();
         return productId != null && productId.equals(that.getProductId());
     }
 
@@ -339,12 +338,14 @@ public class Product implements __DomainEntity<Long> {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is constant -- the class's -- so that it does not change when the generated {@code @Id} is
-     * assigned on persist, which would lose an instance already held in a hash-based collection.
+     * @implSpec The hash is constant so that it does not change when the generated {@code @Id} is assigned on persist,
+     * which would lose an instance already held in a hash-based collection. It is {@code Product}'s rather than
+     * {@link #getClass()}'s, because a lazy proxy's class is a generated subclass and must hash alike to the instance
+     * it stands for.
      */
     @Override
     public final int hashCode() {
-        return getClass().hashCode();
+        return Product.class.hashCode();
     }
 
     // ------------------------------------------------------------------------------------------------------- productId
@@ -614,7 +615,9 @@ public class Product implements __DomainEntity<Long> {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
-    @Positive
+    // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_ID is an INTEGER identity with no check
+//    @Positive
+    // no @NotNull: database-generated identity; the value is null when the provider validates at pre-persist
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = COLUMN_NAME_PRODUCT_ID, nullable = false,
@@ -635,8 +638,11 @@ public class Product implements __DomainEntity<Long> {
     private String productName;
 
     @Nullable
-    @DecimalMax(value = DECIMAL_MAX_UNIT_PRICE, inclusive = true)
-    @DecimalMin(value = DECIMAL_MIN_UNIT_PRICE, inclusive = true)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMax(value = DECIMAL_MAX_UNIT_PRICE, inclusive = true)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMin(value = DECIMAL_MIN_UNIT_PRICE, inclusive = true)
+    @Digits(integer = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE, fraction = COLUMN_SCALE_UNIT_PRICE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_UNIT_PRICE,
             nullable = true,

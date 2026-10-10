@@ -37,7 +37,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedCustomerOrderProduct {
+public abstract class MappedCustomerOrderProduct implements __MappedDomainEntity<Long> {
 
     /**
      * The name of the database view to which this class maps. The value is {@value}.
@@ -452,7 +452,8 @@ public abstract class MappedCustomerOrderProduct {
     @Column(name = COLUMN_NAME_ORDER_TOTAL, nullable = true, insertable = false, updatable = false)
     private BigDecimal orderTotal;
 
-    @Size(max = SIZE_MAX_ITEMS)
+    // TODO: remove; not constrained by the DDL -- CUSTOMER_ORDER_PRODUCTS.ITEMS is a computed LISTAGG(...) column
+//    @Size(max = SIZE_MAX_ITEMS)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_ITEMS,
             nullable = true,

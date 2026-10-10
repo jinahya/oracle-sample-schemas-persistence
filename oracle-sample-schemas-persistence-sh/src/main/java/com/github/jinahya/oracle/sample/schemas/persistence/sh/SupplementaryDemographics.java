@@ -26,6 +26,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
@@ -385,7 +386,7 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
         if (!(obj instanceof SupplementaryDemographics that)) {
             return false;
         }
-        return Objects.equals(custId, that.custId);
+        return Objects.equals(getCustId(), that.getCustId());
     }
 
     /**
@@ -396,7 +397,7 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(custId);
+        return Objects.hashCode(getCustId());
     }
     // --------------------------------------------------------------------------------------------------------- custId
 
@@ -682,6 +683,7 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     // --------------------------------------------------------------------------------------------------------------- 
     // --------------------------------------------------------------------------------------------------------------- 
 
+    @NotNull
     @Id
     @Column(name = COLUMN_NAME_CUST_ID, nullable = false, insertable = true, updatable = false)
     private Long custId;

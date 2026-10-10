@@ -23,6 +23,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
@@ -163,6 +164,7 @@ public class ProductOrderId {
     // ---------------------------------------------------------------------------------------------------------------- 
 
     @Size(max = ProductOrder.SIZE_MAX_PRODUCT_NAME)
+    @NotNull
     @Basic(optional = false)
     @Column(name = ProductOrder.COLUMN_NAME_PRODUCT_NAME,
             nullable = false,
@@ -172,6 +174,7 @@ public class ProductOrderId {
     private String productName;
 
     @Size(max = ProductOrder.SIZE_MAX_ORDER_STATUS)
+    @NotNull
     @Basic(optional = false)
     @Column(name = ProductOrder.COLUMN_NAME_ORDER_STATUS,
             nullable = false,

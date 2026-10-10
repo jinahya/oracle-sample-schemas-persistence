@@ -32,8 +32,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -399,8 +398,11 @@ public class Department implements __DomainEntity<Integer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
-    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
+    @Digits(integer = COLUMN_PRECISION_DEPARTMENT_ID, fraction = 0)
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_DEPARTMENT_ID,

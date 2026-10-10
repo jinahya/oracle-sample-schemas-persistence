@@ -290,7 +290,7 @@ public class Promotion implements __DomainEntity<Integer> {
         if (!(obj instanceof Promotion that)) {
             return false;
         }
-        return Objects.equals(promoId, that.promoId);
+        return Objects.equals(getPromoId(), that.getPromoId());
     }
 
     /**
@@ -301,7 +301,7 @@ public class Promotion implements __DomainEntity<Integer> {
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(promoId);
+        return Objects.hashCode(getPromoId());
     }
     // -------------------------------------------------------------------------------------------------------- promoId
 
@@ -527,6 +527,7 @@ public class Promotion implements __DomainEntity<Integer> {
     // --------------------------------------------------------------------------------------------------------------- 
     // --------------------------------------------------------------------------------------------------------------- 
 
+    @NotNull
     @Id
     @Digits(integer = COLUMN_PRECISION_PROMO_ID - COLUMN_SCALE_PROMO_ID, fraction = COLUMN_SCALE_PROMO_ID)
     @Column(name = COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)

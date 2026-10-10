@@ -38,7 +38,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedPromotion {
+public abstract class MappedPromotion implements __MappedDomainEntity<Integer> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.
@@ -524,6 +524,7 @@ public abstract class MappedPromotion {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @NotNull
     @Id
     @Digits(integer = COLUMN_PRECISION_PROMO_ID - COLUMN_SCALE_PROMO_ID, fraction = COLUMN_SCALE_PROMO_ID)
     @Column(name = COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)

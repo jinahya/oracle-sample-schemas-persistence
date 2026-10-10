@@ -26,6 +26,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -41,7 +42,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedEmpDetailsView {
+public abstract class MappedEmpDetailsView implements __MappedDomainEntity<Integer> {
 
     /**
      * The name of the database view to which this class maps. The value is {@value}.
@@ -791,6 +792,7 @@ public abstract class MappedEmpDetailsView {
     // -----------------------------------------------------------------------------------------------------------------
     @Id
     @Nonnull
+    @Digits(integer = COLUMN_PRECISION_EMPLOYEE_ID, fraction = 0)
     @NotNull
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
@@ -817,16 +819,19 @@ public abstract class MappedEmpDetailsView {
     private String jobId;
 
     @Nullable
+    @Digits(integer = 6, fraction = 0)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_MANAGER_ID, nullable = true, insertable = false, updatable = false)
     private Integer managerId;
 
     @Nullable
+    @Digits(integer = 4, fraction = 0)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_DEPARTMENT_ID, nullable = true, insertable = false, updatable = false)
     private Integer departmentId;
 
     @Nullable
+    @Digits(integer = 4, fraction = 0)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOCATION_ID, nullable = true, insertable = false, updatable = false)
     private Integer locationId;
@@ -866,6 +871,7 @@ public abstract class MappedEmpDetailsView {
     private String lastName;
 
     @Nullable
+    @Digits(integer = COLUMN_PRECISION_SALARY - COLUMN_SCALE_SALARY, fraction = COLUMN_SCALE_SALARY)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_SALARY,
             nullable = true,
@@ -877,6 +883,8 @@ public abstract class MappedEmpDetailsView {
     private BigDecimal salary;
 
     @Nullable
+    @Digits(integer = COLUMN_PRECISION_COMMISSION_PCT - COLUMN_SCALE_COMMISSION_PCT,
+            fraction = COLUMN_SCALE_COMMISSION_PCT)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_COMMISSION_PCT,
             nullable = true,

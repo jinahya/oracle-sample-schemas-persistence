@@ -226,7 +226,9 @@ public abstract class MappedCountry implements __MappedDomainEntity<String> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Size(min = SIZE_MIN_COUNTRY_ID, max = SIZE_MAX_COUNTRY_ID)
+    // TODO: remove; not constrained by the DDL -- COUNTRIES.COUNTRY_ID is CHAR(2); a length sets no minimum
+//    @Size(min = SIZE_MIN_COUNTRY_ID, max = SIZE_MAX_COUNTRY_ID)
+    @Size(max = SIZE_MAX_COUNTRY_ID)
     @NotNull
     @Id
     @Basic(optional = false)

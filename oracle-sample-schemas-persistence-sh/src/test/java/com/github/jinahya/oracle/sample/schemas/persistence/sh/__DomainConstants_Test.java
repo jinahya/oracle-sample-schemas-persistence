@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
+package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 
 /*-
  * #%L
@@ -20,12 +20,10 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
  * #L%
  */
 
-/**
- * A marker interface for classes which map a table, a view or a materialized view of the {@code SH} schema.
- *
- * @param <T> the type of the identifier; {@link Void} for a class which maps a view with no key.
- * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- */
-public interface __MappedDomainEntity<T> {
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PACKAGE)
+class __DomainConstants_Test {
 
 }

@@ -37,7 +37,7 @@ import java.math.BigDecimal;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public class ProductReview {
+public class ProductReview implements __DomainEntity<Void> {
 
     /**
      * The name of the database view to which this class maps. The value is {@value}.

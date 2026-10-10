@@ -32,8 +32,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -49,7 +48,7 @@ import java.util.Optional;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedStore {
+public abstract class MappedStore implements __MappedDomainEntity<Long> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.
@@ -697,6 +696,7 @@ public abstract class MappedStore {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    // no @NotNull: database-generated identity; the value is null when the provider validates at pre-persist
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = COLUMN_NAME_STORE_ID,
@@ -748,10 +748,15 @@ public abstract class MappedStore {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @DecimalMax(value = DECIMAL_MAX_LATITUDE, inclusive = true)
-    @DecimalMin(value = DECIMAL_MIN_LATITUDE, inclusive = true)
-    @DecimalMax(value = COLUMN_MAX_LATITUDE, inclusive = true)
-    @DecimalMin(value = COLUMN_MIN_LATITUDE, inclusive = true)
+    // TODO: remove; not constrained by the DDL -- STORES.LATITUDE is NUMBER(9,6) with no check; -90..+90 is a domain range
+//    @DecimalMax(value = DECIMAL_MAX_LATITUDE, inclusive = true)
+    // TODO: remove; not constrained by the DDL -- STORES.LATITUDE is NUMBER(9,6) with no check; -90..+90 is a domain range
+//    @DecimalMin(value = DECIMAL_MIN_LATITUDE, inclusive = true)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMax(value = COLUMN_MAX_LATITUDE, inclusive = true)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMin(value = COLUMN_MIN_LATITUDE, inclusive = true)
+    @Digits(integer = COLUMN_PRECISION_LATITUDE - COLUMN_SCALE_LATITUDE, fraction = COLUMN_SCALE_LATITUDE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LATITUDE,
             nullable = true,
@@ -763,10 +768,15 @@ public abstract class MappedStore {
     private BigDecimal latitude;
 
     @Nullable
-    @DecimalMax(value = DECIMAL_MAX_LONGITUDE, inclusive = true)
-    @DecimalMin(value = DECIMAL_MIN_LONGITUDE, inclusive = true)
-    @DecimalMax(value = COLUMN_MAX_LONGITUDE, inclusive = true)
-    @DecimalMin(value = COLUMN_MIN_LONGITUDE, inclusive = true)
+    // TODO: remove; not constrained by the DDL -- STORES.LONGITUDE is NUMBER(9,6) with no check; -180..+180 is a domain range
+//    @DecimalMax(value = DECIMAL_MAX_LONGITUDE, inclusive = true)
+    // TODO: remove; not constrained by the DDL -- STORES.LONGITUDE is NUMBER(9,6) with no check; -180..+180 is a domain range
+//    @DecimalMin(value = DECIMAL_MIN_LONGITUDE, inclusive = true)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMax(value = COLUMN_MAX_LONGITUDE, inclusive = true)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMin(value = COLUMN_MIN_LONGITUDE, inclusive = true)
+    @Digits(integer = COLUMN_PRECISION_LONGITUDE - COLUMN_SCALE_LONGITUDE, fraction = COLUMN_SCALE_LONGITUDE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LONGITUDE,
             nullable = true,

@@ -32,11 +32,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
@@ -805,7 +803,7 @@ public class Employee implements __DomainEntity<Integer> {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_MANAGER} attribute.
      */
-    @Nonnull
+    @Nullable
     public Employee getManager() {
         return manager;
     }
@@ -815,7 +813,7 @@ public class Employee implements __DomainEntity<Integer> {
      *
      * @param manager new value for {@value #ATTRIBUTE_NAME_MANAGER} attribute.
      */
-    public void setManager(@Nonnull final Employee manager) {
+    public void setManager(@Nullable final Employee manager) {
         this.manager = manager;
     }
 
@@ -872,7 +870,7 @@ public class Employee implements __DomainEntity<Integer> {
      *
      * @param department new value for {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute.
      */
-    public void setDepartment(@Nonnull final Department department) {
+    public void setDepartment(@Nullable final Department department) {
         this.department = department;
     }
 
@@ -942,8 +940,11 @@ public class Employee implements __DomainEntity<Integer> {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Max(ATTRIBUTE_MAX_EMPLOYEE_ID)
-    @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(ATTRIBUTE_MAX_EMPLOYEE_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
+    @Digits(integer = COLUMN_PRECISION_EMPLOYEE_ID, fraction = 0)
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_EMPLOYEE_ID,
@@ -984,6 +985,7 @@ public class Employee implements __DomainEntity<Integer> {
     private String lastName;
 
     @Nonnull
+    // TODO: remove; not constrained by the DDL -- EMPLOYEES.EMAIL is VARCHAR2(25) with no check
 //    @Email
     @Size(min = SIZE_MIN_EMAIL, max = SIZE_MAX_EMAIL)
     @NotNull
@@ -991,7 +993,7 @@ public class Employee implements __DomainEntity<Integer> {
     @Column(name = COLUMN_NAME_EMAIL,
             nullable = false,
             insertable = true,
-            updatable = false,
+            updatable = true,
             length = COLUMN_LENGTH_EMAIL,
             unique = true
     )
@@ -1009,6 +1011,7 @@ public class Employee implements __DomainEntity<Integer> {
     private String phoneNumber;
 
     @Nonnull
+    // TODO: remove; not constrained by the DDL -- EMPLOYEES.HIRE_DATE is DATE with no check
 //    @jakarta.validation.constraints.PastOrPresent // @@?
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
@@ -1034,17 +1037,24 @@ public class Employee implements __DomainEntity<Integer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-//    @Positive // @@?
-    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
-    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false)
+    @Positive // EMP_SALARY_MIN: CHECK (salary > 0)
+    @Digits(integer = COLUMN_PRECISION_SALARY - COLUMN_SCALE_SALARY, fraction = COLUMN_SCALE_SALARY)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
+    // TODO: remove; duplicates @Positive, which already states EMP_SALARY_MIN (salary > 0)
+//    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_SALARY, nullable = true, insertable = true, updatable = true,
             precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY)
     private BigDecimal salary;
 
     @Nullable
-    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT, inclusive = true)
-    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT, inclusive = true)
+    @Digits(integer = COLUMN_PRECISION_COMMISSION_PCT - COLUMN_SCALE_COMMISSION_PCT,
+            fraction = COLUMN_SCALE_COMMISSION_PCT)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT, inclusive = true)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT, inclusive = true)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_COMMISSION_PCT, nullable = true, insertable = true, updatable = true,
             precision = COLUMN_PRECISION_COMMISSION_PCT, scale = COLUMN_SCALE_COMMISSION_PCT)

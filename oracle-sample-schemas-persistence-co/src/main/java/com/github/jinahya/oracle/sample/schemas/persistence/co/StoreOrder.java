@@ -22,6 +22,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
@@ -36,7 +37,7 @@ import java.math.BigDecimal;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public class StoreOrder {
+public class StoreOrder implements __DomainEntity<Void> {
 
     /**
      * The name of the database view to which this class maps. The value is {@value}.
@@ -405,7 +406,8 @@ public class StoreOrder {
 
     // ---------------------------------------------------------------------------------------------------------------- 
 
-    @Size(max = SIZE_MAX_TOTAL)
+    // TODO: remove; not constrained by the DDL -- STORE_ORDERS.TOTAL is a computed CASE grouping_id(...) column
+//    @Size(max = SIZE_MAX_TOTAL)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_TOTAL,
             nullable = true,
@@ -423,7 +425,8 @@ public class StoreOrder {
             length = COLUMN_LENGTH_STORE_NAME)
     private String storeName;
 
-    @Size(max = SIZE_MAX_ADDRESS)
+    // TODO: remove; not constrained by the DDL -- STORE_ORDERS.ADDRESS is a computed COALESCE(web_address, physical_address) column
+//    @Size(max = SIZE_MAX_ADDRESS)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_ADDRESS,
             nullable = true,
@@ -432,10 +435,12 @@ public class StoreOrder {
             length = COLUMN_LENGTH_ADDRESS)
     private String address;
 
+    @Digits(integer = 3, fraction = 6) // STORES.LATITUDE NUMBER(9,6), projected as is
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LATITUDE, nullable = true, insertable = false, updatable = false)
     private BigDecimal latitude;
 
+    @Digits(integer = 3, fraction = 6) // STORES.LONGITUDE NUMBER(9,6), projected as is
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LONGITUDE, nullable = true, insertable = false, updatable = false)
     private BigDecimal longitude;

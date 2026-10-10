@@ -23,6 +23,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co.mapped;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
@@ -35,6 +36,7 @@ import java.util.function.Supplier;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedOrderItem
  */
+@MappedSuperclass
 public abstract class MappedOrderItemId {
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -86,7 +88,7 @@ public abstract class MappedOrderItemId {
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "orderId=" + orderId +
                ",lineItemId=" + lineItemId +

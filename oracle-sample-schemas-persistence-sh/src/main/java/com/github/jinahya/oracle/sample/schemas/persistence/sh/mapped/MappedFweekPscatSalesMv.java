@@ -33,12 +33,13 @@ import java.util.Objects;
  * A mapped superclass which holds the mappings of the {@value MappedFweekPscatSalesMv#TABLE_NAME} materialized view,
  * except for its identifier.
  *
- * @param <T> the type of the identifier; a subclass maps it as it chooses, and exposes it through {@link #getId_()}.
+ * @param <T> the type of the identifier; a subclass maps it as it chooses, and exposes it through
+ *            {@link #getIdValue()}.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedFweekPscatSalesMvId
  */
 @MappedSuperclass
-public abstract class MappedFweekPscatSalesMv<T extends MappedFweekPscatSalesMvId> {
+public abstract class MappedFweekPscatSalesMv<T extends MappedFweekPscatSalesMvId> implements __MappedDomainEntity<T> {
 
     /**
      * The name of the database materialized view to which this class maps. The value is {@value}.
@@ -171,7 +172,7 @@ public abstract class MappedFweekPscatSalesMv<T extends MappedFweekPscatSalesMvI
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + getId_() +
+               "id=" + getIdValue() +
                ",dollars=" + dollars +
                '}';
     }
@@ -181,26 +182,26 @@ public abstract class MappedFweekPscatSalesMv<T extends MappedFweekPscatSalesMvI
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the identifier a subclass exposes through {@link #getId_()}, alone.
+     * @implSpec Equality is by the identifier a subclass exposes through {@link #getIdValue()}, alone.
      */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof MappedFweekPscatSalesMv<?> that)) {
             return false;
         }
-        return Objects.equals(getId_(), that.getId_());
+        return Objects.equals(getIdValue(), that.getIdValue());
     }
 
     /**
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the identifier a subclass exposes through {@link #getId_()}, consistent with
+     * @implSpec The hash is over the identifier a subclass exposes through {@link #getIdValue()}, consistent with
      * {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(getId_());
+        return Objects.hashCode(getIdValue());
     }
 
     // -------------------------------------------------------------------------------------------------------------- id
@@ -212,7 +213,7 @@ public abstract class MappedFweekPscatSalesMv<T extends MappedFweekPscatSalesMvI
      * @return the identifier of this row; {@code null} if it has none yet.
      */
     @Transient
-    protected abstract T getId_();
+    protected abstract T getIdValue();
 
     // --------------------------------------------------------------------------------------------------------- dollars
 

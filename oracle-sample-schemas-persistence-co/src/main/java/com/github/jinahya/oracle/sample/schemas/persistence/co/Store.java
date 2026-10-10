@@ -35,8 +35,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -212,24 +211,24 @@ public class Store implements __DomainEntity<Long> {
      * The attribute takes geographic degrees, {@code -90} to {@code +90}, which is narrower than what the
      * {@value #COLUMN_NAME_LATITUDE} column can hold, {@value #COLUMN_MIN_LATITUDE} to {@value #COLUMN_MAX_LATITUDE}.
      */
-    public static String ATTRIBUTE_DECIMAL_MIN_LATITUDE = __DomainConstants.DECIMAL_MIN_LATITUDE;
+    public static final String ATTRIBUTE_DECIMAL_MIN_LATITUDE = __DomainConstants.DECIMAL_MIN_LATITUDE;
 
     /**
      * The maximum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute, as a decimal string.
      *
      * @see #ATTRIBUTE_DECIMAL_MIN_LATITUDE
      */
-    public static String ATTRIBUTE_DECIMAL_MAX_LATITUDE = __DomainConstants.DECIMAL_MAX_LATITUDE;
+    public static final String ATTRIBUTE_DECIMAL_MAX_LATITUDE = __DomainConstants.DECIMAL_MAX_LATITUDE;
 
     /**
      * The minimum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute.
      */
-    public static BigDecimal ATTRIBUTE_MIN_LATITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MIN_LATITUDE);
+    public static final BigDecimal ATTRIBUTE_MIN_LATITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MIN_LATITUDE);
 
     /**
      * The maximum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute.
      */
-    public static BigDecimal ATTRIBUTE_MAX_LATITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MAX_LATITUDE);
+    public static final BigDecimal ATTRIBUTE_MAX_LATITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MAX_LATITUDE);
 
     // ------------------------------------------------------------------------------------------------------- LONGITUDE
 
@@ -271,24 +270,24 @@ public class Store implements __DomainEntity<Long> {
      * {@value #COLUMN_NAME_LONGITUDE} column can hold, {@value #COLUMN_MIN_LONGITUDE} to
      * {@value #COLUMN_MAX_LONGITUDE}.
      */
-    public static String ATTRIBUTE_DECIMAL_MIN_LONGITUDE = __DomainConstants.DECIMAL_MIN_LONGITUDE;
+    public static final String ATTRIBUTE_DECIMAL_MIN_LONGITUDE = __DomainConstants.DECIMAL_MIN_LONGITUDE;
 
     /**
      * The maximum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute, as a decimal string.
      *
      * @see #ATTRIBUTE_DECIMAL_MIN_LONGITUDE
      */
-    public static String ATTRIBUTE_DECIMAL_MAX_LONGITUDE = __DomainConstants.DECIMAL_MAX_LONGITUDE;
+    public static final String ATTRIBUTE_DECIMAL_MAX_LONGITUDE = __DomainConstants.DECIMAL_MAX_LONGITUDE;
 
     /**
      * The minimum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute.
      */
-    public static BigDecimal ATTRIBUTE_MIN_LONGITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MIN_LONGITUDE);
+    public static final BigDecimal ATTRIBUTE_MIN_LONGITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MIN_LONGITUDE);
 
     /**
      * The maximum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute.
      */
-    public static BigDecimal ATTRIBUTE_MAX_LONGITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MAX_LONGITUDE);
+    public static final BigDecimal ATTRIBUTE_MAX_LONGITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MAX_LONGITUDE);
 
     // ------------------------------------------------------------------------------------------------------------ LOGO
 
@@ -474,7 +473,7 @@ public class Store implements __DomainEntity<Long> {
         if (!(obj instanceof Store that)) {
             return false;
         }
-        return Objects.equals(storeName, that.storeName);
+        return Objects.equals(getStoreName(), that.getStoreName());
     }
 
     /**
@@ -485,7 +484,7 @@ public class Store implements __DomainEntity<Long> {
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(storeName);
+        return Objects.hashCode(getStoreName());
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
@@ -844,6 +843,7 @@ public class Store implements __DomainEntity<Long> {
 //    public void setLogo(@jakarta.annotation.Nullable final Store_Logo logo) {
 //        this.logo = logo;
 //    }
+    // no @NotNull: database-generated identity; the value is null when the provider validates at pre-persist
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = COLUMN_NAME_STORE_ID, nullable = false,
@@ -889,10 +889,15 @@ public class Store implements __DomainEntity<Long> {
     private String physicalAddress;
 
     @Nullable
-    @DecimalMax(value = __DomainConstants.DECIMAL_MAX_LATITUDE, inclusive = true)
-    @DecimalMin(value = __DomainConstants.DECIMAL_MIN_LATITUDE, inclusive = true)
-    @DecimalMax(value = COLUMN_MAX_LATITUDE, inclusive = true)
-    @DecimalMin(value = COLUMN_MIN_LATITUDE, inclusive = true)
+    // TODO: remove; not constrained by the DDL -- STORES.LATITUDE is NUMBER(9,6) with no check; -90..+90 is a domain range
+//    @DecimalMax(value = __DomainConstants.DECIMAL_MAX_LATITUDE, inclusive = true)
+    // TODO: remove; not constrained by the DDL -- STORES.LATITUDE is NUMBER(9,6) with no check; -90..+90 is a domain range
+//    @DecimalMin(value = __DomainConstants.DECIMAL_MIN_LATITUDE, inclusive = true)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMax(value = COLUMN_MAX_LATITUDE, inclusive = true)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMin(value = COLUMN_MIN_LATITUDE, inclusive = true)
+    @Digits(integer = COLUMN_PRECISION_LATITUDE - COLUMN_SCALE_LATITUDE, fraction = COLUMN_SCALE_LATITUDE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LATITUDE,
             nullable = true,
@@ -904,10 +909,15 @@ public class Store implements __DomainEntity<Long> {
     private BigDecimal latitude;
 
     @Nullable
-    @DecimalMax(value = __DomainConstants.DECIMAL_MAX_LONGITUDE, inclusive = true)
-    @DecimalMin(value = __DomainConstants.DECIMAL_MIN_LONGITUDE, inclusive = true)
-    @DecimalMax(value = COLUMN_MAX_LONGITUDE, inclusive = true)
-    @DecimalMin(value = COLUMN_MIN_LONGITUDE, inclusive = true)
+    // TODO: remove; not constrained by the DDL -- STORES.LONGITUDE is NUMBER(9,6) with no check; -180..+180 is a domain range
+//    @DecimalMax(value = __DomainConstants.DECIMAL_MAX_LONGITUDE, inclusive = true)
+    // TODO: remove; not constrained by the DDL -- STORES.LONGITUDE is NUMBER(9,6) with no check; -180..+180 is a domain range
+//    @DecimalMin(value = __DomainConstants.DECIMAL_MIN_LONGITUDE, inclusive = true)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMax(value = COLUMN_MAX_LONGITUDE, inclusive = true)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMin(value = COLUMN_MIN_LONGITUDE, inclusive = true)
+    @Digits(integer = COLUMN_PRECISION_LONGITUDE - COLUMN_SCALE_LONGITUDE, fraction = COLUMN_SCALE_LONGITUDE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LONGITUDE,
             nullable = true,

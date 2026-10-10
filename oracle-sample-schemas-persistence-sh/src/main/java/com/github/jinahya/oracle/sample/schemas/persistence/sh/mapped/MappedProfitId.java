@@ -22,6 +22,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 
@@ -38,6 +39,7 @@ import java.util.function.Supplier;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedProfit
  */
+@MappedSuperclass
 public abstract class MappedProfitId {
 
     // -----------------------------------------------------------------------------------------------------------------

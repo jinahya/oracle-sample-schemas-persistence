@@ -22,9 +22,10 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -39,7 +40,7 @@ import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value Cost#TABLE_NAME} table, whose composite identifier is mapped with an
- * {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
+ * {@link jakarta.persistence.IdClass @IdClass}.
  * <p>
  * The table declares no primary key; the four dimension columns are its grain, and the {@code CANDIDATE_KEYS} section
  * of {@code src/test/sql/COSTS.sql} is what measured them.
@@ -48,6 +49,7 @@ import java.util.Optional;
  * @see CostId
  */
 @Entity
+@IdClass(CostId.class)
 @Table(name = Cost.TABLE_NAME)
 public class Cost implements __DomainEntity<CostId> {
 
@@ -65,8 +67,7 @@ public class Cost implements __DomainEntity<CostId> {
     public static final String COLUMN_NAME_PROD_ID = "PROD_ID";
 
     /**
-     * The name of the {@link CostId} attribute which maps the {@value #COLUMN_NAME_PROD_ID} column; this entity reaches
-     * it as {@value #ATTRIBUTE_NAME_ID_PROD_ID}. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
@@ -75,13 +76,6 @@ public class Cost implements __DomainEntity<CostId> {
      * {@link jakarta.persistence.ManyToOne @ManyToOne} association. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_PROD_ID = "id.prodId";
 
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
@@ -92,8 +86,7 @@ public class Cost implements __DomainEntity<CostId> {
     public static final String COLUMN_NAME_TIME_ID = "TIME_ID";
 
     /**
-     * The name of the {@link CostId} attribute which maps the {@value #COLUMN_NAME_TIME_ID} column; this entity reaches
-     * it as {@value #ATTRIBUTE_NAME_ID_TIME_ID}. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
@@ -102,13 +95,6 @@ public class Cost implements __DomainEntity<CostId> {
      * {@link jakarta.persistence.ManyToOne @ManyToOne} association. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_TIME = "time";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_TIME_ID = "id.timeId";
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
@@ -119,8 +105,7 @@ public class Cost implements __DomainEntity<CostId> {
     public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
 
     /**
-     * The name of the {@link CostId} attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column; this entity
-     * reaches it as {@value #ATTRIBUTE_NAME_ID_PROMO_ID}. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
@@ -129,13 +114,6 @@ public class Cost implements __DomainEntity<CostId> {
      * {@link jakarta.persistence.ManyToOne @ManyToOne} association. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMOTION = "promotion";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_PROMO_ID = "id.promoId";
 
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
@@ -146,8 +124,7 @@ public class Cost implements __DomainEntity<CostId> {
     public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
 
     /**
-     * The name of the {@link CostId} attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column; this entity
-     * reaches it as {@value #ATTRIBUTE_NAME_ID_CHANNEL_ID}. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
@@ -156,13 +133,6 @@ public class Cost implements __DomainEntity<CostId> {
      * {@link jakarta.persistence.ManyToOne @ManyToOne} association. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL = "channel";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_CHANNEL_ID = "id.channelId";
 
     // ------------------------------------------------------------------------------------------------------- UNIT_COST
 
@@ -210,12 +180,6 @@ public class Cost implements __DomainEntity<CostId> {
      */
     public static final String ATTRIBUTE_NAME_UNIT_PRICE = "unitPrice";
 
-    /**
-     * The name of the attribute which maps the identifying columns, as an
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID = "id";
-
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -230,7 +194,10 @@ public class Cost implements __DomainEntity<CostId> {
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + id +
+               "prodId=" + prodId +
+               ",timeId=" + timeId +
+               ",promoId=" + promoId +
+               ",channelId=" + channelId +
 //               ",product=" + product +
 //               ",time=" + time +
 //               ",promotion=" + promotion +
@@ -245,145 +212,130 @@ public class Cost implements __DomainEntity<CostId> {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the {@code @Id} alone.
+     * @implSpec Equality is by the four {@code @Id} attributes, compared as the {@link #getId() id} they make up.
      */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Cost that)) {
             return false;
         }
-        return Objects.equals(id, that.id);
+        return Objects.equals(getId(), that.getId());
     }
 
     /**
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     * @implSpec The hash is over the four {@code @Id} attributes, through {@link #getId()}, consistent with
+     * {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(getId());
     }
 
     // -------------------------------------------------------------------------------------------------------------- id
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * Returns a new {@link CostId} holding current values of the identifying attributes.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * @return a new {@link CostId} holding current values of the identifying attributes.
      */
     public CostId getId() {
-        return id;
+        return CostId.of(getProdId(), getTimeId(), getPromoId(), getChannelId());
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ID} attribute with the specified value.
+     * Replaces current values of the identifying attributes with those of the specified identifier.
      *
-     * @param id new value for {@value #ATTRIBUTE_NAME_ID} attribute.
+     * @param id the identifier whose values are applied; may be {@code null}, which clears every identifying
+     *           attribute.
      */
-    public void setId(final CostId id) {
-        this.id = id;
+    protected void setId(final CostId id) {
+        setProdId(Optional.ofNullable(id).map(CostId::getProdId).orElse(null));
+        setTimeId(Optional.ofNullable(id).map(CostId::getTimeId).orElse(null));
+        setPromoId(Optional.ofNullable(id).map(CostId::getPromoId).orElse(null));
+        setChannelId(Optional.ofNullable(id).map(CostId::getChannelId).orElse(null));
     }
 
     // ---------------------------------------------------------------------------------------------------------- prodId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute of the {@link #getId() id}.
+     * Returns current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute of the {@link #getId() id}; {@code null} if
-     * the id is {@code null}.
+     * @return current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
      */
     public Integer getProdId() {
-        return Optional.ofNullable(getId()).map(CostId::getProdId).orElse(null);
+        return prodId;
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute of the {@link #getId() id} with the
-     * specified value, setting a new id first if there is none.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute with the specified value.
      *
      * @param prodId new value for {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
      */
     protected void setProdId(final Integer prodId) {
-        if (getId() == null) {
-            setId(new CostId());
-        }
-        getId().setProdId(prodId);
+        this.prodId = prodId;
     }
 
     // ---------------------------------------------------------------------------------------------------------- timeId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute of the {@link #getId() id}.
+     * Returns current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute of the {@link #getId() id}; {@code null} if
-     * the id is {@code null}.
+     * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
     public LocalDateTime getTimeId() {
-        return Optional.ofNullable(getId()).map(CostId::getTimeId).orElse(null);
+        return timeId;
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute of the {@link #getId() id} with the
-     * specified value, setting a new id first if there is none.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute with the specified value.
      *
      * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
     protected void setTimeId(final LocalDateTime timeId) {
-        if (getId() == null) {
-            setId(new CostId());
-        }
-        getId().setTimeId(timeId);
+        this.timeId = timeId;
     }
 
     // --------------------------------------------------------------------------------------------------------- promoId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute of the {@link #getId() id}.
+     * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute of the {@link #getId() id}; {@code null} if
-     * the id is {@code null}.
+     * @return current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
      */
     public Integer getPromoId() {
-        return Optional.ofNullable(getId()).map(CostId::getPromoId).orElse(null);
+        return promoId;
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute of the {@link #getId() id} with the
-     * specified value, setting a new id first if there is none.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified value.
      *
      * @param promoId new value for {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
      */
     protected void setPromoId(final Integer promoId) {
-        if (getId() == null) {
-            setId(new CostId());
-        }
-        getId().setPromoId(promoId);
+        this.promoId = promoId;
     }
 
     // ------------------------------------------------------------------------------------------------------- channelId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute of the {@link #getId() id}.
+     * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute of the {@link #getId() id}; {@code null}
-     * if the id is {@code null}.
+     * @return current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
      */
     public Long getChannelId() {
-        return Optional.ofNullable(getId()).map(CostId::getChannelId).orElse(null);
+        return channelId;
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute of the {@link #getId() id} with the
-     * specified value, setting a new id first if there is none.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified value.
      *
      * @param channelId new value for {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
      */
     protected void setChannelId(final Long channelId) {
-        if (getId() == null) {
-            setId(new CostId());
-        }
-        getId().setChannelId(channelId);
+        this.channelId = channelId;
     }
 
     // -------------------------------------------------------------------------------------------------------- unitCost
@@ -428,10 +380,29 @@ public class Cost implements __DomainEntity<CostId> {
 
     // ---------------------------------------------------------------------------------------------------------------- 
 
-    @Valid
+    @Id
     @NotNull
-    @EmbeddedId
-    private CostId id;
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
+    private Integer prodId;
+
+    @Id
+    @NotNull
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
+    private LocalDateTime timeId;
+
+    @Id
+    @NotNull
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
+    private Integer promoId;
+
+    @Id
+    @NotNull
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
+    private Long channelId;
 
     @Valid
     // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the

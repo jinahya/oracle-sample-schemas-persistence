@@ -455,7 +455,8 @@ public class CustomerOrderProduct implements __DomainEntity<Long> {
     @Column(name = COLUMN_NAME_ORDER_TOTAL, nullable = true, insertable = false, updatable = false)
     private BigDecimal orderTotal;
 
-    @Size(max = SIZE_MAX_ITEMS)
+    // TODO: remove; not constrained by the DDL -- CUSTOMER_ORDER_PRODUCTS.ITEMS is a computed LISTAGG(...) column
+//    @Size(max = SIZE_MAX_ITEMS)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_ITEMS,
             nullable = true,

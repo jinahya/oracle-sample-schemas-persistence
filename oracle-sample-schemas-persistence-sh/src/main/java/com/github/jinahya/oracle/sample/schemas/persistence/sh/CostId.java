@@ -23,13 +23,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * An embeddable class for the composite identifier of the {@link Cost} entity class, which maps it with an
- * {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
+ * A class for the composite identifier of the {@link Cost} entity class, which maps it with an
+ * {@link jakarta.persistence.IdClass @IdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -227,18 +228,22 @@ public class CostId {
 
     // ---------------------------------------------------------------------------------------------------------------- 
 
+    @NotNull
     @Basic(optional = false)
     @Column(name = Cost.COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
     private Integer prodId;
 
+    @NotNull
     @Basic(optional = false)
     @Column(name = Cost.COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
     private LocalDateTime timeId;
 
+    @NotNull
     @Basic(optional = false)
     @Column(name = Cost.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
     private Integer promoId;
 
+    @NotNull
     @Basic(optional = false)
     @Column(name = Cost.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
     private Long channelId;

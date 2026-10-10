@@ -22,13 +22,11 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Digits;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -37,13 +35,12 @@ import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value FweekPscatSalesMv#TABLE_NAME} materialized view, whose composite identifier
- * is mapped with an {@link jakarta.persistence.IdClass @IdClass}.
+ * is mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see FweekPscatSalesMvId
  */
 @Entity
-@IdClass(FweekPscatSalesMvId.class)
 @Table(name = FweekPscatSalesMv.TABLE_NAME)
 public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
 
@@ -61,9 +58,17 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
     public static final String COLUMN_NAME_WEEK_ENDING_DAY = "WEEK_ENDING_DAY";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_WEEK_ENDING_DAY} column. The value is {@value}.
+     * The name of the {@link FweekPscatSalesMvId} attribute which maps the {@value #COLUMN_NAME_WEEK_ENDING_DAY}
+     * column; this entity reaches it as {@value #ATTRIBUTE_NAME_ID_WEEK_ENDING_DAY}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_WEEK_ENDING_DAY = "weekEndingDay";
+
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_WEEK_ENDING_DAY} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_ID_WEEK_ENDING_DAY = "id.weekEndingDay";
 
     // ------------------------------------------------------------------------------------------------ PROD_SUBCATEGORY
 
@@ -84,9 +89,17 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
     public static final int SIZE_MAX_PROD_SUBCATEGORY = COLUMN_LENGTH_PROD_SUBCATEGORY;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY} column. The value is {@value}.
+     * The name of the {@link FweekPscatSalesMvId} attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY}
+     * column; this entity reaches it as {@value #ATTRIBUTE_NAME_ID_PROD_SUBCATEGORY}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_SUBCATEGORY = "prodSubcategory";
+
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_ID_PROD_SUBCATEGORY = "id.prodSubcategory";
 
     // --------------------------------------------------------------------------------------------------------- DOLLARS
 
@@ -110,9 +123,17 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
     public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     * The name of the {@link FweekPscatSalesMvId} attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column;
+     * this entity reaches it as {@value #ATTRIBUTE_NAME_ID_CHANNEL_ID}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
+
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_ID_CHANNEL_ID = "id.channelId";
 
     /**
      * The precision of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
@@ -133,9 +154,17 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
     public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     * The name of the {@link FweekPscatSalesMvId} attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column; this
+     * entity reaches it as {@value #ATTRIBUTE_NAME_ID_PROMO_ID}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
+
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_ID_PROMO_ID = "id.promoId";
 
     /**
      * The precision of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
@@ -146,6 +175,14 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
      * The scale of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_PROMO_ID = 0;
+
+    // -------------------------------------------------------------------------------------------------------------- id
+
+    /**
+     * The name of the attribute which maps the identifying columns, as an
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_ID = "id";
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -161,10 +198,7 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "weekEndingDay=" + weekEndingDay +
-               ",prodSubcategory=" + prodSubcategory +
-               ",channelId=" + channelId +
-               ",promoId=" + promoId +
+               "id=" + id +
                ",dollars=" + dollars +
                '}';
     }
@@ -174,146 +208,145 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the four {@code @Id} attributes, compared as the {@link #getId() id} they make up.
+     * @implSpec Equality is by the {@code @Id} alone.
      */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof FweekPscatSalesMv that)) {
             return false;
         }
-        return Objects.equals(getId(), that.getId());
+        return Objects.equals(id, that.id);
     }
 
     /**
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the four {@code @Id} attributes, through {@link #getId()}, consistent with
-     * {@link #equals(Object)}.
+     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(id);
     }
 
     // -------------------------------------------------------------------------------------------------------------- id
 
     /**
-     * Returns a new {@link FweekPscatSalesMvId} holding current values of the identifying attributes.
+     * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
      *
-     * @return a new {@link FweekPscatSalesMvId} holding current values of the identifying attributes.
+     * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
      */
     public FweekPscatSalesMvId getId() {
-        return FweekPscatSalesMvId.of(getWeekEndingDay(), getProdSubcategory(), getChannelId(), getPromoId());
+        return id;
     }
 
     /**
-     * Replaces current values of the identifying attributes with those of the specified identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ID} attribute with the specified value.
      *
-     * @param id the identifier whose values are applied; may be {@code null}, which clears every identifying
-     *           attribute.
+     * @param id new value for {@value #ATTRIBUTE_NAME_ID} attribute.
      */
-    protected void setId(final FweekPscatSalesMvId id) {
-        setWeekEndingDay(
-                Optional.ofNullable(id)
-                        .map(FweekPscatSalesMvId::getWeekEndingDay)
-                        .orElse(null)
-        );
-        setProdSubcategory(
-                Optional.ofNullable(id)
-                        .map(FweekPscatSalesMvId::getProdSubcategory)
-                        .orElse(null)
-        );
-        setChannelId(
-                Optional.ofNullable(id)
-                        .map(FweekPscatSalesMvId::getChannelId)
-                        .orElse(null)
-        );
-        setPromoId(
-                Optional.ofNullable(id)
-                        .map(FweekPscatSalesMvId::getPromoId)
-                        .orElse(null)
-        );
+    public void setId(final FweekPscatSalesMvId id) {
+        this.id = id;
     }
 
     // --------------------------------------------------------------------------------------------------- weekEndingDay
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute of the {@link #getId() id}.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute of the {@link #getId() id};
+     * {@code null} if the id is {@code null}.
      */
     public LocalDateTime getWeekEndingDay() {
-        return weekEndingDay;
+        return Optional.ofNullable(getId()).map(FweekPscatSalesMvId::getWeekEndingDay).orElse(null);
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute of the {@link #getId() id} with the
+     * specified value, setting a new id first if there is none.
      *
      * @param weekEndingDay new value for {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
      */
     public void setWeekEndingDay(final LocalDateTime weekEndingDay) {
-        this.weekEndingDay = weekEndingDay;
+        if (getId() == null) {
+            setId(new FweekPscatSalesMvId());
+        }
+        getId().setWeekEndingDay(weekEndingDay);
     }
 
     // ------------------------------------------------------------------------------------------------- prodSubcategory
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute of the {@link #getId() id}.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute of the {@link #getId() id};
+     * {@code null} if the id is {@code null}.
      */
     public String getProdSubcategory() {
-        return prodSubcategory;
+        return Optional.ofNullable(getId()).map(FweekPscatSalesMvId::getProdSubcategory).orElse(null);
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute of the {@link #getId() id} with the
+     * specified value, setting a new id first if there is none.
      *
      * @param prodSubcategory new value for {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute.
      */
     public void setProdSubcategory(final String prodSubcategory) {
-        this.prodSubcategory = prodSubcategory;
+        if (getId() == null) {
+            setId(new FweekPscatSalesMvId());
+        }
+        getId().setProdSubcategory(prodSubcategory);
     }
 
     // ------------------------------------------------------------------------------------------------------- channelId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute of the {@link #getId() id}.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute of the {@link #getId() id}; {@code null}
+     * if the id is {@code null}.
      */
     public Long getChannelId() {
-        return channelId;
+        return Optional.ofNullable(getId()).map(FweekPscatSalesMvId::getChannelId).orElse(null);
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute of the {@link #getId() id} with the
+     * specified value, setting a new id first if there is none.
      *
      * @param channelId new value for {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
      */
     public void setChannelId(final Long channelId) {
-        this.channelId = channelId;
+        if (getId() == null) {
+            setId(new FweekPscatSalesMvId());
+        }
+        getId().setChannelId(channelId);
     }
 
     // --------------------------------------------------------------------------------------------------------- promoId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute of the {@link #getId() id}.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute of the {@link #getId() id}; {@code null} if
+     * the id is {@code null}.
      */
     public Integer getPromoId() {
-        return promoId;
+        return Optional.ofNullable(getId()).map(FweekPscatSalesMvId::getPromoId).orElse(null);
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute of the {@link #getId() id} with the
+     * specified value, setting a new id first if there is none.
      *
      * @param promoId new value for {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
      */
     public void setPromoId(final Integer promoId) {
-        this.promoId = promoId;
+        if (getId() == null) {
+            setId(new FweekPscatSalesMvId());
+        }
+        getId().setPromoId(promoId);
     }
 
     // --------------------------------------------------------------------------------------------------------- dollars
@@ -338,48 +371,10 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
 
     // ---------------------------------------------------------------------------------------------------------------- 
 
-    @Id
+    @Valid
     @NotNull
-    @Basic(optional = false)
-    // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
-    // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
-    // primary key field", EclipseLink-46. Nothing writes to a view anyway.
-    @Column(name = COLUMN_NAME_WEEK_ENDING_DAY, nullable = false, insertable = true, updatable = false)
-    private LocalDateTime weekEndingDay;
-
-    @Id
-    @Size(max = SIZE_MAX_PROD_SUBCATEGORY)
-    @NotNull
-    @Basic(optional = false)
-    // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
-    // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
-    // primary key field", EclipseLink-46. Nothing writes to a view anyway.
-    @Column(name = COLUMN_NAME_PROD_SUBCATEGORY,
-            nullable = false,
-            insertable = true,
-            updatable = false,
-            length = COLUMN_LENGTH_PROD_SUBCATEGORY)
-    private String prodSubcategory;
-
-    @Id
-    @NotNull
-    @Digits(integer = COLUMN_PRECISION_CHANNEL_ID - COLUMN_SCALE_CHANNEL_ID, fraction = COLUMN_SCALE_CHANNEL_ID)
-    @Basic(optional = false)
-    // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
-    // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
-    // primary key field", EclipseLink-46. Nothing writes to a view anyway.
-    @Column(name = COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
-    private Long channelId;
-
-    @Id
-    @NotNull
-    @Digits(integer = COLUMN_PRECISION_PROMO_ID - COLUMN_SCALE_PROMO_ID, fraction = COLUMN_SCALE_PROMO_ID)
-    @Basic(optional = false)
-    // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
-    // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
-    // primary key field", EclipseLink-46. Nothing writes to a view anyway.
-    @Column(name = COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
-    private Integer promoId;
+    @EmbeddedId
+    private FweekPscatSalesMvId id;
 
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_DOLLARS, nullable = true, insertable = false, updatable = false)

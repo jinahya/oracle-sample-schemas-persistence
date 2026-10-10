@@ -38,10 +38,9 @@ EXEC DBMS_MVIEW.REFRESH('SH.FWEEK_PSCAT_SALES_MV', 'C');
 declare no primary key and no unique constraint**, and carry only non-unique bitmap indexes on
 their dimension columns. Both are measured below; every other table is answered by its constraint.
 
-Where a composite identifier is mapped, it is mapped twice — once with an `@IdClass` and once with
-an `@EmbeddedId`, over one shared id class — as `CO.ORDER_ITEMS` and `HR.JOB_HISTORY` already are.
-Only the `@EmbeddedId` flavour of each pair is listed in `persistence.xml`; see `CLAUDE.md` for why
-the two may not both be.
+Each composite identifier is mapped once, and the two styles are split evenly: of the two tables,
+`COSTS` uses an `@IdClass` and `SALES` an `@EmbeddedId`; of the two views, `PROFITS` uses an
+`@IdClass` and `FWEEK_PSCAT_SALES_MV` an `@EmbeddedId`.
 
 [cols="4,3,2,3",options="header"]
 |===
@@ -80,8 +79,8 @@ No single column is anywhere near unique. `(PROD_ID, TIME_ID, PROMO_ID, CHANNEL_
 duplicate groups and all four are `NOT NULL` — the grain the table is obviously meant to
 have, and the four columns `PROFITS` joins on.
 
-`Cost` maps it with an `@EmbeddedId`, `CostId`, each of the four columns carrying a read-only
-`@ManyToOne` to its dimension alongside the identifier.
+`Cost` maps it with an `@IdClass`, `CostId`, each of the four `@Id` columns carrying a read-only
+`@ManyToOne` to its dimension alongside it.
 
 CAUTION: it is a measurement, not a constraint. Nothing in the schema stops a second cost row for
 the same product, day, promotion and channel from appearing, and the JPA identity built on those
@@ -136,7 +135,7 @@ None of the three declares anything, so all three were measured.
 | `WEEK_ENDING_DAY`, `PROD_SUBCATEGORY`, `CHANNEL_ID`, `PROMO_ID`
 | yes, composite
 | the materialized query's whole `GROUP BY` key; all four are `NOT NULL`. Mapped by
-  `FweekPscatSalesMv`, with an `@IdClass`, `FweekPscatSalesMvId`.
+  `FweekPscatSalesMv`, with an `@EmbeddedId`, `FweekPscatSalesMvId`.
 |===
 
 === PROFITS
@@ -201,4 +200,4 @@ is the aggregate, not the key.
 
 `(WEEK_ENDING_DAY, PROD_SUBCATEGORY, CHANNEL_ID, PROMO_ID)` is the materialized query's whole
 `GROUP BY` list and every one of the four is `NOT NULL` — a composite identifier, which
-`FweekPscatSalesMv` maps with an `@IdClass`, `FweekPscatSalesMvId`. `DOLLARS` is the aggregate.
+`FweekPscatSalesMv` maps with an `@EmbeddedId`, `FweekPscatSalesMvId`. `DOLLARS` is the aggregate.

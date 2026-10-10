@@ -30,9 +30,7 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -275,7 +273,7 @@ public class Job implements __DomainEntity<String> {
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof Job that)) return false;
-        return Objects.equals(jobId, that.jobId);
+        return Objects.equals(getJobId(), that.getJobId());
     }
 
     /**
@@ -286,7 +284,7 @@ public class Job implements __DomainEntity<String> {
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(jobId);
+        return Objects.hashCode(getJobId());
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
@@ -328,7 +326,8 @@ public class Job implements __DomainEntity<String> {
      *
      * @return {@code true} if the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is positive; {@code false} otherwise.
      */
-    @AssertTrue
+    // TODO: remove; not constrained by the DDL -- JOBS.MIN_SALARY is NUMBER(6) with no check
+//    @AssertTrue
     protected boolean isMinSalaryPositive() {
         if (minSalary == null) {
             return true;
@@ -343,7 +342,8 @@ public class Job implements __DomainEntity<String> {
      *
      * @return {@code true} if the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute is positive; {@code false} otherwise.
      */
-    @AssertTrue
+    // TODO: remove; not constrained by the DDL -- JOBS.MAX_SALARY is NUMBER(6) with no check
+//    @AssertTrue
     protected boolean isMaxSalaryPositive() {
         if (maxSalary == null) {
             return true;
@@ -360,7 +360,8 @@ public class Job implements __DomainEntity<String> {
      * @return {@code true} if the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or equal to the
      * {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute; {@code false} otherwise.
      */
-    @AssertTrue
+    // TODO: remove; not constrained by the DDL -- JOBS declares no check relating MIN_SALARY to MAX_SALARY
+//    @AssertTrue
     protected boolean isMinSalaryLessThanOrEqualToMaxSalary() {
         if (minSalary == null || maxSalary == null) {
             return true;
@@ -496,23 +497,23 @@ public class Job implements __DomainEntity<String> {
      */
     @Deprecated(forRemoval = true)
     public void setMaxSalaryWhileAdjustingMinSalary(@jakarta.annotation.Nullable final Integer maxSalary) {
-        if (maxSalary != null && (maxSalary < ATTRIBUTE_MAX_MAX_SALARY || maxSalary > ATTRIBUTE_MIN_MAX_SALARY)) {
+        if (maxSalary != null && (maxSalary < ATTRIBUTE_MIN_MAX_SALARY || maxSalary > ATTRIBUTE_MAX_MAX_SALARY)) {
             throw new IllegalArgumentException(
-                    "maxSalary(" + maxSalary + ") is out of [" + ATTRIBUTE_MAX_MAX_SALARY + ".."
-                    + ATTRIBUTE_MIN_MAX_SALARY + "]");
+                    "maxSalary(" + maxSalary + ") is out of [" + ATTRIBUTE_MIN_MAX_SALARY + ".."
+                    + ATTRIBUTE_MAX_MAX_SALARY + "]");
         }
         setMaxSalary(maxSalary);
         {
             final var currentMinSalary = getMinSalary();
             final var currentMaxSalary = getMaxSalary();
-            if (currentMinSalary != null && currentMaxSalary != null && currentMinSalary < currentMaxSalary) {
+            if (currentMinSalary != null && currentMaxSalary != null && currentMinSalary > currentMaxSalary) {
                 setMinSalary(currentMaxSalary);
             }
         }
         {
             final var currentMinSalary = getMinSalary();
             assert currentMinSalary == null
-                   || (currentMinSalary >= ATTRIBUTE_MAX_MAX_SALARY && currentMinSalary <= ATTRIBUTE_MIN_MAX_SALARY);
+                   || (currentMinSalary >= ATTRIBUTE_MIN_MAX_SALARY && currentMinSalary <= ATTRIBUTE_MAX_MAX_SALARY);
         }
     }
 
@@ -578,8 +579,11 @@ public class Job implements __DomainEntity<String> {
     private String jobTitle;
 
     @jakarta.annotation.Nullable
-    @Max(ATTRIBUTE_MAX_MIN_SALARY)
-    @Min(ATTRIBUTE_MIN_MIN_SALARY)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(ATTRIBUTE_MAX_MIN_SALARY)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(ATTRIBUTE_MIN_MIN_SALARY)
+    @Digits(integer = COLUMN_PRECISION_MIN_SALARY, fraction = 0)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_MIN_SALARY,
             nullable = true,
@@ -591,8 +595,11 @@ public class Job implements __DomainEntity<String> {
     private Integer minSalary;
 
     @jakarta.annotation.Nullable
-    @Max(ATTRIBUTE_MAX_MAX_SALARY)
-    @Min(ATTRIBUTE_MIN_MAX_SALARY)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(ATTRIBUTE_MAX_MAX_SALARY)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(ATTRIBUTE_MIN_MAX_SALARY)
+    @Digits(integer = COLUMN_PRECISION_MAX_SALARY, fraction = 0)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_MAX_SALARY,
             nullable = true,

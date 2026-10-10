@@ -69,7 +69,7 @@ public abstract class MappedChannelKeyValue {
     @Override
     public String toString() {
         return super.toString() + '{' +
-               ",key=" + key +
+               "key=" + key +
                ",value=" + value +
                '}';
     }

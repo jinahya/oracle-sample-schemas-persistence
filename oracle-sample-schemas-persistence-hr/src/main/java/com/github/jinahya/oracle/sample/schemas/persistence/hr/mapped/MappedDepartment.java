@@ -27,8 +27,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -48,7 +47,7 @@ import java.util.Objects;
  * @author Myoungkwon Hwang
  */
 @MappedSuperclass
-public abstract class MappedDepartment {
+public abstract class MappedDepartment implements __MappedDomainEntity<Integer> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.
@@ -343,8 +342,11 @@ public abstract class MappedDepartment {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
-    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
+    @Digits(integer = COLUMN_PRECISION_DEPARTMENT_ID, fraction = 0)
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_DEPARTMENT_ID,
@@ -371,6 +373,11 @@ public abstract class MappedDepartment {
 
     // -----------------------------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(ATTRIBUTE_MAX_MANAGER_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(ATTRIBUTE_MIN_MANAGER_ID)
+    @Digits(integer = COLUMN_PRECISION_MANAGER_ID, fraction = 0)
     @Column(name = COLUMN_NAME_MANAGER_ID,
             nullable = COLUMN_NULLABLE_MANAGER_ID,
             insertable = false,
@@ -382,6 +389,11 @@ public abstract class MappedDepartment {
 
     // -----------------------------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(ATTRIBUTE_MAX_LOCATION_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(ATTRIBUTE_MIN_LOCATION_ID)
+    @Digits(integer = COLUMN_PRECISION_LOCATION_ID, fraction = 0)
     @Column(name = COLUMN_NAME_LOCATION_ID,
             nullable = COLUMN_NULLABLE_LOCATION_ID,
             insertable = false,

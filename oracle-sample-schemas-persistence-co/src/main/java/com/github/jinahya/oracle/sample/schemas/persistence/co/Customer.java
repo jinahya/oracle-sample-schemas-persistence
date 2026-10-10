@@ -31,9 +31,7 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.util.List;
@@ -203,7 +201,7 @@ public class Customer implements __DomainEntity<Long> {
         if (!(obj instanceof Customer that)) {
             return false;
         }
-        return Objects.equals(emailAddress, that.emailAddress);
+        return Objects.equals(getEmailAddress(), that.getEmailAddress());
     }
 
     /**
@@ -214,7 +212,7 @@ public class Customer implements __DomainEntity<Long> {
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(emailAddress);
+        return Objects.hashCode(getEmailAddress());
     }
 
     // ------------------------------------------------------------------------------------------------------ customerId
@@ -325,7 +323,9 @@ public class Customer implements __DomainEntity<Long> {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     @Id
-    @Positive // ???
+    // TODO: remove; not constrained by the DDL -- CUSTOMERS.CUSTOMER_ID is an INTEGER identity with no check
+//    @Positive // ???
+    // no @NotNull: database-generated identity; the value is null when the provider validates at pre-persist
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(
             name = COLUMN_NAME_CUSTOMER_ID,
@@ -340,7 +340,8 @@ public class Customer implements __DomainEntity<Long> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Email
+    // TODO: remove; not constrained by the DDL -- CUSTOMERS.EMAIL_ADDRESS is VARCHAR2(255 CHAR) with no check
+//    @Email
     @Size(min = SIZE_MIN_NAME_EMAIL_ADDRESS, max = SIZE_MAX_NAME_EMAIL_ADDRESS)
     @NotNull
     @Column(name = COLUMN_NAME_EMAIL_ADDRESS,

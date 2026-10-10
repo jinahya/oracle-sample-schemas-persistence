@@ -12,9 +12,10 @@ independent of each other, tests included: each carries its own test bases in it
 
 **These are pure Jakarta Persistence modules.** Two rules follow from that:
 
-- No dependency on `io.github.jinahya:jinahya-persistence-*`, or on any other
-  persistence helper library. Everything the entities need comes from
-  `jakarta.persistence`, `jakarta.validation` and `jakarta.annotation`.
+- No main-scope dependency on `io.github.jinahya:jinahya-persistence-*`, or on any
+  other persistence helper library. Everything the entities need comes from
+  `jakarta.persistence`, `jakarta.validation` and `jakarta.annotation`. Tests may
+  use `jinahya-persistence-*` (e.g. `jinahya-persistence-test-utils`, `test` scope).
 - **Every entity is standalone.** No entity extends a superclass and there is no
   builder layer: one class holds its own column constants, fields, accessors,
   `toString`, and `equals`/`hashCode`. Do not introduce a shared entity superclass
@@ -139,8 +140,17 @@ primary keys, one per module, and each module shows one style on it: `co`'s `ORD
 `JOB_HISTORY` is `JobHistory` with an `@IdClass` (`JobHistoryId`). Do not add the other style
 alongside -- a class name carries no `WithEmbeddedId` / `WithIdClass` postfix because there is only
 ever one. `co`'s `ProductOrder` (over a view) also uses an `@EmbeddedId`. `sh` declares no composite
-key; the identifiers it chooses for its unkeyed tables and views use both styles -- `@EmbeddedId`
-for `Sale` and `Cost`, `@IdClass` for `Profit` and `FweekPscatSalesMv`.
+key; the identifiers it chooses for its unkeyed tables and views use both styles, one of each per
+kind of object -- of the tables, `Sale` uses an `@EmbeddedId` and `Cost` an `@IdClass`; of the
+views, `FweekPscatSalesMv` uses an `@EmbeddedId` and `Profit` an `@IdClass`.
+
+The `Mapped*` counterparts split the same way. An `@IdClass` one (`MappedJobHistory`, `MappedCost`,
+`MappedProfit`) maps the `@Id` attributes itself, as basic types, and compares by them, so it takes
+no type parameter: an extending entity adds only `@IdClass(...)`. An `@EmbeddedId` one
+(`MappedOrderItem`, `MappedProductOrder`, `MappedSale`, `MappedFweekPscatSalesMv`) cannot declare
+the identifier, because EclipseLink rejects an `@EmbeddedId` typed by a type variable
+(`EclipseLink-7246`); it takes the id type as `<T>`, and the extending entity declares the
+`@EmbeddedId` and implements `getIdValue()`, by which the class compares.
 
 The entity's own `ATTRIBUTE_NAME_*` constants stay, for the places a metamodel reference
 cannot go: an annotation value must be a compile-time constant, so `mappedBy` takes

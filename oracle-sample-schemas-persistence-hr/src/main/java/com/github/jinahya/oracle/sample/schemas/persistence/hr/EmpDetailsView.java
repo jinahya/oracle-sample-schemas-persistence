@@ -27,6 +27,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -399,7 +400,7 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
         if (!(obj instanceof EmpDetailsView that)) {
             return false;
         }
-        return Objects.equals(employeeId, that.employeeId);
+        return Objects.equals(getEmployeeId(), that.getEmployeeId());
     }
 
     /**
@@ -410,7 +411,7 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(employeeId);
+        return Objects.hashCode(getEmployeeId());
     }
 
     // ------------------------------------------------------------------------------------------------------ employeeId
@@ -753,6 +754,8 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
 
     @Id
     @Nonnull
+    @Digits(integer = COLUMN_PRECISION_EMPLOYEE_ID, fraction = 0)
+    @NotNull
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects insertable=false on an @Id --
     // "There should be one non-read-only mapping defined for the primary key field", EclipseLink-46. Nothing writes to
@@ -763,20 +766,24 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
     @Nonnull
     @Basic(optional = false)
     @Size(max = SIZE_MAX_JOB_ID)
+    @NotNull
     @Column(name = COLUMN_NAME_JOB_ID, nullable = false, insertable = false, updatable = false,
             length = COLUMN_LENGTH_JOB_ID)
     private String jobId;
 
     @jakarta.annotation.Nullable
+    @Digits(integer = 6, fraction = 0)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_MANAGER_ID, nullable = true, insertable = false, updatable = false)
     private Integer managerId;
 
     @jakarta.annotation.Nullable
+    @Digits(integer = 4, fraction = 0)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_DEPARTMENT_ID, nullable = true, insertable = false, updatable = false)
     private Integer departmentId;
 
+    @Digits(integer = 4, fraction = 0)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOCATION_ID, nullable = true, insertable = false, updatable = false)
     private Integer locationId;
@@ -794,15 +801,19 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
 
     @Basic(optional = false)
     @Size(max = SIZE_MAX_LAST_NAME)
+    @NotNull
     @Column(name = COLUMN_NAME_LAST_NAME, nullable = false, insertable = false, updatable = false,
             length = COLUMN_LENGTH_LAST_NAME)
     private String lastName;
 
+    @Digits(integer = COLUMN_PRECISION_SALARY - COLUMN_SCALE_SALARY, fraction = COLUMN_SCALE_SALARY)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_SALARY, nullable = true, insertable = false, updatable = false,
             precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY)
     private BigDecimal salary;
 
+    @Digits(integer = COLUMN_PRECISION_COMMISSION_PCT - COLUMN_SCALE_COMMISSION_PCT,
+            fraction = COLUMN_SCALE_COMMISSION_PCT)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_COMMISSION_PCT, nullable = true, insertable = false, updatable = false,
             precision = COLUMN_PRECISION_COMMISSION_PCT, scale = COLUMN_SCALE_COMMISSION_PCT)

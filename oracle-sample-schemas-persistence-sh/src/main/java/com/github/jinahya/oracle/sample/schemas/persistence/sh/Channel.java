@@ -324,6 +324,7 @@ public class Channel implements __DomainEntity<Long> {
     // --------------------------------------------------------------------------------------------------------------- 
     // --------------------------------------------------------------------------------------------------------------- 
 
+    @NotNull
     @Id
     @Column(name = COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
     private Long channelId;

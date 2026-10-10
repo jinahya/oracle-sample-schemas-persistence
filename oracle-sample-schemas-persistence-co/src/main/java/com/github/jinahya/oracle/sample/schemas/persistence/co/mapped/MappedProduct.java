@@ -30,10 +30,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
@@ -48,7 +46,7 @@ import java.util.function.Function;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedProduct {
+public abstract class MappedProduct implements __MappedDomainEntity<Long> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.
@@ -273,6 +271,7 @@ public abstract class MappedProduct {
         if (!(obj instanceof MappedProduct that)) {
             return false;
         }
+        final var productId = getProductId();
         return productId != null && productId.equals(that.getProductId());
     }
 
@@ -280,12 +279,14 @@ public abstract class MappedProduct {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is constant -- the class's -- so that it does not change when the generated {@code @Id} is
-     * assigned on persist, which would lose an instance already held in a hash-based collection.
+     * @implSpec The hash is constant so that it does not change when the generated {@code @Id} is assigned on persist,
+     * which would lose an instance already held in a hash-based collection. It is {@code MappedProduct}'s rather than
+     * {@link #getClass()}'s, because a lazy proxy's class is a generated subclass and must hash alike to the instance
+     * it stands for.
      */
     @Override
     public final int hashCode() {
-        return getClass().hashCode();
+        return MappedProduct.class.hashCode();
     }
 
     // ------------------------------------------------------------------------------------------------------- productId
@@ -511,7 +512,9 @@ public abstract class MappedProduct {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Positive
+    // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_ID is an INTEGER identity with no check
+//    @Positive
+    // no @NotNull: database-generated identity; the value is null when the provider validates at pre-persist
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = COLUMN_NAME_PRODUCT_ID,
@@ -539,8 +542,11 @@ public abstract class MappedProduct {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @DecimalMax(value = DECIMAL_MAX_UNIT_PRICE, inclusive = true)
-    @DecimalMin(value = DECIMAL_MIN_UNIT_PRICE, inclusive = true)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMax(value = DECIMAL_MAX_UNIT_PRICE, inclusive = true)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMin(value = DECIMAL_MIN_UNIT_PRICE, inclusive = true)
+    @Digits(integer = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE, fraction = COLUMN_SCALE_UNIT_PRICE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_UNIT_PRICE,
             nullable = true,

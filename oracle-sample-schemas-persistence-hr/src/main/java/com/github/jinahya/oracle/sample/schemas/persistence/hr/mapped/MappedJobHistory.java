@@ -25,34 +25,41 @@ import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
- * A mapped superclass which holds the mappings of the {@value MappedJobHistory#TABLE_NAME} table, except for its
- * identifier.
+ * A mapped superclass which holds the mappings of the {@value MappedJobHistory#TABLE_NAME} table, including the two
+ * {@link Id @Id} attributes of its composite primary key.
+ * <p>
+ * The identifier is mapped with an {@link jakarta.persistence.IdClass @IdClass}: an extending entity names its id
+ * class, a subclass of {@link MappedJobHistoryId}, with {@code @IdClass} and inherits the {@code @Id} attributes from
+ * here.
+ * <p>
+ * Rows of the table are written by the database's {@code UPDATE_JOB_HISTORY} trigger only, so the mapping is read-only,
+ * like {@code JobHistory}'s: no attribute has a setter, and every column except the two {@code @Id} ones is neither
+ * insertable nor updatable. The {@code @Id} columns stay {@code insertable = true} only because EclipseLink rejects an
+ * identifier with no writable mapping (EclipseLink-46).
  * <p>
  * The {@value MappedJobHistory#COLUMN_NAME_JOB_ID} and {@value MappedJobHistory#COLUMN_NAME_DEPARTMENT_ID} columns are
- * mapped read-only ({@code insertable = false, updatable = false}), with a {@code protected} getter and no setter, for
- * {@link #toString()} and for queries. How the relationship behind each is mapped -- fetch type, cascade, whether there
- * is an association at all -- is the extending entity's decision, so the extending entity also owns their writable
- * mapping, by an association's {@link jakarta.persistence.JoinColumn @JoinColumn} or by an
- * {@link jakarta.persistence.AttributeOverride @AttributeOverride}. <strong>An extending entity which maps neither
- * never writes them.</strong> Being read-only, they are populated by a load or a refresh only.
+ * mapped as basic values, with a {@code protected} getter, for {@link #toString()} and for queries. Whether the
+ * relationship behind each is also mapped -- an association joined on the column, its fetch type -- is the extending
+ * entity's decision; such an association is read-only too, as {@code JobHistory}'s {@code job} and {@code department}
+ * are. Every column is populated by a load or a refresh only.
  *
- * @param <T> the type of the identifier; a subclass maps it as it chooses, and exposes it through {@link #id_()}.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedJobHistoryId
  */
 @MappedSuperclass
-public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
+public abstract class MappedJobHistory implements __MappedDomainEntity<MappedJobHistoryId> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.
@@ -62,8 +69,8 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
-     * The name of the table column to which the {@value MappedJobHistoryId#ATTRIBUTE_NAME_EMPLOYEE_ID} attribute of
-     * {@link MappedJobHistoryId} maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_EMPLOYEE_ID = "EMPLOYEE_ID";
 
@@ -71,6 +78,12 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
      * Whether the {@value #COLUMN_NAME_EMPLOYEE_ID} column is nullable. The value is {@value}.
      */
     public static final boolean COLUMN_NULLABLE_EMPLOYEE_ID = false;
+
+    /**
+     * The name of the {@link Id @Id} attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is
+     * {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = MappedJobHistoryId.ATTRIBUTE_NAME_EMPLOYEE_ID;
 
     /**
      * The precision of the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
@@ -93,22 +106,20 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
     public static final int COLUMN_MAX_EMPLOYEE_ID = +999999;
 
     /**
-     * The minimum value of the {@value MappedJobHistoryId#ATTRIBUTE_NAME_EMPLOYEE_ID} attribute of
-     * {@link MappedJobHistoryId}. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is {@value}.
      */
-    public static final long ATTRIBUTE_MIN_ID_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
+    public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
 
     /**
-     * The maximum value of the {@value MappedJobHistoryId#ATTRIBUTE_NAME_EMPLOYEE_ID} attribute of
-     * {@link MappedJobHistoryId}. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is {@value}.
      */
-    public static final long ATTRIBUTE_MAX_ID_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
+    public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
 
     // ------------------------------------------------------------------------------------------------------ START_DATE
 
     /**
-     * The name of the table column to which the {@value MappedJobHistoryId#ATTRIBUTE_NAME_START_DATE} attribute of
-     * {@link MappedJobHistoryId} maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_START_DATE} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_START_DATE = "START_DATE";
 
@@ -118,11 +129,16 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
     public static final boolean COLUMN_NULLABLE_START_DATE = false;
 
     /**
-     * A comparator which compares the {@value MappedJobHistoryId#ATTRIBUTE_NAME_START_DATE} of the identifier a
-     * subclass exposes through {@link #id_()}.
+     * The name of the {@link Id @Id} attribute which maps the {@value #COLUMN_NAME_START_DATE} column. The value is
+     * {@value}.
      */
-    public static final Comparator<MappedJobHistory<?>> COMPARING_ID_START_DATE =
-            Comparator.comparing(v -> v.id_().getStartDate());
+    public static final String ATTRIBUTE_NAME_START_DATE = MappedJobHistoryId.ATTRIBUTE_NAME_START_DATE;
+
+    /**
+     * A comparator which compares the {@value #ATTRIBUTE_NAME_START_DATE} attribute.
+     */
+    public static final Comparator<MappedJobHistory> COMPARING_START_DATE =
+            Comparator.comparing(MappedJobHistory::getStartDate);
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
 
@@ -231,7 +247,8 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
     @Override
     public final String toString() {
         return super.toString() + '{' +
-               "id_=" + id_() +
+               "employeeId=" + employeeId +
+               ",startDate=" + startDate +
                ",endDate=" + endDate +
                ",jobId=" + jobId +
                ",departmentId=" + departmentId +
@@ -243,62 +260,75 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the identifier a subclass exposes through {@link #id_()}, alone.
+     * @implSpec Equality is by the two {@link Id @Id} attributes, {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} and
+     * {@value #ATTRIBUTE_NAME_START_DATE}, alone.
      */
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedJobHistory<?> that)) {
+        if (!(obj instanceof MappedJobHistory that)) {
             return false;
         }
-        return Objects.equals(id_(), that.id_());
+        return Objects.equals(getEmployeeId(), that.getEmployeeId())
+               && Objects.equals(getStartDate(), that.getStartDate());
     }
 
     /**
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the identifier a subclass exposes through {@link #id_()}, consistent with
-     * {@link #equals(Object)}.
+     * @implSpec The hash is over the two {@link Id @Id} attributes, consistent with {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(id_());
+        return Objects.hash(getEmployeeId(), getStartDate());
     }
 
     // ---------------------------------------------------------------------------------------------- Jakarta-Validation
 
     /**
-     * Tests whether current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute is after the
-     * {@value MappedJobHistoryId#ATTRIBUTE_NAME_START_DATE} of the identifier a subclass exposes through
-     * {@link #id_()}.
+     * Tests whether current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute is after current value of
+     * {@value #ATTRIBUTE_NAME_START_DATE} attribute.
      *
-     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_END_DATE} attribute is after the
-     * {@value MappedJobHistoryId#ATTRIBUTE_NAME_START_DATE} of the identifier, or either of them is {@code null};
-     * {@code false} otherwise.
+     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_END_DATE} attribute is after the current
+     * value of the {@value #ATTRIBUTE_NAME_START_DATE} attribute, or either of them is {@code null}; {@code false}
+     * otherwise.
      */
     @AssertTrue
-    protected boolean isEndDateAfterIdStartDate() {
+    protected boolean isEndDateAfterStartDate() {
         final var endDate = getEndDate();
         if (endDate == null) {
             return true;
         }
-        final var idStartDate = Optional.ofNullable(id_()).map(MappedJobHistoryId::getStartDate).orElse(null);
-        if (idStartDate == null) {
+        final var startDate = getStartDate();
+        if (startDate == null) {
             return true;
         }
-        return endDate.isAfter(idStartDate);
+        return endDate.isAfter(startDate);
     }
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------------------ employeeId
 
     /**
-     * Returns the identifier of this job history. A subclass implements this with whichever attributes it maps the
-     * identifier to; {@link #equals(Object)} and {@link #hashCode()} compare by it.
+     * Returns current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
      *
-     * @return the identifier of this job history; {@code null} if it has none yet.
+     * @return current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
      */
-    @Transient
-    protected abstract T id_();
+    @Nonnull
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    // ------------------------------------------------------------------------------------------------------- startDate
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute.
+     */
+    @Nonnull
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
 
     // --------------------------------------------------------------------------------------------------------- endDate
 
@@ -311,17 +341,6 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
     @Nonnull
     public LocalDateTime getEndDate() {
         return endDate;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute with the specified value.
-     * <p>
-     * The column is neither insertable nor updatable, so this changes the instance only, never the row.
-     *
-     * @param endDate new value for {@value #ATTRIBUTE_NAME_END_DATE} attribute.
-     */
-    protected void setEndDate(@Nonnull final LocalDateTime endDate) {
-        this.endDate = endDate;
     }
 
     // ----------------------------------------------------------------------------------------------------------- jobId
@@ -356,13 +375,46 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(ATTRIBUTE_MAX_EMPLOYEE_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
+    @Digits(integer = COLUMN_PRECISION_EMPLOYEE_ID, fraction = 0)
+    @NotNull
+    @Id
+    @Basic(optional = false, fetch = FetchType.EAGER)
+    @Column(name = COLUMN_NAME_EMPLOYEE_ID,
+            nullable = COLUMN_NULLABLE_EMPLOYEE_ID,
+            insertable = true,
+            updatable = false,
+            precision = COLUMN_PRECISION_EMPLOYEE_ID,
+            scale = COLUMN_SCALE_EMPLOYEE_ID
+    )
+    private Integer employeeId;
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
+    @NotNull
+    @Id
+    @Basic(optional = false, fetch = FetchType.EAGER)
+    @Column(name = COLUMN_NAME_START_DATE,
+            nullable = COLUMN_NULLABLE_START_DATE,
+            insertable = true,
+            updatable = false
+    )
+    private LocalDateTime startDate;
+
+    // -----------------------------------------------------------------------------------------------------------------
+    @Nonnull
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_END_DATE, nullable = false, insertable = false, updatable = false)
     private LocalDateTime endDate;
 
     // -----------------------------------------------------------------------------------------------------------------
-    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // read-only, like every column of this table; see the class documentation
+    @Size(max = SIZE_MAX_JOB_ID)
+    @NotNull
     @Column(name = COLUMN_NAME_JOB_ID,
             nullable = COLUMN_NULLABLE_JOB_ID,
             insertable = false,
@@ -372,7 +424,12 @@ public abstract class MappedJobHistory<T extends MappedJobHistoryId> {
     private String jobId;
 
     // -----------------------------------------------------------------------------------------------------------------
-    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // read-only, like every column of this table; see the class documentation
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
+    @Digits(integer = COLUMN_PRECISION_DEPARTMENT_ID, fraction = 0)
     @Column(name = COLUMN_NAME_DEPARTMENT_ID,
             nullable = COLUMN_NULLABLE_DEPARTMENT_ID,
             insertable = false,

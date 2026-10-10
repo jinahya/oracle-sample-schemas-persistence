@@ -17,9 +17,9 @@ Intermediate and Advanced.
 * *JPQL* is Jakarta Persistence 3.2 against this module's entities. Parameters are named parameters (`:year`), bound
   with `+Query#setParameter+`.
 
-The four composite keys are mapped two ways. `Sale` and `Cost`, the facts tables, map theirs with an `+@EmbeddedId+`,
-so a key column is reached through the identifier, `s.id.timeId`; `Profit` and `FweekPscatSalesMv`, the view and the
-materialized view, map theirs with an `+@IdClass+`, so it is an attribute of the entity itself, `pr.timeId`. Where
+The four composite keys are mapped two ways, one of each per kind of object. `Sale` and `FweekPscatSalesMv` map theirs
+with an `+@EmbeddedId+`, so a key column is reached through the identifier, `s.id.timeId`, `f.id.channelId`; `Cost` and
+`Profit` map theirs with an `+@IdClass+`, so it is an attribute of the entity itself, `c.timeId`, `pr.timeId`. Where
 possible the JPQL on `Sale` and `Cost` goes through their `+@ManyToOne+` associations instead (`s.product`,
 `s.customer`, `s.time`, `s.channel`, `s.promotion`). `Profit` and `FweekPscatSalesMv` have no associations; they are
 joined to the dimensions through their key attributes (`+p.prodId = pr.prodId+`).
@@ -227,7 +227,7 @@ WHERE c.time.timeId BETWEEN :fromDay AND :toDay
 ORDER BY c.time.timeId, c.product.prodId
 ----
 
-`c.time.timeId` names the same column as `c.id.timeId`, through the association.
+`c.time.timeId` names the same column as `c.timeId`, through the association.
 
 === Intermediate
 
@@ -286,22 +286,22 @@ ORDER BY TIME_ID
 
 [source,jpaql]
 ----
-SELECT c.id.timeId, p.unitPrice, c.unitPrice
+SELECT c.timeId, p.unitPrice, c.unitPrice
 FROM Cost c, Cost p
-WHERE c.id.prodId = :prodId
-  AND c.id.channelId = :channelId
-  AND c.id.promoId = :promoId
-  AND p.id.prodId = c.id.prodId
-  AND p.id.channelId = c.id.channelId
-  AND p.id.promoId = c.id.promoId
-  AND p.id.timeId = (SELECT MAX(p2.id.timeId)
+WHERE c.prodId = :prodId
+  AND c.channelId = :channelId
+  AND c.promoId = :promoId
+  AND p.prodId = c.prodId
+  AND p.channelId = c.channelId
+  AND p.promoId = c.promoId
+  AND p.timeId = (SELECT MAX(p2.timeId)
                      FROM Cost p2
-                     WHERE p2.id.prodId = c.id.prodId
-                       AND p2.id.channelId = c.id.channelId
-                       AND p2.id.promoId = c.id.promoId
-                       AND p2.id.timeId < c.id.timeId)
+                     WHERE p2.prodId = c.prodId
+                       AND p2.channelId = c.channelId
+                       AND p2.promoId = c.promoId
+                       AND p2.timeId < c.timeId)
   AND c.unitPrice <> p.unitPrice
-ORDER BY c.id.timeId
+ORDER BY c.timeId
 ----
 
 `LAG` reads the previous recorded day's price, and the first day, which has none, drops out because `+<>+` against
@@ -577,9 +577,9 @@ ORDER BY DOLLARS DESC NULLS LAST, PROD_SUBCATEGORY
 ----
 SELECT f
 FROM FweekPscatSalesMv f
-WHERE f.weekEndingDay = :weekEndingDay
-  AND f.channelId = :channelId
-ORDER BY f.dollars DESC NULLS LAST, f.prodSubcategory
+WHERE f.id.weekEndingDay = :weekEndingDay
+  AND f.id.channelId = :channelId
+ORDER BY f.dollars DESC NULLS LAST, f.id.prodSubcategory
 ----
 
 === Intermediate
@@ -602,11 +602,11 @@ ORDER BY REVENUE DESC NULLS LAST
 
 [source,jpaql]
 ----
-SELECT f.prodSubcategory, SUM(f.dollars) AS revenue
+SELECT f.id.prodSubcategory, SUM(f.dollars) AS revenue
 FROM FweekPscatSalesMv f
-WHERE f.channelId = :channelId
-  AND f.weekEndingDay BETWEEN :fromDay AND :toDay
-GROUP BY f.prodSubcategory
+WHERE f.id.channelId = :channelId
+  AND f.id.weekEndingDay BETWEEN :fromDay AND :toDay
+GROUP BY f.id.prodSubcategory
 ORDER BY revenue DESC NULLS LAST
 ----
 
@@ -637,18 +637,18 @@ ORDER BY PROD_SUBCATEGORY
 
 [source,jpaql]
 ----
-SELECT f.prodSubcategory, f.weekEndingDay, SUM(f.dollars)
+SELECT f.id.prodSubcategory, f.id.weekEndingDay, SUM(f.dollars)
 FROM FweekPscatSalesMv f
-WHERE f.channelId = :channelId
-  AND f.weekEndingDay BETWEEN :fromDay AND :toDay
-GROUP BY f.prodSubcategory, f.weekEndingDay
+WHERE f.id.channelId = :channelId
+  AND f.id.weekEndingDay BETWEEN :fromDay AND :toDay
+GROUP BY f.id.prodSubcategory, f.id.weekEndingDay
 HAVING SUM(f.dollars) >= ALL (SELECT SUM(f2.dollars)
                               FROM FweekPscatSalesMv f2
-                              WHERE f2.channelId = :channelId
-                                AND f2.weekEndingDay BETWEEN :fromDay AND :toDay
-                                AND f2.prodSubcategory = f.prodSubcategory
-                              GROUP BY f2.weekEndingDay)
-ORDER BY f.prodSubcategory
+                              WHERE f2.id.channelId = :channelId
+                                AND f2.id.weekEndingDay BETWEEN :fromDay AND :toDay
+                                AND f2.id.prodSubcategory = f.id.prodSubcategory
+                              GROUP BY f2.id.weekEndingDay)
+ORDER BY f.id.prodSubcategory
 ----
 
 `+FWEEK_PSCAT_SALES_MV+` already holds weekly revenue per subcategory, channel and promotion, so this never touches
@@ -1791,10 +1791,10 @@ SELECT p.prodCategory, SUM(s.amountSold) AS revenue, SUM(s.amountSold - s.quanti
 FROM Sale s
          JOIN s.product p
          JOIN s.time t
-         JOIN Cost c ON c.id.prodId = s.id.prodId
-    AND c.id.timeId = s.id.timeId
-    AND c.id.channelId = s.id.channelId
-    AND c.id.promoId = s.id.promoId
+         JOIN Cost c ON c.prodId = s.id.prodId
+    AND c.timeId = s.id.timeId
+    AND c.channelId = s.id.channelId
+    AND c.promoId = s.id.promoId
 WHERE t.calendarYear = :year
 GROUP BY p.prodCategory
 ORDER BY margin DESC

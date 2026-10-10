@@ -22,27 +22,30 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * A mapped superclass which holds the mappings of the {@value MappedCost#TABLE_NAME} table, except for its identifier.
+ * A mapped superclass which holds the mappings of the {@value MappedCost#TABLE_NAME} table, including the four
+ * {@link Id @Id} attributes of its composite identifier.
  * <p>
  * The table declares no primary key; the four dimension columns are its grain, and the {@code CANDIDATE_KEYS} section
  * of {@code src/test/sql/COSTS.sql} is what measured them.
+ * <p>
+ * The identifier is mapped with an {@link jakarta.persistence.IdClass @IdClass}: an extending entity names its id
+ * class, a subclass of {@link MappedCostId}, with {@code @IdClass} and inherits the {@code @Id} attributes from here.
  *
- * @param <T> the type of the identifier; a subclass maps it as it chooses, and exposes it through {@link #getId_()}.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedCostId
  */
 @MappedSuperclass
-public abstract class MappedCost<T extends MappedCostId> {
+public abstract class MappedCost implements __MappedDomainEntity<MappedCostId> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.
@@ -52,67 +55,58 @@ public abstract class MappedCost<T extends MappedCostId> {
     // --------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The name of the table column to which the {@value MappedCostId#ATTRIBUTE_NAME_PROD_ID} attribute of
-     * {@link MappedCostId} maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROD_ID = "PROD_ID";
 
     /**
-     * The path of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column, for a subclass whose identifier is
-     * an {@link EmbeddedId @EmbeddedId} named {@value #ATTRIBUTE_NAME_ID}. The value is {@value}.
+     * The name of the {@link Id @Id} attribute which maps the {@value #COLUMN_NAME_PROD_ID} column. The value is
+     * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_PROD_ID = "id.prodId";
+    public static final String ATTRIBUTE_NAME_PROD_ID = MappedCostId.ATTRIBUTE_NAME_PROD_ID;
 
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the table column to which the {@value MappedCostId#ATTRIBUTE_NAME_TIME_ID} attribute of
-     * {@link MappedCostId} maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_TIME_ID = "TIME_ID";
 
     /**
-     * The path of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column, for a subclass whose identifier is
-     * an {@link EmbeddedId @EmbeddedId} named {@value #ATTRIBUTE_NAME_ID}. The value is {@value}.
+     * The name of the {@link Id @Id} attribute which maps the {@value #COLUMN_NAME_TIME_ID} column. The value is
+     * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_TIME_ID = "id.timeId";
+    public static final String ATTRIBUTE_NAME_TIME_ID = MappedCostId.ATTRIBUTE_NAME_TIME_ID;
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the table column to which the {@value MappedCostId#ATTRIBUTE_NAME_PROMO_ID} attribute of
-     * {@link MappedCostId} maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
 
     /**
-     * The path of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column, for a subclass whose identifier
-     * is an {@link EmbeddedId @EmbeddedId} named {@value #ATTRIBUTE_NAME_ID}. The value is {@value}.
+     * The name of the {@link Id @Id} attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column. The value is
+     * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_PROMO_ID = "id.promoId";
+    public static final String ATTRIBUTE_NAME_PROMO_ID = MappedCostId.ATTRIBUTE_NAME_PROMO_ID;
 
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
-     * The name of the table column to which the {@value MappedCostId#ATTRIBUTE_NAME_CHANNEL_ID} attribute of
-     * {@link MappedCostId} maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute maps. The value is
+     * {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
 
     /**
-     * The path of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column, for a subclass whose identifier
-     * is an {@link EmbeddedId @EmbeddedId} named {@value #ATTRIBUTE_NAME_ID}. The value is {@value}.
+     * The name of the {@link Id @Id} attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is
+     * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_CHANNEL_ID = "id.channelId";
-
-    // ------------------------------------------------------------------ PROD_ID / TIME_ID / PROMO_ID / CHANNEL_ID / id
-
-    /**
-     * The name of the identifier attribute, declared by a subclass, which maps all of the
-     * {@value #COLUMN_NAME_PROD_ID}, {@value #COLUMN_NAME_TIME_ID}, {@value #COLUMN_NAME_PROMO_ID}, and
-     * {@value #COLUMN_NAME_CHANNEL_ID} columns. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID = "id";
+    public static final String ATTRIBUTE_NAME_CHANNEL_ID = MappedCostId.ATTRIBUTE_NAME_CHANNEL_ID;
 
     // ------------------------------------------------------------------------------------------------------- UNIT_COST
 
@@ -174,7 +168,10 @@ public abstract class MappedCost<T extends MappedCostId> {
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + getId_() +
+               "prodId=" + prodId +
+               ",timeId=" + timeId +
+               ",promoId=" + promoId +
+               ",channelId=" + channelId +
                ",unitCost=" + unitCost +
                ",unitPrice=" + unitPrice +
                '}';
@@ -185,38 +182,109 @@ public abstract class MappedCost<T extends MappedCostId> {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the identifier a subclass exposes through {@link #getId_()}, alone.
+     * @implSpec Equality is by the four {@link Id @Id} attributes alone.
      */
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedCost<?> that)) {
+        if (!(obj instanceof MappedCost that)) {
             return false;
         }
-        return Objects.equals(getId_(), that.getId_());
+        return Objects.equals(getProdId(), that.getProdId())
+               && Objects.equals(getTimeId(), that.getTimeId())
+               && Objects.equals(getPromoId(), that.getPromoId())
+               && Objects.equals(getChannelId(), that.getChannelId());
     }
 
     /**
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the identifier a subclass exposes through {@link #getId_()}, consistent with
-     * {@link #equals(Object)}.
+     * @implSpec The hash is over the four {@link Id @Id} attributes, consistent with {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(getId_());
+        return Objects.hash(getProdId(), getTimeId(), getPromoId(), getChannelId());
     }
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ---------------------------------------------------------------------------------------------------------- prodId
 
     /**
-     * Returns the identifier of this cost. A subclass implements this with whichever attributes it maps the identifier
-     * to; {@link #equals(Object)} and {@link #hashCode()} compare by it.
+     * Returns current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
      *
-     * @return the identifier of this cost; {@code null} if it has none yet.
+     * @return current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
      */
-    @Transient
-    protected abstract T getId_();
+    public Integer getProdId() {
+        return prodId;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute with the specified value.
+     *
+     * @param prodId new value for {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
+     */
+    protected void setProdId(final Integer prodId) {
+        this.prodId = prodId;
+    }
+
+    // ---------------------------------------------------------------------------------------------------------- timeId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
+     */
+    public LocalDateTime getTimeId() {
+        return timeId;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute with the specified value.
+     *
+     * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
+     */
+    protected void setTimeId(final LocalDateTime timeId) {
+        this.timeId = timeId;
+    }
+
+    // --------------------------------------------------------------------------------------------------------- promoId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
+     */
+    public Integer getPromoId() {
+        return promoId;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified value.
+     *
+     * @param promoId new value for {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
+     */
+    protected void setPromoId(final Integer promoId) {
+        this.promoId = promoId;
+    }
+
+    // ------------------------------------------------------------------------------------------------------- channelId
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
+     */
+    public Long getChannelId() {
+        return channelId;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified value.
+     *
+     * @param channelId new value for {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
+     */
+    protected void setChannelId(final Long channelId) {
+        this.channelId = channelId;
+    }
 
     // -------------------------------------------------------------------------------------------------------- unitCost
 
@@ -259,6 +327,30 @@ public abstract class MappedCost<T extends MappedCostId> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @Id
+    @NotNull
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
+    private Integer prodId;
+
+    @Id
+    @NotNull
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
+    private LocalDateTime timeId;
+
+    @Id
+    @NotNull
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
+    private Integer promoId;
+
+    @Id
+    @NotNull
+    @Basic(optional = false)
+    @Column(name = COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
+    private Long channelId;
+
     @NotNull
     @Digits(integer = COLUMN_PRECISION_UNIT_COST - COLUMN_SCALE_UNIT_COST, fraction = COLUMN_SCALE_UNIT_COST)
     @Basic(optional = false)

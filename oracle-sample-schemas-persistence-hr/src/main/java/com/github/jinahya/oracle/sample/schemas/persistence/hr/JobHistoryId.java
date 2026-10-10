@@ -25,10 +25,8 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.FetchType;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -146,8 +144,11 @@ public class JobHistoryId {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    @Max(JobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
-    @Min(JobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(JobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(JobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
+    @Digits(integer = JobHistory.COLUMN_PRECISION_EMPLOYEE_ID, fraction = 0)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = JobHistory.COLUMN_NAME_EMPLOYEE_ID,
@@ -160,7 +161,8 @@ public class JobHistoryId {
     )
     private Integer employeeId;
 
-    @PastOrPresent
+    // TODO: remove; not constrained by the DDL -- JOB_HISTORY.START_DATE is DATE with no check
+//    @PastOrPresent
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = JobHistory.COLUMN_NAME_START_DATE,

@@ -36,7 +36,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedCalMonthSalesMv {
+public abstract class MappedCalMonthSalesMv implements __MappedDomainEntity<String> {
 
     /**
      * The name of the database materialized view to which this class maps. The value is {@value}.

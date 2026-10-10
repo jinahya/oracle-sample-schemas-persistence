@@ -25,6 +25,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
@@ -35,7 +36,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
-public abstract class MappedSupplementaryDemographics {
+public abstract class MappedSupplementaryDemographics implements __MappedDomainEntity<Long> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.
@@ -678,6 +679,7 @@ public abstract class MappedSupplementaryDemographics {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    @NotNull
     @Id
     @Column(name = COLUMN_NAME_CUST_ID, nullable = false, insertable = true, updatable = false)
     private Long custId;

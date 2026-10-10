@@ -27,11 +27,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
@@ -53,7 +51,7 @@ import java.util.Objects;
  * @author Jaehan Lim
  */
 @MappedSuperclass
-public abstract class MappedEmployee {
+public abstract class MappedEmployee implements __MappedDomainEntity<Integer> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.
@@ -314,16 +312,9 @@ public abstract class MappedEmployee {
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
 
     /**
-     * The inclusive minimum value which the {@link DecimalMin @DecimalMin} on the {@value #ATTRIBUTE_NAME_SALARY}
-     * attribute applies. The value is {@value}.
+     * The exclusive minimum value of the {@value #ATTRIBUTE_NAME_SALARY} attribute. The value is {@value}.
      */
-    public static final String ATTRIBUTE_DECIMAL_MIN_SALARY = "-99999999.99";
-
-    /**
-     * The exclusive minimum value of the {@value #ATTRIBUTE_NAME_SALARY} attribute, as the {@code EMP_SALARY_MIN} check
-     * constraint ({@code salary > 0}) requires. No constraint applies it. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_DECIMAL_MIN_SALARY_SEMANTIC = "-000000.00";
+    public static final String ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE = "-000000.00";
 
     /**
      * The maximum value of the {@value #ATTRIBUTE_NAME_SALARY} attribute. The value is {@value}.
@@ -756,8 +747,11 @@ public abstract class MappedEmployee {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Max(ATTRIBUTE_MAX_EMPLOYEE_ID)
-    @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(ATTRIBUTE_MAX_EMPLOYEE_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
+    @Digits(integer = COLUMN_PRECISION_EMPLOYEE_ID, fraction = 0)
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_EMPLOYEE_ID,
@@ -781,6 +775,7 @@ public abstract class MappedEmployee {
     )
     private String firstName;
 
+    // TODO: remove; not constrained by the DDL -- EMPLOYEES.LAST_NAME is VARCHAR2(25) NOT NULL with no check
     //    @jakarta.validation.constraints.NotBlank
     @Nonnull
     @Size(min = SIZE_MIN_LAST_NAME, max = SIZE_MAX_LAST_NAME)
@@ -794,6 +789,7 @@ public abstract class MappedEmployee {
     )
     private String lastName;
 
+    // TODO: remove; not constrained by the DDL -- EMPLOYEES.EMAIL is VARCHAR2(25) NOT NULL with no check
     //    @jakarta.validation.constraints.NotBlank
     @Nonnull
     @Size(min = SIZE_MIN_EMAIL, max = SIZE_MAX_EMAIL)
@@ -802,7 +798,7 @@ public abstract class MappedEmployee {
     @Column(name = COLUMN_NAME_EMAIL,
             nullable = false,
             insertable = true,
-            updatable = false,
+            updatable = true,
             length = COLUMN_LENGTH_EMAIL,
             unique = true
     )
@@ -827,6 +823,8 @@ public abstract class MappedEmployee {
 
     // -----------------------------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // no @NotNull: read-only duplicate of JOB_ID; the extending entity's writable mapping carries the constraint
+    @Size(max = SIZE_MAX_JOB_ID)
     @Column(name = COLUMN_NAME_JOB_ID,
             nullable = false,
             insertable = false,
@@ -837,8 +835,12 @@ public abstract class MappedEmployee {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
-    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY, inclusive = true)
+    @Positive // EMP_SALARY_MIN: CHECK (salary > 0)
+    @Digits(integer = COLUMN_PRECISION_SALARY - COLUMN_SCALE_SALARY, fraction = COLUMN_SCALE_SALARY)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
+    // TODO: remove; duplicates @Positive, which already states EMP_SALARY_MIN (salary > 0)
+//    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_SALARY,
             nullable = true,
@@ -850,8 +852,12 @@ public abstract class MappedEmployee {
     private BigDecimal salary;
 
     @Nullable
-    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT, inclusive = true)
-    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT, inclusive = true)
+    @Digits(integer = COLUMN_PRECISION_COMMISSION_PCT - COLUMN_SCALE_COMMISSION_PCT,
+            fraction = COLUMN_SCALE_COMMISSION_PCT)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT, inclusive = true)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT, inclusive = true)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_COMMISSION_PCT,
             nullable = true,
@@ -864,6 +870,11 @@ public abstract class MappedEmployee {
 
     // -----------------------------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(ATTRIBUTE_MAX_MANAGER_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(ATTRIBUTE_MIN_MANAGER_ID)
+    @Digits(integer = COLUMN_PRECISION_MANAGER_ID, fraction = 0)
     @Column(name = COLUMN_NAME_MANAGER_ID,
             nullable = true,
             insertable = false,
@@ -875,6 +886,11 @@ public abstract class MappedEmployee {
 
     // -----------------------------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
+    @Digits(integer = COLUMN_PRECISION_DEPARTMENT_ID, fraction = 0)
     @Column(name = COLUMN_NAME_DEPARTMENT_ID,
             nullable = true,
             insertable = false,

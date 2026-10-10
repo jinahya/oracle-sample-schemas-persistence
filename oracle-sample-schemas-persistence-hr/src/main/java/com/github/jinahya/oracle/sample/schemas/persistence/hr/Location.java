@@ -33,8 +33,7 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -239,10 +238,8 @@ public class Location implements __DomainEntity<Integer> {
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_STATE_PROVINCE} column. The value is {@value}.
-     *
-     * @see #ATTRIBUTE_NAME_STATE_PROVINCE
      */
-    public static final String ATTRIBUTE_STATE_PROVINCE = "stateProvince";
+    public static final String ATTRIBUTE_NAME_STATE_PROVINCE = "stateProvince";
 
     /**
      * The minimum size of the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute. The value is {@value}.
@@ -298,10 +295,6 @@ public class Location implements __DomainEntity<Integer> {
         assert COLUMN_LENGTH_COUNTRY_ID == Country.COLUMN_LENGTH_COUNTRY_ID;
     }
 
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_STATE_PROVINCE} column. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_STATE_PROVINCE = "stateProvince";
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -338,7 +331,7 @@ public class Location implements __DomainEntity<Integer> {
         if (!(obj instanceof Location that)) {
             return false;
         }
-        return Objects.equals(locationId, that.locationId);
+        return Objects.equals(getLocationId(), that.getLocationId());
     }
 
     /**
@@ -349,7 +342,7 @@ public class Location implements __DomainEntity<Integer> {
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(locationId);
+        return Objects.hashCode(getLocationId());
     }
 
     // ------------------------------------------------------------------------------------------------------ locationId
@@ -495,8 +488,11 @@ public class Location implements __DomainEntity<Integer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @Max(ATTRIBUTE_MAX_LOCATION_ID)
-    @Min(ATTRIBUTE_MIN_LOCATION_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Max(ATTRIBUTE_MAX_LOCATION_ID)
+    // TODO: remove; restates NUMBER(p) -- @Digits states the precision
+//    @Min(ATTRIBUTE_MIN_LOCATION_ID)
+    @Digits(integer = COLUMN_PRECISION_LOCATION_ID, fraction = 0)
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_LOCATION_ID,

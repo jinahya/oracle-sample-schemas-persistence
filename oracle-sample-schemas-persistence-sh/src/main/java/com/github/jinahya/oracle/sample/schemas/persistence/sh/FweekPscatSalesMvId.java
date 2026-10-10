@@ -24,14 +24,15 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * A class for the composite identifier of the {@link FweekPscatSalesMv} entity class, which maps it with an
- * {@link jakarta.persistence.IdClass @IdClass}.
+ * An embeddable class for the composite identifier of the {@link FweekPscatSalesMv} entity class, which maps it with an
+ * {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -233,7 +234,11 @@ public class FweekPscatSalesMvId {
     }
 
     // ---------------------------------------------------------------------------------------------------------------- 
+    // insertable=true is the JPA default; it is spelled out because EclipseLink rejects an identifier with no
+    // non-read-only mapping -- "There should be one non-read-only mapping defined for the primary key field",
+    // EclipseLink-46. Nothing writes to a view anyway.
 
+    @NotNull
     @Basic(optional = false)
     @Column(name = FweekPscatSalesMv.COLUMN_NAME_WEEK_ENDING_DAY,
             nullable = false,
@@ -242,6 +247,7 @@ public class FweekPscatSalesMvId {
     private LocalDateTime weekEndingDay;
 
     @Size(max = FweekPscatSalesMv.SIZE_MAX_PROD_SUBCATEGORY)
+    @NotNull
     @Basic(optional = false)
     @Column(name = FweekPscatSalesMv.COLUMN_NAME_PROD_SUBCATEGORY,
             nullable = false,
@@ -252,6 +258,7 @@ public class FweekPscatSalesMvId {
 
     @Digits(integer = FweekPscatSalesMv.COLUMN_PRECISION_CHANNEL_ID - FweekPscatSalesMv.COLUMN_SCALE_CHANNEL_ID,
             fraction = FweekPscatSalesMv.COLUMN_SCALE_CHANNEL_ID)
+    @NotNull
     @Basic(optional = false)
     @Column(name = FweekPscatSalesMv.COLUMN_NAME_CHANNEL_ID,
             nullable = false,
@@ -261,6 +268,7 @@ public class FweekPscatSalesMvId {
 
     @Digits(integer = FweekPscatSalesMv.COLUMN_PRECISION_PROMO_ID - FweekPscatSalesMv.COLUMN_SCALE_PROMO_ID,
             fraction = FweekPscatSalesMv.COLUMN_SCALE_PROMO_ID)
+    @NotNull
     @Basic(optional = false)
     @Column(name = FweekPscatSalesMv.COLUMN_NAME_PROMO_ID,
             nullable = false,

@@ -27,8 +27,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Transient;
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -47,12 +46,13 @@ import java.util.Objects;
  * {@link jakarta.persistence.AttributeOverride @AttributeOverride}. <strong>An extending entity which maps neither
  * never writes them.</strong> Being read-only, they are populated by a load or a refresh only.
  *
- * @param <T> the type of the identifier; a subclass maps it as it chooses, and exposes it through {@link #getId_()}.
+ * @param <T> the type of the identifier; a subclass maps it as it chooses, and exposes it through
+ *            {@link #getIdValue()}.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedOrderItemId
  */
 @MappedSuperclass
-public abstract class MappedOrderItem<T extends MappedOrderItemId> {
+public abstract class MappedOrderItem<T extends MappedOrderItemId> implements __MappedDomainEntity<T> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.
@@ -193,7 +193,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + getId_() +
+               "id=" + getIdValue() +
                ", productId=" + productId +
                ", unitPrice=" + unitPrice +
                ", quantity=" + quantity +
@@ -206,26 +206,26 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the identifier a subclass exposes through {@link #getId_()}, alone.
+     * @implSpec Equality is by the identifier a subclass exposes through {@link #getIdValue()}, alone.
      */
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedOrderItem that)) {
+        if (!(obj instanceof MappedOrderItem<?> that)) {
             return false;
         }
-        return Objects.equals(getId_(), that.getId_());
+        return Objects.equals(getIdValue(), that.getIdValue());
     }
 
     /**
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the identifier a subclass exposes through {@link #getId_()}, consistent with
+     * @implSpec The hash is over the identifier a subclass exposes through {@link #getIdValue()}, consistent with
      * {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(getId_());
+        return Objects.hashCode(getIdValue());
     }
 
     // ------------------------------------------------------------------------------------------------- Bean-Validation
@@ -298,7 +298,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
         return true;
     }
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // --------------------------------------------------------------------------------------------------------- idValue
 
     /**
      * Returns the identifier of this order item. A subclass implements this with whichever attributes it maps the
@@ -307,7 +307,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      * @return the identifier of this order item; {@code null} if it has none yet.
      */
     @Transient
-    protected abstract T getId_();
+    protected abstract T getIdValue();
 
     // ------------------------------------------------------------------------------------------------------- productId
 
@@ -381,6 +381,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
 
     // -----------------------------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // no @NotNull: read-only duplicate of a column the extending entity writes; null until a load
     @Column(name = COLUMN_NAME_PRODUCT_ID,
             nullable = false,
             insertable = false,
@@ -390,8 +391,11 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    @DecimalMax(DECIMAL_MAX_UNIT_PRICE)
-    @DecimalMin(DECIMAL_MIN_UNIT_PRICE)
+    // TODO: remove; restates NUMBER(p,s) -- @Digits states the precision
+//    @DecimalMax(DECIMAL_MAX_UNIT_PRICE)
+    // TODO: remove; not constrained by the DDL -- ORDER_ITEMS.UNIT_PRICE is NUMBER(10,2) with no check; the lower bound of 0 is narrower than the column
+//    @DecimalMin(DECIMAL_MIN_UNIT_PRICE)
+    @Digits(integer = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE, fraction = COLUMN_SCALE_UNIT_PRICE)
     @NotNull
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_PRICE,

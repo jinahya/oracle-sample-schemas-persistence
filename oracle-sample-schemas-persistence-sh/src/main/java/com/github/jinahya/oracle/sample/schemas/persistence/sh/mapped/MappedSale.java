@@ -37,12 +37,13 @@ import java.util.Objects;
  * The table declares no primary key; the five dimension columns are its grain, and the {@code CANDIDATE_KEYS} section
  * of {@code src/test/sql/SALES.sql} is what measured them.
  *
- * @param <T> the type of the identifier; a subclass maps it as it chooses, and exposes it through {@link #getId_()}.
+ * @param <T> the type of the identifier; a subclass maps it as it chooses, and exposes it through
+ *            {@link #getIdValue()}.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedSaleId
  */
 @MappedSuperclass
-public abstract class MappedSale<T extends MappedSaleId> {
+public abstract class MappedSale<T extends MappedSaleId> implements __MappedDomainEntity<T> {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.
@@ -218,7 +219,7 @@ public abstract class MappedSale<T extends MappedSaleId> {
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + getId_() +
+               "id=" + getIdValue() +
                ",quantitySold=" + quantitySold +
                ",amountSold=" + amountSold +
                '}';
@@ -229,26 +230,26 @@ public abstract class MappedSale<T extends MappedSaleId> {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the identifier a subclass exposes through {@link #getId_()}, alone.
+     * @implSpec Equality is by the identifier a subclass exposes through {@link #getIdValue()}, alone.
      */
     @Override
     public final boolean equals(final Object obj) {
         if (!(obj instanceof MappedSale<?> that)) {
             return false;
         }
-        return Objects.equals(getId_(), that.getId_());
+        return Objects.equals(getIdValue(), that.getIdValue());
     }
 
     /**
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the identifier a subclass exposes through {@link #getId_()}, consistent with
+     * @implSpec The hash is over the identifier a subclass exposes through {@link #getIdValue()}, consistent with
      * {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(getId_());
+        return Objects.hashCode(getIdValue());
     }
 
     // -------------------------------------------------------------------------------------------------------------- id
@@ -260,7 +261,7 @@ public abstract class MappedSale<T extends MappedSaleId> {
      * @return the identifier of this sale; {@code null} if it has none yet.
      */
     @Transient
-    protected abstract T getId_();
+    protected abstract T getIdValue();
 
     // ---------------------------------------------------------------------------------------------------- quantitySold
 
