@@ -58,12 +58,18 @@ to `public`. Its fields, its `toString` / `equals` / `hashCode` (all `final` in 
 other accessors go. The markers, constants classes and test bases change their declarations only:
 `__DomainEntity` extends `__MappedDomainEntity`, and so on.
 
-The tests and ITs are `develop`'s, unchanged; their passing here is what shows the two shapes
-behave alike. Two files are this branch's own, kept through merges by `merge=ours` in
-`.gitattributes`: this `CLAUDE.md`, and each module's `___PackageSeparation_Test`, whose rule is
-turned around here once that module is converted. `mapped.___MappedPackageSeparation_Test` holds
-on both branches and is not one of them. Run `git config merge.ours.driver true` once per clone,
-or the attribute does nothing.
+The tests and ITs are `develop`'s, unchanged, except where a test describes what a concrete class
+now inherits; their passing here is what shows the two shapes behave alike. These files are this
+branch's own, kept through merges by `merge=ours` in `.gitattributes`:
+
+- this `CLAUDE.md`;
+- each module's `___PackageSeparation_Test`, whose rule is turned around here;
+- `co`'s `Inventory_Test`: `develop`'s `Inventory` compares by its `@Id`, while here it inherits
+  `MappedInventory`'s `equals`, by the business key (`storeId`, `productId`), so its verifier is
+  configured for that.
+
+`mapped.___MappedPackageSeparation_Test` holds on both branches and is not one of them. Run
+`git config merge.ours.driver true` once per clone, or the attribute does nothing.
 
 Merges go one way only: `develop` is merged into `mapped`, never the other way, and in small,
 frequent steps, with `rerere` enabled. A conflict in a concrete class is resolved by carrying

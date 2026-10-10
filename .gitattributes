@@ -2,3 +2,4 @@
 # the driver is enabled per clone with: git config merge.ours.driver true
 CLAUDE.md                          merge=ours
 **/___PackageSeparation_Test.java  merge=ours
+**/co/Inventory_Test.java          merge=ours

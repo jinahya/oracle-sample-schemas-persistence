@@ -39,18 +39,20 @@ class Inventory_Test extends _DomainEntity_Test<Inventory, Long> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Inventory#equals(Object) equals} compares only the generated {@code @Id}, {@code inventoryId},
-     * the surrogate key, and {@link Inventory#hashCode() hashCode} is constant, so that the hash does not change when
-     * the {@code @Id} is assigned on persist. That takes three warnings suppressed: {@link Warning#SURROGATE_KEY} for
-     * the former, {@link Warning#STRICT_HASHCODE} for the latter, and
-     * {@link Warning#IDENTICAL_COPY_FOR_VERSIONED_ENTITY} because an instance whose {@code @Id} is still {@code null}
-     * equals itself only.
+     * @implNote On this branch {@link Inventory} inherits {@code equals} and {@code hashCode} from
+     * {@code MappedInventory}: equality is by the business key, ({@code storeId}, {@code productId}), the pair the
+     * table declares unique, not by the {@code @Id}; an instance missing either equals itself only; and the hash is
+     * constant. That takes three warnings suppressed: {@link Warning#ALL_FIELDS_SHOULD_BE_USED} for the fields outside
+     * the key, {@link Warning#IDENTICAL_COPY_FOR_VERSIONED_ENTITY} for an instance missing the key equalling itself
+     * only, and {@link Warning#STRICT_HASHCODE} for the constant hash. This copy is this branch's own, kept through
+     * merges from {@code develop} by {@code merge=ours}; {@code develop}'s verifies the {@code @Id}-only equality of its
+     * own {@code Inventory}.
      */
     @Override
     protected SingleTypeEqualsVerifierApi<Inventory> equals_verifier_() {
         return super.equals_verifier_()
-                .suppress(Warning.SURROGATE_KEY,
+                .suppress(Warning.STRICT_HASHCODE,
                           Warning.IDENTICAL_COPY_FOR_VERSIONED_ENTITY,
-                          Warning.STRICT_HASHCODE);
+                          Warning.ALL_FIELDS_SHOULD_BE_USED);
     }
 }
