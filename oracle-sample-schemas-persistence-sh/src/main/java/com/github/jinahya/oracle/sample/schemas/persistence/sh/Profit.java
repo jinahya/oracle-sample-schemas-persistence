@@ -397,40 +397,6 @@ public class Profit implements __DomainEntity<ProfitId> {
         return ProfitId.of(getChannelId(), getCustId(), getProdId(), getPromoId(), getTimeId());
     }
 
-    /**
-     * Replaces current values of the identifying attributes with those of the specified identifier.
-     *
-     * @param id the identifier whose values are applied; may be {@code null}, which clears every identifying
-     *           attribute.
-     */
-    protected void setId(final ProfitId id) {
-        setChannelId(
-                Optional.ofNullable(id)
-                        .map(ProfitId::getChannelId)
-                        .orElse(null)
-        );
-        setCustId(
-                Optional.ofNullable(id)
-                        .map(ProfitId::getCustId)
-                        .orElse(null)
-        );
-        setProdId(
-                Optional.ofNullable(id)
-                        .map(ProfitId::getProdId)
-                        .orElse(null)
-        );
-        setPromoId(
-                Optional.ofNullable(id)
-                        .map(ProfitId::getPromoId)
-                        .orElse(null)
-        );
-        setTimeId(
-                Optional.ofNullable(id)
-                        .map(ProfitId::getTimeId)
-                        .orElse(null)
-        );
-    }
-
     // ------------------------------------------------------------------------------------------------------- channelId
 
     /**
@@ -440,15 +406,6 @@ public class Profit implements __DomainEntity<ProfitId> {
      */
     public Long getChannelId() {
         return channelId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified value.
-     *
-     * @param channelId new value for {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
-     */
-    public void setChannelId(final Long channelId) {
-        this.channelId = channelId;
     }
 
     // ---------------------------------------------------------------------------------------------------------- custId
@@ -462,15 +419,6 @@ public class Profit implements __DomainEntity<ProfitId> {
         return custId;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute with the specified value.
-     *
-     * @param custId new value for {@value #ATTRIBUTE_NAME_CUST_ID} attribute.
-     */
-    public void setCustId(final Long custId) {
-        this.custId = custId;
-    }
-
     // ---------------------------------------------------------------------------------------------------------- prodId
 
     /**
@@ -480,15 +428,6 @@ public class Profit implements __DomainEntity<ProfitId> {
      */
     public Integer getProdId() {
         return prodId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute with the specified value.
-     *
-     * @param prodId new value for {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
-     */
-    public void setProdId(final Integer prodId) {
-        this.prodId = prodId;
     }
 
     // --------------------------------------------------------------------------------------------------------- promoId
@@ -502,15 +441,6 @@ public class Profit implements __DomainEntity<ProfitId> {
         return promoId;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified value.
-     *
-     * @param promoId new value for {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
-     */
-    public void setPromoId(final Integer promoId) {
-        this.promoId = promoId;
-    }
-
     // ---------------------------------------------------------------------------------------------------------- timeId
 
     /**
@@ -520,15 +450,6 @@ public class Profit implements __DomainEntity<ProfitId> {
      */
     public LocalDateTime getTimeId() {
         return timeId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute with the specified value.
-     *
-     * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
-     */
-    public void setTimeId(final LocalDateTime timeId) {
-        this.timeId = timeId;
     }
 
     // -------------------------------------------------------------------------------------------------------- unitCost
@@ -542,15 +463,6 @@ public class Profit implements __DomainEntity<ProfitId> {
         return unitCost;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_UNIT_COST} attribute with the specified value.
-     *
-     * @param unitCost new value for {@value #ATTRIBUTE_NAME_UNIT_COST} attribute.
-     */
-    public void setUnitCost(final BigDecimal unitCost) {
-        this.unitCost = unitCost;
-    }
-
     // ------------------------------------------------------------------------------------------------------- unitPrice
 
     /**
@@ -560,15 +472,6 @@ public class Profit implements __DomainEntity<ProfitId> {
      */
     public BigDecimal getUnitPrice() {
         return unitPrice;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute with the specified value.
-     *
-     * @param unitPrice new value for {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute.
-     */
-    public void setUnitPrice(final BigDecimal unitPrice) {
-        this.unitPrice = unitPrice;
     }
 
     // ------------------------------------------------------------------------------------------------------ amountSold
@@ -582,15 +485,6 @@ public class Profit implements __DomainEntity<ProfitId> {
         return amountSold;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute with the specified value.
-     *
-     * @param amountSold new value for {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute.
-     */
-    public void setAmountSold(final BigDecimal amountSold) {
-        this.amountSold = amountSold;
-    }
-
     // ---------------------------------------------------------------------------------------------------- quantitySold
 
     /**
@@ -602,15 +496,6 @@ public class Profit implements __DomainEntity<ProfitId> {
         return quantitySold;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute with the specified value.
-     *
-     * @param quantitySold new value for {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute.
-     */
-    public void setQuantitySold(final Integer quantitySold) {
-        this.quantitySold = quantitySold;
-    }
-
     // ------------------------------------------------------------------------------------------------------- totalCost
 
     /**
@@ -620,15 +505,6 @@ public class Profit implements __DomainEntity<ProfitId> {
      */
     public BigDecimal getTotalCost() {
         return totalCost;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_TOTAL_COST} attribute with the specified value.
-     *
-     * @param totalCost new value for {@value #ATTRIBUTE_NAME_TOTAL_COST} attribute.
-     */
-    public void setTotalCost(final BigDecimal totalCost) {
-        this.totalCost = totalCost;
     }
 
     // ---------------------------------------------------------------------------------------------------------------- 

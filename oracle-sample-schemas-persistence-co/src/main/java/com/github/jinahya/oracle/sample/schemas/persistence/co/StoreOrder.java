@@ -278,15 +278,6 @@ public class StoreOrder implements __DomainEntity<Void> {
         return total;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_TOTAL} attribute with the specified value.
-     *
-     * @param total new value for {@value #ATTRIBUTE_NAME_TOTAL} attribute.
-     */
-    public void setTotal(final String total) {
-        this.total = total;
-    }
-
     // ------------------------------------------------------------------------------------------------------- storeName
 
     /**
@@ -296,15 +287,6 @@ public class StoreOrder implements __DomainEntity<Void> {
      */
     public String getStoreName() {
         return storeName;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE_NAME} attribute with the specified value.
-     *
-     * @param storeName new value for {@value #ATTRIBUTE_NAME_STORE_NAME} attribute.
-     */
-    public void setStoreName(final String storeName) {
-        this.storeName = storeName;
     }
 
     // --------------------------------------------------------------------------------------------------------- address
@@ -318,15 +300,6 @@ public class StoreOrder implements __DomainEntity<Void> {
         return address;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ADDRESS} attribute with the specified value.
-     *
-     * @param address new value for {@value #ATTRIBUTE_NAME_ADDRESS} attribute.
-     */
-    public void setAddress(final String address) {
-        this.address = address;
-    }
-
     // -------------------------------------------------------------------------------------------------------- latitude
 
     /**
@@ -336,15 +309,6 @@ public class StoreOrder implements __DomainEntity<Void> {
      */
     public BigDecimal getLatitude() {
         return latitude;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LATITUDE} attribute with the specified value.
-     *
-     * @param latitude new value for {@value #ATTRIBUTE_NAME_LATITUDE} attribute.
-     */
-    public void setLatitude(final BigDecimal latitude) {
-        this.latitude = latitude;
     }
 
     // ------------------------------------------------------------------------------------------------------- longitude
@@ -358,15 +322,6 @@ public class StoreOrder implements __DomainEntity<Void> {
         return longitude;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LONGITUDE} attribute with the specified value.
-     *
-     * @param longitude new value for {@value #ATTRIBUTE_NAME_LONGITUDE} attribute.
-     */
-    public void setLongitude(final BigDecimal longitude) {
-        this.longitude = longitude;
-    }
-
     // ----------------------------------------------------------------------------------------------------- orderStatus
 
     /**
@@ -376,15 +331,6 @@ public class StoreOrder implements __DomainEntity<Void> {
      */
     public String getOrderStatus() {
         return orderStatus;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute with the specified value.
-     *
-     * @param orderStatus new value for {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
-     */
-    public void setOrderStatus(final String orderStatus) {
-        this.orderStatus = orderStatus;
     }
 
     // ------------------------------------------------------------------------------------------------------ orderCount
@@ -398,15 +344,6 @@ public class StoreOrder implements __DomainEntity<Void> {
         return orderCount;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute with the specified value.
-     *
-     * @param orderCount new value for {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute.
-     */
-    public void setOrderCount(final BigDecimal orderCount) {
-        this.orderCount = orderCount;
-    }
-
     // ------------------------------------------------------------------------------------------------------ totalSales
 
     /**
@@ -416,15 +353,6 @@ public class StoreOrder implements __DomainEntity<Void> {
      */
     public BigDecimal getTotalSales() {
         return totalSales;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_TOTAL_SALES} attribute with the specified value.
-     *
-     * @param totalSales new value for {@value #ATTRIBUTE_NAME_TOTAL_SALES} attribute.
-     */
-    public void setTotalSales(final BigDecimal totalSales) {
-        this.totalSales = totalSales;
     }
 
     // ---------------------------------------------------------------------------------------------------------------- 

@@ -497,15 +497,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
         return employeeId;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute with the specified value.
-     *
-     * @param employeeId new value for {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
-     */
-    protected void setEmployeeId(@Nonnull final Integer employeeId) {
-        this.employeeId = employeeId;
-    }
-
     // ----------------------------------------------------------------------------------------------------------- jobId
 
     /**
@@ -516,15 +507,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
     @Nonnull
     public String getJobId() {
         return jobId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute with the specified value.
-     *
-     * @param jobId new value for {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
-     */
-    public void setJobId(@Nonnull final String jobId) {
-        this.jobId = jobId;
     }
 
     // ------------------------------------------------------------------------------------------------------- managerId
@@ -539,15 +521,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
         return managerId;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute with the specified value.
-     *
-     * @param managerId new value for {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute.
-     */
-    public void setManagerId(@Nullable final Integer managerId) {
-        this.managerId = managerId;
-    }
-
     // ---------------------------------------------------------------------------------------------------- departmentId
 
     /**
@@ -558,15 +531,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
     @Nullable
     public Integer getDepartmentId() {
         return departmentId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute with the specified value.
-     *
-     * @param departmentId new value for {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
-     */
-    public void setDepartmentId(@Nullable final Integer departmentId) {
-        this.departmentId = departmentId;
     }
 
     // ------------------------------------------------------------------------------------------------------ locationId
@@ -581,15 +545,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
         return locationId;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute with the specified value.
-     *
-     * @param locationId new value for {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
-     */
-    public void setLocationId(@Nullable final Integer locationId) {
-        this.locationId = locationId;
-    }
-
     // ------------------------------------------------------------------------------------------------------- countryId
 
     /**
@@ -600,15 +555,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
     @Nullable
     public String getCountryId() {
         return countryId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the specified value.
-     *
-     * @param countryId new value for {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
-     */
-    public void setCountryId(@Nullable final String countryId) {
-        this.countryId = countryId;
     }
 
     // ------------------------------------------------------------------------------------------------------- firstName
@@ -623,15 +569,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
         return firstName;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute with the specified value.
-     *
-     * @param firstName new value for {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute.
-     */
-    public void setFirstName(@Nullable final String firstName) {
-        this.firstName = firstName;
-    }
-
     // -------------------------------------------------------------------------------------------------------- lastName
 
     /**
@@ -642,15 +579,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
     @Nonnull
     public String getLastName() {
         return lastName;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LAST_NAME} attribute with the specified value.
-     *
-     * @param lastName new value for {@value #ATTRIBUTE_NAME_LAST_NAME} attribute.
-     */
-    public void setLastName(@Nonnull final String lastName) {
-        this.lastName = lastName;
     }
 
     // ---------------------------------------------------------------------------------------------------------- salary
@@ -665,15 +593,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
         return salary;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_SALARY} attribute with the specified value.
-     *
-     * @param salary new value for {@value #ATTRIBUTE_NAME_SALARY} attribute.
-     */
-    public void setSalary(@Nullable final BigDecimal salary) {
-        this.salary = salary;
-    }
-
     // --------------------------------------------------------------------------------------------------- commissionPct
 
     /**
@@ -684,15 +603,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
     @Nullable
     public BigDecimal getCommissionPct() {
         return commissionPct;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute with the specified value.
-     *
-     * @param commissionPct new value for {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute.
-     */
-    public void setCommissionPct(@Nullable final BigDecimal commissionPct) {
-        this.commissionPct = commissionPct;
     }
 
     // -------------------------------------------------------------------------------------------------- departmentName
@@ -707,15 +617,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
         return departmentName;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute with the specified value.
-     *
-     * @param departmentName new value for {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute.
-     */
-    public void setDepartmentName(@Nonnull final String departmentName) {
-        this.departmentName = departmentName;
-    }
-
     // -------------------------------------------------------------------------------------------------------- jobTitle
 
     /**
@@ -726,15 +627,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
     @Nonnull
     public String getJobTitle() {
         return jobTitle;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute with the specified value.
-     *
-     * @param jobTitle new value for {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute.
-     */
-    public void setJobTitle(@Nonnull final String jobTitle) {
-        this.jobTitle = jobTitle;
     }
 
     // ------------------------------------------------------------------------------------------------------------ city
@@ -749,15 +641,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
         return city;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CITY} attribute with the specified value.
-     *
-     * @param city new value for {@value #ATTRIBUTE_NAME_CITY} attribute.
-     */
-    public void setCity(@Nonnull final String city) {
-        this.city = city;
-    }
-
     // --------------------------------------------------------------------------------------------------- stateProvince
 
     /**
@@ -768,15 +651,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
     @Nullable
     public String getStateProvince() {
         return stateProvince;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute with the specified value.
-     *
-     * @param stateProvince new value for {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute.
-     */
-    public void setStateProvince(@Nullable final String stateProvince) {
-        this.stateProvince = stateProvince;
     }
 
     // ----------------------------------------------------------------------------------------------------- countryName
@@ -791,15 +665,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
         return countryName;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute with the specified value.
-     *
-     * @param countryName new value for {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
-     */
-    public void setCountryName(@Nullable final String countryName) {
-        this.countryName = countryName;
-    }
-
     // ------------------------------------------------------------------------------------------------------ regionName
 
     /**
@@ -810,15 +675,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
     @Nullable
     public String getRegionName() {
         return regionName;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute with the specified value.
-     *
-     * @param regionName new value for {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
-     */
-    public void setRegionName(@Nullable final String regionName) {
-        this.regionName = regionName;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

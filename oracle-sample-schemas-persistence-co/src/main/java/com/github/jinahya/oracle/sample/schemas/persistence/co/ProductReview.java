@@ -167,15 +167,6 @@ public class ProductReview implements __DomainEntity<Void> {
         return productName;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute with the specified value.
-     *
-     * @param productName new value for {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute.
-     */
-    public void setProductName(final String productName) {
-        this.productName = productName;
-    }
-
     // ---------------------------------------------------------------------------------------------------------- rating
 
     /**
@@ -185,15 +176,6 @@ public class ProductReview implements __DomainEntity<Void> {
      */
     public Integer getRating() {
         return rating;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_RATING} attribute with the specified value.
-     *
-     * @param rating new value for {@value #ATTRIBUTE_NAME_RATING} attribute.
-     */
-    public void setRating(final Integer rating) {
-        this.rating = rating;
     }
 
     // ------------------------------------------------------------------------------------------------------- avgRating
@@ -207,15 +189,6 @@ public class ProductReview implements __DomainEntity<Void> {
         return avgRating;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_AVG_RATING} attribute with the specified value.
-     *
-     * @param avgRating new value for {@value #ATTRIBUTE_NAME_AVG_RATING} attribute.
-     */
-    public void setAvgRating(final BigDecimal avgRating) {
-        this.avgRating = avgRating;
-    }
-
     // ---------------------------------------------------------------------------------------------------------- review
 
     /**
@@ -225,15 +198,6 @@ public class ProductReview implements __DomainEntity<Void> {
      */
     public String getReview() {
         return review;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_REVIEW} attribute with the specified value.
-     *
-     * @param review new value for {@value #ATTRIBUTE_NAME_REVIEW} attribute.
-     */
-    public void setReview(final String review) {
-        this.review = review;
     }
 
     // ---------------------------------------------------------------------------------------------------------------- 

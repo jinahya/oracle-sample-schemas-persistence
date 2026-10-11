@@ -251,15 +251,6 @@ public class CustomerOrderProduct implements __DomainEntity<Long> {
         return orderId;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute with the specified value.
-     *
-     * @param orderId new value for {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
-     */
-    public void setOrderId(final Long orderId) {
-        this.orderId = orderId;
-    }
-
     // -------------------------------------------------------------------------------------------------------- orderTms
 
     /**
@@ -269,15 +260,6 @@ public class CustomerOrderProduct implements __DomainEntity<Long> {
      */
     public LocalDateTime getOrderTms() {
         return orderTms;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute with the specified value.
-     *
-     * @param orderTms new value for {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute.
-     */
-    public void setOrderTms(final LocalDateTime orderTms) {
-        this.orderTms = orderTms;
     }
 
     // ----------------------------------------------------------------------------------------------------- orderStatus
@@ -291,15 +273,6 @@ public class CustomerOrderProduct implements __DomainEntity<Long> {
         return orderStatus;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute with the specified value.
-     *
-     * @param orderStatus new value for {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
-     */
-    public void setOrderStatus(final String orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
     // ------------------------------------------------------------------------------------------------------ customerId
 
     /**
@@ -309,15 +282,6 @@ public class CustomerOrderProduct implements __DomainEntity<Long> {
      */
     public Long getCustomerId() {
         return customerId;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute with the specified value.
-     *
-     * @param customerId new value for {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
-     */
-    public void setCustomerId(final Long customerId) {
-        this.customerId = customerId;
     }
 
     // ---------------------------------------------------------------------------------------------------- emailAddress
@@ -331,15 +295,6 @@ public class CustomerOrderProduct implements __DomainEntity<Long> {
         return emailAddress;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute with the specified value.
-     *
-     * @param emailAddress new value for {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute.
-     */
-    public void setEmailAddress(final String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
     // -------------------------------------------------------------------------------------------------------- fullName
 
     /**
@@ -349,15 +304,6 @@ public class CustomerOrderProduct implements __DomainEntity<Long> {
      */
     public String getFullName() {
         return fullName;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_FULL_NAME} attribute with the specified value.
-     *
-     * @param fullName new value for {@value #ATTRIBUTE_NAME_FULL_NAME} attribute.
-     */
-    public void setFullName(final String fullName) {
-        this.fullName = fullName;
     }
 
     // ------------------------------------------------------------------------------------------------------ orderTotal
@@ -371,15 +317,6 @@ public class CustomerOrderProduct implements __DomainEntity<Long> {
         return orderTotal;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_TOTAL} attribute with the specified value.
-     *
-     * @param orderTotal new value for {@value #ATTRIBUTE_NAME_ORDER_TOTAL} attribute.
-     */
-    public void setOrderTotal(final BigDecimal orderTotal) {
-        this.orderTotal = orderTotal;
-    }
-
     // ----------------------------------------------------------------------------------------------------------- items
 
     /**
@@ -389,15 +326,6 @@ public class CustomerOrderProduct implements __DomainEntity<Long> {
      */
     public String getItems() {
         return items;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ITEMS} attribute with the specified value.
-     *
-     * @param items new value for {@value #ATTRIBUTE_NAME_ITEMS} attribute.
-     */
-    public void setItems(final String items) {
-        this.items = items;
     }
 
     // ---------------------------------------------------------------------------------------------------------------- 

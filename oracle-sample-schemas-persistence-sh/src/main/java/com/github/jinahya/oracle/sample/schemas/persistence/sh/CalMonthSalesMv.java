@@ -138,15 +138,6 @@ public class CalMonthSalesMv implements __DomainEntity<String> {
         return calendarMonthDesc;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute with the specified value.
-     *
-     * @param calendarMonthDesc new value for {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute.
-     */
-    public void setCalendarMonthDesc(final String calendarMonthDesc) {
-        this.calendarMonthDesc = calendarMonthDesc;
-    }
-
     // --------------------------------------------------------------------------------------------------------- dollars
 
     /**
@@ -156,15 +147,6 @@ public class CalMonthSalesMv implements __DomainEntity<String> {
      */
     public BigDecimal getDollars() {
         return dollars;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DOLLARS} attribute with the specified value.
-     *
-     * @param dollars new value for {@value #ATTRIBUTE_NAME_DOLLARS} attribute.
-     */
-    public void setDollars(final BigDecimal dollars) {
-        this.dollars = dollars;
     }
 
     // ---------------------------------------------------------------------------------------------------------------- 

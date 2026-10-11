@@ -203,15 +203,6 @@ public class ProductOrder implements __DomainEntity<ProductOrderId> {
         return id;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ID} attribute with the specified value.
-     *
-     * @param id new value for {@value #ATTRIBUTE_NAME_ID} attribute.
-     */
-    public void setId(final ProductOrderId id) {
-        this.id = id;
-    }
-
     // ----------------------------------------------------------------------------------------------------- productName
 
     /**
@@ -222,19 +213,6 @@ public class ProductOrder implements __DomainEntity<ProductOrderId> {
      */
     public String getProductName() {
         return Optional.ofNullable(getId()).map(ProductOrderId::getProductName).orElse(null);
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute with the specified value, creating the
-     * {@value #ATTRIBUTE_NAME_ID} attribute first when it is {@code null}.
-     *
-     * @param productName new value for {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute.
-     */
-    protected void setProductName(final String productName) {
-        if (getId() == null) {
-            setId(new ProductOrderId());
-        }
-        getId().setProductName(productName);
     }
 
     // ----------------------------------------------------------------------------------------------------- orderStatus
@@ -249,19 +227,6 @@ public class ProductOrder implements __DomainEntity<ProductOrderId> {
         return Optional.ofNullable(getId()).map(ProductOrderId::getOrderStatus).orElse(null);
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute with the specified value, creating the
-     * {@value #ATTRIBUTE_NAME_ID} attribute first when it is {@code null}.
-     *
-     * @param orderStatus new value for {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
-     */
-    protected void setOrderStatus(final String orderStatus) {
-        if (getId() == null) {
-            setId(new ProductOrderId());
-        }
-        getId().setOrderStatus(orderStatus);
-    }
-
     // ------------------------------------------------------------------------------------------------------ totalSales
 
     /**
@@ -273,15 +238,6 @@ public class ProductOrder implements __DomainEntity<ProductOrderId> {
         return totalSales;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_TOTAL_SALES} attribute with the specified value.
-     *
-     * @param totalSales new value for {@value #ATTRIBUTE_NAME_TOTAL_SALES} attribute.
-     */
-    public void setTotalSales(final BigDecimal totalSales) {
-        this.totalSales = totalSales;
-    }
-
     // ------------------------------------------------------------------------------------------------------ orderCount
 
     /**
@@ -291,15 +247,6 @@ public class ProductOrder implements __DomainEntity<ProductOrderId> {
      */
     public Long getOrderCount() {
         return orderCount;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute with the specified value.
-     *
-     * @param orderCount new value for {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute.
-     */
-    public void setOrderCount(final Long orderCount) {
-        this.orderCount = orderCount;
     }
 
     // ---------------------------------------------------------------------------------------------------------------- 

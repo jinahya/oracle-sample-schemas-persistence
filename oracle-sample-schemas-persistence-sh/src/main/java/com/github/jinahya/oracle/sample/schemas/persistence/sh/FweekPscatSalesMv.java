@@ -240,15 +240,6 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
         return id;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ID} attribute with the specified value.
-     *
-     * @param id new value for {@value #ATTRIBUTE_NAME_ID} attribute.
-     */
-    public void setId(final FweekPscatSalesMvId id) {
-        this.id = id;
-    }
-
     // --------------------------------------------------------------------------------------------------- weekEndingDay
 
     /**
@@ -259,19 +250,6 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
      */
     public LocalDateTime getWeekEndingDay() {
         return Optional.ofNullable(getId()).map(FweekPscatSalesMvId::getWeekEndingDay).orElse(null);
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute of the {@link #getId() id} with the
-     * specified value, setting a new id first if there is none.
-     *
-     * @param weekEndingDay new value for {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
-     */
-    public void setWeekEndingDay(final LocalDateTime weekEndingDay) {
-        if (getId() == null) {
-            setId(new FweekPscatSalesMvId());
-        }
-        getId().setWeekEndingDay(weekEndingDay);
     }
 
     // ------------------------------------------------------------------------------------------------- prodSubcategory
@@ -286,19 +264,6 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
         return Optional.ofNullable(getId()).map(FweekPscatSalesMvId::getProdSubcategory).orElse(null);
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute of the {@link #getId() id} with the
-     * specified value, setting a new id first if there is none.
-     *
-     * @param prodSubcategory new value for {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute.
-     */
-    public void setProdSubcategory(final String prodSubcategory) {
-        if (getId() == null) {
-            setId(new FweekPscatSalesMvId());
-        }
-        getId().setProdSubcategory(prodSubcategory);
-    }
-
     // ------------------------------------------------------------------------------------------------------- channelId
 
     /**
@@ -309,19 +274,6 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
      */
     public Long getChannelId() {
         return Optional.ofNullable(getId()).map(FweekPscatSalesMvId::getChannelId).orElse(null);
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute of the {@link #getId() id} with the
-     * specified value, setting a new id first if there is none.
-     *
-     * @param channelId new value for {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
-     */
-    public void setChannelId(final Long channelId) {
-        if (getId() == null) {
-            setId(new FweekPscatSalesMvId());
-        }
-        getId().setChannelId(channelId);
     }
 
     // --------------------------------------------------------------------------------------------------------- promoId
@@ -336,19 +288,6 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
         return Optional.ofNullable(getId()).map(FweekPscatSalesMvId::getPromoId).orElse(null);
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute of the {@link #getId() id} with the
-     * specified value, setting a new id first if there is none.
-     *
-     * @param promoId new value for {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
-     */
-    public void setPromoId(final Integer promoId) {
-        if (getId() == null) {
-            setId(new FweekPscatSalesMvId());
-        }
-        getId().setPromoId(promoId);
-    }
-
     // --------------------------------------------------------------------------------------------------------- dollars
 
     /**
@@ -358,15 +297,6 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
      */
     public BigDecimal getDollars() {
         return dollars;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DOLLARS} attribute with the specified value.
-     *
-     * @param dollars new value for {@value #ATTRIBUTE_NAME_DOLLARS} attribute.
-     */
-    public void setDollars(final BigDecimal dollars) {
-        this.dollars = dollars;
     }
 
     // ---------------------------------------------------------------------------------------------------------------- 
