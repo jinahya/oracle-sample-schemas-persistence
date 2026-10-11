@@ -145,6 +145,26 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
      */
     public static final int COLUMN_SCALE_CHANNEL_ID = 0;
 
+    /**
+     * The minimum value of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_MIN_CHANNEL_ID = -9;
+
+    /**
+     * The maximum value of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_MAX_CHANNEL_ID = +9;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MIN_CHANNEL_ID = COLUMN_MIN_CHANNEL_ID;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MAX_CHANNEL_ID = COLUMN_MAX_CHANNEL_ID;
+
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
@@ -175,6 +195,26 @@ public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
      * The scale of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_PROMO_ID = 0;
+
+    /**
+     * The minimum value of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_MIN_PROMO_ID = -999999;
+
+    /**
+     * The maximum value of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_MAX_PROMO_ID = +999999;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MIN_PROMO_ID = COLUMN_MIN_PROMO_ID;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MAX_PROMO_ID = COLUMN_MAX_PROMO_ID;
 
     // -------------------------------------------------------------------------------------------------------------- id
 

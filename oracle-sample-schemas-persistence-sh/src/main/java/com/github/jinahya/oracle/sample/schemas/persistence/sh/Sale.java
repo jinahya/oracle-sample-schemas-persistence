@@ -29,7 +29,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -92,6 +95,26 @@ public class Sale implements __DomainEntity<SaleId> {
      * The scale of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
      */
     public static final int COLUMN_SCALE_PROD_ID = 0;
+
+    /**
+     * The minimum value of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_MIN_PROD_ID = -999999;
+
+    /**
+     * The maximum value of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_MAX_PROD_ID = +999999;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MIN_PROD_ID = COLUMN_MIN_PROD_ID;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MAX_PROD_ID = COLUMN_MAX_PROD_ID;
 
     // --------------------------------------------------------------------------------------------------------- CUST_ID
 
@@ -184,6 +207,26 @@ public class Sale implements __DomainEntity<SaleId> {
      */
     public static final int COLUMN_SCALE_CHANNEL_ID = 0;
 
+    /**
+     * The minimum value of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_MIN_CHANNEL_ID = -9;
+
+    /**
+     * The maximum value of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_MAX_CHANNEL_ID = +9;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MIN_CHANNEL_ID = COLUMN_MIN_CHANNEL_ID;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MAX_CHANNEL_ID = COLUMN_MAX_CHANNEL_ID;
+
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
@@ -221,6 +264,26 @@ public class Sale implements __DomainEntity<SaleId> {
      */
     public static final int COLUMN_SCALE_PROMO_ID = 0;
 
+    /**
+     * The minimum value of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_MIN_PROMO_ID = -999999;
+
+    /**
+     * The maximum value of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     */
+    public static final int COLUMN_MAX_PROMO_ID = +999999;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MIN_PROMO_ID = COLUMN_MIN_PROMO_ID;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MAX_PROMO_ID = COLUMN_MAX_PROMO_ID;
+
     // --------------------------------------------------------------------------------------------------- QUANTITY_SOLD
 
     /**
@@ -245,17 +308,24 @@ public class Sale implements __DomainEntity<SaleId> {
     public static final int COLUMN_SCALE_QUANTITY_SOLD = 0;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is
-     * {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_QUANTITY_SOLD =
-            COLUMN_PRECISION_QUANTITY_SOLD - COLUMN_SCALE_QUANTITY_SOLD;
+    public static final int COLUMN_MIN_QUANTITY_SOLD = -999;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is
-     * {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_QUANTITY_SOLD = COLUMN_SCALE_QUANTITY_SOLD;
+    public static final int COLUMN_MAX_QUANTITY_SOLD = +999;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MIN_QUANTITY_SOLD = COLUMN_MIN_QUANTITY_SOLD;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MAX_QUANTITY_SOLD = COLUMN_MAX_QUANTITY_SOLD;
 
     // ----------------------------------------------------------------------------------------------------- AMOUNT_SOLD
 
@@ -276,22 +346,19 @@ public class Sale implements __DomainEntity<SaleId> {
     public static final int COLUMN_SCALE_AMOUNT_SOLD = 2;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_AMOUNT_SOLD =
-            COLUMN_PRECISION_AMOUNT_SOLD - COLUMN_SCALE_AMOUNT_SOLD;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_AMOUNT_SOLD = COLUMN_SCALE_AMOUNT_SOLD;
-
-    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_AMOUNT_SOLD = "amountSold";
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MIN_AMOUNT_SOLD = "-99999999.99";
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MAX_AMOUNT_SOLD = "+99999999.99";
 
     /**
      * The name of the attribute which maps the identifying columns, as an
@@ -603,13 +670,15 @@ public class Sale implements __DomainEntity<SaleId> {
     private Promotion promotion;
 
     @NotNull
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_QUANTITY_SOLD, fraction = ATTRIBUTE_DIGITS_FRACTION_QUANTITY_SOLD)
+    @Max(ATTRIBUTE_MAX_QUANTITY_SOLD)
+    @Min(ATTRIBUTE_MIN_QUANTITY_SOLD)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_QUANTITY_SOLD, nullable = false, insertable = true, updatable = true)
     private Integer quantitySold;
 
     @NotNull
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_AMOUNT_SOLD, fraction = ATTRIBUTE_DIGITS_FRACTION_AMOUNT_SOLD)
+    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_AMOUNT_SOLD, inclusive = true)
+    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_AMOUNT_SOLD, inclusive = true)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_AMOUNT_SOLD,
             nullable = false,

@@ -25,7 +25,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -71,15 +74,24 @@ public class Product implements __DomainEntity<Integer> {
     public static final int COLUMN_SCALE_PROD_ID = 0;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_PROD_ID = COLUMN_PRECISION_PROD_ID - COLUMN_SCALE_PROD_ID;
+    public static final int COLUMN_MIN_PROD_ID = -999999;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is
-     * {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_PROD_ID = COLUMN_SCALE_PROD_ID;
+    public static final int COLUMN_MAX_PROD_ID = +999999;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MIN_PROD_ID = COLUMN_MIN_PROD_ID;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MAX_PROD_ID = COLUMN_MAX_PROD_ID;
 
     // ------------------------------------------------------------------------------------------------------ PROD_NAME
 
@@ -271,17 +283,24 @@ public class Product implements __DomainEntity<Integer> {
     public static final int COLUMN_SCALE_PROD_WEIGHT_CLASS = 0;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS} attribute. The value is
-     * {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_PROD_WEIGHT_CLASS} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_PROD_WEIGHT_CLASS =
-            COLUMN_PRECISION_PROD_WEIGHT_CLASS - COLUMN_SCALE_PROD_WEIGHT_CLASS;
+    public static final int COLUMN_MIN_PROD_WEIGHT_CLASS = -999;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS} attribute. The value is
-     * {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_PROD_WEIGHT_CLASS} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_PROD_WEIGHT_CLASS = COLUMN_SCALE_PROD_WEIGHT_CLASS;
+    public static final int COLUMN_MAX_PROD_WEIGHT_CLASS = +999;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MIN_PROD_WEIGHT_CLASS = COLUMN_MIN_PROD_WEIGHT_CLASS;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MAX_PROD_WEIGHT_CLASS = COLUMN_MAX_PROD_WEIGHT_CLASS;
 
     // ------------------------------------------------------------------------------------------- PROD_UNIT_OF_MEASURE
 
@@ -354,17 +373,24 @@ public class Product implements __DomainEntity<Integer> {
     public static final int COLUMN_SCALE_SUPPLIER_ID = 0;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute. The value is
-     * {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_SUPPLIER_ID} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_SUPPLIER_ID =
-            COLUMN_PRECISION_SUPPLIER_ID - COLUMN_SCALE_SUPPLIER_ID;
+    public static final int COLUMN_MIN_SUPPLIER_ID = -999999;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute. The value is
-     * {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_SUPPLIER_ID} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_SUPPLIER_ID = COLUMN_SCALE_SUPPLIER_ID;
+    public static final int COLUMN_MAX_SUPPLIER_ID = +999999;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MIN_SUPPLIER_ID = COLUMN_MIN_SUPPLIER_ID;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MAX_SUPPLIER_ID = COLUMN_MAX_SUPPLIER_ID;
 
     // ---------------------------------------------------------------------------------------------------- PROD_STATUS
 
@@ -408,22 +434,19 @@ public class Product implements __DomainEntity<Integer> {
     public static final int COLUMN_SCALE_PROD_LIST_PRICE = 2;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_PROD_LIST_PRICE =
-            COLUMN_PRECISION_PROD_LIST_PRICE - COLUMN_SCALE_PROD_LIST_PRICE;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_PROD_LIST_PRICE = COLUMN_SCALE_PROD_LIST_PRICE;
-
-    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_LIST_PRICE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_LIST_PRICE = "prodListPrice";
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MIN_PROD_LIST_PRICE = "-999999.99";
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MAX_PROD_LIST_PRICE = "+999999.99";
 
     // ------------------------------------------------------------------------------------------------- PROD_MIN_PRICE
 
@@ -444,22 +467,19 @@ public class Product implements __DomainEntity<Integer> {
     public static final int COLUMN_SCALE_PROD_MIN_PRICE = 2;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_PROD_MIN_PRICE =
-            COLUMN_PRECISION_PROD_MIN_PRICE - COLUMN_SCALE_PROD_MIN_PRICE;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_PROD_MIN_PRICE = COLUMN_SCALE_PROD_MIN_PRICE;
-
-    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_MIN_PRICE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_MIN_PRICE = "prodMinPrice";
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MIN_PROD_MIN_PRICE = "-999999.99";
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MAX_PROD_MIN_PRICE = "+999999.99";
 
     // ----------------------------------------------------------------------------------------------------- PROD_TOTAL
 
@@ -1065,7 +1085,8 @@ public class Product implements __DomainEntity<Integer> {
     // --------------------------------------------------------------------------------------------------------------- 
     @NotNull
     @Id
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROD_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_PROD_ID)
+    @Max(ATTRIBUTE_MAX_PROD_ID)
+    @Min(ATTRIBUTE_MIN_PROD_ID)
     @Column(name = COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
     private Integer prodId;
 
@@ -1158,8 +1179,8 @@ public class Product implements __DomainEntity<Integer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @NotNull
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROD_WEIGHT_CLASS,
-            fraction = ATTRIBUTE_DIGITS_FRACTION_PROD_WEIGHT_CLASS)
+    @Max(ATTRIBUTE_MAX_PROD_WEIGHT_CLASS)
+    @Min(ATTRIBUTE_MIN_PROD_WEIGHT_CLASS)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROD_WEIGHT_CLASS,
             nullable = false,
@@ -1190,7 +1211,8 @@ public class Product implements __DomainEntity<Integer> {
     private String prodPackSize;
 
     @NotNull
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_SUPPLIER_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_SUPPLIER_ID)
+    @Max(ATTRIBUTE_MAX_SUPPLIER_ID)
+    @Min(ATTRIBUTE_MIN_SUPPLIER_ID)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_SUPPLIER_ID,
             nullable = false,
@@ -1211,7 +1233,8 @@ public class Product implements __DomainEntity<Integer> {
     private String prodStatus;
 
     @NotNull
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROD_LIST_PRICE, fraction = ATTRIBUTE_DIGITS_FRACTION_PROD_LIST_PRICE)
+    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_PROD_LIST_PRICE, inclusive = true)
+    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_PROD_LIST_PRICE, inclusive = true)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROD_LIST_PRICE,
             nullable = false,
@@ -1223,7 +1246,8 @@ public class Product implements __DomainEntity<Integer> {
     private BigDecimal prodListPrice;
 
     @NotNull
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROD_MIN_PRICE, fraction = ATTRIBUTE_DIGITS_FRACTION_PROD_MIN_PRICE)
+    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_PROD_MIN_PRICE, inclusive = true)
+    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_PROD_MIN_PRICE, inclusive = true)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROD_MIN_PRICE,
             nullable = false,

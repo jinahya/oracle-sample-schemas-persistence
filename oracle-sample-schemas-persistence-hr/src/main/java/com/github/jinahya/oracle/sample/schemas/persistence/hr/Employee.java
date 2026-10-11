@@ -34,11 +34,9 @@ import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
@@ -97,18 +95,6 @@ public class Employee implements __DomainEntity<Integer> {
     public static final int COLUMN_MAX_EMPLOYEE_ID = 0b0000_0000_0000_1111_0100_0010_0011_1111;
 
     // +999999
-
-    /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_EMPLOYEE_ID = COLUMN_PRECISION_EMPLOYEE_ID;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_EMPLOYEE_ID = 0;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
@@ -311,16 +297,6 @@ public class Employee implements __DomainEntity<Integer> {
     public static final double COLUMN_MAX_SALARY = +999999.99d;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_SALARY} attribute. The value is {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_SALARY = COLUMN_PRECISION_SALARY - COLUMN_SCALE_SALARY;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_SALARY} attribute. The value is {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_SALARY = COLUMN_SCALE_SALARY;
-
-    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_SALARY} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
@@ -364,19 +340,6 @@ public class Employee implements __DomainEntity<Integer> {
      * The maximum value of the {@value #COLUMN_NAME_COMMISSION_PCT} column. The value is {@value}.
      */
     public static final double COLUMN_MAX_COMMISSION_PCT = +0.99d;
-
-    /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_COMMISSION_PCT =
-            COLUMN_PRECISION_COMMISSION_PCT - COLUMN_SCALE_COMMISSION_PCT;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_COMMISSION_PCT = COLUMN_SCALE_COMMISSION_PCT;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_COMMISSION_PCT} column. The value is {@value}.
@@ -981,7 +944,6 @@ public class Employee implements __DomainEntity<Integer> {
     @Nonnull
     @Max(ATTRIBUTE_MAX_EMPLOYEE_ID)
     @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_EMPLOYEE_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_EMPLOYEE_ID)
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_EMPLOYEE_ID,
@@ -1074,18 +1036,14 @@ public class Employee implements __DomainEntity<Integer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
-    @Positive // EMP_SALARY_MIN: CHECK (salary > 0)
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_SALARY, fraction = ATTRIBUTE_DIGITS_FRACTION_SALARY)
     @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
-    // TODO: remove; duplicates @Positive, which already states EMP_SALARY_MIN (salary > 0)
-//    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false)
+    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false) // EMP_SALARY_MIN: CHECK (salary > 0)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_SALARY, nullable = true, insertable = true, updatable = true,
             precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY)
     private BigDecimal salary;
 
     @Nullable
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_COMMISSION_PCT, fraction = ATTRIBUTE_DIGITS_FRACTION_COMMISSION_PCT)
     @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT, inclusive = true)
     @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT, inclusive = true)
     @Basic(optional = true, fetch = FetchType.EAGER)

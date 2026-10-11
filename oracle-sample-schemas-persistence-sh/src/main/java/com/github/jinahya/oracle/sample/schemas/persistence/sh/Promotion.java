@@ -25,7 +25,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -71,15 +74,24 @@ public class Promotion implements __DomainEntity<Integer> {
     public static final int COLUMN_SCALE_PROMO_ID = 0;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_PROMO_ID = COLUMN_PRECISION_PROMO_ID - COLUMN_SCALE_PROMO_ID;
+    public static final int COLUMN_MIN_PROMO_ID = -999999;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is
-     * {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_PROMO_ID = COLUMN_SCALE_PROMO_ID;
+    public static final int COLUMN_MAX_PROMO_ID = +999999;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MIN_PROMO_ID = COLUMN_MIN_PROMO_ID;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MAX_PROMO_ID = COLUMN_MAX_PROMO_ID;
 
     // ----------------------------------------------------------------------------------------------------- PROMO_NAME
 
@@ -190,6 +202,16 @@ public class Promotion implements __DomainEntity<Integer> {
      */
     public static final String ATTRIBUTE_NAME_PROMO_COST = "promoCost";
 
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_PROMO_COST} attribute. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MIN_PROMO_COST = "-99999999.99";
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_PROMO_COST} attribute. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MAX_PROMO_COST = "+99999999.99";
+
     // ----------------------------------------------------------------------------------------------- PROMO_BEGIN_DATE
 
     /**
@@ -262,17 +284,6 @@ public class Promotion implements __DomainEntity<Integer> {
      */
     public static final int COLUMN_SCALE_PROMO_COST = 2;
 
-    /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROMO_COST} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_PROMO_COST = COLUMN_PRECISION_PROMO_COST - COLUMN_SCALE_PROMO_COST;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROMO_COST} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_PROMO_COST = COLUMN_SCALE_PROMO_COST;
     // --------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -552,7 +563,8 @@ public class Promotion implements __DomainEntity<Integer> {
 
     @NotNull
     @Id
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROMO_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_PROMO_ID)
+    @Max(ATTRIBUTE_MAX_PROMO_ID)
+    @Min(ATTRIBUTE_MIN_PROMO_ID)
     @Column(name = COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
     private Integer promoId;
 
@@ -608,7 +620,8 @@ public class Promotion implements __DomainEntity<Integer> {
     private Long promoCategoryId;
 
     @NotNull
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROMO_COST, fraction = ATTRIBUTE_DIGITS_FRACTION_PROMO_COST)
+    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_PROMO_COST, inclusive = true)
+    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_PROMO_COST, inclusive = true)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PROMO_COST,
             nullable = false,

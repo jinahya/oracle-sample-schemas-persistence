@@ -30,7 +30,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -153,21 +154,19 @@ public class Cost implements __DomainEntity<CostId> {
     public static final int COLUMN_SCALE_UNIT_COST = 2;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_UNIT_COST = COLUMN_PRECISION_UNIT_COST - COLUMN_SCALE_UNIT_COST;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_UNIT_COST = COLUMN_SCALE_UNIT_COST;
-
-    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_COST} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_UNIT_COST = "unitCost";
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MIN_UNIT_COST = "-99999999.99";
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MAX_UNIT_COST = "+99999999.99";
 
     // ------------------------------------------------------------------------------------------------------ UNIT_PRICE
 
@@ -188,21 +187,19 @@ public class Cost implements __DomainEntity<CostId> {
     public static final int COLUMN_SCALE_UNIT_PRICE = 2;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_UNIT_PRICE = COLUMN_PRECISION_UNIT_PRICE - COLUMN_SCALE_UNIT_PRICE;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_UNIT_PRICE = COLUMN_SCALE_UNIT_PRICE;
-
-    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_UNIT_PRICE = "unitPrice";
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MIN_UNIT_PRICE = "-99999999.99";
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MAX_UNIT_PRICE = "+99999999.99";
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -477,7 +474,8 @@ public class Cost implements __DomainEntity<CostId> {
     private Channel channel;
 
     @NotNull
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_UNIT_COST, fraction = ATTRIBUTE_DIGITS_FRACTION_UNIT_COST)
+    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_UNIT_COST, inclusive = true)
+    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_UNIT_COST, inclusive = true)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_COST,
             nullable = false,
@@ -488,7 +486,8 @@ public class Cost implements __DomainEntity<CostId> {
     private BigDecimal unitCost;
 
     @NotNull
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_UNIT_PRICE, fraction = ATTRIBUTE_DIGITS_FRACTION_UNIT_PRICE)
+    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_UNIT_PRICE, inclusive = true)
+    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_UNIT_PRICE, inclusive = true)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_UNIT_PRICE,
             nullable = false,

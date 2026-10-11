@@ -23,7 +23,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
@@ -46,19 +47,6 @@ public class ProfitId {
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_CHANNEL_ID =
-            Profit.COLUMN_PRECISION_CHANNEL_ID - Profit.COLUMN_SCALE_CHANNEL_ID;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_CHANNEL_ID = Profit.COLUMN_SCALE_CHANNEL_ID;
-
-    /**
      * The name of the attribute which maps the {@value Profit#COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
@@ -73,35 +61,11 @@ public class ProfitId {
     // --------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_PROD_ID =
-            Profit.COLUMN_PRECISION_PROD_ID - Profit.COLUMN_SCALE_PROD_ID;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_PROD_ID = Profit.COLUMN_SCALE_PROD_ID;
-
-    /**
      * The name of the attribute which maps the {@value Profit#COLUMN_NAME_PROD_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
-
-    /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_PROMO_ID =
-            Profit.COLUMN_PRECISION_PROMO_ID - Profit.COLUMN_SCALE_PROMO_ID;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_PROMO_ID = Profit.COLUMN_SCALE_PROMO_ID;
 
     /**
      * The name of the attribute which maps the {@value Profit#COLUMN_NAME_PROMO_ID} column. The value is {@value}.
@@ -299,7 +263,8 @@ public class ProfitId {
     // ---------------------------------------------------------------------------------------------------------------- 
 
     @NotNull
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_CHANNEL_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_CHANNEL_ID)
+    @Max(Profit.ATTRIBUTE_MAX_CHANNEL_ID)
+    @Min(Profit.ATTRIBUTE_MIN_CHANNEL_ID)
     @Basic(optional = false)
     @Column(name = Profit.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
     private Long channelId;
@@ -310,13 +275,15 @@ public class ProfitId {
     private Long custId;
 
     @NotNull
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROD_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_PROD_ID)
+    @Max(Profit.ATTRIBUTE_MAX_PROD_ID)
+    @Min(Profit.ATTRIBUTE_MIN_PROD_ID)
     @Basic(optional = false)
     @Column(name = Profit.COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
     private Integer prodId;
 
     @NotNull
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_PROMO_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_PROMO_ID)
+    @Max(Profit.ATTRIBUTE_MAX_PROMO_ID)
+    @Min(Profit.ATTRIBUTE_MIN_PROMO_ID)
     @Basic(optional = false)
     @Column(name = Profit.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
     private Integer promoId;

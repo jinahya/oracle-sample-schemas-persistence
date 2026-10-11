@@ -22,7 +22,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
@@ -120,20 +121,19 @@ public class StoreOrder implements __DomainEntity<Void> {
     public static final String COLUMN_NAME_LATITUDE = "LATITUDE";
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute. The value is {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_LATITUDE = 3;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_LATITUDE = 6;
-
-    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_LATITUDE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LATITUDE = "latitude";
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute, which the view projects from {@link Store}. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MIN_LATITUDE = Store.COLUMN_MIN_LATITUDE;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute, which the view projects from {@link Store}. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MAX_LATITUDE = Store.COLUMN_MAX_LATITUDE;
 
     // ------------------------------------------------------------------------------------------------------- LONGITUDE
 
@@ -144,21 +144,19 @@ public class StoreOrder implements __DomainEntity<Void> {
     public static final String COLUMN_NAME_LONGITUDE = "LONGITUDE";
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_LONGITUDE = 3;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_LONGITUDE = 6;
-
-    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_LONGITUDE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LONGITUDE = "longitude";
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute, which the view projects from {@link Store}. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MIN_LONGITUDE = Store.COLUMN_MIN_LONGITUDE;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute, which the view projects from {@link Store}. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MAX_LONGITUDE = Store.COLUMN_MAX_LONGITUDE;
 
     // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
 
@@ -387,13 +385,15 @@ public class StoreOrder implements __DomainEntity<Void> {
     private String address;
 
     // STORES.LATITUDE NUMBER(9,6), projected as is
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_LATITUDE, fraction = ATTRIBUTE_DIGITS_FRACTION_LATITUDE)
+    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_LATITUDE, inclusive = true)
+    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_LATITUDE, inclusive = true)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LATITUDE, nullable = true, insertable = false, updatable = false)
     private BigDecimal latitude;
 
     // STORES.LONGITUDE NUMBER(9,6), projected as is
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_LONGITUDE, fraction = ATTRIBUTE_DIGITS_FRACTION_LONGITUDE)
+    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_LONGITUDE, inclusive = true)
+    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_LONGITUDE, inclusive = true)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LONGITUDE, nullable = true, insertable = false, updatable = false)
     private BigDecimal longitude;

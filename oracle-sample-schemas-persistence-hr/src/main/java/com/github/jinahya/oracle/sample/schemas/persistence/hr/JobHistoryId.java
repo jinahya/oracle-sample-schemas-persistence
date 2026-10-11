@@ -25,7 +25,6 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.FetchType;
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -46,18 +45,6 @@ import java.util.Objects;
  */
 @Embeddable
 public class JobHistoryId {
-
-    /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_EMPLOYEE_ID = JobHistory.COLUMN_PRECISION_EMPLOYEE_ID;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_EMPLOYEE_ID = 0;
 
     /**
      * The name of the attribute which maps the {@value JobHistory#COLUMN_NAME_EMPLOYEE_ID} column. The value is
@@ -160,7 +147,6 @@ public class JobHistoryId {
     // -----------------------------------------------------------------------------------------------------------------
     @Max(JobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
     @Min(JobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_EMPLOYEE_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_EMPLOYEE_ID)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = JobHistory.COLUMN_NAME_EMPLOYEE_ID,

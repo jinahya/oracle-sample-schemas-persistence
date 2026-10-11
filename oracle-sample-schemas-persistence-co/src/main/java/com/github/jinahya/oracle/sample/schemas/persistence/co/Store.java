@@ -35,7 +35,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.AssertTrue;
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.DecimalMin;
@@ -203,17 +202,6 @@ public class Store implements __DomainEntity<Long> {
     public static final String COLUMN_MAX_LATITUDE = "+999.999999";
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute. The value is {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_LATITUDE = COLUMN_PRECISION_LATITUDE - COLUMN_SCALE_LATITUDE;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_LATITUDE = COLUMN_SCALE_LATITUDE;
-
-    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_LATITUDE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LATITUDE = "latitude";
@@ -270,18 +258,6 @@ public class Store implements __DomainEntity<Long> {
      * The maximum value of the {@value #COLUMN_NAME_LONGITUDE} column. The value is {@value}.
      */
     public static final String COLUMN_MAX_LONGITUDE = "+999.999999";
-
-    /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_LONGITUDE = COLUMN_PRECISION_LONGITUDE - COLUMN_SCALE_LONGITUDE;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_LONGITUDE = COLUMN_SCALE_LONGITUDE;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_LONGITUDE} column. The value is {@value}.
@@ -920,7 +896,6 @@ public class Store implements __DomainEntity<Long> {
 //    @DecimalMin(value = __DomainConstants.DECIMAL_MIN_LATITUDE, inclusive = true)
     @DecimalMax(value = COLUMN_MAX_LATITUDE, inclusive = true)
     @DecimalMin(value = COLUMN_MIN_LATITUDE, inclusive = true)
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_LATITUDE, fraction = ATTRIBUTE_DIGITS_FRACTION_LATITUDE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LATITUDE,
             nullable = true,
@@ -938,7 +913,6 @@ public class Store implements __DomainEntity<Long> {
 //    @DecimalMin(value = __DomainConstants.DECIMAL_MIN_LONGITUDE, inclusive = true)
     @DecimalMax(value = COLUMN_MAX_LONGITUDE, inclusive = true)
     @DecimalMin(value = COLUMN_MIN_LONGITUDE, inclusive = true)
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_LONGITUDE, fraction = ATTRIBUTE_DIGITS_FRACTION_LONGITUDE)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LONGITUDE,
             nullable = true,

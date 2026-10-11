@@ -29,7 +29,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -156,17 +157,24 @@ public class Customer implements __DomainEntity<Long> {
     public static final int COLUMN_SCALE_CUST_YEAR_OF_BIRTH = 0;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH} attribute. The value is
-     * {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_CUST_YEAR_OF_BIRTH} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_CUST_YEAR_OF_BIRTH =
-            COLUMN_PRECISION_CUST_YEAR_OF_BIRTH - COLUMN_SCALE_CUST_YEAR_OF_BIRTH;
+    public static final int COLUMN_MIN_CUST_YEAR_OF_BIRTH = -9999;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH} attribute. The value
-     * is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_CUST_YEAR_OF_BIRTH} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_CUST_YEAR_OF_BIRTH = COLUMN_SCALE_CUST_YEAR_OF_BIRTH;
+    public static final int COLUMN_MAX_CUST_YEAR_OF_BIRTH = +9999;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MIN_CUST_YEAR_OF_BIRTH = COLUMN_MIN_CUST_YEAR_OF_BIRTH;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH} attribute. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MAX_CUST_YEAR_OF_BIRTH = COLUMN_MAX_CUST_YEAR_OF_BIRTH;
 
     // -------------------------------------------------------------------------------------------- CUST_MARITAL_STATUS
 
@@ -1076,8 +1084,8 @@ public class Customer implements __DomainEntity<Long> {
     private String custGender;
 
     @NotNull
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_CUST_YEAR_OF_BIRTH,
-            fraction = ATTRIBUTE_DIGITS_FRACTION_CUST_YEAR_OF_BIRTH)
+    @Max(ATTRIBUTE_MAX_CUST_YEAR_OF_BIRTH)
+    @Min(ATTRIBUTE_MIN_CUST_YEAR_OF_BIRTH)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_CUST_YEAR_OF_BIRTH,
             nullable = false,

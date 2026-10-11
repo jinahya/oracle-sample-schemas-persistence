@@ -25,7 +25,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -164,17 +165,24 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     public static final int COLUMN_SCALE_AFFINITY_CARD = 0;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute. The value is
-     * {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_AFFINITY_CARD} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_AFFINITY_CARD =
-            COLUMN_PRECISION_AFFINITY_CARD - COLUMN_SCALE_AFFINITY_CARD;
+    public static final long COLUMN_MIN_AFFINITY_CARD = -9999999999L;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute. The value is
-     * {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_AFFINITY_CARD} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_AFFINITY_CARD = COLUMN_SCALE_AFFINITY_CARD;
+    public static final long COLUMN_MAX_AFFINITY_CARD = +9999999999L;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MIN_AFFINITY_CARD = COLUMN_MIN_AFFINITY_CARD;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MAX_AFFINITY_CARD = COLUMN_MAX_AFFINITY_CARD;
 
     // -------------------------------------------------------------------------------------------------------- CRICKET
 
@@ -200,15 +208,24 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     public static final int COLUMN_SCALE_CRICKET = 0;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_CRICKET} attribute. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_CRICKET} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_CRICKET = COLUMN_PRECISION_CRICKET - COLUMN_SCALE_CRICKET;
+    public static final long COLUMN_MIN_CRICKET = -9999999999L;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_CRICKET} attribute. The value is
-     * {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_CRICKET} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_CRICKET = COLUMN_SCALE_CRICKET;
+    public static final long COLUMN_MAX_CRICKET = +9999999999L;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_CRICKET} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MIN_CRICKET = COLUMN_MIN_CRICKET;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_CRICKET} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MAX_CRICKET = COLUMN_MAX_CRICKET;
 
     // ------------------------------------------------------------------------------------------------------- BASEBALL
 
@@ -234,15 +251,24 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     public static final int COLUMN_SCALE_BASEBALL = 0;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_BASEBALL} attribute. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_BASEBALL} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_BASEBALL = COLUMN_PRECISION_BASEBALL - COLUMN_SCALE_BASEBALL;
+    public static final long COLUMN_MIN_BASEBALL = -9999999999L;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_BASEBALL} attribute. The value is
-     * {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_BASEBALL} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_BASEBALL = COLUMN_SCALE_BASEBALL;
+    public static final long COLUMN_MAX_BASEBALL = +9999999999L;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_BASEBALL} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MIN_BASEBALL = COLUMN_MIN_BASEBALL;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_BASEBALL} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MAX_BASEBALL = COLUMN_MAX_BASEBALL;
 
     // --------------------------------------------------------------------------------------------------------- TENNIS
 
@@ -267,14 +293,24 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     public static final int COLUMN_SCALE_TENNIS = 0;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_TENNIS} attribute. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_TENNIS} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_TENNIS = COLUMN_PRECISION_TENNIS - COLUMN_SCALE_TENNIS;
+    public static final long COLUMN_MIN_TENNIS = -9999999999L;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_TENNIS} attribute. The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_TENNIS} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_TENNIS = COLUMN_SCALE_TENNIS;
+    public static final long COLUMN_MAX_TENNIS = +9999999999L;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_TENNIS} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MIN_TENNIS = COLUMN_MIN_TENNIS;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_TENNIS} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MAX_TENNIS = COLUMN_MAX_TENNIS;
 
     // --------------------------------------------------------------------------------------------------------- SOCCER
 
@@ -299,14 +335,24 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     public static final int COLUMN_SCALE_SOCCER = 0;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_SOCCER} attribute. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_SOCCER} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_SOCCER = COLUMN_PRECISION_SOCCER - COLUMN_SCALE_SOCCER;
+    public static final long COLUMN_MIN_SOCCER = -9999999999L;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_SOCCER} attribute. The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_SOCCER} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_SOCCER = COLUMN_SCALE_SOCCER;
+    public static final long COLUMN_MAX_SOCCER = +9999999999L;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_SOCCER} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MIN_SOCCER = COLUMN_MIN_SOCCER;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_SOCCER} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MAX_SOCCER = COLUMN_MAX_SOCCER;
 
     // ----------------------------------------------------------------------------------------------------------- GOLF
 
@@ -331,14 +377,24 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     public static final int COLUMN_SCALE_GOLF = 0;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_GOLF} attribute. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_GOLF} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_GOLF = COLUMN_PRECISION_GOLF - COLUMN_SCALE_GOLF;
+    public static final long COLUMN_MIN_GOLF = -9999999999L;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_GOLF} attribute. The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_GOLF} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_GOLF = COLUMN_SCALE_GOLF;
+    public static final long COLUMN_MAX_GOLF = +9999999999L;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_GOLF} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MIN_GOLF = COLUMN_MIN_GOLF;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_GOLF} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MAX_GOLF = COLUMN_MAX_GOLF;
 
     // -------------------------------------------------------------------------------------------------------- UNKNOWN
 
@@ -364,15 +420,24 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     public static final int COLUMN_SCALE_UNKNOWN = 0;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_UNKNOWN} attribute. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_UNKNOWN} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_UNKNOWN = COLUMN_PRECISION_UNKNOWN - COLUMN_SCALE_UNKNOWN;
+    public static final long COLUMN_MIN_UNKNOWN = -9999999999L;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_UNKNOWN} attribute. The value is
-     * {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_UNKNOWN} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_UNKNOWN = COLUMN_SCALE_UNKNOWN;
+    public static final long COLUMN_MAX_UNKNOWN = +9999999999L;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_UNKNOWN} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MIN_UNKNOWN = COLUMN_MIN_UNKNOWN;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_UNKNOWN} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MAX_UNKNOWN = COLUMN_MAX_UNKNOWN;
 
     // ----------------------------------------------------------------------------------------------------------- MISC
 
@@ -397,14 +462,24 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     public static final int COLUMN_SCALE_MISC = 0;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_MISC} attribute. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_MISC} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_MISC = COLUMN_PRECISION_MISC - COLUMN_SCALE_MISC;
+    public static final long COLUMN_MIN_MISC = -9999999999L;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_MISC} attribute. The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_MISC} column. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_MISC = COLUMN_SCALE_MISC;
+    public static final long COLUMN_MAX_MISC = +9999999999L;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_MISC} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MIN_MISC = COLUMN_MIN_MISC;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_MISC} attribute. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MAX_MISC = COLUMN_MAX_MISC;
 
     // ------------------------------------------------------------------------------------------------------- COMMENTS
 
@@ -812,7 +887,8 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     )
     private Long yrsResidence;
 
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_AFFINITY_CARD, fraction = ATTRIBUTE_DIGITS_FRACTION_AFFINITY_CARD)
+    @Max(ATTRIBUTE_MAX_AFFINITY_CARD)
+    @Min(ATTRIBUTE_MIN_AFFINITY_CARD)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_AFFINITY_CARD,
             nullable = true,
@@ -821,7 +897,8 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     )
     private Long affinityCard;
 
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_CRICKET, fraction = ATTRIBUTE_DIGITS_FRACTION_CRICKET)
+    @Max(ATTRIBUTE_MAX_CRICKET)
+    @Min(ATTRIBUTE_MIN_CRICKET)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_CRICKET,
             nullable = true,
@@ -830,7 +907,8 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     )
     private Long cricket;
 
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_BASEBALL, fraction = ATTRIBUTE_DIGITS_FRACTION_BASEBALL)
+    @Max(ATTRIBUTE_MAX_BASEBALL)
+    @Min(ATTRIBUTE_MIN_BASEBALL)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_BASEBALL,
             nullable = true,
@@ -839,7 +917,8 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     )
     private Long baseball;
 
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_TENNIS, fraction = ATTRIBUTE_DIGITS_FRACTION_TENNIS)
+    @Max(ATTRIBUTE_MAX_TENNIS)
+    @Min(ATTRIBUTE_MIN_TENNIS)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_TENNIS,
             nullable = true,
@@ -848,7 +927,8 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     )
     private Long tennis;
 
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_SOCCER, fraction = ATTRIBUTE_DIGITS_FRACTION_SOCCER)
+    @Max(ATTRIBUTE_MAX_SOCCER)
+    @Min(ATTRIBUTE_MIN_SOCCER)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_SOCCER,
             nullable = true,
@@ -857,7 +937,8 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     )
     private Long soccer;
 
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_GOLF, fraction = ATTRIBUTE_DIGITS_FRACTION_GOLF)
+    @Max(ATTRIBUTE_MAX_GOLF)
+    @Min(ATTRIBUTE_MIN_GOLF)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_GOLF,
             nullable = true,
@@ -866,7 +947,8 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     )
     private Long golf;
 
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_UNKNOWN, fraction = ATTRIBUTE_DIGITS_FRACTION_UNKNOWN)
+    @Max(ATTRIBUTE_MAX_UNKNOWN)
+    @Min(ATTRIBUTE_MIN_UNKNOWN)
     @Basic(optional = true)
     // quoted: UNKNOWN is a reserved identifier -- H2 rejects the generated DDL without the quotes, and the quoted
     // name is the upper-case one Oracle holds, so the mapping stays correct against the installed schema too
@@ -877,7 +959,8 @@ public class SupplementaryDemographics implements __DomainEntity<Long> {
     )
     private Long unknown;
 
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_MISC, fraction = ATTRIBUTE_DIGITS_FRACTION_MISC)
+    @Max(ATTRIBUTE_MAX_MISC)
+    @Min(ATTRIBUTE_MIN_MISC)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_MISC,
             nullable = true,

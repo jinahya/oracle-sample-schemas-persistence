@@ -27,7 +27,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -66,21 +69,21 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
     public static final int COLUMN_PRECISION_EMPLOYEE_ID = Employee.COLUMN_PRECISION_EMPLOYEE_ID;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_EMPLOYEE_ID = COLUMN_PRECISION_EMPLOYEE_ID;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_EMPLOYEE_ID = 0;
-
-    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = Employee.ATTRIBUTE_NAME_EMPLOYEE_ID;
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute, which the view projects from
+     * {@link Employee}. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = Employee.ATTRIBUTE_MIN_EMPLOYEE_ID;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute, which the view projects from
+     * {@link Employee}. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = Employee.ATTRIBUTE_MAX_EMPLOYEE_ID;
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_JOB_ID} attribute maps. The value is {@value}.
@@ -99,21 +102,21 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
     public static final String COLUMN_NAME_MANAGER_ID = "MANAGER_ID";
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_MANAGER_ID = 6;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_MANAGER_ID = 0;
-
-    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_MANAGER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_MANAGER_ID = "managerId";
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute, which the view projects from
+     * {@link Employee}. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MIN_MANAGER_ID = Employee.ATTRIBUTE_MIN_EMPLOYEE_ID;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute, which the view projects from
+     * {@link Employee}. The value is {@value}.
+     */
+    public static final long ATTRIBUTE_MAX_MANAGER_ID = Employee.ATTRIBUTE_MAX_EMPLOYEE_ID;
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute maps. The value is
@@ -122,21 +125,21 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_DEPARTMENT_ID = 4;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_DEPARTMENT_ID = 0;
-
-    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DEPARTMENT_ID = "departmentId";
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute, which the view projects from
+     * {@link Department}. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MIN_DEPARTMENT_ID = Department.ATTRIBUTE_MIN_DEPARTMENT_ID;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute, which the view projects from
+     * {@link Department}. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MAX_DEPARTMENT_ID = Department.ATTRIBUTE_MAX_DEPARTMENT_ID;
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute maps. The value is
@@ -145,21 +148,21 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
     public static final String COLUMN_NAME_LOCATION_ID = "LOCATION_ID";
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_LOCATION_ID = 4;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_LOCATION_ID = 0;
-
-    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_LOCATION_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LOCATION_ID = "locationId";
+
+    /**
+     * The minimum value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute, which the view projects from
+     * {@link Location}. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MIN_LOCATION_ID = Location.ATTRIBUTE_MIN_LOCATION_ID;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute, which the view projects from
+     * {@link Location}. The value is {@value}.
+     */
+    public static final int ATTRIBUTE_MAX_LOCATION_ID = Location.ATTRIBUTE_MAX_LOCATION_ID;
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps. The value is
@@ -203,6 +206,18 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
      * The name of the attribute which maps the {@value #COLUMN_NAME_SALARY} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_SALARY} attribute, which the view projects from
+     * {@link Employee}. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MAX_SALARY = Employee.ATTRIBUTE_DECIMAL_MAX_SALARY;
+
+    /**
+     * The exclusive minimum value of the {@value #ATTRIBUTE_NAME_SALARY} attribute, which the view projects from
+     * {@link Employee}. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE = Employee.ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE;
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute maps. The value is
@@ -403,16 +418,6 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
     public static final int COLUMN_SCALE_SALARY = Employee.COLUMN_SCALE_SALARY;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_SALARY} attribute. The value is {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_SALARY = COLUMN_PRECISION_SALARY - COLUMN_SCALE_SALARY;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_SALARY} attribute. The value is {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_SALARY = COLUMN_SCALE_SALARY;
-
-    /**
      * The precision of the {@value #COLUMN_NAME_COMMISSION_PCT} column, which the view projects from {@link Employee}.
      * The value is {@value}.
      */
@@ -425,17 +430,16 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
     public static final int COLUMN_SCALE_COMMISSION_PCT = Employee.COLUMN_SCALE_COMMISSION_PCT;
 
     /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute. The value is
-     * {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute, which the view projects from
+     * {@link Employee}. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_COMMISSION_PCT =
-            COLUMN_PRECISION_COMMISSION_PCT - COLUMN_SCALE_COMMISSION_PCT;
+    public static final String ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT = Employee.ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT;
 
     /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute. The value is
-     * {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute, which the view projects from
+     * {@link Employee}. The value is {@value}.
      */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_COMMISSION_PCT = COLUMN_SCALE_COMMISSION_PCT;
+    public static final String ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT = Employee.ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT;
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -681,7 +685,8 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
 
     @Id
     @Nonnull
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_EMPLOYEE_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_EMPLOYEE_ID)
+    @Max(ATTRIBUTE_MAX_EMPLOYEE_ID)
+    @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
     @NotNull
     @Basic(optional = false)
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects insertable=false on an @Id --
@@ -699,18 +704,21 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
     private String jobId;
 
     @jakarta.annotation.Nullable
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_MANAGER_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_MANAGER_ID)
+    @Max(ATTRIBUTE_MAX_MANAGER_ID)
+    @Min(ATTRIBUTE_MIN_MANAGER_ID)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_MANAGER_ID, nullable = true, insertable = false, updatable = false)
     private Integer managerId;
 
     @jakarta.annotation.Nullable
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_DEPARTMENT_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_DEPARTMENT_ID)
+    @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
+    @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_DEPARTMENT_ID, nullable = true, insertable = false, updatable = false)
     private Integer departmentId;
 
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_LOCATION_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_LOCATION_ID)
+    @Max(ATTRIBUTE_MAX_LOCATION_ID)
+    @Min(ATTRIBUTE_MIN_LOCATION_ID)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOCATION_ID, nullable = true, insertable = false, updatable = false)
     private Integer locationId;
@@ -733,13 +741,15 @@ public class EmpDetailsView implements __DomainEntity<Integer> {
             length = COLUMN_LENGTH_LAST_NAME)
     private String lastName;
 
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_SALARY, fraction = ATTRIBUTE_DIGITS_FRACTION_SALARY)
+    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
+    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false) // EMP_SALARY_MIN: CHECK (salary > 0)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_SALARY, nullable = true, insertable = false, updatable = false,
             precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY)
     private BigDecimal salary;
 
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_COMMISSION_PCT, fraction = ATTRIBUTE_DIGITS_FRACTION_COMMISSION_PCT)
+    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT, inclusive = true)
+    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT, inclusive = true)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_COMMISSION_PCT, nullable = true, insertable = false, updatable = false,
             precision = COLUMN_PRECISION_COMMISSION_PCT, scale = COLUMN_SCALE_COMMISSION_PCT)

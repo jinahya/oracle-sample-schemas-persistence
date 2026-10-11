@@ -32,7 +32,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -82,18 +81,6 @@ public class Department implements __DomainEntity<Integer> {
      * The maximum value of the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
      */
     public static final int COLUMN_MAX_DEPARTMENT_ID = +9999;
-
-    /**
-     * The maximum number of integral digits of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_INTEGER_DEPARTMENT_ID = COLUMN_PRECISION_DEPARTMENT_ID;
-
-    /**
-     * The maximum number of fractional digits of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
-     * {@value}.
-     */
-    public static final int ATTRIBUTE_DIGITS_FRACTION_DEPARTMENT_ID = 0;
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
@@ -414,7 +401,6 @@ public class Department implements __DomainEntity<Integer> {
     @Nonnull
     @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
     @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
-    @Digits(integer = ATTRIBUTE_DIGITS_INTEGER_DEPARTMENT_ID, fraction = ATTRIBUTE_DIGITS_FRACTION_DEPARTMENT_ID)
     @NotNull
     @Id
     @Column(name = COLUMN_NAME_DEPARTMENT_ID,
