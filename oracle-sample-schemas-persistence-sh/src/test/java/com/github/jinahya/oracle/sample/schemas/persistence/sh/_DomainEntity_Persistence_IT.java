@@ -204,13 +204,13 @@ abstract class _DomainEntity_Persistence_IT<T extends __DomainEntity<U>, U> exte
 
     /**
      * Selects a random instance of {@link #targetClass}, from the installed schema, and hands it to
-     * {@link #randomSelected(Object)}.
+     * {@link #randomSelected(__DomainEntity)}.
      *
      * @implNote The selection and the callback both run inside a transaction which is rolled back, so the instance
-     * handed over is still managed -- a lazy association read in {@link #randomSelected(Object)} resolves rather than
+     * handed over is still managed -- a lazy association read in {@link #randomSelected(__DomainEntity)} resolves rather than
      * throwing -- and nothing the callback does reaches the sample data.
      * @implSpec Selecting from an empty table is not a failure: the table's content is the installer's, not this
-     * test's, so {@link #randomSelected(Object)} is simply not invoked.
+     * test's, so {@link #randomSelected(__DomainEntity)} is simply not invoked.
      */
     @Test
     protected void selectRandom() {
