@@ -496,6 +496,93 @@ separate identity `SELECT`.
 Test-time properties: `hibernate.hbm2ddl.auto=create-drop`, `hibernate.show_sql`,
 `hibernate.format_sql`, `hibernate.highlight_sql`, `hibernate.use_sql_comment`.
 
+## Validation
+
+A `NUMBER` attribute states its range and nothing else: `@Min` / `@Max` for an integral one,
+`@DecimalMin` / `@DecimalMax` for a decimal one. A `NUMBER(p,s)` column holds
+±(10<sup>p−s</sup> − 10<sup>−s</sup>), and that is the whole constraint. No attribute carries
+`@Digits`, `@Positive`, `@Negative` or their `…OrZero` forms.
+
+### The case: `EMPLOYEES.COMMISSION_PCT NUMBER(2,2)`
+
+`NUMBER(2,2)` is two significant digits, both after the point: −0.99 to +0.99 in steps of
+0.01, zero included. `Employee#commissionPct` was mapped as
+
+```java
+@Digits(integer = 0, fraction = 2) // precision - scale, scale
+@DecimalMax(value = "+0.99", inclusive = true)
+@DecimalMin(value = "-0.99", inclusive = true)
+private BigDecimal commissionPct;
+```
+
+which reads right -- no integral digit, two fractional ones -- and still rejected a value the
+column accepts. A randomized `Employee` failed validation whenever Podam generated a zero.
+
+### Why not `@Digits`
+
+`@Digits` says *"maximum number of integral digits accepted for this number"* and leaves open
+how they are counted. Both implementations count them as `BigDecimal` does, as
+`precision() - scale()`, and `BigDecimal.precision()` is documented as *"The precision of a zero
+value is 1."* A zero therefore has one integral digit, or none, depending on its scale:
+
+| value | precision | scale | precision − scale |
+| --- | --- | --- | --- |
+| `0` | 1 | 0 | 1 |
+| `0.00` | 1 | 2 | −1 |
+| `0.5` | 1 | 1 | 0 |
+| `0.50` | 2 | 2 | 0 |
+
+The two validators then part ways over trailing zeros. Hibernate Validator counts the
+`BigDecimal` as given (it strips trailing zeros only for other `Number` types); Apache BVal strips
+them first:
+
+| constraint | value | Hibernate Validator 9.1.4 | Apache BVal 3.1.0 |
+| --- | --- | --- | --- |
+| `@Digits(integer = 0, fraction = 2)` | `0` | violation | violation |
+| | `0.00` | valid | violation |
+| | `0.5` | valid | valid |
+| `@Digits(integer = 1, fraction = 1)` | `0.50` | violation | valid |
+| | `5.00` | violation | valid |
+
+So under Hibernate Validator `BigDecimal.ZERO` fails where `new BigDecimal("0.00")` passes, though
+the two are equal by `compareTo`; under BVal every zero fails. Neither accepts every value of
+`NUMBER(2,2)`. Counting by the number rather than its representation -- strip trailing zeros,
+then scale a result below `fraction` up to it, which only ever changes a zero -- would, but that
+is not what either does.
+
+`@Digits` is not needed for what the column enforces anyway:
+
+* **Too many integral digits** is an error in Oracle (`ORA-01438`: value larger than specified
+  precision allowed for this column), and the range already rules those values out.
+* **Too many fractional digits** is not an error at all. Oracle
+  [rounds a value to the column's scale](https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/Data-Types.html)
+  -- `0.994` is stored as `0.99` -- so an attribute may hold any value in the range, and the
+  database drops what is beyond the scale.
+
+`commissionPct` is now
+
+```java
+@DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT, inclusive = true) // "+0.99"
+@DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT, inclusive = true) // "-0.99"
+private BigDecimal commissionPct;
+```
+
+and every zero, whatever its scale, passes under both validators.
+
+### Why not `@Positive`
+
+Object randomizers honour a min/max pair more reliably than anything else. `EMPLOYEES.SALARY` is
+`NUMBER(8,2)` with `EMP_SALARY_MIN: CHECK (salary > 0)`, and was mapped with `@Positive` beside
+`@DecimalMax("+999999.99")`. Podam 8.0.2, given both, honours `@Positive` and ignores
+`@DecimalMax`, and generated salaries around 10<sup>9</sup>; `@Digits(integer = 6, ...)` had been
+hiding that. Stated as a pair, the check needs nothing else:
+
+```java
+@DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
+@DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false) // EMP_SALARY_MIN
+private BigDecimal salary;
+```
+
 ## Links
 
 ### oracle.com
