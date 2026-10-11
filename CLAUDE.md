@@ -29,18 +29,6 @@ independent of each other, tests included: each carries its own test bases in it
   a view with no key, or the embeddable base `_Binary` -- omits `equals`/`hashCode`
   and keeps identity equality.
 
-### The `mapped` branch
-
-This branch is the material for readers: each concrete class stands on its own. A long-lived
-branch, `mapped`, holds a further topic, kept off this branch for that reason: a `<schema>.mapped`
-package with one abstract `@MappedSuperclass` per table or view (`MappedCountry`,
-`MappedStoreOrder`, …), and the concrete classes reshaped to extend them. That branch runs this
-branch's tests and ITs, so their passing there shows the two shapes behave alike.
-
-Merges go one way only: `develop` is merged into `mapped`, never the other way. A change to a
-concrete class's columns, constants or validation here is carried into its `Mapped*` counterpart
-there, when the branch takes the merge.
-
 ### Member order inside an entity
 
 Every entity lays its members out in this order, and new members go into the matching
