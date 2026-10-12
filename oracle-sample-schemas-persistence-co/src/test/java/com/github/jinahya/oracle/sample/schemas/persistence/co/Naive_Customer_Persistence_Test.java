@@ -83,26 +83,32 @@ class Naive_Customer_Persistence_Test {
                 customerId[0] = customer.getCustomerId();
                 transaction1.commit();
                 log.debug("committed");
-            } catch (final Exception e) {
-                log.error("failed to persist; rolling back", e);
-                transaction1.rollback();
-                return;
+            } catch (final Throwable t) {
+                log.error("failed to persist; rolling back", t);
+                if (transaction1.isActive()) {
+                    transaction1.rollback();
+                }
+                throw t;
             }
             entityManager.clear();
             assert customerId[0] != null;
             final var found = entityManager.find(Customer.class, customerId[0]);
             log.debug("found by {}: {}", customerId[0], found);
             assertThat(found).isNotNull();
-            log.debug("removing {}", found);
-            entityManager.remove(found);
             final var transaction2 = entityManager.getTransaction();
             transaction2.begin();
             try {
+                log.debug("removing {}", found);
+                entityManager.remove(found);
                 entityManager.flush();
-                log.debug("flushed the removal");
-            } catch (final Exception e) {
-                log.error("failed to flush the removal; rolling back", e);
-                transaction2.rollback();
+                transaction2.commit();
+                log.debug("committed the removal");
+            } catch (final Throwable t) {
+                log.error("failed to remove; rolling back", t);
+                if (transaction2.isActive()) {
+                    transaction2.rollback();
+                }
+                throw t;
             }
         }
     }
