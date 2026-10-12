@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class ProductOrder_Persistence_IT extends _DomainEntity_Persistence_IT<ProductOrder, ProductOrderId> {
+class ProductOrder_Persistence_IT extends _Entity_Persistence_IT<ProductOrder> {
 
     ProductOrder_Persistence_IT() {
         super(ProductOrder.class);

@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class SupplementaryDemographics_Test extends _DomainEntity_Test<SupplementaryDemographics, Long> {
+class SupplementaryDemographics_Test extends _Entity_Test<SupplementaryDemographics> {
 
     SupplementaryDemographics_Test() {
         super(SupplementaryDemographics.class);
@@ -43,7 +43,7 @@ class SupplementaryDemographics_Test extends _DomainEntity_Test<SupplementaryDem
      * key -- because every other attribute is mutable state.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<SupplementaryDemographics> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<SupplementaryDemographics> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

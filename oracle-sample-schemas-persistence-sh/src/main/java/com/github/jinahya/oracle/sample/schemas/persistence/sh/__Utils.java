@@ -21,18 +21,20 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  */
 
 /**
- * Constants shared by the entity classes of the {@code SH} schema.
+ * Utilities shared across the {@code SH} schema's classes.
+ * <p>
+ * Only what is shared goes here; what belongs to a single entity stays in that entity.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public final class __DomainConstants {
+final class __Utils {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
-    private __DomainConstants() {
+    private __Utils() {
         throw new AssertionError("instantiation is not allowed");
     }
 }

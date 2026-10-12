@@ -63,13 +63,13 @@ import java.lang.invoke.MethodHandles;
  * destroying the container does it.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see _DomainEntity_Persistence_IT
+ * @see _Entity_Persistence_IT
  */
 @ApplicationScoped
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-class _DomainEntity_Persistence_IT_Producer {
+class _Entity_Persistence_IT_Producer {
 
     /**
      * The name of the persistence unit this producer bootstraps. The value is {@value}.
@@ -124,7 +124,7 @@ class _DomainEntity_Persistence_IT_Producer {
     /**
      * Creates a new instance.
      */
-    _DomainEntity_Persistence_IT_Producer() {
+    _Entity_Persistence_IT_Producer() {
         super();
     }
 

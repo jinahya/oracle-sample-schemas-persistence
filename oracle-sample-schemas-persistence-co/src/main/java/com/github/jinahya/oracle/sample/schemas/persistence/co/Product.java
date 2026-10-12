@@ -34,10 +34,10 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.DecimalMax;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -84,7 +84,7 @@ import java.util.function.Function;
 )
 @Entity
 @Table(name = Product.TABLE_NAME)
-public class Product implements __DomainEntity<Long> {
+public class Product {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

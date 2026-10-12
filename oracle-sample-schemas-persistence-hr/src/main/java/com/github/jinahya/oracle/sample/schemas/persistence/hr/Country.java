@@ -73,7 +73,7 @@ import java.util.Objects;
 )
 @Entity
 @Table(name = Country.TABLE_NAME)
-public class Country implements __DomainEntity<String> {
+public class Country {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

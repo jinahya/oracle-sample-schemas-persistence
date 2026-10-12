@@ -43,7 +43,7 @@ class SaleId_Test extends _NonEntity_Test<SaleId> {
      * key this class holds.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<SaleId> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<SaleId> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

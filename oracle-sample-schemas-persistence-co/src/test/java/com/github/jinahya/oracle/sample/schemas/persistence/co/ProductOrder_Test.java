@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class ProductOrder_Test extends _DomainEntity_Test<ProductOrder, ProductOrderId> {
+class ProductOrder_Test extends _Entity_Test<ProductOrder> {
 
     ProductOrder_Test() {
         super(ProductOrder.class);
@@ -43,7 +43,7 @@ class ProductOrder_Test extends _DomainEntity_Test<ProductOrder, ProductOrderId>
      * is mutable state.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<ProductOrder> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<ProductOrder> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

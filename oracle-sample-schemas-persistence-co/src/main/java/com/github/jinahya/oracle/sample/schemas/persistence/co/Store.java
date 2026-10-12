@@ -35,10 +35,10 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.DecimalMax;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -63,7 +63,7 @@ import java.util.Optional;
                     WHERE e.storeName = :storeName""")
 @Entity
 @Table(name = Store.TABLE_NAME)
-public class Store implements __DomainEntity<Long> {
+public class Store {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -206,31 +206,6 @@ public class Store implements __DomainEntity<Long> {
      */
     public static final String ATTRIBUTE_NAME_LATITUDE = "latitude";
 
-    /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute, as a decimal string.
-     * <p>
-     * The attribute takes geographic degrees, {@code -90} to {@code +90}, which is narrower than what the
-     * {@value #COLUMN_NAME_LATITUDE} column can hold, {@value #COLUMN_MIN_LATITUDE} to {@value #COLUMN_MAX_LATITUDE}.
-     */
-    public static final String ATTRIBUTE_DECIMAL_MIN_LATITUDE = __DomainConstants.DECIMAL_MIN_LATITUDE;
-
-    /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute, as a decimal string.
-     *
-     * @see #ATTRIBUTE_DECIMAL_MIN_LATITUDE
-     */
-    public static final String ATTRIBUTE_DECIMAL_MAX_LATITUDE = __DomainConstants.DECIMAL_MAX_LATITUDE;
-
-    /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute.
-     */
-    public static final BigDecimal ATTRIBUTE_MIN_LATITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MIN_LATITUDE);
-
-    /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute.
-     */
-    public static final BigDecimal ATTRIBUTE_MAX_LATITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MAX_LATITUDE);
-
     // ------------------------------------------------------------------------------------------------------- LONGITUDE
 
     /**
@@ -263,32 +238,6 @@ public class Store implements __DomainEntity<Long> {
      * The name of the attribute which maps the {@value #COLUMN_NAME_LONGITUDE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LONGITUDE = "longitude";
-
-    /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute, as a decimal string.
-     * <p>
-     * The attribute takes geographic degrees, {@code -180} to {@code +180}, which is narrower than what the
-     * {@value #COLUMN_NAME_LONGITUDE} column can hold, {@value #COLUMN_MIN_LONGITUDE} to
-     * {@value #COLUMN_MAX_LONGITUDE}.
-     */
-    public static final String ATTRIBUTE_DECIMAL_MIN_LONGITUDE = __DomainConstants.DECIMAL_MIN_LONGITUDE;
-
-    /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute, as a decimal string.
-     *
-     * @see #ATTRIBUTE_DECIMAL_MIN_LONGITUDE
-     */
-    public static final String ATTRIBUTE_DECIMAL_MAX_LONGITUDE = __DomainConstants.DECIMAL_MAX_LONGITUDE;
-
-    /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute.
-     */
-    public static final BigDecimal ATTRIBUTE_MIN_LONGITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MIN_LONGITUDE);
-
-    /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute.
-     */
-    public static final BigDecimal ATTRIBUTE_MAX_LONGITUDE = new BigDecimal(ATTRIBUTE_DECIMAL_MAX_LONGITUDE);
 
     // ------------------------------------------------------------------------------------------------------------ LOGO
 
@@ -890,10 +839,6 @@ public class Store implements __DomainEntity<Long> {
     private String physicalAddress;
 
     @Nullable
-    // TODO: remove; not constrained by the DDL -- STORES.LATITUDE is NUMBER(9,6) with no check; -90..+90 is a domain range
-//    @DecimalMax(value = __DomainConstants.DECIMAL_MAX_LATITUDE, inclusive = true)
-    // TODO: remove; not constrained by the DDL -- STORES.LATITUDE is NUMBER(9,6) with no check; -90..+90 is a domain range
-//    @DecimalMin(value = __DomainConstants.DECIMAL_MIN_LATITUDE, inclusive = true)
     @DecimalMax(value = COLUMN_MAX_LATITUDE, inclusive = true)
     @DecimalMin(value = COLUMN_MIN_LATITUDE, inclusive = true)
     @Basic(optional = true)
@@ -907,10 +852,6 @@ public class Store implements __DomainEntity<Long> {
     private BigDecimal latitude;
 
     @Nullable
-    // TODO: remove; not constrained by the DDL -- STORES.LONGITUDE is NUMBER(9,6) with no check; -180..+180 is a domain range
-//    @DecimalMax(value = __DomainConstants.DECIMAL_MAX_LONGITUDE, inclusive = true)
-    // TODO: remove; not constrained by the DDL -- STORES.LONGITUDE is NUMBER(9,6) with no check; -180..+180 is a domain range
-//    @DecimalMin(value = __DomainConstants.DECIMAL_MIN_LONGITUDE, inclusive = true)
     @DecimalMax(value = COLUMN_MAX_LONGITUDE, inclusive = true)
     @DecimalMin(value = COLUMN_MIN_LONGITUDE, inclusive = true)
     @Basic(optional = true)

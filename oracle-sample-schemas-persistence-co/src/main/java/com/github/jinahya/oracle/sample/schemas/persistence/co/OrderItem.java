@@ -60,7 +60,7 @@ import java.util.Optional;
                )
        }
 )
-public class OrderItem implements __DomainEntity<OrderItemId> {
+public class OrderItem {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

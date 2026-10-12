@@ -21,9 +21,9 @@ independent of each other, tests included: each carries its own test bases in it
   `toString`, and `equals`/`hashCode`. Do not introduce a shared entity superclass
   to remove duplication between entities — the duplication is the point, because
   it keeps each mapping readable on its own.
-- **Every class that maps a table or a view implements `__DomainEntity<T>`.** `T`
-  is the identifier type, `Void` for a view with no key. Id classes, embeddables
-  and helpers do not implement it.
+- **Shared code has two homes per module.** Each module has a package-private `__Constants`
+  and `__Utils`, kept even when empty, and only what more than one class shares goes in them.
+  There is no `__DomainConstants` or other per-domain catch-all.
 - **`toString`, `equals` and `hashCode` use basic attributes and the `@EmbeddedId`
   only, never an association.** A class that cannot compare by an identifier --
   a view with no key, or the embeddable base `_Binary` -- omits `equals`/`hashCode`
@@ -116,25 +116,30 @@ would look for their tables in the wrong schema.
 ### Test bases, one copy per module
 
 There is no shared test module. Each module has, in its own test package, its own test bases,
-their CDI producers `_DomainEntity_Persistence_Test_Producer` /
-`_DomainEntity_Persistence_IT_Producer`, and the helper `___Persistence_TestUtils`. The bases are
-one root and four siblings, none of which extends another:
+their CDI producers `_Entity_Persistence_Test_Producer` /
+`_Entity_Persistence_IT_Producer`, and the helper `___Persistence_TestUtils`. The bases are
+one root and four siblings, none of which extends another, plus one interface holding the checks:
 
 | base | tests | for |
 | --- | --- | --- |
-| `__Test<T>` | nothing itself | the root: the target class, its factories, and the checks below as plain methods |
+| `__Test<T>` | nothing itself | the root: the target class and its factories |
+| `__Object_Test<T>` (interface) | `toString`, `equals`/`hashCode`, accessors, as `@Test` default methods | mixed into the two bases below |
 | `_NonEntity_Test<T>` | `toString`, `equals`/`hashCode`, accessors | a class with no identity: an id class, an embeddable, a mapped JSON document |
-| `_DomainEntity_Test<T extends __DomainEntity<U>, U>` | the same, and any check only such a class has | a class mapping a table or a view, keyless views included (`U` is `Void`) |
-| `_DomainEntity_Persistence_Test<T extends __DomainEntity<U>, U>` | the mapping, against the `<schema>-test` unit | an entity |
-| `_DomainEntity_Persistence_IT<T extends __DomainEntity<U>, U>` | the mapping, against the `<schema>-it` unit | an entity |
+| `_Entity_Test<T>` | the same, and any check only such a class has | a class mapping a table or a view, keyless views included |
+| `_Entity_Persistence_Test<T>` | the mapping, against the `<schema>-test` unit | an entity |
+| `_Entity_Persistence_IT<T>` | the mapping, against the `<schema>-it` unit | an entity |
 
-A class gets one of the first two, and an entity also gets the last two. `U` is the identifier
-type its `__DomainEntity<U>` names, so a class without the marker cannot get a persistence test.
+A class gets one of `_NonEntity_Test` / `_Entity_Test`, and an entity also gets the last two.
 
-The checks live in `__Test` as plain methods, and `_NonEntity_Test` and `_DomainEntity_Test` each
-re-declare them with `@Test`; that is what keeps the persistence bases, which extend the same root,
-from running them again. Do not move a `@Test` up into `__Test`, and do not add a base between
-the root and a sibling: a level earns its place only with a check of its own.
+The checks live in `__Object_Test` as `@Test` default methods -- JUnit Jupiter discovers tests on
+an interface's default methods -- and `_NonEntity_Test` and `_Entity_Test` implement it;
+the persistence bases, which extend the same root, do not, and so do not run them again. Do not
+move a `@Test` up into `__Test`, and do not add a base between the root and a sibling: a level
+earns its place only with a check of its own.
+
+Interface methods are `public`, so a subclass overriding one -- `equals_verifier_()` to suppress
+a warning, `equals_verify_()` to skip a class with no value equality -- declares it `public`. An
+override of a test method keeps its `@Test`; without it the override silently drops the test.
 
 Each persistence base names its producer in its own `@AddBeanClasses`; the producer holds the unit
 name as its `PERSISTENCE_UNIT_NAME` constant.

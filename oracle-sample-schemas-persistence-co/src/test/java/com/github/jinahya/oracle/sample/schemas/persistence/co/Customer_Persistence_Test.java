@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Customer_Persistence_Test extends _DomainEntity_Persistence_Test<Customer, Long> {
+class Customer_Persistence_Test extends _Entity_Persistence_Test<Customer> {
 
     Customer_Persistence_Test() {
         super(Customer.class);

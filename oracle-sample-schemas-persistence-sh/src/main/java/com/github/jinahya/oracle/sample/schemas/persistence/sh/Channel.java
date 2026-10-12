@@ -37,7 +37,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = Channel.TABLE_NAME)
-public class Channel implements __DomainEntity<Long> {
+public class Channel {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Inventory_Persistence_IT extends _DomainEntity_Persistence_IT<Inventory, Long> {
+class Inventory_Persistence_IT extends _Entity_Persistence_IT<Inventory> {
 
     // -----------------------------------------------------------------------------------------------------------------
     Inventory_Persistence_IT() {

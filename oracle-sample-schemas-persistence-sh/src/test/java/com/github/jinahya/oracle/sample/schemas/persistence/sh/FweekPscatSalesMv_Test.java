@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class FweekPscatSalesMv_Test extends _DomainEntity_Test<FweekPscatSalesMv, FweekPscatSalesMvId> {
+class FweekPscatSalesMv_Test extends _Entity_Test<FweekPscatSalesMv> {
 
     FweekPscatSalesMv_Test() {
         super(FweekPscatSalesMv.class);
@@ -43,7 +43,7 @@ class FweekPscatSalesMv_Test extends _DomainEntity_Test<FweekPscatSalesMv, Fweek
      * attribute is mutable state.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<FweekPscatSalesMv> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<FweekPscatSalesMv> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

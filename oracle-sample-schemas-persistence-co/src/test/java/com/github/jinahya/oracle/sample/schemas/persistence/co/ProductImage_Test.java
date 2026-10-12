@@ -44,7 +44,7 @@ class ProductImage_Test extends _NonEntity_Test<ProductImage> {
      */
     @Override
     @Test
-    protected void equals_verify_() {
+    public void equals_verify_() {
         // empty
     }
 }

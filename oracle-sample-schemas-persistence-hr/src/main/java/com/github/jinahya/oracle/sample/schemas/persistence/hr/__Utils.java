@@ -29,11 +29,18 @@ import java.time.temporal.TemporalAccessor;
 import java.util.Objects;
 
 /**
- * Utilities which mirror the logic of the {@code HR} schema's stored routines.
+ * Utilities shared across the {@code HR} schema's classes, such as the ones which mirror the logic of its stored
+ * routines.
+ * <p>
+ * Only what is shared goes here; what belongs to a single entity stays in that entity.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@SuppressWarnings({
+        "java:S101" // Class names should comply with a naming convention
+})
 final class __Utils {
+
     // -------------------------------------------------------------------------------------------------- STATIC_METHODS
 
     // create PROCEDURE secure_dml
@@ -48,8 +55,8 @@ final class __Utils {
 
     /**
      * Checks whether the {@code SECURE_DML} routine would raise an application error
-     * ({@value __DomainConstants#ROUTINE_SECURE_DML_APPLICATION_ERROR_CODE}) at the specified time on the specified day
-     * of the week.
+     * ({@value __Constants#ROUTINE_SECURE_DML_APPLICATION_ERROR_CODE}) at the specified time on the specified day of
+     * the week.
      * <p>
      * {@snippet id = "SECURE_DML" lang = "sql":
      * create PROCEDURE secure_dml IS
@@ -65,10 +72,10 @@ final class __Utils {
      * <hr/>
      * <p>
      * The routine raises the application error when the current time is {@code NOT BETWEEN}
-     * {@value __DomainConstants#ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT} and
-     * {@value __DomainConstants#ROUTINE_SECURE_DML_LOCAL_TIME_MAX_TEXT}, {@code OR} the current day of the week is
-     * either {@link DayOfWeek#SATURDAY} or {@link DayOfWeek#SUNDAY}. As the routine compares the time as
-     * {@code HH24:MI}, the {@code time} is compared to the minute; e.g., {@code 18:00:59} is still within the hours.
+     * {@value __Constants#ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT} and
+     * {@value __Constants#ROUTINE_SECURE_DML_LOCAL_TIME_MAX_TEXT}, {@code OR} the current day of the week is either
+     * {@link DayOfWeek#SATURDAY} or {@link DayOfWeek#SUNDAY}. As the routine compares the time as {@code HH24:MI}, the
+     * {@code time} is compared to the minute; e.g., {@code 18:00:59} is still within the hours.
      *
      * @param time    the time of day to check.
      * @param weekday the day of the week to check.
@@ -82,10 +89,9 @@ final class __Utils {
         Objects.requireNonNull(weekday, "weekday is null");
         // the routine compares TO_CHAR(SYSDATE, 'HH24:MI'), so anything finer than minutes is ignored
         final var minutes = time.truncatedTo(ChronoUnit.MINUTES);
-        return minutes.isBefore(__DomainConstants.ROUTINE_SECURE_DML_LOCAL_TIME_MIN)
-               || minutes.isAfter(__DomainConstants.ROUTINE_SECURE_DML_LOCAL_TIME_MAX)
-               ||
-               __DomainConstants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.contains(weekday);
+        return minutes.isBefore(__Constants.ROUTINE_SECURE_DML_LOCAL_TIME_MIN)
+               || minutes.isAfter(__Constants.ROUTINE_SECURE_DML_LOCAL_TIME_MAX)
+               || __Constants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.contains(weekday);
     }
 
     /**

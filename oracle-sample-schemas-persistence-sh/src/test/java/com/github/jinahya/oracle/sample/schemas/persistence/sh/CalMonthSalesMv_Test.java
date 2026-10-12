@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class CalMonthSalesMv_Test extends _DomainEntity_Test<CalMonthSalesMv, String> {
+class CalMonthSalesMv_Test extends _Entity_Test<CalMonthSalesMv> {
 
     CalMonthSalesMv_Test() {
         super(CalMonthSalesMv.class);
@@ -43,7 +43,7 @@ class CalMonthSalesMv_Test extends _DomainEntity_Test<CalMonthSalesMv, String> {
      * attribute is mutable state.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<CalMonthSalesMv> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<CalMonthSalesMv> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

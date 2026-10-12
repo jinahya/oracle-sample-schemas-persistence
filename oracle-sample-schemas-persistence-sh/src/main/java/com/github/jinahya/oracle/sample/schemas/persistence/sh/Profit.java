@@ -35,7 +35,6 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value Profit#TABLE_NAME} view, whose composite identifier is mapped with an
@@ -47,7 +46,7 @@ import java.util.Optional;
 @Entity
 @IdClass(ProfitId.class)
 @Table(name = Profit.TABLE_NAME)
-public class Profit implements __DomainEntity<ProfitId> {
+public class Profit {
 
     /**
      * The name of the database view to which this entity class maps. The value is {@value}.

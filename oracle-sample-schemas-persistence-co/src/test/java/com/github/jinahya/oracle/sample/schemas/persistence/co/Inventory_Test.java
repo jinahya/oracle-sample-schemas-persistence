@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Inventory_Test extends _DomainEntity_Test<Inventory, Long> {
+class Inventory_Test extends _Entity_Test<Inventory> {
 
     Inventory_Test() {
         super(Inventory.class);
@@ -47,7 +47,7 @@ class Inventory_Test extends _DomainEntity_Test<Inventory, Long> {
      * equals itself only.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<Inventory> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<Inventory> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY,
                           Warning.IDENTICAL_COPY_FOR_VERSIONED_ENTITY,

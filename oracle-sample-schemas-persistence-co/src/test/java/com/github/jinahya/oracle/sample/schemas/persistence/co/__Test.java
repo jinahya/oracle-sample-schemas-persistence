@@ -21,26 +21,17 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  */
 
 import com.github.jinahya.object.randomizer.ObjectRandomizerUtils;
-import jakarta.persistence.Transient;
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 import org.junit.platform.commons.util.ReflectionUtils;
 
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
 import java.util.Objects;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
-
 /**
- * The root of every test base of this package; it holds the target class, and what a test of any kind does with it.
+ * The root of every test base of this package; it holds the target class, and the factories of its instances.
  * <p>
- * The checks a class has to pass on its own -- a usable {@code toString()}, an {@code equals}/{@code hashCode} pair,
- * and property accessors which round-trip -- are plain methods here, not tests. {@link _NonEntity_Test} and
- * {@link _DomainEntity_Test} declare them as tests; {@link _DomainEntity_Persistence_Test} and
- * {@link _DomainEntity_Persistence_IT} do not, so they do not run them again.
+ * The checks a class has to pass on its own are not here but in {@link __Object_Test}, which {@link _NonEntity_Test}
+ * and {@link _Entity_Test} implement; {@link _Entity_Persistence_Test} and {@link _Entity_Persistence_IT} do not, so
+ * they do not run them again.
  *
  * @param <T> the type of the target class.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
@@ -64,6 +55,15 @@ abstract class __Test<T> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
+     * Returns the class which this test targets.
+     *
+     * @return the class which this test targets.
+     */
+    public Class<T> targetClass() {
+        return targetClass;
+    }
+
+    /**
      * Returns a new, uninitialized instance of {@link #targetClass}.
      *
      * @return a new instance of {@link #targetClass}.
@@ -80,73 +80,6 @@ abstract class __Test<T> {
      */
     public Optional<T> newRandomizedTargetInstance() {
         return ObjectRandomizerUtils.newRandomizedInstanceOf(targetClass);
-    }
-
-    // -------------------------------------------------------------------------------------------------------- toString
-
-    /**
-     * Verifies that {@code toString()} of a new instance of {@link #targetClass} is not blank.
-     */
-    protected void toString_NotBlank_NewInstance() {
-        final var instance = newTargetInstance();
-        final var string = instance.toString();
-        assertThat(string).isNotBlank();
-    }
-
-    /**
-     * Verifies that {@code toString()} of a new randomized instance of {@link #targetClass} is not blank.
-     */
-    protected void toString_NotBlank_NewRandomizedInstance() {
-        newRandomizedTargetInstance().map(Objects::toString).ifPresent(v -> {
-            assertThat(v).isNotBlank();
-        });
-    }
-
-    // ------------------------------------------------------------------------------------------------ equals/hashCode
-
-    /**
-     * Returns an equals-verifier for {@link #targetClass}, which subclasses may further configure.
-     *
-     * @return an equals-verifier for {@link #targetClass}.
-     */
-    protected SingleTypeEqualsVerifierApi<T> equals_verifier_() {
-        return EqualsVerifier.simple().forClass(targetClass);
-    }
-
-    /**
-     * Verifies the {@code equals}/{@code hashCode} contract of {@link #targetClass}, using the verifier which
-     * {@link #equals_verifier_()} returns.
-     */
-    protected void equals_verify_() {
-        final var verifier = equals_verifier_();
-        verifier.verify();
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    /**
-     * Verifies that every non-{@link jakarta.persistence.Transient @Transient} read/write property of
-     * {@link #targetClass} accepts what its own reader returns.
-     *
-     * @throws IntrospectionException when {@link #targetClass} cannot be introspected.
-     */
-    protected void propertyAccessors_DoNotThrow() throws IntrospectionException {
-        final var instance = newTargetInstance();
-        final java.beans.BeanInfo info = Introspector.getBeanInfo(targetClass);
-        for (final var descriptor : info.getPropertyDescriptors()) {
-            final var reader = descriptor.getReadMethod();
-            final var writer = descriptor.getWriteMethod();
-            if (reader == null || writer == null
-                || reader.isAnnotationPresent(Transient.class)
-                || writer.isAnnotationPresent(Transient.class)) {
-                continue;
-            }
-            reader.setAccessible(true);
-            writer.setAccessible(true);
-            assertThatCode(() -> writer.invoke(instance, reader.invoke(instance)))
-                    .as("%s.%s(%s())", targetClass.getSimpleName(), writer.getName(), reader.getName())
-                    .doesNotThrowAnyException();
-        }
     }
 
     // -----------------------------------------------------------------------------------------------------------------

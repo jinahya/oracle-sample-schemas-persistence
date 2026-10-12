@@ -43,7 +43,7 @@ class ProfitId_Test extends _NonEntity_Test<ProfitId> {
      * key this class holds.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<ProfitId> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<ProfitId> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

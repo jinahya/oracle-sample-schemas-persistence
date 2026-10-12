@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Cost_Test extends _DomainEntity_Test<Cost, CostId> {
+class Cost_Test extends _Entity_Test<Cost> {
 
     Cost_Test() {
         super(Cost.class);
@@ -43,7 +43,7 @@ class Cost_Test extends _DomainEntity_Test<Cost, CostId> {
      * mutable state.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<Cost> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<Cost> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

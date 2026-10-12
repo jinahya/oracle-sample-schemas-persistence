@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Channel_Test extends _DomainEntity_Test<Channel, Long> {
+class Channel_Test extends _Entity_Test<Channel> {
 
     Channel_Test() {
         super(Channel.class);
@@ -43,7 +43,7 @@ class Channel_Test extends _DomainEntity_Test<Channel, Long> {
      * every other attribute is mutable state.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<Channel> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<Channel> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

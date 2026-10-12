@@ -43,7 +43,7 @@ class ProductOrderId_Test extends _NonEntity_Test<ProductOrderId> {
      * {@code orderStatus}.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<ProductOrderId> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<ProductOrderId> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

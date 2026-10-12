@@ -52,7 +52,7 @@ import java.util.Optional;
 @Entity
 @IdClass(CostId.class)
 @Table(name = Cost.TABLE_NAME)
-public class Cost implements __DomainEntity<CostId> {
+public class Cost {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

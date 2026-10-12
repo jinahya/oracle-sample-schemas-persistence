@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class Product_Persistence_IT extends _DomainEntity_Persistence_IT<Product, Long> {
+class Product_Persistence_IT extends _Entity_Persistence_IT<Product> {
 
     private static BigDecimal unitPriceMin;
 

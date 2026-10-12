@@ -43,7 +43,7 @@ class FweekPscatSalesMvId_Test extends _NonEntity_Test<FweekPscatSalesMvId> {
      * composite key this class holds.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<FweekPscatSalesMvId> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<FweekPscatSalesMvId> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

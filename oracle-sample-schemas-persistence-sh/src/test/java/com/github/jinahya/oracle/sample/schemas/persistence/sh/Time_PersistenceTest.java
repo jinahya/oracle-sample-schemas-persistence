@@ -20,14 +20,12 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import java.time.LocalDateTime;
-
 /**
  * Verifies the mappings of {@link Time} against the schema generated into the in-memory database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Time_PersistenceTest extends _DomainEntity_Persistence_Test<Time, LocalDateTime> {
+class Time_PersistenceTest extends _Entity_Persistence_Test<Time> {
 
     Time_PersistenceTest() {
         super(Time.class);

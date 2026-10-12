@@ -38,7 +38,7 @@ import java.math.BigDecimal;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public class StoreOrder implements __DomainEntity<Void> {
+public class StoreOrder {
 
     /**
      * The name of the database view to which this class maps. The value is {@value}.
@@ -121,19 +121,21 @@ public class StoreOrder implements __DomainEntity<Void> {
     public static final String COLUMN_NAME_LATITUDE = "LATITUDE";
 
     /**
+     * The minimum value of the {@value #COLUMN_NAME_LATITUDE} column, which the view projects from {@link Store}. The
+     * value is {@value}.
+     */
+    public static final String COLUMN_MIN_LATITUDE = Store.COLUMN_MIN_LATITUDE;
+
+    /**
+     * The maximum value of the {@value #COLUMN_NAME_LATITUDE} column, which the view projects from {@link Store}. The
+     * value is {@value}.
+     */
+    public static final String COLUMN_MAX_LATITUDE = Store.COLUMN_MAX_LATITUDE;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_LATITUDE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LATITUDE = "latitude";
-
-    /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute, which the view projects from {@link Store}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_DECIMAL_MIN_LATITUDE = Store.COLUMN_MIN_LATITUDE;
-
-    /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_LATITUDE} attribute, which the view projects from {@link Store}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_DECIMAL_MAX_LATITUDE = Store.COLUMN_MAX_LATITUDE;
 
     // ------------------------------------------------------------------------------------------------------- LONGITUDE
 
@@ -144,19 +146,21 @@ public class StoreOrder implements __DomainEntity<Void> {
     public static final String COLUMN_NAME_LONGITUDE = "LONGITUDE";
 
     /**
+     * The minimum value of the {@value #COLUMN_NAME_LONGITUDE} column, which the view projects from {@link Store}. The
+     * value is {@value}.
+     */
+    public static final String COLUMN_MIN_LONGITUDE = Store.COLUMN_MIN_LONGITUDE;
+
+    /**
+     * The maximum value of the {@value #COLUMN_NAME_LONGITUDE} column, which the view projects from {@link Store}. The
+     * value is {@value}.
+     */
+    public static final String COLUMN_MAX_LONGITUDE = Store.COLUMN_MAX_LONGITUDE;
+
+    /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_LONGITUDE} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LONGITUDE = "longitude";
-
-    /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute, which the view projects from {@link Store}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_DECIMAL_MIN_LONGITUDE = Store.COLUMN_MIN_LONGITUDE;
-
-    /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute, which the view projects from {@link Store}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_DECIMAL_MAX_LONGITUDE = Store.COLUMN_MAX_LONGITUDE;
 
     // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
 
@@ -385,15 +389,15 @@ public class StoreOrder implements __DomainEntity<Void> {
     private String address;
 
     // STORES.LATITUDE NUMBER(9,6), projected as is
-    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_LATITUDE, inclusive = true)
-    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_LATITUDE, inclusive = true)
+    @DecimalMax(value = COLUMN_MAX_LATITUDE, inclusive = true)
+    @DecimalMin(value = COLUMN_MIN_LATITUDE, inclusive = true)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LATITUDE, nullable = true, insertable = false, updatable = false)
     private BigDecimal latitude;
 
     // STORES.LONGITUDE NUMBER(9,6), projected as is
-    @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_LONGITUDE, inclusive = true)
-    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_LONGITUDE, inclusive = true)
+    @DecimalMax(value = COLUMN_MAX_LONGITUDE, inclusive = true)
+    @DecimalMin(value = COLUMN_MIN_LONGITUDE, inclusive = true)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LONGITUDE, nullable = true, insertable = false, updatable = false)
     private BigDecimal longitude;

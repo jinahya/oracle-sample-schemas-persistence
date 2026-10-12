@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Order_Test extends _DomainEntity_Test<Order, Long> {
+class Order_Test extends _Entity_Test<Order> {
 
     Order_Test() {
         super(Order.class);
@@ -46,7 +46,7 @@ class Order_Test extends _DomainEntity_Test<Order, Long> {
      * because an instance whose {@code @Id} is still {@code null} equals itself only.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<Order> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<Order> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY,
                           Warning.IDENTICAL_COPY_FOR_VERSIONED_ENTITY,

@@ -91,7 +91,7 @@ import java.util.Objects;
 )
 @Entity
 @Table(name = Location.TABLE_NAME)
-public class Location implements __DomainEntity<Integer> {
+public class Location {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

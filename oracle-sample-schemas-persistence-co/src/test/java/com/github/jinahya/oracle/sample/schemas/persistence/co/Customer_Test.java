@@ -27,7 +27,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Customer_Test extends _DomainEntity_Test<Customer, Long> {
+class Customer_Test extends _Entity_Test<Customer> {
 
     Customer_Test() {
         super(Customer.class);
@@ -46,7 +46,7 @@ class Customer_Test extends _DomainEntity_Test<Customer, Long> {
      * are mutable state, and the associations are recursive, so none of them may take part.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<Customer> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<Customer> equals_verifier_() {
         return super.equals_verifier_()
                 .withOnlyTheseFields(Customer.ATTRIBUTE_NAME_EMAIL_ADDRESS);
     }

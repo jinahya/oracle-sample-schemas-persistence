@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = CustomerOrderProduct.TABLE_NAME)
-public class CustomerOrderProduct implements __DomainEntity<Long> {
+public class CustomerOrderProduct {
 
     /**
      * The name of the database view to which this entity class maps. The value is {@value}.

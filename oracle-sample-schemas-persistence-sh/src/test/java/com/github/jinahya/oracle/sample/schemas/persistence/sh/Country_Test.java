@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Country_Test extends _DomainEntity_Test<Country, Long> {
+class Country_Test extends _Entity_Test<Country> {
 
     Country_Test() {
         super(Country.class);
@@ -43,7 +43,7 @@ class Country_Test extends _DomainEntity_Test<Country, Long> {
      * every other attribute is mutable state.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<Country> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<Country> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

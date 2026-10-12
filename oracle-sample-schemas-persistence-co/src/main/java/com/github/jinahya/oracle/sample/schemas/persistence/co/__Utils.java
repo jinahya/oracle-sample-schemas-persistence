@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.hr;
+package com.github.jinahya.oracle.sample.schemas.persistence.co;
 
 /*-
  * #%L
- * oracle-sample-schemas-persistence-hr
+ * co
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
@@ -21,11 +21,20 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  */
 
 /**
- * A marker interface for classes which map a table or a view of the {@code HR} schema.
+ * Utilities shared across the {@code CO} schema's classes.
+ * <p>
+ * Only what is shared goes here; what belongs to a single entity stays in that entity.
  *
- * @param <T> the type of the identifier; {@link Void} for a class which maps a view with no key.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public interface __DomainEntity<T> {
+@SuppressWarnings({
+        "java:S101" // Class names should comply with a naming convention
+})
+final class __Utils {
 
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    private __Utils() {
+        throw new AssertionError("instantiation is not allowed");
+    }
 }

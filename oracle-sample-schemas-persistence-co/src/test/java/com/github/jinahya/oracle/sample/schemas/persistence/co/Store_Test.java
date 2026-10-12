@@ -27,7 +27,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Store_Test extends _DomainEntity_Test<Store, Long> {
+class Store_Test extends _Entity_Test<Store> {
 
     Store_Test() {
         super(Store.class);
@@ -42,7 +42,7 @@ class Store_Test extends _DomainEntity_Test<Store, Long> {
      * which is null until the row is inserted.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<Store> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<Store> equals_verifier_() {
         return super.equals_verifier_()
                 .withOnlyTheseFields(Store.ATTRIBUTE_NAME_STORE_NAME);
     }

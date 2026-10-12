@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Promotion_Test extends _DomainEntity_Test<Promotion, Integer> {
+class Promotion_Test extends _Entity_Test<Promotion> {
 
     Promotion_Test() {
         super(Promotion.class);
@@ -43,7 +43,7 @@ class Promotion_Test extends _DomainEntity_Test<Promotion, Integer> {
      * every other attribute is mutable state.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<Promotion> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<Promotion> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

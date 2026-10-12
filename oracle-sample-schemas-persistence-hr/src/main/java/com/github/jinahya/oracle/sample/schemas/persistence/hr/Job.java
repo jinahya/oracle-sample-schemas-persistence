@@ -58,7 +58,7 @@ import java.util.Objects;
 )
 @Entity
 @Table(name = Job.TABLE_NAME)
-public class Job implements __DomainEntity<String> {
+public class Job {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

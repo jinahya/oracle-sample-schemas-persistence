@@ -2,7 +2,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 
 /*-
  * #%L
- * oracle-sample-schemas-persistence-sh
+ * sh
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
@@ -20,10 +20,21 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+/**
+ * Constants shared across the {@code SH} schema's classes.
+ * <p>
+ * Only what is shared goes here; what belongs to a single entity stays in that entity.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+@SuppressWarnings({
+        "java:S101" // Class names should comply with a naming convention
+})
+final class __Constants {
 
-@NoArgsConstructor(access = AccessLevel.PACKAGE)
-class __DomainConstants_Test {
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
+    private __Constants() {
+        throw new AssertionError("instantiation is not allowed");
+    }
 }

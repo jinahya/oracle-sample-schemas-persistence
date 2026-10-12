@@ -26,7 +26,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Job_PersistenceIT extends _DomainEntity_Persistence_IT<Job, String> {
+class Job_PersistenceIT extends _Entity_Persistence_IT<Job> {
 
     Job_PersistenceIT() {
         super(Job.class);

@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = SupplementaryDemographics.TABLE_NAME)
-public class SupplementaryDemographics implements __DomainEntity<Long> {
+public class SupplementaryDemographics {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

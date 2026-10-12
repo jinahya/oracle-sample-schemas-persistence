@@ -47,7 +47,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = EmpDetailsView.TABLE_NAME)
-public class EmpDetailsView implements __DomainEntity<Integer> {
+public class EmpDetailsView {
 
     /**
      * The name of the database view to which this entity class maps. The value is {@value}.

@@ -43,7 +43,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = Product.TABLE_NAME)
-public class Product implements __DomainEntity<Integer> {
+public class Product {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

@@ -4,7 +4,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #%L
  * hr
  * %%
- * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,14 +25,16 @@ import java.time.LocalTime;
 import java.util.List;
 
 /**
- * Constants of the {@code HR} schema's stored routines.
+ * Constants shared across the {@code HR} schema's classes.
+ * <p>
+ * Only what is shared goes here; what belongs to a single entity stays in that entity.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public final class __DomainConstants {
+final class __Constants {
 
     // ------------------------------------------------------------------------------------------- routines / SECURE_DML
     static final String ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT = "08:00";
@@ -52,7 +54,7 @@ public final class __DomainConstants {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
-    private __DomainConstants() {
+    private __Constants() {
         throw new AssertionError("instantiation is not allowed");
     }
 }

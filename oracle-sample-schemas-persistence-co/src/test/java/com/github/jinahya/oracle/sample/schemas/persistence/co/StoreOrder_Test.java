@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class StoreOrder_Test extends _DomainEntity_Test<StoreOrder, Void> {
+class StoreOrder_Test extends _Entity_Test<StoreOrder> {
 
     StoreOrder_Test() {
         super(StoreOrder.class);
@@ -40,7 +40,7 @@ class StoreOrder_Test extends _DomainEntity_Test<StoreOrder, Void> {
      */
     @Override
     @Test
-    protected void equals_verify_() {
+    public void equals_verify_() {
         // empty
     }
 }

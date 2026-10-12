@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Region_Test extends _DomainEntity_Test<Region, Long> {
+class Region_Test extends _Entity_Test<Region> {
 
     Region_Test() {
         super(Region.class);
@@ -43,7 +43,7 @@ class Region_Test extends _DomainEntity_Test<Region, Long> {
      * key -- because every other attribute is mutable state.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<Region> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<Region> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

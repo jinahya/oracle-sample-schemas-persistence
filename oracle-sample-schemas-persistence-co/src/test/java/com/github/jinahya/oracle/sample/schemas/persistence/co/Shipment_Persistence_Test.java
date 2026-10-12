@@ -26,7 +26,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Shipment_Persistence_Test extends _DomainEntity_Persistence_Test<Shipment, Long> {
+class Shipment_Persistence_Test extends _Entity_Persistence_Test<Shipment> {
 
     Shipment_Persistence_Test() {
         super(Shipment.class);

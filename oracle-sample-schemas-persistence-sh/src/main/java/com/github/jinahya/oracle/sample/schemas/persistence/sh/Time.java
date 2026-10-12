@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = Time.TABLE_NAME)
-public class Time implements __DomainEntity<LocalDateTime> {
+public class Time {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.

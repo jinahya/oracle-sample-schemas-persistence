@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Product_Test extends _DomainEntity_Test<Product, Long> {
+class Product_Test extends _Entity_Test<Product> {
 
     Product_Test() {
         super(Product.class);
@@ -46,7 +46,7 @@ class Product_Test extends _DomainEntity_Test<Product, Long> {
      * because an instance whose {@code @Id} is still {@code null} equals itself only.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<Product> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<Product> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY,
                           Warning.IDENTICAL_COPY_FOR_VERSIONED_ENTITY,

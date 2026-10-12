@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.co;
+package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 /*-
  * #%L
- * co
+ * hr
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
@@ -44,7 +44,7 @@ import java.lang.invoke.MethodHandles;
  * The unit is the one named {@value #PERSISTENCE_UNIT_NAME}, which this module's {@code META-INF/persistence.xml}
  * declares. A persistence unit name is only required to be unique within the archive that declares it, and every module
  * of this build may end up on one classpath -- an IDE running every test of the project, say -- so each module names
- * its units after its own schema, {@code CO}.
+ * its units after its own schema, {@code HR}.
  * <p>
  * The unit is bootstrapped the Java SE way, through {@link Persistence#createEntityManagerFactory(String)}, so the
  * provider, the JDBC properties and the listed entity classes are whatever {@code META-INF/persistence.xml} says --
@@ -63,18 +63,18 @@ import java.lang.invoke.MethodHandles;
  * destroying the container does it.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see _DomainEntity_Persistence_Test
+ * @see _Entity_Persistence_Test
  */
 @ApplicationScoped
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-class _DomainEntity_Persistence_Test_Producer {
+class _Entity_Persistence_Test_Producer {
 
     /**
      * The name of the persistence unit this producer bootstraps. The value is {@value}.
      */
-    static final String PERSISTENCE_UNIT_NAME = "co-test";
+    static final String PERSISTENCE_UNIT_NAME = "hr-test";
 
     private static final System.Logger logger = System.getLogger(MethodHandles.lookup().lookupClass().getName());
 
@@ -124,7 +124,7 @@ class _DomainEntity_Persistence_Test_Producer {
     /**
      * Creates a new instance.
      */
-    _DomainEntity_Persistence_Test_Producer() {
+    _Entity_Persistence_Test_Producer() {
         super();
     }
 

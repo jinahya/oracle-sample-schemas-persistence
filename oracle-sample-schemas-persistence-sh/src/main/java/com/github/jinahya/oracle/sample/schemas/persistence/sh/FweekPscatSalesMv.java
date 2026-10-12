@@ -42,7 +42,7 @@ import java.util.Optional;
  */
 @Entity
 @Table(name = FweekPscatSalesMv.TABLE_NAME)
-public class FweekPscatSalesMv implements __DomainEntity<FweekPscatSalesMvId> {
+public class FweekPscatSalesMv {
 
     /**
      * The name of the database materialized view to which this entity class maps. The value is {@value}.

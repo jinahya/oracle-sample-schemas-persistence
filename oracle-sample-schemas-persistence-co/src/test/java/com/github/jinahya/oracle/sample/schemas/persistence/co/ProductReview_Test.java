@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class ProductReview_Test extends _DomainEntity_Test<ProductReview, Void> {
+class ProductReview_Test extends _Entity_Test<ProductReview> {
 
     ProductReview_Test() {
         super(ProductReview.class);
@@ -40,7 +40,7 @@ class ProductReview_Test extends _DomainEntity_Test<ProductReview, Void> {
      */
     @Override
     @Test
-    protected void equals_verify_() {
+    public void equals_verify_() {
         // empty
     }
 }

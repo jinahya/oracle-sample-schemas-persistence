@@ -38,7 +38,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = CalMonthSalesMv.TABLE_NAME)
-public class CalMonthSalesMv implements __DomainEntity<String> {
+public class CalMonthSalesMv {
 
     /**
      * The name of the database materialized view to which this entity class maps. The value is {@value}.

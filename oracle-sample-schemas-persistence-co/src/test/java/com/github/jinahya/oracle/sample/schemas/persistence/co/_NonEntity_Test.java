@@ -20,10 +20,6 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  * #L%
  */
 
-import org.junit.jupiter.api.Test;
-
-import java.beans.IntrospectionException;
-
 /**
  * An abstract base class for testing a value class -- an id class, an embeddable, a mapped JSON document -- which has
  * no identity of its own, and so no persistence test either.
@@ -35,7 +31,7 @@ import java.beans.IntrospectionException;
         "java:S101", // Class names should comply with a naming convention
         "java:S118"  // Abstract class names should comply with a naming convention
 })
-abstract class _NonEntity_Test<T> extends __Test<T> {
+abstract class _NonEntity_Test<T> extends __Test<T> implements __Object_Test<T> {
 
     /**
      * Creates a new instance for the specified target class.
@@ -44,35 +40,5 @@ abstract class _NonEntity_Test<T> extends __Test<T> {
      */
     protected _NonEntity_Test(final Class<T> targetClass) {
         super(targetClass);
-    }
-
-    // -------------------------------------------------------------------------------------------------------- toString
-
-    @Override
-    @Test
-    protected void toString_NotBlank_NewInstance() {
-        super.toString_NotBlank_NewInstance();
-    }
-
-    @Override
-    @Test
-    protected void toString_NotBlank_NewRandomizedInstance() {
-        super.toString_NotBlank_NewRandomizedInstance();
-    }
-
-    // ------------------------------------------------------------------------------------------------- equals/hashCode
-
-    @Override
-    @Test
-    protected void equals_verify_() {
-        super.equals_verify_();
-    }
-
-    // -----------------------------------------------------------------------------------------------------------------
-
-    @Override
-    @Test
-    protected void propertyAccessors_DoNotThrow() throws IntrospectionException {
-        super.propertyAccessors_DoNotThrow();
     }
 }

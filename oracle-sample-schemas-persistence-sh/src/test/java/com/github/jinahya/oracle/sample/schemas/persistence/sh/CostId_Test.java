@@ -43,7 +43,7 @@ class CostId_Test extends _NonEntity_Test<CostId> {
      * key this class holds.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<CostId> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<CostId> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

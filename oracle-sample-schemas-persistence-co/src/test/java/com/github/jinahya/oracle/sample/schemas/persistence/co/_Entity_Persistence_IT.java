@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.sh;
+package com.github.jinahya.oracle.sample.schemas.persistence.co;
 
 /*-
  * #%L
- * sh
+ * co
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
@@ -42,7 +42,7 @@ import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import static com.github.jinahya.oracle.sample.schemas.persistence.sh._DomainEntity_Persistence_IT_Producer.__ItPU;
+import static com.github.jinahya.oracle.sample.schemas.persistence.co._Entity_Persistence_IT_Producer.__ItPU;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -50,33 +50,31 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  * An abstract base class for integration tests which need the physical database, against a module's integration-test
  * persistence unit.
  * <p>
- * The container is started by weld-testing, with {@link _DomainEntity_Persistence_IT_Producer} as its bean class; a
- * test then gets an entity manager on the Oracle database the sample schemas were installed into, connecting as
- * {@code dmlonly}.
+ * The container is started by weld-testing, with {@link _Entity_Persistence_IT_Producer} as its bean class; a test then
+ * gets an entity manager on the Oracle database the sample schemas were installed into, connecting as {@code dmlonly}.
  * <p>
  * These run under the {@code failsafe} profile only, and require the container from {@code docker-compose.yml} to be
  * up. Generating a schema is disabled for this unit: the tables are the ones Oracle's own installer created, and the
  * mappings are verified against them rather than the other way round.
  *
  * @param <T> the type of the entity under test.
- * @param <U> the type of the identifier of the entity.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see _DomainEntity_Persistence_IT_Producer
+ * @see _Entity_Persistence_IT_Producer
  */
-@AddBeanClasses(_DomainEntity_Persistence_IT_Producer.class)
+@AddBeanClasses(_Entity_Persistence_IT_Producer.class)
 @EnableAutoWeld
 @SuppressWarnings({
         "java:S101", // Class names should comply with a naming convention
         "java:S118"  // Abstract class names should comply with a naming convention
 })
-abstract class _DomainEntity_Persistence_IT<T extends __DomainEntity<U>, U> extends __Test<T> {
+abstract class _Entity_Persistence_IT<T> extends __Test<T> {
 
     /**
      * Creates a new instance for the specified persistence class.
      *
      * @param targetClass the class of the entity under test.
      */
-    protected _DomainEntity_Persistence_IT(final Class<T> targetClass) {
+    protected _Entity_Persistence_IT(final Class<T> targetClass) {
         super(targetClass);
     }
 
@@ -112,7 +110,7 @@ abstract class _DomainEntity_Persistence_IT<T extends __DomainEntity<U>, U> exte
          * address.
          *
          * @implNote The identifier has to be a single basic attribute, for the reasons the unit-test counterpart,
-         * {@code _DomainEntity_Persistence_Test.Find_Test}, gives.
+         * {@code _Entity_Persistence_Test.Find_Test}, gives.
          */
         @BeforeEach
         void assumeTargetClassIsAddressable() {
@@ -204,13 +202,13 @@ abstract class _DomainEntity_Persistence_IT<T extends __DomainEntity<U>, U> exte
 
     /**
      * Selects a random instance of {@link #targetClass}, from the installed schema, and hands it to
-     * {@link #randomSelected(__DomainEntity)}.
+     * {@link #randomSelected(Object)}.
      *
      * @implNote The selection and the callback both run inside a transaction which is rolled back, so the instance
-     * handed over is still managed -- a lazy association read in {@link #randomSelected(__DomainEntity)} resolves rather than
+     * handed over is still managed -- a lazy association read in {@link #randomSelected(Object)} resolves rather than
      * throwing -- and nothing the callback does reaches the sample data.
      * @implSpec Selecting from an empty table is not a failure: the table's content is the installer's, not this
-     * test's, so {@link #randomSelected(__DomainEntity)} is simply not invoked.
+     * test's, so {@link #randomSelected(Object)} is simply not invoked.
      */
     @Test
     protected void selectRandom() {

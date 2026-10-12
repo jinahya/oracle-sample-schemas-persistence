@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Employee_Test extends _DomainEntity_Test<Employee, Integer> {
+class Employee_Test extends _Entity_Test<Employee> {
 
     Employee_Test() {
         super(Employee.class);
@@ -43,7 +43,7 @@ class Employee_Test extends _DomainEntity_Test<Employee, Integer> {
      * surrogate key -- because every other attribute is mutable state.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<Employee> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<Employee> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

@@ -28,7 +28,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class EmpDetailsView_Test extends _DomainEntity_Test<EmpDetailsView, Integer> {
+class EmpDetailsView_Test extends _Entity_Test<EmpDetailsView> {
 
     EmpDetailsView_Test() {
         super(EmpDetailsView.class);
@@ -43,7 +43,7 @@ class EmpDetailsView_Test extends _DomainEntity_Test<EmpDetailsView, Integer> {
      * carries per employee -- because every other column is derived from it.
      */
     @Override
-    protected SingleTypeEqualsVerifierApi<EmpDetailsView> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<EmpDetailsView> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

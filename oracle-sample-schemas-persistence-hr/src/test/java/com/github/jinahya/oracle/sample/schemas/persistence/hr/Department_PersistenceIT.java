@@ -26,7 +26,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Department_PersistenceIT extends _DomainEntity_Persistence_IT<Department, Integer> {
+class Department_PersistenceIT extends _Entity_Persistence_IT<Department> {
 
     Department_PersistenceIT() {
         super(Department.class);

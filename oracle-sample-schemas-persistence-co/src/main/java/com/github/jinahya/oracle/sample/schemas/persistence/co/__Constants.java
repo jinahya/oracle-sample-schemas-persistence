@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.schemas.persistence.sh;
+package com.github.jinahya.oracle.sample.schemas.persistence.co;
 
 /*-
  * #%L
- * oracle-sample-schemas-persistence-sh
+ * co
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
@@ -21,11 +21,20 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  */
 
 /**
- * A marker interface for classes which map a table or a view of the {@code SH} schema.
+ * Constants shared across the {@code CO} schema's classes.
+ * <p>
+ * Only what is shared goes here; what belongs to a single entity stays in that entity.
  *
- * @param <T> the type of the identifier; {@link Void} for a class which maps a view with no key.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-public interface __DomainEntity<T> {
+@SuppressWarnings({
+        "java:S101" // Class names should comply with a naming convention
+})
+final class __Constants {
 
+    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+
+    private __Constants() {
+        throw new AssertionError("instantiation is not allowed");
+    }
 }
