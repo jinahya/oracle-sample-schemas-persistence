@@ -24,6 +24,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -35,6 +36,30 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@NamedQuery(name = "Channel.selectOneByChannelId",
+            query = """
+                    SELECT e
+                    FROM Channel e
+                    WHERE e.channelId = :channelId"""
+)
+@NamedQuery(name = "Channel.selectListOrderByChannelIdAsc",
+            query = """
+                    SELECT e
+                    FROM Channel e
+                    ORDER BY e.channelId ASC"""
+)
+@NamedQuery(name = "Channel.selectListOrderByChannelIdAscChannelIdGt",
+            query = """
+                    SELECT e
+                    FROM Channel e
+                    WHERE e.channelId > :channelIdMinExclusive
+                    ORDER BY e.channelId ASC"""
+)
+@NamedQuery(name = "Channel.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Channel e"""
+)
 @Entity
 @Table(name = Channel.TABLE_NAME)
 public class Channel {

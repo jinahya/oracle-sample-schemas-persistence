@@ -82,6 +82,17 @@ import java.util.function.Function;
                 FROM Product e
                 ORDER BY e.productId ASC"""
 )
+@NamedQuery(name = "Product.selectOneByProductId",
+            query = """
+                    SELECT e
+                    FROM Product e
+                    WHERE e.productId = :productId"""
+)
+@NamedQuery(name = "Product.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Product e"""
+)
 @Entity
 @Table(name = Product.TABLE_NAME)
 public class Product {

@@ -25,6 +25,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -43,6 +44,27 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see ProfitId
  */
+@NamedQuery(name = "Profit.selectOneByChannelIdAndCustIdAndProdIdAndPromoIdAndTimeId",
+            query = """
+                    SELECT e
+                    FROM Profit e
+                    WHERE e.channelId = :channelId
+                      AND e.custId = :custId
+                      AND e.prodId = :prodId
+                      AND e.promoId = :promoId
+                      AND e.timeId = :timeId"""
+)
+@NamedQuery(name = "Profit.selectListOrderByChannelIdAscCustIdAscProdIdAscPromoIdAscTimeIdAsc",
+            query = """
+                    SELECT e
+                    FROM Profit e
+                    ORDER BY e.channelId ASC, e.custId ASC, e.prodId ASC, e.promoId ASC, e.timeId ASC"""
+)
+@NamedQuery(name = "Profit.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Profit e"""
+)
 @Entity
 @IdClass(ProfitId.class)
 @Table(name = Profit.TABLE_NAME)

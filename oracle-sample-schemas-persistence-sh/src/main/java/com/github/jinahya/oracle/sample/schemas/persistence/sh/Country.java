@@ -23,6 +23,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -34,6 +35,30 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@NamedQuery(name = "Country.selectOneByCountryId",
+            query = """
+                    SELECT e
+                    FROM Country e
+                    WHERE e.countryId = :countryId"""
+)
+@NamedQuery(name = "Country.selectListOrderByCountryIdAsc",
+            query = """
+                    SELECT e
+                    FROM Country e
+                    ORDER BY e.countryId ASC"""
+)
+@NamedQuery(name = "Country.selectListOrderByCountryIdAscCountryIdGt",
+            query = """
+                    SELECT e
+                    FROM Country e
+                    WHERE e.countryId > :countryIdMinExclusive
+                    ORDER BY e.countryId ASC"""
+)
+@NamedQuery(name = "Country.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Country e"""
+)
 @Entity
 @Table(name = Country.TABLE_NAME)
 public class Country {

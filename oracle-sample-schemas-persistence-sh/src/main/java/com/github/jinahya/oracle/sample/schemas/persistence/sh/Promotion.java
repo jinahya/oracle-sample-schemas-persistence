@@ -24,6 +24,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -41,6 +42,30 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@NamedQuery(name = "Promotion.selectOneByPromoId",
+            query = """
+                    SELECT e
+                    FROM Promotion e
+                    WHERE e.promoId = :promoId"""
+)
+@NamedQuery(name = "Promotion.selectListOrderByPromoIdAsc",
+            query = """
+                    SELECT e
+                    FROM Promotion e
+                    ORDER BY e.promoId ASC"""
+)
+@NamedQuery(name = "Promotion.selectListOrderByPromoIdAscPromoIdGt",
+            query = """
+                    SELECT e
+                    FROM Promotion e
+                    WHERE e.promoId > :promoIdMinExclusive
+                    ORDER BY e.promoId ASC"""
+)
+@NamedQuery(name = "Promotion.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Promotion e"""
+)
 @Entity
 @Table(name = Promotion.TABLE_NAME)
 public class Promotion {

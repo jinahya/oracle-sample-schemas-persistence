@@ -26,6 +26,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -45,6 +46,30 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@NamedQuery(name = "EmpDetailsView.selectOneByEmployeeId",
+            query = """
+                    SELECT e
+                    FROM EmpDetailsView e
+                    WHERE e.employeeId = :employeeId"""
+)
+@NamedQuery(name = "EmpDetailsView.selectListOrderByEmployeeIdAsc",
+            query = """
+                    SELECT e
+                    FROM EmpDetailsView e
+                    ORDER BY e.employeeId ASC"""
+)
+@NamedQuery(name = "EmpDetailsView.selectListOrderByEmployeeIdAscEmployeeIdGt",
+            query = """
+                    SELECT e
+                    FROM EmpDetailsView e
+                    WHERE e.employeeId > :employeeIdMinExclusive
+                    ORDER BY e.employeeId ASC"""
+)
+@NamedQuery(name = "EmpDetailsView.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM EmpDetailsView e"""
+)
 @Entity
 @Table(name = EmpDetailsView.TABLE_NAME)
 public class EmpDetailsView {

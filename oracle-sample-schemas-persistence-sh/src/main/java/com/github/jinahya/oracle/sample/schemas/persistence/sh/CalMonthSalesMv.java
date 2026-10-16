@@ -24,6 +24,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -36,6 +37,30 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@NamedQuery(name = "CalMonthSalesMv.selectOneByCalendarMonthDesc",
+            query = """
+                    SELECT e
+                    FROM CalMonthSalesMv e
+                    WHERE e.calendarMonthDesc = :calendarMonthDesc"""
+)
+@NamedQuery(name = "CalMonthSalesMv.selectListOrderByCalendarMonthDescAsc",
+            query = """
+                    SELECT e
+                    FROM CalMonthSalesMv e
+                    ORDER BY e.calendarMonthDesc ASC"""
+)
+@NamedQuery(name = "CalMonthSalesMv.selectListOrderByCalendarMonthDescAscCalendarMonthDescGt",
+            query = """
+                    SELECT e
+                    FROM CalMonthSalesMv e
+                    WHERE e.calendarMonthDesc > :calendarMonthDescMinExclusive
+                    ORDER BY e.calendarMonthDesc ASC"""
+)
+@NamedQuery(name = "CalMonthSalesMv.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM CalMonthSalesMv e"""
+)
 @Entity
 @Table(name = CalMonthSalesMv.TABLE_NAME)
 public class CalMonthSalesMv {

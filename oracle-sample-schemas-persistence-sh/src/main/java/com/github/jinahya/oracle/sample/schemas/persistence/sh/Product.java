@@ -24,6 +24,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -41,6 +42,30 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@NamedQuery(name = "Product.selectOneByProdId",
+            query = """
+                    SELECT e
+                    FROM Product e
+                    WHERE e.prodId = :prodId"""
+)
+@NamedQuery(name = "Product.selectListOrderByProdIdAsc",
+            query = """
+                    SELECT e
+                    FROM Product e
+                    ORDER BY e.prodId ASC"""
+)
+@NamedQuery(name = "Product.selectListOrderByProdIdAscProdIdGt",
+            query = """
+                    SELECT e
+                    FROM Product e
+                    WHERE e.prodId > :prodIdMinExclusive
+                    ORDER BY e.prodId ASC"""
+)
+@NamedQuery(name = "Product.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Product e"""
+)
 @Entity
 @Table(name = Product.TABLE_NAME)
 public class Product {

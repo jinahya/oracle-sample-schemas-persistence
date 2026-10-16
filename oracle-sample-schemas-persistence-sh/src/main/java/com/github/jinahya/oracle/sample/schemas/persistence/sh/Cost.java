@@ -28,6 +28,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.DecimalMax;
@@ -49,6 +50,78 @@ import java.util.Optional;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see CostId
  */
+@NamedQuery(name = "Cost.selectOneByProdIdAndTimeIdAndPromoIdAndChannelId",
+            query = """
+                    SELECT e
+                    FROM Cost e
+                    WHERE e.prodId = :prodId
+                      AND e.timeId = :timeId
+                      AND e.promoId = :promoId
+                      AND e.channelId = :channelId"""
+)
+@NamedQuery(name = "Cost.selectListOrderByProdIdAscTimeIdAscPromoIdAscChannelIdAsc",
+            query = """
+                    SELECT e
+                    FROM Cost e
+                    ORDER BY e.prodId ASC, e.timeId ASC, e.promoId ASC, e.channelId ASC"""
+)
+@NamedQuery(name = "Cost.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Cost e"""
+)
+@NamedQuery(name = "Cost.selectListByProductOrderByTimeIdAscPromoIdAscChannelIdAsc",
+            query = """
+                    SELECT e
+                    FROM Cost e
+                    WHERE e.product = :product
+                    ORDER BY e.timeId ASC, e.promoId ASC, e.channelId ASC"""
+)
+@NamedQuery(name = "Cost.countByProduct",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Cost e
+                    WHERE e.product = :product"""
+)
+@NamedQuery(name = "Cost.selectListByTimeOrderByProdIdAscPromoIdAscChannelIdAsc",
+            query = """
+                    SELECT e
+                    FROM Cost e
+                    WHERE e.time = :time
+                    ORDER BY e.prodId ASC, e.promoId ASC, e.channelId ASC"""
+)
+@NamedQuery(name = "Cost.countByTime",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Cost e
+                    WHERE e.time = :time"""
+)
+@NamedQuery(name = "Cost.selectListByPromotionOrderByProdIdAscTimeIdAscChannelIdAsc",
+            query = """
+                    SELECT e
+                    FROM Cost e
+                    WHERE e.promotion = :promotion
+                    ORDER BY e.prodId ASC, e.timeId ASC, e.channelId ASC"""
+)
+@NamedQuery(name = "Cost.countByPromotion",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Cost e
+                    WHERE e.promotion = :promotion"""
+)
+@NamedQuery(name = "Cost.selectListByChannelOrderByProdIdAscTimeIdAscPromoIdAsc",
+            query = """
+                    SELECT e
+                    FROM Cost e
+                    WHERE e.channel = :channel
+                    ORDER BY e.prodId ASC, e.timeId ASC, e.promoId ASC"""
+)
+@NamedQuery(name = "Cost.countByChannel",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Cost e
+                    WHERE e.channel = :channel"""
+)
 @Entity
 @IdClass(CostId.class)
 @Table(name = Cost.TABLE_NAME)

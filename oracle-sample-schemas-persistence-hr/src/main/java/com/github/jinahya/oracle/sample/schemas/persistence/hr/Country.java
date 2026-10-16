@@ -71,6 +71,30 @@ import java.util.Objects;
                     FROM Country AS e
                     ORDER BY e.countryId ASC"""
 )
+@NamedQuery(name = "Country.selectOneByCountryId",
+            query = """
+                    SELECT e
+                    FROM Country e
+                    WHERE e.countryId = :countryId"""
+)
+@NamedQuery(name = "Country.selectListOrderByCountryIdAscCountryIdGt",
+            query = """
+                    SELECT e
+                    FROM Country e
+                    WHERE e.countryId > :countryIdMinExclusive
+                    ORDER BY e.countryId ASC"""
+)
+@NamedQuery(name = "Country.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Country e"""
+)
+@NamedQuery(name = "Country.countByRegion",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Country e
+                    WHERE e.region = :region"""
+)
 @Entity
 @Table(name = Country.TABLE_NAME)
 public class Country {

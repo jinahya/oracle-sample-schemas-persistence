@@ -24,6 +24,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -38,6 +39,30 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@NamedQuery(name = "Time.selectOneByTimeId",
+            query = """
+                    SELECT e
+                    FROM Time e
+                    WHERE e.timeId = :timeId"""
+)
+@NamedQuery(name = "Time.selectListOrderByTimeIdAsc",
+            query = """
+                    SELECT e
+                    FROM Time e
+                    ORDER BY e.timeId ASC"""
+)
+@NamedQuery(name = "Time.selectListOrderByTimeIdAscTimeIdGt",
+            query = """
+                    SELECT e
+                    FROM Time e
+                    WHERE e.timeId > :timeIdMinExclusive
+                    ORDER BY e.timeId ASC"""
+)
+@NamedQuery(name = "Time.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Time e"""
+)
 @Entity
 @Table(name = Time.TABLE_NAME)
 public class Time {

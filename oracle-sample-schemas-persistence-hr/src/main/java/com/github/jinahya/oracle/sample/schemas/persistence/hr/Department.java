@@ -29,6 +29,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -45,6 +46,56 @@ import java.util.Objects;
  *
  * @author Myoungkwon Hwang
  */
+@NamedQuery(name = "Department.selectOneByDepartmentId",
+            query = """
+                    SELECT e
+                    FROM Department e
+                    WHERE e.departmentId = :departmentId"""
+)
+@NamedQuery(name = "Department.selectListOrderByDepartmentIdAsc",
+            query = """
+                    SELECT e
+                    FROM Department e
+                    ORDER BY e.departmentId ASC"""
+)
+@NamedQuery(name = "Department.selectListOrderByDepartmentIdAscDepartmentIdGt",
+            query = """
+                    SELECT e
+                    FROM Department e
+                    WHERE e.departmentId > :departmentIdMinExclusive
+                    ORDER BY e.departmentId ASC"""
+)
+@NamedQuery(name = "Department.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Department e"""
+)
+@NamedQuery(name = "Department.selectListByManagerOrderByDepartmentIdAsc",
+            query = """
+                    SELECT e
+                    FROM Department e
+                    WHERE e.manager = :manager
+                    ORDER BY e.departmentId ASC"""
+)
+@NamedQuery(name = "Department.countByManager",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Department e
+                    WHERE e.manager = :manager"""
+)
+@NamedQuery(name = "Department.selectListByLocationOrderByDepartmentIdAsc",
+            query = """
+                    SELECT e
+                    FROM Department e
+                    WHERE e.location = :location
+                    ORDER BY e.departmentId ASC"""
+)
+@NamedQuery(name = "Department.countByLocation",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Department e
+                    WHERE e.location = :location"""
+)
 @Entity
 @Table(name = Department.TABLE_NAME)
 public class Department {

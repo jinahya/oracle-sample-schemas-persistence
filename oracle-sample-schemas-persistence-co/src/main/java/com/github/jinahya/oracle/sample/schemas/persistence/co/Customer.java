@@ -71,6 +71,17 @@ import java.util.Objects;
                 FROM Customer e
                 ORDER BY e.customerId ASC"""
 )
+@NamedQuery(name = "Customer.selectOneByCustomerId",
+            query = """
+                    SELECT e
+                    FROM Customer e
+                    WHERE e.customerId = :customerId"""
+)
+@NamedQuery(name = "Customer.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Customer e"""
+)
 @Entity
 @Table(name = Customer.TABLE_NAME)
 public class Customer {

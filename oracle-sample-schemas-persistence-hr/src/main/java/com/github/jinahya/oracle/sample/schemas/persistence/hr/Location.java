@@ -83,11 +83,42 @@ import java.util.Objects;
                 ORDER BY e.locationId ASC"""
 )
 @NamedQuery(
-        name = "Location.select_OrderByLocationIdAsc",
+        name = "Location.selectListOrderByLocationIdAsc",
         query = """
                 SELECT e
                 FROM Location e
                 ORDER BY e.locationId ASC"""
+)
+@NamedQuery(name = "Location.selectOneByLocationId",
+            query = """
+                    SELECT e
+                    FROM Location e
+                    WHERE e.locationId = :locationId"""
+)
+@NamedQuery(name = "Location.selectListOrderByLocationIdAscLocationIdGt",
+            query = """
+                    SELECT e
+                    FROM Location e
+                    WHERE e.locationId > :locationIdMinExclusive
+                    ORDER BY e.locationId ASC"""
+)
+@NamedQuery(name = "Location.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Location e"""
+)
+@NamedQuery(name = "Location.selectListByCountryOrderByLocationIdAsc",
+            query = """
+                    SELECT e
+                    FROM Location e
+                    WHERE e.country = :country
+                    ORDER BY e.locationId ASC"""
+)
+@NamedQuery(name = "Location.countByCountry",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Location e
+                    WHERE e.country = :country"""
 )
 @Entity
 @Table(name = Location.TABLE_NAME)

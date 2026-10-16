@@ -70,6 +70,30 @@ import java.util.Objects;
                 FROM Region AS e
                 WHERE e.regionName = :regionName"""
 )
+@NamedQuery(name = "Region.selectOneByRegionId",
+            query = """
+                    SELECT e
+                    FROM Region e
+                    WHERE e.regionId = :regionId"""
+)
+@NamedQuery(name = "Region.selectListOrderByRegionIdAsc",
+            query = """
+                    SELECT e
+                    FROM Region e
+                    ORDER BY e.regionId ASC"""
+)
+@NamedQuery(name = "Region.selectListOrderByRegionIdAscRegionIdGt",
+            query = """
+                    SELECT e
+                    FROM Region e
+                    WHERE e.regionId > :regionIdMinExclusive
+                    ORDER BY e.regionId ASC"""
+)
+@NamedQuery(name = "Region.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Region e"""
+)
 @Entity
 @Table(name = Region.TABLE_NAME)
 public class Region {

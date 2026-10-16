@@ -61,6 +61,56 @@ import jakarta.validation.constraints.NotNull;
                     FROM Inventory AS e
                     WHERE e.store = :store AND e.product = :product"""
 )
+@NamedQuery(name = "Inventory.selectOneByInventoryId",
+            query = """
+                    SELECT e
+                    FROM Inventory e
+                    WHERE e.inventoryId = :inventoryId"""
+)
+@NamedQuery(name = "Inventory.selectListOrderByInventoryIdAsc",
+            query = """
+                    SELECT e
+                    FROM Inventory e
+                    ORDER BY e.inventoryId ASC"""
+)
+@NamedQuery(name = "Inventory.selectListOrderByInventoryIdAscInventoryIdGt",
+            query = """
+                    SELECT e
+                    FROM Inventory e
+                    WHERE e.inventoryId > :inventoryIdMinExclusive
+                    ORDER BY e.inventoryId ASC"""
+)
+@NamedQuery(name = "Inventory.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Inventory e"""
+)
+@NamedQuery(name = "Inventory.selectListByStoreOrderByInventoryIdAsc",
+            query = """
+                    SELECT e
+                    FROM Inventory e
+                    WHERE e.store = :store
+                    ORDER BY e.inventoryId ASC"""
+)
+@NamedQuery(name = "Inventory.countByStore",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Inventory e
+                    WHERE e.store = :store"""
+)
+@NamedQuery(name = "Inventory.selectListByProductOrderByInventoryIdAsc",
+            query = """
+                    SELECT e
+                    FROM Inventory e
+                    WHERE e.product = :product
+                    ORDER BY e.inventoryId ASC"""
+)
+@NamedQuery(name = "Inventory.countByProduct",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Inventory e
+                    WHERE e.product = :product"""
+)
 @Entity
 @Table(name = Inventory.TABLE_NAME,
        uniqueConstraints = {

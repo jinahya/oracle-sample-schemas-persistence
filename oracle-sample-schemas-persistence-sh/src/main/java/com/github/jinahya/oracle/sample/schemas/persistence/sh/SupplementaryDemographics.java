@@ -24,6 +24,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -37,6 +38,30 @@ import java.util.Objects;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@NamedQuery(name = "SupplementaryDemographics.selectOneByCustId",
+            query = """
+                    SELECT e
+                    FROM SupplementaryDemographics e
+                    WHERE e.custId = :custId"""
+)
+@NamedQuery(name = "SupplementaryDemographics.selectListOrderByCustIdAsc",
+            query = """
+                    SELECT e
+                    FROM SupplementaryDemographics e
+                    ORDER BY e.custId ASC"""
+)
+@NamedQuery(name = "SupplementaryDemographics.selectListOrderByCustIdAscCustIdGt",
+            query = """
+                    SELECT e
+                    FROM SupplementaryDemographics e
+                    WHERE e.custId > :custIdMinExclusive
+                    ORDER BY e.custId ASC"""
+)
+@NamedQuery(name = "SupplementaryDemographics.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM SupplementaryDemographics e"""
+)
 @Entity
 @Table(name = SupplementaryDemographics.TABLE_NAME)
 public class SupplementaryDemographics {

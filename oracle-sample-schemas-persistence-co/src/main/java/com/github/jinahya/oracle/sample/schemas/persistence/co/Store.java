@@ -61,6 +61,30 @@ import java.util.Optional;
                     SELECT e
                     FROM Store AS e
                     WHERE e.storeName = :storeName""")
+@NamedQuery(name = "Store.selectOneByStoreId",
+            query = """
+                    SELECT e
+                    FROM Store e
+                    WHERE e.storeId = :storeId"""
+)
+@NamedQuery(name = "Store.selectListOrderByStoreIdAsc",
+            query = """
+                    SELECT e
+                    FROM Store e
+                    ORDER BY e.storeId ASC"""
+)
+@NamedQuery(name = "Store.selectListOrderByStoreIdAscStoreIdGt",
+            query = """
+                    SELECT e
+                    FROM Store e
+                    WHERE e.storeId > :storeIdMinExclusive
+                    ORDER BY e.storeId ASC"""
+)
+@NamedQuery(name = "Store.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Store e"""
+)
 @Entity
 @Table(name = Store.TABLE_NAME)
 public class Store {

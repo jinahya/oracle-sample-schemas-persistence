@@ -24,6 +24,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -40,6 +41,29 @@ import java.util.Optional;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see FweekPscatSalesMvId
  */
+@NamedQuery(name = "FweekPscatSalesMv.selectOneByWeekEndingDayAndProdSubcategoryAndChannelIdAndPromoId",
+            query = """
+                    SELECT e
+                    FROM FweekPscatSalesMv e
+                    WHERE e.id.weekEndingDay = :weekEndingDay
+                      AND e.id.prodSubcategory = :prodSubcategory
+                      AND e.id.channelId = :channelId
+                      AND e.id.promoId = :promoId"""
+)
+@NamedQuery(name = "FweekPscatSalesMv.selectListOrderByWeekEndingDayAscProdSubcategoryAscChannelIdAscPromoIdAsc",
+            query = """
+                    SELECT e
+                    FROM FweekPscatSalesMv e
+                    ORDER BY e.id.weekEndingDay ASC,
+                             e.id.prodSubcategory ASC,
+                             e.id.channelId ASC,
+                             e.id.promoId ASC"""
+)
+@NamedQuery(name = "FweekPscatSalesMv.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM FweekPscatSalesMv e"""
+)
 @Entity
 @Table(name = FweekPscatSalesMv.TABLE_NAME)
 public class FweekPscatSalesMv {

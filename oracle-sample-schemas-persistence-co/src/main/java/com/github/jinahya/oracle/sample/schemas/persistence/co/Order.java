@@ -72,11 +72,55 @@ import java.util.function.Function;
                     WHERE e.customer = :customer
                     ORDER BY e.orderTms DESC"""
 )
-@NamedQuery(name = "Order.countByCustomerOrderByOrderTmsDesc",
+@NamedQuery(name = "Order.countByCustomer",
             query = """
                     SELECT COUNT(e)
                     FROM Order AS e
                     WHERE e.customer = :customer"""
+)
+@NamedQuery(name = "Order.selectOneByOrderId",
+            query = """
+                    SELECT e
+                    FROM Order e
+                    WHERE e.orderId = :orderId"""
+)
+@NamedQuery(name = "Order.selectListOrderByOrderIdAsc",
+            query = """
+                    SELECT e
+                    FROM Order e
+                    ORDER BY e.orderId ASC"""
+)
+@NamedQuery(name = "Order.selectListOrderByOrderIdAscOrderIdGt",
+            query = """
+                    SELECT e
+                    FROM Order e
+                    WHERE e.orderId > :orderIdMinExclusive
+                    ORDER BY e.orderId ASC"""
+)
+@NamedQuery(name = "Order.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Order e"""
+)
+@NamedQuery(name = "Order.selectListByCustomerOrderByOrderIdAsc",
+            query = """
+                    SELECT e
+                    FROM Order e
+                    WHERE e.customer = :customer
+                    ORDER BY e.orderId ASC"""
+)
+@NamedQuery(name = "Order.selectListByStoreOrderByOrderIdAsc",
+            query = """
+                    SELECT e
+                    FROM Order e
+                    WHERE e.store = :store
+                    ORDER BY e.orderId ASC"""
+)
+@NamedQuery(name = "Order.countByStore",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Order e
+                    WHERE e.store = :store"""
 )
 @Entity
 @Table(name = Order.TABLE_NAME)

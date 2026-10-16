@@ -27,6 +27,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.DecimalMax;
@@ -50,6 +51,96 @@ import java.util.Optional;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see SaleId
  */
+@NamedQuery(name = "Sale.selectOneByProdIdAndCustIdAndTimeIdAndChannelIdAndPromoId",
+            query = """
+                    SELECT e
+                    FROM Sale e
+                    WHERE e.id.prodId = :prodId
+                      AND e.id.custId = :custId
+                      AND e.id.timeId = :timeId
+                      AND e.id.channelId = :channelId
+                      AND e.id.promoId = :promoId"""
+)
+@NamedQuery(name = "Sale.selectListOrderByProdIdAscCustIdAscTimeIdAscChannelIdAscPromoIdAsc",
+            query = """
+                    SELECT e
+                    FROM Sale e
+                    ORDER BY e.id.prodId ASC,
+                             e.id.custId ASC,
+                             e.id.timeId ASC,
+                             e.id.channelId ASC,
+                             e.id.promoId ASC"""
+)
+@NamedQuery(name = "Sale.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Sale e"""
+)
+@NamedQuery(name = "Sale.selectListByProductOrderByCustIdAscTimeIdAscChannelIdAscPromoIdAsc",
+            query = """
+                    SELECT e
+                    FROM Sale e
+                    WHERE e.product = :product
+                    ORDER BY e.id.custId ASC, e.id.timeId ASC, e.id.channelId ASC, e.id.promoId ASC"""
+)
+@NamedQuery(name = "Sale.countByProduct",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Sale e
+                    WHERE e.product = :product"""
+)
+@NamedQuery(name = "Sale.selectListByCustomerOrderByProdIdAscTimeIdAscChannelIdAscPromoIdAsc",
+            query = """
+                    SELECT e
+                    FROM Sale e
+                    WHERE e.customer = :customer
+                    ORDER BY e.id.prodId ASC, e.id.timeId ASC, e.id.channelId ASC, e.id.promoId ASC"""
+)
+@NamedQuery(name = "Sale.countByCustomer",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Sale e
+                    WHERE e.customer = :customer"""
+)
+@NamedQuery(name = "Sale.selectListByTimeOrderByProdIdAscCustIdAscChannelIdAscPromoIdAsc",
+            query = """
+                    SELECT e
+                    FROM Sale e
+                    WHERE e.time = :time
+                    ORDER BY e.id.prodId ASC, e.id.custId ASC, e.id.channelId ASC, e.id.promoId ASC"""
+)
+@NamedQuery(name = "Sale.countByTime",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Sale e
+                    WHERE e.time = :time"""
+)
+@NamedQuery(name = "Sale.selectListByChannelOrderByProdIdAscCustIdAscTimeIdAscPromoIdAsc",
+            query = """
+                    SELECT e
+                    FROM Sale e
+                    WHERE e.channel = :channel
+                    ORDER BY e.id.prodId ASC, e.id.custId ASC, e.id.timeId ASC, e.id.promoId ASC"""
+)
+@NamedQuery(name = "Sale.countByChannel",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Sale e
+                    WHERE e.channel = :channel"""
+)
+@NamedQuery(name = "Sale.selectListByPromotionOrderByProdIdAscCustIdAscTimeIdAscChannelIdAsc",
+            query = """
+                    SELECT e
+                    FROM Sale e
+                    WHERE e.promotion = :promotion
+                    ORDER BY e.id.prodId ASC, e.id.custId ASC, e.id.timeId ASC, e.id.channelId ASC"""
+)
+@NamedQuery(name = "Sale.countByPromotion",
+            query = """
+                    SELECT COUNT(e)
+                    FROM Sale e
+                    WHERE e.promotion = :promotion"""
+)
 @Entity
 @Table(name = Sale.TABLE_NAME)
 public class Sale {

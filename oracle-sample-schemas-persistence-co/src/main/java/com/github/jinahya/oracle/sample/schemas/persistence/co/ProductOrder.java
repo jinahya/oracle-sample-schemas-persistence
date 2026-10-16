@@ -24,6 +24,7 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -39,6 +40,24 @@ import java.util.Optional;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see ProductOrderId
  */
+@NamedQuery(name = "ProductOrder.selectOneByProductNameAndOrderStatus",
+            query = """
+                    SELECT e
+                    FROM ProductOrder e
+                    WHERE e.id.productName = :productName
+                      AND e.id.orderStatus = :orderStatus"""
+)
+@NamedQuery(name = "ProductOrder.selectListOrderByProductNameAscOrderStatusAsc",
+            query = """
+                    SELECT e
+                    FROM ProductOrder e
+                    ORDER BY e.id.productName ASC, e.id.orderStatus ASC"""
+)
+@NamedQuery(name = "ProductOrder.countAll",
+            query = """
+                    SELECT COUNT(e)
+                    FROM ProductOrder e"""
+)
 @Entity
 @Table(name = ProductOrder.TABLE_NAME)
 public class ProductOrder {
