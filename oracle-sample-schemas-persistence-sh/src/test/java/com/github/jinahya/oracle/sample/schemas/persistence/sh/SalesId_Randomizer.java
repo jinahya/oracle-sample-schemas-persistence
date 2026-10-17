@@ -28,14 +28,14 @@ import uk.co.jemos.podam.api.PodamFactory;
 import java.util.List;
 
 /**
- * A randomizer which produces randomized {@link SaleId} instances.
+ * A randomizer which produces randomized {@link SalesId} instances.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class SaleId_Randomizer extends PodamObjectRandomizer<SaleId> {
+class SalesId_Randomizer extends PodamObjectRandomizer<SalesId> {
 
-    SaleId_Randomizer() {
-        super(SaleId.class, List.of(
+    SalesId_Randomizer() {
+        super(SalesId.class, List.of(
 
         ));
     }
@@ -57,7 +57,7 @@ class SaleId_Randomizer extends PodamObjectRandomizer<SaleId> {
     }
 
     @Override
-    public SaleId get() {
+    public SalesId get() {
         return super.get();
     }
 }

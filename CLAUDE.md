@@ -161,7 +161,7 @@ primary keys, one per module, and each module shows one style on it: `co`'s `ORD
 alongside -- a class name carries no `WithEmbeddedId` / `WithIdClass` postfix because there is only
 ever one. `co`'s `ProductOrder` (over a view) also uses an `@EmbeddedId`. `sh` declares no composite
 key; the identifiers it chooses for its unkeyed tables and views use both styles, one of each per
-kind of object -- of the tables, `Sale` uses an `@EmbeddedId` and `Cost` an `@IdClass`; of the
+kind of object -- of the tables, `Sales` uses an `@EmbeddedId` and `Cost` an `@IdClass`; of the
 views, `FweekPscatSalesMv` uses an `@EmbeddedId` and `Profit` an `@IdClass`.
 
 The entity's own `ATTRIBUTE_NAME_*` constants stay, for the places a metamodel reference

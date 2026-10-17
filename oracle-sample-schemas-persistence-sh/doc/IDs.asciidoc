@@ -52,7 +52,7 @@ Each composite identifier is mapped once, and the two styles are split evenly: o
 | `CUSTOMERS`                  | `CUST_ID`    | — | `Customer`
 | `PRODUCTS`                   | `PROD_ID`    | — | `Product`
 | `PROMOTIONS`                 | `PROMO_ID`   | — | `Promotion`
-| `SALES`                      | **none**     | **none** | `Sale`
+| `SALES`                      | **none**     | **none** | `Sales`
 | `SUPPLEMENTARY_DEMOGRAPHICS` | `CUST_ID`    | — | `SupplementaryDemographics`
 | `TIMES`                      | `TIME_ID`    | — | `Time`
 |===
@@ -106,7 +106,7 @@ the database will defend.
 `(PROD_ID, CUST_ID, TIME_ID, CHANNEL_ID, PROMO_ID)` has no duplicate groups and all five are
 `NOT NULL`. `QUANTITY_SOLD` holds a single distinct value across the whole table.
 
-`Sale` maps it with an `@EmbeddedId`, `SaleId`.
+`Sales` maps it with an `@EmbeddedId`, `SalesId`.
 
 CAUTION: the same caveat as `COSTS`, and a sharper one: a second sale of the same product to the
 same customer on the same day through the same channel under the same promotion is an ordinary

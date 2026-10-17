@@ -20,31 +20,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import nl.jqno.equalsverifier.Warning;
-import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-
 /**
- * A class for testing the {@link Sale} entity class.
+ * Verifies the mappings of {@link Sales} against the installed {@code SH} schema.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Sale_Test extends _Entity_Test<Sale> {
+class Sales_PersistenceIT extends _Entity_Persistence_IT<Sales> {
 
-    Sale_Test() {
-        super(Sale.class);
-    }
-
-    // ------------------------------------------------------------------------------------------------- equals/hashCode
-
-    /**
-     * {@inheritDoc}
-     *
-     * @implNote {@link Sale#equals(Object) equals} compares only the {@code @Id}, because every other attribute is
-     * mutable state.
-     */
-    @Override
-    public SingleTypeEqualsVerifierApi<Sale> equals_verifier_() {
-        return super.equals_verifier_()
-                .suppress(Warning.SURROGATE_KEY);
+    Sales_PersistenceIT() {
+        super(Sales.class);
     }
 }

@@ -31,51 +31,51 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * An embeddable class for the composite identifier of the {@link Sale} entity class, which maps it with an
+ * An embeddable class for the composite identifier of the {@link Sales} entity class, which maps it with an
  * {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @Embeddable
-public class SaleId {
+public class SalesId {
 
     /**
      * The name of the database table whose identifying columns this class maps. The value is {@value}.
      */
-    public static final String TABLE_NAME = Sale.TABLE_NAME;
+    public static final String TABLE_NAME = Sales.TABLE_NAME;
 
     // --------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The name of the attribute which maps the {@value Sale#COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value Sales#COLUMN_NAME_PROD_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
     // --------------------------------------------------------------------------------------------------------- CUST_ID
 
     /**
-     * The name of the attribute which maps the {@value Sale#COLUMN_NAME_CUST_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value Sales#COLUMN_NAME_CUST_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_ID = "custId";
 
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the attribute which maps the {@value Sale#COLUMN_NAME_TIME_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value Sales#COLUMN_NAME_TIME_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
-     * The name of the attribute which maps the {@value Sale#COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value Sales#COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the attribute which maps the {@value Sale#COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value Sales#COLUMN_NAME_PROMO_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
@@ -84,19 +84,19 @@ public class SaleId {
     /**
      * Creates a new instance with the specified column values.
      *
-     * @param prodId    the {@value Sale#COLUMN_NAME_PROD_ID} column value.
-     * @param custId    the {@value Sale#COLUMN_NAME_CUST_ID} column value.
-     * @param timeId    the {@value Sale#COLUMN_NAME_TIME_ID} column value.
-     * @param channelId the {@value Sale#COLUMN_NAME_CHANNEL_ID} column value.
-     * @param promoId   the {@value Sale#COLUMN_NAME_PROMO_ID} column value.
+     * @param prodId    the {@value Sales#COLUMN_NAME_PROD_ID} column value.
+     * @param custId    the {@value Sales#COLUMN_NAME_CUST_ID} column value.
+     * @param timeId    the {@value Sales#COLUMN_NAME_TIME_ID} column value.
+     * @param channelId the {@value Sales#COLUMN_NAME_CHANNEL_ID} column value.
+     * @param promoId   the {@value Sales#COLUMN_NAME_PROMO_ID} column value.
      * @return a new instance with the specified column values.
      */
-    public static SaleId of(final Integer prodId,
+    public static SalesId of(final Integer prodId,
                             final Long custId,
                             final LocalDateTime timeId,
                             final Long channelId,
                             final Integer promoId) {
-        final var instance = new SaleId();
+        final var instance = new SalesId();
         instance.setProdId(prodId);
         instance.setCustId(custId);
         instance.setTimeId(timeId);
@@ -110,14 +110,14 @@ public class SaleId {
     /**
      * Creates a new instance.
      */
-    public SaleId() {
+    public SalesId() {
         super();
     }
 
     // ------------------------------------------------------------------------------------------------ java.lang.Object
 
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + '{' +
                "prodId=" + prodId +
                ",custId=" + custId +
@@ -137,7 +137,7 @@ public class SaleId {
      */
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof SaleId that)) {
+        if (!(obj instanceof SalesId that)) {
             return false;
         }
         return Objects.equals(prodId, that.prodId)
@@ -263,33 +263,33 @@ public class SaleId {
     // ---------------------------------------------------------------------------------------------------------------- 
 
     @NotNull
-    @Max(Sale.ATTRIBUTE_MAX_PROD_ID)
-    @Min(Sale.ATTRIBUTE_MIN_PROD_ID)
+    @Max(Sales.ATTRIBUTE_MAX_PROD_ID)
+    @Min(Sales.ATTRIBUTE_MIN_PROD_ID)
     @Basic(optional = false)
-    @Column(name = Sale.COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = Sales.COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
     private Integer prodId;
 
     @NotNull
     @Basic(optional = false)
-    @Column(name = Sale.COLUMN_NAME_CUST_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = Sales.COLUMN_NAME_CUST_ID, nullable = false, insertable = true, updatable = false)
     private Long custId;
 
     @NotNull
     @Basic(optional = false)
-    @Column(name = Sale.COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = Sales.COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
     private LocalDateTime timeId;
 
     @NotNull
-    @Max(Sale.ATTRIBUTE_MAX_CHANNEL_ID)
-    @Min(Sale.ATTRIBUTE_MIN_CHANNEL_ID)
+    @Max(Sales.ATTRIBUTE_MAX_CHANNEL_ID)
+    @Min(Sales.ATTRIBUTE_MIN_CHANNEL_ID)
     @Basic(optional = false)
-    @Column(name = Sale.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = Sales.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
     private Long channelId;
 
     @NotNull
-    @Max(Sale.ATTRIBUTE_MAX_PROMO_ID)
-    @Min(Sale.ATTRIBUTE_MIN_PROMO_ID)
+    @Max(Sales.ATTRIBUTE_MAX_PROMO_ID)
+    @Min(Sales.ATTRIBUTE_MIN_PROMO_ID)
     @Basic(optional = false)
-    @Column(name = Sale.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = Sales.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
     private Integer promoId;
 }

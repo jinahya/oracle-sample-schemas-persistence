@@ -39,111 +39,116 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
- * An entity class for mapping the {@value Sale#TABLE_NAME} table, whose composite identifier is mapped with an
+ * An entity class for mapping the {@value Sales#TABLE_NAME} table, whose composite identifier is mapped with an
  * {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  * <p>
  * The table declares no primary key; the five dimension columns are its grain, and the {@code CANDIDATE_KEYS} section
  * of {@code src/test/sql/SALES.sql} is what measured them.
+ * <p>
+ * That identifier is a measurement of the shipped data, not a constraint, and nothing stops a second sale of the same
+ * product to the same customer on the same day through the same channel under the same promotion. Should the table ever
+ * hold two such rows, a query returning both yields one managed instance, twice, and the second row's
+ * {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} and {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} are silently lost: the persistence
+ * context keeps one instance per identifier. Both providers behave so.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see SaleId
+ * @see SalesId
  */
-@NamedQuery(name = "Sale.selectOneByProdIdAndCustIdAndTimeIdAndChannelIdAndPromoId",
+@NamedQuery(name = "Sales.selectOneByProdIdAndCustIdAndTimeIdAndChannelIdAndPromoId",
             query = """
                     SELECT e
-                    FROM Sale e
+                    FROM Sales e
                     WHERE e.id.prodId = :prodId
                       AND e.id.custId = :custId
                       AND e.id.timeId = :timeId
                       AND e.id.channelId = :channelId
                       AND e.id.promoId = :promoId"""
 )
-@NamedQuery(name = "Sale.selectListOrderByProdIdAscCustIdAscTimeIdAscChannelIdAscPromoIdAsc",
+@NamedQuery(name = "Sales.selectListOrderByProdIdAscCustIdAscTimeIdAscChannelIdAscPromoIdAsc",
             query = """
                     SELECT e
-                    FROM Sale e
+                    FROM Sales e
                     ORDER BY e.id.prodId ASC,
                              e.id.custId ASC,
                              e.id.timeId ASC,
                              e.id.channelId ASC,
                              e.id.promoId ASC"""
 )
-@NamedQuery(name = "Sale.countAll",
+@NamedQuery(name = "Sales.countAll",
             query = """
                     SELECT COUNT(e)
-                    FROM Sale e"""
+                    FROM Sales e"""
 )
-@NamedQuery(name = "Sale.selectListByProductOrderByCustIdAscTimeIdAscChannelIdAscPromoIdAsc",
+@NamedQuery(name = "Sales.selectListByProductOrderByCustIdAscTimeIdAscChannelIdAscPromoIdAsc",
             query = """
                     SELECT e
-                    FROM Sale e
+                    FROM Sales e
                     WHERE e.product = :product
                     ORDER BY e.id.custId ASC, e.id.timeId ASC, e.id.channelId ASC, e.id.promoId ASC"""
 )
-@NamedQuery(name = "Sale.countByProduct",
+@NamedQuery(name = "Sales.countByProduct",
             query = """
                     SELECT COUNT(e)
-                    FROM Sale e
+                    FROM Sales e
                     WHERE e.product = :product"""
 )
-@NamedQuery(name = "Sale.selectListByCustomerOrderByProdIdAscTimeIdAscChannelIdAscPromoIdAsc",
+@NamedQuery(name = "Sales.selectListByCustomerOrderByProdIdAscTimeIdAscChannelIdAscPromoIdAsc",
             query = """
                     SELECT e
-                    FROM Sale e
+                    FROM Sales e
                     WHERE e.customer = :customer
                     ORDER BY e.id.prodId ASC, e.id.timeId ASC, e.id.channelId ASC, e.id.promoId ASC"""
 )
-@NamedQuery(name = "Sale.countByCustomer",
+@NamedQuery(name = "Sales.countByCustomer",
             query = """
                     SELECT COUNT(e)
-                    FROM Sale e
+                    FROM Sales e
                     WHERE e.customer = :customer"""
 )
-@NamedQuery(name = "Sale.selectListByTimeOrderByProdIdAscCustIdAscChannelIdAscPromoIdAsc",
+@NamedQuery(name = "Sales.selectListByTimeOrderByProdIdAscCustIdAscChannelIdAscPromoIdAsc",
             query = """
                     SELECT e
-                    FROM Sale e
+                    FROM Sales e
                     WHERE e.time = :time
                     ORDER BY e.id.prodId ASC, e.id.custId ASC, e.id.channelId ASC, e.id.promoId ASC"""
 )
-@NamedQuery(name = "Sale.countByTime",
+@NamedQuery(name = "Sales.countByTime",
             query = """
                     SELECT COUNT(e)
-                    FROM Sale e
+                    FROM Sales e
                     WHERE e.time = :time"""
 )
-@NamedQuery(name = "Sale.selectListByChannelOrderByProdIdAscCustIdAscTimeIdAscPromoIdAsc",
+@NamedQuery(name = "Sales.selectListByChannelOrderByProdIdAscCustIdAscTimeIdAscPromoIdAsc",
             query = """
                     SELECT e
-                    FROM Sale e
+                    FROM Sales e
                     WHERE e.channel = :channel
                     ORDER BY e.id.prodId ASC, e.id.custId ASC, e.id.timeId ASC, e.id.promoId ASC"""
 )
-@NamedQuery(name = "Sale.countByChannel",
+@NamedQuery(name = "Sales.countByChannel",
             query = """
                     SELECT COUNT(e)
-                    FROM Sale e
+                    FROM Sales e
                     WHERE e.channel = :channel"""
 )
-@NamedQuery(name = "Sale.selectListByPromotionOrderByProdIdAscCustIdAscTimeIdAscChannelIdAsc",
+@NamedQuery(name = "Sales.selectListByPromotionOrderByProdIdAscCustIdAscTimeIdAscChannelIdAsc",
             query = """
                     SELECT e
-                    FROM Sale e
+                    FROM Sales e
                     WHERE e.promotion = :promotion
                     ORDER BY e.id.prodId ASC, e.id.custId ASC, e.id.timeId ASC, e.id.channelId ASC"""
 )
-@NamedQuery(name = "Sale.countByPromotion",
+@NamedQuery(name = "Sales.countByPromotion",
             query = """
                     SELECT COUNT(e)
-                    FROM Sale e
+                    FROM Sales e
                     WHERE e.promotion = :promotion"""
 )
 @Entity
-@Table(name = Sale.TABLE_NAME)
-public class Sale {
+@Table(name = Sales.TABLE_NAME)
+public class Sales {
 
     /**
      * The name of the database table to which this entity class maps. The value is {@value}.
@@ -159,8 +164,8 @@ public class Sale {
     public static final String COLUMN_NAME_PROD_ID = "PROD_ID";
 
     /**
-     * The name of the {@link SaleId} attribute which maps the {@value #COLUMN_NAME_PROD_ID} column; this entity reaches
-     * it as {@value #ATTRIBUTE_NAME_ID_PROD_ID}. The value is {@value}.
+     * The name of the {@link SalesId} attribute which maps the {@value #COLUMN_NAME_PROD_ID} column; this entity
+     * reaches it as {@value #ATTRIBUTE_NAME_ID_PROD_ID}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
@@ -216,8 +221,8 @@ public class Sale {
     public static final String COLUMN_NAME_CUST_ID = "CUST_ID";
 
     /**
-     * The name of the {@link SaleId} attribute which maps the {@value #COLUMN_NAME_CUST_ID} column; this entity reaches
-     * it as {@value #ATTRIBUTE_NAME_ID_CUST_ID}. The value is {@value}.
+     * The name of the {@link SalesId} attribute which maps the {@value #COLUMN_NAME_CUST_ID} column; this entity
+     * reaches it as {@value #ATTRIBUTE_NAME_ID_CUST_ID}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_ID = "custId";
 
@@ -243,8 +248,8 @@ public class Sale {
     public static final String COLUMN_NAME_TIME_ID = "TIME_ID";
 
     /**
-     * The name of the {@link SaleId} attribute which maps the {@value #COLUMN_NAME_TIME_ID} column; this entity reaches
-     * it as {@value #ATTRIBUTE_NAME_ID_TIME_ID}. The value is {@value}.
+     * The name of the {@link SalesId} attribute which maps the {@value #COLUMN_NAME_TIME_ID} column; this entity
+     * reaches it as {@value #ATTRIBUTE_NAME_ID_TIME_ID}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
@@ -270,7 +275,7 @@ public class Sale {
     public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
 
     /**
-     * The name of the {@link SaleId} attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column; this entity
+     * The name of the {@link SalesId} attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column; this entity
      * reaches it as {@value #ATTRIBUTE_NAME_ID_CHANNEL_ID}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
@@ -327,7 +332,7 @@ public class Sale {
     public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
 
     /**
-     * The name of the {@link SaleId} attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column; this entity
+     * The name of the {@link SalesId} attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column; this entity
      * reaches it as {@value #ATTRIBUTE_NAME_ID_PROMO_ID}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
@@ -462,7 +467,7 @@ public class Sale {
     /**
      * Creates a new instance.
      */
-    protected Sale() {
+    protected Sales() {
         super();
     }
 
@@ -472,11 +477,6 @@ public class Sale {
     public String toString() {
         return super.toString() + '{' +
                "id=" + id +
-//               ",product=" + product +
-//               ",customer=" + customer +
-//               ",time=" + time +
-//               ",channel=" + channel +
-//               ",promotion=" + promotion +
                ",quantitySold=" + quantitySold +
                ",amountSold=" + amountSold +
                '}';
@@ -491,7 +491,7 @@ public class Sale {
      */
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof Sale that)) {
+        if (!(obj instanceof Sales that)) {
             return false;
         }
         return Objects.equals(id, that.id);
@@ -515,7 +515,7 @@ public class Sale {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
      */
-    public SaleId getId() {
+    public SalesId getId() {
         return id;
     }
 
@@ -524,133 +524,123 @@ public class Sale {
      *
      * @param id new value for {@value #ATTRIBUTE_NAME_ID} attribute.
      */
-    public void setId(final SaleId id) {
+    public void setId(final SalesId id) {
         this.id = id;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- prodId
+    // --------------------------------------------------------------------------------------------------------- product
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute of the {@link #getId() id}.
+     * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute of the {@link #getId() id}; {@code null} if
-     * the id is {@code null}.
+     * @return current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
      */
-    public Integer getProdId() {
-        return Optional.ofNullable(getId()).map(SaleId::getProdId).orElse(null);
+    public Product getProduct() {
+        return product;
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute of the {@link #getId() id} with the
-     * specified value, setting a new id first if there is none.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute with the specified value.
+     * <p>
+     * The {@value #COLUMN_NAME_PROD_ID} column is written by the {@link #getId() id}, and this association only reads it back, so
+     * the new value changes what this instance refers to and nothing in the database; the id is what decides the row.
      *
-     * @param prodId new value for {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
+     * @param product new value for {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
      */
-    protected void setProdId(final Integer prodId) {
-        if (getId() == null) {
-            setId(new SaleId());
-        }
-        getId().setProdId(prodId);
+    public void setProduct(final Product product) {
+        this.product = product;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- custId
+    // -------------------------------------------------------------------------------------------------------- customer
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute of the {@link #getId() id}.
+     * Returns current value of {@value #ATTRIBUTE_NAME_CUSTOMER} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute of the {@link #getId() id}; {@code null} if
-     * the id is {@code null}.
+     * @return current value of {@value #ATTRIBUTE_NAME_CUSTOMER} attribute.
      */
-    public Long getCustId() {
-        return Optional.ofNullable(getId()).map(SaleId::getCustId).orElse(null);
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute of the {@link #getId() id} with the
-     * specified value, setting a new id first if there is none.
-     *
-     * @param custId new value for {@value #ATTRIBUTE_NAME_CUST_ID} attribute.
-     */
-    protected void setCustId(final Long custId) {
-        if (getId() == null) {
-            setId(new SaleId());
-        }
-        getId().setCustId(custId);
-    }
-
-    // ---------------------------------------------------------------------------------------------------------- timeId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute of the {@link #getId() id}.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute of the {@link #getId() id}; {@code null} if
-     * the id is {@code null}.
-     */
-    public LocalDateTime getTimeId() {
-        return Optional.ofNullable(getId()).map(SaleId::getTimeId).orElse(null);
+    public Customer getCustomer() {
+        return customer;
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute of the {@link #getId() id} with the
-     * specified value, setting a new id first if there is none.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER} attribute with the specified value.
+     * <p>
+     * The {@value #COLUMN_NAME_CUST_ID} column is written by the {@link #getId() id}, and this association only reads it back, so
+     * the new value changes what this instance refers to and nothing in the database; the id is what decides the row.
      *
-     * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
+     * @param customer new value for {@value #ATTRIBUTE_NAME_CUSTOMER} attribute.
      */
-    protected void setTimeId(final LocalDateTime timeId) {
-        if (getId() == null) {
-            setId(new SaleId());
-        }
-        getId().setTimeId(timeId);
+    public void setCustomer(final Customer customer) {
+        this.customer = customer;
     }
 
-    // ------------------------------------------------------------------------------------------------------- channelId
+    // ------------------------------------------------------------------------------------------------------------ time
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute of the {@link #getId() id}.
+     * Returns current value of {@value #ATTRIBUTE_NAME_TIME} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute of the {@link #getId() id}; {@code null}
-     * if the id is {@code null}.
+     * @return current value of {@value #ATTRIBUTE_NAME_TIME} attribute.
      */
-    public Long getChannelId() {
-        return Optional.ofNullable(getId()).map(SaleId::getChannelId).orElse(null);
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute of the {@link #getId() id} with the
-     * specified value, setting a new id first if there is none.
-     *
-     * @param channelId new value for {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
-     */
-    protected void setChannelId(final Long channelId) {
-        if (getId() == null) {
-            setId(new SaleId());
-        }
-        getId().setChannelId(channelId);
-    }
-
-    // --------------------------------------------------------------------------------------------------------- promoId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute of the {@link #getId() id}.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute of the {@link #getId() id}; {@code null} if
-     * the id is {@code null}.
-     */
-    public Integer getPromoId() {
-        return Optional.ofNullable(getId()).map(SaleId::getPromoId).orElse(null);
+    public Time getTime() {
+        return time;
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute of the {@link #getId() id} with the
-     * specified value, setting a new id first if there is none.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME} attribute with the specified value.
+     * <p>
+     * The {@value #COLUMN_NAME_TIME_ID} column is written by the {@link #getId() id}, and this association only reads it back, so
+     * the new value changes what this instance refers to and nothing in the database; the id is what decides the row.
      *
-     * @param promoId new value for {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
+     * @param time new value for {@value #ATTRIBUTE_NAME_TIME} attribute.
      */
-    protected void setPromoId(final Integer promoId) {
-        if (getId() == null) {
-            setId(new SaleId());
-        }
-        getId().setPromoId(promoId);
+    public void setTime(final Time time) {
+        this.time = time;
+    }
+
+    // --------------------------------------------------------------------------------------------------------- channel
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_CHANNEL} attribute.
+     */
+    public Channel getChannel() {
+        return channel;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL} attribute with the specified value.
+     * <p>
+     * The {@value #COLUMN_NAME_CHANNEL_ID} column is written by the {@link #getId() id}, and this association only reads it back, so
+     * the new value changes what this instance refers to and nothing in the database; the id is what decides the row.
+     *
+     * @param channel new value for {@value #ATTRIBUTE_NAME_CHANNEL} attribute.
+     */
+    public void setChannel(final Channel channel) {
+        this.channel = channel;
+    }
+
+    // ------------------------------------------------------------------------------------------------------- promotion
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_PROMOTION} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_PROMOTION} attribute.
+     */
+    public Promotion getPromotion() {
+        return promotion;
+    }
+
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMOTION} attribute with the specified value.
+     * <p>
+     * The {@value #COLUMN_NAME_PROMO_ID} column is written by the {@link #getId() id}, and this association only reads it back, so
+     * the new value changes what this instance refers to and nothing in the database; the id is what decides the row.
+     *
+     * @param promotion new value for {@value #ATTRIBUTE_NAME_PROMOTION} attribute.
+     */
+    public void setPromotion(final Promotion promotion) {
+        this.promotion = promotion;
     }
 
     // ---------------------------------------------------------------------------------------------------- quantitySold
@@ -698,8 +688,9 @@ public class Sale {
     @Valid
     @NotNull
     @EmbeddedId
-    private SaleId id;
+    private SalesId id;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Valid
     // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
     // association is still null at the prePersist at which the provider validates. The column stays NOT
@@ -760,6 +751,7 @@ public class Sale {
                 updatable = false)
     private Promotion promotion;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @NotNull
     @Max(ATTRIBUTE_MAX_QUANTITY_SOLD)
     @Min(ATTRIBUTE_MIN_QUANTITY_SOLD)

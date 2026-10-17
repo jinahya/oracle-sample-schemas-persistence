@@ -17,10 +17,10 @@ Intermediate and Advanced.
 * *JPQL* is Jakarta Persistence 3.2 against this module's entities. Parameters are named parameters (`:year`), bound
   with `+Query#setParameter+`.
 
-The four composite keys are mapped two ways, one of each per kind of object. `Sale` and `FweekPscatSalesMv` map theirs
+The four composite keys are mapped two ways, one of each per kind of object. `Sales` and `FweekPscatSalesMv` map theirs
 with an `+@EmbeddedId+`, so a key column is reached through the identifier, `s.id.timeId`, `f.id.channelId`; `Cost` and
 `Profit` map theirs with an `+@IdClass+`, so it is an attribute of the entity itself, `c.timeId`, `pr.timeId`. Where
-possible the JPQL on `Sale` and `Cost` goes through their `+@ManyToOne+` associations instead (`s.product`,
+possible the JPQL on `Sales` and `Cost` goes through their `+@ManyToOne+` associations instead (`s.product`,
 `s.customer`, `s.time`, `s.channel`, `s.promotion`). `Profit` and `FweekPscatSalesMv` have no associations; they are
 joined to the dimensions through their key attributes (`+p.prodId = pr.prodId+`).
 
@@ -973,7 +973,7 @@ ORDER BY AMOUNT_SOLD DESC, PROD_ID, CUST_ID
 [source,jpaql]
 ----
 SELECT s
-FROM Sale s
+FROM Sales s
 WHERE s.time.timeId = :day
   AND s.channel.channelId = :channelId
 ORDER BY s.amountSold DESC
@@ -1002,7 +1002,7 @@ FETCH FIRST 10 ROWS ONLY
 [source,jpaql]
 ----
 SELECT s.customer.custId, COUNT(s), SUM(s.quantitySold), SUM(s.amountSold) AS spent
-FROM Sale s
+FROM Sales s
 WHERE s.time.timeId BETWEEN :fromDay AND :toDay
 GROUP BY s.customer.custId
 ORDER BY spent DESC
@@ -1033,8 +1033,8 @@ ORDER BY TIME_ID
 [source,jpaql]
 ----
 SELECT s.id.timeId, MAX(s2.id.timeId)
-FROM Sale s
-         LEFT JOIN Sale s2 ON s2.id.custId = s.id.custId
+FROM Sales s
+         LEFT JOIN Sales s2 ON s2.id.custId = s.id.custId
     AND s2.id.timeId < s.id.timeId
 WHERE s.id.custId = :custId
 GROUP BY s.id.timeId
@@ -1243,7 +1243,7 @@ ORDER BY s.TIME_ID DESC, p.PROD_NAME
 [source,jpaql]
 ----
 SELECT t.timeId, p.prodName, ch.channelDesc, s.quantitySold, s.amountSold
-FROM Sale s
+FROM Sales s
          JOIN s.time t
          JOIN s.product p
          JOIN s.channel ch
@@ -1300,7 +1300,7 @@ ORDER BY REVENUE DESC
 [source,jpaql]
 ----
 SELECT ch.channelDesc, SUM(s.quantitySold) AS units, SUM(s.amountSold) AS revenue
-FROM Sale s
+FROM Sales s
          JOIN s.channel ch
          JOIN s.time t
 WHERE t.calendarYear = :year
@@ -1329,7 +1329,7 @@ ORDER BY t.CALENDAR_QUARTER_DESC, REVENUE DESC
 [source,jpaql]
 ----
 SELECT t.calendarQuarterDesc, p.prodCategory, SUM(s.amountSold) AS revenue
-FROM Sale s
+FROM Sales s
          JOIN s.product p
          JOIN s.time t
 WHERE t.calendarYear = :year
@@ -1357,7 +1357,7 @@ FETCH FIRST 10 ROWS ONLY
 [source,jpaql]
 ----
 SELECT p.prodId, p.prodName, SUM(s.quantitySold) AS units, SUM(s.amountSold) AS revenue
-FROM Sale s
+FROM Sales s
          JOIN s.product p
          JOIN s.time t
 WHERE t.calendarYear = :year
@@ -1389,7 +1389,7 @@ ORDER BY REVENUE DESC
 [source,jpaql]
 ----
 SELECT co.countryName, SUM(s.amountSold) AS revenue
-FROM Sale s
+FROM Sales s
          JOIN s.customer cu
          JOIN cu.country co
          JOIN s.time t
@@ -1424,7 +1424,7 @@ ORDER BY REVENUE DESC
 ----
 SELECT pr.promoId, pr.promoName, pr.promoCategory, pr.promoCost,
        SUM(s.quantitySold) AS units, SUM(s.amountSold) AS revenue
-FROM Sale s
+FROM Sales s
          JOIN s.promotion pr
          JOIN s.time t
 WHERE t.calendarYear = :year
@@ -1451,7 +1451,7 @@ ORDER BY t.FISCAL_MONTH_DESC
 [source,jpaql]
 ----
 SELECT t.fiscalMonthDesc, SUM(s.amountSold)
-FROM Sale s
+FROM Sales s
          JOIN s.time t
 WHERE t.fiscalYear = :fiscalYear
 GROUP BY t.fiscalMonthDesc
@@ -1482,7 +1482,7 @@ ORDER BY ch.CHANNEL_DESC
 SELECT ch.channelDesc,
        SUM(CASE WHEN t.dayNumberInWeek IN (6, 7) THEN s.amountSold ELSE 0 END),
        SUM(CASE WHEN t.dayNumberInWeek IN (6, 7) THEN 0 ELSE s.amountSold END)
-FROM Sale s
+FROM Sales s
          JOIN s.channel ch
          JOIN s.time t
 WHERE t.calendarYear = :year
@@ -1516,7 +1516,7 @@ ORDER BY cu.CUST_GENDER, REVENUE DESC
 [source,jpaql]
 ----
 SELECT cu.custGender, COALESCE(cu.custMaritalStatus, 'unknown'), COUNT(DISTINCT cu), SUM(s.amountSold) AS revenue
-FROM Sale s
+FROM Sales s
          JOIN s.customer cu
          JOIN s.time t
 WHERE t.calendarYear = :year
@@ -1548,7 +1548,7 @@ ORDER BY REVENUE DESC
 [source,jpaql]
 ----
 SELECT d.education, COUNT(DISTINCT cu), SUM(s.amountSold) AS revenue
-FROM Sale s
+FROM Sales s
          JOIN s.customer cu
          JOIN SupplementaryDemographics d ON d.custId = cu.custId
          JOIN s.time t
@@ -1584,7 +1584,7 @@ ORDER BY REALISED_RATIO
 ----
 SELECT p.prodId, p.prodName, p.prodListPrice,
        SUM(s.amountSold) / SUM(s.quantitySold) AS realisedPrice
-FROM Sale s
+FROM Sales s
          JOIN s.product p
          JOIN s.time t
 WHERE t.calendarYear = :year
@@ -1615,7 +1615,7 @@ ORDER BY p.PROD_ID
 ----
 SELECT p
 FROM Product p
-WHERE NOT EXISTS (SELECT s FROM Sale s WHERE s.product = p)
+WHERE NOT EXISTS (SELECT s FROM Sales s WHERE s.product = p)
 ORDER BY p.prodId
 ----
 
@@ -1634,7 +1634,7 @@ ORDER BY DORMANT_CUSTOMERS DESC
 SELECT co.countryName, COUNT(cu) AS dormant
 FROM Customer cu
          JOIN cu.country co
-WHERE NOT EXISTS (SELECT s FROM Sale s WHERE s.customer = cu)
+WHERE NOT EXISTS (SELECT s FROM Sales s WHERE s.customer = cu)
 GROUP BY co.countryName
 ORDER BY dormant DESC
 ----
@@ -1664,22 +1664,22 @@ WHERE t.CALENDAR_YEAR = :currentYear
 [source,jpaql]
 ----
 SELECT s.customer.custId
-FROM Sale s
+FROM Sales s
 WHERE s.time.calendarYear = :previousYear
 EXCEPT
 SELECT s2.customer.custId
-FROM Sale s2
+FROM Sales s2
 WHERE s2.time.calendarYear = :currentYear
 ----
 
 [source,jpaql]
 ----
 SELECT DISTINCT cu
-FROM Sale s
+FROM Sales s
          JOIN s.customer cu
 WHERE s.time.calendarYear = :previousYear
   AND NOT EXISTS (SELECT s2
-                  FROM Sale s2
+                  FROM Sales s2
                   WHERE s2.customer = cu
                     AND s2.time.calendarYear = :currentYear)
 ----
@@ -1713,12 +1713,12 @@ WHERE t.CALENDAR_YEAR = :year
 [source,jpaql]
 ----
 SELECT s.customer.custId
-FROM Sale s
+FROM Sales s
 WHERE s.time.calendarYear = :year
   AND s.channel.channelDesc = :channelA
 INTERSECT
 SELECT s2.customer.custId
-FROM Sale s2
+FROM Sales s2
 WHERE s2.time.calendarYear = :year
   AND s2.channel.channelDesc = :channelB
 ----
@@ -1747,7 +1747,7 @@ ORDER BY PROD_CATEGORY, RNK
 [source,jpaql]
 ----
 SELECT p.prodCategory, p.prodName, SUM(s.amountSold) AS revenue
-FROM Sale s
+FROM Sales s
          JOIN s.product p
          JOIN s.time t
 WHERE t.calendarYear = :year
@@ -1788,7 +1788,7 @@ ORDER BY MARGIN DESC
 [source,jpaql]
 ----
 SELECT p.prodCategory, SUM(s.amountSold) AS revenue, SUM(s.amountSold - s.quantitySold * c.unitCost) AS margin
-FROM Sale s
+FROM Sales s
          JOIN s.product p
          JOIN s.time t
          JOIN Cost c ON c.prodId = s.id.prodId
@@ -1866,7 +1866,7 @@ ORDER BY GROWTH DESC NULLS LAST
 SELECT ch.channelDesc,
        SUM(CASE WHEN t.calendarYear = :previousYear THEN s.amountSold ELSE 0 END),
        SUM(CASE WHEN t.calendarYear = :currentYear THEN s.amountSold ELSE 0 END)
-FROM Sale s
+FROM Sales s
          JOIN s.channel ch
          JOIN s.time t
 WHERE t.calendarYear IN (:previousYear, :currentYear)
@@ -1901,21 +1901,21 @@ ORDER BY GROUPING(ch.CHANNEL_DESC), ch.CHANNEL_DESC, GROUPING(t.CALENDAR_QUARTER
 [source,jpaql]
 ----
 SELECT ch.channelDesc, t.calendarQuarterDesc, SUM(s.amountSold)
-FROM Sale s
+FROM Sales s
          JOIN s.channel ch
          JOIN s.time t
 WHERE t.calendarYear = :year
 GROUP BY ch.channelDesc, t.calendarQuarterDesc
 UNION ALL
 SELECT ch2.channelDesc, 'All quarters', SUM(s2.amountSold)
-FROM Sale s2
+FROM Sales s2
          JOIN s2.channel ch2
          JOIN s2.time t2
 WHERE t2.calendarYear = :year
 GROUP BY ch2.channelDesc
 UNION ALL
 SELECT 'All channels', 'All quarters', SUM(s3.amountSold)
-FROM Sale s3
+FROM Sales s3
          JOIN s3.time t3
 WHERE t3.calendarYear = :year
 ----
@@ -1984,7 +1984,7 @@ WHERE EXTRACT(YEAR FROM s.TIME_ID) = :year
 [source,jpaql]
 ----
 SELECT COUNT(s)
-FROM Sale s
+FROM Sales s
          JOIN s.time t
 WHERE EXTRACT(YEAR FROM s.id.timeId) = :year
   AND t.calendarYear <> EXTRACT(YEAR FROM s.id.timeId)

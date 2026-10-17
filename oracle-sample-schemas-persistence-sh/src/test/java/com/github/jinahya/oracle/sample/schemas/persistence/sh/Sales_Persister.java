@@ -27,20 +27,20 @@ import jakarta.persistence.EntityManager;
 import java.util.stream.LongStream;
 
 /**
- * A persister which persists {@link Sale} instances. Each instance is first given newly persisted {@link Product},
+ * A persister which persists {@link Sales} instances. Each instance is first given newly persisted {@link Product},
  * {@link Customer}, {@link Time}, {@link Channel} and {@link Promotion} rows, and their keys copied into the composite
  * identifier, because every column of that identifier is a foreign key.
  * <p>
  * The {@link Channel} is the exception: {@code CHANNELS.CHANNEL_ID} is an unbounded {@code NUMBER}, while the
- * {@code SALES.CHANNEL_ID} referencing it holds {@value Sale#COLUMN_PRECISION_CHANNEL_ID} digit(s) only, so a
- * randomized channel key does not fit a sale. The channel is given the lowest key which fits and is not taken yet.
+ * {@code SALES.CHANNEL_ID} referencing it holds {@value Sales#COLUMN_PRECISION_CHANNEL_ID} digit(s) only, so a
+ * randomized channel key does not fit a sales row. The channel is given the lowest key which fits and is not taken yet.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Sale_Persister extends AbstractEntityPersister<Sale> {
+class Sales_Persister extends AbstractEntityPersister<Sales> {
 
-    Sale_Persister() {
-        super(Sale.class);
+    Sales_Persister() {
+        super(Sales.class);
     }
 
     // ---------------------------------------------------------------------------------------------------------------- 
@@ -57,20 +57,15 @@ class Sale_Persister extends AbstractEntityPersister<Sale> {
      * what makes the row insertable.
      */
     @Override
-    public Sale apply(final EntityManager entityManager, final Sale entityInstance) {
-        entityInstance.setProdId(
-                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class).getProdId()
-        );
-        entityInstance.setCustId(
-                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Customer.class).getCustId()
-        );
-        entityInstance.setTimeId(Time_Persister.newPersistedInstanceBeforeEarliest(entityManager).getTimeId());
+    public Sales apply(final EntityManager entityManager, final Sales entityInstance) {
+        final var prodId = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class).getProdId();
+        final var custId = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Customer.class).getCustId();
+        final var timeId = Time_Persister.newPersistedInstanceBeforeEarliest(entityManager).getTimeId();
         final var channel = new Channel_Randomizer().get();
         channel.setChannelId(freeChannelId(entityManager));
-        entityInstance.setChannelId(new Channel_Persister().apply(entityManager, channel).getChannelId());
-        entityInstance.setPromoId(
-                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Promotion.class).getPromoId()
-        );
+        final var channelId = new Channel_Persister().apply(entityManager, channel).getChannelId();
+        final var promoId = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Promotion.class).getPromoId();
+        entityInstance.setId(SalesId.of(prodId, custId, timeId, channelId, promoId));
         return super.apply(entityManager, entityInstance);
     }
 
@@ -78,7 +73,7 @@ class Sale_Persister extends AbstractEntityPersister<Sale> {
      * Returns the lowest channel key which fits {@code SALES.CHANNEL_ID} and is not taken by a {@link Channel} yet.
      */
     private static Long freeChannelId(final EntityManager entityManager) {
-        final var bound = (long) Math.pow(10, Sale.COLUMN_PRECISION_CHANNEL_ID - Sale.COLUMN_SCALE_CHANNEL_ID);
+        final var bound = (long) Math.pow(10, Sales.COLUMN_PRECISION_CHANNEL_ID - Sales.COLUMN_SCALE_CHANNEL_ID);
         final var taken = entityManager
                 .createQuery("SELECT c.channelId FROM Channel c WHERE c.channelId < :bound", Long.class)
                 .setParameter("bound", bound)
