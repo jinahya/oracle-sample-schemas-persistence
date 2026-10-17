@@ -300,6 +300,8 @@ public class Order {
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
+    // ----------------------------------------------------------------------------------------------------- ORDER_ITEMS
+
     /**
      * The name of the attribute which maps the order items of this order. The value is {@value}.
      */

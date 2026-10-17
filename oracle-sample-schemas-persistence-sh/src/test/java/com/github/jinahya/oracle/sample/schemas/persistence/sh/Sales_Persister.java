@@ -33,12 +33,32 @@ import java.util.stream.LongStream;
  * <p>
  * The {@link Channel} is the exception: {@code CHANNELS.CHANNEL_ID} is an unbounded {@code NUMBER}, while the
  * {@code SALES.CHANNEL_ID} referencing it holds {@value Sales#COLUMN_PRECISION_CHANNEL_ID} digit(s) only, so a
- * randomized channel key does not fit a sales row. The channel is given the lowest key which fits and is not taken yet.
+ * randomized channel key does not fit a sales row. The channel is given the lowest key which fits and is not taken
+ * yet.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Sales_Persister extends AbstractEntityPersister<Sales> {
 
+    /**
+     * Returns the lowest channel key which fits {@code SALES.CHANNEL_ID} and is not taken by a {@link Channel} yet.
+     */
+    private static Long freeChannelId(final EntityManager entityManager) {
+        final var bound = (long) Math.pow(10, Sales.COLUMN_PRECISION_CHANNEL_ID - Sales.COLUMN_SCALE_CHANNEL_ID);
+        final var taken = entityManager
+                .createQuery("SELECT c.channelId FROM Channel c WHERE c.channelId < :bound", Long.class)
+                .setParameter("bound", bound)
+                .getResultList();
+        // from 1, not 0: EclipseLink rejects a zero primary key at flush ("Null or zero primary key encountered
+        // in UnitOfWork clone", EclipseLink-7197) unless the unit relaxes its id validation
+        return LongStream.range(1L, bound)
+                .filter(v -> !taken.contains(v))
+                .boxed()
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("no channel key below " + bound + " is free"));
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
     Sales_Persister() {
         super(Sales.class);
     }
@@ -67,21 +87,5 @@ class Sales_Persister extends AbstractEntityPersister<Sales> {
         final var promoId = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Promotion.class).getPromoId();
         entityInstance.setId(SalesId.of(prodId, custId, timeId, channelId, promoId));
         return super.apply(entityManager, entityInstance);
-    }
-
-    /**
-     * Returns the lowest channel key which fits {@code SALES.CHANNEL_ID} and is not taken by a {@link Channel} yet.
-     */
-    private static Long freeChannelId(final EntityManager entityManager) {
-        final var bound = (long) Math.pow(10, Sales.COLUMN_PRECISION_CHANNEL_ID - Sales.COLUMN_SCALE_CHANNEL_ID);
-        final var taken = entityManager
-                .createQuery("SELECT c.channelId FROM Channel c WHERE c.channelId < :bound", Long.class)
-                .setParameter("bound", bound)
-                .getResultList();
-        return LongStream.range(0L, bound)
-                .filter(v -> !taken.contains(v))
-                .boxed()
-                .findFirst()
-                .orElseThrow(() -> new IllegalStateException("no channel key below " + bound + " is free"));
     }
 }

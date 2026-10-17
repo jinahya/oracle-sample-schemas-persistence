@@ -20,22 +20,18 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.time.YearMonth;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Function;
 
 /**
  * An entity class for mapping the {@value CalMonthSalesMv#TABLE_NAME} materialized view.
@@ -166,40 +162,6 @@ public class CalMonthSalesMv {
      */
     public String getCalendarMonthDesc() {
         return calendarMonthDesc;
-    }
-
-    /**
-     * Returns current value of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute, mapped by the specified
-     * function.
-     *
-     * @param <R>    the type of the mapped value.
-     * @param mapper the function to apply to current value of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC}
-     *               attribute.
-     * @return the mapped value; {@code null} when the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute is
-     * {@code null}.
-     * @throws NullPointerException if {@code mapper} is {@code null}.
-     */
-    @Nullable
-    @Transient
-    public <R> R getCalendarMonthDescAsMapped(final Function<? super String, ? extends R> mapper) {
-        Objects.requireNonNull(mapper, "mapper is null");
-        return Optional.ofNullable(getCalendarMonthDesc()).map(mapper).orElse(null);
-    }
-
-    /**
-     * Returns current value of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute, as a {@link YearMonth}.
-     *
-     * @return a year-month parsed from current value of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute;
-     * {@code null} when the attribute is {@code null}.
-     * @throws java.time.format.DateTimeParseException if the attribute is not in the {@code uuuu-MM} form
-     *                                                 {@link YearMonth#parse(CharSequence)} accepts.
-     * @see #getCalendarMonthDescAsMapped(Function)
-     * @see YearMonth#parse(CharSequence)
-     */
-    @Nullable
-    @Transient
-    public YearMonth getCalendarMonthDescAsYearMonth() {
-        return getCalendarMonthDescAsMapped(YearMonth::parse);
     }
 
     // --------------------------------------------------------------------------------------------------------- dollars

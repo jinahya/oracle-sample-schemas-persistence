@@ -24,7 +24,6 @@ import com.github.jinahya.object.randomizer.ObjectRandomizerUtils;
 import org.junit.platform.commons.util.ReflectionUtils;
 
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * The root of every test base of this package; it holds the target class, and the factories of its instances.
@@ -75,11 +74,12 @@ abstract class __Test<T> {
     /**
      * Returns a new instance of {@link #targetClass} with randomized property values.
      *
-     * @return a new randomized instance of {@link #targetClass}; empty when no randomizer is registered for
-     * {@link #targetClass}.
+     * @return a new randomized instance of {@link #targetClass}.
+     * @throws IllegalStateException if no randomizer is registered for {@link #targetClass}.
      */
-    public Optional<T> newRandomizedTargetInstance() {
-        return ObjectRandomizerUtils.newRandomizedInstanceOf(targetClass);
+    public T newRandomizedTargetInstance() {
+        return ObjectRandomizerUtils.newRandomizedInstanceOf(targetClass)
+                .orElseThrow(() -> new IllegalStateException("no randomizer for " + targetClass));
     }
 
     // -----------------------------------------------------------------------------------------------------------------

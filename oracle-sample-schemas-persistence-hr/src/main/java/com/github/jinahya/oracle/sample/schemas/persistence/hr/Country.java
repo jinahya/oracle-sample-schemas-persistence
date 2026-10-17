@@ -167,6 +167,8 @@ public class Country {
      */
     public static final String COLUMN_NAME_REGION_ID = "REGION_ID";
 
+    // ------------------------------------------------------------------------------------------------------- LOCATIONS
+
     /**
      * The name of the attribute which maps the {@link Location location}s of this country. The value is {@value}.
      *

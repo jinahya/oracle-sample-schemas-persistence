@@ -37,7 +37,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -155,32 +154,62 @@ public class Sales {
      */
     public static final String TABLE_NAME = "SALES";
 
-    // --------------------------------------------------------------------------------------------------------- PROD_ID
+    // -------------------------------------------------------------------------------------------------------------- id
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the attribute which maps the identifying columns, as an
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value is {@value}.
      */
-    public static final String COLUMN_NAME_PROD_ID = "PROD_ID";
-
-    /**
-     * The name of the {@link SalesId} attribute which maps the {@value #COLUMN_NAME_PROD_ID} column; this entity
-     * reaches it as {@value #ATTRIBUTE_NAME_ID_PROD_ID}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column as a
-     * {@link jakarta.persistence.ManyToOne @ManyToOne} association. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_PRODUCT = "product";
+    public static final String ATTRIBUTE_NAME_ID = "id";
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column -- a path into the
      * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
      * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_PROD_ID = "id.prodId";
+    public static final String ATTRIBUTE_PATH_ID_PROD_ID = "id.prodId";
+
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_ID} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
+     */
+    public static final String ATTRIBUTE_PATH_ID_CUST_ID = "id.custId";
+
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
+     */
+    public static final String ATTRIBUTE_PATH_ID_TIME_ID = "id.timeId";
+
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
+     */
+    public static final String ATTRIBUTE_PATH_ID_CHANNEL_ID = "id.channelId";
+
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column -- a path into the
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
+     * {@value}.
+     */
+    public static final String ATTRIBUTE_PATH_ID_PROMO_ID = "id.promoId";
+
+    // --------------------------------------------------------------------------------------------------------- PROD_ID
+
+    /**
+     * The name of the table column to which the {@value SalesId#ATTRIBUTE_NAME_PROD_ID} attribute maps. The value is
+     * {@value}.
+     */
+    public static final String COLUMN_NAME_PROD_ID = "PROD_ID";
+
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column as a
+     * {@link jakarta.persistence.ManyToOne @ManyToOne} association. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
     /**
      * The precision of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
@@ -203,28 +232,22 @@ public class Sales {
     public static final int COLUMN_MAX_PROD_ID = +999999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value SalesId#ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_PROD_ID = COLUMN_MIN_PROD_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value SalesId#ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_PROD_ID = COLUMN_MAX_PROD_ID;
 
     // --------------------------------------------------------------------------------------------------------- CUST_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_ID} attribute maps. The value is
+     * The name of the table column to which the {@value SalesId#ATTRIBUTE_NAME_CUST_ID} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_CUST_ID = "CUST_ID";
-
-    /**
-     * The name of the {@link SalesId} attribute which maps the {@value #COLUMN_NAME_CUST_ID} column; this entity
-     * reaches it as {@value #ATTRIBUTE_NAME_ID_CUST_ID}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_CUST_ID = "custId";
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_ID} column as a
@@ -232,26 +255,13 @@ public class Sales {
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER = "customer";
 
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_CUST_ID = "id.custId";
-
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps. The value is
+     * The name of the table column to which the {@value SalesId#ATTRIBUTE_NAME_TIME_ID} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_TIME_ID = "TIME_ID";
-
-    /**
-     * The name of the {@link SalesId} attribute which maps the {@value #COLUMN_NAME_TIME_ID} column; this entity
-     * reaches it as {@value #ATTRIBUTE_NAME_ID_TIME_ID}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column as a
@@ -259,39 +269,19 @@ public class Sales {
      */
     public static final String ATTRIBUTE_NAME_TIME = "time";
 
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_TIME_ID = "id.timeId";
-
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute maps. The value is
+     * The name of the table column to which the {@value SalesId#ATTRIBUTE_NAME_CHANNEL_ID} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
-
-    /**
-     * The name of the {@link SalesId} attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column; this entity
-     * reaches it as {@value #ATTRIBUTE_NAME_ID_CHANNEL_ID}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column as a
      * {@link jakarta.persistence.ManyToOne @ManyToOne} association. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL = "channel";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_CHANNEL_ID = "id.channelId";
 
     /**
      * The precision of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
@@ -314,41 +304,28 @@ public class Sales {
     public static final int COLUMN_MAX_CHANNEL_ID = +9;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value SalesId#ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_CHANNEL_ID = COLUMN_MIN_CHANNEL_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value SalesId#ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_CHANNEL_ID = COLUMN_MAX_CHANNEL_ID;
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps. The value is
+     * The name of the table column to which the {@value SalesId#ATTRIBUTE_NAME_PROMO_ID} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
-
-    /**
-     * The name of the {@link SalesId} attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column; this entity
-     * reaches it as {@value #ATTRIBUTE_NAME_ID_PROMO_ID}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column as a
      * {@link jakarta.persistence.ManyToOne @ManyToOne} association. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMOTION = "promotion";
-
-    /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID_PROMO_ID = "id.promoId";
 
     /**
      * The precision of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
@@ -371,12 +348,12 @@ public class Sales {
     public static final int COLUMN_MAX_PROMO_ID = +999999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value SalesId#ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_PROMO_ID = COLUMN_MIN_PROMO_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value SalesId#ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_PROMO_ID = COLUMN_MAX_PROMO_ID;
 
@@ -455,12 +432,6 @@ public class Sales {
      * The maximum value of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_AMOUNT_SOLD = "+99999999.99";
-
-    /**
-     * The name of the attribute which maps the identifying columns, as an
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_ID = "id";
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -542,8 +513,9 @@ public class Sales {
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute with the specified value.
      * <p>
-     * The {@value #COLUMN_NAME_PROD_ID} column is written by the {@link #getId() id}, and this association only reads it back, so
-     * the new value changes what this instance refers to and nothing in the database; the id is what decides the row.
+     * The {@value #COLUMN_NAME_PROD_ID} column is written by the {@link #getId() id}, and this association only reads
+     * it back, so the new value changes what this instance refers to and nothing in the database; the id is what
+     * decides the row.
      *
      * @param product new value for {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
      */
@@ -565,8 +537,9 @@ public class Sales {
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER} attribute with the specified value.
      * <p>
-     * The {@value #COLUMN_NAME_CUST_ID} column is written by the {@link #getId() id}, and this association only reads it back, so
-     * the new value changes what this instance refers to and nothing in the database; the id is what decides the row.
+     * The {@value #COLUMN_NAME_CUST_ID} column is written by the {@link #getId() id}, and this association only reads
+     * it back, so the new value changes what this instance refers to and nothing in the database; the id is what
+     * decides the row.
      *
      * @param customer new value for {@value #ATTRIBUTE_NAME_CUSTOMER} attribute.
      */
@@ -588,8 +561,9 @@ public class Sales {
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_TIME} attribute with the specified value.
      * <p>
-     * The {@value #COLUMN_NAME_TIME_ID} column is written by the {@link #getId() id}, and this association only reads it back, so
-     * the new value changes what this instance refers to and nothing in the database; the id is what decides the row.
+     * The {@value #COLUMN_NAME_TIME_ID} column is written by the {@link #getId() id}, and this association only reads
+     * it back, so the new value changes what this instance refers to and nothing in the database; the id is what
+     * decides the row.
      *
      * @param time new value for {@value #ATTRIBUTE_NAME_TIME} attribute.
      */
@@ -611,8 +585,9 @@ public class Sales {
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL} attribute with the specified value.
      * <p>
-     * The {@value #COLUMN_NAME_CHANNEL_ID} column is written by the {@link #getId() id}, and this association only reads it back, so
-     * the new value changes what this instance refers to and nothing in the database; the id is what decides the row.
+     * The {@value #COLUMN_NAME_CHANNEL_ID} column is written by the {@link #getId() id}, and this association only
+     * reads it back, so the new value changes what this instance refers to and nothing in the database; the id is what
+     * decides the row.
      *
      * @param channel new value for {@value #ATTRIBUTE_NAME_CHANNEL} attribute.
      */
@@ -634,8 +609,9 @@ public class Sales {
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_PROMOTION} attribute with the specified value.
      * <p>
-     * The {@value #COLUMN_NAME_PROMO_ID} column is written by the {@link #getId() id}, and this association only reads it back, so
-     * the new value changes what this instance refers to and nothing in the database; the id is what decides the row.
+     * The {@value #COLUMN_NAME_PROMO_ID} column is written by the {@link #getId() id}, and this association only reads
+     * it back, so the new value changes what this instance refers to and nothing in the database; the id is what
+     * decides the row.
      *
      * @param promotion new value for {@value #ATTRIBUTE_NAME_PROMOTION} attribute.
      */

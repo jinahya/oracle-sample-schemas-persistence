@@ -75,7 +75,7 @@ public class Promotion {
      */
     public static final String TABLE_NAME = "PROMOTIONS";
 
-    // ------------------------------------------------------------------------------------------------------- PROMO_ID
+    // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps. The value is
@@ -118,7 +118,7 @@ public class Promotion {
      */
     public static final int ATTRIBUTE_MAX_PROMO_ID = COLUMN_MAX_PROMO_ID;
 
-    // ----------------------------------------------------------------------------------------------------- PROMO_NAME
+    // ------------------------------------------------------------------------------------------------------ PROMO_NAME
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_NAME} attribute maps. The value is
@@ -141,7 +141,7 @@ public class Promotion {
      */
     public static final int SIZE_MAX_PROMO_NAME = COLUMN_LENGTH_PROMO_NAME;
 
-    // ---------------------------------------------------------------------------------------------- PROMO_SUBCATEGORY
+    // ----------------------------------------------------------------------------------------------- PROMO_SUBCATEGORY
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY} attribute maps. The value is
@@ -164,7 +164,7 @@ public class Promotion {
      */
     public static final int SIZE_MAX_PROMO_SUBCATEGORY = COLUMN_LENGTH_PROMO_SUBCATEGORY;
 
-    // ------------------------------------------------------------------------------------------- PROMO_SUBCATEGORY_ID
+    // -------------------------------------------------------------------------------------------- PROMO_SUBCATEGORY_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY_ID} attribute maps. The value
@@ -178,7 +178,7 @@ public class Promotion {
      */
     public static final String ATTRIBUTE_NAME_PROMO_SUBCATEGORY_ID = "promoSubcategoryId";
 
-    // ------------------------------------------------------------------------------------------------- PROMO_CATEGORY
+    // -------------------------------------------------------------------------------------------------- PROMO_CATEGORY
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_CATEGORY} attribute maps. The value is
@@ -196,12 +196,14 @@ public class Promotion {
      */
     public static final String ATTRIBUTE_NAME_PROMO_CATEGORY = "promoCategory";
 
+    public static final int SIZE_MIN_PROMO_CATEGORY = 0;
+
     /**
      * The maximum size of the {@value #ATTRIBUTE_NAME_PROMO_CATEGORY} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_PROMO_CATEGORY = COLUMN_LENGTH_PROMO_CATEGORY;
 
-    // ---------------------------------------------------------------------------------------------- PROMO_CATEGORY_ID
+    // ----------------------------------------------------------------------------------------------- PROMO_CATEGORY_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_CATEGORY_ID} attribute maps. The value is
@@ -214,7 +216,7 @@ public class Promotion {
      */
     public static final String ATTRIBUTE_NAME_PROMO_CATEGORY_ID = "promoCategoryId";
 
-    // ----------------------------------------------------------------------------------------------------- PROMO_COST
+    // ------------------------------------------------------------------------------------------------------ PROMO_COST
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_COST} attribute maps. The value is
@@ -237,7 +239,17 @@ public class Promotion {
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_PROMO_COST = "+99999999.99";
 
-    // ----------------------------------------------------------------------------------------------- PROMO_BEGIN_DATE
+    /**
+     * The precision of the {@value #COLUMN_NAME_PROMO_COST} column. The value is {@value}.
+     */
+    public static final int COLUMN_PRECISION_PROMO_COST = 10;
+
+    /**
+     * The scale of the {@value #COLUMN_NAME_PROMO_COST} column. The value is {@value}.
+     */
+    public static final int COLUMN_SCALE_PROMO_COST = 2;
+
+    // ------------------------------------------------------------------------------------------------ PROMO_BEGIN_DATE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_BEGIN_DATE} attribute maps. The value is
@@ -250,7 +262,7 @@ public class Promotion {
      */
     public static final String ATTRIBUTE_NAME_PROMO_BEGIN_DATE = "promoBeginDate";
 
-    // ------------------------------------------------------------------------------------------------- PROMO_END_DATE
+    // -------------------------------------------------------------------------------------------------- PROMO_END_DATE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_END_DATE} attribute maps. The value is
@@ -263,7 +275,7 @@ public class Promotion {
      */
     public static final String ATTRIBUTE_NAME_PROMO_END_DATE = "promoEndDate";
 
-    // ---------------------------------------------------------------------------------------------------- PROMO_TOTAL
+    // ----------------------------------------------------------------------------------------------------- PROMO_TOTAL
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_TOTAL} attribute maps. The value is
@@ -286,7 +298,7 @@ public class Promotion {
      */
     public static final int SIZE_MAX_PROMO_TOTAL = COLUMN_LENGTH_PROMO_TOTAL;
 
-    // ------------------------------------------------------------------------------------------------- PROMO_TOTAL_ID
+    // -------------------------------------------------------------------------------------------------- PROMO_TOTAL_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_TOTAL_ID} attribute maps. The value is
@@ -298,16 +310,6 @@ public class Promotion {
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_TOTAL_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_TOTAL_ID = "promoTotalId";
-
-    /**
-     * The precision of the {@value #COLUMN_NAME_PROMO_COST} column. The value is {@value}.
-     */
-    public static final int COLUMN_PRECISION_PROMO_COST = 10;
-
-    /**
-     * The scale of the {@value #COLUMN_NAME_PROMO_COST} column. The value is {@value}.
-     */
-    public static final int COLUMN_SCALE_PROMO_COST = 2;
 
     // --------------------------------------------------------------------------------------------------- CONSTRUCTORS
 

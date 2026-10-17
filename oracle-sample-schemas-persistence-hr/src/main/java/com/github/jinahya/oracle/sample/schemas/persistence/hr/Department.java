@@ -272,12 +272,16 @@ public class Department {
      */
     public static final String ATTRIBUTE_NAME_LOCATION = "location";
 
+    // ------------------------------------------------------------------------------------------------------- EMPLOYEES
+
     /**
      * The name of the attribute which maps the {@link Employee employee}s of this department. The value is {@value}.
      *
      * @see Employee#ATTRIBUTE_NAME_DEPARTMENT
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEES = "employees";
+
+    // --------------------------------------------------------------------------------------------------- JOB_HISTORIES
 
     /**
      * The name of the attribute which maps the past job assignments within this department. The value is {@value}.

@@ -137,12 +137,12 @@ public class OrderItem {
      * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
      * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_ORDER_ID = "id.orderId";
+    public static final String ATTRIBUTE_PATH_ID_ORDER_ID = "id.orderId";
 
     /**
      * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which maps the
      * {@value #COLUMN_NAME_ORDER_ID} column. The association is {@link jakarta.persistence.MapsId @MapsId} to the
-     * {@value #ATTRIBUTE_NAME_ID_ORDER_ID} attribute, so it is the association which writes the column. The value is
+     * {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute, so it is the association which writes the column. The value is
      * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER = "order";
@@ -312,9 +312,9 @@ public class OrderItem {
     // --------------------------------------------------------------------------------------------------------- orderId
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ID_ORDER_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_ID_ORDER_ID} attribute; {@code null} when
+     * @return current value of {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute; {@code null} when
      * {@value #ATTRIBUTE_NAME_ID} attribute is {@code null}.
      */
     @Transient
@@ -323,10 +323,10 @@ public class OrderItem {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ID_ORDER_ID} attribute with the specified value, creating the
+     * Replaces current value of {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute with the specified value, creating the
      * {@value #ATTRIBUTE_NAME_ID} attribute first when it is {@code null}.
      *
-     * @param orderId new value for {@value #ATTRIBUTE_NAME_ID_ORDER_ID} attribute.
+     * @param orderId new value for {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute.
      */
     protected void setOrderId(final Long orderId) {
         Optional.ofNullable(getId())
@@ -351,7 +351,7 @@ public class OrderItem {
 
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER} attribute with the specified value, and current value of
-     * {@value #ATTRIBUTE_NAME_ID_ORDER_ID} attribute with the specified value's identifier.
+     * {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute with the specified value's identifier.
      *
      * @param order new value for {@value #ATTRIBUTE_NAME_ORDER} attribute.
      */

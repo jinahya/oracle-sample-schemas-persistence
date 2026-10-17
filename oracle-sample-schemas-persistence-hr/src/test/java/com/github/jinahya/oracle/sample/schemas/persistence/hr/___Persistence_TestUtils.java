@@ -22,7 +22,10 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.metamodel.Attribute;
 import jakarta.persistence.metamodel.EntityType;
+import jakarta.persistence.metamodel.ManagedType;
+import jakarta.persistence.metamodel.SingularAttribute;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -192,6 +195,41 @@ final class ___Persistence_TestUtils {
                 .setMaxResults(1)
                 .getResultStream()
                 .findFirst();
+    }
+
+    // ----------------------------------------------------------------------------------------------- attribute paths
+
+    /**
+     * Resolves the specified dotted attribute path, {@code id.promoId} say, from the specified managed type, and
+     * returns the attribute the last segment names.
+     * <p>
+     * Each segment but the last has to name a singular attribute whose type is itself a managed type -- an embeddable
+     * or an entity -- which the next segment is then resolved against. The last segment may name any attribute.
+     *
+     * @param managedType   the managed type to start from.
+     * @param attributePath the path to resolve; one or more attribute names joined by {@code .}.
+     * @return the attribute the last segment of {@code attributePath} names.
+     * @throws NullPointerException     if either argument is {@code null}.
+     * @throws IllegalArgumentException if a segment names no attribute of the type it is resolved against, or if a
+     *                                  segment but the last names an attribute whose type is not a managed type.
+     */
+    public static Attribute<?, ?> resolveAttributePath(final ManagedType<?> managedType, final String attributePath) {
+        Objects.requireNonNull(managedType, "managedType is null");
+        Objects.requireNonNull(attributePath, "attributePath is null");
+        final var segments = attributePath.split("\\.", -1);
+        ManagedType<?> current = managedType;
+        Attribute<?, ?> attribute = null;
+        for (int i = 0; i < segments.length; i++) {
+            if (current == null) {
+                throw new IllegalArgumentException(
+                        "'" + segments[i - 1] + "' of '" + attributePath + "' is not of a managed type;"
+                        + " cannot resolve '" + segments[i] + "' against it");
+            }
+            attribute = current.getAttribute(segments[i]); // IllegalArgumentException when absent
+            current = attribute instanceof SingularAttribute<?, ?> singular
+                      && singular.getType() instanceof ManagedType<?> next ? next : null;
+        }
+        return attribute;
     }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS

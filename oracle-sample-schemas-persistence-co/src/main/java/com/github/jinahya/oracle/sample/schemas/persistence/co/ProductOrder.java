@@ -70,7 +70,8 @@ public class ProductOrder {
     // ---------------------------------------------------------------------------------------------------- PRODUCT_NAME
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute maps. The value is
+     * The name of the view column to which the {@value ProductOrderId#ATTRIBUTE_NAME_PRODUCT_NAME} attribute maps. The
+     * value is
      * {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_NAME = "PRODUCT_NAME";
@@ -81,29 +82,22 @@ public class ProductOrder {
     public static final int COLUMN_LENGTH_PRODUCT_NAME = 255;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value ProductOrderId#ATTRIBUTE_NAME_PRODUCT_NAME} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_PRODUCT_NAME = COLUMN_LENGTH_PRODUCT_NAME;
-
-    /**
-     * The name of the attribute, of the {@link ProductOrderId @EmbeddedId}, which maps the
-     * {@value #COLUMN_NAME_PRODUCT_NAME} column. The value is {@value}.
-     *
-     * @see #ATTRIBUTE_NAME_ID_PRODUCT_NAME
-     */
-    public static final String ATTRIBUTE_NAME_PRODUCT_NAME = "productName";
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_NAME} column -- a path into the
      * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
      * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_PRODUCT_NAME = "id.productName";
+    public static final String ATTRIBUTE_PATH_ID_PRODUCT_NAME = "id.productName";
 
     // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute maps. The value is
+     * The name of the view column to which the {@value ProductOrderId#ATTRIBUTE_NAME_ORDER_STATUS} attribute maps. The
+     * value is
      * {@value}.
      */
     public static final String COLUMN_NAME_ORDER_STATUS = "ORDER_STATUS";
@@ -114,24 +108,16 @@ public class ProductOrder {
     public static final int COLUMN_LENGTH_ORDER_STATUS = 10;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute. The value is {@value}.
+     * The maximum size of the {@value ProductOrderId#ATTRIBUTE_NAME_ORDER_STATUS} attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_ORDER_STATUS = COLUMN_LENGTH_ORDER_STATUS;
-
-    /**
-     * The name of the attribute, of the {@link ProductOrderId @EmbeddedId}, which maps the
-     * {@value #COLUMN_NAME_ORDER_STATUS} column. The value is {@value}.
-     *
-     * @see #ATTRIBUTE_NAME_ID_ORDER_STATUS
-     */
-    public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_STATUS} column -- a path into the
      * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
      * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_ORDER_STATUS = "id.orderStatus";
+    public static final String ATTRIBUTE_PATH_ID_ORDER_STATUS = "id.orderStatus";
 
     // ----------------------------------------------------------------------------------------------------- TOTAL_SALES
 
@@ -158,6 +144,8 @@ public class ProductOrder {
      * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_COUNT} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_COUNT = "orderCount";
+
+    // -------------------------------------------------------------------------------------------------------------- id
 
     /**
      * The name of the attribute which maps the identifying columns, as an
@@ -225,9 +213,9 @@ public class ProductOrder {
     // ----------------------------------------------------------------------------------------------------- productName
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute.
+     * Returns current value of {@value ProductOrderId#ATTRIBUTE_NAME_PRODUCT_NAME} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute; {@code null} when
+     * @return current value of {@value ProductOrderId#ATTRIBUTE_NAME_PRODUCT_NAME} attribute; {@code null} when
      * {@value #ATTRIBUTE_NAME_ID} attribute is {@code null}.
      */
     public String getProductName() {
@@ -237,9 +225,9 @@ public class ProductOrder {
     // ----------------------------------------------------------------------------------------------------- orderStatus
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
+     * Returns current value of {@value ProductOrderId#ATTRIBUTE_NAME_ORDER_STATUS} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute; {@code null} when
+     * @return current value of {@value ProductOrderId#ATTRIBUTE_NAME_ORDER_STATUS} attribute; {@code null} when
      * {@value #ATTRIBUTE_NAME_ID} attribute is {@code null}.
      */
     public String getOrderStatus() {

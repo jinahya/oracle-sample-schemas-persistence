@@ -43,12 +43,15 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static com.github.jinahya.oracle.sample.schemas.persistence.co._Entity_Persistence_Test_Producer.__TestPU;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
@@ -74,9 +77,14 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 abstract class _Entity_Persistence_Test<T> extends __Test<T> {
 
     /**
-     * The prefix of the constants {@link #_SameValue_ATTRIBUTE_NAME_()} looks up. The value is {@value}.
+     * The prefix of the constants {@link #_SameValue_ATTRIBUTE_NAME_()} checks. The value is {@value}.
      */
     private static final String ATTRIBUTE_NAME_CONSTANT_PREFIX = "ATTRIBUTE_NAME_";
+
+    /**
+     * The prefix of the constants {@link #_Resolvable_ATTRIBUTE_PATH_()} checks. The value is {@value}.
+     */
+    private static final String ATTRIBUTE_PATH_CONSTANT_PREFIX = "ATTRIBUTE_PATH_";
 
     /**
      * Returns the {@code UPPER_SNAKE_CASE} form of the specified attribute name.
@@ -91,27 +99,6 @@ abstract class _Entity_Persistence_Test<T> extends __Test<T> {
     }
 
     /**
-     * Finds the field of the specified name declared by the specified class or by any of its superclasses, nearest
-     * first.
-     *
-     * @param clazz the class to start from.
-     * @param name  the name of the field.
-     * @return the field found; {@code null} when neither the class nor any of its superclasses declares it.
-     * @implNote This walks the superclasses itself rather than calling {@link Class#getField(String)}, which finds
-     * {@code public} fields only, so a constant of any visibility, declared by the class or inherited by it, is found.
-     */
-    private static Field findDeclaredField(final Class<?> clazz, final String name) {
-        for (Class<?> c = clazz; c != null; c = c.getSuperclass()) {
-            try {
-                return c.getDeclaredField(name);
-            } catch (final NoSuchFieldException nsfe) {
-                // not on this level; try the superclass
-            }
-        }
-        return null;
-    }
-
-    /**
      * Creates a new instance for the specified persistence class.
      *
      * @param targetClass the class of the entity under test.
@@ -123,55 +110,86 @@ abstract class _Entity_Persistence_Test<T> extends __Test<T> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Verifies that every {@code ATTRIBUTE_NAME_*} constant of {@link #targetClass} carries the name the provider
-     * actually manages that attribute by.
-     *
-     * @implNote The lookup runs from the attribute to the constant, never the other way round: an attribute with no
-     * matching constant is skipped, because whether every attribute ought to have one is a different question than
-     * whether the constants which do exist are right. The constant is read reflectively rather than compared against a
-     * hand-written list, so an entity gains this check by declaring the constant and nothing else. The constant is
-     * looked up on the class and then on each of its superclasses, so one the class inherits is checked as well.
-     * <p>
-     * Absence is the only thing this forgives. A field which is there under the constant's name has to be a constant --
-     * {@code static final String} -- and is a failure when it is not, rather than something to skip past: skipping it
-     * would let a field named like a constant, but not usable as one, pass for a checked attribute name.
-     * <p>
-     * The name compared against is {@link Attribute#getName()} -- what the provider resolved from the mapping -- so
-     * this catches a constant left behind by a renamed field, which the compiler cannot.
+     * Returns every {@code static final String} field, declared by {@link #targetClass} or inherited by it, whose name
+     * starts with the specified prefix, with its value.
      */
-    @DisplayName("every ATTRIBUTE_NAME_* constant matches the managed attribute name")
+    private Map<String, String> constantsPrefixed(final String prefix) {
+        final var constants = new TreeMap<String, String>();
+        for (Class<?> c = targetClass; c != null; c = c.getSuperclass()) {
+            for (final var field : c.getDeclaredFields()) {
+                if (!field.getName().startsWith(prefix) || constants.containsKey(field.getName())) {
+                    continue;
+                }
+                final var modifiers = field.getModifiers();
+                assertThat(Modifier.isStatic(modifiers) && Modifier.isFinal(modifiers)
+                           && field.getType() == String.class)
+                        .as("%s.%s is a static final String", c.getSimpleName(), field.getName())
+                        .isTrue();
+                field.setAccessible(true);
+                try {
+                    constants.put(field.getName(), (String) field.get(null));
+                } catch (final IllegalAccessException iae) {
+                    throw new AssertionError("failed to read " + c.getSimpleName() + '.' + field.getName(), iae);
+                }
+            }
+        }
+        return constants;
+    }
+
+    /**
+     * Verifies the {@code ATTRIBUTE_NAME_*} constants of {@link #targetClass} both ways: every managed attribute whose
+     * constant exists finds that constant holding the attribute's name, and every such constant names a managed
+     * attribute of the type.
+     *
+     * @implNote The first direction runs from the attribute to the constant, so an attribute with no constant is
+     * skipped; whether every attribute ought to have one is a different question. The second runs from the constant
+     * to the attribute, so a constant holding a name the provider does not manage the type by -- one left behind by
+     * a renamed field, or one naming an attribute of some other class -- fails. A path into an embedded attribute is
+     * not an attribute name; it is declared as an {@code ATTRIBUTE_PATH_*} constant and checked by
+     * {@link #_Resolvable_ATTRIBUTE_PATH_()}.
+     */
+    @DisplayName("every ATTRIBUTE_NAME_* constant names a managed attribute, and vice versa")
     @Test
     protected void _SameValue_ATTRIBUTE_NAME_() {
         final var managedType = entityManagerFactory.getMetamodel().managedType(targetClass);
+        final var constants = constantsPrefixed(ATTRIBUTE_NAME_CONSTANT_PREFIX);
         for (final var attribute : managedType.getAttributes()) {
             final var attributeName = attribute.getName();
             final var constantName = ATTRIBUTE_NAME_CONSTANT_PREFIX + toUpperSnakeCase(attributeName);
-            final var constant = findDeclaredField(targetClass, constantName);
-            if (constant == null) {
-                continue; // existence is not this test's concern
+            if (!constants.containsKey(constantName)) {
+                continue; // existence is not this direction's concern
             }
-            final var modifiers = constant.getModifiers();
-            assertThat(Modifier.isStatic(modifiers))
-                    .as("%s.%s is static", targetClass.getSimpleName(), constantName)
-                    .isTrue();
-            assertThat(Modifier.isFinal(modifiers))
-                    .as("%s.%s is final", targetClass.getSimpleName(), constantName)
-                    .isTrue();
-            assertThat(constant.getType())
-                    .as("the type of %s.%s", targetClass.getSimpleName(), constantName)
-                    .isSameAs(String.class);
-            constant.setAccessible(true);
-            final Object value;
-            try {
-                value = constant.get(null);
-            } catch (final IllegalAccessException iae) {
-                throw new AssertionError("failed to read " + targetClass.getSimpleName() + '.' + constantName, iae);
-            }
-            assertThat(value)
+            assertThat(constants.get(constantName))
                     .as("%s.%s, for the managed attribute %s", targetClass.getSimpleName(), constantName,
                         attributeName)
                     .isEqualTo(attributeName);
         }
+        constants.forEach((constantName, value) -> assertThatCode(() -> managedType.getAttribute(value))
+                .as("%s.%s = \"%s\" names a managed attribute of %s", targetClass.getSimpleName(), constantName, value,
+                    managedType.getJavaType().getSimpleName())
+                .doesNotThrowAnyException());
+    }
+
+    /**
+     * Verifies that every {@code ATTRIBUTE_PATH_*} constant of {@link #targetClass} holds a dotted path which resolves
+     * through the metamodel, segment by segment, to an attribute whose name is the path's last segment.
+     *
+     * @see ___Persistence_TestUtils#resolveAttributePath(ManagedType, String)
+     */
+    @DisplayName("every ATTRIBUTE_PATH_* constant resolves through the metamodel")
+    @Test
+    protected void _Resolvable_ATTRIBUTE_PATH_() {
+        final var managedType = entityManagerFactory.getMetamodel().managedType(targetClass);
+        constantsPrefixed(ATTRIBUTE_PATH_CONSTANT_PREFIX).forEach((constantName, path) -> {
+            assertThat(path)
+                    .as("%s.%s is a dotted path", targetClass.getSimpleName(), constantName)
+                    .contains(".");
+            final var resolved = ___Persistence_TestUtils.resolveAttributePath(managedType, path);
+            assertThat(resolved.getName())
+                    .as("%s.%s = \"%s\" resolves to its last segment", targetClass.getSimpleName(), constantName,
+                        path)
+                    .isEqualTo(path.substring(path.lastIndexOf('.') + 1));
+        });
     }
 
     /**

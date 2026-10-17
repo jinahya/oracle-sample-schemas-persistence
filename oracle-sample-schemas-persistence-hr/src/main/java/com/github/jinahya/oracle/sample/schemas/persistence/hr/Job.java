@@ -230,11 +230,15 @@ public class Job {
      */
     public static final int ATTRIBUTE_MAX_MAX_SALARY = COLUMN_MAX_MAX_SALARY;
 
+    // ------------------------------------------------------------------------------------------------------- EMPLOYEES
+
     /**
      * The name of the attribute which maps the {@link Employee employee}s assigned to this job, mapped by
      * {@value Employee#ATTRIBUTE_NAME_JOB}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEES = "employees";
+
+    // --------------------------------------------------------------------------------------------------- JOB_HISTORIES
 
     /**
      * The name of the attribute which maps the past assignments to this job. The value is {@value}.

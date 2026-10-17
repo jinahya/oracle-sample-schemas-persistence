@@ -27,8 +27,6 @@ import org.junit.jupiter.api.Test;
 
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
-import java.util.Objects;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
@@ -67,9 +65,9 @@ interface __Object_Test<T> {
     /**
      * Returns a new instance of {@link #targetClass()} with randomized property values.
      *
-     * @return a new randomized instance of {@link #targetClass()}; empty when no randomizer is registered for it.
+     * @return a new randomized instance of {@link #targetClass()}.
      */
-    Optional<T> newRandomizedTargetInstance();
+    T newRandomizedTargetInstance();
 
     // -------------------------------------------------------------------------------------------------------- toString
 
@@ -88,9 +86,7 @@ interface __Object_Test<T> {
      */
     @Test
     default void toString_NotBlank_NewRandomizedInstance() {
-        newRandomizedTargetInstance().map(Objects::toString).ifPresent(v -> {
-            assertThat(v).isNotBlank();
-        });
+        assertThat(newRandomizedTargetInstance().toString()).isNotBlank();
     }
 
     // ------------------------------------------------------------------------------------------------- equals/hashCode

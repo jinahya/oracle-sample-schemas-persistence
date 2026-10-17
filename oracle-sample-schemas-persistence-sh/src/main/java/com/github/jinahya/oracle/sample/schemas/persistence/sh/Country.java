@@ -109,6 +109,8 @@ public class Country {
      */
     public static final int SIZE_MAX_COUNTRY_ISO_CODE = SIZE_MIN_COUNTRY_ISO_CODE;
 
+    // ---------------------------------------------------------------------------------------------------- COUNTRY_NAME
+
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute maps. The value is
      * {@value}.
@@ -119,6 +121,18 @@ public class Country {
      * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_NAME} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_NAME = "countryName";
+
+    /**
+     * The length of the {@value #COLUMN_NAME_COUNTRY_NAME} column. The value is {@value}.
+     */
+    public static final int COLUMN_LENGTH_COUNTRY_NAME = 40;
+
+    /**
+     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute. The value is {@value}.
+     */
+    public static final int SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
+
+    // ----------------------------------------------------------------------------------------------- COUNTRY_SUBREGION
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} attribute maps. The value is
@@ -132,6 +146,18 @@ public class Country {
     public static final String ATTRIBUTE_NAME_COUNTRY_SUBREGION = "countrySubregion";
 
     /**
+     * The length of the {@value #COLUMN_NAME_COUNTRY_SUBREGION} column. The value is {@value}.
+     */
+    public static final int COLUMN_LENGTH_COUNTRY_SUBREGION = 30;
+
+    /**
+     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} attribute. The value is {@value}.
+     */
+    public static final int SIZE_MAX_COUNTRY_SUBREGION = COLUMN_LENGTH_COUNTRY_SUBREGION;
+
+    // -------------------------------------------------------------------------------------------- COUNTRY_SUBREGION_ID
+
+    /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID} attribute maps. The value
      * is {@value}.
      */
@@ -142,6 +168,8 @@ public class Country {
      * {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID = "countrySubregionId";
+
+    // -------------------------------------------------------------------------------------------------- COUNTRY_REGION
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_REGION} attribute maps. The value is
@@ -155,6 +183,18 @@ public class Country {
     public static final String ATTRIBUTE_NAME_COUNTRY_REGION = "countryRegion";
 
     /**
+     * The length of the {@value #COLUMN_NAME_COUNTRY_REGION} column. The value is {@value}.
+     */
+    public static final int COLUMN_LENGTH_COUNTRY_REGION = 20;
+
+    /**
+     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_REGION} attribute. The value is {@value}.
+     */
+    public static final int SIZE_MAX_COUNTRY_REGION = COLUMN_LENGTH_COUNTRY_REGION;
+
+    // ----------------------------------------------------------------------------------------------- COUNTRY_REGION_ID
+
+    /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_REGION_ID} attribute maps. The value is
      * {@value}.
      */
@@ -164,6 +204,8 @@ public class Country {
      * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_REGION_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_REGION_ID = "countryRegionId";
+
+    // --------------------------------------------------------------------------------------------------- COUNTRY_TOTAL
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} attribute maps. The value is
@@ -177,6 +219,18 @@ public class Country {
     public static final String ATTRIBUTE_NAME_COUNTRY_TOTAL = "countryTotal";
 
     /**
+     * The length of the {@value #COLUMN_NAME_COUNTRY_TOTAL} column. The value is {@value}.
+     */
+    public static final int COLUMN_LENGTH_COUNTRY_TOTAL = 11;
+
+    /**
+     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} attribute. The value is {@value}.
+     */
+    public static final int SIZE_MAX_COUNTRY_TOTAL = COLUMN_LENGTH_COUNTRY_TOTAL;
+
+    // ------------------------------------------------------------------------------------------------ COUNTRY_TOTAL_ID
+
+    /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL_ID} attribute maps. The value is
      * {@value}.
      */
@@ -187,45 +241,6 @@ public class Country {
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_TOTAL_ID = "countryTotalId";
 
-    /**
-     * The length of the {@value #COLUMN_NAME_COUNTRY_NAME} column. The value is {@value}.
-     */
-    public static final int COLUMN_LENGTH_COUNTRY_NAME = 40;
-
-    /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
-
-    /**
-     * The length of the {@value #COLUMN_NAME_COUNTRY_SUBREGION} column. The value is {@value}.
-     */
-    public static final int COLUMN_LENGTH_COUNTRY_SUBREGION = 30;
-
-    /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MAX_COUNTRY_SUBREGION = COLUMN_LENGTH_COUNTRY_SUBREGION;
-
-    /**
-     * The length of the {@value #COLUMN_NAME_COUNTRY_REGION} column. The value is {@value}.
-     */
-    public static final int COLUMN_LENGTH_COUNTRY_REGION = 20;
-
-    /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_REGION} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MAX_COUNTRY_REGION = COLUMN_LENGTH_COUNTRY_REGION;
-
-    /**
-     * The length of the {@value #COLUMN_NAME_COUNTRY_TOTAL} column. The value is {@value}.
-     */
-    public static final int COLUMN_LENGTH_COUNTRY_TOTAL = 11;
-
-    /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} attribute. The value is {@value}.
-     */
-    public static final int SIZE_MAX_COUNTRY_TOTAL = COLUMN_LENGTH_COUNTRY_TOTAL;
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**

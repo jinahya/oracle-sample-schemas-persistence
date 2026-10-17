@@ -316,6 +316,8 @@ public class Location {
      */
     public static final String ATTRIBUTE_NAME_COUNTRY = "country";
 
+    // ----------------------------------------------------------------------------------------------------- DEPARTMENTS
+
     /**
      * The name of the attribute which maps the {@link Department department}s of this location. The value is {@value}.
      *

@@ -30,9 +30,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * An entity class for mapping the {@value FweekPscatSalesMv#TABLE_NAME} materialized view, whose composite identifier
@@ -76,28 +74,24 @@ public class FweekPscatSalesMv {
     // ------------------------------------------------------------------------------------------------- WEEK_ENDING_DAY
 
     /**
-     * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute maps.
+     * The name of the materialized view column to which the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_WEEK_ENDING_DAY}
+     * attribute maps.
      * The value is {@value}.
      */
     public static final String COLUMN_NAME_WEEK_ENDING_DAY = "WEEK_ENDING_DAY";
-
-    /**
-     * The name of the {@link FweekPscatSalesMvId} attribute which maps the {@value #COLUMN_NAME_WEEK_ENDING_DAY}
-     * column; this entity reaches it as {@value #ATTRIBUTE_NAME_ID_WEEK_ENDING_DAY}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_WEEK_ENDING_DAY = "weekEndingDay";
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_WEEK_ENDING_DAY} column -- a path into the
      * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
      * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_WEEK_ENDING_DAY = "id.weekEndingDay";
+    public static final String ATTRIBUTE_PATH_ID_WEEK_ENDING_DAY = "id.weekEndingDay";
 
     // ------------------------------------------------------------------------------------------------ PROD_SUBCATEGORY
 
     /**
-     * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute maps.
+     * The name of the materialized view column to which the
+     * {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute maps.
      * The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_SUBCATEGORY = "PROD_SUBCATEGORY";
@@ -108,22 +102,17 @@ public class FweekPscatSalesMv {
     public static final int COLUMN_LENGTH_PROD_SUBCATEGORY = 50;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute. The value is {@value}.
+     * The maximum size of the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PROD_SUBCATEGORY = COLUMN_LENGTH_PROD_SUBCATEGORY;
-
-    /**
-     * The name of the {@link FweekPscatSalesMvId} attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY}
-     * column; this entity reaches it as {@value #ATTRIBUTE_NAME_ID_PROD_SUBCATEGORY}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_PROD_SUBCATEGORY = "prodSubcategory";
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY} column -- a path into the
      * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
      * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_PROD_SUBCATEGORY = "id.prodSubcategory";
+    public static final String ATTRIBUTE_PATH_ID_PROD_SUBCATEGORY = "id.prodSubcategory";
 
     // --------------------------------------------------------------------------------------------------------- DOLLARS
 
@@ -141,23 +130,18 @@ public class FweekPscatSalesMv {
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
-     * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute maps. The
+     * The name of the materialized view column to which the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_CHANNEL_ID}
+     * attribute maps. The
      * value is {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
-
-    /**
-     * The name of the {@link FweekPscatSalesMvId} attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column;
-     * this entity reaches it as {@value #ATTRIBUTE_NAME_ID_CHANNEL_ID}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column -- a path into the
      * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
      * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_CHANNEL_ID = "id.channelId";
+    public static final String ATTRIBUTE_PATH_ID_CHANNEL_ID = "id.channelId";
 
     /**
      * The precision of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
@@ -180,35 +164,30 @@ public class FweekPscatSalesMv {
     public static final int COLUMN_MAX_CHANNEL_ID = +9;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_CHANNEL_ID = COLUMN_MIN_CHANNEL_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_CHANNEL_ID = COLUMN_MAX_CHANNEL_ID;
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps. The value
+     * The name of the materialized view column to which the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_PROMO_ID}
+     * attribute maps. The value
      * is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
-
-    /**
-     * The name of the {@link FweekPscatSalesMvId} attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column; this
-     * entity reaches it as {@value #ATTRIBUTE_NAME_ID_PROMO_ID}. The value is {@value}.
-     */
-    public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column -- a path into the
      * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
      * {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID_PROMO_ID = "id.promoId";
+    public static final String ATTRIBUTE_PATH_ID_PROMO_ID = "id.promoId";
 
     /**
      * The precision of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
@@ -231,12 +210,12 @@ public class FweekPscatSalesMv {
     public static final int COLUMN_MAX_PROMO_ID = +999999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_PROMO_ID = COLUMN_MIN_PROMO_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_PROMO_ID = COLUMN_MAX_PROMO_ID;
 
@@ -302,54 +281,6 @@ public class FweekPscatSalesMv {
      */
     public FweekPscatSalesMvId getId() {
         return id;
-    }
-
-    // --------------------------------------------------------------------------------------------------- weekEndingDay
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute of the {@link #getId() id}.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute of the {@link #getId() id};
-     * {@code null} if the id is {@code null}.
-     */
-    public LocalDateTime getWeekEndingDay() {
-        return Optional.ofNullable(getId()).map(FweekPscatSalesMvId::getWeekEndingDay).orElse(null);
-    }
-
-    // ------------------------------------------------------------------------------------------------- prodSubcategory
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute of the {@link #getId() id}.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute of the {@link #getId() id};
-     * {@code null} if the id is {@code null}.
-     */
-    public String getProdSubcategory() {
-        return Optional.ofNullable(getId()).map(FweekPscatSalesMvId::getProdSubcategory).orElse(null);
-    }
-
-    // ------------------------------------------------------------------------------------------------------- channelId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute of the {@link #getId() id}.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute of the {@link #getId() id}; {@code null}
-     * if the id is {@code null}.
-     */
-    public Long getChannelId() {
-        return Optional.ofNullable(getId()).map(FweekPscatSalesMvId::getChannelId).orElse(null);
-    }
-
-    // --------------------------------------------------------------------------------------------------------- promoId
-
-    /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute of the {@link #getId() id}.
-     *
-     * @return current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute of the {@link #getId() id}; {@code null} if
-     * the id is {@code null}.
-     */
-    public Integer getPromoId() {
-        return Optional.ofNullable(getId()).map(FweekPscatSalesMvId::getPromoId).orElse(null);
     }
 
     // --------------------------------------------------------------------------------------------------------- dollars
