@@ -18,6 +18,15 @@
 ---
 --
 -- ------------------------------------------------------------------------------------------------- CALENDAR_MONTH_DESC
+SELECT CALENDAR_MONTH_DESC, COUNT(1)
+FROM SH.CAL_MONTH_SALES_MV
+GROUP BY CALENDAR_MONTH_DESC
+HAVING COUNT(1) > 1
+;
+
+SELECT MIN(LENGTH(CALENDAR_MONTH_DESC)), MAX(LENGTH(CALENDAR_MONTH_DESC))
+FROM SH.CAL_MONTH_SALES_MV
+;
 
 -- ------------------------------------------------------------------------------------------------------------- DOLLARS
 

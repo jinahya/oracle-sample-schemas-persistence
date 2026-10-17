@@ -20,17 +20,22 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
+import java.time.YearMonth;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * An entity class for mapping the {@value CalMonthSalesMv#TABLE_NAME} materialized view.
@@ -163,6 +168,40 @@ public class CalMonthSalesMv {
         return calendarMonthDesc;
     }
 
+    /**
+     * Returns current value of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute, mapped by the specified
+     * function.
+     *
+     * @param <R>    the type of the mapped value.
+     * @param mapper the function to apply to current value of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC}
+     *               attribute.
+     * @return the mapped value; {@code null} when the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute is
+     * {@code null}.
+     * @throws NullPointerException if {@code mapper} is {@code null}.
+     */
+    @Nullable
+    @Transient
+    public <R> R getCalendarMonthDescAsMapped(final Function<? super String, ? extends R> mapper) {
+        Objects.requireNonNull(mapper, "mapper is null");
+        return Optional.ofNullable(getCalendarMonthDesc()).map(mapper).orElse(null);
+    }
+
+    /**
+     * Returns current value of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute, as a {@link YearMonth}.
+     *
+     * @return a year-month parsed from current value of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute;
+     * {@code null} when the attribute is {@code null}.
+     * @throws java.time.format.DateTimeParseException if the attribute is not in the {@code uuuu-MM} form
+     *                                                 {@link YearMonth#parse(CharSequence)} accepts.
+     * @see #getCalendarMonthDescAsMapped(Function)
+     * @see YearMonth#parse(CharSequence)
+     */
+    @Nullable
+    @Transient
+    public YearMonth getCalendarMonthDescAsYearMonth() {
+        return getCalendarMonthDescAsMapped(YearMonth::parse);
+    }
+
     // --------------------------------------------------------------------------------------------------------- dollars
 
     /**
@@ -174,22 +213,44 @@ public class CalMonthSalesMv {
         return dollars;
     }
 
-    // ---------------------------------------------------------------------------------------------------------------- 
+    // -----------------------------------------------------------------------------------------------------------------
 
-    @Id
+    /**
+     * The calendar month this row aggregates, as the {@code uuuu-MM} text {@code TIMES.CALENDAR_MONTH_DESC} holds --
+     * {@code 2019-01}, for example -- which is also the {@link java.time.YearMonth#parse(CharSequence) ISO form} of
+     * {@link java.time.YearMonth}.
+     * <p>
+     * The attribute is nonetheless kept a {@code String}, not a {@code YearMonth} behind an
+     * {@link jakarta.persistence.AttributeConverter}, because it is the {@link Id @Id} of this entity, and the
+     * specification excludes identifier attributes from attribute conversion:
+     * <blockquote>
+     * The conversion of all basic types is supported except for the following: Id attributes (including the attributes
+     * of embedded ids and derived identities), version attributes, relationship attributes, and attributes explicitly
+     * annotated as Enumerated or Temporal or designated as such in the XML descriptor. Auto-apply converters will not
+     * be applied to such attributes, and applications that apply converters to such attributes through use of the
+     * Convert annotation will not be portable.
+     * </blockquote>
+     *
+     * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2.html#a2999">3.9.
+     * Type Conversion of Basic Attributes</a> (Jakarta Persistence 3.2 Specification Document)
+     * @see <a
+     * href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2.html#a14398">11.1.10.
+     * Convert Annotation</a> (Jakarta Persistence 3.2 Specification Document)
+     * @see <a href="https://github.com/oracle-samples/db-sample-schemas/blob/main/sales_history/sh_create.sql">
+     * {@code sh_create.sql}</a> ({@code COMMENT ON COLUMN times.calendar_month_desc IS 'e.g. 1998-01, CORRECT ORDER'})
+     */
     @Size(max = SIZE_MAX_CALENDAR_MONTH_DESC)
     @NotNull
+    @Id
     @Basic(optional = false)
-    // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
-    // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
-    // primary key field", EclipseLink-46. Nothing writes to a view anyway.
     @Column(name = COLUMN_NAME_CALENDAR_MONTH_DESC,
             nullable = false,
-            insertable = true,
+            insertable = true, // eclipselink
             updatable = false,
             length = COLUMN_LENGTH_CALENDAR_MONTH_DESC)
     private String calendarMonthDesc;
 
+    // -----------------------------------------------------------------------------------------------------------------
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_DOLLARS, nullable = true, insertable = false, updatable = false)
     private BigDecimal dollars;

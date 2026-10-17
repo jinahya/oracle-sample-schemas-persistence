@@ -1049,7 +1049,7 @@ public class Time {
         this.timeId = timeId;
     }
 
-    // -------------------------------------------------------------------------------------------------------- dayName
+    // --------------------------------------------------------------------------------------------------------- dayName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DAY_NAME} attribute.
@@ -1069,7 +1069,7 @@ public class Time {
         this.dayName = dayName;
     }
 
-    // ------------------------------------------------------------------------------------------------ dayNumberInWeek
+    // ------------------------------------------------------------------------------------------------- dayNumberInWeek
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK} attribute.

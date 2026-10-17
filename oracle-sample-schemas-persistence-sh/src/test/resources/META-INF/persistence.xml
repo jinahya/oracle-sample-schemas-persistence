@@ -37,6 +37,9 @@
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Promotion</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SupplementaryDemographics</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Time</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.TimeDayNameAttributeConverter</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.TimeMonthNameAttributeConverter</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.TimeMonthDescAttributeConverter</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CalMonthSalesMv</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CostId</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Cost</class>
@@ -87,6 +90,9 @@
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Promotion</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SupplementaryDemographics</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Time</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.TimeDayNameAttributeConverter</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.TimeMonthNameAttributeConverter</class>
+    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.TimeMonthDescAttributeConverter</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CalMonthSalesMv</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CostId</class>
     <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Cost</class>
