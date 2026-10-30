@@ -1,0 +1,80 @@
+# The logical model of Oracle's CO sample schema, from db-sample-schemas/*/co_create.sql: each table's
+# keys, each view's sources, and the logical groups, which the upstream does not name and are inferred.
+schema = "co"
+title = "co"
+output = "oracle-sample-schemas-persistence-co/docs/erd"
+
+[[group]]
+name = "orders"
+title = "주문"
+tables = ["customers", "orders", "order_items", "shipments"]
+
+[[group]]
+name = "stores_and_products"
+title = "가게와 상품"
+tables = ["stores", "products", "inventory"]
+
+[table.customers]
+pk = ["customer_id"]
+
+[table.stores]
+pk = ["store_id"]
+
+[table.products]
+pk = ["product_id"]
+
+[table.orders]
+pk = ["order_id"]
+[[table.orders.fk]]
+columns = ["customer_id"]
+references = "customers"
+[[table.orders.fk]]
+columns = ["store_id"]
+references = "stores"
+
+[table.shipments]
+pk = ["shipment_id"]
+[[table.shipments.fk]]
+columns = ["store_id"]
+references = "stores"
+[[table.shipments.fk]]
+columns = ["customer_id"]
+references = "customers"
+
+[table.order_items]
+pk = ["order_id", "line_item_id"]
+[[table.order_items.fk]]
+columns = ["order_id"]
+references = "orders"
+[[table.order_items.fk]]
+columns = ["shipment_id"]
+references = "shipments"
+nullable = true
+[[table.order_items.fk]]
+columns = ["product_id"]
+references = "products"
+
+[table.inventory]
+pk = ["inventory_id"]
+[[table.inventory.fk]]
+columns = ["store_id"]
+references = "stores"
+[[table.inventory.fk]]
+columns = ["product_id"]
+references = "products"
+
+[view.customer_order_products]
+kind = "view"
+sources = ["orders", "order_items", "customers", "products"]
+
+[view.store_orders]
+kind = "view"
+sources = ["stores", "orders", "order_items"]
+
+[view.product_reviews]
+kind = "view"
+sources = ["products"]
+
+[view.product_orders]
+kind = "view"
+sources = ["orders", "order_items", "customers", "products"]

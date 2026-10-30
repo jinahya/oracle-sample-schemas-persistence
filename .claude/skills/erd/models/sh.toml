@@ -1,0 +1,82 @@
+# The logical model of Oracle's SH sample schema, from db-sample-schemas/*/sh_create.sql: each table's
+# keys, each view's sources, and the logical groups, which the upstream does not name and are inferred.
+schema = "sh"
+title = "sh"
+output = "oracle-sample-schemas-persistence-sh/docs/erd"
+
+[[group]]
+name = "customers"
+title = "고객"
+tables = ["customers", "countries", "supplementary_demographics"]
+
+[[group]]
+name = "sales_and_costs"
+title = "판매와 원가"
+tables = ["sales", "costs", "products", "times", "channels", "promotions"]
+
+[table.countries]
+pk = ["country_id"]
+
+[table.customers]
+pk = ["cust_id"]
+[[table.customers.fk]]
+columns = ["country_id"]
+references = "countries"
+
+[table.promotions]
+pk = ["promo_id"]
+
+[table.products]
+pk = ["prod_id"]
+
+[table.times]
+pk = ["time_id"]
+
+[table.channels]
+pk = ["channel_id"]
+
+[table.sales]
+[[table.sales.fk]]
+columns = ["promo_id"]
+references = "promotions"
+[[table.sales.fk]]
+columns = ["cust_id"]
+references = "customers"
+[[table.sales.fk]]
+columns = ["prod_id"]
+references = "products"
+[[table.sales.fk]]
+columns = ["channel_id"]
+references = "channels"
+[[table.sales.fk]]
+columns = ["time_id"]
+references = "times"
+
+[table.costs]
+[[table.costs.fk]]
+columns = ["promo_id"]
+references = "promotions"
+[[table.costs.fk]]
+columns = ["prod_id"]
+references = "products"
+[[table.costs.fk]]
+columns = ["time_id"]
+references = "times"
+[[table.costs.fk]]
+columns = ["channel_id"]
+references = "channels"
+
+[table.supplementary_demographics]
+pk = ["cust_id"]
+
+[view.profits]
+kind = "view"
+sources = ["costs", "sales"]
+
+[view.cal_month_sales_mv]
+kind = "materialized view"
+sources = ["sales", "times"]
+
+[view.fweek_pscat_sales_mv]
+kind = "materialized view"
+sources = ["sales", "times", "products"]

@@ -1,0 +1,77 @@
+# The logical model of Oracle's HR sample schema, from db-sample-schemas/*/hr_create.sql: each table's
+# keys, each view's sources, and the logical groups, which the upstream does not name and are inferred.
+schema = "hr"
+title = "hr"
+output = "oracle-sample-schemas-persistence-hr/docs/erd"
+
+[[group]]
+name = "organization"
+title = "조직"
+tables = ["regions", "countries", "locations", "departments"]
+
+[[group]]
+name = "employees"
+title = "직원"
+tables = ["employees", "jobs", "job_history"]
+
+[table.regions]
+pk = ["region_id"]
+
+[table.countries]
+pk = ["country_id"]
+[[table.countries.fk]]
+columns = ["region_id"]
+references = "regions"
+nullable = true
+
+[table.locations]
+pk = ["location_id"]
+[[table.locations.fk]]
+columns = ["country_id"]
+references = "countries"
+nullable = true
+
+[table.departments]
+pk = ["department_id"]
+[[table.departments.fk]]
+columns = ["location_id"]
+references = "locations"
+nullable = true
+[[table.departments.fk]]
+columns = ["manager_id"]
+references = "employees"
+nullable = true
+
+[table.jobs]
+pk = ["job_id"]
+
+[table.employees]
+pk = ["employee_id"]
+[[table.employees.fk]]
+columns = ["department_id"]
+references = "departments"
+nullable = true
+[[table.employees.fk]]
+columns = ["job_id"]
+references = "jobs"
+[[table.employees.fk]]
+columns = ["manager_id"]
+references = "employees"
+nullable = true
+
+[table.job_history]
+pk = ["employee_id", "start_date"]
+[[table.job_history.fk]]
+columns = ["job_id"]
+references = "jobs"
+[[table.job_history.fk]]
+columns = ["employee_id"]
+references = "employees"
+[[table.job_history.fk]]
+columns = ["department_id"]
+references = "departments"
+nullable = true
+
+[view.emp_details_view]
+kind = "view"
+sources = ["employees", "departments", "jobs", "locations", "countries", "regions"]
