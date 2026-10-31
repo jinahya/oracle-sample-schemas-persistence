@@ -70,6 +70,20 @@ ORDER BY EMPLOYEE_ID ASC
 ;
 
 
+-- --------------------------------------------------------------- HR-JOB_HISTORY-I-03 How long earlier positions lasted
+-- Workforce planning wants to know how long people stay in a job before they move on: per job, the number of earlier
+-- positions and the shortest, average and longest of them in days, longest average first.
+SELECT JOB_ID,
+       COUNT(*)                              AS POSITIONS,
+       MIN(END_DATE - START_DATE + 1)        AS SHORTEST_DAYS,
+       ROUND(AVG(END_DATE - START_DATE + 1)) AS AVERAGE_DAYS,
+       MAX(END_DATE - START_DATE + 1)        AS LONGEST_DAYS
+FROM JOB_HISTORY
+GROUP BY JOB_ID
+ORDER BY AVERAGE_DAYS DESC, JOB_ID ASC
+;
+
+
 -- ============================================================================================================ ADVANCED
 
 

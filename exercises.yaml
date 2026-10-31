@@ -69,8 +69,7 @@
   section: "INVENTORY"
   tier: Basic
   title: "A store's emptiest shelves"
-  named-queries:
-    - Inventory.selectListByStoreOrderByProductInventoryAsc
+  retired: true
 - id: CO-INVENTORY-I-01
   module: co
   section: "INVENTORY"
@@ -111,6 +110,11 @@
   section: "ORDERS"
   tier: Advanced
   title: "Time between a customer's orders"
+- id: CO-ORDERS-A-03
+  module: co
+  section: "ORDERS"
+  tier: Advanced
+  title: "New and returning customers by month"
 - id: CO-ORDER_ITEMS-B-01
   module: co
   section: "ORDER_ITEMS"
@@ -366,6 +370,18 @@
   section: "Whole schema"
   tier: Advanced
   title: "Brands and reviews from the product JSON"
+- id: CO-SCHEMA-A-15
+  module: co
+  section: "Whole schema"
+  tier: Advanced
+  title: "Products often bought together"
+- id: CO-SCHEMA-A-16
+  module: co
+  section: "Whole schema"
+  tier: Advanced
+  title: "Stock a store has never sold"
+  named-queries:
+    - Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc
 
 # ---- hr
 
@@ -484,6 +500,13 @@
   section: "EMPLOYEES"
   tier: Intermediate
   title: "Span of control"
+- id: HR-EMPLOYEES-I-06
+  module: hr
+  section: "EMPLOYEES"
+  tier: Intermediate
+  title: "Skip-level meetings"
+  named-queries:
+    - Employee.selectListByManagerOfManagerOrderByLastNameAsc
 - id: HR-EMPLOYEES-A-01
   module: hr
   section: "EMPLOYEES"
@@ -514,6 +537,11 @@
   section: "EMPLOYEES"
   tier: Advanced
   title: "Badges and e-mail migration"
+- id: HR-EMPLOYEES-A-07
+  module: hr
+  section: "EMPLOYEES"
+  tier: Advanced
+  title: "Pay against the department average"
 - id: HR-EMP_DETAILS_VIEW-B-01
   module: hr
   section: "EMP_DETAILS_VIEW"
@@ -584,6 +612,11 @@
   section: "JOB_HISTORY"
   tier: Intermediate
   title: "Moved more than once"
+- id: HR-JOB_HISTORY-I-03
+  module: hr
+  section: "JOB_HISTORY"
+  tier: Intermediate
+  title: "How long earlier positions lasted"
 - id: HR-JOB_HISTORY-A-01
   module: hr
   section: "JOB_HISTORY"
@@ -629,6 +662,7 @@
   section: "REGIONS"
   tier: Basic
   title: "The region list"
+  retired: true
 - id: HR-REGIONS-I-01
   module: hr
   section: "REGIONS"
@@ -664,6 +698,7 @@
   section: "Whole schema"
   tier: Intermediate
   title: "Monthly payroll by department"
+  retired: true
 - id: HR-SCHEMA-I-03
   module: hr
   section: "Whole schema"
@@ -729,6 +764,11 @@
   section: "Whole schema"
   tier: Advanced
   title: "Department roster in one round trip"
+- id: HR-SCHEMA-A-06
+  module: hr
+  section: "Whole schema"
+  tier: Advanced
+  title: "An employee's chain of command"
 
 # ---- sh
 
@@ -882,6 +922,11 @@
   section: "PROMOTIONS"
   tier: Intermediate
   title: "Promotion spend by category"
+- id: SH-PROMOTIONS-I-02
+  module: sh
+  section: "PROMOTIONS"
+  tier: Intermediate
+  title: "How long promotions run"
 - id: SH-PROMOTIONS-A-01
   module: sh
   section: "PROMOTIONS"
@@ -972,6 +1017,7 @@
   section: "Whole schema"
   tier: Intermediate
   title: "Revenue by fiscal month"
+  retired: true
 - id: SH-SCHEMA-I-06
   module: sh
   section: "Whole schema"
@@ -992,6 +1038,13 @@
   section: "Whole schema"
   tier: Intermediate
   title: "Realised price against list price"
+- id: SH-SCHEMA-I-10
+  module: sh
+  section: "Whole schema"
+  tier: Intermediate
+  title: "Customers who bought on promotion"
+  named-queries:
+    - Customer.selectListPromotedByCustCityOrderByCustLastNameAsc
 - id: SH-SCHEMA-A-01
   module: sh
   section: "Whole schema"
@@ -1037,3 +1090,13 @@
   section: "Whole schema"
   tier: Advanced
   title: "Reconcile sale dates with the calendar"
+- id: SH-SCHEMA-A-10
+  module: sh
+  section: "Whole schema"
+  tier: Advanced
+  title: "Three-month moving average of revenue"
+- id: SH-SCHEMA-A-11
+  module: sh
+  section: "Whole schema"
+  tier: Advanced
+  title: "Each country's share of its region"

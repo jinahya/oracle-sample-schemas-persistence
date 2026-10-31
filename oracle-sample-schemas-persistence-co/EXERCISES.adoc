@@ -25,11 +25,9 @@ A few things about the mappings shape the JPQL below:
   parameter or a fully qualified enum literal, never with a string.
 * `+SHIPMENTS.SHIPMENT_STATUS+` is `Shipment.ShipmentStatus`, mapped through `ShipmentStatusConverter`, because the
   column holds `+IN-TRANSIT+` and the constant is `+IN_TRANSIT+`. Bind the enum as a parameter.
-* `Order.orderItems` is a `+Map<Product, OrderItem>+` whose key is mapped with `+@MapKeyColumn+`, which is
-  meant for basic keys. For an entity key the providers look for a join column named `+orderItems_KEY+`, which
-  `+ORDER_ITEMS+` does not have: EclipseLink fails on any `JOIN o.orderItems`, Hibernate on `KEY(...)`. The queries
-  below therefore start from `OrderItem` and navigate `oi.order`, or join it to an order with a
-  Jakarta Persistence 3.2 entity join, `+JOIN OrderItem oi ON oi.order = o+`.
+* `Order.orderItems` is a `+Map<Product, OrderItem>+` keyed by each item's product,
+  `+@MapKey(name = OrderItem.ATTRIBUTE_NAME_PRODUCT)+`. The queries below start from `OrderItem` and navigate
+  `oi.order`, or join it to an order with a Jakarta Persistence 3.2 entity join, `+JOIN OrderItem oi ON oi.order = o+`.
 * `OrderItem` maps `+ORDER_ITEMS+` with an `+@EmbeddedId+`, `OrderItemId`, so its key is `oi.id.orderId` and
   `oi.id.lineItemId`. `ProductOrder` maps `+PRODUCT_ORDERS+` with an `+@EmbeddedId+`, so its key is
   `v.id.productName` and `v.id.orderStatus`.
@@ -299,30 +297,6 @@ ORDER BY e.productInventory ASC
 The JPQL is the named query `Inventory.selectOneByProductOrderByProductInventoryAsc`. A product is stocked at many
 stores, so it returns a list -- one row per store -- despite the `selectOne` in its name. Stores with the same stock
 come back in no particular order; add `e.store.storeId` to the `ORDER BY` for a stable order.
-
-[[CO-INVENTORY-B-03]]
-==== CO-INVENTORY-B-03 A store's emptiest shelves
-
-A store manager wants every product their store stocks, lowest stock first, to plan the next order.
-
-[source,sql]
-----
-SELECT *
-FROM inventory
-WHERE store_id = :storeId
-ORDER BY product_inventory ASC
-----
-
-[source,jpaql]
-----
-SELECT e
-FROM Inventory AS e
-WHERE e.store = :store
-ORDER BY e.productInventory ASC
-----
-
-The JPQL is the named query `Inventory.selectListByStoreOrderByProductInventoryAsc`. Products with the same stock come
-back in no particular order; add `e.product.productId` to the `ORDER BY` for a stable order.
 
 === Intermediate
 
@@ -601,6 +575,44 @@ ORDER BY o.orderTms
 Without `LAG()`, the previous order is the latest one placed before this one, a correlated subquery in the select list;
 it is null for the first order. Subtracting two ``TIMESTAMP``s gives an `INTERVAL DAY TO SECOND` in Oracle; in Java, take
 `Duration.between(previous, current).toDays()`.
+
+[[CO-ORDERS-A-03]]
+==== CO-ORDERS-A-03 New and returning customers by month
+
+Marketing wants to know whether the store still wins new customers or lives on its regulars: per month, how many
+orders were a customer's first order and how many came from a customer who had ordered before.
+
+[source,sql]
+----
+SELECT TO_CHAR(order_tms, 'YYYY-MM') AS order_month,
+       COUNT(CASE WHEN rn = 1 THEN 1 END) AS first_orders,
+       COUNT(CASE WHEN rn > 1 THEN 1 END) AS repeat_orders
+FROM (SELECT order_tms,
+             ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_tms, order_id) AS rn
+      FROM orders)
+GROUP BY TO_CHAR(order_tms, 'YYYY-MM')
+ORDER BY order_month
+----
+
+[source,jpaql]
+----
+SELECT o
+FROM Order o
+WHERE NOT EXISTS (SELECT p
+                  FROM Order p
+                  WHERE p.customer = o.customer
+                    AND (p.orderTms < o.orderTms
+                         OR (p.orderTms = o.orderTms AND p.orderId < o.orderId)))
+ORDER BY o.orderTms
+----
+
+`ROW_NUMBER()` numbers each customer's orders in time; the first is number 1, whatever month it falls in. `order_id`
+breaks a tie between two orders placed at the same moment, so a customer never has two first orders. JPQL has no window
+functions; the JPQL selects each customer's first order with a correlated `NOT EXISTS` instead, and the rest of the
+month's orders are the repeat ones. Counting both per month is then done in Java, or with `EXTRACT(YEAR FROM
+o.orderTms)` and `EXTRACT(MONTH FROM o.orderTms)` in a `GROUP BY` over the same condition. In the installed data the 392
+customers who ordered place 15 first orders in February 2021 against 3 repeat ones; from March 2022 on, every order is
+a repeat one.
 
 == ORDER_ITEMS
 
@@ -2163,6 +2175,83 @@ No portable JPQL equivalent: `productDetails` is a `+byte[]+` LOB, and JPQL has 
 products, bind each document to `ProductDetails` through `Product.getProductDetailsAsMapped(...)` with a JSON library,
 and filter in Java; or run the SQL as a native query. `+FUNCTION('JSON_VALUE', ...)+` reaches the database function,
 but its result type and its portability are the provider's business, not the specification's. `+PRODUCT_REVIEWS+` is mapped only as the plain class `ProductReview`, not as an entity.
+
+[[CO-SCHEMA-A-15]]
+==== CO-SCHEMA-A-15 Products often bought together
+
+Merchandising is planning "bought together" suggestions for the web shop. List the ten pairs of products that appear
+together in the most orders.
+
+[source,sql]
+----
+SELECT pa.product_name, pb.product_name AS other_product_name, COUNT(*) AS orders
+FROM order_items a
+         JOIN order_items b ON b.order_id = a.order_id AND b.product_id > a.product_id
+         JOIN products pa ON pa.product_id = a.product_id
+         JOIN products pb ON pb.product_id = b.product_id
+GROUP BY a.product_id, pa.product_name, b.product_id, pb.product_name
+ORDER BY orders DESC, pa.product_name, pb.product_name
+FETCH FIRST 10 ROWS ONLY
+----
+
+[source,jpaql]
+----
+SELECT pa.productName, pb.productName, COUNT(a) AS orders
+FROM OrderItem a
+         JOIN a.product pa,
+     OrderItem b
+         JOIN b.product pb
+WHERE b.order = a.order
+  AND pb.productId > pa.productId
+GROUP BY pa.productId, pa.productName, pb.productId, pb.productName
+ORDER BY orders DESC, pa.productName, pb.productName
+----
+
+A self-join of `+ORDER_ITEMS+` on the order pairs every line with every other line of the same order.
+`+b.product_id > a.product_id+` keeps one of the two orderings of each pair and drops a line's pairing with itself.
+`+(ORDER_ID, PRODUCT_ID)+` is unique, so a pair occurs at most once per order and `+COUNT(*)+` counts orders. Limit the
+JPQL with `query.setMaxResults(10)`. The pair at the top, `Girl's Coat (Blue)` with `Girl's Trousers (Red)`, shares 9
+orders; the tenth pair shares 6, and 31 other pairs share 6 too, so a different tie-break would give a different tenth
+row.
+
+[[CO-SCHEMA-A-16]]
+==== CO-SCHEMA-A-16 Stock a store has never sold
+
+A store manager wants to clear shelf space. List the products their store holds stock of but has never sold, the
+largest stock first.
+
+[source,sql]
+----
+SELECT p.product_name, i.product_inventory
+FROM inventory i
+         JOIN products p ON p.product_id = i.product_id
+WHERE i.store_id = :storeId
+  AND i.product_inventory > 0
+  AND NOT EXISTS (SELECT 1
+                  FROM order_items oi
+                           JOIN orders o ON o.order_id = oi.order_id
+                  WHERE o.store_id = i.store_id
+                    AND oi.product_id = i.product_id)
+ORDER BY i.product_inventory DESC, p.product_name
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Inventory AS e
+WHERE e.store = :store
+  AND e.productInventory > 0
+  AND NOT EXISTS (SELECT oi
+                  FROM OrderItem oi
+                  WHERE oi.product = e.product
+                    AND oi.order.store = e.store)
+ORDER BY e.productInventory DESC, e.product.productName ASC
+----
+
+The JPQL is the named query `Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc`. The anti-join is
+correlated on two columns at once: a sale only counts when it is of the same product _and_ was made at the same store.
+A product the store sold even once is not dead stock, however long ago that was. For store 20 (`Mexico City`) the
+answer is `Women's Jacket (Black)`, 7 units, and `Boy's Shirt (White)`, 2 units.
 
 == References
 

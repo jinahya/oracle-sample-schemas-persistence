@@ -21,8 +21,8 @@ A few things to keep in mind while reading the JPQL:
 * Foreign keys are mapped as associations only. There is no `Employee.departmentId` or `Department.locationId`
   attribute: navigate instead, as `e.department.departmentId` or `d.location.locationId`, or compare the association
   with an entity parameter, as `+e.department = :department+`.
-* `+EMP_DETAILS_VIEW+` is mapped by `EmpDetailsView`, but that class is not listed in the persistence units, so no
-  JPQL here queries it.
+* `+EMP_DETAILS_VIEW+` is mapped by `EmpDetailsView`, which both persistence units list; its problems are solved in
+  SQL only.
 * Parameters are named (`:departmentId`). Bind them with `setParameter`; Oracle tools such as SQL{asterisk}Plus and SQLcl
   prompt for, or take, the same names as bind variables.
 
@@ -630,6 +630,34 @@ ORDER BY directReports DESC, m.employeeId ASC
 A result variable cannot be filtered on in `WHERE` — `+WHERE directReports > 0+` is not JPQL. Filter on the collection
 itself (`IS NOT EMPTY`, or `+SIZE(m.subordinates) > 0+`), or let the inner join drop managers with nobody.
 
+[[HR-EMPLOYEES-I-06]]
+==== HR-EMPLOYEES-I-06 Skip-level meetings
+
+A vice president holds skip-level meetings: they meet the people who report to their direct reports. Given the vice
+president, list those employees with the manager in between, by name.
+
+[source,sql]
+----
+SELECT e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, m.LAST_NAME AS MANAGER
+FROM EMPLOYEES e
+         JOIN EMPLOYEES m ON m.EMPLOYEE_ID = e.MANAGER_ID
+WHERE m.MANAGER_ID = :managerId
+ORDER BY e.LAST_NAME ASC, e.FIRST_NAME ASC
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Employee e
+WHERE e.manager.manager = :manager
+ORDER BY e.lastName ASC, e.firstName ASC
+----
+
+The JPQL is the named query `Employee.selectListByManagerOfManagerOrderByLastNameAsc`. The path `e.manager.manager`
+is the self-join written as navigation: each step is an inner join, so an employee without a manager, or whose manager
+has none, cannot match. `e.getManager()` then gives the manager in between. For Neena Yang (`101`) the answer is the
+five accountants under Nancy Gruenberg and William Gietz under Shelley Higgins.
+
 === Advanced
 
 [[HR-EMPLOYEES-A-01]]
@@ -866,10 +894,39 @@ Hibernate ORM runs this as written. EclipseLink 5.0.1 passes `CAST(... AS STRING
 rejects it (`+ORA-00902: invalid datatype+`); under EclipseLink, replace the cast with the Oracle function through
 `+FUNCTION('TO_CHAR', e.employeeId)+` — standard JPQL syntax, but no longer database-neutral.
 
+[[HR-EMPLOYEES-A-07]]
+==== HR-EMPLOYEES-A-07 Pay against the department average
+
+Before the pay review, each department head wants every member of staff next to the average salary of the department,
+and how far above or below it they are.
+
+[source,sql]
+----
+SELECT DEPARTMENT_ID, EMPLOYEE_ID, LAST_NAME, SALARY,
+       ROUND(AVG(SALARY) OVER (PARTITION BY DEPARTMENT_ID), 2)          AS DEPARTMENT_AVERAGE,
+       ROUND(SALARY - AVG(SALARY) OVER (PARTITION BY DEPARTMENT_ID), 2) AS DIFFERENCE
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID IS NOT NULL
+ORDER BY DEPARTMENT_ID ASC, SALARY DESC, EMPLOYEE_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT e.department.departmentId, AVG(e.salary)
+FROM Employee e
+GROUP BY e.department.departmentId
+----
+
+`AVG(...) OVER (PARTITION BY ...)` is an aggregate that does not collapse the rows: every employee keeps their own row
+and sees the average of their partition beside it. A `GROUP BY` gives the averages only, one row per department.
+JPQL has no window functions, and its `SELECT` clause takes no subquery, so the JPQL fetches the averages per
+department and the employees are matched to them in Java; or run the SQL as a native query. The single-person
+departments, such as 10 (`Whalen`), show a difference of `0`.
+
 == EMP_DETAILS_VIEW
 
-`EmpDetailsView` maps this view, but is not listed in the persistence units, so the problems here are
-solved in SQL only. The view inner-joins all six tables, which leaves out the employee without a department.
+`EmpDetailsView` maps this view, and both persistence units list it; the problems here are solved in SQL
+only. The view inner-joins all six tables, which leaves out the employee without a department.
 
 === Basic
 
@@ -1226,6 +1283,36 @@ HAVING COUNT(h) > 1
 ORDER BY h.employeeId ASC
 ----
 
+[[HR-JOB_HISTORY-I-03]]
+==== HR-JOB_HISTORY-I-03 How long earlier positions lasted
+
+Workforce planning wants to know how long people stay in a job before they move on: per job, the number of earlier
+positions and the shortest, average and longest of them in days, longest average first.
+
+[source,sql]
+----
+SELECT JOB_ID, COUNT(*) AS POSITIONS,
+       MIN(END_DATE - START_DATE + 1)        AS SHORTEST_DAYS,
+       ROUND(AVG(END_DATE - START_DATE + 1)) AS AVERAGE_DAYS,
+       MAX(END_DATE - START_DATE + 1)        AS LONGEST_DAYS
+FROM JOB_HISTORY
+GROUP BY JOB_ID
+ORDER BY AVERAGE_DAYS DESC, JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT h.job.jobId, h.startDate, h.endDate
+FROM JobHistory h
+ORDER BY h.job.jobId ASC
+----
+
+In Oracle one `DATE` minus another is a number of days, and both dates of a position are inclusive, hence the `+ 1`.
+The installed dates carry no time of day, so every length is a whole number. JPQL defines no arithmetic between two
+dates, so the JPQL fetches the dates and Java measures them, as
+`+ChronoUnit.DAYS.between(startDate, endDate) + 1+`, before grouping by job. `AD_ASST` comes first, with a single
+position of 2,100 days; `SA_REP` comes last, with 283.
+
 === Advanced
 
 [[HR-JOB_HISTORY-A-01]]
@@ -1443,25 +1530,6 @@ WHERE UPPER(r.regionName) = UPPER(:regionName)
 Unlike the pattern of `LIKE` (see _Name search at reception_, under EMPLOYEES), an operand of `+=+` may be any string
 expression, so the query can upper-case the parameter itself.
 
-[[HR-REGIONS-B-02]]
-==== HR-REGIONS-B-02 The region list
-
-The reporting tool's drop-down lists every region by name.
-
-[source,sql]
-----
-SELECT REGION_ID, REGION_NAME
-FROM REGIONS
-ORDER BY REGION_NAME ASC
-----
-
-[source,jpaql]
-----
-SELECT r
-FROM Region r
-ORDER BY r.regionName ASC
-----
-
 === Intermediate
 
 [[HR-REGIONS-I-01]]
@@ -1627,31 +1695,6 @@ ORDER BY headcount DESC, d.departmentId ASC
 `+COUNT(*)+` would count it as 1. The specification has `SIZE` return zero for an empty collection, and Hibernate ORM
 returns all 27 departments for the second JPQL; EclipseLink 5.0.1, however, translates `SIZE` in the select list into
 an inner join and returns only the 11 departments that have staff. The `LEFT JOIN` form gives 27 under both.
-
-[[HR-SCHEMA-I-02]]
-==== HR-SCHEMA-I-02 Monthly payroll by department
-
-Payroll needs the monthly salary cost of each department, highest first, to plan next year's budget.
-
-[source,sql]
-----
-SELECT d.DEPARTMENT_ID, d.DEPARTMENT_NAME, SUM(e.SALARY) AS MONTHLY_COST
-FROM EMPLOYEES e
-         JOIN DEPARTMENTS d ON d.DEPARTMENT_ID = e.DEPARTMENT_ID
-GROUP BY d.DEPARTMENT_ID, d.DEPARTMENT_NAME
-ORDER BY MONTHLY_COST DESC
-----
-
-[source,jpaql]
-----
-SELECT d.departmentId, d.departmentName, SUM(e.salary) AS monthlyCost
-FROM Employee e
-         JOIN e.department d
-GROUP BY d.departmentId, d.departmentName
-ORDER BY monthlyCost DESC
-----
-
-The employee without a department drops out of the inner join; their salary belongs to no department's budget.
 
 [[HR-SCHEMA-I-03]]
 ==== HR-SCHEMA-I-03 Departments above a size
@@ -2051,6 +2094,40 @@ Every association here is `LAZY`, so without `FETCH` each `getEmployees()` or `g
 issue its own `SELECT`. `DISTINCT` removes the repeated `Department` the collection join produces. Do not combine a
 collection fetch join with `setMaxResults`: the limit applies to joined rows, so providers either paginate in memory
 or cut a department's staff list short.
+
+[[HR-SCHEMA-A-06]]
+==== HR-SCHEMA-A-06 An employee's chain of command
+
+An employee's request for leave has to be approved all the way up. Given the employee, list them and every manager
+above them, with job titles, up to the president.
+
+[source,sql]
+----
+SELECT LEVEL - 1 AS STEPS_UP, e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, j.JOB_TITLE
+FROM EMPLOYEES e
+         JOIN JOBS j ON j.JOB_ID = e.JOB_ID
+START WITH e.EMPLOYEE_ID = :employeeId
+CONNECT BY e.EMPLOYEE_ID = PRIOR e.MANAGER_ID
+ORDER BY STEPS_UP ASC
+----
+
+[source,jpaql]
+----
+SELECT e, m1, m2, m3
+FROM Employee e
+         LEFT JOIN FETCH e.job
+         LEFT JOIN e.manager m1
+         LEFT JOIN m1.manager m2
+         LEFT JOIN m2.manager m3
+WHERE e.employeeId = :employeeId
+----
+
+This walks the hierarchy the other way from _Everyone under a manager_ (under EMPLOYEES): `PRIOR` sits on the
+manager's side, so each step goes from an employee to their manager, and the walk stops at the president, who has
+none. Oracle joins `JOBS` first and walks the joined rows. For William Gietz (`206`) the chain is Gietz, Higgins,
+Yang and King. JPQL is not recursive; the JPQL unrolls three steps up, enough for the installed data, and the `LEFT`
+joins return `null` past the top. For any depth, follow `getManager()` from Java until it returns `null`, one lazy load
+per step.
 
 '''
 

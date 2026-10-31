@@ -23,10 +23,16 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
 
 import com.github.jinahya.persistence.test.util.EntityPersisterUtils;
 import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -138,6 +144,99 @@ class Employee_PersistenceIT extends _Entity_Persistence_IT<Employee> {
                         });
                 return null;
             });
+        }
+    }
+
+    /**
+     * Tests {@code Employee.selectListByManagerOfManagerOrderByLastNameAsc}, which answers exercise
+     * {@code HR-EMPLOYEES-I-06}.
+     */
+    @Nested
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    class SelectListByManagerOfManagerOrderByLastNameAsc_Test {
+
+        /**
+         * Returns the ids of the installed employees who have someone two levels below them.
+         */
+        Stream<Integer> managerIds() {
+            return entityManager()
+                    .createQuery(
+                            """
+                                    SELECT DISTINCT g.employeeId
+                                    FROM Employee e
+                                             JOIN e.manager m
+                                             JOIN m.manager g
+                                    ORDER BY g.employeeId ASC""",
+                            Integer.class
+                    )
+                    .setMaxResults(5)
+                    .getResultList()
+                    .stream();
+        }
+
+        private void verify(final Integer managerId, final List<Employee> found) {
+            final var count = entityManager()
+                    .createQuery(
+                            """
+                                    SELECT COUNT(e)
+                                    FROM Employee e
+                                             JOIN e.manager m
+                                    WHERE m.manager.employeeId = :managerId""",
+                            Long.class
+                    )
+                    .setParameter("managerId", managerId)
+                    .getSingleResult();
+            assertThat(found)
+                    .as("the employees two levels below %s", managerId)
+                    .isNotEmpty()
+                    .hasSize(count.intValue())
+                    .allSatisfy(e -> assertThat(e.getManager().getManager().getEmployeeId()).isEqualTo(managerId))
+                    .isSortedAccordingTo(Comparator.comparing(Employee::getLastName));
+        }
+
+        @DisplayName("the named query selects the employees two levels below the manager, by name")
+        @MethodSource("managerIds")
+        @ParameterizedTest
+        void __NamedQuery(final Integer managerId) {
+            final var found = entityManager()
+                    .createNamedQuery("Employee.selectListByManagerOfManagerOrderByLastNameAsc", targetClass)
+                    .setParameter("manager", entityManager().getReference(Employee.class, managerId))
+                    .getResultList();
+            verify(managerId, found);
+        }
+
+        @DisplayName("a query-language query selects the employees two levels below the manager, by name")
+        @MethodSource("managerIds")
+        @ParameterizedTest
+        void __QueryLanguage(final Integer managerId) {
+            final var found = entityManager()
+                    .createQuery(
+                            """
+                                    SELECT e
+                                    FROM Employee e
+                                    WHERE e.manager.manager = :manager
+                                    ORDER BY e.lastName ASC, e.firstName ASC""",
+                            targetClass
+                    )
+                    .setParameter("manager", entityManager().getReference(Employee.class, managerId))
+                    .getResultList();
+            verify(managerId, found);
+        }
+
+        @DisplayName("a criteria query selects the employees two levels below the manager, by name")
+        @MethodSource("managerIds")
+        @ParameterizedTest
+        void __CriteriaApi(final Integer managerId) {
+            final var entityManager = entityManager();
+            final var builder = entityManager.getCriteriaBuilder();
+            final var query = builder.createQuery(targetClass);
+            final var root = query.from(targetClass);
+            query.select(root);
+            query.where(builder.equal(root.get(Employee_.manager).get(Employee_.manager),
+                                      entityManager.getReference(Employee.class, managerId)));
+            query.orderBy(builder.asc(root.get(Employee_.lastName)), builder.asc(root.get(Employee_.firstName)));
+            final var found = entityManager.createQuery(query).getResultList();
+            verify(managerId, found);
         }
     }
 }

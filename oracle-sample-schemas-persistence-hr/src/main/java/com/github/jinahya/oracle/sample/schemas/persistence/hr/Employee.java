@@ -101,6 +101,13 @@ import java.util.Optional;
                     FROM Employee e
                     WHERE e.manager = :manager"""
 )
+@NamedQuery(name = "Employee.selectListByManagerOfManagerOrderByLastNameAsc",
+            query = """
+                    SELECT e
+                    FROM Employee e
+                    WHERE e.manager.manager = :manager
+                    ORDER BY e.lastName ASC, e.firstName ASC"""
+)
 @NamedQuery(name = "Employee.selectListByDepartmentOrderByEmployeeIdAsc",
             query = """
                     SELECT e

@@ -168,6 +168,17 @@ ORDER BY DIRECT_REPORTS DESC, m.EMPLOYEE_ID ASC
 ;
 
 
+-- ------------------------------------------------------------------------------- HR-EMPLOYEES-I-06 Skip-level meetings
+-- A vice president holds skip-level meetings: they meet the people who report to their direct reports. Given the vice
+-- president, list those employees with the manager in between, by name.
+SELECT e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, m.LAST_NAME AS MANAGER
+FROM EMPLOYEES e
+         JOIN EMPLOYEES m ON m.EMPLOYEE_ID = e.MANAGER_ID
+WHERE m.MANAGER_ID = :managerId
+ORDER BY e.LAST_NAME ASC, e.FIRST_NAME ASC
+;
+
+
 -- ============================================================================================================ ADVANCED
 
 
@@ -268,4 +279,19 @@ SELECT EMPLOYEE_ID,
        SUBSTR(PHONE_NUMBER, -4)                                                                      AS LAST_FOUR
 FROM EMPLOYEES
 ORDER BY EMPLOYEE_ID ASC
+;
+
+
+-- ---------------------------------------------------------------- HR-EMPLOYEES-A-07 Pay against the department average
+-- Before the pay review, each department head wants every member of staff next to the average salary of the department,
+-- and how far above or below it they are.
+SELECT DEPARTMENT_ID,
+       EMPLOYEE_ID,
+       LAST_NAME,
+       SALARY,
+       ROUND(AVG(SALARY) OVER (PARTITION BY DEPARTMENT_ID), 2)          AS DEPARTMENT_AVERAGE,
+       ROUND(SALARY - AVG(SALARY) OVER (PARTITION BY DEPARTMENT_ID), 2) AS DIFFERENCE
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID IS NOT NULL
+ORDER BY DEPARTMENT_ID ASC, SALARY DESC, EMPLOYEE_ID ASC
 ;

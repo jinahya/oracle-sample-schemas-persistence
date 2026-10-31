@@ -73,16 +73,6 @@ ORDER BY HEADCOUNT DESC, d.DEPARTMENT_ID ASC
 ;
 
 
--- ------------------------------------------------------------------------ HR-SCHEMA-I-02 Monthly payroll by department
--- Payroll needs the monthly salary cost of each department, highest first, to plan next year's budget.
-SELECT d.DEPARTMENT_ID, d.DEPARTMENT_NAME, SUM(e.SALARY) AS MONTHLY_COST
-FROM EMPLOYEES e
-         JOIN DEPARTMENTS d ON d.DEPARTMENT_ID = e.DEPARTMENT_ID
-GROUP BY d.DEPARTMENT_ID, d.DEPARTMENT_NAME
-ORDER BY MONTHLY_COST DESC
-;
-
-
 -- ----------------------------------------------------------------------------- HR-SCHEMA-I-03 Departments above a size
 -- Facilities allocates a floor warden to every department with at least a given number of staff.
 SELECT d.DEPARTMENT_ID, d.DEPARTMENT_NAME, COUNT(*) AS HEADCOUNT
@@ -241,4 +231,16 @@ FROM DEPARTMENTS d
          LEFT JOIN EMPLOYEES e ON e.DEPARTMENT_ID = d.DEPARTMENT_ID
 WHERE d.LOCATION_ID = :locationId
 ORDER BY d.DEPARTMENT_ID ASC, e.LAST_NAME ASC
+;
+
+
+-- ----------------------------------------------------------------------- HR-SCHEMA-A-06 An employee's chain of command
+-- An employee's request for leave has to be approved all the way up. Given the employee, list them and every manager
+-- above them, with job titles, up to the president.
+SELECT LEVEL - 1 AS STEPS_UP, e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, j.JOB_TITLE
+FROM EMPLOYEES e
+         JOIN JOBS j ON j.JOB_ID = e.JOB_ID
+START WITH e.EMPLOYEE_ID = :employeeId
+CONNECT BY e.EMPLOYEE_ID = PRIOR e.MANAGER_ID
+ORDER BY STEPS_UP ASC
 ;

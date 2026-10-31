@@ -60,6 +60,22 @@ ORDER BY TOTAL_COST DESC
 ;
 
 
+-- -------------------------------------------------------------------------- SH-PROMOTIONS-I-02 How long promotions run
+-- The promotions team is planning next year's calendar and wants to know how long each kind of promotion usually runs:
+-- per category, the number of promotions and the shortest, average and longest run in days, ignoring the NO PROMOTION
+-- placeholder.
+SELECT PROMO_CATEGORY,
+       COUNT(*)                                          AS PROMOTIONS,
+       MIN(PROMO_END_DATE - PROMO_BEGIN_DATE + 1)        AS SHORTEST_DAYS,
+       ROUND(AVG(PROMO_END_DATE - PROMO_BEGIN_DATE + 1)) AS AVERAGE_DAYS,
+       MAX(PROMO_END_DATE - PROMO_BEGIN_DATE + 1)        AS LONGEST_DAYS
+FROM PROMOTIONS
+WHERE PROMO_CATEGORY <> 'NO PROMOTION'
+GROUP BY PROMO_CATEGORY
+ORDER BY AVERAGE_DAYS DESC, PROMO_CATEGORY
+;
+
+
 -- ============================================================================================================ ADVANCED
 
 

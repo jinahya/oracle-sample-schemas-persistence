@@ -221,12 +221,12 @@ class Inventory_Persistence_IT extends _Entity_Persistence_IT<Inventory> {
     }
 
     /**
-     * Tests {@code Inventory.selectListByStoreOrderByProductInventoryAsc}, which answers exercise
-     * {@code CO-INVENTORY-B-03}.
+     * Tests {@code Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc}, which answers exercise
+     * {@code CO-SCHEMA-A-16}.
      */
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-    class SelectListByStoreOrderByProductInventoryAsc_Test {
+    class SelectListUnsoldByStoreOrderByProductInventoryDesc_Test {
 
         /**
          * Returns some ids of the stores the installed table holds stock at.
@@ -246,35 +246,41 @@ class Inventory_Persistence_IT extends _Entity_Persistence_IT<Inventory> {
         }
 
         private void verify(final Long storeId, final List<Inventory> found) {
-            final var count = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT COUNT(e)
-                                    FROM Inventory e
-                                    WHERE e.store.storeId = :storeId""",
-                            Long.class
-                    )
-                    .setParameter("storeId", storeId)
-                    .getSingleResult();
             assertThat(found)
-                    .as("the inventories of store %s", storeId)
-                    .hasSize(count.intValue())
-                    .allSatisfy(i -> assertThat(i.getStore().getStoreId()).isEqualTo(storeId))
-                    .isSortedAccordingTo(Comparator.comparing(Inventory::getProductInventory));
+                    .as("the unsold inventories of store %s", storeId)
+                    .allSatisfy(i -> {
+                        assertThat(i.getStore().getStoreId()).isEqualTo(storeId);
+                        assertThat(i.getProductInventory()).isPositive();
+                        assertThat(entityManager()
+                                           .createQuery(
+                                                   """
+                                                           SELECT COUNT(oi)
+                                                           FROM OrderItem oi
+                                                           WHERE oi.product = :product
+                                                             AND oi.order.store = :store""",
+                                                   Long.class
+                                           )
+                                           .setParameter("product", i.getProduct())
+                                           .setParameter("store", i.getStore())
+                                           .getSingleResult())
+                                .as("order items selling the product of %s at its store", i.getInventoryId())
+                                .isZero();
+                    })
+                    .isSortedAccordingTo(Comparator.comparing(Inventory::getProductInventory).reversed());
         }
 
-        @DisplayName("the named query selects the store's inventories, lowest stock first")
+        @DisplayName("the named query selects the store's stock never sold there, largest first")
         @MethodSource("storeIds")
         @ParameterizedTest
         void __NamedQuery(final Long storeId) {
             final var found = entityManager()
-                    .createNamedQuery("Inventory.selectListByStoreOrderByProductInventoryAsc", targetClass)
+                    .createNamedQuery("Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc", targetClass)
                     .setParameter("store", entityManager().getReference(Store.class, storeId))
                     .getResultList();
             verify(storeId, found);
         }
 
-        @DisplayName("a query-language query selects the store's inventories, lowest stock first")
+        @DisplayName("a query-language query selects the store's stock never sold there, largest first")
         @MethodSource("storeIds")
         @ParameterizedTest
         void __QueryLanguage(final Long storeId) {
@@ -284,7 +290,12 @@ class Inventory_Persistence_IT extends _Entity_Persistence_IT<Inventory> {
                                     SELECT e
                                     FROM Inventory AS e
                                     WHERE e.store = :store
-                                    ORDER BY e.productInventory ASC""",
+                                      AND e.productInventory > 0
+                                      AND NOT EXISTS (SELECT oi
+                                                      FROM OrderItem oi
+                                                      WHERE oi.product = e.product
+                                                        AND oi.order.store = e.store)
+                                    ORDER BY e.productInventory DESC, e.product.productName ASC""",
                             targetClass
                     )
                     .setParameter("store", entityManager().getReference(Store.class, storeId))
@@ -292,7 +303,7 @@ class Inventory_Persistence_IT extends _Entity_Persistence_IT<Inventory> {
             verify(storeId, found);
         }
 
-        @DisplayName("a criteria query selects the store's inventories, lowest stock first")
+        @DisplayName("a criteria query selects the store's stock never sold there, largest first")
         @MethodSource("storeIds")
         @ParameterizedTest
         void __CriteriaApi(final Long storeId) {
@@ -300,9 +311,22 @@ class Inventory_Persistence_IT extends _Entity_Persistence_IT<Inventory> {
             final var builder = entityManager.getCriteriaBuilder();
             final var query = builder.createQuery(targetClass);
             final var root = query.from(targetClass);
+            final var subquery = query.subquery(OrderItem.class);
+            final var item = subquery.from(OrderItem.class);
+            subquery.select(item).where(
+                    builder.equal(item.get(OrderItem_.product), root.get(Inventory_.product)),
+                    builder.equal(item.get(OrderItem_.order).get(Order_.store), root.get(Inventory_.store))
+            );
             query.select(root);
-            query.where(builder.equal(root.get(Inventory_.store), entityManager.getReference(Store.class, storeId)));
-            query.orderBy(builder.asc(root.get(Inventory_.productInventory)));
+            query.where(
+                    builder.equal(root.get(Inventory_.store), entityManager.getReference(Store.class, storeId)),
+                    builder.gt(root.get(Inventory_.productInventory), 0L),
+                    builder.not(builder.exists(subquery))
+            );
+            query.orderBy(
+                    builder.desc(root.get(Inventory_.productInventory)),
+                    builder.asc(root.get(Inventory_.product).get(Product_.productName))
+            );
             final var found = entityManager.createQuery(query).getResultList();
             verify(storeId, found);
         }

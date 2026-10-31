@@ -48,12 +48,17 @@ import jakarta.validation.constraints.NotNull;
                     WHERE e.product = :product
                     ORDER BY e.productInventory ASC"""
 )
-@NamedQuery(name = "Inventory.selectListByStoreOrderByProductInventoryAsc",
+@NamedQuery(name = "Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc",
             query = """
                     SELECT e
                     FROM Inventory AS e
                     WHERE e.store = :store
-                    ORDER BY e.productInventory ASC"""
+                      AND e.productInventory > 0
+                      AND NOT EXISTS (SELECT oi
+                                      FROM OrderItem oi
+                                      WHERE oi.product = e.product
+                                        AND oi.order.store = e.store)
+                    ORDER BY e.productInventory DESC, e.product.productName ASC"""
 )
 @NamedQuery(name = "Inventory.selectOneByStoreAndProduct",
             query = """

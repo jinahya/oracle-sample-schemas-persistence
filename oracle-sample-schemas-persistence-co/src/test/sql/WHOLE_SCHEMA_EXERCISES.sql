@@ -416,3 +416,36 @@ GROUP BY product_name
 HAVING AVG(rating) >= 8
 ORDER BY avg_rating DESC, product_name
 ;
+
+
+-- ----------------------------------------------------------------------- CO-SCHEMA-A-15 Products often bought together
+-- Merchandising is planning "bought together" suggestions for the web shop. List the ten pairs of products that appear
+-- together in the most orders.
+SELECT pa.product_name,
+       pb.product_name AS other_product_name,
+       COUNT(*)        AS orders
+FROM order_items a
+         JOIN order_items b ON b.order_id = a.order_id AND b.product_id > a.product_id
+         JOIN products pa ON pa.product_id = a.product_id
+         JOIN products pb ON pb.product_id = b.product_id
+GROUP BY a.product_id, pa.product_name, b.product_id, pb.product_name
+ORDER BY orders DESC, pa.product_name, pb.product_name
+    FETCH FIRST 10 ROWS ONLY
+;
+
+
+-- ------------------------------------------------------------------------- CO-SCHEMA-A-16 Stock a store has never sold
+-- A store manager wants to clear shelf space. List the products their store holds stock of but has never sold, the
+-- largest stock first.
+SELECT p.product_name, i.product_inventory
+FROM inventory i
+         JOIN products p ON p.product_id = i.product_id
+WHERE i.store_id = :storeId
+  AND i.product_inventory > 0
+  AND NOT EXISTS (SELECT 1
+                  FROM order_items oi
+                           JOIN orders o ON o.order_id = oi.order_id
+                  WHERE o.store_id = i.store_id
+                    AND oi.product_id = i.product_id)
+ORDER BY i.product_inventory DESC, p.product_name
+;

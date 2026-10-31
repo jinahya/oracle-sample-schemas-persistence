@@ -21,6 +21,14 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.persistence.test.util.EntityPersisterUtils;
+import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Verifies the mappings of {@link Employee} against the schema generated into the in-memory database.
  *
@@ -30,5 +38,83 @@ class Employee_PersistenceTest extends _Entity_Persistence_Test<Employee> {
 
     Employee_PersistenceTest() {
         super(Employee.class);
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Tests {@code Employee.selectListByManagerOfManagerOrderByLastNameAsc}, which answers exercise
+     * {@code HR-EMPLOYEES-I-06}.
+     */
+    @Nested
+    class SelectListByManagerOfManagerOrderByLastNameAsc_Test {
+
+        /**
+         * Gives the specified employee a new manager, and that manager a new manager of their own, and returns the
+         * latter.
+         */
+        private Employee managerOfManager(final EntityManager em, final Employee employee) {
+            final var manager = EntityPersisterUtils.newPersistedInstanceOf(em, Employee.class);
+            final var managerOfManager = EntityPersisterUtils.newPersistedInstanceOf(em, Employee.class);
+            employee.setManager(manager);
+            manager.setManager(managerOfManager);
+            return managerOfManager;
+        }
+
+        @DisplayName("the named query selects the employee just persisted, by their manager's manager")
+        @Test
+        void __NamedQuery() {
+            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+                final var found = em
+                        .createNamedQuery("Employee.selectListByManagerOfManagerOrderByLastNameAsc", targetClass)
+                        .setParameter("manager", managerOfManager(em, v))
+                        .getResultList();
+                assertThat(found)
+                        .as("the employees two levels below the manager")
+                        .containsExactly(v);
+                return found;
+            });
+        }
+
+        @DisplayName("a query-language query selects the employee just persisted, by their manager's manager")
+        @Test
+        void __QueryLanguage() {
+            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+                final var found = em
+                        .createQuery(
+                                """
+                                        SELECT e
+                                        FROM Employee e
+                                        WHERE e.manager.manager = :manager
+                                        ORDER BY e.lastName ASC, e.firstName ASC""",
+                                targetClass
+                        )
+                        .setParameter("manager", managerOfManager(em, v))
+                        .getResultList();
+                assertThat(found)
+                        .as("the employees two levels below the manager")
+                        .containsExactly(v);
+                return found;
+            });
+        }
+
+        @DisplayName("a criteria query selects the employee just persisted, by their manager's manager")
+        @Test
+        void __CriteriaApi() {
+            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+                final var managerOfManager = managerOfManager(em, v);
+                final var builder = em.getCriteriaBuilder();
+                final var query = builder.createQuery(targetClass);
+                final var root = query.from(targetClass);
+                query.select(root);
+                query.where(builder.equal(root.get(Employee_.manager).get(Employee_.manager), managerOfManager));
+                query.orderBy(builder.asc(root.get(Employee_.lastName)), builder.asc(root.get(Employee_.firstName)));
+                final var found = em.createQuery(query).getResultList();
+                assertThat(found)
+                        .as("the employees two levels below the manager")
+                        .containsExactly(v);
+                return found;
+            });
+        }
     }
 }

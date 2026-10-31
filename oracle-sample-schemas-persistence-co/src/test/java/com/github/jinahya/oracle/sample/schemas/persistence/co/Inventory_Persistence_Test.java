@@ -171,63 +171,103 @@ class Inventory_Persistence_Test extends _Entity_Persistence_Test<Inventory> {
     }
 
     /**
-     * Tests {@code Inventory.selectListByStoreOrderByProductInventoryAsc}, which answers exercise
-     * {@code CO-INVENTORY-B-03}.
+     * Tests {@code Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc}, which answers exercise
+     * {@code CO-SCHEMA-A-16}.
+     * <p>
+     * The persisted inventory has a store and a product of its own, and no order item sells the product at the store,
+     * so it is unsold stock as soon as it holds any.
      */
     @Nested
-    class SelectListByStoreOrderByProductInventoryAsc_Test {
+    class SelectListUnsoldByStoreOrderByProductInventoryDesc_Test {
 
-        @DisplayName("the named query selects the inventory just persisted, by its store")
+        @DisplayName("the named query selects the inventory just persisted, never sold at its store")
         @Test
         void __NamedQuery() {
             applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+                v.setProductInventory(1L);
                 final var found = em
-                        .createNamedQuery("Inventory.selectListByStoreOrderByProductInventoryAsc", targetClass)
+                        .createNamedQuery("Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc", targetClass)
                         .setParameter("store", v.getStore())
                         .getResultList();
                 assertThat(found)
-                        .as("the inventories of the store")
+                        .as("the unsold inventories of the store")
                         .containsExactly(v);
                 return found;
             });
         }
 
-        @DisplayName("a query-language query selects the inventory just persisted, by its store")
+        @DisplayName("a query-language query selects the inventory just persisted, never sold at its store")
         @Test
         void __QueryLanguage() {
             applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+                v.setProductInventory(1L);
                 final var found = em
                         .createQuery(
                                 """
                                         SELECT e
                                         FROM Inventory AS e
                                         WHERE e.store = :store
-                                        ORDER BY e.productInventory ASC""",
+                                          AND e.productInventory > 0
+                                          AND NOT EXISTS (SELECT oi
+                                                          FROM OrderItem oi
+                                                          WHERE oi.product = e.product
+                                                            AND oi.order.store = e.store)
+                                        ORDER BY e.productInventory DESC, e.product.productName ASC""",
                                 targetClass
                         )
                         .setParameter("store", v.getStore())
                         .getResultList();
                 assertThat(found)
-                        .as("the inventories of the store")
+                        .as("the unsold inventories of the store")
                         .containsExactly(v);
                 return found;
             });
         }
 
-        @DisplayName("a criteria query selects the inventory just persisted, by its store")
+        @DisplayName("a criteria query selects the inventory just persisted, never sold at its store")
         @Test
         void __CriteriaApi() {
             applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+                v.setProductInventory(1L);
                 final var builder = em.getCriteriaBuilder();
                 final var query = builder.createQuery(targetClass);
                 final var root = query.from(targetClass);
+                final var subquery = query.subquery(OrderItem.class);
+                final var item = subquery.from(OrderItem.class);
+                subquery.select(item).where(
+                        builder.equal(item.get(OrderItem_.product), root.get(Inventory_.product)),
+                        builder.equal(item.get(OrderItem_.order).get(Order_.store), root.get(Inventory_.store))
+                );
                 query.select(root);
-                query.where(builder.equal(root.get(Inventory_.store), v.getStore()));
-                query.orderBy(builder.asc(root.get(Inventory_.productInventory)));
+                query.where(
+                        builder.equal(root.get(Inventory_.store), v.getStore()),
+                        builder.gt(root.get(Inventory_.productInventory), 0L),
+                        builder.not(builder.exists(subquery))
+                );
+                query.orderBy(
+                        builder.desc(root.get(Inventory_.productInventory)),
+                        builder.asc(root.get(Inventory_.product).get(Product_.productName))
+                );
                 final var found = em.createQuery(query).getResultList();
                 assertThat(found)
-                        .as("the inventories of the store")
+                        .as("the unsold inventories of the store")
                         .containsExactly(v);
+                return found;
+            });
+        }
+
+        @DisplayName("the named query skips the inventory just persisted, once it holds no stock")
+        @Test
+        void __NamedQuery_NoStock() {
+            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+                v.setProductInventory(0L);
+                final var found = em
+                        .createNamedQuery("Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc", targetClass)
+                        .setParameter("store", v.getStore())
+                        .getResultList();
+                assertThat(found)
+                        .as("the unsold inventories of the store")
+                        .isEmpty();
                 return found;
             });
         }

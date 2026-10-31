@@ -37,14 +37,6 @@ WHERE UPPER(REGION_NAME) = UPPER(:regionName)
 ;
 
 
--- ------------------------------------------------------------------------------------- HR-REGIONS-B-02 The region list
--- The reporting tool's drop-down lists every region by name.
-SELECT REGION_ID, REGION_NAME
-FROM REGIONS
-ORDER BY REGION_NAME ASC
-;
-
-
 -- ======================================================================================================== INTERMEDIATE
 
 

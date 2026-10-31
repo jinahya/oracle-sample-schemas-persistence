@@ -67,6 +67,17 @@ import java.util.Objects;
                     SELECT COUNT(e)
                     FROM Customer e"""
 )
+@NamedQuery(name = "Customer.selectListPromotedByCustCityOrderByCustLastNameAsc",
+            query = """
+                    SELECT c
+                    FROM Customer c
+                    WHERE c.custCity = :custCity
+                      AND EXISTS (SELECT s
+                                  FROM Sales s
+                                  WHERE s.customer = c
+                                    AND s.promotion.promoCategory <> 'NO PROMOTION')
+                    ORDER BY c.custLastName ASC, c.custFirstName ASC, c.custId ASC"""
+)
 @NamedQuery(name = "Customer.selectListByCountryOrderByCustIdAsc",
             query = """
                     SELECT e

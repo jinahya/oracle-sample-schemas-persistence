@@ -910,6 +910,39 @@ GROUP BY p.promoCategory
 ORDER BY totalCost DESC
 ----
 
+[[SH-PROMOTIONS-I-02]]
+==== SH-PROMOTIONS-I-02 How long promotions run
+
+The promotions team is planning next year's calendar and wants to know how long each kind of promotion usually runs:
+per category, the number of promotions and the shortest, average and longest run in days, ignoring the
+`NO PROMOTION` placeholder.
+
+[source,sql]
+----
+SELECT PROMO_CATEGORY, COUNT(*) AS PROMOTIONS,
+       MIN(PROMO_END_DATE - PROMO_BEGIN_DATE + 1)        AS SHORTEST_DAYS,
+       ROUND(AVG(PROMO_END_DATE - PROMO_BEGIN_DATE + 1)) AS AVERAGE_DAYS,
+       MAX(PROMO_END_DATE - PROMO_BEGIN_DATE + 1)        AS LONGEST_DAYS
+FROM PROMOTIONS
+WHERE PROMO_CATEGORY <> 'NO PROMOTION'
+GROUP BY PROMO_CATEGORY
+ORDER BY AVERAGE_DAYS DESC, PROMO_CATEGORY
+----
+
+[source,jpaql]
+----
+SELECT p.promoCategory, p.promoBeginDate, p.promoEndDate
+FROM Promotion p
+WHERE p.promoCategory <> 'NO PROMOTION'
+ORDER BY p.promoCategory
+----
+
+Subtracting one Oracle `DATE` from another gives the number of days between them; a promotion runs on both its first
+and its last day, hence the `+ 1`. The installed dates carry no time of day, so every length is whole. JPQL has no
+arithmetic between two dates, so the JPQL fetches them and Java measures each run with
+`+ChronoUnit.DAYS.between(begin, end) + 1+` before grouping. Apart from `ad news`, whose two promotions run 215 days,
+every category averages about two months, from 29 days up to 93.
+
 === Advanced
 
 [[SH-PROMOTIONS-A-01]]
@@ -1009,7 +1042,7 @@ ORDER BY spent DESC
 ----
 
 Limit the JPQL with `query.setMaxResults(10)`. A date range on `+TIME_ID+` needs no `TIMES` join; a calendar or fiscal
-period does (see _Revenue by fiscal month_).
+period does (see _Category revenue by quarter_, under Whole schema).
 
 === Advanced
 
@@ -1433,31 +1466,6 @@ GROUP BY pr.promoId, pr.promoName, pr.promoCategory, pr.promoCost
 ORDER BY revenue DESC
 ----
 
-[[SH-SCHEMA-I-05]]
-==== SH-SCHEMA-I-05 Revenue by fiscal month
-
-Finance reports by fiscal period. Give revenue per fiscal month of fiscal year `:fiscalYear`.
-
-[source,sql]
-----
-SELECT t.FISCAL_MONTH_DESC, SUM(s.AMOUNT_SOLD) AS REVENUE
-FROM SALES s
-         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
-WHERE t.FISCAL_YEAR = :fiscalYear
-GROUP BY t.FISCAL_MONTH_DESC
-ORDER BY t.FISCAL_MONTH_DESC
-----
-
-[source,jpaql]
-----
-SELECT t.fiscalMonthDesc, SUM(s.amountSold)
-FROM Sales s
-         JOIN s.time t
-WHERE t.fiscalYear = :fiscalYear
-GROUP BY t.fiscalMonthDesc
-ORDER BY t.fiscalMonthDesc
-----
-
 [[SH-SCHEMA-I-06]]
 ==== SH-SCHEMA-I-06 Weekend versus weekday
 
@@ -1594,6 +1602,43 @@ ORDER BY p.prodId
 
 Dividing a sum of `BigDecimal` by a sum of `Integer` gives a `BigDecimal`, but its scale is up to the provider; round
 it in Java (`setScale`) rather than relying on it.
+
+[[SH-SCHEMA-I-10]]
+==== SH-SCHEMA-I-10 Customers who bought on promotion
+
+Marketing is inviting customers who respond to promotions to a preview evening in `:city` (e.g. Los Angeles). List the
+customers of the city who have bought at least once under a promotion, by name.
+
+[source,sql]
+----
+SELECT cu.CUST_ID, cu.CUST_FIRST_NAME, cu.CUST_LAST_NAME
+FROM CUSTOMERS cu
+WHERE cu.CUST_CITY = :city
+  AND EXISTS (SELECT 1
+              FROM SALES s
+                       JOIN PROMOTIONS pr ON pr.PROMO_ID = s.PROMO_ID
+              WHERE s.CUST_ID = cu.CUST_ID
+                AND pr.PROMO_CATEGORY <> 'NO PROMOTION')
+ORDER BY cu.CUST_LAST_NAME, cu.CUST_FIRST_NAME, cu.CUST_ID
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE c.custCity = :custCity
+  AND EXISTS (SELECT s
+              FROM Sales s
+              WHERE s.customer = c
+                AND s.promotion.promoCategory <> 'NO PROMOTION')
+ORDER BY c.custLastName ASC, c.custFirstName ASC, c.custId ASC
+----
+
+The JPQL is the named query `Customer.selectListPromotedByCustCityOrderByCustLastNameAsc`. `EXISTS` is a semi-join:
+a customer with many promoted sales still appears once, which a plain join would need a `DISTINCT` for, and the
+database can stop at the first matching sale. Only four promotions ever sold anything, and 999, `NO PROMOTION`, carries
+almost all the sales, so the condition is selective: of the 932 customers of Los Angeles, 202 bought anything and 117
+bought under a promotion.
 
 === Advanced
 
@@ -1992,6 +2037,79 @@ WHERE EXTRACT(YEAR FROM s.id.timeId) = :year
 
 `EXTRACT` (with `YEAR`, `QUARTER`, `MONTH`, `WEEK`, `DAY`, ...) is new in Jakarta Persistence 3.2. A JPQL `GROUP BY`
 cannot group by it portably, so a per-year breakdown still goes through `TIMES` (`GROUP BY t.calendarYear`).
+
+[[SH-SCHEMA-A-10]]
+==== SH-SCHEMA-A-10 Three-month moving average of revenue
+
+Monthly revenue jumps about too much to read a trend from. The sales director wants each month of `:year` with its
+revenue and the average of it and the two months before, a three-month moving average.
+
+[source,sql]
+----
+SELECT t.CALENDAR_MONTH_DESC,
+       SUM(s.AMOUNT_SOLD) AS REVENUE,
+       ROUND(AVG(SUM(s.AMOUNT_SOLD)) OVER (ORDER BY t.CALENDAR_MONTH_DESC
+           ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2) AS MOVING_AVERAGE
+FROM SALES s
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY t.CALENDAR_MONTH_DESC
+ORDER BY t.CALENDAR_MONTH_DESC
+----
+
+[source,jpaql]
+----
+SELECT t.calendarMonthDesc, SUM(s.amountSold)
+FROM Sales s
+         JOIN s.time t
+WHERE t.calendarYear = :year
+GROUP BY t.calendarMonthDesc
+ORDER BY t.calendarMonthDesc
+----
+
+The window function runs over the grouped rows, so `AVG(SUM(...))` averages monthly totals, not single sales. The frame
+`ROWS BETWEEN 2 PRECEDING AND CURRENT ROW` is what makes the average move; without one, an ordered window averages from
+the first month up to the current one. The first two months of the year have fewer months before them, so their average
+is over one and two months: for 2021 January's moving average is January's own 2,006,378.46. Widen the `WHERE` by two
+months and drop them afterwards for a full three-month average from January on. JPQL has no window functions; the JPQL
+gives the monthly totals, and Java averages each with the two before it.
+
+[[SH-SCHEMA-A-11]]
+==== SH-SCHEMA-A-11 Each country's share of its region
+
+Each regional sales director wants the `:year` revenue of every country of their region, with the country's share of
+the region's revenue in per cent, biggest share first.
+
+[source,sql]
+----
+SELECT co.COUNTRY_REGION, co.COUNTRY_NAME, SUM(s.AMOUNT_SOLD) AS REVENUE,
+       ROUND(100 * RATIO_TO_REPORT(SUM(s.AMOUNT_SOLD)) OVER (PARTITION BY co.COUNTRY_REGION), 2) AS SHARE_PCT
+FROM SALES s
+         JOIN CUSTOMERS cu ON cu.CUST_ID = s.CUST_ID
+         JOIN COUNTRIES co ON co.COUNTRY_ID = cu.COUNTRY_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY co.COUNTRY_REGION, co.COUNTRY_NAME
+ORDER BY co.COUNTRY_REGION, SHARE_PCT DESC
+----
+
+[source,jpaql]
+----
+SELECT co.countryRegion, co.countryName, SUM(s.amountSold)
+FROM Sales s
+         JOIN s.customer cu
+         JOIN cu.country co
+         JOIN s.time t
+WHERE t.calendarYear = :year
+GROUP BY co.countryRegion, co.countryName
+ORDER BY co.countryRegion
+----
+
+`RATIO_TO_REPORT(x) OVER (PARTITION BY region)` divides each country's revenue by the sum over its region, so the
+shares of a region add up to 100 (give or take the rounding). The partition is what makes it a share of the region
+rather than of the world; `OVER ()` would give the latter. JPQL has no window functions: the JPQL gives the revenue per
+country, and Java sums each region and divides. In 2021 the United States take 95.16% of the Americas, and the Middle
+East and Oceania have one buying country each, at 100%.
 
 == References
 

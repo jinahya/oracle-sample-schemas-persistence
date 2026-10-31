@@ -131,17 +131,6 @@ ORDER BY REVENUE DESC
 ;
 
 
--- ------------------------------------------------------------------------------ SH-SCHEMA-I-05 Revenue by fiscal month
--- Finance reports by fiscal period. Give revenue per fiscal month of fiscal year :fiscalYear.
-SELECT t.FISCAL_MONTH_DESC, SUM(s.AMOUNT_SOLD) AS REVENUE
-FROM SALES s
-         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
-WHERE t.FISCAL_YEAR = :fiscalYear
-GROUP BY t.FISCAL_MONTH_DESC
-ORDER BY t.FISCAL_MONTH_DESC
-;
-
-
 -- ------------------------------------------------------------------------------- SH-SCHEMA-I-06 Weekend versus weekday
 -- Each channel manager wants to know how their channel's :year revenue splits between weekends and weekdays.
 -- (DAY_NUMBER_IN_WEEK runs from 1, Monday, to 7, Sunday.)
@@ -201,6 +190,21 @@ FROM SALES s
 WHERE t.CALENDAR_YEAR = :year
 GROUP BY p.PROD_ID, p.PROD_NAME, p.PROD_LIST_PRICE
 ORDER BY REALISED_RATIO
+;
+
+
+-- -------------------------------------------------------------------- SH-SCHEMA-I-10 Customers who bought on promotion
+-- Marketing is inviting customers who respond to promotions to a preview evening in :city (e.g. Los Angeles). List the
+-- customers of the city who have bought at least once under a promotion, by name.
+SELECT cu.CUST_ID, cu.CUST_FIRST_NAME, cu.CUST_LAST_NAME
+FROM CUSTOMERS cu
+WHERE cu.CUST_CITY = :city
+  AND EXISTS (SELECT 1
+              FROM SALES s
+                       JOIN PROMOTIONS pr ON pr.PROMO_ID = s.PROMO_ID
+              WHERE s.CUST_ID = cu.CUST_ID
+                AND pr.PROMO_CATEGORY <> 'NO PROMOTION')
+ORDER BY cu.CUST_LAST_NAME, cu.CUST_FIRST_NAME, cu.CUST_ID
 ;
 
 
@@ -364,4 +368,36 @@ FROM SALES s
          JOIN TIMES t ON t.TIME_ID = s.TIME_ID
 WHERE EXTRACT(YEAR FROM s.TIME_ID) = :year
   AND t.CALENDAR_YEAR <> EXTRACT(YEAR FROM s.TIME_ID)
+;
+
+
+-- ---------------------------------------------------------------- SH-SCHEMA-A-10 Three-month moving average of revenue
+-- Monthly revenue jumps about too much to read a trend from. The sales director wants each month of :year with its
+-- revenue and the average of it and the two months before, a three-month moving average.
+SELECT t.CALENDAR_MONTH_DESC,
+       SUM(s.AMOUNT_SOLD)                                 AS REVENUE,
+       ROUND(AVG(SUM(s.AMOUNT_SOLD)) OVER (ORDER BY t.CALENDAR_MONTH_DESC
+           ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2) AS MOVING_AVERAGE
+FROM SALES s
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY t.CALENDAR_MONTH_DESC
+ORDER BY t.CALENDAR_MONTH_DESC
+;
+
+
+-- ------------------------------------------------------------------- SH-SCHEMA-A-11 Each country's share of its region
+-- Each regional sales director wants the :year revenue of every country of their region, with the country's share of
+-- the region's revenue in per cent, biggest share first.
+SELECT co.COUNTRY_REGION,
+       co.COUNTRY_NAME,
+       SUM(s.AMOUNT_SOLD)                                                                        AS REVENUE,
+       ROUND(100 * RATIO_TO_REPORT(SUM(s.AMOUNT_SOLD)) OVER (PARTITION BY co.COUNTRY_REGION), 2) AS SHARE_PCT
+FROM SALES s
+         JOIN CUSTOMERS cu ON cu.CUST_ID = s.CUST_ID
+         JOIN COUNTRIES co ON co.COUNTRY_ID = cu.COUNTRY_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY co.COUNTRY_REGION, co.COUNTRY_NAME
+ORDER BY co.COUNTRY_REGION, SHARE_PCT DESC
 ;

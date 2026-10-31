@@ -47,15 +47,6 @@ ORDER BY product_inventory ASC
 ;
 
 
--- ------------------------------------------------------------------------ CO-INVENTORY-B-03 A store's emptiest shelves
--- A store manager wants every product their store stocks, lowest stock first, to plan the next order.
-SELECT *
-FROM inventory
-WHERE store_id = :storeId
-ORDER BY product_inventory ASC
-;
-
-
 -- ======================================================================================================== INTERMEDIATE
 
 

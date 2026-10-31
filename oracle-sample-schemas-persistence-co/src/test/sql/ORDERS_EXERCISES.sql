@@ -115,3 +115,17 @@ FROM orders
 WHERE customer_id = :customerId
 ORDER BY order_tms
 ;
+
+
+-- ----------------------------------------------------------------- CO-ORDERS-A-03 New and returning customers by month
+-- Marketing wants to know whether the store still wins new customers or lives on its regulars: per month, how many
+-- orders were a customer's first order and how many came from a customer who had ordered before.
+SELECT TO_CHAR(order_tms, 'YYYY-MM')      AS order_month,
+       COUNT(CASE WHEN rn = 1 THEN 1 END) AS first_orders,
+       COUNT(CASE WHEN rn > 1 THEN 1 END) AS repeat_orders
+FROM (SELECT order_tms,
+             ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY order_tms, order_id) AS rn
+      FROM orders)
+GROUP BY TO_CHAR(order_tms, 'YYYY-MM')
+ORDER BY order_month
+;
