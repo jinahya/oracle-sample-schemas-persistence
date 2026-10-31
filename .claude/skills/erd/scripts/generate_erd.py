@@ -30,9 +30,10 @@ from pathlib import Path
 # the sans-serif the book's PDF draws SVG text in (its theme's svg fallback font), so Graphviz sizes every cell for the
 # text that will be in it
 FONT = "Noto Sans KR"
-# 9pt comes out at 8.1pt at the book's svg-scale of 0.9, a little under its 9pt body text
+# 9pt comes out at 8.1pt at the book's svg-scale of 0.9, a little under its 9pt body text; every text of every diagram,
+# names and badges alike, is set in this one size
 FONT_SIZE = 9
-BADGE_SIZE = 7.5
+BADGE_SIZE = FONT_SIZE
 INK = "#000000"
 MUTED = "#555555"
 LINE = "#8a8a8a"
@@ -129,7 +130,8 @@ def graph(model, objects, subject, rankdir, views_of=None):
     names = set(objects)
     lines = [
         "digraph erd {",
-        f'  graph [rankdir={rankdir}, nodesep=0.4, ranksep=0.6, pad=0.1];',
+        # transparent, so the diagram takes the colour of the page it is on
+        f'  graph [rankdir={rankdir}, nodesep=0.4, ranksep=0.6, pad=0.1, bgcolor="transparent"];',
         f'  node [shape=plain, fontname="{FONT}", fontsize={FONT_SIZE}];',
         f'  edge [color="{LINE}", arrowsize=0.8, penwidth=1.2];',
     ]

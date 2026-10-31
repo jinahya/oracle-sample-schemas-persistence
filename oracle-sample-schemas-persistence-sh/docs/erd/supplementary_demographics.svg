@@ -9,17 +9,16 @@
  viewBox="0.00 0.00 165.00 65.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(7.2 58.2)">
 <title>erd</title>
-<polygon fill="white" stroke="none" points="-7.2,7.2 -7.2,-58.2 157.95,-58.2 157.95,7.2 -7.2,7.2"/>
 <!-- supplementary_demographics -->
 <g id="node1" class="node">
 <title>supplementary_demographics</title>
 <polygon fill="#1f4e79" stroke="none" points="0,-25.5 0,-51 150.75,-51 150.75,-25.5 0,-25.5"/>
 <polygon fill="none" stroke="#000000" points="0,-25.5 0,-51 150.75,-51 150.75,-25.5 0,-25.5"/>
 <text xml:space="preserve" text-anchor="start" x="6" y="-37.45" font-family="Noto Sans KR" font-weight="bold" font-size="9.00" fill="#ffffff">supplementary_demographics</text>
-<polygon fill="none" stroke="#000000" points="0,0 0,-25.5 85.88,-25.5 85.88,0 0,0"/>
+<polygon fill="none" stroke="#000000" points="0,0 0,-25.5 84.38,-25.5 84.38,0 0,0"/>
 <text xml:space="preserve" text-anchor="start" x="6" y="-11.95" font-family="Noto Sans KR" text-decoration="underline" font-size="9.00">cust_id</text>
-<polygon fill="none" stroke="#000000" points="85.88,0 85.88,-25.5 150.75,-25.5 150.75,0 85.88,0"/>
-<text xml:space="preserve" text-anchor="start" x="91.88" y="-9.75" font-family="Noto Sans KR" font-size="7.00" fill="#555555">PK</text>
+<polygon fill="none" stroke="#000000" points="84.38,0 84.38,-25.5 150.75,-25.5 150.75,0 84.38,0"/>
+<text xml:space="preserve" text-anchor="start" x="90.38" y="-9" font-family="Noto Sans KR" font-size="9.00" fill="#555555">PK</text>
 </g>
 </g>
 </svg>

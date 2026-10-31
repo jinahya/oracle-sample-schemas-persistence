@@ -5,35 +5,34 @@
  -->
 <!-- Title: erd Pages: 1 -->
 <!-- co.product_reviews: the view and the tables it reads -->
-<svg width="223pt" height="65pt"
- viewBox="0.00 0.00 223.00 65.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="226pt" height="65pt"
+ viewBox="0.00 0.00 226.00 65.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(7.2 58.2)">
 <title>erd</title>
-<polygon fill="white" stroke="none" points="-7.2,7.2 -7.2,-58.2 215.95,-58.2 215.95,7.2 -7.2,7.2"/>
 <!-- product_reviews -->
 <g id="node1" class="node">
 <title>product_reviews</title>
-<polygon fill="none" stroke="#000000" stroke-dasharray="5,2" points="121,-2.5 121,-48.5 208.75,-48.5 208.75,-2.5 121,-2.5"/>
-<polygon fill="#1f4e79" stroke="none" stroke-dasharray="5,2" points="122,-24 122,-47.5 207.75,-47.5 207.75,-24 122,-24"/>
-<text xml:space="preserve" text-anchor="start" x="127" y="-34.95" font-family="Noto Sans KR" font-weight="bold" font-size="9.00" fill="#ffffff">product_reviews</text>
-<text xml:space="preserve" text-anchor="start" x="157" y="-10.75" font-family="Noto Sans KR" font-size="7.00" fill="#555555">VIEW</text>
+<polygon fill="none" stroke="#000000" stroke-dasharray="5,2" points="124,-1 124,-50 211.75,-50 211.75,-1 124,-1"/>
+<polygon fill="#1f4e79" stroke="none" stroke-dasharray="5,2" points="125,-25.5 125,-49 210.75,-49 210.75,-25.5 125,-25.5"/>
+<text xml:space="preserve" text-anchor="start" x="130" y="-36.45" font-family="Noto Sans KR" font-weight="bold" font-size="9.00" fill="#ffffff">product_reviews</text>
+<text xml:space="preserve" text-anchor="start" x="157" y="-10" font-family="Noto Sans KR" font-size="9.00" fill="#555555">VIEW</text>
 </g>
 <!-- products -->
 <g id="node2" class="node">
 <title>products</title>
-<polygon fill="#d9e2ec" stroke="none" points="0,-25.5 0,-51 78,-51 78,-25.5 0,-25.5"/>
-<polygon fill="none" stroke="#000000" points="0,-25.5 0,-51 78,-51 78,-25.5 0,-25.5"/>
-<text xml:space="preserve" text-anchor="start" x="18.75" y="-37.45" font-family="Noto Sans KR" font-weight="bold" font-size="9.00" fill="#000000">products</text>
+<polygon fill="#d9e2ec" stroke="none" points="0,-25.5 0,-51 81,-51 81,-25.5 0,-25.5"/>
+<polygon fill="none" stroke="#000000" points="0,-25.5 0,-51 81,-51 81,-25.5 0,-25.5"/>
+<text xml:space="preserve" text-anchor="start" x="20.25" y="-37.45" font-family="Noto Sans KR" font-weight="bold" font-size="9.00" fill="#000000">products</text>
 <polygon fill="none" stroke="#000000" points="0,0 0,-25.5 57,-25.5 57,0 0,0"/>
 <text xml:space="preserve" text-anchor="start" x="6" y="-11.95" font-family="Noto Sans KR" text-decoration="underline" font-size="9.00">product_id</text>
-<polygon fill="none" stroke="#000000" points="57,0 57,-25.5 78,-25.5 78,0 57,0"/>
-<text xml:space="preserve" text-anchor="start" x="63" y="-9.75" font-family="Noto Sans KR" font-size="7.00" fill="#555555">PK</text>
+<polygon fill="none" stroke="#000000" points="57,0 57,-25.5 81,-25.5 81,0 57,0"/>
+<text xml:space="preserve" text-anchor="start" x="63" y="-9" font-family="Noto Sans KR" font-size="9.00" fill="#555555">PK</text>
 </g>
 <!-- products&#45;&gt;product_reviews -->
 <g id="edge1" class="edge">
 <title>products&#45;&gt;product_reviews</title>
-<path fill="none" stroke="#8a8a8a" stroke-width="1.2" stroke-dasharray="5,2" d="M77.84,-25.5C88.51,-25.5 100.32,-25.5 111.67,-25.5"/>
-<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="119.61,-25.5 111.61,-29.1 117.07,-25.6 111.61,-25.6 111.61,-25.5 111.61,-25.4 117.07,-25.4 111.61,-21.9 119.61,-25.5"/>
+<path fill="none" stroke="#8a8a8a" stroke-width="1.2" stroke-dasharray="5,2" d="M80.83,-25.5C91.6,-25.5 103.44,-25.5 114.81,-25.5"/>
+<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="122.75,-25.5 114.75,-29.1 120.21,-25.6 114.75,-25.6 114.75,-25.5 114.75,-25.4 120.21,-25.4 114.75,-21.9 122.75,-25.5"/>
 </g>
 </g>
 </svg>
