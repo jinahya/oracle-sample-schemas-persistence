@@ -280,7 +280,7 @@ leftovers.
 | unit tests and ITs | `_mvn_jakarta_ee_11_verify_hibernate-orm.sh` | `_mvn_jakarta_ee_11_verify_eclipselink.sh` |
 | no test, but still compiles them | `_mvn_jakarta_ee_11_verify_notests_hibernate-orm.sh` | `_mvn_jakarta_ee_11_verify_notests_eclipselink.sh` |
 
-The ITs want a live Oracle at `localhost:1521/freepdb1`; `./_docker-compose-up.sh` brings
+The ITs want a live Oracle at `localhost:1521/freepdb1`; `./compose.sh` brings
 one up. The `_verify_notests_` pair is the one to reach for when there is no database.
 
 Which half of a `verify` run executes is chosen by two separate flags, because **as of

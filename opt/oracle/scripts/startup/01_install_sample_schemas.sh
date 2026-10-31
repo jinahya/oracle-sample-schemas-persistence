@@ -74,11 +74,11 @@ EOSQL
         # whether you run this hook or follow the manual steps in the README. Everything
         # populated by INSERT (SH.CHANNELS, SH.COUNTRIES and SH.PRODUCTS) loads correctly.
         # Call that out rather than failing the whole schema: SQLcl is a client tool, so
-        # ../../../../_docker-compose-up.sh re-runs sh_install.sql from the host, where
+        # ../../../../compose.sh re-runs sh_install.sql from the host, where
         # SQLcl lives, and that install is the one that fills all nine tables.
         if grep -q 'SP2-0158.*"LOAD"' "${workdir}/${schema}.out"; then
             echo "sample-schemas: ${schema} installed (partial: tables bulk-loaded via" \
-                 "SQLcl 'LOAD' are empty -- _docker-compose-up.sh finishes the job)"
+                 "SQLcl 'LOAD' are empty -- compose.sh finishes the job)"
         fi
         if grep -qE 'ORA-[0-9]+' "${workdir}/${schema}.out"; then
             echo "sample-schemas: ${schema} FAILED"
