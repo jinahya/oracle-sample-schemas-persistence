@@ -26,7 +26,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.hr;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Region_PersistenceTest extends _Entity_Persistence_Test<Region> {
+class Region_PersistenceTest extends _Entity_PersistenceTest<Region> {
 
     Region_PersistenceTest() {
         super(Region.class);

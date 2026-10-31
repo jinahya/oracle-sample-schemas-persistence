@@ -441,7 +441,7 @@ provider-neutral and EclipseLink runs against them unchanged. Every module's `pe
 lives under `src/test/resources/META-INF`, and EclipseLink's processor sits commented out in the
 profile beside a note on how to go back. What this gives up is coverage of EclipseLink's
 processor; EclipseLink is still exercised as the persistence provider by every
-`*_Persistence_Test` and `*_Persistence_IT`.
+`*_PersistenceTest` and `*_PersistenceIT`.
 
 **H2 identifier case.** The in-memory test URL carries
 `;database_to_upper=false;MODE=LEGACY` because of

@@ -9,8 +9,8 @@
 # above the statement.
 #
 # `sql` is the file that answers the exercise in SQL. `named-queries` lists the entity's @NamedQuery that answers the
-# exercise, by its name; the nested test class of that query, in the entity's *_Persistence_Test and
-# *_Persistence_IT, names the exercise id in its javadoc.
+# exercise, by its name; the nested test class of that query, in the entity's *_PersistenceTest and
+# *_PersistenceIT, names the exercise id in its javadoc.
 
 # ---- customers
 

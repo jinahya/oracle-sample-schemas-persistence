@@ -25,7 +25,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class SupplementaryDemographics_PersistenceIT extends _Entity_Persistence_IT<SupplementaryDemographics> {
+class SupplementaryDemographics_PersistenceIT extends _Entity_PersistenceIT<SupplementaryDemographics> {
 
     SupplementaryDemographics_PersistenceIT() {
         super(SupplementaryDemographics.class);

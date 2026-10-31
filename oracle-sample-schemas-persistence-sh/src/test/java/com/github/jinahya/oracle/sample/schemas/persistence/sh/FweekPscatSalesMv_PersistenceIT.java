@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class FweekPscatSalesMv_PersistenceIT extends _Entity_Persistence_IT<FweekPscatSalesMv> {
+class FweekPscatSalesMv_PersistenceIT extends _Entity_PersistenceIT<FweekPscatSalesMv> {
 
     FweekPscatSalesMv_PersistenceIT() {
         super(FweekPscatSalesMv.class);

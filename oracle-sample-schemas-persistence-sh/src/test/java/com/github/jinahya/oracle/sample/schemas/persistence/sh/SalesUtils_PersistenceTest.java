@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
-import static com.github.jinahya.oracle.sample.schemas.persistence.sh._Entity_Persistence_Test_Producer.__TestPU;
+import static com.github.jinahya.oracle.sample.schemas.persistence.sh._Entity_PersistenceTest_Producer.__TestPU;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -44,7 +44,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@AddBeanClasses(_Entity_Persistence_Test_Producer.class)
+@AddBeanClasses(_Entity_PersistenceTest_Producer.class)
 @EnableAutoWeld
 class SalesUtils_PersistenceTest {
 

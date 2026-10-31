@@ -790,8 +790,8 @@
           providers green, 129 tests, with the descriptors in src/test/resources.
 
           What this costs: the EclipseLink profile no longer exercises EclipseLink's metamodel processor.
-          It still exercises EclipseLink as the persistence provider — every *_Persistence_Test and
-          *_Persistence_IT runs against it — which is the behavioural difference this profile exists for.
+          It still exercises EclipseLink as the persistence provider — every *_PersistenceTest and
+          *_PersistenceIT runs against it — which is the behavioural difference this profile exists for.
 
           To go back, uncomment the three properties AND move every module's META-INF back to
           src/main/resources; neither half works without the other.

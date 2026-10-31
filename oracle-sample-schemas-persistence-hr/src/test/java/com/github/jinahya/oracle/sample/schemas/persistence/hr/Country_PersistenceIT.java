@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Country_PersistenceIT extends _Entity_Persistence_IT<Country> {
+class Country_PersistenceIT extends _Entity_PersistenceIT<Country> {
 
     // -----------------------------------------------------------------------------------------------------------------
     private static final Comparator<Country> COUNTRY_NAME_ASC =

@@ -26,7 +26,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class SupplementaryDemographics_PersistenceTest
-        extends _Entity_Persistence_Test<SupplementaryDemographics> {
+        extends _Entity_PersistenceTest<SupplementaryDemographics> {
 
     SupplementaryDemographics_PersistenceTest() {
         super(SupplementaryDemographics.class);

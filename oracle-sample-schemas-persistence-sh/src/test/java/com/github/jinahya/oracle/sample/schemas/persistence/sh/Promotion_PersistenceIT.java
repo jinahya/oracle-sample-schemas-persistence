@@ -25,7 +25,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Promotion_PersistenceIT extends _Entity_Persistence_IT<Promotion> {
+class Promotion_PersistenceIT extends _Entity_PersistenceIT<Promotion> {
 
     Promotion_PersistenceIT() {
         super(Promotion.class);

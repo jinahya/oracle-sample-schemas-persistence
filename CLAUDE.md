@@ -115,7 +115,7 @@ therefore live under **`src/test/resources/META-INF`**, and the jars carry entit
 only.
 
 What this gives up is coverage of EclipseLink's metamodel processor. EclipseLink is still
-exercised as the persistence provider — every `*_Persistence_Test` and `*_Persistence_IT` runs
+exercised as the persistence provider — every `*_PersistenceTest` and `*_PersistenceIT` runs
 against it — which is the behavioural difference the profile exists for.
 
 Each module names its persistence units after its schema -- `co-test` / `co-it`, `hr-test` /
@@ -135,8 +135,8 @@ would look for their tables in the wrong schema.
 ### Test bases, one copy per module
 
 There is no shared test module. Each module has, in its own test package, its own test bases,
-their CDI producers `_Entity_Persistence_Test_Producer` /
-`_Entity_Persistence_IT_Producer`, and the helper `___Persistence_TestUtils`. The bases are
+their CDI producers `_Entity_PersistenceTest_Producer` /
+`_Entity_PersistenceIT_Producer`, and the helper `___Persistence_TestUtils`. The bases are
 one root and four siblings, none of which extends another, plus one interface holding the checks:
 
 | base | tests | for |
@@ -145,8 +145,8 @@ one root and four siblings, none of which extends another, plus one interface ho
 | `__Object_Test<T>` (interface) | `toString`, `equals`/`hashCode`, accessors, as `@Test` default methods | mixed into the two bases below |
 | `_NonEntity_Test<T>` | `toString`, `equals`/`hashCode`, accessors | a class with no identity: an id class, an embeddable, a mapped JSON document |
 | `_Entity_Test<T>` | the same, and any check only such a class has | a class mapping a table or a view, keyless views included |
-| `_Entity_Persistence_Test<T>` | the mapping, against the `<schema>-test` unit | an entity |
-| `_Entity_Persistence_IT<T>` | the mapping, against the `<schema>-it` unit | an entity |
+| `_Entity_PersistenceTest<T>` | the mapping, against the `<schema>-test` unit | an entity |
+| `_Entity_PersistenceIT<T>` | the mapping, against the `<schema>-it` unit | an entity |
 
 A class gets one of `_NonEntity_Test` / `_Entity_Test`, and an entity also gets the last two.
 

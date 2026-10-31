@@ -25,7 +25,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Time_PersistenceTest extends _Entity_Persistence_Test<Time> {
+class Time_PersistenceTest extends _Entity_PersistenceTest<Time> {
 
     Time_PersistenceTest() {
         super(Time.class);

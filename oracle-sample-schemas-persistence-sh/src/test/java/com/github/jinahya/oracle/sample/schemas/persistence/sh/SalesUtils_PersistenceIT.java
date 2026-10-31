@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-import static com.github.jinahya.oracle.sample.schemas.persistence.sh._Entity_Persistence_IT_Producer.__ItPU;
+import static com.github.jinahya.oracle.sample.schemas.persistence.sh._Entity_PersistenceIT_Producer.__ItPU;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.data.Offset.offset;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -44,7 +44,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@AddBeanClasses(_Entity_Persistence_IT_Producer.class)
+@AddBeanClasses(_Entity_PersistenceIT_Producer.class)
 @EnableAutoWeld
 class SalesUtils_PersistenceIT {
 

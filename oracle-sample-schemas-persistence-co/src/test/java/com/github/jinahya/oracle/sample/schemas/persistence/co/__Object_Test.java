@@ -35,8 +35,8 @@ import static org.assertj.core.api.Assertions.assertThatCode;
  * The checks a class has to pass on its own -- a usable {@code toString()}, an {@code equals}/{@code hashCode} pair,
  * and property accessors which round-trip -- as tests a base class takes on by implementing this interface.
  * <p>
- * {@link _NonEntity_Test} and {@link _Entity_Test} implement it; {@link _Entity_Persistence_Test} and
- * {@link _Entity_Persistence_IT} do not, so they do not run these again.
+ * {@link _NonEntity_Test} and {@link _Entity_Test} implement it; {@link _Entity_PersistenceTest} and
+ * {@link _Entity_PersistenceIT} do not, so they do not run these again.
  *
  * @param <T> the type of the target class.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;

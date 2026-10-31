@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class JobHistory_PersistenceIT extends _Entity_Persistence_IT<JobHistory> {
+class JobHistory_PersistenceIT extends _Entity_PersistenceIT<JobHistory> {
 
     JobHistory_PersistenceIT() {
         super(JobHistory.class);
