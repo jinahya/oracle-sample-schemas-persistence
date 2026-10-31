@@ -110,9 +110,6 @@
     <!-- https://www.oracle.com/kr/database/technologies/appdev/jdbc-downloads.html -->
     <!-- https://central.sonatype.com/artifact/com.oracle.database.jdbc/ojdbc17/versions -->
     <version.com.oracle.database.jdbc>23.26.3.0.0</version.com.oracle.database.jdbc>
-    <!-- https://central.sonatype.com/artifact/ch.qos.logback/logback-classic/versions -->
-    <!-- https://central.sonatype.com/artifact/ch.qos.logback/logback-parent -->
-    <version.ch.qus.logback>1.6.5</version.ch.qus.logback>
     <!-- https://central.sonatype.com/artifact/com.h2database/h2/versions -->
     <version.com.h2database>2.5.252</version.com.h2database>
     <!-- https://jakarta.ee/specifications/platform/11/ -->
@@ -157,11 +154,6 @@
   <dependencyManagement>
     <dependencies>
 
-      <dependency>
-        <groupId>ch.qos.logback</groupId>
-        <artifactId>logback-classic</artifactId>
-        <version>${version.ch.qus.logback}</version>
-      </dependency>
       <dependency><!-- https://central.sonatype.com/artifact/com.fasterxml.jackson/jackson-bom/versions -->
         <groupId>com.fasterxml.jackson</groupId>
         <artifactId>jackson-bom</artifactId>

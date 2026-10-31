@@ -18,11 +18,6 @@
   <dependencies>
 
     <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <scope>test</scope>
@@ -117,8 +112,8 @@
         The randomizers and persisters are compiled with the tests, which use them, and packaged here as a second jar,
         classified test-companion, which a consumer of hr takes at <scope>test</scope>. A classified jar shares this
         pom, in which the libraries they need, podam and jinahya-persistence-test-utils, are test-scoped, so it
-        brings none of them; the consumer declares its own. The includes are what keep the tests, persistence.xml,
-        orm-it.xml and logback-test.xml out of it.
+        brings none of them; the consumer declares its own. The includes are what keep the tests, persistence.xml
+        and orm-it.xml out of it.
       -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
