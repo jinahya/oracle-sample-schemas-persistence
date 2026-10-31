@@ -149,7 +149,7 @@ class Employee_PersistenceIT extends _Entity_Persistence_IT<Employee> {
 
     /**
      * Tests {@code Employee.selectListByManagerOfManagerOrderByLastNameAsc}, which answers exercise
-     * {@code HR-EMPLOYEES-I-06}.
+     * {@code HR_EMPLOYEES_I_06}.
      */
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)

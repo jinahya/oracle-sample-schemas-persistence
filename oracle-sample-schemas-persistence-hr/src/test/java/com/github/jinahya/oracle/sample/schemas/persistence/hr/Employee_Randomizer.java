@@ -48,8 +48,11 @@ class Employee_Randomizer extends PodamObjectRandomizer<Employee> {
     // -----------------------------------------------------------------------------------------------------------------
     Employee_Randomizer() {
         super(Employee.class, List.of(
+                Employee.ATTRIBUTE_NAME_JOB_ID,
                 Employee.ATTRIBUTE_NAME_JOB,
+                Employee.ATTRIBUTE_NAME_MANAGER_ID,
                 Employee.ATTRIBUTE_NAME_MANAGER,
+                Employee.ATTRIBUTE_NAME_DEPARTMENT_ID,
                 Employee.ATTRIBUTE_NAME_DEPARTMENT,
                 Employee.ATTRIBUTE_NAME_SUBORDINATES,
                 Employee.ATTRIBUTE_NAME_MANAGED_DEPARTMENTS,

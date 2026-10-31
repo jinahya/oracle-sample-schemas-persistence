@@ -21,12 +21,13 @@
 /**
  * Jakarta Persistence mappings for the {@code HR} (Human Resources) schema of the Oracle Database Sample Schemas.
  * <p>
- * The persistence and validation APIs appear in the entities' public signatures, so a reader of this module reads them
- * too. So do the nullness annotations of {@code jakarta.annotation}, but that one is also static: they are not needed
- * at run time.
+ * The module holds mapped superclasses, one per table and view, which an application extends with its own entities.
+ * The persistence and validation APIs appear in the mapped superclasses' public signatures, so a reader of this module
+ * reads them too. So do the nullness annotations of {@code jakarta.annotation}, but that one is also static: they are
+ * not needed at run time.
  * <p>
- * Both packages are opened, not only exported, because a persistence provider and a validation provider reach the
- * entities' private fields reflectively; neither can be named here, since the provider is the consumer's choice.
+ * The package is opened, not only exported, because a persistence provider and a validation provider reach the mapped
+ * superclasses' private fields reflectively; neither can be named here, since the provider is the consumer's choice.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -36,7 +37,7 @@ module com.github.jinahya.oracle.sample.schemas.persistence.hr {
     requires transitive jakarta.persistence;
     requires transitive jakarta.validation;
 
-    exports com.github.jinahya.oracle.sample.schemas.persistence.hr;
+    exports com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 
-    opens com.github.jinahya.oracle.sample.schemas.persistence.hr;
+    opens com.github.jinahya.oracle.sample.schemas.persistence.hr.mapped;
 }

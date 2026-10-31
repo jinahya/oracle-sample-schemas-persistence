@@ -43,7 +43,7 @@ class Inventory_Persistence_Test extends _Entity_Persistence_Test<Inventory> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Tests {@code Inventory.selectOneByStoreAndProduct}, which answers exercise {@code CO-INVENTORY-B-01}.
+     * Tests {@code Inventory.selectOneByStoreAndProduct}, which answers exercise {@code CO_INVENTORY_B_01}.
      */
     @Nested
     class SelectOneByStoreAndProduct_Test {
@@ -109,7 +109,7 @@ class Inventory_Persistence_Test extends _Entity_Persistence_Test<Inventory> {
 
     /**
      * Tests {@code Inventory.selectOneByProductOrderByProductInventoryAsc}, which answers exercise
-     * {@code CO-INVENTORY-B-02}.
+     * {@code CO_INVENTORY_B_02}.
      */
     @Nested
     class SelectOneByProductOrderByProductInventoryAsc_Test {
@@ -172,7 +172,7 @@ class Inventory_Persistence_Test extends _Entity_Persistence_Test<Inventory> {
 
     /**
      * Tests {@code Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc}, which answers exercise
-     * {@code CO-SCHEMA-A-16}.
+     * {@code CO_SCHEMA_A_16}.
      * <p>
      * The persisted inventory has a store and a product of its own, and no order item sells the product at the store,
      * so it is unsold stock as soon as it holds any.

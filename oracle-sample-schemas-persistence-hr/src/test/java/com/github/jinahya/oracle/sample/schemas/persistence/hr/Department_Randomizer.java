@@ -39,7 +39,9 @@ class Department_Randomizer extends PodamObjectRandomizer<Department> {
 
     Department_Randomizer() {
         super(Department.class, List.of(
+                Department.ATTRIBUTE_NAME_MANAGER_ID,
                 Department.ATTRIBUTE_NAME_MANAGER,
+                Department.ATTRIBUTE_NAME_LOCATION_ID,
                 Department.ATTRIBUTE_NAME_LOCATION,
                 Department.ATTRIBUTE_NAME_EMPLOYEES,
                 Department.ATTRIBUTE_NAME_JOB_HISTORIES

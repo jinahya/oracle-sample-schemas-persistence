@@ -1,0 +1,422 @@
+# Registry of the exercises in EXERCISES.asciidoc and src/test/sql/exercises/*_exercises_*.sql.
+#
+# An id is HR_<SECTION>_<TIER>_<NN>: the table or view the exercise reads alone, or SCHEMA for one that reads more
+# than one, the tier (B for Basic, I for Intermediate, A for Advanced), and a number within that section and tier.
+#
+# Ids are permanent. A new exercise takes the next unused number of its section and tier; an exercise that moves or
+# changes tier keeps its id; an id of a removed exercise is marked `retired: true` and never reused. EXERCISES.asciidoc
+# carries each id as the anchor and the prefix of the exercise's heading, and the .sql file repeats it in the marker
+# above the statement.
+#
+# `sql` is the file that answers the exercise in SQL. `named-queries` lists the entity's @NamedQuery that answers the
+# exercise, by its name; the nested test class of that query, in the entity's *_Persistence_Test and
+# *_Persistence_IT, names the exercise id in its javadoc.
+
+# ---- countries
+
+- id: HR_COUNTRIES_B_01
+  section: "COUNTRIES"
+  tier: Basic
+  title: "Country by code"
+  sql: src/test/sql/exercises/countries_exercises_01_basic.sql
+- id: HR_COUNTRIES_B_02
+  section: "COUNTRIES"
+  tier: Basic
+  title: "Countries of a region"
+  sql: src/test/sql/exercises/countries_exercises_01_basic.sql
+- id: HR_COUNTRIES_B_03
+  section: "COUNTRIES"
+  tier: Basic
+  title: "Country names too long for a badge"
+  sql: src/test/sql/exercises/countries_exercises_01_basic.sql
+- id: HR_COUNTRIES_I_01
+  section: "COUNTRIES"
+  tier: Intermediate
+  title: "Countries per region"
+  sql: src/test/sql/exercises/countries_exercises_02_intermediate.sql
+- id: HR_COUNTRIES_A_01
+  section: "COUNTRIES"
+  tier: Advanced
+  title: "Regions above the average size"
+  sql: src/test/sql/exercises/countries_exercises_03_advanced.sql
+
+# ---- departments
+
+- id: HR_DEPARTMENTS_B_01
+  section: "DEPARTMENTS"
+  tier: Basic
+  title: "Departments in a building"
+  sql: src/test/sql/exercises/departments_exercises_01_basic.sql
+- id: HR_DEPARTMENTS_B_02
+  section: "DEPARTMENTS"
+  tier: Basic
+  title: "Departments without a manager"
+  sql: src/test/sql/exercises/departments_exercises_01_basic.sql
+- id: HR_DEPARTMENTS_I_01
+  section: "DEPARTMENTS"
+  tier: Intermediate
+  title: "Departments per site"
+  sql: src/test/sql/exercises/departments_exercises_02_intermediate.sql
+- id: HR_DEPARTMENTS_I_02
+  section: "DEPARTMENTS"
+  tier: Intermediate
+  title: "Departments at a glance"
+  sql: src/test/sql/exercises/departments_exercises_02_intermediate.sql
+- id: HR_DEPARTMENTS_A_01
+  section: "DEPARTMENTS"
+  tier: Advanced
+  title: "Next free department number"
+  sql: src/test/sql/exercises/departments_exercises_03_advanced.sql
+
+# ---- employees
+
+- id: HR_EMPLOYEES_B_01
+  section: "EMPLOYEES"
+  tier: Basic
+  title: "Look up a colleague by e-mail"
+  sql: src/test/sql/exercises/employees_exercises_01_basic.sql
+- id: HR_EMPLOYEES_B_02
+  section: "EMPLOYEES"
+  tier: Basic
+  title: "A department's staff list"
+  sql: src/test/sql/exercises/employees_exercises_01_basic.sql
+- id: HR_EMPLOYEES_B_03
+  section: "EMPLOYEES"
+  tier: Basic
+  title: "Seniority list for a job"
+  sql: src/test/sql/exercises/employees_exercises_01_basic.sql
+- id: HR_EMPLOYEES_B_04
+  section: "EMPLOYEES"
+  tier: Basic
+  title: "Who is on commission"
+  sql: src/test/sql/exercises/employees_exercises_01_basic.sql
+- id: HR_EMPLOYEES_B_05
+  section: "EMPLOYEES"
+  tier: Basic
+  title: "Staff with no department"
+  sql: src/test/sql/exercises/employees_exercises_01_basic.sql
+- id: HR_EMPLOYEES_B_06
+  section: "EMPLOYEES"
+  tier: Basic
+  title: "Hired in a period"
+  sql: src/test/sql/exercises/employees_exercises_01_basic.sql
+- id: HR_EMPLOYEES_B_07
+  section: "EMPLOYEES"
+  tier: Basic
+  title: "Name search at reception"
+  sql: src/test/sql/exercises/employees_exercises_01_basic.sql
+- id: HR_EMPLOYEES_B_08
+  section: "EMPLOYEES"
+  tier: Basic
+  title: "Staff of several departments"
+  sql: src/test/sql/exercises/employees_exercises_01_basic.sql
+- id: HR_EMPLOYEES_I_01
+  section: "EMPLOYEES"
+  tier: Intermediate
+  title: "Above the company average"
+  sql: src/test/sql/exercises/employees_exercises_02_intermediate.sql
+- id: HR_EMPLOYEES_I_02
+  section: "EMPLOYEES"
+  tier: Intermediate
+  title: "Total monthly pay including commission"
+  sql: src/test/sql/exercises/employees_exercises_02_intermediate.sql
+- id: HR_EMPLOYEES_I_03
+  section: "EMPLOYEES"
+  tier: Intermediate
+  title: "Headcount per pay grade"
+  sql: src/test/sql/exercises/employees_exercises_02_intermediate.sql
+- id: HR_EMPLOYEES_I_04
+  section: "EMPLOYEES"
+  tier: Intermediate
+  title: "Earning more than the boss"
+  sql: src/test/sql/exercises/employees_exercises_02_intermediate.sql
+- id: HR_EMPLOYEES_I_05
+  section: "EMPLOYEES"
+  tier: Intermediate
+  title: "Span of control"
+  sql: src/test/sql/exercises/employees_exercises_02_intermediate.sql
+- id: HR_EMPLOYEES_I_06
+  section: "EMPLOYEES"
+  tier: Intermediate
+  title: "Skip-level meetings"
+  sql: src/test/sql/exercises/employees_exercises_02_intermediate.sql
+  named-queries:
+    - Employee.selectListByManagerOfManagerOrderByLastNameAsc
+- id: HR_EMPLOYEES_A_01
+  section: "EMPLOYEES"
+  tier: Advanced
+  title: "Top earner of each department"
+  sql: src/test/sql/exercises/employees_exercises_03_advanced.sql
+- id: HR_EMPLOYEES_A_02
+  section: "EMPLOYEES"
+  tier: Advanced
+  title: "Three best-paid per department"
+  sql: src/test/sql/exercises/employees_exercises_03_advanced.sql
+- id: HR_EMPLOYEES_A_03
+  section: "EMPLOYEES"
+  tier: Advanced
+  title: "Everyone under a manager"
+  sql: src/test/sql/exercises/employees_exercises_03_advanced.sql
+- id: HR_EMPLOYEES_A_04
+  section: "EMPLOYEES"
+  tier: Advanced
+  title: "Out-earning a whole department"
+  sql: src/test/sql/exercises/employees_exercises_03_advanced.sql
+- id: HR_EMPLOYEES_A_05
+  section: "EMPLOYEES"
+  tier: Advanced
+  title: "Work anniversaries"
+  sql: src/test/sql/exercises/employees_exercises_03_advanced.sql
+- id: HR_EMPLOYEES_A_06
+  section: "EMPLOYEES"
+  tier: Advanced
+  title: "Badges and e-mail migration"
+  sql: src/test/sql/exercises/employees_exercises_03_advanced.sql
+- id: HR_EMPLOYEES_A_07
+  section: "EMPLOYEES"
+  tier: Advanced
+  title: "Pay against the department average"
+  sql: src/test/sql/exercises/employees_exercises_03_advanced.sql
+
+# ---- emp_details_view
+
+- id: HR_EMP_DETAILS_VIEW_B_01
+  section: "EMP_DETAILS_VIEW"
+  tier: Basic
+  title: "Staff on a site"
+  sql: src/test/sql/exercises/emp_details_view_exercises_01_basic.sql
+- id: HR_EMP_DETAILS_VIEW_I_01
+  section: "EMP_DETAILS_VIEW"
+  tier: Intermediate
+  title: "Payroll by country"
+  sql: src/test/sql/exercises/emp_details_view_exercises_02_intermediate.sql
+- id: HR_EMP_DETAILS_VIEW_A_01
+  section: "EMP_DETAILS_VIEW"
+  tier: Advanced
+  title: "Best-paid in each region"
+  sql: src/test/sql/exercises/emp_details_view_exercises_03_advanced.sql
+
+# ---- jobs
+
+- id: HR_JOBS_B_01
+  section: "JOBS"
+  tier: Basic
+  title: "Salary bands, unset values flagged"
+  sql: src/test/sql/exercises/jobs_exercises_01_basic.sql
+- id: HR_JOBS_B_02
+  section: "JOBS"
+  tier: Basic
+  title: "Clerical jobs"
+  sql: src/test/sql/exercises/jobs_exercises_01_basic.sql
+- id: HR_JOBS_B_03
+  section: "JOBS"
+  tier: Basic
+  title: "Jobs an offer fits"
+  sql: src/test/sql/exercises/jobs_exercises_01_basic.sql
+- id: HR_JOBS_I_01
+  section: "JOBS"
+  tier: Intermediate
+  title: "Widest pay bands"
+  sql: src/test/sql/exercises/jobs_exercises_02_intermediate.sql
+- id: HR_JOBS_I_02
+  section: "JOBS"
+  tier: Intermediate
+  title: "The catalogue at a glance"
+  sql: src/test/sql/exercises/jobs_exercises_02_intermediate.sql
+- id: HR_JOBS_A_01
+  section: "JOBS"
+  tier: Advanced
+  title: "Bands inside another band"
+  sql: src/test/sql/exercises/jobs_exercises_03_advanced.sql
+- id: HR_JOBS_A_02
+  section: "JOBS"
+  tier: Advanced
+  title: "The next step up"
+  sql: src/test/sql/exercises/jobs_exercises_03_advanced.sql
+
+# ---- job_history
+
+- id: HR_JOB_HISTORY_B_01
+  section: "JOB_HISTORY"
+  tier: Basic
+  title: "One employee's earlier positions"
+  sql: src/test/sql/exercises/job_history_exercises_01_basic.sql
+- id: HR_JOB_HISTORY_B_02
+  section: "JOB_HISTORY"
+  tier: Basic
+  title: "Positions closed in a period"
+  sql: src/test/sql/exercises/job_history_exercises_01_basic.sql
+- id: HR_JOB_HISTORY_I_01
+  section: "JOB_HISTORY"
+  tier: Intermediate
+  title: "Turnover per job"
+  sql: src/test/sql/exercises/job_history_exercises_02_intermediate.sql
+- id: HR_JOB_HISTORY_I_02
+  section: "JOB_HISTORY"
+  tier: Intermediate
+  title: "Moved more than once"
+  sql: src/test/sql/exercises/job_history_exercises_02_intermediate.sql
+- id: HR_JOB_HISTORY_I_03
+  section: "JOB_HISTORY"
+  tier: Intermediate
+  title: "How long earlier positions lasted"
+  sql: src/test/sql/exercises/job_history_exercises_02_intermediate.sql
+- id: HR_JOB_HISTORY_A_01
+  section: "JOB_HISTORY"
+  tier: Advanced
+  title: "Consecutive moves"
+  sql: src/test/sql/exercises/job_history_exercises_03_advanced.sql
+- id: HR_JOB_HISTORY_A_02
+  section: "JOB_HISTORY"
+  tier: Advanced
+  title: "Overlapping positions"
+  sql: src/test/sql/exercises/job_history_exercises_03_advanced.sql
+
+# ---- locations
+
+- id: HR_LOCATIONS_B_01
+  section: "LOCATIONS"
+  tier: Basic
+  title: "Sites in a country"
+  sql: src/test/sql/exercises/locations_exercises_01_basic.sql
+- id: HR_LOCATIONS_B_02
+  section: "LOCATIONS"
+  tier: Basic
+  title: "Sites without a postal code"
+  sql: src/test/sql/exercises/locations_exercises_01_basic.sql
+- id: HR_LOCATIONS_I_01
+  section: "LOCATIONS"
+  tier: Intermediate
+  title: "Sites per country"
+  sql: src/test/sql/exercises/locations_exercises_02_intermediate.sql
+- id: HR_LOCATIONS_I_02
+  section: "LOCATIONS"
+  tier: Intermediate
+  title: "Address labels"
+  sql: src/test/sql/exercises/locations_exercises_02_intermediate.sql
+- id: HR_LOCATIONS_A_01
+  section: "LOCATIONS"
+  tier: Advanced
+  title: "The country with the most sites"
+  sql: src/test/sql/exercises/locations_exercises_03_advanced.sql
+
+# ---- regions
+
+- id: HR_REGIONS_B_01
+  section: "REGIONS"
+  tier: Basic
+  title: "Region by name"
+  sql: src/test/sql/exercises/regions_exercises_01_basic.sql
+- id: HR_REGIONS_B_02
+  section: "REGIONS"
+  tier: Basic
+  title: "The region list"
+  retired: true
+- id: HR_REGIONS_I_01
+  section: "REGIONS"
+  tier: Intermediate
+  title: "A number for a new region"
+  sql: src/test/sql/exercises/regions_exercises_02_intermediate.sql
+- id: HR_REGIONS_A_01
+  section: "REGIONS"
+  tier: Advanced
+  title: "Initials that clash"
+  sql: src/test/sql/exercises/regions_exercises_03_advanced.sql
+
+# ---- the schema
+
+- id: HR_SCHEMA_B_01
+  section: "SCHEMA"
+  tier: Basic
+  title: "Who manages a department"
+  sql: src/test/sql/exercises/_schema_exercises_01_basic.sql
+- id: HR_SCHEMA_B_02
+  section: "SCHEMA"
+  tier: Basic
+  title: "An employee's job title"
+  sql: src/test/sql/exercises/_schema_exercises_01_basic.sql
+- id: HR_SCHEMA_B_03
+  section: "SCHEMA"
+  tier: Basic
+  title: "Countries of a region, by name"
+  sql: src/test/sql/exercises/_schema_exercises_01_basic.sql
+- id: HR_SCHEMA_I_01
+  section: "SCHEMA"
+  tier: Intermediate
+  title: "Headcount per department"
+  sql: src/test/sql/exercises/_schema_exercises_02_intermediate.sql
+- id: HR_SCHEMA_I_02
+  section: "SCHEMA"
+  tier: Intermediate
+  title: "Monthly payroll by department"
+  retired: true
+- id: HR_SCHEMA_I_03
+  section: "SCHEMA"
+  tier: Intermediate
+  title: "Departments above a size"
+  sql: src/test/sql/exercises/_schema_exercises_02_intermediate.sql
+- id: HR_SCHEMA_I_04
+  section: "SCHEMA"
+  tier: Intermediate
+  title: "Company directory"
+  sql: src/test/sql/exercises/_schema_exercises_02_intermediate.sql
+- id: HR_SCHEMA_I_05
+  section: "SCHEMA"
+  tier: Intermediate
+  title: "Actual pay against the band"
+  sql: src/test/sql/exercises/_schema_exercises_02_intermediate.sql
+- id: HR_SCHEMA_I_06
+  section: "SCHEMA"
+  tier: Intermediate
+  title: "Due for a promotion conversation"
+  sql: src/test/sql/exercises/_schema_exercises_02_intermediate.sql
+- id: HR_SCHEMA_I_07
+  section: "SCHEMA"
+  tier: Intermediate
+  title: "Departments with nobody in them"
+  sql: src/test/sql/exercises/_schema_exercises_02_intermediate.sql
+- id: HR_SCHEMA_I_08
+  section: "SCHEMA"
+  tier: Intermediate
+  title: "Headcount by country and region"
+  sql: src/test/sql/exercises/_schema_exercises_02_intermediate.sql
+- id: HR_SCHEMA_I_09
+  section: "SCHEMA"
+  tier: Intermediate
+  title: "Employees who have changed roles"
+  sql: src/test/sql/exercises/_schema_exercises_02_intermediate.sql
+- id: HR_SCHEMA_I_10
+  section: "SCHEMA"
+  tier: Intermediate
+  title: "Never moved"
+  sql: src/test/sql/exercises/_schema_exercises_02_intermediate.sql
+- id: HR_SCHEMA_A_01
+  section: "SCHEMA"
+  tier: Advanced
+  title: "Past positions in another department"
+  sql: src/test/sql/exercises/_schema_exercises_03_advanced.sql
+- id: HR_SCHEMA_A_02
+  section: "SCHEMA"
+  tier: Advanced
+  title: "Career timeline of one employee"
+  sql: src/test/sql/exercises/_schema_exercises_03_advanced.sql
+- id: HR_SCHEMA_A_03
+  section: "SCHEMA"
+  tier: Advanced
+  title: "Back in an earlier job"
+  sql: src/test/sql/exercises/_schema_exercises_03_advanced.sql
+- id: HR_SCHEMA_A_04
+  section: "SCHEMA"
+  tier: Advanced
+  title: "Offices with no department"
+  sql: src/test/sql/exercises/_schema_exercises_03_advanced.sql
+- id: HR_SCHEMA_A_05
+  section: "SCHEMA"
+  tier: Advanced
+  title: "Department roster in one round trip"
+  sql: src/test/sql/exercises/_schema_exercises_03_advanced.sql
+- id: HR_SCHEMA_A_06
+  section: "SCHEMA"
+  tier: Advanced
+  title: "An employee's chain of command"
+  sql: src/test/sql/exercises/_schema_exercises_03_advanced.sql

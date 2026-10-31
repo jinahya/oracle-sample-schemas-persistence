@@ -16,14 +16,32 @@ independent of each other, tests included: each carries its own test bases in it
   other persistence helper library. Everything the entities need comes from
   `jakarta.persistence`, `jakarta.validation` and `jakarta.annotation`. Tests may
   use `jinahya-persistence-*` (e.g. `jinahya-persistence-test-utils`, `test` scope).
-- **Every entity is standalone.** No entity extends a superclass and there is no
-  builder layer: one class holds its own column constants, fields, accessors,
-  `toString`, and `equals`/`hashCode`. Do not introduce a shared entity superclass
-  to remove duplication between entities — the duplication is the point, because
-  it keeps each mapping readable on its own.
+- **Main holds mapped superclasses; the entities are test code.** As in the sibling
+  `postgresql-demodb-persistence`, each module's main sources are the package
+  `<schema>.mapped` alone: one `@MappedSuperclass` `Mapped<Entity>` per table and view, one
+  `Mapped<X>Id` per composite identifier, and the embeddables and converters that carry no
+  association. A mapped superclass holds what the schema says -- names, types, lengths,
+  nullability, check constraints as validation constraints, `toString`/`equals`/`hashCode` --
+  and nothing an application decides: no association, no fetch type, no cascade, no named
+  query. The entities (`Customer extends MappedCustomer`, ...) live in `src/test/java`, package
+  `<schema>`, and add `@Entity`, `@Table`, the named queries and the associations.
+- **A foreign-key column is read-only in the mapped superclass.** It is a basic attribute with
+  `insertable = false, updatable = false`, a `public` getter and a `protected` setter; the
+  entity owns its writable mapping through the association's `@JoinColumn`, and the
+  association's setter keeps the id in step. Each column's writability is split, never changed.
+- **An `@EmbeddedId` is declared by the entity, not by the mapped superclass.** Unlike postgres's
+  `MappedRoute<T>`, no mapped superclass here holds an `@EmbeddedId T id`: EclipseLink 5.0 reads
+  the type variable as `String` (EclipseLink-7246), or fails predeploy with a
+  `ConcurrentModificationException`, depending on the unit's classes. The mapped superclass
+  declares an abstract `getId()` returning its `Mapped<X>Id`, which `equals`/`hashCode`/`toString`
+  use, and the entity declares the field.
+- **No shared superclass between tables.** Each `Mapped<Entity>` stands on its own: it holds
+  its own column constants, fields, accessors, `toString`, and `equals`/`hashCode`. Do not add
+  a common superclass to remove duplication between them -- the duplication keeps each mapping
+  readable on its own.
 - **Shared code has two homes per module.** Each module has a package-private `__Constants`
-  and `__Utils`, kept even when empty, and only what more than one class shares goes in them.
-  There is no `__DomainConstants` or other per-domain catch-all.
+  and `__Utils` in `<schema>.mapped`, kept even when empty, and only what more than one class
+  shares goes in them. There is no `__DomainConstants` or other per-domain catch-all.
 - **`toString`, `equals` and `hashCode` use basic attributes and the `@EmbeddedId`
   only, never an association.** A class that cannot compare by an identifier --
   a view with no key, or the embeddable base `_Binary` -- omits `equals`/`hashCode`
@@ -31,8 +49,8 @@ independent of each other, tests included: each carries its own test bases in it
 
 ### Member order inside an entity
 
-Every entity lays its members out in this order, and new members go into the matching
-section rather than at the end of the file:
+Every mapped superclass and every entity lays its members out in this order, and new members go
+into the matching section rather than at the end of the file:
 
 1. constants — `TABLE_NAME`, then a `// ---- COLUMN_NAME` marker per column followed by
    that column's `COLUMN_NAME_*` / `COLUMN_LENGTH_*` / `ATTRIBUTE_NAME_*` / `SIZE_*`
@@ -51,7 +69,8 @@ Section markers are line comments padded with dashes to column 120.
 
 A view that no column, or combination of columns, identifies — `co`'s `PRODUCT_REVIEWS`
 and `STORE_ORDERS` — cannot be an `@Entity`, so it is mapped by a plain class
-(`ProductReview`, `StoreOrder`). Each one has exactly two constructors:
+(`ProductReview`, `StoreOrder`, in test, over `MappedProductReview` / `MappedStoreOrder`, whose
+constructors are both `protected`). Each concrete one has exactly two constructors:
 
 - a `protected` no-arg constructor, and
 - a `public` all-args constructor, taking every attribute in field order.

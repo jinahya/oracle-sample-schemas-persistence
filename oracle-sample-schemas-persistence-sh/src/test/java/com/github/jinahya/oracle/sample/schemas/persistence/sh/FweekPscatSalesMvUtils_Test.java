@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -37,7 +39,13 @@ class FweekPscatSalesMvUtils_Test {
     /** Sets the named field of the specified instance reflectively, for an entity which exposes no setter for it. */
     private static <T> T withField(final T instance, final String name, final Object value) {
         try {
-            final var field = instance.getClass().getDeclaredField(name);
+            // the field may be declared by a superclass, e.g. the mapped superclass the entity extends
+            var type = (Class<?>) instance.getClass();
+            while (type.getSuperclass() != null
+                   && Arrays.stream(type.getDeclaredFields()).noneMatch(f -> f.getName().equals(name))) {
+                type = type.getSuperclass();
+            }
+            final var field = type.getDeclaredField(name);
             field.setAccessible(true);
             field.set(instance, value);
             return instance;

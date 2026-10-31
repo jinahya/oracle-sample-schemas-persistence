@@ -21,7 +21,9 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  */
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.jinahya.object.randomizer.ObjectRandomizerUtils;
 import com.github.jinahya.object.randomizer.PodamObjectRandomizer;
+import com.github.jinahya.oracle.sample.schemas.persistence.co.mapped.ProductDetails;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -76,7 +78,10 @@ class Product_Randomizer extends PodamObjectRandomizer<Product> {
         // randomized ProductDetails, written as JSON.
         try {
             value.setProductDetails(
-                    ProductDetails_TestUtils.toBytes(new ProductDetails_Randomizer().get(), OBJECT_MAPPER)
+                    ProductDetails_TestUtils.toBytes(
+                            ObjectRandomizerUtils.newRandomizedInstanceOf(ProductDetails.class).orElseThrow(),
+                            OBJECT_MAPPER
+                    )
             );
         } catch (final IOException ioe) {
             throw new UncheckedIOException("failed to write product details as JSON", ioe);

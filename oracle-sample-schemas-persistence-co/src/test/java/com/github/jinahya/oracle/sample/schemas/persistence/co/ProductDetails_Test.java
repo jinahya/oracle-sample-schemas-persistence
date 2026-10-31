@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.co.mapped.ProductDetails;
+
 /**
  * A class for testing the {@link ProductDetails} class.
  *

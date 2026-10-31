@@ -43,7 +43,7 @@ class Customer_PersistenceTest extends _Entity_Persistence_Test<Customer> {
 
     /**
      * Tests {@code Customer.selectListPromotedByCustCityOrderByCustLastNameAsc}, which answers exercise
-     * {@code SH-SCHEMA-I-10}.
+     * {@code SH_SCHEMA_I_10}.
      * <p>
      * Each test persists a new sale, which brings a customer and a promotion of its own; the promotion's randomized
      * category is not {@code NO PROMOTION}, so the customer bought under a promotion.

@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.co.mapped.StoreLogo;
+import com.github.jinahya.oracle.sample.schemas.persistence.co.mapped._Binary;
 import org.junit.jupiter.api.Test;
 
 /**

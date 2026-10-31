@@ -39,6 +39,7 @@ class Country_Randomizer extends PodamObjectRandomizer<Country> {
 
     Country_Randomizer() {
         super(Country.class, List.of(
+                Country.ATTRIBUTE_NAME_REGION_ID,
                 Country.ATTRIBUTE_NAME_REGION,
                 Country.ATTRIBUTE_NAME_LOCATIONS
         ));

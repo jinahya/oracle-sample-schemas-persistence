@@ -22,14 +22,16 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
 
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+
+import java.time.YearMonth;
+import java.util.Arrays;
+import java.util.function.Function;
+
 import org.jboss.weld.junit5.auto.AddBeanClasses;
 import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-
-import java.time.YearMonth;
-import java.util.function.Function;
 
 import static com.github.jinahya.oracle.sample.schemas.persistence.sh._Entity_Persistence_Test_Producer.__TestPU;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -47,7 +49,13 @@ class CalMonthSalesMvUtils_PersistenceTest {
     /** Sets the named field of the specified instance reflectively, for an entity which exposes no setter for it. */
     private static <T> T withField(final T instance, final String name, final Object value) {
         try {
-            final var field = instance.getClass().getDeclaredField(name);
+            // the field may be declared by a superclass, e.g. the mapped superclass the entity extends
+            var type = (Class<?>) instance.getClass();
+            while (type.getSuperclass() != null
+                   && Arrays.stream(type.getDeclaredFields()).noneMatch(f -> f.getName().equals(name))) {
+                type = type.getSuperclass();
+            }
+            final var field = type.getDeclaredField(name);
             field.setAccessible(true);
             field.set(instance, value);
             return instance;

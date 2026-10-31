@@ -39,6 +39,7 @@ class Location_Randomizer extends PodamObjectRandomizer<Location> {
 
     Location_Randomizer() {
         super(Location.class, List.of(
+                Location.ATTRIBUTE_NAME_COUNTRY_ID,
                 Location.ATTRIBUTE_NAME_COUNTRY,
                 Location.ATTRIBUTE_NAME_DEPARTMENTS
         ));

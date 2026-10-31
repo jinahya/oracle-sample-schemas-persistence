@@ -22,6 +22,7 @@ package com.github.jinahya.oracle.sample.schemas.persistence.co;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.jinahya.oracle.sample.schemas.persistence.co.mapped.ProductDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

@@ -52,16 +52,12 @@ class Cost_Persister extends AbstractEntityPersister<Cost> {
      */
     @Override
     public Cost apply(final EntityManager entityManager, final Cost entityInstance) {
-        entityInstance.setProdId(
-                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class).getProdId()
-        );
-        entityInstance.setTimeId(Time_Persister.newPersistedInstanceBeforeEarliest(entityManager).getTimeId());
-        entityInstance.setPromoId(
-                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Promotion.class).getPromoId()
-        );
-        entityInstance.setChannelId(
+        entityInstance.setId(CostId.of(
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class).getProdId(),
+                Time_Persister.newPersistedInstanceBeforeEarliest(entityManager).getTimeId(),
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Promotion.class).getPromoId(),
                 EntityPersisterUtils.newPersistedInstanceOf(entityManager, Channel.class).getChannelId()
-        );
+        ));
         return super.apply(entityManager, entityInstance);
     }
 }

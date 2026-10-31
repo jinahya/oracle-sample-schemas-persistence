@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.PromotionCategoryId;
+
 /**
  * A class for testing {@link PromotionCategoryId}.
  *

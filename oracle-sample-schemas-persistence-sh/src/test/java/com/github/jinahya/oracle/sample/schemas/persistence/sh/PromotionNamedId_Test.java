@@ -20,14 +20,17 @@ package com.github.jinahya.oracle.sample.schemas.persistence.sh;
  * #L%
  */
 
-import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.PromotionNamedId;
+import com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.PromotionNamedId_TestAccess;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Objects;
+
+import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -92,11 +95,11 @@ abstract class PromotionNamedId_Test<T extends PromotionNamedId<N>, N extends Nu
     @Test
     void of_NameAndIdSet_() throws ReflectiveOperationException {
         final var randomized = newRandomizedTargetInstance();
-        final var name = randomized.getName();
-        final var id = randomized.getId();
+        final var name = PromotionNamedId_TestAccess.getName(randomized);
+        final var id = PromotionNamedId_TestAccess.getId(randomized);
         final var instance = of(targetClass(), idClass, name, id);
-        assertThat(instance.getName()).isEqualTo(name);
-        assertThat(instance.getId()).isEqualTo(id);
+        assertThat(PromotionNamedId_TestAccess.getName(instance)).isEqualTo(name);
+        assertThat(PromotionNamedId_TestAccess.getId(instance)).isEqualTo(id);
     }
 
     // ------------------------------------------------------------------------------------------------- equals/hashCode
@@ -110,15 +113,15 @@ abstract class PromotionNamedId_Test<T extends PromotionNamedId<N>, N extends Nu
      */
     @Override
     public SingleTypeEqualsVerifierApi<T> equals_verifier_() {
-        final var red = Objects.requireNonNull(newRandomizedTargetInstance().getId(),
+        final var red = Objects.requireNonNull(PromotionNamedId_TestAccess.getId(newRandomizedTargetInstance()),
                                                "randomized id is null");
         N blue = null;
         for (int i = 0; i < 16 && (blue == null || blue.equals(red)); i++) {
-            blue = newRandomizedTargetInstance().getId();
+            blue = PromotionNamedId_TestAccess.getId(newRandomizedTargetInstance());
         }
         assertThat(blue).as("a second randomized id, different from the first").isNotNull().isNotEqualTo(red);
         return super.equals_verifier_()
-                .withPrefabValuesForField(PromotionNamedId.ATTRIBUTE_NAME_ID, red, blue);
+                .withPrefabValuesForField(PromotionNamedId_TestAccess.ATTRIBUTE_NAME_ID, red, blue);
     }
 
     // -----------------------------------------------------------------------------------------------------------------

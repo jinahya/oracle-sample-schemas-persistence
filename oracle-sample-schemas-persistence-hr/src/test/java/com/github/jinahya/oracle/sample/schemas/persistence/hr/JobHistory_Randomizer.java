@@ -40,7 +40,9 @@ class JobHistory_Randomizer extends PodamObjectRandomizer<JobHistory> {
     JobHistory_Randomizer() {
         super(JobHistory.class, List.of(
                 JobHistory.ATTRIBUTE_NAME_EMPLOYEE,
+                JobHistory.ATTRIBUTE_NAME_JOB_ID,
                 JobHistory.ATTRIBUTE_NAME_JOB,
+                JobHistory.ATTRIBUTE_NAME_DEPARTMENT_ID,
                 JobHistory.ATTRIBUTE_NAME_DEPARTMENT
         ));
     }

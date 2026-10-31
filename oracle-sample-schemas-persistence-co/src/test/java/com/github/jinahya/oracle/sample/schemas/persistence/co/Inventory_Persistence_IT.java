@@ -47,7 +47,7 @@ class Inventory_Persistence_IT extends _Entity_Persistence_IT<Inventory> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Tests {@code Inventory.selectOneByStoreAndProduct}, which answers exercise {@code CO-INVENTORY-B-01}.
+     * Tests {@code Inventory.selectOneByStoreAndProduct}, which answers exercise {@code CO_INVENTORY_B_01}.
      */
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -131,7 +131,7 @@ class Inventory_Persistence_IT extends _Entity_Persistence_IT<Inventory> {
 
     /**
      * Tests {@code Inventory.selectOneByProductOrderByProductInventoryAsc}, which answers exercise
-     * {@code CO-INVENTORY-B-02}.
+     * {@code CO_INVENTORY_B_02}.
      */
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -222,7 +222,7 @@ class Inventory_Persistence_IT extends _Entity_Persistence_IT<Inventory> {
 
     /**
      * Tests {@code Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc}, which answers exercise
-     * {@code CO-SCHEMA-A-16}.
+     * {@code CO_SCHEMA_A_16}.
      */
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)

@@ -47,7 +47,7 @@ class Customer_PersistenceIT extends _Entity_Persistence_IT<Customer> {
 
     /**
      * Tests {@code Customer.selectListPromotedByCustCityOrderByCustLastNameAsc}, which answers exercise
-     * {@code SH-SCHEMA-I-10}.
+     * {@code SH_SCHEMA_I_10}.
      */
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
