@@ -9,8 +9,9 @@ services:
       ORACLE_PWD: password
     volumes:
       - ./db-sample-schemas:/db-sample-schemas
-      - ./opt/oracle/oradata:/opt/oracle/oradata
-      # runs on every container start; installs CO/HR/SH once (see the script)
+      # not bound: the database lives in the container, which `down` removes, so every run installs the schemas afresh
+#      - ./opt/oracle/oradata:/opt/oracle/oradata
+      # runs on every container start; installs CO/HR/SH unless already there (see the script)
       - ./opt/oracle/scripts/startup:/opt/oracle/scripts/startup
 #      - /etc/localtime:/etc/localtime:ro
 #      - /etc/timezone:/etc/timezone:ro

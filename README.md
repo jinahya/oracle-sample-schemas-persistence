@@ -78,8 +78,9 @@ image; only `SH` needs SQLcl, and only because of `LOAD`.
 
 Everything uses the password `password`.
 
-Installing takes a few minutes the first time. On later starts both the hook and the wrapper
-find the schemas already populated and skip them, so the container comes up quickly:
+Installing takes a few minutes, on every run: the database lives in the container, which
+`compose.sh` removes. Only a container restarted without being removed finds the schemas
+already populated, and both the hook and the wrapper skip them:
 
 ```shell
 ==> SH is already installed and populated; skipping
@@ -91,14 +92,9 @@ you get a working database with those six `SH` tables empty, and the command to 
 
 ### Notes
 
-The database lives in `./opt/oracle/oradata`, a **bind mount**, so it outlives
-`docker-compose down` -- even `down -v`, which only removes named and anonymous volumes.
-That is usually what you want. To start from an empty database, delete it yourself:
-
-```shell
-$ docker-compose down
-$ rm -rf opt/oracle/oradata
-```
+The database's data directory, `/opt/oracle/oradata`, is not bound to the host; its line in
+`docker-compose.yml` is commented out. The database lives in the container, so `down` removes
+it, and every `compose.sh` run starts from an empty database.
 
 `SH` installs only partially under SQL\*Plus, which is why `compose.sh` reinstalls
 it with SQLcl. `sh_populate.sql` bulk-loads `costs`, `customers`, `promotions`, `sales`,

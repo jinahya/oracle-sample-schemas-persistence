@@ -4,9 +4,9 @@
 # `dmlonly` user the integration tests connect as.
 #
 # The official image runs everything in /opt/oracle/scripts/startup on EVERY container
-# start, and this project bind-mounts /opt/oracle/oradata, so the database survives a
-# restart. Each installer would happily DROP USER ... CASCADE and rebuild, so this script
-# checks for the schema first and skips it when already present. Set
+# start, and a container restarted without being removed keeps its database. Each installer
+# would happily DROP USER ... CASCADE and rebuild, so this script checks for the schema first
+# and skips it when already present. Set
 # SAMPLE_SCHEMAS_OVERWRITE=true to force a reinstall (destroys existing data).
 #
 # Oracle documents no non-interactive install: the installers ask for the password with

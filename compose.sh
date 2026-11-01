@@ -3,14 +3,10 @@
 # Cleans up any previous run, brings the database up, and follows its log until you press
 # Ctrl-C, which tears the stack back down again. Both ends use `down -v`.
 #
-# NOTE: every volume in docker-compose.yml is a BIND MOUNT, and `down -v` only removes
-#       named/anonymous volumes -- it never touches bind mounts. So ./opt/oracle/oradata
-#       (the database itself) SURVIVES this script. That is usually what you want: the
-#       schemas installed by opt/oracle/scripts/startup are still there next time, and the
-#       startup hook skips reinstalling them. To actually start from an empty database,
-#       remove that directory by hand:
-#
-#           rm -rf opt/oracle/oradata
+# The database's data directory, /opt/oracle/oradata, is not bound to the host (its line in
+# docker-compose.yml is commented out), so it lives in the container, which `down -v` removes.
+# Every run therefore starts from an empty database, and installs the sample schemas again,
+# which takes a few minutes.
 #
 set -eu
 
