@@ -11,7 +11,7 @@
 # Both flags are needed. As of 3.6.0 failsafe no longer binds its own skipTests parameter to the
 # skipTests user property, so -DskipTests reaches surefire alone and the ITs would still run;
 # -DskipITs is what stops them. For either half on its own, see
-# ./_mvn_jakarta_ee_11_verify_hibernate-orm.sh.
+# ./_mvn_jakarta_ee_11_verify_hibernate_orm.sh.
 #
 # `clean` is not optional. The annotation processor writes a metamodel per provider, and the two do
 # not generate the same one; without a clean in between, a run compiles against the other provider's

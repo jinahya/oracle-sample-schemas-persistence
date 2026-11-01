@@ -156,7 +156,7 @@ there is nothing to choose and no profile for it. Run the unit tests against eac
 provider:
 
 ```shell
-$ ./_mvn_jakarta_ee_11_test_hibernate-orm.sh
+$ ./_mvn_jakarta_ee_11_test_hibernate_orm.sh
 $ ./_mvn_jakarta_ee_11_test_eclipselink.sh
 ```
 

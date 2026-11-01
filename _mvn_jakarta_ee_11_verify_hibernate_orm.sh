@@ -12,9 +12,9 @@
 # so the two halves are selected separately -- and that is a property of ${version.maven-failsafe};
 # under 3.5.x and earlier -DskipTests reached both:
 #
-#     ./_mvn_jakarta_ee_11_verify_hibernate-orm.sh -DskipTests   # the ITs alone
-#     ./_mvn_jakarta_ee_11_verify_hibernate-orm.sh -DskipITs     # the unit tests alone
-#     ./_mvn_jakarta_ee_11_verify_notests_hibernate-orm.sh       # neither
+#     ./_mvn_jakarta_ee_11_verify_hibernate_orm.sh -DskipTests   # the ITs alone
+#     ./_mvn_jakarta_ee_11_verify_hibernate_orm.sh -DskipITs     # the unit tests alone
+#     ./_mvn_jakarta_ee_11_verify_notests_hibernate_orm.sh       # neither
 #
 # `clean` is not optional. The annotation processor writes a metamodel per provider, and the two do
 # not generate the same one; without a clean in between, a run compiles against the other provider's
