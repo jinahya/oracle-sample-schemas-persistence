@@ -169,6 +169,9 @@ public abstract class MappedPromotion {
      */
     public static final String ATTRIBUTE_NAME_PROMO_CATEGORY = "promoCategory";
 
+    /**
+     * The minimum size of the {@value #ATTRIBUTE_NAME_PROMO_CATEGORY} attribute. The value is {@value}.
+     */
     public static final int SIZE_MIN_PROMO_CATEGORY = 0;
 
     /**

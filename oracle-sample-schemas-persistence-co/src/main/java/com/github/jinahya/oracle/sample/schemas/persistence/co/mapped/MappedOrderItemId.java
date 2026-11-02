@@ -108,6 +108,11 @@ public abstract class MappedOrderItemId {
         return orderId;
     }
 
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute with the specified value.
+     *
+     * @param orderId new value for {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
+     */
     protected void setOrderId(@Nonnull final Long orderId) {
         this.orderId = orderId;
     }
@@ -124,6 +129,11 @@ public abstract class MappedOrderItemId {
         return lineItemId;
     }
 
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LINE_ITEM_ID} attribute with the specified value.
+     *
+     * @param lineItemId new value for {@value #ATTRIBUTE_NAME_LINE_ITEM_ID} attribute.
+     */
     protected void setLineItemId(@Nonnull final Long lineItemId) {
         this.lineItemId = lineItemId;
     }

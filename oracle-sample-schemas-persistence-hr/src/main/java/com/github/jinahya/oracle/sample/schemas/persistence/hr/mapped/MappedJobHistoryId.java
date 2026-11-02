@@ -140,6 +140,11 @@ public abstract class MappedJobHistoryId {
         return startDate;
     }
 
+    /**
+     * Replaces current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute with the specified value.
+     *
+     * @param startDate new value for the {@value #ATTRIBUTE_NAME_START_DATE} attribute.
+     */
     // TODO: remove if it's not used anymore
     protected void setStartDate(final LocalDateTime startDate) {
         this.startDate = startDate;
