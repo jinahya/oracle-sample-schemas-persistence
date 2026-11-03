@@ -7,8 +7,16 @@ Guidance for Claude Code when working in this repository.
 Jakarta Persistence mappings for the
 [Oracle Database Sample Schemas](https://github.com/oracle-samples/db-sample-schemas),
 one Maven module per schema -- `oracle-sample-schemas-persistence-co`, `-hr` and `-sh`, each in a
-directory of the same name and referred to below by its schema (`co`, `hr`, `sh`). The modules are
-independent of each other, tests included: each carries its own test bases in its own test package.
+directory of the same name and referred to below by its schema (`co`, `hr`, `sh`). The three depend on
+`oracle-sample-schemas-persistence-common`, which holds what they share (as in the sibling
+`sqlserver-samples-persistence`), and on nothing else of each other; its version is managed in the root
+`<dependencyManagement>` as `${project.version}`. Their tests stay independent: each carries its own test bases
+in its own test package.
+
+`common` holds, in `common.annotation`, `SOURCE`-retention annotations that document what the DDL declares beyond
+the mapping (`@OraTrigger`, `@OraStorage`, `@OraMaterializedView`, `@OraIdentity`), so the schema modules read it
+`requires static`. Those whose subject Jakarta Persistence covers (`@OraComment`, `@OraCheck`, `@OraIndex`,
+`@OraSequence`) are `@Deprecated(forRemoval = true)` and name the replacement, as the sibling's `Ms*` ones do.
 
 **These are pure Jakarta Persistence modules.** Two rules follow from that:
 

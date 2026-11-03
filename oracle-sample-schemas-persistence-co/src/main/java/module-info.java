@@ -33,6 +33,7 @@
  */
 module com.github.jinahya.oracle.sample.schemas.persistence.co {
 
+    requires static com.github.jinahya.oracle.sample.schemas.persistence.common;
     requires static transitive jakarta.annotation;
     requires transitive jakarta.persistence;
     requires transitive jakarta.validation;
