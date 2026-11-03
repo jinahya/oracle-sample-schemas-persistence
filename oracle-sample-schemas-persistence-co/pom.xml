@@ -88,7 +88,7 @@
                 <arg>--add-modules</arg>
                 <arg>java.desktop</arg>
                 <arg>--add-reads</arg>
-                <arg>com.github.jinahya.oracle.sample.schemas.persistence.co=java.desktop</arg>
+                <arg>com.github.jinahya.oracle.sample.persistence.co=java.desktop</arg>
               </compilerArgs>
             </configuration>
           </execution>

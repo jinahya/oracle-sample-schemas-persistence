@@ -29,26 +29,26 @@
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Country</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Channel</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.CountrySection</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Customer</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Product</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Promotion</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SupplementaryDemographics</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Time</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.TimeDayNameAttributeConverter</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.TimeMonthNameAttributeConverter</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.TimeMonthDescAttributeConverter</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CalMonthSalesMv</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CostId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Cost</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMv</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Profit</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SalesId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Sales</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Country</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Channel</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.CountrySection</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Customer</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Product</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Promotion</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.SupplementaryDemographics</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Time</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.TimeDayNameAttributeConverter</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.TimeMonthNameAttributeConverter</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.TimeMonthDescAttributeConverter</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.CalMonthSalesMv</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.CostId</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Cost</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.FweekPscatSalesMvId</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.FweekPscatSalesMv</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.ProfitId</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Profit</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.SalesId</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Sales</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
@@ -82,26 +82,26 @@
     <!--    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
     <mapping-file>META-INF/sh/orm-it.xml</mapping-file>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Country</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Channel</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.CountrySection</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Customer</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Product</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Promotion</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SupplementaryDemographics</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Time</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.TimeDayNameAttributeConverter</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.TimeMonthNameAttributeConverter</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped.TimeMonthDescAttributeConverter</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CalMonthSalesMv</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.CostId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Cost</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMvId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.FweekPscatSalesMv</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.ProfitId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Profit</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.SalesId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.sh.Sales</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Country</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Channel</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.CountrySection</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Customer</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Product</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Promotion</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.SupplementaryDemographics</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Time</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.TimeDayNameAttributeConverter</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.TimeMonthNameAttributeConverter</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.TimeMonthDescAttributeConverter</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.CalMonthSalesMv</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.CostId</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Cost</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.FweekPscatSalesMvId</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.FweekPscatSalesMv</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.ProfitId</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Profit</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.SalesId</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.Sales</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
@@ -125,7 +125,7 @@
            sequence Oracle backs its column with. Compiled under the EclipseLink profile only; Hibernate ignores
            eclipselink.* properties. -->
       <property name="eclipselink.session.customizer"
-                value="com.github.jinahya.oracle.sample.schemas.persistence.sh._EclipseLink_IdentitySequences"/>
+                value="com.github.jinahya.oracle.sample.persistence.sh._EclipseLink_IdentitySequences"/>
       <!-- /////////////////////////////////////////////////////////////////////////////////////////////// hibernate -->
       <!--      <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>-->
       <property name="hibernate.format_sql" value="true"/>

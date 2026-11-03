@@ -30,14 +30,14 @@
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-module com.github.jinahya.oracle.sample.schemas.persistence.sh {
+module com.github.jinahya.oracle.sample.persistence.sh {
 
-    requires static com.github.jinahya.oracle.sample.schemas.persistence.common;
+    requires static com.github.jinahya.oracle.sample.persistence.common;
     requires static transitive jakarta.annotation;
     requires transitive jakarta.persistence;
     requires transitive jakarta.validation;
 
-    exports com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
+    exports com.github.jinahya.oracle.sample.persistence.sh.mapped;
 
-    opens com.github.jinahya.oracle.sample.schemas.persistence.sh.mapped;
+    opens com.github.jinahya.oracle.sample.persistence.sh.mapped;
 }

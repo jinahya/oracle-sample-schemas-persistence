@@ -29,15 +29,15 @@
     <!--    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>-->
     <!--        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Country</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Department</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Employee</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.EmpDetailsView</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Job</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistory</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Location</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Region</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.Country</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.Department</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.Employee</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.EmpDetailsView</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.Job</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.JobHistoryId</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.JobHistory</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.Location</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.Region</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
@@ -71,15 +71,15 @@
     <!--    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>-->
     <provider>${persistence-unit.provider}</provider>
     <mapping-file>META-INF/hr/orm-it.xml</mapping-file>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Country</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Department</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Employee</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.EmpDetailsView</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Job</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistoryId</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.JobHistory</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Location</class>
-    <class>com.github.jinahya.oracle.sample.schemas.persistence.hr.Region</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.Country</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.Department</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.Employee</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.EmpDetailsView</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.Job</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.JobHistoryId</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.JobHistory</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.Location</class>
+    <class>com.github.jinahya.oracle.sample.persistence.hr.Region</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <validation-mode>CALLBACK</validation-mode>
@@ -102,7 +102,7 @@
            sequence Oracle backs its column with. Compiled under the EclipseLink profile only; Hibernate ignores
            eclipselink.* properties. -->
       <property name="eclipselink.session.customizer"
-                value="com.github.jinahya.oracle.sample.schemas.persistence.hr._EclipseLink_IdentitySequences"/>
+                value="com.github.jinahya.oracle.sample.persistence.hr._EclipseLink_IdentitySequences"/>
       <!-- /////////////////////////////////////////////////////////////////////////////////////////////// hibernate -->
       <!--      <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>-->
       <property name="hibernate.format_sql" value="true"/>

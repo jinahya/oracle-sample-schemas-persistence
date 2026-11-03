@@ -27,9 +27,9 @@
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-module com.github.jinahya.oracle.sample.schemas.persistence.common {
+module com.github.jinahya.oracle.sample.persistence.common {
 
     requires static jakarta.persistence;
 
-    exports com.github.jinahya.oracle.sample.schemas.persistence.common.annotation;
+    exports com.github.jinahya.oracle.sample.persistence.common.annotation;
 }

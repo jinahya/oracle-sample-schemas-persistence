@@ -24,7 +24,7 @@ A few things about the mappings shape the JPQL below:
   reach a key as `o.customer.customerId`, or compare the entity itself: `+o.customer = :customer+`.
 * `+ORDERS.ORDER_STATUS+` is `MappedOrder.OrderStatus`, mapped `+@Enumerated(EnumType.STRING)+`. Compare it with an
   enum parameter or a fully qualified enum literal, never with a string. The literal names the class that declares the
-  enum, `+com.github.jinahya.oracle.sample.schemas.persistence.co.mapped.MappedOrder.OrderStatus+`, not `Order`.
+  enum, `+com.github.jinahya.oracle.sample.persistence.co.mapped.MappedOrder.OrderStatus+`, not `Order`.
 * `+SHIPMENTS.SHIPMENT_STATUS+` is `MappedShipment.ShipmentStatus`, mapped through `ShipmentStatusConverter`, because the
   column holds `+IN-TRANSIT+` and the constant is `+IN_TRANSIT+`. Bind the enum as a parameter.
 * `Order.orderItems` is a `+Map<Product, OrderItem>+` keyed by each item's product,
@@ -434,8 +434,8 @@ ORDER BY o.orderTms DESC
 ----
 SELECT o
 FROM Order o
-WHERE o.orderStatus IN (com.github.jinahya.oracle.sample.schemas.persistence.co.mapped.MappedOrder.OrderStatus.CANCELLED,
-                        com.github.jinahya.oracle.sample.schemas.persistence.co.mapped.MappedOrder.OrderStatus.REFUNDED)
+WHERE o.orderStatus IN (com.github.jinahya.oracle.sample.persistence.co.mapped.MappedOrder.OrderStatus.CANCELLED,
+                        com.github.jinahya.oracle.sample.persistence.co.mapped.MappedOrder.OrderStatus.REFUNDED)
 ORDER BY o.orderTms DESC
 ----
 

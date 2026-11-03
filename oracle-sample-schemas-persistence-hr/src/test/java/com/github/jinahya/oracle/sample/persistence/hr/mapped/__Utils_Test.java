@@ -1,0 +1,143 @@
+package com.github.jinahya.oracle.sample.persistence.hr.mapped;
+
+/*-
+ * #%L
+ * hr
+ * %%
+ * Copyright (C) 2024 - 2025 Jinahya, Inc.
+ * %%
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * #L%
+ */
+
+import com.github.jinahya.oracle.sample.persistence.hr.mapped.__Constants;
+import com.github.jinahya.oracle.sample.persistence.hr.mapped.__Utils;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.TemporalAdjusters;
+import java.util.Arrays;
+import java.util.stream.Stream;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+/**
+ * A class for testing the {@link __Utils} class, whose methods mirror the {@code HR} schema's stored routines.
+ * <p>
+ * The nested class covers {@link __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(LocalTime, DayOfWeek)}, over the
+ * four combinations of a time which is, or is not, within office hours and a weekday which is, or is not, one of those
+ * the {@code SECURE_DML} procedure refuses.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
+class __Utils_Test {
+
+    /**
+     * A class for testing {@link __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(LocalTime, DayOfWeek)}.
+     * <p>
+     * Each test crosses a time which is, or is not, within the office hours the {@code SECURE_DML} procedure allows
+     * with a weekday which is, or is not, one of those it refuses, and asserts that the routine raises unless the time
+     * is within the hours and the weekday is not refused. Times are compared to the minute, as the routine compares
+     * {@code TO_CHAR(SYSDATE, 'HH24:MI')}. The group pairing an out-of-office-hours time with a refused weekday
+     * additionally builds a {@link LocalDateTime} carrying both values and feeds it to
+     * {@link __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(java.time.temporal.TemporalAccessor)}, the overload
+     * which derives the time and the weekday from a single temporal.
+     */
+    @Nested
+    class ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR_Test {
+
+        private static Stream<LocalTime> nowBetween() {
+            return Stream.of(
+                    LocalTime.of(8, 0),
+                    LocalTime.of(13, 0),
+                    LocalTime.of(18, 0),
+                    LocalTime.of(18, 0, 59)
+            );
+        }
+
+        private static Stream<LocalTime> nowNotBetween() {
+            return Stream.of(
+                    LocalTime.of(7, 59),
+                    LocalTime.of(7, 59, 59),
+                    LocalTime.of(18, 1)
+            );
+        }
+
+        private static Stream<DayOfWeek> dayOn() {
+            return __Constants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.stream();
+        }
+
+        private static Stream<DayOfWeek> dayNotOn() {
+            return Arrays.stream(DayOfWeek.values())
+                    .filter(v -> !__Constants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.contains(v));
+        }
+
+        private static Stream<Arguments> nowNotBetween_dayOn() {
+            return nowNotBetween().flatMap(now -> dayOn().map(day -> Arguments.of(now, day)));
+        }
+
+        private static Stream<Arguments> nowNotBetween_dayNotOn() {
+            return nowNotBetween().flatMap(now -> dayNotOn().map(day -> Arguments.of(now, day)));
+        }
+
+        private static Stream<Arguments> nowBetween_dayOn() {
+            return nowBetween().flatMap(now -> dayOn().map(day -> Arguments.of(now, day)));
+        }
+
+        private static Stream<Arguments> nowBetween_dayNotOn() {
+            return nowBetween().flatMap(now -> dayNotOn().map(day -> Arguments.of(now, day)));
+        }
+
+        @MethodSource({"nowNotBetween_dayOn"})
+        @ParameterizedTest
+        void nowNotBetween_dayOn__(final LocalTime now, final DayOfWeek day) {
+            assertThat(
+                    __Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(now, day)
+            ).isTrue();
+            assertThat(
+                    __Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(
+                            LocalDateTime.of(LocalDate.now(), now).with(TemporalAdjusters.nextOrSame(day)))
+            ).isTrue();
+        }
+
+        @MethodSource({"nowNotBetween_dayNotOn"})
+        @ParameterizedTest
+        void nowNotBetween_dayNotOn__(final LocalTime now, final DayOfWeek day) {
+            assertThat(
+                    __Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(now, day)
+            ).isTrue();
+        }
+
+        @MethodSource({"nowBetween_dayOn"})
+        @ParameterizedTest
+        void nowBetween_dayOn__(final LocalTime now, final DayOfWeek day) {
+            assertThat(
+                    __Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(now, day)
+            ).isTrue();
+        }
+
+        @MethodSource({"nowBetween_dayNotOn"})
+        @ParameterizedTest
+        void nowBetween_dayNotOn__(final LocalTime now, final DayOfWeek day) {
+            assertThat(
+                    __Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(now, day)
+            ).isFalse();
+        }
+    }
+}
