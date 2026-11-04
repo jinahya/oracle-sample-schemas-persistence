@@ -47,7 +47,7 @@ class CalMonthSalesMv_PersistenceTest
     @Disabled("a materialized view: nothing is inserted into it")
     @Override
     @Test
-    protected void _persist_RandomizedInstance() {
+    protected void persistRandomizedEntityInstance__() {
         // empty
     }
 }

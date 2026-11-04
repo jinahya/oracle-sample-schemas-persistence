@@ -34,6 +34,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.github.jinahya.persistence.test.util.EntityPersisterUtils.newPersistedInstanceOf;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
+import static com.github.jinahya.oracle.sample.persistence.hr.__PersistenceIT_Utils.applyEntityManagerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -78,7 +82,8 @@ class Employee_PersistenceIT
          */
         @Test
         void _NewJobHistoryPopulated_JobChanged() {
-            applyNewPersistedTargetInstanceAndRollback((em, e) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var e = newPersistedInstanceOf(em, targetClass);
                 // the INSERT, on its own; otherwise EclipseLink writes the new value into it,
                 // and no UPDATE fires
                 em.flush();
@@ -95,7 +100,7 @@ class Employee_PersistenceIT
                             assertThat(h.getDepartment()).isEqualTo(oldDepartment);
                         });
                 return null;
-            });
+            })));
         }
 
         /**
@@ -105,7 +110,8 @@ class Employee_PersistenceIT
          */
         @Test
         void _NewJobHistoryPopulated_DepartmentChanged() {
-            applyNewPersistedTargetInstanceAndRollback((em, e) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var e = newPersistedInstanceOf(em, targetClass);
                 // the INSERT, on its own; otherwise EclipseLink writes the new value into it,
                 // and no UPDATE fires
                 em.flush();
@@ -122,7 +128,7 @@ class Employee_PersistenceIT
                             assertThat(h.getDepartment()).isEqualTo(oldDepartment);
                         });
                 return null;
-            });
+            })));
         }
 
         /**
@@ -137,7 +143,8 @@ class Employee_PersistenceIT
          */
         @Test
         void _NewJobHistoryPopulated_BothChanged() {
-            applyNewPersistedTargetInstanceAndRollback((em, e) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var e = newPersistedInstanceOf(em, targetClass);
                 // the INSERT, on its own; otherwise EclipseLink writes the new value into it,
                 // and no UPDATE fires
                 em.flush();
@@ -155,7 +162,7 @@ class Employee_PersistenceIT
                             assertThat(h.getDepartment()).isEqualTo(oldDepartment);
                         });
                 return null;
-            });
+            })));
         }
     }
 
@@ -171,54 +178,62 @@ class Employee_PersistenceIT
          * Returns the ids of the installed employees who have someone two levels below them.
          */
         Stream<Integer> managerIds() {
-            return entityManager()
-                    .createQuery(
-                            """
-                                    SELECT DISTINCT g.employeeId
-                                    FROM Employee e
-                                             JOIN e.manager m
-                                             JOIN m.manager g
-                                    ORDER BY g.employeeId ASC""",
-                            Integer.class
-                    )
-                    .setMaxResults(5)
-                    .getResultList()
-                    .stream();
+            return applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                return entityManager
+                        .createQuery(
+                                """
+                                        SELECT DISTINCT g.employeeId
+                                        FROM Employee e
+                                                 JOIN e.manager m
+                                                 JOIN m.manager g
+                                        ORDER BY g.employeeId ASC""",
+                                Integer.class
+                        )
+                        .setMaxResults(5)
+                        .getResultList()
+                        .stream();
+            }));
         }
 
         private void verify(final Integer managerId, final List<Employee> found) {
-            final var count = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT COUNT(e)
-                                    FROM Employee e
-                                             JOIN e.manager m
-                                    WHERE m.manager.employeeId = :managerId""",
-                            Long.class
-                    )
-                    .setParameter("managerId", managerId)
-                    .getSingleResult();
-            assertThat(found)
-                    .as("the employees two levels below %s", managerId)
-                    .isNotEmpty()
-                    .hasSize(count.intValue())
-                    .allSatisfy(
-                            e -> assertThat(e.getManager().getManager().getEmployeeId()).isEqualTo(
-                                    managerId))
-                    .isSortedAccordingTo(Comparator.comparing(Employee::getLastName));
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var count = entityManager
+                        .createQuery(
+                                """
+                                        SELECT COUNT(e)
+                                        FROM Employee e
+                                                 JOIN e.manager m
+                                        WHERE m.manager.employeeId = :managerId""",
+                                Long.class
+                        )
+                        .setParameter("managerId", managerId)
+                        .getSingleResult();
+                assertThat(found)
+                        .as("the employees two levels below %s", managerId)
+                        .isNotEmpty()
+                        .hasSize(count.intValue())
+                        .allSatisfy(
+                                e -> assertThat(e.getManager().getManager().getEmployeeId()).isEqualTo(
+                                        managerId))
+                        .isSortedAccordingTo(Comparator.comparing(Employee::getLastName));
+                return null;
+            }));
         }
 
         @DisplayName("the named query selects the employees two levels below the manager, by name")
         @MethodSource("managerIds")
         @ParameterizedTest
         void __NamedQuery(final Integer managerId) {
-            final var found = entityManager()
-                    .createNamedQuery("Employee.selectListByManagerOfManagerOrderByLastNameAsc",
-                                      targetClass)
-                    .setParameter("manager",
-                                  entityManager().getReference(Employee.class, managerId))
-                    .getResultList();
-            verify(managerId, found);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createNamedQuery("Employee.selectListByManagerOfManagerOrderByLastNameAsc",
+                                          targetClass)
+                        .setParameter("manager",
+                                      entityManager.getReference(Employee.class, managerId))
+                        .getResultList();
+                verify(managerId, found);
+                return null;
+            }));
         }
 
         @DisplayName(
@@ -227,36 +242,41 @@ class Employee_PersistenceIT
         @MethodSource("managerIds")
         @ParameterizedTest
         void __QueryLanguage(final Integer managerId) {
-            final var found = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT e
-                                    FROM Employee e
-                                    WHERE e.manager.manager = :manager
-                                    ORDER BY e.lastName ASC, e.firstName ASC""",
-                            targetClass
-                    )
-                    .setParameter("manager",
-                                  entityManager().getReference(Employee.class, managerId))
-                    .getResultList();
-            verify(managerId, found);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createQuery(
+                                """
+                                        SELECT e
+                                        FROM Employee e
+                                        WHERE e.manager.manager = :manager
+                                        ORDER BY e.lastName ASC, e.firstName ASC""",
+                                targetClass
+                        )
+                        .setParameter("manager",
+                                      entityManager.getReference(Employee.class, managerId))
+                        .getResultList();
+                verify(managerId, found);
+                return null;
+            }));
         }
 
         @DisplayName("a criteria query selects the employees two levels below the manager, by name")
         @MethodSource("managerIds")
         @ParameterizedTest
         void __CriteriaApi(final Integer managerId) {
-            final var entityManager = entityManager();
-            final var builder = entityManager.getCriteriaBuilder();
-            final var query = builder.createQuery(targetClass);
-            final var root = query.from(targetClass);
-            query.select(root);
-            query.where(builder.equal(root.get(Employee_.manager).get(Employee_.manager),
-                                      entityManager.getReference(Employee.class, managerId)));
-            query.orderBy(builder.asc(root.get(Employee_.lastName)),
-                          builder.asc(root.get(Employee_.firstName)));
-            final var found = entityManager.createQuery(query).getResultList();
-            verify(managerId, found);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var builder = entityManager.getCriteriaBuilder();
+                final var query = builder.createQuery(targetClass);
+                final var root = query.from(targetClass);
+                query.select(root);
+                query.where(builder.equal(root.get(Employee_.manager).get(Employee_.manager),
+                                          entityManager.getReference(Employee.class, managerId)));
+                query.orderBy(builder.asc(root.get(Employee_.lastName)),
+                              builder.asc(root.get(Employee_.firstName)));
+                final var found = entityManager.createQuery(query).getResultList();
+                verify(managerId, found);
+                return null;
+            }));
         }
     }
 }

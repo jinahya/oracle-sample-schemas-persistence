@@ -28,6 +28,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
+import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceIT_Utils.applyEntityManagerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -54,68 +56,78 @@ class Store_PersistenceIT
          * @implNote Selects the store names, not the entities, so nothing is left managed.
          */
         Stream<String> storeNames() {
-            return entityManager()
-                    .createQuery(
-                            """
-                                    SELECT e.storeName
-                                    FROM Store e
-                                    ORDER BY e.storeId ASC""",
-                            String.class
-                    )
-                    .setMaxResults(5)
-                    .getResultList()
-                    .stream();
+            return applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                return entityManager
+                        .createQuery(
+                                """
+                                        SELECT e.storeName
+                                        FROM Store e
+                                        ORDER BY e.storeId ASC""",
+                                String.class
+                        )
+                        .setMaxResults(5)
+                        .getResultList()
+                        .stream();
+            }));
         }
 
         @DisplayName("the named query selects the installed store")
         @MethodSource("storeNames")
         @ParameterizedTest
         void __NamedQuery(final String storeName) {
-            final var found = entityManager()
-                    .createNamedQuery("Store.selectSingleByStoreName", targetClass)
-                    .setParameter("storeName", storeName)
-                    .getSingleResult();
-            assertThat(found)
-                    .as("the store selected by %s", storeName)
-                    .extracting(Store::getStoreName)
-                    .isEqualTo(storeName);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createNamedQuery("Store.selectSingleByStoreName", targetClass)
+                        .setParameter("storeName", storeName)
+                        .getSingleResult();
+                assertThat(found)
+                        .as("the store selected by %s", storeName)
+                        .extracting(Store::getStoreName)
+                        .isEqualTo(storeName);
+                return null;
+            }));
         }
 
         @DisplayName("a query-language query selects the installed store")
         @MethodSource("storeNames")
         @ParameterizedTest
         void __QueryLanguage(final String storeName) {
-            final var found = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT e
-                                    FROM Store AS e
-                                    WHERE e.storeName = :storeName""",
-                            targetClass
-                    )
-                    .setParameter("storeName", storeName)
-                    .getSingleResult();
-            assertThat(found)
-                    .as("the store selected by %s", storeName)
-                    .extracting(Store::getStoreName)
-                    .isEqualTo(storeName);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createQuery(
+                                """
+                                        SELECT e
+                                        FROM Store AS e
+                                        WHERE e.storeName = :storeName""",
+                                targetClass
+                        )
+                        .setParameter("storeName", storeName)
+                        .getSingleResult();
+                assertThat(found)
+                        .as("the store selected by %s", storeName)
+                        .extracting(Store::getStoreName)
+                        .isEqualTo(storeName);
+                return null;
+            }));
         }
 
         @DisplayName("a criteria query selects the installed store")
         @MethodSource("storeNames")
         @ParameterizedTest
         void __CriteriaApi(final String storeName) {
-            final var entityManager = entityManager();
-            final var builder = entityManager.getCriteriaBuilder();
-            final var query = builder.createQuery(targetClass);
-            final var root = query.from(targetClass);
-            query.select(root);
-            query.where(builder.equal(root.get(Store_.storeName), storeName));
-            final var found = entityManager.createQuery(query).getSingleResult();
-            assertThat(found)
-                    .as("the store selected by %s", storeName)
-                    .extracting(Store::getStoreName)
-                    .isEqualTo(storeName);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var builder = entityManager.getCriteriaBuilder();
+                final var query = builder.createQuery(targetClass);
+                final var root = query.from(targetClass);
+                query.select(root);
+                query.where(builder.equal(root.get(Store_.storeName), storeName));
+                final var found = entityManager.createQuery(query).getSingleResult();
+                assertThat(found)
+                        .as("the store selected by %s", storeName)
+                        .extracting(Store::getStoreName)
+                        .isEqualTo(storeName);
+                return null;
+            }));
         }
     }
 }

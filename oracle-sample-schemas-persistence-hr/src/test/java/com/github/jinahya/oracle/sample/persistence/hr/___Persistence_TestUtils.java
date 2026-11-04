@@ -20,8 +20,17 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * #L%
  */
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+
+import java.util.Objects;
+import java.util.function.BiFunction;
+
+import static com.github.jinahya.persistence.test.util.JinahyaEntityManagerTestUtils.selectRandomEntity;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManagerInTransactionAndRollback;
+
 /**
- * Formerly the helpers for tests which already have an entity manager; now empty.
+ * Helpers, over the jinahya library, for tests which need an entity manager.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -30,6 +39,21 @@ package com.github.jinahya.oracle.sample.persistence.hr;
         "java:S1133" // Deprecated code should be removed
 })
 final class ___Persistence_TestUtils {
+
+    static <T, R> R selectRandomEntityInstance(
+            final EntityManagerFactory entityManagerFactory,
+            final Class<T> entityClass,
+            final BiFunction<? super EntityManager, ? super T, ? extends R> function) {
+        Objects.requireNonNull(entityManagerFactory, "entityManagerFactory is null");
+        Objects.requireNonNull(entityClass, "entityClass is null");
+        Objects.requireNonNull(function, "function is null");
+        return applyEntityManagerInTransactionAndRollback(
+                entityManagerFactory,
+                em -> selectRandomEntity(em, entityClass)
+                        .map(v -> function.apply(em, v))
+                        .orElse(null)
+        );
+    }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
     private ___Persistence_TestUtils() {

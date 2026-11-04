@@ -24,6 +24,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import static com.github.jinahya.persistence.test.util.EntityPersisterUtils.newPersistedInstanceOf;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
+import static com.github.jinahya.oracle.sample.persistence.hr.__PersistenceTest_Utils.applyEntityManagerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -54,7 +58,8 @@ class Country_PersistenceTest
         @DisplayName("the named query selects the country just persisted, by its region")
         @Test
         void __NamedQuery() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createNamedQuery("Country.selectListByRegionOrderByCountryNameAsc",
                                           targetClass)
@@ -64,13 +69,14 @@ class Country_PersistenceTest
                         .as("the countries of the region")
                         .containsExactly(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName("a query-language query selects the country just persisted, by its region")
         @Test
         void __QueryLanguage() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createQuery(
                                 """
@@ -86,13 +92,14 @@ class Country_PersistenceTest
                         .as("the countries of the region")
                         .containsExactly(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName("a criteria query selects the country just persisted, by its region")
         @Test
         void __CriteriaApi() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var builder = em.getCriteriaBuilder();
                 final var query = builder.createQuery(targetClass);
                 final var root = query.from(targetClass);
@@ -104,7 +111,7 @@ class Country_PersistenceTest
                         .as("the countries of the region")
                         .containsExactly(v);
                 return found;
-            });
+            })));
         }
     }
 
@@ -117,7 +124,8 @@ class Country_PersistenceTest
         @DisplayName("the named query selects the country just persisted, by its region")
         @Test
         void __NamedQuery() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createNamedQuery("Country.selectListByRegionOrderByCountryIdAsc",
                                           targetClass)
@@ -127,13 +135,14 @@ class Country_PersistenceTest
                         .as("the countries of the region")
                         .containsExactly(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName("a query-language query selects the country just persisted, by its region")
         @Test
         void __QueryLanguage() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createQuery(
                                 """
@@ -149,13 +158,14 @@ class Country_PersistenceTest
                         .as("the countries of the region")
                         .containsExactly(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName("a criteria query selects the country just persisted, by its region")
         @Test
         void __CriteriaApi() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var builder = em.getCriteriaBuilder();
                 final var query = builder.createQuery(targetClass);
                 final var root = query.from(targetClass);
@@ -167,7 +177,7 @@ class Country_PersistenceTest
                         .as("the countries of the region")
                         .containsExactly(v);
                 return found;
-            });
+            })));
         }
     }
 
@@ -184,7 +194,8 @@ class Country_PersistenceTest
         @DisplayName("the named query selects the country just persisted")
         @Test
         void __NamedQuery() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createNamedQuery("Country.selectListOrderByCountryNameAsc", targetClass)
                         .getResultList();
@@ -192,13 +203,14 @@ class Country_PersistenceTest
                         .as("all countries")
                         .contains(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName("a query-language query selects the country just persisted")
         @Test
         void __QueryLanguage() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createQuery(
                                 """
@@ -212,13 +224,14 @@ class Country_PersistenceTest
                         .as("all countries")
                         .contains(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName("a criteria query selects the country just persisted")
         @Test
         void __CriteriaApi() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var builder = em.getCriteriaBuilder();
                 final var query = builder.createQuery(targetClass);
                 final var root = query.from(targetClass);
@@ -229,7 +242,7 @@ class Country_PersistenceTest
                         .as("all countries")
                         .contains(v);
                 return found;
-            });
+            })));
         }
     }
 
@@ -242,7 +255,8 @@ class Country_PersistenceTest
         @DisplayName("the named query selects the country just persisted")
         @Test
         void __NamedQuery() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createNamedQuery("Country.selectListOrderByCountryIdAsc", targetClass)
                         .getResultList();
@@ -250,13 +264,14 @@ class Country_PersistenceTest
                         .as("all countries")
                         .contains(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName("a query-language query selects the country just persisted")
         @Test
         void __QueryLanguage() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createQuery(
                                 """
@@ -270,13 +285,14 @@ class Country_PersistenceTest
                         .as("all countries")
                         .contains(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName("a criteria query selects the country just persisted")
         @Test
         void __CriteriaApi() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var builder = em.getCriteriaBuilder();
                 final var query = builder.createQuery(targetClass);
                 final var root = query.from(targetClass);
@@ -287,7 +303,7 @@ class Country_PersistenceTest
                         .as("all countries")
                         .contains(v);
                 return found;
-            });
+            })));
         }
     }
 }

@@ -31,6 +31,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
+import static com.github.jinahya.oracle.sample.persistence.hr.__PersistenceIT_Utils.applyEntityManagerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -60,51 +62,59 @@ class Country_PersistenceIT
      * Returns some ids of the regions the installed table holds countries of.
      */
     Stream<Long> regionIds() {
-        return entityManager()
-                .createQuery(
-                        """
-                                SELECT DISTINCT e.region.regionId
-                                FROM Country e
-                                ORDER BY e.region.regionId ASC""",
-                        Long.class
-                )
-                .setMaxResults(5)
-                .getResultList()
-                .stream();
+        return applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+            return entityManager
+                    .createQuery(
+                            """
+                                    SELECT DISTINCT e.region.regionId
+                                    FROM Country e
+                                    ORDER BY e.region.regionId ASC""",
+                            Long.class
+                    )
+                    .setMaxResults(5)
+                    .getResultList()
+                    .stream();
+        }));
     }
 
     private void verifyByRegion(final Long regionId, final List<Country> found,
                                 final Comparator<Country> order) {
-        final var count = entityManager()
-                .createQuery(
-                        """
-                                SELECT COUNT(e)
-                                FROM Country e
-                                WHERE e.region.regionId = :regionId""",
-                        Long.class
-                )
-                .setParameter("regionId", regionId)
-                .getSingleResult();
-        assertThat(found)
-                .as("the countries of region %s", regionId)
-                .hasSize(count.intValue())
-                .allSatisfy(c -> assertThat(c.getRegion().getRegionId()).isEqualTo(regionId))
-                .isSortedAccordingTo(order);
+        applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+            final var count = entityManager
+                    .createQuery(
+                            """
+                                    SELECT COUNT(e)
+                                    FROM Country e
+                                    WHERE e.region.regionId = :regionId""",
+                            Long.class
+                    )
+                    .setParameter("regionId", regionId)
+                    .getSingleResult();
+            assertThat(found)
+                    .as("the countries of region %s", regionId)
+                    .hasSize(count.intValue())
+                    .allSatisfy(c -> assertThat(c.getRegion().getRegionId()).isEqualTo(regionId))
+                    .isSortedAccordingTo(order);
+            return null;
+        }));
     }
 
     private void verifyAll(final List<Country> found, final Comparator<Country> order) {
-        final var count = entityManager()
-                .createQuery(
-                        """
-                                SELECT COUNT(e)
-                                FROM Country e""",
-                        Long.class
-                )
-                .getSingleResult();
-        assertThat(found)
-                .as("all countries")
-                .hasSize(count.intValue())
-                .isSortedAccordingTo(order);
+        applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+            final var count = entityManager
+                    .createQuery(
+                            """
+                                    SELECT COUNT(e)
+                                    FROM Country e""",
+                            Long.class
+                    )
+                    .getSingleResult();
+            assertThat(found)
+                    .as("all countries")
+                    .hasSize(count.intValue())
+                    .isSortedAccordingTo(order);
+            return null;
+        }));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -124,46 +134,54 @@ class Country_PersistenceIT
         @MethodSource("regionIds")
         @ParameterizedTest
         void __NamedQuery(final Long regionId) {
-            final var found = entityManager()
-                    .createNamedQuery("Country.selectListByRegionOrderByCountryNameAsc",
-                                      targetClass)
-                    .setParameter("region", entityManager().getReference(Region.class, regionId))
-                    .getResultList();
-            verifyByRegion(regionId, found, COUNTRY_NAME_ASC);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createNamedQuery("Country.selectListByRegionOrderByCountryNameAsc",
+                                          targetClass)
+                        .setParameter("region", entityManager.getReference(Region.class, regionId))
+                        .getResultList();
+                verifyByRegion(regionId, found, COUNTRY_NAME_ASC);
+                return null;
+            }));
         }
 
         @DisplayName("a query-language query selects the region's countries, by name")
         @MethodSource("regionIds")
         @ParameterizedTest
         void __QueryLanguage(final Long regionId) {
-            final var found = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT e
-                                    FROM Country AS e
-                                    WHERE e.region = :region
-                                    ORDER BY e.countryName ASC""",
-                            targetClass
-                    )
-                    .setParameter("region", entityManager().getReference(Region.class, regionId))
-                    .getResultList();
-            verifyByRegion(regionId, found, COUNTRY_NAME_ASC);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createQuery(
+                                """
+                                        SELECT e
+                                        FROM Country AS e
+                                        WHERE e.region = :region
+                                        ORDER BY e.countryName ASC""",
+                                targetClass
+                        )
+                        .setParameter("region", entityManager.getReference(Region.class, regionId))
+                        .getResultList();
+                verifyByRegion(regionId, found, COUNTRY_NAME_ASC);
+                return null;
+            }));
         }
 
         @DisplayName("a criteria query selects the region's countries, by name")
         @MethodSource("regionIds")
         @ParameterizedTest
         void __CriteriaApi(final Long regionId) {
-            final var entityManager = entityManager();
-            final var builder = entityManager.getCriteriaBuilder();
-            final var query = builder.createQuery(targetClass);
-            final var root = query.from(targetClass);
-            query.select(root);
-            query.where(builder.equal(root.get(Country_.region),
-                                      entityManager.getReference(Region.class, regionId)));
-            query.orderBy(builder.asc(root.get(Country_.countryName)));
-            final var found = entityManager.createQuery(query).getResultList();
-            verifyByRegion(regionId, found, COUNTRY_NAME_ASC);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var builder = entityManager.getCriteriaBuilder();
+                final var query = builder.createQuery(targetClass);
+                final var root = query.from(targetClass);
+                query.select(root);
+                query.where(builder.equal(root.get(Country_.region),
+                                          entityManager.getReference(Region.class, regionId)));
+                query.orderBy(builder.asc(root.get(Country_.countryName)));
+                final var found = entityManager.createQuery(query).getResultList();
+                verifyByRegion(regionId, found, COUNTRY_NAME_ASC);
+                return null;
+            }));
         }
     }
 
@@ -182,45 +200,53 @@ class Country_PersistenceIT
         @MethodSource("regionIds")
         @ParameterizedTest
         void __NamedQuery(final Long regionId) {
-            final var found = entityManager()
-                    .createNamedQuery("Country.selectListByRegionOrderByCountryIdAsc", targetClass)
-                    .setParameter("region", entityManager().getReference(Region.class, regionId))
-                    .getResultList();
-            verifyByRegion(regionId, found, COUNTRY_ID_ASC);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createNamedQuery("Country.selectListByRegionOrderByCountryIdAsc", targetClass)
+                        .setParameter("region", entityManager.getReference(Region.class, regionId))
+                        .getResultList();
+                verifyByRegion(regionId, found, COUNTRY_ID_ASC);
+                return null;
+            }));
         }
 
         @DisplayName("a query-language query selects the region's countries, by id")
         @MethodSource("regionIds")
         @ParameterizedTest
         void __QueryLanguage(final Long regionId) {
-            final var found = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT e
-                                    FROM Country AS e
-                                    WHERE e.region = :region
-                                    ORDER BY e.countryId ASC""",
-                            targetClass
-                    )
-                    .setParameter("region", entityManager().getReference(Region.class, regionId))
-                    .getResultList();
-            verifyByRegion(regionId, found, COUNTRY_ID_ASC);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createQuery(
+                                """
+                                        SELECT e
+                                        FROM Country AS e
+                                        WHERE e.region = :region
+                                        ORDER BY e.countryId ASC""",
+                                targetClass
+                        )
+                        .setParameter("region", entityManager.getReference(Region.class, regionId))
+                        .getResultList();
+                verifyByRegion(regionId, found, COUNTRY_ID_ASC);
+                return null;
+            }));
         }
 
         @DisplayName("a criteria query selects the region's countries, by id")
         @MethodSource("regionIds")
         @ParameterizedTest
         void __CriteriaApi(final Long regionId) {
-            final var entityManager = entityManager();
-            final var builder = entityManager.getCriteriaBuilder();
-            final var query = builder.createQuery(targetClass);
-            final var root = query.from(targetClass);
-            query.select(root);
-            query.where(builder.equal(root.get(Country_.region),
-                                      entityManager.getReference(Region.class, regionId)));
-            query.orderBy(builder.asc(root.get(Country_.countryId)));
-            final var found = entityManager.createQuery(query).getResultList();
-            verifyByRegion(regionId, found, COUNTRY_ID_ASC);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var builder = entityManager.getCriteriaBuilder();
+                final var query = builder.createQuery(targetClass);
+                final var root = query.from(targetClass);
+                query.select(root);
+                query.where(builder.equal(root.get(Country_.region),
+                                          entityManager.getReference(Region.class, regionId)));
+                query.orderBy(builder.asc(root.get(Country_.countryId)));
+                final var found = entityManager.createQuery(query).getResultList();
+                verifyByRegion(regionId, found, COUNTRY_ID_ASC);
+                return null;
+            }));
         }
     }
 
@@ -233,38 +259,46 @@ class Country_PersistenceIT
         @DisplayName("the named query selects every country, by name")
         @Test
         void __NamedQuery() {
-            final var found = entityManager()
-                    .createNamedQuery("Country.selectListOrderByCountryNameAsc", targetClass)
-                    .getResultList();
-            verifyAll(found, COUNTRY_NAME_ASC);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createNamedQuery("Country.selectListOrderByCountryNameAsc", targetClass)
+                        .getResultList();
+                verifyAll(found, COUNTRY_NAME_ASC);
+                return null;
+            }));
         }
 
         @DisplayName("a query-language query selects every country, by name")
         @Test
         void __QueryLanguage() {
-            final var found = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT e
-                                    FROM Country AS e
-                                    ORDER BY e.countryName ASC""",
-                            targetClass
-                    )
-                    .getResultList();
-            verifyAll(found, COUNTRY_NAME_ASC);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createQuery(
+                                """
+                                        SELECT e
+                                        FROM Country AS e
+                                        ORDER BY e.countryName ASC""",
+                                targetClass
+                        )
+                        .getResultList();
+                verifyAll(found, COUNTRY_NAME_ASC);
+                return null;
+            }));
         }
 
         @DisplayName("a criteria query selects every country, by name")
         @Test
         void __CriteriaApi() {
-            final var entityManager = entityManager();
-            final var builder = entityManager.getCriteriaBuilder();
-            final var query = builder.createQuery(targetClass);
-            final var root = query.from(targetClass);
-            query.select(root);
-            query.orderBy(builder.asc(root.get(Country_.countryName)));
-            final var found = entityManager.createQuery(query).getResultList();
-            verifyAll(found, COUNTRY_NAME_ASC);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var builder = entityManager.getCriteriaBuilder();
+                final var query = builder.createQuery(targetClass);
+                final var root = query.from(targetClass);
+                query.select(root);
+                query.orderBy(builder.asc(root.get(Country_.countryName)));
+                final var found = entityManager.createQuery(query).getResultList();
+                verifyAll(found, COUNTRY_NAME_ASC);
+                return null;
+            }));
         }
     }
 
@@ -277,38 +311,46 @@ class Country_PersistenceIT
         @DisplayName("the named query selects every country, by id")
         @Test
         void __NamedQuery() {
-            final var found = entityManager()
-                    .createNamedQuery("Country.selectListOrderByCountryIdAsc", targetClass)
-                    .getResultList();
-            verifyAll(found, COUNTRY_ID_ASC);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createNamedQuery("Country.selectListOrderByCountryIdAsc", targetClass)
+                        .getResultList();
+                verifyAll(found, COUNTRY_ID_ASC);
+                return null;
+            }));
         }
 
         @DisplayName("a query-language query selects every country, by id")
         @Test
         void __QueryLanguage() {
-            final var found = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT e
-                                    FROM Country AS e
-                                    ORDER BY e.countryId ASC""",
-                            targetClass
-                    )
-                    .getResultList();
-            verifyAll(found, COUNTRY_ID_ASC);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createQuery(
+                                """
+                                        SELECT e
+                                        FROM Country AS e
+                                        ORDER BY e.countryId ASC""",
+                                targetClass
+                        )
+                        .getResultList();
+                verifyAll(found, COUNTRY_ID_ASC);
+                return null;
+            }));
         }
 
         @DisplayName("a criteria query selects every country, by id")
         @Test
         void __CriteriaApi() {
-            final var entityManager = entityManager();
-            final var builder = entityManager.getCriteriaBuilder();
-            final var query = builder.createQuery(targetClass);
-            final var root = query.from(targetClass);
-            query.select(root);
-            query.orderBy(builder.asc(root.get(Country_.countryId)));
-            final var found = entityManager.createQuery(query).getResultList();
-            verifyAll(found, COUNTRY_ID_ASC);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var builder = entityManager.getCriteriaBuilder();
+                final var query = builder.createQuery(targetClass);
+                final var root = query.from(targetClass);
+                query.select(root);
+                query.orderBy(builder.asc(root.get(Country_.countryId)));
+                final var found = entityManager.createQuery(query).getResultList();
+                verifyAll(found, COUNTRY_ID_ASC);
+                return null;
+            }));
         }
     }
 }

@@ -143,8 +143,8 @@ would look for their tables in the wrong schema.
 ### Test bases, one copy per module
 
 There is no shared test module, and no CDI. Each module has, in its own test package, its own test
-bases, the helpers `__PersistenceTest_Utils` / `__PersistenceIT_Utils` and `___Validation_TestUtils`,
-and the empty `___Persistence_TestUtils`. The bases are one root and four siblings, none of which
+bases and the helpers `__PersistenceTest_Utils` / `__PersistenceIT_Utils`, `___Persistence_TestUtils`
+and `___Validation_TestUtils`. The bases are one root and four siblings, none of which
 extends another, plus one interface holding the checks:
 
 | base | tests | for |
@@ -172,18 +172,37 @@ As in the sibling `sqlserver-samples-persistence`, each unit has a helper in pla
 `__PersistenceTest_Utils` for `<schema>-test` and `__PersistenceIT_Utils` for `<schema>-it`. Each holds
 the unit name as its `PERSISTENCE_UNIT_NAME` constant and an `applyEntityManagerFactory(Function)` which
 takes the factory from `JinahyaPersistenceTestUtils.applyCachedEntityManagerFactory`: opened once for the
-whole run, closed when the virtual machine shuts down. A persistence base takes its factory from its
-helper, and opens an entity manager per test, on first use, which it closes after the test; a test class
-outside the bases (`sh`'s `*Utils_PersistenceTest` / `*Utils_PersistenceIT`) opens one per test instance
-the same way, and closes it in an `@AfterEach`. The H2 schema of a `<schema>-test` unit is therefore
+whole run, closed when the virtual machine shuts down. The H2 schema of a `<schema>-test` unit is therefore
 generated once per run, not once per test class, so a row a test commits is seen by the tests after it.
 
-Nothing else wraps the library. A test calls `JinahyaEntityManagerUtils`, `JinahyaEntityManagerTestUtils`,
-`JinahyaEntityManagerFactoryUtils` and `JinayaManagedTypeUtils` directly; `___Persistence_TestUtils`,
-which used to hold the same helpers, is kept empty. That needs `version.jinahya-persistence` 0.6.11 or later,
-and each module declares `jinahya-persistence-more`, `-utils` and `-test-utils` itself, at `test` scope.
-`___Validation_TestUtils` holds a validator factory, built once per run, and `validate` / `assertValid`;
-Hibernate Validator and Expressly are each module's own `test` dependencies, not the root's.
+The persistence bases hold no entity manager, and no wrapper of their own. A test, in a base or in a
+subclass, takes the factory from its unit's helper and goes through the jinahya library directly, one
+entity manager per call:
+
+```java
+applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+    final var persisted = newPersistedInstanceOf(em, targetClass);
+    ...
+})));
+```
+
+That is `JinahyaEntityManagerFactoryUtils.applyEntityManager`, then
+`JinahyaEntityManagerUtils.applyInTransactionAndRollback` when the work needs a transaction, and
+`EntityPersisterUtils.newPersistedInstanceOf` for a persisted, randomized instance. A test which only reads
+uses `applyEntityManager` alone, with the whole body inside the lambda, so the entity manager is still open
+for the assertions. Each base runs `persistRandomizedEntityInstance__` and `selectRandomEntityInstance__`,
+and hands the instance to the hooks `randomizedEntityInstancePersisted__` and
+`randomEntityInstanceSelected__(EntityManager, T)`, which a subclass overrides to assert what its entity
+promises; a view's test overrides `persistRandomizedEntityInstance__` with a `@Disabled` one. A test class
+outside the bases (`sh`'s `*Utils_PersistenceTest` / `*Utils_PersistenceIT`) opens one entity manager per
+test instance, and closes it in an `@AfterEach`.
+
+`___Persistence_TestUtils` holds only what the library has no single call for:
+`selectRandomEntityInstance(EntityManagerFactory, Class, BiFunction)`, a random selection inside a
+rolled-back transaction. That needs `version.jinahya-persistence` 0.6.11 or later, and each module declares
+`jinahya-persistence-more`, `-utils` and `-test-utils` itself, at `test` scope. `___Validation_TestUtils`
+holds a validator factory, built once per run, and `validate` / `assertValid`; Hibernate Validator and
+Expressly are each module's own `test` dependencies, not the root's.
 
 The copies are kept in step by hand: a fix to one module's test base is carried to the other two,
 unless it is specific to that module.

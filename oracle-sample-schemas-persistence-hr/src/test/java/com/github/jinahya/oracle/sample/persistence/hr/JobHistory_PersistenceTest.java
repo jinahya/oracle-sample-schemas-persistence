@@ -48,7 +48,7 @@ class JobHistory_PersistenceTest
     @Disabled("written by the UPDATE_JOB_HISTORY trigger: nothing is inserted into it")
     @Override
     @Test
-    protected void _persist_RandomizedInstance() {
+    protected void persistRandomizedEntityInstance__() {
         // empty
     }
 }

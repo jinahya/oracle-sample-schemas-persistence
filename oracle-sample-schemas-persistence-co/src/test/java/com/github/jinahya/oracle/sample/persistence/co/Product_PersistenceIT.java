@@ -30,6 +30,8 @@ import org.junit.jupiter.api.TestInstance;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
+import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceIT_Utils.applyEntityManagerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -48,11 +50,14 @@ class Product_PersistenceIT
 
     @BeforeAll
     void __() {
-        ProductPersistenceUtils.applyMinUnitPriceAndMaxUnitPrice(entityManager(), (m, x) -> {
-            unitPriceMin = m;
-            unitPriceMax = x;
+        applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+            ProductPersistenceUtils.applyMinUnitPriceAndMaxUnitPrice(entityManager, (m, x) -> {
+                unitPriceMin = m;
+                unitPriceMax = x;
+                return null;
+            });
             return null;
-        });
+        }));
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -71,21 +76,23 @@ class Product_PersistenceIT
      *         aborted, not failed, if it has not.
      */
     private BigDecimal[] unitPriceRange() {
-        final var unitPrices = entityManager()
-                .createQuery(
-                        """
-                                SELECT DISTINCT e.unitPrice
-                                FROM Product e
-                                WHERE e.unitPrice IS NOT NULL
-                                ORDER BY e.unitPrice ASC""",
-                        BigDecimal.class
-                )
-                .getResultList();
-        assumeTrue(unitPrices.size() > 1, "no two distinct unit prices to select between");
-        return new BigDecimal[]{
-                unitPrices.get(unitPrices.size() / 4),
-                unitPrices.get(unitPrices.size() * 3 / 4)
-        };
+        return applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+            final var unitPrices = entityManager
+                    .createQuery(
+                            """
+                                    SELECT DISTINCT e.unitPrice
+                                    FROM Product e
+                                    WHERE e.unitPrice IS NOT NULL
+                                    ORDER BY e.unitPrice ASC""",
+                            BigDecimal.class
+                    )
+                    .getResultList();
+            assumeTrue(unitPrices.size() > 1, "no two distinct unit prices to select between");
+            return new BigDecimal[]{
+                    unitPrices.get(unitPrices.size() / 4),
+                    unitPrices.get(unitPrices.size() * 3 / 4)
+            };
+        }));
     }
 
     @Nested
@@ -109,17 +116,20 @@ class Product_PersistenceIT
                 "the named query selects the installed products in a half-open unit price range")
         @Test
         void __NamedQuery() {
-            final var range = unitPriceRange();
-            final var found = entityManager()
-                    .createNamedQuery(
-                            "Product" +
-                            ".selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
-                            targetClass
-                    )
-                    .setParameter("unitPriceMinInclusive", range[0])
-                    .setParameter("unitPriceMaxExclusive", range[1])
-                    .getResultList();
-            verify(found, range[0], range[1]);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var range = unitPriceRange();
+                final var found = entityManager
+                        .createNamedQuery(
+                                "Product" +
+                                ".selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
+                                targetClass
+                        )
+                        .setParameter("unitPriceMinInclusive", range[0])
+                        .setParameter("unitPriceMaxExclusive", range[1])
+                        .getResultList();
+                verify(found, range[0], range[1]);
+                return null;
+            }));
         }
 
         @DisplayName(
@@ -127,39 +137,44 @@ class Product_PersistenceIT
                 "range")
         @Test
         void __QueryLanguage() {
-            final var range = unitPriceRange();
-            final var found = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT e
-                                    FROM Product e
-                                    WHERE e.unitPrice >= :unitPriceMinInclusive AND e.unitPrice < :unitPriceMaxExclusive
-                                    ORDER BY e.unitPrice ASC""",
-                            targetClass
-                    )
-                    .setParameter("unitPriceMinInclusive", range[0])
-                    .setParameter("unitPriceMaxExclusive", range[1])
-                    .getResultList();
-            verify(found, range[0], range[1]);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var range = unitPriceRange();
+                final var found = entityManager
+                        .createQuery(
+                                """
+                                        SELECT e
+                                        FROM Product e
+                                        WHERE e.unitPrice >= :unitPriceMinInclusive AND e.unitPrice < :unitPriceMaxExclusive
+                                        ORDER BY e.unitPrice ASC""",
+                                targetClass
+                        )
+                        .setParameter("unitPriceMinInclusive", range[0])
+                        .setParameter("unitPriceMaxExclusive", range[1])
+                        .getResultList();
+                verify(found, range[0], range[1]);
+                return null;
+            }));
         }
 
         @DisplayName(
                 "a criteria query selects the installed products in a half-open unit price range")
         @Test
         void __CriteriaApi() {
-            final var range = unitPriceRange();
-            final var entityManager = entityManager();
-            final var builder = entityManager.getCriteriaBuilder();
-            final var query = builder.createQuery(targetClass);
-            final var root = query.from(targetClass);
-            query.select(root);
-            query.where(
-                    builder.greaterThanOrEqualTo(root.get(Product_.unitPrice), range[0]),
-                    builder.lessThan(root.get(Product_.unitPrice), range[1])
-            );
-            query.orderBy(builder.asc(root.get(Product_.unitPrice)));
-            final var found = entityManager.createQuery(query).getResultList();
-            verify(found, range[0], range[1]);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var range = unitPriceRange();
+                final var builder = entityManager.getCriteriaBuilder();
+                final var query = builder.createQuery(targetClass);
+                final var root = query.from(targetClass);
+                query.select(root);
+                query.where(
+                        builder.greaterThanOrEqualTo(root.get(Product_.unitPrice), range[0]),
+                        builder.lessThan(root.get(Product_.unitPrice), range[1])
+                );
+                query.orderBy(builder.asc(root.get(Product_.unitPrice)));
+                final var found = entityManager.createQuery(query).getResultList();
+                verify(found, range[0], range[1]);
+                return null;
+            }));
         }
     }
 
@@ -181,14 +196,17 @@ class Product_PersistenceIT
         @DisplayName("the named query selects the installed products in a closed unit price range")
         @Test
         void __NamedQuery() {
-            final var range = unitPriceRange();
-            final var found = entityManager()
-                    .createNamedQuery("Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc",
-                                      targetClass)
-                    .setParameter("unitPriceAfter", range[0])
-                    .setParameter("unitPriceBefore", range[1])
-                    .getResultList();
-            verify(found, range[0], range[1]);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var range = unitPriceRange();
+                final var found = entityManager
+                        .createNamedQuery("Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc",
+                                          targetClass)
+                        .setParameter("unitPriceAfter", range[0])
+                        .setParameter("unitPriceBefore", range[1])
+                        .getResultList();
+                verify(found, range[0], range[1]);
+                return null;
+            }));
         }
 
         @DisplayName(
@@ -196,35 +214,40 @@ class Product_PersistenceIT
                 "range")
         @Test
         void __QueryLanguage() {
-            final var range = unitPriceRange();
-            final var found = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT e
-                                    FROM Product e
-                                    WHERE e.unitPrice BETWEEN :unitPriceAfter AND :unitPriceBefore
-                                    ORDER BY e.unitPrice ASC""",
-                            targetClass
-                    )
-                    .setParameter("unitPriceAfter", range[0])
-                    .setParameter("unitPriceBefore", range[1])
-                    .getResultList();
-            verify(found, range[0], range[1]);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var range = unitPriceRange();
+                final var found = entityManager
+                        .createQuery(
+                                """
+                                        SELECT e
+                                        FROM Product e
+                                        WHERE e.unitPrice BETWEEN :unitPriceAfter AND :unitPriceBefore
+                                        ORDER BY e.unitPrice ASC""",
+                                targetClass
+                        )
+                        .setParameter("unitPriceAfter", range[0])
+                        .setParameter("unitPriceBefore", range[1])
+                        .getResultList();
+                verify(found, range[0], range[1]);
+                return null;
+            }));
         }
 
         @DisplayName("a criteria query selects the installed products in a closed unit price range")
         @Test
         void __CriteriaApi() {
-            final var range = unitPriceRange();
-            final var entityManager = entityManager();
-            final var builder = entityManager.getCriteriaBuilder();
-            final var query = builder.createQuery(targetClass);
-            final var root = query.from(targetClass);
-            query.select(root);
-            query.where(builder.between(root.get(Product_.unitPrice), range[0], range[1]));
-            query.orderBy(builder.asc(root.get(Product_.unitPrice)));
-            final var found = entityManager.createQuery(query).getResultList();
-            verify(found, range[0], range[1]);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var range = unitPriceRange();
+                final var builder = entityManager.getCriteriaBuilder();
+                final var query = builder.createQuery(targetClass);
+                final var root = query.from(targetClass);
+                query.select(root);
+                query.where(builder.between(root.get(Product_.unitPrice), range[0], range[1]));
+                query.orderBy(builder.asc(root.get(Product_.unitPrice)));
+                final var found = entityManager.createQuery(query).getResultList();
+                verify(found, range[0], range[1]);
+                return null;
+            }));
         }
     }
 }

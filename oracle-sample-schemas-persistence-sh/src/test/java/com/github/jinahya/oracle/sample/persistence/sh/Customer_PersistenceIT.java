@@ -30,6 +30,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
+import static com.github.jinahya.oracle.sample.persistence.sh.__PersistenceIT_Utils.applyEntityManagerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -58,52 +60,60 @@ class Customer_PersistenceIT
          * Returns some cities of the installed customers who bought under a promotion.
          */
         Stream<String> custCities() {
-            return entityManager()
-                    .createQuery(
-                            """
-                                    SELECT DISTINCT c.custCity
-                                    FROM Sales s
-                                             JOIN s.customer c
-                                    WHERE s.promotion.promoCategory <> 'NO PROMOTION'
-                                    ORDER BY c.custCity ASC""",
-                            String.class
-                    )
-                    .setMaxResults(3)
-                    .getResultList()
-                    .stream();
+            return applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                return entityManager
+                        .createQuery(
+                                """
+                                        SELECT DISTINCT c.custCity
+                                        FROM Sales s
+                                                 JOIN s.customer c
+                                        WHERE s.promotion.promoCategory <> 'NO PROMOTION'
+                                        ORDER BY c.custCity ASC""",
+                                String.class
+                        )
+                        .setMaxResults(3)
+                        .getResultList()
+                        .stream();
+            }));
         }
 
         private void verify(final String custCity, final List<Customer> found) {
-            final var count = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT COUNT(DISTINCT c)
-                                    FROM Sales s
-                                             JOIN s.customer c
-                                    WHERE c.custCity = :custCity
-                                      AND s.promotion.promoCategory <> 'NO PROMOTION'""",
-                            Long.class
-                    )
-                    .setParameter("custCity", custCity)
-                    .getSingleResult();
-            assertThat(found)
-                    .as("the customers of %s who bought under a promotion", custCity)
-                    .isNotEmpty()
-                    .hasSize(count.intValue())
-                    .allSatisfy(c -> assertThat(c.getCustCity()).isEqualTo(custCity))
-                    .isSortedAccordingTo(Comparator.comparing(Customer::getCustLastName));
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var count = entityManager
+                        .createQuery(
+                                """
+                                        SELECT COUNT(DISTINCT c)
+                                        FROM Sales s
+                                                 JOIN s.customer c
+                                        WHERE c.custCity = :custCity
+                                          AND s.promotion.promoCategory <> 'NO PROMOTION'""",
+                                Long.class
+                        )
+                        .setParameter("custCity", custCity)
+                        .getSingleResult();
+                assertThat(found)
+                        .as("the customers of %s who bought under a promotion", custCity)
+                        .isNotEmpty()
+                        .hasSize(count.intValue())
+                        .allSatisfy(c -> assertThat(c.getCustCity()).isEqualTo(custCity))
+                        .isSortedAccordingTo(Comparator.comparing(Customer::getCustLastName));
+                return null;
+            }));
         }
 
         @DisplayName("the named query selects the city's customers who bought under a promotion")
         @MethodSource("custCities")
         @ParameterizedTest
         void __NamedQuery(final String custCity) {
-            final var found = entityManager()
-                    .createNamedQuery("Customer.selectListPromotedByCustCityOrderByCustLastNameAsc",
-                                      targetClass)
-                    .setParameter("custCity", custCity)
-                    .getResultList();
-            verify(custCity, found);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createNamedQuery("Customer.selectListPromotedByCustCityOrderByCustLastNameAsc",
+                                          targetClass)
+                        .setParameter("custCity", custCity)
+                        .getResultList();
+                verify(custCity, found);
+                return null;
+            }));
         }
 
         @DisplayName(
@@ -111,51 +121,56 @@ class Customer_PersistenceIT
         @MethodSource("custCities")
         @ParameterizedTest
         void __QueryLanguage(final String custCity) {
-            final var found = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT c
-                                    FROM Customer c
-                                    WHERE c.custCity = :custCity
-                                      AND EXISTS (SELECT s
-                                                  FROM Sales s
-                                                  WHERE s.customer = c
-                                                    AND s.promotion.promoCategory <> 'NO PROMOTION')
-                                    ORDER BY c.custLastName ASC, c.custFirstName ASC, c.custId ASC""",
-                            targetClass
-                    )
-                    .setParameter("custCity", custCity)
-                    .getResultList();
-            verify(custCity, found);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createQuery(
+                                """
+                                        SELECT c
+                                        FROM Customer c
+                                        WHERE c.custCity = :custCity
+                                          AND EXISTS (SELECT s
+                                                      FROM Sales s
+                                                      WHERE s.customer = c
+                                                        AND s.promotion.promoCategory <> 'NO PROMOTION')
+                                        ORDER BY c.custLastName ASC, c.custFirstName ASC, c.custId ASC""",
+                                targetClass
+                        )
+                        .setParameter("custCity", custCity)
+                        .getResultList();
+                verify(custCity, found);
+                return null;
+            }));
         }
 
         @DisplayName("a criteria query selects the city's customers who bought under a promotion")
         @MethodSource("custCities")
         @ParameterizedTest
         void __CriteriaApi(final String custCity) {
-            final var entityManager = entityManager();
-            final var builder = entityManager.getCriteriaBuilder();
-            final var query = builder.createQuery(targetClass);
-            final var root = query.from(targetClass);
-            final var subquery = query.subquery(Sales.class);
-            final var sales = subquery.from(Sales.class);
-            subquery.select(sales).where(
-                    builder.equal(sales.get(Sales_.customer), root),
-                    builder.notEqual(sales.get(Sales_.promotion).get(Promotion_.promoCategory),
-                                     "NO PROMOTION")
-            );
-            query.select(root);
-            query.where(
-                    builder.equal(root.get(Customer_.custCity), custCity),
-                    builder.exists(subquery)
-            );
-            query.orderBy(
-                    builder.asc(root.get(Customer_.custLastName)),
-                    builder.asc(root.get(Customer_.custFirstName)),
-                    builder.asc(root.get(Customer_.custId))
-            );
-            final var found = entityManager.createQuery(query).getResultList();
-            verify(custCity, found);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var builder = entityManager.getCriteriaBuilder();
+                final var query = builder.createQuery(targetClass);
+                final var root = query.from(targetClass);
+                final var subquery = query.subquery(Sales.class);
+                final var sales = subquery.from(Sales.class);
+                subquery.select(sales).where(
+                        builder.equal(sales.get(Sales_.customer), root),
+                        builder.notEqual(sales.get(Sales_.promotion).get(Promotion_.promoCategory),
+                                         "NO PROMOTION")
+                );
+                query.select(root);
+                query.where(
+                        builder.equal(root.get(Customer_.custCity), custCity),
+                        builder.exists(subquery)
+                );
+                query.orderBy(
+                        builder.asc(root.get(Customer_.custLastName)),
+                        builder.asc(root.get(Customer_.custFirstName)),
+                        builder.asc(root.get(Customer_.custId))
+                );
+                final var found = entityManager.createQuery(query).getResultList();
+                verify(custCity, found);
+                return null;
+            }));
         }
     }
 }

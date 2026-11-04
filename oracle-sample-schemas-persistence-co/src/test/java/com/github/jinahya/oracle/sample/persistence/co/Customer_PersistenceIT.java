@@ -32,6 +32,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
+import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceIT_Utils.applyEntityManagerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -56,51 +58,59 @@ class Customer_PersistenceIT
         @DisplayName("the named query selects the installed customers, ordered by identifier")
         @Test
         void __NamedQuery() {
-            final var found = entityManager()
-                    .createNamedQuery("Customer.selectListOrderByCustomerIdAsc", targetClass)
-                    .getResultList();
-            assertThat(found)
-                    .as("the customers ordered by %s", Customer_.customerId.getName())
-                    .isNotEmpty()
-                    .extracting(Customer::getCustomerId)
-                    .isSorted();
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createNamedQuery("Customer.selectListOrderByCustomerIdAsc", targetClass)
+                        .getResultList();
+                assertThat(found)
+                        .as("the customers ordered by %s", Customer_.customerId.getName())
+                        .isNotEmpty()
+                        .extracting(Customer::getCustomerId)
+                        .isSorted();
+                return null;
+            }));
         }
 
         @DisplayName(
                 "a query-language query selects the installed customers, ordered by identifier")
         @Test
         void __QueryLanguage() {
-            final var found = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT e
-                                    FROM Customer e
-                                    ORDER BY e.customerId ASC""",
-                            targetClass
-                    )
-                    .getResultList();
-            assertThat(found)
-                    .as("the customers ordered by %s", Customer_.customerId.getName())
-                    .isNotEmpty()
-                    .extracting(Customer::getCustomerId)
-                    .isSorted();
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createQuery(
+                                """
+                                        SELECT e
+                                        FROM Customer e
+                                        ORDER BY e.customerId ASC""",
+                                targetClass
+                        )
+                        .getResultList();
+                assertThat(found)
+                        .as("the customers ordered by %s", Customer_.customerId.getName())
+                        .isNotEmpty()
+                        .extracting(Customer::getCustomerId)
+                        .isSorted();
+                return null;
+            }));
         }
 
         @DisplayName("a criteria query selects the installed customers, ordered by identifier")
         @Test
         void __CriteriaApi() {
-            final var entityManager = entityManager();
-            final var builder = entityManager.getCriteriaBuilder();
-            final var query = builder.createQuery(targetClass);
-            final var root = query.from(targetClass);
-            query.select(root);
-            query.orderBy(builder.asc(root.get(Customer_.customerId)));
-            final var found = entityManager.createQuery(query).getResultList();
-            assertThat(found)
-                    .as("the customers ordered by %s", Customer_.customerId.getName())
-                    .isNotEmpty()
-                    .extracting(Customer::getCustomerId)
-                    .isSorted();
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var builder = entityManager.getCriteriaBuilder();
+                final var query = builder.createQuery(targetClass);
+                final var root = query.from(targetClass);
+                query.select(root);
+                query.orderBy(builder.asc(root.get(Customer_.customerId)));
+                final var found = entityManager.createQuery(query).getResultList();
+                assertThat(found)
+                        .as("the customers ordered by %s", Customer_.customerId.getName())
+                        .isNotEmpty()
+                        .extracting(Customer::getCustomerId)
+                        .isSorted();
+                return null;
+            }));
         }
     }
 
@@ -125,16 +135,19 @@ class Customer_PersistenceIT
                 "identifier")
         @Test
         void __NamedQuery() {
-            final var query = entityManager()
-                    .createNamedQuery("Customer.selectListOrderByCustomerIdAsc", targetClass)
-                    .setMaxResults(MAX_RESULTS);
-            for (var firstResult = 0; ; firstResult += MAX_RESULTS) {
-                final var page = query.setFirstResult(firstResult).getResultList();
-                verify(page);
-                if (page.size() < MAX_RESULTS) {
-                    break;
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var query = entityManager
+                        .createNamedQuery("Customer.selectListOrderByCustomerIdAsc", targetClass)
+                        .setMaxResults(MAX_RESULTS);
+                for (var firstResult = 0; ; firstResult += MAX_RESULTS) {
+                    final var page = query.setFirstResult(firstResult).getResultList();
+                    verify(page);
+                    if (page.size() < MAX_RESULTS) {
+                        break;
+                    }
                 }
-            }
+                return null;
+            }));
         }
 
         @DisplayName(
@@ -142,22 +155,25 @@ class Customer_PersistenceIT
                 " identifier")
         @Test
         void __QueryLanguage() {
-            final var query = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT e
-                                    FROM Customer e
-                                    ORDER BY e.customerId ASC""",
-                            targetClass
-                    )
-                    .setMaxResults(MAX_RESULTS);
-            for (var firstResult = 0; ; firstResult += MAX_RESULTS) {
-                final var page = query.setFirstResult(firstResult).getResultList();
-                verify(page);
-                if (page.size() < MAX_RESULTS) {
-                    break;
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var query = entityManager
+                        .createQuery(
+                                """
+                                        SELECT e
+                                        FROM Customer e
+                                        ORDER BY e.customerId ASC""",
+                                targetClass
+                        )
+                        .setMaxResults(MAX_RESULTS);
+                for (var firstResult = 0; ; firstResult += MAX_RESULTS) {
+                    final var page = query.setFirstResult(firstResult).getResultList();
+                    verify(page);
+                    if (page.size() < MAX_RESULTS) {
+                        break;
+                    }
                 }
-            }
+                return null;
+            }));
         }
 
         @DisplayName(
@@ -165,21 +181,23 @@ class Customer_PersistenceIT
                 "identifier")
         @Test
         void __CriteriaApi() {
-            final var entityManager = entityManager();
-            final var builder = entityManager.getCriteriaBuilder();
-            final var criteria = builder.createQuery(targetClass);
-            final var root = criteria.from(targetClass);
-            criteria.select(root);
-            criteria.orderBy(builder.asc(root.get(Customer_.customerId)));
-            final var query = entityManager.createQuery(criteria)
-                    .setMaxResults(MAX_RESULTS);
-            for (var firstResult = 0; ; firstResult += MAX_RESULTS) {
-                final var page = query.setFirstResult(firstResult).getResultList();
-                verify(page);
-                if (page.size() < MAX_RESULTS) {
-                    break;
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var builder = entityManager.getCriteriaBuilder();
+                final var criteria = builder.createQuery(targetClass);
+                final var root = criteria.from(targetClass);
+                criteria.select(root);
+                criteria.orderBy(builder.asc(root.get(Customer_.customerId)));
+                final var query = entityManager.createQuery(criteria)
+                        .setMaxResults(MAX_RESULTS);
+                for (var firstResult = 0; ; firstResult += MAX_RESULTS) {
+                    final var page = query.setFirstResult(firstResult).getResultList();
+                    verify(page);
+                    if (page.size() < MAX_RESULTS) {
+                        break;
+                    }
                 }
-            }
+                return null;
+            }));
         }
     }
 
@@ -199,10 +217,12 @@ class Customer_PersistenceIT
          *         failed, if it is.
          */
         private long customerIdMinExclusive() {
-            final var previous =
-                    JinahyaEntityManagerTestUtils.selectRandomEntity(entityManager(), targetClass);
-            assumeTrue(previous.isPresent(), "no customer to start a page after");
-            return previous.get().getCustomerId();
+            return applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var previous =
+                        JinahyaEntityManagerTestUtils.selectRandomEntity(entityManager, targetClass);
+                assumeTrue(previous.isPresent(), "no customer to start a page after");
+                return previous.get().getCustomerId();
+            }));
         }
 
         private void verify(final List<Customer> found, final long customerIdMinExclusive) {
@@ -220,14 +240,17 @@ class Customer_PersistenceIT
                 "the named query selects a page of the installed customers, after the previous one")
         @Test
         void __NamedQuery() {
-            final var customerIdMinExclusive = customerIdMinExclusive();
-            final var found = entityManager()
-                    .createNamedQuery("Customer.selectListOrderByCustomerIdAscCustomerIdGt",
-                                      targetClass)
-                    .setParameter("customerIdMinExclusive", customerIdMinExclusive)
-                    .setMaxResults(MAX_RESULTS)
-                    .getResultList();
-            verify(found, customerIdMinExclusive);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var customerIdMinExclusive = customerIdMinExclusive();
+                final var found = entityManager
+                        .createNamedQuery("Customer.selectListOrderByCustomerIdAscCustomerIdGt",
+                                          targetClass)
+                        .setParameter("customerIdMinExclusive", customerIdMinExclusive)
+                        .setMaxResults(MAX_RESULTS)
+                        .getResultList();
+                verify(found, customerIdMinExclusive);
+                return null;
+            }));
         }
 
         @DisplayName(
@@ -235,20 +258,23 @@ class Customer_PersistenceIT
                 "previous one")
         @Test
         void __QueryLanguage() {
-            final var customerIdMinExclusive = customerIdMinExclusive();
-            final var found = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT e
-                                    FROM Customer e
-                                    WHERE e.customerId > :customerIdMinExclusive
-                                    ORDER BY e.customerId ASC""",
-                            targetClass
-                    )
-                    .setParameter("customerIdMinExclusive", customerIdMinExclusive)
-                    .setMaxResults(MAX_RESULTS)
-                    .getResultList();
-            verify(found, customerIdMinExclusive);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var customerIdMinExclusive = customerIdMinExclusive();
+                final var found = entityManager
+                        .createQuery(
+                                """
+                                        SELECT e
+                                        FROM Customer e
+                                        WHERE e.customerId > :customerIdMinExclusive
+                                        ORDER BY e.customerId ASC""",
+                                targetClass
+                        )
+                        .setParameter("customerIdMinExclusive", customerIdMinExclusive)
+                        .setMaxResults(MAX_RESULTS)
+                        .getResultList();
+                verify(found, customerIdMinExclusive);
+                return null;
+            }));
         }
 
         @DisplayName(
@@ -256,19 +282,21 @@ class Customer_PersistenceIT
                 "one")
         @Test
         void __CriteriaApi() {
-            final var customerIdMinExclusive = customerIdMinExclusive();
-            final var entityManager = entityManager();
-            final var builder = entityManager.getCriteriaBuilder();
-            final var query = builder.createQuery(targetClass);
-            final var root = query.from(targetClass);
-            query.select(root);
-            query.where(
-                    builder.greaterThan(root.get(Customer_.customerId), customerIdMinExclusive));
-            query.orderBy(builder.asc(root.get(Customer_.customerId)));
-            final var found = entityManager.createQuery(query)
-                    .setMaxResults(MAX_RESULTS)
-                    .getResultList();
-            verify(found, customerIdMinExclusive);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var customerIdMinExclusive = customerIdMinExclusive();
+                final var builder = entityManager.getCriteriaBuilder();
+                final var query = builder.createQuery(targetClass);
+                final var root = query.from(targetClass);
+                query.select(root);
+                query.where(
+                        builder.greaterThan(root.get(Customer_.customerId), customerIdMinExclusive));
+                query.orderBy(builder.asc(root.get(Customer_.customerId)));
+                final var found = entityManager.createQuery(query)
+                        .setMaxResults(MAX_RESULTS)
+                        .getResultList();
+                verify(found, customerIdMinExclusive);
+                return null;
+            }));
         }
     }
 
@@ -283,68 +311,78 @@ class Customer_PersistenceIT
          *         managed.
          */
         Stream<String> emailAddresses() {
-            return entityManager()
-                    .createQuery(
-                            """
-                                    SELECT e.emailAddress
-                                    FROM Customer e
-                                    ORDER BY e.customerId ASC""",
-                            String.class
-                    )
-                    .setMaxResults(5)
-                    .getResultList()
-                    .stream();
+            return applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                return entityManager
+                        .createQuery(
+                                """
+                                        SELECT e.emailAddress
+                                        FROM Customer e
+                                        ORDER BY e.customerId ASC""",
+                                String.class
+                        )
+                        .setMaxResults(5)
+                        .getResultList()
+                        .stream();
+            }));
         }
 
         @DisplayName("the named query selects the installed customer")
         @MethodSource("emailAddresses")
         @ParameterizedTest
         void __NamedQuery(final String emailAddress) {
-            final var found = entityManager()
-                    .createNamedQuery("Customer.selectOneByEmailAddress", targetClass)
-                    .setParameter("emailAddress", emailAddress)
-                    .getSingleResult();
-            assertThat(found)
-                    .as("the customer selected by %s", emailAddress)
-                    .extracting(Customer::getEmailAddress)
-                    .isEqualTo(emailAddress);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createNamedQuery("Customer.selectOneByEmailAddress", targetClass)
+                        .setParameter("emailAddress", emailAddress)
+                        .getSingleResult();
+                assertThat(found)
+                        .as("the customer selected by %s", emailAddress)
+                        .extracting(Customer::getEmailAddress)
+                        .isEqualTo(emailAddress);
+                return null;
+            }));
         }
 
         @DisplayName("a query-language query selects the installed customer")
         @MethodSource("emailAddresses")
         @ParameterizedTest
         void __QueryLanguage(final String emailAddress) {
-            final var found = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT e
-                                    FROM Customer e
-                                    WHERE e.emailAddress = :emailAddress""",
-                            targetClass
-                    )
-                    .setParameter("emailAddress", emailAddress)
-                    .getSingleResult();
-            assertThat(found)
-                    .as("the customer selected by %s", emailAddress)
-                    .extracting(Customer::getEmailAddress)
-                    .isEqualTo(emailAddress);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createQuery(
+                                """
+                                        SELECT e
+                                        FROM Customer e
+                                        WHERE e.emailAddress = :emailAddress""",
+                                targetClass
+                        )
+                        .setParameter("emailAddress", emailAddress)
+                        .getSingleResult();
+                assertThat(found)
+                        .as("the customer selected by %s", emailAddress)
+                        .extracting(Customer::getEmailAddress)
+                        .isEqualTo(emailAddress);
+                return null;
+            }));
         }
 
         @DisplayName("a criteria query selects the installed customer")
         @MethodSource("emailAddresses")
         @ParameterizedTest
         void __CriteriaApi(final String emailAddress) {
-            final var entityManager = entityManager();
-            final var builder = entityManager.getCriteriaBuilder();
-            final var query = builder.createQuery(targetClass);
-            final var root = query.from(targetClass);
-            query.select(root);
-            query.where(builder.equal(root.get(Customer_.emailAddress), emailAddress));
-            final var found = entityManager.createQuery(query).getSingleResult();
-            assertThat(found)
-                    .as("the customer selected by %s", emailAddress)
-                    .extracting(Customer::getEmailAddress)
-                    .isEqualTo(emailAddress);
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var builder = entityManager.getCriteriaBuilder();
+                final var query = builder.createQuery(targetClass);
+                final var root = query.from(targetClass);
+                query.select(root);
+                query.where(builder.equal(root.get(Customer_.emailAddress), emailAddress));
+                final var found = entityManager.createQuery(query).getSingleResult();
+                assertThat(found)
+                        .as("the customer selected by %s", emailAddress)
+                        .extracting(Customer::getEmailAddress)
+                        .isEqualTo(emailAddress);
+                return null;
+            }));
         }
     }
 
@@ -354,51 +392,59 @@ class Customer_PersistenceIT
         @DisplayName("the named query selects the installed customers, ordered by email address")
         @Test
         void __NamedQuery() {
-            final var found = entityManager()
-                    .createNamedQuery("Customer.selectListOrderByEmailAddressAsc", targetClass)
-                    .getResultList();
-            assertThat(found)
-                    .as("the customers ordered by %s", Customer_.emailAddress.getName())
-                    .isNotEmpty()
-                    .extracting(Customer::getEmailAddress)
-                    .isSorted();
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createNamedQuery("Customer.selectListOrderByEmailAddressAsc", targetClass)
+                        .getResultList();
+                assertThat(found)
+                        .as("the customers ordered by %s", Customer_.emailAddress.getName())
+                        .isNotEmpty()
+                        .extracting(Customer::getEmailAddress)
+                        .isSorted();
+                return null;
+            }));
         }
 
         @DisplayName(
                 "a query-language query selects the installed customers, ordered by email address")
         @Test
         void __QueryLanguage() {
-            final var found = entityManager()
-                    .createQuery(
-                            """
-                                    SELECT e
-                                    FROM Customer e
-                                    ORDER BY e.emailAddress ASC""",
-                            targetClass
-                    )
-                    .getResultList();
-            assertThat(found)
-                    .as("the customers ordered by %s", Customer_.emailAddress.getName())
-                    .isNotEmpty()
-                    .extracting(Customer::getEmailAddress)
-                    .isSorted();
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var found = entityManager
+                        .createQuery(
+                                """
+                                        SELECT e
+                                        FROM Customer e
+                                        ORDER BY e.emailAddress ASC""",
+                                targetClass
+                        )
+                        .getResultList();
+                assertThat(found)
+                        .as("the customers ordered by %s", Customer_.emailAddress.getName())
+                        .isNotEmpty()
+                        .extracting(Customer::getEmailAddress)
+                        .isSorted();
+                return null;
+            }));
         }
 
         @DisplayName("a criteria query selects the installed customers, ordered by email address")
         @Test
         void __CriteriaApi() {
-            final var entityManager = entityManager();
-            final var builder = entityManager.getCriteriaBuilder();
-            final var query = builder.createQuery(targetClass);
-            final var root = query.from(targetClass);
-            query.select(root);
-            query.orderBy(builder.asc(root.get(Customer_.emailAddress)));
-            final var found = entityManager.createQuery(query).getResultList();
-            assertThat(found)
-                    .as("the customers ordered by %s", Customer_.emailAddress.getName())
-                    .isNotEmpty()
-                    .extracting(Customer::getEmailAddress)
-                    .isSorted();
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
+                final var builder = entityManager.getCriteriaBuilder();
+                final var query = builder.createQuery(targetClass);
+                final var root = query.from(targetClass);
+                query.select(root);
+                query.orderBy(builder.asc(root.get(Customer_.emailAddress)));
+                final var found = entityManager.createQuery(query).getResultList();
+                assertThat(found)
+                        .as("the customers ordered by %s", Customer_.emailAddress.getName())
+                        .isNotEmpty()
+                        .extracting(Customer::getEmailAddress)
+                        .isSorted();
+                return null;
+            }));
         }
     }
 }

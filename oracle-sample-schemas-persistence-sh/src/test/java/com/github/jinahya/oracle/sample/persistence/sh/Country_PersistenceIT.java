@@ -1,5 +1,6 @@
 package com.github.jinahya.oracle.sample.persistence.sh;
 
+import jakarta.persistence.EntityManager;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Locale;
@@ -43,11 +44,12 @@ class Country_PersistenceIT
 
     // -----------------------------------------------------------------------------------------------------------------
     @Override
-    protected void randomSelected(final Country instance) {
-        super.randomSelected(instance);
-        final var countryIsoCode = instance.getCountryIsoCode();
+    protected void randomEntityInstanceSelected__(final EntityManager entityManager,
+                                                  final Country entityInstance) {
+        super.randomEntityInstanceSelected__(entityManager, entityInstance);
+        final var countryIsoCode = entityInstance.getCountryIsoCode();
         if (!LOCALE_COUNTRY_ISO_CODES.contains(countryIsoCode)) {
-            log.debug("unknown country iso code('{}') from {}", countryIsoCode, instance);
+            log.debug("unknown country iso code('{}') from {}", countryIsoCode, entityInstance);
         }
     }
 }

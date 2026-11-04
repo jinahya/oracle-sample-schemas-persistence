@@ -27,6 +27,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import static com.github.jinahya.persistence.test.util.EntityPersisterUtils.newPersistedInstanceOf;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
+import static com.github.jinahya.oracle.sample.persistence.hr.__PersistenceTest_Utils.applyEntityManagerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -68,7 +72,8 @@ class Employee_PersistenceTest
                 "the named query selects the employee just persisted, by their manager's manager")
         @Test
         void __NamedQuery() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createNamedQuery("Employee.selectListByManagerOfManagerOrderByLastNameAsc",
                                           targetClass)
@@ -78,7 +83,7 @@ class Employee_PersistenceTest
                         .as("the employees two levels below the manager")
                         .containsExactly(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName(
@@ -86,7 +91,8 @@ class Employee_PersistenceTest
                 "manager")
         @Test
         void __QueryLanguage() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createQuery(
                                 """
@@ -102,14 +108,15 @@ class Employee_PersistenceTest
                         .as("the employees two levels below the manager")
                         .containsExactly(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName(
                 "a criteria query selects the employee just persisted, by their manager's manager")
         @Test
         void __CriteriaApi() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var managerOfManager = managerOfManager(em, v);
                 final var builder = em.getCriteriaBuilder();
                 final var query = builder.createQuery(targetClass);
@@ -124,7 +131,7 @@ class Employee_PersistenceTest
                         .as("the employees two levels below the manager")
                         .containsExactly(v);
                 return found;
-            });
+            })));
         }
     }
 }

@@ -26,6 +26,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import static com.github.jinahya.persistence.test.util.EntityPersisterUtils.newPersistedInstanceOf;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
+import static com.github.jinahya.oracle.sample.persistence.sh.__PersistenceTest_Utils.applyEntityManagerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -68,7 +72,7 @@ class Customer_PersistenceTest
                 "the named query selects the customer of the sale just persisted, by their city")
         @Test
         void __NamedQuery() {
-            applyEntityManagerInTransactionAndRollback(em -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
                 final var customer = promotedCustomer(em);
                 final var found = em
                         .createNamedQuery(
@@ -80,7 +84,7 @@ class Customer_PersistenceTest
                         .as("the customers of the city who bought under a promotion")
                         .containsExactly(customer);
                 return found;
-            });
+            })));
         }
 
         @DisplayName(
@@ -88,7 +92,7 @@ class Customer_PersistenceTest
                 " city")
         @Test
         void __QueryLanguage() {
-            applyEntityManagerInTransactionAndRollback(em -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
                 final var customer = promotedCustomer(em);
                 final var found = em
                         .createQuery(
@@ -109,14 +113,14 @@ class Customer_PersistenceTest
                         .as("the customers of the city who bought under a promotion")
                         .containsExactly(customer);
                 return found;
-            });
+            })));
         }
 
         @DisplayName(
                 "a criteria query selects the customer of the sale just persisted, by their city")
         @Test
         void __CriteriaApi() {
-            applyEntityManagerInTransactionAndRollback(em -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
                 final var customer = promotedCustomer(em);
                 final var builder = em.getCriteriaBuilder();
                 final var query = builder.createQuery(targetClass);
@@ -143,13 +147,14 @@ class Customer_PersistenceTest
                         .as("the customers of the city who bought under a promotion")
                         .containsExactly(customer);
                 return found;
-            });
+            })));
         }
 
         @DisplayName("the named query skips the customer just persisted, who bought nothing")
         @Test
         void __NamedQuery_NoSales() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createNamedQuery(
                                 "Customer.selectListPromotedByCustCityOrderByCustLastNameAsc",
@@ -160,7 +165,7 @@ class Customer_PersistenceTest
                         .as("the customers of the city who bought under a promotion")
                         .doesNotContain(v);
                 return found;
-            });
+            })));
         }
     }
 }

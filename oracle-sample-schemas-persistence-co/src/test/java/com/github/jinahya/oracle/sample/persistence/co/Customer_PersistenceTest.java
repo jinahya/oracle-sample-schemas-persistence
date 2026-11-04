@@ -7,6 +7,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.github.jinahya.persistence.test.util.EntityPersisterUtils.newPersistedInstanceOf;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
+import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceTest_Utils.applyEntityManagerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /*-
@@ -56,7 +60,7 @@ class Customer_PersistenceTest
         @DisplayName("the named query selects the customers just persisted, ordered by identifier")
         @Test
         void __NamedQuery() {
-            applyEntityManagerInTransactionAndRollback(em -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
                 final var persisted = List.of(
                         EntityPersisterUtils.newPersistedInstanceOf(em, targetClass),
                         EntityPersisterUtils.newPersistedInstanceOf(em, targetClass),
@@ -71,7 +75,7 @@ class Customer_PersistenceTest
                         .extracting(Customer::getCustomerId)
                         .isSorted();
                 return found;
-            });
+            })));
         }
 
         @DisplayName(
@@ -79,7 +83,7 @@ class Customer_PersistenceTest
                 "identifier")
         @Test
         void __QueryLanguage() {
-            applyEntityManagerInTransactionAndRollback(em -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
                 final var persisted = List.of(
                         EntityPersisterUtils.newPersistedInstanceOf(em, targetClass),
                         EntityPersisterUtils.newPersistedInstanceOf(em, targetClass),
@@ -100,13 +104,13 @@ class Customer_PersistenceTest
                         .extracting(Customer::getCustomerId)
                         .isSorted();
                 return found;
-            });
+            })));
         }
 
         @DisplayName("a criteria query selects the customers just persisted, ordered by identifier")
         @Test
         void __CriteriaApi() {
-            applyEntityManagerInTransactionAndRollback(em -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
                 final var persisted = List.of(
                         EntityPersisterUtils.newPersistedInstanceOf(em, targetClass),
                         EntityPersisterUtils.newPersistedInstanceOf(em, targetClass),
@@ -124,7 +128,7 @@ class Customer_PersistenceTest
                         .extracting(Customer::getCustomerId)
                         .isSorted();
                 return found;
-            });
+            })));
         }
     }
 
@@ -143,7 +147,8 @@ class Customer_PersistenceTest
         @DisplayName("the named query selects the customer just persisted")
         @Test
         void __NamedQuery() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createNamedQuery("Customer.selectOneByEmailAddress", targetClass)
                         .setParameter("emailAddress", v.getEmailAddress())
@@ -152,13 +157,14 @@ class Customer_PersistenceTest
                         .as("the customer selected by %s", v.getEmailAddress())
                         .isSameAs(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName("a query-language query selects the customer just persisted")
         @Test
         void __QueryLanguage() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createQuery(
                                 """
@@ -173,13 +179,14 @@ class Customer_PersistenceTest
                         .as("the customer selected by %s", v.getEmailAddress())
                         .isSameAs(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName("a criteria query selects the customer just persisted")
         @Test
         void __CriteriaApi() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var builder = em.getCriteriaBuilder();
                 final var query = builder.createQuery(targetClass);
                 final var root = query.from(targetClass);
@@ -193,7 +200,7 @@ class Customer_PersistenceTest
                         .as("the customer selected by %s", v.getEmailAddress())
                         .isSameAs(v);
                 return found;
-            });
+            })));
         }
     }
 }

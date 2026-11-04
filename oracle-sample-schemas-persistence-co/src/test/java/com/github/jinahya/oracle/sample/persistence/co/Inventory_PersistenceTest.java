@@ -24,6 +24,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import static com.github.jinahya.persistence.test.util.EntityPersisterUtils.newPersistedInstanceOf;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
+import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceTest_Utils.applyEntityManagerFactory;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -55,7 +59,8 @@ class Inventory_PersistenceTest
         @DisplayName("the named query selects the inventory just persisted")
         @Test
         void __NamedQuery() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createNamedQuery("Inventory.selectOneByStoreAndProduct", targetClass)
                         .setParameter("store", v.getStore())
@@ -65,13 +70,14 @@ class Inventory_PersistenceTest
                         .as("the inventory selected by its store and its product")
                         .isSameAs(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName("a query-language query selects the inventory just persisted")
         @Test
         void __QueryLanguage() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createQuery(
                                 """
@@ -87,13 +93,14 @@ class Inventory_PersistenceTest
                         .as("the inventory selected by its store and its product")
                         .isSameAs(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName("a criteria query selects the inventory just persisted")
         @Test
         void __CriteriaApi() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var builder = em.getCriteriaBuilder();
                 final var query = builder.createQuery(targetClass);
                 final var root = query.from(targetClass);
@@ -107,7 +114,7 @@ class Inventory_PersistenceTest
                         .as("the inventory selected by its store and its product")
                         .isSameAs(v);
                 return found;
-            });
+            })));
         }
     }
 
@@ -121,7 +128,8 @@ class Inventory_PersistenceTest
         @DisplayName("the named query selects the inventory just persisted, by its product")
         @Test
         void __NamedQuery() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createNamedQuery("Inventory.selectOneByProductOrderByProductInventoryAsc",
                                           targetClass)
@@ -131,13 +139,14 @@ class Inventory_PersistenceTest
                         .as("the inventories of the product")
                         .containsExactly(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName("a query-language query selects the inventory just persisted, by its product")
         @Test
         void __QueryLanguage() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var found = em
                         .createQuery(
                                 """
@@ -153,13 +162,14 @@ class Inventory_PersistenceTest
                         .as("the inventories of the product")
                         .containsExactly(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName("a criteria query selects the inventory just persisted, by its product")
         @Test
         void __CriteriaApi() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 final var builder = em.getCriteriaBuilder();
                 final var query = builder.createQuery(targetClass);
                 final var root = query.from(targetClass);
@@ -171,7 +181,7 @@ class Inventory_PersistenceTest
                         .as("the inventories of the product")
                         .containsExactly(v);
                 return found;
-            });
+            })));
         }
     }
 
@@ -189,7 +199,8 @@ class Inventory_PersistenceTest
                 "the named query selects the inventory just persisted, never sold at its store")
         @Test
         void __NamedQuery() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 v.setProductInventory(1L);
                 final var found = em
                         .createNamedQuery(
@@ -201,7 +212,7 @@ class Inventory_PersistenceTest
                         .as("the unsold inventories of the store")
                         .containsExactly(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName(
@@ -209,7 +220,8 @@ class Inventory_PersistenceTest
                 "store")
         @Test
         void __QueryLanguage() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 v.setProductInventory(1L);
                 final var found = em
                         .createQuery(
@@ -231,14 +243,15 @@ class Inventory_PersistenceTest
                         .as("the unsold inventories of the store")
                         .containsExactly(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName(
                 "a criteria query selects the inventory just persisted, never sold at its store")
         @Test
         void __CriteriaApi() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 v.setProductInventory(1L);
                 final var builder = em.getCriteriaBuilder();
                 final var query = builder.createQuery(targetClass);
@@ -265,13 +278,14 @@ class Inventory_PersistenceTest
                         .as("the unsold inventories of the store")
                         .containsExactly(v);
                 return found;
-            });
+            })));
         }
 
         @DisplayName("the named query skips the inventory just persisted, once it holds no stock")
         @Test
         void __NamedQuery_NoStock() {
-            applyNewPersistedEntityInstanceAndRollback((em, v) -> {
+            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                final var v = newPersistedInstanceOf(em, targetClass);
                 v.setProductInventory(0L);
                 final var found = em
                         .createNamedQuery(
@@ -283,7 +297,7 @@ class Inventory_PersistenceTest
                         .as("the unsold inventories of the store")
                         .isEmpty();
                 return found;
-            });
+            })));
         }
     }
 }
