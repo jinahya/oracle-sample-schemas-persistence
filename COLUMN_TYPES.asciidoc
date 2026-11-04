@@ -1,0 +1,356 @@
+= Column Types
+:data-types: https://docs.oracle.com/en/database/oracle/oracle-database/26/sqlrf/Data-Types.html
+
+Every column type the tables of `CO`, `HR` and `SH` declare, grouped by the sections of
+link:{data-types}[Data Types]
+in the Oracle Database 26 SQL Language Reference. Each type is listed as the DDL declares it --
+`db-sample-schemas/customer_orders/co_create.sql`, `human_resources/hr_create.sql` and
+`sales_history/sh_create.sql` -- and each column as `SCHEMA.TABLE.COLUMN`; 214 columns in all (43 in
+`CO`, 35 in `HR`, 136 in `SH`). The views declare no column of their own; see <<views>>.
+
+The Java type is the preferred type of an attribute mapping the column, the one the `Mapped*`
+classes use; `java.time` for the datetime types, and the wrapper types, never a primitive, since
+any column may be `NULL` on a row the database returns. An attribute may still take another type
+where the application decides it -- `CO.ORDERS.ORDER_STATUS` and `CO.SHIPMENTS.SHIPMENT_STATUS` are
+enums.
+
+Only the sections below are used. No column is `NCHAR`, `NVARCHAR2`, `FLOAT`, `BINARY_FLOAT`,
+`BINARY_DOUBLE`, `LONG`, `RAW`, `LONG RAW`, `TIMESTAMP WITH (LOCAL) TIME ZONE`, an `INTERVAL`,
+`CLOB`, `NCLOB`, `BFILE`, `JSON`, `BOOLEAN`, `VECTOR`, `ROWID` / `UROWID`, a user-defined type or an
+Oracle-supplied type (`ANYDATA`, `XMLType`, `SDO_GEOMETRY`, ...).
+
+== Oracle Built-in Data Types
+
+See link:{data-types}#GUID-7B72E154-677A-4342-A1EA-C74C1EA928E6[Oracle Built-in Data Types].
+
+=== Character Data Types
+
+See link:{data-types}#GUID-1BABC478-FB47-4962-9B0C-8B8BD059E733[Character Data Types].
+
+`CHAR` is blank-padded to its length; `VARCHAR2` is not.
+
+==== `CHAR`
+
+See link:{data-types}#GUID-85E0A0DD-9E90-4AE1-9AD5-93C89FDCFC49[CHAR Data Type].
+
+[cols="2,2,1,6",options="header"]
+|===
+| Declared as | Java type | Count | Columns
+
+| link:{data-types}#GUID-85E0A0DD-9E90-4AE1-9AD5-93C89FDCFC49[`CHAR(1)`]
+| `String`
+| 1
+| `SH.CUSTOMERS.CUST_GENDER`
+
+| link:{data-types}#GUID-85E0A0DD-9E90-4AE1-9AD5-93C89FDCFC49[`CHAR(2)`]
+| `String`
+| 3
+| `HR.COUNTRIES.COUNTRY_ID`, `HR.LOCATIONS.COUNTRY_ID`, `SH.COUNTRIES.COUNTRY_ISO_CODE`
+
+| link:{data-types}#GUID-85E0A0DD-9E90-4AE1-9AD5-93C89FDCFC49[`CHAR(7)`]
+| `String`
+| 2
+| `SH.TIMES.CALENDAR_QUARTER_DESC`, `SH.TIMES.FISCAL_QUARTER_DESC`
+
+|===
+
+==== `VARCHAR2`, character length semantics
+
+See link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[VARCHAR2 Data Type].
+
+`CO` declares every length in characters (`n CHAR`).
+
+[cols="2,2,1,6",options="header"]
+|===
+| Declared as | Java type | Count | Columns
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(10 CHAR)`]
+| `String`
+| 1
+| `CO.ORDERS.ORDER_STATUS`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(100 CHAR)`]
+| `String`
+| 2
+| `CO.STORES.WEB_ADDRESS`, `CO.SHIPMENTS.SHIPMENT_STATUS`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(255 CHAR)`]
+| `String`
+| 4
+| `CO.CUSTOMERS.EMAIL_ADDRESS`, `CO.CUSTOMERS.FULL_NAME`, `CO.STORES.STORE_NAME`, `CO.PRODUCTS.PRODUCT_NAME`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(512 CHAR)`]
+| `String`
+| 8
+| `CO.STORES.PHYSICAL_ADDRESS`, `CO.STORES.LOGO_MIME_TYPE`, `CO.STORES.LOGO_FILENAME`, `CO.STORES.LOGO_CHARSET`, `CO.PRODUCTS.IMAGE_MIME_TYPE`, `CO.PRODUCTS.IMAGE_FILENAME`, `CO.PRODUCTS.IMAGE_CHARSET`, `CO.SHIPMENTS.DELIVERY_ADDRESS`
+
+|===
+
+==== `VARCHAR2`, byte length semantics
+
+See link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[VARCHAR2 Data Type].
+
+`HR` and `SH` give no qualifier, so the length is in the units of the session's
+`NLS_LENGTH_SEMANTICS`, `BYTE` by default.
+
+[cols="2,2,1,6",options="header"]
+|===
+| Declared as | Java type | Count | Columns
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(1)`]
+| `String`
+| 2
+| `SH.CUSTOMERS.CUST_VALID`, `SH.PRODUCTS.PROD_VALID`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(8)`]
+| `String`
+| 2
+| `SH.TIMES.CALENDAR_MONTH_DESC`, `SH.TIMES.FISCAL_MONTH_DESC`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(9)`]
+| `String`
+| 3
+| `SH.TIMES.DAY_NAME`, `SH.TIMES.CALENDAR_MONTH_NAME`, `SH.TIMES.FISCAL_MONTH_NAME`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(10)`]
+| `String`
+| 4
+| `HR.JOBS.JOB_ID`, `HR.EMPLOYEES.JOB_ID`, `HR.JOB_HISTORY.JOB_ID`, `SH.CUSTOMERS.CUST_POSTAL_CODE`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(11)`]
+| `String`
+| 1
+| `SH.COUNTRIES.COUNTRY_TOTAL`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(12)`]
+| `String`
+| 1
+| `HR.LOCATIONS.POSTAL_CODE`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(13)`]
+| `String`
+| 2
+| `SH.PRODUCTS.PROD_TOTAL`, `SH.CHANNELS.CHANNEL_TOTAL`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(14)`]
+| `String`
+| 1
+| `SH.CUSTOMERS.CUST_TOTAL`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(15)`]
+| `String`
+| 1
+| `SH.PROMOTIONS.PROMO_TOTAL`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(20)`]
+| `String`
+| 9
+| `HR.EMPLOYEES.FIRST_NAME`, `HR.EMPLOYEES.PHONE_NUMBER`, `SH.COUNTRIES.COUNTRY_REGION`, `SH.CUSTOMERS.CUST_FIRST_NAME`, `SH.CUSTOMERS.CUST_MARITAL_STATUS`, `SH.PRODUCTS.PROD_UNIT_OF_MEASURE`, `SH.PRODUCTS.PROD_STATUS`, `SH.CHANNELS.CHANNEL_DESC`, `SH.CHANNELS.CHANNEL_CLASS`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(21)`]
+| `String`
+| 3
+| `SH.SUPPLEMENTARY_DEMOGRAPHICS.EDUCATION`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.OCCUPATION`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.HOUSEHOLD_SIZE`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(25)`]
+| `String`
+| 5
+| `HR.REGIONS.REGION_NAME`, `HR.LOCATIONS.STATE_PROVINCE`, `HR.EMPLOYEES.LAST_NAME`, `HR.EMPLOYEES.EMAIL`, `SH.CUSTOMERS.CUST_MAIN_PHONE_NUMBER`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(30)`]
+| `String`
+| 9
+| `HR.LOCATIONS.CITY`, `HR.DEPARTMENTS.DEPARTMENT_NAME`, `SH.COUNTRIES.COUNTRY_SUBREGION`, `SH.CUSTOMERS.CUST_CITY`, `SH.CUSTOMERS.CUST_INCOME_LEVEL`, `SH.PROMOTIONS.PROMO_NAME`, `SH.PROMOTIONS.PROMO_SUBCATEGORY`, `SH.PROMOTIONS.PROMO_CATEGORY`, `SH.PRODUCTS.PROD_PACK_SIZE`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(35)`]
+| `String`
+| 1
+| `HR.JOBS.JOB_TITLE`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(40)`]
+| `String`
+| 5
+| `HR.LOCATIONS.STREET_ADDRESS`, `SH.COUNTRIES.COUNTRY_NAME`, `SH.CUSTOMERS.CUST_LAST_NAME`, `SH.CUSTOMERS.CUST_STREET_ADDRESS`, `SH.CUSTOMERS.CUST_STATE_PROVINCE`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(50)`]
+| `String`
+| 4
+| `SH.CUSTOMERS.CUST_EMAIL`, `SH.PRODUCTS.PROD_NAME`, `SH.PRODUCTS.PROD_SUBCATEGORY`, `SH.PRODUCTS.PROD_CATEGORY`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(60)`]
+| `String`
+| 1
+| `HR.COUNTRIES.COUNTRY_NAME`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(2000)`]
+| `String`
+| 2
+| `SH.PRODUCTS.PROD_SUBCATEGORY_DESC`, `SH.PRODUCTS.PROD_CATEGORY_DESC`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2(4000)`]
+| `String`
+| 2
+| `SH.PRODUCTS.PROD_DESC`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.COMMENTS`
+
+|===
+
+=== Numeric Data Types
+
+See link:{data-types}#GUID-9401BC04-81C4-4CD5-99E7-C5E25C83F608[Numeric Data Types].
+
+Only `NUMBER`. With no precision it holds any value up to 38 significant digits; `NUMBER(p)` is
+`NUMBER(p,0)`, an integer of at most `p` digits.
+
+`NUMBER(p)` is an `Integer` up to 9 digits and a `Long` up to 18, the most each holds; a scale
+makes it a `BigDecimal`. A `NUMBER` with no precision is a `Long`: every such column here holds an
+integer, an identifier, a count or a limit, though the type itself also admits a fraction, which a
+`BigDecimal` would keep.
+
+A column which holds another table's key takes that key's type instead, whatever it declares, so
+that the two compare: `SH.SALES.CHANNEL_ID`, a `NUMBER(1)`, is a `Long` as
+`SH.CHANNELS.CHANNEL_ID` is, and `SH.COSTS.PROD_ID` and `SH.COSTS.PROMO_ID`, plain `NUMBER`s, are `Integer`s as
+`SH.PRODUCTS.PROD_ID` and `SH.PROMOTIONS.PROMO_ID`, both `NUMBER(6)`, are.
+
+[cols="2,2,1,6",options="header"]
+|===
+| Declared as | Java type | Count | Columns
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER`]
+| `Long`
+| 42
+| `HR.REGIONS.REGION_ID`, `HR.COUNTRIES.REGION_ID`, `SH.COUNTRIES.COUNTRY_ID`, `SH.COUNTRIES.COUNTRY_SUBREGION_ID`, `SH.COUNTRIES.COUNTRY_REGION_ID`, `SH.COUNTRIES.COUNTRY_TOTAL_ID`, `SH.CUSTOMERS.CUST_ID`, `SH.CUSTOMERS.CUST_CITY_ID`, `SH.CUSTOMERS.CUST_STATE_PROVINCE_ID`, `SH.CUSTOMERS.COUNTRY_ID`, `SH.CUSTOMERS.CUST_CREDIT_LIMIT`, `SH.CUSTOMERS.CUST_TOTAL_ID`, `SH.CUSTOMERS.CUST_SRC_ID`, `SH.PROMOTIONS.PROMO_SUBCATEGORY_ID`, `SH.PROMOTIONS.PROMO_CATEGORY_ID`, `SH.PROMOTIONS.PROMO_TOTAL_ID`, `SH.PRODUCTS.PROD_SUBCATEGORY_ID`, `SH.PRODUCTS.PROD_CATEGORY_ID`, `SH.PRODUCTS.PROD_TOTAL_ID`, `SH.PRODUCTS.PROD_SRC_ID`, `SH.TIMES.WEEK_ENDING_DAY_ID`, `SH.TIMES.CALENDAR_MONTH_ID`, `SH.TIMES.FISCAL_MONTH_ID`, `SH.TIMES.DAYS_IN_CAL_MONTH`, `SH.TIMES.DAYS_IN_FIS_MONTH`, `SH.TIMES.CALENDAR_QUARTER_ID`, `SH.TIMES.FISCAL_QUARTER_ID`, `SH.TIMES.DAYS_IN_CAL_QUARTER`, `SH.TIMES.DAYS_IN_FIS_QUARTER`, `SH.TIMES.CALENDAR_YEAR_ID`, `SH.TIMES.FISCAL_YEAR_ID`, `SH.TIMES.DAYS_IN_CAL_YEAR`, `SH.TIMES.DAYS_IN_FIS_YEAR`, `SH.CHANNELS.CHANNEL_ID`, `SH.CHANNELS.CHANNEL_CLASS_ID`, `SH.CHANNELS.CHANNEL_TOTAL_ID`, `SH.SALES.CUST_ID`, `SH.COSTS.PROD_ID`, `SH.COSTS.PROMO_ID`, `SH.COSTS.CHANNEL_ID`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.CUST_ID`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.YRS_RESIDENCE`
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER(1)`]
+| `Integer`
+| 4
+| `SH.TIMES.DAY_NUMBER_IN_WEEK`, `SH.TIMES.CALENDAR_QUARTER_NUMBER`, `SH.TIMES.FISCAL_QUARTER_NUMBER`, `SH.SALES.CHANNEL_ID`
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER(2)`]
+| `Integer`
+| 5
+| `SH.TIMES.DAY_NUMBER_IN_MONTH`, `SH.TIMES.CALENDAR_WEEK_NUMBER`, `SH.TIMES.FISCAL_WEEK_NUMBER`, `SH.TIMES.CALENDAR_MONTH_NUMBER`, `SH.TIMES.FISCAL_MONTH_NUMBER`
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER(2,2)`]
+| `BigDecimal`
+| 1
+| `HR.EMPLOYEES.COMMISSION_PCT`
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER(3)`]
+| `Integer`
+| 2
+| `SH.PRODUCTS.PROD_WEIGHT_CLASS`, `SH.SALES.QUANTITY_SOLD`
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER(4)`]
+| `Integer`
+| 8
+| `HR.LOCATIONS.LOCATION_ID`, `HR.DEPARTMENTS.DEPARTMENT_ID`, `HR.DEPARTMENTS.LOCATION_ID`, `HR.EMPLOYEES.DEPARTMENT_ID`, `HR.JOB_HISTORY.DEPARTMENT_ID`, `SH.CUSTOMERS.CUST_YEAR_OF_BIRTH`, `SH.TIMES.CALENDAR_YEAR`, `SH.TIMES.FISCAL_YEAR`
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER(6)`]
+| `Integer`
+| 11
+| `HR.DEPARTMENTS.MANAGER_ID`, `HR.JOBS.MIN_SALARY`, `HR.JOBS.MAX_SALARY`, `HR.EMPLOYEES.EMPLOYEE_ID`, `HR.EMPLOYEES.MANAGER_ID`, `HR.JOB_HISTORY.EMPLOYEE_ID`, `SH.PROMOTIONS.PROMO_ID`, `SH.PRODUCTS.PROD_ID`, `SH.PRODUCTS.SUPPLIER_ID`, `SH.SALES.PROD_ID`, `SH.SALES.PROMO_ID`
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER(8,2)`]
+| `BigDecimal`
+| 3
+| `HR.EMPLOYEES.SALARY`, `SH.PRODUCTS.PROD_LIST_PRICE`, `SH.PRODUCTS.PROD_MIN_PRICE`
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER(9,6)`]
+| `BigDecimal`
+| 2
+| `CO.STORES.LATITUDE`, `CO.STORES.LONGITUDE`
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER(10)`]
+| `Long`
+| 8
+| `SH.SUPPLEMENTARY_DEMOGRAPHICS.AFFINITY_CARD`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.CRICKET`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.BASEBALL`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.TENNIS`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.SOCCER`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.GOLF`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.UNKNOWN`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.MISC`
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER(10,2)`]
+| `BigDecimal`
+| 6
+| `CO.PRODUCTS.UNIT_PRICE`, `CO.ORDER_ITEMS.UNIT_PRICE`, `SH.PROMOTIONS.PROMO_COST`, `SH.SALES.AMOUNT_SOLD`, `SH.COSTS.UNIT_COST`, `SH.COSTS.UNIT_PRICE`
+
+|===
+
+=== Datetime and Interval Data Types
+
+See link:{data-types}#GUID-7690645A-0EE3-46CA-90DE-C96DF5A01F8F[Datetime and Interval Data Types].
+
+`DATE` holds a date and a time to the second; `TIMESTAMP`, with no precision, holds fractional
+seconds to 6 digits.
+
+[cols="2,2,1,6",options="header"]
+|===
+| Declared as | Java type | Count | Columns
+
+| link:{data-types}#GUID-5405B652-C30E-4F4F-9D33-9A4CB2110F1B[`DATE`]
+| `LocalDateTime`
+| 21
+| `CO.STORES.LOGO_LAST_UPDATED`, `CO.PRODUCTS.IMAGE_LAST_UPDATED`, `HR.EMPLOYEES.HIRE_DATE`, `HR.JOB_HISTORY.START_DATE`, `HR.JOB_HISTORY.END_DATE`, `SH.CUSTOMERS.CUST_EFF_FROM`, `SH.CUSTOMERS.CUST_EFF_TO`, `SH.PROMOTIONS.PROMO_BEGIN_DATE`, `SH.PROMOTIONS.PROMO_END_DATE`, `SH.PRODUCTS.PROD_EFF_FROM`, `SH.PRODUCTS.PROD_EFF_TO`, `SH.TIMES.TIME_ID`, `SH.TIMES.WEEK_ENDING_DAY`, `SH.TIMES.END_OF_CAL_MONTH`, `SH.TIMES.END_OF_FIS_MONTH`, `SH.TIMES.END_OF_CAL_QUARTER`, `SH.TIMES.END_OF_FIS_QUARTER`, `SH.TIMES.END_OF_CAL_YEAR`, `SH.TIMES.END_OF_FIS_YEAR`, `SH.SALES.TIME_ID`, `SH.COSTS.TIME_ID`
+
+| link:{data-types}#GUID-94A82966-D380-4583-9AF1-AEE681881E64[`TIMESTAMP`]
+| `LocalDateTime`
+| 1
+| `CO.ORDERS.ORDER_TMS`
+
+|===
+
+=== Large Object (LOB) Data Types
+
+See link:{data-types}#GUID-1A71C635-188E-4EC9-B821-1DBEC2B45451[Large Object (LOB) Data Types].
+
+`CO.PRODUCTS.PRODUCT_DETAILS` holds JSON, but as a `BLOB` checked by `products_json_c`
+(`CHECK ( product_details is json )`), not as a `JSON` column.
+
+[cols="2,2,1,6",options="header"]
+|===
+| Declared as | Java type | Count | Columns
+
+| link:{data-types}#GUID-4570CDFD-8F91-44B9-BE7F-13076AA2AEBF[`BLOB`]
+| `byte[]`
+| 3
+| `CO.STORES.LOGO`, `CO.PRODUCTS.PRODUCT_DETAILS`, `CO.PRODUCTS.PRODUCT_IMAGE`
+
+|===
+
+== ANSI, DB2, and SQL/DS Data Types
+
+See link:{data-types}#GUID-0BC16006-32F1-42B1-B45E-F27A494963FF[ANSI, DB2, and SQL/DS Data Types].
+
+`CO` declares its integers as the ANSI `INTEGER`, which Oracle converts to `NUMBER(38)`; the data
+dictionary reports `NUMBER` with scale 0. Six of them are identity columns
+(`GENERATED BY DEFAULT ON NULL AS IDENTITY`). They are `Long`s: `NUMBER(38)` exceeds a `Long`, and
+only a `BigInteger` holds every value, but no identity or count here comes near 19 digits.
+
+[cols="2,2,1,6",options="header"]
+|===
+| Declared as | Java type | Count | Columns
+
+| link:{data-types}#GUID-0BC16006-32F1-42B1-B45E-F27A494963FF[`INTEGER IDENTITY`]
+| `Long`
+| 6
+| `CO.CUSTOMERS.CUSTOMER_ID`, `CO.STORES.STORE_ID`, `CO.PRODUCTS.PRODUCT_ID`, `CO.ORDERS.ORDER_ID`, `CO.SHIPMENTS.SHIPMENT_ID`, `CO.INVENTORY.INVENTORY_ID`
+
+| link:{data-types}#GUID-0BC16006-32F1-42B1-B45E-F27A494963FF[`INTEGER`]
+| `Long`
+| 12
+| `CO.ORDERS.CUSTOMER_ID`, `CO.ORDERS.STORE_ID`, `CO.SHIPMENTS.STORE_ID`, `CO.SHIPMENTS.CUSTOMER_ID`, `CO.ORDER_ITEMS.ORDER_ID`, `CO.ORDER_ITEMS.LINE_ITEM_ID`, `CO.ORDER_ITEMS.PRODUCT_ID`, `CO.ORDER_ITEMS.QUANTITY`, `CO.ORDER_ITEMS.SHIPMENT_ID`, `CO.INVENTORY.STORE_ID`, `CO.INVENTORY.PRODUCT_ID`, `CO.INVENTORY.PRODUCT_INVENTORY`
+
+|===
+
+[[views]]
+== Views
+
+A view's columns take the types of the expressions that select them, so the views add no type
+outside the sections above:
+
+* `CO.PRODUCT_REVIEWS` declares its own two in `JSON_TABLE`: `RATING INTEGER` and
+  `REVIEW VARCHAR2(4000)`. `AVG_RATING` is a `ROUND` of an `AVG`, a `NUMBER`.
+* The aggregates (`SUM`, `COUNT`) of `CO.CUSTOMER_ORDER_PRODUCTS`, `CO.PRODUCT_ORDERS`,
+  `CO.STORE_ORDERS`, `SH.CAL_MONTH_SALES_MV` and `SH.FWEEK_PSCAT_SALES_MV`, and
+  `SH.PROFITS.TOTAL_COST` (a product of two `NUMBER` columns), are `NUMBER` with no precision.
+* `CO.CUSTOMER_ORDER_PRODUCTS.ITEMS` (a `LISTAGG`) and `CO.STORE_ORDERS.ADDRESS` (a `COALESCE` of
+  two `VARCHAR2` columns) are `VARCHAR2`. `CO.STORE_ORDERS.TOTAL`, a `CASE` of text literals, is a
+  character type, `CHAR` or `VARCHAR2`; the data dictionary says which.
+* Every other view column is a table column, and has its type.
+

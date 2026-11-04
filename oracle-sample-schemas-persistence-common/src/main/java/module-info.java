@@ -32,7 +32,11 @@
 module com.github.jinahya.oracle.sample.persistence.common {
 
     requires static jakarta.persistence;
+    requires static jakarta.validation;
 
     exports com.github.jinahya.oracle.sample.persistence.common.annotation;
     exports com.github.jinahya.oracle.sample.persistence.common;
+
+    exports com.github.jinahya.oracle.sample.persistence.common.mapped;
+    opens com.github.jinahya.oracle.sample.persistence.common.mapped;
 }
