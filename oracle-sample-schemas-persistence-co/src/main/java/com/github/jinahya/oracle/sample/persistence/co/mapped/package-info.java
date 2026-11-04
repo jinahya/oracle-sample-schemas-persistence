@@ -1,16 +1,19 @@
 /**
- * Mapped superclasses for the {@code CO} schema, one per table and one per view, plus one per composite identifier.
+ * Mapped superclasses for the {@code CO} schema, one per table and one per view, plus one per
+ * composite identifier.
  * <p>
- * Each holds what the schema says about its table -- the names, the types, the lengths, the nullability, the check
- * constraints as validation constraints -- and nothing an application decides: no association, no fetch type, no
- * cascade, no named query. An entity which extends one adds those, and names the table with
- * {@link jakarta.persistence.Table @Table}. A foreign-key column is mapped here read-only
- * ({@code insertable = false, updatable = false}); the extending entity owns its writable mapping, by an association's
+ * Each holds what the schema says about its table -- the names, the types, the lengths, the
+ * nullability, the check constraints as validation constraints -- and nothing an application
+ * decides: no association, no fetch type, no cascade, no named query. An entity which extends one
+ * adds those, and names the table with {@link jakarta.persistence.Table @Table}. A foreign-key
+ * column is mapped here read-only ({@code insertable = false, updatable = false}); the extending
+ * entity owns its writable mapping, by an association's
  * {@link jakarta.persistence.JoinColumn @JoinColumn}.
  * <p>
- * The embeddables and the value types which hold no association -- {@link _Binary}, {@link ProductImage},
- * {@link StoreLogo}, {@link ProductDetails} -- are here as they are. A view no column identifies is mapped by a plain
- * class, not by a mapped superclass; see {@link MappedProductReview} and {@link MappedStoreOrder}.
+ * The embeddables and the value types which hold no association -- {@link _Binary},
+ * {@link ProductImage}, {@link StoreLogo}, {@link ProductDetails} -- are here as they are. A view
+ * no column identifies is mapped by a plain class, not by a mapped superclass; see
+ * {@link MappedProductReview} and {@link MappedStoreOrder}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */

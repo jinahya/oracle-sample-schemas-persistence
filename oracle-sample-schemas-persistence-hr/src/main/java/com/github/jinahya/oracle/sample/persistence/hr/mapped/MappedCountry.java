@@ -35,11 +35,12 @@ import java.util.Objects;
 /**
  * A mapped superclass which holds the mappings of the {@value MappedCountry#TABLE_NAME} table.
  * <p>
- * The {@value #COLUMN_NAME_REGION_ID} column is mapped read-only ({@code insertable = false, updatable = false}), with
- * a public getter and a {@code protected} setter. How the relationship behind it is mapped is the extending entity's
- * decision, so the extending entity also owns its writable mapping, by an association's
- * {@link jakarta.persistence.JoinColumn @JoinColumn}, and keeps the value in step through the setter. <strong>An
- * extending entity which maps no association never writes the column.</strong>
+ * The {@value #COLUMN_NAME_REGION_ID} column is mapped read-only
+ * ({@code insertable = false, updatable = false}), with a public getter and a {@code protected}
+ * setter. How the relationship behind it is mapped is the extending entity's decision, so the
+ * extending entity also owns its writable mapping, by an association's
+ * {@link jakarta.persistence.JoinColumn @JoinColumn}, and keeps the value in step through the
+ * setter. <strong>An extending entity which maps no association never writes the column.</strong>
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -54,8 +55,8 @@ public abstract class MappedCountry {
     // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
 
@@ -65,25 +66,28 @@ public abstract class MappedCountry {
     public static final int COLUMN_LENGTH_COUNTRY_ID = 2;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
     // ---------------------------------------------------------------------------------------------------- COUNTRY_NAME
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_NAME = "COUNTRY_NAME";
 
@@ -93,31 +97,34 @@ public abstract class MappedCountry {
     public static final int COLUMN_LENGTH_COUNTRY_NAME = 60;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_NAME} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_NAME = "countryName";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_COUNTRY_NAME = 0;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
 
     // ------------------------------------------------------------------------------------------------------- REGION_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_REGION_ID = "REGION_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_ID} column, read-only. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_ID} column, read-only.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
 
@@ -179,7 +186,8 @@ public abstract class MappedCountry {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the specified
+     * value.
      *
      * @param countryId new value for {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
      */
@@ -200,7 +208,8 @@ public abstract class MappedCountry {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute with the specified
+     * value.
      *
      * @param countryName new value for {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
      */
@@ -221,8 +230,9 @@ public abstract class MappedCountry {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_REGION_ID} attribute with the specified value. The attribute
-     * is read-only; the extending entity calls this to keep it in step with the association which writes the column.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_REGION_ID} attribute with the specified
+     * value. The attribute is read-only; the extending entity calls this to keep it in step with
+     * the association which writes the column.
      *
      * @param regionId new value for {@value #ATTRIBUTE_NAME_REGION_ID} attribute.
      */
@@ -232,7 +242,8 @@ public abstract class MappedCountry {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    // TODO: remove; not constrained by the DDL -- COUNTRIES.COUNTRY_ID is CHAR(2); a length sets no minimum
+    // TODO: remove; not constrained by the DDL -- COUNTRIES.COUNTRY_ID is CHAR(2); a length sets
+    //  no minimum
 //    @Size(min = SIZE_MIN_COUNTRY_ID, max = SIZE_MAX_COUNTRY_ID)
     @Size(max = SIZE_MAX_COUNTRY_ID)
     @NotNull
@@ -251,7 +262,8 @@ public abstract class MappedCountry {
     private String countryName;
 
     // -----------------------------------------------------------------------------------------------------------------
-    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // read-only: the extending entity owns the writable mapping of this column; see the class
+    // documentation
     @Nullable
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_REGION_ID, nullable = true, insertable = false, updatable = false)

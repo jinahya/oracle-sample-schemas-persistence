@@ -35,8 +35,8 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * An entity class for mapping the {@value MappedProfit#TABLE_NAME} view, whose composite identifier is mapped with an
- * {@link jakarta.persistence.IdClass @IdClass}.
+ * An entity class for mapping the {@value MappedProfit#TABLE_NAME} view, whose composite identifier
+ * is mapped with an {@link jakarta.persistence.IdClass @IdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedProfitId
@@ -52,13 +52,14 @@ public abstract class MappedProfit {
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
@@ -83,36 +84,42 @@ public abstract class MappedProfit {
     public static final int COLUMN_MAX_CHANNEL_ID = +9;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_CHANNEL_ID = COLUMN_MIN_CHANNEL_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_CHANNEL_ID = COLUMN_MAX_CHANNEL_ID;
 
     // --------------------------------------------------------------------------------------------------------- CUST_ID
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_CUST_ID} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_CUST_ID} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_ID = "CUST_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_ID = "custId";
 
     // --------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_ID = "PROD_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
@@ -149,13 +156,14 @@ public abstract class MappedProfit {
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
@@ -192,20 +200,22 @@ public abstract class MappedProfit {
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_TIME_ID = "TIME_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
     // ------------------------------------------------------------------------------------------------------- UNIT_COST
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_UNIT_COST = "UNIT_COST";
 
@@ -220,25 +230,28 @@ public abstract class MappedProfit {
     public static final int COLUMN_SCALE_UNIT_COST = 2;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_COST} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_COST} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_UNIT_COST = "unitCost";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MIN_UNIT_COST = "-99999999.99";
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_UNIT_COST = "+99999999.99";
 
     // ------------------------------------------------------------------------------------------------------ UNIT_PRICE
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_UNIT_PRICE = "UNIT_PRICE";
 
@@ -253,25 +266,28 @@ public abstract class MappedProfit {
     public static final int COLUMN_SCALE_UNIT_PRICE = 2;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_UNIT_PRICE = "unitPrice";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MIN_UNIT_PRICE = "-99999999.99";
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_UNIT_PRICE = "+99999999.99";
 
     // ----------------------------------------------------------------------------------------------------- AMOUNT_SOLD
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_AMOUNT_SOLD = "AMOUNT_SOLD";
 
@@ -286,30 +302,34 @@ public abstract class MappedProfit {
     public static final int COLUMN_SCALE_AMOUNT_SOLD = 2;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_AMOUNT_SOLD = "amountSold";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MIN_AMOUNT_SOLD = "-99999999.99";
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_AMOUNT_SOLD = "+99999999.99";
 
     // --------------------------------------------------------------------------------------------------- QUANTITY_SOLD
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_QUANTITY_SOLD = "QUANTITY_SOLD";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_QUANTITY_SOLD = "quantitySold";
 
@@ -334,25 +354,28 @@ public abstract class MappedProfit {
     public static final int COLUMN_MAX_QUANTITY_SOLD = +999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_QUANTITY_SOLD = COLUMN_MIN_QUANTITY_SOLD;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_QUANTITY_SOLD = COLUMN_MAX_QUANTITY_SOLD;
 
     // ------------------------------------------------------------------------------------------------------ TOTAL_COST
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_TOTAL_COST} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_TOTAL_COST} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_TOTAL_COST = "TOTAL_COST";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_TOTAL_COST} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_TOTAL_COST} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_TOTAL_COST = "totalCost";
 
@@ -406,7 +429,8 @@ public abstract class MappedProfit {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the five {@code @Id} attributes, consistent with {@link #equals(Object)}.
+     * @implSpec The hash is over the five {@code @Id} attributes, consistent with
+     *         {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
@@ -523,7 +547,7 @@ public abstract class MappedProfit {
         return totalCost;
     }
 
-    // ---------------------------------------------------------------------------------------------------------------- 
+    // ----------------------------------------------------------------------------------------------------------------
 
     @Id
     @NotNull
@@ -616,7 +640,8 @@ public abstract class MappedProfit {
     @Max(ATTRIBUTE_MAX_QUANTITY_SOLD)
     @Min(ATTRIBUTE_MIN_QUANTITY_SOLD)
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_QUANTITY_SOLD, nullable = false, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_QUANTITY_SOLD, nullable = false, insertable = false,
+            updatable = false)
     private Integer quantitySold;
 
     @Basic(optional = true)

@@ -28,22 +28,25 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 /**
- * A converter between {@link DayOfWeek} and the {@value MappedTime#COLUMN_NAME_DAY_NAME} column of the
- * {@value MappedTime#TABLE_NAME} table, which holds the full English name of the day, {@code Monday} for
- * {@link DayOfWeek#MONDAY}.
+ * A converter between {@link DayOfWeek} and the {@value MappedTime#COLUMN_NAME_DAY_NAME} column of
+ * the {@value MappedTime#TABLE_NAME} table, which holds the full English name of the day,
+ * {@code Monday} for {@link DayOfWeek#MONDAY}.
  * <p>
- * Nothing applies this converter yet. {@link MappedTime#getDayName()} keeps the column as a {@code String}, and
- * {@code TimeUtils.getDayNameAsDayOfWeek(Time)} derives the {@link DayOfWeek} on demand. Mapping the attribute as a
- * {@link DayOfWeek} with this converter, through {@link jakarta.persistence.Convert @Convert}, is left as an exercise;
- * see the issue linked below for what else has to change with it.
+ * Nothing applies this converter yet. {@link MappedTime#getDayName()} keeps the column as a
+ * {@code String}, and {@code TimeUtils.getDayNameAsDayOfWeek(Time)} derives the {@link DayOfWeek}
+ * on demand. Mapping the attribute as a {@link DayOfWeek} with this converter, through
+ * {@link jakarta.persistence.Convert @Convert}, is left as an exercise; see the issue linked below
+ * for what else has to change with it.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedTime#getDayName()
- * @see <a href="https://github.com/jinahya/oracle-sample-schemas-persistence/issues/6">#6 Map TIMES.DAY_NAME as
- * DayOfWeek with TimeDayNameAttributeConverter</a>
+ * @see <a href="https://github.com/jinahya/oracle-sample-schemas-persistence/issues/6">#6 Map
+ *         TIMES.DAY_NAME as
+ *         DayOfWeek with TimeDayNameAttributeConverter</a>
  */
 @Converter(autoApply = false)
-public class TimeDayNameAttributeConverter implements AttributeConverter<DayOfWeek, String> {
+public class TimeDayNameAttributeConverter
+        implements AttributeConverter<DayOfWeek, String> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -54,14 +57,15 @@ public class TimeDayNameAttributeConverter implements AttributeConverter<DayOfWe
         super();
     }
 
-    // ---------------------------------------------------------------------- jakarta.persistence.AttributeConverter
+    // ---------------------------------------------------------------------- jakarta.persistence
+    // .AttributeConverter
 
     /**
      * {@inheritDoc}
      *
      * @param attribute {@inheritDoc}
-     * @return the full English name of {@code attribute}, {@code Monday} for {@link DayOfWeek#MONDAY}; {@code null}
-     * when {@code attribute} is {@code null}.
+     * @return the full English name of {@code attribute}, {@code Monday} for
+     *         {@link DayOfWeek#MONDAY}; {@code null} when {@code attribute} is {@code null}.
      * @see DayOfWeek#getDisplayName(TextStyle, Locale)
      */
     @Override
@@ -76,16 +80,18 @@ public class TimeDayNameAttributeConverter implements AttributeConverter<DayOfWe
      * {@inheritDoc}
      *
      * @param dbData {@inheritDoc}
-     * @return the day of the week whose {@link DayOfWeek#name() name} equals {@code dbData}, ignoring case;
-     * {@code null} when {@code dbData} is {@code null}.
-     * @throws IllegalArgumentException if {@code dbData} is not the name of a {@link DayOfWeek} constant.
+     * @return the day of the week whose {@link DayOfWeek#name() name} equals {@code dbData},
+     *         ignoring case; {@code null} when {@code dbData} is {@code null}.
+     * @throws IllegalArgumentException if {@code dbData} is not the name of a {@link DayOfWeek}
+     *                                  constant.
      */
     @Override
     public DayOfWeek convertToEntityAttribute(final String dbData) {
         if (dbData == null) {
             return null;
         }
-        // the same locale the other direction formats with; a bare toUpperCase() would follow the default locale,
+        // the same locale the other direction formats with; a bare toUpperCase() would follow
+        // the default locale,
         // and under Turkish 'Friday' becomes 'FRİDAY'
         return DayOfWeek.valueOf(dbData.toUpperCase(Locale.ENGLISH));
     }

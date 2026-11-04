@@ -33,17 +33,18 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * A mapped superclass which holds the mappings of the {@value MappedSales#TABLE_NAME} table, whose composite identifier
- * is mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
+ * A mapped superclass which holds the mappings of the {@value MappedSales#TABLE_NAME} table, whose
+ * composite identifier is mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  * <p>
- * The table declares no primary key; the five dimension columns are its grain, and the {@code CANDIDATE_KEYS} section
- * of {@code src/test/sql/SALES.sql} is what measured them.
+ * The table declares no primary key; the five dimension columns are its grain, and the
+ * {@code CANDIDATE_KEYS} section of {@code src/test/sql/SALES.sql} is what measured them.
  * <p>
- * That identifier is a measurement of the shipped data, not a constraint, and nothing stops a second sale of the same
- * product to the same customer on the same day through the same channel under the same promotion. Should the table ever
- * hold two such rows, a query returning both yields one managed instance, twice, and the second row's
- * {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} and {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} are silently lost: the persistence
- * context keeps one instance per identifier. Both providers behave so.
+ * That identifier is a measurement of the shipped data, not a constraint, and nothing stops a
+ * second sale of the same product to the same customer on the same day through the same channel
+ * under the same promotion. Should the table ever hold two such rows, a query returning both yields
+ * one managed instance, twice, and the second row's {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} and
+ * {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} are silently lost: the persistence context keeps one
+ * instance per identifier. Both providers behave so.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedSalesId
@@ -65,48 +66,47 @@ public abstract class MappedSales {
     public static final String ATTRIBUTE_NAME_ID = "id";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column -- a path into
+     * the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually
+     * lives. The value is {@value}.
      */
     public static final String ATTRIBUTE_PATH_ID_PROD_ID = "id.prodId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_ID} column -- a path into
+     * the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually
+     * lives. The value is {@value}.
      */
     public static final String ATTRIBUTE_PATH_ID_CUST_ID = "id.custId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column -- a path into
+     * the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually
+     * lives. The value is {@value}.
      */
     public static final String ATTRIBUTE_PATH_ID_TIME_ID = "id.timeId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column -- a path
+     * into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
+     * actually lives. The value is {@value}.
      */
     public static final String ATTRIBUTE_PATH_ID_CHANNEL_ID = "id.channelId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column -- a path into
+     * the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually
+     * lives. The value is {@value}.
      */
     public static final String ATTRIBUTE_PATH_ID_PROMO_ID = "id.promoId";
 
     // --------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_PROD_ID} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_PROD_ID}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_ID = "PROD_ID";
-
 
     /**
      * The precision of the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
@@ -129,41 +129,40 @@ public abstract class MappedSales {
     public static final int COLUMN_MAX_PROD_ID = +999999;
 
     /**
-     * The minimum value of the {@value MappedSalesId#ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value MappedSalesId#ATTRIBUTE_NAME_PROD_ID} attribute. The value
+     * is {@value}.
      */
     public static final int ATTRIBUTE_MIN_PROD_ID = COLUMN_MIN_PROD_ID;
 
     /**
-     * The maximum value of the {@value MappedSalesId#ATTRIBUTE_NAME_PROD_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value MappedSalesId#ATTRIBUTE_NAME_PROD_ID} attribute. The value
+     * is {@value}.
      */
     public static final int ATTRIBUTE_MAX_PROD_ID = COLUMN_MAX_PROD_ID;
 
     // --------------------------------------------------------------------------------------------------------- CUST_ID
 
     /**
-     * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_CUST_ID} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_CUST_ID}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_ID = "CUST_ID";
-
 
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_TIME_ID} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_TIME_ID}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_TIME_ID = "TIME_ID";
-
 
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
-     * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_CHANNEL_ID} attribute maps. The
-     * value is {@value}.
+     * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_CHANNEL_ID}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
-
 
     /**
      * The precision of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
@@ -186,23 +185,24 @@ public abstract class MappedSales {
     public static final int COLUMN_MAX_CHANNEL_ID = +9;
 
     /**
-     * The minimum value of the {@value MappedSalesId#ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value MappedSalesId#ATTRIBUTE_NAME_CHANNEL_ID} attribute. The
+     * value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_CHANNEL_ID = COLUMN_MIN_CHANNEL_ID;
 
     /**
-     * The maximum value of the {@value MappedSalesId#ATTRIBUTE_NAME_CHANNEL_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value MappedSalesId#ATTRIBUTE_NAME_CHANNEL_ID} attribute. The
+     * value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_CHANNEL_ID = COLUMN_MAX_CHANNEL_ID;
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_PROMO_ID} attribute maps. The
-     * value is {@value}.
+     * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_PROMO_ID}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
-
 
     /**
      * The precision of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
@@ -225,25 +225,28 @@ public abstract class MappedSales {
     public static final int COLUMN_MAX_PROMO_ID = +999999;
 
     /**
-     * The minimum value of the {@value MappedSalesId#ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value MappedSalesId#ATTRIBUTE_NAME_PROMO_ID} attribute. The value
+     * is {@value}.
      */
     public static final int ATTRIBUTE_MIN_PROMO_ID = COLUMN_MIN_PROMO_ID;
 
     /**
-     * The maximum value of the {@value MappedSalesId#ATTRIBUTE_NAME_PROMO_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value MappedSalesId#ATTRIBUTE_NAME_PROMO_ID} attribute. The value
+     * is {@value}.
      */
     public static final int ATTRIBUTE_MAX_PROMO_ID = COLUMN_MAX_PROMO_ID;
 
     // --------------------------------------------------------------------------------------------------- QUANTITY_SOLD
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_QUANTITY_SOLD = "QUANTITY_SOLD";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_QUANTITY_SOLD} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_QUANTITY_SOLD = "quantitySold";
 
@@ -268,20 +271,22 @@ public abstract class MappedSales {
     public static final int COLUMN_MAX_QUANTITY_SOLD = +999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_QUANTITY_SOLD = COLUMN_MIN_QUANTITY_SOLD;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_QUANTITY_SOLD = COLUMN_MAX_QUANTITY_SOLD;
 
     // ----------------------------------------------------------------------------------------------------- AMOUNT_SOLD
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_AMOUNT_SOLD = "AMOUNT_SOLD";
 
@@ -296,17 +301,20 @@ public abstract class MappedSales {
     public static final int COLUMN_SCALE_AMOUNT_SOLD = 2;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_AMOUNT_SOLD} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_AMOUNT_SOLD = "amountSold";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MIN_AMOUNT_SOLD = "-99999999.99";
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_AMOUNT_SOLD = "+99999999.99";
 
@@ -362,8 +370,9 @@ public abstract class MappedSales {
      * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
-     * @implSpec The extending entity declares the {@link jakarta.persistence.EmbeddedId @EmbeddedId} attribute,
-     * of a concrete subclass of {@link MappedSalesId}, and returns it.
+     * @implSpec The extending entity declares the
+     *         {@link jakarta.persistence.EmbeddedId @EmbeddedId} attribute, of a concrete subclass
+     *         of {@link MappedSalesId}, and returns it.
      */
     public abstract MappedSalesId getId();
 
@@ -379,7 +388,8 @@ public abstract class MappedSales {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute with the specified
+     * value.
      *
      * @param quantitySold new value for {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute.
      */
@@ -399,7 +409,8 @@ public abstract class MappedSales {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute with the specified
+     * value.
      *
      * @param amountSold new value for {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute.
      */
@@ -407,7 +418,7 @@ public abstract class MappedSales {
         this.amountSold = amountSold;
     }
 
-    // ---------------------------------------------------------------------------------------------------------------- 
+    // ----------------------------------------------------------------------------------------------------------------
 
     // -----------------------------------------------------------------------------------------------------------------
 

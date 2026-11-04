@@ -51,13 +51,14 @@ public abstract class MappedPromotion {
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
@@ -94,8 +95,8 @@ public abstract class MappedPromotion {
     // ------------------------------------------------------------------------------------------------------ PROMO_NAME
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_NAME} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_NAME = "PROMO_NAME";
 
@@ -105,20 +106,22 @@ public abstract class MappedPromotion {
     public static final int COLUMN_LENGTH_PROMO_NAME = 30;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_NAME} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_NAME = "promoName";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PROMO_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PROMO_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PROMO_NAME = COLUMN_LENGTH_PROMO_NAME;
 
     // ----------------------------------------------------------------------------------------------- PROMO_SUBCATEGORY
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_SUBCATEGORY = "PROMO_SUBCATEGORY";
 
@@ -128,34 +131,36 @@ public abstract class MappedPromotion {
     public static final int COLUMN_LENGTH_PROMO_SUBCATEGORY = 30;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_SUBCATEGORY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_SUBCATEGORY} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_SUBCATEGORY = "promoSubcategory";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PROMO_SUBCATEGORY = COLUMN_LENGTH_PROMO_SUBCATEGORY;
 
     // -------------------------------------------------------------------------------------------- PROMO_SUBCATEGORY_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY_ID} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY_ID}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_SUBCATEGORY_ID = "PROMO_SUBCATEGORY_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_SUBCATEGORY_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_SUBCATEGORY_ID} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_SUBCATEGORY_ID = "promoSubcategoryId";
 
     // -------------------------------------------------------------------------------------------------- PROMO_CATEGORY
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_CATEGORY} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_CATEGORY} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_CATEGORY = "PROMO_CATEGORY";
 
@@ -165,53 +170,60 @@ public abstract class MappedPromotion {
     public static final int COLUMN_LENGTH_PROMO_CATEGORY = 30;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_CATEGORY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_CATEGORY} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_CATEGORY = "promoCategory";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_PROMO_CATEGORY} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_PROMO_CATEGORY} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_PROMO_CATEGORY = 0;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PROMO_CATEGORY} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PROMO_CATEGORY} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PROMO_CATEGORY = COLUMN_LENGTH_PROMO_CATEGORY;
 
     // ----------------------------------------------------------------------------------------------- PROMO_CATEGORY_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_CATEGORY_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_CATEGORY_ID}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_CATEGORY_ID = "PROMO_CATEGORY_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_CATEGORY_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_CATEGORY_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_CATEGORY_ID = "promoCategoryId";
 
     // ------------------------------------------------------------------------------------------------------ PROMO_COST
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_COST} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_COST} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_COST = "PROMO_COST";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_COST} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_COST} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_COST = "promoCost";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_PROMO_COST} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_PROMO_COST} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MIN_PROMO_COST = "-99999999.99";
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_PROMO_COST} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_PROMO_COST} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_PROMO_COST = "+99999999.99";
 
@@ -228,34 +240,36 @@ public abstract class MappedPromotion {
     // ------------------------------------------------------------------------------------------------ PROMO_BEGIN_DATE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_BEGIN_DATE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_BEGIN_DATE} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_BEGIN_DATE = "PROMO_BEGIN_DATE";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_BEGIN_DATE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_BEGIN_DATE} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_BEGIN_DATE = "promoBeginDate";
 
     // -------------------------------------------------------------------------------------------------- PROMO_END_DATE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_END_DATE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_END_DATE} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_END_DATE = "PROMO_END_DATE";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_END_DATE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_END_DATE} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_END_DATE = "promoEndDate";
 
     // ----------------------------------------------------------------------------------------------------- PROMO_TOTAL
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_TOTAL} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_TOTAL} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_TOTAL = "PROMO_TOTAL";
 
@@ -265,25 +279,28 @@ public abstract class MappedPromotion {
     public static final int COLUMN_LENGTH_PROMO_TOTAL = 15;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_TOTAL} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_TOTAL} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_TOTAL = "promoTotal";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PROMO_TOTAL} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PROMO_TOTAL} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PROMO_TOTAL = COLUMN_LENGTH_PROMO_TOTAL;
 
     // -------------------------------------------------------------------------------------------------- PROMO_TOTAL_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_TOTAL_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_TOTAL_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_TOTAL_ID = "PROMO_TOTAL_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_TOTAL_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_TOTAL_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_TOTAL_ID = "promoTotalId";
 
@@ -352,7 +369,8 @@ public abstract class MappedPromotion {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified
+     * value.
      *
      * @param promoId new value for {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
      */
@@ -372,7 +390,8 @@ public abstract class MappedPromotion {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_NAME} attribute with the specified
+     * value.
      *
      * @param promoName new value for {@value #ATTRIBUTE_NAME_PROMO_NAME} attribute.
      */
@@ -392,7 +411,8 @@ public abstract class MappedPromotion {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY} attribute with the
+     * specified value.
      *
      * @param promoSubcategory new value for {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY} attribute.
      */
@@ -412,9 +432,11 @@ public abstract class MappedPromotion {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY_ID} attribute with the
+     * specified value.
      *
-     * @param promoSubcategoryId new value for {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY_ID} attribute.
+     * @param promoSubcategoryId new value for {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY_ID}
+     *                           attribute.
      */
     public void setPromoSubcategoryId(final Long promoSubcategoryId) {
         this.promoSubcategoryId = promoSubcategoryId;
@@ -432,7 +454,8 @@ public abstract class MappedPromotion {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_CATEGORY} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_CATEGORY} attribute with the
+     * specified value.
      *
      * @param promoCategory new value for {@value #ATTRIBUTE_NAME_PROMO_CATEGORY} attribute.
      */
@@ -452,7 +475,8 @@ public abstract class MappedPromotion {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_CATEGORY_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_CATEGORY_ID} attribute with the
+     * specified value.
      *
      * @param promoCategoryId new value for {@value #ATTRIBUTE_NAME_PROMO_CATEGORY_ID} attribute.
      */
@@ -472,7 +496,8 @@ public abstract class MappedPromotion {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_COST} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_COST} attribute with the specified
+     * value.
      *
      * @param promoCost new value for {@value #ATTRIBUTE_NAME_PROMO_COST} attribute.
      */
@@ -492,7 +517,8 @@ public abstract class MappedPromotion {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_BEGIN_DATE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_BEGIN_DATE} attribute with the
+     * specified value.
      *
      * @param promoBeginDate new value for {@value #ATTRIBUTE_NAME_PROMO_BEGIN_DATE} attribute.
      */
@@ -512,7 +538,8 @@ public abstract class MappedPromotion {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_END_DATE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_END_DATE} attribute with the
+     * specified value.
      *
      * @param promoEndDate new value for {@value #ATTRIBUTE_NAME_PROMO_END_DATE} attribute.
      */
@@ -532,7 +559,8 @@ public abstract class MappedPromotion {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_TOTAL} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_TOTAL} attribute with the specified
+     * value.
      *
      * @param promoTotal new value for {@value #ATTRIBUTE_NAME_PROMO_TOTAL} attribute.
      */
@@ -552,7 +580,8 @@ public abstract class MappedPromotion {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_TOTAL_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_TOTAL_ID} attribute with the
+     * specified value.
      *
      * @param promoTotalId new value for {@value #ATTRIBUTE_NAME_PROMO_TOTAL_ID} attribute.
      */
@@ -560,9 +589,9 @@ public abstract class MappedPromotion {
         this.promoTotalId = promoTotalId;
     }
 
-    // --------------------------------------------------------------------------------------------------------------- 
-    // --------------------------------------------------------------------------------------------------------------- 
-    // --------------------------------------------------------------------------------------------------------------- 
+    // ---------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------------------------
 
     @NotNull
     @Id

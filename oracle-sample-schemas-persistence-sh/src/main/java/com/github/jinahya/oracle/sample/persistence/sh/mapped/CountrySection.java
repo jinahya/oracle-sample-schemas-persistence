@@ -30,12 +30,14 @@ import java.util.Objects;
 
 /**
  * An embeddable class for mapping a named section -- a region, a subregion or a total -- of the
- * {@value MappedCountry#TABLE_NAME} table: a name column, and the numeric id column that goes with it.
+ * {@value MappedCountry#TABLE_NAME} table: a name column, and the numeric id column that goes with
+ * it.
  * <p>
- * No entity of this module embeds this class yet; {@link MappedCountry} maps each of those column pairs as plain
- * attributes. The class declares no column names: an embedding entity names both columns of each section with
- * {@link jakarta.persistence.AttributeOverride @AttributeOverride}s, e.g.
- * {@code (COUNTRY_SUBREGION, COUNTRY_SUBREGION_ID)} and {@code (COUNTRY_REGION, COUNTRY_REGION_ID)}.
+ * No entity of this module embeds this class yet; {@link MappedCountry} maps each of those column
+ * pairs as plain attributes. The class declares no column names: an embedding entity names both
+ * columns of each section with {@link jakarta.persistence.AttributeOverride @AttributeOverride}s,
+ * e.g. {@code (COUNTRY_SUBREGION, COUNTRY_SUBREGION_ID)} and
+ * {@code (COUNTRY_REGION, COUNTRY_REGION_ID)}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -83,7 +85,8 @@ public class CountrySection {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by both {@value #ATTRIBUTE_NAME_NAME} and {@value #ATTRIBUTE_NAME_ID}.
+     * @implSpec Equality is by both {@value #ATTRIBUTE_NAME_NAME} and
+     *         {@value #ATTRIBUTE_NAME_ID}.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -98,8 +101,8 @@ public class CountrySection {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over both {@value #ATTRIBUTE_NAME_NAME} and {@value #ATTRIBUTE_NAME_ID}, consistent with
-     * {@link #equals(Object)}.
+     * @implSpec The hash is over both {@value #ATTRIBUTE_NAME_NAME} and
+     *         {@value #ATTRIBUTE_NAME_ID}, consistent with {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
@@ -153,7 +156,8 @@ public class CountrySection {
     @Nonnull
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    // no @Column: the embedding entity defines both columns of each section -- name, length, nullability --
+    // no @Column: the embedding entity defines both columns of each section -- name, length,
+    // nullability --
     // through an @AttributeOverride, which replaces any @Column declared here
     private String name;
 

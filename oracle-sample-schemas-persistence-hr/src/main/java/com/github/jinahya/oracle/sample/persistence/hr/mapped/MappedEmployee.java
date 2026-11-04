@@ -41,15 +41,18 @@ import java.util.Objects;
 /**
  * A mapped superclass which holds the mappings of the {@value MappedEmployee#TABLE_NAME} table.
  * <p>
- * The {@value #COLUMN_NAME_JOB_ID}, {@value #COLUMN_NAME_MANAGER_ID} and {@value #COLUMN_NAME_DEPARTMENT_ID} columns
- * are mapped read-only ({@code insertable = false, updatable = false}), with a public getter and a {@code protected}
- * setter. How the relationship behind each is mapped is the extending entity's decision, so the extending entity also
- * owns their writable mapping, by an association's {@link jakarta.persistence.JoinColumn @JoinColumn}, and keeps the
- * value in step through the setter. <strong>An extending entity which maps no association never writes them.</strong>
+ * The {@value #COLUMN_NAME_JOB_ID}, {@value #COLUMN_NAME_MANAGER_ID} and
+ * {@value #COLUMN_NAME_DEPARTMENT_ID} columns are mapped read-only
+ * ({@code insertable = false, updatable = false}), with a public getter and a {@code protected}
+ * setter. How the relationship behind each is mapped is the extending entity's decision, so the
+ * extending entity also owns their writable mapping, by an association's
+ * {@link jakarta.persistence.JoinColumn @JoinColumn}, and keeps the value in step through the
+ * setter. <strong>An extending entity which maps no association never writes them.</strong>
  * <p>
- * The {@value #ATTRIBUTE_NAME_JOB_ID} attribute carries {@link NotNull @NotNull}, which holds at {@code prePersist}
- * only so: an extending entity which writes the column without setting the identifier has an instance about to be
- * inserted rejected, though the association would write the column.
+ * The {@value #ATTRIBUTE_NAME_JOB_ID} attribute carries {@link NotNull @NotNull}, which holds at
+ * {@code prePersist} only so: an extending entity which writes the column without setting the
+ * identifier has an instance about to be inserted rejected, though the association would write the
+ * column.
  *
  * @author Jaehan Lim
  */
@@ -64,8 +67,8 @@ public abstract class MappedEmployee {
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_EMPLOYEE_ID = "EMPLOYEE_ID";
 
@@ -99,27 +102,30 @@ public abstract class MappedEmployee {
     // +999999
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
 
     // TODO: remove casting when COLUMN_MIN_EMPLOYEE_ID uses decimal
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
+     * {@value}.
      */
     public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = (long) COLUMN_MIN_EMPLOYEE_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
+     * {@value}.
      */
     public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
 
     // ------------------------------------------------------------------------------------------------------ FIRST_NAME
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_FIRST_NAME = "FIRST_NAME";
 
@@ -129,25 +135,28 @@ public abstract class MappedEmployee {
     public static final int COLUMN_LENGTH_FIRST_NAME = 20;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FIRST_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FIRST_NAME} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_FIRST_NAME = "firstName";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_FIRST_NAME = 0;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_FIRST_NAME = COLUMN_LENGTH_FIRST_NAME;
 
     // ------------------------------------------------------------------------------------------------------- LAST_NAME
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LAST_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LAST_NAME} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_LAST_NAME = "LAST_NAME";
 
@@ -157,7 +166,8 @@ public abstract class MappedEmployee {
     public static final int COLUMN_LENGTH_LAST_NAME = 25;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_LAST_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LAST_NAME} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_LAST_NAME = "lastName";
 
@@ -174,7 +184,8 @@ public abstract class MappedEmployee {
     // ----------------------------------------------------------------------------------------------------------- EMAIL
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMAIL} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMAIL} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_EMAIL = "EMAIL";
 
@@ -184,7 +195,8 @@ public abstract class MappedEmployee {
     public static final int COLUMN_LENGTH_EMAIL = 25;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_EMAIL} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_EMAIL} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMAIL = "email";
 
@@ -201,8 +213,8 @@ public abstract class MappedEmployee {
     // ---------------------------------------------------------------------------------------------------- PHONE_NUMBER
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PHONE_NUMBER} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PHONE_NUMBER} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PHONE_NUMBER = "PHONE_NUMBER";
 
@@ -212,37 +224,42 @@ public abstract class MappedEmployee {
     public static final int COLUMN_LENGTH_PHONE_NUMBER = 20;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PHONE_NUMBER} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PHONE_NUMBER} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PHONE_NUMBER = "phoneNumber";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_PHONE_NUMBER} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_PHONE_NUMBER} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_PHONE_NUMBER = 0;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PHONE_NUMBER} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PHONE_NUMBER} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PHONE_NUMBER = COLUMN_LENGTH_PHONE_NUMBER;
 
     // ------------------------------------------------------------------------------------------------------- HIRE_DATE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_HIRE_DATE = "HIRE_DATE";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_HIRE_DATE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_HIRE_DATE} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_HIRE_DATE = "hireDate";
 
     // ---------------------------------------------------------------------------------------------------------- JOB_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_ID} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_ID} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_JOB_ID = "JOB_ID";
 
@@ -262,15 +279,16 @@ public abstract class MappedEmployee {
     public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column, read-only. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column, read-only. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_JOB_ID = "jobId";
 
     // ---------------------------------------------------------------------------------------------------------- SALARY
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SALARY} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SALARY} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_SALARY = "SALARY";
 
@@ -284,11 +302,13 @@ public abstract class MappedEmployee {
      */
     public static final int COLUMN_SCALE_SALARY = 2;
 
-    //    public static final double COLUMN_MIN_SALARY = -999999.99d; // TODO: check the checks/EMP_SALARY_MIN
+    //    public static final double COLUMN_MIN_SALARY = -999999.99d; // TODO: check the
+    //     checks/EMP_SALARY_MIN
 
     /**
-     * The exclusive minimum value of the {@value #COLUMN_NAME_SALARY} column, as the {@code EMP_SALARY_MIN} check
-     * constraint ({@code salary > 0}) requires. The value is {@value}.
+     * The exclusive minimum value of the {@value #COLUMN_NAME_SALARY} column, as the
+     * {@code EMP_SALARY_MIN} check constraint ({@code salary > 0}) requires. The value is
+     * {@value}.
      */
     public static final double COLUMN_MIN_SALARY_EXCLUSIVE = 0;
 
@@ -300,12 +320,14 @@ public abstract class MappedEmployee {
     public static final double COLUMN_MAX_SALARY = +999999.99d;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_SALARY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_SALARY} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
 
     /**
-     * The exclusive minimum value of the {@value #ATTRIBUTE_NAME_SALARY} attribute. The value is {@value}.
+     * The exclusive minimum value of the {@value #ATTRIBUTE_NAME_SALARY} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE = "-000000.00";
 
@@ -319,8 +341,8 @@ public abstract class MappedEmployee {
     // -------------------------------------------------------------------------------------------------- COMMISSION_PCT
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_COMMISSION_PCT = "COMMISSION_PCT";
 
@@ -345,25 +367,28 @@ public abstract class MappedEmployee {
     public static final double COLUMN_MAX_COMMISSION_PCT = +0.99d;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COMMISSION_PCT} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COMMISSION_PCT} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COMMISSION_PCT = "commissionPct";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT = "-0.99";
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT = "+0.99";
 
     // ------------------------------------------------------------------------------------------------------ MANAGER_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_MANAGER_ID = "MANAGER_ID";
 
@@ -388,26 +413,29 @@ public abstract class MappedEmployee {
     public static final int COLUMN_MAX_MANAGER_ID = +999999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute. The value is
+     * {@value}.
      */
     public static final long ATTRIBUTE_MIN_MANAGER_ID = COLUMN_MIN_MANAGER_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute. The value is
+     * {@value}.
      */
     public static final long ATTRIBUTE_MAX_MANAGER_ID = COLUMN_MAX_MANAGER_ID;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_MANAGER_ID} column, read-only. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_MANAGER_ID} column, read-only.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_MANAGER_ID = "managerId";
 
-    // ------------------------------------------------------------------------------------ DEPARTMENT_ID / departmentId
+    // ------------------------------------------------------------------------------------
+    // DEPARTMENT_ID / departmentId
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
 
@@ -441,7 +469,8 @@ public abstract class MappedEmployee {
     // TODO: assign COLUMN_MIN_DEPARTMENT_ID
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
+     * {@value}.
      */
     public static final long ATTRIBUTE_MIN_DEPARTMENT_ID = 0xFF_FF_FF_FF_FF_FF_D8_F1L;
 
@@ -449,15 +478,16 @@ public abstract class MappedEmployee {
     // TODO: assign COLUMN_MAX_DEPARTMENT_ID
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
+     * {@value}.
      */
     public static final long ATTRIBUTE_MAX_DEPARTMENT_ID = 0x00_00_00_00_00_00_27_0FL;
 
     // +9999L
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column, read-only. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column,
+     * read-only. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DEPARTMENT_ID = "departmentId";
 
@@ -518,10 +548,11 @@ public abstract class MappedEmployee {
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     /**
-     * Tests whether current value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is positive.
+     * Tests whether current value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is
+     * positive.
      *
-     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is positive,
-     * or {@code null}; {@code false} otherwise.
+     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT}
+     *         attribute is positive, or {@code null}; {@code false} otherwise.
      */
     protected boolean isCommissionPctPositive() {
         if (commissionPct == null) {
@@ -535,8 +566,8 @@ public abstract class MappedEmployee {
     /**
      * Indicates whether the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is non-negative.
      *
-     * @return {@code true} if the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is non-negative, or {@code null};
-     * {@code false} otherwise.
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is
+     *         non-negative, or {@code null}; {@code false} otherwise.
      */
     protected boolean isCommissionPctNonNegative() {
         if (commissionPct == null) {
@@ -558,7 +589,8 @@ public abstract class MappedEmployee {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute with the specified
+     * value.
      *
      * @param employeeId new value for {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
      */
@@ -579,7 +611,8 @@ public abstract class MappedEmployee {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute with the specified
+     * value.
      *
      * @param firstName new value for {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute.
      */
@@ -600,7 +633,8 @@ public abstract class MappedEmployee {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LAST_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LAST_NAME} attribute with the specified
+     * value.
      *
      * @param lastName new value for {@value #ATTRIBUTE_NAME_LAST_NAME} attribute.
      */
@@ -642,7 +676,8 @@ public abstract class MappedEmployee {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PHONE_NUMBER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PHONE_NUMBER} attribute with the specified
+     * value.
      *
      * @param phoneNumber new value for {@value #ATTRIBUTE_NAME_PHONE_NUMBER} attribute.
      */
@@ -653,8 +688,8 @@ public abstract class MappedEmployee {
     // -------------------------------------------------------------------------------------------------------- hireDate
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute -- the date when the employee started on
-     * the current job, as the column's comment has it.
+     * Returns current value of {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute -- the date when the
+     * employee started on the current job, as the column's comment has it.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute.
      */
@@ -664,7 +699,8 @@ public abstract class MappedEmployee {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute with the specified
+     * value.
      *
      * @param hireDate new value for {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute.
      */
@@ -685,7 +721,8 @@ public abstract class MappedEmployee {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_SALARY} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_SALARY} attribute with the specified
+     * value.
      *
      * @param salary new value for {@value #ATTRIBUTE_NAME_SALARY} attribute.
      */
@@ -706,7 +743,8 @@ public abstract class MappedEmployee {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute with the
+     * specified value.
      *
      * @param commissionPct new value for {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute.
      */
@@ -727,8 +765,9 @@ public abstract class MappedEmployee {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute with the specified value. The attribute is
-     * read-only; the extending entity calls this to keep it in step with the association which writes the column.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute with the specified value.
+     * The attribute is read-only; the extending entity calls this to keep it in step with the
+     * association which writes the column.
      *
      * @param jobId new value for {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
      */
@@ -749,8 +788,9 @@ public abstract class MappedEmployee {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute with the specified value. The attribute
-     * is read-only; the extending entity calls this to keep it in step with the association which writes the column.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute with the specified
+     * value. The attribute is read-only; the extending entity calls this to keep it in step with
+     * the association which writes the column.
      *
      * @param managerId new value for {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute.
      */
@@ -771,9 +811,9 @@ public abstract class MappedEmployee {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute with the specified value. The
-     * attribute is read-only; the extending entity calls this to keep it in step with the association which writes the
-     * column.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute with the specified
+     * value. The attribute is read-only; the extending entity calls this to keep it in step with
+     * the association which writes the column.
      *
      * @param departmentId new value for {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
      */
@@ -863,7 +903,8 @@ public abstract class MappedEmployee {
     private LocalDateTime hireDate;
 
     // -----------------------------------------------------------------------------------------------------------------
-    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // read-only: the extending entity owns the writable mapping of this column; see the class
+    // documentation
     @Nonnull
     @Size(min = SIZE_MIN_JOB_ID, max = SIZE_MAX_JOB_ID)
     @NotNull
@@ -879,7 +920,8 @@ public abstract class MappedEmployee {
     // -----------------------------------------------------------------------------------------------------------------
     @Nullable
     @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
-    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false) // EMP_SALARY_MIN: CHECK (salary > 0)
+    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false)
+    // EMP_SALARY_MIN: CHECK (salary > 0)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_SALARY, nullable = true, insertable = true, updatable = true,
             precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY)
@@ -894,7 +936,8 @@ public abstract class MappedEmployee {
     private BigDecimal commissionPct;
 
     // -----------------------------------------------------------------------------------------------------------------
-    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // read-only: the extending entity owns the writable mapping of this column; see the class
+    // documentation
     @Nullable
     @Max(ATTRIBUTE_MAX_MANAGER_ID)
     @Min(ATTRIBUTE_MIN_MANAGER_ID)
@@ -909,7 +952,8 @@ public abstract class MappedEmployee {
     private Integer managerId;
 
     // -----------------------------------------------------------------------------------------------------------------
-    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // read-only: the extending entity owns the writable mapping of this column; see the class
+    // documentation
     @Nullable
     @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
     @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)

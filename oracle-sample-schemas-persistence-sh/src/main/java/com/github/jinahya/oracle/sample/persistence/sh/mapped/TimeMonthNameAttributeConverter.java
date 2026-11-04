@@ -29,26 +29,28 @@ import java.util.Locale;
 
 /**
  * A converter between {@link Month} and the {@value MappedTime#COLUMN_NAME_CALENDAR_MONTH_NAME} and
- * {@value MappedTime#COLUMN_NAME_FISCAL_MONTH_NAME} columns of the {@value MappedTime#TABLE_NAME} table, which hold the
- * full English name of the month, {@code January} for {@link Month#JANUARY}.
+ * {@value MappedTime#COLUMN_NAME_FISCAL_MONTH_NAME} columns of the {@value MappedTime#TABLE_NAME}
+ * table, which hold the full English name of the month, {@code January} for {@link Month#JANUARY}.
  * <p>
  * Nothing applies this converter yet. {@link MappedTime#getCalendarMonthName()} and
  * {@link MappedTime#getFiscalMonthName()} keep the columns as {@code String}s, and
- * {@code TimeUtils.getCalendarMonthNameAsMonth(Time)} and {@code TimeUtils.getFiscalMonthNameAsMonth(Time)} derive the
- * {@link Month} on demand. Mapping the attributes as a {@link Month} with this converter, through
- * {@link jakarta.persistence.Convert @Convert}, is left as an exercise; see the issue linked below for what else has to
- * change with it.
+ * {@code TimeUtils.getCalendarMonthNameAsMonth(Time)} and
+ * {@code TimeUtils.getFiscalMonthNameAsMonth(Time)} derive the {@link Month} on demand. Mapping the
+ * attributes as a {@link Month} with this converter, through
+ * {@link jakarta.persistence.Convert @Convert}, is left as an exercise; see the issue linked below
+ * for what else has to change with it.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedTime#getCalendarMonthName()
  * @see MappedTime#getFiscalMonthName()
  * @see TimeDayNameAttributeConverter
  * @see <a href="https://github.com/jinahya/oracle-sample-schemas-persistence/issues/7">
- * #7 Map TIMES.CALENDAR_MONTH_NAME and FISCAL_MONTH_NAME as
- * Month with TimeMonthNameAttributeConverter</a>
+ *         #7 Map TIMES.CALENDAR_MONTH_NAME and FISCAL_MONTH_NAME as Month with
+ *         TimeMonthNameAttributeConverter</a>
  */
 @Converter(autoApply = false)
-public class TimeMonthNameAttributeConverter implements AttributeConverter<Month, String> {
+public class TimeMonthNameAttributeConverter
+        implements AttributeConverter<Month, String> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -59,14 +61,15 @@ public class TimeMonthNameAttributeConverter implements AttributeConverter<Month
         super();
     }
 
-    // ---------------------------------------------------------------------- jakarta.persistence.AttributeConverter
+    // ---------------------------------------------------------------------- jakarta.persistence
+    // .AttributeConverter
 
     /**
      * {@inheritDoc}
      *
      * @param attribute {@inheritDoc}
-     * @return the full English name of {@code attribute}, {@code January} for {@link Month#JANUARY}; {@code null} when
-     * {@code attribute} is {@code null}.
+     * @return the full English name of {@code attribute}, {@code January} for
+     *         {@link Month#JANUARY}; {@code null} when {@code attribute} is {@code null}.
      * @see Month#getDisplayName(TextStyle, Locale)
      */
     @Override
@@ -81,9 +84,10 @@ public class TimeMonthNameAttributeConverter implements AttributeConverter<Month
      * {@inheritDoc}
      *
      * @param dbData {@inheritDoc}
-     * @return the month whose {@link Month#name() name} equals {@code dbData}, ignoring case; {@code null} when
-     * {@code dbData} is {@code null}.
-     * @throws IllegalArgumentException if {@code dbData} is not the name of a {@link Month} constant.
+     * @return the month whose {@link Month#name() name} equals {@code dbData}, ignoring case;
+     *         {@code null} when {@code dbData} is {@code null}.
+     * @throws IllegalArgumentException if {@code dbData} is not the name of a {@link Month}
+     *                                  constant.
      */
     @Override
     public Month convertToEntityAttribute(final String dbData) {

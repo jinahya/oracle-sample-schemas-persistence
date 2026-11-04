@@ -48,21 +48,22 @@ public abstract class MappedTime {
     // -------------------------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_TIME_ID = "TIME_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
     // ------------------------------------------------------------------------------------------------------- DAY_NAME
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAY_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAY_NAME} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_DAY_NAME = "DAY_NAME";
 
@@ -72,7 +73,8 @@ public abstract class MappedTime {
     public static final int COLUMN_LENGTH_DAY_NAME = 9;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DAY_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DAY_NAME} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_DAY_NAME = "dayName";
 
@@ -84,13 +86,14 @@ public abstract class MappedTime {
     // --------------------------------------------------------------------------------------------- DAY_NUMBER_IN_WEEK
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_DAY_NUMBER_IN_WEEK = "DAY_NUMBER_IN_WEEK";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DAY_NUMBER_IN_WEEK} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DAY_NUMBER_IN_WEEK} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK = "dayNumberInWeek";
 
@@ -105,41 +108,46 @@ public abstract class MappedTime {
     public static final int COLUMN_SCALE_DAY_NUMBER_IN_WEEK = 0;
 
     /**
-     * The minimum value of the {@value #COLUMN_NAME_DAY_NUMBER_IN_WEEK} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_DAY_NUMBER_IN_WEEK} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MIN_DAY_NUMBER_IN_WEEK = -9;
 
     /**
-     * The maximum value of the {@value #COLUMN_NAME_DAY_NUMBER_IN_WEEK} column. The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_DAY_NUMBER_IN_WEEK} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MAX_DAY_NUMBER_IN_WEEK = +9;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_DAY_NUMBER_IN_WEEK = COLUMN_MIN_DAY_NUMBER_IN_WEEK;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_DAY_NUMBER_IN_WEEK = COLUMN_MAX_DAY_NUMBER_IN_WEEK;
 
     // -------------------------------------------------------------------------------------------- DAY_NUMBER_IN_MONTH
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_DAY_NUMBER_IN_MONTH = "DAY_NUMBER_IN_MONTH";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DAY_NUMBER_IN_MONTH} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DAY_NUMBER_IN_MONTH} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH = "dayNumberInMonth";
 
     /**
-     * The precision of the {@value #COLUMN_NAME_DAY_NUMBER_IN_MONTH} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_DAY_NUMBER_IN_MONTH} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_PRECISION_DAY_NUMBER_IN_MONTH = 2;
 
@@ -149,41 +157,46 @@ public abstract class MappedTime {
     public static final int COLUMN_SCALE_DAY_NUMBER_IN_MONTH = 0;
 
     /**
-     * The minimum value of the {@value #COLUMN_NAME_DAY_NUMBER_IN_MONTH} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_DAY_NUMBER_IN_MONTH} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MIN_DAY_NUMBER_IN_MONTH = -99;
 
     /**
-     * The maximum value of the {@value #COLUMN_NAME_DAY_NUMBER_IN_MONTH} column. The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_DAY_NUMBER_IN_MONTH} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MAX_DAY_NUMBER_IN_MONTH = +99;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_DAY_NUMBER_IN_MONTH = COLUMN_MIN_DAY_NUMBER_IN_MONTH;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_DAY_NUMBER_IN_MONTH = COLUMN_MAX_DAY_NUMBER_IN_MONTH;
 
     // ------------------------------------------------------------------------------------------- CALENDAR_WEEK_NUMBER
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_WEEK_NUMBER = "CALENDAR_WEEK_NUMBER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_WEEK_NUMBER} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_WEEK_NUMBER} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER = "calendarWeekNumber";
 
     /**
-     * The precision of the {@value #COLUMN_NAME_CALENDAR_WEEK_NUMBER} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_CALENDAR_WEEK_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_PRECISION_CALENDAR_WEEK_NUMBER = 2;
 
@@ -193,35 +206,40 @@ public abstract class MappedTime {
     public static final int COLUMN_SCALE_CALENDAR_WEEK_NUMBER = 0;
 
     /**
-     * The minimum value of the {@value #COLUMN_NAME_CALENDAR_WEEK_NUMBER} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_CALENDAR_WEEK_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MIN_CALENDAR_WEEK_NUMBER = -99;
 
     /**
-     * The maximum value of the {@value #COLUMN_NAME_CALENDAR_WEEK_NUMBER} column. The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_CALENDAR_WEEK_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MAX_CALENDAR_WEEK_NUMBER = +99;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER} attribute. The value
+     * is {@value}.
      */
     public static final int ATTRIBUTE_MIN_CALENDAR_WEEK_NUMBER = COLUMN_MIN_CALENDAR_WEEK_NUMBER;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER} attribute. The value
+     * is {@value}.
      */
     public static final int ATTRIBUTE_MAX_CALENDAR_WEEK_NUMBER = COLUMN_MAX_CALENDAR_WEEK_NUMBER;
 
     // --------------------------------------------------------------------------------------------- FISCAL_WEEK_NUMBER
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_WEEK_NUMBER} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_WEEK_NUMBER}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_WEEK_NUMBER = "FISCAL_WEEK_NUMBER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_WEEK_NUMBER} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_WEEK_NUMBER} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_FISCAL_WEEK_NUMBER = "fiscalWeekNumber";
 
@@ -236,67 +254,75 @@ public abstract class MappedTime {
     public static final int COLUMN_SCALE_FISCAL_WEEK_NUMBER = 0;
 
     /**
-     * The minimum value of the {@value #COLUMN_NAME_FISCAL_WEEK_NUMBER} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_FISCAL_WEEK_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MIN_FISCAL_WEEK_NUMBER = -99;
 
     /**
-     * The maximum value of the {@value #COLUMN_NAME_FISCAL_WEEK_NUMBER} column. The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_FISCAL_WEEK_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MAX_FISCAL_WEEK_NUMBER = +99;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_FISCAL_WEEK_NUMBER} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_FISCAL_WEEK_NUMBER} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_FISCAL_WEEK_NUMBER = COLUMN_MIN_FISCAL_WEEK_NUMBER;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_FISCAL_WEEK_NUMBER} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_FISCAL_WEEK_NUMBER} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_FISCAL_WEEK_NUMBER = COLUMN_MAX_FISCAL_WEEK_NUMBER;
 
     // ------------------------------------------------------------------------------------------------ WEEK_ENDING_DAY
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_WEEK_ENDING_DAY = "WEEK_ENDING_DAY";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_WEEK_ENDING_DAY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_WEEK_ENDING_DAY} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_WEEK_ENDING_DAY = "weekEndingDay";
 
     // --------------------------------------------------------------------------------------------- WEEK_ENDING_DAY_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY_ID} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY_ID}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_WEEK_ENDING_DAY_ID = "WEEK_ENDING_DAY_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_WEEK_ENDING_DAY_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_WEEK_ENDING_DAY_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_WEEK_ENDING_DAY_ID = "weekEndingDayId";
 
-    // ------------------------------------------------------------------------------------------ CALENDAR_MONTH_NUMBER
+    // ------------------------------------------------------------------------------------------
+    // CALENDAR_MONTH_NUMBER
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER} attribute maps. The
-     * value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_MONTH_NUMBER = "CALENDAR_MONTH_NUMBER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_NUMBER} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_NUMBER} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER = "calendarMonthNumber";
 
     /**
-     * The precision of the {@value #COLUMN_NAME_CALENDAR_MONTH_NUMBER} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_CALENDAR_MONTH_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_PRECISION_CALENDAR_MONTH_NUMBER = 2;
 
@@ -306,41 +332,46 @@ public abstract class MappedTime {
     public static final int COLUMN_SCALE_CALENDAR_MONTH_NUMBER = 0;
 
     /**
-     * The minimum value of the {@value #COLUMN_NAME_CALENDAR_MONTH_NUMBER} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_CALENDAR_MONTH_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MIN_CALENDAR_MONTH_NUMBER = -99;
 
     /**
-     * The maximum value of the {@value #COLUMN_NAME_CALENDAR_MONTH_NUMBER} column. The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_CALENDAR_MONTH_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MAX_CALENDAR_MONTH_NUMBER = +99;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER} attribute. The value
+     * is {@value}.
      */
     public static final int ATTRIBUTE_MIN_CALENDAR_MONTH_NUMBER = COLUMN_MIN_CALENDAR_MONTH_NUMBER;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER} attribute. The value
+     * is {@value}.
      */
     public static final int ATTRIBUTE_MAX_CALENDAR_MONTH_NUMBER = COLUMN_MAX_CALENDAR_MONTH_NUMBER;
 
     // -------------------------------------------------------------------------------------------- FISCAL_MONTH_NUMBER
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_MONTH_NUMBER = "FISCAL_MONTH_NUMBER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_MONTH_NUMBER} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_MONTH_NUMBER} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER = "fiscalMonthNumber";
 
     /**
-     * The precision of the {@value #COLUMN_NAME_FISCAL_MONTH_NUMBER} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_FISCAL_MONTH_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_PRECISION_FISCAL_MONTH_NUMBER = 2;
 
@@ -350,30 +381,34 @@ public abstract class MappedTime {
     public static final int COLUMN_SCALE_FISCAL_MONTH_NUMBER = 0;
 
     /**
-     * The minimum value of the {@value #COLUMN_NAME_FISCAL_MONTH_NUMBER} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_FISCAL_MONTH_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MIN_FISCAL_MONTH_NUMBER = -99;
 
     /**
-     * The maximum value of the {@value #COLUMN_NAME_FISCAL_MONTH_NUMBER} column. The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_FISCAL_MONTH_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MAX_FISCAL_MONTH_NUMBER = +99;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_FISCAL_MONTH_NUMBER = COLUMN_MIN_FISCAL_MONTH_NUMBER;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_FISCAL_MONTH_NUMBER = COLUMN_MAX_FISCAL_MONTH_NUMBER;
 
     // -------------------------------------------------------------------------------------------- CALENDAR_MONTH_DESC
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_MONTH_DESC = "CALENDAR_MONTH_DESC";
 
@@ -383,34 +418,36 @@ public abstract class MappedTime {
     public static final int COLUMN_LENGTH_CALENDAR_MONTH_DESC = 8;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_DESC} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_DESC} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_MONTH_DESC = "calendarMonthDesc";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CALENDAR_MONTH_DESC = COLUMN_LENGTH_CALENDAR_MONTH_DESC;
 
     // ---------------------------------------------------------------------------------------------- CALENDAR_MONTH_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_ID}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_MONTH_ID = "CALENDAR_MONTH_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_MONTH_ID = "calendarMonthId";
 
     // ---------------------------------------------------------------------------------------------- FISCAL_MONTH_DESC
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_DESC} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_DESC}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_MONTH_DESC = "FISCAL_MONTH_DESC";
 
@@ -420,85 +457,92 @@ public abstract class MappedTime {
     public static final int COLUMN_LENGTH_FISCAL_MONTH_DESC = 8;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_MONTH_DESC} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_MONTH_DESC} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_FISCAL_MONTH_DESC = "fiscalMonthDesc";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_DESC} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_DESC} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_FISCAL_MONTH_DESC = COLUMN_LENGTH_FISCAL_MONTH_DESC;
 
     // ------------------------------------------------------------------------------------------------ FISCAL_MONTH_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_MONTH_ID = "FISCAL_MONTH_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_MONTH_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_MONTH_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_FISCAL_MONTH_ID = "fiscalMonthId";
 
     // ---------------------------------------------------------------------------------------------- DAYS_IN_CAL_MONTH
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_MONTH} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_MONTH}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_DAYS_IN_CAL_MONTH = "DAYS_IN_CAL_MONTH";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DAYS_IN_CAL_MONTH} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DAYS_IN_CAL_MONTH} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DAYS_IN_CAL_MONTH = "daysInCalMonth";
 
     // ---------------------------------------------------------------------------------------------- DAYS_IN_FIS_MONTH
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_MONTH} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_MONTH}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_DAYS_IN_FIS_MONTH = "DAYS_IN_FIS_MONTH";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DAYS_IN_FIS_MONTH} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DAYS_IN_FIS_MONTH} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DAYS_IN_FIS_MONTH = "daysInFisMonth";
 
     // ----------------------------------------------------------------------------------------------- END_OF_CAL_MONTH
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_CAL_MONTH} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_CAL_MONTH} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_END_OF_CAL_MONTH = "END_OF_CAL_MONTH";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_END_OF_CAL_MONTH} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_END_OF_CAL_MONTH} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_END_OF_CAL_MONTH = "endOfCalMonth";
 
     // ----------------------------------------------------------------------------------------------- END_OF_FIS_MONTH
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_FIS_MONTH} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_FIS_MONTH} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_END_OF_FIS_MONTH = "END_OF_FIS_MONTH";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_END_OF_FIS_MONTH} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_END_OF_FIS_MONTH} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_END_OF_FIS_MONTH = "endOfFisMonth";
 
     // -------------------------------------------------------------------------------------------- CALENDAR_MONTH_NAME
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NAME} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NAME}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_MONTH_NAME = "CALENDAR_MONTH_NAME";
 
@@ -508,21 +552,22 @@ public abstract class MappedTime {
     public static final int COLUMN_LENGTH_CALENDAR_MONTH_NAME = 9;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_NAME} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_NAME} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_MONTH_NAME = "calendarMonthName";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CALENDAR_MONTH_NAME = COLUMN_LENGTH_CALENDAR_MONTH_NAME;
 
     // ---------------------------------------------------------------------------------------------- FISCAL_MONTH_NAME
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NAME}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_MONTH_NAME = "FISCAL_MONTH_NAME";
 
@@ -532,20 +577,23 @@ public abstract class MappedTime {
     public static final int COLUMN_LENGTH_FISCAL_MONTH_NAME = 9;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_MONTH_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_MONTH_NAME} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_FISCAL_MONTH_NAME = "fiscalMonthName";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_FISCAL_MONTH_NAME = COLUMN_LENGTH_FISCAL_MONTH_NAME;
 
-    // ------------------------------------------------------------------------------------------ CALENDAR_QUARTER_DESC
+    // ------------------------------------------------------------------------------------------
+    // CALENDAR_QUARTER_DESC
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_DESC} attribute maps. The
-     * value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_DESC}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_QUARTER_DESC = "CALENDAR_QUARTER_DESC";
 
@@ -555,35 +603,36 @@ public abstract class MappedTime {
     public static final int COLUMN_LENGTH_CALENDAR_QUARTER_DESC = 7;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_QUARTER_DESC} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_QUARTER_DESC} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_QUARTER_DESC = "calendarQuarterDesc";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_DESC} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_DESC} attribute. The value
+     * is {@value}.
      */
     public static final int SIZE_MAX_CALENDAR_QUARTER_DESC = COLUMN_LENGTH_CALENDAR_QUARTER_DESC;
 
     // -------------------------------------------------------------------------------------------- CALENDAR_QUARTER_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_ID} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_ID}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_QUARTER_ID = "CALENDAR_QUARTER_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_QUARTER_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_QUARTER_ID} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_QUARTER_ID = "calendarQuarterId";
 
     // -------------------------------------------------------------------------------------------- FISCAL_QUARTER_DESC
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_DESC} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_DESC}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_QUARTER_DESC = "FISCAL_QUARTER_DESC";
 
@@ -593,143 +642,158 @@ public abstract class MappedTime {
     public static final int COLUMN_LENGTH_FISCAL_QUARTER_DESC = 7;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_QUARTER_DESC} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_QUARTER_DESC} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_FISCAL_QUARTER_DESC = "fiscalQuarterDesc";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_DESC} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_DESC} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_FISCAL_QUARTER_DESC = COLUMN_LENGTH_FISCAL_QUARTER_DESC;
 
     // ---------------------------------------------------------------------------------------------- FISCAL_QUARTER_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_ID}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_QUARTER_ID = "FISCAL_QUARTER_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_QUARTER_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_QUARTER_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_FISCAL_QUARTER_ID = "fiscalQuarterId";
 
     // -------------------------------------------------------------------------------------------- DAYS_IN_CAL_QUARTER
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_QUARTER} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_QUARTER}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_DAYS_IN_CAL_QUARTER = "DAYS_IN_CAL_QUARTER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DAYS_IN_CAL_QUARTER} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DAYS_IN_CAL_QUARTER} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DAYS_IN_CAL_QUARTER = "daysInCalQuarter";
 
     // -------------------------------------------------------------------------------------------- DAYS_IN_FIS_QUARTER
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_QUARTER} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_QUARTER}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_DAYS_IN_FIS_QUARTER = "DAYS_IN_FIS_QUARTER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DAYS_IN_FIS_QUARTER} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DAYS_IN_FIS_QUARTER} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DAYS_IN_FIS_QUARTER = "daysInFisQuarter";
 
     // --------------------------------------------------------------------------------------------- END_OF_CAL_QUARTER
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_CAL_QUARTER} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_CAL_QUARTER}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_END_OF_CAL_QUARTER = "END_OF_CAL_QUARTER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_END_OF_CAL_QUARTER} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_END_OF_CAL_QUARTER} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_END_OF_CAL_QUARTER = "endOfCalQuarter";
 
     // --------------------------------------------------------------------------------------------- END_OF_FIS_QUARTER
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_FIS_QUARTER} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_FIS_QUARTER}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_END_OF_FIS_QUARTER = "END_OF_FIS_QUARTER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_END_OF_FIS_QUARTER} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_END_OF_FIS_QUARTER} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_END_OF_FIS_QUARTER = "endOfFisQuarter";
 
-    // ---------------------------------------------------------------------------------------- CALENDAR_QUARTER_NUMBER
+    // ----------------------------------------------------------------------------------------
+    // CALENDAR_QUARTER_NUMBER
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER} attribute maps. The
-     * value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_QUARTER_NUMBER = "CALENDAR_QUARTER_NUMBER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_QUARTER_NUMBER} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_QUARTER_NUMBER}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER = "calendarQuarterNumber";
 
     /**
-     * The precision of the {@value #COLUMN_NAME_CALENDAR_QUARTER_NUMBER} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_CALENDAR_QUARTER_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_PRECISION_CALENDAR_QUARTER_NUMBER = 1;
 
     /**
-     * The scale of the {@value #COLUMN_NAME_CALENDAR_QUARTER_NUMBER} column. The value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_CALENDAR_QUARTER_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_SCALE_CALENDAR_QUARTER_NUMBER = 0;
 
     /**
-     * The minimum value of the {@value #COLUMN_NAME_CALENDAR_QUARTER_NUMBER} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_CALENDAR_QUARTER_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MIN_CALENDAR_QUARTER_NUMBER = -9;
 
     /**
-     * The maximum value of the {@value #COLUMN_NAME_CALENDAR_QUARTER_NUMBER} column. The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_CALENDAR_QUARTER_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MAX_CALENDAR_QUARTER_NUMBER = +9;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER} attribute. The value is {@value}.
-     */
-    public static final int ATTRIBUTE_MIN_CALENDAR_QUARTER_NUMBER = COLUMN_MIN_CALENDAR_QUARTER_NUMBER;
-
-    /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER} attribute. The value is {@value}.
-     */
-    public static final int ATTRIBUTE_MAX_CALENDAR_QUARTER_NUMBER = COLUMN_MAX_CALENDAR_QUARTER_NUMBER;
-
-    // ------------------------------------------------------------------------------------------ FISCAL_QUARTER_NUMBER
-
-    /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER} attribute maps. The
+     * The minimum value of the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER} attribute. The
      * value is {@value}.
+     */
+    public static final int ATTRIBUTE_MIN_CALENDAR_QUARTER_NUMBER =
+            COLUMN_MIN_CALENDAR_QUARTER_NUMBER;
+
+    /**
+     * The maximum value of the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER} attribute. The
+     * value is {@value}.
+     */
+    public static final int ATTRIBUTE_MAX_CALENDAR_QUARTER_NUMBER =
+            COLUMN_MAX_CALENDAR_QUARTER_NUMBER;
+
+    // ------------------------------------------------------------------------------------------
+    // FISCAL_QUARTER_NUMBER
+
+    /**
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_QUARTER_NUMBER = "FISCAL_QUARTER_NUMBER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_QUARTER_NUMBER} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_QUARTER_NUMBER} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER = "fiscalQuarterNumber";
 
     /**
-     * The precision of the {@value #COLUMN_NAME_FISCAL_QUARTER_NUMBER} column. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_FISCAL_QUARTER_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_PRECISION_FISCAL_QUARTER_NUMBER = 1;
 
@@ -739,35 +803,40 @@ public abstract class MappedTime {
     public static final int COLUMN_SCALE_FISCAL_QUARTER_NUMBER = 0;
 
     /**
-     * The minimum value of the {@value #COLUMN_NAME_FISCAL_QUARTER_NUMBER} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_FISCAL_QUARTER_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MIN_FISCAL_QUARTER_NUMBER = -9;
 
     /**
-     * The maximum value of the {@value #COLUMN_NAME_FISCAL_QUARTER_NUMBER} column. The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_FISCAL_QUARTER_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MAX_FISCAL_QUARTER_NUMBER = +9;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER} attribute. The value
+     * is {@value}.
      */
     public static final int ATTRIBUTE_MIN_FISCAL_QUARTER_NUMBER = COLUMN_MIN_FISCAL_QUARTER_NUMBER;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER} attribute. The value
+     * is {@value}.
      */
     public static final int ATTRIBUTE_MAX_FISCAL_QUARTER_NUMBER = COLUMN_MAX_FISCAL_QUARTER_NUMBER;
 
     // -------------------------------------------------------------------------------------------------- CALENDAR_YEAR
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_YEAR = "CALENDAR_YEAR";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_YEAR} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_YEAR} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_YEAR = "calendarYear";
 
@@ -792,38 +861,42 @@ public abstract class MappedTime {
     public static final int COLUMN_MAX_CALENDAR_YEAR = +9999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_CALENDAR_YEAR = COLUMN_MIN_CALENDAR_YEAR;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_CALENDAR_YEAR = COLUMN_MAX_CALENDAR_YEAR;
 
     // ----------------------------------------------------------------------------------------------- CALENDAR_YEAR_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_YEAR_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_YEAR_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_YEAR_ID = "CALENDAR_YEAR_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_YEAR_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_YEAR_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_YEAR_ID = "calendarYearId";
 
     // ---------------------------------------------------------------------------------------------------- FISCAL_YEAR
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_YEAR} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_YEAR} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_YEAR = "FISCAL_YEAR";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_YEAR} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_YEAR} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_FISCAL_YEAR = "fiscalYear";
 
@@ -848,77 +921,84 @@ public abstract class MappedTime {
     public static final int COLUMN_MAX_FISCAL_YEAR = +9999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_FISCAL_YEAR} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_FISCAL_YEAR} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_FISCAL_YEAR = COLUMN_MIN_FISCAL_YEAR;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_FISCAL_YEAR} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_FISCAL_YEAR} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_FISCAL_YEAR = COLUMN_MAX_FISCAL_YEAR;
 
     // ------------------------------------------------------------------------------------------------- FISCAL_YEAR_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_YEAR_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_YEAR_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_FISCAL_YEAR_ID = "FISCAL_YEAR_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_YEAR_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FISCAL_YEAR_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_FISCAL_YEAR_ID = "fiscalYearId";
 
     // ----------------------------------------------------------------------------------------------- DAYS_IN_CAL_YEAR
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_YEAR} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_YEAR} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_DAYS_IN_CAL_YEAR = "DAYS_IN_CAL_YEAR";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DAYS_IN_CAL_YEAR} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DAYS_IN_CAL_YEAR} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DAYS_IN_CAL_YEAR = "daysInCalYear";
 
     // ----------------------------------------------------------------------------------------------- DAYS_IN_FIS_YEAR
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_YEAR} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_YEAR} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_DAYS_IN_FIS_YEAR = "DAYS_IN_FIS_YEAR";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DAYS_IN_FIS_YEAR} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DAYS_IN_FIS_YEAR} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DAYS_IN_FIS_YEAR = "daysInFisYear";
 
     // ------------------------------------------------------------------------------------------------ END_OF_CAL_YEAR
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_CAL_YEAR} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_CAL_YEAR} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_END_OF_CAL_YEAR = "END_OF_CAL_YEAR";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_END_OF_CAL_YEAR} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_END_OF_CAL_YEAR} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_END_OF_CAL_YEAR = "endOfCalYear";
 
     // ------------------------------------------------------------------------------------------------ END_OF_FIS_YEAR
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_FIS_YEAR} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_FIS_YEAR} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_END_OF_FIS_YEAR = "END_OF_FIS_YEAR";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_END_OF_FIS_YEAR} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_END_OF_FIS_YEAR} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_END_OF_FIS_YEAR = "endOfFisYear";
 
@@ -1014,7 +1094,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute with the specified
+     * value.
      *
      * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
@@ -1034,7 +1115,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DAY_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DAY_NAME} attribute with the specified
+     * value.
      *
      * @param dayName new value for {@value #ATTRIBUTE_NAME_DAY_NAME} attribute.
      */
@@ -1054,7 +1136,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK} attribute with the
+     * specified value.
      *
      * @param dayNumberInWeek new value for {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK} attribute.
      */
@@ -1074,9 +1157,11 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH} attribute with the
+     * specified value.
      *
-     * @param dayNumberInMonth new value for {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH} attribute.
+     * @param dayNumberInMonth new value for {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH}
+     *                         attribute.
      */
     public void setDayNumberInMonth(final Integer dayNumberInMonth) {
         this.dayNumberInMonth = dayNumberInMonth;
@@ -1094,9 +1179,11 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER} attribute with the
+     * specified value.
      *
-     * @param calendarWeekNumber new value for {@value #ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER} attribute.
+     * @param calendarWeekNumber new value for {@value #ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER}
+     *                           attribute.
      */
     public void setCalendarWeekNumber(final Integer calendarWeekNumber) {
         this.calendarWeekNumber = calendarWeekNumber;
@@ -1114,7 +1201,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_WEEK_NUMBER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_WEEK_NUMBER} attribute with the
+     * specified value.
      *
      * @param fiscalWeekNumber new value for {@value #ATTRIBUTE_NAME_FISCAL_WEEK_NUMBER} attribute.
      */
@@ -1134,7 +1222,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute with the
+     * specified value.
      *
      * @param weekEndingDay new value for {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
      */
@@ -1154,7 +1243,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY_ID} attribute with the
+     * specified value.
      *
      * @param weekEndingDayId new value for {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY_ID} attribute.
      */
@@ -1174,9 +1264,11 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER} attribute with the
+     * specified value.
      *
-     * @param calendarMonthNumber new value for {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER} attribute.
+     * @param calendarMonthNumber new value for {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER}
+     *                            attribute.
      */
     public void setCalendarMonthNumber(final Integer calendarMonthNumber) {
         this.calendarMonthNumber = calendarMonthNumber;
@@ -1194,9 +1286,11 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER} attribute with the
+     * specified value.
      *
-     * @param fiscalMonthNumber new value for {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER} attribute.
+     * @param fiscalMonthNumber new value for {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER}
+     *                          attribute.
      */
     public void setFiscalMonthNumber(final Integer fiscalMonthNumber) {
         this.fiscalMonthNumber = fiscalMonthNumber;
@@ -1214,9 +1308,11 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute with the
+     * specified value.
      *
-     * @param calendarMonthDesc new value for {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute.
+     * @param calendarMonthDesc new value for {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC}
+     *                          attribute.
      */
     public void setCalendarMonthDesc(final String calendarMonthDesc) {
         this.calendarMonthDesc = calendarMonthDesc;
@@ -1234,7 +1330,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_ID} attribute with the
+     * specified value.
      *
      * @param calendarMonthId new value for {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_ID} attribute.
      */
@@ -1254,7 +1351,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_MONTH_DESC} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_MONTH_DESC} attribute with the
+     * specified value.
      *
      * @param fiscalMonthDesc new value for {@value #ATTRIBUTE_NAME_FISCAL_MONTH_DESC} attribute.
      */
@@ -1274,7 +1372,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_MONTH_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_MONTH_ID} attribute with the
+     * specified value.
      *
      * @param fiscalMonthId new value for {@value #ATTRIBUTE_NAME_FISCAL_MONTH_ID} attribute.
      */
@@ -1294,7 +1393,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_MONTH} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_MONTH} attribute with the
+     * specified value.
      *
      * @param daysInCalMonth new value for {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_MONTH} attribute.
      */
@@ -1314,7 +1414,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_MONTH} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_MONTH} attribute with the
+     * specified value.
      *
      * @param daysInFisMonth new value for {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_MONTH} attribute.
      */
@@ -1334,7 +1435,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_MONTH} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_MONTH} attribute with the
+     * specified value.
      *
      * @param endOfCalMonth new value for {@value #ATTRIBUTE_NAME_END_OF_CAL_MONTH} attribute.
      */
@@ -1354,7 +1456,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_MONTH} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_MONTH} attribute with the
+     * specified value.
      *
      * @param endOfFisMonth new value for {@value #ATTRIBUTE_NAME_END_OF_FIS_MONTH} attribute.
      */
@@ -1374,9 +1477,11 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NAME} attribute with the
+     * specified value.
      *
-     * @param calendarMonthName new value for {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NAME} attribute.
+     * @param calendarMonthName new value for {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NAME}
+     *                          attribute.
      */
     public void setCalendarMonthName(final String calendarMonthName) {
         this.calendarMonthName = calendarMonthName;
@@ -1394,7 +1499,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NAME} attribute with the
+     * specified value.
      *
      * @param fiscalMonthName new value for {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NAME} attribute.
      */
@@ -1414,9 +1520,11 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_DESC} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_DESC} attribute with the
+     * specified value.
      *
-     * @param calendarQuarterDesc new value for {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_DESC} attribute.
+     * @param calendarQuarterDesc new value for {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_DESC}
+     *                            attribute.
      */
     public void setCalendarQuarterDesc(final String calendarQuarterDesc) {
         this.calendarQuarterDesc = calendarQuarterDesc;
@@ -1434,9 +1542,11 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_ID} attribute with the
+     * specified value.
      *
-     * @param calendarQuarterId new value for {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_ID} attribute.
+     * @param calendarQuarterId new value for {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_ID}
+     *                          attribute.
      */
     public void setCalendarQuarterId(final Long calendarQuarterId) {
         this.calendarQuarterId = calendarQuarterId;
@@ -1454,9 +1564,11 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_DESC} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_DESC} attribute with the
+     * specified value.
      *
-     * @param fiscalQuarterDesc new value for {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_DESC} attribute.
+     * @param fiscalQuarterDesc new value for {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_DESC}
+     *                          attribute.
      */
     public void setFiscalQuarterDesc(final String fiscalQuarterDesc) {
         this.fiscalQuarterDesc = fiscalQuarterDesc;
@@ -1474,7 +1586,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_ID} attribute with the
+     * specified value.
      *
      * @param fiscalQuarterId new value for {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_ID} attribute.
      */
@@ -1494,9 +1607,11 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_QUARTER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_QUARTER} attribute with the
+     * specified value.
      *
-     * @param daysInCalQuarter new value for {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_QUARTER} attribute.
+     * @param daysInCalQuarter new value for {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_QUARTER}
+     *                         attribute.
      */
     public void setDaysInCalQuarter(final Long daysInCalQuarter) {
         this.daysInCalQuarter = daysInCalQuarter;
@@ -1514,9 +1629,11 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_QUARTER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_QUARTER} attribute with the
+     * specified value.
      *
-     * @param daysInFisQuarter new value for {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_QUARTER} attribute.
+     * @param daysInFisQuarter new value for {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_QUARTER}
+     *                         attribute.
      */
     public void setDaysInFisQuarter(final Long daysInFisQuarter) {
         this.daysInFisQuarter = daysInFisQuarter;
@@ -1534,7 +1651,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_QUARTER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_QUARTER} attribute with the
+     * specified value.
      *
      * @param endOfCalQuarter new value for {@value #ATTRIBUTE_NAME_END_OF_CAL_QUARTER} attribute.
      */
@@ -1554,7 +1672,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_QUARTER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_QUARTER} attribute with the
+     * specified value.
      *
      * @param endOfFisQuarter new value for {@value #ATTRIBUTE_NAME_END_OF_FIS_QUARTER} attribute.
      */
@@ -1562,7 +1681,8 @@ public abstract class MappedTime {
         this.endOfFisQuarter = endOfFisQuarter;
     }
 
-    // ------------------------------------------------------------------------------------------ calendarQuarterNumber
+    // ------------------------------------------------------------------------------------------
+    // calendarQuarterNumber
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER} attribute.
@@ -1574,9 +1694,11 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER} attribute with the
+     * specified value.
      *
-     * @param calendarQuarterNumber new value for {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER} attribute.
+     * @param calendarQuarterNumber new value for {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER}
+     *                              attribute.
      */
     public void setCalendarQuarterNumber(final Integer calendarQuarterNumber) {
         this.calendarQuarterNumber = calendarQuarterNumber;
@@ -1594,9 +1716,11 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER} attribute with the
+     * specified value.
      *
-     * @param fiscalQuarterNumber new value for {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER} attribute.
+     * @param fiscalQuarterNumber new value for {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER}
+     *                            attribute.
      */
     public void setFiscalQuarterNumber(final Integer fiscalQuarterNumber) {
         this.fiscalQuarterNumber = fiscalQuarterNumber;
@@ -1614,7 +1738,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute with the specified
+     * value.
      *
      * @param calendarYear new value for {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute.
      */
@@ -1634,7 +1759,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_YEAR_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CALENDAR_YEAR_ID} attribute with the
+     * specified value.
      *
      * @param calendarYearId new value for {@value #ATTRIBUTE_NAME_CALENDAR_YEAR_ID} attribute.
      */
@@ -1654,7 +1780,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_YEAR} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_YEAR} attribute with the specified
+     * value.
      *
      * @param fiscalYear new value for {@value #ATTRIBUTE_NAME_FISCAL_YEAR} attribute.
      */
@@ -1674,7 +1801,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_YEAR_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_FISCAL_YEAR_ID} attribute with the
+     * specified value.
      *
      * @param fiscalYearId new value for {@value #ATTRIBUTE_NAME_FISCAL_YEAR_ID} attribute.
      */
@@ -1694,7 +1822,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_YEAR} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_YEAR} attribute with the
+     * specified value.
      *
      * @param daysInCalYear new value for {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_YEAR} attribute.
      */
@@ -1714,7 +1843,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_YEAR} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_YEAR} attribute with the
+     * specified value.
      *
      * @param daysInFisYear new value for {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_YEAR} attribute.
      */
@@ -1734,7 +1864,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_YEAR} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_YEAR} attribute with the
+     * specified value.
      *
      * @param endOfCalYear new value for {@value #ATTRIBUTE_NAME_END_OF_CAL_YEAR} attribute.
      */
@@ -1754,7 +1885,8 @@ public abstract class MappedTime {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_YEAR} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_YEAR} attribute with the
+     * specified value.
      *
      * @param endOfFisYear new value for {@value #ATTRIBUTE_NAME_END_OF_FIS_YEAR} attribute.
      */

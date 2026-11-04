@@ -33,9 +33,10 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
- * A mapped superclass for the composite identifier of the {@value MappedFweekPscatSalesMv#TABLE_NAME} table, which an
- * entity extending {@link MappedFweekPscatSalesMv} maps with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}; a
- * concrete identifier class extends this class.
+ * A mapped superclass for the composite identifier of the
+ * {@value MappedFweekPscatSalesMv#TABLE_NAME} table, which an entity extending
+ * {@link MappedFweekPscatSalesMv} maps with an {@link jakarta.persistence.EmbeddedId @EmbeddedId};
+ * a concrete identifier class extends this class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -43,61 +44,69 @@ import java.util.function.Supplier;
 public abstract class MappedFweekPscatSalesMvId {
 
     /**
-     * The name of the database materialized view whose identifying columns this class maps. The value is {@value}.
+     * The name of the database materialized view whose identifying columns this class maps. The
+     * value is {@value}.
      */
     public static final String TABLE_NAME = MappedFweekPscatSalesMv.TABLE_NAME;
 
     // ------------------------------------------------------------------------------------------------- WEEK_ENDING_DAY
 
     /**
-     * The name of the attribute which maps the {@value MappedFweekPscatSalesMv#COLUMN_NAME_WEEK_ENDING_DAY} column. The
-     * value is {@value}.
+     * The name of the attribute which maps the
+     * {@value MappedFweekPscatSalesMv#COLUMN_NAME_WEEK_ENDING_DAY} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_WEEK_ENDING_DAY = "weekEndingDay";
 
     // ------------------------------------------------------------------------------------------------ PROD_SUBCATEGORY
 
     /**
-     * The name of the attribute which maps the {@value MappedFweekPscatSalesMv#COLUMN_NAME_PROD_SUBCATEGORY} column.
-     * The value is {@value}.
+     * The name of the attribute which maps the
+     * {@value MappedFweekPscatSalesMv#COLUMN_NAME_PROD_SUBCATEGORY} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_SUBCATEGORY = "prodSubcategory";
 
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
-     * The name of the attribute which maps the {@value MappedFweekPscatSalesMv#COLUMN_NAME_CHANNEL_ID} column. The
-     * value is {@value}.
+     * The name of the attribute which maps the
+     * {@value MappedFweekPscatSalesMv#COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the attribute which maps the {@value MappedFweekPscatSalesMv#COLUMN_NAME_PROMO_ID} column. The value
-     * is {@value}.
+     * The name of the attribute which maps the
+     * {@value MappedFweekPscatSalesMv#COLUMN_NAME_PROMO_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
-    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    // ------------------------------------------------------------------------------------------
+    // STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance of a subclass, with the specified column values.
      *
      * @param <T>             the type of the identifier.
      * @param instantiator    a supplier of a new, empty instance of {@code T}.
-     * @param weekEndingDay   the {@value MappedFweekPscatSalesMv#COLUMN_NAME_WEEK_ENDING_DAY} column value.
-     * @param prodSubcategory the {@value MappedFweekPscatSalesMv#COLUMN_NAME_PROD_SUBCATEGORY} column value.
-     * @param channelId       the {@value MappedFweekPscatSalesMv#COLUMN_NAME_CHANNEL_ID} column value.
-     * @param promoId         the {@value MappedFweekPscatSalesMv#COLUMN_NAME_PROMO_ID} column value.
+     * @param weekEndingDay   the {@value MappedFweekPscatSalesMv#COLUMN_NAME_WEEK_ENDING_DAY}
+     *                        column value.
+     * @param prodSubcategory the {@value MappedFweekPscatSalesMv#COLUMN_NAME_PROD_SUBCATEGORY}
+     *                        column value.
+     * @param channelId       the {@value MappedFweekPscatSalesMv#COLUMN_NAME_CHANNEL_ID} column
+     *                        value.
+     * @param promoId         the {@value MappedFweekPscatSalesMv#COLUMN_NAME_PROMO_ID} column
+     *                        value.
      * @return the instance supplied by {@code instantiator}, with its attributes set.
-     * @throws NullPointerException if {@code instantiator} is {@code null}, or it supplies {@code null}.
+     * @throws NullPointerException if {@code instantiator} is {@code null}, or it supplies
+     *                              {@code null}.
      */
-    protected static <T extends MappedFweekPscatSalesMvId> T of(final Supplier<? extends T> instantiator,
-                                                                final LocalDateTime weekEndingDay,
-                                                                final String prodSubcategory,
-                                                                final Long channelId,
-                                                                final Integer promoId) {
+    protected static <T extends MappedFweekPscatSalesMvId> T of(
+            final Supplier<? extends T> instantiator,
+            final LocalDateTime weekEndingDay,
+            final String prodSubcategory,
+            final Long channelId,
+            final Integer promoId) {
         Objects.requireNonNull(instantiator, "instantiator is null");
         final T instance = Objects.requireNonNull(instantiator.get(), "instantiator.get() is null");
         instance.setWeekEndingDay(weekEndingDay);
@@ -134,8 +143,8 @@ public abstract class MappedFweekPscatSalesMvId {
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
      * @implSpec Equality is by all of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY},
-     * {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY}, {@value #ATTRIBUTE_NAME_CHANNEL_ID}, and
-     * {@value #ATTRIBUTE_NAME_PROMO_ID}.
+     *         {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY}, {@value #ATTRIBUTE_NAME_CHANNEL_ID}, and
+     *         {@value #ATTRIBUTE_NAME_PROMO_ID}.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -153,8 +162,8 @@ public abstract class MappedFweekPscatSalesMvId {
      *
      * @return {@inheritDoc}
      * @implSpec The hash is over all of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY},
-     * {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY}, {@value #ATTRIBUTE_NAME_CHANNEL_ID}, and
-     * {@value #ATTRIBUTE_NAME_PROMO_ID}, consistent with {@link #equals(Object)}.
+     *         {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY}, {@value #ATTRIBUTE_NAME_CHANNEL_ID}, and
+     *         {@value #ATTRIBUTE_NAME_PROMO_ID}, consistent with {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
@@ -173,7 +182,8 @@ public abstract class MappedFweekPscatSalesMvId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute with the
+     * specified value.
      *
      * @param weekEndingDay new value for {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
      */
@@ -193,7 +203,8 @@ public abstract class MappedFweekPscatSalesMvId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute with the
+     * specified value.
      *
      * @param prodSubcategory new value for {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute.
      */
@@ -213,7 +224,8 @@ public abstract class MappedFweekPscatSalesMvId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified
+     * value.
      *
      * @param channelId new value for {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
      */
@@ -233,7 +245,8 @@ public abstract class MappedFweekPscatSalesMvId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified
+     * value.
      *
      * @param promoId new value for {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
      */
@@ -241,9 +254,11 @@ public abstract class MappedFweekPscatSalesMvId {
         this.promoId = promoId;
     }
 
-    // ---------------------------------------------------------------------------------------------------------------- 
-    // insertable=true is the JPA default; it is spelled out because EclipseLink rejects an identifier with no
-    // non-read-only mapping -- "There should be one non-read-only mapping defined for the primary key field",
+    // ----------------------------------------------------------------------------------------------------------------
+    // insertable=true is the JPA default; it is spelled out because EclipseLink rejects an
+    // identifier with no
+    // non-read-only mapping -- "There should be one non-read-only mapping defined for the
+    // primary key field",
     // EclipseLink-46. Nothing writes to a view anyway.
 
     @NotNull

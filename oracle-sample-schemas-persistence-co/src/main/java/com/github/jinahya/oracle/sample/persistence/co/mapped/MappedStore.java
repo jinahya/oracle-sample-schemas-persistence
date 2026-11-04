@@ -58,21 +58,22 @@ public abstract class MappedStore {
     // ---------------------------------------------------------------------------------------------- STORE_ID / storeId
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE_ID = "storeId";
 
     // ------------------------------------------------------------------------------------------------------ STORE_NAME
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE_NAME} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_STORE_NAME = "STORE_NAME";
 
@@ -82,27 +83,30 @@ public abstract class MappedStore {
     public static final int COLUMN_LENGTH_STORE_NAME = 255;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_NAME} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE_NAME = "storeName";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_STORE_NAME} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_STORE_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_STORE_NAME = 0;
 
     // 1?
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_STORE_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_STORE_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_STORE_NAME = COLUMN_LENGTH_STORE_NAME;
 
     // ----------------------------------------------------------------------------------------------------- WEB_ADDRESS
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_WEB_ADDRESS = "WEB_ADDRESS";
 
@@ -112,27 +116,30 @@ public abstract class MappedStore {
     public static final int COLUMN_LENGTH_WEB_ADDRESS = 100;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_WEB_ADDRESS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_WEB_ADDRESS} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_WEB_ADDRESS = "webAddress";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_WEB_ADDRESS = 0;
 
     // 1?
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_WEB_ADDRESS = COLUMN_LENGTH_WEB_ADDRESS;
 
     // ------------------------------------------------------------------------------------------------ PHYSICAL_ADDRESS
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PHYSICAL_ADDRESS = "PHYSICAL_ADDRESS";
 
@@ -142,27 +149,30 @@ public abstract class MappedStore {
     public static final int COLUMN_LENGTH_PHYSICAL_ADDRESS = 512;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PHYSICAL_ADDRESS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PHYSICAL_ADDRESS} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PHYSICAL_ADDRESS = "physicalAddress";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_PHYSICAL_ADDRESS = 0;
 
     // 1?
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PHYSICAL_ADDRESS = COLUMN_LENGTH_PHYSICAL_ADDRESS;
 
     // -------------------------------------------------------------------------------------------------------- LATITUDE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LATITUDE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LATITUDE} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_LATITUDE = "LATITUDE";
 
@@ -187,15 +197,16 @@ public abstract class MappedStore {
     public static final String COLUMN_MAX_LATITUDE = "+999.999999";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_LATITUDE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LATITUDE} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_LATITUDE = "latitude";
 
     // ------------------------------------------------------------------------------------------------------- LONGITUDE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_LONGITUDE = "LONGITUDE";
 
@@ -220,27 +231,30 @@ public abstract class MappedStore {
     public static final String COLUMN_MAX_LONGITUDE = "+999.999999";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_LONGITUDE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LONGITUDE} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_LONGITUDE = "longitude";
 
     // ------------------------------------------------------------------------------------------------------------ LOGO
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_LOGO = "LOGO";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_LOGO} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LOGO} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_LOGO = "logo";
 
     // -------------------------------------------------------------------------------------------------- LOGO_MIME_TYPE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_LOGO_MIME_TYPE = "LOGO_MIME_TYPE";
 
@@ -250,27 +264,30 @@ public abstract class MappedStore {
     public static final int COLUMN_LENGTH_LOGO_MIME_TYPE = 512;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_LOGO_MIME_TYPE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LOGO_MIME_TYPE} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LOGO_MIME_TYPE = "logoMimeType";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_LOGO_MIME_TYPE = 0;
 
     // 1?
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_LOGO_MIME_TYPE = COLUMN_LENGTH_LOGO_MIME_TYPE;
 
     // --------------------------------------------------------------------------------------------------- LOGO_FILENAME
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO_FILENAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO_FILENAME} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_LOGO_FILENAME = "LOGO_FILENAME";
 
@@ -280,27 +297,30 @@ public abstract class MappedStore {
     public static final int COLUMN_LENGTH_LOGO_FILENAME = 512;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_LOGO_FILENAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LOGO_FILENAME} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LOGO_FILENAME = "logoFilename";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_LOGO_FILENAME} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_LOGO_FILENAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_LOGO_FILENAME = 0;
 
     // 1?
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_LOGO_FILENAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_LOGO_FILENAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_LOGO_FILENAME = COLUMN_LENGTH_LOGO_FILENAME;
 
     // ---------------------------------------------------------------------------------------------------- LOGO_CHARSET
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO_CHARSET} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO_CHARSET} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_LOGO_CHARSET = "LOGO_CHARSET";
 
@@ -310,32 +330,36 @@ public abstract class MappedStore {
     public static final int COLUMN_LENGTH_LOGO_CHARSET = 512;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_LOGO_CHARSET} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LOGO_CHARSET} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LOGO_CHARSET = "logoCharset";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_LOGO_CHARSET} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_LOGO_CHARSET} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_LOGO_CHARSET = 0;
 
     // 1?
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_LOGO_CHARSET} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_LOGO_CHARSET} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_LOGO_CHARSET = COLUMN_LENGTH_LOGO_CHARSET;
 
     // ----------------------------------------------------------------------------------------------- LOGO_LAST_UPDATED
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO_LAST_UPDATED}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_LOGO_LAST_UPDATED = "LOGO_LAST_UPDATED";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_LOGO_LAST_UPDATED} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LOGO_LAST_UPDATED} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LOGO_LAST_UPDATED = "logoLastUpdated";
 
@@ -371,7 +395,8 @@ public abstract class MappedStore {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by {@value #ATTRIBUTE_NAME_STORE_NAME}, which the table declares unique.
+     * @implSpec Equality is by {@value #ATTRIBUTE_NAME_STORE_NAME}, which the table
+     *         declares unique.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -385,7 +410,8 @@ public abstract class MappedStore {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over {@value #ATTRIBUTE_NAME_STORE_NAME}, consistent with {@link #equals(Object)}.
+     * @implSpec The hash is over {@value #ATTRIBUTE_NAME_STORE_NAME}, consistent with
+     *         {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
@@ -396,8 +422,8 @@ public abstract class MappedStore {
 
     /**
      * Indicates whether either the {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute or the
-     * {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute is non-{@code null}, which mirrors the table's
-     * {@code STORE_AT_LEAST_ONE_ADDRESS_C} constraint.
+     * {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute is non-{@code null}, which mirrors the
+     * table's {@code STORE_AT_LEAST_ONE_ADDRESS_C} constraint.
      * {@snippet lang = "sql":
      * CHECK (web_address IS NOT NULL OR physical_address IS NOT NULL)
      *}
@@ -421,7 +447,8 @@ public abstract class MappedStore {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute with the specified
+     * value.
      *
      * @param storeId new value for {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
      */
@@ -441,7 +468,8 @@ public abstract class MappedStore {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE_NAME} attribute with the specified
+     * value.
      *
      * @param storeName new value for {@value #ATTRIBUTE_NAME_STORE_NAME} attribute.
      */
@@ -462,7 +490,8 @@ public abstract class MappedStore {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute with the specified
+     * value.
      *
      * @param webAddress new value for {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute.
      */
@@ -483,7 +512,8 @@ public abstract class MappedStore {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute with the
+     * specified value.
      *
      * @param physicalAddress new value for {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute.
      */
@@ -504,7 +534,8 @@ public abstract class MappedStore {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LATITUDE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LATITUDE} attribute with the specified
+     * value.
      *
      * @param latitude new value for {@value #ATTRIBUTE_NAME_LATITUDE} attribute.
      */
@@ -513,10 +544,11 @@ public abstract class MappedStore {
     }
 
     /**
-     * Returns current value of {@link #getLatitude() latitude} attribute as a {@code double} value.
+     * Returns current value of {@link #getLatitude() latitude} attribute as a {@code double}
+     * value.
      *
-     * @return current value of {@link #getLatitude() latitude} attribute as a {@code double} value; {@code null} when
-     * the attribute is {@code null}.
+     * @return current value of {@link #getLatitude() latitude} attribute as a {@code double} value;
+     *         {@code null} when the attribute is {@code null}.
      * @see #getLatitude()
      * @see BigDecimal#doubleValue()
      */
@@ -529,12 +561,15 @@ public abstract class MappedStore {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LATITUDE} attribute with the specified {@code double} value,
-     * optionally rescaled to the scale of the {@value #COLUMN_NAME_LATITUDE} column.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LATITUDE} attribute with the specified
+     * {@code double} value, optionally rescaled to the scale of the {@value #COLUMN_NAME_LATITUDE}
+     * column.
      *
-     * @param latitude     new value for {@link #setLatitude(BigDecimal) latitude} attribute; may be {@code null}.
-     * @param roundingMode the rounding mode with which the value is rescaled to {@value #COLUMN_SCALE_LATITUDE}
-     *                     fraction digits; {@code null} to keep the value unscaled.
+     * @param latitude     new value for {@link #setLatitude(BigDecimal) latitude} attribute; may be
+     *                     {@code null}.
+     * @param roundingMode the rounding mode with which the value is rescaled to
+     *                     {@value #COLUMN_SCALE_LATITUDE} fraction digits; {@code null} to keep the
+     *                     value unscaled.
      * @see BigDecimal#valueOf(double)
      * @see BigDecimal#setScale(int, RoundingMode)
      * @see #setLatitude(BigDecimal)
@@ -544,7 +579,8 @@ public abstract class MappedStore {
         setLatitude(
                 Optional.ofNullable(latitude)
                         .map(BigDecimal::valueOf)
-                        .map(v -> roundingMode == null ? v : v.setScale(COLUMN_SCALE_LATITUDE, roundingMode))
+                        .map(v -> roundingMode == null ? v : v.setScale(COLUMN_SCALE_LATITUDE,
+                                                                        roundingMode))
                         .orElse(null)
         );
     }
@@ -562,7 +598,8 @@ public abstract class MappedStore {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LONGITUDE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LONGITUDE} attribute with the specified
+     * value.
      *
      * @param longitude new value for {@value #ATTRIBUTE_NAME_LONGITUDE} attribute.
      */
@@ -604,7 +641,8 @@ public abstract class MappedStore {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute with the
+     * specified value.
      *
      * @param logoMimeType new value for {@value #ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute.
      */
@@ -625,7 +663,8 @@ public abstract class MappedStore {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LOGO_FILENAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LOGO_FILENAME} attribute with the specified
+     * value.
      *
      * @param logoFilename new value for {@value #ATTRIBUTE_NAME_LOGO_FILENAME} attribute.
      */
@@ -646,7 +685,8 @@ public abstract class MappedStore {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LOGO_CHARSET} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LOGO_CHARSET} attribute with the specified
+     * value.
      *
      * @param logoCharset new value for {@value #ATTRIBUTE_NAME_LOGO_CHARSET} attribute.
      */
@@ -667,7 +707,8 @@ public abstract class MappedStore {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute with the
+     * specified value.
      *
      * @param logoLastUpdated new value for {@value #ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute.
      */
@@ -679,7 +720,8 @@ public abstract class MappedStore {
 
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
-//    // ------------------------------------------------------------------------------------------------------------ logo
+//    //
+//    ------------------------------------------------------------------------------------------------------------ logo
 //    @jakarta.annotation.Nullable
 //    public Store_Logo getLogo() {
 //        return logo;
@@ -688,13 +730,15 @@ public abstract class MappedStore {
 //    public void setLogo(@jakarta.annotation.Nullable final Store_Logo logo) {
 //        this.logo = logo;
 //    }
-    // no @NotNull: database-generated identity; the value is null when the provider validates at pre-persist
+    // no @NotNull: database-generated identity; the value is null when the provider validates at
+    // pre-persist
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = COLUMN_NAME_STORE_ID, nullable = false,
             // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
             // insertable=false on a @GeneratedValue @Id -- it treats the mapping as read-only and
-            // fails descriptor initialisation with EclipseLink-46/EclipseLink-41. Verified on 5.0.1.
+            // fails descriptor initialisation with EclipseLink-46/EclipseLink-41. Verified on 5
+            // .0.1.
             insertable = true,
             updatable = false)
     private Long storeId;
@@ -800,7 +844,7 @@ public abstract class MappedStore {
 
     @Nullable
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_LOGO_LAST_UPDATED, nullable = true, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_LOGO_LAST_UPDATED, nullable = true, insertable = true,
+            updatable = true)
     private LocalDateTime logoLastUpdated;
-
 }

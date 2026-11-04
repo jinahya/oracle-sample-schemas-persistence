@@ -31,10 +31,10 @@ import java.math.BigDecimal;
 /**
  * A class for the {@value MappedStoreOrder#TABLE_NAME} view.
  * <p>
- * The {@code GROUPING SETS} key {@code (STORE_NAME, ORDER_STATUS)} has no duplicates, but both columns are {@code NULL}
- * in the subtotal and grand-total rows, and an {@code @Id} may not be null. So this is not an
- * {@link jakarta.persistence.Entity @Entity}: the columns it projects are written out here, and every one of them is
- * read-only. See {@code doc/IDs.asciidoc}.
+ * The {@code GROUPING SETS} key {@code (STORE_NAME, ORDER_STATUS)} has no duplicates, but both
+ * columns are {@code NULL} in the subtotal and grand-total rows, and an {@code @Id} may not be
+ * null. So this is not an {@link jakarta.persistence.Entity @Entity}: the columns it projects are
+ * written out here, and every one of them is read-only. See {@code doc/IDs.asciidoc}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -48,7 +48,8 @@ public abstract class MappedStoreOrder {
     // ----------------------------------------------------------------------------------------------------------- TOTAL
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_TOTAL} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_TOTAL} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_TOTAL = "TOTAL";
 
@@ -63,15 +64,16 @@ public abstract class MappedStoreOrder {
     public static final int SIZE_MAX_TOTAL = COLUMN_LENGTH_TOTAL;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_TOTAL} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_TOTAL} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_TOTAL = "total";
 
     // ------------------------------------------------------------------------------------------------------ STORE_NAME
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_STORE_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_STORE_NAME} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_STORE_NAME = "STORE_NAME";
 
@@ -81,19 +83,22 @@ public abstract class MappedStoreOrder {
     public static final int COLUMN_LENGTH_STORE_NAME = 255;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_STORE_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_STORE_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_STORE_NAME = COLUMN_LENGTH_STORE_NAME;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_NAME} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE_NAME = "storeName";
 
     // --------------------------------------------------------------------------------------------------------- ADDRESS
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ADDRESS} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ADDRESS} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_ADDRESS = "ADDRESS";
 
@@ -108,40 +113,42 @@ public abstract class MappedStoreOrder {
     public static final int SIZE_MAX_ADDRESS = COLUMN_LENGTH_ADDRESS;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ADDRESS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_ADDRESS} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ADDRESS = "address";
 
     // -------------------------------------------------------------------------------------------------------- LATITUDE
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_LATITUDE} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_LATITUDE} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_LATITUDE = "LATITUDE";
 
     /**
-     * The minimum value of the {@value #COLUMN_NAME_LATITUDE} column, which the view projects from {@link MappedStore}.
-     * The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_LATITUDE} column, which the view projects from
+     * {@link MappedStore}. The value is {@value}.
      */
     public static final String COLUMN_MIN_LATITUDE = MappedStore.COLUMN_MIN_LATITUDE;
 
     /**
-     * The maximum value of the {@value #COLUMN_NAME_LATITUDE} column, which the view projects from {@link MappedStore}.
-     * The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_LATITUDE} column, which the view projects from
+     * {@link MappedStore}. The value is {@value}.
      */
     public static final String COLUMN_MAX_LATITUDE = MappedStore.COLUMN_MAX_LATITUDE;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_LATITUDE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LATITUDE} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_LATITUDE = "latitude";
 
     // ------------------------------------------------------------------------------------------------------- LONGITUDE
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_LONGITUDE = "LONGITUDE";
 
@@ -158,15 +165,16 @@ public abstract class MappedStoreOrder {
     public static final String COLUMN_MAX_LONGITUDE = MappedStore.COLUMN_MAX_LONGITUDE;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_LONGITUDE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LONGITUDE} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_LONGITUDE = "longitude";
 
     // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_ORDER_STATUS = "ORDER_STATUS";
 
@@ -176,38 +184,42 @@ public abstract class MappedStoreOrder {
     public static final int COLUMN_LENGTH_ORDER_STATUS = 10;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_ORDER_STATUS = COLUMN_LENGTH_ORDER_STATUS;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_STATUS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_STATUS} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
 
     // ----------------------------------------------------------------------------------------------------- ORDER_COUNT
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_ORDER_COUNT = "ORDER_COUNT";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_COUNT} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_COUNT} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_COUNT = "orderCount";
 
     // ----------------------------------------------------------------------------------------------------- TOTAL_SALES
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_TOTAL_SALES} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_TOTAL_SALES} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_TOTAL_SALES = "TOTAL_SALES";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_TOTAL_SALES} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_TOTAL_SALES} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_TOTAL_SALES = "totalSales";
 
@@ -267,7 +279,7 @@ public abstract class MappedStoreOrder {
                '}';
     }
 
-    // ---------------------------------------------------------------------------------------------------------------- 
+    // ----------------------------------------------------------------------------------------------------------------
 
     // ----------------------------------------------------------------------------------------------------------- total
 
@@ -357,9 +369,10 @@ public abstract class MappedStoreOrder {
         return totalSales;
     }
 
-    // ---------------------------------------------------------------------------------------------------------------- 
+    // ----------------------------------------------------------------------------------------------------------------
 
-    // TODO: remove; not constrained by the DDL -- STORE_ORDERS.TOTAL is a computed CASE grouping_id(...) column
+    // TODO: remove; not constrained by the DDL -- STORE_ORDERS.TOTAL is a computed CASE
+    //  grouping_id(...) column
 //    @Size(max = SIZE_MAX_TOTAL)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_TOTAL,
@@ -378,7 +391,8 @@ public abstract class MappedStoreOrder {
             length = COLUMN_LENGTH_STORE_NAME)
     private String storeName;
 
-    // TODO: remove; not constrained by the DDL -- STORE_ORDERS.ADDRESS is a computed COALESCE(web_address, physical_address) column
+    // TODO: remove; not constrained by the DDL -- STORE_ORDERS.ADDRESS is a computed COALESCE
+    //  (web_address, physical_address) column
 //    @Size(max = SIZE_MAX_ADDRESS)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_ADDRESS,

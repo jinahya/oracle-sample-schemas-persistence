@@ -26,12 +26,13 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
- * A name and the number which identifies it, as the {@value MappedPromotion#TABLE_NAME} table carries such pairs:
- * {@code PROMO_CATEGORY} with {@code PROMO_CATEGORY_ID}, say. A concrete subclass is an {@code @Embeddable} which names
- * the two columns, through class-level {@code @AttributeOverride}s, and exposes the two attributes under the column's
- * own names.
+ * A name and the number which identifies it, as the {@value MappedPromotion#TABLE_NAME} table
+ * carries such pairs: {@code PROMO_CATEGORY} with {@code PROMO_CATEGORY_ID}, say. A concrete
+ * subclass is an {@code @Embeddable} which names the two columns, through class-level
+ * {@code @AttributeOverride}s, and exposes the two attributes under the column's own names.
  * <p>
- * Equality is not defined here: each concrete class defines its own, over the two attributes and within that class.
+ * Equality is not defined here: each concrete class defines its own, over the two attributes and
+ * within that class.
  *
  * @param <N> the type of the id.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
@@ -43,7 +44,8 @@ public abstract class PromotionNamedId<N extends Number> {
 
     /**
      * The name of the attribute which holds the name; a subclass overrides its column with an
-     * {@link jakarta.persistence.AttributeOverride @AttributeOverride} by this name. The value is {@value}.
+     * {@link jakarta.persistence.AttributeOverride @AttributeOverride} by this name. The value is
+     * {@value}.
      */
     static final String ATTRIBUTE_NAME_NAME = "name";
 
@@ -51,11 +53,13 @@ public abstract class PromotionNamedId<N extends Number> {
 
     /**
      * The name of the attribute which holds the id; a subclass overrides its column with an
-     * {@link jakarta.persistence.AttributeOverride @AttributeOverride} by this name. The value is {@value}.
+     * {@link jakarta.persistence.AttributeOverride @AttributeOverride} by this name. The value is
+     * {@value}.
      */
     static final String ATTRIBUTE_NAME_ID = "id";
 
-    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    // ------------------------------------------------------------------------------------------
+    // STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance from the specified initializer, with the specified name and id.
@@ -98,7 +102,8 @@ public abstract class PromotionNamedId<N extends Number> {
     }
 
     /**
-     * Replaces current value of the {@value #ATTRIBUTE_NAME_NAME} attribute with the specified value.
+     * Replaces current value of the {@value #ATTRIBUTE_NAME_NAME} attribute with the specified
+     * value.
      *
      * @param name new value for the {@value #ATTRIBUTE_NAME_NAME} attribute.
      */
@@ -118,7 +123,8 @@ public abstract class PromotionNamedId<N extends Number> {
     }
 
     /**
-     * Replaces current value of the {@value #ATTRIBUTE_NAME_ID} attribute with the specified value.
+     * Replaces current value of the {@value #ATTRIBUTE_NAME_ID} attribute with the specified
+     * value.
      *
      * @param id new value for the {@value #ATTRIBUTE_NAME_ID} attribute.
      */

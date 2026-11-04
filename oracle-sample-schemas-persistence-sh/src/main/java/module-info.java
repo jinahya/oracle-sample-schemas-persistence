@@ -19,14 +19,16 @@
  */
 
 /**
- * Jakarta Persistence mappings for the {@code SH} (Sales History) schema of the Oracle Database Sample Schemas.
+ * Jakarta Persistence mappings for the {@code SH} (Sales History) schema of the Oracle Database
+ * Sample Schemas.
  * <p>
- * The persistence and validation APIs appear in the entities' public signatures, so a reader of this module reads them
- * too. So do the nullness annotations of {@code jakarta.annotation}, but that one is also static: they are not needed
- * at run time.
+ * The persistence and validation APIs appear in the entities' public signatures, so a reader of
+ * this module reads them too. So do the nullness annotations of {@code jakarta.annotation}, but
+ * that one is also static: they are not needed at run time.
  * <p>
- * Both packages are opened, not only exported, because a persistence provider and a validation provider reach the
- * entities' private fields reflectively; neither can be named here, since the provider is the consumer's choice.
+ * Both packages are opened, not only exported, because a persistence provider and a validation
+ * provider reach the entities' private fields reflectively; neither can be named here, since the
+ * provider is the consumer's choice.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */

@@ -44,21 +44,22 @@ public abstract class MappedCountry {
     // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
 
     // ------------------------------------------------------------------------------------------------ COUNTRY_ISO_CODE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ISO_CODE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ISO_CODE} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_ISO_CODE = "COUNTRY_ISO_CODE";
 
@@ -68,30 +69,34 @@ public abstract class MappedCountry {
     public static final int COLUMN_LENGTH_COUNTRY_ISO_CODE = 2;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ISO_CODE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ISO_CODE} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_ISO_CODE = "countryIsoCode";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_COUNTRY_ISO_CODE} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_COUNTRY_ISO_CODE} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_COUNTRY_ISO_CODE = COLUMN_LENGTH_COUNTRY_ISO_CODE;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_ISO_CODE} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_ISO_CODE} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_COUNTRY_ISO_CODE = SIZE_MIN_COUNTRY_ISO_CODE;
 
     // ---------------------------------------------------------------------------------------------------- COUNTRY_NAME
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_NAME = "COUNTRY_NAME";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_NAME} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_NAME = "countryName";
 
@@ -101,20 +106,22 @@ public abstract class MappedCountry {
     public static final int COLUMN_LENGTH_COUNTRY_NAME = 40;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
 
     // ----------------------------------------------------------------------------------------------- COUNTRY_SUBREGION
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_SUBREGION = "COUNTRY_SUBREGION";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_SUBREGION} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_SUBREGION} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_SUBREGION = "countrySubregion";
 
@@ -124,34 +131,36 @@ public abstract class MappedCountry {
     public static final int COLUMN_LENGTH_COUNTRY_SUBREGION = 30;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_COUNTRY_SUBREGION = COLUMN_LENGTH_COUNTRY_SUBREGION;
 
     // -------------------------------------------------------------------------------------------- COUNTRY_SUBREGION_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_SUBREGION_ID = "COUNTRY_SUBREGION_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_SUBREGION_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_SUBREGION_ID} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID = "countrySubregionId";
 
     // -------------------------------------------------------------------------------------------------- COUNTRY_REGION
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_REGION} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_REGION} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_REGION = "COUNTRY_REGION";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_REGION} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_REGION} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_REGION = "countryRegion";
 
@@ -161,33 +170,36 @@ public abstract class MappedCountry {
     public static final int COLUMN_LENGTH_COUNTRY_REGION = 20;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_REGION} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_REGION} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_COUNTRY_REGION = COLUMN_LENGTH_COUNTRY_REGION;
 
     // ----------------------------------------------------------------------------------------------- COUNTRY_REGION_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_REGION_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_REGION_ID}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_REGION_ID = "COUNTRY_REGION_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_REGION_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_REGION_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_REGION_ID = "countryRegionId";
 
     // --------------------------------------------------------------------------------------------------- COUNTRY_TOTAL
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_TOTAL = "COUNTRY_TOTAL";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_TOTAL} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_TOTAL} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_TOTAL = "countryTotal";
 
@@ -197,20 +209,22 @@ public abstract class MappedCountry {
     public static final int COLUMN_LENGTH_COUNTRY_TOTAL = 11;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_COUNTRY_TOTAL = COLUMN_LENGTH_COUNTRY_TOTAL;
 
     // ------------------------------------------------------------------------------------------------ COUNTRY_TOTAL_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_TOTAL_ID = "COUNTRY_TOTAL_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_TOTAL_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_TOTAL_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_TOTAL_ID = "countryTotalId";
 
@@ -277,7 +291,8 @@ public abstract class MappedCountry {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the specified
+     * value.
      *
      * @param countryId new value for {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
      */
@@ -297,7 +312,8 @@ public abstract class MappedCountry {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ISO_CODE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ISO_CODE} attribute with the
+     * specified value.
      *
      * @param countryIsoCode new value for {@value #ATTRIBUTE_NAME_COUNTRY_ISO_CODE} attribute.
      */
@@ -317,7 +333,8 @@ public abstract class MappedCountry {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute with the specified
+     * value.
      *
      * @param countryName new value for {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
      */
@@ -337,7 +354,8 @@ public abstract class MappedCountry {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} attribute with the
+     * specified value.
      *
      * @param countrySubregion new value for {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} attribute.
      */
@@ -357,9 +375,11 @@ public abstract class MappedCountry {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID} attribute with the
+     * specified value.
      *
-     * @param countrySubregionId new value for {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID} attribute.
+     * @param countrySubregionId new value for {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID}
+     *                           attribute.
      */
     public void setCountrySubregionId(Long countrySubregionId) {
         this.countrySubregionId = countrySubregionId;
@@ -377,7 +397,8 @@ public abstract class MappedCountry {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_REGION} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_REGION} attribute with the
+     * specified value.
      *
      * @param countryRegion new value for {@value #ATTRIBUTE_NAME_COUNTRY_REGION} attribute.
      */
@@ -397,7 +418,8 @@ public abstract class MappedCountry {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_REGION_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_REGION_ID} attribute with the
+     * specified value.
      *
      * @param countryRegionId new value for {@value #ATTRIBUTE_NAME_COUNTRY_REGION_ID} attribute.
      */
@@ -417,7 +439,8 @@ public abstract class MappedCountry {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} attribute with the specified
+     * value.
      *
      * @param countryTotal new value for {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} attribute.
      */
@@ -437,7 +460,8 @@ public abstract class MappedCountry {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL_ID} attribute with the
+     * specified value.
      *
      * @param countryTotalId new value for {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL_ID} attribute.
      */
@@ -454,7 +478,8 @@ public abstract class MappedCountry {
     // -----------------------------------------------------------------------------------------------------------------
     @Size(max = SIZE_MAX_COUNTRY_ISO_CODE)
     @NotNull
-    @Column(name = COLUMN_NAME_COUNTRY_ISO_CODE, nullable = false, insertable = true, updatable = false,
+    @Column(name = COLUMN_NAME_COUNTRY_ISO_CODE, nullable = false, insertable = true,
+            updatable = false,
             length = COLUMN_LENGTH_COUNTRY_ISO_CODE)
     private String countryIsoCode;
 
@@ -465,7 +490,8 @@ public abstract class MappedCountry {
 
     @Size(max = SIZE_MAX_COUNTRY_SUBREGION)
     @NotNull
-    @Column(name = COLUMN_NAME_COUNTRY_SUBREGION, nullable = false, length = COLUMN_LENGTH_COUNTRY_SUBREGION)
+    @Column(name = COLUMN_NAME_COUNTRY_SUBREGION, nullable = false,
+            length = COLUMN_LENGTH_COUNTRY_SUBREGION)
     private String countrySubregion;
 
     @NotNull
@@ -474,7 +500,8 @@ public abstract class MappedCountry {
 
     @Size(max = SIZE_MAX_COUNTRY_REGION)
     @NotNull
-    @Column(name = COLUMN_NAME_COUNTRY_REGION, nullable = false, length = COLUMN_LENGTH_COUNTRY_REGION)
+    @Column(name = COLUMN_NAME_COUNTRY_REGION, nullable = false,
+            length = COLUMN_LENGTH_COUNTRY_REGION)
     private String countryRegion;
 
     @NotNull
@@ -483,7 +510,8 @@ public abstract class MappedCountry {
 
     @Size(max = SIZE_MAX_COUNTRY_TOTAL)
     @NotNull
-    @Column(name = COLUMN_NAME_COUNTRY_TOTAL, nullable = false, length = COLUMN_LENGTH_COUNTRY_TOTAL)
+    @Column(name = COLUMN_NAME_COUNTRY_TOTAL, nullable = false,
+            length = COLUMN_LENGTH_COUNTRY_TOTAL)
     private String countryTotal;
 
     @NotNull

@@ -29,25 +29,30 @@ import java.util.Arrays;
 import java.util.Optional;
 
 /**
- * A superclass for a binary payload stored alongside its metadata -- the image of the {@value MappedProduct#TABLE_NAME}
- * table, the logo of the {@value MappedStore#TABLE_NAME} table, and anything shaped like them.
+ * A superclass for a binary payload stored alongside its metadata -- the image of the
+ * {@value MappedProduct#TABLE_NAME} table, the logo of the {@value MappedStore#TABLE_NAME} table,
+ * and anything shaped like them.
  * <p>
- * The accessors here are protected and named after the state, not the columns. Each subclass wraps them in public
- * accessors named after its own columns -- {@link ProductImage#getProductImage()}, {@link StoreLogo#getLogo()} -- which
- * are what the code embedding the subclass uses.
+ * The accessors here are protected and named after the state, not the columns. Each subclass wraps
+ * them in public accessors named after its own columns -- {@link ProductImage#getProductImage()},
+ * {@link StoreLogo#getLogo()} -- which are what the code embedding the subclass uses.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @apiNote No column is named here. Each embeddable subclass -- {@link ProductImage}, {@link StoreLogo} -- names all
- * five with {@link jakarta.persistence.AttributeOverride}, two of them below, which replaces the column mapping
- * outright, so anything declared here would never be read.
- * {@snippet lang = "java":
- *         @Embeddable
- *         @AttributeOverride(name = _Binary.ATTRIBUTE_NAME_BYTES,
- *                            column = @Column(name = MappedProduct.COLUMN_NAME_PRODUCT_IMAGE))
- *         @AttributeOverride(name = _Binary.ATTRIBUTE_NAME_MIME_TYPE,
- *                            column = @Column(name = MappedProduct.COLUMN_NAME_IMAGE_MIME_TYPE,
- *                                             length = MappedProduct.COLUMN_LENGTH_IMAGE_MIME_TYPE))
- *         public class ProductImage extends _Binary { ... }
+ * @apiNote No column is named here. Each embeddable subclass -- {@link ProductImage},
+ *         {@link StoreLogo} -- names all five with {@link jakarta.persistence.AttributeOverride},
+ *         two of them below, which replaces the column mapping outright, so anything declared here
+ *         would never be read.
+ *         {@snippet lang = "java":
+ *                 @Embeddable
+ *                 @AttributeOverride(name = _Binary.ATTRIBUTE_NAME_BYTES,
+ *                                    column = @Column(name = MappedProduct
+ *                                    .COLUMN_NAME_PRODUCT_IMAGE))
+ *                 @AttributeOverride(name = _Binary.ATTRIBUTE_NAME_MIME_TYPE,
+ *                                    column = @Column(name = MappedProduct
+ *                                    .COLUMN_NAME_IMAGE_MIME_TYPE,
+ *                                                     length = MappedProduct
+ *                                                     .COLUMN_LENGTH_IMAGE_MIME_TYPE))
+ *                 public class ProductImage extends _Binary { ... }
  *}
  */
 @MappedSuperclass
@@ -72,12 +77,14 @@ public abstract class _Binary {
     static final String ATTRIBUTE_NAME_FILENAME = "filename";
 
     /**
-     * The name of the attribute which maps the character set of the payload. The value is {@value}.
+     * The name of the attribute which maps the character set of the payload. The value is
+     * {@value}.
      */
     static final String ATTRIBUTE_NAME_CHARSET = "charset";
 
     /**
-     * The name of the attribute which maps the date the payload was last updated. The value is {@value}.
+     * The name of the attribute which maps the date the payload was last updated. The value is
+     * {@value}.
      */
     static final String ATTRIBUTE_NAME_LAST_UPDATED = "lastUpdated";
 
@@ -107,8 +114,8 @@ public abstract class _Binary {
     /**
      * Returns a copy of current value of {@value #ATTRIBUTE_NAME_BYTES} attribute.
      *
-     * @return a copy of current value of {@value #ATTRIBUTE_NAME_BYTES} attribute; {@code null} when it is
-     * {@code null}.
+     * @return a copy of current value of {@value #ATTRIBUTE_NAME_BYTES} attribute; {@code null}
+     *         when it is {@code null}.
      */
     @Nullable
     protected byte[] getBytes() {
@@ -118,7 +125,8 @@ public abstract class _Binary {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_BYTES} attribute with a copy of the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_BYTES} attribute with a copy of the
+     * specified value.
      *
      * @param bytes new value for {@value #ATTRIBUTE_NAME_BYTES} attribute; copied, not kept.
      */
@@ -141,7 +149,8 @@ public abstract class _Binary {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_MIME_TYPE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_MIME_TYPE} attribute with the specified
+     * value.
      *
      * @param mimeType new value for {@value #ATTRIBUTE_NAME_MIME_TYPE} attribute.
      */
@@ -162,7 +171,8 @@ public abstract class _Binary {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_FILENAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_FILENAME} attribute with the specified
+     * value.
      *
      * @param filename new value for {@value #ATTRIBUTE_NAME_FILENAME} attribute.
      */
@@ -183,7 +193,8 @@ public abstract class _Binary {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHARSET} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHARSET} attribute with the specified
+     * value.
      *
      * @param charset new value for {@value #ATTRIBUTE_NAME_CHARSET} attribute.
      */
@@ -204,7 +215,8 @@ public abstract class _Binary {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LAST_UPDATED} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LAST_UPDATED} attribute with the specified
+     * value.
      *
      * @param lastUpdated new value for {@value #ATTRIBUTE_NAME_LAST_UPDATED} attribute.
      */

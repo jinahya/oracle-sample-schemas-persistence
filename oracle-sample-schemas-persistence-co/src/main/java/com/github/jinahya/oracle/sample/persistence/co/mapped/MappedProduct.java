@@ -54,24 +54,27 @@ public abstract class MappedProduct {
      */
     public static final String TABLE_NAME = "PRODUCTS";
 
-    // ------------------------------------------------------------------------------------------ PRODUCT_ID / productId
+    // ------------------------------------------------------------------------------------------
+    // PRODUCT_ID / productId
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_ID = "PRODUCT_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_ID = "productId";
 
-    // -------------------------------------------------------------------------------------- PRODUCT_NAME / productName
+    // --------------------------------------------------------------------------------------
+    // PRODUCT_NAME / productName
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_NAME = "PRODUCT_NAME";
 
@@ -81,20 +84,23 @@ public abstract class MappedProduct {
     public static final int COLUMN_LENGTH_PRODUCT_NAME = 255;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_NAME} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_NAME = "productName";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PRODUCT_NAME = COLUMN_LENGTH_PRODUCT_NAME;
 
-    // ------------------------------------------------------------------------------------------ UNIT_PRICE / unitPrice
+    // ------------------------------------------------------------------------------------------
+    // UNIT_PRICE / unitPrice
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_UNIT_PRICE = "UNIT_PRICE";
 
@@ -109,51 +115,59 @@ public abstract class MappedProduct {
     public static final int COLUMN_SCALE_UNIT_PRICE = 2;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_UNIT_PRICE = "unitPrice";
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
      */
     public static final String DECIMAL_MAX_UNIT_PRICE = "+99999999.99";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
      */
     public static final String DECIMAL_MIN_UNIT_PRICE = "-99999999.99";
 
-    // -------------------------------------------------------------------------------- PRODUCT_DETAILS / productDetails
+    // --------------------------------------------------------------------------------
+    // PRODUCT_DETAILS / productDetails
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_DETAILS = "PRODUCT_DETAILS";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_DETAILS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_DETAILS} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_DETAILS = "productDetails";
 
-    // ------------------------------------------------------------------------------------ PRODUCT_IMAGE / productImage
+    // ------------------------------------------------------------------------------------
+    // PRODUCT_IMAGE / productImage
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_IMAGE = "PRODUCT_IMAGE";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_IMAGE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_IMAGE} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_IMAGE = "productImage";
 
-    // --------------------------------------------------------------------------------- IMAGE_MIME_TYPE / imageMimeType
+    // ---------------------------------------------------------------------------------
+    // IMAGE_MIME_TYPE / imageMimeType
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_IMAGE_MIME_TYPE = "IMAGE_MIME_TYPE";
 
@@ -163,20 +177,23 @@ public abstract class MappedProduct {
     public static final int COLUMN_LENGTH_IMAGE_MIME_TYPE = 512;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_IMAGE_MIME_TYPE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_IMAGE_MIME_TYPE} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_IMAGE_MIME_TYPE = "imageMimeType";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_IMAGE_MIME_TYPE = COLUMN_LENGTH_IMAGE_MIME_TYPE;
 
-    // ---------------------------------------------------------------------------------- IMAGE_FILENAME / imageFilename
+    // ----------------------------------------------------------------------------------
+    // IMAGE_FILENAME / imageFilename
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_IMAGE_FILENAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_IMAGE_FILENAME} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_IMAGE_FILENAME = "IMAGE_FILENAME";
 
@@ -186,20 +203,23 @@ public abstract class MappedProduct {
     public static final int COLUMN_LENGTH_IMAGE_FILENAME = 512;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_IMAGE_FILENAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_IMAGE_FILENAME} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_IMAGE_FILENAME = "imageFilename";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_IMAGE_FILENAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_IMAGE_FILENAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_IMAGE_FILENAME = COLUMN_LENGTH_IMAGE_FILENAME;
 
-    // ------------------------------------------------------------------------------------ IMAGE_CHARSET / imageCharset
+    // ------------------------------------------------------------------------------------
+    // IMAGE_CHARSET / imageCharset
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_IMAGE_CHARSET} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_IMAGE_CHARSET} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_IMAGE_CHARSET = "IMAGE_CHARSET";
 
@@ -209,25 +229,29 @@ public abstract class MappedProduct {
     public static final int COLUMN_LENGTH_IMAGE_CHARSET = 512;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_IMAGE_CHARSET} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_IMAGE_CHARSET} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_IMAGE_CHARSET = "imageCharset";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_IMAGE_CHARSET} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_IMAGE_CHARSET} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_IMAGE_CHARSET = COLUMN_LENGTH_IMAGE_CHARSET;
 
-    // --------------------------------------------------------------------------- IMAGE_LAST_UPDATED / imageLastUpdated
+    // ---------------------------------------------------------------------------
+    // IMAGE_LAST_UPDATED / imageLastUpdated
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_IMAGE_LAST_UPDATED}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_IMAGE_LAST_UPDATED = "IMAGE_LAST_UPDATED";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_IMAGE_LAST_UPDATED} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_IMAGE_LAST_UPDATED} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_IMAGE_LAST_UPDATED = "imageLastUpdated";
 
@@ -248,8 +272,10 @@ public abstract class MappedProduct {
                "productId=" + productId +
                ",productName=" + productName +
                ",unitPrice=" + unitPrice +
-//                ",productDetails=" + Objects.hashCode(productDetails) + // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                ",productImage=" + Objects.hashCode(productImage) + // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//                ",productDetails=" + Objects.hashCode(productDetails) + //
+//                !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//                ",productImage=" + Objects.hashCode(productImage) + //
+//                !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                ",imageMimeType=" + imageMimeType +
                ",imageFilename=" + imageFilename +
                ",imageCharset=" + imageCharset +
@@ -262,9 +288,10 @@ public abstract class MappedProduct {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the generated {@code @Id} alone, the other instance's read through its getter, which is
-     * what makes the comparison correct when the other instance is still a lazy proxy. An instance whose {@code @Id} is
-     * still {@code null} -- one not yet persisted -- equals itself only.
+     * @implSpec Equality is by the generated {@code @Id} alone, the other instance's read
+     *         through its getter, which is what makes the comparison correct when the other
+     *         instance is still a lazy proxy. An instance whose {@code @Id} is still {@code null}
+     *         -- one not yet persisted -- equals itself only.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -282,10 +309,11 @@ public abstract class MappedProduct {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is constant so that it does not change when the generated {@code @Id} is assigned on persist,
-     * which would lose an instance already held in a hash-based collection. It is {@code MappedProduct}'s rather than
-     * {@link #getClass()}'s, because a lazy proxy's class is a generated subclass and must hash alike to the instance
-     * it stands for.
+     * @implSpec The hash is constant so that it does not change when the generated
+     *         {@code @Id} is assigned on persist, which would lose an instance already held in a
+     *         hash-based collection. It is {@code MappedProduct}'s rather than
+     *         {@link #getClass()}'s, because a lazy proxy's class is a generated subclass and must
+     *         hash alike to the instance it stands for.
      */
     @Override
     public final int hashCode() {
@@ -304,7 +332,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute with the specified
+     * value.
      *
      * @param productId new value for {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
      */
@@ -325,7 +354,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute with the specified
+     * value.
      *
      * @param productName new value for {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute.
      */
@@ -346,7 +376,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute with the specified
+     * value.
      *
      * @param unitPrice new value for {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute.
      */
@@ -367,7 +398,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute with the
+     * specified value.
      *
      * @param productDetails new value for {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute.
      */
@@ -376,13 +408,14 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Returns current value of the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute, mapped by the specified
-     * function.
+     * Returns current value of the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute, mapped by
+     * the specified function.
      *
      * @param <R>    the type of the mapped value.
-     * @param mapper the function to apply to current value of the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute.
-     * @return the mapped value; {@code null} when the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute is
-     * {@code null}.
+     * @param mapper the function to apply to current value of the
+     *               {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute.
+     * @return the mapped value; {@code null} when the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS}
+     *         attribute is {@code null}.
      * @throws NullPointerException if {@code mapper} is {@code null}.
      */
     public <R> R getProductDetailsAsMapped(final Function<? super byte[], ? extends R> mapper) {
@@ -392,8 +425,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute with the specified value, mapped
-     * by the specified function.
+     * Replaces current value of the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute with the
+     * specified value, mapped by the specified function.
      *
      * @param <T>            the type of the specified value.
      * @param productDetails the value to map and set.
@@ -422,7 +455,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute with the specified
+     * value.
      *
      * @param productImage new value for {@value #ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute.
      */
@@ -443,7 +477,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute with the
+     * specified value.
      *
      * @param imageMimeType new value for {@value #ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute.
      */
@@ -464,7 +499,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_IMAGE_FILENAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_IMAGE_FILENAME} attribute with the
+     * specified value.
      *
      * @param imageFilename new value for {@value #ATTRIBUTE_NAME_IMAGE_FILENAME} attribute.
      */
@@ -485,7 +521,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_IMAGE_CHARSET} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_IMAGE_CHARSET} attribute with the specified
+     * value.
      *
      * @param imageCharset new value for {@value #ATTRIBUTE_NAME_IMAGE_CHARSET} attribute.
      */
@@ -506,7 +543,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute with the
+     * specified value.
      *
      * @param imageLastUpdated new value for {@value #ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute.
      */
@@ -519,9 +557,11 @@ public abstract class MappedProduct {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
-    // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_ID is an INTEGER identity with no check
+    // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_ID is an INTEGER identity
+    //  with no check
 //    @Positive
-    // no @NotNull: database-generated identity; the value is null when the provider validates at pre-persist
+    // no @NotNull: database-generated identity; the value is null when the provider validates at
+    // pre-persist
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = COLUMN_NAME_PRODUCT_ID, nullable = false,
@@ -557,7 +597,8 @@ public abstract class MappedProduct {
     @Nullable
     @Lob
     @Basic(optional = true, fetch = FetchType.LAZY)
-    @Column(name = COLUMN_NAME_PRODUCT_DETAILS, nullable = true, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_PRODUCT_DETAILS, nullable = true, insertable = true,
+            updatable = true)
     private byte[] productDetails;
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -604,5 +645,4 @@ public abstract class MappedProduct {
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_IMAGE_LAST_UPDATED, insertable = true, updatable = true)
     private LocalDateTime imageLastUpdated;
-
 }

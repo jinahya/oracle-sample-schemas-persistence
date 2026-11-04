@@ -45,21 +45,22 @@ public abstract class MappedChannel {
     // ----------------------------------------------------------------------------------------------------- CHANNEL_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
     // --------------------------------------------------------------------------------------------------- CHANNEL_DESC
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_DESC} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_DESC} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_DESC = "CHANNEL_DESC";
 
@@ -69,20 +70,22 @@ public abstract class MappedChannel {
     public static final int COLUMN_LENGTH_CHANNEL_DESC = 20;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_DESC} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_DESC} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_DESC = "channelDesc";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CHANNEL_DESC} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CHANNEL_DESC} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CHANNEL_DESC = COLUMN_LENGTH_CHANNEL_DESC;
 
     // -------------------------------------------------------------------------------------------------- CHANNEL_CLASS
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_CLASS} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_CLASS} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_CLASS = "CHANNEL_CLASS";
 
@@ -92,33 +95,36 @@ public abstract class MappedChannel {
     public static final int COLUMN_LENGTH_CHANNEL_CLASS = 20;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_CLASS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_CLASS} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_CLASS = "channelClass";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CHANNEL_CLASS} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CHANNEL_CLASS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CHANNEL_CLASS = COLUMN_LENGTH_CHANNEL_CLASS;
 
     // ----------------------------------------------------------------------------------------------- CHANNEL_CLASS_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_CLASS_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_CLASS_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_CLASS_ID = "CHANNEL_CLASS_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_CLASS_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_CLASS_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_CLASS_ID = "channelClassId";
 
     // -------------------------------------------------------------------------------------------------- CHANNEL_TOTAL
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_TOTAL = "CHANNEL_TOTAL";
 
@@ -128,25 +134,28 @@ public abstract class MappedChannel {
     public static final int COLUMN_LENGTH_CHANNEL_TOTAL = 13;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_TOTAL} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_TOTAL} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_TOTAL = "channelTotal";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CHANNEL_TOTAL = COLUMN_LENGTH_CHANNEL_TOTAL;
 
     // ----------------------------------------------------------------------------------------------- CHANNEL_TOTAL_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_TOTAL_ID = "CHANNEL_TOTAL_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_TOTAL_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_TOTAL_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_TOTAL_ID = "channelTotalId";
 
@@ -210,7 +219,8 @@ public abstract class MappedChannel {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified
+     * value.
      *
      * @param channelId new value for {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
      */
@@ -230,7 +240,8 @@ public abstract class MappedChannel {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_DESC} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_DESC} attribute with the specified
+     * value.
      *
      * @param channelDesc new value for {@value #ATTRIBUTE_NAME_CHANNEL_DESC} attribute.
      */
@@ -250,7 +261,8 @@ public abstract class MappedChannel {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_CLASS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_CLASS} attribute with the specified
+     * value.
      *
      * @param channelClass new value for {@value #ATTRIBUTE_NAME_CHANNEL_CLASS} attribute.
      */
@@ -270,7 +282,8 @@ public abstract class MappedChannel {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_CLASS_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_CLASS_ID} attribute with the
+     * specified value.
      *
      * @param channelClassId new value for {@value #ATTRIBUTE_NAME_CHANNEL_CLASS_ID} attribute.
      */
@@ -290,7 +303,8 @@ public abstract class MappedChannel {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL} attribute with the specified
+     * value.
      *
      * @param channelTotal new value for {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL} attribute.
      */
@@ -310,7 +324,8 @@ public abstract class MappedChannel {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL_ID} attribute with the
+     * specified value.
      *
      * @param channelTotalId new value for {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL_ID} attribute.
      */
@@ -318,9 +333,9 @@ public abstract class MappedChannel {
         this.channelTotalId = channelTotalId;
     }
 
-    // --------------------------------------------------------------------------------------------------------------- 
-    // --------------------------------------------------------------------------------------------------------------- 
-    // --------------------------------------------------------------------------------------------------------------- 
+    // ---------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------------------------
 
     @NotNull
     @Id

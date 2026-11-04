@@ -29,8 +29,9 @@ import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
 /**
- * A mapped superclass for the composite identifier of the {@value MappedProductOrder#TABLE_NAME} view; the
- * {@link jakarta.persistence.EmbeddedId @EmbeddedId} of an entity which extends {@link MappedProductOrder}.
+ * A mapped superclass for the composite identifier of the {@value MappedProductOrder#TABLE_NAME}
+ * view; the {@link jakarta.persistence.EmbeddedId @EmbeddedId} of an entity which extends
+ * {@link MappedProductOrder}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -38,23 +39,24 @@ import java.util.Objects;
 public abstract class MappedProductOrderId {
 
     /**
-     * The name of the database view whose identifying columns this class maps. The value is {@value}.
+     * The name of the database view whose identifying columns this class maps. The value is
+     * {@value}.
      */
     public static final String TABLE_NAME = MappedProductOrder.TABLE_NAME;
 
     // ---------------------------------------------------------------------------------------------------- PRODUCT_NAME
 
     /**
-     * The name of the attribute which maps the {@value MappedProductOrder#COLUMN_NAME_PRODUCT_NAME} column. The value
-     * is {@value}.
+     * The name of the attribute which maps the {@value MappedProductOrder#COLUMN_NAME_PRODUCT_NAME}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_NAME = "productName";
 
     // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
 
     /**
-     * The name of the attribute which maps the {@value MappedProductOrder#COLUMN_NAME_ORDER_STATUS} column. The value
-     * is {@value}.
+     * The name of the attribute which maps the {@value MappedProductOrder#COLUMN_NAME_ORDER_STATUS}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
 
@@ -82,7 +84,8 @@ public abstract class MappedProductOrderId {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by both {@value #ATTRIBUTE_NAME_PRODUCT_NAME} and {@value #ATTRIBUTE_NAME_ORDER_STATUS}.
+     * @implSpec Equality is by both {@value #ATTRIBUTE_NAME_PRODUCT_NAME} and
+     *         {@value #ATTRIBUTE_NAME_ORDER_STATUS}.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -97,8 +100,8 @@ public abstract class MappedProductOrderId {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over both {@value #ATTRIBUTE_NAME_PRODUCT_NAME} and {@value #ATTRIBUTE_NAME_ORDER_STATUS},
-     * consistent with {@link #equals(Object)}.
+     * @implSpec The hash is over both {@value #ATTRIBUTE_NAME_PRODUCT_NAME} and
+     *         {@value #ATTRIBUTE_NAME_ORDER_STATUS}, consistent with {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
@@ -117,7 +120,8 @@ public abstract class MappedProductOrderId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute with the specified
+     * value.
      *
      * @param productName new value for {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute.
      */
@@ -137,7 +141,8 @@ public abstract class MappedProductOrderId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute with the specified
+     * value.
      *
      * @param orderStatus new value for {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
      */
@@ -145,7 +150,7 @@ public abstract class MappedProductOrderId {
         this.orderStatus = orderStatus;
     }
 
-    // ---------------------------------------------------------------------------------------------------------------- 
+    // ----------------------------------------------------------------------------------------------------------------
 
     @Size(max = MappedProductOrder.SIZE_MAX_PRODUCT_NAME)
     @NotNull

@@ -47,21 +47,22 @@ public abstract class MappedCustomer {
     // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUSTOMER_ID = "CUSTOMER_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUSTOMER_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUSTOMER_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER_ID = "customerId";
 
     // --------------------------------------------------------------------------------------------------- EMAIL_ADDRESS
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_EMAIL_ADDRESS = "EMAIL_ADDRESS";
 
@@ -71,25 +72,28 @@ public abstract class MappedCustomer {
     public static final int COLUMN_LENGTH_NAME_EMAIL_ADDRESS = 255;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_EMAIL_ADDRESS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_EMAIL_ADDRESS} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMAIL_ADDRESS = "emailAddress";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_NAME_EMAIL_ADDRESS = 0;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_NAME_EMAIL_ADDRESS = COLUMN_LENGTH_NAME_EMAIL_ADDRESS;
 
     // -------------------------------------------------------------------------------------------- FULL_NAME / fullName
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FULL_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_FULL_NAME} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_FULL_NAME = "FULL_NAME";
 
@@ -99,7 +103,8 @@ public abstract class MappedCustomer {
     public static final int COLUMN_LENGTH_NAME_FULL_NAME = 255;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FULL_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FULL_NAME} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_FULL_NAME = "fullName";
 
@@ -138,7 +143,8 @@ public abstract class MappedCustomer {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS}, which the table declares unique.
+     * @implSpec Equality is by {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS}, which the table
+     *         declares unique.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -152,7 +158,8 @@ public abstract class MappedCustomer {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS}, consistent with {@link #equals(Object)}.
+     * @implSpec The hash is over {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS}, consistent with
+     *         {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
@@ -171,7 +178,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute with the specified
+     * value.
      *
      * @param customerId new value for {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
      */
@@ -192,7 +200,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute with the specified
+     * value.
      *
      * @param emailAddress new value for {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute.
      */
@@ -213,7 +222,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_FULL_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_FULL_NAME} attribute with the specified
+     * value.
      *
      * @param fullName new value for {@value #ATTRIBUTE_NAME_FULL_NAME} attribute.
      */
@@ -227,16 +237,19 @@ public abstract class MappedCustomer {
     // -----------------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------------
     @Id
-    // TODO: remove; not constrained by the DDL -- CUSTOMERS.CUSTOMER_ID is an INTEGER identity with no check
+    // TODO: remove; not constrained by the DDL -- CUSTOMERS.CUSTOMER_ID is an INTEGER identity
+    //  with no check
 //    @Positive // ???
-    // no @NotNull: database-generated identity; the value is null when the provider validates at pre-persist
+    // no @NotNull: database-generated identity; the value is null when the provider validates at
+    // pre-persist
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(
             name = COLUMN_NAME_CUSTOMER_ID,
             nullable = false,
             // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
             // insertable=false on a @GeneratedValue @Id -- it treats the mapping as read-only and
-            // fails descriptor initialisation with EclipseLink-46/EclipseLink-41. Verified on 5.0.1.
+            // fails descriptor initialisation with EclipseLink-46/EclipseLink-41. Verified on 5
+            // .0.1.
             insertable = true,
             updatable = false
     )
@@ -244,7 +257,8 @@ public abstract class MappedCustomer {
 
     // -----------------------------------------------------------------------------------------------------------------
     @Nonnull
-    // TODO: remove; not constrained by the DDL -- CUSTOMERS.EMAIL_ADDRESS is VARCHAR2(255 CHAR) with no check
+    // TODO: remove; not constrained by the DDL -- CUSTOMERS.EMAIL_ADDRESS is VARCHAR2(255 CHAR)
+    //  with no check
 //    @Email
     @Size(min = SIZE_MIN_NAME_EMAIL_ADDRESS, max = SIZE_MAX_NAME_EMAIL_ADDRESS)
     @NotNull

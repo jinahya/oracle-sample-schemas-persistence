@@ -47,34 +47,36 @@ public abstract class MappedCustomerOrderProduct {
     // -------------------------------------------------------------------------------------------------------- ORDER_ID
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_ORDER_ID = "ORDER_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
 
     // ------------------------------------------------------------------------------------------------------- ORDER_TMS
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_ORDER_TMS = "ORDER_TMS";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_TMS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_TMS} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_TMS = "orderTms";
 
     // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_ORDER_STATUS = "ORDER_STATUS";
 
@@ -84,33 +86,36 @@ public abstract class MappedCustomerOrderProduct {
     public static final int COLUMN_LENGTH_ORDER_STATUS = 10;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_ORDER_STATUS = COLUMN_LENGTH_ORDER_STATUS;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_STATUS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_STATUS} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
 
     // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_CUSTOMER_ID = "CUSTOMER_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUSTOMER_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUSTOMER_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER_ID = "customerId";
 
     // --------------------------------------------------------------------------------------------------- EMAIL_ADDRESS
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_EMAIL_ADDRESS = "EMAIL_ADDRESS";
 
@@ -120,20 +125,22 @@ public abstract class MappedCustomerOrderProduct {
     public static final int COLUMN_LENGTH_EMAIL_ADDRESS = 255;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_EMAIL_ADDRESS = COLUMN_LENGTH_EMAIL_ADDRESS;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_EMAIL_ADDRESS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_EMAIL_ADDRESS} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMAIL_ADDRESS = "emailAddress";
 
     // ------------------------------------------------------------------------------------------------------- FULL_NAME
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_FULL_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_FULL_NAME} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_FULL_NAME = "FULL_NAME";
 
@@ -148,27 +155,30 @@ public abstract class MappedCustomerOrderProduct {
     public static final int SIZE_MAX_FULL_NAME = COLUMN_LENGTH_FULL_NAME;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FULL_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FULL_NAME} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_FULL_NAME = "fullName";
 
     // ----------------------------------------------------------------------------------------------------- ORDER_TOTAL
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_TOTAL} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_TOTAL} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_ORDER_TOTAL = "ORDER_TOTAL";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_TOTAL} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_TOTAL} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_TOTAL = "orderTotal";
 
     // ----------------------------------------------------------------------------------------------------------- ITEMS
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ITEMS} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_ITEMS} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_ITEMS = "ITEMS";
 
@@ -183,7 +193,8 @@ public abstract class MappedCustomerOrderProduct {
     public static final int SIZE_MAX_ITEMS = COLUMN_LENGTH_ITEMS;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ITEMS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_ITEMS} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_ITEMS = "items";
 
@@ -326,7 +337,7 @@ public abstract class MappedCustomerOrderProduct {
         return items;
     }
 
-    // ---------------------------------------------------------------------------------------------------------------- 
+    // ----------------------------------------------------------------------------------------------------------------
 
     @Id
     @NotNull
@@ -381,7 +392,8 @@ public abstract class MappedCustomerOrderProduct {
     @Column(name = COLUMN_NAME_ORDER_TOTAL, nullable = true, insertable = false, updatable = false)
     private BigDecimal orderTotal;
 
-    // TODO: remove; not constrained by the DDL -- CUSTOMER_ORDER_PRODUCTS.ITEMS is a computed LISTAGG(...) column
+    // TODO: remove; not constrained by the DDL -- CUSTOMER_ORDER_PRODUCTS.ITEMS is a computed
+    //  LISTAGG(...) column
 //    @Size(max = SIZE_MAX_ITEMS)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_ITEMS,

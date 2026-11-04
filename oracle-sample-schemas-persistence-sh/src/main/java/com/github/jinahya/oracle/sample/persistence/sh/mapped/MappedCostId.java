@@ -30,9 +30,9 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 /**
- * A mapped superclass for the composite identifier of the {@value MappedCost#TABLE_NAME} table, which an
- * entity extending {@link MappedCost} maps with an {@link jakarta.persistence.IdClass @IdClass}; a concrete identifier
- * class extends this class.
+ * A mapped superclass for the composite identifier of the {@value MappedCost#TABLE_NAME} table,
+ * which an entity extending {@link MappedCost} maps with an
+ * {@link jakarta.persistence.IdClass @IdClass}; a concrete identifier class extends this class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -40,40 +40,45 @@ import java.util.function.Supplier;
 public abstract class MappedCostId {
 
     /**
-     * The name of the database table whose identifying columns this class maps. The value is {@value}.
+     * The name of the database table whose identifying columns this class maps. The value is
+     * {@value}.
      */
     public static final String TABLE_NAME = MappedCost.TABLE_NAME;
 
     // --------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The name of the attribute which maps the {@value MappedCost#COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value MappedCost#COLUMN_NAME_PROD_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the attribute which maps the {@value MappedCost#COLUMN_NAME_TIME_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value MappedCost#COLUMN_NAME_TIME_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the attribute which maps the {@value MappedCost#COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value MappedCost#COLUMN_NAME_PROMO_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
-     * The name of the attribute which maps the {@value MappedCost#COLUMN_NAME_CHANNEL_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value MappedCost#COLUMN_NAME_CHANNEL_ID} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
-    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    // ------------------------------------------------------------------------------------------
+    // STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance of a subclass, with the specified column values.
@@ -85,7 +90,8 @@ public abstract class MappedCostId {
      * @param promoId      the {@value MappedCost#COLUMN_NAME_PROMO_ID} column value.
      * @param channelId    the {@value MappedCost#COLUMN_NAME_CHANNEL_ID} column value.
      * @return the instance supplied by {@code instantiator}, with its attributes set.
-     * @throws NullPointerException if {@code instantiator} is {@code null}, or it supplies {@code null}.
+     * @throws NullPointerException if {@code instantiator} is {@code null}, or it supplies
+     *                              {@code null}.
      */
     protected static <T extends MappedCostId> T of(final Supplier<? extends T> instantiator,
                                                    final Integer prodId,
@@ -127,8 +133,9 @@ public abstract class MappedCostId {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by all of {@value #ATTRIBUTE_NAME_PROD_ID}, {@value #ATTRIBUTE_NAME_TIME_ID},
-     * {@value #ATTRIBUTE_NAME_PROMO_ID}, and {@value #ATTRIBUTE_NAME_CHANNEL_ID}.
+     * @implSpec Equality is by all of {@value #ATTRIBUTE_NAME_PROD_ID},
+     *         {@value #ATTRIBUTE_NAME_TIME_ID}, {@value #ATTRIBUTE_NAME_PROMO_ID}, and
+     *         {@value #ATTRIBUTE_NAME_CHANNEL_ID}.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -145,9 +152,9 @@ public abstract class MappedCostId {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over all of {@value #ATTRIBUTE_NAME_PROD_ID}, {@value #ATTRIBUTE_NAME_TIME_ID},
-     * {@value #ATTRIBUTE_NAME_PROMO_ID}, and {@value #ATTRIBUTE_NAME_CHANNEL_ID}, consistent with
-     * {@link #equals(Object)}.
+     * @implSpec The hash is over all of {@value #ATTRIBUTE_NAME_PROD_ID},
+     *         {@value #ATTRIBUTE_NAME_TIME_ID}, {@value #ATTRIBUTE_NAME_PROMO_ID}, and
+     *         {@value #ATTRIBUTE_NAME_CHANNEL_ID}, consistent with {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
@@ -166,7 +173,8 @@ public abstract class MappedCostId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute with the specified
+     * value.
      *
      * @param prodId new value for {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
      */
@@ -186,7 +194,8 @@ public abstract class MappedCostId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute with the specified
+     * value.
      *
      * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
@@ -206,7 +215,8 @@ public abstract class MappedCostId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified
+     * value.
      *
      * @param promoId new value for {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
      */
@@ -226,7 +236,8 @@ public abstract class MappedCostId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified
+     * value.
      *
      * @param channelId new value for {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
      */
@@ -234,25 +245,29 @@ public abstract class MappedCostId {
         this.channelId = channelId;
     }
 
-    // ---------------------------------------------------------------------------------------------------------------- 
+    // ----------------------------------------------------------------------------------------------------------------
 
     @NotNull
     @Basic(optional = false)
-    @Column(name = MappedCost.COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = MappedCost.COLUMN_NAME_PROD_ID, nullable = false, insertable = true,
+            updatable = false)
     private Integer prodId;
 
     @NotNull
     @Basic(optional = false)
-    @Column(name = MappedCost.COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = MappedCost.COLUMN_NAME_TIME_ID, nullable = false, insertable = true,
+            updatable = false)
     private LocalDateTime timeId;
 
     @NotNull
     @Basic(optional = false)
-    @Column(name = MappedCost.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = MappedCost.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true,
+            updatable = false)
     private Integer promoId;
 
     @NotNull
     @Basic(optional = false)
-    @Column(name = MappedCost.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = MappedCost.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true,
+            updatable = false)
     private Long channelId;
 }

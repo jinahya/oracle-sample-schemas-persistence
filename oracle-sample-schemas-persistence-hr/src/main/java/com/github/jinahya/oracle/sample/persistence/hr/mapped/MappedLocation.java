@@ -37,11 +37,12 @@ import java.util.Objects;
 /**
  * A mapped superclass which holds the mappings of the {@value MappedLocation#TABLE_NAME} table.
  * <p>
- * The {@value #COLUMN_NAME_COUNTRY_ID} column is mapped read-only ({@code insertable = false, updatable = false}),
- * with a public getter and a {@code protected} setter. How the relationship behind it is mapped is the extending
- * entity's decision, so the extending entity also owns its writable mapping, by an association's
- * {@link jakarta.persistence.JoinColumn @JoinColumn}, and keeps the value in step through the setter. <strong>An
- * extending entity which maps no association never writes the column.</strong>
+ * The {@value #COLUMN_NAME_COUNTRY_ID} column is mapped read-only
+ * ({@code insertable = false, updatable = false}), with a public getter and a {@code protected}
+ * setter. How the relationship behind it is mapped is the extending entity's decision, so the
+ * extending entity also owns its writable mapping, by an association's
+ * {@link jakarta.persistence.JoinColumn @JoinColumn}, and keeps the value in step through the
+ * setter. <strong>An extending entity which maps no association never writes the column.</strong>
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -56,8 +57,8 @@ public abstract class MappedLocation {
     // ----------------------------------------------------------------------------------------------------- LOCATION_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_LOCATION_ID = "LOCATION_ID";
 
@@ -82,25 +83,28 @@ public abstract class MappedLocation {
     public static final int COLUMN_MAX_LOCATION_ID = +9999;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_LOCATION_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LOCATION_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LOCATION_ID = "locationId";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_LOCATION_ID = COLUMN_MIN_LOCATION_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_LOCATION_ID = COLUMN_MAX_LOCATION_ID;
 
     // -------------------------------------------------------------------------------------------------- STREET_ADDRESS
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STREET_ADDRESS} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STREET_ADDRESS} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_STREET_ADDRESS = "STREET_ADDRESS";
 
@@ -110,25 +114,28 @@ public abstract class MappedLocation {
     public static final int COLUMN_LENGTH_STREET_ADDRESS = 40;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_STREET_ADDRESS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_STREET_ADDRESS} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STREET_ADDRESS = "streetAddress";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_STREET_ADDRESS} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_STREET_ADDRESS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_STREET_ADDRESS = 0;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_STREET_ADDRESS} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_STREET_ADDRESS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_STREET_ADDRESS = COLUMN_LENGTH_STREET_ADDRESS;
 
     // ----------------------------------------------------------------------------------------------------- POSTAL_CODE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_POSTAL_CODE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_POSTAL_CODE} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_POSTAL_CODE = "POSTAL_CODE";
 
@@ -138,24 +145,28 @@ public abstract class MappedLocation {
     public static final int COLUMN_LENGTH_POSTAL_CODE = 12;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_POSTAL_CODE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_POSTAL_CODE} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_POSTAL_CODE = "postalCode";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_POSTAL_CODE} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_POSTAL_CODE} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_POSTAL_CODE = 0;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_POSTAL_CODE} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_POSTAL_CODE} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_POSTAL_CODE = COLUMN_LENGTH_POSTAL_CODE;
 
     // ------------------------------------------------------------------------------------------------------------ CITY
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CITY} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CITY} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_CITY = "CITY";
 
@@ -165,7 +176,8 @@ public abstract class MappedLocation {
     public static final int COLUMN_LENGTH_CITY = 30;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CITY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CITY} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CITY = "city";
 
@@ -182,8 +194,8 @@ public abstract class MappedLocation {
     // -------------------------------------------------------------------------------------------------- STATE_PROVINCE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_STATE_PROVINCE = "STATE_PROVINCE";
 
@@ -193,25 +205,28 @@ public abstract class MappedLocation {
     public static final int COLUMN_LENGTH_STATE_PROVINCE = 25;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_STATE_PROVINCE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_STATE_PROVINCE} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STATE_PROVINCE = "stateProvince";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_STATE_PROVINCE = 0;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_STATE_PROVINCE = COLUMN_LENGTH_STATE_PROVINCE;
 
     // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
 
@@ -236,8 +251,8 @@ public abstract class MappedLocation {
     public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column, read-only. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column, read-only.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
 
@@ -307,7 +322,8 @@ public abstract class MappedLocation {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute with the specified
+     * value.
      *
      * @param locationId new value for {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
      */
@@ -328,7 +344,8 @@ public abstract class MappedLocation {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_STREET_ADDRESS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_STREET_ADDRESS} attribute with the
+     * specified value.
      *
      * @param streetAddress new value for {@value #ATTRIBUTE_NAME_STREET_ADDRESS} attribute.
      */
@@ -349,7 +366,8 @@ public abstract class MappedLocation {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_POSTAL_CODE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_POSTAL_CODE} attribute with the specified
+     * value.
      *
      * @param postalCode new value for {@value #ATTRIBUTE_NAME_POSTAL_CODE} attribute.
      */
@@ -391,7 +409,8 @@ public abstract class MappedLocation {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute with the
+     * specified value.
      *
      * @param stateProvince new value for {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute.
      */
@@ -412,8 +431,9 @@ public abstract class MappedLocation {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the specified value. The attribute
-     * is read-only; the extending entity calls this to keep it in step with the association which writes the column.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the specified
+     * value. The attribute is read-only; the extending entity calls this to keep it in step with
+     * the association which writes the column.
      *
      * @param countryId new value for {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
      */
@@ -483,7 +503,8 @@ public abstract class MappedLocation {
     private String stateProvince;
 
     // -----------------------------------------------------------------------------------------------------------------
-    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // read-only: the extending entity owns the writable mapping of this column; see the class
+    // documentation
     @Nullable
     @Size(max = SIZE_MAX_COUNTRY_ID)
     @Basic(optional = true, fetch = FetchType.EAGER)

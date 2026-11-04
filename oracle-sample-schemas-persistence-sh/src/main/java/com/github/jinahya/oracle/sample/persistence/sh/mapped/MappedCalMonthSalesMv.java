@@ -39,15 +39,16 @@ import java.util.Objects;
 public abstract class MappedCalMonthSalesMv {
 
     /**
-     * The name of the database materialized view to which this entity class maps. The value is {@value}.
+     * The name of the database materialized view to which this entity class maps. The value is
+     * {@value}.
      */
     public static final String TABLE_NAME = "CAL_MONTH_SALES_MV";
 
     // --------------------------------------------------------------------------------------------- CALENDAR_MONTH_DESC
 
     /**
-     * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute
-     * maps. The value is {@value}.
+     * The name of the materialized view column to which the
+     * {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CALENDAR_MONTH_DESC = "CALENDAR_MONTH_DESC";
 
@@ -57,26 +58,28 @@ public abstract class MappedCalMonthSalesMv {
     public static final int COLUMN_LENGTH_CALENDAR_MONTH_DESC = 8;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CALENDAR_MONTH_DESC = COLUMN_LENGTH_CALENDAR_MONTH_DESC;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_DESC} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CALENDAR_MONTH_DESC} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_MONTH_DESC = "calendarMonthDesc";
 
     // --------------------------------------------------------------------------------------------------------- DOLLARS
 
     /**
-     * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_DOLLARS} attribute maps. The value
-     * is {@value}.
+     * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_DOLLARS}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_DOLLARS = "DOLLARS";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DOLLARS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DOLLARS} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_DOLLARS = "dollars";
 
@@ -150,28 +153,37 @@ public abstract class MappedCalMonthSalesMv {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The calendar month this row aggregates, as the {@code uuuu-MM} text {@code TIMES.CALENDAR_MONTH_DESC} holds --
-     * {@code 2019-01}, for example -- which is also the {@link java.time.YearMonth#parse(CharSequence) ISO form} of
-     * {@link java.time.YearMonth}.
+     * The calendar month this row aggregates, as the {@code uuuu-MM} text
+     * {@code TIMES.CALENDAR_MONTH_DESC} holds -- {@code 2019-01}, for example -- which is also the
+     * {@link java.time.YearMonth#parse(CharSequence) ISO form} of {@link java.time.YearMonth}.
      * <p>
      * The attribute is nonetheless kept a {@code String}, not a {@code YearMonth} behind an
-     * {@link jakarta.persistence.AttributeConverter}, because it is the {@link Id @Id} of this entity, and the
-     * specification excludes identifier attributes from attribute conversion:
+     * {@link jakarta.persistence.AttributeConverter}, because it is the {@link Id @Id} of this
+     * entity, and the specification excludes identifier attributes from attribute conversion:
      * <blockquote>
-     * The conversion of all basic types is supported except for the following: Id attributes (including the attributes
-     * of embedded ids and derived identities), version attributes, relationship attributes, and attributes explicitly
-     * annotated as Enumerated or Temporal or designated as such in the XML descriptor. Auto-apply converters will not
-     * be applied to such attributes, and applications that apply converters to such attributes through use of the
+     * The conversion of all basic types is supported except for the following: Id attributes
+     * (including the attributes of embedded ids and derived identities), version attributes,
+     * relationship attributes, and attributes explicitly annotated as Enumerated or Temporal or
+     * designated as such in the XML descriptor. Auto-apply converters will not be applied to such
+     * attributes, and applications that apply converters to such attributes through use of the
      * Convert annotation will not be portable.
      * </blockquote>
      *
-     * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2.html#a2999">3.9.
-     * Type Conversion of Basic Attributes</a> (Jakarta Persistence 3.2 Specification Document)
      * @see <a
-     * href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2.html#a14398">11.1.10.
-     * Convert Annotation</a> (Jakarta Persistence 3.2 Specification Document)
-     * @see <a href="https://github.com/oracle-samples/db-sample-schemas/blob/main/sales_history/sh_create.sql">
-     * {@code sh_create.sql}</a> ({@code COMMENT ON COLUMN times.calendar_month_desc IS 'e.g. 1998-01, CORRECT ORDER'})
+     *         href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3
+     *         .2.html#a2999">3.9.
+     *         Type Conversion of Basic Attributes</a> (Jakarta Persistence 3.2 Specification
+     *         Document)
+     * @see <a
+     *         href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3
+     *         .2.html#a14398">11.1.10.
+     *         Convert Annotation</a> (Jakarta Persistence 3.2 Specification Document)
+     * @see <a
+     *         href="https://github.com/oracle-samples/db-sample-schemas/blob/main/sales_history
+     *         /sh_create.sql">
+     *         {@code sh_create.sql}</a>
+     *         ({@code COMMENT ON COLUMN times.calendar_month_desc IS 'e.g. 1998-01, CORRECT
+     *         ORDER'})
      */
     @Size(max = SIZE_MAX_CALENDAR_MONTH_DESC)
     @NotNull

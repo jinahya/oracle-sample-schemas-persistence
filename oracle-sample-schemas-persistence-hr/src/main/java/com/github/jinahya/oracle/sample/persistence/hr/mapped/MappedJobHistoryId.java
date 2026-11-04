@@ -33,29 +33,30 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * A mapped superclass of a composite primary key class for mapping {@value MappedJobHistory#COLUMN_NAME_EMPLOYEE_ID}
- * column and {@value MappedJobHistory#COLUMN_NAME_START_DATE} column, of {@value MappedJobHistory#TABLE_NAME} table;
- * an extending class is the {@link jakarta.persistence.IdClass @IdClass} of an entity which extends
- * {@link MappedJobHistory}.
+ * A mapped superclass of a composite primary key class for mapping
+ * {@value MappedJobHistory#COLUMN_NAME_EMPLOYEE_ID} column and
+ * {@value MappedJobHistory#COLUMN_NAME_START_DATE} column, of {@value MappedJobHistory#TABLE_NAME}
+ * table; an extending class is the {@link jakarta.persistence.IdClass @IdClass} of an entity which
+ * extends {@link MappedJobHistory}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedJobHistory
- * @see <a
- * href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#composite-primary-keys">2.4.1.
- * Composite primary keys</a> (Jakarta Persistence 3.2 Specification Document)
+ * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3
+ *         .2#composite-primary-keys">2.4.1. Composite primary keys</a> (Jakarta Persistence 3.2
+ *         Specification Document)
  */
 @MappedSuperclass
 public abstract class MappedJobHistoryId {
 
     /**
-     * The name of the attribute which maps the {@value MappedJobHistory#COLUMN_NAME_EMPLOYEE_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value MappedJobHistory#COLUMN_NAME_EMPLOYEE_ID}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
 
     /**
-     * The name of the attribute which maps the {@value MappedJobHistory#COLUMN_NAME_START_DATE} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value MappedJobHistory#COLUMN_NAME_START_DATE}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
 
@@ -83,7 +84,8 @@ public abstract class MappedJobHistoryId {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by both {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} and {@value #ATTRIBUTE_NAME_START_DATE}.
+     * @implSpec Equality is by both {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} and
+     *         {@value #ATTRIBUTE_NAME_START_DATE}.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -98,8 +100,8 @@ public abstract class MappedJobHistoryId {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over both {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} and {@value #ATTRIBUTE_NAME_START_DATE},
-     * consistent with {@link #equals(Object)}.
+     * @implSpec The hash is over both {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} and
+     *         {@value #ATTRIBUTE_NAME_START_DATE}, consistent with {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
@@ -119,7 +121,8 @@ public abstract class MappedJobHistoryId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute with the specified
+     * value.
      *
      * @param employeeId new value for the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
      */
@@ -141,7 +144,8 @@ public abstract class MappedJobHistoryId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute with the specified
+     * value.
      *
      * @param startDate new value for the {@value #ATTRIBUTE_NAME_START_DATE} attribute.
      */

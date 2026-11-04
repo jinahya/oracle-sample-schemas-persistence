@@ -33,11 +33,11 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
- * A mapped superclass which holds the mappings of the {@value MappedCost#TABLE_NAME} table, whose composite identifier
- * is mapped with an {@link jakarta.persistence.IdClass @IdClass}.
+ * A mapped superclass which holds the mappings of the {@value MappedCost#TABLE_NAME} table, whose
+ * composite identifier is mapped with an {@link jakarta.persistence.IdClass @IdClass}.
  * <p>
- * The table declares no primary key; the four dimension columns are its grain, and the {@code CANDIDATE_KEYS} section
- * of {@code src/test/sql/COSTS.sql} is what measured them.
+ * The table declares no primary key; the four dimension columns are its grain, and the
+ * {@code CANDIDATE_KEYS} section of {@code src/test/sql/COSTS.sql} is what measured them.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedCostId
@@ -53,64 +53,64 @@ public abstract class MappedCost {
     // --------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_ID = "PROD_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
-
 
     // --------------------------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_TIME_ID = "TIME_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
-
 
     // -------------------------------------------------------------------------------------------------------- PROMO_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
-
 
     // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
-
 
     // ------------------------------------------------------------------------------------------------------- UNIT_COST
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_UNIT_COST = "UNIT_COST";
 
@@ -125,25 +125,28 @@ public abstract class MappedCost {
     public static final int COLUMN_SCALE_UNIT_COST = 2;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_COST} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_COST} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_UNIT_COST = "unitCost";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MIN_UNIT_COST = "-99999999.99";
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_UNIT_COST = "+99999999.99";
 
     // ------------------------------------------------------------------------------------------------------ UNIT_PRICE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_UNIT_PRICE = "UNIT_PRICE";
 
@@ -158,17 +161,20 @@ public abstract class MappedCost {
     public static final int COLUMN_SCALE_UNIT_PRICE = 2;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_UNIT_PRICE = "unitPrice";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MIN_UNIT_PRICE = "-99999999.99";
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_UNIT_PRICE = "+99999999.99";
 
@@ -221,7 +227,8 @@ public abstract class MappedCost {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the four {@code @Id} attributes, consistent with {@link #equals(Object)}.
+     * @implSpec The hash is over the four {@code @Id} attributes, consistent with
+     *         {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
@@ -240,7 +247,8 @@ public abstract class MappedCost {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute with the specified
+     * value.
      *
      * @param prodId new value for {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
      */
@@ -260,7 +268,8 @@ public abstract class MappedCost {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute with the specified
+     * value.
      *
      * @param timeId new value for {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
@@ -280,7 +289,8 @@ public abstract class MappedCost {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute with the specified
+     * value.
      *
      * @param promoId new value for {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
      */
@@ -300,7 +310,8 @@ public abstract class MappedCost {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute with the specified
+     * value.
      *
      * @param channelId new value for {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
      */
@@ -320,7 +331,8 @@ public abstract class MappedCost {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_UNIT_COST} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_UNIT_COST} attribute with the specified
+     * value.
      *
      * @param unitCost new value for {@value #ATTRIBUTE_NAME_UNIT_COST} attribute.
      */
@@ -340,7 +352,8 @@ public abstract class MappedCost {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute with the specified
+     * value.
      *
      * @param unitPrice new value for {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute.
      */
@@ -348,7 +361,7 @@ public abstract class MappedCost {
         this.unitPrice = unitPrice;
     }
 
-    // ---------------------------------------------------------------------------------------------------------------- 
+    // ----------------------------------------------------------------------------------------------------------------
 
     @Id
     @NotNull

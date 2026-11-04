@@ -1,15 +1,16 @@
 /**
- * Mapped superclasses for the {@code HR} schema of the Oracle Database Sample Schemas, one per table and one per view,
- * plus one per composite identifier.
+ * Mapped superclasses for the {@code HR} schema of the Oracle Database Sample Schemas, one per
+ * table and one per view, plus one per composite identifier.
  * <p>
- * Each holds what the schema says about its table -- the names, the types, the lengths, the nullability, the check
- * constraints as validation constraints -- and nothing an application decides: no association, no fetch type, no
- * cascade, no named query. An entity which extends one adds those, and names the table with
- * {@link jakarta.persistence.Table @Table}. A foreign-key column is mapped read-only here, as a basic attribute; the
- * extending entity owns its writable mapping, through an association's {@link jakarta.persistence.JoinColumn
- * @JoinColumn}. The persistence provider is the entity's choice as well; the classes here are plain Jakarta
- * Persistence.
+ * Each holds what the schema says about its table -- the names, the types, the lengths, the
+ * nullability, the check constraints as validation constraints -- and nothing an application
+ * decides: no association, no fetch type, no cascade, no named query. An entity which extends one
+ * adds those, and names the table with {@link jakarta.persistence.Table @Table}. A foreign-key
+ * column is mapped read-only here, as a basic attribute; the extending entity owns its writable
+ * mapping, through an association's {@link jakarta.persistence.JoinColumn
  *
+ * @JoinColumn}. The persistence provider is the entity's choice as well; the classes here
+ *         are plain Jakarta Persistence.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 package com.github.jinahya.oracle.sample.persistence.hr.mapped;

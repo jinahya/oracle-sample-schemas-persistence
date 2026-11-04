@@ -32,7 +32,8 @@ import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
 /**
- * A mapped superclass which holds the mappings of the {@value MappedSupplementaryDemographics#TABLE_NAME} table.
+ * A mapped superclass which holds the mappings of the
+ * {@value MappedSupplementaryDemographics#TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -47,21 +48,22 @@ public abstract class MappedSupplementaryDemographics {
     // -------------------------------------------------------------------------------------------------------- CUST_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_ID = "CUST_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_ID = "custId";
 
     // ------------------------------------------------------------------------------------------------------ EDUCATION
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EDUCATION} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EDUCATION} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_EDUCATION = "EDUCATION";
 
@@ -71,7 +73,8 @@ public abstract class MappedSupplementaryDemographics {
     public static final int COLUMN_LENGTH_EDUCATION = 21;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_EDUCATION} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_EDUCATION} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_EDUCATION = "education";
 
@@ -83,8 +86,8 @@ public abstract class MappedSupplementaryDemographics {
     // ----------------------------------------------------------------------------------------------------- OCCUPATION
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_OCCUPATION} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_OCCUPATION} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_OCCUPATION = "OCCUPATION";
 
@@ -94,20 +97,22 @@ public abstract class MappedSupplementaryDemographics {
     public static final int COLUMN_LENGTH_OCCUPATION = 21;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_OCCUPATION} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_OCCUPATION} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_OCCUPATION = "occupation";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_OCCUPATION} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_OCCUPATION} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_OCCUPATION = COLUMN_LENGTH_OCCUPATION;
 
     // ------------------------------------------------------------------------------------------------- HOUSEHOLD_SIZE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_HOUSEHOLD_SIZE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_HOUSEHOLD_SIZE} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_HOUSEHOLD_SIZE = "HOUSEHOLD_SIZE";
 
@@ -117,38 +122,42 @@ public abstract class MappedSupplementaryDemographics {
     public static final int COLUMN_LENGTH_HOUSEHOLD_SIZE = 21;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_HOUSEHOLD_SIZE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_HOUSEHOLD_SIZE} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_HOUSEHOLD_SIZE = "householdSize";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_HOUSEHOLD_SIZE} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_HOUSEHOLD_SIZE} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_HOUSEHOLD_SIZE = COLUMN_LENGTH_HOUSEHOLD_SIZE;
 
     // -------------------------------------------------------------------------------------------------- YRS_RESIDENCE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_YRS_RESIDENCE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_YRS_RESIDENCE} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_YRS_RESIDENCE = "YRS_RESIDENCE";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_YRS_RESIDENCE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_YRS_RESIDENCE} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_YRS_RESIDENCE = "yrsResidence";
 
     // -------------------------------------------------------------------------------------------------- AFFINITY_CARD
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_AFFINITY_CARD = "AFFINITY_CARD";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_AFFINITY_CARD} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_AFFINITY_CARD} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_AFFINITY_CARD = "affinityCard";
 
@@ -173,25 +182,28 @@ public abstract class MappedSupplementaryDemographics {
     public static final long COLUMN_MAX_AFFINITY_CARD = +9999999999L;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute. The value is
+     * {@value}.
      */
     public static final long ATTRIBUTE_MIN_AFFINITY_CARD = COLUMN_MIN_AFFINITY_CARD;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute. The value is
+     * {@value}.
      */
     public static final long ATTRIBUTE_MAX_AFFINITY_CARD = COLUMN_MAX_AFFINITY_CARD;
 
     // -------------------------------------------------------------------------------------------------------- CRICKET
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CRICKET} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CRICKET} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_CRICKET = "CRICKET";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CRICKET} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CRICKET} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CRICKET = "cricket";
 
@@ -228,13 +240,14 @@ public abstract class MappedSupplementaryDemographics {
     // ------------------------------------------------------------------------------------------------------- BASEBALL
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_BASEBALL} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_BASEBALL} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_BASEBALL = "BASEBALL";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_BASEBALL} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_BASEBALL} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_BASEBALL = "baseball";
 
@@ -271,12 +284,14 @@ public abstract class MappedSupplementaryDemographics {
     // --------------------------------------------------------------------------------------------------------- TENNIS
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_TENNIS} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_TENNIS} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_TENNIS = "TENNIS";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_TENNIS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_TENNIS} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_TENNIS = "tennis";
 
@@ -313,12 +328,14 @@ public abstract class MappedSupplementaryDemographics {
     // --------------------------------------------------------------------------------------------------------- SOCCER
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SOCCER} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SOCCER} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_SOCCER = "SOCCER";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_SOCCER} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_SOCCER} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_SOCCER = "soccer";
 
@@ -355,12 +372,14 @@ public abstract class MappedSupplementaryDemographics {
     // ----------------------------------------------------------------------------------------------------------- GOLF
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_GOLF} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_GOLF} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_GOLF = "GOLF";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_GOLF} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_GOLF} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_GOLF = "golf";
 
@@ -397,13 +416,14 @@ public abstract class MappedSupplementaryDemographics {
     // -------------------------------------------------------------------------------------------------------- UNKNOWN
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNKNOWN} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNKNOWN} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_UNKNOWN = "UNKNOWN";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_UNKNOWN} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_UNKNOWN} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_UNKNOWN = "unknown";
 
@@ -440,12 +460,14 @@ public abstract class MappedSupplementaryDemographics {
     // ----------------------------------------------------------------------------------------------------------- MISC
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MISC} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MISC} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_MISC = "MISC";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_MISC} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_MISC} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_MISC = "misc";
 
@@ -482,8 +504,8 @@ public abstract class MappedSupplementaryDemographics {
     // ------------------------------------------------------------------------------------------------------- COMMENTS
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COMMENTS} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COMMENTS} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_COMMENTS = "COMMENTS";
 
@@ -493,7 +515,8 @@ public abstract class MappedSupplementaryDemographics {
     public static final int COLUMN_LENGTH_COMMENTS = 4000;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COMMENTS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COMMENTS} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_COMMENTS = "comments";
 
@@ -570,7 +593,8 @@ public abstract class MappedSupplementaryDemographics {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute with the specified
+     * value.
      *
      * @param custId new value for {@value #ATTRIBUTE_NAME_CUST_ID} attribute.
      */
@@ -590,7 +614,8 @@ public abstract class MappedSupplementaryDemographics {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_EDUCATION} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_EDUCATION} attribute with the specified
+     * value.
      *
      * @param education new value for {@value #ATTRIBUTE_NAME_EDUCATION} attribute.
      */
@@ -610,7 +635,8 @@ public abstract class MappedSupplementaryDemographics {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_OCCUPATION} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_OCCUPATION} attribute with the specified
+     * value.
      *
      * @param occupation new value for {@value #ATTRIBUTE_NAME_OCCUPATION} attribute.
      */
@@ -630,7 +656,8 @@ public abstract class MappedSupplementaryDemographics {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_HOUSEHOLD_SIZE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_HOUSEHOLD_SIZE} attribute with the
+     * specified value.
      *
      * @param householdSize new value for {@value #ATTRIBUTE_NAME_HOUSEHOLD_SIZE} attribute.
      */
@@ -650,7 +677,8 @@ public abstract class MappedSupplementaryDemographics {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_YRS_RESIDENCE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_YRS_RESIDENCE} attribute with the specified
+     * value.
      *
      * @param yrsResidence new value for {@value #ATTRIBUTE_NAME_YRS_RESIDENCE} attribute.
      */
@@ -670,7 +698,8 @@ public abstract class MappedSupplementaryDemographics {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute with the specified
+     * value.
      *
      * @param affinityCard new value for {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute.
      */
@@ -690,7 +719,8 @@ public abstract class MappedSupplementaryDemographics {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CRICKET} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CRICKET} attribute with the specified
+     * value.
      *
      * @param cricket new value for {@value #ATTRIBUTE_NAME_CRICKET} attribute.
      */
@@ -710,7 +740,8 @@ public abstract class MappedSupplementaryDemographics {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_BASEBALL} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_BASEBALL} attribute with the specified
+     * value.
      *
      * @param baseball new value for {@value #ATTRIBUTE_NAME_BASEBALL} attribute.
      */
@@ -730,7 +761,8 @@ public abstract class MappedSupplementaryDemographics {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_TENNIS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_TENNIS} attribute with the specified
+     * value.
      *
      * @param tennis new value for {@value #ATTRIBUTE_NAME_TENNIS} attribute.
      */
@@ -750,7 +782,8 @@ public abstract class MappedSupplementaryDemographics {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_SOCCER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_SOCCER} attribute with the specified
+     * value.
      *
      * @param soccer new value for {@value #ATTRIBUTE_NAME_SOCCER} attribute.
      */
@@ -790,7 +823,8 @@ public abstract class MappedSupplementaryDemographics {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_UNKNOWN} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_UNKNOWN} attribute with the specified
+     * value.
      *
      * @param unknown new value for {@value #ATTRIBUTE_NAME_UNKNOWN} attribute.
      */
@@ -830,7 +864,8 @@ public abstract class MappedSupplementaryDemographics {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COMMENTS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COMMENTS} attribute with the specified
+     * value.
      *
      * @param comments new value for {@value #ATTRIBUTE_NAME_COMMENTS} attribute.
      */
@@ -838,9 +873,9 @@ public abstract class MappedSupplementaryDemographics {
         this.comments = comments;
     }
 
-    // --------------------------------------------------------------------------------------------------------------- 
-    // --------------------------------------------------------------------------------------------------------------- 
-    // --------------------------------------------------------------------------------------------------------------- 
+    // ---------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------------------------
 
     @NotNull
     @Id
@@ -948,8 +983,10 @@ public abstract class MappedSupplementaryDemographics {
     @Max(ATTRIBUTE_MAX_UNKNOWN)
     @Min(ATTRIBUTE_MIN_UNKNOWN)
     @Basic(optional = true)
-    // quoted: UNKNOWN is a reserved identifier -- H2 rejects the generated DDL without the quotes, and the quoted
-    // name is the upper-case one Oracle holds, so the mapping stays correct against the installed schema too
+    // quoted: UNKNOWN is a reserved identifier -- H2 rejects the generated DDL without the
+    // quotes, and the quoted
+    // name is the upper-case one Oracle holds, so the mapping stays correct against the
+    // installed schema too
     @Column(name = '"' + COLUMN_NAME_UNKNOWN + '"',
             nullable = true,
             insertable = true,

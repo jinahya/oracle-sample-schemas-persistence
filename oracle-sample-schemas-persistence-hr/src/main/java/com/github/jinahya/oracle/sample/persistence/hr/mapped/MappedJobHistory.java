@@ -39,22 +39,23 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * A mapped superclass which holds the mappings of the {@value MappedJobHistory#TABLE_NAME} table, whose composite
- * primary key an extending entity maps with an {@link jakarta.persistence.IdClass @IdClass} of a subclass of
- * {@link MappedJobHistoryId}.
+ * A mapped superclass which holds the mappings of the {@value MappedJobHistory#TABLE_NAME} table,
+ * whose composite primary key an extending entity maps with an
+ * {@link jakarta.persistence.IdClass @IdClass} of a subclass of {@link MappedJobHistoryId}.
  * <p>
- * Rows of the table are written by the database's {@code UPDATE_JOB_HISTORY} trigger, which fires when an employee's
- * job or department changes, with the employee's previous {@code HIRE_DATE} as the {@value #COLUMN_NAME_START_DATE} and
- * {@code SYSDATE} as the {@value #COLUMN_NAME_END_DATE}.
+ * Rows of the table are written by the database's {@code UPDATE_JOB_HISTORY} trigger, which fires
+ * when an employee's job or department changes, with the employee's previous {@code HIRE_DATE} as
+ * the {@value #COLUMN_NAME_START_DATE} and {@code SYSDATE} as the {@value #COLUMN_NAME_END_DATE}.
  * <p>
- * The mapping is therefore read-only: no attribute has a setter, and every column except the two {@code @Id} ones is
- * neither insertable nor updatable. The {@code @Id} columns stay {@code insertable = true} only because EclipseLink
- * rejects an identifier with no writable mapping (EclipseLink-46); nothing inserts through them, since
- * {@value #COLUMN_NAME_END_DATE}, which is not nullable, is left out of every insert.
+ * The mapping is therefore read-only: no attribute has a setter, and every column except the two
+ * {@code @Id} ones is neither insertable nor updatable. The {@code @Id} columns stay
+ * {@code insertable = true} only because EclipseLink rejects an identifier with no writable mapping
+ * (EclipseLink-46); nothing inserts through them, since {@value #COLUMN_NAME_END_DATE}, which is
+ * not nullable, is left out of every insert.
  * <p>
- * The {@value #COLUMN_NAME_JOB_ID} and {@value #COLUMN_NAME_DEPARTMENT_ID} columns are mapped here as basic attributes,
- * read-only like the rest. How the relationships behind them, and behind {@value #COLUMN_NAME_EMPLOYEE_ID}, are mapped
- * is the extending entity's decision.
+ * The {@value #COLUMN_NAME_JOB_ID} and {@value #COLUMN_NAME_DEPARTMENT_ID} columns are mapped here
+ * as basic attributes, read-only like the rest. How the relationships behind them, and behind
+ * {@value #COLUMN_NAME_EMPLOYEE_ID}, are mapped is the extending entity's decision.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedJobHistoryId
@@ -70,8 +71,8 @@ public abstract class MappedJobHistory {
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_EMPLOYEE_ID = "EMPLOYEE_ID";
 
@@ -103,19 +104,22 @@ public abstract class MappedJobHistory {
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = "employeeId";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
+     * {@value}.
      *
      * @see #COLUMN_MIN_EMPLOYEE_ID
      */
     public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = COLUMN_MIN_EMPLOYEE_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute. The value is
+     * {@value}.
      *
      * @see #COLUMN_MAX_EMPLOYEE_ID
      */
@@ -124,8 +128,8 @@ public abstract class MappedJobHistory {
     // ------------------------------------------------------------------------------------------------------ START_DATE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_START_DATE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_START_DATE} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_START_DATE = "START_DATE";
 
@@ -137,33 +141,36 @@ public abstract class MappedJobHistory {
     // ------------------------------------------------------------------------------------------------------ START_DATE
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_START_DATE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_START_DATE} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
 
     /**
-     * A comparator for comparing {@link MappedJobHistory} instances by their {@value #ATTRIBUTE_NAME_START_DATE}
-     * attributes.
+     * A comparator for comparing {@link MappedJobHistory} instances by their
+     * {@value #ATTRIBUTE_NAME_START_DATE} attributes.
      */
     public static final Comparator<MappedJobHistory> COMPARING_START_DATE = comparingStartDate();
 
     // -------------------------------------------------------------------------------------------------------- END_DATE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_DATE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_DATE} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_END_DATE = "END_DATE";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_END_DATE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_END_DATE} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_END_DATE = "endDate";
 
     // ---------------------------------------------------------------------------------------------------------- JOB_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_ID} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_ID} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_JOB_ID = "JOB_ID";
 
@@ -188,15 +195,16 @@ public abstract class MappedJobHistory {
     public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_JOB_ID = "jobId";
 
     // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
 
@@ -226,17 +234,20 @@ public abstract class MappedJobHistory {
     public static final int COLUMN_MAX_DEPARTMENT_ID = +9999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
+     * {@value}.
      */
     public static final long ATTRIBUTE_MIN_DEPARTMENT_ID = COLUMN_MIN_DEPARTMENT_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
+     * {@value}.
      */
     public static final long ATTRIBUTE_MAX_DEPARTMENT_ID = COLUMN_MAX_DEPARTMENT_ID;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DEPARTMENT_ID = "departmentId";
 
@@ -295,8 +306,8 @@ public abstract class MappedJobHistory {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the two {@code @Id} attributes, {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} and
-     * {@value #ATTRIBUTE_NAME_START_DATE}.
+     * @implSpec Equality is by the two {@code @Id} attributes,
+     *         {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} and {@value #ATTRIBUTE_NAME_START_DATE}.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -311,7 +322,8 @@ public abstract class MappedJobHistory {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the two {@code @Id} attributes, consistent with {@link #equals(Object)}.
+     * @implSpec The hash is over the two {@code @Id} attributes, consistent with
+     *         {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
@@ -327,7 +339,8 @@ public abstract class MappedJobHistory {
      * Mirrors the {@code JHIST_DATE_INTERVAL} check constraint ({@code end_date > start_date}).
      *
      * @return {@code true} if the {@value #ATTRIBUTE_NAME_END_DATE} attribute is after the
-     * {@value #ATTRIBUTE_NAME_START_DATE} attribute, or either of them is {@code null}; {@code false} otherwise.
+     *         {@value #ATTRIBUTE_NAME_START_DATE} attribute, or either of them is {@code null};
+     *         {@code false} otherwise.
      */
     @AssertTrue
     protected boolean isEndDateAfterStartDate() {
@@ -355,8 +368,8 @@ public abstract class MappedJobHistory {
     // ------------------------------------------------------------------------------------------------------- startDate
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute -- the employee's {@code HIRE_DATE} before
-     * the change which the {@code UPDATE_JOB_HISTORY} trigger recorded.
+     * Returns current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute -- the employee's
+     * {@code HIRE_DATE} before the change which the {@code UPDATE_JOB_HISTORY} trigger recorded.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute.
      */
@@ -368,8 +381,8 @@ public abstract class MappedJobHistory {
     // --------------------------------------------------------------------------------------------------------- endDate
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute -- the last day of the employee in the job,
-     * which the {@code UPDATE_JOB_HISTORY} trigger writes.
+     * Returns current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute -- the last day of the
+     * employee in the job, which the {@code UPDATE_JOB_HISTORY} trigger writes.
      *
      * @return current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute.
      */
@@ -407,7 +420,8 @@ public abstract class MappedJobHistory {
     @Max(ATTRIBUTE_MAX_EMPLOYEE_ID)
     @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
     @NotNull
-    @Id // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    @Id
+    // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     @Column(name = COLUMN_NAME_EMPLOYEE_ID,
             nullable = false,
             insertable = true,

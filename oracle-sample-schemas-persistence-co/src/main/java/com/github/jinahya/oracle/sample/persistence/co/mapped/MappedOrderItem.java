@@ -38,21 +38,23 @@ import java.util.Optional;
 /**
  * A mapped superclass for mapping the {@value MappedOrderItem#TABLE_NAME} table.
  * <p>
- * The composite primary key of the table is an {@link jakarta.persistence.EmbeddedId @EmbeddedId} of a subclass of
- * {@link MappedOrderItemId}, {@code T}. The extending entity declares the attribute, and returns it from
- * {@link #getId()}, which {@link #equals(Object)}, {@link #hashCode()} and {@link #toString()} read: an
- * {@code @EmbeddedId} of a type variable, declared here, is what EclipseLink does not resolve. The
- * {@value #COLUMN_NAME_ORDER_ID} column lives in the identifier; an extending entity which maps the order writes it
- * through {@link jakarta.persistence.MapsId @MapsId}.
+ * The composite primary key of the table is an {@link jakarta.persistence.EmbeddedId @EmbeddedId}
+ * of a subclass of {@link MappedOrderItemId}, {@code T}. The extending entity declares the
+ * attribute, and returns it from {@link #getId()}, which {@link #equals(Object)},
+ * {@link #hashCode()} and {@link #toString()} read: an {@code @EmbeddedId} of a type variable,
+ * declared here, is what EclipseLink does not resolve. The {@value #COLUMN_NAME_ORDER_ID} column
+ * lives in the identifier; an extending entity which maps the order writes it through
+ * {@link jakarta.persistence.MapsId @MapsId}.
  * <p>
- * The {@value #COLUMN_NAME_PRODUCT_ID} and {@value #COLUMN_NAME_SHIPMENT_ID} columns are mapped read-only
- * ({@code insertable = false, updatable = false}), with a public getter and a {@code protected} setter, for
- * {@link #toString()} and for queries. How the relationship behind each is mapped -- fetch type, cascade, whether there
- * is an association at all -- is the extending entity's decision, so the extending entity also owns their writable
- * mapping, by an association's {@link jakarta.persistence.JoinColumn @JoinColumn}. <strong>An extending entity which
- * maps none never writes them.</strong> Being read-only, they are populated by a load or a refresh, or by the extending
- * entity, which sets them through their {@code protected} setters in step with the associations which write the
- * columns.
+ * The {@value #COLUMN_NAME_PRODUCT_ID} and {@value #COLUMN_NAME_SHIPMENT_ID} columns are mapped
+ * read-only ({@code insertable = false, updatable = false}), with a public getter and a
+ * {@code protected} setter, for {@link #toString()} and for queries. How the relationship behind
+ * each is mapped -- fetch type, cascade, whether there is an association at all -- is the extending
+ * entity's decision, so the extending entity also owns their writable mapping, by an association's
+ * {@link jakarta.persistence.JoinColumn @JoinColumn}. <strong>An extending entity which maps none
+ * never writes them.</strong> Being read-only, they are populated by a load or a refresh, or by the
+ * extending entity, which sets them through their {@code protected} setters in step with the
+ * associations which write the columns.
  *
  * @param <T> the type of the identifier.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
@@ -68,54 +70,56 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     // -------------------------------------------------------------------------------------------------------- ORDER_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_ORDER_ID = "ORDER_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_ID} column -- a path into the
-     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually lives. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_ORDER_ID} column -- a path into
+     * the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually
+     * lives. The value is {@value}.
      */
     public static final String ATTRIBUTE_PATH_ID_ORDER_ID = "id.orderId";
 
     // ---------------------------------------------------------------------------------------------------- LINE_ITEM_ID
 
     /**
-     * The name of the table column to which the {@value MappedOrderItemId#ATTRIBUTE_NAME_LINE_ITEM_ID} attribute of
-     * {@link MappedOrderItemId} maps. The value is {@value}.
+     * The name of the table column to which the
+     * {@value MappedOrderItemId#ATTRIBUTE_NAME_LINE_ITEM_ID} attribute of {@link MappedOrderItemId}
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_LINE_ITEM_ID = "LINE_ITEM_ID";
 
-    // ------------------------------------------------------------------------------------ ORDER_ID / LINE_ITEM_ID / id
+    // ------------------------------------------------------------------------------------
+    // ORDER_ID / LINE_ITEM_ID / id
 
     /**
      * The name of the attribute which maps both the {@value #COLUMN_NAME_ORDER_ID} and the
-     * {@value #COLUMN_NAME_LINE_ITEM_ID} columns, as an {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value
-     * is {@value}.
+     * {@value #COLUMN_NAME_LINE_ITEM_ID} columns, as an
+     * {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ID = "id";
 
     // ------------------------------------------------------------------------------------------------------ PRODUCT_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_ID = "PRODUCT_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_ID} column, read-only. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_ID} column, read-only.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_ID = "productId";
 
     // ------------------------------------------------------------------------------------------------------ UNIT_PRICE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_UNIT_PRICE = "UNIT_PRICE";
 
@@ -130,44 +134,48 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     public static final int COLUMN_SCALE_UNIT_PRICE = 2;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
      */
     public static final String DECIMAL_MIN_UNIT_PRICE = "-99999999.99";
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute. The value is
+     * {@value}.
      */
     public static final String DECIMAL_MAX_UNIT_PRICE = "+99999999.99";
 
     // -------------------------------------------------------------------------------------------------------- QUANTITY
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_QUANTITY} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_QUANTITY} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_QUANTITY = "QUANTITY";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_QUANTITY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_QUANTITY} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_QUANTITY = "quantity";
 
     // ----------------------------------------------------------------------------------------------------- SHIPMENT_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_SHIPMENT_ID = "SHIPMENT_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_SHIPMENT_ID} column, read-only. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_SHIPMENT_ID} column, read-only.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT_ID = "shipmentId";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_UNIT_PRICE} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_UNIT_PRICE = "unitPrice";
 
@@ -243,7 +251,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      * Returns current value of {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute.
      *
      * @return current value of {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute; {@code null} when
-     * {@value #ATTRIBUTE_NAME_ID} attribute is {@code null}.
+     *         {@value #ATTRIBUTE_NAME_ID} attribute is {@code null}.
      */
     @Transient
     public Long getOrderId() {
@@ -263,7 +271,8 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute with the specified
+     * value.
      *
      * @param productId new value for {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
      */
@@ -283,7 +292,8 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute with the specified
+     * value.
      *
      * @param unitPrice new value for {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute.
      */
@@ -303,7 +313,8 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_QUANTITY} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_QUANTITY} attribute with the specified
+     * value.
      *
      * @param quantity new value for {@value #ATTRIBUTE_NAME_QUANTITY} attribute.
      */
@@ -324,7 +335,8 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute with the specified
+     * value.
      *
      * @param shipmentId new value for {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute.
      */
@@ -333,7 +345,8 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // read-only: the extending entity owns the writable mapping of this column; see the class
+    // documentation
     @Nonnull
     @NotNull
     @Basic(optional = false)
@@ -362,7 +375,8 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     private Long quantity;
 
     // -----------------------------------------------------------------------------------------------------------------
-    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // read-only: the extending entity owns the writable mapping of this column; see the class
+    // documentation
     @Nullable
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_SHIPMENT_ID, nullable = true, insertable = false, updatable = false)
@@ -371,8 +385,8 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns the total price of this order item which is {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute multiplied by
-     * {@value #ATTRIBUTE_NAME_QUANTITY} attribute.
+     * Returns the total price of this order item which is {@value #ATTRIBUTE_NAME_UNIT_PRICE}
+     * attribute multiplied by {@value #ATTRIBUTE_NAME_QUANTITY} attribute.
      *
      * @param mc a math context to use; {@code null} for an unlimited precision.
      * @return the total price of this item.

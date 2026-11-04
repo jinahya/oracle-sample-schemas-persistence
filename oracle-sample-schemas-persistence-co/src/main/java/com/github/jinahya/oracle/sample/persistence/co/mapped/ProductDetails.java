@@ -29,7 +29,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * A class for mapping the JSON document stored in the {@value MappedProduct#COLUMN_NAME_PRODUCT_DETAILS} column of the
+ * A class for mapping the JSON document stored in the
+ * {@value MappedProduct#COLUMN_NAME_PRODUCT_DETAILS} column of the
  * {@value MappedProduct#TABLE_NAME} table.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
@@ -67,7 +68,8 @@ public class ProductDetails {
          *
          * @param obj {@inheritDoc}
          * @return {@inheritDoc}
-         * @implSpec Equality is by both {@code rating} and {@code review}, for an object of exactly this class.
+         * @implSpec Equality is by both {@code rating} and {@code review}, for an object of
+         *         exactly this class.
          */
         @Override
         public boolean equals(final Object obj) {
@@ -83,7 +85,8 @@ public class ProductDetails {
          * {@inheritDoc}
          *
          * @return {@inheritDoc}
-         * @implSpec The hash is over both {@code rating} and {@code review}, consistent with {@link #equals(Object)}.
+         * @implSpec The hash is over both {@code rating} and {@code review}, consistent
+         *         with {@link #equals(Object)}.
          */
         @Override
         public int hashCode() {
@@ -132,9 +135,11 @@ public class ProductDetails {
         }
 
         // -------------------------------------------------------------------------------------------------------------
-        // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON check; 1-10 is from a column comment
+        // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS
+        //  JSON check; 1-10 is from a column comment
 //        @Max(10L)
-        // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON check; 1-10 is from a column comment
+        // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS
+        //  JSON check; 1-10 is from a column comment
 //        @Min(1L)
         private Integer rating;
 
@@ -170,8 +175,8 @@ public class ProductDetails {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by every attribute -- {@code colour}, {@code gender}, {@code brand}, {@code description},
-     * {@code sizes} and {@code reviews}.
+     * @implSpec Equality is by every attribute -- {@code colour}, {@code gender},
+     *         {@code brand}, {@code description}, {@code sizes} and {@code reviews}.
      */
     @Override
     public boolean equals(final Object obj) {
@@ -319,19 +324,23 @@ public class ProductDetails {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON check
+    // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON
+    //  check
 //    @NotBlank
     private String colour;
 
-    // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON check
+    // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON
+    //  check
 //    @NotBlank
     private String gender;
 
-    // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON check
+    // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON
+    //  check
 //    @NotBlank
     private String brand;
 
-    // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON check
+    // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON
+    //  check
 //    @NotBlank
     private String description;
 

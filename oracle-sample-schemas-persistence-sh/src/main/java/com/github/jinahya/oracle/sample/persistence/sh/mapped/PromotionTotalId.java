@@ -29,14 +29,17 @@ import jakarta.validation.constraints.Size;
 import java.util.Objects;
 
 /**
- * The {@value MappedPromotion#COLUMN_NAME_PROMO_TOTAL} / {@value MappedPromotion#COLUMN_NAME_PROMO_TOTAL_ID} pair of
- * the {@value MappedPromotion#TABLE_NAME} table, a name and the number which identifies it, as a
- * {@link PromotionNamedId}. The two columns are named here, by the class-level {@link AttributeOverride
- * @AttributeOverride}s, so that embedding it takes an {@link jakarta.persistence.Embedded @Embedded} and nothing else.
- * The validation constraints sit on the named getters, since the fields belong to the superclass; the embedding field
- * has to be {@code @Valid} for them to run.
+ * The {@value MappedPromotion#COLUMN_NAME_PROMO_TOTAL} /
+ * {@value MappedPromotion#COLUMN_NAME_PROMO_TOTAL_ID} pair of the
+ * {@value MappedPromotion#TABLE_NAME} table, a name and the number which identifies it, as a
+ * {@link PromotionNamedId}. The two columns are named here, by the class-level
+ * {@link AttributeOverride
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ * @AttributeOverride}s, so that embedding it takes an
+ *         {@link jakarta.persistence.Embedded @Embedded} and nothing else. The validation
+ *         constraints sit on the named getters, since the fields belong to the superclass; the
+ *         embedding field has to be {@code @Valid} for them to run.
  * @see MappedPromotion
  */
 @AttributeOverride(name = PromotionNamedId.ATTRIBUTE_NAME_NAME,
@@ -51,15 +54,19 @@ import java.util.Objects;
                                     insertable = true,
                                     updatable = true))
 @Embeddable
-public class PromotionTotalId extends PromotionNamedId<Long> {
+public class PromotionTotalId
+        extends PromotionNamedId<Long> {
 
-    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    // ------------------------------------------------------------------------------------------
+    // STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified name and id.
      *
-     * @param promotionTotal   the name; the {@value MappedPromotion#COLUMN_NAME_PROMO_TOTAL} column.
-     * @param promotionTotalId the id; the {@value MappedPromotion#COLUMN_NAME_PROMO_TOTAL_ID} column.
+     * @param promotionTotal   the name; the {@value MappedPromotion#COLUMN_NAME_PROMO_TOTAL}
+     *                         column.
+     * @param promotionTotalId the id; the {@value MappedPromotion#COLUMN_NAME_PROMO_TOTAL_ID}
+     *                         column.
      * @return a new instance.
      */
     public static PromotionTotalId of(final String promotionTotal, final Long promotionTotalId) {
@@ -80,9 +87,10 @@ public class PromotionTotalId extends PromotionNamedId<Long> {
     /**
      * {@inheritDoc}
      *
-     * @implNote Spelled with this class's attribute names, {@code promoTotal} and {@code promoTotalId},
-     * rather than the superclass's {@value PromotionNamedId#ATTRIBUTE_NAME_NAME} and
-     * {@value PromotionNamedId#ATTRIBUTE_NAME_ID}.
+     * @implNote Spelled with this class's attribute names, {@code promoTotal} and
+     *         {@code promoTotalId}, rather than the superclass's
+     *         {@value PromotionNamedId#ATTRIBUTE_NAME_NAME} and
+     *         {@value PromotionNamedId#ATTRIBUTE_NAME_ID}.
      */
     @Override
     public String toString() {
@@ -95,8 +103,8 @@ public class PromotionTotalId extends PromotionNamedId<Long> {
     /**
      * {@inheritDoc}
      *
-     * @implSpec Equality is by {@code promoTotal} and {@code promoTotalId}, the two attributes this class
-     * inherits, between instances of this class only.
+     * @implSpec Equality is by {@code promoTotal} and {@code promoTotalId}, the two
+     *         attributes this class inherits, between instances of this class only.
      */
     @Override
     public final boolean equals(final Object obj) {

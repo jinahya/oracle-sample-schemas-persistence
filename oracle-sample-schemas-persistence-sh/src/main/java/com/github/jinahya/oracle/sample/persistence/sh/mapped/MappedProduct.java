@@ -51,13 +51,14 @@ public abstract class MappedProduct {
     // -------------------------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_ID = "PROD_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
@@ -94,8 +95,8 @@ public abstract class MappedProduct {
     // ------------------------------------------------------------------------------------------------------ PROD_NAME
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_NAME} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_NAME = "PROD_NAME";
 
@@ -105,7 +106,8 @@ public abstract class MappedProduct {
     public static final int COLUMN_LENGTH_PROD_NAME = 50;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_NAME} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_NAME = "prodName";
 
@@ -117,8 +119,8 @@ public abstract class MappedProduct {
     // ------------------------------------------------------------------------------------------------------ PROD_DESC
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_DESC} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_DESC} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_DESC = "PROD_DESC";
 
@@ -128,7 +130,8 @@ public abstract class MappedProduct {
     public static final int COLUMN_LENGTH_PROD_DESC = 4000;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_DESC} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_DESC} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_DESC = "prodDesc";
 
@@ -140,8 +143,8 @@ public abstract class MappedProduct {
     // ----------------------------------------------------------------------------------------------- PROD_SUBCATEGORY
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_SUBCATEGORY = "PROD_SUBCATEGORY";
 
@@ -151,34 +154,37 @@ public abstract class MappedProduct {
     public static final int COLUMN_LENGTH_PROD_SUBCATEGORY = 50;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_SUBCATEGORY = "prodSubcategory";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PROD_SUBCATEGORY = COLUMN_LENGTH_PROD_SUBCATEGORY;
 
     // -------------------------------------------------------------------------------------------- PROD_SUBCATEGORY_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_ID} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_ID}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_SUBCATEGORY_ID = "PROD_SUBCATEGORY_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY_ID} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_SUBCATEGORY_ID = "prodSubcategoryId";
 
-    // ------------------------------------------------------------------------------------------ PROD_SUBCATEGORY_DESC
+    // ------------------------------------------------------------------------------------------
+    // PROD_SUBCATEGORY_DESC
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_DESC} attribute maps. The
-     * value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_DESC}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_SUBCATEGORY_DESC = "PROD_SUBCATEGORY_DESC";
 
@@ -188,21 +194,22 @@ public abstract class MappedProduct {
     public static final int COLUMN_LENGTH_PROD_SUBCATEGORY_DESC = 2000;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY_DESC} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SUBCATEGORY_DESC} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_SUBCATEGORY_DESC = "prodSubcategoryDesc";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_DESC} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_DESC} attribute. The value
+     * is {@value}.
      */
     public static final int SIZE_MAX_PROD_SUBCATEGORY_DESC = COLUMN_LENGTH_PROD_SUBCATEGORY_DESC;
 
     // -------------------------------------------------------------------------------------------------- PROD_CATEGORY
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_CATEGORY} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_CATEGORY} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_CATEGORY = "PROD_CATEGORY";
 
@@ -212,33 +219,36 @@ public abstract class MappedProduct {
     public static final int COLUMN_LENGTH_PROD_CATEGORY = 50;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_CATEGORY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_CATEGORY} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_CATEGORY = "prodCategory";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_CATEGORY} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_CATEGORY} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PROD_CATEGORY = COLUMN_LENGTH_PROD_CATEGORY;
 
     // ----------------------------------------------------------------------------------------------- PROD_CATEGORY_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_CATEGORY_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_CATEGORY_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_CATEGORY_ID = "PROD_CATEGORY_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_CATEGORY_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_CATEGORY_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_CATEGORY_ID = "prodCategoryId";
 
     // --------------------------------------------------------------------------------------------- PROD_CATEGORY_DESC
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_CATEGORY_DESC} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_CATEGORY_DESC}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_CATEGORY_DESC = "PROD_CATEGORY_DESC";
 
@@ -248,25 +258,28 @@ public abstract class MappedProduct {
     public static final int COLUMN_LENGTH_PROD_CATEGORY_DESC = 2000;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_CATEGORY_DESC} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_CATEGORY_DESC} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_CATEGORY_DESC = "prodCategoryDesc";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_CATEGORY_DESC} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_CATEGORY_DESC} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PROD_CATEGORY_DESC = COLUMN_LENGTH_PROD_CATEGORY_DESC;
 
     // ---------------------------------------------------------------------------------------------- PROD_WEIGHT_CLASS
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_WEIGHT_CLASS = "PROD_WEIGHT_CLASS";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_WEIGHT_CLASS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_WEIGHT_CLASS} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_WEIGHT_CLASS = "prodWeightClass";
 
@@ -281,30 +294,34 @@ public abstract class MappedProduct {
     public static final int COLUMN_SCALE_PROD_WEIGHT_CLASS = 0;
 
     /**
-     * The minimum value of the {@value #COLUMN_NAME_PROD_WEIGHT_CLASS} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_PROD_WEIGHT_CLASS} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MIN_PROD_WEIGHT_CLASS = -999;
 
     /**
-     * The maximum value of the {@value #COLUMN_NAME_PROD_WEIGHT_CLASS} column. The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_PROD_WEIGHT_CLASS} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MAX_PROD_WEIGHT_CLASS = +999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_PROD_WEIGHT_CLASS = COLUMN_MIN_PROD_WEIGHT_CLASS;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_PROD_WEIGHT_CLASS = COLUMN_MAX_PROD_WEIGHT_CLASS;
 
     // ------------------------------------------------------------------------------------------- PROD_UNIT_OF_MEASURE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_UNIT_OF_MEASURE} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_UNIT_OF_MEASURE}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_UNIT_OF_MEASURE = "PROD_UNIT_OF_MEASURE";
 
@@ -314,21 +331,22 @@ public abstract class MappedProduct {
     public static final int COLUMN_LENGTH_PROD_UNIT_OF_MEASURE = 20;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_UNIT_OF_MEASURE} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_UNIT_OF_MEASURE} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_UNIT_OF_MEASURE = "prodUnitOfMeasure";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_UNIT_OF_MEASURE} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_UNIT_OF_MEASURE} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PROD_UNIT_OF_MEASURE = COLUMN_LENGTH_PROD_UNIT_OF_MEASURE;
 
     // ------------------------------------------------------------------------------------------------- PROD_PACK_SIZE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_PACK_SIZE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_PACK_SIZE} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_PACK_SIZE = "PROD_PACK_SIZE";
 
@@ -338,25 +356,28 @@ public abstract class MappedProduct {
     public static final int COLUMN_LENGTH_PROD_PACK_SIZE = 30;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_PACK_SIZE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_PACK_SIZE} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_PACK_SIZE = "prodPackSize";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_PACK_SIZE} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_PACK_SIZE} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PROD_PACK_SIZE = COLUMN_LENGTH_PROD_PACK_SIZE;
 
     // ---------------------------------------------------------------------------------------------------- SUPPLIER_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_SUPPLIER_ID = "SUPPLIER_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_SUPPLIER_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_SUPPLIER_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SUPPLIER_ID = "supplierId";
 
@@ -381,20 +402,22 @@ public abstract class MappedProduct {
     public static final int COLUMN_MAX_SUPPLIER_ID = +999999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_SUPPLIER_ID = COLUMN_MIN_SUPPLIER_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_SUPPLIER_ID = COLUMN_MAX_SUPPLIER_ID;
 
     // ---------------------------------------------------------------------------------------------------- PROD_STATUS
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_STATUS} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_STATUS} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_STATUS = "PROD_STATUS";
 
@@ -404,20 +427,22 @@ public abstract class MappedProduct {
     public static final int COLUMN_LENGTH_PROD_STATUS = 20;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_STATUS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_STATUS} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_STATUS = "prodStatus";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_STATUS} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_STATUS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PROD_STATUS = COLUMN_LENGTH_PROD_STATUS;
 
     // ------------------------------------------------------------------------------------------------ PROD_LIST_PRICE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_LIST_PRICE = "PROD_LIST_PRICE";
 
@@ -432,25 +457,28 @@ public abstract class MappedProduct {
     public static final int COLUMN_SCALE_PROD_LIST_PRICE = 2;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_LIST_PRICE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_LIST_PRICE} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_LIST_PRICE = "prodListPrice";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MIN_PROD_LIST_PRICE = "-999999.99";
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_PROD_LIST_PRICE = "+999999.99";
 
     // ------------------------------------------------------------------------------------------------- PROD_MIN_PRICE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_MIN_PRICE = "PROD_MIN_PRICE";
 
@@ -465,25 +493,28 @@ public abstract class MappedProduct {
     public static final int COLUMN_SCALE_PROD_MIN_PRICE = 2;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_MIN_PRICE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_MIN_PRICE} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_MIN_PRICE = "prodMinPrice";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MIN_PROD_MIN_PRICE = "-999999.99";
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_PROD_MIN_PRICE = "+999999.99";
 
     // ----------------------------------------------------------------------------------------------------- PROD_TOTAL
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_TOTAL} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_TOTAL} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_TOTAL = "PROD_TOTAL";
 
@@ -493,72 +524,78 @@ public abstract class MappedProduct {
     public static final int COLUMN_LENGTH_PROD_TOTAL = 13;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_TOTAL} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_TOTAL} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_TOTAL = "prodTotal";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_TOTAL} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_TOTAL} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PROD_TOTAL = COLUMN_LENGTH_PROD_TOTAL;
 
     // -------------------------------------------------------------------------------------------------- PROD_TOTAL_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_TOTAL_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_TOTAL_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_TOTAL_ID = "PROD_TOTAL_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_TOTAL_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_TOTAL_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_TOTAL_ID = "prodTotalId";
 
     // ---------------------------------------------------------------------------------------------------- PROD_SRC_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_SRC_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_SRC_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_SRC_ID = "PROD_SRC_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SRC_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_SRC_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_SRC_ID = "prodSrcId";
 
     // -------------------------------------------------------------------------------------------------- PROD_EFF_FROM
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_EFF_FROM} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_EFF_FROM} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_EFF_FROM = "PROD_EFF_FROM";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_EFF_FROM} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_EFF_FROM} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_EFF_FROM = "prodEffFrom";
 
     // ---------------------------------------------------------------------------------------------------- PROD_EFF_TO
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_EFF_TO} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_EFF_TO} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_EFF_TO = "PROD_EFF_TO";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_EFF_TO} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_EFF_TO} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_EFF_TO = "prodEffTo";
 
     // ----------------------------------------------------------------------------------------------------- PROD_VALID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_VALID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_VALID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_VALID = "PROD_VALID";
 
@@ -568,12 +605,14 @@ public abstract class MappedProduct {
     public static final int COLUMN_LENGTH_PROD_VALID = 1;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_VALID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_VALID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PROD_VALID = "prodValid";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_VALID} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PROD_VALID} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PROD_VALID = COLUMN_LENGTH_PROD_VALID;
     // --------------------------------------------------------------------------------------------------- CONSTRUCTORS
@@ -652,7 +691,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute with the specified
+     * value.
      *
      * @param prodId new value for {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
      */
@@ -672,7 +712,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_NAME} attribute with the specified
+     * value.
      *
      * @param prodName new value for {@value #ATTRIBUTE_NAME_PROD_NAME} attribute.
      */
@@ -692,7 +733,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_DESC} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_DESC} attribute with the specified
+     * value.
      *
      * @param prodDesc new value for {@value #ATTRIBUTE_NAME_PROD_DESC} attribute.
      */
@@ -712,7 +754,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute with the
+     * specified value.
      *
      * @param prodSubcategory new value for {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute.
      */
@@ -732,9 +775,11 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_ID} attribute with the
+     * specified value.
      *
-     * @param prodSubcategoryId new value for {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_ID} attribute.
+     * @param prodSubcategoryId new value for {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_ID}
+     *                          attribute.
      */
     public void setProdSubcategoryId(final Long prodSubcategoryId) {
         this.prodSubcategoryId = prodSubcategoryId;
@@ -752,9 +797,11 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_DESC} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_DESC} attribute with the
+     * specified value.
      *
-     * @param prodSubcategoryDesc new value for {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_DESC} attribute.
+     * @param prodSubcategoryDesc new value for {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_DESC}
+     *                            attribute.
      */
     public void setProdSubcategoryDesc(final String prodSubcategoryDesc) {
         this.prodSubcategoryDesc = prodSubcategoryDesc;
@@ -772,7 +819,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_CATEGORY} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_CATEGORY} attribute with the specified
+     * value.
      *
      * @param prodCategory new value for {@value #ATTRIBUTE_NAME_PROD_CATEGORY} attribute.
      */
@@ -792,7 +840,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_CATEGORY_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_CATEGORY_ID} attribute with the
+     * specified value.
      *
      * @param prodCategoryId new value for {@value #ATTRIBUTE_NAME_PROD_CATEGORY_ID} attribute.
      */
@@ -812,7 +861,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_CATEGORY_DESC} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_CATEGORY_DESC} attribute with the
+     * specified value.
      *
      * @param prodCategoryDesc new value for {@value #ATTRIBUTE_NAME_PROD_CATEGORY_DESC} attribute.
      */
@@ -832,7 +882,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS} attribute with the
+     * specified value.
      *
      * @param prodWeightClass new value for {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS} attribute.
      */
@@ -852,9 +903,11 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_UNIT_OF_MEASURE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_UNIT_OF_MEASURE} attribute with the
+     * specified value.
      *
-     * @param prodUnitOfMeasure new value for {@value #ATTRIBUTE_NAME_PROD_UNIT_OF_MEASURE} attribute.
+     * @param prodUnitOfMeasure new value for {@value #ATTRIBUTE_NAME_PROD_UNIT_OF_MEASURE}
+     *                          attribute.
      */
     public void setProdUnitOfMeasure(final String prodUnitOfMeasure) {
         this.prodUnitOfMeasure = prodUnitOfMeasure;
@@ -872,7 +925,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_PACK_SIZE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_PACK_SIZE} attribute with the
+     * specified value.
      *
      * @param prodPackSize new value for {@value #ATTRIBUTE_NAME_PROD_PACK_SIZE} attribute.
      */
@@ -892,7 +946,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute with the specified
+     * value.
      *
      * @param supplierId new value for {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute.
      */
@@ -912,7 +967,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_STATUS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_STATUS} attribute with the specified
+     * value.
      *
      * @param prodStatus new value for {@value #ATTRIBUTE_NAME_PROD_STATUS} attribute.
      */
@@ -932,7 +988,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute with the
+     * specified value.
      *
      * @param prodListPrice new value for {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute.
      */
@@ -952,7 +1009,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute with the
+     * specified value.
      *
      * @param prodMinPrice new value for {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute.
      */
@@ -972,7 +1030,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_TOTAL} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_TOTAL} attribute with the specified
+     * value.
      *
      * @param prodTotal new value for {@value #ATTRIBUTE_NAME_PROD_TOTAL} attribute.
      */
@@ -992,7 +1051,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_TOTAL_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_TOTAL_ID} attribute with the specified
+     * value.
      *
      * @param prodTotalId new value for {@value #ATTRIBUTE_NAME_PROD_TOTAL_ID} attribute.
      */
@@ -1012,7 +1072,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_SRC_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_SRC_ID} attribute with the specified
+     * value.
      *
      * @param prodSrcId new value for {@value #ATTRIBUTE_NAME_PROD_SRC_ID} attribute.
      */
@@ -1032,7 +1093,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_EFF_FROM} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_EFF_FROM} attribute with the specified
+     * value.
      *
      * @param prodEffFrom new value for {@value #ATTRIBUTE_NAME_PROD_EFF_FROM} attribute.
      */
@@ -1052,7 +1114,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_EFF_TO} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_EFF_TO} attribute with the specified
+     * value.
      *
      * @param prodEffTo new value for {@value #ATTRIBUTE_NAME_PROD_EFF_TO} attribute.
      */
@@ -1072,7 +1135,8 @@ public abstract class MappedProduct {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_VALID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROD_VALID} attribute with the specified
+     * value.
      *
      * @param prodValid new value for {@value #ATTRIBUTE_NAME_PROD_VALID} attribute.
      */
@@ -1080,7 +1144,7 @@ public abstract class MappedProduct {
         this.prodValid = prodValid;
     }
 
-    // --------------------------------------------------------------------------------------------------------------- 
+    // ---------------------------------------------------------------------------------------------------------------
     @NotNull
     @Id
     @Max(ATTRIBUTE_MAX_PROD_ID)

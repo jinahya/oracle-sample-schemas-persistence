@@ -50,7 +50,8 @@ public abstract class MappedJob {
     // ---------------------------------------------------------------------------------------------------------- JOB_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_ID} attribute maps. The value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_ID} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_JOB_ID = "JOB_ID";
 
@@ -60,7 +61,8 @@ public abstract class MappedJob {
     public static final int COLUMN_LENGTH_JOB_ID = 10;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_JOB_ID = "jobId";
 
@@ -77,8 +79,8 @@ public abstract class MappedJob {
     // ------------------------------------------------------------------------------------------------------- JOB_TITLE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_JOB_TITLE = "JOB_TITLE";
 
@@ -88,7 +90,8 @@ public abstract class MappedJob {
     public static final int COLUMN_LENGTH_JOB_TITLE = 35;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_TITLE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_TITLE} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_JOB_TITLE = "jobTitle";
 
@@ -105,8 +108,8 @@ public abstract class MappedJob {
     // ------------------------------------------------------------------------------------------------------ MIN_SALARY
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_MIN_SALARY = "MIN_SALARY";
 
@@ -131,25 +134,28 @@ public abstract class MappedJob {
     public static final int COLUMN_MAX_MIN_SALARY = +999999;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_MIN_SALARY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_MIN_SALARY} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_MIN_SALARY = "minSalary";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_MIN_SALARY = COLUMN_MIN_MIN_SALARY;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_MIN_SALARY = COLUMN_MAX_MIN_SALARY;
 
     // ------------------------------------------------------------------------------------------------------ MAX_SALARY
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_MAX_SALARY = "MAX_SALARY";
 
@@ -174,17 +180,20 @@ public abstract class MappedJob {
     public static final int COLUMN_MAX_MAX_SALARY = +999999;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_MAX_SALARY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_MAX_SALARY} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_MAX_SALARY = "maxSalary";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_MAX_SALARY = COLUMN_MIN_MAX_SALARY;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_MAX_SALARY = COLUMN_MAX_MAX_SALARY;
 
@@ -192,7 +201,8 @@ public abstract class MappedJob {
 
     /**
      * A comparator which compares the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute, in
-     * {@link Comparator#naturalOrder() natural order}, {@link Comparator#nullsFirst(Comparator) nulls first}.
+     * {@link Comparator#naturalOrder() natural order},
+     * {@link Comparator#nullsFirst(Comparator) nulls first}.
      */
     public static final Comparator<MappedJob> COMPARATOR_MIN_SALARY_NATURAL_NULLS_FIRST =
             Comparator.comparing(
@@ -202,7 +212,8 @@ public abstract class MappedJob {
 
     /**
      * A comparator which compares the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute, in
-     * {@link Comparator#reverseOrder() reverse order}, {@link Comparator#nullsLast(Comparator) nulls last}.
+     * {@link Comparator#reverseOrder() reverse order},
+     * {@link Comparator#nullsLast(Comparator) nulls last}.
      */
     public static final Comparator<MappedJob> COMPARATOR_MAX_SALARY_REVERSE_NULLS_LAST =
             Comparator.comparing(
@@ -258,12 +269,13 @@ public abstract class MappedJob {
     // ------------------------------------------------------------------------------------------------- Bean-Validation
 
     /**
-     * Tests whether current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is non-negative.
+     * Tests whether current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is
+     * non-negative.
      * <p>
      * Evaluates to {@code true} when the attribute is {@code null}.
      *
-     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is non-negative;
-     * {@code false} otherwise.
+     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_MIN_SALARY}
+     *         attribute is non-negative; {@code false} otherwise.
      */
     protected boolean isMinSalaryNonNegative() {
         if (minSalary == null) {
@@ -273,12 +285,13 @@ public abstract class MappedJob {
     }
 
     /**
-     * Tests whether current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute is non-negative.
+     * Tests whether current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute is
+     * non-negative.
      * <p>
      * Evaluates to {@code true} when the attribute is {@code null}.
      *
-     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute is non-negative;
-     * {@code false} otherwise.
+     * @return {@code true} if the current value of the {@value #ATTRIBUTE_NAME_MAX_SALARY}
+     *         attribute is non-negative; {@code false} otherwise.
      */
     protected boolean isMaxSalaryNonNegative() {
         if (maxSalary == null) {
@@ -292,7 +305,8 @@ public abstract class MappedJob {
      * <p>
      * Evaluates to {@code true} when the attribute is {@code null}.
      *
-     * @return {@code true} if the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is positive; {@code false} otherwise.
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is positive;
+     *         {@code false} otherwise.
      */
     // TODO: remove; not constrained by the DDL -- JOBS.MIN_SALARY is NUMBER(6) with no check
 //    @AssertTrue
@@ -308,7 +322,8 @@ public abstract class MappedJob {
      * <p>
      * Evaluates to {@code true} when the attribute is {@code null}.
      *
-     * @return {@code true} if the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute is positive; {@code false} otherwise.
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute is positive;
+     *         {@code false} otherwise.
      */
     // TODO: remove; not constrained by the DDL -- JOBS.MAX_SALARY is NUMBER(6) with no check
 //    @AssertTrue
@@ -320,15 +335,16 @@ public abstract class MappedJob {
     }
 
     /**
-     * Indicates whether the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or equal to the
-     * {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute.
+     * Indicates whether the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or equal to
+     * the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute.
      * <p>
      * Evaluates to {@code true} when either attribute is {@code null}.
      *
-     * @return {@code true} if the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or equal to the
-     * {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute; {@code false} otherwise.
+     * @return {@code true} if the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is less than or
+     *         equal to the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute; {@code false} otherwise.
      */
-    // TODO: remove; not constrained by the DDL -- JOBS declares no check relating MIN_SALARY to MAX_SALARY
+    // TODO: remove; not constrained by the DDL -- JOBS declares no check relating MIN_SALARY to
+    //  MAX_SALARY
 //    @AssertTrue
     protected boolean isMinSalaryLessThanOrEqualToMaxSalary() {
         if (minSalary == null || maxSalary == null) {
@@ -350,7 +366,8 @@ public abstract class MappedJob {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute with the specified
+     * value.
      *
      * @param jobId new value for {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
      */
@@ -371,7 +388,8 @@ public abstract class MappedJob {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute with the specified
+     * value.
      *
      * @param jobTitle new value for {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute.
      */
@@ -392,7 +410,8 @@ public abstract class MappedJob {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute with the specified
+     * value.
      *
      * @param minSalary new value for {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute.
      */
@@ -401,18 +420,22 @@ public abstract class MappedJob {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute with the specified value, and raises
-     * current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute to it when it is less, so that
-     * {@link #isMinSalaryLessThanOrEqualToMaxSalary()} holds.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute with the specified
+     * value, and raises current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute to it when
+     * it is less, so that {@link #isMinSalaryLessThanOrEqualToMaxSalary()} holds.
      *
-     * @param minSalary new value for {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute; should be between
-     *                  {@value #ATTRIBUTE_MIN_MIN_SALARY} and {@value #ATTRIBUTE_MAX_MIN_SALARY}.
-     * @throws IllegalArgumentException if {@code minSalary} is not {@code null} and out of that range.
+     * @param minSalary new value for {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute; should be
+     *                  between {@value #ATTRIBUTE_MIN_MIN_SALARY} and
+     *                  {@value #ATTRIBUTE_MAX_MIN_SALARY}.
+     * @throws IllegalArgumentException if {@code minSalary} is not {@code null} and out of that
+     *                                  range.
      * @deprecated for removal.
      */
     @Deprecated(forRemoval = true)
-    public void setMinSalaryWhileAdjustingMaxSalary(@jakarta.annotation.Nullable final Integer minSalary) {
-        if (minSalary != null && (minSalary < ATTRIBUTE_MIN_MIN_SALARY || minSalary > ATTRIBUTE_MAX_MIN_SALARY)) {
+    public void setMinSalaryWhileAdjustingMaxSalary(
+            @jakarta.annotation.Nullable final Integer minSalary) {
+        if (minSalary != null &&
+            (minSalary < ATTRIBUTE_MIN_MIN_SALARY || minSalary > ATTRIBUTE_MAX_MIN_SALARY)) {
             throw new IllegalArgumentException(
                     "minSalary(" + minSalary + ") is out of [" + ATTRIBUTE_MIN_MIN_SALARY + ".."
                     + ATTRIBUTE_MAX_MIN_SALARY + "]");
@@ -421,14 +444,16 @@ public abstract class MappedJob {
         {
             final var currentMaxSalary = getMaxSalary();
             final var currentMinSalary = getMinSalary();
-            if (currentMaxSalary != null && currentMinSalary != null && currentMaxSalary < currentMinSalary) {
+            if (currentMaxSalary != null && currentMinSalary != null &&
+                currentMaxSalary < currentMinSalary) {
                 setMaxSalary(currentMinSalary);
             }
         }
         {
             final var currentMaxSalary = getMaxSalary();
             assert currentMaxSalary == null
-                   || (currentMaxSalary >= ATTRIBUTE_MIN_MIN_SALARY && currentMaxSalary <= ATTRIBUTE_MAX_MIN_SALARY);
+                   || (currentMaxSalary >= ATTRIBUTE_MIN_MIN_SALARY &&
+                       currentMaxSalary <= ATTRIBUTE_MAX_MIN_SALARY);
         }
     }
 
@@ -445,7 +470,8 @@ public abstract class MappedJob {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute with the specified
+     * value.
      *
      * @param maxSalary new value for {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute.
      */
@@ -454,18 +480,22 @@ public abstract class MappedJob {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute with the specified value, and adjusts
-     * current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute, intending that
-     * {@link #isMinSalaryLessThanOrEqualToMaxSalary()} holds.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute with the specified
+     * value, and adjusts current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute, intending
+     * that {@link #isMinSalaryLessThanOrEqualToMaxSalary()} holds.
      *
-     * @param maxSalary new value for {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute; should be between
-     *                  {@value #ATTRIBUTE_MIN_MAX_SALARY} and {@value #ATTRIBUTE_MAX_MAX_SALARY}.
-     * @throws IllegalArgumentException if {@code maxSalary} is not {@code null} and out of that range.
+     * @param maxSalary new value for {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute; should be
+     *                  between {@value #ATTRIBUTE_MIN_MAX_SALARY} and
+     *                  {@value #ATTRIBUTE_MAX_MAX_SALARY}.
+     * @throws IllegalArgumentException if {@code maxSalary} is not {@code null} and out of that
+     *                                  range.
      * @deprecated for removal.
      */
     @Deprecated(forRemoval = true)
-    public void setMaxSalaryWhileAdjustingMinSalary(@jakarta.annotation.Nullable final Integer maxSalary) {
-        if (maxSalary != null && (maxSalary < ATTRIBUTE_MIN_MAX_SALARY || maxSalary > ATTRIBUTE_MAX_MAX_SALARY)) {
+    public void setMaxSalaryWhileAdjustingMinSalary(
+            @jakarta.annotation.Nullable final Integer maxSalary) {
+        if (maxSalary != null &&
+            (maxSalary < ATTRIBUTE_MIN_MAX_SALARY || maxSalary > ATTRIBUTE_MAX_MAX_SALARY)) {
             throw new IllegalArgumentException(
                     "maxSalary(" + maxSalary + ") is out of [" + ATTRIBUTE_MIN_MAX_SALARY + ".."
                     + ATTRIBUTE_MAX_MAX_SALARY + "]");
@@ -474,14 +504,16 @@ public abstract class MappedJob {
         {
             final var currentMinSalary = getMinSalary();
             final var currentMaxSalary = getMaxSalary();
-            if (currentMinSalary != null && currentMaxSalary != null && currentMinSalary > currentMaxSalary) {
+            if (currentMinSalary != null && currentMaxSalary != null &&
+                currentMinSalary > currentMaxSalary) {
                 setMinSalary(currentMaxSalary);
             }
         }
         {
             final var currentMinSalary = getMinSalary();
             assert currentMinSalary == null
-                   || (currentMinSalary >= ATTRIBUTE_MIN_MAX_SALARY && currentMinSalary <= ATTRIBUTE_MAX_MAX_SALARY);
+                   || (currentMinSalary >= ATTRIBUTE_MIN_MAX_SALARY &&
+                       currentMinSalary <= ATTRIBUTE_MAX_MAX_SALARY);
         }
     }
 

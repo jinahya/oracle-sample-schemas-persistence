@@ -1,18 +1,21 @@
 /**
- * Mapped superclasses for the {@code SH} schema of the Oracle Database Sample Schemas, one per table and one per
- * view, plus one per composite identifier, with the embeddables and converters which carry no association.
+ * Mapped superclasses for the {@code SH} schema of the Oracle Database Sample Schemas, one per
+ * table and one per view, plus one per composite identifier, with the embeddables and converters
+ * which carry no association.
  * <p>
- * Each holds what the schema says about its table -- the names, the types, the lengths, the nullability, the check
- * constraints as validation constraints -- and nothing an application decides: no association, no fetch type, no
- * cascade, no named query. An entity which extends one adds those, and names the table with
- * {@link jakarta.persistence.Table @Table}. The persistence provider is the entity's choice as well; the classes here
- * are plain Jakarta Persistence.
+ * Each holds what the schema says about its table -- the names, the types, the lengths, the
+ * nullability, the check constraints as validation constraints -- and nothing an application
+ * decides: no association, no fetch type, no cascade, no named query. An entity which extends one
+ * adds those, and names the table with {@link jakarta.persistence.Table @Table}. The persistence
+ * provider is the entity's choice as well; the classes here are plain Jakarta Persistence.
  * <p>
- * A converter here is applied only where an attribute names it with {@link jakarta.persistence.Convert @Convert}; a
- * persistence unit which excludes unlisted classes has to list it.
+ * A converter here is applied only where an attribute names it with
+ * {@link jakarta.persistence.Convert @Convert}; a persistence unit which excludes unlisted classes
+ * has to list it.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see <a href="https://github.com/oracle-samples/db-sample-schemas">Oracle Database Sample Schemas</a>
+ * @see <a href="https://github.com/oracle-samples/db-sample-schemas">Oracle Database Sample
+ *         Schemas</a>
  */
 package com.github.jinahya.oracle.sample.persistence.sh.mapped;
 

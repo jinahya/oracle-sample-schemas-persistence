@@ -30,10 +30,10 @@ import java.math.BigDecimal;
 /**
  * A class for the {@value MappedProductReview#TABLE_NAME} view.
  * <p>
- * No column, and no combination of columns, identifies a row of this view: the narrowest unique combination is
- * {@code (PRODUCT_NAME, REVIEW)}, and {@code REVIEW} is nullable and 4000 characters wide. So this is not an
- * {@link jakarta.persistence.Entity @Entity}: the columns it projects are written out here, and every one of them is
- * read-only. See {@code doc/IDs.asciidoc}.
+ * No column, and no combination of columns, identifies a row of this view: the narrowest unique
+ * combination is {@code (PRODUCT_NAME, REVIEW)}, and {@code REVIEW} is nullable and 4000 characters
+ * wide. So this is not an {@link jakarta.persistence.Entity @Entity}: the columns it projects are
+ * written out here, and every one of them is read-only. See {@code doc/IDs.asciidoc}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -47,8 +47,8 @@ public abstract class MappedProductReview {
     // ---------------------------------------------------------------------------------------------------- PRODUCT_NAME
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_NAME = "PRODUCT_NAME";
 
@@ -58,44 +58,50 @@ public abstract class MappedProductReview {
     public static final int COLUMN_LENGTH_PRODUCT_NAME = 255;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_PRODUCT_NAME = COLUMN_LENGTH_PRODUCT_NAME;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_PRODUCT_NAME} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_NAME = "productName";
 
     // ---------------------------------------------------------------------------------------------------------- RATING
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_RATING} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_RATING} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_RATING = "RATING";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_RATING} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_RATING} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_RATING = "rating";
 
     // ------------------------------------------------------------------------------------------------------ AVG_RATING
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_AVG_RATING} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_AVG_RATING} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_AVG_RATING = "AVG_RATING";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_AVG_RATING} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_AVG_RATING} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_AVG_RATING = "avgRating";
 
     // ---------------------------------------------------------------------------------------------------------- REVIEW
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_REVIEW} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_REVIEW} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_REVIEW = "REVIEW";
 
@@ -110,7 +116,8 @@ public abstract class MappedProductReview {
     public static final int SIZE_MAX_REVIEW = COLUMN_LENGTH_REVIEW;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_REVIEW} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_REVIEW} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_REVIEW = "review";
 
@@ -154,7 +161,7 @@ public abstract class MappedProductReview {
                '}';
     }
 
-    // ---------------------------------------------------------------------------------------------------------------- 
+    // ----------------------------------------------------------------------------------------------------------------
 
     // ----------------------------------------------------------------------------------------------------- productName
 
@@ -200,7 +207,7 @@ public abstract class MappedProductReview {
         return review;
     }
 
-    // ---------------------------------------------------------------------------------------------------------------- 
+    // ----------------------------------------------------------------------------------------------------------------
 
     @Size(max = SIZE_MAX_PRODUCT_NAME)
     @NotNull

@@ -30,7 +30,8 @@ import java.util.Objects;
 
 /**
  * A mapped superclass for the identifier of the {@value MappedOrderItem#TABLE_NAME} table; the
- * {@link jakarta.persistence.EmbeddedId @EmbeddedId} of an entity which extends {@link MappedOrderItem}.
+ * {@link jakarta.persistence.EmbeddedId @EmbeddedId} of an entity which extends
+ * {@link MappedOrderItem}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -38,14 +39,14 @@ import java.util.Objects;
 public abstract class MappedOrderItemId {
 
     /**
-     * The name of the attribute which maps the {@value MappedOrderItem#COLUMN_NAME_ORDER_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value MappedOrderItem#COLUMN_NAME_ORDER_ID}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
 
     /**
-     * The name of the attribute which maps the {@value MappedOrderItem#COLUMN_NAME_LINE_ITEM_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value MappedOrderItem#COLUMN_NAME_LINE_ITEM_ID}
+     * column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LINE_ITEM_ID = "lineItemId";
 
@@ -73,7 +74,8 @@ public abstract class MappedOrderItemId {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by both {@value #ATTRIBUTE_NAME_ORDER_ID} and {@value #ATTRIBUTE_NAME_LINE_ITEM_ID}.
+     * @implSpec Equality is by both {@value #ATTRIBUTE_NAME_ORDER_ID} and
+     *         {@value #ATTRIBUTE_NAME_LINE_ITEM_ID}.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -88,8 +90,8 @@ public abstract class MappedOrderItemId {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over both {@value #ATTRIBUTE_NAME_ORDER_ID} and {@value #ATTRIBUTE_NAME_LINE_ITEM_ID},
-     * consistent with {@link #equals(Object)}.
+     * @implSpec The hash is over both {@value #ATTRIBUTE_NAME_ORDER_ID} and
+     *         {@value #ATTRIBUTE_NAME_LINE_ITEM_ID}, consistent with {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
@@ -109,7 +111,8 @@ public abstract class MappedOrderItemId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute with the specified
+     * value.
      *
      * @param orderId new value for {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
      */
@@ -130,7 +133,8 @@ public abstract class MappedOrderItemId {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LINE_ITEM_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LINE_ITEM_ID} attribute with the specified
+     * value.
      *
      * @param lineItemId new value for {@value #ATTRIBUTE_NAME_LINE_ITEM_ID} attribute.
      */
@@ -141,10 +145,12 @@ public abstract class MappedOrderItemId {
     // -----------------------------------------------------------------------------------------------------------------
 
     @Nonnull
-    // no @NotNull: MappedOrderItem maps this through @MapsId, so the provider fills it at flush -- later than
+    // no @NotNull: MappedOrderItem maps this through @MapsId, so the provider fills it at flush
+    // -- later than
     // the prePersist at which EclipseLink validates. The column stays NOT NULL.
     @Basic(optional = false)
-    @Column(name = MappedOrderItem.COLUMN_NAME_ORDER_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = MappedOrderItem.COLUMN_NAME_ORDER_ID, nullable = false, insertable = true,
+            updatable = false)
     private Long orderId;
 
     @Nonnull

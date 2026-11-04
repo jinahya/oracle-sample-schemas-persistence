@@ -26,31 +26,35 @@ import jakarta.persistence.Converter;
 import java.time.YearMonth;
 
 /**
- * A converter between {@link YearMonth} and the {@value MappedTime#COLUMN_NAME_CALENDAR_MONTH_DESC} and
- * {@value MappedTime#COLUMN_NAME_FISCAL_MONTH_DESC} columns of the {@value MappedTime#TABLE_NAME} table, which hold the
- * month as {@code uuuu-MM} text, {@code 2019-01} for January 2019 -- the ISO form {@link YearMonth#parse(CharSequence)}
- * reads and {@link YearMonth#toString()} writes.
+ * A converter between {@link YearMonth} and the {@value MappedTime#COLUMN_NAME_CALENDAR_MONTH_DESC}
+ * and {@value MappedTime#COLUMN_NAME_FISCAL_MONTH_DESC} columns of the
+ * {@value MappedTime#TABLE_NAME} table, which hold the month as {@code uuuu-MM} text,
+ * {@code 2019-01} for January 2019 -- the ISO form {@link YearMonth#parse(CharSequence)} reads and
+ * {@link YearMonth#toString()} writes.
  * <p>
  * Nothing applies this converter yet. {@link MappedTime#getCalendarMonthDesc()} and
  * {@link MappedTime#getFiscalMonthDesc()} keep the columns as {@code String}s, and
- * {@code TimeUtils.getCalendarMonthDescAsYearMonth(Time)} and {@code TimeUtils.getFiscalMonthDescAsYearMonth(Time)}
- * derive the {@link YearMonth} on demand. Mapping the attributes as a {@link YearMonth} with this converter, through
- * {@link jakarta.persistence.Convert @Convert}, is left as an exercise; see the issue linked below for what else has to
- * change with it.
+ * {@code TimeUtils.getCalendarMonthDescAsYearMonth(Time)} and
+ * {@code TimeUtils.getFiscalMonthDescAsYearMonth(Time)} derive the {@link YearMonth} on demand.
+ * Mapping the attributes as a {@link YearMonth} with this converter, through
+ * {@link jakarta.persistence.Convert @Convert}, is left as an exercise; see the issue linked below
+ * for what else has to change with it.
  * <p>
- * {@link MappedCalMonthSalesMv#getCalendarMonthDesc()} maps the same text, but it is that entity's {@code @Id}, which
- * the specification excludes from attribute conversion; see the Javadoc of that field.
+ * {@link MappedCalMonthSalesMv#getCalendarMonthDesc()} maps the same text, but it is that entity's
+ * {@code @Id}, which the specification excludes from attribute conversion; see the Javadoc of that
+ * field.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedTime#getCalendarMonthDesc()
  * @see MappedTime#getFiscalMonthDesc()
  * @see TimeDayNameAttributeConverter
  * @see <a href="https://github.com/jinahya/oracle-sample-schemas-persistence/issues/8">
- * #8 Map TIMES.CALENDAR_MONTH_DESC and FISCAL_MONTH_DESC as
- * YearMonth with TimeMonthDescAttributeConverter</a>
+ *         #8 Map TIMES.CALENDAR_MONTH_DESC and FISCAL_MONTH_DESC as YearMonth with
+ *         TimeMonthDescAttributeConverter</a>
  */
 @Converter(autoApply = false)
-public class TimeMonthDescAttributeConverter implements AttributeConverter<YearMonth, String> {
+public class TimeMonthDescAttributeConverter
+        implements AttributeConverter<YearMonth, String> {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -61,14 +65,15 @@ public class TimeMonthDescAttributeConverter implements AttributeConverter<YearM
         super();
     }
 
-    // ---------------------------------------------------------------------- jakarta.persistence.AttributeConverter
+    // ---------------------------------------------------------------------- jakarta.persistence
+    // .AttributeConverter
 
     /**
      * {@inheritDoc}
      *
      * @param attribute {@inheritDoc}
-     * @return {@code attribute} as {@code uuuu-MM} text, {@code 2019-01} for January 2019; {@code null} when
-     * {@code attribute} is {@code null}.
+     * @return {@code attribute} as {@code uuuu-MM} text, {@code 2019-01} for January 2019;
+     *         {@code null} when {@code attribute} is {@code null}.
      * @see YearMonth#toString()
      */
     @Override
@@ -83,9 +88,12 @@ public class TimeMonthDescAttributeConverter implements AttributeConverter<YearM
      * {@inheritDoc}
      *
      * @param dbData {@inheritDoc}
-     * @return the year-month {@code dbData} denotes; {@code null} when {@code dbData} is {@code null}.
-     * @throws java.time.format.DateTimeParseException if {@code dbData} is not in the {@code uuuu-MM} form
-     *                                                 {@link YearMonth#parse(CharSequence)} accepts.
+     * @return the year-month {@code dbData} denotes; {@code null} when {@code dbData} is
+     *         {@code null}.
+     * @throws java.time.format.DateTimeParseException if {@code dbData} is not in the
+     *                                                 {@code uuuu-MM} form
+     *                                                 {@link YearMonth#parse(CharSequence)}
+     *                                                 accepts.
      */
     @Override
     public YearMonth convertToEntityAttribute(final String dbData) {

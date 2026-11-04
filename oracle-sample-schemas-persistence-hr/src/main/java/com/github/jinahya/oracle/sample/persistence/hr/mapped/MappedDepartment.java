@@ -37,11 +37,12 @@ import java.util.Objects;
 /**
  * A mapped superclass which holds the mappings of the {@value MappedDepartment#TABLE_NAME} table.
  * <p>
- * The {@value #COLUMN_NAME_MANAGER_ID} and {@value #COLUMN_NAME_LOCATION_ID} columns are mapped read-only
- * ({@code insertable = false, updatable = false}), with a public getter and a {@code protected} setter. How the
- * relationship behind each is mapped is the extending entity's decision, so the extending entity also owns their
- * writable mapping, by an association's {@link jakarta.persistence.JoinColumn @JoinColumn}, and keeps the value in step
- * through the setter. <strong>An extending entity which maps no association never writes them.</strong>
+ * The {@value #COLUMN_NAME_MANAGER_ID} and {@value #COLUMN_NAME_LOCATION_ID} columns are mapped
+ * read-only ({@code insertable = false, updatable = false}), with a public getter and a
+ * {@code protected} setter. How the relationship behind each is mapped is the extending entity's
+ * decision, so the extending entity also owns their writable mapping, by an association's
+ * {@link jakarta.persistence.JoinColumn @JoinColumn}, and keeps the value in step through the
+ * setter. <strong>An extending entity which maps no association never writes them.</strong>
  *
  * @author Myoungkwon Hwang
  */
@@ -56,8 +57,8 @@ public abstract class MappedDepartment {
     // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
 
@@ -82,25 +83,28 @@ public abstract class MappedDepartment {
     public static final int COLUMN_MAX_DEPARTMENT_ID = +9999;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DEPARTMENT_ID = "departmentId";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_DEPARTMENT_ID = COLUMN_MIN_DEPARTMENT_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_DEPARTMENT_ID = COLUMN_MAX_DEPARTMENT_ID;
 
     // ------------------------------------------------------------------------------------------------- DEPARTMENT_NAME
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_DEPARTMENT_NAME = "DEPARTMENT_NAME";
 
@@ -110,25 +114,28 @@ public abstract class MappedDepartment {
     public static final int COLUMN_LENGTH_DEPARTMENT_NAME = 30;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_NAME} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DEPARTMENT_NAME = "departmentName";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_DEPARTMENT_NAME = 0;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_DEPARTMENT_NAME = COLUMN_LENGTH_DEPARTMENT_NAME;
 
     // ------------------------------------------------------------------------------------------------------ MANAGER_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_MANAGER_ID = "MANAGER_ID";
 
@@ -158,26 +165,28 @@ public abstract class MappedDepartment {
     public static final int COLUMN_MAX_MANAGER_ID = +999999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_MANAGER_ID = COLUMN_MIN_MANAGER_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_MANAGER_ID = COLUMN_MAX_MANAGER_ID;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_MANAGER_ID} column, read-only. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_MANAGER_ID} column, read-only.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_MANAGER_ID = "managerId";
 
     // ----------------------------------------------------------------------------------------------------- LOCATION_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_LOCATION_ID = "LOCATION_ID";
 
@@ -207,18 +216,20 @@ public abstract class MappedDepartment {
     public static final int COLUMN_MAX_LOCATION_ID = +9999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_LOCATION_ID = COLUMN_MIN_LOCATION_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_LOCATION_ID = COLUMN_MAX_LOCATION_ID;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_LOCATION_ID} column, read-only. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LOCATION_ID} column, read-only.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LOCATION_ID = "locationId";
 
@@ -282,7 +293,8 @@ public abstract class MappedDepartment {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute with the specified
+     * value.
      *
      * @param departmentId new value for {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
      */
@@ -303,7 +315,8 @@ public abstract class MappedDepartment {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute with the
+     * specified value.
      *
      * @param departmentName new value for {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute.
      */
@@ -324,8 +337,9 @@ public abstract class MappedDepartment {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute with the specified value. The attribute
-     * is read-only; the extending entity calls this to keep it in step with the association which writes the column.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute with the specified
+     * value. The attribute is read-only; the extending entity calls this to keep it in step with
+     * the association which writes the column.
      *
      * @param managerId new value for {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute.
      */
@@ -346,8 +360,9 @@ public abstract class MappedDepartment {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute with the specified value. The attribute
-     * is read-only; the extending entity calls this to keep it in step with the association which writes the column.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute with the specified
+     * value. The attribute is read-only; the extending entity calls this to keep it in step with
+     * the association which writes the column.
      *
      * @param locationId new value for {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
      */
@@ -375,12 +390,14 @@ public abstract class MappedDepartment {
     @Size(min = SIZE_MIN_DEPARTMENT_NAME, max = SIZE_MAX_DEPARTMENT_NAME)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_DEPARTMENT_NAME, nullable = false, insertable = true, updatable = true,
+    @Column(name = COLUMN_NAME_DEPARTMENT_NAME, nullable = false, insertable = true,
+            updatable = true,
             length = COLUMN_LENGTH_DEPARTMENT_NAME)
     private String departmentName;
 
     // -----------------------------------------------------------------------------------------------------------------
-    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // read-only: the extending entity owns the writable mapping of this column; see the class
+    // documentation
     @Nullable
     @Max(ATTRIBUTE_MAX_MANAGER_ID)
     @Min(ATTRIBUTE_MIN_MANAGER_ID)
@@ -395,7 +412,8 @@ public abstract class MappedDepartment {
     private Integer managerId;
 
     // -----------------------------------------------------------------------------------------------------------------
-    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // read-only: the extending entity owns the writable mapping of this column; see the class
+    // documentation
     @Nullable
     @Max(ATTRIBUTE_MAX_LOCATION_ID)
     @Min(ATTRIBUTE_MIN_LOCATION_ID)

@@ -31,11 +31,12 @@ import java.util.Objects;
 /**
  * The {@value MappedPromotion#COLUMN_NAME_PROMO_SUBCATEGORY} /
  * {@value MappedPromotion#COLUMN_NAME_PROMO_SUBCATEGORY_ID} pair of the
- * {@value MappedPromotion#TABLE_NAME} table, a name and the number which identifies it, as a {@link PromotionNamedId}.
- * The two columns are named here, by the class-level {@link AttributeOverride @AttributeOverride}s, so that embedding
- * it takes an {@link jakarta.persistence.Embedded @Embedded} and nothing else. The validation constraints sit on the
- * named getters, since the fields belong to the superclass; the embedding field has to be {@code @Valid} for them to
- * run.
+ * {@value MappedPromotion#TABLE_NAME} table, a name and the number which identifies it, as a
+ * {@link PromotionNamedId}. The two columns are named here, by the class-level
+ * {@link AttributeOverride @AttributeOverride}s, so that embedding it takes an
+ * {@link jakarta.persistence.Embedded @Embedded} and nothing else. The validation constraints sit
+ * on the named getters, since the fields belong to the superclass; the embedding field has to be
+ * {@code @Valid} for them to run.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedPromotion
@@ -52,18 +53,24 @@ import java.util.Objects;
                                     insertable = true,
                                     updatable = true))
 @Embeddable
-public class PromotionSubcategoryId extends PromotionNamedId<Long> {
+public class PromotionSubcategoryId
+        extends PromotionNamedId<Long> {
 
-    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    // ------------------------------------------------------------------------------------------
+    // STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified name and id.
      *
-     * @param promotionSubcategory   the name; the {@value MappedPromotion#COLUMN_NAME_PROMO_SUBCATEGORY} column.
-     * @param promotionSubcategoryId the id; the {@value MappedPromotion#COLUMN_NAME_PROMO_SUBCATEGORY_ID} column.
+     * @param promotionSubcategory   the name; the
+     *                               {@value MappedPromotion#COLUMN_NAME_PROMO_SUBCATEGORY} column.
+     * @param promotionSubcategoryId the id; the
+     *                               {@value MappedPromotion#COLUMN_NAME_PROMO_SUBCATEGORY_ID}
+     *                               column.
      * @return a new instance.
      */
-    public static PromotionSubcategoryId of(final String promotionSubcategory, final Long promotionSubcategoryId) {
+    public static PromotionSubcategoryId of(final String promotionSubcategory,
+                                            final Long promotionSubcategoryId) {
         return of(PromotionSubcategoryId::new, promotionSubcategory, promotionSubcategoryId);
     }
 
@@ -81,9 +88,10 @@ public class PromotionSubcategoryId extends PromotionNamedId<Long> {
     /**
      * {@inheritDoc}
      *
-     * @implNote Spelled with this class's attribute names, {@code promoSubcategory} and {@code promoSubcategoryId},
-     * rather than the superclass's {@value PromotionNamedId#ATTRIBUTE_NAME_NAME} and
-     * {@value PromotionNamedId#ATTRIBUTE_NAME_ID}.
+     * @implNote Spelled with this class's attribute names, {@code promoSubcategory} and
+     *         {@code promoSubcategoryId}, rather than the superclass's
+     *         {@value PromotionNamedId#ATTRIBUTE_NAME_NAME} and
+     *         {@value PromotionNamedId#ATTRIBUTE_NAME_ID}.
      */
     @Override
     public String toString() {
@@ -96,8 +104,8 @@ public class PromotionSubcategoryId extends PromotionNamedId<Long> {
     /**
      * {@inheritDoc}
      *
-     * @implSpec Equality is by {@code promoSubcategory} and {@code promoSubcategoryId}, the two attributes this class
-     * inherits, between instances of this class only.
+     * @implSpec Equality is by {@code promoSubcategory} and {@code promoSubcategoryId}, the
+     *         two attributes this class inherits, between instances of this class only.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -131,7 +139,8 @@ public class PromotionSubcategoryId extends PromotionNamedId<Long> {
      * Replaces current value of the {@value PromotionNamedId#ATTRIBUTE_NAME_NAME} attribute, the
      * {@value MappedPromotion#COLUMN_NAME_PROMO_SUBCATEGORY} column, with the specified value.
      *
-     * @param promoSubcategory new value for the {@value PromotionNamedId#ATTRIBUTE_NAME_NAME} attribute.
+     * @param promoSubcategory new value for the {@value PromotionNamedId#ATTRIBUTE_NAME_NAME}
+     *                         attribute.
      */
     public void setPromoSubcategory(final String promoSubcategory) {
         setName(promoSubcategory);
@@ -154,7 +163,8 @@ public class PromotionSubcategoryId extends PromotionNamedId<Long> {
      * Replaces current value of the {@value PromotionNamedId#ATTRIBUTE_NAME_ID} attribute, the
      * {@value MappedPromotion#COLUMN_NAME_PROMO_SUBCATEGORY_ID} column, with the specified value.
      *
-     * @param promoSubcategoryId new value for the {@value PromotionNamedId#ATTRIBUTE_NAME_ID} attribute.
+     * @param promoSubcategoryId new value for the {@value PromotionNamedId#ATTRIBUTE_NAME_ID}
+     *                           attribute.
      */
     public void setPromoSubcategoryId(final Long promoSubcategoryId) {
         setId(promoSubcategoryId);

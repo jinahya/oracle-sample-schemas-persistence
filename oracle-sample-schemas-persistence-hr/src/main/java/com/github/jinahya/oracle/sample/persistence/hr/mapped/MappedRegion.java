@@ -48,21 +48,23 @@ public abstract class MappedRegion {
     // -------------------------------------------------------------------------------------------- REGION_ID / regionId
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_REGION_ID = "REGION_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
 
-    // ---------------------------------------------------------------------------------------- REGION_NAME / regionName
+    // ----------------------------------------------------------------------------------------
+    // REGION_NAME / regionName
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_REGION_NAME = "REGION_NAME";
 
@@ -72,17 +74,20 @@ public abstract class MappedRegion {
     public static final int COLUMN_LENGTH_REGION_NAME = 25;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_NAME} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_REGION_NAME = "regionName";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_REGION_NAME = 0;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_REGION_NAME = COLUMN_LENGTH_REGION_NAME;
 
@@ -144,7 +149,8 @@ public abstract class MappedRegion {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_REGION_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_REGION_ID} attribute with the specified
+     * value.
      *
      * @param regionId new value for {@value #ATTRIBUTE_NAME_REGION_ID} attribute.
      */
@@ -165,7 +171,8 @@ public abstract class MappedRegion {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute with the specified
+     * value.
      *
      * @param regionName new value for {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
      */

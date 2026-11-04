@@ -37,10 +37,11 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * A mapped superclass which holds the mappings of the {@value MappedEmpDetailsView#TABLE_NAME} view.
+ * A mapped superclass which holds the mappings of the {@value MappedEmpDetailsView#TABLE_NAME}
+ * view.
  * <p>
- * Every column is mapped read-only; only the identifier stays insertable, which EclipseLink requires of an
- * {@link Id @Id}.
+ * Every column is mapped read-only; only the identifier stays insertable, which EclipseLink
+ * requires of an {@link Id @Id}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -55,8 +56,8 @@ public abstract class MappedEmpDetailsView {
     // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_EMPLOYEE_ID = MappedEmployee.COLUMN_NAME_EMPLOYEE_ID;
 
@@ -64,40 +65,45 @@ public abstract class MappedEmpDetailsView {
      * The precision of the {@value #COLUMN_NAME_EMPLOYEE_ID} column, which the view projects from
      * {@link MappedEmployee}. The value is {@value}.
      */
-    public static final int COLUMN_PRECISION_EMPLOYEE_ID = MappedEmployee.COLUMN_PRECISION_EMPLOYEE_ID;
+    public static final int COLUMN_PRECISION_EMPLOYEE_ID =
+            MappedEmployee.COLUMN_PRECISION_EMPLOYEE_ID;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value
+     * is {@value}.
      */
-    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID = MappedEmployee.ATTRIBUTE_NAME_EMPLOYEE_ID;
+    public static final String ATTRIBUTE_NAME_EMPLOYEE_ID =
+            MappedEmployee.ATTRIBUTE_NAME_EMPLOYEE_ID;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute, which the view projects from
-     * {@link MappedEmployee}. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute, which the view
+     * projects from {@link MappedEmployee}. The value is {@value}.
      */
     public static final long ATTRIBUTE_MIN_EMPLOYEE_ID = MappedEmployee.ATTRIBUTE_MIN_EMPLOYEE_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute, which the view projects from
-     * {@link MappedEmployee}. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute, which the view
+     * projects from {@link MappedEmployee}. The value is {@value}.
      */
     public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = MappedEmployee.ATTRIBUTE_MAX_EMPLOYEE_ID;
 
     // ---------------------------------------------------------------------------------------------------------- JOB_ID
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_JOB_ID} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_JOB_ID} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_JOB_ID = "JOB_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_JOB_ID = "jobId";
 
     /**
-     * The length of the {@value #COLUMN_NAME_JOB_ID} column, which the view projects from {@link MappedJob}. The value
-     * is {@value}.
+     * The length of the {@value #COLUMN_NAME_JOB_ID} column, which the view projects from
+     * {@link MappedJob}. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_JOB_ID = MappedJob.COLUMN_LENGTH_JOB_ID;
 
@@ -109,142 +115,152 @@ public abstract class MappedEmpDetailsView {
     // ------------------------------------------------------------------------------------------------------ MANAGER_ID
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_MANAGER_ID = "MANAGER_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_MANAGER_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_MANAGER_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_MANAGER_ID = "managerId";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute, which the view projects from
-     * {@link MappedEmployee}. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute, which the view
+     * projects from {@link MappedEmployee}. The value is {@value}.
      */
     public static final long ATTRIBUTE_MIN_MANAGER_ID = MappedEmployee.ATTRIBUTE_MIN_EMPLOYEE_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute, which the view projects from
-     * {@link MappedEmployee}. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute, which the view
+     * projects from {@link MappedEmployee}. The value is {@value}.
      */
     public static final long ATTRIBUTE_MAX_MANAGER_ID = MappedEmployee.ATTRIBUTE_MAX_EMPLOYEE_ID;
 
     // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_DEPARTMENT_ID = "DEPARTMENT_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DEPARTMENT_ID = "departmentId";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute, which the view projects from
-     * {@link MappedDepartment}. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute, which the view
+     * projects from {@link MappedDepartment}. The value is {@value}.
      */
-    public static final int ATTRIBUTE_MIN_DEPARTMENT_ID = MappedDepartment.ATTRIBUTE_MIN_DEPARTMENT_ID;
+    public static final int ATTRIBUTE_MIN_DEPARTMENT_ID =
+            MappedDepartment.ATTRIBUTE_MIN_DEPARTMENT_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute, which the view projects from
-     * {@link MappedDepartment}. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute, which the view
+     * projects from {@link MappedDepartment}. The value is {@value}.
      */
-    public static final int ATTRIBUTE_MAX_DEPARTMENT_ID = MappedDepartment.ATTRIBUTE_MAX_DEPARTMENT_ID;
+    public static final int ATTRIBUTE_MAX_DEPARTMENT_ID =
+            MappedDepartment.ATTRIBUTE_MAX_DEPARTMENT_ID;
 
     // ----------------------------------------------------------------------------------------------------- LOCATION_ID
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_LOCATION_ID = "LOCATION_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_LOCATION_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LOCATION_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LOCATION_ID = "locationId";
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute, which the view projects from
-     * {@link MappedLocation}. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute, which the view
+     * projects from {@link MappedLocation}. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_LOCATION_ID = MappedLocation.ATTRIBUTE_MIN_LOCATION_ID;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute, which the view projects from
-     * {@link MappedLocation}. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute, which the view
+     * projects from {@link MappedLocation}. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_LOCATION_ID = MappedLocation.ATTRIBUTE_MAX_LOCATION_ID;
 
     // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
 
     /**
-     * The length of the {@value #COLUMN_NAME_COUNTRY_ID} column, which the view projects from {@link MappedCountry}.
-     * The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_COUNTRY_ID} column, which the view projects from
+     * {@link MappedCountry}. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_COUNTRY_ID = MappedCountry.COLUMN_LENGTH_COUNTRY_ID;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
     // ------------------------------------------------------------------------------------------------------ FIRST_NAME
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_FIRST_NAME = "FIRST_NAME";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_FIRST_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_FIRST_NAME} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_FIRST_NAME = "firstName";
 
     /**
-     * The length of the {@value #COLUMN_NAME_FIRST_NAME} column, which the view projects from {@link MappedEmployee}.
-     * The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_FIRST_NAME} column, which the view projects from
+     * {@link MappedEmployee}. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_FIRST_NAME = MappedEmployee.COLUMN_LENGTH_FIRST_NAME;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_FIRST_NAME = COLUMN_LENGTH_FIRST_NAME;
 
     // ------------------------------------------------------------------------------------------------------- LAST_NAME
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_LAST_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_LAST_NAME} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_LAST_NAME = "LAST_NAME";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_LAST_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LAST_NAME} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_LAST_NAME = "lastName";
 
     /**
-     * The length of the {@value #COLUMN_NAME_LAST_NAME} column, which the view projects from {@link MappedEmployee}.
-     * The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_LAST_NAME} column, which the view projects from
+     * {@link MappedEmployee}. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_LAST_NAME = MappedEmployee.COLUMN_LENGTH_LAST_NAME;
 
@@ -256,76 +272,81 @@ public abstract class MappedEmpDetailsView {
     // ---------------------------------------------------------------------------------------------------------- SALARY
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_SALARY} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_SALARY} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_SALARY = "SALARY";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_SALARY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_SALARY} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_SALARY = "salary";
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_SALARY} attribute, which the view projects from
-     * {@link MappedEmployee}. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_SALARY} attribute, which the view projects
+     * from {@link MappedEmployee}. The value is {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_SALARY =
             MappedEmployee.ATTRIBUTE_DECIMAL_MAX_SALARY;
 
     /**
-     * The exclusive minimum value of the {@value #ATTRIBUTE_NAME_SALARY} attribute, which the view projects from
-     * {@link MappedEmployee}. The value is {@value}.
+     * The exclusive minimum value of the {@value #ATTRIBUTE_NAME_SALARY} attribute, which the view
+     * projects from {@link MappedEmployee}. The value is {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE =
             MappedEmployee.ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE;
 
     /**
-     * The precision of the {@value #COLUMN_NAME_SALARY} column, which the view projects from {@link MappedEmployee}.
-     * The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_SALARY} column, which the view projects from
+     * {@link MappedEmployee}. The value is {@value}.
      */
     public static final int COLUMN_PRECISION_SALARY = MappedEmployee.COLUMN_PRECISION_SALARY;
 
     /**
-     * The scale of the {@value #COLUMN_NAME_SALARY} column, which the view projects from {@link MappedEmployee}. The
-     * value is {@value}.
+     * The scale of the {@value #COLUMN_NAME_SALARY} column, which the view projects from
+     * {@link MappedEmployee}. The value is {@value}.
      */
     public static final int COLUMN_SCALE_SALARY = MappedEmployee.COLUMN_SCALE_SALARY;
 
     // -------------------------------------------------------------------------------------------------- COMMISSION_PCT
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_COMMISSION_PCT = "COMMISSION_PCT";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COMMISSION_PCT} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COMMISSION_PCT} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COMMISSION_PCT = "commissionPct";
 
     /**
-     * The precision of the {@value #COLUMN_NAME_COMMISSION_PCT} column, which the view projects from
-     * {@link MappedEmployee}. The value is {@value}.
+     * The precision of the {@value #COLUMN_NAME_COMMISSION_PCT} column, which the view projects
+     * from {@link MappedEmployee}. The value is {@value}.
      */
-    public static final int COLUMN_PRECISION_COMMISSION_PCT = MappedEmployee.COLUMN_PRECISION_COMMISSION_PCT;
+    public static final int COLUMN_PRECISION_COMMISSION_PCT =
+            MappedEmployee.COLUMN_PRECISION_COMMISSION_PCT;
 
     /**
      * The scale of the {@value #COLUMN_NAME_COMMISSION_PCT} column, which the view projects from
      * {@link MappedEmployee}. The value is {@value}.
      */
-    public static final int COLUMN_SCALE_COMMISSION_PCT = MappedEmployee.COLUMN_SCALE_COMMISSION_PCT;
+    public static final int COLUMN_SCALE_COMMISSION_PCT =
+            MappedEmployee.COLUMN_SCALE_COMMISSION_PCT;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute, which the view projects from
-     * {@link MappedEmployee}. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute, which the view
+     * projects from {@link MappedEmployee}. The value is {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT =
             MappedEmployee.ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute, which the view projects from
-     * {@link MappedEmployee}. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute, which the view
+     * projects from {@link MappedEmployee}. The value is {@value}.
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT =
             MappedEmployee.ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT;
@@ -333,13 +354,14 @@ public abstract class MappedEmpDetailsView {
     // ------------------------------------------------------------------------------------------------- DEPARTMENT_NAME
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_DEPARTMENT_NAME = "DEPARTMENT_NAME";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_NAME} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DEPARTMENT_NAME = "departmentName";
 
@@ -347,29 +369,32 @@ public abstract class MappedEmpDetailsView {
      * The length of the {@value #COLUMN_NAME_DEPARTMENT_NAME} column, which the view projects from
      * {@link MappedDepartment}. The value is {@value}.
      */
-    public static final int COLUMN_LENGTH_DEPARTMENT_NAME = MappedDepartment.COLUMN_LENGTH_DEPARTMENT_NAME;
+    public static final int COLUMN_LENGTH_DEPARTMENT_NAME =
+            MappedDepartment.COLUMN_LENGTH_DEPARTMENT_NAME;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_DEPARTMENT_NAME = COLUMN_LENGTH_DEPARTMENT_NAME;
 
     // ------------------------------------------------------------------------------------------------------- JOB_TITLE
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_JOB_TITLE = "JOB_TITLE";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_TITLE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_TITLE} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_JOB_TITLE = "jobTitle";
 
     /**
-     * The length of the {@value #COLUMN_NAME_JOB_TITLE} column, which the view projects from {@link MappedJob}. The
-     * value is {@value}.
+     * The length of the {@value #COLUMN_NAME_JOB_TITLE} column, which the view projects from
+     * {@link MappedJob}. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_JOB_TITLE = MappedJob.COLUMN_LENGTH_JOB_TITLE;
 
@@ -381,18 +406,20 @@ public abstract class MappedEmpDetailsView {
     // ------------------------------------------------------------------------------------------------------------ CITY
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_CITY} attribute maps. The value is {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_CITY} attribute maps. The
+     * value is {@value}.
      */
     public static final String COLUMN_NAME_CITY = "CITY";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CITY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CITY} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CITY = "city";
 
     /**
-     * The length of the {@value #COLUMN_NAME_CITY} column, which the view projects from {@link MappedLocation}. The
-     * value is {@value}.
+     * The length of the {@value #COLUMN_NAME_CITY} column, which the view projects from
+     * {@link MappedLocation}. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_CITY = MappedLocation.COLUMN_LENGTH_CITY;
 
@@ -404,13 +431,14 @@ public abstract class MappedEmpDetailsView {
     // -------------------------------------------------------------------------------------------------- STATE_PROVINCE
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_STATE_PROVINCE = "STATE_PROVINCE";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_STATE_PROVINCE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_STATE_PROVINCE} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STATE_PROVINCE = "stateProvince";
 
@@ -418,58 +446,64 @@ public abstract class MappedEmpDetailsView {
      * The length of the {@value #COLUMN_NAME_STATE_PROVINCE} column, which the view projects from
      * {@link MappedLocation}. The value is {@value}.
      */
-    public static final int COLUMN_LENGTH_STATE_PROVINCE = MappedLocation.COLUMN_LENGTH_STATE_PROVINCE;
+    public static final int COLUMN_LENGTH_STATE_PROVINCE =
+            MappedLocation.COLUMN_LENGTH_STATE_PROVINCE;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_STATE_PROVINCE = COLUMN_LENGTH_STATE_PROVINCE;
 
     // ---------------------------------------------------------------------------------------------------- COUNTRY_NAME
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_NAME = "COUNTRY_NAME";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_NAME} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_NAME = "countryName";
 
     /**
-     * The length of the {@value #COLUMN_NAME_COUNTRY_NAME} column, which the view projects from {@link MappedCountry}.
-     * The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_COUNTRY_NAME} column, which the view projects from
+     * {@link MappedCountry}. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_COUNTRY_NAME = MappedCountry.COLUMN_LENGTH_COUNTRY_NAME;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
 
     // ----------------------------------------------------------------------------------------------------- REGION_NAME
 
     /**
-     * The name of the view column to which the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the view column to which the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_REGION_NAME = "REGION_NAME";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_NAME} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_REGION_NAME = "regionName";
 
     /**
-     * The length of the {@value #COLUMN_NAME_REGION_NAME} column, which the view projects from {@link MappedRegion}.
-     * The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_REGION_NAME} column, which the view projects from
+     * {@link MappedRegion}. The value is {@value}.
      */
     public static final int COLUMN_LENGTH_REGION_NAME = MappedRegion.COLUMN_LENGTH_REGION_NAME;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_REGION_NAME = COLUMN_LENGTH_REGION_NAME;
 
@@ -501,7 +535,8 @@ public abstract class MappedEmpDetailsView {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by {@value #COLUMN_NAME_EMPLOYEE_ID}, which the view carries one row per.
+     * @implSpec Equality is by {@value #COLUMN_NAME_EMPLOYEE_ID}, which the view carries
+     *         one row per.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -515,7 +550,8 @@ public abstract class MappedEmpDetailsView {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over {@value #COLUMN_NAME_EMPLOYEE_ID}, consistent with {@link #equals(Object)}.
+     * @implSpec The hash is over {@value #COLUMN_NAME_EMPLOYEE_ID}, consistent with
+     *         {@link #equals(Object)}.
      */
     @Override
     public final int hashCode() {
@@ -722,8 +758,10 @@ public abstract class MappedEmpDetailsView {
     @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
     @NotNull
     @Basic(optional = false)
-    // insertable=true is the JPA default; it is spelled out because EclipseLink rejects insertable=false on an @Id --
-    // "There should be one non-read-only mapping defined for the primary key field", EclipseLink-46. Nothing writes to
+    // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
+    // insertable=false on an @Id --
+    // "There should be one non-read-only mapping defined for the primary key field",
+    // EclipseLink-46. Nothing writes to
     // a view anyway; every other column here stays insertable=false. Verified on 5.0.1.
     @Column(name = COLUMN_NAME_EMPLOYEE_ID, nullable = false, insertable = true, updatable = false)
     private Integer employeeId;
@@ -747,7 +785,8 @@ public abstract class MappedEmpDetailsView {
     @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
     @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_DEPARTMENT_ID, nullable = true, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_DEPARTMENT_ID, nullable = true, insertable = false,
+            updatable = false)
     private Integer departmentId;
 
     @Max(ATTRIBUTE_MAX_LOCATION_ID)
@@ -775,7 +814,8 @@ public abstract class MappedEmpDetailsView {
     private String lastName;
 
     @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
-    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false) // EMP_SALARY_MIN: CHECK (salary > 0)
+    @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false)
+    // EMP_SALARY_MIN: CHECK (salary > 0)
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_SALARY, nullable = true, insertable = false, updatable = false,
             precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY)
@@ -784,14 +824,16 @@ public abstract class MappedEmpDetailsView {
     @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT, inclusive = true)
     @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT, inclusive = true)
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_COMMISSION_PCT, nullable = true, insertable = false, updatable = false,
+    @Column(name = COLUMN_NAME_COMMISSION_PCT, nullable = true, insertable = false,
+            updatable = false,
             precision = COLUMN_PRECISION_COMMISSION_PCT, scale = COLUMN_SCALE_COMMISSION_PCT)
     private BigDecimal commissionPct;
 
     @Size(max = SIZE_MAX_DEPARTMENT_NAME)
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_DEPARTMENT_NAME, nullable = false, insertable = false, updatable = false,
+    @Column(name = COLUMN_NAME_DEPARTMENT_NAME, nullable = false, insertable = false,
+            updatable = false,
             length = COLUMN_LENGTH_DEPARTMENT_NAME)
     private String departmentName;
 
@@ -811,7 +853,8 @@ public abstract class MappedEmpDetailsView {
 
     @Size(max = SIZE_MAX_STATE_PROVINCE)
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_STATE_PROVINCE, nullable = true, insertable = false, updatable = false,
+    @Column(name = COLUMN_NAME_STATE_PROVINCE, nullable = true, insertable = false,
+            updatable = false,
             length = COLUMN_LENGTH_STATE_PROVINCE)
     private String stateProvince;
 

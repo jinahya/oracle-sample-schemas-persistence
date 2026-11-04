@@ -35,14 +35,16 @@ import java.util.Objects;
 /**
  * A mapped superclass which holds the mappings of the {@value MappedCustomer#TABLE_NAME} table.
  * <p>
- * The {@value MappedCustomer#COLUMN_NAME_COUNTRY_ID} column is mapped read-only ({@code insertable = false,
- * updatable = false}), with a public getter and a {@code protected} setter. How the relationship behind it is mapped --
- * fetch type, cascade, whether there is an association at all -- is the extending entity's decision, so the extending
- * entity also owns its writable mapping, by an association's {@link jakarta.persistence.JoinColumn @JoinColumn} or by
- * an {@link jakarta.persistence.AttributeOverride @AttributeOverride}. <strong>An extending entity which maps neither
- * never writes it.</strong> Being read-only, it is populated by a load or a refresh, or by the extending entity, which
- * sets it through its {@code protected} setter in step with the association which writes the column. It carries
- * {@code @NotNull}, which holds at {@code prePersist} only so.
+ * The {@value MappedCustomer#COLUMN_NAME_COUNTRY_ID} column is mapped read-only
+ * ({@code insertable = false, updatable = false}), with a public getter and a {@code protected}
+ * setter. How the relationship behind it is mapped -- fetch type, cascade, whether there is an
+ * association at all -- is the extending entity's decision, so the extending entity also owns its
+ * writable mapping, by an association's {@link jakarta.persistence.JoinColumn @JoinColumn} or by an
+ * {@link jakarta.persistence.AttributeOverride @AttributeOverride}. <strong>An extending entity
+ * which maps neither never writes it.</strong> Being read-only, it is populated by a load or a
+ * refresh, or by the extending entity, which sets it through its {@code protected} setter in step
+ * with the association which writes the column. It carries {@code @NotNull}, which holds at
+ * {@code prePersist} only so.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -57,21 +59,22 @@ public abstract class MappedCustomer {
     // -------------------------------------------------------------------------------------------------------- CUST_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_ID = "CUST_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_ID = "custId";
 
     // ------------------------------------------------------------------------------------------------ CUST_FIRST_NAME
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_FIRST_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_FIRST_NAME} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_FIRST_NAME = "CUST_FIRST_NAME";
 
@@ -81,20 +84,22 @@ public abstract class MappedCustomer {
     public static final int COLUMN_LENGTH_CUST_FIRST_NAME = 20;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_FIRST_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_FIRST_NAME} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_FIRST_NAME = "custFirstName";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_FIRST_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_FIRST_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CUST_FIRST_NAME = COLUMN_LENGTH_CUST_FIRST_NAME;
 
     // ------------------------------------------------------------------------------------------------- CUST_LAST_NAME
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_LAST_NAME} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_LAST_NAME} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_LAST_NAME = "CUST_LAST_NAME";
 
@@ -104,20 +109,22 @@ public abstract class MappedCustomer {
     public static final int COLUMN_LENGTH_CUST_LAST_NAME = 40;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_LAST_NAME} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_LAST_NAME} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_LAST_NAME = "custLastName";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_LAST_NAME} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_LAST_NAME} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CUST_LAST_NAME = COLUMN_LENGTH_CUST_LAST_NAME;
 
     // ---------------------------------------------------------------------------------------------------- CUST_GENDER
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_GENDER} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_GENDER} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_GENDER = "CUST_GENDER";
 
@@ -127,25 +134,28 @@ public abstract class MappedCustomer {
     public static final int COLUMN_LENGTH_CUST_GENDER = 1;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_GENDER} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_GENDER} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_GENDER = "custGender";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_GENDER} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_GENDER} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CUST_GENDER = COLUMN_LENGTH_CUST_GENDER;
 
     // --------------------------------------------------------------------------------------------- CUST_YEAR_OF_BIRTH
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_YEAR_OF_BIRTH = "CUST_YEAR_OF_BIRTH";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_YEAR_OF_BIRTH} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_YEAR_OF_BIRTH} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH = "custYearOfBirth";
 
@@ -160,30 +170,34 @@ public abstract class MappedCustomer {
     public static final int COLUMN_SCALE_CUST_YEAR_OF_BIRTH = 0;
 
     /**
-     * The minimum value of the {@value #COLUMN_NAME_CUST_YEAR_OF_BIRTH} column. The value is {@value}.
+     * The minimum value of the {@value #COLUMN_NAME_CUST_YEAR_OF_BIRTH} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MIN_CUST_YEAR_OF_BIRTH = -9999;
 
     /**
-     * The maximum value of the {@value #COLUMN_NAME_CUST_YEAR_OF_BIRTH} column. The value is {@value}.
+     * The maximum value of the {@value #COLUMN_NAME_CUST_YEAR_OF_BIRTH} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_MAX_CUST_YEAR_OF_BIRTH = +9999;
 
     /**
-     * The minimum value of the {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH} attribute. The value is {@value}.
+     * The minimum value of the {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MIN_CUST_YEAR_OF_BIRTH = COLUMN_MIN_CUST_YEAR_OF_BIRTH;
 
     /**
-     * The maximum value of the {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH} attribute. The value is {@value}.
+     * The maximum value of the {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH} attribute. The value is
+     * {@value}.
      */
     public static final int ATTRIBUTE_MAX_CUST_YEAR_OF_BIRTH = COLUMN_MAX_CUST_YEAR_OF_BIRTH;
 
     // -------------------------------------------------------------------------------------------- CUST_MARITAL_STATUS
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_MARITAL_STATUS} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_MARITAL_STATUS}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_MARITAL_STATUS = "CUST_MARITAL_STATUS";
 
@@ -193,21 +207,22 @@ public abstract class MappedCustomer {
     public static final int COLUMN_LENGTH_CUST_MARITAL_STATUS = 20;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_MARITAL_STATUS} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_MARITAL_STATUS} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_MARITAL_STATUS = "custMaritalStatus";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_MARITAL_STATUS} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_MARITAL_STATUS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CUST_MARITAL_STATUS = COLUMN_LENGTH_CUST_MARITAL_STATUS;
 
     // -------------------------------------------------------------------------------------------- CUST_STREET_ADDRESS
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_STREET_ADDRESS} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_STREET_ADDRESS}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_STREET_ADDRESS = "CUST_STREET_ADDRESS";
 
@@ -217,21 +232,22 @@ public abstract class MappedCustomer {
     public static final int COLUMN_LENGTH_CUST_STREET_ADDRESS = 40;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_STREET_ADDRESS} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_STREET_ADDRESS} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_STREET_ADDRESS = "custStreetAddress";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_STREET_ADDRESS} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_STREET_ADDRESS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CUST_STREET_ADDRESS = COLUMN_LENGTH_CUST_STREET_ADDRESS;
 
     // ----------------------------------------------------------------------------------------------- CUST_POSTAL_CODE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_POSTAL_CODE} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_POSTAL_CODE} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_POSTAL_CODE = "CUST_POSTAL_CODE";
 
@@ -241,20 +257,22 @@ public abstract class MappedCustomer {
     public static final int COLUMN_LENGTH_CUST_POSTAL_CODE = 10;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_POSTAL_CODE} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_POSTAL_CODE} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_POSTAL_CODE = "custPostalCode";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_POSTAL_CODE} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_POSTAL_CODE} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CUST_POSTAL_CODE = COLUMN_LENGTH_CUST_POSTAL_CODE;
 
     // ------------------------------------------------------------------------------------------------------ CUST_CITY
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_CITY} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_CITY} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_CITY = "CUST_CITY";
 
@@ -264,7 +282,8 @@ public abstract class MappedCustomer {
     public static final int COLUMN_LENGTH_CUST_CITY = 30;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_CITY} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_CITY} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_CITY = "custCity";
 
@@ -276,21 +295,22 @@ public abstract class MappedCustomer {
     // --------------------------------------------------------------------------------------------------- CUST_CITY_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_CITY_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_CITY_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_CITY_ID = "CUST_CITY_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_CITY_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_CITY_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_CITY_ID = "custCityId";
 
     // -------------------------------------------------------------------------------------------- CUST_STATE_PROVINCE
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE} attribute maps. The value
-     * is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_STATE_PROVINCE = "CUST_STATE_PROVINCE";
 
@@ -300,73 +320,78 @@ public abstract class MappedCustomer {
     public static final int COLUMN_LENGTH_CUST_STATE_PROVINCE = 40;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_STATE_PROVINCE} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_STATE_PROVINCE} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_STATE_PROVINCE = "custStateProvince";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CUST_STATE_PROVINCE = COLUMN_LENGTH_CUST_STATE_PROVINCE;
 
-    // ----------------------------------------------------------------------------------------- CUST_STATE_PROVINCE_ID
+    // -----------------------------------------------------------------------------------------
+    // CUST_STATE_PROVINCE_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE_ID} attribute maps. The
-     * value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE_ID}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_STATE_PROVINCE_ID = "CUST_STATE_PROVINCE_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_STATE_PROVINCE_ID} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_STATE_PROVINCE_ID} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_STATE_PROVINCE_ID = "custStateProvinceId";
 
     // ----------------------------------------------------------------------------------------------------- COUNTRY_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_COUNTRY_ID = "COUNTRY_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column, read-only. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column, read-only.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
 
-    // ----------------------------------------------------------------------------------------- CUST_MAIN_PHONE_NUMBER
+    // -----------------------------------------------------------------------------------------
+    // CUST_MAIN_PHONE_NUMBER
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_MAIN_PHONE_NUMBER} attribute maps. The
-     * value is {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_MAIN_PHONE_NUMBER}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_MAIN_PHONE_NUMBER = "CUST_MAIN_PHONE_NUMBER";
 
     /**
-     * The length of the {@value #COLUMN_NAME_CUST_MAIN_PHONE_NUMBER} column. The value is {@value}.
+     * The length of the {@value #COLUMN_NAME_CUST_MAIN_PHONE_NUMBER} column. The value is
+     * {@value}.
      */
     public static final int COLUMN_LENGTH_CUST_MAIN_PHONE_NUMBER = 25;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_MAIN_PHONE_NUMBER} column. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_MAIN_PHONE_NUMBER} column.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_MAIN_PHONE_NUMBER = "custMainPhoneNumber";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_MAIN_PHONE_NUMBER} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_MAIN_PHONE_NUMBER} attribute. The value
+     * is {@value}.
      */
     public static final int SIZE_MAX_CUST_MAIN_PHONE_NUMBER = COLUMN_LENGTH_CUST_MAIN_PHONE_NUMBER;
 
     // ---------------------------------------------------------------------------------------------- CUST_INCOME_LEVEL
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_INCOME_LEVEL} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_INCOME_LEVEL}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_INCOME_LEVEL = "CUST_INCOME_LEVEL";
 
@@ -376,33 +401,36 @@ public abstract class MappedCustomer {
     public static final int COLUMN_LENGTH_CUST_INCOME_LEVEL = 30;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_INCOME_LEVEL} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_INCOME_LEVEL} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_INCOME_LEVEL = "custIncomeLevel";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_INCOME_LEVEL} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_INCOME_LEVEL} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CUST_INCOME_LEVEL = COLUMN_LENGTH_CUST_INCOME_LEVEL;
 
     // ---------------------------------------------------------------------------------------------- CUST_CREDIT_LIMIT
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_CREDIT_LIMIT} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_CREDIT_LIMIT}
+     * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_CREDIT_LIMIT = "CUST_CREDIT_LIMIT";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_CREDIT_LIMIT} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_CREDIT_LIMIT} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_CREDIT_LIMIT = "custCreditLimit";
 
     // ----------------------------------------------------------------------------------------------------- CUST_EMAIL
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_EMAIL} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_EMAIL} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_EMAIL = "CUST_EMAIL";
 
@@ -412,20 +440,22 @@ public abstract class MappedCustomer {
     public static final int COLUMN_LENGTH_CUST_EMAIL = 50;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_EMAIL} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_EMAIL} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_EMAIL = "custEmail";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_EMAIL} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_EMAIL} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CUST_EMAIL = COLUMN_LENGTH_CUST_EMAIL;
 
     // ----------------------------------------------------------------------------------------------------- CUST_TOTAL
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_TOTAL} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_TOTAL} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_TOTAL = "CUST_TOTAL";
 
@@ -435,72 +465,78 @@ public abstract class MappedCustomer {
     public static final int COLUMN_LENGTH_CUST_TOTAL = 14;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_TOTAL} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_TOTAL} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_TOTAL = "custTotal";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_TOTAL} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_TOTAL} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CUST_TOTAL = COLUMN_LENGTH_CUST_TOTAL;
 
     // -------------------------------------------------------------------------------------------------- CUST_TOTAL_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_TOTAL_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_TOTAL_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_TOTAL_ID = "CUST_TOTAL_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_TOTAL_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_TOTAL_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_TOTAL_ID = "custTotalId";
 
     // ---------------------------------------------------------------------------------------------------- CUST_SRC_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_SRC_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_SRC_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_SRC_ID = "CUST_SRC_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_SRC_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_SRC_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_SRC_ID = "custSrcId";
 
     // -------------------------------------------------------------------------------------------------- CUST_EFF_FROM
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_EFF_FROM} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_EFF_FROM} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_EFF_FROM = "CUST_EFF_FROM";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_EFF_FROM} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_EFF_FROM} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_EFF_FROM = "custEffFrom";
 
     // ---------------------------------------------------------------------------------------------------- CUST_EFF_TO
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_EFF_TO} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_EFF_TO} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_EFF_TO = "CUST_EFF_TO";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_EFF_TO} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_EFF_TO} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_EFF_TO = "custEffTo";
 
     // ----------------------------------------------------------------------------------------------------- CUST_VALID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_VALID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_VALID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_VALID = "CUST_VALID";
 
@@ -510,12 +546,14 @@ public abstract class MappedCustomer {
     public static final int COLUMN_LENGTH_CUST_VALID = 1;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_VALID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_VALID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUST_VALID = "custValid";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_VALID} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_CUST_VALID} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_CUST_VALID = COLUMN_LENGTH_CUST_VALID;
 
@@ -596,7 +634,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute with the specified
+     * value.
      *
      * @param custId new value for {@value #ATTRIBUTE_NAME_CUST_ID} attribute.
      */
@@ -616,7 +655,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_FIRST_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_FIRST_NAME} attribute with the
+     * specified value.
      *
      * @param custFirstName new value for {@value #ATTRIBUTE_NAME_CUST_FIRST_NAME} attribute.
      */
@@ -636,7 +676,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_LAST_NAME} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_LAST_NAME} attribute with the
+     * specified value.
      *
      * @param custLastName new value for {@value #ATTRIBUTE_NAME_CUST_LAST_NAME} attribute.
      */
@@ -656,7 +697,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_GENDER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_GENDER} attribute with the specified
+     * value.
      *
      * @param custGender new value for {@value #ATTRIBUTE_NAME_CUST_GENDER} attribute.
      */
@@ -676,7 +718,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH} attribute with the
+     * specified value.
      *
      * @param custYearOfBirth new value for {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH} attribute.
      */
@@ -696,9 +739,11 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_MARITAL_STATUS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_MARITAL_STATUS} attribute with the
+     * specified value.
      *
-     * @param custMaritalStatus new value for {@value #ATTRIBUTE_NAME_CUST_MARITAL_STATUS} attribute.
+     * @param custMaritalStatus new value for {@value #ATTRIBUTE_NAME_CUST_MARITAL_STATUS}
+     *                          attribute.
      */
     public void setCustMaritalStatus(final String custMaritalStatus) {
         this.custMaritalStatus = custMaritalStatus;
@@ -716,9 +761,11 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_STREET_ADDRESS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_STREET_ADDRESS} attribute with the
+     * specified value.
      *
-     * @param custStreetAddress new value for {@value #ATTRIBUTE_NAME_CUST_STREET_ADDRESS} attribute.
+     * @param custStreetAddress new value for {@value #ATTRIBUTE_NAME_CUST_STREET_ADDRESS}
+     *                          attribute.
      */
     public void setCustStreetAddress(final String custStreetAddress) {
         this.custStreetAddress = custStreetAddress;
@@ -736,7 +783,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_POSTAL_CODE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_POSTAL_CODE} attribute with the
+     * specified value.
      *
      * @param custPostalCode new value for {@value #ATTRIBUTE_NAME_CUST_POSTAL_CODE} attribute.
      */
@@ -756,7 +804,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_CITY} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_CITY} attribute with the specified
+     * value.
      *
      * @param custCity new value for {@value #ATTRIBUTE_NAME_CUST_CITY} attribute.
      */
@@ -776,7 +825,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_CITY_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_CITY_ID} attribute with the specified
+     * value.
      *
      * @param custCityId new value for {@value #ATTRIBUTE_NAME_CUST_CITY_ID} attribute.
      */
@@ -796,9 +846,11 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE} attribute with the
+     * specified value.
      *
-     * @param custStateProvince new value for {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE} attribute.
+     * @param custStateProvince new value for {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE}
+     *                          attribute.
      */
     public void setCustStateProvince(final String custStateProvince) {
         this.custStateProvince = custStateProvince;
@@ -816,9 +868,11 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE_ID} attribute with the
+     * specified value.
      *
-     * @param custStateProvinceId new value for {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE_ID} attribute.
+     * @param custStateProvinceId new value for {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE_ID}
+     *                            attribute.
      */
     public void setCustStateProvinceId(final Long custStateProvinceId) {
         this.custStateProvinceId = custStateProvinceId;
@@ -836,9 +890,9 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the specified value. The attribute
-     * is read-only; an extending entity sets it in step with the association which writes the
-     * {@value #COLUMN_NAME_COUNTRY_ID} column.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the specified
+     * value. The attribute is read-only; an extending entity sets it in step with the association
+     * which writes the {@value #COLUMN_NAME_COUNTRY_ID} column.
      *
      * @param countryId new value for {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
      */
@@ -858,9 +912,11 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_MAIN_PHONE_NUMBER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_MAIN_PHONE_NUMBER} attribute with the
+     * specified value.
      *
-     * @param custMainPhoneNumber new value for {@value #ATTRIBUTE_NAME_CUST_MAIN_PHONE_NUMBER} attribute.
+     * @param custMainPhoneNumber new value for {@value #ATTRIBUTE_NAME_CUST_MAIN_PHONE_NUMBER}
+     *                            attribute.
      */
     public void setCustMainPhoneNumber(final String custMainPhoneNumber) {
         this.custMainPhoneNumber = custMainPhoneNumber;
@@ -878,7 +934,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_INCOME_LEVEL} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_INCOME_LEVEL} attribute with the
+     * specified value.
      *
      * @param custIncomeLevel new value for {@value #ATTRIBUTE_NAME_CUST_INCOME_LEVEL} attribute.
      */
@@ -898,7 +955,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_CREDIT_LIMIT} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_CREDIT_LIMIT} attribute with the
+     * specified value.
      *
      * @param custCreditLimit new value for {@value #ATTRIBUTE_NAME_CUST_CREDIT_LIMIT} attribute.
      */
@@ -918,7 +976,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_EMAIL} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_EMAIL} attribute with the specified
+     * value.
      *
      * @param custEmail new value for {@value #ATTRIBUTE_NAME_CUST_EMAIL} attribute.
      */
@@ -938,7 +997,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_TOTAL} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_TOTAL} attribute with the specified
+     * value.
      *
      * @param custTotal new value for {@value #ATTRIBUTE_NAME_CUST_TOTAL} attribute.
      */
@@ -958,7 +1018,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_TOTAL_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_TOTAL_ID} attribute with the specified
+     * value.
      *
      * @param custTotalId new value for {@value #ATTRIBUTE_NAME_CUST_TOTAL_ID} attribute.
      */
@@ -978,7 +1039,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_SRC_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_SRC_ID} attribute with the specified
+     * value.
      *
      * @param custSrcId new value for {@value #ATTRIBUTE_NAME_CUST_SRC_ID} attribute.
      */
@@ -998,7 +1060,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_EFF_FROM} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_EFF_FROM} attribute with the specified
+     * value.
      *
      * @param custEffFrom new value for {@value #ATTRIBUTE_NAME_CUST_EFF_FROM} attribute.
      */
@@ -1018,7 +1081,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_EFF_TO} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_EFF_TO} attribute with the specified
+     * value.
      *
      * @param custEffTo new value for {@value #ATTRIBUTE_NAME_CUST_EFF_TO} attribute.
      */
@@ -1038,7 +1102,8 @@ public abstract class MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_VALID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUST_VALID} attribute with the specified
+     * value.
      *
      * @param custValid new value for {@value #ATTRIBUTE_NAME_CUST_VALID} attribute.
      */
@@ -1046,9 +1111,9 @@ public abstract class MappedCustomer {
         this.custValid = custValid;
     }
 
-    // --------------------------------------------------------------------------------------------------------------- 
-    // --------------------------------------------------------------------------------------------------------------- 
-    // --------------------------------------------------------------------------------------------------------------- 
+    // ---------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------------------------
 
     @NotNull
     @Id
@@ -1171,7 +1236,8 @@ public abstract class MappedCustomer {
     )
     private Long custStateProvinceId;
 
-    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // read-only: the extending entity owns the writable mapping of this column; see the class
+    // documentation
     @NotNull
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = false, insertable = false, updatable = false)

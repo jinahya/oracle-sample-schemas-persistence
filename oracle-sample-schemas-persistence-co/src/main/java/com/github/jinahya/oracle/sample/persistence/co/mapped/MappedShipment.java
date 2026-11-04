@@ -36,14 +36,15 @@ import jakarta.validation.constraints.Size;
 /**
  * A mapped superclass for mapping the {@value MappedShipment#TABLE_NAME} table.
  * <p>
- * The {@value #COLUMN_NAME_STORE_ID} and {@value #COLUMN_NAME_CUSTOMER_ID} columns are mapped read-only
- * ({@code insertable = false, updatable = false}), with a public getter and a {@code protected} setter, for
- * {@link #toString()} and for queries. How the relationship behind each is mapped -- fetch type, cascade, whether there
- * is an association at all -- is the extending entity's decision, so the extending entity also owns their writable
- * mapping, by an association's {@link jakarta.persistence.JoinColumn @JoinColumn}. <strong>An extending entity which
- * maps none never writes them.</strong> Being read-only, they are populated by a load or a refresh, or by the extending
- * entity, which sets them through their {@code protected} setters in step with the associations which write the
- * columns.
+ * The {@value #COLUMN_NAME_STORE_ID} and {@value #COLUMN_NAME_CUSTOMER_ID} columns are mapped
+ * read-only ({@code insertable = false, updatable = false}), with a public getter and a
+ * {@code protected} setter, for {@link #toString()} and for queries. How the relationship behind
+ * each is mapped -- fetch type, cascade, whether there is an association at all -- is the extending
+ * entity's decision, so the extending entity also owns their writable mapping, by an association's
+ * {@link jakarta.persistence.JoinColumn @JoinColumn}. <strong>An extending entity which maps none
+ * never writes them.</strong> Being read-only, they are populated by a load or a refresh, or by the
+ * extending entity, which sets them through their {@code protected} setters in step with the
+ * associations which write the columns.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -58,49 +59,51 @@ public abstract class MappedShipment {
     // ----------------------------------------------------------------------------------------------------- SHIPMENT_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_SHIPMENT_ID = "SHIPMENT_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_SHIPMENT_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_SHIPMENT_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT_ID = "shipmentId";
 
     // -------------------------------------------------------------------------------------------------------- STORE_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE_ID} attribute maps.
+     * The value is {@value}.
      */
     public static final String COLUMN_NAME_STORE_ID = "STORE_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_ID} column, read-only. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_STORE_ID} column, read-only.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE_ID = "storeId";
 
     // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUSTOMER_ID = "CUSTOMER_ID";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_CUSTOMER_ID} column, read-only. The value is
-     * {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_CUSTOMER_ID} column, read-only.
+     * The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER_ID = "customerId";
 
-    // ------------------------------------------------------------------------------ DELIVERY_ADDRESS / deliveryAddress
+    // ------------------------------------------------------------------------------
+    // DELIVERY_ADDRESS / deliveryAddress
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DELIVERY_ADDRESS} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_DELIVERY_ADDRESS} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_DELIVERY_ADDRESS = "DELIVERY_ADDRESS";
 
@@ -110,20 +113,23 @@ public abstract class MappedShipment {
     public static final int COLUMN_LENGTH_DELIVERY_ADDRESS = 512;
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DELIVERY_ADDRESS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DELIVERY_ADDRESS} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DELIVERY_ADDRESS = "deliveryAddress";
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_DELIVERY_ADDRESS} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_DELIVERY_ADDRESS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_DELIVERY_ADDRESS = COLUMN_LENGTH_DELIVERY_ADDRESS;
 
-    // -------------------------------------------------------------------------------- SHIPMENT_STATUS / shipmentStatus
+    // --------------------------------------------------------------------------------
+    // SHIPMENT_STATUS / shipmentStatus
 
     /**
-     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute maps. The value is
-     * {@value}.
+     * The name of the table column to which the {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute
+     * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_SHIPMENT_STATUS = "SHIPMENT_STATUS";
 
@@ -133,41 +139,44 @@ public abstract class MappedShipment {
     public static final int COLUMN_LENGTH_SHIPMENT_STATUS = 100;
 
     /**
-     * A value of the {@value #COLUMN_NAME_SHIPMENT_STATUS} column, for a shipment which has been created. The value is
-     * {@value}.
+     * A value of the {@value #COLUMN_NAME_SHIPMENT_STATUS} column, for a shipment which has been
+     * created. The value is {@value}.
      */
     public static final String COLUMN_VALUE_SHIPMENT_STATUS_CREATED = "CREATED";
 
     /**
-     * A value of the {@value #COLUMN_NAME_SHIPMENT_STATUS} column, for a shipment which has been shipped. The value is
-     * {@value}.
+     * A value of the {@value #COLUMN_NAME_SHIPMENT_STATUS} column, for a shipment which has been
+     * shipped. The value is {@value}.
      */
     public static final String COLUMN_VALUE_SHIPMENT_STATUS_SHIPPED = "SHIPPED";
 
     /**
-     * A value of the {@value #COLUMN_NAME_SHIPMENT_STATUS} column, for a shipment which is in transit. The value is
-     * {@value}.
+     * A value of the {@value #COLUMN_NAME_SHIPMENT_STATUS} column, for a shipment which is in
+     * transit. The value is {@value}.
      */
     public static final String COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT = "IN-TRANSIT";
 
     /**
-     * A value of the {@value #COLUMN_NAME_SHIPMENT_STATUS} column, for a shipment which has been delivered. The value
-     * is {@value}.
+     * A value of the {@value #COLUMN_NAME_SHIPMENT_STATUS} column, for a shipment which has been
+     * delivered. The value is {@value}.
      */
     public static final String COLUMN_VALUE_SHIPMENT_STATUS_DELIVERED = "DELIVERED";
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_SHIPMENT_STATUS} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_SHIPMENT_STATUS} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT_STATUS = "shipmentStatus";
 
     /**
-     * The minimum size of the {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute. The value is {@value}.
+     * The minimum size of the {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MIN_SHIPMENT_STATUS = 0;
 
     /**
-     * The maximum size of the {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute. The value is {@value}.
+     * The maximum size of the {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute. The value is
+     * {@value}.
      */
     public static final int SIZE_MAX_SHIPMENT_STATUS = COLUMN_LENGTH_SHIPMENT_STATUS;
 
@@ -179,29 +188,30 @@ public abstract class MappedShipment {
     public enum ShipmentStatus {
 
         /**
-         * A constant for the {@value MappedShipment#COLUMN_VALUE_SHIPMENT_STATUS_CREATED} value, for a shipment which
-         * has been created.
+         * A constant for the {@value MappedShipment#COLUMN_VALUE_SHIPMENT_STATUS_CREATED} value,
+         * for a shipment which has been created.
          */
         // 준비 중?
         CREATED,
 
         /**
-         * A constant for the {@value MappedShipment#COLUMN_VALUE_SHIPMENT_STATUS_SHIPPED} value, for a shipment which
-         * has been shipped.
+         * A constant for the {@value MappedShipment#COLUMN_VALUE_SHIPMENT_STATUS_SHIPPED} value,
+         * for a shipment which has been shipped.
          */
         // 발송/출고?
         SHIPPED,
 
         /**
-         * A constant for the {@value MappedShipment#COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT} value, for a shipment
-         * which is in transit. Note that the column value is not this constant's {@link Enum#name() name}.
+         * A constant for the {@value MappedShipment#COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT} value,
+         * for a shipment which is in transit. Note that the column value is not this constant's
+         * {@link Enum#name() name}.
          */
         // 배송 중?
         IN_TRANSIT(COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT),
 
         /**
-         * A constant for the {@value MappedShipment#COLUMN_VALUE_SHIPMENT_STATUS_DELIVERED} value, for a shipment which
-         * has been delivered.
+         * A constant for the {@value MappedShipment#COLUMN_VALUE_SHIPMENT_STATUS_DELIVERED} value,
+         * for a shipment which has been delivered.
          */
         // 배송 왼료?
         DELIVERED;
@@ -218,11 +228,11 @@ public abstract class MappedShipment {
         // ------------------------------------------------------------------------------------------------------------- columnValue
 
         /**
-         * Returns the value of the {@value MappedShipment#COLUMN_NAME_SHIPMENT_STATUS} column which this constant
-         * represents.
+         * Returns the value of the {@value MappedShipment#COLUMN_NAME_SHIPMENT_STATUS} column which
+         * this constant represents.
          *
-         * @return the column value of this constant; the constant's {@link Enum#name() name} unless it declares its
-         * own.
+         * @return the column value of this constant; the constant's {@link Enum#name() name} unless
+         *         it declares its own.
          */
         public String columnValue() {
             if (columnValue != null) {
@@ -234,8 +244,8 @@ public abstract class MappedShipment {
         // -------------------------------------------------------------------------------------------------------------
 
         /**
-         * The column value this constant declares; {@code null} for a constant whose column value is its
-         * {@link Enum#name() name}.
+         * The column value this constant declares; {@code null} for a constant whose column value
+         * is its {@link Enum#name() name}.
          *
          * @see #columnValue()
          */
@@ -243,13 +253,14 @@ public abstract class MappedShipment {
     }
 
     /**
-     * A converter between {@link ShipmentStatus} and the {@value #COLUMN_NAME_SHIPMENT_STATUS} column, by
-     * {@link ShipmentStatus#columnValue()} rather than {@link Enum#name()}.
+     * A converter between {@link ShipmentStatus} and the {@value #COLUMN_NAME_SHIPMENT_STATUS}
+     * column, by {@link ShipmentStatus#columnValue()} rather than {@link Enum#name()}.
      *
      * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
      */
     @Converter(autoApply = false)
-    public static class ShipmentStatusConverter implements AttributeConverter<ShipmentStatus, String> {
+    public static class ShipmentStatusConverter
+            implements AttributeConverter<ShipmentStatus, String> {
 
         /**
          * Creates a new instance.
@@ -271,8 +282,8 @@ public abstract class MappedShipment {
          *
          * @param dbData {@inheritDoc}
          * @return {@inheritDoc}
-         * @throws IllegalArgumentException if {@code dbData} is the column value of no {@link ShipmentStatus}
-         *                                  constant.
+         * @throws IllegalArgumentException if {@code dbData} is the column value of no
+         *                                  {@link ShipmentStatus} constant.
          */
         @Override
         public ShipmentStatus convertToEntityAttribute(final String dbData) {
@@ -315,9 +326,10 @@ public abstract class MappedShipment {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the generated {@code @Id} alone, the other instance's read through its getter, which is
-     * what makes the comparison correct when the other instance is still a lazy proxy. An instance whose {@code @Id} is
-     * still {@code null} -- one not yet persisted -- equals itself only.
+     * @implSpec Equality is by the generated {@code @Id} alone, the other instance's read
+     *         through its getter, which is what makes the comparison correct when the other
+     *         instance is still a lazy proxy. An instance whose {@code @Id} is still {@code null}
+     *         -- one not yet persisted -- equals itself only.
      */
     @Override
     public final boolean equals(final Object obj) {
@@ -335,10 +347,11 @@ public abstract class MappedShipment {
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is constant so that it does not change when the generated {@code @Id} is assigned on persist,
-     * which would lose an instance already held in a hash-based collection. It is {@code MappedShipment}'s rather than
-     * {@link #getClass()}'s, because a lazy proxy's class is a generated subclass and must hash alike to the instance
-     * it stands for.
+     * @implSpec The hash is constant so that it does not change when the generated
+     *         {@code @Id} is assigned on persist, which would lose an instance already held in a
+     *         hash-based collection. It is {@code MappedShipment}'s rather than
+     *         {@link #getClass()}'s, because a lazy proxy's class is a generated subclass and must
+     *         hash alike to the instance it stands for.
      */
     @Override
     public final int hashCode() {
@@ -357,7 +370,8 @@ public abstract class MappedShipment {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute with the specified
+     * value.
      *
      * @param shipmentId new value for {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute.
      */
@@ -378,7 +392,8 @@ public abstract class MappedShipment {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute with the specified
+     * value.
      *
      * @param storeId new value for {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
      */
@@ -399,7 +414,8 @@ public abstract class MappedShipment {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute with the specified
+     * value.
      *
      * @param customerId new value for {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
      */
@@ -420,7 +436,8 @@ public abstract class MappedShipment {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_DELIVERY_ADDRESS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_DELIVERY_ADDRESS} attribute with the
+     * specified value.
      *
      * @param deliveryAddress new value for {@value #ATTRIBUTE_NAME_DELIVERY_ADDRESS} attribute.
      */
@@ -441,7 +458,8 @@ public abstract class MappedShipment {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute with the
+     * specified value.
      *
      * @param shipmentStatus new value for {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute.
      */
@@ -450,19 +468,22 @@ public abstract class MappedShipment {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
-    // no @NotNull: database-generated identity; the value is null when the provider validates at pre-persist
+    // no @NotNull: database-generated identity; the value is null when the provider validates at
+    // pre-persist
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = COLUMN_NAME_SHIPMENT_ID, nullable = false,
             // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
             // insertable=false on a @GeneratedValue @Id -- it treats the mapping as read-only and
-            // fails descriptor initialisation with EclipseLink-46/EclipseLink-41. Verified on 5.0.1.
+            // fails descriptor initialisation with EclipseLink-46/EclipseLink-41. Verified on 5
+            // .0.1.
             insertable = true,
             updatable = false)
     private Long shipmentId;
 
     // -----------------------------------------------------------------------------------------------------------------
-    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // read-only: the extending entity owns the writable mapping of this column; see the class
+    // documentation
     @Nonnull
     @NotNull
     @Basic(optional = false)
@@ -470,7 +491,8 @@ public abstract class MappedShipment {
     private Long storeId;
 
     // -----------------------------------------------------------------------------------------------------------------
-    // read-only: the extending entity owns the writable mapping of this column; see the class documentation
+    // read-only: the extending entity owns the writable mapping of this column; see the class
+    // documentation
     @Nonnull
     @NotNull
     @Basic(optional = false)
@@ -500,5 +522,4 @@ public abstract class MappedShipment {
             length = COLUMN_LENGTH_SHIPMENT_STATUS
     )
     private ShipmentStatus shipmentStatus;
-
 }
