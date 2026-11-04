@@ -34,7 +34,7 @@ import java.util.List;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-final class __Constants {
+final class _Constants {
 
     // ------------------------------------------------------------------------------------------- routines / SECURE_DML
     static final String ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT = "08:00";
@@ -54,7 +54,7 @@ final class __Constants {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
-    private __Constants() {
+    private _Constants() {
         throw new AssertionError("instantiation is not allowed");
     }
 }

@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.persistence.sh.mapped;
+package com.github.jinahya.oracle.sample.persistence.co.mapped;
 
 /*-
  * #%L
- * sh
+ * co
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
@@ -21,7 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.sh.mapped;
  */
 
 /**
- * Constants shared across the {@code SH} schema's classes.
+ * Utilities shared across the {@code CO} schema's classes.
  * <p>
  * Only what is shared goes here; what belongs to a single entity stays in that entity.
  *
@@ -30,11 +30,11 @@ package com.github.jinahya.oracle.sample.persistence.sh.mapped;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-final class __Constants {
+final class _Utils {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
-    private __Constants() {
+    private _Utils() {
         throw new AssertionError("instantiation is not allowed");
     }
 }

@@ -32,17 +32,17 @@ import java.time.LocalDateTime;
  * <p>
  * The accessors of this class are public, and named after the columns, so that code which takes
  * this value from its {@link MappedStore} reads and changes it here. They delegate to the protected
- * accessors of {@link _Binary}, which hold the state; a change is persisted with the
+ * accessors of {@link MappedBinary}, which hold the state; a change is persisted with the
  * {@link MappedStore} which embeds this value.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @apiNote The state is inherited from {@link _Binary}, which names no column; the
+ * @apiNote The state is inherited from {@link MappedBinary}, which names no column; the
  *         overrides below bind each inherited attribute to its {@value MappedStore#TABLE_NAME}
  *         column, so embedding needs no further mapping.
  */
 @Embeddable
 @AttributeOverride(
-        name = _Binary.ATTRIBUTE_NAME_BYTES,
+        name = MappedBinary.ATTRIBUTE_NAME_BYTES,
         column = @Column(
                 name = MappedStore.COLUMN_NAME_LOGO,
                 nullable = true,
@@ -51,7 +51,7 @@ import java.time.LocalDateTime;
         )
 )
 @AttributeOverride(
-        name = _Binary.ATTRIBUTE_NAME_MIME_TYPE,
+        name = MappedBinary.ATTRIBUTE_NAME_MIME_TYPE,
         column = @Column(
                 name = MappedStore.COLUMN_NAME_LOGO_MIME_TYPE,
                 nullable = true,
@@ -61,7 +61,7 @@ import java.time.LocalDateTime;
         )
 )
 @AttributeOverride(
-        name = _Binary.ATTRIBUTE_NAME_FILENAME,
+        name = MappedBinary.ATTRIBUTE_NAME_FILENAME,
         column = @Column(
                 name = MappedStore.COLUMN_NAME_LOGO_FILENAME,
                 nullable = true,
@@ -71,7 +71,7 @@ import java.time.LocalDateTime;
         )
 )
 @AttributeOverride(
-        name = _Binary.ATTRIBUTE_NAME_CHARSET,
+        name = MappedBinary.ATTRIBUTE_NAME_CHARSET,
         column = @Column(
                 name = MappedStore.COLUMN_NAME_LOGO_CHARSET,
                 nullable = true,
@@ -81,7 +81,7 @@ import java.time.LocalDateTime;
         )
 )
 @AttributeOverride(
-        name = _Binary.ATTRIBUTE_NAME_LAST_UPDATED,
+        name = MappedBinary.ATTRIBUTE_NAME_LAST_UPDATED,
         column = @Column(
                 name = MappedStore.COLUMN_NAME_LOGO_LAST_UPDATED,
                 nullable = true,
@@ -93,7 +93,7 @@ import java.time.LocalDateTime;
         "java:S101" // Class names should comply with a naming convention
 })
 public class StoreLogo
-        extends _Binary {
+        extends MappedBinary {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 

@@ -59,7 +59,7 @@ import java.util.Optional;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-public abstract class _Binary {
+public abstract class MappedBinary {
 
     /**
      * The name of the attribute which maps the binary payload. The value is {@value}.
@@ -93,7 +93,7 @@ public abstract class _Binary {
     /**
      * Creates a new instance.
      */
-    protected _Binary() {
+    protected MappedBinary() {
         super();
     }
 

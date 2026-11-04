@@ -21,7 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.co;
  */
 
 import com.github.jinahya.oracle.sample.persistence.co.mapped.StoreLogo;
-import com.github.jinahya.oracle.sample.persistence.co.mapped._Binary;
+import com.github.jinahya.oracle.sample.persistence.co.mapped.MappedBinary;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -42,7 +42,7 @@ class StoreLogo_Test
      * Does nothing; {@link StoreLogo} is not a class {@code EqualsVerifier} has anything to
      * verify.
      *
-     * @implNote Neither {@link StoreLogo} nor {@link _Binary}, which holds its state,
+     * @implNote Neither {@link StoreLogo} nor {@link MappedBinary}, which holds its state,
      *         declares {@code equals(Object)}, so instances carry {@link Object}'s reference
      *         equality. There is no value equality to verify, and suppressing every check that
      *         follows from that would leave the test asserting nothing anyway.

@@ -36,11 +36,11 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * A class for testing the {@link __Utils} class, whose methods mirror the {@code HR} schema's
+ * A class for testing the {@link _Utils} class, whose methods mirror the {@code HR} schema's
  * stored routines.
  * <p>
  * The nested class covers
- * {@link __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(LocalTime, DayOfWeek)}, over the four
+ * {@link _Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(LocalTime, DayOfWeek)}, over the four
  * combinations of a time which is, or is not, within office hours and a weekday which is, or is
  * not, one of those the {@code SECURE_DML} procedure refuses.
  *
@@ -50,7 +50,7 @@ class __Utils_Test {
 
     /**
      * A class for testing
-     * {@link __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(LocalTime, DayOfWeek)}.
+     * {@link _Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(LocalTime, DayOfWeek)}.
      * <p>
      * Each test crosses a time which is, or is not, within the office hours the {@code SECURE_DML}
      * procedure allows with a weekday which is, or is not, one of those it refuses, and asserts
@@ -60,7 +60,7 @@ class __Utils_Test {
      * refused weekday additionally builds a {@link LocalDateTime} carrying both values and feeds it
      * to
      * {@link
-     * __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(java.time.temporal.TemporalAccessor)}, the
+     * _Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(java.time.temporal.TemporalAccessor)}, the
      * overload which derives the time and the weekday from a single temporal.
      */
     @Nested
@@ -84,12 +84,12 @@ class __Utils_Test {
         }
 
         private static Stream<DayOfWeek> dayOn() {
-            return __Constants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.stream();
+            return _Constants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.stream();
         }
 
         private static Stream<DayOfWeek> dayNotOn() {
             return Arrays.stream(DayOfWeek.values())
-                    .filter(v -> !__Constants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.contains(v));
+                    .filter(v -> !_Constants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.contains(v));
         }
 
         private static Stream<Arguments> nowNotBetween_dayOn() {
@@ -112,10 +112,10 @@ class __Utils_Test {
         @ParameterizedTest
         void nowNotBetween_dayOn__(final LocalTime now, final DayOfWeek day) {
             assertThat(
-                    __Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(now, day)
+                    _Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(now, day)
             ).isTrue();
             assertThat(
-                    __Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(
+                    _Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(
                             LocalDateTime.of(LocalDate.now(), now)
                                     .with(TemporalAdjusters.nextOrSame(day)))
             ).isTrue();
@@ -125,7 +125,7 @@ class __Utils_Test {
         @ParameterizedTest
         void nowNotBetween_dayNotOn__(final LocalTime now, final DayOfWeek day) {
             assertThat(
-                    __Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(now, day)
+                    _Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(now, day)
             ).isTrue();
         }
 
@@ -133,7 +133,7 @@ class __Utils_Test {
         @ParameterizedTest
         void nowBetween_dayOn__(final LocalTime now, final DayOfWeek day) {
             assertThat(
-                    __Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(now, day)
+                    _Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(now, day)
             ).isTrue();
         }
 
@@ -141,7 +141,7 @@ class __Utils_Test {
         @ParameterizedTest
         void nowBetween_dayNotOn__(final LocalTime now, final DayOfWeek day) {
             assertThat(
-                    __Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(now, day)
+                    _Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(now, day)
             ).isFalse();
         }
     }

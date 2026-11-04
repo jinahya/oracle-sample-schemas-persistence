@@ -47,12 +47,12 @@ the mapping (`@OraTrigger`, `@OraStorage`, `@OraMaterializedView`, `@OraIdentity
   its own column constants, fields, accessors, `toString`, and `equals`/`hashCode`. Do not add
   a common superclass to remove duplication between them -- the duplication keeps each mapping
   readable on its own.
-- **Shared code has two homes per module.** Each module has a package-private `__Constants`
-  and `__Utils` in `<schema>.mapped`, kept even when empty, and only what more than one class
+- **Shared code has two homes per module.** Each module has a package-private `_Constants`
+  and `_Utils` in `<schema>.mapped`, kept even when empty, and only what more than one class
   shares goes in them. There is no `__DomainConstants` or other per-domain catch-all.
 - **`toString`, `equals` and `hashCode` use basic attributes and the `@EmbeddedId`
   only, never an association.** A class that cannot compare by an identifier --
-  a view with no key, or the embeddable base `_Binary` -- omits `equals`/`hashCode`
+  a view with no key, or the embeddable base `MappedBinary` -- omits `equals`/`hashCode`
   and keeps identity equality.
 
 ### Member order inside an entity

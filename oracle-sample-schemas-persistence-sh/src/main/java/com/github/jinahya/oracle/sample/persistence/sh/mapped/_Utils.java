@@ -30,11 +30,11 @@ package com.github.jinahya.oracle.sample.persistence.sh.mapped;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-final class __Utils {
+final class _Utils {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
-    private __Utils() {
+    private _Utils() {
         throw new AssertionError("instantiation is not allowed");
     }
 }

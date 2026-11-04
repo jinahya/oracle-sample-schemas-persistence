@@ -10,7 +10,7 @@
  * entity owns its writable mapping, by an association's
  * {@link jakarta.persistence.JoinColumn @JoinColumn}.
  * <p>
- * The embeddables and the value types which hold no association -- {@link _Binary},
+ * The embeddables and the value types which hold no association -- {@link MappedBinary},
  * {@link ProductImage}, {@link StoreLogo}, {@link ProductDetails} -- are here as they are. A view
  * no column identifies is mapped by a plain class, not by a mapped superclass; see
  * {@link MappedProductReview} and {@link MappedStoreOrder}.

@@ -39,7 +39,7 @@ import java.util.Objects;
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention
 })
-final class __Utils {
+final class _Utils {
 
     // -------------------------------------------------------------------------------------------------- STATIC_METHODS
 
@@ -55,7 +55,7 @@ final class __Utils {
 
     /**
      * Checks whether the {@code SECURE_DML} routine would raise an application error
-     * ({@value __Constants#ROUTINE_SECURE_DML_APPLICATION_ERROR_CODE}) at the specified time on the
+     * ({@value _Constants#ROUTINE_SECURE_DML_APPLICATION_ERROR_CODE}) at the specified time on the
      * specified day of the week.
      * <p>
      * {@snippet id = "SECURE_DML" lang = "sql":
@@ -73,8 +73,8 @@ final class __Utils {
      * <hr/>
      * <p>
      * The routine raises the application error when the current time is {@code NOT BETWEEN}
-     * {@value __Constants#ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT} and
-     * {@value __Constants#ROUTINE_SECURE_DML_LOCAL_TIME_MAX_TEXT}, {@code OR} the current day of
+     * {@value _Constants#ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT} and
+     * {@value _Constants#ROUTINE_SECURE_DML_LOCAL_TIME_MAX_TEXT}, {@code OR} the current day of
      * the week is either {@link DayOfWeek#SATURDAY} or {@link DayOfWeek#SUNDAY}. As the routine
      * compares the time as {@code HH24:MI}, the {@code time} is compared to the minute; e.g.,
      * {@code 18:00:59} is still within the hours.
@@ -92,9 +92,9 @@ final class __Utils {
         // the routine compares TO_CHAR(SYSDATE, 'HH24:MI'), so anything finer than minutes is
         // ignored
         final var minutes = time.truncatedTo(ChronoUnit.MINUTES);
-        return minutes.isBefore(__Constants.ROUTINE_SECURE_DML_LOCAL_TIME_MIN)
-               || minutes.isAfter(__Constants.ROUTINE_SECURE_DML_LOCAL_TIME_MAX)
-               || __Constants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.contains(weekday);
+        return minutes.isBefore(_Constants.ROUTINE_SECURE_DML_LOCAL_TIME_MIN)
+               || minutes.isAfter(_Constants.ROUTINE_SECURE_DML_LOCAL_TIME_MAX)
+               || _Constants.ROUTINE_SECURE_DML_DAY_OF_WEEK_LIST.contains(weekday);
     }
 
     /**
@@ -119,7 +119,7 @@ final class __Utils {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
-    private __Utils() {
+    private _Utils() {
         throw new AssertionError("instantiation is not allowed");
     }
 }
