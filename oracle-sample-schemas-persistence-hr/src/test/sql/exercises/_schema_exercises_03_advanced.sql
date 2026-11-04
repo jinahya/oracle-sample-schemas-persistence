@@ -73,8 +73,7 @@ ORDER BY 1
 -- ------------------------------------------------------------------------------------------------------ HR_SCHEMA_A_04
 -- Facilities is reviewing the property list: which locations host no department at all?
 SELECT LOCATION_ID
-FROM LOCATIONS
-MINUS
+FROM LOCATIONS MINUS
 SELECT LOCATION_ID
 FROM DEPARTMENTS
 ;
@@ -97,7 +96,8 @@ ORDER BY d.DEPARTMENT_ID ASC, e.LAST_NAME ASC
 SELECT LEVEL - 1 AS STEPS_UP, e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, j.JOB_TITLE
 FROM EMPLOYEES e
          JOIN JOBS j ON j.JOB_ID = e.JOB_ID
-START WITH e.EMPLOYEE_ID = :employeeId
+    START
+WITH e.EMPLOYEE_ID = :employeeId
 CONNECT BY e.EMPLOYEE_ID = PRIOR e.MANAGER_ID
 ORDER BY STEPS_UP ASC
 ;

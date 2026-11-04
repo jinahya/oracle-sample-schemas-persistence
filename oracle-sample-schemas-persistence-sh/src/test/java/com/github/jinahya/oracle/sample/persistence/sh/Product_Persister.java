@@ -28,7 +28,8 @@ import jakarta.persistence.EntityManager;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Product_Persister extends AbstractEntityPersister<Product> {
+class Product_Persister
+        extends AbstractEntityPersister<Product> {
 
     Product_Persister() {
         super(Product.class);

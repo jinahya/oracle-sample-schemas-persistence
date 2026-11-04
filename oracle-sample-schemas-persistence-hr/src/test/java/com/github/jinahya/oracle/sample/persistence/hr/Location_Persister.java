@@ -27,12 +27,13 @@ import jakarta.persistence.EntityManager;
 /**
  * A persister which persists {@link Location} instances.
  * <p>
- * Each instance is given a newly persisted {@link Country} first, so that its {@code country} refers to a row which is
- * already in the database.
+ * Each instance is given a newly persisted {@link Country} first, so that its {@code country}
+ * refers to a row which is already in the database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Location_Persister extends AbstractEntityPersister<Location> {
+class Location_Persister
+        extends AbstractEntityPersister<Location> {
 
     Location_Persister() {
         super(Location.class);
@@ -41,7 +42,8 @@ class Location_Persister extends AbstractEntityPersister<Location> {
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     public Location apply(final EntityManager entityManager, final Location entityInstance) {
-        entityInstance.setCountry(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Country.class));
+        entityInstance.setCountry(
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Country.class));
         return super.apply(entityManager, entityInstance);
     }
 }

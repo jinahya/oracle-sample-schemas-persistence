@@ -34,25 +34,27 @@ import java.util.stream.Stream;
 /**
  * A persister which persists {@link Country} instances.
  * <p>
- * Each instance is given a newly persisted {@link Region} first, so that its {@code region} refers to a row which is
- * already in the database.
+ * Each instance is given a newly persisted {@link Region} first, so that its {@code region} refers
+ * to a row which is already in the database.
  * <p>
- * Its {@code countryId}, a {@value Country#COLUMN_LENGTH_COUNTRY_ID}-character key, is replaced with an upper-case code
- * no row takes: a randomized one collides, now and then, with the 25 codes the sample data installs, and fails with
- * {@code ORA-00001}.
+ * Its {@code countryId}, a {@value Country#COLUMN_LENGTH_COUNTRY_ID}-character key, is replaced
+ * with an upper-case code no row takes: a randomized one collides, now and then, with the 25 codes
+ * the sample data installs, and fails with {@code ORA-00001}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Country_Persister extends AbstractEntityPersister<Country> {
+class Country_Persister
+        extends AbstractEntityPersister<Country> {
 
     /**
-     * Every upper-case code of {@value Country#COLUMN_LENGTH_COUNTRY_ID} characters, {@code AA} to {@code ZZ}.
+     * Every upper-case code of {@value Country#COLUMN_LENGTH_COUNTRY_ID} characters, {@code AA} to
+     * {@code ZZ}.
      */
     private static final List<String> CODES = codes(Country.COLUMN_LENGTH_COUNTRY_ID, "").toList();
 
     /**
-     * The position, in {@link #CODES}, of the next code to hand out; shared, so that no two calls hand out the same
-     * one, whether or not the first has been flushed.
+     * The position, in {@link #CODES}, of the next code to hand out; shared, so that no two calls
+     * hand out the same one, whether or not the first has been flushed.
      */
     private static final AtomicInteger NEXT = new AtomicInteger();
 
@@ -63,7 +65,8 @@ class Country_Persister extends AbstractEntityPersister<Country> {
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     public Country apply(final EntityManager entityManager, final Country entityInstance) {
-        entityInstance.setRegion(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Region.class));
+        entityInstance.setRegion(
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Region.class));
         entityInstance.setCountryId(freeCountryId(entityManager));
         return super.apply(entityManager, entityInstance);
     }
@@ -71,11 +74,13 @@ class Country_Persister extends AbstractEntityPersister<Country> {
     /**
      * Returns the next code which no {@link Country} row takes.
      *
-     * @implNote The query runs with {@link FlushModeType#COMMIT}: under the default mode EclipseLink flushes every
-     * pending change before it, which splits a caller's own pending {@code UPDATE} in two -- {@code HR.EMPLOYEES}'s
-     * {@code UPDATE_JOB_HISTORY} trigger then fires twice for one employee and day, and violates
-     * {@code JHIST_EMP_ID_ST_DATE_PK}. A country persisted but not flushed is therefore not seen by the query; it is
-     * never handed out again because {@link #NEXT} only moves forward.
+     * @implNote The query runs with {@link FlushModeType#COMMIT}: under the default mode
+     *         EclipseLink flushes every pending change before it, which splits a caller's own
+     *         pending {@code UPDATE} in two -- {@code HR.EMPLOYEES}'s {@code UPDATE_JOB_HISTORY}
+     *         trigger then fires twice for one employee and day, and violates
+     *         {@code JHIST_EMP_ID_ST_DATE_PK}. A country persisted but not flushed is therefore not
+     *         seen by the query; it is never handed out again because {@link #NEXT} only moves
+     *         forward.
      */
     private static String freeCountryId(final EntityManager entityManager) {
         final var taken = new HashSet<>(

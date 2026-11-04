@@ -30,11 +30,13 @@ import java.util.List;
 /**
  * A randomizer which produces randomized {@link ProductOrder} instances.
  * <p>
- * Nothing is excluded from randomization: the class holds only the two columns of the composite key.
+ * Nothing is excluded from randomization: the class holds only the two columns of the composite
+ * key.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class ProductOrder_Randomizer extends PodamObjectRandomizer<ProductOrder> {
+class ProductOrder_Randomizer
+        extends PodamObjectRandomizer<ProductOrder> {
 
     ProductOrder_Randomizer() {
         super(ProductOrder.class, List.of());

@@ -37,7 +37,8 @@ import java.util.List;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @NamedQuery(
-        name = "Product.selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
+        name = "Product" +
+               ".selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
         query = """
                 SELECT e
                 FROM Product e
@@ -86,7 +87,8 @@ public class Product
     // ----------------------------------------------------------------------------------------------------- ORDER_ITEMS
 
     /**
-     * The name of the attribute which maps the order items which order this product. The value is {@value}.
+     * The name of the attribute which maps the order items which order this product. The value is
+     * {@value}.
      *
      * @see OrderItem#ATTRIBUTE_NAME_PRODUCT
      */
@@ -95,7 +97,8 @@ public class Product
     // ----------------------------------------------------------------------------------------------------- INVENTORIES
 
     /**
-     * The name of the attribute which maps the inventories which hold this product. The value is {@value}.
+     * The name of the attribute which maps the inventories which hold this product. The value is
+     * {@value}.
      *
      * @see Inventory#ATTRIBUTE_NAME_PRODUCT
      */

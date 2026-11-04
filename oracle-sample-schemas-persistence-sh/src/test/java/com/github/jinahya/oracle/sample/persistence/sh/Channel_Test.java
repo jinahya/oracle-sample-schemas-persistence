@@ -28,7 +28,8 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Channel_Test extends _Entity_Test<Channel> {
+class Channel_Test
+        extends _Entity_Test<Channel> {
 
     Channel_Test() {
         super(Channel.class);
@@ -39,8 +40,8 @@ class Channel_Test extends _Entity_Test<Channel> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Channel#equals(Object) equals} compares only the {@code @Id} -- the surrogate key -- because
-     * every other attribute is mutable state.
+     * @implNote {@link Channel#equals(Object) equals} compares only the {@code @Id} -- the
+     *         surrogate key -- because every other attribute is mutable state.
      */
     @Override
     public SingleTypeEqualsVerifierApi<Channel> equals_verifier_() {

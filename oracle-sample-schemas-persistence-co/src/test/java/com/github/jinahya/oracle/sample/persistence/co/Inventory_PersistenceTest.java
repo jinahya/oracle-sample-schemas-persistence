@@ -27,13 +27,16 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Verifies the mappings of {@link Inventory} against the schema generated into the in-memory database.
+ * Verifies the mappings of {@link Inventory} against the schema generated into the in-memory
+ * database.
  * <p>
- * Each persisted {@link Inventory} is given a store and a product of its own, so a query by either selects it alone.
+ * Each persisted {@link Inventory} is given a store and a product of its own, so a query by either
+ * selects it alone.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Inventory_PersistenceTest extends _Entity_PersistenceTest<Inventory> {
+class Inventory_PersistenceTest
+        extends _Entity_PersistenceTest<Inventory> {
 
     // -----------------------------------------------------------------------------------------------------------------
     Inventory_PersistenceTest() {
@@ -43,7 +46,8 @@ class Inventory_PersistenceTest extends _Entity_PersistenceTest<Inventory> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Tests {@code Inventory.selectOneByStoreAndProduct}, which answers exercise {@code CO_INVENTORY_B_01}.
+     * Tests {@code Inventory.selectOneByStoreAndProduct}, which answers exercise
+     * {@code CO_INVENTORY_B_01}.
      */
     @Nested
     class SelectOneByStoreAndProduct_Test {
@@ -119,7 +123,8 @@ class Inventory_PersistenceTest extends _Entity_PersistenceTest<Inventory> {
         void __NamedQuery() {
             applyNewPersistedEntityInstanceAndRollback((em, v) -> {
                 final var found = em
-                        .createNamedQuery("Inventory.selectOneByProductOrderByProductInventoryAsc", targetClass)
+                        .createNamedQuery("Inventory.selectOneByProductOrderByProductInventoryAsc",
+                                          targetClass)
                         .setParameter("product", v.getProduct())
                         .getResultList();
                 assertThat(found)
@@ -171,22 +176,25 @@ class Inventory_PersistenceTest extends _Entity_PersistenceTest<Inventory> {
     }
 
     /**
-     * Tests {@code Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc}, which answers exercise
-     * {@code CO_SCHEMA_A_16}.
+     * Tests {@code Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc}, which answers
+     * exercise {@code CO_SCHEMA_A_16}.
      * <p>
-     * The persisted inventory has a store and a product of its own, and no order item sells the product at the store,
-     * so it is unsold stock as soon as it holds any.
+     * The persisted inventory has a store and a product of its own, and no order item sells the
+     * product at the store, so it is unsold stock as soon as it holds any.
      */
     @Nested
     class SelectListUnsoldByStoreOrderByProductInventoryDesc_Test {
 
-        @DisplayName("the named query selects the inventory just persisted, never sold at its store")
+        @DisplayName(
+                "the named query selects the inventory just persisted, never sold at its store")
         @Test
         void __NamedQuery() {
             applyNewPersistedEntityInstanceAndRollback((em, v) -> {
                 v.setProductInventory(1L);
                 final var found = em
-                        .createNamedQuery("Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc", targetClass)
+                        .createNamedQuery(
+                                "Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc",
+                                targetClass)
                         .setParameter("store", v.getStore())
                         .getResultList();
                 assertThat(found)
@@ -196,7 +204,9 @@ class Inventory_PersistenceTest extends _Entity_PersistenceTest<Inventory> {
             });
         }
 
-        @DisplayName("a query-language query selects the inventory just persisted, never sold at its store")
+        @DisplayName(
+                "a query-language query selects the inventory just persisted, never sold at its " +
+                "store")
         @Test
         void __QueryLanguage() {
             applyNewPersistedEntityInstanceAndRollback((em, v) -> {
@@ -224,7 +234,8 @@ class Inventory_PersistenceTest extends _Entity_PersistenceTest<Inventory> {
             });
         }
 
-        @DisplayName("a criteria query selects the inventory just persisted, never sold at its store")
+        @DisplayName(
+                "a criteria query selects the inventory just persisted, never sold at its store")
         @Test
         void __CriteriaApi() {
             applyNewPersistedEntityInstanceAndRollback((em, v) -> {
@@ -236,7 +247,8 @@ class Inventory_PersistenceTest extends _Entity_PersistenceTest<Inventory> {
                 final var item = subquery.from(OrderItem.class);
                 subquery.select(item).where(
                         builder.equal(item.get(OrderItem_.product), root.get(Inventory_.product)),
-                        builder.equal(item.get(OrderItem_.order).get(Order_.store), root.get(Inventory_.store))
+                        builder.equal(item.get(OrderItem_.order).get(Order_.store),
+                                      root.get(Inventory_.store))
                 );
                 query.select(root);
                 query.where(
@@ -262,7 +274,9 @@ class Inventory_PersistenceTest extends _Entity_PersistenceTest<Inventory> {
             applyNewPersistedEntityInstanceAndRollback((em, v) -> {
                 v.setProductInventory(0L);
                 final var found = em
-                        .createNamedQuery("Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc", targetClass)
+                        .createNamedQuery(
+                                "Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc",
+                                targetClass)
                         .setParameter("store", v.getStore())
                         .getResultList();
                 assertThat(found)

@@ -30,12 +30,14 @@ import java.util.List;
 /**
  * A randomizer which produces randomized {@link JobHistory} instances.
  * <p>
- * The {@code employee}, {@code job} and {@code department} associations are excluded from randomization; the
- * {@code employee} overlaps the identifier class, and is left to whichever test needs it.
+ * The {@code employee}, {@code job} and {@code department} associations are excluded from
+ * randomization; the {@code employee} overlaps the identifier class, and is left to whichever test
+ * needs it.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class JobHistory_Randomizer extends PodamObjectRandomizer<JobHistory> {
+class JobHistory_Randomizer
+        extends PodamObjectRandomizer<JobHistory> {
 
     JobHistory_Randomizer() {
         super(JobHistory.class, List.of(

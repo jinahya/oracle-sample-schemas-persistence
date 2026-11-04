@@ -22,11 +22,13 @@ package com.github.jinahya.oracle.sample.persistence.co;
  */
 
 /**
- * Verifies the mappings of {@link Shipment} against the schema generated into the in-memory database.
+ * Verifies the mappings of {@link Shipment} against the schema generated into the in-memory
+ * database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Shipment_PersistenceTest extends _Entity_PersistenceTest<Shipment> {
+class Shipment_PersistenceTest
+        extends _Entity_PersistenceTest<Shipment> {
 
     Shipment_PersistenceTest() {
         super(Shipment.class);

@@ -43,7 +43,12 @@ ORDER BY s.TIME_ID DESC, p.PROD_NAME
 -- ------------------------------------------------------------------------------------------------------ SH_SCHEMA_B_02
 -- The account-management screen lists the customers of :city together with their country and region. Customer's country
 -- association is lazy, so listing them naively issues one more query per country. Load both in one query.
-SELECT cu.CUST_ID, cu.CUST_FIRST_NAME, cu.CUST_LAST_NAME, co.COUNTRY_ID, co.COUNTRY_NAME, co.COUNTRY_REGION
+SELECT cu.CUST_ID,
+       cu.CUST_FIRST_NAME,
+       cu.CUST_LAST_NAME,
+       co.COUNTRY_ID,
+       co.COUNTRY_NAME,
+       co.COUNTRY_REGION
 FROM CUSTOMERS cu
          JOIN COUNTRIES co ON co.COUNTRY_ID = cu.COUNTRY_ID
 WHERE cu.CUST_CITY = :city

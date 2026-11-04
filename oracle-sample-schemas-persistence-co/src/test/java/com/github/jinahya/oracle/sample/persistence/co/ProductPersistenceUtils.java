@@ -34,8 +34,9 @@ import java.util.function.BiFunction;
 public final class ProductPersistenceUtils {
 
     /**
-     * Selects the minimum and the maximum of the {@value Product#ATTRIBUTE_NAME_UNIT_PRICE} attribute, in a single
-     * query, and returns the result of applying the specified mapperFunction to them.
+     * Selects the minimum and the maximum of the {@value Product#ATTRIBUTE_NAME_UNIT_PRICE}
+     * attribute, in a single query, and returns the result of applying the specified mapperFunction
+     * to them.
      * <p>
      * {@snippet lang = "java":
      * final var range = ProductPersistenceUtils.applyMinUnitPriceAndMaxUnitPrice(
@@ -45,19 +46,22 @@ public final class ProductPersistenceUtils {
      *}
      *
      * @param entityManager  an entity manager to query with.
-     * @param mapperFunction a mapperFunction to be applied with the minimum and the maximum unit price, in that order;
-     *                       may be applied with {@code null} and {@code null}.
+     * @param mapperFunction a mapperFunction to be applied with the minimum and the maximum unit
+     *                       price, in that order; may be applied with {@code null} and
+     *                       {@code null}.
      * @param <R>            result type parameter
      * @return the result of the {@code mapperFunction}.
-     * @apiNote The {@code mapperFunction} is always applied, and is applied with {@code null} and {@code null} when the
-     * table is empty, or when no product has a unit price.
+     * @apiNote The {@code mapperFunction} is always applied, and is applied with
+     *         {@code null} and {@code null} when the table is empty, or when no product has a unit
+     *         price.
      */
     public static <R> R applyMinUnitPriceAndMaxUnitPrice(
             final EntityManager entityManager,
             final BiFunction<? super BigDecimal, ? super BigDecimal, ? extends R> mapperFunction) {
         Objects.requireNonNull(entityManager, "entityManager is null");
         Objects.requireNonNull(mapperFunction, "mapperFunction is null");
-        // Object[] rather than Tuple: EclipseLink returns an Object[] for a multi-select even when asked for a Tuple
+        // Object[] rather than Tuple: EclipseLink returns an Object[] for a multi-select even
+        // when asked for a Tuple
         final var row = entityManager.createQuery(
                         """
                                 SELECT MIN(e.unitPrice), MAX(e.unitPrice)

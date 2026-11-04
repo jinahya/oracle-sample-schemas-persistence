@@ -34,10 +34,11 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * A naive persistence test of the {@link Customer} class, written out in full, with no test base and no CDI container.
+ * A naive persistence test of the {@link Customer} class, written out in full, with no test base
+ * and no CDI container.
  * <p>
- * The factory of the {@code co-test} unit is created once for the class and closed after it; a test takes an entity
- * manager from it, and works inside a transaction which it always rolls back.
+ * The factory of the {@code co-test} unit is created once for the class and closed after it; a test
+ * takes an entity manager from it, and works inside a transaction which it always rolls back.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see Customer_PersistenceTest
@@ -54,7 +55,8 @@ class Naive_Customer_PersistenceTest {
     @BeforeAll
     static void createEntityManagerFactory() {
         entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        log.debug("created entity manager factory for {}: {}", PERSISTENCE_UNIT_NAME, entityManagerFactory);
+        log.debug("created entity manager factory for {}: {}", PERSISTENCE_UNIT_NAME,
+                  entityManagerFactory);
     }
 
     @AfterAll
@@ -74,7 +76,8 @@ class Naive_Customer_PersistenceTest {
             final var transaction1 = entityManager.getTransaction();
             transaction1.begin();
             try {
-                final var customer = ObjectRandomizerUtils.newRandomizedInstanceOf(Customer.class).orElseThrow();
+                final var customer =
+                        ObjectRandomizerUtils.newRandomizedInstanceOf(Customer.class).orElseThrow();
                 log.debug("persisting {}", customer);
                 entityManager.persist(customer);
                 entityManager.flush();

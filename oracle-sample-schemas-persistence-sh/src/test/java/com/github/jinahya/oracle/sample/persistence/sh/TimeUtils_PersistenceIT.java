@@ -20,10 +20,9 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
-import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
-import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.jboss.weld.junit5.auto.EnableAutoWeld;
+import jakarta.persistence.EntityManagerFactory;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -32,19 +31,17 @@ import org.junit.jupiter.api.Test;
 import java.time.YearMonth;
 import java.util.List;
 
-import static com.github.jinahya.oracle.sample.persistence.sh._Entity_PersistenceIT_Producer.__ItPU;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
- * A class for testing the readers of {@link TimeUtils} against every row of the {@value Time#TABLE_NAME} table as
- * installed, a nested class per method; each derived value is checked against the row's own
- * {@value Time#ATTRIBUTE_NAME_TIME_ID}, which is what the text attributes describe.
+ * A class for testing the readers of {@link TimeUtils} against every row of the
+ * {@value Time#TABLE_NAME} table as installed, a nested class per method; each derived value is
+ * checked against the row's own {@value Time#ATTRIBUTE_NAME_TIME_ID}, which is what the text
+ * attributes describe.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@AddBeanClasses(_Entity_PersistenceIT_Producer.class)
-@EnableAutoWeld
 class TimeUtils_PersistenceIT {
 
     private List<Time> all;
@@ -64,7 +61,8 @@ class TimeUtils_PersistenceIT {
         @Test
         void _WeekdayOfTimeId_EveryRow() {
             for (final var time : all) {
-                assertThat(TimeUtils.getDayNameAsDayOfWeek(time)).isSameAs(time.getTimeId().getDayOfWeek());
+                assertThat(TimeUtils.getDayNameAsDayOfWeek(time)).isSameAs(
+                        time.getTimeId().getDayOfWeek());
             }
         }
     }
@@ -78,7 +76,8 @@ class TimeUtils_PersistenceIT {
         @Test
         void _MonthOfTimeId_EveryRow() {
             for (final var time : all) {
-                assertThat(TimeUtils.getCalendarMonthDescAsYearMonth(time)).isEqualTo(YearMonth.from(time.getTimeId()));
+                assertThat(TimeUtils.getCalendarMonthDescAsYearMonth(time)).isEqualTo(
+                        YearMonth.from(time.getTimeId()));
             }
         }
     }
@@ -108,7 +107,8 @@ class TimeUtils_PersistenceIT {
         @Test
         void _MonthOfTimeId_EveryRow() {
             for (final var time : all) {
-                assertThat(TimeUtils.getCalendarMonthNameAsMonth(time)).isSameAs(time.getTimeId().getMonth());
+                assertThat(TimeUtils.getCalendarMonthNameAsMonth(time)).isSameAs(
+                        time.getTimeId().getMonth());
             }
         }
     }
@@ -128,8 +128,13 @@ class TimeUtils_PersistenceIT {
         }
     }
 
+    @AfterEach
+    void closeEntityManager() {
+        entityManager.close();
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
-    @__ItPU
-    @Inject
-    private EntityManager entityManager;
+    private final EntityManager entityManager =
+            __PersistenceIT_Utils.applyEntityManagerFactory(
+                    EntityManagerFactory::createEntityManager);
 }

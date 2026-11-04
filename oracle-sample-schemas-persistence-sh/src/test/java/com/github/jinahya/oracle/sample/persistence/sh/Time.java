@@ -57,7 +57,8 @@ import jakarta.persistence.Table;
 )
 @Entity
 @Table(name = MappedTime.TABLE_NAME)
-public class Time extends MappedTime {
+public class Time
+        extends MappedTime {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 

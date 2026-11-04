@@ -29,7 +29,12 @@
 -- ------------------------------------------------------------------------------------------------------- SH_TIMES_B_01
 -- Finance closes the books by fiscal period, which does not line up with the calendar. Given :day, which fiscal year,
 -- quarter and month, and which calendar month and quarter, does it fall in?
-SELECT TIME_ID, FISCAL_YEAR, FISCAL_QUARTER_DESC, FISCAL_MONTH_DESC, CALENDAR_QUARTER_DESC, CALENDAR_MONTH_DESC
+SELECT TIME_ID,
+       FISCAL_YEAR,
+       FISCAL_QUARTER_DESC,
+       FISCAL_MONTH_DESC,
+       CALENDAR_QUARTER_DESC,
+       CALENDAR_MONTH_DESC
 FROM TIMES
 WHERE TIME_ID = :day
 ;

@@ -20,8 +20,6 @@ package com.github.jinahya.oracle.sample.persistence.hr.mapped;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.persistence.hr.mapped.__Constants;
-import com.github.jinahya.oracle.sample.persistence.hr.mapped.__Utils;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -38,26 +36,32 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * A class for testing the {@link __Utils} class, whose methods mirror the {@code HR} schema's stored routines.
+ * A class for testing the {@link __Utils} class, whose methods mirror the {@code HR} schema's
+ * stored routines.
  * <p>
- * The nested class covers {@link __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(LocalTime, DayOfWeek)}, over the
- * four combinations of a time which is, or is not, within office hours and a weekday which is, or is not, one of those
- * the {@code SECURE_DML} procedure refuses.
+ * The nested class covers
+ * {@link __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(LocalTime, DayOfWeek)}, over the four
+ * combinations of a time which is, or is not, within office hours and a weekday which is, or is
+ * not, one of those the {@code SECURE_DML} procedure refuses.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class __Utils_Test {
 
     /**
-     * A class for testing {@link __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(LocalTime, DayOfWeek)}.
+     * A class for testing
+     * {@link __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(LocalTime, DayOfWeek)}.
      * <p>
-     * Each test crosses a time which is, or is not, within the office hours the {@code SECURE_DML} procedure allows
-     * with a weekday which is, or is not, one of those it refuses, and asserts that the routine raises unless the time
-     * is within the hours and the weekday is not refused. Times are compared to the minute, as the routine compares
-     * {@code TO_CHAR(SYSDATE, 'HH24:MI')}. The group pairing an out-of-office-hours time with a refused weekday
-     * additionally builds a {@link LocalDateTime} carrying both values and feeds it to
-     * {@link __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(java.time.temporal.TemporalAccessor)}, the overload
-     * which derives the time and the weekday from a single temporal.
+     * Each test crosses a time which is, or is not, within the office hours the {@code SECURE_DML}
+     * procedure allows with a weekday which is, or is not, one of those it refuses, and asserts
+     * that the routine raises unless the time is within the hours and the weekday is not refused.
+     * Times are compared to the minute, as the routine compares
+     * {@code TO_CHAR(SYSDATE, 'HH24:MI')}. The group pairing an out-of-office-hours time with a
+     * refused weekday additionally builds a {@link LocalDateTime} carrying both values and feeds it
+     * to
+     * {@link
+     * __Utils#ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(java.time.temporal.TemporalAccessor)}, the
+     * overload which derives the time and the weekday from a single temporal.
      */
     @Nested
     class ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR_Test {
@@ -112,7 +116,8 @@ class __Utils_Test {
             ).isTrue();
             assertThat(
                     __Utils.ROUTINE_SECURE_DML_RAISE_APPLICATION_ERROR(
-                            LocalDateTime.of(LocalDate.now(), now).with(TemporalAdjusters.nextOrSame(day)))
+                            LocalDateTime.of(LocalDate.now(), now)
+                                    .with(TemporalAdjusters.nextOrSame(day)))
             ).isTrue();
         }
 

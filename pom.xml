@@ -105,7 +105,7 @@
     <metamodel.generator.version>${version.org.hibernate.orm}</metamodel.generator.version>
     <version.maven-failsafe>${version.maven-surefire}</version.maven-failsafe>
     <version.maven-surefire>3.6.0</version.maven-surefire>
-    <version.jinahya-persistence>0.6.7</version.jinahya-persistence>
+    <version.jinahya-persistence>0.6.11-SNAPSHOT</version.jinahya-persistence>
     <!-- https://central.sonatype.com/artifact/uk.co.jemos.podam/podam/versions -->
     <version.uk.co.jemos.podam>8.0.2.RELEASE</version.uk.co.jemos.podam>
     <!-- https://www.oracle.com/kr/database/technologies/appdev/jdbc-downloads.html -->
@@ -116,7 +116,7 @@
     <!-- https://jakarta.ee/specifications/platform/11/ -->
     <!-- https://central.sonatype.com/artifact/jakarta.platform/jakarta.jakartaee-bom/versions -->
     <!-- 11.0.0 manages: jakarta.persistence-api 3.2.0, jakarta.validation-api 3.1.1, -->
-    <!--                 jakarta.enterprise.cdi-api 4.1.0, jakarta.el-api 6.0.1 -->
+    <!--                 jakarta.el-api 6.0.1 -->
     <version.jakarta.jakartaee-bom>11.0.0</version.jakarta.jakartaee-bom>
     <!-- https://central.sonatype.com/artifact/nl.jqno.equalsverifier/equalsverifier-nodep/versions -->
     <version.nl.jqno.equalsverifier>4.5.2</version.nl.jqno.equalsverifier>
@@ -136,11 +136,6 @@
     <!-- https://hibernate.org/validator/releases/ -->
     <!-- https://central.sonatype.com/artifact/org.hibernate.validator/hibernate-validator/versions -->
     <version.org.hibernate.validator>9.1.4.Final</version.org.hibernate.validator>
-    <!-- https://weld.cdi-spec.org/download/ -->
-    <!-- https://central.sonatype.com/artifact/org.jboss.weld/weld-junit5/versions -->
-    <!-- note: this is the weld-junit5 (weld-testing) version, not the Weld version; -->
-    <!--       weld-junit5 5.0.x pulls weld-se-core 6.0.x, i.e. Weld 6 / CDI 4.1 -->
-    <version.org.jboss.weld>5.0.3.Final</version.org.jboss.weld>
     <!-- https://central.sonatype.com/artifact/org.junit/junit-bom/versions -->
     <version.org.junit>5.14.4</version.org.junit>
     <!-- https://central.sonatype.com/artifact/org.mockito/mockito-junit-jupiter/versions -->
@@ -219,11 +214,6 @@
         <artifactId>hibernate-validator-test-utils</artifactId>
         <version>${version.org.hibernate.validator}</version>
       </dependency>
-      <dependency>
-        <groupId>org.jboss.weld</groupId>
-        <artifactId>weld-junit5</artifactId>
-        <version>${version.org.jboss.weld}</version>
-      </dependency>
       <dependency><!-- https://search.maven.org/artifact/org.junit/junit-bom -->
         <groupId>org.junit</groupId>
         <artifactId>junit-bom</artifactId>
@@ -277,16 +267,6 @@
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.expressly</groupId>
-      <artifactId>expressly</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate.validator</groupId>
-      <artifactId>hibernate-validator</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -748,7 +728,7 @@
 
     <!-- ============================================================== persistence provider ==== -->
     <!-- The only implementation axis in this build. The other specs have a single implementation
-         each (Hibernate Validator + Expressly for Jakarta Validation, Weld for CDI), pinned to
+         each (Hibernate Validator + Expressly for Jakarta Validation), pinned to
          their Jakarta EE 11 aligned release in <properties>; there is nothing to choose there, so
          they have no profiles.
          These two profiles do not choose a VERSION either: both provider versions live in

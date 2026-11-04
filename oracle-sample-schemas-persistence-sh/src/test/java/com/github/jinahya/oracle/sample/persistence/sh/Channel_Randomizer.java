@@ -32,7 +32,8 @@ import java.util.List;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Channel_Randomizer extends PodamObjectRandomizer<Channel> {
+class Channel_Randomizer
+        extends PodamObjectRandomizer<Channel> {
 
     Channel_Randomizer() {
         super(Channel.class, List.of(

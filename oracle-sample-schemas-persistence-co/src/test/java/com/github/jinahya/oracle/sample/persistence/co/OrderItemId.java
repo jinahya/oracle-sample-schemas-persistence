@@ -35,7 +35,8 @@ import jakarta.persistence.Embeddable;
 public class OrderItemId
         extends MappedOrderItemId {
 
-    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    // ------------------------------------------------------------------------------------------
+    // STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified order id and line item id.

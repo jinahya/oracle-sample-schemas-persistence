@@ -25,12 +25,14 @@ import com.github.jinahya.persistence.test.util.EntityPersisterUtils;
 import jakarta.persistence.EntityManager;
 
 /**
- * A persister which persists {@link Customer} instances. Each instance is first given a newly persisted
- * {@link Country}, because the {@value Customer#ATTRIBUTE_NAME_COUNTRY} association is not optional.
+ * A persister which persists {@link Customer} instances. Each instance is first given a newly
+ * persisted {@link Country}, because the {@value Customer#ATTRIBUTE_NAME_COUNTRY} association is
+ * not optional.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Customer_Persister extends AbstractEntityPersister<Customer> {
+class Customer_Persister
+        extends AbstractEntityPersister<Customer> {
 
     Customer_Persister() {
         super(Customer.class);
@@ -39,7 +41,8 @@ class Customer_Persister extends AbstractEntityPersister<Customer> {
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     public Customer apply(final EntityManager entityManager, final Customer entityInstance) {
-        entityInstance.setCountry(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Country.class));
+        entityInstance.setCountry(
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Country.class));
         return super.apply(entityManager, entityInstance);
     }
 }

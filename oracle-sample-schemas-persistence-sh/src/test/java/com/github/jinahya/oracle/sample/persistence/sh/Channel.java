@@ -57,7 +57,8 @@ import jakarta.persistence.Table;
 )
 @Entity
 @Table(name = MappedChannel.TABLE_NAME)
-public class Channel extends MappedChannel {
+public class Channel
+        extends MappedChannel {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 

@@ -32,7 +32,8 @@ import java.util.List;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class SupplementaryDemographics_Randomizer extends PodamObjectRandomizer<SupplementaryDemographics> {
+class SupplementaryDemographics_Randomizer
+        extends PodamObjectRandomizer<SupplementaryDemographics> {
 
     SupplementaryDemographics_Randomizer() {
         super(SupplementaryDemographics.class, List.of(

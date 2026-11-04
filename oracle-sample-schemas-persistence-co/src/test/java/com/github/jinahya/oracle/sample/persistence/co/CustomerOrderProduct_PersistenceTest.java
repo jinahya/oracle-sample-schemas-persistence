@@ -24,22 +24,24 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
- * Verifies the mappings of {@link CustomerOrderProduct} against the schema generated into the in-memory database.
+ * Verifies the mappings of {@link CustomerOrderProduct} against the schema generated into the
+ * in-memory database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class CustomerOrderProduct_PersistenceTest extends _Entity_PersistenceTest<CustomerOrderProduct> {
+class CustomerOrderProduct_PersistenceTest
+        extends _Entity_PersistenceTest<CustomerOrderProduct> {
 
     CustomerOrderProduct_PersistenceTest() {
         super(CustomerOrderProduct.class);
     }
 
-    // ---------------------------------------------------------------------------------------------------------------- 
+    // ----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Does nothing; {@value CustomerOrderProduct#TABLE_NAME} is a view, so there is nothing to insert a randomized
-     * instance into. The provider generates a table for it into the in-memory database, which would make this pass for
-     * the wrong reason, and the real object is read-only.
+     * Does nothing; {@value CustomerOrderProduct#TABLE_NAME} is a view, so there is nothing to
+     * insert a randomized instance into. The provider generates a table for it into the in-memory
+     * database, which would make this pass for the wrong reason, and the real object is read-only.
      */
     @Disabled("a view: nothing is inserted into it")
     @Override

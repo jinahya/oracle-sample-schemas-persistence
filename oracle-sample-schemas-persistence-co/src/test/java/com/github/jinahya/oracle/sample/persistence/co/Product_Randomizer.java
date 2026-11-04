@@ -35,14 +35,16 @@ import java.util.List;
 /**
  * A randomizer which produces randomized {@link Product} instances.
  * <p>
- * The generated {@code productId}, and the {@code orderItems} and {@code inventories} collections, are excluded from
- * randomization; the inverse side of a one-to-many is left to whichever test needs it. The {@code productDetails} is
- * assigned after the fact, because PODAM fills it with arbitrary bytes, not a JSON document; it is set to a randomized
- * {@link ProductDetails} written as JSON.
+ * The generated {@code productId}, and the {@code orderItems} and {@code inventories} collections,
+ * are excluded from randomization; the inverse side of a one-to-many is left to whichever test
+ * needs it. The {@code productDetails} is assigned after the fact, because PODAM fills it with
+ * arbitrary bytes, not a JSON document; it is set to a randomized {@link ProductDetails} written as
+ * JSON.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Product_Randomizer extends PodamObjectRandomizer<Product> {
+class Product_Randomizer
+        extends PodamObjectRandomizer<Product> {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -74,12 +76,14 @@ class Product_Randomizer extends PodamObjectRandomizer<Product> {
     @Override
     public Product get() {
         final var value = super.get();
-        // Podam fills the attribute with arbitrary bytes, which are not a JSON document; replace them with a
+        // Podam fills the attribute with arbitrary bytes, which are not a JSON document; replace
+        // them with a
         // randomized ProductDetails, written as JSON.
         try {
             value.setProductDetails(
                     ProductDetails_TestUtils.toBytes(
-                            ObjectRandomizerUtils.newRandomizedInstanceOf(ProductDetails.class).orElseThrow(),
+                            ObjectRandomizerUtils.newRandomizedInstanceOf(ProductDetails.class)
+                                    .orElseThrow(),
                             OBJECT_MAPPER
                     )
             );

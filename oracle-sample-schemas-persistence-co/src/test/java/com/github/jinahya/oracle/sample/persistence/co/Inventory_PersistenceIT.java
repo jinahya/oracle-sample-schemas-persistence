@@ -37,7 +37,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Inventory_PersistenceIT extends _Entity_PersistenceIT<Inventory> {
+class Inventory_PersistenceIT
+        extends _Entity_PersistenceIT<Inventory> {
 
     // -----------------------------------------------------------------------------------------------------------------
     Inventory_PersistenceIT() {
@@ -47,7 +48,8 @@ class Inventory_PersistenceIT extends _Entity_PersistenceIT<Inventory> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Tests {@code Inventory.selectOneByStoreAndProduct}, which answers exercise {@code CO_INVENTORY_B_01}.
+     * Tests {@code Inventory.selectOneByStoreAndProduct}, which answers exercise
+     * {@code CO_INVENTORY_B_01}.
      */
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -177,7 +179,8 @@ class Inventory_PersistenceIT extends _Entity_PersistenceIT<Inventory> {
         @ParameterizedTest
         void __NamedQuery(final Long productId) {
             final var found = entityManager()
-                    .createNamedQuery("Inventory.selectOneByProductOrderByProductInventoryAsc", targetClass)
+                    .createNamedQuery("Inventory.selectOneByProductOrderByProductInventoryAsc",
+                                      targetClass)
                     .setParameter("product",
                                   entityManager().getReference(Product.class, productId))
                     .getResultList();
@@ -221,8 +224,8 @@ class Inventory_PersistenceIT extends _Entity_PersistenceIT<Inventory> {
     }
 
     /**
-     * Tests {@code Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc}, which answers exercise
-     * {@code CO_SCHEMA_A_16}.
+     * Tests {@code Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc}, which answers
+     * exercise {@code CO_SCHEMA_A_16}.
      */
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -263,10 +266,12 @@ class Inventory_PersistenceIT extends _Entity_PersistenceIT<Inventory> {
                                            .setParameter("product", i.getProduct())
                                            .setParameter("store", i.getStore())
                                            .getSingleResult())
-                                .as("order items selling the product of %s at its store", i.getInventoryId())
+                                .as("order items selling the product of %s at its store",
+                                    i.getInventoryId())
                                 .isZero();
                     })
-                    .isSortedAccordingTo(Comparator.comparing(Inventory::getProductInventory).reversed());
+                    .isSortedAccordingTo(
+                            Comparator.comparing(Inventory::getProductInventory).reversed());
         }
 
         @DisplayName("the named query selects the store's stock never sold there, largest first")
@@ -274,13 +279,16 @@ class Inventory_PersistenceIT extends _Entity_PersistenceIT<Inventory> {
         @ParameterizedTest
         void __NamedQuery(final Long storeId) {
             final var found = entityManager()
-                    .createNamedQuery("Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc", targetClass)
+                    .createNamedQuery(
+                            "Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc",
+                            targetClass)
                     .setParameter("store", entityManager().getReference(Store.class, storeId))
                     .getResultList();
             verify(storeId, found);
         }
 
-        @DisplayName("a query-language query selects the store's stock never sold there, largest first")
+        @DisplayName(
+                "a query-language query selects the store's stock never sold there, largest first")
         @MethodSource("storeIds")
         @ParameterizedTest
         void __QueryLanguage(final Long storeId) {
@@ -315,11 +323,13 @@ class Inventory_PersistenceIT extends _Entity_PersistenceIT<Inventory> {
             final var item = subquery.from(OrderItem.class);
             subquery.select(item).where(
                     builder.equal(item.get(OrderItem_.product), root.get(Inventory_.product)),
-                    builder.equal(item.get(OrderItem_.order).get(Order_.store), root.get(Inventory_.store))
+                    builder.equal(item.get(OrderItem_.order).get(Order_.store),
+                                  root.get(Inventory_.store))
             );
             query.select(root);
             query.where(
-                    builder.equal(root.get(Inventory_.store), entityManager.getReference(Store.class, storeId)),
+                    builder.equal(root.get(Inventory_.store),
+                                  entityManager.getReference(Store.class, storeId)),
                     builder.gt(root.get(Inventory_.productInventory), 0L),
                     builder.not(builder.exists(subquery))
             );

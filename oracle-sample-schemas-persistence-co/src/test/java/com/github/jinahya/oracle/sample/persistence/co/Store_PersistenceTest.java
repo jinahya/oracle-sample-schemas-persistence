@@ -32,7 +32,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Store_PersistenceTest extends _Entity_PersistenceTest<Store> {
+class Store_PersistenceTest
+        extends _Entity_PersistenceTest<Store> {
 
     // -----------------------------------------------------------------------------------------------------------------
     Store_PersistenceTest() {

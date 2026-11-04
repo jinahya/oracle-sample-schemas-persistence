@@ -142,10 +142,10 @@ would look for their tables in the wrong schema.
 
 ### Test bases, one copy per module
 
-There is no shared test module. Each module has, in its own test package, its own test bases,
-their CDI producers `_Entity_PersistenceTest_Producer` /
-`_Entity_PersistenceIT_Producer`, and the helper `___Persistence_TestUtils`. The bases are
-one root and four siblings, none of which extends another, plus one interface holding the checks:
+There is no shared test module, and no CDI. Each module has, in its own test package, its own test
+bases, the helpers `__PersistenceTest_Utils` / `__PersistenceIT_Utils` and `___Validation_TestUtils`,
+and the empty `___Persistence_TestUtils`. The bases are one root and four siblings, none of which
+extends another, plus one interface holding the checks:
 
 | base | tests | for |
 | --- | --- | --- |
@@ -168,15 +168,25 @@ Interface methods are `public`, so a subclass overriding one -- `equals_verifier
 a warning, `equals_verify_()` to skip a class with no value equality -- declares it `public`. An
 override of a test method keeps its `@Test`; without it the override silently drops the test.
 
-Each persistence base names its producer in its own `@AddBeanClasses`; the producer holds the unit
-name as its `PERSISTENCE_UNIT_NAME` constant.
+As in the sibling `sqlserver-samples-persistence`, each unit has a helper in place of a CDI producer:
+`__PersistenceTest_Utils` for `<schema>-test` and `__PersistenceIT_Utils` for `<schema>-it`. Each holds
+the unit name as its `PERSISTENCE_UNIT_NAME` constant and an `applyEntityManagerFactory(Function)` which
+takes the factory from `JinahyaPersistenceTestUtils.applyCachedEntityManagerFactory`: opened once for the
+whole run, closed when the virtual machine shuts down. A persistence base takes its factory from its
+helper, and opens an entity manager per test, on first use, which it closes after the test; a test class
+outside the bases (`sh`'s `*Utils_PersistenceTest` / `*Utils_PersistenceIT`) opens one per test instance
+the same way, and closes it in an `@AfterEach`. The H2 schema of a `<schema>-test` unit is therefore
+generated once per run, not once per test class, so a row a test commits is seen by the tests after it.
 
-Keep the producers concrete. These classes used to live in a shared `test-base` module, with an
-abstract producer that a subclass in each module completed by supplying the name -- and since CDI
-does not inherit producer or disposer methods (an inherited `@Produces` is simply not seen, and the
-injection point fails with `WELD-001408`), each subclass had to re-declare all four just to supply
-it. The copies are kept in step by hand: a fix to one module's test
-base is carried to the other two, unless it is specific to that module.
+Nothing else wraps the library. A test calls `JinahyaEntityManagerUtils`, `JinahyaEntityManagerTestUtils`,
+`JinahyaEntityManagerFactoryUtils` and `JinayaManagedTypeUtils` directly; `___Persistence_TestUtils`,
+which used to hold the same helpers, is kept empty. That needs `version.jinahya-persistence` 0.6.11 or later,
+and each module declares `jinahya-persistence-more`, `-utils` and `-test-utils` itself, at `test` scope.
+`___Validation_TestUtils` holds a validator factory, built once per run, and `validate` / `assertValid`;
+Hibernate Validator and Expressly are each module's own `test` dependencies, not the root's.
+
+The copies are kept in step by hand: a fix to one module's test base is carried to the other two,
+unless it is specific to that module.
 
 Every persistence unit carries `<exclude-unlisted-classes>true</exclude-unlisted-classes>`,
 and it stays: the unit lists exactly the classes it means, and the flag keeps anything else out.
@@ -218,20 +228,20 @@ artifacts:
 - **The persistence provider is the only implementation axis**, and it has exactly two
   profiles: `jakarta-ee-11-hibernate-orm` (`activeByDefault`) and
   `jakarta-ee-11-eclipselink`. Every other spec has a single implementation here
-  (Hibernate Validator + Expressly for Jakarta Validation, Weld for CDI), pinned to
+  (Hibernate Validator + Expressly for Jakarta Validation), pinned to
   its EE 11 aligned release in `<properties>`; there is nothing to choose, so it gets
   no profile. Neither provider profile picks a *version* either — both versions live
   in `<properties>`; a profile decides only which provider is on the test classpath
   and which metamodel generator the annotation processor path uses.
 - Do not add a profile to test a second version of anything. Varying Hibernate
-  Validator, Expressly or Weld tests those projects, not this one. Any profile that
+  Validator or Expressly tests those projects, not this one. Any profile that
   is added must carry the `jakarta-ee-11-` prefix and actually be certified for that
   generation.
 
 Consequences:
 
 - Never pin a `jakarta.*` API artifact (`jakarta.persistence-api`,
-  `jakarta.validation-api`, `jakarta.enterprise.cdi-api`, `jakarta.el-api`, …) to an
+  `jakarta.validation-api`, `jakarta.el-api`, …) to an
   explicit version. Let the umbrella BOM decide, and change the platform version in
   one place instead.
 - When a provider drags in a `jakarta.*` API newer or older than the umbrella BOM,
@@ -252,7 +262,6 @@ Consequences:
 | Jakarta Persistence (`jakarta.persistence-api`) | EclipseLink (`org.eclipse.persistence:org.eclipse.persistence.jpa`) | `version.org.eclipse.persistence` |
 | Jakarta Validation (`jakarta.validation-api`) | Hibernate Validator | `version.org.hibernate.validator` |
 | Jakarta Expression Language (`jakarta.el-api`) | Expressly — required by Hibernate Validator | `version.org.glassfish.expressly` |
-| Jakarta CDI (`jakarta.enterprise.cdi-api`) | Weld (`weld-junit5`) | `version.org.jboss.weld` |
 
 Rules:
 
@@ -265,8 +274,6 @@ Rules:
   against EclipseLink and vice versa.
 - Hibernate Validator and Expressly move together: validator 9 ↔ expressly 6. Never
   bump one without the other.
-- `version.org.jboss.weld` holds the **weld-junit5 (weld-testing)** version, not the
-  Weld version — weld-junit5 5.0.x is the Weld 6 / CDI 4.1 line.
 
 ### Java release
 

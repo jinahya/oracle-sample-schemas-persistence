@@ -28,7 +28,8 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Profit_PersistenceIT extends _Entity_PersistenceIT<Profit> {
+class Profit_PersistenceIT
+        extends _Entity_PersistenceIT<Profit> {
 
     Profit_PersistenceIT() {
         super(Profit.class);
@@ -37,8 +38,8 @@ class Profit_PersistenceIT extends _Entity_PersistenceIT<Profit> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Does nothing; {@value Profit#TABLE_NAME} is a view, so there is nothing to insert a randomized instance into. The
-     * installed object is read-only.
+     * Does nothing; {@value Profit#TABLE_NAME} is a view, so there is nothing to insert a
+     * randomized instance into. The installed object is read-only.
      */
     @Disabled("a view: nothing is inserted into it")
     @Override

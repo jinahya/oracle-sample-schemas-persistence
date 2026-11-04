@@ -30,12 +30,13 @@ import java.util.List;
 /**
  * A randomizer which produces randomized {@link Location} instances.
  * <p>
- * The {@code country} and {@code departments} associations are excluded from randomization; {@link Location_Persister}
- * supplies the {@code country}.
+ * The {@code country} and {@code departments} associations are excluded from randomization;
+ * {@link Location_Persister} supplies the {@code country}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Location_Randomizer extends PodamObjectRandomizer<Location> {
+class Location_Randomizer
+        extends PodamObjectRandomizer<Location> {
 
     Location_Randomizer() {
         super(Location.class, List.of(

@@ -20,10 +20,10 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
-import jakarta.inject.Inject;
+import com.github.jinahya.persistence.util.JinahyaEntityManagerUtils;
 import jakarta.persistence.EntityManager;
-import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.jboss.weld.junit5.auto.EnableAutoWeld;
+import jakarta.persistence.EntityManagerFactory;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -33,25 +33,28 @@ import java.time.Month;
 import java.time.YearMonth;
 import java.util.function.Function;
 
-import static com.github.jinahya.oracle.sample.persistence.sh._Entity_PersistenceTest_Producer.__TestPU;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * A class for testing {@link TimeUtils} against the {@code sh-test} unit, a nested class per typed writer: each writes
- * through the utility, flushes, clears, reloads the row and reads it back through the utility.
+ * A class for testing {@link TimeUtils} against the {@code sh-test} unit, a nested class per typed
+ * writer: each writes through the utility, flushes, clears, reloads the row and reads it back
+ * through the utility.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@AddBeanClasses(_Entity_PersistenceTest_Producer.class)
-@EnableAutoWeld
 class TimeUtils_PersistenceTest {
 
-    private <R> R inRolledBackTransaction(final Function<? super EntityManager, ? extends R> function) {
-        return ___Persistence_TestUtils.applyInTransactionAndRollback(entityManager, function);
+    private <R> R inRolledBackTransaction(
+            final Function<? super EntityManager, ? extends R> function) {
+        return JinahyaEntityManagerUtils.applyInTransactionAndRollback(entityManager, function);
     }
 
-    /** Persists a row, applies the specified writer to it, flushes and clears, and returns the row reloaded. */
-    private static Time roundTrip(final EntityManager em, final java.util.function.Consumer<? super Time> writer) {
+    /**
+     * Persists a row, applies the specified writer to it, flushes and clears, and returns the row
+     * reloaded.
+     */
+    private static Time roundTrip(final EntityManager em,
+                                  final java.util.function.Consumer<? super Time> writer) {
         final var persisted = Time_Persister.newPersistedInstanceBeforeEarliest(em);
         writer.accept(persisted);
         em.flush();
@@ -68,7 +71,8 @@ class TimeUtils_PersistenceTest {
         @Test
         void _ReadBack_() {
             inRolledBackTransaction(em -> {
-                final var reloaded = roundTrip(em, t -> TimeUtils.setDayNameFromDayOfWeek(t, DayOfWeek.FRIDAY));
+                final var reloaded =
+                        roundTrip(em, t -> TimeUtils.setDayNameFromDayOfWeek(t, DayOfWeek.FRIDAY));
                 assertThat(reloaded.getDayName()).isEqualTo("Friday");
                 assertThat(TimeUtils.getDayNameAsDayOfWeek(reloaded)).isSameAs(DayOfWeek.FRIDAY);
                 return null;
@@ -86,9 +90,11 @@ class TimeUtils_PersistenceTest {
         void _ReadBack_() {
             inRolledBackTransaction(em -> {
                 final var reloaded = roundTrip(
-                        em, t -> TimeUtils.setCalendarMonthDescFromYearMonth(t, YearMonth.of(2019, 1)));
+                        em,
+                        t -> TimeUtils.setCalendarMonthDescFromYearMonth(t, YearMonth.of(2019, 1)));
                 assertThat(reloaded.getCalendarMonthDesc()).isEqualTo("2019-01");
-                assertThat(TimeUtils.getCalendarMonthDescAsYearMonth(reloaded)).isEqualTo(YearMonth.of(2019, 1));
+                assertThat(TimeUtils.getCalendarMonthDescAsYearMonth(reloaded)).isEqualTo(
+                        YearMonth.of(2019, 1));
                 return null;
             });
         }
@@ -104,9 +110,11 @@ class TimeUtils_PersistenceTest {
         void _ReadBack_() {
             inRolledBackTransaction(em -> {
                 final var reloaded = roundTrip(
-                        em, t -> TimeUtils.setFiscalMonthDescFromYearMonth(t, YearMonth.of(2024, 1)));
+                        em,
+                        t -> TimeUtils.setFiscalMonthDescFromYearMonth(t, YearMonth.of(2024, 1)));
                 assertThat(reloaded.getFiscalMonthDesc()).isEqualTo("2024-01");
-                assertThat(TimeUtils.getFiscalMonthDescAsYearMonth(reloaded)).isEqualTo(YearMonth.of(2024, 1));
+                assertThat(TimeUtils.getFiscalMonthDescAsYearMonth(reloaded)).isEqualTo(
+                        YearMonth.of(2024, 1));
                 return null;
             });
         }
@@ -121,9 +129,11 @@ class TimeUtils_PersistenceTest {
         @Test
         void _ReadBack_() {
             inRolledBackTransaction(em -> {
-                final var reloaded = roundTrip(em, t -> TimeUtils.setCalendarMonthNameFromMonth(t, Month.SEPTEMBER));
+                final var reloaded = roundTrip(em, t -> TimeUtils.setCalendarMonthNameFromMonth(t,
+                                                                                                Month.SEPTEMBER));
                 assertThat(reloaded.getCalendarMonthName()).isEqualTo("September");
-                assertThat(TimeUtils.getCalendarMonthNameAsMonth(reloaded)).isSameAs(Month.SEPTEMBER);
+                assertThat(TimeUtils.getCalendarMonthNameAsMonth(reloaded)).isSameAs(
+                        Month.SEPTEMBER);
                 return null;
             });
         }
@@ -138,7 +148,8 @@ class TimeUtils_PersistenceTest {
         @Test
         void _ReadBack_() {
             inRolledBackTransaction(em -> {
-                final var reloaded = roundTrip(em, t -> TimeUtils.setFiscalMonthNameFromMonth(t, Month.MAY));
+                final var reloaded =
+                        roundTrip(em, t -> TimeUtils.setFiscalMonthNameFromMonth(t, Month.MAY));
                 assertThat(reloaded.getFiscalMonthName()).isEqualTo("May");
                 assertThat(TimeUtils.getFiscalMonthNameAsMonth(reloaded)).isSameAs(Month.MAY);
                 return null;
@@ -146,8 +157,13 @@ class TimeUtils_PersistenceTest {
         }
     }
 
+    @AfterEach
+    void closeEntityManager() {
+        entityManager.close();
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
-    @__TestPU
-    @Inject
-    private EntityManager entityManager;
+    private final EntityManager entityManager =
+            __PersistenceTest_Utils.applyEntityManagerFactory(
+                    EntityManagerFactory::createEntityManager);
 }

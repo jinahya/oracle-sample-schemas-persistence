@@ -88,7 +88,8 @@ import java.util.Optional;
 )
 @Entity
 @Table(name = MappedCustomer.TABLE_NAME)
-public class Customer extends MappedCustomer {
+public class Customer
+        extends MappedCustomer {
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column as a
@@ -117,8 +118,8 @@ public class Customer extends MappedCustomer {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY} attribute with the specified value, and the
-     * {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the country's identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY} attribute with the specified
+     * value, and the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with the country's identifier.
      *
      * @param country new value for {@value #ATTRIBUTE_NAME_COUNTRY} attribute.
      */

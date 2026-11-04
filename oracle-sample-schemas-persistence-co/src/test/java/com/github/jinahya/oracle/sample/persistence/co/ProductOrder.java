@@ -29,8 +29,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 /**
- * An entity class for mapping the {@value MappedProductOrder#TABLE_NAME} view, whose composite identifier is
- * mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
+ * An entity class for mapping the {@value MappedProductOrder#TABLE_NAME} view, whose composite
+ * identifier is mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see ProductOrderId

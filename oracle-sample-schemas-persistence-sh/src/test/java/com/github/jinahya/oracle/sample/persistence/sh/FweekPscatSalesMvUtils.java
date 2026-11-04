@@ -25,8 +25,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Utilities for {@link FweekPscatSalesMv}: readers of the components of its {@link FweekPscatSalesMv#getId() id},
- * kept out of the entity so that they are not bean properties of it.
+ * Utilities for {@link FweekPscatSalesMv}: readers of the components of its
+ * {@link FweekPscatSalesMv#getId() id}, kept out of the entity so that they are not bean properties
+ * of it.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see FweekPscatSalesMv
@@ -37,8 +38,9 @@ public final class FweekPscatSalesMvUtils {
     // ------------------------------------------------------------------------------------------------ id.weekEndingDay
 
     /**
-     * Returns current value of the {@value FweekPscatSalesMv#ATTRIBUTE_PATH_ID_WEEK_ENDING_DAY} attribute of the
-     * specified entity -- the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_WEEK_ENDING_DAY} component of its
+     * Returns current value of the {@value FweekPscatSalesMv#ATTRIBUTE_PATH_ID_WEEK_ENDING_DAY}
+     * attribute of the specified entity -- the
+     * {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_WEEK_ENDING_DAY} component of its
      * {@link FweekPscatSalesMv#getId() id}.
      *
      * @param fweekPscatSalesMv the entity.
@@ -47,14 +49,16 @@ public final class FweekPscatSalesMvUtils {
      */
     public static LocalDateTime getIdWeekEndingDay(final FweekPscatSalesMv fweekPscatSalesMv) {
         Objects.requireNonNull(fweekPscatSalesMv, "fweekPscatSalesMv is null");
-        return Optional.ofNullable(fweekPscatSalesMv.getId()).map(FweekPscatSalesMvId::getWeekEndingDay).orElse(null);
+        return Optional.ofNullable(fweekPscatSalesMv.getId())
+                .map(FweekPscatSalesMvId::getWeekEndingDay).orElse(null);
     }
 
     // ---------------------------------------------------------------------------------------------- id.prodSubcategory
 
     /**
-     * Returns current value of the {@value FweekPscatSalesMv#ATTRIBUTE_PATH_ID_PROD_SUBCATEGORY} attribute of the
-     * specified entity -- the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_PROD_SUBCATEGORY} component of its
+     * Returns current value of the {@value FweekPscatSalesMv#ATTRIBUTE_PATH_ID_PROD_SUBCATEGORY}
+     * attribute of the specified entity -- the
+     * {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_PROD_SUBCATEGORY} component of its
      * {@link FweekPscatSalesMv#getId() id}.
      *
      * @param fweekPscatSalesMv the entity.
@@ -63,14 +67,16 @@ public final class FweekPscatSalesMvUtils {
      */
     public static String getIdProdSubcategory(final FweekPscatSalesMv fweekPscatSalesMv) {
         Objects.requireNonNull(fweekPscatSalesMv, "fweekPscatSalesMv is null");
-        return Optional.ofNullable(fweekPscatSalesMv.getId()).map(FweekPscatSalesMvId::getProdSubcategory).orElse(null);
+        return Optional.ofNullable(fweekPscatSalesMv.getId())
+                .map(FweekPscatSalesMvId::getProdSubcategory).orElse(null);
     }
 
     // ---------------------------------------------------------------------------------------------------- id.channelId
 
     /**
-     * Returns current value of the {@value FweekPscatSalesMv#ATTRIBUTE_PATH_ID_CHANNEL_ID} attribute of the
-     * specified entity -- the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_CHANNEL_ID} component of its
+     * Returns current value of the {@value FweekPscatSalesMv#ATTRIBUTE_PATH_ID_CHANNEL_ID}
+     * attribute of the specified entity -- the
+     * {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_CHANNEL_ID} component of its
      * {@link FweekPscatSalesMv#getId() id}.
      *
      * @param fweekPscatSalesMv the entity.
@@ -79,15 +85,16 @@ public final class FweekPscatSalesMvUtils {
      */
     public static Long getIdChannelId(final FweekPscatSalesMv fweekPscatSalesMv) {
         Objects.requireNonNull(fweekPscatSalesMv, "fweekPscatSalesMv is null");
-        return Optional.ofNullable(fweekPscatSalesMv.getId()).map(FweekPscatSalesMvId::getChannelId).orElse(null);
+        return Optional.ofNullable(fweekPscatSalesMv.getId()).map(FweekPscatSalesMvId::getChannelId)
+                .orElse(null);
     }
 
     // ------------------------------------------------------------------------------------------------------ id.promoId
 
     /**
-     * Returns current value of the {@value FweekPscatSalesMv#ATTRIBUTE_PATH_ID_PROMO_ID} attribute of the
-     * specified entity -- the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_PROMO_ID} component of its
-     * {@link FweekPscatSalesMv#getId() id}.
+     * Returns current value of the {@value FweekPscatSalesMv#ATTRIBUTE_PATH_ID_PROMO_ID} attribute
+     * of the specified entity -- the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_PROMO_ID} component
+     * of its {@link FweekPscatSalesMv#getId() id}.
      *
      * @param fweekPscatSalesMv the entity.
      * @return the component; {@code null} when the id is {@code null}.
@@ -95,7 +102,8 @@ public final class FweekPscatSalesMvUtils {
      */
     public static Integer getIdPromoId(final FweekPscatSalesMv fweekPscatSalesMv) {
         Objects.requireNonNull(fweekPscatSalesMv, "fweekPscatSalesMv is null");
-        return Optional.ofNullable(fweekPscatSalesMv.getId()).map(FweekPscatSalesMvId::getPromoId).orElse(null);
+        return Optional.ofNullable(fweekPscatSalesMv.getId()).map(FweekPscatSalesMvId::getPromoId)
+                .orElse(null);
     }
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS

@@ -36,8 +36,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * A class for testing {@link ProductDetails} against the JSON documents kept beside this class.
  * <p>
- * The nested class reads each single-document resource back into a {@link ProductDetails} instance, and the outer test
- * walks the list document, reading back the {@code PRODUCT_DETAILS} value of every element which has one.
+ * The nested class reads each single-document resource back into a {@link ProductDetails} instance,
+ * and the outer test walks the list document, reading back the {@code PRODUCT_DETAILS} value of
+ * every element which has one.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -47,8 +48,9 @@ class ProductDetails_Json_Test {
     /**
      * A class for testing {@link ProductDetails} against the single-document JSON resources.
      * <p>
-     * Each of {@code PRODUCTS_PRODUCT_DETAILS_1.json} and {@code PRODUCTS_PRODUCT_DETAILS_2.json} holds one
-     * {@value Product#COLUMN_NAME_PRODUCT_DETAILS} value, and is read back into a {@link ProductDetails} instance with
+     * Each of {@code PRODUCTS_PRODUCT_DETAILS_1.json} and {@code PRODUCTS_PRODUCT_DETAILS_2.json}
+     * holds one {@value Product#COLUMN_NAME_PRODUCT_DETAILS} value, and is read back into a
+     * {@link ProductDetails} instance with
      * {@link ProductDetails_TestUtils#from(java.io.InputStream, ObjectMapper)}.
      */
     @Nested

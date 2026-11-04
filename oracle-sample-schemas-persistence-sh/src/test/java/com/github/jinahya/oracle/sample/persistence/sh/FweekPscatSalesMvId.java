@@ -27,21 +27,25 @@ import jakarta.persistence.Embeddable;
 import java.time.LocalDateTime;
 
 /**
- * An embeddable class for the composite identifier of the {@link FweekPscatSalesMv} entity class, which maps it with an
- * {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
+ * An embeddable class for the composite identifier of the {@link FweekPscatSalesMv} entity class,
+ * which maps it with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @Embeddable
-public class FweekPscatSalesMvId extends MappedFweekPscatSalesMvId {
+public class FweekPscatSalesMvId
+        extends MappedFweekPscatSalesMvId {
 
-    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    // ------------------------------------------------------------------------------------------
+    // STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified column values.
      *
-     * @param weekEndingDay   the {@value FweekPscatSalesMv#COLUMN_NAME_WEEK_ENDING_DAY} column value.
-     * @param prodSubcategory the {@value FweekPscatSalesMv#COLUMN_NAME_PROD_SUBCATEGORY} column value.
+     * @param weekEndingDay   the {@value FweekPscatSalesMv#COLUMN_NAME_WEEK_ENDING_DAY} column
+     *                        value.
+     * @param prodSubcategory the {@value FweekPscatSalesMv#COLUMN_NAME_PROD_SUBCATEGORY} column
+     *                        value.
      * @param channelId       the {@value FweekPscatSalesMv#COLUMN_NAME_CHANNEL_ID} column value.
      * @param promoId         the {@value FweekPscatSalesMv#COLUMN_NAME_PROMO_ID} column value.
      * @return a new instance with the specified column values.

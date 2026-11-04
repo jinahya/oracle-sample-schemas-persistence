@@ -32,7 +32,8 @@ import java.util.List;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Time_Randomizer extends PodamObjectRandomizer<Time> {
+class Time_Randomizer
+        extends PodamObjectRandomizer<Time> {
 
     Time_Randomizer() {
         super(Time.class, List.of(

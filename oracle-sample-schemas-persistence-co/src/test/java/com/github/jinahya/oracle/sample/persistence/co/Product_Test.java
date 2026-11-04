@@ -28,7 +28,8 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Product_Test extends _Entity_Test<Product> {
+class Product_Test
+        extends _Entity_Test<Product> {
 
     Product_Test() {
         super(Product.class);
@@ -39,11 +40,13 @@ class Product_Test extends _Entity_Test<Product> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Product#equals(Object) equals} compares only the generated {@code @Id}, {@code productId}, the
-     * surrogate key, and {@link Product#hashCode() hashCode} is constant, so that the hash does not change when the
-     * {@code @Id} is assigned on persist. That takes three warnings suppressed: {@link Warning#SURROGATE_KEY} for the
-     * former, {@link Warning#STRICT_HASHCODE} for the latter, and {@link Warning#IDENTICAL_COPY_FOR_VERSIONED_ENTITY}
-     * because an instance whose {@code @Id} is still {@code null} equals itself only.
+     * @implNote {@link Product#equals(Object) equals} compares only the generated
+     *         {@code @Id}, {@code productId}, the surrogate key, and
+     *         {@link Product#hashCode() hashCode} is constant, so that the hash does not change
+     *         when the {@code @Id} is assigned on persist. That takes three warnings suppressed:
+     *         {@link Warning#SURROGATE_KEY} for the former, {@link Warning#STRICT_HASHCODE} for the
+     *         latter, and {@link Warning#IDENTICAL_COPY_FOR_VERSIONED_ENTITY} because an instance
+     *         whose {@code @Id} is still {@code null} equals itself only.
      */
     @Override
     public SingleTypeEqualsVerifierApi<Product> equals_verifier_() {

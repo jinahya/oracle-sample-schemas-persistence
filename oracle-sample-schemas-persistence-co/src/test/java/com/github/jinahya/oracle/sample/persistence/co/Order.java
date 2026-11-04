@@ -116,16 +116,16 @@ public class Order
     // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
 
     /**
-     * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on the
-     * {@value #COLUMN_NAME_CUSTOMER_ID} column. The value is {@value}.
+     * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on
+     * the {@value #COLUMN_NAME_CUSTOMER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER = "customer";
 
     // -------------------------------------------------------------------------------------------------------- STORE_ID
 
     /**
-     * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on the
-     * {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
+     * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on
+     * the {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
@@ -158,8 +158,9 @@ public class Order
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER} attribute with the specified value, and current value
-     * of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute with the specified value's identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER} attribute with the specified
+     * value, and current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute with the specified
+     * value's identifier.
      *
      * @param customer new value for {@value #ATTRIBUTE_NAME_CUSTOMER} attribute.
      */
@@ -181,8 +182,9 @@ public class Order
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE} attribute with the specified value, and current value
-     * of {@value #ATTRIBUTE_NAME_STORE_ID} attribute with the specified value's identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE} attribute with the specified value,
+     * and current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute with the specified value's
+     * identifier.
      *
      * @param store new value for {@value #ATTRIBUTE_NAME_STORE} attribute.
      */
@@ -198,7 +200,8 @@ public class Order
      *
      * @return the total price of this order.
      * @throws IllegalArgumentException if the order items of this order are {@code null}.
-     * @throws IllegalStateException    if the unit price or the quantity of any of its order items is {@code null}.
+     * @throws IllegalStateException    if the unit price or the quantity of any of its order items
+     *                                  is {@code null}.
      * @see OrderItem#getTotalPrice(java.math.MathContext)
      */
     public BigDecimal getTotalPrice() {
@@ -253,7 +256,8 @@ public class Order
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true,
+                updatable = false)
     private Customer customer;
 
     // -----------------------------------------------------------------------------------------------------------------

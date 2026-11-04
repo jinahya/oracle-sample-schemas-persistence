@@ -29,7 +29,10 @@
 -- -------------------------------------------------------------------------------------------------- SH_PROMOTIONS_I_01
 -- The promotions team wants, for each promotion category, the number of promotions it has run and what they cost in
 -- total and on average, ignoring the NO PROMOTION placeholder.
-SELECT PROMO_CATEGORY, COUNT(*) AS PROMOTIONS, SUM(PROMO_COST) AS TOTAL_COST, AVG(PROMO_COST) AS AVERAGE_COST
+SELECT PROMO_CATEGORY,
+       COUNT(*)        AS PROMOTIONS,
+       SUM(PROMO_COST) AS TOTAL_COST,
+       AVG(PROMO_COST) AS AVERAGE_COST
 FROM PROMOTIONS
 WHERE PROMO_CATEGORY <> 'NO PROMOTION'
 GROUP BY PROMO_CATEGORY

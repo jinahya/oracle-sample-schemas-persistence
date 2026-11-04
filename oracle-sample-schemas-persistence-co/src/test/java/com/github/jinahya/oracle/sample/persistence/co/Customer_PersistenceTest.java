@@ -34,7 +34,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Customer_PersistenceTest extends _Entity_PersistenceTest<Customer> {
+class Customer_PersistenceTest
+        extends _Entity_PersistenceTest<Customer> {
 
     Customer_PersistenceTest() {
         super(Customer.class);
@@ -45,8 +46,9 @@ class Customer_PersistenceTest extends _Entity_PersistenceTest<Customer> {
      * {@value Customer#ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
      * <p>
      * The same selection is written three ways -- as a query-language query, as the
-     * {@code Customer.selectListOrderByCustomerIdAsc} named query, and through the criteria API -- and each asserts
-     * that what comes back contains the instances just persisted, in ascending order of identifier.
+     * {@code Customer.selectListOrderByCustomerIdAsc} named query, and through the criteria API --
+     * and each asserts that what comes back contains the instances just persisted, in ascending
+     * order of identifier.
      */
     @Nested
     class SelectListOrderByCustomerIdAsc_Test {
@@ -72,7 +74,9 @@ class Customer_PersistenceTest extends _Entity_PersistenceTest<Customer> {
             });
         }
 
-        @DisplayName("a query-language query selects the customers just persisted, ordered by identifier")
+        @DisplayName(
+                "a query-language query selects the customers just persisted, ordered by " +
+                "identifier")
         @Test
         void __QueryLanguage() {
             applyEntityManagerInTransactionAndRollback(em -> {
@@ -129,8 +133,9 @@ class Customer_PersistenceTest extends _Entity_PersistenceTest<Customer> {
      * {@value Customer#ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute.
      * <p>
      * The same selection is written three ways -- as a query-language query, as the
-     * {@code Customer.selectOneByEmailAddress} named query, and through the criteria API -- and each asserts that what
-     * comes back is the very instance just persisted, which the persistence context still manages.
+     * {@code Customer.selectOneByEmailAddress} named query, and through the criteria API -- and
+     * each asserts that what comes back is the very instance just persisted, which the persistence
+     * context still manages.
      */
     @Nested
     class SelectOneByEmailAddress_Test {

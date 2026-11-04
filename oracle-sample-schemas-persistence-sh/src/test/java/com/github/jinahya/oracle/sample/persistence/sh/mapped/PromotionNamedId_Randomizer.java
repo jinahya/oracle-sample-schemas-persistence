@@ -21,17 +21,16 @@ package com.github.jinahya.oracle.sample.persistence.sh.mapped;
  */
 
 import com.github.jinahya.object.randomizer.PodamObjectRandomizer;
-
-import java.util.List;
-
-import com.github.jinahya.oracle.sample.persistence.sh.mapped.PromotionNamedId;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
 
+import java.util.List;
+
 /**
- * An abstract randomizer for the concrete pairs of {@link PromotionNamedId}: nothing is excluded, so both halves are
- * randomized, the id through the type argument the concrete class binds {@code N} to.
+ * An abstract randomizer for the concrete pairs of {@link PromotionNamedId}: nothing is excluded,
+ * so both halves are randomized, the id through the type argument the concrete class binds
+ * {@code N} to.
  *
  * @param <T> the pair class to randomize.
  * @param <N> the type of the pair's id.

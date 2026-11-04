@@ -27,7 +27,8 @@ import com.github.jinahya.oracle.sample.persistence.sh.mapped.PromotionTotalId;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class PromotionTotalId_Test extends PromotionNamedId_Test<PromotionTotalId, Long> {
+class PromotionTotalId_Test
+        extends PromotionNamedId_Test<PromotionTotalId, Long> {
 
     PromotionTotalId_Test() {
         super(PromotionTotalId.class, Long.class);

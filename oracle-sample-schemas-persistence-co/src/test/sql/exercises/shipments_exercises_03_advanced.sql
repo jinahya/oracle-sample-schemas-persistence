@@ -29,7 +29,11 @@
 -- --------------------------------------------------------------------------------------------------- CO_SHIPMENTS_A_01
 -- Before dispatch, logistics wants to merge shipments that are still CREATED and go from the same store to the same
 -- customer at the same address. List them in pairs.
-SELECT a.shipment_id, b.shipment_id AS other_shipment_id, a.store_id, a.customer_id, a.delivery_address
+SELECT a.shipment_id,
+       b.shipment_id AS other_shipment_id,
+       a.store_id,
+       a.customer_id,
+       a.delivery_address
 FROM shipments a
          JOIN shipments b ON b.store_id = a.store_id
     AND b.customer_id = a.customer_id

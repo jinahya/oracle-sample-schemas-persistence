@@ -22,22 +22,21 @@ package com.github.jinahya.oracle.sample.persistence.sh;
 
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.PromotionNamedId;
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.PromotionNamedId_TestAccess;
+import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Objects;
 
-import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * An abstract base class for testing the concrete pairs of {@link PromotionNamedId}: the standard checks of
- * {@link _NonEntity_Test}, and the one thing a pair adds that the verifier does not cover: a factory which sets both
- * halves.
+ * An abstract base class for testing the concrete pairs of {@link PromotionNamedId}: the standard
+ * checks of {@link _NonEntity_Test}, and the one thing a pair adds that the verifier does not
+ * cover: a factory which sets both halves.
  *
  * @param <T> the pair class under test.
  * @param <N> the type of the pair's id.
@@ -46,14 +45,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SuppressWarnings({
         "java:S118" // Abstract class names should comply with a naming convention
 })
-abstract class PromotionNamedId_Test<T extends PromotionNamedId<N>, N extends Number> extends _NonEntity_Test<T> {
+abstract class PromotionNamedId_Test<T extends PromotionNamedId<N>, N extends Number>
+        extends _NonEntity_Test<T> {
 
     static <T extends PromotionNamedId<N>, N extends Number> Method of(final Class<T> targetClass,
                                                                        final Class<N> idClass)
             throws NoSuchMethodException {
         final var factory = targetClass.getMethod("of", String.class, idClass);
         assertThat(Modifier.isStatic(factory.getModifiers())).as("%s is static", factory).isTrue();
-        assertThat(factory.getReturnType()).as("the return type of %s", factory).isSameAs(targetClass);
+        assertThat(factory.getReturnType()).as("the return type of %s", factory)
+                .isSameAs(targetClass);
         return factory;
     }
 
@@ -64,7 +65,8 @@ abstract class PromotionNamedId_Test<T extends PromotionNamedId<N>, N extends Nu
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         final var factory = of(targetClass, idClass);
         assertThat(Modifier.isStatic(factory.getModifiers())).as("%s is static", factory).isTrue();
-        assertThat(factory.getReturnType()).as("the return type of %s", factory).isSameAs(targetClass);
+        assertThat(factory.getReturnType()).as("the return type of %s", factory)
+                .isSameAs(targetClass);
         return targetClass.cast(factory.invoke(null, name, id));
     }
 
@@ -86,8 +88,9 @@ abstract class PromotionNamedId_Test<T extends PromotionNamedId<N>, N extends Nu
     // -------------------------------------------------------------------------------------------------------------- of
 
     /**
-     * Verifies that the pair class declares a public static factory {@code of(String, N)}, found reflectively through
-     * {@code idClass}, and that the instance it returns carries the name and id it was given.
+     * Verifies that the pair class declares a public static factory {@code of(String, N)}, found
+     * reflectively through {@code idClass}, and that the instance it returns carries the name and
+     * id it was given.
      *
      * @throws ReflectiveOperationException if the factory is missing, or cannot be called.
      */
@@ -107,19 +110,22 @@ abstract class PromotionNamedId_Test<T extends PromotionNamedId<N>, N extends Nu
     /**
      * {@inheritDoc}
      *
-     * @implNote The {@value PromotionNamedId#ATTRIBUTE_NAME_ID} field is declared as the type variable {@code N} in the
-     * superclass, which EqualsVerifier cannot fabricate values for on its own, so two distinct ids of the concrete type
-     * are given as prefab values for that field.
+     * @implNote The {@value PromotionNamedId#ATTRIBUTE_NAME_ID} field is declared as the
+     *         type variable {@code N} in the superclass, which EqualsVerifier cannot fabricate
+     *         values for on its own, so two distinct ids of the concrete type are given as prefab
+     *         values for that field.
      */
     @Override
     public SingleTypeEqualsVerifierApi<T> equals_verifier_() {
-        final var red = Objects.requireNonNull(PromotionNamedId_TestAccess.getId(newRandomizedTargetInstance()),
-                                               "randomized id is null");
+        final var red = Objects.requireNonNull(
+                PromotionNamedId_TestAccess.getId(newRandomizedTargetInstance()),
+                "randomized id is null");
         N blue = null;
         for (int i = 0; i < 16 && (blue == null || blue.equals(red)); i++) {
             blue = PromotionNamedId_TestAccess.getId(newRandomizedTargetInstance());
         }
-        assertThat(blue).as("a second randomized id, different from the first").isNotNull().isNotEqualTo(red);
+        assertThat(blue).as("a second randomized id, different from the first").isNotNull()
+                .isNotEqualTo(red);
         return super.equals_verifier_()
                 .withPrefabValuesForField(PromotionNamedId_TestAccess.ATTRIBUTE_NAME_ID, red, blue);
     }

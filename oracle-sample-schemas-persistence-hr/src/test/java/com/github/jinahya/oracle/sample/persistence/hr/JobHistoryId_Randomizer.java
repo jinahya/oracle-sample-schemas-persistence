@@ -30,11 +30,13 @@ import java.util.List;
 /**
  * A randomizer which produces randomized {@link JobHistoryId} instances.
  * <p>
- * Nothing is excluded from randomization: the class holds only the two columns of the composite key.
+ * Nothing is excluded from randomization: the class holds only the two columns of the composite
+ * key.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class JobHistoryId_Randomizer extends PodamObjectRandomizer<JobHistoryId> {
+class JobHistoryId_Randomizer
+        extends PodamObjectRandomizer<JobHistoryId> {
 
     JobHistoryId_Randomizer() {
         super(JobHistoryId.class, List.of(

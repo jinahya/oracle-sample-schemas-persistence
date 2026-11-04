@@ -27,7 +27,8 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class StoreOrder_Test extends _Entity_Test<StoreOrder> {
+class StoreOrder_Test
+        extends _Entity_Test<StoreOrder> {
 
     StoreOrder_Test() {
         super(StoreOrder.class);
@@ -36,7 +37,8 @@ class StoreOrder_Test extends _Entity_Test<StoreOrder> {
     // ------------------------------------------------------------------------------------------------- equals/hashCode
 
     /**
-     * Does nothing; {@link StoreOrder} declares no {@code equals(Object)}, so there is no value equality to verify.
+     * Does nothing; {@link StoreOrder} declares no {@code equals(Object)}, so there is no value
+     * equality to verify.
      */
     @Override
     @Test

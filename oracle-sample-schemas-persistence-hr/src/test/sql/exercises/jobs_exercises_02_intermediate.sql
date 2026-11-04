@@ -29,7 +29,10 @@
 -- -------------------------------------------------------------------------------------------------------- HR_JOBS_I_01
 -- Compensation suspects some bands are too loose. They want the jobs whose maximum is at least twice the minimum, with
 -- the band's width and that ratio, widest ratio first.
-SELECT JOB_ID, JOB_TITLE, MAX_SALARY - MIN_SALARY AS WIDTH, ROUND(MAX_SALARY / MIN_SALARY, 2) AS RATIO
+SELECT JOB_ID,
+       JOB_TITLE,
+       MAX_SALARY - MIN_SALARY           AS WIDTH,
+       ROUND(MAX_SALARY / MIN_SALARY, 2) AS RATIO
 FROM JOBS
 WHERE MAX_SALARY >= 2 * MIN_SALARY
 ORDER BY RATIO DESC, JOB_ID ASC

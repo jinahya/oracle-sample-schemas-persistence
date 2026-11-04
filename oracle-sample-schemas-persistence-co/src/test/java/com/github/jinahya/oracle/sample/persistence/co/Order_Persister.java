@@ -27,13 +27,14 @@ import jakarta.persistence.EntityManager;
 /**
  * A persister which persists {@link Order} instances.
  * <p>
- * Each instance is given a newly persisted {@link Customer} and a newly persisted {@link Store} first, so that its
- * {@code customer} and its {@code store} -- neither of which is nullable -- refer to rows which are already in the
- * database.
+ * Each instance is given a newly persisted {@link Customer} and a newly persisted {@link Store}
+ * first, so that its {@code customer} and its {@code store} -- neither of which is nullable --
+ * refer to rows which are already in the database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Order_Persister extends AbstractEntityPersister<Order> {
+class Order_Persister
+        extends AbstractEntityPersister<Order> {
 
     Order_Persister() {
         super(Order.class);
@@ -42,7 +43,8 @@ class Order_Persister extends AbstractEntityPersister<Order> {
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     public Order apply(final EntityManager entityManager, final Order entityInstance) {
-        final var customer = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Customer.class);
+        final var customer =
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Customer.class);
         final var store = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Store.class);
         entityManager.flush();
         entityInstance.setCustomer(customer);

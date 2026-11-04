@@ -29,22 +29,30 @@
     </dependency>
     <dependency>
       <groupId>io.github.jinahya</groupId>
+      <artifactId>jinahya-persistence-more</artifactId>
+      <version>${version.jinahya-persistence}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.github.jinahya</groupId>
+      <artifactId>jinahya-persistence-test-utils</artifactId>
+      <version>${version.jinahya-persistence}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.github.jinahya</groupId>
+      <artifactId>jinahya-persistence-utils</artifactId>
+      <version>${version.jinahya-persistence}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.github.jinahya</groupId>
       <artifactId>oracle-sample-schemas-persistence-common</artifactId>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>jakarta.annotation</groupId>
       <artifactId>jakarta.annotation-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.enterprise</groupId>
-      <artifactId>jakarta.enterprise.cdi-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.inject</groupId>
-      <artifactId>jakarta.inject-api</artifactId>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -58,8 +66,13 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.jboss.weld</groupId>
-      <artifactId>weld-junit5</artifactId>
+      <groupId>org.glassfish.expressly</groupId>
+      <artifactId>expressly</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -96,7 +109,7 @@
       </plugin>
       <!--
         Run on the module path, the patched tests would have to be granted a read of every named test library (slf4j,
-        Weld, the provider, ...) one by one. They run on the class path instead, as they did before the descriptor.
+        the provider, ...) one by one. They run on the class path instead, as they did before the descriptor.
       -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

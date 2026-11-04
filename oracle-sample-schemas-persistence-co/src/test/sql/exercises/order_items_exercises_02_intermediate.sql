@@ -32,7 +32,10 @@
 -- ------------------------------------------------------------------------------------------------- CO_ORDER_ITEMS_I_01
 -- Fraud prevention also reviews every order worth more than :amount, with its number of lines and units, from the lines
 -- alone.
-SELECT order_id, COUNT(*) AS lines, SUM(quantity) AS units, SUM(unit_price * quantity) AS order_total
+SELECT order_id,
+       COUNT(*)                   AS lines,
+       SUM(quantity)              AS units,
+       SUM(unit_price * quantity) AS order_total
 FROM order_items
 GROUP BY order_id
 HAVING SUM(unit_price * quantity) > :amount

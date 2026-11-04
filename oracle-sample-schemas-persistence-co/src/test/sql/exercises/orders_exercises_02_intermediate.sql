@@ -28,7 +28,10 @@
 
 -- ------------------------------------------------------------------------------------------------------ CO_ORDERS_I_01
 -- Operations wants the number of orders in each status, with the first and the last order placed in it.
-SELECT order_status, COUNT(*) AS orders, MIN(order_tms) AS first_order_tms, MAX(order_tms) AS last_order_tms
+SELECT order_status,
+       COUNT(*)       AS orders,
+       MIN(order_tms) AS first_order_tms,
+       MAX(order_tms) AS last_order_tms
 FROM orders
 GROUP BY order_status
 ORDER BY orders DESC

@@ -30,12 +30,20 @@
 -- Finance wants the products whose margin in calendar year :currentYear was lower than in :previousYear, with both
 -- margins.
 SELECT PROD_ID,
-       SUM(CASE WHEN EXTRACT(YEAR FROM TIME_ID) = :previousYear THEN AMOUNT_SOLD - TOTAL_COST ELSE 0 END) AS PREVIOUS,
-       SUM(CASE WHEN EXTRACT(YEAR FROM TIME_ID) = :currentYear THEN AMOUNT_SOLD - TOTAL_COST ELSE 0 END)  AS CURRENT_
+       SUM(CASE
+               WHEN EXTRACT(YEAR FROM TIME_ID) = :previousYear THEN AMOUNT_SOLD - TOTAL_COST
+               ELSE 0 END) AS PREVIOUS,
+       SUM(CASE
+               WHEN EXTRACT(YEAR FROM TIME_ID) = :currentYear THEN AMOUNT_SOLD - TOTAL_COST
+               ELSE 0 END) AS CURRENT_
 FROM PROFITS
 WHERE EXTRACT(YEAR FROM TIME_ID) IN (:previousYear, :currentYear)
 GROUP BY PROD_ID
-HAVING SUM(CASE WHEN EXTRACT(YEAR FROM TIME_ID) = :currentYear THEN AMOUNT_SOLD - TOTAL_COST ELSE 0 END)
-           < SUM(CASE WHEN EXTRACT(YEAR FROM TIME_ID) = :previousYear THEN AMOUNT_SOLD - TOTAL_COST ELSE 0 END)
+HAVING SUM(CASE
+               WHEN EXTRACT(YEAR FROM TIME_ID) = :currentYear THEN AMOUNT_SOLD - TOTAL_COST
+               ELSE 0 END)
+           < SUM(CASE
+                     WHEN EXTRACT(YEAR FROM TIME_ID) = :previousYear THEN AMOUNT_SOLD - TOTAL_COST
+                     ELSE 0 END)
 ORDER BY PROD_ID
 ;

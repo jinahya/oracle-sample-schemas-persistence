@@ -21,11 +21,13 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  */
 
 /**
- * Verifies the mappings of {@link SupplementaryDemographics} against the installed {@code SH} schema.
+ * Verifies the mappings of {@link SupplementaryDemographics} against the installed {@code SH}
+ * schema.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class SupplementaryDemographics_PersistenceIT extends _Entity_PersistenceIT<SupplementaryDemographics> {
+class SupplementaryDemographics_PersistenceIT
+        extends _Entity_PersistenceIT<SupplementaryDemographics> {
 
     SupplementaryDemographics_PersistenceIT() {
         super(SupplementaryDemographics.class);

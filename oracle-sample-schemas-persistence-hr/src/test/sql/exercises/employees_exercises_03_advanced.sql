@@ -63,18 +63,20 @@ SELECT LEVEL - 1                           AS DEPTH,
        SYS_CONNECT_BY_PATH(LAST_NAME, '/') AS CHAIN
 FROM EMPLOYEES
 WHERE LEVEL > 1
-START WITH EMPLOYEE_ID = :managerId
+    START
+WITH EMPLOYEE_ID = :managerId
 CONNECT BY PRIOR EMPLOYEE_ID = MANAGER_ID
 ORDER SIBLINGS BY LAST_NAME
 ;
 
-WITH CHAIN (EMPLOYEE_ID, LAST_NAME, MANAGER_ID, DEPTH) AS (SELECT EMPLOYEE_ID, LAST_NAME, MANAGER_ID, 0
-                                                           FROM EMPLOYEES
-                                                           WHERE EMPLOYEE_ID = :managerId
-                                                           UNION ALL
-                                                           SELECT e.EMPLOYEE_ID, e.LAST_NAME, e.MANAGER_ID, c.DEPTH + 1
-                                                           FROM EMPLOYEES e
-                                                                    JOIN CHAIN c ON e.MANAGER_ID = c.EMPLOYEE_ID)
+WITH CHAIN (EMPLOYEE_ID, LAST_NAME, MANAGER_ID, DEPTH)
+         AS (SELECT EMPLOYEE_ID, LAST_NAME, MANAGER_ID, 0
+             FROM EMPLOYEES
+             WHERE EMPLOYEE_ID = :managerId
+             UNION ALL
+             SELECT e.EMPLOYEE_ID, e.LAST_NAME, e.MANAGER_ID, c.DEPTH + 1
+             FROM EMPLOYEES e
+                      JOIN CHAIN c ON e.MANAGER_ID = c.EMPLOYEE_ID)
 SELECT DEPTH, EMPLOYEE_ID, LAST_NAME, MANAGER_ID
 FROM CHAIN
 WHERE DEPTH > 0
@@ -117,10 +119,11 @@ ORDER BY EXTRACT(DAY FROM HIRE_DATE) ASC, LAST_NAME ASC
 -- (first.last@example.com, lower case), the badge line (EMP- and the id, then the last name and first initial), the
 -- phone number with dashes instead of dots, and its last four digits for the desk extension.
 SELECT EMPLOYEE_ID,
-       LOWER(COALESCE(FIRST_NAME, '') || '.' || LAST_NAME) || '@example.com'                         AS PROPOSED_EMAIL,
-       'EMP-' || TO_CHAR(EMPLOYEE_ID) || ' ' || LAST_NAME || ', ' || SUBSTR(FIRST_NAME, 1, 1) || '.' AS BADGE,
-       REPLACE(PHONE_NUMBER, '.', '-')                                                               AS PHONE,
-       SUBSTR(PHONE_NUMBER, -4)                                                                      AS LAST_FOUR
+       LOWER(COALESCE(FIRST_NAME, '') || '.' || LAST_NAME) || '@example.com' AS PROPOSED_EMAIL,
+       'EMP-' || TO_CHAR(EMPLOYEE_ID) || ' ' || LAST_NAME || ', ' || SUBSTR(FIRST_NAME, 1, 1) ||
+       '.'                                                                   AS BADGE,
+       REPLACE(PHONE_NUMBER, '.', '-')                                       AS PHONE,
+       SUBSTR(PHONE_NUMBER, -4)                                              AS LAST_FOUR
 FROM EMPLOYEES
 ORDER BY EMPLOYEE_ID ASC
 ;

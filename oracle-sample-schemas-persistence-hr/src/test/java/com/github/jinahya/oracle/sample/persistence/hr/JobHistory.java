@@ -35,10 +35,11 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 /**
- * An entity class for mapping the {@value MappedJobHistory#TABLE_NAME} table, whose composite primary key is mapped
- * with an {@link jakarta.persistence.IdClass @IdClass}.
+ * An entity class for mapping the {@value MappedJobHistory#TABLE_NAME} table, whose composite
+ * primary key is mapped with an {@link jakarta.persistence.IdClass @IdClass}.
  * <p>
- * The mapping is read-only, as {@link MappedJobHistory} describes; so are the associations this class adds.
+ * The mapping is read-only, as {@link MappedJobHistory} describes; so are the associations this
+ * class adds.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see JobHistoryId
@@ -126,7 +127,8 @@ import jakarta.validation.constraints.NotNull;
                )
        }
 )
-public class JobHistory extends MappedJobHistory {
+public class JobHistory
+        extends MappedJobHistory {
 
     /**
      * The name of the entity. The value is {@value}.
@@ -139,22 +141,24 @@ public class JobHistory extends MappedJobHistory {
      * The name of the attribute which maps the {@link Employee employee} joined on the
      * {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value is {@value}.
      * <p>
-     * The association is neither insertable nor updatable; the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute writes
-     * the column.
+     * The association is neither insertable nor updatable; the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID}
+     * attribute writes the column.
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
 
     // ---------------------------------------------------------------------------------------------------------- JOB_ID
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_JOB = "job";
 
     // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The
+     * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_DEPARTMENT = "department";
 

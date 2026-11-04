@@ -22,11 +22,13 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  */
 
 /**
- * Verifies the mappings of {@link Region} against the schema generated into the in-memory database.
+ * Verifies the mappings of {@link Region} against the schema generated into the in-memory
+ * database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Region_PersistenceTest extends _Entity_PersistenceTest<Region> {
+class Region_PersistenceTest
+        extends _Entity_PersistenceTest<Region> {
 
     Region_PersistenceTest() {
         super(Region.class);

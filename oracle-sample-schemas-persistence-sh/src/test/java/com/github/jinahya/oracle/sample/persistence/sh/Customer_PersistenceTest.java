@@ -29,11 +29,13 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Verifies the mappings of {@link Customer} against the schema generated into the in-memory database.
+ * Verifies the mappings of {@link Customer} against the schema generated into the in-memory
+ * database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Customer_PersistenceTest extends _Entity_PersistenceTest<Customer> {
+class Customer_PersistenceTest
+        extends _Entity_PersistenceTest<Customer> {
 
     Customer_PersistenceTest() {
         super(Customer.class);
@@ -42,11 +44,12 @@ class Customer_PersistenceTest extends _Entity_PersistenceTest<Customer> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Tests {@code Customer.selectListPromotedByCustCityOrderByCustLastNameAsc}, which answers exercise
-     * {@code SH_SCHEMA_I_10}.
+     * Tests {@code Customer.selectListPromotedByCustCityOrderByCustLastNameAsc}, which answers
+     * exercise {@code SH_SCHEMA_I_10}.
      * <p>
-     * Each test persists a new sale, which brings a customer and a promotion of its own; the promotion's randomized
-     * category is not {@code NO PROMOTION}, so the customer bought under a promotion.
+     * Each test persists a new sale, which brings a customer and a promotion of its own; the
+     * promotion's randomized category is not {@code NO PROMOTION}, so the customer bought under a
+     * promotion.
      */
     @Nested
     class SelectListPromotedByCustCityOrderByCustLastNameAsc_Test {
@@ -61,13 +64,16 @@ class Customer_PersistenceTest extends _Entity_PersistenceTest<Customer> {
             return em.find(Customer.class, sales.getId().getCustId());
         }
 
-        @DisplayName("the named query selects the customer of the sale just persisted, by their city")
+        @DisplayName(
+                "the named query selects the customer of the sale just persisted, by their city")
         @Test
         void __NamedQuery() {
             applyEntityManagerInTransactionAndRollback(em -> {
                 final var customer = promotedCustomer(em);
                 final var found = em
-                        .createNamedQuery("Customer.selectListPromotedByCustCityOrderByCustLastNameAsc", targetClass)
+                        .createNamedQuery(
+                                "Customer.selectListPromotedByCustCityOrderByCustLastNameAsc",
+                                targetClass)
                         .setParameter("custCity", customer.getCustCity())
                         .getResultList();
                 assertThat(found)
@@ -77,7 +83,9 @@ class Customer_PersistenceTest extends _Entity_PersistenceTest<Customer> {
             });
         }
 
-        @DisplayName("a query-language query selects the customer of the sale just persisted, by their city")
+        @DisplayName(
+                "a query-language query selects the customer of the sale just persisted, by their" +
+                " city")
         @Test
         void __QueryLanguage() {
             applyEntityManagerInTransactionAndRollback(em -> {
@@ -104,7 +112,8 @@ class Customer_PersistenceTest extends _Entity_PersistenceTest<Customer> {
             });
         }
 
-        @DisplayName("a criteria query selects the customer of the sale just persisted, by their city")
+        @DisplayName(
+                "a criteria query selects the customer of the sale just persisted, by their city")
         @Test
         void __CriteriaApi() {
             applyEntityManagerInTransactionAndRollback(em -> {
@@ -116,7 +125,8 @@ class Customer_PersistenceTest extends _Entity_PersistenceTest<Customer> {
                 final var sales = subquery.from(Sales.class);
                 subquery.select(sales).where(
                         builder.equal(sales.get(Sales_.customer), root),
-                        builder.notEqual(sales.get(Sales_.promotion).get(Promotion_.promoCategory), "NO PROMOTION")
+                        builder.notEqual(sales.get(Sales_.promotion).get(Promotion_.promoCategory),
+                                         "NO PROMOTION")
                 );
                 query.select(root);
                 query.where(
@@ -141,7 +151,9 @@ class Customer_PersistenceTest extends _Entity_PersistenceTest<Customer> {
         void __NamedQuery_NoSales() {
             applyNewPersistedEntityInstanceAndRollback((em, v) -> {
                 final var found = em
-                        .createNamedQuery("Customer.selectListPromotedByCustCityOrderByCustLastNameAsc", targetClass)
+                        .createNamedQuery(
+                                "Customer.selectListPromotedByCustCityOrderByCustLastNameAsc",
+                                targetClass)
                         .setParameter("custCity", v.getCustCity())
                         .getResultList();
                 assertThat(found)

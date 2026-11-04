@@ -39,8 +39,8 @@ public final class Job_TestUtils {
     }
 
     /**
-     * Returns a new random positive value for the {@code maxSalary} attribute, which is greater than or equal to the
-     * specified value of the {@code minSalary} attribute.
+     * Returns a new random positive value for the {@code maxSalary} attribute, which is greater
+     * than or equal to the specified value of the {@code minSalary} attribute.
      *
      * @param minSalary the value of the {@code minSalary} attribute; may be {@code null}.
      * @return a new random positive value for the {@code maxSalary} attribute.
@@ -52,12 +52,14 @@ public final class Job_TestUtils {
             throw new IllegalArgumentException("minSalary(" + minSalary + ") < 1");
         }
         if (minSalary != null && minSalary > Job.ATTRIBUTE_MAX_MIN_SALARY) {
-            throw new IllegalArgumentException("minSalary(" + minSalary + ") > " + Job.ATTRIBUTE_MAX_MIN_SALARY);
+            throw new IllegalArgumentException(
+                    "minSalary(" + minSalary + ") > " + Job.ATTRIBUTE_MAX_MIN_SALARY);
         }
         if (minSalary == null) {
             return newRandomPositiveMinSalary();
         }
-        return ThreadLocalRandom.current().nextInt(Job.ATTRIBUTE_MAX_MIN_SALARY - minSalary + 1) + minSalary;
+        return ThreadLocalRandom.current().nextInt(Job.ATTRIBUTE_MAX_MIN_SALARY - minSalary + 1) +
+               minSalary;
     }
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -20,11 +20,9 @@ package com.github.jinahya.oracle.sample.persistence.sh.mapped;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.persistence.sh.mapped.PromotionNamedId;
-
 /**
- * Opens the package-private members of {@link PromotionNamedId} to the tests in the entities' package, which used to
- * share the class's package.
+ * Opens the package-private members of {@link PromotionNamedId} to the tests in the entities'
+ * package, which used to share the class's package.
  */
 @SuppressWarnings({
         "java:S101" // Class names should comply with a naming convention

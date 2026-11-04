@@ -95,26 +95,29 @@ import java.util.Optional;
 public class Shipment
         extends MappedShipment {
 
-    // -------------------------------------------------------------------------------------- STORE_ID / storeId / store
+    // --------------------------------------------------------------------------------------
+    // STORE_ID / storeId / store
 
     /**
-     * The name of the {@link ManyToOne @ManyToOne} association which joins on the {@value #COLUMN_NAME_STORE_ID}
-     * column. The value is {@value}.
+     * The name of the {@link ManyToOne @ManyToOne} association which joins on the
+     * {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
-    // ----------------------------------------------------------------------------- CUSTOMER_ID / customerId / customer
+    // ----------------------------------------------------------------------------- CUSTOMER_ID
+    // / customerId / customer
 
     /**
-     * The name of the {@link ManyToOne @ManyToOne} association which joins on the {@value #COLUMN_NAME_CUSTOMER_ID}
-     * column. The value is {@value}.
+     * The name of the {@link ManyToOne @ManyToOne} association which joins on the
+     * {@value #COLUMN_NAME_CUSTOMER_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER = "customer";
 
     // ----------------------------------------------------------------------------------------------------- ORDER_ITEMS
 
     /**
-     * The name of the attribute which maps the order items carried by this shipment. The value is {@value}.
+     * The name of the attribute which maps the order items carried by this shipment. The value is
+     * {@value}.
      *
      * @see OrderItem#ATTRIBUTE_NAME_SHIPMENT
      */
@@ -142,8 +145,9 @@ public class Shipment
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE} attribute with the specified value, and current value
-     * of {@value #ATTRIBUTE_NAME_STORE_ID} attribute with the specified value's identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE} attribute with the specified value,
+     * and current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute with the specified value's
+     * identifier.
      *
      * @param store new value for {@value #ATTRIBUTE_NAME_STORE} attribute.
      */
@@ -165,8 +169,9 @@ public class Shipment
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER} attribute with the specified value, and current value
-     * of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute with the specified value's identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER} attribute with the specified
+     * value, and current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute with the specified
+     * value's identifier.
      *
      * @param customer new value for {@value #ATTRIBUTE_NAME_CUSTOMER} attribute.
      */
@@ -208,7 +213,8 @@ public class Shipment
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = true,
+                updatable = false)
     private Customer customer;
 
     // -----------------------------------------------------------------------------------------------------------------

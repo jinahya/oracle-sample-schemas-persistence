@@ -58,7 +58,8 @@ import jakarta.persistence.Table;
 )
 @Entity
 @Table(name = MappedEmpDetailsView.TABLE_NAME)
-public class EmpDetailsView extends MappedEmpDetailsView {
+public class EmpDetailsView
+        extends MappedEmpDetailsView {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 

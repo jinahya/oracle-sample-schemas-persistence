@@ -32,7 +32,8 @@ import java.util.List;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class CalMonthSalesMv_Randomizer extends PodamObjectRandomizer<CalMonthSalesMv> {
+class CalMonthSalesMv_Randomizer
+        extends PodamObjectRandomizer<CalMonthSalesMv> {
 
     CalMonthSalesMv_Randomizer() {
         super(CalMonthSalesMv.class, List.of(

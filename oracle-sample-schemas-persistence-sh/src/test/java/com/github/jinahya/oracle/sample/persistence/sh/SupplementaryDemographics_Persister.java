@@ -28,7 +28,8 @@ import jakarta.persistence.EntityManager;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class SupplementaryDemographics_Persister extends AbstractEntityPersister<SupplementaryDemographics> {
+class SupplementaryDemographics_Persister
+        extends AbstractEntityPersister<SupplementaryDemographics> {
 
     SupplementaryDemographics_Persister() {
         super(SupplementaryDemographics.class);

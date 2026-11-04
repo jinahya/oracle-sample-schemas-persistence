@@ -45,8 +45,8 @@ import static org.assertj.core.api.Assertions.fail;
 class TimeUtils_Test {
 
     /**
-     * Returns a new instance whose five text attributes under test all hold the specified value; the other attributes
-     * are whatever the randomizer gave.
+     * Returns a new instance whose five text attributes under test all hold the specified value;
+     * the other attributes are whatever the randomizer gave.
      */
     private static Time timeOf(final String value) {
         final var time = new Time_Randomizer().get();
@@ -78,12 +78,14 @@ class TimeUtils_Test {
 
         @Test
         void _Null_NullAttribute() {
-            assertThat(TimeUtils.<Object>getDayNameAsMapped(timeOf(null), v -> fail("mapper called"))).isNull();
+            assertThat(TimeUtils.<Object>getDayNameAsMapped(timeOf(null),
+                                                            v -> fail("mapper called"))).isNull();
         }
 
         @Test
         void _Mapped_() {
-            assertThat(TimeUtils.getDayNameAsMapped(timeOf("Monday"), String::length)).isEqualTo("Monday".length());
+            assertThat(TimeUtils.getDayNameAsMapped(timeOf("Monday"), String::length)).isEqualTo(
+                    "Monday".length());
         }
     }
 
@@ -93,7 +95,8 @@ class TimeUtils_Test {
 
         @Test
         void _NullPointerException_NullTime() {
-            assertThatThrownBy(() -> TimeUtils.setDayNameFromMapped(null, "Monday", Function.identity()))
+            assertThatThrownBy(
+                    () -> TimeUtils.setDayNameFromMapped(null, "Monday", Function.identity()))
                     .isInstanceOf(NullPointerException.class);
         }
 
@@ -124,7 +127,8 @@ class TimeUtils_Test {
 
         @Test
         void _NullPointerException_NullTime() {
-            assertThatThrownBy(() -> TimeUtils.getDayNameAsDayOfWeek(null)).isInstanceOf(NullPointerException.class);
+            assertThatThrownBy(() -> TimeUtils.getDayNameAsDayOfWeek(null)).isInstanceOf(
+                    NullPointerException.class);
         }
 
         @Test
@@ -134,7 +138,8 @@ class TimeUtils_Test {
 
         @Test
         void _Parsed_() {
-            assertThat(TimeUtils.getDayNameAsDayOfWeek(timeOf("Monday"))).isEqualTo(DayOfWeek.MONDAY);
+            assertThat(TimeUtils.getDayNameAsDayOfWeek(timeOf("Monday"))).isEqualTo(
+                    DayOfWeek.MONDAY);
         }
 
         @Test
@@ -185,19 +190,22 @@ class TimeUtils_Test {
 
         @Test
         void _NullPointerException_NullTime() {
-            assertThatThrownBy(() -> TimeUtils.getCalendarMonthDescAsMapped(null, Function.identity()))
+            assertThatThrownBy(
+                    () -> TimeUtils.getCalendarMonthDescAsMapped(null, Function.identity()))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @Test
         void _NullPointerException_NullMapper() {
-            assertThatThrownBy(() -> TimeUtils.getCalendarMonthDescAsMapped(timeOf("2019-01"), null))
+            assertThatThrownBy(
+                    () -> TimeUtils.getCalendarMonthDescAsMapped(timeOf("2019-01"), null))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @Test
         void _Null_NullAttribute() {
-            assertThat(TimeUtils.<Object>getCalendarMonthDescAsMapped(timeOf(null), v -> fail("mapper called")))
+            assertThat(TimeUtils.<Object>getCalendarMonthDescAsMapped(timeOf(null),
+                                                                      v -> fail("mapper called")))
                     .isNull();
         }
 
@@ -214,13 +222,15 @@ class TimeUtils_Test {
 
         @Test
         void _NullPointerException_NullTime() {
-            assertThatThrownBy(() -> TimeUtils.setCalendarMonthDescFromMapped(null, "2019-01", Function.identity()))
+            assertThatThrownBy(() -> TimeUtils.setCalendarMonthDescFromMapped(null, "2019-01",
+                                                                              Function.identity()))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @Test
         void _NullPointerException_NullMapper() {
-            assertThatThrownBy(() -> TimeUtils.setCalendarMonthDescFromMapped(timeOf(null), "2019-01", null))
+            assertThatThrownBy(
+                    () -> TimeUtils.setCalendarMonthDescFromMapped(timeOf(null), "2019-01", null))
                     .isInstanceOf(NullPointerException.class);
         }
 
@@ -256,7 +266,8 @@ class TimeUtils_Test {
 
         @Test
         void _Parsed_() {
-            assertThat(TimeUtils.getCalendarMonthDescAsYearMonth(timeOf("2019-01"))).isEqualTo(YearMonth.of(2019, 1));
+            assertThat(TimeUtils.getCalendarMonthDescAsYearMonth(timeOf("2019-01"))).isEqualTo(
+                    YearMonth.of(2019, 1));
         }
 
         @Test
@@ -272,7 +283,8 @@ class TimeUtils_Test {
 
         @Test
         void _NullPointerException_NullTime() {
-            assertThatThrownBy(() -> TimeUtils.setCalendarMonthDescFromYearMonth(null, YearMonth.of(2019, 1)))
+            assertThatThrownBy(
+                    () -> TimeUtils.setCalendarMonthDescFromYearMonth(null, YearMonth.of(2019, 1)))
                     .isInstanceOf(NullPointerException.class);
         }
 
@@ -295,7 +307,8 @@ class TimeUtils_Test {
         void _RoundTrip_(final String text) {
             final var time = timeOf(null);
             TimeUtils.setCalendarMonthDescFromYearMonth(time, YearMonth.parse(text));
-            assertThat(TimeUtils.getCalendarMonthDescAsYearMonth(time)).isEqualTo(YearMonth.parse(text));
+            assertThat(TimeUtils.getCalendarMonthDescAsYearMonth(time)).isEqualTo(
+                    YearMonth.parse(text));
             assertThat(time.getCalendarMonthDesc()).isEqualTo(text);
         }
     }
@@ -308,7 +321,8 @@ class TimeUtils_Test {
 
         @Test
         void _NullPointerException_NullTime() {
-            assertThatThrownBy(() -> TimeUtils.getFiscalMonthDescAsMapped(null, Function.identity()))
+            assertThatThrownBy(
+                    () -> TimeUtils.getFiscalMonthDescAsMapped(null, Function.identity()))
                     .isInstanceOf(NullPointerException.class);
         }
 
@@ -320,7 +334,8 @@ class TimeUtils_Test {
 
         @Test
         void _Null_NullAttribute() {
-            assertThat(TimeUtils.<Object>getFiscalMonthDescAsMapped(timeOf(null), v -> fail("mapper called"))).isNull();
+            assertThat(TimeUtils.<Object>getFiscalMonthDescAsMapped(timeOf(null), v -> fail(
+                    "mapper called"))).isNull();
         }
 
         @Test
@@ -336,13 +351,15 @@ class TimeUtils_Test {
 
         @Test
         void _NullPointerException_NullTime() {
-            assertThatThrownBy(() -> TimeUtils.setFiscalMonthDescFromMapped(null, "2024-01", Function.identity()))
+            assertThatThrownBy(() -> TimeUtils.setFiscalMonthDescFromMapped(null, "2024-01",
+                                                                            Function.identity()))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @Test
         void _NullPointerException_NullMapper() {
-            assertThatThrownBy(() -> TimeUtils.setFiscalMonthDescFromMapped(timeOf(null), "2024-01", null))
+            assertThatThrownBy(
+                    () -> TimeUtils.setFiscalMonthDescFromMapped(timeOf(null), "2024-01", null))
                     .isInstanceOf(NullPointerException.class);
         }
 
@@ -378,7 +395,8 @@ class TimeUtils_Test {
 
         @Test
         void _Parsed_() {
-            assertThat(TimeUtils.getFiscalMonthDescAsYearMonth(timeOf("2024-01"))).isEqualTo(YearMonth.of(2024, 1));
+            assertThat(TimeUtils.getFiscalMonthDescAsYearMonth(timeOf("2024-01"))).isEqualTo(
+                    YearMonth.of(2024, 1));
         }
 
         @Test
@@ -394,7 +412,8 @@ class TimeUtils_Test {
 
         @Test
         void _NullPointerException_NullTime() {
-            assertThatThrownBy(() -> TimeUtils.setFiscalMonthDescFromYearMonth(null, YearMonth.of(2024, 1)))
+            assertThatThrownBy(
+                    () -> TimeUtils.setFiscalMonthDescFromYearMonth(null, YearMonth.of(2024, 1)))
                     .isInstanceOf(NullPointerException.class);
         }
 
@@ -417,7 +436,8 @@ class TimeUtils_Test {
         void _RoundTrip_(final String text) {
             final var time = timeOf(null);
             TimeUtils.setFiscalMonthDescFromYearMonth(time, YearMonth.parse(text));
-            assertThat(TimeUtils.getFiscalMonthDescAsYearMonth(time)).isEqualTo(YearMonth.parse(text));
+            assertThat(TimeUtils.getFiscalMonthDescAsYearMonth(time)).isEqualTo(
+                    YearMonth.parse(text));
             assertThat(time.getFiscalMonthDesc()).isEqualTo(text);
         }
     }
@@ -430,19 +450,22 @@ class TimeUtils_Test {
 
         @Test
         void _NullPointerException_NullTime() {
-            assertThatThrownBy(() -> TimeUtils.getCalendarMonthNameAsMapped(null, Function.identity()))
+            assertThatThrownBy(
+                    () -> TimeUtils.getCalendarMonthNameAsMapped(null, Function.identity()))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @Test
         void _NullPointerException_NullMapper() {
-            assertThatThrownBy(() -> TimeUtils.getCalendarMonthNameAsMapped(timeOf("January"), null))
+            assertThatThrownBy(
+                    () -> TimeUtils.getCalendarMonthNameAsMapped(timeOf("January"), null))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @Test
         void _Null_NullAttribute() {
-            assertThat(TimeUtils.<Object>getCalendarMonthNameAsMapped(timeOf(null), v -> fail("mapper called")))
+            assertThat(TimeUtils.<Object>getCalendarMonthNameAsMapped(timeOf(null),
+                                                                      v -> fail("mapper called")))
                     .isNull();
         }
 
@@ -459,13 +482,15 @@ class TimeUtils_Test {
 
         @Test
         void _NullPointerException_NullTime() {
-            assertThatThrownBy(() -> TimeUtils.setCalendarMonthNameFromMapped(null, "January", Function.identity()))
+            assertThatThrownBy(() -> TimeUtils.setCalendarMonthNameFromMapped(null, "January",
+                                                                              Function.identity()))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @Test
         void _NullPointerException_NullMapper() {
-            assertThatThrownBy(() -> TimeUtils.setCalendarMonthNameFromMapped(timeOf(null), "January", null))
+            assertThatThrownBy(
+                    () -> TimeUtils.setCalendarMonthNameFromMapped(timeOf(null), "January", null))
                     .isInstanceOf(NullPointerException.class);
         }
 
@@ -501,7 +526,8 @@ class TimeUtils_Test {
 
         @Test
         void _Parsed_() {
-            assertThat(TimeUtils.getCalendarMonthNameAsMonth(timeOf("January"))).isEqualTo(Month.JANUARY);
+            assertThat(TimeUtils.getCalendarMonthNameAsMonth(timeOf("January"))).isEqualTo(
+                    Month.JANUARY);
         }
 
         @Test
@@ -552,19 +578,22 @@ class TimeUtils_Test {
 
         @Test
         void _NullPointerException_NullTime() {
-            assertThatThrownBy(() -> TimeUtils.getFiscalMonthNameAsMapped(null, Function.identity()))
+            assertThatThrownBy(
+                    () -> TimeUtils.getFiscalMonthNameAsMapped(null, Function.identity()))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @Test
         void _NullPointerException_NullMapper() {
-            assertThatThrownBy(() -> TimeUtils.getFiscalMonthNameAsMapped(timeOf("September"), null))
+            assertThatThrownBy(
+                    () -> TimeUtils.getFiscalMonthNameAsMapped(timeOf("September"), null))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @Test
         void _Null_NullAttribute() {
-            assertThat(TimeUtils.<Object>getFiscalMonthNameAsMapped(timeOf(null), v -> fail("mapper called"))).isNull();
+            assertThat(TimeUtils.<Object>getFiscalMonthNameAsMapped(timeOf(null), v -> fail(
+                    "mapper called"))).isNull();
         }
 
         @Test
@@ -580,13 +609,15 @@ class TimeUtils_Test {
 
         @Test
         void _NullPointerException_NullTime() {
-            assertThatThrownBy(() -> TimeUtils.setFiscalMonthNameFromMapped(null, "September", Function.identity()))
+            assertThatThrownBy(() -> TimeUtils.setFiscalMonthNameFromMapped(null, "September",
+                                                                            Function.identity()))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @Test
         void _NullPointerException_NullMapper() {
-            assertThatThrownBy(() -> TimeUtils.setFiscalMonthNameFromMapped(timeOf(null), "September", null))
+            assertThatThrownBy(
+                    () -> TimeUtils.setFiscalMonthNameFromMapped(timeOf(null), "September", null))
                     .isInstanceOf(NullPointerException.class);
         }
 
@@ -622,7 +653,8 @@ class TimeUtils_Test {
 
         @Test
         void _Parsed_() {
-            assertThat(TimeUtils.getFiscalMonthNameAsMonth(timeOf("September"))).isEqualTo(Month.SEPTEMBER);
+            assertThat(TimeUtils.getFiscalMonthNameAsMonth(timeOf("September"))).isEqualTo(
+                    Month.SEPTEMBER);
         }
 
         @Test

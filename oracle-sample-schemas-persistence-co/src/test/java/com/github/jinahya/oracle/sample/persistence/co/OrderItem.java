@@ -38,8 +38,8 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Optional;
 
 /**
- * An entity class for mapping the {@value MappedOrderItem#TABLE_NAME} table, whose composite primary key is
- * mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
+ * An entity class for mapping the {@value MappedOrderItem#TABLE_NAME} table, whose composite
+ * primary key is mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -118,25 +118,26 @@ public class OrderItem
 
     /**
      * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which maps the
-     * {@value #COLUMN_NAME_ORDER_ID} column. The association is {@link jakarta.persistence.MapsId @MapsId} to the
-     * {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute, so it is the association which writes the column. The value is
-     * {@value}.
+     * {@value #COLUMN_NAME_ORDER_ID} column. The association is
+     * {@link jakarta.persistence.MapsId @MapsId} to the {@value #ATTRIBUTE_PATH_ID_ORDER_ID}
+     * attribute, so it is the association which writes the column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER = "order";
 
     // -------------------------------------------------------------------------------------------- PRODUCT_ID / product
 
     /**
-     * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on the
-     * {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
+     * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on
+     * the {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
-    // ------------------------------------------------------------------------------------------ SHIPMENT_ID / shipment
+    // ------------------------------------------------------------------------------------------
+    // SHIPMENT_ID / shipment
 
     /**
-     * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on the
-     * {@value #COLUMN_NAME_SHIPMENT_ID} column. The value is {@value}.
+     * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on
+     * the {@value #COLUMN_NAME_SHIPMENT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT = "shipment";
 
@@ -174,8 +175,8 @@ public class OrderItem
     // --------------------------------------------------------------------------------------------------------- orderId
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute with the specified value, creating the
-     * {@value #ATTRIBUTE_NAME_ID} attribute first when it is {@code null}.
+     * Replaces current value of {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute with the specified
+     * value, creating the {@value #ATTRIBUTE_NAME_ID} attribute first when it is {@code null}.
      *
      * @param orderId new value for {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute.
      */
@@ -201,8 +202,9 @@ public class OrderItem
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER} attribute with the specified value, and current value of
-     * {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute with the specified value's identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ORDER} attribute with the specified value,
+     * and current value of {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute with the specified
+     * value's identifier.
      *
      * @param order new value for {@value #ATTRIBUTE_NAME_ORDER} attribute.
      */
@@ -226,8 +228,9 @@ public class OrderItem
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute with the specified value, and current value
-     * of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute with the specified value's identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute with the specified
+     * value, and current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute with the specified
+     * value's identifier.
      *
      * @param product new value for {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
      */
@@ -251,7 +254,8 @@ public class OrderItem
     /**
      * Replaces the shipment which carries this order item.
      *
-     * @param shipment new shipment which carries this order item; {@code null} for an item not yet shipped.
+     * @param shipment new shipment which carries this order item; {@code null} for an item not yet
+     *                 shipped.
      */
     public void setShipment(@Nullable final Shipment shipment) {
         this.shipment = shipment;
@@ -268,11 +272,14 @@ public class OrderItem
     @Nonnull
     @Valid
     @NotNull
-    // the association owns ORDER_ID, and the provider copies the order's id into the embedded id; @MapsId is what
-    // ties the two together, so the column is written from here rather than from a mirroring attribute
+    // the association owns ORDER_ID, and the provider copies the order's id into the embedded
+    // id; @MapsId is what
+    // ties the two together, so the column is written from here rather than from a mirroring
+    // attribute
     @MapsId(OrderItemId.ATTRIBUTE_NAME_ORDER_ID)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_ORDER_ID, referencedColumnName = Order.COLUMN_NAME_ORDER_ID, nullable = false)
+    @JoinColumn(name = COLUMN_NAME_ORDER_ID, referencedColumnName = Order.COLUMN_NAME_ORDER_ID,
+                nullable = false)
     private Order order;
 
     // -----------------------------------------------------------------------------------------------------------------

@@ -25,19 +25,20 @@ import com.github.jinahya.persistence.test.util.EntityPersisterUtils;
 import jakarta.persistence.EntityManager;
 
 /**
- * A persister which persists {@link Cost} instances. Each instance is first given newly persisted {@link Product},
- * {@link Time}, {@link Promotion} and {@link Channel} rows, and their keys copied into the composite identifier,
- * because every column of that identifier is a foreign key.
+ * A persister which persists {@link Cost} instances. Each instance is first given newly persisted
+ * {@link Product}, {@link Time}, {@link Promotion} and {@link Channel} rows, and their keys copied
+ * into the composite identifier, because every column of that identifier is a foreign key.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Cost_Persister extends AbstractEntityPersister<Cost> {
+class Cost_Persister
+        extends AbstractEntityPersister<Cost> {
 
     Cost_Persister() {
         super(Cost.class);
     }
 
-    // ---------------------------------------------------------------------------------------------------------------- 
+    // ----------------------------------------------------------------------------------------------------------------
 
     /**
      * {@inheritDoc}
@@ -45,18 +46,22 @@ class Cost_Persister extends AbstractEntityPersister<Cost> {
      * @param entityManager  {@inheritDoc}
      * @param entityInstance {@inheritDoc}
      * @return {@inheritDoc}
-     * @implNote Every column of the composite {@code @Id} is a foreign key, and the randomizer fills them with values
-     * no parent row carries. Each parent is persisted first, and its key copied in; the
-     * {@link jakarta.persistence.ManyToOne @ManyToOne} mappings alongside are read-only, so assigning the column is
-     * what makes the row insertable.
+     * @implNote Every column of the composite {@code @Id} is a foreign key, and the
+     *         randomizer fills them with values no parent row carries. Each parent is persisted
+     *         first, and its key copied in; the {@link jakarta.persistence.ManyToOne @ManyToOne}
+     *         mappings alongside are read-only, so assigning the column is what makes the row
+     *         insertable.
      */
     @Override
     public Cost apply(final EntityManager entityManager, final Cost entityInstance) {
         entityInstance.setId(CostId.of(
-                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class).getProdId(),
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class)
+                        .getProdId(),
                 Time_Persister.newPersistedInstanceBeforeEarliest(entityManager).getTimeId(),
-                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Promotion.class).getPromoId(),
-                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Channel.class).getChannelId()
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Promotion.class)
+                        .getPromoId(),
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Channel.class)
+                        .getChannelId()
         ));
         return super.apply(entityManager, entityInstance);
     }

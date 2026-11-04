@@ -20,10 +20,9 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
-import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
-import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.jboss.weld.junit5.auto.EnableAutoWeld;
+import jakarta.persistence.EntityManagerFactory;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -31,27 +30,27 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.github.jinahya.oracle.sample.persistence.sh._Entity_PersistenceIT_Producer.__ItPU;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
- * A class for testing {@link CalMonthSalesMvUtils} against every row of {@value CalMonthSalesMv#TABLE_NAME} as
- * installed, a nested class per method. The installer leaves the materialized view empty until it is refreshed, and
- * then every test here is skipped rather than failed.
+ * A class for testing {@link CalMonthSalesMvUtils} against every row of
+ * {@value CalMonthSalesMv#TABLE_NAME} as installed, a nested class per method. The installer leaves
+ * the materialized view empty until it is refreshed, and then every test here is skipped rather
+ * than failed.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@AddBeanClasses(_Entity_PersistenceIT_Producer.class)
-@EnableAutoWeld
 class CalMonthSalesMvUtils_PersistenceIT {
 
     private List<CalMonthSalesMv> all;
 
     @BeforeEach
     void loadAll() {
-        all = entityManager.createQuery("SELECT e FROM CalMonthSalesMv e", CalMonthSalesMv.class).getResultList();
-        assumeTrue(!all.isEmpty(), () -> CalMonthSalesMv.TABLE_NAME + " holds no row; refresh it first");
+        all = entityManager.createQuery("SELECT e FROM CalMonthSalesMv e", CalMonthSalesMv.class)
+                .getResultList();
+        assumeTrue(!all.isEmpty(),
+                   () -> CalMonthSalesMv.TABLE_NAME + " holds no row; refresh it first");
     }
 
     // ----------------------------------------------------------------------------------------------- calendarMonthDesc
@@ -63,7 +62,9 @@ class CalMonthSalesMvUtils_PersistenceIT {
         @Test
         void _SevenCharacters_EveryRow() {
             for (final var each : all) {
-                assertThat(CalMonthSalesMvUtils.getCalendarMonthDescAsMapped(each, String::length)).isEqualTo(7);
+                assertThat(CalMonthSalesMvUtils.getCalendarMonthDescAsMapped(each,
+                                                                             String::length)).isEqualTo(
+                        7);
             }
         }
     }
@@ -82,8 +83,13 @@ class CalMonthSalesMvUtils_PersistenceIT {
         }
     }
 
+    @AfterEach
+    void closeEntityManager() {
+        entityManager.close();
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
-    @__ItPU
-    @Inject
-    private EntityManager entityManager;
+    private final EntityManager entityManager =
+            __PersistenceIT_Utils.applyEntityManagerFactory(
+                    EntityManagerFactory::createEntityManager);
 }

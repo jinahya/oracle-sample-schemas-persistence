@@ -39,7 +39,12 @@ ORDER BY CUST_LAST_NAME, CUST_FIRST_NAME, CUST_ID
 -- --------------------------------------------------------------------------------------------------- SH_CUSTOMERS_B_02
 -- Marketing is planning a mail drop in :city (e.g. Los Angeles) aimed at the lower income bands, :levels (e.g. A: Below
 -- 30,000, B: 30,000 - 49,999).
-SELECT CUST_ID, CUST_FIRST_NAME, CUST_LAST_NAME, CUST_STREET_ADDRESS, CUST_POSTAL_CODE, CUST_INCOME_LEVEL
+SELECT CUST_ID,
+       CUST_FIRST_NAME,
+       CUST_LAST_NAME,
+       CUST_STREET_ADDRESS,
+       CUST_POSTAL_CODE,
+       CUST_INCOME_LEVEL
 FROM CUSTOMERS
 WHERE CUST_CITY = :city
   AND CUST_INCOME_LEVEL IN ('A: Below 30,000', 'B: 30,000 - 49,999')

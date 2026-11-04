@@ -29,8 +29,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * A class for testing the {@link Job_TestUtils} class.
  * <p>
- * Each nested class covers one of the salary factory methods, and asserts that the value it returns stays within the
- * range {@link Job} accepts for the corresponding attribute.
+ * Each nested class covers one of the salary factory methods, and asserts that the value it returns
+ * stays within the range {@link Job} accepts for the corresponding attribute.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -39,8 +39,8 @@ class Job_TestUtils_Test {
     /**
      * A class for testing {@link Job_TestUtils#newRandomPositiveMinSalary()}.
      * <p>
-     * The test asserts that the generated value lies between {@code 1} and {@link Job#ATTRIBUTE_MAX_MIN_SALARY}, both
-     * inclusive.
+     * The test asserts that the generated value lies between {@code 1} and
+     * {@link Job#ATTRIBUTE_MAX_MIN_SALARY}, both inclusive.
      */
     @DisplayName("newRandomPositiveMinSalary()")
     @Nested
@@ -56,10 +56,10 @@ class Job_TestUtils_Test {
     /**
      * A class for testing {@link Job_TestUtils#newRandomPositiveMaxSalary(Integer)}.
      * <p>
-     * One test passes the lowest accepted {@code minSalary}, {@code 1}, and asserts that the generated value is
-     * positive and does not exceed {@link Job#ATTRIBUTE_MAX_MIN_SALARY}; the other passes
-     * {@link Job#ATTRIBUTE_MAX_MIN_SALARY} itself, which leaves a single candidate, and asserts that the generated
-     * value is exactly that.
+     * One test passes the lowest accepted {@code minSalary}, {@code 1}, and asserts that the
+     * generated value is positive and does not exceed {@link Job#ATTRIBUTE_MAX_MIN_SALARY}; the
+     * other passes {@link Job#ATTRIBUTE_MAX_MIN_SALARY} itself, which leaves a single candidate,
+     * and asserts that the generated value is exactly that.
      */
     @DisplayName("newRandomPositiveMaxSalary(minSalary)")
     @Nested
@@ -75,7 +75,8 @@ class Job_TestUtils_Test {
 
         @Test
         void _ATTRIBUTE_MAX_MIN_SALARY_ATTRIBUTE_MAX_MIN_SALARY() {
-            final var maxSalary = Job_TestUtils.newRandomPositiveMaxSalary(Job.ATTRIBUTE_MAX_MIN_SALARY);
+            final var maxSalary =
+                    Job_TestUtils.newRandomPositiveMaxSalary(Job.ATTRIBUTE_MAX_MIN_SALARY);
             assertThat(maxSalary)
                     .isEqualTo(Job.ATTRIBUTE_MAX_MIN_SALARY);
         }

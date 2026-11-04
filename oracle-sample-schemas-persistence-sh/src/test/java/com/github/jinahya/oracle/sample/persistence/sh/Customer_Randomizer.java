@@ -28,12 +28,14 @@ import uk.co.jemos.podam.api.PodamFactory;
 import java.util.List;
 
 /**
- * A randomizer which produces randomized {@link Customer} instances. The {@value Customer#ATTRIBUTE_NAME_COUNTRY}
- * attribute is excluded, for {@link Customer_Persister} assigns a persisted one of its own.
+ * A randomizer which produces randomized {@link Customer} instances. The
+ * {@value Customer#ATTRIBUTE_NAME_COUNTRY} attribute is excluded, for {@link Customer_Persister}
+ * assigns a persisted one of its own.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Customer_Randomizer extends PodamObjectRandomizer<Customer> {
+class Customer_Randomizer
+        extends PodamObjectRandomizer<Customer> {
 
     Customer_Randomizer() {
         super(Customer.class, List.of(

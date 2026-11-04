@@ -27,13 +27,14 @@ import jakarta.persistence.EntityManager;
 /**
  * A persister which persists {@link Shipment} instances.
  * <p>
- * Each instance is given a newly persisted {@link Store} and a newly persisted {@link Customer} first, so that its
- * {@code store} and its {@code customer} -- neither of which is nullable -- refer to rows which are already in the
- * database.
+ * Each instance is given a newly persisted {@link Store} and a newly persisted {@link Customer}
+ * first, so that its {@code store} and its {@code customer} -- neither of which is nullable --
+ * refer to rows which are already in the database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Shipment_Persister extends AbstractEntityPersister<Shipment> {
+class Shipment_Persister
+        extends AbstractEntityPersister<Shipment> {
 
     Shipment_Persister() {
         super(Shipment.class);
@@ -43,7 +44,8 @@ class Shipment_Persister extends AbstractEntityPersister<Shipment> {
     @Override
     public Shipment apply(final EntityManager entityManager, final Shipment entityInstance) {
         final var store = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Store.class);
-        final var customer = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Customer.class);
+        final var customer =
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Customer.class);
         entityManager.flush();
         entityInstance.setStore(store);
         entityInstance.setCustomer(customer);

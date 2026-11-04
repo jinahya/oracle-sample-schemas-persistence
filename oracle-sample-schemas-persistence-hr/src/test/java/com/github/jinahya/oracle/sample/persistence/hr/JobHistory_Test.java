@@ -28,7 +28,8 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class JobHistory_Test extends _Entity_Test<JobHistory> {
+class JobHistory_Test
+        extends _Entity_Test<JobHistory> {
 
     JobHistory_Test() {
         super(JobHistory.class);
@@ -39,9 +40,9 @@ class JobHistory_Test extends _Entity_Test<JobHistory> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link JobHistory#equals(Object) equals} compares only the two {@code @Id} attributes,
-     * {@code employeeId} and {@code startDate} -- the composite primary key -- because every other attribute is mutable
-     * state.
+     * @implNote {@link JobHistory#equals(Object) equals} compares only the two {@code @Id}
+     *         attributes, {@code employeeId} and {@code startDate} -- the composite primary key --
+     *         because every other attribute is mutable state.
      */
     @Override
     public SingleTypeEqualsVerifierApi<JobHistory> equals_verifier_() {

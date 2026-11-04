@@ -32,7 +32,8 @@ import java.util.List;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Cost_Randomizer extends PodamObjectRandomizer<Cost> {
+class Cost_Randomizer
+        extends PodamObjectRandomizer<Cost> {
 
     Cost_Randomizer() {
         super(Cost.class, List.of(
@@ -40,7 +41,7 @@ class Cost_Randomizer extends PodamObjectRandomizer<Cost> {
         ));
     }
 
-    // ---------------------------------------------------------------------------------------------------------------- 
+    // ----------------------------------------------------------------------------------------------------------------
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();

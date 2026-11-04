@@ -32,7 +32,8 @@ import java.util.List;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Promotion_Randomizer extends PodamObjectRandomizer<Promotion> {
+class Promotion_Randomizer
+        extends PodamObjectRandomizer<Promotion> {
 
     Promotion_Randomizer() {
         super(Promotion.class, List.of(

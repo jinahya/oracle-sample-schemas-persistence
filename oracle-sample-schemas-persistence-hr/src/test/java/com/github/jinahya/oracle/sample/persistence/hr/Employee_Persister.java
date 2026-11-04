@@ -27,13 +27,15 @@ import jakarta.persistence.EntityManager;
 /**
  * A persister which persists {@link Employee} instances.
  * <p>
- * Each instance is given a newly persisted {@link Job} and a newly persisted {@link Department} first, so that its
- * {@code job} -- which is not nullable -- and its {@code department} refer to rows which are already in the database.
- * The {@code manager} is left {@code null}, which the column allows.
+ * Each instance is given a newly persisted {@link Job} and a newly persisted {@link Department}
+ * first, so that its {@code job} -- which is not nullable -- and its {@code department} refer to
+ * rows which are already in the database. The {@code manager} is left {@code null}, which the
+ * column allows.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Employee_Persister extends AbstractEntityPersister<Employee> {
+class Employee_Persister
+        extends AbstractEntityPersister<Employee> {
 
     Employee_Persister() {
         super(Employee.class);
@@ -42,7 +44,8 @@ class Employee_Persister extends AbstractEntityPersister<Employee> {
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     public Employee apply(final EntityManager entityManager, final Employee entityInstance) {
-        entityInstance.setJob(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Job.class));
+        entityInstance.setJob(
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Job.class));
         entityInstance.setDepartment(
                 EntityPersisterUtils.newPersistedInstanceOf(entityManager, Department.class));
         return super.apply(entityManager, entityInstance);

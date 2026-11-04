@@ -41,7 +41,7 @@ WHERE store_id = :storeB
 SELECT customer_id
 FROM orders
 WHERE store_id = :storeA
-MINUS
+    MINUS
 SELECT customer_id
 FROM orders
 WHERE store_id = :storeB
@@ -62,8 +62,7 @@ WHERE store_id = :storeB
 -- come back.
 SELECT order_id,
        order_tms,
-       LAG(order_tms) OVER (ORDER BY order_tms)                               AS previous_order_tms,
-       EXTRACT(DAY FROM order_tms - LAG(order_tms) OVER (ORDER BY order_tms)) AS days_since_previous
+       LAG(order_tms) OVER (ORDER BY order_tms)                               AS previous_order_tms, EXTRACT(DAY FROM order_tms - LAG(order_tms) OVER(ORDER BY order_tms)) AS days_since_previous
 FROM orders
 WHERE customer_id = :customerId
 ORDER BY order_tms

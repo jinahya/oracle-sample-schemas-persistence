@@ -20,14 +20,14 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
 import java.time.YearMonth;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.function.Function;
-
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -40,13 +40,18 @@ import static org.assertj.core.api.Assertions.fail;
  */
 class CalMonthSalesMvUtils_Test {
 
-    /** Sets the named field of the specified instance reflectively, for an entity which exposes no setter for it. */
+    /**
+     * Sets the named field of the specified instance reflectively, for an entity which exposes no
+     * setter for it.
+     */
     private static <T> T withField(final T instance, final String name, final Object value) {
         try {
-            // the field may be declared by a superclass, e.g. the mapped superclass the entity extends
+            // the field may be declared by a superclass, e.g. the mapped superclass the entity
+            // extends
             var type = (Class<?>) instance.getClass();
             while (type.getSuperclass() != null
-                   && Arrays.stream(type.getDeclaredFields()).noneMatch(f -> f.getName().equals(name))) {
+                   && Arrays.stream(type.getDeclaredFields())
+                           .noneMatch(f -> f.getName().equals(name))) {
                 type = type.getSuperclass();
             }
             final var field = type.getDeclaredField(name);
@@ -59,7 +64,8 @@ class CalMonthSalesMvUtils_Test {
     }
 
     private static CalMonthSalesMv instanceOf(final String calendarMonthDesc) {
-        return withField(new CalMonthSalesMv(), CalMonthSalesMv.ATTRIBUTE_NAME_CALENDAR_MONTH_DESC, calendarMonthDesc);
+        return withField(new CalMonthSalesMv(), CalMonthSalesMv.ATTRIBUTE_NAME_CALENDAR_MONTH_DESC,
+                         calendarMonthDesc);
     }
 
     // ----------------------------------------------------------------------------------------------- calendarMonthDesc
@@ -70,26 +76,32 @@ class CalMonthSalesMvUtils_Test {
 
         @Test
         void _NullPointerException_NullEntity() {
-            assertThatThrownBy(() -> CalMonthSalesMvUtils.getCalendarMonthDescAsMapped(null, Function.identity()))
+            assertThatThrownBy(() -> CalMonthSalesMvUtils.getCalendarMonthDescAsMapped(null,
+                                                                                       Function.identity()))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @Test
         void _NullPointerException_NullMapper() {
-            assertThatThrownBy(() -> CalMonthSalesMvUtils.getCalendarMonthDescAsMapped(instanceOf("2019-01"), null))
+            assertThatThrownBy(
+                    () -> CalMonthSalesMvUtils.getCalendarMonthDescAsMapped(instanceOf("2019-01"),
+                                                                            null))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @Test
         void _Null_NullAttribute() {
             assertThat(CalMonthSalesMvUtils.<Object>getCalendarMonthDescAsMapped(instanceOf(null),
-                                                                                 v -> fail("mapper called")))
+                                                                                 v -> fail(
+                                                                                         "mapper " +
+                                                                                         "called")))
                     .isNull();
         }
 
         @Test
         void _Mapped_() {
-            assertThat(CalMonthSalesMvUtils.getCalendarMonthDescAsMapped(instanceOf("2019-01"), String::length))
+            assertThat(CalMonthSalesMvUtils.getCalendarMonthDescAsMapped(instanceOf("2019-01"),
+                                                                         String::length))
                     .isEqualTo(7);
         }
     }
@@ -106,7 +118,8 @@ class CalMonthSalesMvUtils_Test {
 
         @Test
         void _Null_NullAttribute() {
-            assertThat(CalMonthSalesMvUtils.getCalendarMonthDescAsYearMonth(instanceOf(null))).isNull();
+            assertThat(CalMonthSalesMvUtils.getCalendarMonthDescAsYearMonth(
+                    instanceOf(null))).isNull();
         }
 
         @Test
@@ -117,7 +130,8 @@ class CalMonthSalesMvUtils_Test {
 
         @Test
         void _DateTimeParseException_NotParsable() {
-            assertThatThrownBy(() -> CalMonthSalesMvUtils.getCalendarMonthDescAsYearMonth(instanceOf("2019-Q1")))
+            assertThatThrownBy(() -> CalMonthSalesMvUtils.getCalendarMonthDescAsYearMonth(
+                    instanceOf("2019-Q1")))
                     .isInstanceOf(DateTimeParseException.class);
         }
     }

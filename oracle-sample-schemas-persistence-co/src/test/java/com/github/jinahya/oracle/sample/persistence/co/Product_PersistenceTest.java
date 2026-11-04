@@ -35,12 +35,14 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 
 /**
- * Verifies the mappings of {@link Product} against the schema generated into the in-memory database.
+ * Verifies the mappings of {@link Product} against the schema generated into the in-memory
+ * database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class Product_PersistenceTest extends _Entity_PersistenceTest<Product> {
+class Product_PersistenceTest
+        extends _Entity_PersistenceTest<Product> {
 
     private static BigDecimal unitPriceMin;
 
@@ -63,21 +65,25 @@ class Product_PersistenceTest extends _Entity_PersistenceTest<Product> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * The minimum unit price of the range the nested tests select, which is the unit price of a persisted product.
+     * The minimum unit price of the range the nested tests select, which is the unit price of a
+     * persisted product.
      */
     private static final BigDecimal UNIT_PRICE_MIN = new BigDecimal("2.00");
 
     /**
-     * The maximum unit price of the range the nested tests select, which is the unit price of a persisted product.
+     * The maximum unit price of the range the nested tests select, which is the unit price of a
+     * persisted product.
      */
     private static final BigDecimal UNIT_PRICE_MAX = new BigDecimal("4.00");
 
     /**
-     * Persists five products, whose unit prices are {@code 1.00} through {@code 5.00}, in descending order.
+     * Persists five products, whose unit prices are {@code 1.00} through {@code 5.00}, in
+     * descending order.
      *
      * @param em an entity manager in a transaction.
      * @return a list of the persisted products.
-     * @implNote Persists in descending order of unit price, so a query's ordering is not merely the insertion order.
+     * @implNote Persists in descending order of unit price, so a query's ordering is not
+     *         merely the insertion order.
      */
     private static List<Product> persistProducts(final EntityManager em) {
         final var randomizer = new Product_Randomizer();
@@ -97,11 +103,14 @@ class Product_PersistenceTest extends _Entity_PersistenceTest<Product> {
 
         private void verify(final List<Product> persisted, final List<Product> found) {
             assertThat(found)
-                    .as("the products whose %s is in [%s, %s), ordered by %s", Product_.unitPrice.getName(),
+                    .as("the products whose %s is in [%s, %s), ordered by %s",
+                        Product_.unitPrice.getName(),
                         UNIT_PRICE_MIN, UNIT_PRICE_MAX, Product_.unitPrice.getName())
                     .containsAll(persisted.stream()
-                                         .filter(v -> v.getUnitPrice().compareTo(UNIT_PRICE_MIN) >= 0)
-                                         .filter(v -> v.getUnitPrice().compareTo(UNIT_PRICE_MAX) < 0)
+                                         .filter(v -> v.getUnitPrice().compareTo(UNIT_PRICE_MIN) >=
+                                                      0)
+                                         .filter(v -> v.getUnitPrice().compareTo(UNIT_PRICE_MAX) <
+                                                      0)
                                          .toList())
                     .extracting(Product::getUnitPrice)
                     .isSorted()
@@ -110,14 +119,17 @@ class Product_PersistenceTest extends _Entity_PersistenceTest<Product> {
                             .isLessThan(UNIT_PRICE_MAX));
         }
 
-        @DisplayName("the named query selects the products just persisted, in a half-open unit price range")
+        @DisplayName(
+                "the named query selects the products just persisted, in a half-open unit price " +
+                "range")
         @Test
         void __NamedQuery() {
             applyEntityManagerInTransactionAndRollback(em -> {
                 final var persisted = persistProducts(em);
                 final var found = em
                         .createNamedQuery(
-                                "Product.selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
+                                "Product" +
+                                ".selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
                                 targetClass
                         )
                         .setParameter("unitPriceMinInclusive", UNIT_PRICE_MIN)
@@ -128,7 +140,9 @@ class Product_PersistenceTest extends _Entity_PersistenceTest<Product> {
             });
         }
 
-        @DisplayName("a query-language query selects the products just persisted, in a half-open unit price range")
+        @DisplayName(
+                "a query-language query selects the products just persisted, in a half-open unit " +
+                "price range")
         @Test
         void __QueryLanguage() {
             applyEntityManagerInTransactionAndRollback(em -> {
@@ -150,7 +164,9 @@ class Product_PersistenceTest extends _Entity_PersistenceTest<Product> {
             });
         }
 
-        @DisplayName("a criteria query selects the products just persisted, in a half-open unit price range")
+        @DisplayName(
+                "a criteria query selects the products just persisted, in a half-open unit price " +
+                "range")
         @Test
         void __CriteriaApi() {
             applyEntityManagerInTransactionAndRollback(em -> {
@@ -176,24 +192,30 @@ class Product_PersistenceTest extends _Entity_PersistenceTest<Product> {
 
         private void verify(final List<Product> persisted, final List<Product> found) {
             assertThat(found)
-                    .as("the products whose %s is in [%s, %s], ordered by %s", Product_.unitPrice.getName(),
+                    .as("the products whose %s is in [%s, %s], ordered by %s",
+                        Product_.unitPrice.getName(),
                         UNIT_PRICE_MIN, UNIT_PRICE_MAX, Product_.unitPrice.getName())
                     .containsAll(persisted.stream()
-                                         .filter(v -> v.getUnitPrice().compareTo(UNIT_PRICE_MIN) >= 0)
-                                         .filter(v -> v.getUnitPrice().compareTo(UNIT_PRICE_MAX) <= 0)
+                                         .filter(v -> v.getUnitPrice().compareTo(UNIT_PRICE_MIN) >=
+                                                      0)
+                                         .filter(v -> v.getUnitPrice().compareTo(UNIT_PRICE_MAX) <=
+                                                      0)
                                          .toList())
                     .extracting(Product::getUnitPrice)
                     .isSorted()
                     .allSatisfy(v -> assertThat(v).isBetween(UNIT_PRICE_MIN, UNIT_PRICE_MAX));
         }
 
-        @DisplayName("the named query selects the products just persisted, in a closed unit price range")
+        @DisplayName(
+                "the named query selects the products just persisted, in a closed unit price range")
         @Test
         void __NamedQuery() {
             applyEntityManagerInTransactionAndRollback(em -> {
                 final var persisted = persistProducts(em);
                 final var found = em
-                        .createNamedQuery("Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc", targetClass)
+                        .createNamedQuery(
+                                "Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc",
+                                targetClass)
                         .setParameter("unitPriceAfter", UNIT_PRICE_MIN)
                         .setParameter("unitPriceBefore", UNIT_PRICE_MAX)
                         .getResultList();
@@ -202,7 +224,9 @@ class Product_PersistenceTest extends _Entity_PersistenceTest<Product> {
             });
         }
 
-        @DisplayName("a query-language query selects the products just persisted, in a closed unit price range")
+        @DisplayName(
+                "a query-language query selects the products just persisted, in a closed unit " +
+                "price range")
         @Test
         void __QueryLanguage() {
             applyEntityManagerInTransactionAndRollback(em -> {
@@ -224,7 +248,9 @@ class Product_PersistenceTest extends _Entity_PersistenceTest<Product> {
             });
         }
 
-        @DisplayName("a criteria query selects the products just persisted, in a closed unit price range")
+        @DisplayName(
+                "a criteria query selects the products just persisted, in a closed unit price " +
+                "range")
         @Test
         void __CriteriaApi() {
             applyEntityManagerInTransactionAndRollback(em -> {
@@ -233,7 +259,8 @@ class Product_PersistenceTest extends _Entity_PersistenceTest<Product> {
                 final var query = builder.createQuery(targetClass);
                 final var root = query.from(targetClass);
                 query.select(root);
-                query.where(builder.between(root.get(Product_.unitPrice), UNIT_PRICE_MIN, UNIT_PRICE_MAX));
+                query.where(builder.between(root.get(Product_.unitPrice), UNIT_PRICE_MIN,
+                                            UNIT_PRICE_MAX));
                 query.orderBy(builder.asc(root.get(Product_.unitPrice)));
                 final var found = em.createQuery(query).getResultList();
                 verify(persisted, found);

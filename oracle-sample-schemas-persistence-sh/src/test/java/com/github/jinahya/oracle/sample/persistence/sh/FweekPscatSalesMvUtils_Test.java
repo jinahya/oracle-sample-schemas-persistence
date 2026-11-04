@@ -20,11 +20,11 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
-import java.util.Arrays;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -36,13 +36,18 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  */
 class FweekPscatSalesMvUtils_Test {
 
-    /** Sets the named field of the specified instance reflectively, for an entity which exposes no setter for it. */
+    /**
+     * Sets the named field of the specified instance reflectively, for an entity which exposes no
+     * setter for it.
+     */
     private static <T> T withField(final T instance, final String name, final Object value) {
         try {
-            // the field may be declared by a superclass, e.g. the mapped superclass the entity extends
+            // the field may be declared by a superclass, e.g. the mapped superclass the entity
+            // extends
             var type = (Class<?>) instance.getClass();
             while (type.getSuperclass() != null
-                   && Arrays.stream(type.getDeclaredFields()).noneMatch(f -> f.getName().equals(name))) {
+                   && Arrays.stream(type.getDeclaredFields())
+                           .noneMatch(f -> f.getName().equals(name))) {
                 type = type.getSuperclass();
             }
             final var field = type.getDeclaredField(name);
@@ -78,7 +83,8 @@ class FweekPscatSalesMvUtils_Test {
         @Test
         void _Component_() {
             final var id = new FweekPscatSalesMvId_Randomizer().get();
-            assertThat(FweekPscatSalesMvUtils.getIdWeekEndingDay(instanceOf(id))).isEqualTo(id.getWeekEndingDay());
+            assertThat(FweekPscatSalesMvUtils.getIdWeekEndingDay(instanceOf(id))).isEqualTo(
+                    id.getWeekEndingDay());
         }
     }
 
@@ -102,7 +108,8 @@ class FweekPscatSalesMvUtils_Test {
         @Test
         void _Component_() {
             final var id = new FweekPscatSalesMvId_Randomizer().get();
-            assertThat(FweekPscatSalesMvUtils.getIdProdSubcategory(instanceOf(id))).isEqualTo(id.getProdSubcategory());
+            assertThat(FweekPscatSalesMvUtils.getIdProdSubcategory(instanceOf(id))).isEqualTo(
+                    id.getProdSubcategory());
         }
     }
 
@@ -126,7 +133,8 @@ class FweekPscatSalesMvUtils_Test {
         @Test
         void _Component_() {
             final var id = new FweekPscatSalesMvId_Randomizer().get();
-            assertThat(FweekPscatSalesMvUtils.getIdChannelId(instanceOf(id))).isEqualTo(id.getChannelId());
+            assertThat(FweekPscatSalesMvUtils.getIdChannelId(instanceOf(id))).isEqualTo(
+                    id.getChannelId());
         }
     }
 
@@ -150,7 +158,8 @@ class FweekPscatSalesMvUtils_Test {
         @Test
         void _Component_() {
             final var id = new FweekPscatSalesMvId_Randomizer().get();
-            assertThat(FweekPscatSalesMvUtils.getIdPromoId(instanceOf(id))).isEqualTo(id.getPromoId());
+            assertThat(FweekPscatSalesMvUtils.getIdPromoId(instanceOf(id))).isEqualTo(
+                    id.getPromoId());
         }
     }
 }

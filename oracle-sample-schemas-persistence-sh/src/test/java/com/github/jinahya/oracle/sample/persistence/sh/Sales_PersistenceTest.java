@@ -25,7 +25,8 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Sales_PersistenceTest extends _Entity_PersistenceTest<Sales> {
+class Sales_PersistenceTest
+        extends _Entity_PersistenceTest<Sales> {
 
     Sales_PersistenceTest() {
         super(Sales.class);

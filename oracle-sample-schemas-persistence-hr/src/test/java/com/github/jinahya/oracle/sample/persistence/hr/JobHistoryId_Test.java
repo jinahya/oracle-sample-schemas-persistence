@@ -25,7 +25,8 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class JobHistoryId_Test extends _NonEntity_Test<JobHistoryId> {
+class JobHistoryId_Test
+        extends _NonEntity_Test<JobHistoryId> {
 
     JobHistoryId_Test() {
         super(JobHistoryId.class);

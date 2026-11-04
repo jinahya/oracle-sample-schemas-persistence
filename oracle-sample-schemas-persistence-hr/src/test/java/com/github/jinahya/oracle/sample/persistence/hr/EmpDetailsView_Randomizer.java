@@ -30,11 +30,13 @@ import java.util.List;
 /**
  * A randomizer which produces randomized {@link EmpDetailsView} instances.
  * <p>
- * Nothing is excluded from randomization: the class holds only the two columns of the composite key.
+ * Nothing is excluded from randomization: the class holds only the two columns of the composite
+ * key.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class EmpDetailsView_Randomizer extends PodamObjectRandomizer<EmpDetailsView> {
+class EmpDetailsView_Randomizer
+        extends PodamObjectRandomizer<EmpDetailsView> {
 
     EmpDetailsView_Randomizer() {
         super(EmpDetailsView.class, List.of(

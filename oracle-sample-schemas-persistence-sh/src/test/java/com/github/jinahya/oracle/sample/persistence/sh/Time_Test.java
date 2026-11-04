@@ -28,7 +28,8 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Time_Test extends _Entity_Test<Time> {
+class Time_Test
+        extends _Entity_Test<Time> {
 
     Time_Test() {
         super(Time.class);
@@ -39,8 +40,8 @@ class Time_Test extends _Entity_Test<Time> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Time#equals(Object) equals} compares only the {@code @Id} -- the surrogate key -- because every
-     * other attribute is mutable state.
+     * @implNote {@link Time#equals(Object) equals} compares only the {@code @Id} -- the
+     *         surrogate key -- because every other attribute is mutable state.
      */
     @Override
     public SingleTypeEqualsVerifierApi<Time> equals_verifier_() {

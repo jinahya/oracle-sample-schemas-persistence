@@ -32,11 +32,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 /**
- * The checks a class has to pass on its own -- a usable {@code toString()}, an {@code equals}/{@code hashCode} pair,
- * and property accessors which round-trip -- as tests a base class takes on by implementing this interface.
+ * The checks a class has to pass on its own -- a usable {@code toString()}, an
+ * {@code equals}/{@code hashCode} pair, and property accessors which round-trip -- as tests a base
+ * class takes on by implementing this interface.
  * <p>
- * {@link _NonEntity_Test} and {@link _Entity_Test} implement it; {@link _Entity_PersistenceTest} and
- * {@link _Entity_PersistenceIT} do not, so they do not run these again.
+ * {@link _NonEntity_Test} and {@link _Entity_Test} implement it; {@link _Entity_PersistenceTest}
+ * and {@link _Entity_PersistenceIT} do not, so they do not run these again.
  *
  * @param <T> the type of the target class.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
@@ -82,7 +83,8 @@ interface __Object_Test<T> {
     }
 
     /**
-     * Verifies that {@code toString()} of a new randomized instance of {@link #targetClass()} is not blank.
+     * Verifies that {@code toString()} of a new randomized instance of {@link #targetClass()} is
+     * not blank.
      */
     @Test
     default void toString_NotBlank_NewRandomizedInstance() {
@@ -92,7 +94,8 @@ interface __Object_Test<T> {
     // ------------------------------------------------------------------------------------------------- equals/hashCode
 
     /**
-     * Returns an equals-verifier for {@link #targetClass()}, which implementations may further configure.
+     * Returns an equals-verifier for {@link #targetClass()}, which implementations may further
+     * configure.
      *
      * @return an equals-verifier for {@link #targetClass()}.
      */
@@ -101,8 +104,8 @@ interface __Object_Test<T> {
     }
 
     /**
-     * Verifies the {@code equals}/{@code hashCode} contract of {@link #targetClass()}, using the verifier which
-     * {@link #equals_verifier_()} returns.
+     * Verifies the {@code equals}/{@code hashCode} contract of {@link #targetClass()}, using the
+     * verifier which {@link #equals_verifier_()} returns.
      */
     @Test
     default void equals_verify_() {
@@ -113,8 +116,8 @@ interface __Object_Test<T> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Verifies that every non-{@link Transient @Transient} read/write property of {@link #targetClass()} accepts what
-     * its own reader returns.
+     * Verifies that every non-{@link Transient @Transient} read/write property of
+     * {@link #targetClass()} accepts what its own reader returns.
      *
      * @throws IntrospectionException when {@link #targetClass()} cannot be introspected.
      */
@@ -134,7 +137,8 @@ interface __Object_Test<T> {
             reader.setAccessible(true);
             writer.setAccessible(true);
             assertThatCode(() -> writer.invoke(instance, reader.invoke(instance)))
-                    .as("%s.%s(%s())", targetClass.getSimpleName(), writer.getName(), reader.getName())
+                    .as("%s.%s(%s())", targetClass.getSimpleName(), writer.getName(),
+                        reader.getName())
                     .doesNotThrowAnyException();
         }
     }

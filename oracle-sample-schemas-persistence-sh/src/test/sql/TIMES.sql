@@ -167,7 +167,8 @@ FROM TIMES
 -- April, September
 
 -- ----------------------------------------------------------------------------------------------- CALENDAR_QUARTER_DESC
-SELECT MIN(LENGTH(TRIM(CALENDAR_QUARTER_DESC))), MAX(LENGTH(TRIM(CALENDAR_QUARTER_DESC)))
+SELECT MIN(LENGTH(TRIM(CALENDAR_QUARTER_DESC))),
+       MAX(LENGTH(TRIM(CALENDAR_QUARTER_DESC)))
 FROM TIMES
 ;
 -- 7, 7

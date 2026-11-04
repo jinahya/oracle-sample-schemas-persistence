@@ -57,7 +57,8 @@ import jakarta.persistence.Table;
 )
 @Entity
 @Table(name = MappedCalMonthSalesMv.TABLE_NAME)
-public class CalMonthSalesMv extends MappedCalMonthSalesMv {
+public class CalMonthSalesMv
+        extends MappedCalMonthSalesMv {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 

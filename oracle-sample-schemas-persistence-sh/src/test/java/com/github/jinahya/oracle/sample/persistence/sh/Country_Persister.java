@@ -28,7 +28,8 @@ import jakarta.persistence.EntityManager;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Country_Persister extends AbstractEntityPersister<Country> {
+class Country_Persister
+        extends AbstractEntityPersister<Country> {
 
     Country_Persister() {
         super(Country.class);

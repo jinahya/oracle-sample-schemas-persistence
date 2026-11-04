@@ -27,13 +27,14 @@ import jakarta.persistence.EntityManager;
 /**
  * A persister which persists {@link Inventory} instances.
  * <p>
- * Each instance is given a newly persisted {@link Store} and a newly persisted {@link Product} first, so that its
- * {@code store} and its {@code product} -- neither of which is nullable -- refer to rows which are already in the
- * database.
+ * Each instance is given a newly persisted {@link Store} and a newly persisted {@link Product}
+ * first, so that its {@code store} and its {@code product} -- neither of which is nullable -- refer
+ * to rows which are already in the database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Inventory_Persister extends AbstractEntityPersister<Inventory> {
+class Inventory_Persister
+        extends AbstractEntityPersister<Inventory> {
 
     Inventory_Persister() {
         super(Inventory.class);
@@ -43,7 +44,8 @@ class Inventory_Persister extends AbstractEntityPersister<Inventory> {
     @Override
     public Inventory apply(final EntityManager entityManager, final Inventory entityInstance) {
         final var store = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Store.class);
-        final var product = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class);
+        final var product =
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class);
         entityManager.flush();
         entityInstance.setStore(store);
         entityInstance.setProduct(product);

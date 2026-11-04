@@ -57,7 +57,8 @@ import jakarta.persistence.Table;
 )
 @Entity
 @Table(name = MappedCountry.TABLE_NAME)
-public class Country extends MappedCountry {
+public class Country
+        extends MappedCountry {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 

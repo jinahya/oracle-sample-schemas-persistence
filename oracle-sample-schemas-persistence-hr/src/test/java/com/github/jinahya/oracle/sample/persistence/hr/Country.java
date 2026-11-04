@@ -94,28 +94,33 @@ import java.util.Optional;
 )
 @Entity
 @Table(name = MappedCountry.TABLE_NAME)
-public class Country extends MappedCountry {
+public class Country
+        extends MappedCountry {
 
     // ------------------------------------------------------------------------------------------------------- REGION_ID
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_ID} column. The value is
+     * {@value}.
      */
     public static final String ATTRIBUTE_NAME_REGION = "region";
 
     // ------------------------------------------------------------------------------------------------------- LOCATIONS
 
     /**
-     * The name of the attribute which maps the {@link Location location}s of this country. The value is {@value}.
+     * The name of the attribute which maps the {@link Location location}s of this country. The
+     * value is {@value}.
      *
      * @see Location#ATTRIBUTE_NAME_COUNTRY
      */
     public static final String ATTRIBUTE_NAME_LOCATIONS = "locations";
 
     // -----------------------------------------------------------------------------------------------------------------
-    static final Comparator<Country> comparingCountryId = Comparator.comparing(Country::getCountryId);
+    static final Comparator<Country> comparingCountryId =
+            Comparator.comparing(Country::getCountryId);
 
-    static Comparator<Country> comparingCountryName(final Comparator<? super String> nameComparator) {
+    static Comparator<Country> comparingCountryName(
+            final Comparator<? super String> nameComparator) {
         return Comparator.comparing(Country::getCountryName, nameComparator);
     }
 
@@ -134,7 +139,8 @@ public class Country extends MappedCountry {
      * {@inheritDoc}
      *
      * @param countryId {@inheritDoc}
-     * @implNote Re-declared so that the code in this package, which the identifier is assigned by, can call it.
+     * @implNote Re-declared so that the code in this package, which the identifier is
+     *         assigned by, can call it.
      */
     @Override
     protected void setCountryId(@Nonnull final String countryId) {
@@ -154,8 +160,8 @@ public class Country extends MappedCountry {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_REGION} attribute with the specified value, and the
-     * {@value #ATTRIBUTE_NAME_REGION_ID} attribute with its identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_REGION} attribute with the specified value,
+     * and the {@value #ATTRIBUTE_NAME_REGION_ID} attribute with its identifier.
      *
      * @param region new value for {@value #ATTRIBUTE_NAME_REGION} attribute.
      */

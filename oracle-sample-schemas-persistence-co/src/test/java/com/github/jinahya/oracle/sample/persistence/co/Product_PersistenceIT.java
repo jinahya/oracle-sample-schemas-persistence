@@ -39,7 +39,8 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class Product_PersistenceIT extends _Entity_PersistenceIT<Product> {
+class Product_PersistenceIT
+        extends _Entity_PersistenceIT<Product> {
 
     private static BigDecimal unitPriceMin;
 
@@ -62,11 +63,12 @@ class Product_PersistenceIT extends _Entity_PersistenceIT<Product> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Returns two unit prices of the installed table, the lower one first: those at the first and the third quartile of
-     * the installed, distinct, non-{@code null} unit prices.
+     * Returns two unit prices of the installed table, the lower one first: those at the first and
+     * the third quartile of the installed, distinct, non-{@code null} unit prices.
      *
-     * @implNote Selects the unit prices, not the entities, so nothing is left managed. Assumes the installed table has
-     * at least two distinct unit prices; the test is aborted, not failed, if it has not.
+     * @implNote Selects the unit prices, not the entities, so nothing is left managed.
+     *         Assumes the installed table has at least two distinct unit prices; the test is
+     *         aborted, not failed, if it has not.
      */
     private BigDecimal[] unitPriceRange() {
         final var unitPrices = entityManager()
@@ -92,7 +94,8 @@ class Product_PersistenceIT extends _Entity_PersistenceIT<Product> {
         private void verify(final List<Product> found, final BigDecimal unitPriceMinInclusive,
                             final BigDecimal unitPriceMaxExclusive) {
             assertThat(found)
-                    .as("the products whose %s is in [%s, %s), ordered by %s", Product_.unitPrice.getName(),
+                    .as("the products whose %s is in [%s, %s), ordered by %s",
+                        Product_.unitPrice.getName(),
                         unitPriceMinInclusive, unitPriceMaxExclusive, Product_.unitPrice.getName())
                     .isNotEmpty()
                     .extracting(Product::getUnitPrice)
@@ -102,13 +105,15 @@ class Product_PersistenceIT extends _Entity_PersistenceIT<Product> {
                             .isLessThan(unitPriceMaxExclusive));
         }
 
-        @DisplayName("the named query selects the installed products in a half-open unit price range")
+        @DisplayName(
+                "the named query selects the installed products in a half-open unit price range")
         @Test
         void __NamedQuery() {
             final var range = unitPriceRange();
             final var found = entityManager()
                     .createNamedQuery(
-                            "Product.selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
+                            "Product" +
+                            ".selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
                             targetClass
                     )
                     .setParameter("unitPriceMinInclusive", range[0])
@@ -117,7 +122,9 @@ class Product_PersistenceIT extends _Entity_PersistenceIT<Product> {
             verify(found, range[0], range[1]);
         }
 
-        @DisplayName("a query-language query selects the installed products in a half-open unit price range")
+        @DisplayName(
+                "a query-language query selects the installed products in a half-open unit price " +
+                "range")
         @Test
         void __QueryLanguage() {
             final var range = unitPriceRange();
@@ -136,7 +143,8 @@ class Product_PersistenceIT extends _Entity_PersistenceIT<Product> {
             verify(found, range[0], range[1]);
         }
 
-        @DisplayName("a criteria query selects the installed products in a half-open unit price range")
+        @DisplayName(
+                "a criteria query selects the installed products in a half-open unit price range")
         @Test
         void __CriteriaApi() {
             final var range = unitPriceRange();
@@ -161,7 +169,8 @@ class Product_PersistenceIT extends _Entity_PersistenceIT<Product> {
         private void verify(final List<Product> found, final BigDecimal unitPriceAfter,
                             final BigDecimal unitPriceBefore) {
             assertThat(found)
-                    .as("the products whose %s is in [%s, %s], ordered by %s", Product_.unitPrice.getName(),
+                    .as("the products whose %s is in [%s, %s], ordered by %s",
+                        Product_.unitPrice.getName(),
                         unitPriceAfter, unitPriceBefore, Product_.unitPrice.getName())
                     .isNotEmpty()
                     .extracting(Product::getUnitPrice)
@@ -174,14 +183,17 @@ class Product_PersistenceIT extends _Entity_PersistenceIT<Product> {
         void __NamedQuery() {
             final var range = unitPriceRange();
             final var found = entityManager()
-                    .createNamedQuery("Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc", targetClass)
+                    .createNamedQuery("Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc",
+                                      targetClass)
                     .setParameter("unitPriceAfter", range[0])
                     .setParameter("unitPriceBefore", range[1])
                     .getResultList();
             verify(found, range[0], range[1]);
         }
 
-        @DisplayName("a query-language query selects the installed products in a closed unit price range")
+        @DisplayName(
+                "a query-language query selects the installed products in a closed unit price " +
+                "range")
         @Test
         void __QueryLanguage() {
             final var range = unitPriceRange();

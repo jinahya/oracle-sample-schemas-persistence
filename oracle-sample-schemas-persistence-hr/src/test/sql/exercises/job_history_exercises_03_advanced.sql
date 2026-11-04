@@ -31,9 +31,8 @@
 -- employee held next — from which job to which, and when.
 SELECT EMPLOYEE_ID, FROM_JOB, TO_JOB, MOVED_ON
 FROM (SELECT EMPLOYEE_ID,
-             JOB_ID                                                               AS FROM_JOB,
-             LEAD(JOB_ID) OVER (PARTITION BY EMPLOYEE_ID ORDER BY START_DATE)     AS TO_JOB,
-             LEAD(START_DATE) OVER (PARTITION BY EMPLOYEE_ID ORDER BY START_DATE) AS MOVED_ON
+             JOB_ID AS    FROM_JOB,
+             LEAD(JOB_ID) OVER (PARTITION BY EMPLOYEE_ID ORDER BY START_DATE)     AS TO_JOB, LEAD(START_DATE) OVER (PARTITION BY EMPLOYEE_ID ORDER BY START_DATE) AS MOVED_ON
       FROM JOB_HISTORY)
 WHERE TO_JOB IS NOT NULL
 ORDER BY EMPLOYEE_ID ASC, MOVED_ON ASC
@@ -42,7 +41,11 @@ ORDER BY EMPLOYEE_ID ASC, MOVED_ON ASC
 
 -- ------------------------------------------------------------------------------------------------- HR_JOB_HISTORY_A_02
 -- An auditor checks the history's integrity: no employee should have two earlier positions whose dates overlap.
-SELECT a.EMPLOYEE_ID, a.START_DATE, a.END_DATE, b.START_DATE AS OTHER_START, b.END_DATE AS OTHER_END
+SELECT a.EMPLOYEE_ID,
+       a.START_DATE,
+       a.END_DATE,
+       b.START_DATE AS OTHER_START,
+       b.END_DATE   AS OTHER_END
 FROM JOB_HISTORY a
          JOIN JOB_HISTORY b ON b.EMPLOYEE_ID = a.EMPLOYEE_ID
     AND b.START_DATE > a.START_DATE

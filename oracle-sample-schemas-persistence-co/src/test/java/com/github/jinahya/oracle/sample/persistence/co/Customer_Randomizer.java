@@ -31,14 +31,15 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * A randomizer which produces randomized {@link Customer} instances.
  * <p>
- * The generated {@code customerId}, and the {@code orders} and {@code shipments} associations, are excluded from
- * randomization. The {@code emailAddress} is assigned after the fact, because PODAM fills it with a string which no
- * {@link jakarta.validation.constraints.Email @Email} would accept, and because {@link Customer#equals(Object)}
- * compares it as the business key.
+ * The generated {@code customerId}, and the {@code orders} and {@code shipments} associations, are
+ * excluded from randomization. The {@code emailAddress} is assigned after the fact, because PODAM
+ * fills it with a string which no {@link jakarta.validation.constraints.Email @Email} would accept,
+ * and because {@link Customer#equals(Object)} compares it as the business key.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Customer_Randomizer extends PodamObjectRandomizer<Customer> {
+class Customer_Randomizer
+        extends PodamObjectRandomizer<Customer> {
 
     Customer_Randomizer() {
         super(Customer.class, List.of(
@@ -67,8 +68,10 @@ class Customer_Randomizer extends PodamObjectRandomizer<Customer> {
     @Override
     public Customer get() {
         final var value = super.get();
-        // Podam fills the attribute with an arbitrary string, which no @Email would accept; replace it with an
-        // address which actually validates, and which is distinct enough to stand in for the business key that
+        // Podam fills the attribute with an arbitrary string, which no @Email would accept;
+        // replace it with an
+        // address which actually validates, and which is distinct enough to stand in for the
+        // business key that
         // Customer.equals(Object) compares.
         final var random = ThreadLocalRandom.current();
         value.setEmailAddress(

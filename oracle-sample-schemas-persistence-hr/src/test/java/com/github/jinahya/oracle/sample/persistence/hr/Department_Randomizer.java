@@ -30,12 +30,13 @@ import java.util.List;
 /**
  * A randomizer which produces randomized {@link Department} instances.
  * <p>
- * The {@code manager}, {@code location}, {@code employees} and {@code jobHistories} associations are excluded from
- * randomization; {@link Department_Persister} supplies the {@code location}.
+ * The {@code manager}, {@code location}, {@code employees} and {@code jobHistories} associations
+ * are excluded from randomization; {@link Department_Persister} supplies the {@code location}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Department_Randomizer extends PodamObjectRandomizer<Department> {
+class Department_Randomizer
+        extends PodamObjectRandomizer<Department> {
 
     Department_Randomizer() {
         super(Department.class, List.of(

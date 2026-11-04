@@ -34,9 +34,13 @@
 -- of all their orders, with both counts.
 SELECT product_name,
        SUM(order_count)                                                                     AS orders,
-       SUM(CASE WHEN order_status IN ('CANCELLED', 'REFUNDED') THEN order_count ELSE 0 END) AS lost_orders,
-       ROUND(100 * SUM(CASE WHEN order_status IN ('CANCELLED', 'REFUNDED') THEN order_count ELSE 0 END)
-                 / SUM(order_count), 1)                                                     AS lost_pct
+       SUM(CASE
+               WHEN order_status IN ('CANCELLED', 'REFUNDED') THEN order_count
+               ELSE 0 END)                                                                  AS lost_orders,
+       ROUND(100 *
+             SUM(CASE WHEN order_status IN ('CANCELLED', 'REFUNDED') THEN order_count ELSE 0 END)
+                 / SUM(order_count),
+             1)                                                                             AS lost_pct
 FROM product_orders
 GROUP BY product_name
 HAVING SUM(CASE WHEN order_status IN ('CANCELLED', 'REFUNDED') THEN order_count ELSE 0 END)

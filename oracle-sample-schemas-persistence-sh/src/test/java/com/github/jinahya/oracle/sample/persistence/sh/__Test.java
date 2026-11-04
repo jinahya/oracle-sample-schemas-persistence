@@ -26,11 +26,12 @@ import org.junit.platform.commons.util.ReflectionUtils;
 import java.util.Objects;
 
 /**
- * The root of every test base of this package; it holds the target class, and the factories of its instances.
+ * The root of every test base of this package; it holds the target class, and the factories of its
+ * instances.
  * <p>
- * The checks a class has to pass on its own are not here but in {@link __Object_Test}, which {@link _NonEntity_Test}
- * and {@link _Entity_Test} implement; {@link _Entity_PersistenceTest} and {@link _Entity_PersistenceIT} do not, so
- * they do not run them again.
+ * The checks a class has to pass on its own are not here but in {@link __Object_Test}, which
+ * {@link _NonEntity_Test} and {@link _Entity_Test} implement; {@link _Entity_PersistenceTest} and
+ * {@link _Entity_PersistenceIT} do not, so they do not run them again.
  *
  * @param <T> the type of the target class.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;

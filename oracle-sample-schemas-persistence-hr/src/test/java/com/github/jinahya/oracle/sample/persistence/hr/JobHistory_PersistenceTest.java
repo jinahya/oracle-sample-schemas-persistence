@@ -25,11 +25,13 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
- * Verifies the mappings of {@link JobHistory} against the schema generated into the in-memory database.
+ * Verifies the mappings of {@link JobHistory} against the schema generated into the in-memory
+ * database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class JobHistory_PersistenceTest extends _Entity_PersistenceTest<JobHistory> {
+class JobHistory_PersistenceTest
+        extends _Entity_PersistenceTest<JobHistory> {
 
     JobHistory_PersistenceTest() {
         super(JobHistory.class);
@@ -38,9 +40,10 @@ class JobHistory_PersistenceTest extends _Entity_PersistenceTest<JobHistory> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Does nothing; rows of {@value JobHistory#TABLE_NAME} are written by the database's {@code UPDATE_JOB_HISTORY}
-     * trigger, and the mapping leaves {@value JobHistory#COLUMN_NAME_END_DATE} -- which is not nullable -- out of every
-     * insert, so no randomized instance can be persisted.
+     * Does nothing; rows of {@value JobHistory#TABLE_NAME} are written by the database's
+     * {@code UPDATE_JOB_HISTORY} trigger, and the mapping leaves
+     * {@value JobHistory#COLUMN_NAME_END_DATE} -- which is not nullable -- out of every insert, so
+     * no randomized instance can be persisted.
      */
     @Disabled("written by the UPDATE_JOB_HISTORY trigger: nothing is inserted into it")
     @Override

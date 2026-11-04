@@ -27,7 +27,8 @@ import com.github.jinahya.oracle.sample.persistence.sh.mapped.CountrySection;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class CountrySection_Test extends _NonEntity_Test<CountrySection> {
+class CountrySection_Test
+        extends _NonEntity_Test<CountrySection> {
 
     CountrySection_Test() {
         super(CountrySection.class);

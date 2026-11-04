@@ -28,7 +28,8 @@ import jakarta.persistence.EntityManager;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Promotion_Persister extends AbstractEntityPersister<Promotion> {
+class Promotion_Persister
+        extends AbstractEntityPersister<Promotion> {
 
     Promotion_Persister() {
         super(Promotion.class);

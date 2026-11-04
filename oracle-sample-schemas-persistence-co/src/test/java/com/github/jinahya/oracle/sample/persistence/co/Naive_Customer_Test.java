@@ -47,7 +47,8 @@ class Naive_Customer_Test {
     @DisplayName("toString() of a randomized instance is not blank")
     @Test
     void toString_NotBlank_Randomized() {
-        final var instance = ObjectRandomizerUtils.newRandomizedInstanceOf(Customer.class).orElseThrow();
+        final var instance =
+                ObjectRandomizerUtils.newRandomizedInstanceOf(Customer.class).orElseThrow();
         assertThat(instance.toString()).isNotBlank();
     }
 

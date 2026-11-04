@@ -21,10 +21,11 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  */
 
 /**
- * An abstract base class for testing, without a persistence context, a class which maps a table or a view.
+ * An abstract base class for testing, without a persistence context, a class which maps a table or
+ * a view.
  * <p>
- * Its checks are, for now, the ones of {@link __Object_Test}, which {@link _NonEntity_Test} runs too; checks only such
- * a class has to pass go here.
+ * Its checks are, for now, the ones of {@link __Object_Test}, which {@link _NonEntity_Test} runs
+ * too; checks only such a class has to pass go here.
  *
  * @param <T> the type of the class.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
@@ -33,7 +34,9 @@ package com.github.jinahya.oracle.sample.persistence.sh;
         "java:S101", // Class names should comply with a naming convention
         "java:S118"  // Abstract class names should comply with a naming convention
 })
-abstract class _Entity_Test<T> extends __Test<T> implements __Object_Test<T> {
+abstract class _Entity_Test<T>
+        extends __Test<T>
+        implements __Object_Test<T> {
 
     /**
      * Creates a new instance for the specified target class.

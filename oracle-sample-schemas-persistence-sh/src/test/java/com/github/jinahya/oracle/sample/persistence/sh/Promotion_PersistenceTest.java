@@ -21,11 +21,13 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  */
 
 /**
- * Verifies the mappings of {@link Promotion} against the schema generated into the in-memory database.
+ * Verifies the mappings of {@link Promotion} against the schema generated into the in-memory
+ * database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Promotion_PersistenceTest extends _Entity_PersistenceTest<Promotion> {
+class Promotion_PersistenceTest
+        extends _Entity_PersistenceTest<Promotion> {
 
     Promotion_PersistenceTest() {
         super(Promotion.class);

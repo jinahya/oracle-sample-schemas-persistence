@@ -57,7 +57,8 @@ import jakarta.persistence.Table;
 )
 @Entity
 @Table(name = MappedPromotion.TABLE_NAME)
-public class Promotion extends MappedPromotion {
+public class Promotion
+        extends MappedPromotion {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 

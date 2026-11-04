@@ -30,7 +30,11 @@
 -- TIMES repeats the length and the last day of each fiscal month on every day of it (DAYS_IN_FIS_MONTH,
 -- END_OF_FIS_MONTH). Finance uses them for per-day averages, and wants the fiscal months where they disagree with the
 -- days the table actually holds.
-SELECT FISCAL_MONTH_DESC, COUNT(*) AS DAYS, DAYS_IN_FIS_MONTH, MAX(TIME_ID) AS LAST_DAY, END_OF_FIS_MONTH
+SELECT FISCAL_MONTH_DESC,
+       COUNT(*)     AS DAYS,
+       DAYS_IN_FIS_MONTH,
+       MAX(TIME_ID) AS LAST_DAY,
+       END_OF_FIS_MONTH
 FROM TIMES
 GROUP BY FISCAL_MONTH_DESC, DAYS_IN_FIS_MONTH, END_OF_FIS_MONTH
 HAVING COUNT(*) <> DAYS_IN_FIS_MONTH

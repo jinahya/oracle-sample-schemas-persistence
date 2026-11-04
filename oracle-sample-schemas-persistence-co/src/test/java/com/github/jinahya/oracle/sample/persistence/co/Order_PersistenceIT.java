@@ -26,7 +26,8 @@ package com.github.jinahya.oracle.sample.persistence.co;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Order_PersistenceIT extends _Entity_PersistenceIT<Order> {
+class Order_PersistenceIT
+        extends _Entity_PersistenceIT<Order> {
 
     Order_PersistenceIT() {
         super(Order.class);

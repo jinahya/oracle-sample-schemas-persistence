@@ -21,7 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
-import com.github.jinahya.persistence.test.util.JinahyaPersistenceTestUtils;
+import com.github.jinahya.persistence.test.util.JinahyaEntityManagerTestUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -41,7 +41,8 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class Customer_PersistenceIT extends _Entity_PersistenceIT<Customer> {
+class Customer_PersistenceIT
+        extends _Entity_PersistenceIT<Customer> {
 
     // -----------------------------------------------------------------------------------------------------------------
     Customer_PersistenceIT() {
@@ -65,7 +66,8 @@ class Customer_PersistenceIT extends _Entity_PersistenceIT<Customer> {
                     .isSorted();
         }
 
-        @DisplayName("a query-language query selects the installed customers, ordered by identifier")
+        @DisplayName(
+                "a query-language query selects the installed customers, ordered by identifier")
         @Test
         void __QueryLanguage() {
             final var found = entityManager()
@@ -118,7 +120,9 @@ class Customer_PersistenceIT extends _Entity_PersistenceIT<Customer> {
                     .isSorted();
         }
 
-        @DisplayName("the named query selects all installed customers, page by page, ordered by identifier")
+        @DisplayName(
+                "the named query selects all installed customers, page by page, ordered by " +
+                "identifier")
         @Test
         void __NamedQuery() {
             final var query = entityManager()
@@ -133,7 +137,9 @@ class Customer_PersistenceIT extends _Entity_PersistenceIT<Customer> {
             }
         }
 
-        @DisplayName("a query-language query selects all installed customers, page by page, ordered by identifier")
+        @DisplayName(
+                "a query-language query selects all installed customers, page by page, ordered by" +
+                " identifier")
         @Test
         void __QueryLanguage() {
             final var query = entityManager()
@@ -154,7 +160,9 @@ class Customer_PersistenceIT extends _Entity_PersistenceIT<Customer> {
             }
         }
 
-        @DisplayName("a criteria query selects all installed customers, page by page, ordered by identifier")
+        @DisplayName(
+                "a criteria query selects all installed customers, page by page, ordered by " +
+                "identifier")
         @Test
         void __CriteriaApi() {
             final var entityManager = entityManager();
@@ -184,20 +192,23 @@ class Customer_PersistenceIT extends _Entity_PersistenceIT<Customer> {
         private static final int MAX_RESULTS = 32;
 
         /**
-         * Returns the value of {@code customerIdMinExclusive}: the identifier of a random customer, which the page
-         * follows.
+         * Returns the value of {@code customerIdMinExclusive}: the identifier of a random customer,
+         * which the page follows.
          *
-         * @implNote Assumes the installed table is not empty; the test is aborted, not failed, if it is.
+         * @implNote Assumes the installed table is not empty; the test is aborted, not
+         *         failed, if it is.
          */
         private long customerIdMinExclusive() {
-            final var previous = JinahyaPersistenceTestUtils.selectRandom(entityManager(), targetClass);
+            final var previous =
+                    JinahyaEntityManagerTestUtils.selectRandomEntity(entityManager(), targetClass);
             assumeTrue(previous.isPresent(), "no customer to start a page after");
             return previous.get().getCustomerId();
         }
 
         private void verify(final List<Customer> found, final long customerIdMinExclusive) {
             assertThat(found)
-                    .as("at most %d customers after %d, ordered by %s", MAX_RESULTS, customerIdMinExclusive,
+                    .as("at most %d customers after %d, ordered by %s", MAX_RESULTS,
+                        customerIdMinExclusive,
                         Customer_.customerId.getName())
                     .hasSizeLessThanOrEqualTo(MAX_RESULTS)
                     .extracting(Customer::getCustomerId)
@@ -205,19 +216,23 @@ class Customer_PersistenceIT extends _Entity_PersistenceIT<Customer> {
                     .allSatisfy(v -> assertThat(v).isGreaterThan(customerIdMinExclusive));
         }
 
-        @DisplayName("the named query selects a page of the installed customers, after the previous one")
+        @DisplayName(
+                "the named query selects a page of the installed customers, after the previous one")
         @Test
         void __NamedQuery() {
             final var customerIdMinExclusive = customerIdMinExclusive();
             final var found = entityManager()
-                    .createNamedQuery("Customer.selectListOrderByCustomerIdAscCustomerIdGt", targetClass)
+                    .createNamedQuery("Customer.selectListOrderByCustomerIdAscCustomerIdGt",
+                                      targetClass)
                     .setParameter("customerIdMinExclusive", customerIdMinExclusive)
                     .setMaxResults(MAX_RESULTS)
                     .getResultList();
             verify(found, customerIdMinExclusive);
         }
 
-        @DisplayName("a query-language query selects a page of the installed customers, after the previous one")
+        @DisplayName(
+                "a query-language query selects a page of the installed customers, after the " +
+                "previous one")
         @Test
         void __QueryLanguage() {
             final var customerIdMinExclusive = customerIdMinExclusive();
@@ -236,7 +251,9 @@ class Customer_PersistenceIT extends _Entity_PersistenceIT<Customer> {
             verify(found, customerIdMinExclusive);
         }
 
-        @DisplayName("a criteria query selects a page of the installed customers, after the previous one")
+        @DisplayName(
+                "a criteria query selects a page of the installed customers, after the previous " +
+                "one")
         @Test
         void __CriteriaApi() {
             final var customerIdMinExclusive = customerIdMinExclusive();
@@ -245,7 +262,8 @@ class Customer_PersistenceIT extends _Entity_PersistenceIT<Customer> {
             final var query = builder.createQuery(targetClass);
             final var root = query.from(targetClass);
             query.select(root);
-            query.where(builder.greaterThan(root.get(Customer_.customerId), customerIdMinExclusive));
+            query.where(
+                    builder.greaterThan(root.get(Customer_.customerId), customerIdMinExclusive));
             query.orderBy(builder.asc(root.get(Customer_.customerId)));
             final var found = entityManager.createQuery(query)
                     .setMaxResults(MAX_RESULTS)
@@ -261,7 +279,8 @@ class Customer_PersistenceIT extends _Entity_PersistenceIT<Customer> {
         /**
          * Returns some email addresses of the installed table.
          *
-         * @implNote Selects the email addresses, not the entities, so nothing is left managed.
+         * @implNote Selects the email addresses, not the entities, so nothing is left
+         *         managed.
          */
         Stream<String> emailAddresses() {
             return entityManager()
@@ -345,7 +364,8 @@ class Customer_PersistenceIT extends _Entity_PersistenceIT<Customer> {
                     .isSorted();
         }
 
-        @DisplayName("a query-language query selects the installed customers, ordered by email address")
+        @DisplayName(
+                "a query-language query selects the installed customers, ordered by email address")
         @Test
         void __QueryLanguage() {
             final var found = entityManager()

@@ -21,7 +21,6 @@ package com.github.jinahya.oracle.sample.persistence.co.mapped;
  */
 
 import com.github.jinahya.object.randomizer.PodamObjectRandomizer;
-import com.github.jinahya.oracle.sample.persistence.co.mapped.ProductImage;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -31,11 +30,13 @@ import java.util.List;
 /**
  * A randomizer which produces randomized {@link ProductImage} instances.
  * <p>
- * Nothing is excluded from randomization: the class is an embeddable which holds only the image columns.
+ * Nothing is excluded from randomization: the class is an embeddable which holds only the image
+ * columns.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class ProductImage_Randomizer extends PodamObjectRandomizer<ProductImage> {
+class ProductImage_Randomizer
+        extends PodamObjectRandomizer<ProductImage> {
 
     ProductImage_Randomizer() {
         super(ProductImage.class, List.of());

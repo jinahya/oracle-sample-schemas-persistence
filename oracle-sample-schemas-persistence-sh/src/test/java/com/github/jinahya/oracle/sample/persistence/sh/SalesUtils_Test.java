@@ -51,8 +51,8 @@ class SalesUtils_Test {
     }
 
     /**
-     * Wraps the specified list as an {@link Iterable} which is not a {@link java.util.Collection}, so that a call
-     * resolves to the {@code Iterable} overload.
+     * Wraps the specified list as an {@link Iterable} which is not a {@link java.util.Collection},
+     * so that a call resolves to the {@code Iterable} overload.
      */
     private static <T> Iterable<T> iterableOf(final List<T> list) {
         return list::iterator;
@@ -74,17 +74,21 @@ class SalesUtils_Test {
 
         @Test
         void _NullPointerException_ContainsNull() {
-            assertThatThrownBy(() -> SalesUtils.getTotalQuantitySold(Arrays.asList(salesOf(1), null)))
+            assertThatThrownBy(
+                    () -> SalesUtils.getTotalQuantitySold(Arrays.asList(salesOf(1), null)))
                     .isInstanceOf(NullPointerException.class);
-            assertThatThrownBy(() -> SalesUtils.getTotalQuantitySold(iterableOf(Arrays.asList(salesOf(1), null))))
+            assertThatThrownBy(() -> SalesUtils.getTotalQuantitySold(
+                    iterableOf(Arrays.asList(salesOf(1), null))))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @Test
         void _NullPointerException_NullAttribute() {
-            assertThatThrownBy(() -> SalesUtils.getTotalQuantitySold(List.of(salesOf(1), salesOf(null))))
+            assertThatThrownBy(
+                    () -> SalesUtils.getTotalQuantitySold(List.of(salesOf(1), salesOf(null))))
                     .isInstanceOf(NullPointerException.class);
-            assertThatThrownBy(() -> SalesUtils.getTotalQuantitySold(iterableOf(List.of(salesOf(null)))))
+            assertThatThrownBy(
+                    () -> SalesUtils.getTotalQuantitySold(iterableOf(List.of(salesOf(null)))))
                     .isInstanceOf(NullPointerException.class);
         }
 
@@ -136,14 +140,18 @@ class SalesUtils_Test {
 
         @Test
         void _Zero_Empty() {
-            assertThat(SalesUtils.getTotalAmountSold(List.of())).isEqualByComparingTo(BigDecimal.ZERO);
-            assertThat(SalesUtils.getTotalAmountSold(iterableOf(List.of()))).isEqualByComparingTo(BigDecimal.ZERO);
+            assertThat(SalesUtils.getTotalAmountSold(List.of())).isEqualByComparingTo(
+                    BigDecimal.ZERO);
+            assertThat(SalesUtils.getTotalAmountSold(iterableOf(List.of()))).isEqualByComparingTo(
+                    BigDecimal.ZERO);
         }
 
         @Test
         void _Sum_() {
-            final var sales = List.of(salesOfAmount(new BigDecimal("6.40")), salesOfAmount(new BigDecimal("1782.72")));
-            assertThat(SalesUtils.getTotalAmountSold(sales)).isEqualByComparingTo(new BigDecimal("1789.12"));
+            final var sales = List.of(salesOfAmount(new BigDecimal("6.40")),
+                                      salesOfAmount(new BigDecimal("1782.72")));
+            assertThat(SalesUtils.getTotalAmountSold(sales)).isEqualByComparingTo(
+                    new BigDecimal("1789.12"));
             assertThat(SalesUtils.getTotalAmountSold(iterableOf(sales)))
                     .isEqualByComparingTo(new BigDecimal("1789.12"));
         }

@@ -30,7 +30,8 @@ import java.time.LocalDateTime;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Time_Persister extends AbstractEntityPersister<Time> {
+class Time_Persister
+        extends AbstractEntityPersister<Time> {
 
     Time_Persister() {
         super(Time.class);
@@ -45,16 +46,17 @@ class Time_Persister extends AbstractEntityPersister<Time> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Persists a randomized {@link Time} whose key is the day before the earliest one installed, for a row of a table
-     * partitioned by {@code TIME_ID}.
+     * Persists a randomized {@link Time} whose key is the day before the earliest one installed,
+     * for a row of a table partitioned by {@code TIME_ID}.
      *
      * @param entityManager an entity manager.
      * @return the persisted instance.
-     * @implNote {@code SALES} and {@code COSTS} are range-partitioned by {@code TIME_ID}, and the sample data fills
-     * {@code TIMES} for every day those partitions are bounded by; a randomized key -- today, say -- falls past the
-     * last partition ({@code ORA-14400}). The first partition of each has no lower bound, so the day before the
-     * earliest installed {@code TIMES} row fits both, and is not taken. With no row installed, the randomized key is
-     * kept.
+     * @implNote {@code SALES} and {@code COSTS} are range-partitioned by {@code TIME_ID},
+     *         and the sample data fills {@code TIMES} for every day those partitions are bounded
+     *         by; a randomized key -- today, say -- falls past the last partition
+     *         ({@code ORA-14400}). The first partition of each has no lower bound, so the day
+     *         before the earliest installed {@code TIMES} row fits both, and is not taken. With no
+     *         row installed, the randomized key is kept.
      */
     static Time newPersistedInstanceBeforeEarliest(final EntityManager entityManager) {
         final var earliest = entityManager

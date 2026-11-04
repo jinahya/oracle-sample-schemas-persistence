@@ -26,7 +26,8 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Location_PersistenceIT extends _Entity_PersistenceIT<Location> {
+class Location_PersistenceIT
+        extends _Entity_PersistenceIT<Location> {
 
     Location_PersistenceIT() {
         super(Location.class);

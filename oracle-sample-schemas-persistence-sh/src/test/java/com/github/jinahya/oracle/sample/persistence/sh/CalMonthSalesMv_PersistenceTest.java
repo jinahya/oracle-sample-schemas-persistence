@@ -24,22 +24,25 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
- * Verifies the mappings of {@link CalMonthSalesMv} against the schema generated into the in-memory database.
+ * Verifies the mappings of {@link CalMonthSalesMv} against the schema generated into the in-memory
+ * database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class CalMonthSalesMv_PersistenceTest extends _Entity_PersistenceTest<CalMonthSalesMv> {
+class CalMonthSalesMv_PersistenceTest
+        extends _Entity_PersistenceTest<CalMonthSalesMv> {
 
     CalMonthSalesMv_PersistenceTest() {
         super(CalMonthSalesMv.class);
     }
 
-    // ---------------------------------------------------------------------------------------------------------------- 
+    // ----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Does nothing; {@value CalMonthSalesMv#TABLE_NAME} is a materialized view, so there is nothing to insert a
-     * randomized instance into. The provider generates a table for it into the in-memory database, which would make
-     * this pass for the wrong reason, and the real object is read-only.
+     * Does nothing; {@value CalMonthSalesMv#TABLE_NAME} is a materialized view, so there is nothing
+     * to insert a randomized instance into. The provider generates a table for it into the
+     * in-memory database, which would make this pass for the wrong reason, and the real object is
+     * read-only.
      */
     @Disabled("a materialized view: nothing is inserted into it")
     @Override

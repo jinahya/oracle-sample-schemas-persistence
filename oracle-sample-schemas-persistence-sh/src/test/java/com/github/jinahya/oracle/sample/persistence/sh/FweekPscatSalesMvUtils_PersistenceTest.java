@@ -20,40 +20,41 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
-import jakarta.inject.Inject;
+import com.github.jinahya.persistence.util.JinahyaEntityManagerUtils;
 import jakarta.persistence.EntityManager;
-
-import java.util.Arrays;
-import java.util.function.Function;
-
-import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.jboss.weld.junit5.auto.EnableAutoWeld;
+import jakarta.persistence.EntityManagerFactory;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static com.github.jinahya.oracle.sample.persistence.sh._Entity_PersistenceTest_Producer.__TestPU;
+import java.util.Arrays;
+import java.util.function.Function;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * A class for testing {@link FweekPscatSalesMvUtils} against the {@code sh-test} unit, where the materialized view is
- * an ordinary table: a row is inserted with a random key, the context cleared, and the row read back through the
- * utility. The key is not reused to find the row, because its {@code DATE} component loses its fraction of a second
- * in the column.
+ * A class for testing {@link FweekPscatSalesMvUtils} against the {@code sh-test} unit, where the
+ * materialized view is an ordinary table: a row is inserted with a random key, the context cleared,
+ * and the row read back through the utility. The key is not reused to find the row, because its
+ * {@code DATE} component loses its fraction of a second in the column.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@AddBeanClasses(_Entity_PersistenceTest_Producer.class)
-@EnableAutoWeld
 class FweekPscatSalesMvUtils_PersistenceTest {
 
-    /** Sets the named field of the specified instance reflectively, for an entity which exposes no setter for it. */
+    /**
+     * Sets the named field of the specified instance reflectively, for an entity which exposes no
+     * setter for it.
+     */
     private static <T> T withField(final T instance, final String name, final Object value) {
         try {
-            // the field may be declared by a superclass, e.g. the mapped superclass the entity extends
+            // the field may be declared by a superclass, e.g. the mapped superclass the entity
+            // extends
             var type = (Class<?>) instance.getClass();
             while (type.getSuperclass() != null
-                   && Arrays.stream(type.getDeclaredFields()).noneMatch(f -> f.getName().equals(name))) {
+                   && Arrays.stream(type.getDeclaredFields())
+                           .noneMatch(f -> f.getName().equals(name))) {
                 type = type.getSuperclass();
             }
             final var field = type.getDeclaredField(name);
@@ -65,8 +66,9 @@ class FweekPscatSalesMvUtils_PersistenceTest {
         }
     }
 
-    private <R> R inRolledBackTransaction(final Function<? super EntityManager, ? extends R> function) {
-        return ___Persistence_TestUtils.applyInTransactionAndRollback(entityManager, function);
+    private <R> R inRolledBackTransaction(
+            final Function<? super EntityManager, ? extends R> function) {
+        return JinahyaEntityManagerUtils.applyInTransactionAndRollback(entityManager, function);
     }
 
     private static FweekPscatSalesMv persistAndReload(final EntityManager em) {
@@ -123,7 +125,8 @@ class FweekPscatSalesMvUtils_PersistenceTest {
         void _Component_Reloaded() {
             inRolledBackTransaction(em -> {
                 final var reloaded = persistAndReload(em);
-                assertThat(FweekPscatSalesMvUtils.getIdChannelId(reloaded)).isEqualTo(reloaded.getId().getChannelId());
+                assertThat(FweekPscatSalesMvUtils.getIdChannelId(reloaded)).isEqualTo(
+                        reloaded.getId().getChannelId());
                 return null;
             });
         }
@@ -139,14 +142,20 @@ class FweekPscatSalesMvUtils_PersistenceTest {
         void _Component_Reloaded() {
             inRolledBackTransaction(em -> {
                 final var reloaded = persistAndReload(em);
-                assertThat(FweekPscatSalesMvUtils.getIdPromoId(reloaded)).isEqualTo(reloaded.getId().getPromoId());
+                assertThat(FweekPscatSalesMvUtils.getIdPromoId(reloaded)).isEqualTo(
+                        reloaded.getId().getPromoId());
                 return null;
             });
         }
     }
 
+    @AfterEach
+    void closeEntityManager() {
+        entityManager.close();
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
-    @__TestPU
-    @Inject
-    private EntityManager entityManager;
+    private final EntityManager entityManager =
+            __PersistenceTest_Utils.applyEntityManagerFactory(
+                    EntityManagerFactory::createEntityManager);
 }

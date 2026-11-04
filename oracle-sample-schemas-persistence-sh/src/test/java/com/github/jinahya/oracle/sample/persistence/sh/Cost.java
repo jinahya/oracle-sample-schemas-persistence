@@ -34,11 +34,11 @@ import jakarta.validation.Valid;
 import java.util.Optional;
 
 /**
- * An entity class for mapping the {@value Cost#TABLE_NAME} table, whose composite identifier is mapped with an
- * {@link jakarta.persistence.IdClass @IdClass}.
+ * An entity class for mapping the {@value Cost#TABLE_NAME} table, whose composite identifier is
+ * mapped with an {@link jakarta.persistence.IdClass @IdClass}.
  * <p>
- * The table declares no primary key; the four dimension columns are its grain, and the {@code CANDIDATE_KEYS} section
- * of {@code src/test/sql/COSTS.sql} is what measured them.
+ * The table declares no primary key; the four dimension columns are its grain, and the
+ * {@code CANDIDATE_KEYS} section of {@code src/test/sql/COSTS.sql} is what measured them.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see CostId
@@ -118,7 +118,8 @@ import java.util.Optional;
 @Entity
 @IdClass(CostId.class)
 @Table(name = MappedCost.TABLE_NAME)
-public class Cost extends MappedCost {
+public class Cost
+        extends MappedCost {
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column as a
@@ -165,10 +166,11 @@ public class Cost extends MappedCost {
     }
 
     /**
-     * Replaces current values of the identifying attributes with those of the specified identifier.
+     * Replaces current values of the identifying attributes with those of the specified
+     * identifier.
      *
-     * @param id the identifier whose values are applied; may be {@code null}, which clears every identifying
-     *           attribute.
+     * @param id the identifier whose values are applied; may be {@code null}, which clears every
+     *           identifying attribute.
      */
     protected void setId(final CostId id) {
         setProdId(Optional.ofNullable(id).map(CostId::getProdId).orElse(null));
@@ -181,7 +183,8 @@ public class Cost extends MappedCost {
 
     @Valid
     // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column stays NOT
+    // association is still null at the prePersist at which the provider validates. The column
+    // stays NOT
     // NULL, and @ManyToOne(optional = false) still says so to the provider.
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_PROD_ID,
@@ -193,7 +196,8 @@ public class Cost extends MappedCost {
 
     @Valid
     // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column stays NOT
+    // association is still null at the prePersist at which the provider validates. The column
+    // stays NOT
     // NULL, and @ManyToOne(optional = false) still says so to the provider.
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_TIME_ID,
@@ -205,7 +209,8 @@ public class Cost extends MappedCost {
 
     @Valid
     // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column stays NOT
+    // association is still null at the prePersist at which the provider validates. The column
+    // stays NOT
     // NULL, and @ManyToOne(optional = false) still says so to the provider.
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_PROMO_ID,
@@ -217,7 +222,8 @@ public class Cost extends MappedCost {
 
     @Valid
     // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column stays NOT
+    // association is still null at the prePersist at which the provider validates. The column
+    // stays NOT
     // NULL, and @ManyToOne(optional = false) still says so to the provider.
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_CHANNEL_ID,

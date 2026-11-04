@@ -37,7 +37,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Customer_PersistenceIT extends _Entity_PersistenceIT<Customer> {
+class Customer_PersistenceIT
+        extends _Entity_PersistenceIT<Customer> {
 
     Customer_PersistenceIT() {
         super(Customer.class);
@@ -46,8 +47,8 @@ class Customer_PersistenceIT extends _Entity_PersistenceIT<Customer> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Tests {@code Customer.selectListPromotedByCustCityOrderByCustLastNameAsc}, which answers exercise
-     * {@code SH_SCHEMA_I_10}.
+     * Tests {@code Customer.selectListPromotedByCustCityOrderByCustLastNameAsc}, which answers
+     * exercise {@code SH_SCHEMA_I_10}.
      */
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -98,13 +99,15 @@ class Customer_PersistenceIT extends _Entity_PersistenceIT<Customer> {
         @ParameterizedTest
         void __NamedQuery(final String custCity) {
             final var found = entityManager()
-                    .createNamedQuery("Customer.selectListPromotedByCustCityOrderByCustLastNameAsc", targetClass)
+                    .createNamedQuery("Customer.selectListPromotedByCustCityOrderByCustLastNameAsc",
+                                      targetClass)
                     .setParameter("custCity", custCity)
                     .getResultList();
             verify(custCity, found);
         }
 
-        @DisplayName("a query-language query selects the city's customers who bought under a promotion")
+        @DisplayName(
+                "a query-language query selects the city's customers who bought under a promotion")
         @MethodSource("custCities")
         @ParameterizedTest
         void __QueryLanguage(final String custCity) {
@@ -138,7 +141,8 @@ class Customer_PersistenceIT extends _Entity_PersistenceIT<Customer> {
             final var sales = subquery.from(Sales.class);
             subquery.select(sales).where(
                     builder.equal(sales.get(Sales_.customer), root),
-                    builder.notEqual(sales.get(Sales_.promotion).get(Promotion_.promoCategory), "NO PROMOTION")
+                    builder.notEqual(sales.get(Sales_.promotion).get(Promotion_.promoCategory),
+                                     "NO PROMOTION")
             );
             query.select(root);
             query.where(

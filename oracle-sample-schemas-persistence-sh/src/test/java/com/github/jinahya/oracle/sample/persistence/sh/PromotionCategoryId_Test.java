@@ -27,7 +27,8 @@ import com.github.jinahya.oracle.sample.persistence.sh.mapped.PromotionCategoryI
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class PromotionCategoryId_Test extends PromotionNamedId_Test<PromotionCategoryId, Long> {
+class PromotionCategoryId_Test
+        extends PromotionNamedId_Test<PromotionCategoryId, Long> {
 
     PromotionCategoryId_Test() {
         super(PromotionCategoryId.class, Long.class);

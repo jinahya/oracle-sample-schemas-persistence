@@ -33,7 +33,8 @@
 -- Customer care settles a complaint about an order against its main line: the line with the largest value. List it for
 -- every order; a tie gives an order more than one row.
 SELECT order_id, line_item_id, product_id, unit_price * quantity AS line_total
-FROM (SELECT oi.*, RANK() OVER (PARTITION BY oi.order_id ORDER BY oi.unit_price * oi.quantity DESC) AS rnk
+FROM (SELECT oi.*,
+             RANK() OVER (PARTITION BY oi.order_id ORDER BY oi.unit_price * oi.quantity DESC) AS rnk
       FROM order_items oi)
 WHERE rnk = 1
 ORDER BY order_id, line_item_id

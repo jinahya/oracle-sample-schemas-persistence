@@ -41,7 +41,8 @@ import java.util.Optional;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @NamedQuery(
-        name = "Location.select_WhereCountryIdEqualStateProvinceEqualCityEqual_OrderByStreetAddressAsc",
+        name = "Location" +
+               ".select_WhereCountryIdEqualStateProvinceEqualCityEqual_OrderByStreetAddressAsc",
         query = """
                 SELECT e
                 FROM Location e
@@ -116,19 +117,22 @@ import java.util.Optional;
 )
 @Entity
 @Table(name = MappedLocation.TABLE_NAME)
-public class Location extends MappedLocation {
+public class Location
+        extends MappedLocation {
 
     // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_COUNTRY = "country";
 
     // ----------------------------------------------------------------------------------------------------- DEPARTMENTS
 
     /**
-     * The name of the attribute which maps the {@link Department department}s of this location. The value is {@value}.
+     * The name of the attribute which maps the {@link Department department}s of this location. The
+     * value is {@value}.
      *
      * @see Department#ATTRIBUTE_NAME_LOCATION
      */
@@ -156,8 +160,8 @@ public class Location extends MappedLocation {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY} attribute with the specified value, and the
-     * {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with its identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_COUNTRY} attribute with the specified
+     * value, and the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute with its identifier.
      *
      * @param country new value for {@value #ATTRIBUTE_NAME_COUNTRY} attribute.
      */

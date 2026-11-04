@@ -20,12 +20,11 @@ package com.github.jinahya.oracle.sample.persistence.sh.mapped;
  * #L%
  */
 
-import java.time.DayOfWeek;
-
-import com.github.jinahya.oracle.sample.persistence.sh.mapped.TimeDayNameAttributeConverter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+
+import java.time.DayOfWeek;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -69,7 +68,8 @@ class TimeDayNameAttributeConverter_Test {
 
     @Test
     void convertToEntityAttribute_IllegalArgumentException_NotADayName() {
-        assertThatThrownBy(() -> new TimeDayNameAttributeConverter().convertToEntityAttribute("Someday"))
+        assertThatThrownBy(
+                () -> new TimeDayNameAttributeConverter().convertToEntityAttribute("Someday"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

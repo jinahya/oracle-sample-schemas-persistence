@@ -30,7 +30,8 @@ import jakarta.persistence.EntityManager;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Region_Persister extends AbstractEntityPersister<Region> {
+class Region_Persister
+        extends AbstractEntityPersister<Region> {
 
     Region_Persister() {
         super(Region.class);

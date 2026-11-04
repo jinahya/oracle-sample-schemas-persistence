@@ -30,11 +30,13 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Verifies the mappings of {@link Employee} against the schema generated into the in-memory database.
+ * Verifies the mappings of {@link Employee} against the schema generated into the in-memory
+ * database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Employee_PersistenceTest extends _Entity_PersistenceTest<Employee> {
+class Employee_PersistenceTest
+        extends _Entity_PersistenceTest<Employee> {
 
     Employee_PersistenceTest() {
         super(Employee.class);
@@ -50,23 +52,26 @@ class Employee_PersistenceTest extends _Entity_PersistenceTest<Employee> {
     class SelectListByManagerOfManagerOrderByLastNameAsc_Test {
 
         /**
-         * Gives the specified employee a new manager, and that manager a new manager of their own, and returns the
-         * latter.
+         * Gives the specified employee a new manager, and that manager a new manager of their own,
+         * and returns the latter.
          */
         private Employee managerOfManager(final EntityManager em, final Employee employee) {
             final var manager = EntityPersisterUtils.newPersistedInstanceOf(em, Employee.class);
-            final var managerOfManager = EntityPersisterUtils.newPersistedInstanceOf(em, Employee.class);
+            final var managerOfManager =
+                    EntityPersisterUtils.newPersistedInstanceOf(em, Employee.class);
             employee.setManager(manager);
             manager.setManager(managerOfManager);
             return managerOfManager;
         }
 
-        @DisplayName("the named query selects the employee just persisted, by their manager's manager")
+        @DisplayName(
+                "the named query selects the employee just persisted, by their manager's manager")
         @Test
         void __NamedQuery() {
             applyNewPersistedEntityInstanceAndRollback((em, v) -> {
                 final var found = em
-                        .createNamedQuery("Employee.selectListByManagerOfManagerOrderByLastNameAsc", targetClass)
+                        .createNamedQuery("Employee.selectListByManagerOfManagerOrderByLastNameAsc",
+                                          targetClass)
                         .setParameter("manager", managerOfManager(em, v))
                         .getResultList();
                 assertThat(found)
@@ -76,7 +81,9 @@ class Employee_PersistenceTest extends _Entity_PersistenceTest<Employee> {
             });
         }
 
-        @DisplayName("a query-language query selects the employee just persisted, by their manager's manager")
+        @DisplayName(
+                "a query-language query selects the employee just persisted, by their manager's " +
+                "manager")
         @Test
         void __QueryLanguage() {
             applyNewPersistedEntityInstanceAndRollback((em, v) -> {
@@ -98,7 +105,8 @@ class Employee_PersistenceTest extends _Entity_PersistenceTest<Employee> {
             });
         }
 
-        @DisplayName("a criteria query selects the employee just persisted, by their manager's manager")
+        @DisplayName(
+                "a criteria query selects the employee just persisted, by their manager's manager")
         @Test
         void __CriteriaApi() {
             applyNewPersistedEntityInstanceAndRollback((em, v) -> {
@@ -107,8 +115,10 @@ class Employee_PersistenceTest extends _Entity_PersistenceTest<Employee> {
                 final var query = builder.createQuery(targetClass);
                 final var root = query.from(targetClass);
                 query.select(root);
-                query.where(builder.equal(root.get(Employee_.manager).get(Employee_.manager), managerOfManager));
-                query.orderBy(builder.asc(root.get(Employee_.lastName)), builder.asc(root.get(Employee_.firstName)));
+                query.where(builder.equal(root.get(Employee_.manager).get(Employee_.manager),
+                                          managerOfManager));
+                query.orderBy(builder.asc(root.get(Employee_.lastName)),
+                              builder.asc(root.get(Employee_.firstName)));
                 final var found = em.createQuery(query).getResultList();
                 assertThat(found)
                         .as("the employees two levels below the manager")

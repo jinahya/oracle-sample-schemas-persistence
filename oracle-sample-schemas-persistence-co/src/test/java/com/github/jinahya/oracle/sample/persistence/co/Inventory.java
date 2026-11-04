@@ -131,16 +131,16 @@ public class Inventory
     // -------------------------------------------------------------------------------------------------------- STORE_ID
 
     /**
-     * The name of the {@link ManyToOne @ManyToOne} association which joins on the {@value #COLUMN_NAME_STORE_ID}
-     * column. The value is {@value}.
+     * The name of the {@link ManyToOne @ManyToOne} association which joins on the
+     * {@value #COLUMN_NAME_STORE_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
     // ------------------------------------------------------------------------------------------------------ PRODUCT_ID
 
     /**
-     * The name of the {@link ManyToOne @ManyToOne} association which joins on the {@value #COLUMN_NAME_PRODUCT_ID}
-     * column. The value is {@value}.
+     * The name of the {@link ManyToOne @ManyToOne} association which joins on the
+     * {@value #COLUMN_NAME_PRODUCT_ID} column. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
@@ -166,8 +166,9 @@ public class Inventory
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE} attribute with the specified value, and current value
-     * of {@value #ATTRIBUTE_NAME_STORE_ID} attribute with the specified value's identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_STORE} attribute with the specified value,
+     * and current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute with the specified value's
+     * identifier.
      *
      * @param store new value for {@value #ATTRIBUTE_NAME_STORE} attribute.
      */
@@ -189,8 +190,9 @@ public class Inventory
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute with the specified value, and current value
-     * of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute with the specified value's identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute with the specified
+     * value, and current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute with the specified
+     * value's identifier.
      *
      * @param product new value for {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
      */
@@ -211,6 +213,7 @@ public class Inventory
     @Valid
     @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = true, updatable = false)
+    @JoinColumn(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = true,
+                updatable = false)
     private Product product;
 }

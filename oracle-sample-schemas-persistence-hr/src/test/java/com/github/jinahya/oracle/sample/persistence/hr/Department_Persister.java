@@ -27,12 +27,14 @@ import jakarta.persistence.EntityManager;
 /**
  * A persister which persists {@link Department} instances.
  * <p>
- * Each instance is given a newly persisted {@link Location} first, so that its {@code location} refers to a row which
- * is already in the database. The {@code manager} is left {@code null}, which the column allows.
+ * Each instance is given a newly persisted {@link Location} first, so that its {@code location}
+ * refers to a row which is already in the database. The {@code manager} is left {@code null}, which
+ * the column allows.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Department_Persister extends AbstractEntityPersister<Department> {
+class Department_Persister
+        extends AbstractEntityPersister<Department> {
 
     Department_Persister() {
         super(Department.class);
@@ -41,7 +43,8 @@ class Department_Persister extends AbstractEntityPersister<Department> {
     // -----------------------------------------------------------------------------------------------------------------
     @Override
     public Department apply(final EntityManager entityManager, final Department entityInstance) {
-        entityInstance.setLocation(EntityPersisterUtils.newPersistedInstanceOf(entityManager, Location.class));
+        entityInstance.setLocation(
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Location.class));
         return super.apply(entityManager, entityInstance);
     }
 }

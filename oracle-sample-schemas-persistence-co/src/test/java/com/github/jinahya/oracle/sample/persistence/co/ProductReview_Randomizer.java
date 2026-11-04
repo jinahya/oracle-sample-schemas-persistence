@@ -30,11 +30,13 @@ import java.util.List;
 /**
  * A randomizer which produces randomized {@link ProductReview} instances.
  * <p>
- * Nothing is excluded from randomization: the class holds only the two columns of the composite key.
+ * Nothing is excluded from randomization: the class holds only the two columns of the composite
+ * key.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class ProductReview_Randomizer extends PodamObjectRandomizer<ProductReview> {
+class ProductReview_Randomizer
+        extends PodamObjectRandomizer<ProductReview> {
 
     ProductReview_Randomizer() {
         super(ProductReview.class, List.of());

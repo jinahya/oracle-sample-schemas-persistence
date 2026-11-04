@@ -28,7 +28,8 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class EmpDetailsView_Test extends _Entity_Test<EmpDetailsView> {
+class EmpDetailsView_Test
+        extends _Entity_Test<EmpDetailsView> {
 
     EmpDetailsView_Test() {
         super(EmpDetailsView.class);
@@ -39,8 +40,9 @@ class EmpDetailsView_Test extends _Entity_Test<EmpDetailsView> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link EmpDetailsView#equals(Object) equals} compares only {@code employeeId} -- the one row the view
-     * carries per employee -- because every other column is derived from it.
+     * @implNote {@link EmpDetailsView#equals(Object) equals} compares only
+     *         {@code employeeId} -- the one row the view carries per employee -- because every
+     *         other column is derived from it.
      */
     @Override
     public SingleTypeEqualsVerifierApi<EmpDetailsView> equals_verifier_() {

@@ -55,7 +55,8 @@
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
       <!-- ///////////////////////////////////////////////// https://github.com/eclipse-ee4j/eclipselink/issues/1393 -->
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:;database_to_upper=false;MODE=LEGACY"/>
+      <property name="jakarta.persistence.jdbc.url"
+                value="jdbc:h2:mem:;database_to_upper=false;MODE=LEGACY"/>
       <property name="jakarta.persistence.jdbc.user" value="sa"/>
       <property name="jakarta.persistence.jdbc.password" value="password"/>
       <!-- ///////////////////////////////////////////////////////////////////////////////////////////// eclipselink -->
@@ -65,7 +66,8 @@
       <property name="eclipselink.logging.parameters" value="true"/>
       <!--      <property name="eclipselink.weaving" value="true"/>-->
       <!-- https://wiki.eclipse.org/EclipseLink/Examples/JPA/DDL -->
-      <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.H2Platform"/>
+      <property name="eclipselink.target-database"
+                value="org.eclipse.persistence.platform.database.H2Platform"/>
       <property name="eclipselink.ddl-generation" value="create-tables"/>
       <!-- /////////////////////////////////////////////////////////////////////////////////////////////// hibernate -->
       <!--      <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>-->
@@ -108,7 +110,8 @@
     <properties>
       <property name="jakarta.persistence.jdbc.driver" value="oracle.jdbc.driver.OracleDriver"/>
       <!-- https://github.com/eclipse-ee4j/eclipselink/issues/1393 -->
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:oracle:thin:@//localhost:1521/freepdb1"/>
+      <property name="jakarta.persistence.jdbc.url"
+                value="jdbc:oracle:thin:@//localhost:1521/freepdb1"/>
       <!--      <property name="jakarta.persistence.jdbc.user" value="co"/>-->
       <property name="jakarta.persistence.jdbc.user" value="dmlonly"/>
       <property name="jakarta.persistence.jdbc.password" value="password"/>
@@ -120,7 +123,8 @@
       <property name="eclipselink.logging.parameters" value="true"/>
       <!--      <property name="eclipselink.weaving" value="true"/>-->
       <!-- https://wiki.eclipse.org/EclipseLink/Examples/JPA/DDL -->
-      <property name="eclipselink.target-database" value="org.eclipse.persistence.platform.database.OraclePlatform"/>
+      <property name="eclipselink.target-database"
+                value="org.eclipse.persistence.platform.database.OraclePlatform"/>
       <!-- EclipseLink cannot read an Oracle identity value back; this points each identity-keyed entity at the
            sequence Oracle backs its column with. Compiled under the EclipseLink profile only; Hibernate ignores
            eclipselink.* properties. -->

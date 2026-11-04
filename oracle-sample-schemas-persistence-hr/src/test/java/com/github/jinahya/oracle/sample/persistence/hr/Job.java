@@ -74,20 +74,22 @@ import java.util.List;
 )
 @Entity
 @Table(name = MappedJob.TABLE_NAME)
-public class Job extends MappedJob {
+public class Job
+        extends MappedJob {
 
     // ------------------------------------------------------------------------------------------------------- EMPLOYEES
 
     /**
-     * The name of the attribute which maps the {@link Employee employee}s assigned to this job, mapped by
-     * {@value Employee#ATTRIBUTE_NAME_JOB}. The value is {@value}.
+     * The name of the attribute which maps the {@link Employee employee}s assigned to this job,
+     * mapped by {@value Employee#ATTRIBUTE_NAME_JOB}. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEES = "employees";
 
     // --------------------------------------------------------------------------------------------------- JOB_HISTORIES
 
     /**
-     * The name of the attribute which maps the past assignments to this job. The value is {@value}.
+     * The name of the attribute which maps the past assignments to this job. The value is
+     * {@value}.
      *
      * @see JobHistory#ATTRIBUTE_NAME_JOB
      */

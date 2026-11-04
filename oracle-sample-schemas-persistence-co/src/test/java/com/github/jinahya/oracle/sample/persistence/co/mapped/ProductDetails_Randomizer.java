@@ -21,7 +21,6 @@ package com.github.jinahya.oracle.sample.persistence.co.mapped;
  */
 
 import com.github.jinahya.object.randomizer.PodamObjectRandomizer;
-import com.github.jinahya.oracle.sample.persistence.co.mapped.ProductDetails;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -31,12 +30,13 @@ import java.util.List;
 /**
  * A randomizer which produces randomized {@link ProductDetails} instances.
  * <p>
- * Nothing is excluded from randomization: the class maps a JSON column, and holds neither an association nor an
- * identifier.
+ * Nothing is excluded from randomization: the class maps a JSON column, and holds neither an
+ * association nor an identifier.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class ProductDetails_Randomizer extends PodamObjectRandomizer<ProductDetails> {
+class ProductDetails_Randomizer
+        extends PodamObjectRandomizer<ProductDetails> {
 
     ProductDetails_Randomizer() {
         super(ProductDetails.class, List.of());

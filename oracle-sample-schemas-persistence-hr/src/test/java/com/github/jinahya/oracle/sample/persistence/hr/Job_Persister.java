@@ -30,7 +30,8 @@ import jakarta.persistence.EntityManager;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Job_Persister extends AbstractEntityPersister<Job> {
+class Job_Persister
+        extends AbstractEntityPersister<Job> {
 
     Job_Persister() {
         super(Job.class);

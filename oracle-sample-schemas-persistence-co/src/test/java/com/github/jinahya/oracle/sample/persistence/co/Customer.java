@@ -84,7 +84,8 @@ public class Customer
     // ---------------------------------------------------------------------------------------------------------- ORDERS
 
     /**
-     * The name of the attribute which maps the orders placed by this customer. The value is {@value}.
+     * The name of the attribute which maps the orders placed by this customer. The value is
+     * {@value}.
      *
      * @see Order#ATTRIBUTE_NAME_CUSTOMER
      */
@@ -93,7 +94,8 @@ public class Customer
     // ------------------------------------------------------------------------------------------------------- SHIPMENTS
 
     /**
-     * The name of the attribute which maps the shipments dispatched to this customer. The value is {@value}.
+     * The name of the attribute which maps the shipments dispatched to this customer. The value is
+     * {@value}.
      *
      * @see Shipment#ATTRIBUTE_NAME_CUSTOMER
      */

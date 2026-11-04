@@ -20,41 +20,39 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
-import jakarta.inject.Inject;
-import jakarta.persistence.EntityManager;
+import com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils;
+import com.github.jinahya.persistence.util.JinahyaEntityManagerUtils;
 import jakarta.persistence.EntityManagerFactory;
-import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.jboss.weld.junit5.auto.EnableAutoWeld;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.github.jinahya.oracle.sample.persistence.sh._Entity_PersistenceTest_Producer.__TestPU;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Boots the persistence unit against the in-memory database and checks that the provider accepts every mapping in the
- * {@code SH} schema.
+ * Boots the persistence unit against the in-memory database and checks that the provider accepts
+ * every mapping in the {@code SH} schema.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@AddBeanClasses(_Entity_PersistenceTest_Producer.class)
-@EnableAutoWeld
 class PersistenceUnit_Test {
 
     @DisplayName("the persistence unit bootstraps")
     @Test
     void entityManagerFactory_IsOpen_() {
-        assertThat(entityManagerFactory.isOpen()).isTrue();
+        assertThat(__PersistenceTest_Utils.applyEntityManagerFactory(
+                EntityManagerFactory::isOpen)).isTrue();
     }
 
     @DisplayName("every mapped entity reaches the metamodel with an id")
     @Test
     void metamodel_HasEveryEntityWithAnId_() {
-        final var entities = entityManagerFactory.getMetamodel().getEntities();
+        final var entities = __PersistenceTest_Utils.applyEntityManagerFactory(
+                emf -> emf.getMetamodel().getEntities());
         assertThat(entities)
-                .as("entity types of %s", _Entity_PersistenceTest_Producer.PERSISTENCE_UNIT_NAME)
+                .as("entity types of %s", __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME)
                 .isNotEmpty()
-                .allSatisfy(e -> assertThat(e.hasSingleIdAttribute() || !e.getIdClassAttributes().isEmpty())
+                .allSatisfy(e -> assertThat(
+                        e.hasSingleIdAttribute() || !e.getIdClassAttributes().isEmpty())
                         .as("%s has an id", e.getName())
                         .isTrue());
     }
@@ -62,19 +60,15 @@ class PersistenceUnit_Test {
     @DisplayName("the schema generated from the mappings is queryable")
     @Test
     void generatedSchema_IsQueryable_() {
-        entityManagerFactory.getMetamodel().getEntities().forEach(e -> {
-            final var count = ___Persistence_TestUtils.applyInTransactionAndRollback(
-                    entityManager, em -> ___Persistence_TestUtils.count(em, e));
-            assertThat(count).as("row count of %s", e.getName()).isNotNegative();
+        __PersistenceTest_Utils.applyEntityManagerFactory(emf -> {
+            emf.getMetamodel().getEntities().forEach(e -> {
+                final var count = JinahyaEntityManagerFactoryUtils.applyEntityManager(
+                        emf, em -> JinahyaEntityManagerUtils.applyInTransactionAndRollback(
+                                em, m -> JinahyaEntityManagerUtils.selectEntityCount(m,
+                                                                                     e.getJavaType())));
+                assertThat(count).as("row count of %s", e.getName()).isNotNegative();
+            });
+            return null;
         });
     }
-
-    // -----------------------------------------------------------------------------------------------------------------
-    @__TestPU
-    @Inject
-    private EntityManagerFactory entityManagerFactory;
-
-    @__TestPU
-    @Inject
-    private EntityManager entityManager;
 }

@@ -32,7 +32,8 @@ import java.util.List;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class FweekPscatSalesMv_Randomizer extends PodamObjectRandomizer<FweekPscatSalesMv> {
+class FweekPscatSalesMv_Randomizer
+        extends PodamObjectRandomizer<FweekPscatSalesMv> {
 
     FweekPscatSalesMv_Randomizer() {
         super(FweekPscatSalesMv.class, List.of(

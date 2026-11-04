@@ -27,8 +27,9 @@ import java.util.function.Function;
 
 /**
  * Utilities for {@link CalMonthSalesMv}: accessors deriving a value from its
- * {@value CalMonthSalesMv#ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute, kept out of the entity so that they are not
- * bean properties of it. There are no writers: the attribute is the entity's {@code @Id}.
+ * {@value CalMonthSalesMv#ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute, kept out of the entity so
+ * that they are not bean properties of it. There are no writers: the attribute is the entity's
+ * {@code @Id}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see CalMonthSalesMv
@@ -38,13 +39,14 @@ public final class CalMonthSalesMvUtils {
     // ----------------------------------------------------------------------------------------------- calendarMonthDesc
 
     /**
-     * Returns current value of the {@value CalMonthSalesMv#ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute of the
-     * specified entity, mapped by the specified function.
+     * Returns current value of the {@value CalMonthSalesMv#ATTRIBUTE_NAME_CALENDAR_MONTH_DESC}
+     * attribute of the specified entity, mapped by the specified function.
      *
      * @param <R>             the type of the mapped value.
      * @param calMonthSalesMv the entity.
      * @param mapper          the function to apply to current value of the
-     *                        {@value CalMonthSalesMv#ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute.
+     *                        {@value CalMonthSalesMv#ATTRIBUTE_NAME_CALENDAR_MONTH_DESC}
+     *                        attribute.
      * @return the mapped value; {@code null} when the attribute is {@code null}.
      * @throws NullPointerException if {@code calMonthSalesMv} or {@code mapper} is {@code null}.
      */
@@ -56,15 +58,17 @@ public final class CalMonthSalesMvUtils {
     }
 
     /**
-     * Returns current value of the {@value CalMonthSalesMv#ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute of the
-     * specified entity, as a {@link YearMonth}.
+     * Returns current value of the {@value CalMonthSalesMv#ATTRIBUTE_NAME_CALENDAR_MONTH_DESC}
+     * attribute of the specified entity, as a {@link YearMonth}.
      *
      * @param calMonthSalesMv the entity.
-     * @return a year-month parsed from current value of the attribute; {@code null} when the attribute is
-     * {@code null}.
-     * @throws NullPointerException                   if {@code calMonthSalesMv} is {@code null}.
-     * @throws java.time.format.DateTimeParseException if the attribute is not in the {@code uuuu-MM} form
-     *                                                 {@link YearMonth#parse(CharSequence)} accepts.
+     * @return a year-month parsed from current value of the attribute; {@code null} when the
+     *         attribute is {@code null}.
+     * @throws NullPointerException                    if {@code calMonthSalesMv} is {@code null}.
+     * @throws java.time.format.DateTimeParseException if the attribute is not in the
+     *                                                 {@code uuuu-MM} form
+     *                                                 {@link YearMonth#parse(CharSequence)}
+     *                                                 accepts.
      * @see #getCalendarMonthDescAsMapped(CalMonthSalesMv, Function)
      */
     public static YearMonth getCalendarMonthDescAsYearMonth(final CalMonthSalesMv calMonthSalesMv) {

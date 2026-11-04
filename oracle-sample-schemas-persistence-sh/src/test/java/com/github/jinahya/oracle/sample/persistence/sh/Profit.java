@@ -28,8 +28,8 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 /**
- * An entity class for mapping the {@value Profit#TABLE_NAME} view, whose composite identifier is mapped with an
- * {@link jakarta.persistence.IdClass @IdClass}.
+ * An entity class for mapping the {@value Profit#TABLE_NAME} view, whose composite identifier is
+ * mapped with an {@link jakarta.persistence.IdClass @IdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see ProfitId
@@ -58,7 +58,8 @@ import jakarta.persistence.Table;
 @Entity
 @IdClass(ProfitId.class)
 @Table(name = MappedProfit.TABLE_NAME)
-public class Profit extends MappedProfit {
+public class Profit
+        extends MappedProfit {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 

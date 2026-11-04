@@ -90,10 +90,12 @@ import java.util.List;
 )
 @Entity
 @Table(name = MappedRegion.TABLE_NAME)
-public class Region extends MappedRegion {
+public class Region
+        extends MappedRegion {
 
     /**
-     * The name of the attribute which maps the {@link Country countries} of this region. The value is {@value}.
+     * The name of the attribute which maps the {@link Country countries} of this region. The value
+     * is {@value}.
      *
      * @see Country#ATTRIBUTE_NAME_REGION
      */

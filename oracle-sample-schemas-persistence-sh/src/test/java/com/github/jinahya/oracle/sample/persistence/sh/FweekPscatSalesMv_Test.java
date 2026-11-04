@@ -28,7 +28,8 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class FweekPscatSalesMv_Test extends _Entity_Test<FweekPscatSalesMv> {
+class FweekPscatSalesMv_Test
+        extends _Entity_Test<FweekPscatSalesMv> {
 
     FweekPscatSalesMv_Test() {
         super(FweekPscatSalesMv.class);
@@ -39,8 +40,8 @@ class FweekPscatSalesMv_Test extends _Entity_Test<FweekPscatSalesMv> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link FweekPscatSalesMv#equals(Object) equals} compares only the {@code @Id}, because every other
-     * attribute is mutable state.
+     * @implNote {@link FweekPscatSalesMv#equals(Object) equals} compares only the
+     *         {@code @Id}, because every other attribute is mutable state.
      */
     @Override
     public SingleTypeEqualsVerifierApi<FweekPscatSalesMv> equals_verifier_() {

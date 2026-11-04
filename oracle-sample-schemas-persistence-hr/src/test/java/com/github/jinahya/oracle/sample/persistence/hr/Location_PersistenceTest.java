@@ -22,11 +22,13 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  */
 
 /**
- * Verifies the mappings of {@link Location} against the schema generated into the in-memory database.
+ * Verifies the mappings of {@link Location} against the schema generated into the in-memory
+ * database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Location_PersistenceTest extends _Entity_PersistenceTest<Location> {
+class Location_PersistenceTest
+        extends _Entity_PersistenceTest<Location> {
 
     Location_PersistenceTest() {
         super(Location.class);

@@ -29,7 +29,8 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class JobHistory_PersistenceIT extends _Entity_PersistenceIT<JobHistory> {
+class JobHistory_PersistenceIT
+        extends _Entity_PersistenceIT<JobHistory> {
 
     JobHistory_PersistenceIT() {
         super(JobHistory.class);
@@ -38,9 +39,10 @@ class JobHistory_PersistenceIT extends _Entity_PersistenceIT<JobHistory> {
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Does nothing; rows of {@value JobHistory#TABLE_NAME} are written by the database's {@code UPDATE_JOB_HISTORY}
-     * trigger, and the mapping leaves {@value JobHistory#COLUMN_NAME_END_DATE} -- which is not nullable -- out of every
-     * insert, so no randomized instance can be persisted.
+     * Does nothing; rows of {@value JobHistory#TABLE_NAME} are written by the database's
+     * {@code UPDATE_JOB_HISTORY} trigger, and the mapping leaves
+     * {@value JobHistory#COLUMN_NAME_END_DATE} -- which is not nullable -- out of every insert, so
+     * no randomized instance can be persisted.
      */
     @Disabled("written by the UPDATE_JOB_HISTORY trigger: nothing is inserted into it")
     @Override

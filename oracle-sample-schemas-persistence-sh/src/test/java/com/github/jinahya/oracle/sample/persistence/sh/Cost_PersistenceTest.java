@@ -25,7 +25,8 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Cost_PersistenceTest extends _Entity_PersistenceTest<Cost> {
+class Cost_PersistenceTest
+        extends _Entity_PersistenceTest<Cost> {
 
     Cost_PersistenceTest() {
         super(Cost.class);

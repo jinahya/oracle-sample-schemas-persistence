@@ -25,7 +25,8 @@ class Naive_Customer_PersistenceIT {
     @BeforeAll
     static void createEntityManagerFactory() {
         entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-        log.debug("created entity manager factory for {}: {}", PERSISTENCE_UNIT_NAME, entityManagerFactory);
+        log.debug("created entity manager factory for {}: {}", PERSISTENCE_UNIT_NAME,
+                  entityManagerFactory);
     }
 
     @AfterAll
@@ -42,7 +43,8 @@ class Naive_Customer_PersistenceIT {
         }
     }
 
-    static <R> R applyEntityManagerInTransactionAndRollback(final Function<EntityManager, ? extends R> function) {
+    static <R> R applyEntityManagerInTransactionAndRollback(
+            final Function<EntityManager, ? extends R> function) {
         return applyEntityManager(em -> {
             final var transaction = em.getTransaction();
             transaction.begin();
@@ -57,7 +59,8 @@ class Naive_Customer_PersistenceIT {
         });
     }
 
-    static <R> R applyEntityManagerInTransactionAndCommit(final Function<EntityManager, ? extends R> function) {
+    static <R> R applyEntityManagerInTransactionAndCommit(
+            final Function<EntityManager, ? extends R> function) {
         return applyEntityManager(em -> {
             final var transaction = em.getTransaction();
             transaction.begin();
@@ -83,7 +86,8 @@ class Naive_Customer_PersistenceIT {
     void __() {
         // persist and commit
         final var customerId = applyEntityManagerInTransactionAndCommit(em -> {
-            final var customer = ObjectRandomizerUtils.newRandomizedInstanceOf(Customer.class).orElseThrow();
+            final var customer =
+                    ObjectRandomizerUtils.newRandomizedInstanceOf(Customer.class).orElseThrow();
             log.debug("persisting {}", customer);
             em.persist(customer);
             em.flush();

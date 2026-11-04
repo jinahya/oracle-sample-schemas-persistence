@@ -20,10 +20,9 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
-import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
-import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.jboss.weld.junit5.auto.EnableAutoWeld;
+import jakarta.persistence.EntityManagerFactory;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -32,24 +31,22 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-import static com.github.jinahya.oracle.sample.persistence.sh._Entity_PersistenceIT_Producer.__ItPU;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.data.Offset.offset;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
- * A class for testing the aggregate methods of {@link SalesUtils} against the {@code sh-it} unit, a nested class per
- * method; it reads the {@value Sales#TABLE_NAME} table as installed and writes nothing. Each statistic is checked
- * against the JPQL aggregate of the same rows.
+ * A class for testing the aggregate methods of {@link SalesUtils} against the {@code sh-it} unit, a
+ * nested class per method; it reads the {@value Sales#TABLE_NAME} table as installed and writes
+ * nothing. Each statistic is checked against the JPQL aggregate of the same rows.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@AddBeanClasses(_Entity_PersistenceIT_Producer.class)
-@EnableAutoWeld
 class SalesUtils_PersistenceIT {
 
     private long countAll() {
-        return entityManager.createQuery("SELECT COUNT(e) FROM Sales e", Long.class).getSingleResult();
+        return entityManager.createQuery("SELECT COUNT(e) FROM Sales e", Long.class)
+                .getSingleResult();
     }
 
     private Integer anyProdId() {
@@ -64,7 +61,8 @@ class SalesUtils_PersistenceIT {
         assumeTrue(countAll() > 0L, () -> Sales.TABLE_NAME + " holds no row");
     }
 
-    // ----------------------------------------------------------------------------------------- quantitySold/statistics
+    // -----------------------------------------------------------------------------------------
+    // quantitySold/statistics
 
     @DisplayName("getQuantitySoldStatistics(entityManager, where)")
     @Nested
@@ -73,32 +71,39 @@ class SalesUtils_PersistenceIT {
         @Test
         void _MatchesJpql_All() {
             final var expected = entityManager.createQuery(
-                    "SELECT COUNT(e), SUM(e.quantitySold), MIN(e.quantitySold), MAX(e.quantitySold),"
+                    "SELECT COUNT(e), SUM(e.quantitySold), MIN(e.quantitySold), MAX(e" +
+                    ".quantitySold),"
                     + " AVG(e.quantitySold) FROM Sales e", Object[].class).getSingleResult();
             final var actual = SalesUtils.getQuantitySoldStatistics(entityManager, null);
             assertThat(actual.getCount()).isEqualTo(((Number) expected[0]).longValue());
             assertThat(actual.getSum()).isEqualTo(((Number) expected[1]).longValue());
             assertThat(actual.getMin()).isEqualTo(((Number) expected[2]).longValue());
             assertThat(actual.getMax()).isEqualTo(((Number) expected[3]).longValue());
-            assertThat(actual.getAverage()).isCloseTo(((Number) expected[4]).doubleValue(), offset(1e-9));
+            assertThat(actual.getAverage()).isCloseTo(((Number) expected[4]).doubleValue(),
+                                                      offset(1e-9));
         }
 
         @Test
         void _MatchesJpql_ByProdId() {
             final var prodId = anyProdId();
             final var expected = entityManager.createQuery(
-                    "SELECT COUNT(e), SUM(e.quantitySold) FROM Sales e WHERE e.id.prodId = :prodId", Object[].class)
+                            "SELECT COUNT(e), SUM(e.quantitySold) FROM Sales e WHERE e.id.prodId " +
+                            "= :prodId",
+                            Object[].class)
                     .setParameter("prodId", prodId)
                     .getSingleResult();
             final var actual = SalesUtils.getQuantitySoldStatistics(
-                    entityManager, (b, r) -> b.equal(r.get(Sales_.id).get(SalesId_.prodId), prodId));
-            assertThat(actual.getCount()).isEqualTo(((Number) expected[0]).longValue()).isPositive();
+                    entityManager,
+                    (b, r) -> b.equal(r.get(Sales_.id).get(SalesId_.prodId), prodId));
+            assertThat(actual.getCount()).isEqualTo(((Number) expected[0]).longValue())
+                    .isPositive();
             assertThat(actual.getSum()).isEqualTo(((Number) expected[1]).longValue());
         }
 
         @Test
         void _Empty_NoneSelected() {
-            final var actual = SalesUtils.getQuantitySoldStatistics(entityManager, (b, r) -> b.disjunction());
+            final var actual =
+                    SalesUtils.getQuantitySoldStatistics(entityManager, (b, r) -> b.disjunction());
             assertThat(actual.getCount()).isZero();
         }
     }
@@ -112,7 +117,8 @@ class SalesUtils_PersistenceIT {
         @Test
         void _MatchesJpql_All() {
             final var expected = entityManager.createQuery(
-                    "SELECT COUNT(e), SUM(e.amountSold), MIN(e.amountSold), MAX(e.amountSold) FROM Sales e",
+                    "SELECT COUNT(e), SUM(e.amountSold), MIN(e.amountSold), MAX(e.amountSold) " +
+                    "FROM Sales e",
                     Object[].class).getSingleResult();
             final var actual = SalesUtils.getAmountSoldStatistics(entityManager, null);
             assertThat(actual.count()).isEqualTo(((Number) expected[0]).longValue());
@@ -125,7 +131,8 @@ class SalesUtils_PersistenceIT {
 
         @Test
         void _Empty_NoneSelected() {
-            final var actual = SalesUtils.getAmountSoldStatistics(entityManager, (b, r) -> b.disjunction());
+            final var actual =
+                    SalesUtils.getAmountSoldStatistics(entityManager, (b, r) -> b.disjunction());
             assertThat(actual.count()).isZero();
             assertThat(actual.sum()).isEqualByComparingTo(BigDecimal.ZERO);
             assertThat(actual.min()).isNull();
@@ -133,8 +140,13 @@ class SalesUtils_PersistenceIT {
         }
     }
 
+    @AfterEach
+    void closeEntityManager() {
+        entityManager.close();
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
-    @__ItPU
-    @Inject
-    private EntityManager entityManager;
+    private final EntityManager entityManager =
+            __PersistenceIT_Utils.applyEntityManagerFactory(
+                    EntityManagerFactory::createEntityManager);
 }

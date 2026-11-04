@@ -31,10 +31,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * A class for testing the constants declared in the {@link Employee} entity class.
  * <p>
- * Each nested class covers one column, and asserts that its {@code COLUMN_*} bounds hold the expected values, and that
- * the {@code ATTRIBUTE_*} bounds agree with them -- including those declared as {@code String} literals, for the
+ * Each nested class covers one column, and asserts that its {@code COLUMN_*} bounds hold the
+ * expected values, and that the {@code ATTRIBUTE_*} bounds agree with them -- including those
+ * declared as {@code String} literals, for the
  * {@link jakarta.validation.constraints.DecimalMin @DecimalMin} and
- * {@link jakarta.validation.constraints.DecimalMax @DecimalMax} constraints, which are compared as {@link BigDecimal}.
+ * {@link jakarta.validation.constraints.DecimalMax @DecimalMax} constraints, which are compared as
+ * {@link BigDecimal}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -43,10 +45,11 @@ class Employee_Static_Test {
     /**
      * A class for testing the constants of the {@value Employee#COLUMN_NAME_EMPLOYEE_ID} column.
      * <p>
-     * The tests pin {@link Employee#COLUMN_MIN_EMPLOYEE_ID} and {@link Employee#COLUMN_MAX_EMPLOYEE_ID}, which are
-     * written as a hexadecimal and a binary literal respectively, to {@code -999999} and {@code +999999}, and assert
-     * that {@link Employee#ATTRIBUTE_MIN_EMPLOYEE_ID} and {@link Employee#ATTRIBUTE_MAX_EMPLOYEE_ID}, widened to
-     * {@code long}, still hold those same values.
+     * The tests pin {@link Employee#COLUMN_MIN_EMPLOYEE_ID} and
+     * {@link Employee#COLUMN_MAX_EMPLOYEE_ID}, which are written as a hexadecimal and a binary
+     * literal respectively, to {@code -999999} and {@code +999999}, and assert that
+     * {@link Employee#ATTRIBUTE_MIN_EMPLOYEE_ID} and {@link Employee#ATTRIBUTE_MAX_EMPLOYEE_ID},
+     * widened to {@code long}, still hold those same values.
      */
     @DisplayName("..._EMPLOYEE_ID")
     @Nested
@@ -79,9 +82,10 @@ class Employee_Static_Test {
      * The tests read {@link Employee#ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE} and
      * {@link Employee#ATTRIBUTE_DECIMAL_MAX_SALARY}, the {@code String} literals the
      * {@link jakarta.validation.constraints.DecimalMin @DecimalMin} and
-     * {@link jakarta.validation.constraints.DecimalMax @DecimalMax} constraints take, as {@link BigDecimal}, and assert
-     * that each, as a {@code double}, equals {@link Employee#COLUMN_MIN_SALARY_EXCLUSIVE} and
-     * {@link Employee#COLUMN_MAX_SALARY} respectively.
+     * {@link jakarta.validation.constraints.DecimalMax @DecimalMax} constraints take, as
+     * {@link BigDecimal}, and assert that each, as a {@code double}, equals
+     * {@link Employee#COLUMN_MIN_SALARY_EXCLUSIVE} and {@link Employee#COLUMN_MAX_SALARY}
+     * respectively.
      */
     @DisplayName("..._SALARY")
     @Nested
@@ -89,7 +93,8 @@ class Employee_Static_Test {
 
         @Test
         void __ATTRIBUTE_DECIMAL_MIN_SALARY() {
-            assertThat(new BigDecimal(Employee.ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE).doubleValue())
+            assertThat(
+                    new BigDecimal(Employee.ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE).doubleValue())
                     .isEqualTo(Employee.COLUMN_MIN_SALARY_EXCLUSIVE);
         }
 
@@ -101,14 +106,16 @@ class Employee_Static_Test {
     }
 
     /**
-     * A class for testing the constants of the {@value Employee#COLUMN_NAME_COMMISSION_PCT} column.
+     * A class for testing the constants of the {@value Employee#COLUMN_NAME_COMMISSION_PCT}
+     * column.
      * <p>
      * The tests read {@link Employee#ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT} and
      * {@link Employee#ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT}, the {@code String} literals the
      * {@link jakarta.validation.constraints.DecimalMin @DecimalMin} and
-     * {@link jakarta.validation.constraints.DecimalMax @DecimalMax} constraints take, as {@link BigDecimal}, and assert
-     * that each, as a {@code double}, equals {@link Employee#COLUMN_MIN_COMMISSION_PCT} and
-     * {@link Employee#COLUMN_MAX_COMMISSION_PCT} respectively.
+     * {@link jakarta.validation.constraints.DecimalMax @DecimalMax} constraints take, as
+     * {@link BigDecimal}, and assert that each, as a {@code double}, equals
+     * {@link Employee#COLUMN_MIN_COMMISSION_PCT} and {@link Employee#COLUMN_MAX_COMMISSION_PCT}
+     * respectively.
      */
     @DisplayName("..._COMMISSION_PCT")
     @Nested
@@ -130,10 +137,11 @@ class Employee_Static_Test {
     /**
      * A class for testing the constants of the {@value Employee#COLUMN_NAME_DEPARTMENT_ID} column.
      * <p>
-     * The tests pin {@link Employee#COLUMN_MIN_DEPARTMENT_ID} and {@link Employee#COLUMN_MAX_DEPARTMENT_ID}, both
-     * written as hexadecimal literals, to {@code -9999} and {@code +9999}, and assert that
-     * {@link Employee#ATTRIBUTE_MIN_DEPARTMENT_ID} and {@link Employee#ATTRIBUTE_MAX_DEPARTMENT_ID}, widened to
-     * {@code long}, still hold those same values.
+     * The tests pin {@link Employee#COLUMN_MIN_DEPARTMENT_ID} and
+     * {@link Employee#COLUMN_MAX_DEPARTMENT_ID}, both written as hexadecimal literals, to
+     * {@code -9999} and {@code +9999}, and assert that {@link Employee#ATTRIBUTE_MIN_DEPARTMENT_ID}
+     * and {@link Employee#ATTRIBUTE_MAX_DEPARTMENT_ID}, widened to {@code long}, still hold those
+     * same values.
      */
     @DisplayName("..._DEPARTMENT_ID")
     @Nested

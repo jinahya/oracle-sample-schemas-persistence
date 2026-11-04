@@ -33,9 +33,11 @@ import java.time.LocalDateTime;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @Embeddable
-public class CostId extends MappedCostId {
+public class CostId
+        extends MappedCostId {
 
-    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    // ------------------------------------------------------------------------------------------
+    // STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified column values.

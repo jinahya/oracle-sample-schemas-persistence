@@ -82,7 +82,8 @@ public class Store
     // ------------------------------------------------------------------------------------------------------- SHIPMENTS
 
     /**
-     * The name of the attribute which maps the shipments dispatched from this store. The value is {@value}.
+     * The name of the attribute which maps the shipments dispatched from this store. The value is
+     * {@value}.
      *
      * @see Shipment#ATTRIBUTE_NAME_STORE
      */
@@ -91,7 +92,8 @@ public class Store
     // ----------------------------------------------------------------------------------------------------- INVENTORIES
 
     /**
-     * The name of the attribute which maps the inventories held by this store. The value is {@value}.
+     * The name of the attribute which maps the inventories held by this store. The value is
+     * {@value}.
      *
      * @see Inventory#ATTRIBUTE_NAME_STORE
      */

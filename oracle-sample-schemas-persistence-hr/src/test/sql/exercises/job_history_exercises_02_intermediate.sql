@@ -38,7 +38,10 @@ ORDER BY POSITIONS DESC, JOB_ID ASC
 
 -- ------------------------------------------------------------------------------------------------- HR_JOB_HISTORY_I_02
 -- HR wants the employees with more than one earlier position, with the first start and the last end on record.
-SELECT EMPLOYEE_ID, COUNT(*) AS POSITIONS, MIN(START_DATE) AS FIRST_START, MAX(END_DATE) AS LAST_END
+SELECT EMPLOYEE_ID,
+       COUNT(*)        AS POSITIONS,
+       MIN(START_DATE) AS FIRST_START,
+       MAX(END_DATE)   AS LAST_END
 FROM JOB_HISTORY
 GROUP BY EMPLOYEE_ID
 HAVING COUNT(*) > 1

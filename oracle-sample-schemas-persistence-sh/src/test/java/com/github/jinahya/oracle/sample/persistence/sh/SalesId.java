@@ -27,15 +27,17 @@ import jakarta.persistence.Embeddable;
 import java.time.LocalDateTime;
 
 /**
- * An embeddable class for the composite identifier of the {@link Sales} entity class, which maps it with an
- * {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
+ * An embeddable class for the composite identifier of the {@link Sales} entity class, which maps it
+ * with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @Embeddable
-public class SalesId extends MappedSalesId {
+public class SalesId
+        extends MappedSalesId {
 
-    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    // ------------------------------------------------------------------------------------------
+    // STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified column values.
@@ -48,10 +50,10 @@ public class SalesId extends MappedSalesId {
      * @return a new instance with the specified column values.
      */
     public static SalesId of(final Integer prodId,
-                            final Long custId,
-                            final LocalDateTime timeId,
-                            final Long channelId,
-                            final Integer promoId) {
+                             final Long custId,
+                             final LocalDateTime timeId,
+                             final Long channelId,
+                             final Integer promoId) {
         return of(SalesId::new, prodId, custId, timeId, channelId, promoId);
     }
 

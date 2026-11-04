@@ -30,12 +30,14 @@ import java.util.List;
 /**
  * A randomizer which produces randomized {@link Store} instances.
  * <p>
- * The generated {@code storeId}, and the {@code orders}, {@code shipments} and {@code inventories} collections, are
- * excluded from randomization; the inverse side of a one-to-many is left to whichever test needs it.
+ * The generated {@code storeId}, and the {@code orders}, {@code shipments} and {@code inventories}
+ * collections, are excluded from randomization; the inverse side of a one-to-many is left to
+ * whichever test needs it.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Store_Randomizer extends PodamObjectRandomizer<Store> {
+class Store_Randomizer
+        extends PodamObjectRandomizer<Store> {
 
     Store_Randomizer() {
         super(Store.class, List.of(

@@ -30,13 +30,14 @@ import java.util.List;
 /**
  * A randomizer which produces randomized {@link Order} instances.
  * <p>
- * The generated {@code orderId}, the {@code customer} and {@code store} associations, and the {@code orderItems}
- * collection, are excluded from randomization; {@link Order_Persister} supplies the {@code customer} and the
- * {@code store}.
+ * The generated {@code orderId}, the {@code customer} and {@code store} associations, and the
+ * {@code orderItems} collection, are excluded from randomization; {@link Order_Persister} supplies
+ * the {@code customer} and the {@code store}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Order_Randomizer extends PodamObjectRandomizer<Order> {
+class Order_Randomizer
+        extends PodamObjectRandomizer<Order> {
 
     Order_Randomizer() {
         super(Order.class, List.of(

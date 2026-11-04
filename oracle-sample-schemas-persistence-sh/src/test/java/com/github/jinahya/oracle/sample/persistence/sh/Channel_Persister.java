@@ -28,7 +28,8 @@ import jakarta.persistence.EntityManager;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Channel_Persister extends AbstractEntityPersister<Channel> {
+class Channel_Persister
+        extends AbstractEntityPersister<Channel> {
 
     Channel_Persister() {
         super(Channel.class);

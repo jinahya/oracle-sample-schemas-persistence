@@ -27,7 +27,8 @@ import com.github.jinahya.oracle.sample.persistence.co.mapped.ProductDetails;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class ProductDetails_Test extends _NonEntity_Test<ProductDetails> {
+class ProductDetails_Test
+        extends _NonEntity_Test<ProductDetails> {
 
     ProductDetails_Test() {
         super(ProductDetails.class);

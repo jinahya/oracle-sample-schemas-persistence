@@ -33,17 +33,18 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 /**
- * An entity class for mapping the {@value Sales#TABLE_NAME} table, whose composite identifier is mapped with an
- * {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
+ * An entity class for mapping the {@value Sales#TABLE_NAME} table, whose composite identifier is
+ * mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  * <p>
- * The table declares no primary key; the five dimension columns are its grain, and the {@code CANDIDATE_KEYS} section
- * of {@code src/test/sql/SALES.sql} is what measured them.
+ * The table declares no primary key; the five dimension columns are its grain, and the
+ * {@code CANDIDATE_KEYS} section of {@code src/test/sql/SALES.sql} is what measured them.
  * <p>
- * That identifier is a measurement of the shipped data, not a constraint, and nothing stops a second sale of the same
- * product to the same customer on the same day through the same channel under the same promotion. Should the table ever
- * hold two such rows, a query returning both yields one managed instance, twice, and the second row's
- * {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} and {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} are silently lost: the persistence
- * context keeps one instance per identifier. Both providers behave so.
+ * That identifier is a measurement of the shipped data, not a constraint, and nothing stops a
+ * second sale of the same product to the same customer on the same day through the same channel
+ * under the same promotion. Should the table ever hold two such rows, a query returning both yields
+ * one managed instance, twice, and the second row's {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} and
+ * {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} are silently lost: the persistence context keeps one
+ * instance per identifier. Both providers behave so.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see SalesId
@@ -140,7 +141,8 @@ import jakarta.validation.constraints.NotNull;
 )
 @Entity
 @Table(name = MappedSales.TABLE_NAME)
-public class Sales extends MappedSales {
+public class Sales
+        extends MappedSales {
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column as a
@@ -214,11 +216,12 @@ public class Sales extends MappedSales {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute with the specified
+     * value.
      * <p>
-     * The {@value #COLUMN_NAME_PROD_ID} column is written by the {@link #getId() id}, and this association only reads
-     * it back, so the new value changes what this instance refers to and nothing in the database; the id is what
-     * decides the row.
+     * The {@value #COLUMN_NAME_PROD_ID} column is written by the {@link #getId() id}, and this
+     * association only reads it back, so the new value changes what this instance refers to and
+     * nothing in the database; the id is what decides the row.
      *
      * @param product new value for {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
      */
@@ -238,11 +241,12 @@ public class Sales extends MappedSales {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER} attribute with the specified
+     * value.
      * <p>
-     * The {@value #COLUMN_NAME_CUST_ID} column is written by the {@link #getId() id}, and this association only reads
-     * it back, so the new value changes what this instance refers to and nothing in the database; the id is what
-     * decides the row.
+     * The {@value #COLUMN_NAME_CUST_ID} column is written by the {@link #getId() id}, and this
+     * association only reads it back, so the new value changes what this instance refers to and
+     * nothing in the database; the id is what decides the row.
      *
      * @param customer new value for {@value #ATTRIBUTE_NAME_CUSTOMER} attribute.
      */
@@ -264,9 +268,9 @@ public class Sales extends MappedSales {
     /**
      * Replaces current value of {@value #ATTRIBUTE_NAME_TIME} attribute with the specified value.
      * <p>
-     * The {@value #COLUMN_NAME_TIME_ID} column is written by the {@link #getId() id}, and this association only reads
-     * it back, so the new value changes what this instance refers to and nothing in the database; the id is what
-     * decides the row.
+     * The {@value #COLUMN_NAME_TIME_ID} column is written by the {@link #getId() id}, and this
+     * association only reads it back, so the new value changes what this instance refers to and
+     * nothing in the database; the id is what decides the row.
      *
      * @param time new value for {@value #ATTRIBUTE_NAME_TIME} attribute.
      */
@@ -286,11 +290,12 @@ public class Sales extends MappedSales {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL} attribute with the specified
+     * value.
      * <p>
-     * The {@value #COLUMN_NAME_CHANNEL_ID} column is written by the {@link #getId() id}, and this association only
-     * reads it back, so the new value changes what this instance refers to and nothing in the database; the id is what
-     * decides the row.
+     * The {@value #COLUMN_NAME_CHANNEL_ID} column is written by the {@link #getId() id}, and this
+     * association only reads it back, so the new value changes what this instance refers to and
+     * nothing in the database; the id is what decides the row.
      *
      * @param channel new value for {@value #ATTRIBUTE_NAME_CHANNEL} attribute.
      */
@@ -310,11 +315,12 @@ public class Sales extends MappedSales {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMOTION} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMOTION} attribute with the specified
+     * value.
      * <p>
-     * The {@value #COLUMN_NAME_PROMO_ID} column is written by the {@link #getId() id}, and this association only reads
-     * it back, so the new value changes what this instance refers to and nothing in the database; the id is what
-     * decides the row.
+     * The {@value #COLUMN_NAME_PROMO_ID} column is written by the {@link #getId() id}, and this
+     * association only reads it back, so the new value changes what this instance refers to and
+     * nothing in the database; the id is what decides the row.
      *
      * @param promotion new value for {@value #ATTRIBUTE_NAME_PROMOTION} attribute.
      */
@@ -331,7 +337,8 @@ public class Sales extends MappedSales {
 
     @Valid
     // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column stays NOT
+    // association is still null at the prePersist at which the provider validates. The column
+    // stays NOT
     // NULL, and @ManyToOne(optional = false) still says so to the provider.
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_PROD_ID,
@@ -343,7 +350,8 @@ public class Sales extends MappedSales {
 
     @Valid
     // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column stays NOT
+    // association is still null at the prePersist at which the provider validates. The column
+    // stays NOT
     // NULL, and @ManyToOne(optional = false) still says so to the provider.
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_CUST_ID,
@@ -355,7 +363,8 @@ public class Sales extends MappedSales {
 
     @Valid
     // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column stays NOT
+    // association is still null at the prePersist at which the provider validates. The column
+    // stays NOT
     // NULL, and @ManyToOne(optional = false) still says so to the provider.
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_TIME_ID,
@@ -367,7 +376,8 @@ public class Sales extends MappedSales {
 
     @Valid
     // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column stays NOT
+    // association is still null at the prePersist at which the provider validates. The column
+    // stays NOT
     // NULL, and @ManyToOne(optional = false) still says so to the provider.
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_CHANNEL_ID,
@@ -379,7 +389,8 @@ public class Sales extends MappedSales {
 
     @Valid
     // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column stays NOT
+    // association is still null at the prePersist at which the provider validates. The column
+    // stays NOT
     // NULL, and @ManyToOne(optional = false) still says so to the provider.
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_PROMO_ID,

@@ -30,8 +30,7 @@
 -- The retention team studies buying rhythm. For customer :custId, list each day they bought something and the day of
 -- their previous purchase, so the gap between the two can be measured.
 SELECT TIME_ID,
-       LAG(TIME_ID) OVER (ORDER BY TIME_ID)           AS PREVIOUS_DAY,
-       TIME_ID - LAG(TIME_ID) OVER (ORDER BY TIME_ID) AS DAYS_BETWEEN
+       LAG(TIME_ID) OVER (ORDER BY TIME_ID)           AS PREVIOUS_DAY, TIME_ID - LAG(TIME_ID) OVER (ORDER BY TIME_ID) AS DAYS_BETWEEN
 FROM (SELECT DISTINCT TIME_ID
       FROM SALES
       WHERE CUST_ID = :custId)

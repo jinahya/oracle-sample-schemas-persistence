@@ -27,7 +27,8 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Store_Test extends _Entity_Test<Store> {
+class Store_Test
+        extends _Entity_Test<Store> {
 
     Store_Test() {
         super(Store.class);
@@ -38,8 +39,8 @@ class Store_Test extends _Entity_Test<Store> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Store#equals(Object) equals} compares the business key rather than the surrogate {@code @Id},
-     * which is null until the row is inserted.
+     * @implNote {@link Store#equals(Object) equals} compares the business key rather than
+     *         the surrogate {@code @Id}, which is null until the row is inserted.
      */
     @Override
     public SingleTypeEqualsVerifierApi<Store> equals_verifier_() {

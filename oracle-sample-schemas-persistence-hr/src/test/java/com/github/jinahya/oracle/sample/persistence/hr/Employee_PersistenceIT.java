@@ -41,7 +41,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Employee_PersistenceIT extends _Entity_PersistenceIT<Employee> {
+class Employee_PersistenceIT
+        extends _Entity_PersistenceIT<Employee> {
 
     Employee_PersistenceIT() {
         super(Employee.class);
@@ -51,31 +52,35 @@ class Employee_PersistenceIT extends _Entity_PersistenceIT<Employee> {
     @Nested
     class JobHistory_Test {
 
-        private List<JobHistory> selectJobHistories(final EntityManager em, final Employee employee) {
+        private List<JobHistory> selectJobHistories(final EntityManager em,
+                                                    final Employee employee) {
             return em.createQuery(
                             "SELECT h FROM " + JobHistory.ENTITY_NAME + " h"
-                            + " WHERE h." + JobHistory.ATTRIBUTE_NAME_EMPLOYEE_ID + " = :employeeId",
+                            + " WHERE h." + JobHistory.ATTRIBUTE_NAME_EMPLOYEE_ID + " = " +
+                            ":employeeId",
                             JobHistory.class)
                     .setParameter("employeeId", employee.getEmployeeId())
                     .getResultList();
         }
 
         /**
-         * Changes the job of a new employee, and checks that the {@code UPDATE_JOB_HISTORY} trigger inserted a
-         * {@code JOB_HISTORY} row for them.
+         * Changes the job of a new employee, and checks that the {@code UPDATE_JOB_HISTORY} trigger
+         * inserted a {@code JOB_HISTORY} row for them.
          * <p>
-         * The trigger fires on the flushed {@code UPDATE} of {@code JOB_ID}, within this transaction, so its row is
-         * visible to a query in it until the rollback. Nothing else writes {@code JOB_HISTORY} here, so any row for the
-         * employee is the trigger's.
+         * The trigger fires on the flushed {@code UPDATE} of {@code JOB_ID}, within this
+         * transaction, so its row is visible to a query in it until the rollback. Nothing else
+         * writes {@code JOB_HISTORY} here, so any row for the employee is the trigger's.
          *
-         * @implNote The hire date is left as {@link Employee_Randomizer} set it, a year in the past, rather than set
-         * here: changing it would be an {@code UPDATE} of its own, and Hibernate ORM, which writes every column by
-         * default, would include {@code JOB_ID} in it and fire the trigger with the persisted hire date.
+         * @implNote The hire date is left as {@link Employee_Randomizer} set it, a year in
+         *         the past, rather than set here: changing it would be an {@code UPDATE} of its
+         *         own, and Hibernate ORM, which writes every column by default, would include
+         *         {@code JOB_ID} in it and fire the trigger with the persisted hire date.
          */
         @Test
         void _NewJobHistoryPopulated_JobChanged() {
             applyNewPersistedTargetInstanceAndRollback((em, e) -> {
-                // the INSERT, on its own; otherwise EclipseLink writes the new value into it, and no UPDATE fires
+                // the INSERT, on its own; otherwise EclipseLink writes the new value into it,
+                // and no UPDATE fires
                 em.flush();
                 final var oldJob = e.getJob();
                 final var oldDepartment = e.getDepartment();
@@ -83,7 +88,8 @@ class Employee_PersistenceIT extends _Entity_PersistenceIT<Employee> {
                 em.flush();
                 assertThat(selectJobHistories(em, e))
                         .isNotEmpty()
-                        // every row records the job and the department the employee had before the change
+                        // every row records the job and the department the employee had before
+                        // the change
                         .allSatisfy(h -> {
                             assertThat(h.getJob()).isEqualTo(oldJob);
                             assertThat(h.getDepartment()).isEqualTo(oldDepartment);
@@ -93,13 +99,15 @@ class Employee_PersistenceIT extends _Entity_PersistenceIT<Employee> {
         }
 
         /**
-         * Changes the department of a new employee, and checks that the {@code UPDATE_JOB_HISTORY} trigger inserted a
-         * {@code JOB_HISTORY} row for them, recording the job and the department they had before the change.
+         * Changes the department of a new employee, and checks that the {@code UPDATE_JOB_HISTORY}
+         * trigger inserted a {@code JOB_HISTORY} row for them, recording the job and the department
+         * they had before the change.
          */
         @Test
         void _NewJobHistoryPopulated_DepartmentChanged() {
             applyNewPersistedTargetInstanceAndRollback((em, e) -> {
-                // the INSERT, on its own; otherwise EclipseLink writes the new value into it, and no UPDATE fires
+                // the INSERT, on its own; otherwise EclipseLink writes the new value into it,
+                // and no UPDATE fires
                 em.flush();
                 final var oldJob = e.getJob();
                 final var oldDepartment = e.getDepartment();
@@ -107,7 +115,8 @@ class Employee_PersistenceIT extends _Entity_PersistenceIT<Employee> {
                 em.flush();
                 assertThat(selectJobHistories(em, e))
                         .isNotEmpty()
-                        // every row records the job and the department the employee had before the change
+                        // every row records the job and the department the employee had before
+                        // the change
                         .allSatisfy(h -> {
                             assertThat(h.getJob()).isEqualTo(oldJob);
                             assertThat(h.getDepartment()).isEqualTo(oldDepartment);
@@ -117,18 +126,20 @@ class Employee_PersistenceIT extends _Entity_PersistenceIT<Employee> {
         }
 
         /**
-         * Changes both the job and the department of a new employee, in one flush, and checks that the
-         * {@code UPDATE_JOB_HISTORY} trigger inserted a {@code JOB_HISTORY} row for them, recording the job and the
-         * department they had before the change.
+         * Changes both the job and the department of a new employee, in one flush, and checks that
+         * the {@code UPDATE_JOB_HISTORY} trigger inserted a {@code JOB_HISTORY} row for them,
+         * recording the job and the department they had before the change.
          *
-         * @implNote Both go in one flush, so one {@code UPDATE}, on which the row trigger fires once. Flushed apart,
-         * the trigger would fire twice with the same {@code START_DATE} -- the unchanged {@code HIRE_DATE} -- and the
-         * second insert would violate {@code JHIST_EMP_ID_ST_DATE_PK}.
+         * @implNote Both go in one flush, so one {@code UPDATE}, on which the row trigger
+         *         fires once. Flushed apart, the trigger would fire twice with the same
+         *         {@code START_DATE} -- the unchanged {@code HIRE_DATE} -- and the second insert
+         *         would violate {@code JHIST_EMP_ID_ST_DATE_PK}.
          */
         @Test
         void _NewJobHistoryPopulated_BothChanged() {
             applyNewPersistedTargetInstanceAndRollback((em, e) -> {
-                // the INSERT, on its own; otherwise EclipseLink writes the new value into it, and no UPDATE fires
+                // the INSERT, on its own; otherwise EclipseLink writes the new value into it,
+                // and no UPDATE fires
                 em.flush();
                 final var oldJob = e.getJob();
                 final var oldDepartment = e.getDepartment();
@@ -137,7 +148,8 @@ class Employee_PersistenceIT extends _Entity_PersistenceIT<Employee> {
                 em.flush();
                 assertThat(selectJobHistories(em, e))
                         .isNotEmpty()
-                        // every row records the job and the department the employee had before the change
+                        // every row records the job and the department the employee had before
+                        // the change
                         .allSatisfy(h -> {
                             assertThat(h.getJob()).isEqualTo(oldJob);
                             assertThat(h.getDepartment()).isEqualTo(oldDepartment);
@@ -190,7 +202,9 @@ class Employee_PersistenceIT extends _Entity_PersistenceIT<Employee> {
                     .as("the employees two levels below %s", managerId)
                     .isNotEmpty()
                     .hasSize(count.intValue())
-                    .allSatisfy(e -> assertThat(e.getManager().getManager().getEmployeeId()).isEqualTo(managerId))
+                    .allSatisfy(
+                            e -> assertThat(e.getManager().getManager().getEmployeeId()).isEqualTo(
+                                    managerId))
                     .isSortedAccordingTo(Comparator.comparing(Employee::getLastName));
         }
 
@@ -199,13 +213,17 @@ class Employee_PersistenceIT extends _Entity_PersistenceIT<Employee> {
         @ParameterizedTest
         void __NamedQuery(final Integer managerId) {
             final var found = entityManager()
-                    .createNamedQuery("Employee.selectListByManagerOfManagerOrderByLastNameAsc", targetClass)
-                    .setParameter("manager", entityManager().getReference(Employee.class, managerId))
+                    .createNamedQuery("Employee.selectListByManagerOfManagerOrderByLastNameAsc",
+                                      targetClass)
+                    .setParameter("manager",
+                                  entityManager().getReference(Employee.class, managerId))
                     .getResultList();
             verify(managerId, found);
         }
 
-        @DisplayName("a query-language query selects the employees two levels below the manager, by name")
+        @DisplayName(
+                "a query-language query selects the employees two levels below the manager, by " +
+                "name")
         @MethodSource("managerIds")
         @ParameterizedTest
         void __QueryLanguage(final Integer managerId) {
@@ -218,7 +236,8 @@ class Employee_PersistenceIT extends _Entity_PersistenceIT<Employee> {
                                     ORDER BY e.lastName ASC, e.firstName ASC""",
                             targetClass
                     )
-                    .setParameter("manager", entityManager().getReference(Employee.class, managerId))
+                    .setParameter("manager",
+                                  entityManager().getReference(Employee.class, managerId))
                     .getResultList();
             verify(managerId, found);
         }
@@ -234,7 +253,8 @@ class Employee_PersistenceIT extends _Entity_PersistenceIT<Employee> {
             query.select(root);
             query.where(builder.equal(root.get(Employee_.manager).get(Employee_.manager),
                                       entityManager.getReference(Employee.class, managerId)));
-            query.orderBy(builder.asc(root.get(Employee_.lastName)), builder.asc(root.get(Employee_.firstName)));
+            query.orderBy(builder.asc(root.get(Employee_.lastName)),
+                          builder.asc(root.get(Employee_.firstName)));
             final var found = entityManager.createQuery(query).getResultList();
             verify(managerId, found);
         }

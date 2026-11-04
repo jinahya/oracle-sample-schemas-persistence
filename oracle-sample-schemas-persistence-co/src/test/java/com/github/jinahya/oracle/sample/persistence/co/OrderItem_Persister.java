@@ -29,14 +29,16 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * A persister which persists {@link OrderItem} instances.
  * <p>
- * Each instance is given a newly persisted {@link Order} and a newly persisted {@link Product} first, so that its
- * {@code order} and its {@code product} -- neither of which is nullable -- refer to rows which are already in the
- * database, and a newly persisted {@link Shipment} at random, because that column is nullable. The {@code lineItemId}
- * is assigned here as well: it numbers the item within its order, and is not generated.
+ * Each instance is given a newly persisted {@link Order} and a newly persisted {@link Product}
+ * first, so that its {@code order} and its {@code product} -- neither of which is nullable -- refer
+ * to rows which are already in the database, and a newly persisted {@link Shipment} at random,
+ * because that column is nullable. The {@code lineItemId} is assigned here as well: it numbers the
+ * item within its order, and is not generated.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class OrderItem_Persister extends AbstractEntityPersister<OrderItem> {
+class OrderItem_Persister
+        extends AbstractEntityPersister<OrderItem> {
 
     OrderItem_Persister() {
         super(OrderItem.class);
@@ -47,14 +49,16 @@ class OrderItem_Persister extends AbstractEntityPersister<OrderItem> {
     public OrderItem apply(final EntityManager entityManager,
                            final OrderItem entityInstance) {
         final var order = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Order.class);
-        final var product = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class);
+        final var product =
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class);
         final Shipment shipment = ThreadLocalRandom.current().nextBoolean() ? null :
-                                  EntityPersisterUtils.newPersistedInstanceOf(entityManager, Shipment.class);
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Shipment.class);
         entityManager.flush();
         entityInstance.setOrder(order);
         entityInstance.setProduct(product);
         entityInstance.setShipment(shipment);
-        // LINE_ITEM_ID is not generated -- it numbers the item within its order -- so nothing but this assigns it.
+        // LINE_ITEM_ID is not generated -- it numbers the item within its order -- so nothing
+        // but this assigns it.
         entityInstance.getId().setLineItemId(ThreadLocalRandom.current().nextLong(1, 100));
         return super.apply(entityManager, entityInstance);
     }

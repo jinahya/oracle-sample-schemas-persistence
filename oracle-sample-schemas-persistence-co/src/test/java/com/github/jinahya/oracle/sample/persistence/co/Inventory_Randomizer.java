@@ -30,12 +30,14 @@ import java.util.List;
 /**
  * A randomizer which produces randomized {@link Inventory} instances.
  * <p>
- * The generated {@code inventoryId}, and the {@code store} and {@code product} associations, are excluded from
- * randomization; {@link Inventory_Persister} supplies the {@code store} and the {@code product}.
+ * The generated {@code inventoryId}, and the {@code store} and {@code product} associations, are
+ * excluded from randomization; {@link Inventory_Persister} supplies the {@code store} and the
+ * {@code product}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Inventory_Randomizer extends PodamObjectRandomizer<Inventory> {
+class Inventory_Randomizer
+        extends PodamObjectRandomizer<Inventory> {
 
     Inventory_Randomizer() {
         super(Inventory.class, List.of(

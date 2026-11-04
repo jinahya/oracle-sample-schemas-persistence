@@ -24,8 +24,8 @@ import com.github.jinahya.oracle.sample.persistence.co.mapped.MappedProductOrder
 import jakarta.persistence.Embeddable;
 
 /**
- * An embeddable class for the composite identifier of the {@link ProductOrder} entity class, which maps it with an
- * {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
+ * An embeddable class for the composite identifier of the {@link ProductOrder} entity class, which
+ * maps it with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
@@ -33,7 +33,8 @@ import jakarta.persistence.Embeddable;
 public class ProductOrderId
         extends MappedProductOrderId {
 
-    // ------------------------------------------------------------------------------------------ STATIC_FACTORY_METHODS
+    // ------------------------------------------------------------------------------------------
+    // STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified column values.

@@ -52,7 +52,7 @@ SELECT s.CUST_ID
 FROM SALES s
          JOIN TIMES t ON t.TIME_ID = s.TIME_ID
 WHERE t.CALENDAR_YEAR = :previousYear
-MINUS
+    MINUS
 SELECT s.CUST_ID
 FROM SALES s
          JOIN TIMES t ON t.TIME_ID = s.TIME_ID
@@ -84,8 +84,8 @@ WHERE t.CALENDAR_YEAR = :year
 SELECT PROD_CATEGORY, PROD_NAME, REVENUE, RNK
 FROM (SELECT p.PROD_CATEGORY,
              p.PROD_NAME,
-             SUM(s.AMOUNT_SOLD)                                                          AS REVENUE,
-             RANK() OVER (PARTITION BY p.PROD_CATEGORY ORDER BY SUM(s.AMOUNT_SOLD) DESC) AS RNK
+             SUM(s.AMOUNT_SOLD) AS REVENUE,
+             RANK()                OVER (PARTITION BY p.PROD_CATEGORY ORDER BY SUM(s.AMOUNT_SOLD) DESC) AS RNK
       FROM SALES s
                JOIN PRODUCTS p ON p.PROD_ID = s.PROD_ID
                JOIN TIMES t ON t.TIME_ID = s.TIME_ID
@@ -117,7 +117,9 @@ GROUP BY p.PROD_CATEGORY
 ORDER BY MARGIN DESC
 ;
 
-SELECT p.PROD_CATEGORY, SUM(pr.AMOUNT_SOLD) AS REVENUE, SUM(pr.AMOUNT_SOLD - pr.TOTAL_COST) AS MARGIN
+SELECT p.PROD_CATEGORY,
+       SUM(pr.AMOUNT_SOLD)                 AS REVENUE,
+       SUM(pr.AMOUNT_SOLD - pr.TOTAL_COST) AS MARGIN
 FROM PROFITS pr
          JOIN PRODUCTS p ON p.PROD_ID = pr.PROD_ID
          JOIN TIMES t ON t.TIME_ID = pr.TIME_ID
@@ -130,11 +132,14 @@ ORDER BY MARGIN DESC
 -- ------------------------------------------------------------------------------------------------------ SH_SCHEMA_A_06
 -- The sales director wants each channel's revenue in :previousYear and :currentYear side by side, with the growth rate.
 SELECT ch.CHANNEL_DESC,
-       SUM(CASE WHEN t.CALENDAR_YEAR = :previousYear THEN s.AMOUNT_SOLD ELSE 0 END)                  AS PREVIOUS,
-       SUM(CASE WHEN t.CALENDAR_YEAR = :currentYear THEN s.AMOUNT_SOLD ELSE 0 END)                   AS CURRENT_,
+       SUM(CASE WHEN t.CALENDAR_YEAR = :previousYear THEN s.AMOUNT_SOLD ELSE 0 END)            AS PREVIOUS,
+       SUM(CASE
+               WHEN t.CALENDAR_YEAR = :currentYear THEN s.AMOUNT_SOLD
+               ELSE 0 END)                                                                     AS CURRENT_,
        (SUM(CASE WHEN t.CALENDAR_YEAR = :currentYear THEN s.AMOUNT_SOLD ELSE 0 END)
            - SUM(CASE WHEN t.CALENDAR_YEAR = :previousYear THEN s.AMOUNT_SOLD ELSE 0 END))
-           / NULLIF(SUM(CASE WHEN t.CALENDAR_YEAR = :previousYear THEN s.AMOUNT_SOLD ELSE 0 END), 0) AS GROWTH
+           / NULLIF(SUM(CASE WHEN t.CALENDAR_YEAR = :previousYear THEN s.AMOUNT_SOLD ELSE 0 END),
+                    0)                                                                         AS GROWTH
 FROM SALES s
          JOIN CHANNELS ch ON ch.CHANNEL_ID = s.CHANNEL_ID
          JOIN TIMES t ON t.TIME_ID = s.TIME_ID
@@ -147,15 +152,20 @@ ORDER BY GROWTH DESC NULLS LAST
 -- ------------------------------------------------------------------------------------------------------ SH_SCHEMA_A_07
 -- For the quarterly business review, the sales director wants :year revenue per channel and calendar quarter, with a
 -- subtotal per channel and a grand total, in one result.
-SELECT CASE WHEN GROUPING(ch.CHANNEL_DESC) = 1 THEN 'All channels' ELSE ch.CHANNEL_DESC END                 AS CHANNEL,
-       CASE WHEN GROUPING(t.CALENDAR_QUARTER_DESC) = 1 THEN 'All quarters' ELSE t.CALENDAR_QUARTER_DESC END AS QUARTER,
-       SUM(s.AMOUNT_SOLD)                                                                                   AS REVENUE
+SELECT CASE
+           WHEN GROUPING(ch.CHANNEL_DESC) = 1 THEN 'All channels'
+           ELSE ch.CHANNEL_DESC END         AS CHANNEL,
+       CASE
+           WHEN GROUPING(t.CALENDAR_QUARTER_DESC) = 1 THEN 'All quarters'
+           ELSE t.CALENDAR_QUARTER_DESC END AS QUARTER,
+       SUM(s.AMOUNT_SOLD)                   AS REVENUE
 FROM SALES s
          JOIN CHANNELS ch ON ch.CHANNEL_ID = s.CHANNEL_ID
          JOIN TIMES t ON t.TIME_ID = s.TIME_ID
 WHERE t.CALENDAR_YEAR = :year
 GROUP BY ROLLUP (ch.CHANNEL_DESC, t.CALENDAR_QUARTER_DESC)
-ORDER BY GROUPING(ch.CHANNEL_DESC), ch.CHANNEL_DESC, GROUPING(t.CALENDAR_QUARTER_DESC), t.CALENDAR_QUARTER_DESC
+ORDER BY GROUPING(ch.CHANNEL_DESC), ch.CHANNEL_DESC, GROUPING(t.CALENDAR_QUARTER_DESC),
+         t.CALENDAR_QUARTER_DESC
 ;
 
 
@@ -192,7 +202,7 @@ WHERE EXTRACT(YEAR FROM s.TIME_ID) = :year
 -- Monthly revenue jumps about too much to read a trend from. The sales director wants each month of :year with its
 -- revenue and the average of it and the two months before, a three-month moving average.
 SELECT t.CALENDAR_MONTH_DESC,
-       SUM(s.AMOUNT_SOLD)                                 AS REVENUE,
+       SUM(s.AMOUNT_SOLD)                                                                     AS REVENUE,
        ROUND(AVG(SUM(s.AMOUNT_SOLD)) OVER (ORDER BY t.CALENDAR_MONTH_DESC
            ROWS BETWEEN 2 PRECEDING AND CURRENT ROW), 2) AS MOVING_AVERAGE
 FROM SALES s

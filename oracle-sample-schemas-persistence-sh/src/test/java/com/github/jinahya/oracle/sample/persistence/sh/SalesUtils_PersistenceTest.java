@@ -21,10 +21,10 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  */
 
 import com.github.jinahya.persistence.test.util.EntityPersisterUtils;
-import jakarta.inject.Inject;
+import com.github.jinahya.persistence.util.JinahyaEntityManagerUtils;
 import jakarta.persistence.EntityManager;
-import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.jboss.weld.junit5.auto.EnableAutoWeld;
+import jakarta.persistence.EntityManagerFactory;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -35,17 +35,14 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
-import static com.github.jinahya.oracle.sample.persistence.sh._Entity_PersistenceTest_Producer.__TestPU;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * A class for testing the aggregate methods of {@link SalesUtils} against the {@code sh-test} unit, a nested class per
- * method.
+ * A class for testing the aggregate methods of {@link SalesUtils} against the {@code sh-test} unit,
+ * a nested class per method.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@AddBeanClasses(_Entity_PersistenceTest_Producer.class)
-@EnableAutoWeld
 class SalesUtils_PersistenceTest {
 
     private static List<Sales> selectAll(final EntityManager entityManager) {
@@ -53,20 +50,24 @@ class SalesUtils_PersistenceTest {
     }
 
     /**
-     * Persists three random rows, flushes and clears, so that what is loaded afterwards is the rows as stored:
-     * {@code AMOUNT_SOLD} is {@code NUMBER(10,2)}, and the column rounds what the randomizer gives.
+     * Persists three random rows, flushes and clears, so that what is loaded afterwards is the rows
+     * as stored: {@code AMOUNT_SOLD} is {@code NUMBER(10,2)}, and the column rounds what the
+     * randomizer gives.
      */
     private static void persistThreeAndClear(final EntityManager entityManager) {
-        IntStream.range(0, 3).forEach(i -> EntityPersisterUtils.newPersistedInstanceOf(entityManager, Sales.class));
+        IntStream.range(0, 3).forEach(
+                i -> EntityPersisterUtils.newPersistedInstanceOf(entityManager, Sales.class));
         entityManager.flush();
         entityManager.clear();
     }
 
-    private <R> R inRolledBackTransaction(final Function<? super EntityManager, ? extends R> function) {
-        return ___Persistence_TestUtils.applyInTransactionAndRollback(entityManager, function);
+    private <R> R inRolledBackTransaction(
+            final Function<? super EntityManager, ? extends R> function) {
+        return JinahyaEntityManagerUtils.applyInTransactionAndRollback(entityManager, function);
     }
 
-    // ----------------------------------------------------------------------------------------- quantitySold/statistics
+    // -----------------------------------------------------------------------------------------
+    // quantitySold/statistics
 
     @DisplayName("getQuantitySoldStatistics(entityManager, where)")
     @Nested
@@ -75,7 +76,8 @@ class SalesUtils_PersistenceTest {
         @Test
         void _Empty_NoneSelected() {
             inRolledBackTransaction(em -> {
-                final var statistics = SalesUtils.getQuantitySoldStatistics(em, (b, r) -> b.disjunction());
+                final var statistics =
+                        SalesUtils.getQuantitySoldStatistics(em, (b, r) -> b.disjunction());
                 assertThat(statistics.getCount()).isZero();
                 assertThat(statistics.getSum()).isZero();
                 return null;
@@ -86,9 +88,11 @@ class SalesUtils_PersistenceTest {
         void _MatchesLoadedRows_() {
             inRolledBackTransaction(em -> {
                 persistThreeAndClear(em);
-                final var expected = selectAll(em).stream().mapToLong(Sales::getQuantitySold).summaryStatistics();
+                final var expected = selectAll(em).stream().mapToLong(Sales::getQuantitySold)
+                        .summaryStatistics();
                 final var actual = SalesUtils.getQuantitySoldStatistics(em, null);
-                assertThat(actual.getCount()).isEqualTo(expected.getCount()).isGreaterThanOrEqualTo(3L);
+                assertThat(actual.getCount()).isEqualTo(expected.getCount())
+                        .isGreaterThanOrEqualTo(3L);
                 assertThat(actual.getSum()).isEqualTo(expected.getSum());
                 assertThat(actual.getMin()).isEqualTo(expected.getMin());
                 assertThat(actual.getMax()).isEqualTo(expected.getMax());
@@ -125,12 +129,14 @@ class SalesUtils_PersistenceTest {
         @Test
         void _Empty_NoneSelected() {
             inRolledBackTransaction(em -> {
-                final var statistics = SalesUtils.getAmountSoldStatistics(em, (b, r) -> b.disjunction());
+                final var statistics =
+                        SalesUtils.getAmountSoldStatistics(em, (b, r) -> b.disjunction());
                 assertThat(statistics.count()).isZero();
                 assertThat(statistics.sum()).isEqualByComparingTo(BigDecimal.ZERO);
                 assertThat(statistics.min()).isNull();
                 assertThat(statistics.max()).isNull();
-                assertThat(statistics.average(MathContext.DECIMAL64)).isEqualByComparingTo(BigDecimal.ZERO);
+                assertThat(statistics.average(MathContext.DECIMAL64)).isEqualByComparingTo(
+                        BigDecimal.ZERO);
                 return null;
             });
         }
@@ -140,23 +146,32 @@ class SalesUtils_PersistenceTest {
             inRolledBackTransaction(em -> {
                 persistThreeAndClear(em);
                 final var all = selectAll(em);
-                final var sum = all.stream().map(Sales::getAmountSold).reduce(BigDecimal.ZERO, BigDecimal::add);
-                final var min = all.stream().map(Sales::getAmountSold).min(BigDecimal::compareTo).orElseThrow();
-                final var max = all.stream().map(Sales::getAmountSold).max(BigDecimal::compareTo).orElseThrow();
+                final var sum = all.stream().map(Sales::getAmountSold)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add);
+                final var min = all.stream().map(Sales::getAmountSold).min(BigDecimal::compareTo)
+                        .orElseThrow();
+                final var max = all.stream().map(Sales::getAmountSold).max(BigDecimal::compareTo)
+                        .orElseThrow();
                 final var actual = SalesUtils.getAmountSoldStatistics(em, null);
                 assertThat(actual.count()).isEqualTo(all.size()).isGreaterThanOrEqualTo(3L);
                 assertThat(actual.sum()).isEqualByComparingTo(sum);
                 assertThat(actual.min()).isEqualByComparingTo(min);
                 assertThat(actual.max()).isEqualByComparingTo(max);
                 assertThat(actual.average(MathContext.DECIMAL64))
-                        .isEqualByComparingTo(sum.divide(BigDecimal.valueOf(all.size()), MathContext.DECIMAL64));
+                        .isEqualByComparingTo(
+                                sum.divide(BigDecimal.valueOf(all.size()), MathContext.DECIMAL64));
                 return null;
             });
         }
     }
 
+    @AfterEach
+    void closeEntityManager() {
+        entityManager.close();
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
-    @__TestPU
-    @Inject
-    private EntityManager entityManager;
+    private final EntityManager entityManager =
+            __PersistenceTest_Utils.applyEntityManagerFactory(
+                    EntityManagerFactory::createEntityManager);
 }

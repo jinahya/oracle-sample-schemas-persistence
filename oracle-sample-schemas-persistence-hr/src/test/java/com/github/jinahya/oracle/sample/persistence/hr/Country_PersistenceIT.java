@@ -38,13 +38,16 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Country_PersistenceIT extends _Entity_PersistenceIT<Country> {
+class Country_PersistenceIT
+        extends _Entity_PersistenceIT<Country> {
 
     // -----------------------------------------------------------------------------------------------------------------
     private static final Comparator<Country> COUNTRY_NAME_ASC =
-            Comparator.comparing(Country::getCountryName, Comparator.nullsLast(Comparator.naturalOrder()));
+            Comparator.comparing(Country::getCountryName,
+                                 Comparator.nullsLast(Comparator.naturalOrder()));
 
-    private static final Comparator<Country> COUNTRY_ID_ASC = Comparator.comparing(Country::getCountryId);
+    private static final Comparator<Country> COUNTRY_ID_ASC =
+            Comparator.comparing(Country::getCountryId);
 
     // -----------------------------------------------------------------------------------------------------------------
     Country_PersistenceIT() {
@@ -70,7 +73,8 @@ class Country_PersistenceIT extends _Entity_PersistenceIT<Country> {
                 .stream();
     }
 
-    private void verifyByRegion(final Long regionId, final List<Country> found, final Comparator<Country> order) {
+    private void verifyByRegion(final Long regionId, final List<Country> found,
+                                final Comparator<Country> order) {
         final var count = entityManager()
                 .createQuery(
                         """
@@ -121,7 +125,8 @@ class Country_PersistenceIT extends _Entity_PersistenceIT<Country> {
         @ParameterizedTest
         void __NamedQuery(final Long regionId) {
             final var found = entityManager()
-                    .createNamedQuery("Country.selectListByRegionOrderByCountryNameAsc", targetClass)
+                    .createNamedQuery("Country.selectListByRegionOrderByCountryNameAsc",
+                                      targetClass)
                     .setParameter("region", entityManager().getReference(Region.class, regionId))
                     .getResultList();
             verifyByRegion(regionId, found, COUNTRY_NAME_ASC);
@@ -154,7 +159,8 @@ class Country_PersistenceIT extends _Entity_PersistenceIT<Country> {
             final var query = builder.createQuery(targetClass);
             final var root = query.from(targetClass);
             query.select(root);
-            query.where(builder.equal(root.get(Country_.region), entityManager.getReference(Region.class, regionId)));
+            query.where(builder.equal(root.get(Country_.region),
+                                      entityManager.getReference(Region.class, regionId)));
             query.orderBy(builder.asc(root.get(Country_.countryName)));
             final var found = entityManager.createQuery(query).getResultList();
             verifyByRegion(regionId, found, COUNTRY_NAME_ASC);
@@ -210,7 +216,8 @@ class Country_PersistenceIT extends _Entity_PersistenceIT<Country> {
             final var query = builder.createQuery(targetClass);
             final var root = query.from(targetClass);
             query.select(root);
-            query.where(builder.equal(root.get(Country_.region), entityManager.getReference(Region.class, regionId)));
+            query.where(builder.equal(root.get(Country_.region),
+                                      entityManager.getReference(Region.class, regionId)));
             query.orderBy(builder.asc(root.get(Country_.countryId)));
             final var found = entityManager.createQuery(query).getResultList();
             verifyByRegion(regionId, found, COUNTRY_ID_ASC);

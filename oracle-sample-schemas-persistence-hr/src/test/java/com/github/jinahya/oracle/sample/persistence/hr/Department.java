@@ -92,26 +92,30 @@ import java.util.Optional;
 )
 @Entity
 @Table(name = MappedDepartment.TABLE_NAME)
-public class Department extends MappedDepartment {
+public class Department
+        extends MappedDepartment {
 
     // ------------------------------------------------------------------------------------------------------ MANAGER_ID
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_MANAGER_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_MANAGER_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_MANAGER = "manager";
 
     // ----------------------------------------------------------------------------------------------------- LOCATION_ID
 
     /**
-     * The name of the attribute which maps the {@value #COLUMN_NAME_LOCATION_ID} column. The value is {@value}.
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LOCATION_ID} column. The value
+     * is {@value}.
      */
     public static final String ATTRIBUTE_NAME_LOCATION = "location";
 
     // ------------------------------------------------------------------------------------------------------- EMPLOYEES
 
     /**
-     * The name of the attribute which maps the {@link Employee employee}s of this department. The value is {@value}.
+     * The name of the attribute which maps the {@link Employee employee}s of this department. The
+     * value is {@value}.
      *
      * @see Employee#ATTRIBUTE_NAME_DEPARTMENT
      */
@@ -120,7 +124,8 @@ public class Department extends MappedDepartment {
     // --------------------------------------------------------------------------------------------------- JOB_HISTORIES
 
     /**
-     * The name of the attribute which maps the past job assignments within this department. The value is {@value}.
+     * The name of the attribute which maps the past job assignments within this department. The
+     * value is {@value}.
      *
      * @see JobHistory#ATTRIBUTE_NAME_DEPARTMENT
      */
@@ -148,8 +153,8 @@ public class Department extends MappedDepartment {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_MANAGER} attribute with the specified value, and the
-     * {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute with its identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_MANAGER} attribute with the specified
+     * value, and the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute with its identifier.
      *
      * @param manager new value for {@value #ATTRIBUTE_NAME_MANAGER} attribute.
      */
@@ -175,8 +180,8 @@ public class Department extends MappedDepartment {
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_LOCATION} attribute with the specified value, and the
-     * {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute with its identifier.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_LOCATION} attribute with the specified
+     * value, and the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute with its identifier.
      *
      * @param location new value for {@value #ATTRIBUTE_NAME_LOCATION} attribute.
      */

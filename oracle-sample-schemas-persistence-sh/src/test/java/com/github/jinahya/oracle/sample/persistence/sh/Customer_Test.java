@@ -28,7 +28,8 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Customer_Test extends _Entity_Test<Customer> {
+class Customer_Test
+        extends _Entity_Test<Customer> {
 
     Customer_Test() {
         super(Customer.class);
@@ -39,8 +40,8 @@ class Customer_Test extends _Entity_Test<Customer> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Customer#equals(Object) equals} compares only the {@code @Id} -- the surrogate key -- because
-     * every other attribute is mutable state.
+     * @implNote {@link Customer#equals(Object) equals} compares only the {@code @Id} -- the
+     *         surrogate key -- because every other attribute is mutable state.
      */
     @Override
     public SingleTypeEqualsVerifierApi<Customer> equals_verifier_() {

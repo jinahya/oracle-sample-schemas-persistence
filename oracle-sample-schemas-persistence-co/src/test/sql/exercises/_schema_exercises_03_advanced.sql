@@ -64,8 +64,8 @@ ORDER BY last_order_tms
 SELECT store_name, product_name, units_sold
 FROM (SELECT s.store_name,
              p.product_name,
-             SUM(oi.quantity)                                                     AS units_sold,
-             RANK() OVER (PARTITION BY s.store_id ORDER BY SUM(oi.quantity) DESC) AS rnk
+             SUM(oi.quantity) AS units_sold,
+             RANK()              OVER (PARTITION BY s.store_id ORDER BY SUM(oi.quantity) DESC) AS rnk
       FROM stores s
                JOIN orders o ON o.store_id = s.store_id
                JOIN order_items oi ON oi.order_id = o.order_id
@@ -93,11 +93,15 @@ WITH short AS (SELECT store_id, product_id, :targetStock - product_inventory AS 
                       sh.need,
                       sp.surplus,
                       ROUND(6371 * ACOS(LEAST(1,
-                                              SIN(t.latitude * ACOS(-1) / 180) * SIN(f.latitude * ACOS(-1) / 180)
-                                                  + COS(t.latitude * ACOS(-1) / 180) * COS(f.latitude * ACOS(-1) / 180)
-                                                  * COS((t.longitude - f.longitude) * ACOS(-1) / 180)))) AS km
+                                              SIN(t.latitude * ACOS(-1) / 180) *
+                                              SIN(f.latitude * ACOS(-1) / 180)
+                                                  + COS(t.latitude * ACOS(-1) / 180) *
+                                                    COS(f.latitude * ACOS(-1) / 180)
+                                                  *
+                                                    COS((t.longitude - f.longitude) * ACOS(-1) / 180)))) AS km
                FROM short sh
-                        JOIN spare sp ON sp.product_id = sh.product_id AND sp.store_id <> sh.store_id
+                        JOIN spare sp
+                             ON sp.product_id = sh.product_id AND sp.store_id <> sh.store_id
                         JOIN stores t ON t.store_id = sh.store_id
                         JOIN stores f ON f.store_id = sp.store_id),
      ranked AS (SELECT p.*,
@@ -176,7 +180,8 @@ ORDER BY o.order_id
 
 SELECT p.product_id, p.product_name, p.unit_price
 FROM products p
-WHERE p.unit_price > ALL (SELECT oi.unit_price FROM order_items oi WHERE oi.product_id = p.product_id)
+WHERE
+    p.unit_price > ALL (SELECT oi.unit_price FROM order_items oi WHERE oi.product_id = p.product_id)
   AND EXISTS (SELECT 1 FROM order_items oi WHERE oi.product_id = p.product_id)
 ORDER BY p.product_name
 ;
@@ -186,7 +191,8 @@ ORDER BY p.product_name
 -- Customer service shows a masked email on screen -- the first three characters, ***, then the domain -- and quotes
 -- orders as ORD-<id>/<year>.
 SELECT c.full_name,
-       SUBSTR(c.email_address, 1, 3) || '***' || SUBSTR(c.email_address, INSTR(c.email_address, '@'))
+       SUBSTR(c.email_address, 1, 3) || '***' ||
+       SUBSTR(c.email_address, INSTR(c.email_address, '@'))
                                                                      AS masked_email,
        'ORD-' || o.order_id || '/' || EXTRACT(YEAR FROM o.order_tms) AS order_reference
 FROM orders o
@@ -225,11 +231,11 @@ ORDER BY oi.order_id, oi.line_item_id
 -- The regional manager wants each store's revenue, its rank, its share of the chain's total, and a running total from
 -- the best store down.
 SELECT s.store_name,
-       SUM(oi.unit_price * oi.quantity)                                          AS revenue,
-       RANK() OVER (ORDER BY SUM(oi.unit_price * oi.quantity) DESC)              AS revenue_rank,
-       ROUND(100 * RATIO_TO_REPORT(SUM(oi.unit_price * oi.quantity)) OVER (), 2) AS share_pct,
+       SUM(oi.unit_price * oi.quantity) AS revenue,
+       RANK()                              OVER (ORDER BY SUM(oi.unit_price * oi.quantity) DESC)              AS revenue_rank, ROUND(
+        100 * RATIO_TO_REPORT(SUM(oi.unit_price * oi.quantity)) OVER (), 2) AS share_pct,
        SUM(SUM(oi.unit_price * oi.quantity))
-           OVER (ORDER BY SUM(oi.unit_price * oi.quantity) DESC
+                                           OVER (ORDER BY SUM(oi.unit_price * oi.quantity) DESC
                ROWS UNBOUNDED PRECEDING)                                         AS running_total
 FROM stores s
          JOIN orders o ON o.store_id = s.store_id

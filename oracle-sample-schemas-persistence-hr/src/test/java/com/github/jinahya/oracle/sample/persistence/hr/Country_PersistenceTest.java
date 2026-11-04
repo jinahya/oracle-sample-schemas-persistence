@@ -27,13 +27,16 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Verifies the mappings of {@link Country} against the schema generated into the in-memory database.
+ * Verifies the mappings of {@link Country} against the schema generated into the in-memory
+ * database.
  * <p>
- * Each persisted {@link Country} is given a region of its own, so a query by the region selects it alone.
+ * Each persisted {@link Country} is given a region of its own, so a query by the region selects it
+ * alone.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Country_PersistenceTest extends _Entity_PersistenceTest<Country> {
+class Country_PersistenceTest
+        extends _Entity_PersistenceTest<Country> {
 
     // -----------------------------------------------------------------------------------------------------------------
     Country_PersistenceTest() {
@@ -53,7 +56,8 @@ class Country_PersistenceTest extends _Entity_PersistenceTest<Country> {
         void __NamedQuery() {
             applyNewPersistedEntityInstanceAndRollback((em, v) -> {
                 final var found = em
-                        .createNamedQuery("Country.selectListByRegionOrderByCountryNameAsc", targetClass)
+                        .createNamedQuery("Country.selectListByRegionOrderByCountryNameAsc",
+                                          targetClass)
                         .setParameter("region", v.getRegion())
                         .getResultList();
                 assertThat(found)
@@ -115,7 +119,8 @@ class Country_PersistenceTest extends _Entity_PersistenceTest<Country> {
         void __NamedQuery() {
             applyNewPersistedEntityInstanceAndRollback((em, v) -> {
                 final var found = em
-                        .createNamedQuery("Country.selectListByRegionOrderByCountryIdAsc", targetClass)
+                        .createNamedQuery("Country.selectListByRegionOrderByCountryIdAsc",
+                                          targetClass)
                         .setParameter("region", v.getRegion())
                         .getResultList();
                 assertThat(found)
@@ -169,8 +174,9 @@ class Country_PersistenceTest extends _Entity_PersistenceTest<Country> {
     /**
      * Tests {@code Country.selectListOrderByCountryNameAsc}.
      *
-     * @implNote Only checks that the country just persisted is among those selected; the order is left to
-     * {@link Country_PersistenceIT}, since the in-memory database places {@code NULL}s differently from Oracle.
+     * @implNote Only checks that the country just persisted is among those selected; the
+     *         order is left to {@link Country_PersistenceIT}, since the in-memory database places
+     *         {@code NULL}s differently from Oracle.
      */
     @Nested
     class SelectListOrderByCountryNameAsc_Test {

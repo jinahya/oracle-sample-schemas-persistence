@@ -28,7 +28,8 @@ import org.junit.jupiter.api.Test;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class CalMonthSalesMv_PersistenceIT extends _Entity_PersistenceIT<CalMonthSalesMv> {
+class CalMonthSalesMv_PersistenceIT
+        extends _Entity_PersistenceIT<CalMonthSalesMv> {
 
     CalMonthSalesMv_PersistenceIT() {
         super(CalMonthSalesMv.class);
@@ -37,8 +38,8 @@ class CalMonthSalesMv_PersistenceIT extends _Entity_PersistenceIT<CalMonthSalesM
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Does nothing; {@value CalMonthSalesMv#TABLE_NAME} is a materialized view, so there is nothing to insert a
-     * randomized instance into. The installed object is read-only.
+     * Does nothing; {@value CalMonthSalesMv#TABLE_NAME} is a materialized view, so there is nothing
+     * to insert a randomized instance into. The installed object is read-only.
      */
     @Disabled("a materialized view: nothing is inserted into it")
     @Override

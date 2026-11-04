@@ -82,8 +82,8 @@ FROM PROMOTIONS
 -- how many significant digits, and how many of them after the point, does the column actually use? a plain NUMBER
 -- declares neither; TM9 is the shortest fixed-notation text of the value, and its digits are counted with and
 -- without the point.
-SELECT MIN(LENGTH(REPLACE(T, '.'))) MIN_PRECISION,
-       MAX(LENGTH(REPLACE(T, '.'))) MAX_PRECISION,
+SELECT MIN(LENGTH(REPLACE(T, '.')))                                               MIN_PRECISION,
+       MAX(LENGTH(REPLACE(T, '.')))                                               MAX_PRECISION,
        MIN(CASE WHEN INSTR(T, '.') = 0 THEN 0 ELSE LENGTH(T) - INSTR(T, '.') END) MIN_SCALE,
        MAX(CASE WHEN INSTR(T, '.') = 0 THEN 0 ELSE LENGTH(T) - INSTR(T, '.') END) MAX_SCALE
 FROM (SELECT TO_CHAR(ABS(PROMO_SUBCATEGORY_ID), 'TM9') T FROM PROMOTIONS)
@@ -125,8 +125,8 @@ FROM PROMOTIONS
 -- how many significant digits, and how many of them after the point, does the column actually use? a plain NUMBER
 -- declares neither; TM9 is the shortest fixed-notation text of the value, and its digits are counted with and
 -- without the point.
-SELECT MIN(LENGTH(REPLACE(T, '.'))) MIN_PRECISION,
-       MAX(LENGTH(REPLACE(T, '.'))) MAX_PRECISION,
+SELECT MIN(LENGTH(REPLACE(T, '.')))                                               MIN_PRECISION,
+       MAX(LENGTH(REPLACE(T, '.')))                                               MAX_PRECISION,
        MIN(CASE WHEN INSTR(T, '.') = 0 THEN 0 ELSE LENGTH(T) - INSTR(T, '.') END) MIN_SCALE,
        MAX(CASE WHEN INSTR(T, '.') = 0 THEN 0 ELSE LENGTH(T) - INSTR(T, '.') END) MAX_SCALE
 FROM (SELECT TO_CHAR(ABS(PROMO_CATEGORY_ID), 'TM9') T FROM PROMOTIONS)
@@ -142,8 +142,8 @@ FROM PROMOTIONS
 -- how many significant digits, and how many of them after the point, does the column actually use? a plain NUMBER
 -- declares neither; TM9 is the shortest fixed-notation text of the value, and its digits are counted with and
 -- without the point.
-SELECT MIN(LENGTH(REPLACE(T, '.'))) MIN_PRECISION,
-       MAX(LENGTH(REPLACE(T, '.'))) MAX_PRECISION,
+SELECT MIN(LENGTH(REPLACE(T, '.')))                                               MIN_PRECISION,
+       MAX(LENGTH(REPLACE(T, '.')))                                               MAX_PRECISION,
        MIN(CASE WHEN INSTR(T, '.') = 0 THEN 0 ELSE LENGTH(T) - INSTR(T, '.') END) MIN_SCALE,
        MAX(CASE WHEN INSTR(T, '.') = 0 THEN 0 ELSE LENGTH(T) - INSTR(T, '.') END) MAX_SCALE
 FROM (SELECT TO_CHAR(ABS(PROMO_COST), 'TM9') T FROM PROMOTIONS)
@@ -203,8 +203,8 @@ FROM PROMOTIONS
 -- how many significant digits, and how many of them after the point, does the column actually use? a plain NUMBER
 -- declares neither; TM9 is the shortest fixed-notation text of the value, and its digits are counted with and
 -- without the point.
-SELECT MIN(LENGTH(REPLACE(T, '.'))) MIN_PRECISION,
-       MAX(LENGTH(REPLACE(T, '.'))) MAX_PRECISION,
+SELECT MIN(LENGTH(REPLACE(T, '.')))                                               MIN_PRECISION,
+       MAX(LENGTH(REPLACE(T, '.')))                                               MAX_PRECISION,
        MIN(CASE WHEN INSTR(T, '.') = 0 THEN 0 ELSE LENGTH(T) - INSTR(T, '.') END) MIN_SCALE,
        MAX(CASE WHEN INSTR(T, '.') = 0 THEN 0 ELSE LENGTH(T) - INSTR(T, '.') END) MAX_SCALE
 FROM (SELECT TO_CHAR(ABS(PROMO_TOTAL_ID), 'TM9') T FROM PROMOTIONS)

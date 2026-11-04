@@ -22,11 +22,13 @@ package com.github.jinahya.oracle.sample.persistence.co;
  */
 
 /**
- * Verifies the mappings of {@link OrderItem} against the schema generated into the in-memory database.
+ * Verifies the mappings of {@link OrderItem} against the schema generated into the in-memory
+ * database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class OrderItem_PersistenceTest extends _Entity_PersistenceTest<OrderItem> {
+class OrderItem_PersistenceTest
+        extends _Entity_PersistenceTest<OrderItem> {
 
     OrderItem_PersistenceTest() {
         super(OrderItem.class);

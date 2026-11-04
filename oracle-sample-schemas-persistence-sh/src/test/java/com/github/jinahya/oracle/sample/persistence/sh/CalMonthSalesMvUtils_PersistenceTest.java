@@ -20,39 +20,41 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
-import jakarta.inject.Inject;
+import com.github.jinahya.persistence.util.JinahyaEntityManagerUtils;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import java.time.YearMonth;
 import java.util.Arrays;
 import java.util.function.Function;
 
-import org.jboss.weld.junit5.auto.AddBeanClasses;
-import org.jboss.weld.junit5.auto.EnableAutoWeld;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-
-import static com.github.jinahya.oracle.sample.persistence.sh._Entity_PersistenceTest_Producer.__TestPU;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * A class for testing {@link CalMonthSalesMvUtils} against the {@code sh-test} unit, where the materialized view is an
- * ordinary table: a row is inserted with its key, reloaded, and read through the utility.
+ * A class for testing {@link CalMonthSalesMvUtils} against the {@code sh-test} unit, where the
+ * materialized view is an ordinary table: a row is inserted with its key, reloaded, and read
+ * through the utility.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@AddBeanClasses(_Entity_PersistenceTest_Producer.class)
-@EnableAutoWeld
 class CalMonthSalesMvUtils_PersistenceTest {
 
-    /** Sets the named field of the specified instance reflectively, for an entity which exposes no setter for it. */
+    /**
+     * Sets the named field of the specified instance reflectively, for an entity which exposes no
+     * setter for it.
+     */
     private static <T> T withField(final T instance, final String name, final Object value) {
         try {
-            // the field may be declared by a superclass, e.g. the mapped superclass the entity extends
+            // the field may be declared by a superclass, e.g. the mapped superclass the entity
+            // extends
             var type = (Class<?>) instance.getClass();
             while (type.getSuperclass() != null
-                   && Arrays.stream(type.getDeclaredFields()).noneMatch(f -> f.getName().equals(name))) {
+                   && Arrays.stream(type.getDeclaredFields())
+                           .noneMatch(f -> f.getName().equals(name))) {
                 type = type.getSuperclass();
             }
             final var field = type.getDeclaredField(name);
@@ -64,13 +66,16 @@ class CalMonthSalesMvUtils_PersistenceTest {
         }
     }
 
-    private <R> R inRolledBackTransaction(final Function<? super EntityManager, ? extends R> function) {
-        return ___Persistence_TestUtils.applyInTransactionAndRollback(entityManager, function);
+    private <R> R inRolledBackTransaction(
+            final Function<? super EntityManager, ? extends R> function) {
+        return JinahyaEntityManagerUtils.applyInTransactionAndRollback(entityManager, function);
     }
 
-    private static CalMonthSalesMv persistAndReload(final EntityManager em, final String calendarMonthDesc) {
-        em.persist(withField(new CalMonthSalesMv(), CalMonthSalesMv.ATTRIBUTE_NAME_CALENDAR_MONTH_DESC,
-                             calendarMonthDesc));
+    private static CalMonthSalesMv persistAndReload(final EntityManager em,
+                                                    final String calendarMonthDesc) {
+        em.persist(
+                withField(new CalMonthSalesMv(), CalMonthSalesMv.ATTRIBUTE_NAME_CALENDAR_MONTH_DESC,
+                          calendarMonthDesc));
         em.flush();
         em.clear();
         return em.find(CalMonthSalesMv.class, calendarMonthDesc);
@@ -86,7 +91,9 @@ class CalMonthSalesMvUtils_PersistenceTest {
         void _Mapped_Reloaded() {
             inRolledBackTransaction(em -> {
                 final var reloaded = persistAndReload(em, "2019-01");
-                assertThat(CalMonthSalesMvUtils.getCalendarMonthDescAsMapped(reloaded, String::length)).isEqualTo(7);
+                assertThat(CalMonthSalesMvUtils.getCalendarMonthDescAsMapped(reloaded,
+                                                                             String::length)).isEqualTo(
+                        7);
                 return null;
             });
         }
@@ -107,8 +114,13 @@ class CalMonthSalesMvUtils_PersistenceTest {
         }
     }
 
+    @AfterEach
+    void closeEntityManager() {
+        entityManager.close();
+    }
+
     // -----------------------------------------------------------------------------------------------------------------
-    @__TestPU
-    @Inject
-    private EntityManager entityManager;
+    private final EntityManager entityManager =
+            __PersistenceTest_Utils.applyEntityManagerFactory(
+                    EntityManagerFactory::createEntityManager);
 }

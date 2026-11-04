@@ -20,14 +20,13 @@ package com.github.jinahya.oracle.sample.persistence.sh.mapped;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.persistence.sh.mapped.PromotionTotalId;
-
 /**
  * A randomizer for {@link PromotionTotalId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class PromotionTotalId_Randomizer extends PromotionNamedId_Randomizer<PromotionTotalId, Long> {
+class PromotionTotalId_Randomizer
+        extends PromotionNamedId_Randomizer<PromotionTotalId, Long> {
 
     PromotionTotalId_Randomizer() {
         super(PromotionTotalId.class);

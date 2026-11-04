@@ -21,11 +21,13 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  */
 
 /**
- * Verifies the mappings of {@link Product} against the schema generated into the in-memory database.
+ * Verifies the mappings of {@link Product} against the schema generated into the in-memory
+ * database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Product_PersistenceTest extends _Entity_PersistenceTest<Product> {
+class Product_PersistenceTest
+        extends _Entity_PersistenceTest<Product> {
 
     Product_PersistenceTest() {
         super(Product.class);

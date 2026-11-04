@@ -26,11 +26,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Verifies the mappings of {@link EmpDetailsView} against the installed {@code HR} schema.
  * <p>
- * The persistence unit does not list {@link EmpDetailsView}, so every test here aborts until it does.
+ * The persistence unit does not list {@link EmpDetailsView}, so every test here aborts until it
+ * does.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class EmpDetailsView_PersistenceIT extends _Entity_PersistenceIT<EmpDetailsView> {
+class EmpDetailsView_PersistenceIT
+        extends _Entity_PersistenceIT<EmpDetailsView> {
 
     EmpDetailsView_PersistenceIT() {
         super(EmpDetailsView.class);
@@ -39,8 +41,8 @@ class EmpDetailsView_PersistenceIT extends _Entity_PersistenceIT<EmpDetailsView>
     // -----------------------------------------------------------------------------------------------------------------
 
     /**
-     * Does nothing; {@value EmpDetailsView#TABLE_NAME} is a view, so there is nothing to insert a randomized instance
-     * into. The installed object is read-only.
+     * Does nothing; {@value EmpDetailsView#TABLE_NAME} is a view, so there is nothing to insert a
+     * randomized instance into. The installed object is read-only.
      */
     @Disabled("a view: nothing is inserted into it")
     @Override

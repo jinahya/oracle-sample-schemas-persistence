@@ -20,12 +20,11 @@ package com.github.jinahya.oracle.sample.persistence.sh.mapped;
  * #L%
  */
 
-import java.time.Month;
-
-import com.github.jinahya.oracle.sample.persistence.sh.mapped.TimeMonthNameAttributeConverter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
+
+import java.time.Month;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -48,7 +47,9 @@ class TimeMonthNameAttributeConverter_Test {
         final var dbData = new TimeMonthNameAttributeConverter().convertToDatabaseColumn(attribute);
         assertThat(dbData)
                 .isNotNull()
-                .hasSizeBetween(3, 9) // the TIMES.CALENDAR_MONTH_NAME and FISCAL_MONTH_NAME columns are VARCHAR2(9)
+                .hasSizeBetween(3,
+                                9) // the TIMES.CALENDAR_MONTH_NAME and FISCAL_MONTH_NAME columns
+                // are VARCHAR2(9)
                 .isEqualToIgnoringCase(attribute.name());
         assertThat(Character.isUpperCase(dbData.charAt(0))).isTrue();
         assertThat(dbData.substring(1)).isLowerCase();
@@ -69,7 +70,8 @@ class TimeMonthNameAttributeConverter_Test {
 
     @Test
     void convertToEntityAttribute_IllegalArgumentException_NotAMonthName() {
-        assertThatThrownBy(() -> new TimeMonthNameAttributeConverter().convertToEntityAttribute("Smarch"))
+        assertThatThrownBy(
+                () -> new TimeMonthNameAttributeConverter().convertToEntityAttribute("Smarch"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

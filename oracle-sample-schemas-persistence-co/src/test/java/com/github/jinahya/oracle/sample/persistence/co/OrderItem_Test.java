@@ -28,7 +28,8 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class OrderItem_Test extends _Entity_Test<OrderItem> {
+class OrderItem_Test
+        extends _Entity_Test<OrderItem> {
 
     OrderItem_Test() {
         super(OrderItem.class);
@@ -39,8 +40,9 @@ class OrderItem_Test extends _Entity_Test<OrderItem> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link OrderItem#equals(Object) equals} compares only the embedded {@code @Id} {@code id} -- the
-     * composite key of {@code orderId} and {@code lineItemId} -- because every other attribute is mutable state.
+     * @implNote {@link OrderItem#equals(Object) equals} compares only the embedded
+     *         {@code @Id} {@code id} -- the composite key of {@code orderId} and {@code lineItemId}
+     *         -- because every other attribute is mutable state.
      */
     @Override
     public SingleTypeEqualsVerifierApi<OrderItem> equals_verifier_() {

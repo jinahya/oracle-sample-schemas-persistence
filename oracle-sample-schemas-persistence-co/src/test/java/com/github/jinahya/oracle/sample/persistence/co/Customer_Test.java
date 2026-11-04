@@ -27,7 +27,8 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class Customer_Test extends _Entity_Test<Customer> {
+class Customer_Test
+        extends _Entity_Test<Customer> {
 
     Customer_Test() {
         super(Customer.class);
@@ -40,10 +41,11 @@ class Customer_Test extends _Entity_Test<Customer> {
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Customer#equals(Object) equals} compares the business key -- the unique
-     * {@value Customer#COLUMN_NAME_EMAIL_ADDRESS} column -- rather than the surrogate
-     * {@value Customer#ATTRIBUTE_NAME_CUSTOMER_ID}, which is null until the row is inserted. The remaining attributes
-     * are mutable state, and the associations are recursive, so none of them may take part.
+     * @implNote {@link Customer#equals(Object) equals} compares the business key -- the
+     *         unique {@value Customer#COLUMN_NAME_EMAIL_ADDRESS} column -- rather than the
+     *         surrogate {@value Customer#ATTRIBUTE_NAME_CUSTOMER_ID}, which is null until the row
+     *         is inserted. The remaining attributes are mutable state, and the associations are
+     *         recursive, so none of them may take part.
      */
     @Override
     public SingleTypeEqualsVerifierApi<Customer> equals_verifier_() {

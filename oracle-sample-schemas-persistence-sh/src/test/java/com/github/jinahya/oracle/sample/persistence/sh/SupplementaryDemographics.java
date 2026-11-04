@@ -57,7 +57,8 @@ import jakarta.persistence.Table;
 )
 @Entity
 @Table(name = MappedSupplementaryDemographics.TABLE_NAME)
-public class SupplementaryDemographics extends MappedSupplementaryDemographics {
+public class SupplementaryDemographics
+        extends MappedSupplementaryDemographics {
 
     // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
 
