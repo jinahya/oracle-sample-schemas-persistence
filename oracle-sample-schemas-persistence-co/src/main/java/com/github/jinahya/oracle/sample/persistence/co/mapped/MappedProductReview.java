@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.co.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.common.annotation.OraComment;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
@@ -37,6 +38,7 @@ import java.math.BigDecimal;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@OraComment("A relational view of the reviews stored in the JSON for each product")
 public abstract class MappedProductReview {
 
     /**

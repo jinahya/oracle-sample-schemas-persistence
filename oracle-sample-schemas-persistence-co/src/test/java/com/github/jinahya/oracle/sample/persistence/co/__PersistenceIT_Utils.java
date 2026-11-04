@@ -27,7 +27,7 @@ import java.util.Objects;
 import java.util.function.Function;
 
 /**
- * The helpers the integration tests share, on the Oracle database {@code docker-compose.yml} brings
+ * The helpers the integration tests share, on the Oracle database {@code compose.yaml} brings
  * up, on the {@value #PERSISTENCE_UNIT_NAME} unit. The factory is opened once for the whole run,
  * through {@link JinahyaPersistenceTestUtils#applyCachedEntityManagerFactory(String, Function)},
  * and closed when the virtual machine shuts down.

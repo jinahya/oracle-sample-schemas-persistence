@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.common.annotation.OraComment;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
@@ -34,6 +35,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
+@OraComment("country dimension table (snowflake)")
 public abstract class MappedCountry {
 
     /**

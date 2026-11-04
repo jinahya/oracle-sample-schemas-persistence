@@ -166,7 +166,7 @@ public abstract class MappedJobHistoryId {
             updatable = false,
             precision = MappedJobHistory.COLUMN_PRECISION_EMPLOYEE_ID,
             scale = MappedJobHistory.COLUMN_SCALE_EMPLOYEE_ID,
-            comment = "A not null column in the complex primary key employee_id+start_date. \n" +
+            comment = "A not null column in the complex primary key employee_id+start_date.\n" +
                     "Foreign key to employee_id column of the employee table"
     )
     private Integer employeeId;
@@ -180,8 +180,8 @@ public abstract class MappedJobHistoryId {
 //                insertable = false,
             insertable = true, // eclipselink
             updatable = false,
-            comment = "A not null column in the complex primary key employee_id+start_date. \n" +
-                    "Must be less than the end_date of the job_history table. (enforced by \n" +
+            comment = "A not null column in the complex primary key employee_id+start_date.\n" +
+                    "Must be less than the end_date of the job_history table. (enforced by\n" +
                     "constraint jhist_date_interval)"
     )
     private LocalDateTime startDate;

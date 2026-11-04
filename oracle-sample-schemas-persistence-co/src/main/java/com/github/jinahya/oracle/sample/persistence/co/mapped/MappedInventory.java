@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.co.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.common.annotation.OraComment;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -45,6 +46,7 @@ import jakarta.validation.constraints.NotNull;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
+@OraComment("Details of the quantity of stock available for products at each location")
 public abstract class MappedInventory {
 
     /**

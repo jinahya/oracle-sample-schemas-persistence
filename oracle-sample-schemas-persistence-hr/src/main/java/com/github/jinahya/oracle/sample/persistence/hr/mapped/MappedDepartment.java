@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.hr.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.common.annotation.OraComment;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
@@ -47,6 +48,8 @@ import java.util.Objects;
  * @author Myoungkwon Hwang
  */
 @MappedSuperclass
+@OraComment("Departments table that shows details of departments where employees\n" +
+            "work. references with locations, employees, and job_history tables.")
 public abstract class MappedDepartment {
 
     /**
@@ -394,8 +397,8 @@ public abstract class MappedDepartment {
     @Column(name = COLUMN_NAME_DEPARTMENT_NAME, nullable = false, insertable = true,
             updatable = true,
             length = COLUMN_LENGTH_DEPARTMENT_NAME,
-            comment = "A not null column that shows name of a department. Administration, \n" +
-                    "Marketing, Purchasing, Human Resources, Shipping, IT, Executive, Public \n" +
+            comment = "A not null column that shows name of a department. Administration,\n" +
+                    "Marketing, Purchasing, Human Resources, Shipping, IT, Executive, Public\n" +
                     "Relations, Sales, Finance, and Accounting. ")
     private String departmentName;
 

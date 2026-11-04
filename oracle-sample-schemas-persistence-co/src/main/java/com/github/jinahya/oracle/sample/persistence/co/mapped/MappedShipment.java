@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.co.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.common.annotation.OraComment;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Basic;
@@ -49,6 +50,7 @@ import jakarta.validation.constraints.Size;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
+@OraComment("Details of where ordered goods will be delivered")
 public abstract class MappedShipment {
 
     /**

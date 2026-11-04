@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.hr.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.common.annotation.OraComment;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
@@ -47,6 +48,9 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
+@OraComment("Locations table that contains specific address of a specific office,\n" +
+            "warehouse, and/or production site of a company. Does not store addresses /\n" +
+            "locations of customers. references with the departments and countries tables. ")
 public abstract class MappedLocation {
 
     /**
@@ -479,7 +483,7 @@ public abstract class MappedLocation {
             insertable = true,
             updatable = true,
             length = COLUMN_LENGTH_POSTAL_CODE,
-            comment = "Postal code of the location of an office, warehouse, or production site \n" +
+            comment = "Postal code of the location of an office, warehouse, or production site\n" +
                     "of a company. "
     )
     private String postalCode;
@@ -493,7 +497,7 @@ public abstract class MappedLocation {
             insertable = true,
             updatable = true,
             length = COLUMN_LENGTH_CITY,
-            comment = "A not null column that shows city where an office, warehouse, or \n" +
+            comment = "A not null column that shows city where an office, warehouse, or\n" +
                     "production site of a company is located. "
     )
     private String city;
@@ -506,7 +510,7 @@ public abstract class MappedLocation {
             insertable = true,
             updatable = true,
             length = COLUMN_LENGTH_STATE_PROVINCE,
-            comment = "State or Province where an office, warehouse, or production site of a \n" +
+            comment = "State or Province where an office, warehouse, or production site of a\n" +
                     "company is located."
     )
     private String stateProvince;

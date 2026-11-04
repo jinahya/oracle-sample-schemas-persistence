@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.hr.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.common.annotation.OraComment;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
@@ -38,6 +39,8 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
+@OraComment("Regions table that contains region numbers and names. references with the Countries " +
+            "table.")
 public abstract class MappedRegion {
 
     /**

@@ -93,7 +93,7 @@ you get a working database with those six `SH` tables empty, and the command to 
 ### Notes
 
 The database's data directory, `/opt/oracle/oradata`, is not bound to the host; its line in
-`docker-compose.yml` is commented out. The database lives in the container, so `down` removes
+`compose.yaml` is commented out. The database lives in the container, so `down` removes
 it, and every `compose.sh` run starts from an empty database.
 
 `SH` installs only partially under SQL\*Plus, which is why `compose.sh` reinstalls

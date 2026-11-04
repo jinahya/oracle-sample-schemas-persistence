@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.co.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.common.annotation.OraComment;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -48,6 +49,7 @@ import java.util.Optional;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
+@OraComment("Physical and virtual locations where people can purchase products")
 public abstract class MappedStore {
 
     /**

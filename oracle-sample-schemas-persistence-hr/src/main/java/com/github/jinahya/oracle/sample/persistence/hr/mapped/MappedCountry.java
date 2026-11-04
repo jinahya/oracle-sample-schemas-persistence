@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.hr.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.common.annotation.OraComment;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
@@ -45,6 +46,7 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
+@OraComment("country table. References with locations table.")
 public abstract class MappedCountry {
 
     /**

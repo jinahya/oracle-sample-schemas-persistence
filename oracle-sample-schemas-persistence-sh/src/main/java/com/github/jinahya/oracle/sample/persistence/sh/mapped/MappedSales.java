@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.common.annotation.OraComment;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
@@ -50,6 +51,8 @@ import java.util.Objects;
  * @see MappedSalesId
  */
 @MappedSuperclass
+@OraComment("facts table, without a primary key; all rows are uniquely identified by the " +
+            "combination of all foreign keys")
 public abstract class MappedSales {
 
     /**

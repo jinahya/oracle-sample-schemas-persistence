@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.hr.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.common.annotation.OraComment;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
@@ -61,6 +62,11 @@ import java.util.function.Function;
  * @see MappedJobHistoryId
  */
 @MappedSuperclass
+@OraComment("Table that stores job history of the employees. If an employee\n" +
+            "changes departments within the job or changes jobs within the department,\n" +
+            "new rows get inserted into this table with old job information of the\n" +
+            "employee. Contains a complex primary key: employee_id+start_date.\n" +
+            "References with jobs, employees, and departments tables.")
 public abstract class MappedJobHistory {
 
     /**
@@ -428,7 +434,7 @@ public abstract class MappedJobHistory {
             updatable = false,
             precision = COLUMN_PRECISION_EMPLOYEE_ID,
             scale = COLUMN_SCALE_EMPLOYEE_ID,
-            comment = "A not null column in the complex primary key employee_id+start_date. \n" +
+            comment = "A not null column in the complex primary key employee_id+start_date.\n" +
                     "Foreign key to employee_id column of the employee table"
     )
     private Integer employeeId;
@@ -443,8 +449,8 @@ public abstract class MappedJobHistory {
             nullable = false,
             insertable = true,
             updatable = false,
-            comment = "A not null column in the complex primary key employee_id+start_date. \n" +
-                    "Must be less than the end_date of the job_history table. (enforced by \n" +
+            comment = "A not null column in the complex primary key employee_id+start_date.\n" +
+                    "Must be less than the end_date of the job_history table. (enforced by\n" +
                     "constraint jhist_date_interval)"
     )
     private LocalDateTime startDate;
@@ -459,8 +465,8 @@ public abstract class MappedJobHistory {
             nullable = false,
             insertable = false,
             updatable = false,
-            comment = "Last day of the employee in this job role. A not null column. Must be \n" +
-                    "greater than the start_date of the job_history table. \n" +
+            comment = "Last day of the employee in this job role. A not null column. Must be\n" +
+                    "greater than the start_date of the job_history table.\n" +
                     "(enforced by constraint jhist_date_interval)"
     )
     private LocalDateTime endDate;
@@ -475,7 +481,7 @@ public abstract class MappedJobHistory {
             insertable = false,
             updatable = false,
             length = COLUMN_LENGTH_JOB_ID,
-            comment = "Job role in which the employee worked in the past; foreign key to \n" +
+            comment = "Job role in which the employee worked in the past; foreign key to\n" +
                     "job_id column in the jobs table. A not null column."
     )
     private String jobId;

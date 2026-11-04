@@ -126,9 +126,9 @@ import jakarta.validation.constraints.NotNull;
                        }
                )
        },
-       comment = "Table that stores job history of the employees. If an employee \n" +
-               "changes departments within the job or changes jobs within the department, \n" +
-               "new rows get inserted into this table with old job information of the \n" +
+       comment = "Table that stores job history of the employees. If an employee\n" +
+               "changes departments within the job or changes jobs within the department,\n" +
+               "new rows get inserted into this table with old job information of the\n" +
                "employee. Contains a complex primary key: employee_id+start_date.\n" +
                "References with jobs, employees, and departments tables."
 )

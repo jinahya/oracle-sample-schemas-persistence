@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.hr.mapped;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.common.annotation.OraComment;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.Basic;
@@ -57,6 +58,8 @@ import java.util.Objects;
  * @author Jaehan Lim
  */
 @MappedSuperclass
+@OraComment("employees table. References with departments,\n" +
+            "jobs, job_history tables. Contains a self reference.")
 public abstract class MappedEmployee {
 
     /**
@@ -919,7 +922,7 @@ public abstract class MappedEmployee {
             insertable = false,
             updatable = false,
             length = COLUMN_LENGTH_JOB_ID,
-            comment = "Current job of the employee; foreign key to job_id column of the \n" +
+            comment = "Current job of the employee; foreign key to job_id column of the\n" +
                     "jobs table. A not null column."
     )
     private String jobId;
@@ -932,7 +935,7 @@ public abstract class MappedEmployee {
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_SALARY, nullable = true, insertable = true, updatable = true,
             precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY,
-            comment = "Monthly salary of the employee. Must be greater \n" +
+            comment = "Monthly salary of the employee. Must be greater\n" +
                     "than zero (enforced by constraint emp_salary_min)")
     private BigDecimal salary;
 
@@ -942,7 +945,7 @@ public abstract class MappedEmployee {
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_COMMISSION_PCT, nullable = true, insertable = true, updatable = true,
             precision = COLUMN_PRECISION_COMMISSION_PCT, scale = COLUMN_SCALE_COMMISSION_PCT,
-            comment = "Commission percentage of the employee; Only employees in sales \n" +
+            comment = "Commission percentage of the employee; Only employees in sales\n" +
                     "department elgible for commission percentage")
     private BigDecimal commissionPct;
 
@@ -959,8 +962,8 @@ public abstract class MappedEmployee {
             updatable = false,
             precision = COLUMN_PRECISION_MANAGER_ID,
             scale = COLUMN_SCALE_MANAGER_ID,
-            comment = "Manager id of the employee; has same domain as manager_id in \n" +
-                    "departments table. Foreign key to employee_id column of employees table. \n" +
+            comment = "Manager id of the employee; has same domain as manager_id in\n" +
+                    "departments table. Foreign key to employee_id column of employees table.\n" +
                     "(useful for reflexive joins and CONNECT BY query)"
     )
     private Integer managerId;
@@ -978,7 +981,7 @@ public abstract class MappedEmployee {
             updatable = false,
             precision = COLUMN_PRECISION_DEPARTMENT_ID,
             scale = COLUMN_SCALE_DEPARTMENT_ID,
-            comment = "Department id where employee works; foreign key to department_id \n" +
+            comment = "Department id where employee works; foreign key to department_id\n" +
                     "column of the departments table"
     )
     private Integer departmentId;

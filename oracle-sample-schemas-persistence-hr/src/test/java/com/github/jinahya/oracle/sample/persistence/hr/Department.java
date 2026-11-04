@@ -92,7 +92,7 @@ import java.util.Optional;
 )
 @Entity
 @Table(name = MappedDepartment.TABLE_NAME,
-       comment = "Departments table that shows details of departments where employees \n" +
+       comment = "Departments table that shows details of departments where employees\n" +
                "work. references with locations, employees, and job_history tables.")
 public class Department
         extends MappedDepartment {

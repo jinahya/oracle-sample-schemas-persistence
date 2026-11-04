@@ -4,7 +4,7 @@
 # Ctrl-C, which tears the stack back down again. Both ends use `down -v`.
 #
 # The database's data directory, /opt/oracle/oradata, is not bound to the host (its line in
-# docker-compose.yml is commented out), so it lives in the container, which `down -v` removes.
+# compose.yaml is commented out), so it lives in the container, which `down -v` removes.
 # Every run therefore starts from an empty database, and installs the sample schemas again,
 # which takes a few minutes.
 #

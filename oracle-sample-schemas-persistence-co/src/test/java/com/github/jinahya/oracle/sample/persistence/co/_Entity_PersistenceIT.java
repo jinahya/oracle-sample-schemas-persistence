@@ -38,7 +38,7 @@ import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.appl
  * connecting as {@code dmlonly}.
  * <p>
  * These run under the {@code failsafe} profile only, and require the container from
- * {@code docker-compose.yml} to be up. Generating a schema is disabled for this unit: the tables
+ * {@code compose.yaml} to be up. Generating a schema is disabled for this unit: the tables
  * are the ones Oracle's own installer created, and the mappings are verified against them rather
  * than the other way round.
  *
