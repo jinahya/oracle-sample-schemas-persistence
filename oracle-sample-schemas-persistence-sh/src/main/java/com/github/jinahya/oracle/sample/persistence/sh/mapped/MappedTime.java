@@ -45,7 +45,7 @@ public abstract class MappedTime {
      */
     public static final String TABLE_NAME = "TIMES";
 
-    // -------------------------------------------------------------------------------------------------------- TIME_ID
+    // ------------------------------------------------------------------------------------- TIME_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps.
@@ -59,7 +59,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
-    // ------------------------------------------------------------------------------------------------------- DAY_NAME
+    // ------------------------------------------------------------------------------------ DAY_NAME
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAY_NAME} attribute maps.
@@ -83,7 +83,7 @@ public abstract class MappedTime {
      */
     public static final int SIZE_MAX_DAY_NAME = COLUMN_LENGTH_DAY_NAME;
 
-    // --------------------------------------------------------------------------------------------- DAY_NUMBER_IN_WEEK
+    // -------------------------------------------------------------------------- DAY_NUMBER_IN_WEEK
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK}
@@ -131,7 +131,7 @@ public abstract class MappedTime {
      */
     public static final int ATTRIBUTE_MAX_DAY_NUMBER_IN_WEEK = COLUMN_MAX_DAY_NUMBER_IN_WEEK;
 
-    // -------------------------------------------------------------------------------------------- DAY_NUMBER_IN_MONTH
+    // ------------------------------------------------------------------------- DAY_NUMBER_IN_MONTH
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH}
@@ -180,7 +180,7 @@ public abstract class MappedTime {
      */
     public static final int ATTRIBUTE_MAX_DAY_NUMBER_IN_MONTH = COLUMN_MAX_DAY_NUMBER_IN_MONTH;
 
-    // ------------------------------------------------------------------------------------------- CALENDAR_WEEK_NUMBER
+    // ------------------------------------------------------------------------ CALENDAR_WEEK_NUMBER
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER}
@@ -229,7 +229,7 @@ public abstract class MappedTime {
      */
     public static final int ATTRIBUTE_MAX_CALENDAR_WEEK_NUMBER = COLUMN_MAX_CALENDAR_WEEK_NUMBER;
 
-    // --------------------------------------------------------------------------------------------- FISCAL_WEEK_NUMBER
+    // -------------------------------------------------------------------------- FISCAL_WEEK_NUMBER
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_WEEK_NUMBER}
@@ -277,7 +277,7 @@ public abstract class MappedTime {
      */
     public static final int ATTRIBUTE_MAX_FISCAL_WEEK_NUMBER = COLUMN_MAX_FISCAL_WEEK_NUMBER;
 
-    // ------------------------------------------------------------------------------------------------ WEEK_ENDING_DAY
+    // ----------------------------------------------------------------------------- WEEK_ENDING_DAY
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute
@@ -291,7 +291,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_WEEK_ENDING_DAY = "weekEndingDay";
 
-    // --------------------------------------------------------------------------------------------- WEEK_ENDING_DAY_ID
+    // -------------------------------------------------------------------------- WEEK_ENDING_DAY_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY_ID}
@@ -305,8 +305,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_WEEK_ENDING_DAY_ID = "weekEndingDayId";
 
-    // ------------------------------------------------------------------------------------------
-    // CALENDAR_MONTH_NUMBER
+    // ----------------------------------------------------------------------- CALENDAR_MONTH_NUMBER
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER}
@@ -355,7 +354,7 @@ public abstract class MappedTime {
      */
     public static final int ATTRIBUTE_MAX_CALENDAR_MONTH_NUMBER = COLUMN_MAX_CALENDAR_MONTH_NUMBER;
 
-    // -------------------------------------------------------------------------------------------- FISCAL_MONTH_NUMBER
+    // ------------------------------------------------------------------------- FISCAL_MONTH_NUMBER
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER}
@@ -404,7 +403,7 @@ public abstract class MappedTime {
      */
     public static final int ATTRIBUTE_MAX_FISCAL_MONTH_NUMBER = COLUMN_MAX_FISCAL_MONTH_NUMBER;
 
-    // -------------------------------------------------------------------------------------------- CALENDAR_MONTH_DESC
+    // ------------------------------------------------------------------------- CALENDAR_MONTH_DESC
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC}
@@ -429,7 +428,7 @@ public abstract class MappedTime {
      */
     public static final int SIZE_MAX_CALENDAR_MONTH_DESC = COLUMN_LENGTH_CALENDAR_MONTH_DESC;
 
-    // ---------------------------------------------------------------------------------------------- CALENDAR_MONTH_ID
+    // --------------------------------------------------------------------------- CALENDAR_MONTH_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_ID}
@@ -443,7 +442,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_MONTH_ID = "calendarMonthId";
 
-    // ---------------------------------------------------------------------------------------------- FISCAL_MONTH_DESC
+    // --------------------------------------------------------------------------- FISCAL_MONTH_DESC
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_DESC}
@@ -468,7 +467,7 @@ public abstract class MappedTime {
      */
     public static final int SIZE_MAX_FISCAL_MONTH_DESC = COLUMN_LENGTH_FISCAL_MONTH_DESC;
 
-    // ------------------------------------------------------------------------------------------------ FISCAL_MONTH_ID
+    // ----------------------------------------------------------------------------- FISCAL_MONTH_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_ID} attribute
@@ -482,7 +481,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_FISCAL_MONTH_ID = "fiscalMonthId";
 
-    // ---------------------------------------------------------------------------------------------- DAYS_IN_CAL_MONTH
+    // --------------------------------------------------------------------------- DAYS_IN_CAL_MONTH
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_MONTH}
@@ -496,7 +495,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_DAYS_IN_CAL_MONTH = "daysInCalMonth";
 
-    // ---------------------------------------------------------------------------------------------- DAYS_IN_FIS_MONTH
+    // --------------------------------------------------------------------------- DAYS_IN_FIS_MONTH
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_MONTH}
@@ -510,7 +509,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_DAYS_IN_FIS_MONTH = "daysInFisMonth";
 
-    // ----------------------------------------------------------------------------------------------- END_OF_CAL_MONTH
+    // ---------------------------------------------------------------------------- END_OF_CAL_MONTH
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_CAL_MONTH} attribute
@@ -524,7 +523,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_END_OF_CAL_MONTH = "endOfCalMonth";
 
-    // ----------------------------------------------------------------------------------------------- END_OF_FIS_MONTH
+    // ---------------------------------------------------------------------------- END_OF_FIS_MONTH
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_FIS_MONTH} attribute
@@ -538,7 +537,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_END_OF_FIS_MONTH = "endOfFisMonth";
 
-    // -------------------------------------------------------------------------------------------- CALENDAR_MONTH_NAME
+    // ------------------------------------------------------------------------- CALENDAR_MONTH_NAME
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NAME}
@@ -563,7 +562,7 @@ public abstract class MappedTime {
      */
     public static final int SIZE_MAX_CALENDAR_MONTH_NAME = COLUMN_LENGTH_CALENDAR_MONTH_NAME;
 
-    // ---------------------------------------------------------------------------------------------- FISCAL_MONTH_NAME
+    // --------------------------------------------------------------------------- FISCAL_MONTH_NAME
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NAME}
@@ -588,8 +587,7 @@ public abstract class MappedTime {
      */
     public static final int SIZE_MAX_FISCAL_MONTH_NAME = COLUMN_LENGTH_FISCAL_MONTH_NAME;
 
-    // ------------------------------------------------------------------------------------------
-    // CALENDAR_QUARTER_DESC
+    // ----------------------------------------------------------------------- CALENDAR_QUARTER_DESC
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_DESC}
@@ -614,7 +612,7 @@ public abstract class MappedTime {
      */
     public static final int SIZE_MAX_CALENDAR_QUARTER_DESC = COLUMN_LENGTH_CALENDAR_QUARTER_DESC;
 
-    // -------------------------------------------------------------------------------------------- CALENDAR_QUARTER_ID
+    // ------------------------------------------------------------------------- CALENDAR_QUARTER_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_ID}
@@ -628,7 +626,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_QUARTER_ID = "calendarQuarterId";
 
-    // -------------------------------------------------------------------------------------------- FISCAL_QUARTER_DESC
+    // ------------------------------------------------------------------------- FISCAL_QUARTER_DESC
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_DESC}
@@ -653,7 +651,7 @@ public abstract class MappedTime {
      */
     public static final int SIZE_MAX_FISCAL_QUARTER_DESC = COLUMN_LENGTH_FISCAL_QUARTER_DESC;
 
-    // ---------------------------------------------------------------------------------------------- FISCAL_QUARTER_ID
+    // --------------------------------------------------------------------------- FISCAL_QUARTER_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_ID}
@@ -667,7 +665,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_FISCAL_QUARTER_ID = "fiscalQuarterId";
 
-    // -------------------------------------------------------------------------------------------- DAYS_IN_CAL_QUARTER
+    // ------------------------------------------------------------------------- DAYS_IN_CAL_QUARTER
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_QUARTER}
@@ -681,7 +679,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_DAYS_IN_CAL_QUARTER = "daysInCalQuarter";
 
-    // -------------------------------------------------------------------------------------------- DAYS_IN_FIS_QUARTER
+    // ------------------------------------------------------------------------- DAYS_IN_FIS_QUARTER
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_QUARTER}
@@ -695,7 +693,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_DAYS_IN_FIS_QUARTER = "daysInFisQuarter";
 
-    // --------------------------------------------------------------------------------------------- END_OF_CAL_QUARTER
+    // -------------------------------------------------------------------------- END_OF_CAL_QUARTER
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_CAL_QUARTER}
@@ -709,7 +707,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_END_OF_CAL_QUARTER = "endOfCalQuarter";
 
-    // --------------------------------------------------------------------------------------------- END_OF_FIS_QUARTER
+    // -------------------------------------------------------------------------- END_OF_FIS_QUARTER
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_FIS_QUARTER}
@@ -723,8 +721,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_END_OF_FIS_QUARTER = "endOfFisQuarter";
 
-    // ----------------------------------------------------------------------------------------
-    // CALENDAR_QUARTER_NUMBER
+    // --------------------------------------------------------------------- CALENDAR_QUARTER_NUMBER
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER}
@@ -776,8 +773,7 @@ public abstract class MappedTime {
     public static final int ATTRIBUTE_MAX_CALENDAR_QUARTER_NUMBER =
             COLUMN_MAX_CALENDAR_QUARTER_NUMBER;
 
-    // ------------------------------------------------------------------------------------------
-    // FISCAL_QUARTER_NUMBER
+    // ----------------------------------------------------------------------- FISCAL_QUARTER_NUMBER
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER}
@@ -826,7 +822,7 @@ public abstract class MappedTime {
      */
     public static final int ATTRIBUTE_MAX_FISCAL_QUARTER_NUMBER = COLUMN_MAX_FISCAL_QUARTER_NUMBER;
 
-    // -------------------------------------------------------------------------------------------------- CALENDAR_YEAR
+    // ------------------------------------------------------------------------------- CALENDAR_YEAR
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute
@@ -872,7 +868,7 @@ public abstract class MappedTime {
      */
     public static final int ATTRIBUTE_MAX_CALENDAR_YEAR = COLUMN_MAX_CALENDAR_YEAR;
 
-    // ----------------------------------------------------------------------------------------------- CALENDAR_YEAR_ID
+    // ---------------------------------------------------------------------------- CALENDAR_YEAR_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CALENDAR_YEAR_ID} attribute
@@ -886,7 +882,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_YEAR_ID = "calendarYearId";
 
-    // ---------------------------------------------------------------------------------------------------- FISCAL_YEAR
+    // --------------------------------------------------------------------------------- FISCAL_YEAR
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_YEAR} attribute
@@ -932,7 +928,7 @@ public abstract class MappedTime {
      */
     public static final int ATTRIBUTE_MAX_FISCAL_YEAR = COLUMN_MAX_FISCAL_YEAR;
 
-    // ------------------------------------------------------------------------------------------------- FISCAL_YEAR_ID
+    // ------------------------------------------------------------------------------ FISCAL_YEAR_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_FISCAL_YEAR_ID} attribute
@@ -946,7 +942,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_FISCAL_YEAR_ID = "fiscalYearId";
 
-    // ----------------------------------------------------------------------------------------------- DAYS_IN_CAL_YEAR
+    // ---------------------------------------------------------------------------- DAYS_IN_CAL_YEAR
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_YEAR} attribute
@@ -960,7 +956,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_DAYS_IN_CAL_YEAR = "daysInCalYear";
 
-    // ----------------------------------------------------------------------------------------------- DAYS_IN_FIS_YEAR
+    // ---------------------------------------------------------------------------- DAYS_IN_FIS_YEAR
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_YEAR} attribute
@@ -974,7 +970,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_DAYS_IN_FIS_YEAR = "daysInFisYear";
 
-    // ------------------------------------------------------------------------------------------------ END_OF_CAL_YEAR
+    // ----------------------------------------------------------------------------- END_OF_CAL_YEAR
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_CAL_YEAR} attribute
@@ -988,7 +984,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_END_OF_CAL_YEAR = "endOfCalYear";
 
-    // ------------------------------------------------------------------------------------------------ END_OF_FIS_YEAR
+    // ----------------------------------------------------------------------------- END_OF_FIS_YEAR
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_OF_FIS_YEAR} attribute
@@ -1002,7 +998,7 @@ public abstract class MappedTime {
      */
     public static final String ATTRIBUTE_NAME_END_OF_FIS_YEAR = "endOfFisYear";
 
-    // --------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -1011,7 +1007,7 @@ public abstract class MappedTime {
         super();
     }
 
-    // ----------------------------------------------------------------------------------------------- java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -1082,7 +1078,7 @@ public abstract class MappedTime {
     public final int hashCode() {
         return Objects.hashCode(getTimeId());
     }
-    // --------------------------------------------------------------------------------------------------------- timeId
+    // -------------------------------------------------------------------------------------- timeId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
@@ -1103,7 +1099,7 @@ public abstract class MappedTime {
         this.timeId = timeId;
     }
 
-    // --------------------------------------------------------------------------------------------------------- dayName
+    // ------------------------------------------------------------------------------------- dayName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DAY_NAME} attribute.
@@ -1124,7 +1120,7 @@ public abstract class MappedTime {
         this.dayName = dayName;
     }
 
-    // ------------------------------------------------------------------------------------------------- dayNumberInWeek
+    // ----------------------------------------------------------------------------- dayNumberInWeek
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_WEEK} attribute.
@@ -1145,7 +1141,7 @@ public abstract class MappedTime {
         this.dayNumberInWeek = dayNumberInWeek;
     }
 
-    // ----------------------------------------------------------------------------------------------- dayNumberInMonth
+    // ---------------------------------------------------------------------------- dayNumberInMonth
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DAY_NUMBER_IN_MONTH} attribute.
@@ -1167,7 +1163,7 @@ public abstract class MappedTime {
         this.dayNumberInMonth = dayNumberInMonth;
     }
 
-    // --------------------------------------------------------------------------------------------- calendarWeekNumber
+    // -------------------------------------------------------------------------- calendarWeekNumber
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CALENDAR_WEEK_NUMBER} attribute.
@@ -1189,7 +1185,7 @@ public abstract class MappedTime {
         this.calendarWeekNumber = calendarWeekNumber;
     }
 
-    // ----------------------------------------------------------------------------------------------- fiscalWeekNumber
+    // ---------------------------------------------------------------------------- fiscalWeekNumber
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_FISCAL_WEEK_NUMBER} attribute.
@@ -1210,7 +1206,7 @@ public abstract class MappedTime {
         this.fiscalWeekNumber = fiscalWeekNumber;
     }
 
-    // -------------------------------------------------------------------------------------------------- weekEndingDay
+    // ------------------------------------------------------------------------------- weekEndingDay
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
@@ -1231,7 +1227,7 @@ public abstract class MappedTime {
         this.weekEndingDay = weekEndingDay;
     }
 
-    // ------------------------------------------------------------------------------------------------ weekEndingDayId
+    // ----------------------------------------------------------------------------- weekEndingDayId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY_ID} attribute.
@@ -1252,7 +1248,7 @@ public abstract class MappedTime {
         this.weekEndingDayId = weekEndingDayId;
     }
 
-    // -------------------------------------------------------------------------------------------- calendarMonthNumber
+    // ------------------------------------------------------------------------- calendarMonthNumber
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NUMBER} attribute.
@@ -1274,7 +1270,7 @@ public abstract class MappedTime {
         this.calendarMonthNumber = calendarMonthNumber;
     }
 
-    // ---------------------------------------------------------------------------------------------- fiscalMonthNumber
+    // --------------------------------------------------------------------------- fiscalMonthNumber
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NUMBER} attribute.
@@ -1296,7 +1292,7 @@ public abstract class MappedTime {
         this.fiscalMonthNumber = fiscalMonthNumber;
     }
 
-    // ---------------------------------------------------------------------------------------------- calendarMonthDesc
+    // --------------------------------------------------------------------------- calendarMonthDesc
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute.
@@ -1318,7 +1314,7 @@ public abstract class MappedTime {
         this.calendarMonthDesc = calendarMonthDesc;
     }
 
-    // ------------------------------------------------------------------------------------------------ calendarMonthId
+    // ----------------------------------------------------------------------------- calendarMonthId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_ID} attribute.
@@ -1339,7 +1335,7 @@ public abstract class MappedTime {
         this.calendarMonthId = calendarMonthId;
     }
 
-    // ------------------------------------------------------------------------------------------------ fiscalMonthDesc
+    // ----------------------------------------------------------------------------- fiscalMonthDesc
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_FISCAL_MONTH_DESC} attribute.
@@ -1360,7 +1356,7 @@ public abstract class MappedTime {
         this.fiscalMonthDesc = fiscalMonthDesc;
     }
 
-    // -------------------------------------------------------------------------------------------------- fiscalMonthId
+    // ------------------------------------------------------------------------------- fiscalMonthId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_FISCAL_MONTH_ID} attribute.
@@ -1381,7 +1377,7 @@ public abstract class MappedTime {
         this.fiscalMonthId = fiscalMonthId;
     }
 
-    // ------------------------------------------------------------------------------------------------- daysInCalMonth
+    // ------------------------------------------------------------------------------ daysInCalMonth
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_MONTH} attribute.
@@ -1402,7 +1398,7 @@ public abstract class MappedTime {
         this.daysInCalMonth = daysInCalMonth;
     }
 
-    // ------------------------------------------------------------------------------------------------- daysInFisMonth
+    // ------------------------------------------------------------------------------ daysInFisMonth
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_MONTH} attribute.
@@ -1423,7 +1419,7 @@ public abstract class MappedTime {
         this.daysInFisMonth = daysInFisMonth;
     }
 
-    // -------------------------------------------------------------------------------------------------- endOfCalMonth
+    // ------------------------------------------------------------------------------- endOfCalMonth
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_MONTH} attribute.
@@ -1444,7 +1440,7 @@ public abstract class MappedTime {
         this.endOfCalMonth = endOfCalMonth;
     }
 
-    // -------------------------------------------------------------------------------------------------- endOfFisMonth
+    // ------------------------------------------------------------------------------- endOfFisMonth
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_MONTH} attribute.
@@ -1465,7 +1461,7 @@ public abstract class MappedTime {
         this.endOfFisMonth = endOfFisMonth;
     }
 
-    // ---------------------------------------------------------------------------------------------- calendarMonthName
+    // --------------------------------------------------------------------------- calendarMonthName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_NAME} attribute.
@@ -1487,7 +1483,7 @@ public abstract class MappedTime {
         this.calendarMonthName = calendarMonthName;
     }
 
-    // ------------------------------------------------------------------------------------------------ fiscalMonthName
+    // ----------------------------------------------------------------------------- fiscalMonthName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_FISCAL_MONTH_NAME} attribute.
@@ -1508,7 +1504,7 @@ public abstract class MappedTime {
         this.fiscalMonthName = fiscalMonthName;
     }
 
-    // -------------------------------------------------------------------------------------------- calendarQuarterDesc
+    // ------------------------------------------------------------------------- calendarQuarterDesc
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_DESC} attribute.
@@ -1530,7 +1526,7 @@ public abstract class MappedTime {
         this.calendarQuarterDesc = calendarQuarterDesc;
     }
 
-    // ---------------------------------------------------------------------------------------------- calendarQuarterId
+    // --------------------------------------------------------------------------- calendarQuarterId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_ID} attribute.
@@ -1552,7 +1548,7 @@ public abstract class MappedTime {
         this.calendarQuarterId = calendarQuarterId;
     }
 
-    // ---------------------------------------------------------------------------------------------- fiscalQuarterDesc
+    // --------------------------------------------------------------------------- fiscalQuarterDesc
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_DESC} attribute.
@@ -1574,7 +1570,7 @@ public abstract class MappedTime {
         this.fiscalQuarterDesc = fiscalQuarterDesc;
     }
 
-    // ------------------------------------------------------------------------------------------------ fiscalQuarterId
+    // ----------------------------------------------------------------------------- fiscalQuarterId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_ID} attribute.
@@ -1595,7 +1591,7 @@ public abstract class MappedTime {
         this.fiscalQuarterId = fiscalQuarterId;
     }
 
-    // ----------------------------------------------------------------------------------------------- daysInCalQuarter
+    // ---------------------------------------------------------------------------- daysInCalQuarter
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_QUARTER} attribute.
@@ -1617,7 +1613,7 @@ public abstract class MappedTime {
         this.daysInCalQuarter = daysInCalQuarter;
     }
 
-    // ----------------------------------------------------------------------------------------------- daysInFisQuarter
+    // ---------------------------------------------------------------------------- daysInFisQuarter
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_QUARTER} attribute.
@@ -1639,7 +1635,7 @@ public abstract class MappedTime {
         this.daysInFisQuarter = daysInFisQuarter;
     }
 
-    // ------------------------------------------------------------------------------------------------ endOfCalQuarter
+    // ----------------------------------------------------------------------------- endOfCalQuarter
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_QUARTER} attribute.
@@ -1660,7 +1656,7 @@ public abstract class MappedTime {
         this.endOfCalQuarter = endOfCalQuarter;
     }
 
-    // ------------------------------------------------------------------------------------------------ endOfFisQuarter
+    // ----------------------------------------------------------------------------- endOfFisQuarter
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_QUARTER} attribute.
@@ -1681,8 +1677,7 @@ public abstract class MappedTime {
         this.endOfFisQuarter = endOfFisQuarter;
     }
 
-    // ------------------------------------------------------------------------------------------
-    // calendarQuarterNumber
+    // ----------------------------------------------------------------------- calendarQuarterNumber
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CALENDAR_QUARTER_NUMBER} attribute.
@@ -1704,7 +1699,7 @@ public abstract class MappedTime {
         this.calendarQuarterNumber = calendarQuarterNumber;
     }
 
-    // -------------------------------------------------------------------------------------------- fiscalQuarterNumber
+    // ------------------------------------------------------------------------- fiscalQuarterNumber
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_FISCAL_QUARTER_NUMBER} attribute.
@@ -1726,7 +1721,7 @@ public abstract class MappedTime {
         this.fiscalQuarterNumber = fiscalQuarterNumber;
     }
 
-    // --------------------------------------------------------------------------------------------------- calendarYear
+    // -------------------------------------------------------------------------------- calendarYear
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CALENDAR_YEAR} attribute.
@@ -1747,7 +1742,7 @@ public abstract class MappedTime {
         this.calendarYear = calendarYear;
     }
 
-    // ------------------------------------------------------------------------------------------------- calendarYearId
+    // ------------------------------------------------------------------------------ calendarYearId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CALENDAR_YEAR_ID} attribute.
@@ -1768,7 +1763,7 @@ public abstract class MappedTime {
         this.calendarYearId = calendarYearId;
     }
 
-    // ----------------------------------------------------------------------------------------------------- fiscalYear
+    // ---------------------------------------------------------------------------------- fiscalYear
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_FISCAL_YEAR} attribute.
@@ -1789,7 +1784,7 @@ public abstract class MappedTime {
         this.fiscalYear = fiscalYear;
     }
 
-    // --------------------------------------------------------------------------------------------------- fiscalYearId
+    // -------------------------------------------------------------------------------- fiscalYearId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_FISCAL_YEAR_ID} attribute.
@@ -1810,7 +1805,7 @@ public abstract class MappedTime {
         this.fiscalYearId = fiscalYearId;
     }
 
-    // -------------------------------------------------------------------------------------------------- daysInCalYear
+    // ------------------------------------------------------------------------------- daysInCalYear
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DAYS_IN_CAL_YEAR} attribute.
@@ -1831,7 +1826,7 @@ public abstract class MappedTime {
         this.daysInCalYear = daysInCalYear;
     }
 
-    // -------------------------------------------------------------------------------------------------- daysInFisYear
+    // ------------------------------------------------------------------------------- daysInFisYear
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DAYS_IN_FIS_YEAR} attribute.
@@ -1852,7 +1847,7 @@ public abstract class MappedTime {
         this.daysInFisYear = daysInFisYear;
     }
 
-    // --------------------------------------------------------------------------------------------------- endOfCalYear
+    // -------------------------------------------------------------------------------- endOfCalYear
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_END_OF_CAL_YEAR} attribute.
@@ -1873,7 +1868,7 @@ public abstract class MappedTime {
         this.endOfCalYear = endOfCalYear;
     }
 
-    // --------------------------------------------------------------------------------------------------- endOfFisYear
+    // -------------------------------------------------------------------------------- endOfFisYear
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_END_OF_FIS_YEAR} attribute.
@@ -1894,14 +1889,15 @@ public abstract class MappedTime {
         this.endOfFisYear = endOfFisYear;
     }
 
-    // ---------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @NotNull
     @Id
-    @Column(name = COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = COLUMN_NAME_TIME_ID, nullable = false, insertable = true, updatable = false,
+            comment = "primary key; day date, finest granularity, CORRECT ORDER")
     private LocalDateTime timeId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Size(max = SIZE_MAX_DAY_NAME)
     @NotNull
     @Basic(optional = false)
@@ -1909,7 +1905,8 @@ public abstract class MappedTime {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_DAY_NAME
+            length = COLUMN_LENGTH_DAY_NAME,
+            comment = "Monday to Sunday, repeating"
     )
     private String dayName;
 
@@ -1920,7 +1917,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_DAY_NUMBER_IN_WEEK,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "1 to 7, repeating"
     )
     private Integer dayNumberInWeek;
 
@@ -1931,7 +1929,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_DAY_NUMBER_IN_MONTH,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "1 to 31, repeating"
     )
     private Integer dayNumberInMonth;
 
@@ -1942,7 +1941,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_CALENDAR_WEEK_NUMBER,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "1 to 53, repeating"
     )
     private Integer calendarWeekNumber;
 
@@ -1953,7 +1953,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_FISCAL_WEEK_NUMBER,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "1 to 53, repeating"
     )
     private Integer fiscalWeekNumber;
 
@@ -1962,7 +1963,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_WEEK_ENDING_DAY,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "date of last day in week, CORRECT ORDER"
     )
     private LocalDateTime weekEndingDay;
 
@@ -1982,7 +1984,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_CALENDAR_MONTH_NUMBER,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "1 to 12, repeating"
     )
     private Integer calendarMonthNumber;
 
@@ -1993,7 +1996,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_FISCAL_MONTH_NUMBER,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "1 to 12, repeating"
     )
     private Integer fiscalMonthNumber;
 
@@ -2004,7 +2008,8 @@ public abstract class MappedTime {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CALENDAR_MONTH_DESC
+            length = COLUMN_LENGTH_CALENDAR_MONTH_DESC,
+            comment = "e.g. 1998-01, CORRECT ORDER"
     )
     private String calendarMonthDesc;
 
@@ -2024,7 +2029,8 @@ public abstract class MappedTime {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_FISCAL_MONTH_DESC
+            length = COLUMN_LENGTH_FISCAL_MONTH_DESC,
+            comment = "e.g. 1998-01, CORRECT ORDER"
     )
     private String fiscalMonthDesc;
 
@@ -2042,7 +2048,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_DAYS_IN_CAL_MONTH,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "e.g. 28,31, repeating"
     )
     private Long daysInCalMonth;
 
@@ -2051,7 +2058,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_DAYS_IN_FIS_MONTH,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "e.g. 25,32, repeating"
     )
     private Long daysInFisMonth;
 
@@ -2060,7 +2068,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_END_OF_CAL_MONTH,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "last day of calendar month"
     )
     private LocalDateTime endOfCalMonth;
 
@@ -2069,7 +2078,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_END_OF_FIS_MONTH,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "last day of fiscal month"
     )
     private LocalDateTime endOfFisMonth;
 
@@ -2080,7 +2090,8 @@ public abstract class MappedTime {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CALENDAR_MONTH_NAME
+            length = COLUMN_LENGTH_CALENDAR_MONTH_NAME,
+            comment = "January to December, repeating"
     )
     private String calendarMonthName;
 
@@ -2091,7 +2102,8 @@ public abstract class MappedTime {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_FISCAL_MONTH_NAME
+            length = COLUMN_LENGTH_FISCAL_MONTH_NAME,
+            comment = "January to December, repeating"
     )
     private String fiscalMonthName;
 
@@ -2102,7 +2114,8 @@ public abstract class MappedTime {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CALENDAR_QUARTER_DESC
+            length = COLUMN_LENGTH_CALENDAR_QUARTER_DESC,
+            comment = "e.g. 1998-Q1, CORRECT ORDER"
     )
     private String calendarQuarterDesc;
 
@@ -2122,7 +2135,8 @@ public abstract class MappedTime {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_FISCAL_QUARTER_DESC
+            length = COLUMN_LENGTH_FISCAL_QUARTER_DESC,
+            comment = "e.g. 1999-Q3, CORRECT ORDER"
     )
     private String fiscalQuarterDesc;
 
@@ -2140,7 +2154,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_DAYS_IN_CAL_QUARTER,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "e.g. 88,90, repeating"
     )
     private Long daysInCalQuarter;
 
@@ -2149,7 +2164,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_DAYS_IN_FIS_QUARTER,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "e.g. 88,90, repeating"
     )
     private Long daysInFisQuarter;
 
@@ -2158,7 +2174,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_END_OF_CAL_QUARTER,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "last day of calendar quarter"
     )
     private LocalDateTime endOfCalQuarter;
 
@@ -2167,7 +2184,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_END_OF_FIS_QUARTER,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "last day of fiscal quarter"
     )
     private LocalDateTime endOfFisQuarter;
 
@@ -2178,7 +2196,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_CALENDAR_QUARTER_NUMBER,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "1 to 4, repeating"
     )
     private Integer calendarQuarterNumber;
 
@@ -2189,7 +2208,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_FISCAL_QUARTER_NUMBER,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "1 to 4, repeating"
     )
     private Integer fiscalQuarterNumber;
 
@@ -2200,7 +2220,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_CALENDAR_YEAR,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "e.g. 1999, CORRECT ORDER"
     )
     private Integer calendarYear;
 
@@ -2220,7 +2241,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_FISCAL_YEAR,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "e.g. 1999, CORRECT ORDER"
     )
     private Integer fiscalYear;
 
@@ -2238,7 +2260,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_DAYS_IN_CAL_YEAR,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "365,366 repeating"
     )
     private Long daysInCalYear;
 
@@ -2247,7 +2270,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_DAYS_IN_FIS_YEAR,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "e.g. 355,364, repeating"
     )
     private Long daysInFisYear;
 
@@ -2256,7 +2280,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_END_OF_CAL_YEAR,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "last day of cal year"
     )
     private LocalDateTime endOfCalYear;
 
@@ -2265,7 +2290,8 @@ public abstract class MappedTime {
     @Column(name = COLUMN_NAME_END_OF_FIS_YEAR,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "last day of fiscal year"
     )
     private LocalDateTime endOfFisYear;
 }

@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.persistence.co;
+package com.github.jinahya.oracle.sample.persistence.co.mapped;
 
 /*-
  * #%L
@@ -20,30 +20,35 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.persistence.co.mapped.StoreLogo;
-import com.github.jinahya.oracle.sample.persistence.co.mapped.MappedBinary;
+import com.github.jinahya.oracle.sample.persistence.co._NonEntity_Test;
 import org.junit.jupiter.api.Test;
 
 /**
- * A class for testing the {@link StoreLogo} embeddable class.
+ * An abstract class for testing subclasses of {@link MappedBinary}.
  *
+ * @param <T> the type of the subclass under test.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class StoreLogo_Test
-        extends _NonEntity_Test<StoreLogo> {
-
-    StoreLogo_Test() {
-        super(StoreLogo.class);
-    }
-
-    // ------------------------------------------------------------------------------------------------- equals/hashCode
+abstract class MappedBinary_Test<T extends MappedBinary>
+        extends _NonEntity_Test<T> {
 
     /**
-     * Does nothing; {@link StoreLogo} is not a class {@code EqualsVerifier} has anything to
-     * verify.
+     * Creates a new instance for the specified subclass of {@link MappedBinary}.
      *
-     * @implNote Neither {@link StoreLogo} nor {@link MappedBinary}, which holds its state,
-     *         declares {@code equals(Object)}, so instances carry {@link Object}'s reference
+     * @param targetClass the subclass to test.
+     */
+    MappedBinary_Test(final Class<T> targetClass) {
+        super(targetClass);
+    }
+
+    // ----------------------------------------------------------------------------- equals/hashCode
+
+    /**
+     * Does nothing; a subclass of {@link MappedBinary} is not a class {@code EqualsVerifier} has
+     * anything to verify.
+     *
+     * @implNote Neither {@link MappedBinary}, which holds the state, nor its subclasses
+     *         declare {@code equals(Object)}, so instances carry {@link Object}'s reference
      *         equality. There is no value equality to verify, and suppressing every check that
      *         follows from that would leave the test asserting nothing anyway.
      */

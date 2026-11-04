@@ -48,7 +48,7 @@ public abstract class MappedSalesId {
      */
     public static final String TABLE_NAME = MappedSales.TABLE_NAME;
 
-    // --------------------------------------------------------------------------------------------------------- PROD_ID
+    // ------------------------------------------------------------------------------------- PROD_ID
 
     /**
      * The name of the attribute which maps the {@value MappedSales#COLUMN_NAME_PROD_ID} column. The
@@ -56,7 +56,7 @@ public abstract class MappedSalesId {
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
-    // --------------------------------------------------------------------------------------------------------- CUST_ID
+    // ------------------------------------------------------------------------------------- CUST_ID
 
     /**
      * The name of the attribute which maps the {@value MappedSales#COLUMN_NAME_CUST_ID} column. The
@@ -64,7 +64,7 @@ public abstract class MappedSalesId {
      */
     public static final String ATTRIBUTE_NAME_CUST_ID = "custId";
 
-    // --------------------------------------------------------------------------------------------------------- TIME_ID
+    // ------------------------------------------------------------------------------------- TIME_ID
 
     /**
      * The name of the attribute which maps the {@value MappedSales#COLUMN_NAME_TIME_ID} column. The
@@ -72,7 +72,7 @@ public abstract class MappedSalesId {
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
-    // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
+    // ---------------------------------------------------------------------------------- CHANNEL_ID
 
     /**
      * The name of the attribute which maps the {@value MappedSales#COLUMN_NAME_CHANNEL_ID} column.
@@ -80,7 +80,7 @@ public abstract class MappedSalesId {
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
-    // -------------------------------------------------------------------------------------------------------- PROMO_ID
+    // ------------------------------------------------------------------------------------ PROMO_ID
 
     /**
      * The name of the attribute which maps the {@value MappedSales#COLUMN_NAME_PROMO_ID} column.
@@ -88,8 +88,7 @@ public abstract class MappedSalesId {
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
-    // ------------------------------------------------------------------------------------------
-    // STATIC_FACTORY_METHODS
+    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance of a subclass, with the specified column values.
@@ -121,7 +120,7 @@ public abstract class MappedSalesId {
         return instance;
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -130,7 +129,7 @@ public abstract class MappedSalesId {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public final String toString() {
@@ -178,7 +177,7 @@ public abstract class MappedSalesId {
         return Objects.hash(prodId, custId, timeId, channelId, promoId);
     }
 
-    // ---------------------------------------------------------------------------------------------------------- prodId
+    // -------------------------------------------------------------------------------------- prodId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
@@ -199,7 +198,7 @@ public abstract class MappedSalesId {
         this.prodId = prodId;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- custId
+    // -------------------------------------------------------------------------------------- custId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute.
@@ -220,7 +219,7 @@ public abstract class MappedSalesId {
         this.custId = custId;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- timeId
+    // -------------------------------------------------------------------------------------- timeId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
@@ -241,7 +240,7 @@ public abstract class MappedSalesId {
         this.timeId = timeId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- channelId
+    // ----------------------------------------------------------------------------------- channelId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
@@ -262,7 +261,7 @@ public abstract class MappedSalesId {
         this.channelId = channelId;
     }
 
-    // --------------------------------------------------------------------------------------------------------- promoId
+    // ------------------------------------------------------------------------------------- promoId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
@@ -283,26 +282,29 @@ public abstract class MappedSalesId {
         this.promoId = promoId;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @NotNull
     @Max(MappedSales.ATTRIBUTE_MAX_PROD_ID)
     @Min(MappedSales.ATTRIBUTE_MIN_PROD_ID)
     @Basic(optional = false)
     @Column(name = MappedSales.COLUMN_NAME_PROD_ID, nullable = false, insertable = true,
-            updatable = false)
+            updatable = false,
+            comment = "FK to the products dimension table")
     private Integer prodId;
 
     @NotNull
     @Basic(optional = false)
     @Column(name = MappedSales.COLUMN_NAME_CUST_ID, nullable = false, insertable = true,
-            updatable = false)
+            updatable = false,
+            comment = "FK to the customers dimension table")
     private Long custId;
 
     @NotNull
     @Basic(optional = false)
     @Column(name = MappedSales.COLUMN_NAME_TIME_ID, nullable = false, insertable = true,
-            updatable = false)
+            updatable = false,
+            comment = "FK to the times dimension table")
     private LocalDateTime timeId;
 
     @NotNull
@@ -310,7 +312,8 @@ public abstract class MappedSalesId {
     @Min(MappedSales.ATTRIBUTE_MIN_CHANNEL_ID)
     @Basic(optional = false)
     @Column(name = MappedSales.COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true,
-            updatable = false)
+            updatable = false,
+            comment = "FK to the channels dimension table")
     private Long channelId;
 
     @NotNull
@@ -318,6 +321,8 @@ public abstract class MappedSalesId {
     @Min(MappedSales.ATTRIBUTE_MIN_PROMO_ID)
     @Basic(optional = false)
     @Column(name = MappedSales.COLUMN_NAME_PROMO_ID, nullable = false, insertable = true,
-            updatable = false)
+            updatable = false,
+            comment = "promotion identifier, without FK constraint (intentionally) to show outer " +
+                    "join optimization")
     private Integer promoId;
 }

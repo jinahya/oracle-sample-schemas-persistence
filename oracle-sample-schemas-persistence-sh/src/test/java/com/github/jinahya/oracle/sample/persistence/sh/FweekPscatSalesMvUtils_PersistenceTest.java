@@ -81,7 +81,7 @@ class FweekPscatSalesMvUtils_PersistenceTest {
                 .getSingleResult();
     }
 
-    // ------------------------------------------------------------------------------------------------ id.weekEndingDay
+    // ---------------------------------------------------------------------------- id.weekEndingDay
 
     @DisplayName("getIdWeekEndingDay(fweekPscatSalesMv)")
     @Nested
@@ -98,7 +98,7 @@ class FweekPscatSalesMvUtils_PersistenceTest {
         }
     }
 
-    // ---------------------------------------------------------------------------------------------- id.prodSubcategory
+    // -------------------------------------------------------------------------- id.prodSubcategory
 
     @DisplayName("getIdProdSubcategory(fweekPscatSalesMv)")
     @Nested
@@ -115,7 +115,7 @@ class FweekPscatSalesMvUtils_PersistenceTest {
         }
     }
 
-    // ---------------------------------------------------------------------------------------------------- id.channelId
+    // -------------------------------------------------------------------------------- id.channelId
 
     @DisplayName("getIdChannelId(fweekPscatSalesMv)")
     @Nested
@@ -132,7 +132,7 @@ class FweekPscatSalesMvUtils_PersistenceTest {
         }
     }
 
-    // ------------------------------------------------------------------------------------------------------ id.promoId
+    // ---------------------------------------------------------------------------------- id.promoId
 
     @DisplayName("getIdPromoId(fweekPscatSalesMv)")
     @Nested
@@ -154,7 +154,7 @@ class FweekPscatSalesMvUtils_PersistenceTest {
         entityManager.close();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     private final EntityManager entityManager =
             __PersistenceTest_Utils.applyEntityManagerFactory(
                     EntityManagerFactory::createEntityManager);

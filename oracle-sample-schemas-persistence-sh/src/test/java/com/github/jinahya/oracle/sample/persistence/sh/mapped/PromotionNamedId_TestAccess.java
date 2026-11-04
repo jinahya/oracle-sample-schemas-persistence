@@ -34,7 +34,7 @@ public final class PromotionNamedId_TestAccess {
      */
     public static final String ATTRIBUTE_NAME_ID = PromotionNamedId.ATTRIBUTE_NAME_ID;
 
-    // -------------------------------------------------------------------------------------------------- STATIC_METHODS
+    // ------------------------------------------------------------------------------ STATIC_METHODS
 
     /**
      * Returns the name of the specified instance.
@@ -57,7 +57,7 @@ public final class PromotionNamedId_TestAccess {
         return instance.getId();
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     private PromotionNamedId_TestAccess() {
         throw new AssertionError("instantiation is not allowed");

@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class Naive_Customer_Test {
 
-    // -------------------------------------------------------------------------------------------------------- toString
+    // ------------------------------------------------------------------------------------ toString
 
     @DisplayName("toString() of a constructed instance is not blank")
     @Test
@@ -52,7 +52,7 @@ class Naive_Customer_Test {
         assertThat(instance.toString()).isNotBlank();
     }
 
-    // ------------------------------------------------------------------------------------------------- equals/hashCode
+    // ----------------------------------------------------------------------------- equals/hashCode
 
     @DisplayName("equals/hashCode compare by emailAddress only")
     @Test

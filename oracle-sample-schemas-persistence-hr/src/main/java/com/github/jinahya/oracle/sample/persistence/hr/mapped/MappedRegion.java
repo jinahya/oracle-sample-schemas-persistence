@@ -45,7 +45,7 @@ public abstract class MappedRegion {
      */
     public static final String TABLE_NAME = "REGIONS";
 
-    // -------------------------------------------------------------------------------------------- REGION_ID / regionId
+    // ------------------------------------------------------------------------ REGION_ID / regionId
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION_ID} attribute maps.
@@ -59,8 +59,7 @@ public abstract class MappedRegion {
      */
     public static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
 
-    // ----------------------------------------------------------------------------------------
-    // REGION_NAME / regionName
+    // -------------------------------------------------------------------- REGION_NAME / regionName
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute
@@ -91,7 +90,7 @@ public abstract class MappedRegion {
      */
     public static final int SIZE_MAX_REGION_NAME = COLUMN_LENGTH_REGION_NAME;
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -100,7 +99,7 @@ public abstract class MappedRegion {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public final String toString() {
@@ -136,7 +135,7 @@ public abstract class MappedRegion {
         return Objects.hashCode(getRegionId());
     }
 
-    // -------------------------------------------------------------------------------------------------------- regionId
+    // ------------------------------------------------------------------------------------ regionId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_REGION_ID} attribute.
@@ -158,7 +157,7 @@ public abstract class MappedRegion {
         this.regionId = regionId;
     }
 
-    // ------------------------------------------------------------------------------------------------------ regionName
+    // ---------------------------------------------------------------------------------- regionName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
@@ -180,14 +179,15 @@ public abstract class MappedRegion {
         this.regionName = regionName;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @NotNull
     @Id
-    @Column(name = COLUMN_NAME_REGION_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = COLUMN_NAME_REGION_ID, nullable = false, insertable = true, updatable = false,
+            comment = "Primary key of regions table.")
     private Long regionId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nullable
     @Size(min = SIZE_MIN_REGION_NAME, max = SIZE_MAX_REGION_NAME)
     @Basic(optional = true, fetch = FetchType.EAGER)
@@ -195,7 +195,8 @@ public abstract class MappedRegion {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_REGION_NAME
+            length = COLUMN_LENGTH_REGION_NAME,
+            comment = "Names of regions. Locations are in the countries of these regions."
     )
     private String regionName;
 }

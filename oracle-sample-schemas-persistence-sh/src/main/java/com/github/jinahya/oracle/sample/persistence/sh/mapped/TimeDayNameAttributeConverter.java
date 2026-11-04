@@ -41,14 +41,13 @@ import java.util.Locale;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see MappedTime#getDayName()
  * @see <a href="https://github.com/jinahya/oracle-sample-schemas-persistence/issues/6">#6 Map
- *         TIMES.DAY_NAME as
- *         DayOfWeek with TimeDayNameAttributeConverter</a>
+ *         TIMES.DAY_NAME as DayOfWeek with TimeDayNameAttributeConverter</a>
  */
 @Converter(autoApply = false)
 public class TimeDayNameAttributeConverter
         implements AttributeConverter<DayOfWeek, String> {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -57,8 +56,7 @@ public class TimeDayNameAttributeConverter
         super();
     }
 
-    // ---------------------------------------------------------------------- jakarta.persistence
-    // .AttributeConverter
+    // ------------------------------------------------------ jakarta.persistence.AttributeConverter
 
     /**
      * {@inheritDoc}

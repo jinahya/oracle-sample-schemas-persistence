@@ -46,7 +46,8 @@ import java.util.Objects;
                                     nullable = false,
                                     insertable = true,
                                     updatable = true,
-                                    length = MappedPromotion.COLUMN_LENGTH_PROMO_SUBCATEGORY))
+                                    length = MappedPromotion.COLUMN_LENGTH_PROMO_SUBCATEGORY,
+                                    comment = "enables to investigate promotion hierarchies"))
 @AttributeOverride(name = PromotionNamedId.ATTRIBUTE_NAME_ID,
                    column = @Column(name = MappedPromotion.COLUMN_NAME_PROMO_SUBCATEGORY_ID,
                                     nullable = false,
@@ -56,8 +57,7 @@ import java.util.Objects;
 public class PromotionSubcategoryId
         extends PromotionNamedId<Long> {
 
-    // ------------------------------------------------------------------------------------------
-    // STATIC_FACTORY_METHODS
+    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified name and id.
@@ -74,7 +74,7 @@ public class PromotionSubcategoryId
         return of(PromotionSubcategoryId::new, promotionSubcategory, promotionSubcategoryId);
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -83,7 +83,7 @@ public class PromotionSubcategoryId
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     /**
      * {@inheritDoc}
@@ -121,7 +121,7 @@ public class PromotionSubcategoryId
         return Objects.hash(getPromoSubcategory(), getPromoSubcategoryId());
     }
 
-    // ------------------------------------------------------------------------------------------------ promoSubcategory
+    // ---------------------------------------------------------------------------- promoSubcategory
 
     /**
      * Returns current value of the {@value PromotionNamedId#ATTRIBUTE_NAME_NAME} attribute, the
@@ -146,7 +146,7 @@ public class PromotionSubcategoryId
         setName(promoSubcategory);
     }
 
-    // ---------------------------------------------------------------------------------------------- promoSubcategoryId
+    // -------------------------------------------------------------------------- promoSubcategoryId
 
     /**
      * Returns current value of the {@value PromotionNamedId#ATTRIBUTE_NAME_ID} attribute, the

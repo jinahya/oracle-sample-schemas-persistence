@@ -55,7 +55,7 @@ final class ___Persistence_TestUtils {
         );
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
     private ___Persistence_TestUtils() {
         throw new AssertionError("instantiation is not allowed");
     }

@@ -48,7 +48,7 @@ public abstract class MappedPromotion {
      */
     public static final String TABLE_NAME = "PROMOTIONS";
 
-    // -------------------------------------------------------------------------------------------------------- PROMO_ID
+    // ------------------------------------------------------------------------------------ PROMO_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps.
@@ -92,7 +92,7 @@ public abstract class MappedPromotion {
      */
     public static final int ATTRIBUTE_MAX_PROMO_ID = COLUMN_MAX_PROMO_ID;
 
-    // ------------------------------------------------------------------------------------------------------ PROMO_NAME
+    // ---------------------------------------------------------------------------------- PROMO_NAME
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_NAME} attribute maps.
@@ -117,7 +117,7 @@ public abstract class MappedPromotion {
      */
     public static final int SIZE_MAX_PROMO_NAME = COLUMN_LENGTH_PROMO_NAME;
 
-    // ----------------------------------------------------------------------------------------------- PROMO_SUBCATEGORY
+    // --------------------------------------------------------------------------- PROMO_SUBCATEGORY
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY}
@@ -142,7 +142,7 @@ public abstract class MappedPromotion {
      */
     public static final int SIZE_MAX_PROMO_SUBCATEGORY = COLUMN_LENGTH_PROMO_SUBCATEGORY;
 
-    // -------------------------------------------------------------------------------------------- PROMO_SUBCATEGORY_ID
+    // ------------------------------------------------------------------------ PROMO_SUBCATEGORY_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY_ID}
@@ -156,7 +156,7 @@ public abstract class MappedPromotion {
      */
     public static final String ATTRIBUTE_NAME_PROMO_SUBCATEGORY_ID = "promoSubcategoryId";
 
-    // -------------------------------------------------------------------------------------------------- PROMO_CATEGORY
+    // ------------------------------------------------------------------------------ PROMO_CATEGORY
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_CATEGORY} attribute
@@ -187,7 +187,7 @@ public abstract class MappedPromotion {
      */
     public static final int SIZE_MAX_PROMO_CATEGORY = COLUMN_LENGTH_PROMO_CATEGORY;
 
-    // ----------------------------------------------------------------------------------------------- PROMO_CATEGORY_ID
+    // --------------------------------------------------------------------------- PROMO_CATEGORY_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_CATEGORY_ID}
@@ -201,7 +201,7 @@ public abstract class MappedPromotion {
      */
     public static final String ATTRIBUTE_NAME_PROMO_CATEGORY_ID = "promoCategoryId";
 
-    // ------------------------------------------------------------------------------------------------------ PROMO_COST
+    // ---------------------------------------------------------------------------------- PROMO_COST
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_COST} attribute maps.
@@ -237,7 +237,7 @@ public abstract class MappedPromotion {
      */
     public static final int COLUMN_SCALE_PROMO_COST = 2;
 
-    // ------------------------------------------------------------------------------------------------ PROMO_BEGIN_DATE
+    // ---------------------------------------------------------------------------- PROMO_BEGIN_DATE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_BEGIN_DATE} attribute
@@ -251,7 +251,7 @@ public abstract class MappedPromotion {
      */
     public static final String ATTRIBUTE_NAME_PROMO_BEGIN_DATE = "promoBeginDate";
 
-    // -------------------------------------------------------------------------------------------------- PROMO_END_DATE
+    // ------------------------------------------------------------------------------ PROMO_END_DATE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_END_DATE} attribute
@@ -265,7 +265,7 @@ public abstract class MappedPromotion {
      */
     public static final String ATTRIBUTE_NAME_PROMO_END_DATE = "promoEndDate";
 
-    // ----------------------------------------------------------------------------------------------------- PROMO_TOTAL
+    // --------------------------------------------------------------------------------- PROMO_TOTAL
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_TOTAL} attribute
@@ -290,7 +290,7 @@ public abstract class MappedPromotion {
      */
     public static final int SIZE_MAX_PROMO_TOTAL = COLUMN_LENGTH_PROMO_TOTAL;
 
-    // -------------------------------------------------------------------------------------------------- PROMO_TOTAL_ID
+    // ------------------------------------------------------------------------------ PROMO_TOTAL_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_TOTAL_ID} attribute
@@ -304,7 +304,7 @@ public abstract class MappedPromotion {
      */
     public static final String ATTRIBUTE_NAME_PROMO_TOTAL_ID = "promoTotalId";
 
-    // --------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -313,7 +313,7 @@ public abstract class MappedPromotion {
         super();
     }
 
-    // ----------------------------------------------------------------------------------------------- java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -357,7 +357,7 @@ public abstract class MappedPromotion {
     public final int hashCode() {
         return Objects.hashCode(getPromoId());
     }
-    // -------------------------------------------------------------------------------------------------------- promoId
+    // ------------------------------------------------------------------------------------- promoId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
@@ -378,7 +378,7 @@ public abstract class MappedPromotion {
         this.promoId = promoId;
     }
 
-    // ------------------------------------------------------------------------------------------------------ promoName
+    // ----------------------------------------------------------------------------------- promoName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_NAME} attribute.
@@ -399,7 +399,7 @@ public abstract class MappedPromotion {
         this.promoName = promoName;
     }
 
-    // ----------------------------------------------------------------------------------------------- promoSubcategory
+    // ---------------------------------------------------------------------------- promoSubcategory
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY} attribute.
@@ -420,7 +420,7 @@ public abstract class MappedPromotion {
         this.promoSubcategory = promoSubcategory;
     }
 
-    // --------------------------------------------------------------------------------------------- promoSubcategoryId
+    // -------------------------------------------------------------------------- promoSubcategoryId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_SUBCATEGORY_ID} attribute.
@@ -442,7 +442,7 @@ public abstract class MappedPromotion {
         this.promoSubcategoryId = promoSubcategoryId;
     }
 
-    // -------------------------------------------------------------------------------------------------- promoCategory
+    // ------------------------------------------------------------------------------- promoCategory
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_CATEGORY} attribute.
@@ -463,7 +463,7 @@ public abstract class MappedPromotion {
         this.promoCategory = promoCategory;
     }
 
-    // ------------------------------------------------------------------------------------------------ promoCategoryId
+    // ----------------------------------------------------------------------------- promoCategoryId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_CATEGORY_ID} attribute.
@@ -484,7 +484,7 @@ public abstract class MappedPromotion {
         this.promoCategoryId = promoCategoryId;
     }
 
-    // ------------------------------------------------------------------------------------------------------ promoCost
+    // ----------------------------------------------------------------------------------- promoCost
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_COST} attribute.
@@ -505,7 +505,7 @@ public abstract class MappedPromotion {
         this.promoCost = promoCost;
     }
 
-    // ------------------------------------------------------------------------------------------------- promoBeginDate
+    // ------------------------------------------------------------------------------ promoBeginDate
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_BEGIN_DATE} attribute.
@@ -526,7 +526,7 @@ public abstract class MappedPromotion {
         this.promoBeginDate = promoBeginDate;
     }
 
-    // --------------------------------------------------------------------------------------------------- promoEndDate
+    // -------------------------------------------------------------------------------- promoEndDate
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_END_DATE} attribute.
@@ -547,7 +547,7 @@ public abstract class MappedPromotion {
         this.promoEndDate = promoEndDate;
     }
 
-    // ----------------------------------------------------------------------------------------------------- promoTotal
+    // ---------------------------------------------------------------------------------- promoTotal
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_TOTAL} attribute.
@@ -568,7 +568,7 @@ public abstract class MappedPromotion {
         this.promoTotal = promoTotal;
     }
 
-    // --------------------------------------------------------------------------------------------------- promoTotalId
+    // -------------------------------------------------------------------------------- promoTotalId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_TOTAL_ID} attribute.
@@ -589,15 +589,16 @@ public abstract class MappedPromotion {
         this.promoTotalId = promoTotalId;
     }
 
-    // ---------------------------------------------------------------------------------------------------------------
-    // ---------------------------------------------------------------------------------------------------------------
-    // ---------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @NotNull
     @Id
     @Max(ATTRIBUTE_MAX_PROMO_ID)
     @Min(ATTRIBUTE_MIN_PROMO_ID)
-    @Column(name = COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = COLUMN_NAME_PROMO_ID, nullable = false, insertable = true, updatable = false,
+            comment = "primary key column")
     private Integer promoId;
 
     @Size(max = SIZE_MAX_PROMO_NAME)
@@ -607,7 +608,8 @@ public abstract class MappedPromotion {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_PROMO_NAME
+            length = COLUMN_LENGTH_PROMO_NAME,
+            comment = "promotion description"
     )
     private String promoName;
 
@@ -618,7 +620,8 @@ public abstract class MappedPromotion {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_PROMO_SUBCATEGORY
+            length = COLUMN_LENGTH_PROMO_SUBCATEGORY,
+            comment = "enables to investigate promotion hierarchies"
     )
     private String promoSubcategory;
 
@@ -638,7 +641,8 @@ public abstract class MappedPromotion {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_PROMO_CATEGORY
+            length = COLUMN_LENGTH_PROMO_CATEGORY,
+            comment = "promotion category"
     )
     private String promoCategory;
 
@@ -660,7 +664,8 @@ public abstract class MappedPromotion {
             insertable = true,
             updatable = true,
             precision = COLUMN_PRECISION_PROMO_COST,
-            scale = COLUMN_SCALE_PROMO_COST
+            scale = COLUMN_SCALE_PROMO_COST,
+            comment = "promotion cost, to do promotion effect calculations"
     )
     private BigDecimal promoCost;
 
@@ -669,7 +674,8 @@ public abstract class MappedPromotion {
     @Column(name = COLUMN_NAME_PROMO_BEGIN_DATE,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "promotion begin day"
     )
     private LocalDateTime promoBeginDate;
 
@@ -678,7 +684,8 @@ public abstract class MappedPromotion {
     @Column(name = COLUMN_NAME_PROMO_END_DATE,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "promotion end day"
     )
     private LocalDateTime promoEndDate;
 

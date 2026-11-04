@@ -29,9 +29,9 @@
 -- ------------------------------------------------------------------------------------------------------ CO_STORES_A_01
 -- The regional manager pairs every physical store with its nearest other store, to share stock between them.
 SELECT s.store_name,
-       n.store_name                                                                            AS nearest_store,
+       n.store_name AS nearest_store,
        ROUND(SQRT(POWER(n.latitude - s.latitude, 2) + POWER(n.longitude - s.longitude, 2)),
-             2)                                                                                AS degrees_apart
+             2)     AS degrees_apart
 FROM stores s
          JOIN stores n ON n.store_id <> s.store_id
 WHERE s.latitude IS NOT NULL

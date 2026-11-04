@@ -47,7 +47,7 @@ public abstract class MappedProfitId {
      */
     public static final String TABLE_NAME = MappedProfit.TABLE_NAME;
 
-    // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
+    // ---------------------------------------------------------------------------------- CHANNEL_ID
 
     /**
      * The name of the attribute which maps the {@value MappedProfit#COLUMN_NAME_CHANNEL_ID} column.
@@ -55,7 +55,7 @@ public abstract class MappedProfitId {
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
-    // --------------------------------------------------------------------------------------------------------- CUST_ID
+    // ------------------------------------------------------------------------------------- CUST_ID
 
     /**
      * The name of the attribute which maps the {@value MappedProfit#COLUMN_NAME_CUST_ID} column.
@@ -63,7 +63,7 @@ public abstract class MappedProfitId {
      */
     public static final String ATTRIBUTE_NAME_CUST_ID = "custId";
 
-    // --------------------------------------------------------------------------------------------------------- PROD_ID
+    // ------------------------------------------------------------------------------------- PROD_ID
 
     /**
      * The name of the attribute which maps the {@value MappedProfit#COLUMN_NAME_PROD_ID} column.
@@ -71,7 +71,7 @@ public abstract class MappedProfitId {
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
-    // -------------------------------------------------------------------------------------------------------- PROMO_ID
+    // ------------------------------------------------------------------------------------ PROMO_ID
 
     /**
      * The name of the attribute which maps the {@value MappedProfit#COLUMN_NAME_PROMO_ID} column.
@@ -79,7 +79,7 @@ public abstract class MappedProfitId {
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
-    // --------------------------------------------------------------------------------------------------------- TIME_ID
+    // ------------------------------------------------------------------------------------- TIME_ID
 
     /**
      * The name of the attribute which maps the {@value MappedProfit#COLUMN_NAME_TIME_ID} column.
@@ -87,8 +87,7 @@ public abstract class MappedProfitId {
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
-    // ------------------------------------------------------------------------------------------
-    // STATIC_FACTORY_METHODS
+    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance of a subclass, with the specified column values.
@@ -120,7 +119,7 @@ public abstract class MappedProfitId {
         return instance;
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -129,7 +128,7 @@ public abstract class MappedProfitId {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -177,7 +176,7 @@ public abstract class MappedProfitId {
         return Objects.hash(channelId, custId, prodId, promoId, timeId);
     }
 
-    // ------------------------------------------------------------------------------------------------------- channelId
+    // ----------------------------------------------------------------------------------- channelId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
@@ -198,7 +197,7 @@ public abstract class MappedProfitId {
         this.channelId = channelId;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- custId
+    // -------------------------------------------------------------------------------------- custId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute.
@@ -219,7 +218,7 @@ public abstract class MappedProfitId {
         this.custId = custId;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- prodId
+    // -------------------------------------------------------------------------------------- prodId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
@@ -240,7 +239,7 @@ public abstract class MappedProfitId {
         this.prodId = prodId;
     }
 
-    // --------------------------------------------------------------------------------------------------------- promoId
+    // ------------------------------------------------------------------------------------- promoId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
@@ -261,7 +260,7 @@ public abstract class MappedProfitId {
         this.promoId = promoId;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- timeId
+    // -------------------------------------------------------------------------------------- timeId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
@@ -282,7 +281,7 @@ public abstract class MappedProfitId {
         this.timeId = timeId;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @NotNull
     @Max(MappedProfit.ATTRIBUTE_MAX_CHANNEL_ID)

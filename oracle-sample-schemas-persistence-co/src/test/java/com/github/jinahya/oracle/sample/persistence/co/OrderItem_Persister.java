@@ -44,7 +44,7 @@ class OrderItem_Persister
         super(OrderItem.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public OrderItem apply(final EntityManager entityManager,
                            final OrderItem entityInstance) {

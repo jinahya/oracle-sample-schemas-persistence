@@ -44,7 +44,7 @@ public class ProductDetails {
      */
     public static class Review {
 
-        // ------------------------------------------------------------------------------------------------ CONSTRUCTORS
+        // ---------------------------------------------------------------------------- CONSTRUCTORS
 
         /**
          * Creates a new instance.
@@ -53,7 +53,7 @@ public class ProductDetails {
             super();
         }
 
-        // -------------------------------------------------------------------------------------------- java.lang.Object
+        // ------------------------------------------------------------------------ java.lang.Object
 
         @Override
         public String toString() {
@@ -93,7 +93,7 @@ public class ProductDetails {
             return Objects.hash(rating, review);
         }
 
-        // ------------------------------------------------------------------------------------------------------ rating
+        // ---------------------------------------------------------------------------------- rating
 
         /**
          * Returns current value of {@code rating} attribute.
@@ -113,7 +113,7 @@ public class ProductDetails {
             this.rating = rating;
         }
 
-        // ------------------------------------------------------------------------------------------------------ review
+        // ---------------------------------------------------------------------------------- review
 
         /**
          * Returns current value of {@code review} attribute.
@@ -134,7 +134,7 @@ public class ProductDetails {
             this.review = review;
         }
 
-        // -------------------------------------------------------------------------------------------------------------
+        // -----------------------------------------------------------------------------------------
         // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS
         //  JSON check; 1-10 is from a column comment
 //        @Max(10L)
@@ -147,7 +147,7 @@ public class ProductDetails {
         private String review;
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -156,7 +156,7 @@ public class ProductDetails {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -202,7 +202,7 @@ public class ProductDetails {
         return Objects.hash(colour, gender, brand, description, sizes, reviews);
     }
 
-    // ---------------------------------------------------------------------------------------------------------- colour
+    // -------------------------------------------------------------------------------------- colour
 
     /**
      * Returns current value of {@code colour} attribute.
@@ -222,7 +222,7 @@ public class ProductDetails {
         this.colour = colour;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- gender
+    // -------------------------------------------------------------------------------------- gender
 
     /**
      * Returns current value of {@code gender} attribute.
@@ -242,7 +242,7 @@ public class ProductDetails {
         this.gender = gender;
     }
 
-    // ----------------------------------------------------------------------------------------------------------- brand
+    // --------------------------------------------------------------------------------------- brand
 
     /**
      * Returns current value of {@code brand} attribute.
@@ -262,7 +262,7 @@ public class ProductDetails {
         this.brand = brand;
     }
 
-    // ----------------------------------------------------------------------------------------------------- description
+    // --------------------------------------------------------------------------------- description
 
     /**
      * Returns current value of {@code description} attribute.
@@ -282,7 +282,7 @@ public class ProductDetails {
         this.description = description;
     }
 
-    // ----------------------------------------------------------------------------------------------------------- sizes
+    // --------------------------------------------------------------------------------------- sizes
 
     /**
      * Returns current value of {@code sizes} attribute.
@@ -302,7 +302,7 @@ public class ProductDetails {
         this.sizes = sizes;
     }
 
-    // --------------------------------------------------------------------------------------------------------- reviews
+    // ------------------------------------------------------------------------------------- reviews
 
     /**
      * Returns current value of {@code reviews} attribute.
@@ -322,7 +322,7 @@ public class ProductDetails {
         this.reviews = reviews;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_DETAILS has only an IS JSON
     //  check

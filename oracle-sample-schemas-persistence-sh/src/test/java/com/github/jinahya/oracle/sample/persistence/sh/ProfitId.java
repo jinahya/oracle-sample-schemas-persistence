@@ -36,8 +36,7 @@ import java.time.LocalDateTime;
 public class ProfitId
         extends MappedProfitId {
 
-    // ------------------------------------------------------------------------------------------
-    // STATIC_FACTORY_METHODS
+    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified column values.
@@ -57,7 +56,7 @@ public class ProfitId
         return of(ProfitId::new, channelId, custId, prodId, promoId, timeId);
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.

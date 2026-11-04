@@ -52,7 +52,7 @@ class TimeUtils_PersistenceIT {
         assumeTrue(!all.isEmpty(), () -> Time.TABLE_NAME + " holds no row");
     }
 
-    // --------------------------------------------------------------------------------------------------------- dayName
+    // ------------------------------------------------------------------------------------- dayName
 
     @DisplayName("getDayNameAsDayOfWeek(time)")
     @Nested
@@ -67,7 +67,7 @@ class TimeUtils_PersistenceIT {
         }
     }
 
-    // ----------------------------------------------------------------------------------------------- calendarMonthDesc
+    // --------------------------------------------------------------------------- calendarMonthDesc
 
     @DisplayName("getCalendarMonthDescAsYearMonth(time)")
     @Nested
@@ -82,7 +82,7 @@ class TimeUtils_PersistenceIT {
         }
     }
 
-    // ------------------------------------------------------------------------------------------------- fiscalMonthDesc
+    // ----------------------------------------------------------------------------- fiscalMonthDesc
 
     @DisplayName("getFiscalMonthDescAsYearMonth(time)")
     @Nested
@@ -98,7 +98,7 @@ class TimeUtils_PersistenceIT {
         }
     }
 
-    // ----------------------------------------------------------------------------------------------- calendarMonthName
+    // --------------------------------------------------------------------------- calendarMonthName
 
     @DisplayName("getCalendarMonthNameAsMonth(time)")
     @Nested
@@ -113,7 +113,7 @@ class TimeUtils_PersistenceIT {
         }
     }
 
-    // ------------------------------------------------------------------------------------------------- fiscalMonthName
+    // ----------------------------------------------------------------------------- fiscalMonthName
 
     @DisplayName("getFiscalMonthNameAsMonth(time)")
     @Nested
@@ -133,7 +133,7 @@ class TimeUtils_PersistenceIT {
         entityManager.close();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     private final EntityManager entityManager =
             __PersistenceIT_Utils.applyEntityManagerFactory(
                     EntityManagerFactory::createEntityManager);

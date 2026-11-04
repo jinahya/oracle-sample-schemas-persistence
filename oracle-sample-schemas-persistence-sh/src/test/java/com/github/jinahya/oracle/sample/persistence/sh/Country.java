@@ -56,11 +56,11 @@ import jakarta.persistence.Table;
                     FROM Country e"""
 )
 @Entity
-@Table(name = MappedCountry.TABLE_NAME)
+@Table(name = MappedCountry.TABLE_NAME, comment = "country dimension table (snowflake)")
 public class Country
         extends MappedCountry {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.

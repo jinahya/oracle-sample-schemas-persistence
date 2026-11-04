@@ -56,7 +56,7 @@ import java.time.YearMonth;
 public class TimeMonthDescAttributeConverter
         implements AttributeConverter<YearMonth, String> {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -65,8 +65,7 @@ public class TimeMonthDescAttributeConverter
         super();
     }
 
-    // ---------------------------------------------------------------------- jakarta.persistence
-    // .AttributeConverter
+    // ------------------------------------------------------ jakarta.persistence.AttributeConverter
 
     /**
      * {@inheritDoc}

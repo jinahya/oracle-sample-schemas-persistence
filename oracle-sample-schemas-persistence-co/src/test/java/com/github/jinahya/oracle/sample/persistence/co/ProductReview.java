@@ -32,7 +32,7 @@ import java.math.BigDecimal;
 public class ProductReview
         extends MappedProductReview {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.

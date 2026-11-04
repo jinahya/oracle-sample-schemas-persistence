@@ -32,7 +32,7 @@ package com.github.jinahya.oracle.sample.persistence.sh.mapped;
 })
 final class _Utils {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     private _Utils() {
         throw new AssertionError("instantiation is not allowed");

@@ -38,7 +38,7 @@ import java.util.function.Function;
  */
 public final class TimeUtils {
 
-    // --------------------------------------------------------------------------------------------------------- dayName
+    // ------------------------------------------------------------------------------------- dayName
 
     /**
      * Returns current value of the {@value Time#ATTRIBUTE_NAME_DAY_NAME} attribute of the specified
@@ -113,7 +113,7 @@ public final class TimeUtils {
                              v -> v.getDisplayName(TextStyle.FULL_STANDALONE, Locale.ENGLISH));
     }
 
-    // ----------------------------------------------------------------------------------------------- calendarMonthDesc
+    // --------------------------------------------------------------------------- calendarMonthDesc
 
     /**
      * Returns current value of the {@value Time#ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute of
@@ -192,7 +192,7 @@ public final class TimeUtils {
         setCalendarMonthDescFromMapped(time, yearMonth, YearMonth::toString);
     }
 
-    // ------------------------------------------------------------------------------------------------- fiscalMonthDesc
+    // ----------------------------------------------------------------------------- fiscalMonthDesc
 
     /**
      * Returns current value of the {@value Time#ATTRIBUTE_NAME_FISCAL_MONTH_DESC} attribute of the
@@ -269,7 +269,7 @@ public final class TimeUtils {
         setFiscalMonthDescFromMapped(time, yearMonth, YearMonth::toString);
     }
 
-    // ----------------------------------------------------------------------------------------------- calendarMonthName
+    // --------------------------------------------------------------------------- calendarMonthName
 
     /**
      * Returns current value of the {@value Time#ATTRIBUTE_NAME_CALENDAR_MONTH_NAME} attribute of
@@ -347,7 +347,7 @@ public final class TimeUtils {
                                                                           Locale.ENGLISH));
     }
 
-    // ------------------------------------------------------------------------------------------------- fiscalMonthName
+    // ----------------------------------------------------------------------------- fiscalMonthName
 
     /**
      * Returns current value of the {@value Time#ATTRIBUTE_NAME_FISCAL_MONTH_NAME} attribute of the
@@ -423,7 +423,7 @@ public final class TimeUtils {
                                                                         Locale.ENGLISH));
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     private TimeUtils() {
         throw new AssertionError("instantiation is not allowed");

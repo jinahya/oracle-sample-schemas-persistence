@@ -47,7 +47,7 @@ public abstract class MappedJob {
      */
     public static final String TABLE_NAME = "JOBS";
 
-    // ---------------------------------------------------------------------------------------------------------- JOB_ID
+    // -------------------------------------------------------------------------------------- JOB_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_ID} attribute maps. The
@@ -76,7 +76,7 @@ public abstract class MappedJob {
      */
     public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
-    // ------------------------------------------------------------------------------------------------------- JOB_TITLE
+    // ----------------------------------------------------------------------------------- JOB_TITLE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute maps.
@@ -105,7 +105,7 @@ public abstract class MappedJob {
      */
     public static final int SIZE_MAX_JOB_TITLE = COLUMN_LENGTH_JOB_TITLE;
 
-    // ------------------------------------------------------------------------------------------------------ MIN_SALARY
+    // ---------------------------------------------------------------------------------- MIN_SALARY
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute maps.
@@ -151,7 +151,7 @@ public abstract class MappedJob {
      */
     public static final int ATTRIBUTE_MAX_MIN_SALARY = COLUMN_MAX_MIN_SALARY;
 
-    // ------------------------------------------------------------------------------------------------------ MAX_SALARY
+    // ---------------------------------------------------------------------------------- MAX_SALARY
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute maps.
@@ -197,7 +197,7 @@ public abstract class MappedJob {
      */
     public static final int ATTRIBUTE_MAX_MAX_SALARY = COLUMN_MAX_MAX_SALARY;
 
-    // ----------------------------------------------------------------------------------------------------- COMPARATORS
+    // --------------------------------------------------------------------------------- COMPARATORS
 
     /**
      * A comparator which compares the {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute, in
@@ -221,7 +221,7 @@ public abstract class MappedJob {
                     Comparator.nullsLast(Comparator.reverseOrder())
             );
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -230,7 +230,7 @@ public abstract class MappedJob {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public final String toString() {
@@ -266,7 +266,7 @@ public abstract class MappedJob {
         return Objects.hashCode(getJobId());
     }
 
-    // ------------------------------------------------------------------------------------------------- Bean-Validation
+    // ----------------------------------------------------------------------------- Bean-Validation
 
     /**
      * Tests whether current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute is
@@ -353,7 +353,7 @@ public abstract class MappedJob {
         return minSalary <= maxSalary;
     }
 
-    // ----------------------------------------------------------------------------------------------------------- jobId
+    // --------------------------------------------------------------------------------------- jobId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
@@ -375,7 +375,7 @@ public abstract class MappedJob {
         this.jobId = jobId;
     }
 
-    // -------------------------------------------------------------------------------------------------------- jobTitle
+    // ------------------------------------------------------------------------------------ jobTitle
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute.
@@ -397,7 +397,7 @@ public abstract class MappedJob {
         this.jobTitle = jobTitle;
     }
 
-    // ------------------------------------------------------------------------------------------------------- minSalary
+    // ----------------------------------------------------------------------------------- minSalary
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_MIN_SALARY} attribute.
@@ -457,7 +457,7 @@ public abstract class MappedJob {
         }
     }
 
-    // ------------------------------------------------------------------------------------------------------- maxSalary
+    // ----------------------------------------------------------------------------------- maxSalary
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_MAX_SALARY} attribute.
@@ -517,7 +517,7 @@ public abstract class MappedJob {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @Nonnull
     @Size(min = SIZE_MIN_JOB_ID, max = SIZE_MAX_JOB_ID)
@@ -527,11 +527,12 @@ public abstract class MappedJob {
             nullable = false,
             insertable = true,
             updatable = false,
-            length = COLUMN_LENGTH_JOB_ID
+            length = COLUMN_LENGTH_JOB_ID,
+            comment = "Primary key of jobs table."
     )
     private String jobId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Size(min = SIZE_MIN_JOB_TITLE, max = SIZE_MAX_JOB_TITLE)
     @NotNull
@@ -539,7 +540,8 @@ public abstract class MappedJob {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_JOB_TITLE
+            length = COLUMN_LENGTH_JOB_TITLE,
+            comment = "A not null column that shows job title, e.g. AD_VP, FI_ACCOUNTANT"
     )
     private String jobTitle;
 
@@ -552,7 +554,8 @@ public abstract class MappedJob {
             insertable = true,
             updatable = true,
             precision = COLUMN_PRECISION_MIN_SALARY,
-            scale = COLUMN_SCALE_MIN_SALARY
+            scale = COLUMN_SCALE_MIN_SALARY,
+            comment = "Minimum salary for a job title."
     )
     private Integer minSalary;
 
@@ -565,7 +568,8 @@ public abstract class MappedJob {
             insertable = true,
             updatable = true,
             precision = COLUMN_PRECISION_MAX_SALARY,
-            scale = COLUMN_SCALE_MAX_SALARY
+            scale = COLUMN_SCALE_MAX_SALARY,
+            comment = "Maximum salary for a job title"
     )
     private Integer maxSalary;
 }

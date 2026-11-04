@@ -35,7 +35,7 @@ class FweekPscatSalesMvId_Test
         super(FweekPscatSalesMvId.class);
     }
 
-    // ------------------------------------------------------------------------------------------------- equals/hashCode
+    // ----------------------------------------------------------------------------- equals/hashCode
 
     /**
      * {@inheritDoc}

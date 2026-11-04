@@ -44,7 +44,7 @@ public abstract class MappedCustomerOrderProduct {
      */
     public static final String TABLE_NAME = "CUSTOMER_ORDER_PRODUCTS";
 
-    // -------------------------------------------------------------------------------------------------------- ORDER_ID
+    // ------------------------------------------------------------------------------------ ORDER_ID
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_ID} attribute maps.
@@ -58,7 +58,7 @@ public abstract class MappedCustomerOrderProduct {
      */
     public static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
 
-    // ------------------------------------------------------------------------------------------------------- ORDER_TMS
+    // ----------------------------------------------------------------------------------- ORDER_TMS
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute maps.
@@ -72,7 +72,7 @@ public abstract class MappedCustomerOrderProduct {
      */
     public static final String ATTRIBUTE_NAME_ORDER_TMS = "orderTms";
 
-    // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
+    // -------------------------------------------------------------------------------- ORDER_STATUS
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute
@@ -97,7 +97,7 @@ public abstract class MappedCustomerOrderProduct {
      */
     public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
 
-    // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
+    // --------------------------------------------------------------------------------- CUSTOMER_ID
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute maps.
@@ -111,7 +111,7 @@ public abstract class MappedCustomerOrderProduct {
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER_ID = "customerId";
 
-    // --------------------------------------------------------------------------------------------------- EMAIL_ADDRESS
+    // ------------------------------------------------------------------------------- EMAIL_ADDRESS
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute
@@ -136,7 +136,7 @@ public abstract class MappedCustomerOrderProduct {
      */
     public static final String ATTRIBUTE_NAME_EMAIL_ADDRESS = "emailAddress";
 
-    // ------------------------------------------------------------------------------------------------------- FULL_NAME
+    // ----------------------------------------------------------------------------------- FULL_NAME
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_FULL_NAME} attribute maps.
@@ -160,7 +160,7 @@ public abstract class MappedCustomerOrderProduct {
      */
     public static final String ATTRIBUTE_NAME_FULL_NAME = "fullName";
 
-    // ----------------------------------------------------------------------------------------------------- ORDER_TOTAL
+    // --------------------------------------------------------------------------------- ORDER_TOTAL
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_TOTAL} attribute maps.
@@ -174,7 +174,7 @@ public abstract class MappedCustomerOrderProduct {
      */
     public static final String ATTRIBUTE_NAME_ORDER_TOTAL = "orderTotal";
 
-    // ----------------------------------------------------------------------------------------------------------- ITEMS
+    // --------------------------------------------------------------------------------------- ITEMS
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_ITEMS} attribute maps. The
@@ -198,7 +198,7 @@ public abstract class MappedCustomerOrderProduct {
      */
     public static final String ATTRIBUTE_NAME_ITEMS = "items";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -207,7 +207,7 @@ public abstract class MappedCustomerOrderProduct {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -249,7 +249,7 @@ public abstract class MappedCustomerOrderProduct {
         return Objects.hashCode(orderId);
     }
 
-    // --------------------------------------------------------------------------------------------------------- orderId
+    // ------------------------------------------------------------------------------------- orderId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
@@ -260,7 +260,7 @@ public abstract class MappedCustomerOrderProduct {
         return orderId;
     }
 
-    // -------------------------------------------------------------------------------------------------------- orderTms
+    // ------------------------------------------------------------------------------------ orderTms
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute.
@@ -271,7 +271,7 @@ public abstract class MappedCustomerOrderProduct {
         return orderTms;
     }
 
-    // ----------------------------------------------------------------------------------------------------- orderStatus
+    // --------------------------------------------------------------------------------- orderStatus
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
@@ -282,7 +282,7 @@ public abstract class MappedCustomerOrderProduct {
         return orderStatus;
     }
 
-    // ------------------------------------------------------------------------------------------------------ customerId
+    // ---------------------------------------------------------------------------------- customerId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
@@ -293,7 +293,7 @@ public abstract class MappedCustomerOrderProduct {
         return customerId;
     }
 
-    // ---------------------------------------------------------------------------------------------------- emailAddress
+    // -------------------------------------------------------------------------------- emailAddress
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute.
@@ -304,7 +304,7 @@ public abstract class MappedCustomerOrderProduct {
         return emailAddress;
     }
 
-    // -------------------------------------------------------------------------------------------------------- fullName
+    // ------------------------------------------------------------------------------------ fullName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_FULL_NAME} attribute.
@@ -315,7 +315,7 @@ public abstract class MappedCustomerOrderProduct {
         return fullName;
     }
 
-    // ------------------------------------------------------------------------------------------------------ orderTotal
+    // ---------------------------------------------------------------------------------- orderTotal
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_TOTAL} attribute.
@@ -326,7 +326,7 @@ public abstract class MappedCustomerOrderProduct {
         return orderTotal;
     }
 
-    // ----------------------------------------------------------------------------------------------------------- items
+    // --------------------------------------------------------------------------------------- items
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ITEMS} attribute.
@@ -337,7 +337,7 @@ public abstract class MappedCustomerOrderProduct {
         return items;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @Id
     @NotNull
@@ -345,12 +345,14 @@ public abstract class MappedCustomerOrderProduct {
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects
     // insertable=false on an @Id -- "There should be one non-read-only mapping defined for the
     // primary key field", EclipseLink-46. Nothing writes to a view anyway.
-    @Column(name = COLUMN_NAME_ORDER_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = COLUMN_NAME_ORDER_ID, nullable = false, insertable = true, updatable = false,
+            comment = "The primary key of the order")
     private Long orderId;
 
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_ORDER_TMS, nullable = false, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_ORDER_TMS, nullable = false, insertable = false, updatable = false,
+            comment = "The date and time the order was placed")
     private LocalDateTime orderTms;
 
     @Size(max = SIZE_MAX_ORDER_STATUS)
@@ -360,12 +362,14 @@ public abstract class MappedCustomerOrderProduct {
             nullable = false,
             insertable = false,
             updatable = false,
-            length = COLUMN_LENGTH_ORDER_STATUS)
+            length = COLUMN_LENGTH_ORDER_STATUS,
+            comment = "The current state of this order")
     private String orderStatus;
 
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false,
+            comment = "The primary key of the customer")
     private Long customerId;
 
     @Size(max = SIZE_MAX_EMAIL_ADDRESS)
@@ -375,7 +379,8 @@ public abstract class MappedCustomerOrderProduct {
             nullable = false,
             insertable = false,
             updatable = false,
-            length = COLUMN_LENGTH_EMAIL_ADDRESS)
+            length = COLUMN_LENGTH_EMAIL_ADDRESS,
+            comment = "The email address the person uses to access the account")
     private String emailAddress;
 
     @Size(max = SIZE_MAX_FULL_NAME)
@@ -385,11 +390,13 @@ public abstract class MappedCustomerOrderProduct {
             nullable = false,
             insertable = false,
             updatable = false,
-            length = COLUMN_LENGTH_FULL_NAME)
+            length = COLUMN_LENGTH_FULL_NAME,
+            comment = "What this customer is called")
     private String fullName;
 
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_ORDER_TOTAL, nullable = true, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_ORDER_TOTAL, nullable = true, insertable = false, updatable = false,
+            comment = "The total amount the customer paid for the order")
     private BigDecimal orderTotal;
 
     // TODO: remove; not constrained by the DDL -- CUSTOMER_ORDER_PRODUCTS.ITEMS is a computed
@@ -400,6 +407,7 @@ public abstract class MappedCustomerOrderProduct {
             nullable = true,
             insertable = false,
             updatable = false,
-            length = COLUMN_LENGTH_ITEMS)
+            length = COLUMN_LENGTH_ITEMS,
+            comment = "A comma-separated list naming the products in this order")
     private String items;
 }

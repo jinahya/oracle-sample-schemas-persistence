@@ -40,7 +40,7 @@ import java.util.function.Supplier;
 @MappedSuperclass
 public abstract class PromotionNamedId<N extends Number> {
 
-    // ------------------------------------------------------------------------------------------------------------ name
+    // ---------------------------------------------------------------------------------------- name
 
     /**
      * The name of the attribute which holds the name; a subclass overrides its column with an
@@ -49,7 +49,7 @@ public abstract class PromotionNamedId<N extends Number> {
      */
     static final String ATTRIBUTE_NAME_NAME = "name";
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------ id
 
     /**
      * The name of the attribute which holds the id; a subclass overrides its column with an
@@ -58,8 +58,7 @@ public abstract class PromotionNamedId<N extends Number> {
      */
     static final String ATTRIBUTE_NAME_ID = "id";
 
-    // ------------------------------------------------------------------------------------------
-    // STATIC_FACTORY_METHODS
+    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance from the specified initializer, with the specified name and id.
@@ -81,7 +80,7 @@ public abstract class PromotionNamedId<N extends Number> {
         return instance;
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -90,7 +89,7 @@ public abstract class PromotionNamedId<N extends Number> {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------------------ name
+    // ---------------------------------------------------------------------------------------- name
 
     /**
      * Returns current value of the {@value #ATTRIBUTE_NAME_NAME} attribute.
@@ -111,7 +110,7 @@ public abstract class PromotionNamedId<N extends Number> {
         this.name = name;
     }
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------ id
 
     /**
      * Returns current value of the {@value #ATTRIBUTE_NAME_ID} attribute.
@@ -132,7 +131,7 @@ public abstract class PromotionNamedId<N extends Number> {
         this.id = id;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     private String name;
 
     private N id;

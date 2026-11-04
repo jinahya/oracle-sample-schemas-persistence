@@ -38,7 +38,7 @@ class EmpDetailsView_PersistenceIT
         super(EmpDetailsView.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Does nothing; {@value EmpDetailsView#TABLE_NAME} is a view, so there is nothing to insert a

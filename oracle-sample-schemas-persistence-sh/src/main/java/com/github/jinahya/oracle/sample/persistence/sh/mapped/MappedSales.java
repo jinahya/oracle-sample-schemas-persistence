@@ -57,7 +57,7 @@ public abstract class MappedSales {
      */
     public static final String TABLE_NAME = "SALES";
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------ id
 
     /**
      * The name of the attribute which maps the identifying columns, as an
@@ -100,7 +100,7 @@ public abstract class MappedSales {
      */
     public static final String ATTRIBUTE_PATH_ID_PROMO_ID = "id.promoId";
 
-    // --------------------------------------------------------------------------------------------------------- PROD_ID
+    // ------------------------------------------------------------------------------------- PROD_ID
 
     /**
      * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_PROD_ID}
@@ -140,7 +140,7 @@ public abstract class MappedSales {
      */
     public static final int ATTRIBUTE_MAX_PROD_ID = COLUMN_MAX_PROD_ID;
 
-    // --------------------------------------------------------------------------------------------------------- CUST_ID
+    // ------------------------------------------------------------------------------------- CUST_ID
 
     /**
      * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_CUST_ID}
@@ -148,7 +148,7 @@ public abstract class MappedSales {
      */
     public static final String COLUMN_NAME_CUST_ID = "CUST_ID";
 
-    // --------------------------------------------------------------------------------------------------------- TIME_ID
+    // ------------------------------------------------------------------------------------- TIME_ID
 
     /**
      * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_TIME_ID}
@@ -156,7 +156,7 @@ public abstract class MappedSales {
      */
     public static final String COLUMN_NAME_TIME_ID = "TIME_ID";
 
-    // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
+    // ---------------------------------------------------------------------------------- CHANNEL_ID
 
     /**
      * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_CHANNEL_ID}
@@ -196,7 +196,7 @@ public abstract class MappedSales {
      */
     public static final int ATTRIBUTE_MAX_CHANNEL_ID = COLUMN_MAX_CHANNEL_ID;
 
-    // -------------------------------------------------------------------------------------------------------- PROMO_ID
+    // ------------------------------------------------------------------------------------ PROMO_ID
 
     /**
      * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_PROMO_ID}
@@ -236,7 +236,7 @@ public abstract class MappedSales {
      */
     public static final int ATTRIBUTE_MAX_PROMO_ID = COLUMN_MAX_PROMO_ID;
 
-    // --------------------------------------------------------------------------------------------------- QUANTITY_SOLD
+    // ------------------------------------------------------------------------------- QUANTITY_SOLD
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute
@@ -282,7 +282,7 @@ public abstract class MappedSales {
      */
     public static final int ATTRIBUTE_MAX_QUANTITY_SOLD = COLUMN_MAX_QUANTITY_SOLD;
 
-    // ----------------------------------------------------------------------------------------------------- AMOUNT_SOLD
+    // --------------------------------------------------------------------------------- AMOUNT_SOLD
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute
@@ -318,7 +318,7 @@ public abstract class MappedSales {
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_AMOUNT_SOLD = "+99999999.99";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -327,7 +327,7 @@ public abstract class MappedSales {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -364,7 +364,7 @@ public abstract class MappedSales {
         return Objects.hashCode(getId());
     }
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------ id
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
@@ -376,7 +376,7 @@ public abstract class MappedSales {
      */
     public abstract MappedSalesId getId();
 
-    // ---------------------------------------------------------------------------------------------------- quantitySold
+    // -------------------------------------------------------------------------------- quantitySold
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute.
@@ -397,7 +397,7 @@ public abstract class MappedSales {
         this.quantitySold = quantitySold;
     }
 
-    // ------------------------------------------------------------------------------------------------------ amountSold
+    // ---------------------------------------------------------------------------------- amountSold
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute.
@@ -418,16 +418,17 @@ public abstract class MappedSales {
         this.amountSold = amountSold;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @NotNull
     @Max(ATTRIBUTE_MAX_QUANTITY_SOLD)
     @Min(ATTRIBUTE_MIN_QUANTITY_SOLD)
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_QUANTITY_SOLD, nullable = false, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_QUANTITY_SOLD, nullable = false, insertable = true, updatable = true,
+            comment = "product quantity sold with the transaction")
     private Integer quantitySold;
 
     @NotNull
@@ -439,6 +440,7 @@ public abstract class MappedSales {
             insertable = true,
             updatable = true,
             precision = COLUMN_PRECISION_AMOUNT_SOLD,
-            scale = COLUMN_SCALE_AMOUNT_SOLD)
+            scale = COLUMN_SCALE_AMOUNT_SOLD,
+            comment = "invoiced amount to the customer")
     private BigDecimal amountSold;
 }

@@ -35,7 +35,7 @@ class Country_Persister
         super(Country.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Country apply(final EntityManager entityManager, final Country entityInstance) {
         return super.apply(entityManager, entityInstance);

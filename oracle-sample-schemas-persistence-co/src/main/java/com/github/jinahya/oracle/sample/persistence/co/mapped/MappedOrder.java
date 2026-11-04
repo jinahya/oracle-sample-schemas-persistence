@@ -65,7 +65,7 @@ public abstract class MappedOrder {
      */
     public static final String TABLE_NAME = "ORDERS";
 
-    // -------------------------------------------------------------------------------------------------------- ORDER_ID
+    // ------------------------------------------------------------------------------------ ORDER_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_ORDER_ID} attribute maps.
@@ -79,7 +79,7 @@ public abstract class MappedOrder {
      */
     public static final String ATTRIBUTE_NAME_ORDER_ID = "orderId";
 
-    // ------------------------------------------------------------------------------------------------------- ORDER_TMS
+    // ----------------------------------------------------------------------------------- ORDER_TMS
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute maps.
@@ -99,7 +99,7 @@ public abstract class MappedOrder {
      */
     public static final String ATTRIBUTE_NAME_ORDER_TMS = "orderTms";
 
-    // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
+    // --------------------------------------------------------------------------------- CUSTOMER_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute
@@ -113,7 +113,7 @@ public abstract class MappedOrder {
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER_ID = "customerId";
 
-    // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
+    // -------------------------------------------------------------------------------- ORDER_STATUS
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute
@@ -229,7 +229,7 @@ public abstract class MappedOrder {
         COMPLETE;
     }
 
-    // -------------------------------------------------------------------------------------------------------- STORE_ID
+    // ------------------------------------------------------------------------------------ STORE_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE_ID} attribute maps.
@@ -243,7 +243,7 @@ public abstract class MappedOrder {
      */
     public static final String ATTRIBUTE_NAME_STORE_ID = "storeId";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -252,7 +252,7 @@ public abstract class MappedOrder {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -299,7 +299,7 @@ public abstract class MappedOrder {
         return getClass().hashCode();
     }
 
-    // --------------------------------------------------------------------------------------------------------- orderId
+    // ------------------------------------------------------------------------------------- orderId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
@@ -320,7 +320,7 @@ public abstract class MappedOrder {
         this.orderId = orderId;
     }
 
-    // -------------------------------------------------------------------------------------------------------- orderTms
+    // ------------------------------------------------------------------------------------ orderTms
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_TMS} attribute.
@@ -509,7 +509,7 @@ public abstract class MappedOrder {
         );
     }
 
-    // ------------------------------------------------------------------------------------------------------ customerId
+    // ---------------------------------------------------------------------------------- customerId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
@@ -531,7 +531,7 @@ public abstract class MappedOrder {
         this.customerId = customerId;
     }
 
-    // ----------------------------------------------------------------------------------------------------- orderStatus
+    // --------------------------------------------------------------------------------- orderStatus
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
@@ -553,7 +553,7 @@ public abstract class MappedOrder {
         this.orderStatus = orderStatus;
     }
 
-    // --------------------------------------------------------------------------------------------------------- storeId
+    // ------------------------------------------------------------------------------------- storeId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
@@ -575,7 +575,7 @@ public abstract class MappedOrder {
         this.storeId = storeId;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // no @NotNull: database-generated identity; the value is null when the provider validates at
     // pre-persist
     @Id
@@ -587,41 +587,53 @@ public abstract class MappedOrder {
             // fails descriptor initialisation with EclipseLink-46/EclipseLink-41. Verified on 5
             // .0.1.
             insertable = true,
-            updatable = false
+            updatable = false,
+            comment = "Auto-incrementing primary key"
     )
     private Long orderId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_ORDER_TMS, nullable = false, insertable = true, updatable = false)
+    @Column(name = COLUMN_NAME_ORDER_TMS, nullable = false, insertable = true, updatable = false,
+            comment = "When the order was placed")
     private LocalDateTime orderTms;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class
     // documentation
     @Nonnull
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false,
+            comment = "Who placed this order")
     private Long customerId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @NotNull
     @Enumerated(EnumType.STRING)
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_ORDER_STATUS, nullable = false, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_ORDER_STATUS)
+            length = COLUMN_LENGTH_ORDER_STATUS,
+            comment = "What state the order is in. Valid values are:\n" +
+                    "OPEN - the order is in progress\n" +
+                    "PAID - money has been received from the customer for this order\n" +
+                    "SHIPPED - the products have been dispatched to the customer\n" +
+                    "COMPLETE - the customer has received the order\n" +
+                    "CANCELLED - the customer has stopped the order\n" +
+                    "REFUNDED - there has been an issue with the order and the money has been " +
+                    "returned to the customer")
     private OrderStatus orderStatus;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class
     // documentation
     @Nonnull
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false,
+            comment = "Where this order was placed")
     private Long storeId;
 }

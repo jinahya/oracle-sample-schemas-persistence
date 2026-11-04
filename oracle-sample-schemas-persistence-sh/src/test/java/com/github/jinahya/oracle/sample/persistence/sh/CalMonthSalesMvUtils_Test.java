@@ -68,7 +68,7 @@ class CalMonthSalesMvUtils_Test {
                          calendarMonthDesc);
     }
 
-    // ----------------------------------------------------------------------------------------------- calendarMonthDesc
+    // --------------------------------------------------------------------------- calendarMonthDesc
 
     @DisplayName("getCalendarMonthDescAsMapped(calMonthSalesMv, mapper)")
     @Nested

@@ -50,7 +50,7 @@ public abstract class MappedCost {
      */
     public static final String TABLE_NAME = "COSTS";
 
-    // --------------------------------------------------------------------------------------------------------- PROD_ID
+    // ------------------------------------------------------------------------------------- PROD_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps.
@@ -64,7 +64,7 @@ public abstract class MappedCost {
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
-    // --------------------------------------------------------------------------------------------------------- TIME_ID
+    // ------------------------------------------------------------------------------------- TIME_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps.
@@ -78,7 +78,7 @@ public abstract class MappedCost {
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
-    // -------------------------------------------------------------------------------------------------------- PROMO_ID
+    // ------------------------------------------------------------------------------------ PROMO_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps.
@@ -92,7 +92,7 @@ public abstract class MappedCost {
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
-    // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
+    // ---------------------------------------------------------------------------------- CHANNEL_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute maps.
@@ -106,7 +106,7 @@ public abstract class MappedCost {
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
-    // ------------------------------------------------------------------------------------------------------- UNIT_COST
+    // ----------------------------------------------------------------------------------- UNIT_COST
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute maps.
@@ -142,7 +142,7 @@ public abstract class MappedCost {
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_UNIT_COST = "+99999999.99";
 
-    // ------------------------------------------------------------------------------------------------------ UNIT_PRICE
+    // ---------------------------------------------------------------------------------- UNIT_PRICE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute maps.
@@ -178,7 +178,7 @@ public abstract class MappedCost {
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_UNIT_PRICE = "+99999999.99";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -187,7 +187,7 @@ public abstract class MappedCost {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -235,7 +235,7 @@ public abstract class MappedCost {
         return Objects.hash(prodId, timeId, promoId, channelId);
     }
 
-    // ---------------------------------------------------------------------------------------------------------- prodId
+    // -------------------------------------------------------------------------------------- prodId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
@@ -256,7 +256,7 @@ public abstract class MappedCost {
         this.prodId = prodId;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- timeId
+    // -------------------------------------------------------------------------------------- timeId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
@@ -277,7 +277,7 @@ public abstract class MappedCost {
         this.timeId = timeId;
     }
 
-    // --------------------------------------------------------------------------------------------------------- promoId
+    // ------------------------------------------------------------------------------------- promoId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
@@ -298,7 +298,7 @@ public abstract class MappedCost {
         this.promoId = promoId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- channelId
+    // ----------------------------------------------------------------------------------- channelId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
@@ -319,7 +319,7 @@ public abstract class MappedCost {
         this.channelId = channelId;
     }
 
-    // -------------------------------------------------------------------------------------------------------- unitCost
+    // ------------------------------------------------------------------------------------ unitCost
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_UNIT_COST} attribute.
@@ -340,7 +340,7 @@ public abstract class MappedCost {
         this.unitCost = unitCost;
     }
 
-    // ------------------------------------------------------------------------------------------------------- unitPrice
+    // ----------------------------------------------------------------------------------- unitPrice
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute.
@@ -361,7 +361,7 @@ public abstract class MappedCost {
         this.unitPrice = unitPrice;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @Id
     @NotNull

@@ -41,7 +41,7 @@ import java.util.Objects;
 })
 final class _Utils {
 
-    // -------------------------------------------------------------------------------------------------- STATIC_METHODS
+    // ------------------------------------------------------------------------------ STATIC_METHODS
 
     // create PROCEDURE secure_dml
     // IS
@@ -74,8 +74,8 @@ final class _Utils {
      * <p>
      * The routine raises the application error when the current time is {@code NOT BETWEEN}
      * {@value _Constants#ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT} and
-     * {@value _Constants#ROUTINE_SECURE_DML_LOCAL_TIME_MAX_TEXT}, {@code OR} the current day of
-     * the week is either {@link DayOfWeek#SATURDAY} or {@link DayOfWeek#SUNDAY}. As the routine
+     * {@value _Constants#ROUTINE_SECURE_DML_LOCAL_TIME_MAX_TEXT}, {@code OR} the current day of the
+     * week is either {@link DayOfWeek#SATURDAY} or {@link DayOfWeek#SUNDAY}. As the routine
      * compares the time as {@code HH24:MI}, the {@code time} is compared to the minute; e.g.,
      * {@code 18:00:59} is still within the hours.
      *
@@ -117,7 +117,7 @@ final class _Utils {
         );
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     private _Utils() {
         throw new AssertionError("instantiation is not allowed");

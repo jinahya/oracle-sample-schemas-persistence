@@ -37,7 +37,7 @@ class Region_Persister
         super(Region.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Region apply(final EntityManager entityManager, final Region entityInstance) {
         return super.apply(entityManager, entityInstance);

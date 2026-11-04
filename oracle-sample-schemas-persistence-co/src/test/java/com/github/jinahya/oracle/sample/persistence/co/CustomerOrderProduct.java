@@ -55,11 +55,12 @@ import jakarta.persistence.Table;
                     FROM CustomerOrderProduct e"""
 )
 @Entity
-@Table(name = MappedCustomerOrderProduct.TABLE_NAME)
+@Table(name = MappedCustomerOrderProduct.TABLE_NAME,
+       comment = "A summary of who placed each order and what they bought")
 public class CustomerOrderProduct
         extends MappedCustomerOrderProduct {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.

@@ -37,7 +37,7 @@ class Job_Persister
         super(Job.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Job apply(final EntityManager entityManager, final Job entityInstance) {
         return super.apply(entityManager, entityInstance);

@@ -75,7 +75,7 @@ public final class SalesUtils {
         }
     }
 
-    // ------------------------------------------------------------------------------------------------------- id.prodId
+    // ----------------------------------------------------------------------------------- id.prodId
 
     /**
      * Returns current value of the {@value Sales#ATTRIBUTE_PATH_ID_PROD_ID} attribute of the
@@ -91,7 +91,7 @@ public final class SalesUtils {
         return Optional.ofNullable(sales.getId()).map(SalesId::getProdId).orElse(null);
     }
 
-    // ------------------------------------------------------------------------------------------------------- id.custId
+    // ----------------------------------------------------------------------------------- id.custId
 
     /**
      * Returns current value of the {@value Sales#ATTRIBUTE_PATH_ID_CUST_ID} attribute of the
@@ -107,7 +107,7 @@ public final class SalesUtils {
         return Optional.ofNullable(sales.getId()).map(SalesId::getCustId).orElse(null);
     }
 
-    // ------------------------------------------------------------------------------------------------------- id.timeId
+    // ----------------------------------------------------------------------------------- id.timeId
 
     /**
      * Returns current value of the {@value Sales#ATTRIBUTE_PATH_ID_TIME_ID} attribute of the
@@ -123,7 +123,7 @@ public final class SalesUtils {
         return Optional.ofNullable(sales.getId()).map(SalesId::getTimeId).orElse(null);
     }
 
-    // ---------------------------------------------------------------------------------------------------- id.channelId
+    // -------------------------------------------------------------------------------- id.channelId
 
     /**
      * Returns current value of the {@value Sales#ATTRIBUTE_PATH_ID_CHANNEL_ID} attribute of the
@@ -139,7 +139,7 @@ public final class SalesUtils {
         return Optional.ofNullable(sales.getId()).map(SalesId::getChannelId).orElse(null);
     }
 
-    // ------------------------------------------------------------------------------------------------------ id.promoId
+    // ---------------------------------------------------------------------------------- id.promoId
 
     /**
      * Returns current value of the {@value Sales#ATTRIBUTE_PATH_ID_PROMO_ID} attribute of the
@@ -155,7 +155,7 @@ public final class SalesUtils {
         return Optional.ofNullable(sales.getId()).map(SalesId::getPromoId).orElse(null);
     }
 
-    // ---------------------------------------------------------------------------------------------------- quantitySold
+    // -------------------------------------------------------------------------------- quantitySold
 
     /**
      * Returns the sum of the {@value Sales#ATTRIBUTE_NAME_QUANTITY_SOLD} attribute over the
@@ -196,7 +196,7 @@ public final class SalesUtils {
                 .sum();
     }
 
-    // ------------------------------------------------------------------------------------------------------ amountSold
+    // ---------------------------------------------------------------------------------- amountSold
 
     /**
      * Returns the sum of the {@value Sales#ATTRIBUTE_NAME_AMOUNT_SOLD} attribute over the specified
@@ -237,8 +237,7 @@ public final class SalesUtils {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    // -----------------------------------------------------------------------------------------
-    // quantitySold/statistics
+    // --------------------------------------------------------------------- quantitySold/statistics
 
     /**
      * Returns the statistics of the {@value Sales#ATTRIBUTE_NAME_QUANTITY_SOLD} attribute over the
@@ -278,7 +277,7 @@ public final class SalesUtils {
         );
     }
 
-    // ------------------------------------------------------------------------------------------- amountSold/statistics
+    // ----------------------------------------------------------------------- amountSold/statistics
 
     /**
      * Returns the specified aggregate value as a {@link BigDecimal}, whatever numeric type the
@@ -325,7 +324,7 @@ public final class SalesUtils {
                                         decimal(tuple.get(3)));
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     private SalesUtils() {
         throw new AssertionError("instantiation is not allowed");

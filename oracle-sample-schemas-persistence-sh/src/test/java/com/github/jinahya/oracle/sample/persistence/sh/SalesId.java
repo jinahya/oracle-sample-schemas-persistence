@@ -36,8 +36,7 @@ import java.time.LocalDateTime;
 public class SalesId
         extends MappedSalesId {
 
-    // ------------------------------------------------------------------------------------------
-    // STATIC_FACTORY_METHODS
+    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified column values.
@@ -57,7 +56,7 @@ public class SalesId
         return of(SalesId::new, prodId, custId, timeId, channelId, promoId);
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.

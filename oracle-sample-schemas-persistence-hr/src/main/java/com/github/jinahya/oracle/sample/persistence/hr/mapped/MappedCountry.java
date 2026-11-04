@@ -52,7 +52,7 @@ public abstract class MappedCountry {
      */
     public static final String TABLE_NAME = "COUNTRIES";
 
-    // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
+    // ---------------------------------------------------------------------------------- COUNTRY_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps.
@@ -83,7 +83,7 @@ public abstract class MappedCountry {
      */
     public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
-    // ---------------------------------------------------------------------------------------------------- COUNTRY_NAME
+    // -------------------------------------------------------------------------------- COUNTRY_NAME
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute
@@ -114,7 +114,7 @@ public abstract class MappedCountry {
      */
     public static final int SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
 
-    // ------------------------------------------------------------------------------------------------------- REGION_ID
+    // ----------------------------------------------------------------------------------- REGION_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_REGION_ID} attribute maps.
@@ -128,7 +128,7 @@ public abstract class MappedCountry {
      */
     public static final String ATTRIBUTE_NAME_REGION_ID = "regionId";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -137,7 +137,7 @@ public abstract class MappedCountry {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
     @Override
     public final String toString() {
         return super.toString() + '{' +
@@ -173,7 +173,7 @@ public abstract class MappedCountry {
         return Objects.hashCode(getCountryId());
     }
 
-    // ------------------------------------------------------------------------------------------------------- countryId
+    // ----------------------------------------------------------------------------------- countryId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
@@ -195,7 +195,7 @@ public abstract class MappedCountry {
         this.countryId = countryId;
     }
 
-    // ----------------------------------------------------------------------------------------------------- countryName
+    // --------------------------------------------------------------------------------- countryName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
@@ -217,7 +217,7 @@ public abstract class MappedCountry {
         this.countryName = countryName;
     }
 
-    // -------------------------------------------------------------------------------------------------------- regionId
+    // ------------------------------------------------------------------------------------ regionId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_REGION_ID} attribute.
@@ -240,7 +240,7 @@ public abstract class MappedCountry {
         this.regionId = regionId;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     // TODO: remove; not constrained by the DDL -- COUNTRIES.COUNTRY_ID is CHAR(2); a length sets
     //  no minimum
@@ -250,22 +250,26 @@ public abstract class MappedCountry {
     @Id
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = false, insertable = true, updatable = false,
-            length = COLUMN_LENGTH_COUNTRY_ID)
+            length = COLUMN_LENGTH_COUNTRY_ID,
+            comment = "Primary key of countries table.")
     private String countryId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nullable
     @Size(min = SIZE_MIN_COUNTRY_NAME, max = SIZE_MAX_COUNTRY_NAME)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_COUNTRY_NAME, nullable = true, insertable = true, updatable = true,
-            length = COLUMN_LENGTH_COUNTRY_NAME)
+            length = COLUMN_LENGTH_COUNTRY_NAME,
+            comment = "Country name")
     private String countryName;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class
     // documentation
     @Nullable
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_REGION_ID, nullable = true, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_REGION_ID, nullable = true, insertable = false, updatable = false,
+            comment = "Region ID for the country. Foreign key to region_id column in the " +
+                    "departments table.")
     private Long regionId;
 }

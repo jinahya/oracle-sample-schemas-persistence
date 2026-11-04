@@ -24,10 +24,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static com.github.jinahya.persistence.test.util.EntityPersisterUtils.newPersistedInstanceOf;
-import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
-import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static com.github.jinahya.oracle.sample.persistence.hr.__PersistenceTest_Utils.applyEntityManagerFactory;
+import static com.github.jinahya.persistence.test.util.EntityPersisterUtils.newPersistedInstanceOf;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -42,12 +42,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 class Country_PersistenceTest
         extends _Entity_PersistenceTest<Country> {
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     Country_PersistenceTest() {
         super(Country.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Tests {@code Country.selectListByRegionOrderByCountryNameAsc}.
@@ -58,60 +58,63 @@ class Country_PersistenceTest
         @DisplayName("the named query selects the country just persisted, by its region")
         @Test
         void __NamedQuery() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var v = newPersistedInstanceOf(em, targetClass);
-                final var found = em
-                        .createNamedQuery("Country.selectListByRegionOrderByCountryNameAsc",
-                                          targetClass)
-                        .setParameter("region", v.getRegion())
-                        .getResultList();
-                assertThat(found)
-                        .as("the countries of the region")
-                        .containsExactly(v);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var v = newPersistedInstanceOf(em, targetClass);
+                        final var found = em
+                                .createNamedQuery("Country.selectListByRegionOrderByCountryNameAsc",
+                                                  targetClass)
+                                .setParameter("region", v.getRegion())
+                                .getResultList();
+                        assertThat(found)
+                                .as("the countries of the region")
+                                .containsExactly(v);
+                        return found;
+                    })));
         }
 
         @DisplayName("a query-language query selects the country just persisted, by its region")
         @Test
         void __QueryLanguage() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var v = newPersistedInstanceOf(em, targetClass);
-                final var found = em
-                        .createQuery(
-                                """
-                                        SELECT e
-                                        FROM Country AS e
-                                        WHERE e.region = :region
-                                        ORDER BY e.countryName ASC""",
-                                targetClass
-                        )
-                        .setParameter("region", v.getRegion())
-                        .getResultList();
-                assertThat(found)
-                        .as("the countries of the region")
-                        .containsExactly(v);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var v = newPersistedInstanceOf(em, targetClass);
+                        final var found = em
+                                .createQuery(
+                                        """
+                                                SELECT e
+                                                FROM Country AS e
+                                                WHERE e.region = :region
+                                                ORDER BY e.countryName ASC""",
+                                        targetClass
+                                )
+                                .setParameter("region", v.getRegion())
+                                .getResultList();
+                        assertThat(found)
+                                .as("the countries of the region")
+                                .containsExactly(v);
+                        return found;
+                    })));
         }
 
         @DisplayName("a criteria query selects the country just persisted, by its region")
         @Test
         void __CriteriaApi() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var v = newPersistedInstanceOf(em, targetClass);
-                final var builder = em.getCriteriaBuilder();
-                final var query = builder.createQuery(targetClass);
-                final var root = query.from(targetClass);
-                query.select(root);
-                query.where(builder.equal(root.get(Country_.region), v.getRegion()));
-                query.orderBy(builder.asc(root.get(Country_.countryName)));
-                final var found = em.createQuery(query).getResultList();
-                assertThat(found)
-                        .as("the countries of the region")
-                        .containsExactly(v);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var v = newPersistedInstanceOf(em, targetClass);
+                        final var builder = em.getCriteriaBuilder();
+                        final var query = builder.createQuery(targetClass);
+                        final var root = query.from(targetClass);
+                        query.select(root);
+                        query.where(builder.equal(root.get(Country_.region), v.getRegion()));
+                        query.orderBy(builder.asc(root.get(Country_.countryName)));
+                        final var found = em.createQuery(query).getResultList();
+                        assertThat(found)
+                                .as("the countries of the region")
+                                .containsExactly(v);
+                        return found;
+                    })));
         }
     }
 
@@ -124,60 +127,63 @@ class Country_PersistenceTest
         @DisplayName("the named query selects the country just persisted, by its region")
         @Test
         void __NamedQuery() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var v = newPersistedInstanceOf(em, targetClass);
-                final var found = em
-                        .createNamedQuery("Country.selectListByRegionOrderByCountryIdAsc",
-                                          targetClass)
-                        .setParameter("region", v.getRegion())
-                        .getResultList();
-                assertThat(found)
-                        .as("the countries of the region")
-                        .containsExactly(v);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var v = newPersistedInstanceOf(em, targetClass);
+                        final var found = em
+                                .createNamedQuery("Country.selectListByRegionOrderByCountryIdAsc",
+                                                  targetClass)
+                                .setParameter("region", v.getRegion())
+                                .getResultList();
+                        assertThat(found)
+                                .as("the countries of the region")
+                                .containsExactly(v);
+                        return found;
+                    })));
         }
 
         @DisplayName("a query-language query selects the country just persisted, by its region")
         @Test
         void __QueryLanguage() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var v = newPersistedInstanceOf(em, targetClass);
-                final var found = em
-                        .createQuery(
-                                """
-                                        SELECT e
-                                        FROM Country AS e
-                                        WHERE e.region = :region
-                                        ORDER BY e.countryId ASC""",
-                                targetClass
-                        )
-                        .setParameter("region", v.getRegion())
-                        .getResultList();
-                assertThat(found)
-                        .as("the countries of the region")
-                        .containsExactly(v);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var v = newPersistedInstanceOf(em, targetClass);
+                        final var found = em
+                                .createQuery(
+                                        """
+                                                SELECT e
+                                                FROM Country AS e
+                                                WHERE e.region = :region
+                                                ORDER BY e.countryId ASC""",
+                                        targetClass
+                                )
+                                .setParameter("region", v.getRegion())
+                                .getResultList();
+                        assertThat(found)
+                                .as("the countries of the region")
+                                .containsExactly(v);
+                        return found;
+                    })));
         }
 
         @DisplayName("a criteria query selects the country just persisted, by its region")
         @Test
         void __CriteriaApi() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var v = newPersistedInstanceOf(em, targetClass);
-                final var builder = em.getCriteriaBuilder();
-                final var query = builder.createQuery(targetClass);
-                final var root = query.from(targetClass);
-                query.select(root);
-                query.where(builder.equal(root.get(Country_.region), v.getRegion()));
-                query.orderBy(builder.asc(root.get(Country_.countryId)));
-                final var found = em.createQuery(query).getResultList();
-                assertThat(found)
-                        .as("the countries of the region")
-                        .containsExactly(v);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var v = newPersistedInstanceOf(em, targetClass);
+                        final var builder = em.getCriteriaBuilder();
+                        final var query = builder.createQuery(targetClass);
+                        final var root = query.from(targetClass);
+                        query.select(root);
+                        query.where(builder.equal(root.get(Country_.region), v.getRegion()));
+                        query.orderBy(builder.asc(root.get(Country_.countryId)));
+                        final var found = em.createQuery(query).getResultList();
+                        assertThat(found)
+                                .as("the countries of the region")
+                                .containsExactly(v);
+                        return found;
+                    })));
         }
     }
 
@@ -194,55 +200,59 @@ class Country_PersistenceTest
         @DisplayName("the named query selects the country just persisted")
         @Test
         void __NamedQuery() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var v = newPersistedInstanceOf(em, targetClass);
-                final var found = em
-                        .createNamedQuery("Country.selectListOrderByCountryNameAsc", targetClass)
-                        .getResultList();
-                assertThat(found)
-                        .as("all countries")
-                        .contains(v);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var v = newPersistedInstanceOf(em, targetClass);
+                        final var found = em
+                                .createNamedQuery("Country.selectListOrderByCountryNameAsc",
+                                                  targetClass)
+                                .getResultList();
+                        assertThat(found)
+                                .as("all countries")
+                                .contains(v);
+                        return found;
+                    })));
         }
 
         @DisplayName("a query-language query selects the country just persisted")
         @Test
         void __QueryLanguage() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var v = newPersistedInstanceOf(em, targetClass);
-                final var found = em
-                        .createQuery(
-                                """
-                                        SELECT e
-                                        FROM Country AS e
-                                        ORDER BY e.countryName ASC""",
-                                targetClass
-                        )
-                        .getResultList();
-                assertThat(found)
-                        .as("all countries")
-                        .contains(v);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var v = newPersistedInstanceOf(em, targetClass);
+                        final var found = em
+                                .createQuery(
+                                        """
+                                                SELECT e
+                                                FROM Country AS e
+                                                ORDER BY e.countryName ASC""",
+                                        targetClass
+                                )
+                                .getResultList();
+                        assertThat(found)
+                                .as("all countries")
+                                .contains(v);
+                        return found;
+                    })));
         }
 
         @DisplayName("a criteria query selects the country just persisted")
         @Test
         void __CriteriaApi() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var v = newPersistedInstanceOf(em, targetClass);
-                final var builder = em.getCriteriaBuilder();
-                final var query = builder.createQuery(targetClass);
-                final var root = query.from(targetClass);
-                query.select(root);
-                query.orderBy(builder.asc(root.get(Country_.countryName)));
-                final var found = em.createQuery(query).getResultList();
-                assertThat(found)
-                        .as("all countries")
-                        .contains(v);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var v = newPersistedInstanceOf(em, targetClass);
+                        final var builder = em.getCriteriaBuilder();
+                        final var query = builder.createQuery(targetClass);
+                        final var root = query.from(targetClass);
+                        query.select(root);
+                        query.orderBy(builder.asc(root.get(Country_.countryName)));
+                        final var found = em.createQuery(query).getResultList();
+                        assertThat(found)
+                                .as("all countries")
+                                .contains(v);
+                        return found;
+                    })));
         }
     }
 
@@ -255,55 +265,59 @@ class Country_PersistenceTest
         @DisplayName("the named query selects the country just persisted")
         @Test
         void __NamedQuery() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var v = newPersistedInstanceOf(em, targetClass);
-                final var found = em
-                        .createNamedQuery("Country.selectListOrderByCountryIdAsc", targetClass)
-                        .getResultList();
-                assertThat(found)
-                        .as("all countries")
-                        .contains(v);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var v = newPersistedInstanceOf(em, targetClass);
+                        final var found = em
+                                .createNamedQuery("Country.selectListOrderByCountryIdAsc",
+                                                  targetClass)
+                                .getResultList();
+                        assertThat(found)
+                                .as("all countries")
+                                .contains(v);
+                        return found;
+                    })));
         }
 
         @DisplayName("a query-language query selects the country just persisted")
         @Test
         void __QueryLanguage() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var v = newPersistedInstanceOf(em, targetClass);
-                final var found = em
-                        .createQuery(
-                                """
-                                        SELECT e
-                                        FROM Country AS e
-                                        ORDER BY e.countryId ASC""",
-                                targetClass
-                        )
-                        .getResultList();
-                assertThat(found)
-                        .as("all countries")
-                        .contains(v);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var v = newPersistedInstanceOf(em, targetClass);
+                        final var found = em
+                                .createQuery(
+                                        """
+                                                SELECT e
+                                                FROM Country AS e
+                                                ORDER BY e.countryId ASC""",
+                                        targetClass
+                                )
+                                .getResultList();
+                        assertThat(found)
+                                .as("all countries")
+                                .contains(v);
+                        return found;
+                    })));
         }
 
         @DisplayName("a criteria query selects the country just persisted")
         @Test
         void __CriteriaApi() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var v = newPersistedInstanceOf(em, targetClass);
-                final var builder = em.getCriteriaBuilder();
-                final var query = builder.createQuery(targetClass);
-                final var root = query.from(targetClass);
-                query.select(root);
-                query.orderBy(builder.asc(root.get(Country_.countryId)));
-                final var found = em.createQuery(query).getResultList();
-                assertThat(found)
-                        .as("all countries")
-                        .contains(v);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var v = newPersistedInstanceOf(em, targetClass);
+                        final var builder = em.getCriteriaBuilder();
+                        final var query = builder.createQuery(targetClass);
+                        final var root = query.from(targetClass);
+                        query.select(root);
+                        query.orderBy(builder.asc(root.get(Country_.countryId)));
+                        final var found = em.createQuery(query).getResultList();
+                        assertThat(found)
+                                .as("all countries")
+                                .contains(v);
+                        return found;
+                    })));
         }
     }
 }

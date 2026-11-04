@@ -132,14 +132,14 @@ ORDER BY MARGIN DESC
 -- ------------------------------------------------------------------------------------------------------ SH_SCHEMA_A_06
 -- The sales director wants each channel's revenue in :previousYear and :currentYear side by side, with the growth rate.
 SELECT ch.CHANNEL_DESC,
-       SUM(CASE WHEN t.CALENDAR_YEAR = :previousYear THEN s.AMOUNT_SOLD ELSE 0 END)            AS PREVIOUS,
+       SUM(CASE WHEN t.CALENDAR_YEAR = :previousYear THEN s.AMOUNT_SOLD ELSE 0 END) AS PREVIOUS,
        SUM(CASE
                WHEN t.CALENDAR_YEAR = :currentYear THEN s.AMOUNT_SOLD
-               ELSE 0 END)                                                                     AS CURRENT_,
+               ELSE 0 END)                                                          AS CURRENT_,
        (SUM(CASE WHEN t.CALENDAR_YEAR = :currentYear THEN s.AMOUNT_SOLD ELSE 0 END)
            - SUM(CASE WHEN t.CALENDAR_YEAR = :previousYear THEN s.AMOUNT_SOLD ELSE 0 END))
            / NULLIF(SUM(CASE WHEN t.CALENDAR_YEAR = :previousYear THEN s.AMOUNT_SOLD ELSE 0 END),
-                    0)                                                                         AS GROWTH
+                    0)                                                              AS GROWTH
 FROM SALES s
          JOIN CHANNELS ch ON ch.CHANNEL_ID = s.CHANNEL_ID
          JOIN TIMES t ON t.TIME_ID = s.TIME_ID

@@ -42,7 +42,7 @@ class CustomerOrderProduct_Randomizer
         super(CustomerOrderProduct.class, List.of());
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();

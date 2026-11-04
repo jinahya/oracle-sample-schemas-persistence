@@ -32,8 +32,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceIT_Utils.applyEntityManagerFactory;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -46,12 +46,12 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 class Customer_PersistenceIT
         extends _Entity_PersistenceIT<Customer> {
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     Customer_PersistenceIT() {
         super(Customer.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nested
     class SelectListOrderByCustomerIdAsc_Test {
 
@@ -219,7 +219,8 @@ class Customer_PersistenceIT
         private long customerIdMinExclusive() {
             return applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
                 final var previous =
-                        JinahyaEntityManagerTestUtils.selectRandomEntity(entityManager, targetClass);
+                        JinahyaEntityManagerTestUtils.selectRandomEntity(entityManager,
+                                                                         targetClass);
                 assumeTrue(previous.isPresent(), "no customer to start a page after");
                 return previous.get().getCustomerId();
             }));
@@ -289,7 +290,8 @@ class Customer_PersistenceIT
                 final var root = query.from(targetClass);
                 query.select(root);
                 query.where(
-                        builder.greaterThan(root.get(Customer_.customerId), customerIdMinExclusive));
+                        builder.greaterThan(root.get(Customer_.customerId),
+                                            customerIdMinExclusive));
                 query.orderBy(builder.asc(root.get(Customer_.customerId)));
                 final var found = entityManager.createQuery(query)
                         .setMaxResults(MAX_RESULTS)

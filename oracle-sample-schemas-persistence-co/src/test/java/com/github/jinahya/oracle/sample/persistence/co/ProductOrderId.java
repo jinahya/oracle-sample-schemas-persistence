@@ -33,8 +33,7 @@ import jakarta.persistence.Embeddable;
 public class ProductOrderId
         extends MappedProductOrderId {
 
-    // ------------------------------------------------------------------------------------------
-    // STATIC_FACTORY_METHODS
+    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified column values.
@@ -50,7 +49,7 @@ public class ProductOrderId
         return instance;
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.

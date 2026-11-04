@@ -42,7 +42,7 @@ class StoreOrder_Randomizer
         super(StoreOrder.class, List.of());
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();

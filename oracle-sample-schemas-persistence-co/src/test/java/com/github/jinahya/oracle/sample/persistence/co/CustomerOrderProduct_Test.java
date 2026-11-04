@@ -35,7 +35,7 @@ class CustomerOrderProduct_Test
         super(CustomerOrderProduct.class);
     }
 
-    // ------------------------------------------------------------------------------------------------- equals/hashCode
+    // ----------------------------------------------------------------------------- equals/hashCode
 
     /**
      * {@inheritDoc}

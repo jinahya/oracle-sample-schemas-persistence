@@ -43,7 +43,7 @@ public abstract class MappedFweekPscatSalesMv {
      */
     public static final String TABLE_NAME = "FWEEK_PSCAT_SALES_MV";
 
-    // ------------------------------------------------------------------------------------------------- WEEK_ENDING_DAY
+    // ----------------------------------------------------------------------------- WEEK_ENDING_DAY
 
     /**
      * The name of the materialized view column to which the
@@ -59,7 +59,7 @@ public abstract class MappedFweekPscatSalesMv {
      */
     public static final String ATTRIBUTE_PATH_ID_WEEK_ENDING_DAY = "id.weekEndingDay";
 
-    // ------------------------------------------------------------------------------------------------ PROD_SUBCATEGORY
+    // ---------------------------------------------------------------------------- PROD_SUBCATEGORY
 
     /**
      * The name of the materialized view column to which the
@@ -86,7 +86,7 @@ public abstract class MappedFweekPscatSalesMv {
      */
     public static final String ATTRIBUTE_PATH_ID_PROD_SUBCATEGORY = "id.prodSubcategory";
 
-    // --------------------------------------------------------------------------------------------------------- DOLLARS
+    // ------------------------------------------------------------------------------------- DOLLARS
 
     /**
      * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_DOLLARS}
@@ -100,7 +100,7 @@ public abstract class MappedFweekPscatSalesMv {
      */
     public static final String ATTRIBUTE_NAME_DOLLARS = "dollars";
 
-    // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
+    // ---------------------------------------------------------------------------------- CHANNEL_ID
 
     /**
      * The name of the materialized view column to which the
@@ -148,7 +148,7 @@ public abstract class MappedFweekPscatSalesMv {
      */
     public static final int ATTRIBUTE_MAX_CHANNEL_ID = COLUMN_MAX_CHANNEL_ID;
 
-    // -------------------------------------------------------------------------------------------------------- PROMO_ID
+    // ------------------------------------------------------------------------------------ PROMO_ID
 
     /**
      * The name of the materialized view column to which the
@@ -196,7 +196,7 @@ public abstract class MappedFweekPscatSalesMv {
      */
     public static final int ATTRIBUTE_MAX_PROMO_ID = COLUMN_MAX_PROMO_ID;
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------ id
 
     /**
      * The name of the attribute which maps the identifying columns, as an
@@ -204,7 +204,7 @@ public abstract class MappedFweekPscatSalesMv {
      */
     public static final String ATTRIBUTE_NAME_ID = "id";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -213,7 +213,7 @@ public abstract class MappedFweekPscatSalesMv {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -249,7 +249,7 @@ public abstract class MappedFweekPscatSalesMv {
         return Objects.hashCode(getId());
     }
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------ id
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
@@ -261,7 +261,7 @@ public abstract class MappedFweekPscatSalesMv {
      */
     public abstract MappedFweekPscatSalesMvId getId();
 
-    // --------------------------------------------------------------------------------------------------------- dollars
+    // ------------------------------------------------------------------------------------- dollars
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DOLLARS} attribute.
@@ -272,7 +272,7 @@ public abstract class MappedFweekPscatSalesMv {
         return dollars;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_DOLLARS, nullable = true, insertable = false, updatable = false)

@@ -67,7 +67,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      */
     public static final String TABLE_NAME = "ORDER_ITEMS";
 
-    // -------------------------------------------------------------------------------------------------------- ORDER_ID
+    // ------------------------------------------------------------------------------------ ORDER_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute
@@ -82,7 +82,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      */
     public static final String ATTRIBUTE_PATH_ID_ORDER_ID = "id.orderId";
 
-    // ---------------------------------------------------------------------------------------------------- LINE_ITEM_ID
+    // -------------------------------------------------------------------------------- LINE_ITEM_ID
 
     /**
      * The name of the table column to which the
@@ -91,8 +91,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      */
     public static final String COLUMN_NAME_LINE_ITEM_ID = "LINE_ITEM_ID";
 
-    // ------------------------------------------------------------------------------------
-    // ORDER_ID / LINE_ITEM_ID / id
+    // ---------------------------------------------------------------- ORDER_ID / LINE_ITEM_ID / id
 
     /**
      * The name of the attribute which maps both the {@value #COLUMN_NAME_ORDER_ID} and the
@@ -101,7 +100,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      */
     public static final String ATTRIBUTE_NAME_ID = "id";
 
-    // ------------------------------------------------------------------------------------------------------ PRODUCT_ID
+    // ---------------------------------------------------------------------------------- PRODUCT_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute maps.
@@ -115,7 +114,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_ID = "productId";
 
-    // ------------------------------------------------------------------------------------------------------ UNIT_PRICE
+    // ---------------------------------------------------------------------------------- UNIT_PRICE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute maps.
@@ -145,7 +144,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      */
     public static final String DECIMAL_MAX_UNIT_PRICE = "+99999999.99";
 
-    // -------------------------------------------------------------------------------------------------------- QUANTITY
+    // ------------------------------------------------------------------------------------ QUANTITY
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_QUANTITY} attribute maps.
@@ -159,7 +158,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      */
     public static final String ATTRIBUTE_NAME_QUANTITY = "quantity";
 
-    // ----------------------------------------------------------------------------------------------------- SHIPMENT_ID
+    // --------------------------------------------------------------------------------- SHIPMENT_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute
@@ -179,7 +178,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      */
     public static final String ATTRIBUTE_NAME_UNIT_PRICE = "unitPrice";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -188,7 +187,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -227,9 +226,9 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
         return Objects.hashCode(getId());
     }
 
-    // ------------------------------------------------------------------------------------------------- Bean-Validation
+    // ----------------------------------------------------------------------------- Bean-Validation
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------ id
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
@@ -245,7 +244,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      */
     protected abstract void setId(T id);
 
-    // --------------------------------------------------------------------------------------------------------- orderId
+    // ------------------------------------------------------------------------------------- orderId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute.
@@ -258,7 +257,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
         return Optional.ofNullable(getId()).map(MappedOrderItemId::getOrderId).orElse(null);
     }
 
-    // ------------------------------------------------------------------------------------------------------- productId
+    // ----------------------------------------------------------------------------------- productId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
@@ -280,7 +279,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
         this.productId = productId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- unitPrice
+    // ----------------------------------------------------------------------------------- unitPrice
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute.
@@ -301,7 +300,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
         this.unitPrice = unitPrice;
     }
 
-    // -------------------------------------------------------------------------------------------------------- quantity
+    // ------------------------------------------------------------------------------------ quantity
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_QUANTITY} attribute.
@@ -322,7 +321,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
         this.quantity = quantity;
     }
 
-    // ------------------------------------------------------------------------------------------------------ shipmentId
+    // ---------------------------------------------------------------------------------- shipmentId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute.
@@ -344,16 +343,17 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
         this.shipmentId = shipmentId;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class
     // documentation
     @Nonnull
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = false, updatable = false,
+            comment = "Which item was purchased")
     private Long productId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @DecimalMax(DECIMAL_MAX_UNIT_PRICE)
     @DecimalMin(DECIMAL_MIN_UNIT_PRICE)
@@ -364,25 +364,28 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
             insertable = true,
             updatable = false, // @@?
             precision = COLUMN_PRECISION_UNIT_PRICE,
-            scale = COLUMN_SCALE_UNIT_PRICE
+            scale = COLUMN_SCALE_UNIT_PRICE,
+            comment = "How much the customer paid for one item of the product"
     )
     private BigDecimal unitPrice;
 
     @Nonnull
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_QUANTITY, nullable = false, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_QUANTITY, nullable = false, insertable = true, updatable = true,
+            comment = "How many items of this product the customer purchased")
     private Long quantity;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class
     // documentation
     @Nullable
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_SHIPMENT_ID, nullable = true, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_SHIPMENT_ID, nullable = true, insertable = false, updatable = false,
+            comment = "Where this product will be delivered")
     private Long shipmentId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Returns the total price of this order item which is {@value #ATTRIBUTE_NAME_UNIT_PRICE}

@@ -92,7 +92,7 @@ final class ProductDetails_TestUtils {
         return mapper.writeValueAsBytes(value);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     private ProductDetails_TestUtils() {
         throw new AssertionError("instantiation is not allowed");
     }

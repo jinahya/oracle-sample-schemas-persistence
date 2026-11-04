@@ -48,7 +48,8 @@ import java.time.LocalDateTime;
                 name = MappedProduct.COLUMN_NAME_PRODUCT_IMAGE,
                 nullable = true,
                 insertable = true,
-                updatable = true
+                updatable = true,
+                comment = "A picture of the product"
         )
 )
 @AttributeOverride(
@@ -58,7 +59,8 @@ import java.time.LocalDateTime;
                 nullable = true,
                 insertable = true,
                 updatable = true,
-                length = MappedProduct.COLUMN_LENGTH_IMAGE_MIME_TYPE
+                length = MappedProduct.COLUMN_LENGTH_IMAGE_MIME_TYPE,
+                comment = "The mime-type of the product image"
         )
 )
 @AttributeOverride(
@@ -68,7 +70,8 @@ import java.time.LocalDateTime;
                 nullable = true,
                 insertable = true,
                 updatable = true,
-                length = MappedProduct.COLUMN_LENGTH_IMAGE_FILENAME
+                length = MappedProduct.COLUMN_LENGTH_IMAGE_FILENAME,
+                comment = "The name of the file loaded in the image column"
         )
 )
 @AttributeOverride(
@@ -78,7 +81,8 @@ import java.time.LocalDateTime;
                 nullable = true,
                 insertable = true,
                 updatable = true,
-                length = MappedProduct.COLUMN_LENGTH_IMAGE_CHARSET
+                length = MappedProduct.COLUMN_LENGTH_IMAGE_CHARSET,
+                comment = "The character set used to encode the image"
         )
 )
 @AttributeOverride(
@@ -87,7 +91,8 @@ import java.time.LocalDateTime;
                 name = MappedProduct.COLUMN_NAME_IMAGE_LAST_UPDATED,
                 nullable = true,
                 insertable = true,
-                updatable = true
+                updatable = true,
+                comment = "The date the image was last changed"
         )
 )
 @SuppressWarnings({
@@ -96,7 +101,7 @@ import java.time.LocalDateTime;
 public class ProductImage
         extends MappedBinary {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -105,7 +110,7 @@ public class ProductImage
         super();
     }
 
-    // --------------------------------------------------------------------------------------------------- PRODUCT_IMAGE
+    // ------------------------------------------------------------------------------- PRODUCT_IMAGE
 
     /**
      * Returns a copy of current value of {@value MappedProduct#ATTRIBUTE_NAME_PRODUCT_IMAGE}
@@ -130,7 +135,7 @@ public class ProductImage
         setBytes(productImage);
     }
 
-    // ------------------------------------------------------------------------------------------------- IMAGE_MIME_TYPE
+    // ----------------------------------------------------------------------------- IMAGE_MIME_TYPE
 
     /**
      * Returns current value of {@value MappedProduct#ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute.
@@ -153,7 +158,7 @@ public class ProductImage
         setMimeType(imageMimeType);
     }
 
-    // -------------------------------------------------------------------------------------------------- IMAGE_FILENAME
+    // ------------------------------------------------------------------------------ IMAGE_FILENAME
 
     /**
      * Returns current value of {@value MappedProduct#ATTRIBUTE_NAME_IMAGE_FILENAME} attribute.
@@ -176,7 +181,7 @@ public class ProductImage
         setFilename(imageFilename);
     }
 
-    // --------------------------------------------------------------------------------------------------- IMAGE_CHARSET
+    // ------------------------------------------------------------------------------- IMAGE_CHARSET
 
     /**
      * Returns current value of {@value MappedProduct#ATTRIBUTE_NAME_IMAGE_CHARSET} attribute.
@@ -199,7 +204,7 @@ public class ProductImage
         setCharset(imageCharset);
     }
 
-    // ---------------------------------------------------------------------------------------------- IMAGE_LAST_UPDATED
+    // -------------------------------------------------------------------------- IMAGE_LAST_UPDATED
 
     /**
      * Returns current value of {@value MappedProduct#ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute.

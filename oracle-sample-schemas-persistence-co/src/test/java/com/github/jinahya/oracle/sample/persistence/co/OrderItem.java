@@ -109,12 +109,13 @@ import java.util.Optional;
                                OrderItem.COLUMN_NAME_PRODUCT_ID,
                        }
                )
-       }
+       },
+       comment = "Details of which products the customer has purchased in an order"
 )
 public class OrderItem
         extends MappedOrderItem<OrderItemId> {
 
-    // -------------------------------------------------------------------------------------------------------- ORDER_ID
+    // ------------------------------------------------------------------------------------ ORDER_ID
 
     /**
      * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which maps the
@@ -124,7 +125,7 @@ public class OrderItem
      */
     public static final String ATTRIBUTE_NAME_ORDER = "order";
 
-    // -------------------------------------------------------------------------------------------- PRODUCT_ID / product
+    // ------------------------------------------------------------------------ PRODUCT_ID / product
 
     /**
      * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on
@@ -132,8 +133,7 @@ public class OrderItem
      */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
-    // ------------------------------------------------------------------------------------------
-    // SHIPMENT_ID / shipment
+    // ---------------------------------------------------------------------- SHIPMENT_ID / shipment
 
     /**
      * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on
@@ -141,7 +141,7 @@ public class OrderItem
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT = "shipment";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -150,7 +150,7 @@ public class OrderItem
         super();
     }
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------ id
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
@@ -172,7 +172,7 @@ public class OrderItem
         this.id = id;
     }
 
-    // --------------------------------------------------------------------------------------------------------- orderId
+    // ------------------------------------------------------------------------------------- orderId
 
     /**
      * Replaces current value of {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute with the specified
@@ -189,7 +189,7 @@ public class OrderItem
                 .setOrderId(orderId);
     }
 
-    // ----------------------------------------------------------------------------------------------------------- order
+    // --------------------------------------------------------------------------------------- order
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ORDER} attribute.
@@ -215,7 +215,7 @@ public class OrderItem
         );
     }
 
-    // --------------------------------------------------------------------------------------------------------- product
+    // ------------------------------------------------------------------------------------- product
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
@@ -239,7 +239,7 @@ public class OrderItem
         setProductId(Optional.ofNullable(product).map(Product::getProductId).orElse(null));
     }
 
-    // -------------------------------------------------------------------------------------------------------- shipment
+    // ------------------------------------------------------------------------------------ shipment
 
     /**
      * Returns the shipment which carries this order item.
@@ -262,13 +262,13 @@ public class OrderItem
         setShipmentId(Optional.ofNullable(shipment).map(Shipment::getShipmentId).orElse(null));
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Valid
     @NotNull
     @EmbeddedId
     private OrderItemId id;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull
@@ -282,7 +282,7 @@ public class OrderItem
                 nullable = false)
     private Order order;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull
@@ -295,7 +295,7 @@ public class OrderItem
     )
     private Product product;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)

@@ -54,8 +54,7 @@ public abstract class MappedProduct {
      */
     public static final String TABLE_NAME = "PRODUCTS";
 
-    // ------------------------------------------------------------------------------------------
-    // PRODUCT_ID / productId
+    // ---------------------------------------------------------------------- PRODUCT_ID / productId
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute maps.
@@ -69,8 +68,7 @@ public abstract class MappedProduct {
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_ID = "productId";
 
-    // --------------------------------------------------------------------------------------
-    // PRODUCT_NAME / productName
+    // ------------------------------------------------------------------ PRODUCT_NAME / productName
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute
@@ -95,8 +93,7 @@ public abstract class MappedProduct {
      */
     public static final int SIZE_MAX_PRODUCT_NAME = COLUMN_LENGTH_PRODUCT_NAME;
 
-    // ------------------------------------------------------------------------------------------
-    // UNIT_PRICE / unitPrice
+    // ---------------------------------------------------------------------- UNIT_PRICE / unitPrice
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute maps.
@@ -132,8 +129,7 @@ public abstract class MappedProduct {
      */
     public static final String DECIMAL_MIN_UNIT_PRICE = "-99999999.99";
 
-    // --------------------------------------------------------------------------------
-    // PRODUCT_DETAILS / productDetails
+    // ------------------------------------------------------------ PRODUCT_DETAILS / productDetails
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute
@@ -147,8 +143,7 @@ public abstract class MappedProduct {
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_DETAILS = "productDetails";
 
-    // ------------------------------------------------------------------------------------
-    // PRODUCT_IMAGE / productImage
+    // ---------------------------------------------------------------- PRODUCT_IMAGE / productImage
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute
@@ -162,8 +157,7 @@ public abstract class MappedProduct {
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_IMAGE = "productImage";
 
-    // ---------------------------------------------------------------------------------
-    // IMAGE_MIME_TYPE / imageMimeType
+    // ------------------------------------------------------------- IMAGE_MIME_TYPE / imageMimeType
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute
@@ -188,8 +182,7 @@ public abstract class MappedProduct {
      */
     public static final int SIZE_MAX_IMAGE_MIME_TYPE = COLUMN_LENGTH_IMAGE_MIME_TYPE;
 
-    // ----------------------------------------------------------------------------------
-    // IMAGE_FILENAME / imageFilename
+    // -------------------------------------------------------------- IMAGE_FILENAME / imageFilename
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_IMAGE_FILENAME} attribute
@@ -214,8 +207,7 @@ public abstract class MappedProduct {
      */
     public static final int SIZE_MAX_IMAGE_FILENAME = COLUMN_LENGTH_IMAGE_FILENAME;
 
-    // ------------------------------------------------------------------------------------
-    // IMAGE_CHARSET / imageCharset
+    // ---------------------------------------------------------------- IMAGE_CHARSET / imageCharset
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_IMAGE_CHARSET} attribute
@@ -240,8 +232,7 @@ public abstract class MappedProduct {
      */
     public static final int SIZE_MAX_IMAGE_CHARSET = COLUMN_LENGTH_IMAGE_CHARSET;
 
-    // ---------------------------------------------------------------------------
-    // IMAGE_LAST_UPDATED / imageLastUpdated
+    // ------------------------------------------------------- IMAGE_LAST_UPDATED / imageLastUpdated
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_IMAGE_LAST_UPDATED}
@@ -255,7 +246,7 @@ public abstract class MappedProduct {
      */
     public static final String ATTRIBUTE_NAME_IMAGE_LAST_UPDATED = "imageLastUpdated";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -264,7 +255,7 @@ public abstract class MappedProduct {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -320,7 +311,7 @@ public abstract class MappedProduct {
         return MappedProduct.class.hashCode();
     }
 
-    // ------------------------------------------------------------------------------------------------------- productId
+    // ----------------------------------------------------------------------------------- productId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
@@ -341,7 +332,7 @@ public abstract class MappedProduct {
         this.productId = productId;
     }
 
-    // ----------------------------------------------------------------------------------------------------- productName
+    // --------------------------------------------------------------------------------- productName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute.
@@ -363,7 +354,7 @@ public abstract class MappedProduct {
         this.productName = productName;
     }
 
-    // ------------------------------------------------------------------------------------------------------- unitPrice
+    // ----------------------------------------------------------------------------------- unitPrice
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute.
@@ -385,7 +376,7 @@ public abstract class MappedProduct {
         this.unitPrice = unitPrice;
     }
 
-    // -------------------------------------------------------------------------------------------------- productDetails
+    // ------------------------------------------------------------------------------ productDetails
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute.
@@ -442,7 +433,7 @@ public abstract class MappedProduct {
         );
     }
 
-    // ---------------------------------------------------------------------------------------------------- productImage
+    // -------------------------------------------------------------------------------- productImage
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute.
@@ -464,7 +455,7 @@ public abstract class MappedProduct {
         this.productImage = productImage;
     }
 
-    // --------------------------------------------------------------------------------------------------- imageMimeType
+    // ------------------------------------------------------------------------------- imageMimeType
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_IMAGE_MIME_TYPE} attribute.
@@ -486,7 +477,7 @@ public abstract class MappedProduct {
         this.imageMimeType = imageMimeType;
     }
 
-    // --------------------------------------------------------------------------------------------------- imageFilename
+    // ------------------------------------------------------------------------------- imageFilename
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_IMAGE_FILENAME} attribute.
@@ -508,7 +499,7 @@ public abstract class MappedProduct {
         this.imageFilename = imageFilename;
     }
 
-    // ---------------------------------------------------------------------------------------------------- imageCharset
+    // -------------------------------------------------------------------------------- imageCharset
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_IMAGE_CHARSET} attribute.
@@ -530,7 +521,7 @@ public abstract class MappedProduct {
         this.imageCharset = imageCharset;
     }
 
-    // ------------------------------------------------------------------------------------------------ imageLastUpdated
+    // ---------------------------------------------------------------------------- imageLastUpdated
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_IMAGE_LAST_UPDATED} attribute.
@@ -552,11 +543,11 @@ public abstract class MappedProduct {
         this.imageLastUpdated = imageLastUpdated;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // TODO: remove; not constrained by the DDL -- PRODUCTS.PRODUCT_ID is an INTEGER identity
     //  with no check
 //    @Positive
@@ -566,7 +557,8 @@ public abstract class MappedProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = COLUMN_NAME_PRODUCT_ID, nullable = false,
             /* insertable = false,*/ insertable = true, // EclipseLInk
-            updatable = false
+            updatable = false,
+            comment = "Auto-incrementing primary key"
     )
     private Long productId;
 
@@ -577,7 +569,8 @@ public abstract class MappedProduct {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_PRODUCT_NAME
+            length = COLUMN_LENGTH_PRODUCT_NAME,
+            comment = "What a product is called"
     )
     private String productName;
 
@@ -590,7 +583,8 @@ public abstract class MappedProduct {
             insertable = true,
             updatable = true,
             precision = COLUMN_PRECISION_UNIT_PRICE,
-            scale = COLUMN_SCALE_UNIT_PRICE
+            scale = COLUMN_SCALE_UNIT_PRICE,
+            comment = "The monetary value of one item of this product"
     )
     private BigDecimal unitPrice;
 
@@ -598,14 +592,16 @@ public abstract class MappedProduct {
     @Lob
     @Basic(optional = true, fetch = FetchType.LAZY)
     @Column(name = COLUMN_NAME_PRODUCT_DETAILS, nullable = true, insertable = true,
-            updatable = true)
+            updatable = true,
+            comment = "Further details of the product stored in JSON format")
     private byte[] productDetails;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nullable
     @Lob
     @Basic(optional = true, fetch = FetchType.LAZY)
-    @Column(name = COLUMN_NAME_PRODUCT_IMAGE, nullable = true, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_PRODUCT_IMAGE, nullable = true, insertable = true, updatable = true,
+            comment = "A picture of the product")
     private byte[] productImage;
 
     @Nullable
@@ -615,7 +611,8 @@ public abstract class MappedProduct {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_IMAGE_MIME_TYPE
+            length = COLUMN_LENGTH_IMAGE_MIME_TYPE,
+            comment = "The mime-type of the product image"
     )
     private String imageMimeType;
 
@@ -626,7 +623,8 @@ public abstract class MappedProduct {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_IMAGE_FILENAME
+            length = COLUMN_LENGTH_IMAGE_FILENAME,
+            comment = "The name of the file loaded in the image column"
     )
     private String imageFilename;
 
@@ -637,12 +635,14 @@ public abstract class MappedProduct {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_IMAGE_CHARSET
+            length = COLUMN_LENGTH_IMAGE_CHARSET,
+            comment = "The character set used to encode the image"
     )
     private String imageCharset;
 
     @Nullable
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_IMAGE_LAST_UPDATED, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_IMAGE_LAST_UPDATED, insertable = true, updatable = true,
+            comment = "The date the image was last changed")
     private LocalDateTime imageLastUpdated;
 }

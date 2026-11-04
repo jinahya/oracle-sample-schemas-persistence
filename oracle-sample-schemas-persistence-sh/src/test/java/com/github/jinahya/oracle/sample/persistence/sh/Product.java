@@ -56,11 +56,11 @@ import jakarta.persistence.Table;
                     FROM Product e"""
 )
 @Entity
-@Table(name = MappedProduct.TABLE_NAME)
+@Table(name = MappedProduct.TABLE_NAME, comment = "dimension table")
 public class Product
         extends MappedProduct {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.

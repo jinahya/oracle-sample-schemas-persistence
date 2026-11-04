@@ -47,7 +47,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
         "java:S101", // Class names should comply with a naming convention
         "java:S114"  // Interface names should comply with a naming convention
 })
-interface __Object_Test<T> {
+public interface __Object_Test<T> {
 
     /**
      * Returns the class which this test targets.
@@ -70,7 +70,7 @@ interface __Object_Test<T> {
      */
     T newRandomizedTargetInstance();
 
-    // -------------------------------------------------------------------------------------------------------- toString
+    // ------------------------------------------------------------------------------------ toString
 
     /**
      * Verifies that {@code toString()} of a new instance of {@link #targetClass()} is not blank.
@@ -91,7 +91,7 @@ interface __Object_Test<T> {
         assertThat(newRandomizedTargetInstance().toString()).isNotBlank();
     }
 
-    // ------------------------------------------------------------------------------------------------- equals/hashCode
+    // ----------------------------------------------------------------------------- equals/hashCode
 
     /**
      * Returns an equals-verifier for {@link #targetClass()}, which implementations may further
@@ -113,7 +113,7 @@ interface __Object_Test<T> {
         verifier.verify();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Verifies that every non-{@link Transient @Transient} read/write property of

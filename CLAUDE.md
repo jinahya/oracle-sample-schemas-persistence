@@ -71,7 +71,7 @@ into the matching section rather than at the end of the file:
 6. accessors, under a `// ---- attributeName` marker per attribute
 7. the `private` fields, last, under a plain `// ----` separator
 
-Section markers are line comments padded with dashes to column 120.
+Section markers are line comments padded with dashes to column 100.
 
 ### Classes for views with no key
 

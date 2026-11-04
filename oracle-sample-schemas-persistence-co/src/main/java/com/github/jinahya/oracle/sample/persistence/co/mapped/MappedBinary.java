@@ -43,16 +43,16 @@ import java.util.Optional;
  *         two of them below, which replaces the column mapping outright, so anything declared here
  *         would never be read.
  *         {@snippet lang = "java":
- *                 @Embeddable
- *                 @AttributeOverride(name = _Binary.ATTRIBUTE_NAME_BYTES,
- *                                    column = @Column(name = MappedProduct
- *                                    .COLUMN_NAME_PRODUCT_IMAGE))
- *                 @AttributeOverride(name = _Binary.ATTRIBUTE_NAME_MIME_TYPE,
- *                                    column = @Column(name = MappedProduct
- *                                    .COLUMN_NAME_IMAGE_MIME_TYPE,
- *                                                     length = MappedProduct
- *                                                     .COLUMN_LENGTH_IMAGE_MIME_TYPE))
- *                 public class ProductImage extends _Binary { ... }
+ *                         @Embeddable
+ *                         @AttributeOverride(name = _Binary.ATTRIBUTE_NAME_BYTES,
+ *                                            column = @Column(name = MappedProduct
+ *                                            .COLUMN_NAME_PRODUCT_IMAGE))
+ *                         @AttributeOverride(name = _Binary.ATTRIBUTE_NAME_MIME_TYPE,
+ *                                            column = @Column(name = MappedProduct
+ *                                            .COLUMN_NAME_IMAGE_MIME_TYPE,
+ *                                                             length = MappedProduct
+ *                                                             .COLUMN_LENGTH_IMAGE_MIME_TYPE))
+ *                         public class ProductImage extends _Binary { ... }
  *}
  */
 @MappedSuperclass
@@ -88,7 +88,7 @@ public abstract class MappedBinary {
      */
     static final String ATTRIBUTE_NAME_LAST_UPDATED = "lastUpdated";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -97,7 +97,7 @@ public abstract class MappedBinary {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -109,7 +109,7 @@ public abstract class MappedBinary {
                '}';
     }
 
-    // ----------------------------------------------------------------------------------------------------------- bytes
+    // --------------------------------------------------------------------------------------- bytes
 
     /**
      * Returns a copy of current value of {@value #ATTRIBUTE_NAME_BYTES} attribute.
@@ -136,7 +136,7 @@ public abstract class MappedBinary {
                 .orElse(null);
     }
 
-    // -------------------------------------------------------------------------------------------------------- mimeType
+    // ------------------------------------------------------------------------------------ mimeType
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_MIME_TYPE} attribute.
@@ -158,7 +158,7 @@ public abstract class MappedBinary {
         this.mimeType = mimeType;
     }
 
-    // -------------------------------------------------------------------------------------------------------- filename
+    // ------------------------------------------------------------------------------------ filename
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_FILENAME} attribute.
@@ -180,7 +180,7 @@ public abstract class MappedBinary {
         this.filename = filename;
     }
 
-    // --------------------------------------------------------------------------------------------------------- charset
+    // ------------------------------------------------------------------------------------- charset
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CHARSET} attribute.
@@ -202,7 +202,7 @@ public abstract class MappedBinary {
         this.charset = charset;
     }
 
-    // ----------------------------------------------------------------------------------------------------- lastUpdated
+    // --------------------------------------------------------------------------------- lastUpdated
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LAST_UPDATED} attribute.
@@ -224,7 +224,7 @@ public abstract class MappedBinary {
         this.lastUpdated = lastUpdated;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nullable
     @Lob
     private byte[] bytes;

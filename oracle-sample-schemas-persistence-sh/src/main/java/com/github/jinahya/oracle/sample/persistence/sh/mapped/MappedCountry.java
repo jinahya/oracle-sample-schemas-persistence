@@ -41,7 +41,7 @@ public abstract class MappedCountry {
      */
     public static final String TABLE_NAME = "COUNTRIES";
 
-    // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
+    // ---------------------------------------------------------------------------------- COUNTRY_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps.
@@ -55,7 +55,7 @@ public abstract class MappedCountry {
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
 
-    // ------------------------------------------------------------------------------------------------ COUNTRY_ISO_CODE
+    // ---------------------------------------------------------------------------- COUNTRY_ISO_CODE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ISO_CODE} attribute
@@ -86,7 +86,7 @@ public abstract class MappedCountry {
      */
     public static final int SIZE_MAX_COUNTRY_ISO_CODE = SIZE_MIN_COUNTRY_ISO_CODE;
 
-    // ---------------------------------------------------------------------------------------------------- COUNTRY_NAME
+    // -------------------------------------------------------------------------------- COUNTRY_NAME
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute
@@ -111,7 +111,7 @@ public abstract class MappedCountry {
      */
     public static final int SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
 
-    // ----------------------------------------------------------------------------------------------- COUNTRY_SUBREGION
+    // --------------------------------------------------------------------------- COUNTRY_SUBREGION
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION}
@@ -136,7 +136,7 @@ public abstract class MappedCountry {
      */
     public static final int SIZE_MAX_COUNTRY_SUBREGION = COLUMN_LENGTH_COUNTRY_SUBREGION;
 
-    // -------------------------------------------------------------------------------------------- COUNTRY_SUBREGION_ID
+    // ------------------------------------------------------------------------ COUNTRY_SUBREGION_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID}
@@ -150,7 +150,7 @@ public abstract class MappedCountry {
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID = "countrySubregionId";
 
-    // -------------------------------------------------------------------------------------------------- COUNTRY_REGION
+    // ------------------------------------------------------------------------------ COUNTRY_REGION
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_REGION} attribute
@@ -175,7 +175,7 @@ public abstract class MappedCountry {
      */
     public static final int SIZE_MAX_COUNTRY_REGION = COLUMN_LENGTH_COUNTRY_REGION;
 
-    // ----------------------------------------------------------------------------------------------- COUNTRY_REGION_ID
+    // --------------------------------------------------------------------------- COUNTRY_REGION_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_REGION_ID}
@@ -189,7 +189,7 @@ public abstract class MappedCountry {
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_REGION_ID = "countryRegionId";
 
-    // --------------------------------------------------------------------------------------------------- COUNTRY_TOTAL
+    // ------------------------------------------------------------------------------- COUNTRY_TOTAL
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} attribute
@@ -214,7 +214,7 @@ public abstract class MappedCountry {
      */
     public static final int SIZE_MAX_COUNTRY_TOTAL = COLUMN_LENGTH_COUNTRY_TOTAL;
 
-    // ------------------------------------------------------------------------------------------------ COUNTRY_TOTAL_ID
+    // ---------------------------------------------------------------------------- COUNTRY_TOTAL_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL_ID} attribute
@@ -228,7 +228,7 @@ public abstract class MappedCountry {
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_TOTAL_ID = "countryTotalId";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -237,7 +237,7 @@ public abstract class MappedCountry {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -279,7 +279,7 @@ public abstract class MappedCountry {
     public final int hashCode() {
         return Objects.hashCode(getCountryId());
     }
-    // ------------------------------------------------------------------------------------------------------ countryId
+    // ----------------------------------------------------------------------------------- countryId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
@@ -300,7 +300,7 @@ public abstract class MappedCountry {
         this.countryId = countryId;
     }
 
-    // -------------------------------------------------------------------------------------------------- countryIsoCode
+    // ------------------------------------------------------------------------------ countryIsoCode
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ISO_CODE} attribute.
@@ -321,7 +321,7 @@ public abstract class MappedCountry {
         this.countryIsoCode = countryIsoCode;
     }
 
-    // ----------------------------------------------------------------------------------------------------- countryName
+    // --------------------------------------------------------------------------------- countryName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
@@ -342,7 +342,7 @@ public abstract class MappedCountry {
         this.countryName = countryName;
     }
 
-    // ------------------------------------------------------------------------------------------------ countrySubregion
+    // ---------------------------------------------------------------------------- countrySubregion
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION} attribute.
@@ -363,7 +363,7 @@ public abstract class MappedCountry {
         this.countrySubregion = countrySubregion;
     }
 
-    // ---------------------------------------------------------------------------------------------- countrySubregionId
+    // -------------------------------------------------------------------------- countrySubregionId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_SUBREGION_ID} attribute.
@@ -385,7 +385,7 @@ public abstract class MappedCountry {
         this.countrySubregionId = countrySubregionId;
     }
 
-    // --------------------------------------------------------------------------------------------------- countryRegion
+    // ------------------------------------------------------------------------------- countryRegion
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_REGION} attribute.
@@ -406,7 +406,7 @@ public abstract class MappedCountry {
         this.countryRegion = countryRegion;
     }
 
-    // ------------------------------------------------------------------------------------------------- countryRegionId
+    // ----------------------------------------------------------------------------- countryRegionId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_REGION_ID} attribute.
@@ -427,7 +427,7 @@ public abstract class MappedCountry {
         this.countryRegionId = countryRegionId;
     }
 
-    // ---------------------------------------------------------------------------------------------------- countryTotal
+    // -------------------------------------------------------------------------------- countryTotal
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL} attribute.
@@ -448,7 +448,7 @@ public abstract class MappedCountry {
         this.countryTotal = countryTotal;
     }
 
-    // -------------------------------------------------------------------------------------------------- countryTotalId
+    // ------------------------------------------------------------------------------ countryTotalId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_TOTAL_ID} attribute.
@@ -469,13 +469,14 @@ public abstract class MappedCountry {
         this.countryTotalId = countryTotalId;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @NotNull
     @Id
-    @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = false, insertable = true, updatable = false,
+            comment = "primary key")
     private Long countryId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Size(max = SIZE_MAX_COUNTRY_ISO_CODE)
     @NotNull
     @Column(name = COLUMN_NAME_COUNTRY_ISO_CODE, nullable = false, insertable = true,
@@ -485,13 +486,15 @@ public abstract class MappedCountry {
 
     @Size(max = SIZE_MAX_COUNTRY_NAME)
     @NotNull
-    @Column(name = COLUMN_NAME_COUNTRY_NAME, nullable = false, length = COLUMN_LENGTH_COUNTRY_NAME)
+    @Column(name = COLUMN_NAME_COUNTRY_NAME, nullable = false, length = COLUMN_LENGTH_COUNTRY_NAME,
+            comment = "country name")
     private String countryName;
 
     @Size(max = SIZE_MAX_COUNTRY_SUBREGION)
     @NotNull
     @Column(name = COLUMN_NAME_COUNTRY_SUBREGION, nullable = false,
-            length = COLUMN_LENGTH_COUNTRY_SUBREGION)
+            length = COLUMN_LENGTH_COUNTRY_SUBREGION,
+            comment = "e.g. Western Europe, to allow hierarchies")
     private String countrySubregion;
 
     @NotNull
@@ -501,7 +504,8 @@ public abstract class MappedCountry {
     @Size(max = SIZE_MAX_COUNTRY_REGION)
     @NotNull
     @Column(name = COLUMN_NAME_COUNTRY_REGION, nullable = false,
-            length = COLUMN_LENGTH_COUNTRY_REGION)
+            length = COLUMN_LENGTH_COUNTRY_REGION,
+            comment = "e.g. Europe, Asia")
     private String countryRegion;
 
     @NotNull

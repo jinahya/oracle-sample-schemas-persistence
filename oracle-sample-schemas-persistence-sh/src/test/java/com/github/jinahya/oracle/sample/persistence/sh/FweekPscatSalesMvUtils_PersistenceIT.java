@@ -55,7 +55,7 @@ class FweekPscatSalesMvUtils_PersistenceIT {
                    () -> FweekPscatSalesMv.TABLE_NAME + " holds no row; refresh it first");
     }
 
-    // ------------------------------------------------------------------------------------------------ id.weekEndingDay
+    // ---------------------------------------------------------------------------- id.weekEndingDay
 
     @DisplayName("getIdWeekEndingDay(fweekPscatSalesMv)")
     @Nested
@@ -70,7 +70,7 @@ class FweekPscatSalesMvUtils_PersistenceIT {
         }
     }
 
-    // ---------------------------------------------------------------------------------------------- id.prodSubcategory
+    // -------------------------------------------------------------------------- id.prodSubcategory
 
     @DisplayName("getIdProdSubcategory(fweekPscatSalesMv)")
     @Nested
@@ -85,7 +85,7 @@ class FweekPscatSalesMvUtils_PersistenceIT {
         }
     }
 
-    // ---------------------------------------------------------------------------------------------------- id.channelId
+    // -------------------------------------------------------------------------------- id.channelId
 
     @DisplayName("getIdChannelId(fweekPscatSalesMv)")
     @Nested
@@ -100,7 +100,7 @@ class FweekPscatSalesMvUtils_PersistenceIT {
         }
     }
 
-    // ------------------------------------------------------------------------------------------------------ id.promoId
+    // ---------------------------------------------------------------------------------- id.promoId
 
     @DisplayName("getIdPromoId(fweekPscatSalesMv)")
     @Nested
@@ -120,7 +120,7 @@ class FweekPscatSalesMvUtils_PersistenceIT {
         entityManager.close();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     private final EntityManager entityManager =
             __PersistenceIT_Utils.applyEntityManagerFactory(
                     EntityManagerFactory::createEntityManager);

@@ -32,7 +32,7 @@ import java.math.BigDecimal;
 public class StoreOrder
         extends MappedStoreOrder {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.

@@ -58,7 +58,7 @@ class TimeUtils_Test {
         return time;
     }
 
-    // --------------------------------------------------------------------------------------------------------- dayName
+    // ------------------------------------------------------------------------------------- dayName
 
     @DisplayName("getDayNameAsMapped(time, mapper)")
     @Nested
@@ -182,7 +182,7 @@ class TimeUtils_Test {
         }
     }
 
-    // ----------------------------------------------------------------------------------------------- calendarMonthDesc
+    // --------------------------------------------------------------------------- calendarMonthDesc
 
     @DisplayName("getCalendarMonthDescAsMapped(time, mapper)")
     @Nested
@@ -313,7 +313,7 @@ class TimeUtils_Test {
         }
     }
 
-    // ------------------------------------------------------------------------------------------------- fiscalMonthDesc
+    // ----------------------------------------------------------------------------- fiscalMonthDesc
 
     @DisplayName("getFiscalMonthDescAsMapped(time, mapper)")
     @Nested
@@ -442,7 +442,7 @@ class TimeUtils_Test {
         }
     }
 
-    // ----------------------------------------------------------------------------------------------- calendarMonthName
+    // --------------------------------------------------------------------------- calendarMonthName
 
     @DisplayName("getCalendarMonthNameAsMapped(time, mapper)")
     @Nested
@@ -570,7 +570,7 @@ class TimeUtils_Test {
         }
     }
 
-    // ------------------------------------------------------------------------------------------------- fiscalMonthName
+    // ----------------------------------------------------------------------------- fiscalMonthName
 
     @DisplayName("getFiscalMonthNameAsMapped(time, mapper)")
     @Nested

@@ -52,7 +52,7 @@ import java.util.Locale;
 public class TimeMonthNameAttributeConverter
         implements AttributeConverter<Month, String> {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -61,8 +61,7 @@ public class TimeMonthNameAttributeConverter
         super();
     }
 
-    // ---------------------------------------------------------------------- jakarta.persistence
-    // .AttributeConverter
+    // ------------------------------------------------------ jakarta.persistence.AttributeConverter
 
     /**
      * {@inheritDoc}

@@ -48,7 +48,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
      */
     public static final String TABLE_NAME = "PRODUCT_ORDERS";
 
-    // ---------------------------------------------------------------------------------------------------- PRODUCT_NAME
+    // -------------------------------------------------------------------------------- PRODUCT_NAME
 
     /**
      * The name of the view column to which the
@@ -75,7 +75,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
      */
     public static final String ATTRIBUTE_PATH_ID_PRODUCT_NAME = "id.productName";
 
-    // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
+    // -------------------------------------------------------------------------------- ORDER_STATUS
 
     /**
      * The name of the view column to which the
@@ -102,7 +102,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
      */
     public static final String ATTRIBUTE_PATH_ID_ORDER_STATUS = "id.orderStatus";
 
-    // ----------------------------------------------------------------------------------------------------- TOTAL_SALES
+    // --------------------------------------------------------------------------------- TOTAL_SALES
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_TOTAL_SALES} attribute maps.
@@ -116,7 +116,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
      */
     public static final String ATTRIBUTE_NAME_TOTAL_SALES = "totalSales";
 
-    // ----------------------------------------------------------------------------------------------------- ORDER_COUNT
+    // --------------------------------------------------------------------------------- ORDER_COUNT
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute maps.
@@ -130,7 +130,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
      */
     public static final String ATTRIBUTE_NAME_ORDER_COUNT = "orderCount";
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------ id
 
     /**
      * The name of the attribute which maps the identifying columns, as an
@@ -138,7 +138,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
      */
     public static final String ATTRIBUTE_NAME_ID = "id";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -147,7 +147,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -184,7 +184,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
         return Objects.hashCode(getId());
     }
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------ id
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
@@ -193,7 +193,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
      */
     public abstract T getId();
 
-    // ----------------------------------------------------------------------------------------------------- productName
+    // --------------------------------------------------------------------------------- productName
 
     /**
      * Returns current value of {@value MappedProductOrderId#ATTRIBUTE_NAME_PRODUCT_NAME}
@@ -206,7 +206,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
         return Optional.ofNullable(getId()).map(MappedProductOrderId::getProductName).orElse(null);
     }
 
-    // ----------------------------------------------------------------------------------------------------- orderStatus
+    // --------------------------------------------------------------------------------- orderStatus
 
     /**
      * Returns current value of {@value MappedProductOrderId#ATTRIBUTE_NAME_ORDER_STATUS}
@@ -219,7 +219,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
         return Optional.ofNullable(getId()).map(MappedProductOrderId::getOrderStatus).orElse(null);
     }
 
-    // ------------------------------------------------------------------------------------------------------ totalSales
+    // ---------------------------------------------------------------------------------- totalSales
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_TOTAL_SALES} attribute.
@@ -230,7 +230,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
         return totalSales;
     }
 
-    // ------------------------------------------------------------------------------------------------------ orderCount
+    // ---------------------------------------------------------------------------------- orderCount
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute.
@@ -241,13 +241,15 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
         return orderCount;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_TOTAL_SALES, nullable = true, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_TOTAL_SALES, nullable = true, insertable = false, updatable = false,
+            comment = "The total value of orders placed")
     private BigDecimal totalSales;
 
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_ORDER_COUNT, nullable = true, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_ORDER_COUNT, nullable = true, insertable = false, updatable = false,
+            comment = "The total number of orders placed")
     private Long orderCount;
 }

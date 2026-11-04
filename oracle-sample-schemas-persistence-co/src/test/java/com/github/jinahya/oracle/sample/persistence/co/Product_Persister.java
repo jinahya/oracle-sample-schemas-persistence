@@ -37,7 +37,7 @@ class Product_Persister
         super(Product.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Product apply(final EntityManager entityManager, final Product entityInstance) {
         return super.apply(entityManager, entityInstance);

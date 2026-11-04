@@ -31,7 +31,7 @@ package com.github.jinahya.oracle.sample.persistence.hr;
         "java:S101", // Class names should comply with a naming convention
         "java:S118"  // Abstract class names should comply with a naming convention
 })
-abstract class _NonEntity_Test<T>
+public abstract class _NonEntity_Test<T>
         extends __Test<T>
         implements __Object_Test<T> {
 

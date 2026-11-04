@@ -11,9 +11,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
-import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceTest_Utils.applyEntityManagerFactory;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -63,12 +63,12 @@ class Product_PersistenceTest
         }));
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     Product_PersistenceTest() {
         super(Product.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * The minimum unit price of the range the nested tests select, which is the unit price of a
@@ -130,20 +130,21 @@ class Product_PersistenceTest
                 "range")
         @Test
         void __NamedQuery() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var persisted = persistProducts(em);
-                final var found = em
-                        .createNamedQuery(
-                                "Product" +
-                                ".selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
-                                targetClass
-                        )
-                        .setParameter("unitPriceMinInclusive", UNIT_PRICE_MIN)
-                        .setParameter("unitPriceMaxExclusive", UNIT_PRICE_MAX)
-                        .getResultList();
-                verify(persisted, found);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var persisted = persistProducts(em);
+                        final var found = em
+                                .createNamedQuery(
+                                        "Product" +
+                                        ".selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
+                                        targetClass
+                                )
+                                .setParameter("unitPriceMinInclusive", UNIT_PRICE_MIN)
+                                .setParameter("unitPriceMaxExclusive", UNIT_PRICE_MAX)
+                                .getResultList();
+                        verify(persisted, found);
+                        return found;
+                    })));
         }
 
         @DisplayName(
@@ -151,23 +152,24 @@ class Product_PersistenceTest
                 "price range")
         @Test
         void __QueryLanguage() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var persisted = persistProducts(em);
-                final var found = em
-                        .createQuery(
-                                """
-                                        SELECT e
-                                        FROM Product e
-                                        WHERE e.unitPrice >= :unitPriceMinInclusive AND e.unitPrice < :unitPriceMaxExclusive
-                                        ORDER BY e.unitPrice ASC""",
-                                targetClass
-                        )
-                        .setParameter("unitPriceMinInclusive", UNIT_PRICE_MIN)
-                        .setParameter("unitPriceMaxExclusive", UNIT_PRICE_MAX)
-                        .getResultList();
-                verify(persisted, found);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var persisted = persistProducts(em);
+                        final var found = em
+                                .createQuery(
+                                        """
+                                                SELECT e
+                                                FROM Product e
+                                                WHERE e.unitPrice >= :unitPriceMinInclusive AND e.unitPrice < :unitPriceMaxExclusive
+                                                ORDER BY e.unitPrice ASC""",
+                                        targetClass
+                                )
+                                .setParameter("unitPriceMinInclusive", UNIT_PRICE_MIN)
+                                .setParameter("unitPriceMaxExclusive", UNIT_PRICE_MAX)
+                                .getResultList();
+                        verify(persisted, found);
+                        return found;
+                    })));
         }
 
         @DisplayName(
@@ -175,21 +177,23 @@ class Product_PersistenceTest
                 "range")
         @Test
         void __CriteriaApi() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var persisted = persistProducts(em);
-                final var builder = em.getCriteriaBuilder();
-                final var query = builder.createQuery(targetClass);
-                final var root = query.from(targetClass);
-                query.select(root);
-                query.where(
-                        builder.greaterThanOrEqualTo(root.get(Product_.unitPrice), UNIT_PRICE_MIN),
-                        builder.lessThan(root.get(Product_.unitPrice), UNIT_PRICE_MAX)
-                );
-                query.orderBy(builder.asc(root.get(Product_.unitPrice)));
-                final var found = em.createQuery(query).getResultList();
-                verify(persisted, found);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var persisted = persistProducts(em);
+                        final var builder = em.getCriteriaBuilder();
+                        final var query = builder.createQuery(targetClass);
+                        final var root = query.from(targetClass);
+                        query.select(root);
+                        query.where(
+                                builder.greaterThanOrEqualTo(root.get(Product_.unitPrice),
+                                                             UNIT_PRICE_MIN),
+                                builder.lessThan(root.get(Product_.unitPrice), UNIT_PRICE_MAX)
+                        );
+                        query.orderBy(builder.asc(root.get(Product_.unitPrice)));
+                        final var found = em.createQuery(query).getResultList();
+                        verify(persisted, found);
+                        return found;
+                    })));
         }
     }
 
@@ -216,18 +220,19 @@ class Product_PersistenceTest
                 "the named query selects the products just persisted, in a closed unit price range")
         @Test
         void __NamedQuery() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var persisted = persistProducts(em);
-                final var found = em
-                        .createNamedQuery(
-                                "Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc",
-                                targetClass)
-                        .setParameter("unitPriceAfter", UNIT_PRICE_MIN)
-                        .setParameter("unitPriceBefore", UNIT_PRICE_MAX)
-                        .getResultList();
-                verify(persisted, found);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var persisted = persistProducts(em);
+                        final var found = em
+                                .createNamedQuery(
+                                        "Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc",
+                                        targetClass)
+                                .setParameter("unitPriceAfter", UNIT_PRICE_MIN)
+                                .setParameter("unitPriceBefore", UNIT_PRICE_MAX)
+                                .getResultList();
+                        verify(persisted, found);
+                        return found;
+                    })));
         }
 
         @DisplayName(
@@ -235,23 +240,24 @@ class Product_PersistenceTest
                 "price range")
         @Test
         void __QueryLanguage() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var persisted = persistProducts(em);
-                final var found = em
-                        .createQuery(
-                                """
-                                        SELECT e
-                                        FROM Product e
-                                        WHERE e.unitPrice BETWEEN :unitPriceAfter AND :unitPriceBefore
-                                        ORDER BY e.unitPrice ASC""",
-                                targetClass
-                        )
-                        .setParameter("unitPriceAfter", UNIT_PRICE_MIN)
-                        .setParameter("unitPriceBefore", UNIT_PRICE_MAX)
-                        .getResultList();
-                verify(persisted, found);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var persisted = persistProducts(em);
+                        final var found = em
+                                .createQuery(
+                                        """
+                                                SELECT e
+                                                FROM Product e
+                                                WHERE e.unitPrice BETWEEN :unitPriceAfter AND :unitPriceBefore
+                                                ORDER BY e.unitPrice ASC""",
+                                        targetClass
+                                )
+                                .setParameter("unitPriceAfter", UNIT_PRICE_MIN)
+                                .setParameter("unitPriceBefore", UNIT_PRICE_MAX)
+                                .getResultList();
+                        verify(persisted, found);
+                        return found;
+                    })));
         }
 
         @DisplayName(
@@ -259,19 +265,20 @@ class Product_PersistenceTest
                 "range")
         @Test
         void __CriteriaApi() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var persisted = persistProducts(em);
-                final var builder = em.getCriteriaBuilder();
-                final var query = builder.createQuery(targetClass);
-                final var root = query.from(targetClass);
-                query.select(root);
-                query.where(builder.between(root.get(Product_.unitPrice), UNIT_PRICE_MIN,
-                                            UNIT_PRICE_MAX));
-                query.orderBy(builder.asc(root.get(Product_.unitPrice)));
-                final var found = em.createQuery(query).getResultList();
-                verify(persisted, found);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var persisted = persistProducts(em);
+                        final var builder = em.getCriteriaBuilder();
+                        final var query = builder.createQuery(targetClass);
+                        final var root = query.from(targetClass);
+                        query.select(root);
+                        query.where(builder.between(root.get(Product_.unitPrice), UNIT_PRICE_MIN,
+                                                    UNIT_PRICE_MAX));
+                        query.orderBy(builder.asc(root.get(Product_.unitPrice)));
+                        final var found = em.createQuery(query).getResultList();
+                        verify(persisted, found);
+                        return found;
+                    })));
         }
     }
 }

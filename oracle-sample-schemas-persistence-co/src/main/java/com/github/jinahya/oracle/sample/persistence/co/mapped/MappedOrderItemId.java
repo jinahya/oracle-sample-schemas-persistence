@@ -50,7 +50,7 @@ public abstract class MappedOrderItemId {
      */
     public static final String ATTRIBUTE_NAME_LINE_ITEM_ID = "lineItemId";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -59,7 +59,7 @@ public abstract class MappedOrderItemId {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -98,7 +98,7 @@ public abstract class MappedOrderItemId {
         return Objects.hash(orderId, lineItemId);
     }
 
-    // --------------------------------------------------------------------------------------------------------- orderId
+    // ------------------------------------------------------------------------------------- orderId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
@@ -120,7 +120,7 @@ public abstract class MappedOrderItemId {
         this.orderId = orderId;
     }
 
-    // ------------------------------------------------------------------------------------------------------ lineItemId
+    // ---------------------------------------------------------------------------------- lineItemId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LINE_ITEM_ID} attribute.
@@ -142,7 +142,7 @@ public abstract class MappedOrderItemId {
         this.lineItemId = lineItemId;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @Nonnull
     // no @NotNull: MappedOrderItem maps this through @MapsId, so the provider fills it at flush
@@ -150,13 +150,15 @@ public abstract class MappedOrderItemId {
     // the prePersist at which EclipseLink validates. The column stays NOT NULL.
     @Basic(optional = false)
     @Column(name = MappedOrderItem.COLUMN_NAME_ORDER_ID, nullable = false, insertable = true,
-            updatable = false)
+            updatable = false,
+            comment = "The order these products belong to")
     private Long orderId;
 
     @Nonnull
     @NotNull
     @Basic(optional = false)
     @Column(name = MappedOrderItem.COLUMN_NAME_LINE_ITEM_ID, nullable = false, insertable = true,
-            updatable = false)
+            updatable = false,
+            comment = "An incrementing number, starting at one for each order")
     private Long lineItemId;
 }

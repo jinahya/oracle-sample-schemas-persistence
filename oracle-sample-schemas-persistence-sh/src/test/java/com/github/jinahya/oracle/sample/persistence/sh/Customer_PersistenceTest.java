@@ -26,10 +26,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static com.github.jinahya.persistence.test.util.EntityPersisterUtils.newPersistedInstanceOf;
-import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
-import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static com.github.jinahya.oracle.sample.persistence.sh.__PersistenceTest_Utils.applyEntityManagerFactory;
+import static com.github.jinahya.persistence.test.util.EntityPersisterUtils.newPersistedInstanceOf;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -45,7 +45,7 @@ class Customer_PersistenceTest
         super(Customer.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Tests {@code Customer.selectListPromotedByCustCityOrderByCustLastNameAsc}, which answers
@@ -72,19 +72,21 @@ class Customer_PersistenceTest
                 "the named query selects the customer of the sale just persisted, by their city")
         @Test
         void __NamedQuery() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var customer = promotedCustomer(em);
-                final var found = em
-                        .createNamedQuery(
-                                "Customer.selectListPromotedByCustCityOrderByCustLastNameAsc",
-                                targetClass)
-                        .setParameter("custCity", customer.getCustCity())
-                        .getResultList();
-                assertThat(found)
-                        .as("the customers of the city who bought under a promotion")
-                        .containsExactly(customer);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var customer = promotedCustomer(em);
+                        final var found = em
+                                .createNamedQuery(
+                                        "Customer" +
+                                        ".selectListPromotedByCustCityOrderByCustLastNameAsc",
+                                        targetClass)
+                                .setParameter("custCity", customer.getCustCity())
+                                .getResultList();
+                        assertThat(found)
+                                .as("the customers of the city who bought under a promotion")
+                                .containsExactly(customer);
+                        return found;
+                    })));
         }
 
         @DisplayName(
@@ -92,80 +94,85 @@ class Customer_PersistenceTest
                 " city")
         @Test
         void __QueryLanguage() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var customer = promotedCustomer(em);
-                final var found = em
-                        .createQuery(
-                                """
-                                        SELECT c
-                                        FROM Customer c
-                                        WHERE c.custCity = :custCity
-                                          AND EXISTS (SELECT s
-                                                      FROM Sales s
-                                                      WHERE s.customer = c
-                                                        AND s.promotion.promoCategory <> 'NO PROMOTION')
-                                        ORDER BY c.custLastName ASC, c.custFirstName ASC, c.custId ASC""",
-                                targetClass
-                        )
-                        .setParameter("custCity", customer.getCustCity())
-                        .getResultList();
-                assertThat(found)
-                        .as("the customers of the city who bought under a promotion")
-                        .containsExactly(customer);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var customer = promotedCustomer(em);
+                        final var found = em
+                                .createQuery(
+                                        """
+                                                SELECT c
+                                                FROM Customer c
+                                                WHERE c.custCity = :custCity
+                                                  AND EXISTS (SELECT s
+                                                              FROM Sales s
+                                                              WHERE s.customer = c
+                                                                AND s.promotion.promoCategory <> 'NO PROMOTION')
+                                                ORDER BY c.custLastName ASC, c.custFirstName ASC, c.custId ASC""",
+                                        targetClass
+                                )
+                                .setParameter("custCity", customer.getCustCity())
+                                .getResultList();
+                        assertThat(found)
+                                .as("the customers of the city who bought under a promotion")
+                                .containsExactly(customer);
+                        return found;
+                    })));
         }
 
         @DisplayName(
                 "a criteria query selects the customer of the sale just persisted, by their city")
         @Test
         void __CriteriaApi() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var customer = promotedCustomer(em);
-                final var builder = em.getCriteriaBuilder();
-                final var query = builder.createQuery(targetClass);
-                final var root = query.from(targetClass);
-                final var subquery = query.subquery(Sales.class);
-                final var sales = subquery.from(Sales.class);
-                subquery.select(sales).where(
-                        builder.equal(sales.get(Sales_.customer), root),
-                        builder.notEqual(sales.get(Sales_.promotion).get(Promotion_.promoCategory),
-                                         "NO PROMOTION")
-                );
-                query.select(root);
-                query.where(
-                        builder.equal(root.get(Customer_.custCity), customer.getCustCity()),
-                        builder.exists(subquery)
-                );
-                query.orderBy(
-                        builder.asc(root.get(Customer_.custLastName)),
-                        builder.asc(root.get(Customer_.custFirstName)),
-                        builder.asc(root.get(Customer_.custId))
-                );
-                final var found = em.createQuery(query).getResultList();
-                assertThat(found)
-                        .as("the customers of the city who bought under a promotion")
-                        .containsExactly(customer);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var customer = promotedCustomer(em);
+                        final var builder = em.getCriteriaBuilder();
+                        final var query = builder.createQuery(targetClass);
+                        final var root = query.from(targetClass);
+                        final var subquery = query.subquery(Sales.class);
+                        final var sales = subquery.from(Sales.class);
+                        subquery.select(sales).where(
+                                builder.equal(sales.get(Sales_.customer), root),
+                                builder.notEqual(
+                                        sales.get(Sales_.promotion).get(Promotion_.promoCategory),
+                                        "NO PROMOTION")
+                        );
+                        query.select(root);
+                        query.where(
+                                builder.equal(root.get(Customer_.custCity), customer.getCustCity()),
+                                builder.exists(subquery)
+                        );
+                        query.orderBy(
+                                builder.asc(root.get(Customer_.custLastName)),
+                                builder.asc(root.get(Customer_.custFirstName)),
+                                builder.asc(root.get(Customer_.custId))
+                        );
+                        final var found = em.createQuery(query).getResultList();
+                        assertThat(found)
+                                .as("the customers of the city who bought under a promotion")
+                                .containsExactly(customer);
+                        return found;
+                    })));
         }
 
         @DisplayName("the named query skips the customer just persisted, who bought nothing")
         @Test
         void __NamedQuery_NoSales() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var v = newPersistedInstanceOf(em, targetClass);
-                final var found = em
-                        .createNamedQuery(
-                                "Customer.selectListPromotedByCustCityOrderByCustLastNameAsc",
-                                targetClass)
-                        .setParameter("custCity", v.getCustCity())
-                        .getResultList();
-                assertThat(found)
-                        .as("the customers of the city who bought under a promotion")
-                        .doesNotContain(v);
-                return found;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var v = newPersistedInstanceOf(em, targetClass);
+                        final var found = em
+                                .createNamedQuery(
+                                        "Customer" +
+                                        ".selectListPromotedByCustCityOrderByCustLastNameAsc",
+                                        targetClass)
+                                .setParameter("custCity", v.getCustCity())
+                                .getResultList();
+                        assertThat(found)
+                                .as("the customers of the city who bought under a promotion")
+                                .doesNotContain(v);
+                        return found;
+                    })));
         }
     }
 }

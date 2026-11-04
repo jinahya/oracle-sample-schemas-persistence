@@ -36,7 +36,7 @@ class ProductOrder_PersistenceTest
         super(ProductOrder.class);
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Does nothing; {@value ProductOrder#TABLE_NAME} is a view, so there is nothing to insert a

@@ -66,11 +66,12 @@ import java.util.List;
                     FROM Store e"""
 )
 @Entity
-@Table(name = MappedStore.TABLE_NAME)
+@Table(name = MappedStore.TABLE_NAME,
+       comment = "Physical and virtual locations where people can purchase products")
 public class Store
         extends MappedStore {
 
-    // ---------------------------------------------------------------------------------------------------------- ORDERS
+    // -------------------------------------------------------------------------------------- ORDERS
 
     /**
      * The name of the attribute which maps the orders placed at this store. The value is {@value}.
@@ -79,7 +80,7 @@ public class Store
      */
     public static final String ATTRIBUTE_NAME_ORDERS = "orders";
 
-    // ------------------------------------------------------------------------------------------------------- SHIPMENTS
+    // ----------------------------------------------------------------------------------- SHIPMENTS
 
     /**
      * The name of the attribute which maps the shipments dispatched from this store. The value is
@@ -89,7 +90,7 @@ public class Store
      */
     public static final String ATTRIBUTE_NAME_SHIPMENTS = "shipments";
 
-    // ----------------------------------------------------------------------------------------------------- INVENTORIES
+    // --------------------------------------------------------------------------------- INVENTORIES
 
     /**
      * The name of the attribute which maps the inventories held by this store. The value is
@@ -99,7 +100,7 @@ public class Store
      */
     public static final String ATTRIBUTE_NAME_INVENTORIES = "inventories";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -108,7 +109,7 @@ public class Store
         super();
     }
 
-    // ---------------------------------------------------------------------------------------------------------- orders
+    // -------------------------------------------------------------------------------------- orders
 
     /**
      * Returns the orders placed at this store.
@@ -128,7 +129,7 @@ public class Store
         this.orders = orders;
     }
 
-    // ------------------------------------------------------------------------------------------------------- shipments
+    // ----------------------------------------------------------------------------------- shipments
 
     /**
      * Returns the shipments dispatched from this store.
@@ -148,7 +149,7 @@ public class Store
         this.shipments = shipments;
     }
 
-    // ----------------------------------------------------------------------------------------------------- inventories
+    // --------------------------------------------------------------------------------- inventories
 
     /**
      * Returns the inventories held by this store.
@@ -168,7 +169,7 @@ public class Store
         this.inventories = inventories;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = Order.ATTRIBUTE_NAME_STORE,
                fetch = FetchType.LAZY,
                cascade = {

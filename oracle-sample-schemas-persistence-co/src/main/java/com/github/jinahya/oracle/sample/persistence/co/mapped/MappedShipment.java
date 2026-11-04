@@ -56,7 +56,7 @@ public abstract class MappedShipment {
      */
     public static final String TABLE_NAME = "SHIPMENTS";
 
-    // ----------------------------------------------------------------------------------------------------- SHIPMENT_ID
+    // --------------------------------------------------------------------------------- SHIPMENT_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute
@@ -70,7 +70,7 @@ public abstract class MappedShipment {
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT_ID = "shipmentId";
 
-    // -------------------------------------------------------------------------------------------------------- STORE_ID
+    // ------------------------------------------------------------------------------------ STORE_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE_ID} attribute maps.
@@ -84,7 +84,7 @@ public abstract class MappedShipment {
      */
     public static final String ATTRIBUTE_NAME_STORE_ID = "storeId";
 
-    // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
+    // --------------------------------------------------------------------------------- CUSTOMER_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute
@@ -98,8 +98,7 @@ public abstract class MappedShipment {
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER_ID = "customerId";
 
-    // ------------------------------------------------------------------------------
-    // DELIVERY_ADDRESS / deliveryAddress
+    // ---------------------------------------------------------- DELIVERY_ADDRESS / deliveryAddress
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_DELIVERY_ADDRESS} attribute
@@ -124,8 +123,7 @@ public abstract class MappedShipment {
      */
     public static final int SIZE_MAX_DELIVERY_ADDRESS = COLUMN_LENGTH_DELIVERY_ADDRESS;
 
-    // --------------------------------------------------------------------------------
-    // SHIPMENT_STATUS / shipmentStatus
+    // ------------------------------------------------------------ SHIPMENT_STATUS / shipmentStatus
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute
@@ -216,7 +214,7 @@ public abstract class MappedShipment {
         // 배송 왼료?
         DELIVERED;
 
-        // -------------------------------------------------------------------------------------------------------------
+        // -----------------------------------------------------------------------------------------
         ShipmentStatus(final String columnValue) {
             this.columnValue = columnValue;
         }
@@ -225,7 +223,7 @@ public abstract class MappedShipment {
             this(null);
         }
 
-        // ------------------------------------------------------------------------------------------------------------- columnValue
+        // ----------------------------------------------------------------------------- columnValue
 
         /**
          * Returns the value of the {@value MappedShipment#COLUMN_NAME_SHIPMENT_STATUS} column which
@@ -241,7 +239,7 @@ public abstract class MappedShipment {
             return name();
         }
 
-        // -------------------------------------------------------------------------------------------------------------
+        // -----------------------------------------------------------------------------------------
 
         /**
          * The column value this constant declares; {@code null} for a constant whose column value
@@ -299,7 +297,7 @@ public abstract class MappedShipment {
         }
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -308,7 +306,7 @@ public abstract class MappedShipment {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -358,7 +356,7 @@ public abstract class MappedShipment {
         return MappedShipment.class.hashCode();
     }
 
-    // ------------------------------------------------------------------------------------------------------ shipmentId
+    // ---------------------------------------------------------------------------------- shipmentId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_SHIPMENT_ID} attribute.
@@ -379,7 +377,7 @@ public abstract class MappedShipment {
         this.shipmentId = shipmentId;
     }
 
-    // --------------------------------------------------------------------------------------------------------- storeId
+    // ------------------------------------------------------------------------------------- storeId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
@@ -401,7 +399,7 @@ public abstract class MappedShipment {
         this.storeId = storeId;
     }
 
-    // ------------------------------------------------------------------------------------------------------ customerId
+    // ---------------------------------------------------------------------------------- customerId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
@@ -423,7 +421,7 @@ public abstract class MappedShipment {
         this.customerId = customerId;
     }
 
-    // ------------------------------------------------------------------------------------------------- deliveryAddress
+    // ----------------------------------------------------------------------------- deliveryAddress
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DELIVERY_ADDRESS} attribute.
@@ -445,7 +443,7 @@ public abstract class MappedShipment {
         this.deliveryAddress = deliveryAddress;
     }
 
-    // -------------------------------------------------------------------------------------------------- shipmentStatus
+    // ------------------------------------------------------------------------------ shipmentStatus
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_SHIPMENT_STATUS} attribute.
@@ -467,7 +465,7 @@ public abstract class MappedShipment {
         this.shipmentStatus = shipmentStatus;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // no @NotNull: database-generated identity; the value is null when the provider validates at
     // pre-persist
     @Id
@@ -478,28 +476,31 @@ public abstract class MappedShipment {
             // fails descriptor initialisation with EclipseLink-46/EclipseLink-41. Verified on 5
             // .0.1.
             insertable = true,
-            updatable = false)
+            updatable = false,
+            comment = "Auto-incrementing primary key")
     private Long shipmentId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class
     // documentation
     @Nonnull
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false,
+            comment = "Which location the goods will be transported from")
     private Long storeId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class
     // documentation
     @Nonnull
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_CUSTOMER_ID, nullable = false, insertable = false, updatable = false,
+            comment = "Who this shipment is for")
     private Long customerId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Size(max = SIZE_MAX_DELIVERY_ADDRESS)
     @NotNull
@@ -508,7 +509,8 @@ public abstract class MappedShipment {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_DELIVERY_ADDRESS
+            length = COLUMN_LENGTH_DELIVERY_ADDRESS,
+            comment = "Where the goods will be transported to"
     )
     private String deliveryAddress;
 
@@ -519,7 +521,12 @@ public abstract class MappedShipment {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_SHIPMENT_STATUS
+            length = COLUMN_LENGTH_SHIPMENT_STATUS,
+            comment = "The current status of the shipment. Valid values are:\n" +
+                    "CREATED - the shipment is ready for order assignment\n" +
+                    "SHIPPED - the goods have been dispatched\n" +
+                    "IN-TRANSIT - the goods are en-route to their destination\n" +
+                    "DELIVERED - the good have arrived at their destination"
     )
     private ShipmentStatus shipmentStatus;
 }

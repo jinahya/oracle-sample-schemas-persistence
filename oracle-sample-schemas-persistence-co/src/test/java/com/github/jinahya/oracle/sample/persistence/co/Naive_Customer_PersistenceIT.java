@@ -19,7 +19,7 @@ class Naive_Customer_PersistenceIT {
 
     private static final String PERSISTENCE_UNIT_NAME = "co-it";
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     private static EntityManagerFactory entityManagerFactory;
 
     @BeforeAll
@@ -80,7 +80,7 @@ class Naive_Customer_PersistenceIT {
         });
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @DisplayName("persist, commit, find, and remove")
     @Test
     void __() {

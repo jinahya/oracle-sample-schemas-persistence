@@ -52,7 +52,7 @@ public abstract class MappedInventory {
      */
     public static final String TABLE_NAME = "INVENTORY";
 
-    // ---------------------------------------------------------------------------------------------------- INVENTORY_ID
+    // -------------------------------------------------------------------------------- INVENTORY_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_INVENTORY_ID} attribute
@@ -66,7 +66,7 @@ public abstract class MappedInventory {
      */
     public static final String ATTRIBUTE_NAME_INVENTORY_ID = "inventoryId";
 
-    // -------------------------------------------------------------------------------------------------------- STORE_ID
+    // ------------------------------------------------------------------------------------ STORE_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE_ID} attribute maps.
@@ -80,7 +80,7 @@ public abstract class MappedInventory {
      */
     public static final String ATTRIBUTE_NAME_STORE_ID = "storeId";
 
-    // ------------------------------------------------------------------------------------------------------ PRODUCT_ID
+    // ---------------------------------------------------------------------------------- PRODUCT_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute maps.
@@ -94,7 +94,7 @@ public abstract class MappedInventory {
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_ID = "productId";
 
-    // ----------------------------------------------------------------------------------------------- PRODUCT_INVENTORY
+    // --------------------------------------------------------------------------- PRODUCT_INVENTORY
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY}
@@ -107,7 +107,7 @@ public abstract class MappedInventory {
      * value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_INVENTORY = "productInventory";
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -116,7 +116,7 @@ public abstract class MappedInventory {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
     @Override
     public String toString() {
         return super.toString() + '{' +
@@ -164,7 +164,7 @@ public abstract class MappedInventory {
         return MappedInventory.class.hashCode();
     }
 
-    // ------------------------------------------------------------------------------------------------- Bean-Validation
+    // ----------------------------------------------------------------------------- Bean-Validation
 
     /**
      * Tests whether {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute is non-negative.
@@ -180,7 +180,7 @@ public abstract class MappedInventory {
         return productInventory >= 0L;
     }
 
-    // ----------------------------------------------------------------------------------------------------- inventoryId
+    // --------------------------------------------------------------------------------- inventoryId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_INVENTORY_ID} attribute.
@@ -201,7 +201,7 @@ public abstract class MappedInventory {
         this.inventoryId = inventoryId;
     }
 
-    // --------------------------------------------------------------------------------------------------------- storeId
+    // ------------------------------------------------------------------------------------- storeId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
@@ -223,7 +223,7 @@ public abstract class MappedInventory {
         this.storeId = storeId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- productId
+    // ----------------------------------------------------------------------------------- productId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_ID} attribute.
@@ -245,7 +245,7 @@ public abstract class MappedInventory {
         this.productId = productId;
     }
 
-    // ------------------------------------------------------------------------------------------------ productInventory
+    // ---------------------------------------------------------------------------- productInventory
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_INVENTORY} attribute.
@@ -313,7 +313,7 @@ public abstract class MappedInventory {
         adjustProductInventory(-quantity);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // no @NotNull: database-generated identity; the value is null when the provider validates at
     // pre-persist
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -325,33 +325,37 @@ public abstract class MappedInventory {
             // fails descriptor initialisation with EclipseLink-46/EclipseLink-41. Verified on 5
             // .0.1.
             insertable = true,
-            updatable = false
+            updatable = false,
+            comment = "Auto-incrementing primary key"
     )
     private Long inventoryId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class
     // documentation
     @Nonnull
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = false, updatable = false,
+            comment = "Which location the goods are located at")
     private Long storeId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class
     // documentation
     @Nonnull
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_PRODUCT_ID, nullable = false, insertable = false, updatable = false,
+            comment = "Which item this stock is for")
     private Long productId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @NotNull
     @Basic(optional = false)
     @Column(name = COLUMN_NAME_PRODUCT_INVENTORY, nullable = false, insertable = true,
-            updatable = true)
+            updatable = true,
+            comment = "The current quantity in stock")
     private Long productInventory;
 }

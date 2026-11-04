@@ -68,7 +68,7 @@ public abstract class MappedJobHistory {
      */
     public static final String TABLE_NAME = "JOB_HISTORY";
 
-    // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
+    // --------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute
@@ -101,7 +101,7 @@ public abstract class MappedJobHistory {
      */
     public static final int COLUMN_MAX_EMPLOYEE_ID = +999999;
 
-    // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
+    // --------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_EMPLOYEE_ID} column. The value
@@ -125,7 +125,7 @@ public abstract class MappedJobHistory {
      */
     public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
 
-    // ------------------------------------------------------------------------------------------------------ START_DATE
+    // ---------------------------------------------------------------------------------- START_DATE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_START_DATE} attribute maps.
@@ -138,7 +138,7 @@ public abstract class MappedJobHistory {
      */
     public static final boolean COLUMN_NULLABLE_START_DATE = false;
 
-    // ------------------------------------------------------------------------------------------------------ START_DATE
+    // ---------------------------------------------------------------------------------- START_DATE
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_START_DATE} column. The value
@@ -152,7 +152,7 @@ public abstract class MappedJobHistory {
      */
     public static final Comparator<MappedJobHistory> COMPARING_START_DATE = comparingStartDate();
 
-    // -------------------------------------------------------------------------------------------------------- END_DATE
+    // ------------------------------------------------------------------------------------ END_DATE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_END_DATE} attribute maps.
@@ -166,7 +166,7 @@ public abstract class MappedJobHistory {
      */
     public static final String ATTRIBUTE_NAME_END_DATE = "endDate";
 
-    // ---------------------------------------------------------------------------------------------------------- JOB_ID
+    // -------------------------------------------------------------------------------------- JOB_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_ID} attribute maps. The
@@ -200,7 +200,7 @@ public abstract class MappedJobHistory {
      */
     public static final String ATTRIBUTE_NAME_JOB_ID = "jobId";
 
-    // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
+    // ------------------------------------------------------------------------------- DEPARTMENT_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute
@@ -262,7 +262,7 @@ public abstract class MappedJobHistory {
         assert COLUMN_MAX_DEPARTMENT_ID == MappedDepartment.COLUMN_MAX_DEPARTMENT_ID;
     }
 
-    // -------------------------------------------------------------------------------------------------- STATIC_METHODS
+    // ------------------------------------------------------------------------------ STATIC_METHODS
 
     static <T extends MappedJobHistory> Comparator<T> comparingStartDate(
             @Nonnull final Function<? super T, LocalDateTime> startDateExtractor) {
@@ -280,7 +280,7 @@ public abstract class MappedJobHistory {
         return comparingStartDate(MappedJobHistory::getStartDate);
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -289,7 +289,7 @@ public abstract class MappedJobHistory {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public final String toString() {
@@ -330,7 +330,7 @@ public abstract class MappedJobHistory {
         return Objects.hash(getEmployeeId(), getStartDate());
     }
 
-    // ------------------------------------------------------------------------------------------------- Bean-Validation
+    // ----------------------------------------------------------------------------- Bean-Validation
 
     /**
      * Indicates whether the {@value #ATTRIBUTE_NAME_END_DATE} attribute is after the
@@ -353,7 +353,7 @@ public abstract class MappedJobHistory {
         return endDate.isAfter(startDate);
     }
 
-    // ------------------------------------------------------------------------------------------------------ employeeId
+    // ---------------------------------------------------------------------------------- employeeId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
@@ -365,7 +365,7 @@ public abstract class MappedJobHistory {
         return employeeId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- startDate
+    // ----------------------------------------------------------------------------------- startDate
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute -- the employee's
@@ -378,7 +378,7 @@ public abstract class MappedJobHistory {
         return startDate;
     }
 
-    // --------------------------------------------------------------------------------------------------------- endDate
+    // ------------------------------------------------------------------------------------- endDate
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_END_DATE} attribute -- the last day of the
@@ -391,7 +391,7 @@ public abstract class MappedJobHistory {
         return endDate;
     }
 
-    // ----------------------------------------------------------------------------------------------------------- jobId
+    // --------------------------------------------------------------------------------------- jobId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
@@ -403,7 +403,7 @@ public abstract class MappedJobHistory {
         return jobId;
     }
 
-    // ---------------------------------------------------------------------------------------------------- departmentId
+    // -------------------------------------------------------------------------------- departmentId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
@@ -415,7 +415,7 @@ public abstract class MappedJobHistory {
         return departmentId;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Max(ATTRIBUTE_MAX_EMPLOYEE_ID)
     @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
@@ -427,11 +427,13 @@ public abstract class MappedJobHistory {
             insertable = true,
             updatable = false,
             precision = COLUMN_PRECISION_EMPLOYEE_ID,
-            scale = COLUMN_SCALE_EMPLOYEE_ID
+            scale = COLUMN_SCALE_EMPLOYEE_ID,
+            comment = "A not null column in the complex primary key employee_id+start_date. \n" +
+                    "Foreign key to employee_id column of the employee table"
     )
     private Integer employeeId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     // TODO: remove; not constrained by the DDL -- JOB_HISTORY.START_DATE is DATE with no check
 //    @PastOrPresent
@@ -440,11 +442,14 @@ public abstract class MappedJobHistory {
     @Column(name = COLUMN_NAME_START_DATE,
             nullable = false,
             insertable = true,
-            updatable = false
+            updatable = false,
+            comment = "A not null column in the complex primary key employee_id+start_date. \n" +
+                    "Must be less than the end_date of the job_history table. (enforced by \n" +
+                    "constraint jhist_date_interval)"
     )
     private LocalDateTime startDate;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     // TODO: remove; not constrained by the DDL -- JOB_HISTORY.END_DATE is DATE with no check
 //    @PastOrPresent // @@?
@@ -453,11 +458,14 @@ public abstract class MappedJobHistory {
     @Column(name = COLUMN_NAME_END_DATE,
             nullable = false,
             insertable = false,
-            updatable = false
+            updatable = false,
+            comment = "Last day of the employee in this job role. A not null column. Must be \n" +
+                    "greater than the start_date of the job_history table. \n" +
+                    "(enforced by constraint jhist_date_interval)"
     )
     private LocalDateTime endDate;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Size(min = SIZE_MIN_JOB_ID, max = SIZE_MAX_JOB_ID)
     @NotNull
@@ -466,11 +474,13 @@ public abstract class MappedJobHistory {
             nullable = COLUMN_NULLABLE_JOB_ID,
             insertable = false,
             updatable = false,
-            length = COLUMN_LENGTH_JOB_ID
+            length = COLUMN_LENGTH_JOB_ID,
+            comment = "Job role in which the employee worked in the past; foreign key to \n" +
+                    "job_id column in the jobs table. A not null column."
     )
     private String jobId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nullable
     @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
     @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
@@ -480,7 +490,9 @@ public abstract class MappedJobHistory {
             insertable = false,
             updatable = false,
             precision = COLUMN_PRECISION_DEPARTMENT_ID,
-            scale = COLUMN_SCALE_DEPARTMENT_ID
+            scale = COLUMN_SCALE_DEPARTMENT_ID,
+            comment = "Department id in which the employee worked in the past; foreign key to " +
+                    "deparment_id column in the departments table"
     )
     private Integer departmentId;
 }

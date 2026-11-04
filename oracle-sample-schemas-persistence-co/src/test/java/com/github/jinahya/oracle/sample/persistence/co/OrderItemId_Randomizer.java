@@ -42,7 +42,7 @@ class OrderItemId_Randomizer
         super(OrderItemId.class, List.of());
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();

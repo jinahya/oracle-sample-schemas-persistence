@@ -89,7 +89,9 @@ import java.util.List;
                     FROM Region e"""
 )
 @Entity
-@Table(name = MappedRegion.TABLE_NAME)
+@Table(name = MappedRegion.TABLE_NAME,
+       comment = "Regions table that contains region numbers and names. references with the " +
+               "Countries table.")
 public class Region
         extends MappedRegion {
 
@@ -101,7 +103,7 @@ public class Region
      */
     public static final String ATTRIBUTE_NAME_COUNTRIES = "countries";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -110,7 +112,7 @@ public class Region
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------------- countries
+    // ----------------------------------------------------------------------------------- countries
     List<Country> getCountries() {
         return countries;
     }
@@ -119,7 +121,7 @@ public class Region
         this.countries = countries;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @OneToMany(
             mappedBy = Country.ATTRIBUTE_NAME_REGION,
             fetch = FetchType.LAZY,

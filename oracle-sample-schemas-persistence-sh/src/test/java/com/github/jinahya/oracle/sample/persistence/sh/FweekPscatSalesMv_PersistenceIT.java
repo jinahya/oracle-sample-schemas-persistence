@@ -35,7 +35,7 @@ class FweekPscatSalesMv_PersistenceIT
         super(FweekPscatSalesMv.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Does nothing; {@value FweekPscatSalesMv#TABLE_NAME} is a materialized view, so there is

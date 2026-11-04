@@ -36,7 +36,7 @@ class Profit_PersistenceTest
         super(Profit.class);
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Does nothing; {@value Profit#TABLE_NAME} is a view, so there is nothing to insert a

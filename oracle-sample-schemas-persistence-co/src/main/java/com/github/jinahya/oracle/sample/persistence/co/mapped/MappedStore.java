@@ -55,7 +55,7 @@ public abstract class MappedStore {
      */
     public static final String TABLE_NAME = "STORES";
 
-    // ---------------------------------------------------------------------------------------------- STORE_ID / storeId
+    // -------------------------------------------------------------------------- STORE_ID / storeId
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE_ID} attribute maps.
@@ -69,7 +69,7 @@ public abstract class MappedStore {
      */
     public static final String ATTRIBUTE_NAME_STORE_ID = "storeId";
 
-    // ------------------------------------------------------------------------------------------------------ STORE_NAME
+    // ---------------------------------------------------------------------------------- STORE_NAME
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_STORE_NAME} attribute maps.
@@ -102,7 +102,7 @@ public abstract class MappedStore {
      */
     public static final int SIZE_MAX_STORE_NAME = COLUMN_LENGTH_STORE_NAME;
 
-    // ----------------------------------------------------------------------------------------------------- WEB_ADDRESS
+    // --------------------------------------------------------------------------------- WEB_ADDRESS
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute
@@ -135,7 +135,7 @@ public abstract class MappedStore {
      */
     public static final int SIZE_MAX_WEB_ADDRESS = COLUMN_LENGTH_WEB_ADDRESS;
 
-    // ------------------------------------------------------------------------------------------------ PHYSICAL_ADDRESS
+    // ---------------------------------------------------------------------------- PHYSICAL_ADDRESS
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute
@@ -168,7 +168,7 @@ public abstract class MappedStore {
      */
     public static final int SIZE_MAX_PHYSICAL_ADDRESS = COLUMN_LENGTH_PHYSICAL_ADDRESS;
 
-    // -------------------------------------------------------------------------------------------------------- LATITUDE
+    // ------------------------------------------------------------------------------------ LATITUDE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_LATITUDE} attribute maps.
@@ -202,7 +202,7 @@ public abstract class MappedStore {
      */
     public static final String ATTRIBUTE_NAME_LATITUDE = "latitude";
 
-    // ------------------------------------------------------------------------------------------------------- LONGITUDE
+    // ----------------------------------------------------------------------------------- LONGITUDE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute maps.
@@ -236,7 +236,7 @@ public abstract class MappedStore {
      */
     public static final String ATTRIBUTE_NAME_LONGITUDE = "longitude";
 
-    // ------------------------------------------------------------------------------------------------------------ LOGO
+    // ---------------------------------------------------------------------------------------- LOGO
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO} attribute maps. The
@@ -250,7 +250,7 @@ public abstract class MappedStore {
      */
     public static final String ATTRIBUTE_NAME_LOGO = "logo";
 
-    // -------------------------------------------------------------------------------------------------- LOGO_MIME_TYPE
+    // ------------------------------------------------------------------------------ LOGO_MIME_TYPE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute
@@ -283,7 +283,7 @@ public abstract class MappedStore {
      */
     public static final int SIZE_MAX_LOGO_MIME_TYPE = COLUMN_LENGTH_LOGO_MIME_TYPE;
 
-    // --------------------------------------------------------------------------------------------------- LOGO_FILENAME
+    // ------------------------------------------------------------------------------- LOGO_FILENAME
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO_FILENAME} attribute
@@ -316,7 +316,7 @@ public abstract class MappedStore {
      */
     public static final int SIZE_MAX_LOGO_FILENAME = COLUMN_LENGTH_LOGO_FILENAME;
 
-    // ---------------------------------------------------------------------------------------------------- LOGO_CHARSET
+    // -------------------------------------------------------------------------------- LOGO_CHARSET
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO_CHARSET} attribute
@@ -349,7 +349,7 @@ public abstract class MappedStore {
      */
     public static final int SIZE_MAX_LOGO_CHARSET = COLUMN_LENGTH_LOGO_CHARSET;
 
-    // ----------------------------------------------------------------------------------------------- LOGO_LAST_UPDATED
+    // --------------------------------------------------------------------------- LOGO_LAST_UPDATED
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOGO_LAST_UPDATED}
@@ -363,7 +363,7 @@ public abstract class MappedStore {
      */
     public static final String ATTRIBUTE_NAME_LOGO_LAST_UPDATED = "logoLastUpdated";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -372,7 +372,7 @@ public abstract class MappedStore {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -418,7 +418,7 @@ public abstract class MappedStore {
         return Objects.hashCode(getStoreName());
     }
 
-    // ------------------------------------------------------------------------------------------------- Bean-Validation
+    // ----------------------------------------------------------------------------- Bean-Validation
 
     /**
      * Indicates whether either the {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute or the
@@ -435,7 +435,7 @@ public abstract class MappedStore {
         return webAddress != null || physicalAddress != null;
     }
 
-    // --------------------------------------------------------------------------------------------------------- storeId
+    // ------------------------------------------------------------------------------------- storeId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_STORE_ID} attribute.
@@ -456,7 +456,7 @@ public abstract class MappedStore {
         this.storeId = storeId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- storeName
+    // ----------------------------------------------------------------------------------- storeName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_STORE_NAME} attribute.
@@ -477,7 +477,7 @@ public abstract class MappedStore {
         this.storeName = storeName;
     }
 
-    // ------------------------------------------------------------------------------------------------------ webAddress
+    // ---------------------------------------------------------------------------------- webAddress
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_WEB_ADDRESS} attribute.
@@ -499,7 +499,7 @@ public abstract class MappedStore {
         this.webAddress = webAddress;
     }
 
-    // ------------------------------------------------------------------------------------------------- physicalAddress
+    // ----------------------------------------------------------------------------- physicalAddress
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PHYSICAL_ADDRESS} attribute.
@@ -521,7 +521,7 @@ public abstract class MappedStore {
         this.physicalAddress = physicalAddress;
     }
 
-    // -------------------------------------------------------------------------------------------------------- latitude
+    // ------------------------------------------------------------------------------------ latitude
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LATITUDE} attribute.
@@ -585,7 +585,7 @@ public abstract class MappedStore {
         );
     }
 
-    // ------------------------------------------------------------------------------------------------------- longitude
+    // ----------------------------------------------------------------------------------- longitude
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LONGITUDE} attribute.
@@ -607,7 +607,7 @@ public abstract class MappedStore {
         this.longitude = longitude;
     }
 
-    // ------------------------------------------------------------------------------------------------------------ logo
+    // ---------------------------------------------------------------------------------------- logo
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LOGO} attribute.
@@ -628,7 +628,7 @@ public abstract class MappedStore {
         this.logo = logo;
     }
 
-    // ---------------------------------------------------------------------------------------------------- logoMimeType
+    // -------------------------------------------------------------------------------- logoMimeType
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute.
@@ -650,7 +650,7 @@ public abstract class MappedStore {
         this.logoMimeType = logoMimeType;
     }
 
-    // ---------------------------------------------------------------------------------------------------- logoFilename
+    // -------------------------------------------------------------------------------- logoFilename
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LOGO_FILENAME} attribute.
@@ -672,7 +672,7 @@ public abstract class MappedStore {
         this.logoFilename = logoFilename;
     }
 
-    // ----------------------------------------------------------------------------------------------------- logoCharset
+    // --------------------------------------------------------------------------------- logoCharset
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LOGO_CHARSET} attribute.
@@ -694,7 +694,7 @@ public abstract class MappedStore {
         this.logoCharset = logoCharset;
     }
 
-    // ------------------------------------------------------------------------------------------------- logoLastUpdated
+    // ----------------------------------------------------------------------------- logoLastUpdated
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute.
@@ -716,10 +716,10 @@ public abstract class MappedStore {
         this.logoLastUpdated = logoLastUpdated;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 //    //
 //    ------------------------------------------------------------------------------------------------------------ logo
 //    @jakarta.annotation.Nullable
@@ -740,7 +740,8 @@ public abstract class MappedStore {
             // fails descriptor initialisation with EclipseLink-46/EclipseLink-41. Verified on 5
             // .0.1.
             insertable = true,
-            updatable = false)
+            updatable = false,
+            comment = "Auto-incrementing primary key")
     private Long storeId;
 
     @Size(min = SIZE_MIN_STORE_NAME, max = SIZE_MAX_STORE_NAME)
@@ -751,7 +752,8 @@ public abstract class MappedStore {
             insertable = true,
             updatable = true,
             length = COLUMN_LENGTH_STORE_NAME,
-            unique = true
+            unique = true,
+            comment = "What the store is called"
     )
     private String storeName;
 
@@ -762,7 +764,8 @@ public abstract class MappedStore {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_WEB_ADDRESS
+            length = COLUMN_LENGTH_WEB_ADDRESS,
+            comment = "The URL of a virtual store"
     )
     private String webAddress;
 
@@ -773,7 +776,8 @@ public abstract class MappedStore {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_PHYSICAL_ADDRESS
+            length = COLUMN_LENGTH_PHYSICAL_ADDRESS,
+            comment = "The postal address of this location"
     )
     private String physicalAddress;
 
@@ -786,7 +790,8 @@ public abstract class MappedStore {
             insertable = true,
             updatable = true,
             precision = COLUMN_PRECISION_LATITUDE,
-            scale = COLUMN_SCALE_LATITUDE
+            scale = COLUMN_SCALE_LATITUDE,
+            comment = "The north-south position of a physical store"
     )
     private BigDecimal latitude;
 
@@ -799,14 +804,16 @@ public abstract class MappedStore {
             insertable = true,
             updatable = true,
             precision = COLUMN_PRECISION_LONGITUDE,
-            scale = COLUMN_SCALE_LONGITUDE
+            scale = COLUMN_SCALE_LONGITUDE,
+            comment = "The east-west position of a physical store"
     )
     private BigDecimal longitude;
 
     @Nullable
     @Lob
     @Basic(optional = true, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_LOGO, nullable = true, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_LOGO, nullable = true, insertable = true, updatable = true,
+            comment = "An image used by this store")
     private byte[] logo;
 
     @Nullable
@@ -816,7 +823,8 @@ public abstract class MappedStore {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_LOGO_MIME_TYPE
+            length = COLUMN_LENGTH_LOGO_MIME_TYPE,
+            comment = "The mime-type of the store logo"
     )
     private String logoMimeType;
 
@@ -827,7 +835,8 @@ public abstract class MappedStore {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_LOGO_FILENAME
+            length = COLUMN_LENGTH_LOGO_FILENAME,
+            comment = "The name of the file loaded in the image column"
     )
     private String logoFilename;
 
@@ -838,13 +847,15 @@ public abstract class MappedStore {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_LOGO_CHARSET
+            length = COLUMN_LENGTH_LOGO_CHARSET,
+            comment = "The character set used to encode the image"
     )
     private String logoCharset;
 
     @Nullable
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_LOGO_LAST_UPDATED, nullable = true, insertable = true,
-            updatable = true)
+            updatable = true,
+            comment = "The date the image was last changed")
     private LocalDateTime logoLastUpdated;
 }

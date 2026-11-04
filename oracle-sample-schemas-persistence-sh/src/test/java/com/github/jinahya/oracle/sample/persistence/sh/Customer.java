@@ -87,7 +87,7 @@ import java.util.Optional;
                     WHERE e.country = :country"""
 )
 @Entity
-@Table(name = MappedCustomer.TABLE_NAME)
+@Table(name = MappedCustomer.TABLE_NAME, comment = "dimension table")
 public class Customer
         extends MappedCustomer {
 
@@ -97,7 +97,7 @@ public class Customer
      */
     public static final String ATTRIBUTE_NAME_COUNTRY = "country";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -106,7 +106,7 @@ public class Customer
         super();
     }
 
-    // -------------------------------------------------------------------------------------------------------- country
+    // ------------------------------------------------------------------------------------- country
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY} attribute.
@@ -132,7 +132,7 @@ public class Customer
         );
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @Valid
     @NotNull

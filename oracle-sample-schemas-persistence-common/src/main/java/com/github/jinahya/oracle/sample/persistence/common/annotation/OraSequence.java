@@ -29,12 +29,17 @@ import java.lang.annotation.Target;
 /**
  * Documents a sequence of the database, which the annotated class or attribute uses.
  *
+ * @SequenceGenerator}, whose {@code initialValue} and {@code allocationSize} are the
+ *         sequence's {@code START WITH} and {@code INCREMENT BY}.
+ * @see <a
+ *         href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/CREATE
+ *         -SEQUENCE.html">CREATE
+ *         SEQUENCE</a>
+ * @see <a
+ *         href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta
+ *         .persistence/jakarta/persistence/SequenceGenerator.html">jakarta.persistence
+ *         .SequenceGenerator</a>
  * @deprecated Jakarta Persistence covers it; use a {@link jakarta.persistence.SequenceGenerator
- *             @SequenceGenerator}, whose {@code initialValue} and {@code allocationSize} are the
- *             sequence's {@code START WITH} and {@code INCREMENT BY}.
- *
- * @see <a href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/CREATE-SEQUENCE.html">CREATE SEQUENCE</a>
- * @see <a href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/SequenceGenerator.html">jakarta.persistence.SequenceGenerator</a>
  */
 @Deprecated(forRemoval = true)
 @Documented
@@ -66,7 +71,8 @@ public @interface OraSequence {
     /**
      * The largest value the sequence generates; {@link Long#MAX_VALUE} for {@code NOMAXVALUE}.
      *
-     * @return the largest value the sequence generates; {@link Long#MAX_VALUE} for {@code NOMAXVALUE}.
+     * @return the largest value the sequence generates; {@link Long#MAX_VALUE} for
+     *         {@code NOMAXVALUE}.
      */
     long maxValue() default Long.MAX_VALUE;
 

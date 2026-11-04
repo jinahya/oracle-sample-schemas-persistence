@@ -38,7 +38,7 @@ import jakarta.persistence.Embeddable;
 public class JobHistoryId
         extends MappedJobHistoryId {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.

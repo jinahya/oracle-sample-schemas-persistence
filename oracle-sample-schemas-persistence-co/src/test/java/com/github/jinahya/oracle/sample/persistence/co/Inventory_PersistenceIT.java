@@ -30,8 +30,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceIT_Utils.applyEntityManagerFactory;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -42,12 +42,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 class Inventory_PersistenceIT
         extends _Entity_PersistenceIT<Inventory> {
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     Inventory_PersistenceIT() {
         super(Inventory.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Tests {@code Inventory.selectOneByStoreAndProduct}, which answers exercise
@@ -90,7 +90,8 @@ class Inventory_PersistenceIT
                         .setParameter("product", expected.getProduct())
                         .getSingleResult();
                 assertThat(found)
-                        .as("the inventory selected by the store and the product of %s", inventoryId)
+                        .as("the inventory selected by the store and the product of %s",
+                            inventoryId)
                         .isSameAs(expected);
                 return null;
             }));
@@ -114,7 +115,8 @@ class Inventory_PersistenceIT
                         .setParameter("product", expected.getProduct())
                         .getSingleResult();
                 assertThat(found)
-                        .as("the inventory selected by the store and the product of %s", inventoryId)
+                        .as("the inventory selected by the store and the product of %s",
+                            inventoryId)
                         .isSameAs(expected);
                 return null;
             }));
@@ -136,7 +138,8 @@ class Inventory_PersistenceIT
                 );
                 final var found = entityManager.createQuery(query).getSingleResult();
                 assertThat(found)
-                        .as("the inventory selected by the store and the product of %s", inventoryId)
+                        .as("the inventory selected by the store and the product of %s",
+                            inventoryId)
                         .isSameAs(expected);
                 return null;
             }));
@@ -185,7 +188,8 @@ class Inventory_PersistenceIT
                 assertThat(found)
                         .as("the inventories of product %s", productId)
                         .hasSize(count.intValue())
-                        .allSatisfy(i -> assertThat(i.getProduct().getProductId()).isEqualTo(productId))
+                        .allSatisfy(
+                                i -> assertThat(i.getProduct().getProductId()).isEqualTo(productId))
                         .isSortedAccordingTo(Comparator.comparing(Inventory::getProductInventory));
                 return null;
             }));

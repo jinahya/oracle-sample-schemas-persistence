@@ -53,7 +53,7 @@ public abstract class MappedEmpDetailsView {
      */
     public static final String TABLE_NAME = "EMP_DETAILS_VIEW";
 
-    // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
+    // --------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute maps.
@@ -87,7 +87,7 @@ public abstract class MappedEmpDetailsView {
      */
     public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = MappedEmployee.ATTRIBUTE_MAX_EMPLOYEE_ID;
 
-    // ---------------------------------------------------------------------------------------------------------- JOB_ID
+    // -------------------------------------------------------------------------------------- JOB_ID
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_JOB_ID} attribute maps. The
@@ -112,7 +112,7 @@ public abstract class MappedEmpDetailsView {
      */
     public static final int SIZE_MAX_JOB_ID = COLUMN_LENGTH_JOB_ID;
 
-    // ------------------------------------------------------------------------------------------------------ MANAGER_ID
+    // ---------------------------------------------------------------------------------- MANAGER_ID
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute maps.
@@ -138,7 +138,7 @@ public abstract class MappedEmpDetailsView {
      */
     public static final long ATTRIBUTE_MAX_MANAGER_ID = MappedEmployee.ATTRIBUTE_MAX_EMPLOYEE_ID;
 
-    // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
+    // ------------------------------------------------------------------------------- DEPARTMENT_ID
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute
@@ -166,7 +166,7 @@ public abstract class MappedEmpDetailsView {
     public static final int ATTRIBUTE_MAX_DEPARTMENT_ID =
             MappedDepartment.ATTRIBUTE_MAX_DEPARTMENT_ID;
 
-    // ----------------------------------------------------------------------------------------------------- LOCATION_ID
+    // --------------------------------------------------------------------------------- LOCATION_ID
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute maps.
@@ -192,7 +192,7 @@ public abstract class MappedEmpDetailsView {
      */
     public static final int ATTRIBUTE_MAX_LOCATION_ID = MappedLocation.ATTRIBUTE_MAX_LOCATION_ID;
 
-    // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
+    // ---------------------------------------------------------------------------------- COUNTRY_ID
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps.
@@ -218,7 +218,7 @@ public abstract class MappedEmpDetailsView {
      */
     public static final int SIZE_MAX_COUNTRY_ID = COLUMN_LENGTH_COUNTRY_ID;
 
-    // ------------------------------------------------------------------------------------------------------ FIRST_NAME
+    // ---------------------------------------------------------------------------------- FIRST_NAME
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute maps.
@@ -244,7 +244,7 @@ public abstract class MappedEmpDetailsView {
      */
     public static final int SIZE_MAX_FIRST_NAME = COLUMN_LENGTH_FIRST_NAME;
 
-    // ------------------------------------------------------------------------------------------------------- LAST_NAME
+    // ----------------------------------------------------------------------------------- LAST_NAME
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_LAST_NAME} attribute maps.
@@ -269,7 +269,7 @@ public abstract class MappedEmpDetailsView {
      */
     public static final int SIZE_MAX_LAST_NAME = COLUMN_LENGTH_LAST_NAME;
 
-    // ---------------------------------------------------------------------------------------------------------- SALARY
+    // -------------------------------------------------------------------------------------- SALARY
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_SALARY} attribute maps. The
@@ -309,7 +309,7 @@ public abstract class MappedEmpDetailsView {
      */
     public static final int COLUMN_SCALE_SALARY = MappedEmployee.COLUMN_SCALE_SALARY;
 
-    // -------------------------------------------------------------------------------------------------- COMMISSION_PCT
+    // ------------------------------------------------------------------------------ COMMISSION_PCT
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute
@@ -351,7 +351,7 @@ public abstract class MappedEmpDetailsView {
     public static final String ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT =
             MappedEmployee.ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT;
 
-    // ------------------------------------------------------------------------------------------------- DEPARTMENT_NAME
+    // ----------------------------------------------------------------------------- DEPARTMENT_NAME
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute
@@ -378,7 +378,7 @@ public abstract class MappedEmpDetailsView {
      */
     public static final int SIZE_MAX_DEPARTMENT_NAME = COLUMN_LENGTH_DEPARTMENT_NAME;
 
-    // ------------------------------------------------------------------------------------------------------- JOB_TITLE
+    // ----------------------------------------------------------------------------------- JOB_TITLE
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute maps.
@@ -403,7 +403,7 @@ public abstract class MappedEmpDetailsView {
      */
     public static final int SIZE_MAX_JOB_TITLE = COLUMN_LENGTH_JOB_TITLE;
 
-    // ------------------------------------------------------------------------------------------------------------ CITY
+    // ---------------------------------------------------------------------------------------- CITY
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_CITY} attribute maps. The
@@ -428,7 +428,7 @@ public abstract class MappedEmpDetailsView {
      */
     public static final int SIZE_MAX_CITY = COLUMN_LENGTH_CITY;
 
-    // -------------------------------------------------------------------------------------------------- STATE_PROVINCE
+    // ------------------------------------------------------------------------------ STATE_PROVINCE
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute
@@ -455,7 +455,7 @@ public abstract class MappedEmpDetailsView {
      */
     public static final int SIZE_MAX_STATE_PROVINCE = COLUMN_LENGTH_STATE_PROVINCE;
 
-    // ---------------------------------------------------------------------------------------------------- COUNTRY_NAME
+    // -------------------------------------------------------------------------------- COUNTRY_NAME
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute
@@ -481,7 +481,7 @@ public abstract class MappedEmpDetailsView {
      */
     public static final int SIZE_MAX_COUNTRY_NAME = COLUMN_LENGTH_COUNTRY_NAME;
 
-    // ----------------------------------------------------------------------------------------------------- REGION_NAME
+    // --------------------------------------------------------------------------------- REGION_NAME
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_REGION_NAME} attribute maps.
@@ -507,7 +507,7 @@ public abstract class MappedEmpDetailsView {
      */
     public static final int SIZE_MAX_REGION_NAME = COLUMN_LENGTH_REGION_NAME;
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -516,7 +516,7 @@ public abstract class MappedEmpDetailsView {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public final String toString() {
@@ -558,7 +558,7 @@ public abstract class MappedEmpDetailsView {
         return Objects.hashCode(getEmployeeId());
     }
 
-    // ------------------------------------------------------------------------------------------------------ employeeId
+    // ---------------------------------------------------------------------------------- employeeId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
@@ -570,7 +570,7 @@ public abstract class MappedEmpDetailsView {
         return employeeId;
     }
 
-    // ----------------------------------------------------------------------------------------------------------- jobId
+    // --------------------------------------------------------------------------------------- jobId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
@@ -582,7 +582,7 @@ public abstract class MappedEmpDetailsView {
         return jobId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- managerId
+    // ----------------------------------------------------------------------------------- managerId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute.
@@ -594,7 +594,7 @@ public abstract class MappedEmpDetailsView {
         return managerId;
     }
 
-    // ---------------------------------------------------------------------------------------------------- departmentId
+    // -------------------------------------------------------------------------------- departmentId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
@@ -606,7 +606,7 @@ public abstract class MappedEmpDetailsView {
         return departmentId;
     }
 
-    // ------------------------------------------------------------------------------------------------------ locationId
+    // ---------------------------------------------------------------------------------- locationId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
@@ -618,7 +618,7 @@ public abstract class MappedEmpDetailsView {
         return locationId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- countryId
+    // ----------------------------------------------------------------------------------- countryId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
@@ -630,7 +630,7 @@ public abstract class MappedEmpDetailsView {
         return countryId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- firstName
+    // ----------------------------------------------------------------------------------- firstName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute.
@@ -642,7 +642,7 @@ public abstract class MappedEmpDetailsView {
         return firstName;
     }
 
-    // -------------------------------------------------------------------------------------------------------- lastName
+    // ------------------------------------------------------------------------------------ lastName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LAST_NAME} attribute.
@@ -654,7 +654,7 @@ public abstract class MappedEmpDetailsView {
         return lastName;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- salary
+    // -------------------------------------------------------------------------------------- salary
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_SALARY} attribute.
@@ -666,7 +666,7 @@ public abstract class MappedEmpDetailsView {
         return salary;
     }
 
-    // --------------------------------------------------------------------------------------------------- commissionPct
+    // ------------------------------------------------------------------------------- commissionPct
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute.
@@ -678,7 +678,7 @@ public abstract class MappedEmpDetailsView {
         return commissionPct;
     }
 
-    // -------------------------------------------------------------------------------------------------- departmentName
+    // ------------------------------------------------------------------------------ departmentName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute.
@@ -690,7 +690,7 @@ public abstract class MappedEmpDetailsView {
         return departmentName;
     }
 
-    // -------------------------------------------------------------------------------------------------------- jobTitle
+    // ------------------------------------------------------------------------------------ jobTitle
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_JOB_TITLE} attribute.
@@ -702,7 +702,7 @@ public abstract class MappedEmpDetailsView {
         return jobTitle;
     }
 
-    // ------------------------------------------------------------------------------------------------------------ city
+    // ---------------------------------------------------------------------------------------- city
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CITY} attribute.
@@ -714,7 +714,7 @@ public abstract class MappedEmpDetailsView {
         return city;
     }
 
-    // --------------------------------------------------------------------------------------------------- stateProvince
+    // ------------------------------------------------------------------------------- stateProvince
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute.
@@ -726,7 +726,7 @@ public abstract class MappedEmpDetailsView {
         return stateProvince;
     }
 
-    // ----------------------------------------------------------------------------------------------------- countryName
+    // --------------------------------------------------------------------------------- countryName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_NAME} attribute.
@@ -738,7 +738,7 @@ public abstract class MappedEmpDetailsView {
         return countryName;
     }
 
-    // ------------------------------------------------------------------------------------------------------ regionName
+    // ---------------------------------------------------------------------------------- regionName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_REGION_NAME} attribute.
@@ -750,7 +750,7 @@ public abstract class MappedEmpDetailsView {
         return regionName;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @Id
     @Nonnull

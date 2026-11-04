@@ -34,7 +34,7 @@ class ProductReview_Test
         super(ProductReview.class);
     }
 
-    // ------------------------------------------------------------------------------------------------- equals/hashCode
+    // ----------------------------------------------------------------------------- equals/hashCode
 
     /**
      * Does nothing; {@link ProductReview} declares no {@code equals(Object)}, so there is no value

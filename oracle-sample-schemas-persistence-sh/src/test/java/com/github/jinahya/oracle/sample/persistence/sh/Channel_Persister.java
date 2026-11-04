@@ -35,7 +35,7 @@ class Channel_Persister
         super(Channel.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Channel apply(final EntityManager entityManager, final Channel entityInstance) {
         return super.apply(entityManager, entityInstance);

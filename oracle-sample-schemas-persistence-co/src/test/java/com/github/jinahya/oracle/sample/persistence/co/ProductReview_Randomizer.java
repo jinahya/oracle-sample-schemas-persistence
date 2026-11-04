@@ -42,7 +42,7 @@ class ProductReview_Randomizer
         super(ProductReview.class, List.of());
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();

@@ -47,7 +47,7 @@ import java.util.List;
 class Employee_Randomizer
         extends PodamObjectRandomizer<Employee> {
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     Employee_Randomizer() {
         super(Employee.class, List.of(
                 Employee.ATTRIBUTE_NAME_JOB_ID,
@@ -62,7 +62,7 @@ class Employee_Randomizer
         ));
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();

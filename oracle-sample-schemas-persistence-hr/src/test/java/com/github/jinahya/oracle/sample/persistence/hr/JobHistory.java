@@ -125,7 +125,12 @@ import jakarta.validation.constraints.NotNull;
                                JobHistory.COLUMN_NAME_START_DATE
                        }
                )
-       }
+       },
+       comment = "Table that stores job history of the employees. If an employee \n" +
+               "changes departments within the job or changes jobs within the department, \n" +
+               "new rows get inserted into this table with old job information of the \n" +
+               "employee. Contains a complex primary key: employee_id+start_date.\n" +
+               "References with jobs, employees, and departments tables."
 )
 public class JobHistory
         extends MappedJobHistory {
@@ -135,7 +140,7 @@ public class JobHistory
      */
     public static final String ENTITY_NAME = "JobHistory";
 
-    // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
+    // --------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
      * The name of the attribute which maps the {@link Employee employee} joined on the
@@ -146,7 +151,7 @@ public class JobHistory
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEE = "employee";
 
-    // ---------------------------------------------------------------------------------------------------------- JOB_ID
+    // -------------------------------------------------------------------------------------- JOB_ID
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column. The value is
@@ -154,7 +159,7 @@ public class JobHistory
      */
     public static final String ATTRIBUTE_NAME_JOB = "job";
 
-    // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
+    // ------------------------------------------------------------------------------- DEPARTMENT_ID
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The
@@ -162,7 +167,7 @@ public class JobHistory
      */
     public static final String ATTRIBUTE_NAME_DEPARTMENT = "department";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -171,7 +176,7 @@ public class JobHistory
         super();
     }
 
-    // -------------------------------------------------------------------------------------------------------- employee
+    // ------------------------------------------------------------------------------------ employee
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_EMPLOYEE} attribute.
@@ -183,7 +188,7 @@ public class JobHistory
         return employee;
     }
 
-    // ------------------------------------------------------------------------------------------------------------- job
+    // ----------------------------------------------------------------------------------------- job
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_JOB} attribute.
@@ -195,7 +200,7 @@ public class JobHistory
         return job;
     }
 
-    // ------------------------------------------------------------------------------------------------------ department
+    // ---------------------------------------------------------------------------------- department
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute.
@@ -207,7 +212,7 @@ public class JobHistory
         return department;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull
@@ -220,7 +225,7 @@ public class JobHistory
     )
     private Employee employee;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull
@@ -233,7 +238,7 @@ public class JobHistory
     )
     private Job job;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)

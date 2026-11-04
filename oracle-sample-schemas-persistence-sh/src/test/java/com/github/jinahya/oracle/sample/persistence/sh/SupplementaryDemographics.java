@@ -60,7 +60,7 @@ import jakarta.persistence.Table;
 public class SupplementaryDemographics
         extends MappedSupplementaryDemographics {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.

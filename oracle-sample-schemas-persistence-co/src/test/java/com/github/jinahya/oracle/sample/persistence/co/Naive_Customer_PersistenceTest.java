@@ -49,7 +49,7 @@ class Naive_Customer_PersistenceTest {
 
     private static final String PERSISTENCE_UNIT_NAME = "co-test";
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     private static EntityManagerFactory entityManagerFactory;
 
     @BeforeAll
@@ -67,7 +67,7 @@ class Naive_Customer_PersistenceTest {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @DisplayName("persist, commit, find, and remove")
     @Test
     void persist__() {

@@ -63,7 +63,7 @@ class FweekPscatSalesMvUtils_Test {
         return withField(new FweekPscatSalesMv(), FweekPscatSalesMv.ATTRIBUTE_NAME_ID, id);
     }
 
-    // ------------------------------------------------------------------------------------------------ id.weekEndingDay
+    // ---------------------------------------------------------------------------- id.weekEndingDay
 
     @DisplayName("getIdWeekEndingDay(fweekPscatSalesMv)")
     @Nested
@@ -88,7 +88,7 @@ class FweekPscatSalesMvUtils_Test {
         }
     }
 
-    // ---------------------------------------------------------------------------------------------- id.prodSubcategory
+    // -------------------------------------------------------------------------- id.prodSubcategory
 
     @DisplayName("getIdProdSubcategory(fweekPscatSalesMv)")
     @Nested
@@ -113,7 +113,7 @@ class FweekPscatSalesMvUtils_Test {
         }
     }
 
-    // ---------------------------------------------------------------------------------------------------- id.channelId
+    // -------------------------------------------------------------------------------- id.channelId
 
     @DisplayName("getIdChannelId(fweekPscatSalesMv)")
     @Nested
@@ -138,7 +138,7 @@ class FweekPscatSalesMvUtils_Test {
         }
     }
 
-    // ------------------------------------------------------------------------------------------------------ id.promoId
+    // ---------------------------------------------------------------------------------- id.promoId
 
     @DisplayName("getIdPromoId(fweekPscatSalesMv)")
     @Nested

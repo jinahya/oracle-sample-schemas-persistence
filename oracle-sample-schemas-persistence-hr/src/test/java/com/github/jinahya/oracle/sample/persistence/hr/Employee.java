@@ -113,11 +113,13 @@ import java.util.Optional;
                     WHERE e.department = :department"""
 )
 @Entity
-@Table(name = MappedEmployee.TABLE_NAME)
+@Table(name = MappedEmployee.TABLE_NAME,
+       comment = "employees table. References with departments,\n" +
+               "jobs, job_history tables. Contains a self reference.")
 public class Employee
         extends MappedEmployee {
 
-    // ---------------------------------------------------------------------------------------------------------- JOB_ID
+    // -------------------------------------------------------------------------------------- JOB_ID
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_JOB_ID} column. The value is
@@ -125,7 +127,7 @@ public class Employee
      */
     public static final String ATTRIBUTE_NAME_JOB = "job";
 
-    // ------------------------------------------------------------------------------------------------------ MANAGER_ID
+    // ---------------------------------------------------------------------------------- MANAGER_ID
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_MANAGER_ID} column. The value
@@ -133,7 +135,7 @@ public class Employee
      */
     public static final String ATTRIBUTE_NAME_MANAGER = "manager";
 
-    // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
+    // ------------------------------------------------------------------------------- DEPARTMENT_ID
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_DEPARTMENT_ID} column. The
@@ -165,7 +167,7 @@ public class Employee
      */
     public static final String ATTRIBUTE_NAME_JOB_HISTORIES = "jobHistories";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -174,7 +176,7 @@ public class Employee
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------- Bean-Validation
+    // ----------------------------------------------------------------------------- Bean-Validation
 
     /**
      * Tests whether current value of the {@value #ATTRIBUTE_NAME_SALARY} attribute is less than or
@@ -217,7 +219,7 @@ public class Employee
         return getSalary().compareTo(java.math.BigDecimal.valueOf(job.getMinSalary())) >= 0;
     }
 
-    // ------------------------------------------------------------------------------------------------------------- job
+    // ----------------------------------------------------------------------------------------- job
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_JOB} attribute.
@@ -249,7 +251,7 @@ public class Employee
         // TODO: adjust current salary to between job.minSalary and job.maxSalary
     }
 
-    // --------------------------------------------------------------------------------------------------------- manager
+    // ------------------------------------------------------------------------------------- manager
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_MANAGER} attribute.
@@ -276,7 +278,7 @@ public class Employee
         );
     }
 
-    // ----------------------------------------------------------------------------------------------- this.jobMinSalary
+    // --------------------------------------------------------------------------- this.jobMinSalary
 
     /**
      * Returns the {@value Job#ATTRIBUTE_NAME_MIN_SALARY} of the {@value #ATTRIBUTE_NAME_JOB} of
@@ -294,7 +296,7 @@ public class Employee
                 .orElse(null);
     }
 
-    // ----------------------------------------------------------------------------------------------- this.jobMaxSalary
+    // --------------------------------------------------------------------------- this.jobMaxSalary
 
     /**
      * Returns the {@value Job#ATTRIBUTE_NAME_MAX_SALARY} of the {@value #ATTRIBUTE_NAME_JOB} of
@@ -312,7 +314,7 @@ public class Employee
                 .orElse(null);
     }
 
-    // ------------------------------------------------------------------------------------------------------ department
+    // ---------------------------------------------------------------------------------- department
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENT} attribute.
@@ -342,7 +344,7 @@ public class Employee
         );
     }
 
-    // ---------------------------------------------------------------------------------------------------- subordinates
+    // -------------------------------------------------------------------------------- subordinates
 
     /**
      * Returns <em>subordinates</em> of this <em>manager</em>.
@@ -362,7 +364,7 @@ public class Employee
         this.subordinates = subordinates;
     }
 
-    // ---------------------------------------------------------------------------------------------- managedDepartments
+    // -------------------------------------------------------------------------- managedDepartments
 
     /**
      * Returns the departments this employee manages.
@@ -382,7 +384,7 @@ public class Employee
         this.managedDepartments = managedDepartments;
     }
 
-    // ---------------------------------------------------------------------------------------------------- jobHistories
+    // -------------------------------------------------------------------------------- jobHistories
 
     /**
      * Returns the past job assignments of this employee.
@@ -402,7 +404,7 @@ public class Employee
         this.jobHistories = jobHistories;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull
@@ -419,7 +421,7 @@ public class Employee
     )
     private Job job;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nullable
     @Valid
     @ManyToOne(optional = true,
@@ -435,7 +437,7 @@ public class Employee
     )
     private Employee manager;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nullable
     @Valid
     @ManyToOne(optional = true,
@@ -451,7 +453,7 @@ public class Employee
     )
     private Department department;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = Employee.ATTRIBUTE_NAME_MANAGER,
                fetch = FetchType.LAZY,
                cascade = {
@@ -460,7 +462,7 @@ public class Employee
     )
     private List<@Valid @NotNull Employee> subordinates;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = Department.ATTRIBUTE_NAME_MANAGER,
                fetch = FetchType.LAZY,
                cascade = {
@@ -469,7 +471,7 @@ public class Employee
     )
     private List<@Valid @NotNull Department> managedDepartments;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = JobHistory.ATTRIBUTE_NAME_EMPLOYEE,
                fetch = FetchType.LAZY,
                cascade = {

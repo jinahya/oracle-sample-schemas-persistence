@@ -54,7 +54,7 @@ public abstract class MappedDepartment {
      */
     public static final String TABLE_NAME = "DEPARTMENTS";
 
-    // --------------------------------------------------------------------------------------------------- DEPARTMENT_ID
+    // ------------------------------------------------------------------------------- DEPARTMENT_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute
@@ -100,7 +100,7 @@ public abstract class MappedDepartment {
      */
     public static final int ATTRIBUTE_MAX_DEPARTMENT_ID = COLUMN_MAX_DEPARTMENT_ID;
 
-    // ------------------------------------------------------------------------------------------------- DEPARTMENT_NAME
+    // ----------------------------------------------------------------------------- DEPARTMENT_NAME
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute
@@ -131,7 +131,7 @@ public abstract class MappedDepartment {
      */
     public static final int SIZE_MAX_DEPARTMENT_NAME = COLUMN_LENGTH_DEPARTMENT_NAME;
 
-    // ------------------------------------------------------------------------------------------------------ MANAGER_ID
+    // ---------------------------------------------------------------------------------- MANAGER_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute maps.
@@ -182,7 +182,7 @@ public abstract class MappedDepartment {
      */
     public static final String ATTRIBUTE_NAME_MANAGER_ID = "managerId";
 
-    // ----------------------------------------------------------------------------------------------------- LOCATION_ID
+    // --------------------------------------------------------------------------------- LOCATION_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute
@@ -233,7 +233,7 @@ public abstract class MappedDepartment {
      */
     public static final String ATTRIBUTE_NAME_LOCATION_ID = "locationId";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -242,7 +242,7 @@ public abstract class MappedDepartment {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public final String toString() {
@@ -280,7 +280,7 @@ public abstract class MappedDepartment {
         return Objects.hashCode(getDepartmentId());
     }
 
-    // ---------------------------------------------------------------------------------------------------- departmentId
+    // -------------------------------------------------------------------------------- departmentId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
@@ -302,7 +302,7 @@ public abstract class MappedDepartment {
         this.departmentId = departmentId;
     }
 
-    // -------------------------------------------------------------------------------------------------- departmentName
+    // ------------------------------------------------------------------------------ departmentName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_NAME} attribute.
@@ -324,7 +324,7 @@ public abstract class MappedDepartment {
         this.departmentName = departmentName;
     }
 
-    // ------------------------------------------------------------------------------------------------------- managerId
+    // ----------------------------------------------------------------------------------- managerId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute.
@@ -347,7 +347,7 @@ public abstract class MappedDepartment {
         this.managerId = managerId;
     }
 
-    // ------------------------------------------------------------------------------------------------------ locationId
+    // ---------------------------------------------------------------------------------- locationId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
@@ -370,7 +370,7 @@ public abstract class MappedDepartment {
         this.locationId = locationId;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Max(ATTRIBUTE_MAX_DEPARTMENT_ID)
     @Min(ATTRIBUTE_MIN_DEPARTMENT_ID)
@@ -381,21 +381,25 @@ public abstract class MappedDepartment {
             insertable = true,
             updatable = false,
             precision = COLUMN_PRECISION_DEPARTMENT_ID,
-            scale = COLUMN_SCALE_DEPARTMENT_ID
+            scale = COLUMN_SCALE_DEPARTMENT_ID,
+            comment = "Primary key column of departments table."
     )
     private Integer departmentId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Size(min = SIZE_MIN_DEPARTMENT_NAME, max = SIZE_MAX_DEPARTMENT_NAME)
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_DEPARTMENT_NAME, nullable = false, insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_DEPARTMENT_NAME)
+            length = COLUMN_LENGTH_DEPARTMENT_NAME,
+            comment = "A not null column that shows name of a department. Administration, \n" +
+                    "Marketing, Purchasing, Human Resources, Shipping, IT, Executive, Public \n" +
+                    "Relations, Sales, Finance, and Accounting. ")
     private String departmentName;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class
     // documentation
     @Nullable
@@ -407,11 +411,14 @@ public abstract class MappedDepartment {
             insertable = false,
             updatable = false,
             precision = COLUMN_PRECISION_MANAGER_ID,
-            scale = COLUMN_SCALE_MANAGER_ID
+            scale = COLUMN_SCALE_MANAGER_ID,
+            comment = "Manager_id of a department. Foreign key to employee_id column of " +
+                    "employees table. The manager_id column of the employee table references " +
+                    "this column."
     )
     private Integer managerId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class
     // documentation
     @Nullable
@@ -423,7 +430,9 @@ public abstract class MappedDepartment {
             insertable = false,
             updatable = false,
             precision = COLUMN_PRECISION_LOCATION_ID,
-            scale = COLUMN_SCALE_LOCATION_ID
+            scale = COLUMN_SCALE_LOCATION_ID,
+            comment = "Location id where a department is located. Foreign key to location_id " +
+                    "column of locations table."
     )
     private Integer locationId;
 }

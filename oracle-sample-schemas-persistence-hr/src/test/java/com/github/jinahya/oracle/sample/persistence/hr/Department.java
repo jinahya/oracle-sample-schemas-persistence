@@ -91,11 +91,13 @@ import java.util.Optional;
                     WHERE e.location = :location"""
 )
 @Entity
-@Table(name = MappedDepartment.TABLE_NAME)
+@Table(name = MappedDepartment.TABLE_NAME,
+       comment = "Departments table that shows details of departments where employees \n" +
+               "work. references with locations, employees, and job_history tables.")
 public class Department
         extends MappedDepartment {
 
-    // ------------------------------------------------------------------------------------------------------ MANAGER_ID
+    // ---------------------------------------------------------------------------------- MANAGER_ID
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_MANAGER_ID} column. The value
@@ -103,7 +105,7 @@ public class Department
      */
     public static final String ATTRIBUTE_NAME_MANAGER = "manager";
 
-    // ----------------------------------------------------------------------------------------------------- LOCATION_ID
+    // --------------------------------------------------------------------------------- LOCATION_ID
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_LOCATION_ID} column. The value
@@ -111,7 +113,7 @@ public class Department
      */
     public static final String ATTRIBUTE_NAME_LOCATION = "location";
 
-    // ------------------------------------------------------------------------------------------------------- EMPLOYEES
+    // ----------------------------------------------------------------------------------- EMPLOYEES
 
     /**
      * The name of the attribute which maps the {@link Employee employee}s of this department. The
@@ -121,7 +123,7 @@ public class Department
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEES = "employees";
 
-    // --------------------------------------------------------------------------------------------------- JOB_HISTORIES
+    // ------------------------------------------------------------------------------- JOB_HISTORIES
 
     /**
      * The name of the attribute which maps the past job assignments within this department. The
@@ -131,7 +133,7 @@ public class Department
      */
     public static final String ATTRIBUTE_NAME_JOB_HISTORIES = "jobHistories";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -140,7 +142,7 @@ public class Department
         super();
     }
 
-    // --------------------------------------------------------------------------------------------------------- manager
+    // ------------------------------------------------------------------------------------- manager
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_MANAGER} attribute.
@@ -167,7 +169,7 @@ public class Department
         );
     }
 
-    // -------------------------------------------------------------------------------------------------------- location
+    // ------------------------------------------------------------------------------------ location
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LOCATION} attribute.
@@ -194,7 +196,7 @@ public class Department
         );
     }
 
-    // ------------------------------------------------------------------------------------------------------- employees
+    // ----------------------------------------------------------------------------------- employees
     List<Employee> getEmployees() {
         return employees;
     }
@@ -203,7 +205,7 @@ public class Department
         this.employees = employees;
     }
 
-    // ---------------------------------------------------------------------------------------------------- jobHistories
+    // -------------------------------------------------------------------------------- jobHistories
 
     /**
      * Returns the past job assignments within this department.
@@ -223,7 +225,7 @@ public class Department
         this.jobHistories = jobHistories;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -234,7 +236,7 @@ public class Department
     )
     private Employee manager;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -245,7 +247,7 @@ public class Department
     )
     private Location location;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = Employee.ATTRIBUTE_NAME_DEPARTMENT,
                fetch = FetchType.LAZY,
                cascade = {
@@ -254,7 +256,7 @@ public class Department
     )
     private List<@Valid @NotNull Employee> employees;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = JobHistory.ATTRIBUTE_NAME_DEPARTMENT,
                fetch = FetchType.LAZY,
                cascade = {

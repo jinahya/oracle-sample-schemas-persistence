@@ -32,7 +32,10 @@ import java.lang.annotation.Target;
  * <p>
  * Jakarta Persistence has no annotation for a materialized view; it maps one as it maps a table.
  *
- * @see <a href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/CREATE-MATERIALIZED-VIEW.html">CREATE MATERIALIZED VIEW</a>
+ * @see <a
+ *         href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/CREATE
+ *         -MATERIALIZED-VIEW.html">CREATE
+ *         MATERIALIZED VIEW</a>
  */
 @Documented
 @Target(ElementType.TYPE)
@@ -40,20 +43,20 @@ import java.lang.annotation.Target;
 public @interface OraMaterializedView {
 
     /**
-     * Whether query rewrite is enabled ({@code ENABLE QUERY REWRITE}): the optimizer may answer a query
-     * on the base tables from the materialized view.
+     * Whether query rewrite is enabled ({@code ENABLE QUERY REWRITE}): the optimizer may answer a
+     * query on the base tables from the materialized view.
      *
-     * @return whether query rewrite is enabled ({@code ENABLE QUERY REWRITE}): the optimizer may answer a
-     *         query on the base tables from the materialized view.
+     * @return whether query rewrite is enabled ({@code ENABLE QUERY REWRITE}): the optimizer may
+     *         answer a query on the base tables from the materialized view.
      */
     boolean queryRewrite() default false;
 
     /**
-     * The refresh clause of the materialized view, {@code REFRESH FAST ON COMMIT} say; empty for the
-     * default.
+     * The refresh clause of the materialized view, {@code REFRESH FAST ON COMMIT} say; empty for
+     * the default.
      *
-     * @return the refresh clause of the materialized view, {@code REFRESH FAST ON COMMIT} say; empty for
-     *         the default.
+     * @return the refresh clause of the materialized view, {@code REFRESH FAST ON COMMIT} say;
+     *         empty for the default.
      */
     String refresh() default "";
 }

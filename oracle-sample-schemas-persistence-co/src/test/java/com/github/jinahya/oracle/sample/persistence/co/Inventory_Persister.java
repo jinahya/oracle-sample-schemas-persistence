@@ -40,7 +40,7 @@ class Inventory_Persister
         super(Inventory.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Inventory apply(final EntityManager entityManager, final Inventory entityInstance) {
         final var store = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Store.class);

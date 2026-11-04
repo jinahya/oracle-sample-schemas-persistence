@@ -145,7 +145,7 @@ public class Cost
      */
     public static final String ATTRIBUTE_NAME_CHANNEL = "channel";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -154,7 +154,7 @@ public class Cost
         super();
     }
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------ id
 
     /**
      * Returns a new {@link CostId} holding current values of the identifying attributes.
@@ -179,7 +179,7 @@ public class Cost
         setChannelId(Optional.ofNullable(id).map(CostId::getChannelId).orElse(null));
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @Valid
     // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the

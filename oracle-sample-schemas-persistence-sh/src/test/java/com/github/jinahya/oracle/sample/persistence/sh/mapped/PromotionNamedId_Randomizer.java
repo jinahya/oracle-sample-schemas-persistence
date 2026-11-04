@@ -53,7 +53,7 @@ abstract class PromotionNamedId_Randomizer<T extends PromotionNamedId<N>, N exte
         ));
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();

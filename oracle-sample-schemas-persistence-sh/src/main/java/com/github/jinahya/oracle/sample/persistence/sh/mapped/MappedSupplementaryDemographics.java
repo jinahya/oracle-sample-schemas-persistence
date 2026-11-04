@@ -45,7 +45,7 @@ public abstract class MappedSupplementaryDemographics {
      */
     public static final String TABLE_NAME = "SUPPLEMENTARY_DEMOGRAPHICS";
 
-    // -------------------------------------------------------------------------------------------------------- CUST_ID
+    // ------------------------------------------------------------------------------------- CUST_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_ID} attribute maps.
@@ -59,7 +59,7 @@ public abstract class MappedSupplementaryDemographics {
      */
     public static final String ATTRIBUTE_NAME_CUST_ID = "custId";
 
-    // ------------------------------------------------------------------------------------------------------ EDUCATION
+    // ----------------------------------------------------------------------------------- EDUCATION
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_EDUCATION} attribute maps.
@@ -83,7 +83,7 @@ public abstract class MappedSupplementaryDemographics {
      */
     public static final int SIZE_MAX_EDUCATION = COLUMN_LENGTH_EDUCATION;
 
-    // ----------------------------------------------------------------------------------------------------- OCCUPATION
+    // ---------------------------------------------------------------------------------- OCCUPATION
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_OCCUPATION} attribute maps.
@@ -108,7 +108,7 @@ public abstract class MappedSupplementaryDemographics {
      */
     public static final int SIZE_MAX_OCCUPATION = COLUMN_LENGTH_OCCUPATION;
 
-    // ------------------------------------------------------------------------------------------------- HOUSEHOLD_SIZE
+    // ------------------------------------------------------------------------------ HOUSEHOLD_SIZE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_HOUSEHOLD_SIZE} attribute
@@ -133,7 +133,7 @@ public abstract class MappedSupplementaryDemographics {
      */
     public static final int SIZE_MAX_HOUSEHOLD_SIZE = COLUMN_LENGTH_HOUSEHOLD_SIZE;
 
-    // -------------------------------------------------------------------------------------------------- YRS_RESIDENCE
+    // ------------------------------------------------------------------------------- YRS_RESIDENCE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_YRS_RESIDENCE} attribute
@@ -147,7 +147,7 @@ public abstract class MappedSupplementaryDemographics {
      */
     public static final String ATTRIBUTE_NAME_YRS_RESIDENCE = "yrsResidence";
 
-    // -------------------------------------------------------------------------------------------------- AFFINITY_CARD
+    // ------------------------------------------------------------------------------- AFFINITY_CARD
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute
@@ -193,7 +193,7 @@ public abstract class MappedSupplementaryDemographics {
      */
     public static final long ATTRIBUTE_MAX_AFFINITY_CARD = COLUMN_MAX_AFFINITY_CARD;
 
-    // -------------------------------------------------------------------------------------------------------- CRICKET
+    // ------------------------------------------------------------------------------------- CRICKET
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CRICKET} attribute maps.
@@ -237,7 +237,7 @@ public abstract class MappedSupplementaryDemographics {
      */
     public static final long ATTRIBUTE_MAX_CRICKET = COLUMN_MAX_CRICKET;
 
-    // ------------------------------------------------------------------------------------------------------- BASEBALL
+    // ------------------------------------------------------------------------------------ BASEBALL
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_BASEBALL} attribute maps.
@@ -281,7 +281,7 @@ public abstract class MappedSupplementaryDemographics {
      */
     public static final long ATTRIBUTE_MAX_BASEBALL = COLUMN_MAX_BASEBALL;
 
-    // --------------------------------------------------------------------------------------------------------- TENNIS
+    // -------------------------------------------------------------------------------------- TENNIS
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_TENNIS} attribute maps. The
@@ -325,7 +325,7 @@ public abstract class MappedSupplementaryDemographics {
      */
     public static final long ATTRIBUTE_MAX_TENNIS = COLUMN_MAX_TENNIS;
 
-    // --------------------------------------------------------------------------------------------------------- SOCCER
+    // -------------------------------------------------------------------------------------- SOCCER
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_SOCCER} attribute maps. The
@@ -369,7 +369,7 @@ public abstract class MappedSupplementaryDemographics {
      */
     public static final long ATTRIBUTE_MAX_SOCCER = COLUMN_MAX_SOCCER;
 
-    // ----------------------------------------------------------------------------------------------------------- GOLF
+    // ---------------------------------------------------------------------------------------- GOLF
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_GOLF} attribute maps. The
@@ -413,7 +413,7 @@ public abstract class MappedSupplementaryDemographics {
      */
     public static final long ATTRIBUTE_MAX_GOLF = COLUMN_MAX_GOLF;
 
-    // -------------------------------------------------------------------------------------------------------- UNKNOWN
+    // ------------------------------------------------------------------------------------- UNKNOWN
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_UNKNOWN} attribute maps.
@@ -457,7 +457,7 @@ public abstract class MappedSupplementaryDemographics {
      */
     public static final long ATTRIBUTE_MAX_UNKNOWN = COLUMN_MAX_UNKNOWN;
 
-    // ----------------------------------------------------------------------------------------------------------- MISC
+    // ---------------------------------------------------------------------------------------- MISC
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_MISC} attribute maps. The
@@ -501,7 +501,7 @@ public abstract class MappedSupplementaryDemographics {
      */
     public static final long ATTRIBUTE_MAX_MISC = COLUMN_MAX_MISC;
 
-    // ------------------------------------------------------------------------------------------------------- COMMENTS
+    // ------------------------------------------------------------------------------------ COMMENTS
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COMMENTS} attribute maps.
@@ -525,7 +525,7 @@ public abstract class MappedSupplementaryDemographics {
      */
     public static final int SIZE_MAX_COMMENTS = COLUMN_LENGTH_COMMENTS;
 
-    // --------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -534,7 +534,7 @@ public abstract class MappedSupplementaryDemographics {
         super();
     }
 
-    // ----------------------------------------------------------------------------------------------- java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -581,7 +581,7 @@ public abstract class MappedSupplementaryDemographics {
     public final int hashCode() {
         return Objects.hashCode(getCustId());
     }
-    // --------------------------------------------------------------------------------------------------------- custId
+    // -------------------------------------------------------------------------------------- custId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute.
@@ -602,7 +602,7 @@ public abstract class MappedSupplementaryDemographics {
         this.custId = custId;
     }
 
-    // ------------------------------------------------------------------------------------------------------ education
+    // ----------------------------------------------------------------------------------- education
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_EDUCATION} attribute.
@@ -623,7 +623,7 @@ public abstract class MappedSupplementaryDemographics {
         this.education = education;
     }
 
-    // ----------------------------------------------------------------------------------------------------- occupation
+    // ---------------------------------------------------------------------------------- occupation
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_OCCUPATION} attribute.
@@ -644,7 +644,7 @@ public abstract class MappedSupplementaryDemographics {
         this.occupation = occupation;
     }
 
-    // -------------------------------------------------------------------------------------------------- householdSize
+    // ------------------------------------------------------------------------------- householdSize
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_HOUSEHOLD_SIZE} attribute.
@@ -665,7 +665,7 @@ public abstract class MappedSupplementaryDemographics {
         this.householdSize = householdSize;
     }
 
-    // --------------------------------------------------------------------------------------------------- yrsResidence
+    // -------------------------------------------------------------------------------- yrsResidence
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_YRS_RESIDENCE} attribute.
@@ -686,7 +686,7 @@ public abstract class MappedSupplementaryDemographics {
         this.yrsResidence = yrsResidence;
     }
 
-    // --------------------------------------------------------------------------------------------------- affinityCard
+    // -------------------------------------------------------------------------------- affinityCard
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_AFFINITY_CARD} attribute.
@@ -707,7 +707,7 @@ public abstract class MappedSupplementaryDemographics {
         this.affinityCard = affinityCard;
     }
 
-    // -------------------------------------------------------------------------------------------------------- cricket
+    // ------------------------------------------------------------------------------------- cricket
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CRICKET} attribute.
@@ -728,7 +728,7 @@ public abstract class MappedSupplementaryDemographics {
         this.cricket = cricket;
     }
 
-    // ------------------------------------------------------------------------------------------------------- baseball
+    // ------------------------------------------------------------------------------------ baseball
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_BASEBALL} attribute.
@@ -749,7 +749,7 @@ public abstract class MappedSupplementaryDemographics {
         this.baseball = baseball;
     }
 
-    // --------------------------------------------------------------------------------------------------------- tennis
+    // -------------------------------------------------------------------------------------- tennis
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_TENNIS} attribute.
@@ -770,7 +770,7 @@ public abstract class MappedSupplementaryDemographics {
         this.tennis = tennis;
     }
 
-    // --------------------------------------------------------------------------------------------------------- soccer
+    // -------------------------------------------------------------------------------------- soccer
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_SOCCER} attribute.
@@ -791,7 +791,7 @@ public abstract class MappedSupplementaryDemographics {
         this.soccer = soccer;
     }
 
-    // ----------------------------------------------------------------------------------------------------------- golf
+    // ---------------------------------------------------------------------------------------- golf
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_GOLF} attribute.
@@ -811,7 +811,7 @@ public abstract class MappedSupplementaryDemographics {
         this.golf = golf;
     }
 
-    // -------------------------------------------------------------------------------------------------------- unknown
+    // ------------------------------------------------------------------------------------- unknown
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_UNKNOWN} attribute.
@@ -832,7 +832,7 @@ public abstract class MappedSupplementaryDemographics {
         this.unknown = unknown;
     }
 
-    // ----------------------------------------------------------------------------------------------------------- misc
+    // ---------------------------------------------------------------------------------------- misc
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_MISC} attribute.
@@ -852,7 +852,7 @@ public abstract class MappedSupplementaryDemographics {
         this.misc = misc;
     }
 
-    // ------------------------------------------------------------------------------------------------------- comments
+    // ------------------------------------------------------------------------------------ comments
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COMMENTS} attribute.
@@ -873,9 +873,9 @@ public abstract class MappedSupplementaryDemographics {
         this.comments = comments;
     }
 
-    // ---------------------------------------------------------------------------------------------------------------
-    // ---------------------------------------------------------------------------------------------------------------
-    // ---------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @NotNull
     @Id

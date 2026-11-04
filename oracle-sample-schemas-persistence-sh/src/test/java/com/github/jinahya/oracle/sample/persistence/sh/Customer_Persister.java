@@ -38,7 +38,7 @@ class Customer_Persister
         super(Customer.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Customer apply(final EntityManager entityManager, final Customer entityInstance) {
         entityInstance.setCountry(

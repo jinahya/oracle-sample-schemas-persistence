@@ -37,12 +37,12 @@ class Country_PersistenceIT
 
     private static final Set<String> LOCALE_COUNTRY_ISO_CODES = Set.of(Locale.getISOCountries());
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     Country_PersistenceIT() {
         super(Country.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     protected void randomEntityInstanceSelected__(final EntityManager entityManager,
                                                   final Country entityInstance) {

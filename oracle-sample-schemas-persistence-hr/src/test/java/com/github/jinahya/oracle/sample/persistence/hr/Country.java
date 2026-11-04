@@ -93,11 +93,11 @@ import java.util.Optional;
                     WHERE e.region = :region"""
 )
 @Entity
-@Table(name = MappedCountry.TABLE_NAME)
+@Table(name = MappedCountry.TABLE_NAME, comment = "country table. References with locations table.")
 public class Country
         extends MappedCountry {
 
-    // ------------------------------------------------------------------------------------------------------- REGION_ID
+    // ----------------------------------------------------------------------------------- REGION_ID
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_REGION_ID} column. The value is
@@ -105,7 +105,7 @@ public class Country
      */
     public static final String ATTRIBUTE_NAME_REGION = "region";
 
-    // ------------------------------------------------------------------------------------------------------- LOCATIONS
+    // ----------------------------------------------------------------------------------- LOCATIONS
 
     /**
      * The name of the attribute which maps the {@link Location location}s of this country. The
@@ -115,7 +115,7 @@ public class Country
      */
     public static final String ATTRIBUTE_NAME_LOCATIONS = "locations";
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     static final Comparator<Country> comparingCountryId =
             Comparator.comparing(Country::getCountryId);
 
@@ -124,7 +124,7 @@ public class Country
         return Comparator.comparing(Country::getCountryName, nameComparator);
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -133,7 +133,7 @@ public class Country
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------------- countryId
+    // ----------------------------------------------------------------------------------- countryId
 
     /**
      * {@inheritDoc}
@@ -147,7 +147,7 @@ public class Country
         super.setCountryId(countryId);
     }
 
-    // ---------------------------------------------------------------------------------------------------------- region
+    // -------------------------------------------------------------------------------------- region
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_REGION} attribute.
@@ -174,7 +174,7 @@ public class Country
         );
     }
 
-    // ------------------------------------------------------------------------------------------------------- locations
+    // ----------------------------------------------------------------------------------- locations
     List<Location> getLocations() {
         return locations;
     }
@@ -183,7 +183,7 @@ public class Country
         this.locations = locations;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = {})
@@ -193,7 +193,7 @@ public class Country
     )
     private Region region;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = Location.ATTRIBUTE_NAME_COUNTRY,
                fetch = FetchType.LAZY,
                cascade = {

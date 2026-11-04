@@ -44,7 +44,7 @@ public abstract class MappedProductReview {
      */
     public static final String TABLE_NAME = "PRODUCT_REVIEWS";
 
-    // ---------------------------------------------------------------------------------------------------- PRODUCT_NAME
+    // -------------------------------------------------------------------------------- PRODUCT_NAME
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute
@@ -69,7 +69,7 @@ public abstract class MappedProductReview {
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_NAME = "productName";
 
-    // ---------------------------------------------------------------------------------------------------------- RATING
+    // -------------------------------------------------------------------------------------- RATING
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_RATING} attribute maps. The
@@ -83,7 +83,7 @@ public abstract class MappedProductReview {
      */
     public static final String ATTRIBUTE_NAME_RATING = "rating";
 
-    // ------------------------------------------------------------------------------------------------------ AVG_RATING
+    // ---------------------------------------------------------------------------------- AVG_RATING
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_AVG_RATING} attribute maps.
@@ -97,7 +97,7 @@ public abstract class MappedProductReview {
      */
     public static final String ATTRIBUTE_NAME_AVG_RATING = "avgRating";
 
-    // ---------------------------------------------------------------------------------------------------------- REVIEW
+    // -------------------------------------------------------------------------------------- REVIEW
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_REVIEW} attribute maps. The
@@ -121,7 +121,7 @@ public abstract class MappedProductReview {
      */
     public static final String ATTRIBUTE_NAME_REVIEW = "review";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -149,7 +149,7 @@ public abstract class MappedProductReview {
         this.review = review;
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -161,9 +161,9 @@ public abstract class MappedProductReview {
                '}';
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
-    // ----------------------------------------------------------------------------------------------------- productName
+    // --------------------------------------------------------------------------------- productName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute.
@@ -174,7 +174,7 @@ public abstract class MappedProductReview {
         return productName;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- rating
+    // -------------------------------------------------------------------------------------- rating
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_RATING} attribute.
@@ -185,7 +185,7 @@ public abstract class MappedProductReview {
         return rating;
     }
 
-    // ------------------------------------------------------------------------------------------------------- avgRating
+    // ----------------------------------------------------------------------------------- avgRating
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_AVG_RATING} attribute.
@@ -196,7 +196,7 @@ public abstract class MappedProductReview {
         return avgRating;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- review
+    // -------------------------------------------------------------------------------------- review
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_REVIEW} attribute.
@@ -207,7 +207,7 @@ public abstract class MappedProductReview {
         return review;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @Size(max = SIZE_MAX_PRODUCT_NAME)
     @NotNull
@@ -216,15 +216,18 @@ public abstract class MappedProductReview {
             nullable = false,
             insertable = false,
             updatable = false,
-            length = COLUMN_LENGTH_PRODUCT_NAME)
+            length = COLUMN_LENGTH_PRODUCT_NAME,
+            comment = "What this product is called")
     private String productName;
 
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_RATING, nullable = true, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_RATING, nullable = true, insertable = false, updatable = false,
+            comment = "The review score the customer has placed. Range is 1-10")
     private Integer rating;
 
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_AVG_RATING, nullable = true, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_AVG_RATING, nullable = true, insertable = false, updatable = false,
+            comment = "The mean of the review scores for this product")
     private BigDecimal avgRating;
 
     @Size(max = SIZE_MAX_REVIEW)
@@ -233,6 +236,7 @@ public abstract class MappedProductReview {
             nullable = true,
             insertable = false,
             updatable = false,
-            length = COLUMN_LENGTH_REVIEW)
+            length = COLUMN_LENGTH_REVIEW,
+            comment = "The text of the review")
     private String review;
 }

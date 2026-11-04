@@ -30,8 +30,8 @@ import org.junit.jupiter.api.TestInstance;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceIT_Utils.applyEntityManagerFactory;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -60,12 +60,12 @@ class Product_PersistenceIT
         }));
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     Product_PersistenceIT() {
         super(Product.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Returns two unit prices of the installed table, the lower one first: those at the first and
@@ -199,8 +199,9 @@ class Product_PersistenceIT
             applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
                 final var range = unitPriceRange();
                 final var found = entityManager
-                        .createNamedQuery("Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc",
-                                          targetClass)
+                        .createNamedQuery(
+                                "Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc",
+                                targetClass)
                         .setParameter("unitPriceAfter", range[0])
                         .setParameter("unitPriceBefore", range[1])
                         .getResultList();

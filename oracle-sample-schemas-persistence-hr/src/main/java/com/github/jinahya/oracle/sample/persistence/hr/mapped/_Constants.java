@@ -36,7 +36,7 @@ import java.util.List;
 })
 final class _Constants {
 
-    // ------------------------------------------------------------------------------------------- routines / SECURE_DML
+    // ----------------------------------------------------------------------- routines / SECURE_DML
     static final String ROUTINE_SECURE_DML_LOCAL_TIME_MIN_TEXT = "08:00";
 
     static final LocalTime ROUTINE_SECURE_DML_LOCAL_TIME_MIN =
@@ -52,7 +52,7 @@ final class _Constants {
 
     static final int ROUTINE_SECURE_DML_APPLICATION_ERROR_CODE = -20205;
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     private _Constants() {
         throw new AssertionError("instantiation is not allowed");

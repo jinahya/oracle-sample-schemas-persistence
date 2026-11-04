@@ -54,7 +54,7 @@ public abstract class MappedLocation {
      */
     public static final String TABLE_NAME = "LOCATIONS";
 
-    // ----------------------------------------------------------------------------------------------------- LOCATION_ID
+    // --------------------------------------------------------------------------------- LOCATION_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute
@@ -100,7 +100,7 @@ public abstract class MappedLocation {
      */
     public static final int ATTRIBUTE_MAX_LOCATION_ID = COLUMN_MAX_LOCATION_ID;
 
-    // -------------------------------------------------------------------------------------------------- STREET_ADDRESS
+    // ------------------------------------------------------------------------------ STREET_ADDRESS
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_STREET_ADDRESS} attribute
@@ -131,7 +131,7 @@ public abstract class MappedLocation {
      */
     public static final int SIZE_MAX_STREET_ADDRESS = COLUMN_LENGTH_STREET_ADDRESS;
 
-    // ----------------------------------------------------------------------------------------------------- POSTAL_CODE
+    // --------------------------------------------------------------------------------- POSTAL_CODE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_POSTAL_CODE} attribute
@@ -162,7 +162,7 @@ public abstract class MappedLocation {
      */
     public static final int SIZE_MAX_POSTAL_CODE = COLUMN_LENGTH_POSTAL_CODE;
 
-    // ------------------------------------------------------------------------------------------------------------ CITY
+    // ---------------------------------------------------------------------------------------- CITY
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CITY} attribute maps. The
@@ -191,7 +191,7 @@ public abstract class MappedLocation {
      */
     public static final int SIZE_MAX_CITY = COLUMN_LENGTH_CITY;
 
-    // -------------------------------------------------------------------------------------------------- STATE_PROVINCE
+    // ------------------------------------------------------------------------------ STATE_PROVINCE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute
@@ -222,7 +222,7 @@ public abstract class MappedLocation {
      */
     public static final int SIZE_MAX_STATE_PROVINCE = COLUMN_LENGTH_STATE_PROVINCE;
 
-    // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
+    // ---------------------------------------------------------------------------------- COUNTRY_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps.
@@ -260,7 +260,7 @@ public abstract class MappedLocation {
         assert COLUMN_LENGTH_COUNTRY_ID == MappedCountry.COLUMN_LENGTH_COUNTRY_ID;
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -269,7 +269,7 @@ public abstract class MappedLocation {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public final String toString() {
@@ -309,7 +309,7 @@ public abstract class MappedLocation {
         return Objects.hashCode(getLocationId());
     }
 
-    // ------------------------------------------------------------------------------------------------------ locationId
+    // ---------------------------------------------------------------------------------- locationId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LOCATION_ID} attribute.
@@ -331,7 +331,7 @@ public abstract class MappedLocation {
         this.locationId = locationId;
     }
 
-    // --------------------------------------------------------------------------------------------------- streetAddress
+    // ------------------------------------------------------------------------------- streetAddress
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_STREET_ADDRESS} attribute.
@@ -353,7 +353,7 @@ public abstract class MappedLocation {
         this.streetAddress = streetAddress;
     }
 
-    // ------------------------------------------------------------------------------------------------------ postalCode
+    // ---------------------------------------------------------------------------------- postalCode
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_POSTAL_CODE} attribute.
@@ -375,7 +375,7 @@ public abstract class MappedLocation {
         this.postalCode = postalCode;
     }
 
-    // ------------------------------------------------------------------------------------------------------------ city
+    // ---------------------------------------------------------------------------------------- city
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CITY} attribute.
@@ -396,7 +396,7 @@ public abstract class MappedLocation {
         this.city = city;
     }
 
-    // --------------------------------------------------------------------------------------------------- stateProvince
+    // ------------------------------------------------------------------------------- stateProvince
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_STATE_PROVINCE} attribute.
@@ -418,7 +418,7 @@ public abstract class MappedLocation {
         this.stateProvince = stateProvince;
     }
 
-    // ------------------------------------------------------------------------------------------------------- countryId
+    // ----------------------------------------------------------------------------------- countryId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
@@ -441,7 +441,7 @@ public abstract class MappedLocation {
         this.countryId = countryId;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Max(ATTRIBUTE_MAX_LOCATION_ID)
     @Min(ATTRIBUTE_MIN_LOCATION_ID)
@@ -452,11 +452,12 @@ public abstract class MappedLocation {
             insertable = true,
             updatable = false,
             precision = COLUMN_PRECISION_LOCATION_ID,
-            scale = COLUMN_SCALE_LOCATION_ID
+            scale = COLUMN_SCALE_LOCATION_ID,
+            comment = "Primary key of locations table"
     )
     private Integer locationId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nullable
     @Size(min = SIZE_MIN_STREET_ADDRESS, max = SIZE_MAX_STREET_ADDRESS)
     @Basic(optional = true, fetch = FetchType.EAGER)
@@ -464,7 +465,9 @@ public abstract class MappedLocation {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_STREET_ADDRESS
+            length = COLUMN_LENGTH_STREET_ADDRESS,
+            comment = "Street address of an office, warehouse, or production site of a company.\n" +
+                    "Contains building number and street name"
     )
     private String streetAddress;
 
@@ -475,7 +478,9 @@ public abstract class MappedLocation {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_POSTAL_CODE
+            length = COLUMN_LENGTH_POSTAL_CODE,
+            comment = "Postal code of the location of an office, warehouse, or production site \n" +
+                    "of a company. "
     )
     private String postalCode;
 
@@ -487,7 +492,9 @@ public abstract class MappedLocation {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CITY
+            length = COLUMN_LENGTH_CITY,
+            comment = "A not null column that shows city where an office, warehouse, or \n" +
+                    "production site of a company is located. "
     )
     private String city;
 
@@ -498,11 +505,13 @@ public abstract class MappedLocation {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_STATE_PROVINCE
+            length = COLUMN_LENGTH_STATE_PROVINCE,
+            comment = "State or Province where an office, warehouse, or production site of a \n" +
+                    "company is located."
     )
     private String stateProvince;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class
     // documentation
     @Nullable
@@ -512,7 +521,9 @@ public abstract class MappedLocation {
             nullable = COLUMN_NULLABLE_COUNTRY_ID,
             insertable = false,
             updatable = false,
-            length = COLUMN_LENGTH_COUNTRY_ID
+            length = COLUMN_LENGTH_COUNTRY_ID,
+            comment = "Country where an office, warehouse, or production site of a company is\n" +
+                    "located. Foreign key to country_id column of the countries table."
     )
     private String countryId;
 }

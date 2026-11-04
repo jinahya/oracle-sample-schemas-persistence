@@ -140,7 +140,9 @@ import jakarta.validation.constraints.NotNull;
                     WHERE e.promotion = :promotion"""
 )
 @Entity
-@Table(name = MappedSales.TABLE_NAME)
+@Table(name = MappedSales.TABLE_NAME,
+       comment = "facts table, without a primary key; all rows are uniquely identified by the " +
+               "combination of all foreign keys")
 public class Sales
         extends MappedSales {
 
@@ -174,7 +176,7 @@ public class Sales
      */
     public static final String ATTRIBUTE_NAME_PROMOTION = "promotion";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -183,7 +185,7 @@ public class Sales
         super();
     }
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------ id
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
@@ -204,7 +206,7 @@ public class Sales
         this.id = id;
     }
 
-    // --------------------------------------------------------------------------------------------------------- product
+    // ------------------------------------------------------------------------------------- product
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
@@ -229,7 +231,7 @@ public class Sales
         this.product = product;
     }
 
-    // -------------------------------------------------------------------------------------------------------- customer
+    // ------------------------------------------------------------------------------------ customer
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUSTOMER} attribute.
@@ -254,7 +256,7 @@ public class Sales
         this.customer = customer;
     }
 
-    // ------------------------------------------------------------------------------------------------------------ time
+    // ---------------------------------------------------------------------------------------- time
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_TIME} attribute.
@@ -278,7 +280,7 @@ public class Sales
         this.time = time;
     }
 
-    // --------------------------------------------------------------------------------------------------------- channel
+    // ------------------------------------------------------------------------------------- channel
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL} attribute.
@@ -303,7 +305,7 @@ public class Sales
         this.channel = channel;
     }
 
-    // ------------------------------------------------------------------------------------------------------- promotion
+    // ----------------------------------------------------------------------------------- promotion
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMOTION} attribute.
@@ -328,7 +330,7 @@ public class Sales
         this.promotion = promotion;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @Valid
     @NotNull

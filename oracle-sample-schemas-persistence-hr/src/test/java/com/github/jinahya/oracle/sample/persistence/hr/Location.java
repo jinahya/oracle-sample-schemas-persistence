@@ -116,11 +116,14 @@ import java.util.Optional;
                     WHERE e.country = :country"""
 )
 @Entity
-@Table(name = MappedLocation.TABLE_NAME)
+@Table(name = MappedLocation.TABLE_NAME,
+       comment = "Locations table that contains specific address of a specific office,\n" +
+               "warehouse, and/or production site of a company. Does not store addresses /\n" +
+               "locations of customers. references with the departments and countries tables. ")
 public class Location
         extends MappedLocation {
 
-    // ------------------------------------------------------------------------------------------------------ COUNTRY_ID
+    // ---------------------------------------------------------------------------------- COUNTRY_ID
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_COUNTRY_ID} column. The value
@@ -128,7 +131,7 @@ public class Location
      */
     public static final String ATTRIBUTE_NAME_COUNTRY = "country";
 
-    // ----------------------------------------------------------------------------------------------------- DEPARTMENTS
+    // --------------------------------------------------------------------------------- DEPARTMENTS
 
     /**
      * The name of the attribute which maps the {@link Department department}s of this location. The
@@ -138,7 +141,7 @@ public class Location
      */
     public static final String ATTRIBUTE_NAME_DEPARTMENTS = "departments";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -147,7 +150,7 @@ public class Location
         super();
     }
 
-    // --------------------------------------------------------------------------------------------------------- country
+    // ------------------------------------------------------------------------------------- country
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY} attribute.
@@ -174,7 +177,7 @@ public class Location
         );
     }
 
-    // ----------------------------------------------------------------------------------------------------- departments
+    // --------------------------------------------------------------------------------- departments
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENTS} attribute.
@@ -189,7 +192,7 @@ public class Location
         this.departments = departments;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nullable
     @Valid
     @ManyToOne(optional = true, fetch = FetchType.LAZY)
@@ -200,7 +203,7 @@ public class Location
     )
     private Country country;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @OneToMany(
             mappedBy = Department.ATTRIBUTE_NAME_LOCATION,
             fetch = FetchType.LAZY,

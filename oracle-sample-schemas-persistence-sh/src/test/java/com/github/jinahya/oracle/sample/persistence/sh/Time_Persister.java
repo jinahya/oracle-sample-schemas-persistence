@@ -37,13 +37,13 @@ class Time_Persister
         super(Time.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Time apply(final EntityManager entityManager, final Time entityInstance) {
         return super.apply(entityManager, entityInstance);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Persists a randomized {@link Time} whose key is the day before the earliest one installed,

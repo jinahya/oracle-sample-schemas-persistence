@@ -40,7 +40,7 @@ class Shipment_Persister
         super(Shipment.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Shipment apply(final EntityManager entityManager, final Shipment entityInstance) {
         final var store = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Store.class);

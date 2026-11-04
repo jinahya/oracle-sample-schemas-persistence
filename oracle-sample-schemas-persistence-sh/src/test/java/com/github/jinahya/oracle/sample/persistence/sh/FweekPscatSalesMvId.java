@@ -36,8 +36,7 @@ import java.time.LocalDateTime;
 public class FweekPscatSalesMvId
         extends MappedFweekPscatSalesMvId {
 
-    // ------------------------------------------------------------------------------------------
-    // STATIC_FACTORY_METHODS
+    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified column values.
@@ -57,7 +56,7 @@ public class FweekPscatSalesMvId
         return of(FweekPscatSalesMvId::new, weekEndingDay, prodSubcategory, channelId, promoId);
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.

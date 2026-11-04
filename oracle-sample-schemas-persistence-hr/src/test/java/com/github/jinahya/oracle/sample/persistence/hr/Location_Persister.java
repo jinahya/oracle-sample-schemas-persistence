@@ -39,7 +39,7 @@ class Location_Persister
         super(Location.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Location apply(final EntityManager entityManager, final Location entityInstance) {
         entityInstance.setCountry(

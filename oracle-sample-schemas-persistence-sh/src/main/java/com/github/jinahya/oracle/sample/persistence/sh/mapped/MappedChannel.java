@@ -42,7 +42,7 @@ public abstract class MappedChannel {
      */
     public static final String TABLE_NAME = "CHANNELS";
 
-    // ----------------------------------------------------------------------------------------------------- CHANNEL_ID
+    // ---------------------------------------------------------------------------------- CHANNEL_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute maps.
@@ -56,7 +56,7 @@ public abstract class MappedChannel {
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
-    // --------------------------------------------------------------------------------------------------- CHANNEL_DESC
+    // -------------------------------------------------------------------------------- CHANNEL_DESC
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_DESC} attribute
@@ -81,7 +81,7 @@ public abstract class MappedChannel {
      */
     public static final int SIZE_MAX_CHANNEL_DESC = COLUMN_LENGTH_CHANNEL_DESC;
 
-    // -------------------------------------------------------------------------------------------------- CHANNEL_CLASS
+    // ------------------------------------------------------------------------------- CHANNEL_CLASS
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_CLASS} attribute
@@ -106,7 +106,7 @@ public abstract class MappedChannel {
      */
     public static final int SIZE_MAX_CHANNEL_CLASS = COLUMN_LENGTH_CHANNEL_CLASS;
 
-    // ----------------------------------------------------------------------------------------------- CHANNEL_CLASS_ID
+    // ---------------------------------------------------------------------------- CHANNEL_CLASS_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_CLASS_ID} attribute
@@ -120,7 +120,7 @@ public abstract class MappedChannel {
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_CLASS_ID = "channelClassId";
 
-    // -------------------------------------------------------------------------------------------------- CHANNEL_TOTAL
+    // ------------------------------------------------------------------------------- CHANNEL_TOTAL
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL} attribute
@@ -145,7 +145,7 @@ public abstract class MappedChannel {
      */
     public static final int SIZE_MAX_CHANNEL_TOTAL = COLUMN_LENGTH_CHANNEL_TOTAL;
 
-    // ----------------------------------------------------------------------------------------------- CHANNEL_TOTAL_ID
+    // ---------------------------------------------------------------------------- CHANNEL_TOTAL_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL_ID} attribute
@@ -159,7 +159,7 @@ public abstract class MappedChannel {
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_TOTAL_ID = "channelTotalId";
 
-    // --------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -168,7 +168,7 @@ public abstract class MappedChannel {
         super();
     }
 
-    // ----------------------------------------------------------------------------------------------- java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -207,7 +207,7 @@ public abstract class MappedChannel {
     public final int hashCode() {
         return Objects.hashCode(channelId);
     }
-    // ------------------------------------------------------------------------------------------------------ channelId
+    // ----------------------------------------------------------------------------------- channelId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
@@ -228,7 +228,7 @@ public abstract class MappedChannel {
         this.channelId = channelId;
     }
 
-    // ---------------------------------------------------------------------------------------------------- channelDesc
+    // --------------------------------------------------------------------------------- channelDesc
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_DESC} attribute.
@@ -249,7 +249,7 @@ public abstract class MappedChannel {
         this.channelDesc = channelDesc;
     }
 
-    // --------------------------------------------------------------------------------------------------- channelClass
+    // -------------------------------------------------------------------------------- channelClass
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_CLASS} attribute.
@@ -270,7 +270,7 @@ public abstract class MappedChannel {
         this.channelClass = channelClass;
     }
 
-    // ------------------------------------------------------------------------------------------------- channelClassId
+    // ------------------------------------------------------------------------------ channelClassId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_CLASS_ID} attribute.
@@ -291,7 +291,7 @@ public abstract class MappedChannel {
         this.channelClassId = channelClassId;
     }
 
-    // --------------------------------------------------------------------------------------------------- channelTotal
+    // -------------------------------------------------------------------------------- channelTotal
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL} attribute.
@@ -312,7 +312,7 @@ public abstract class MappedChannel {
         this.channelTotal = channelTotal;
     }
 
-    // ------------------------------------------------------------------------------------------------- channelTotalId
+    // ------------------------------------------------------------------------------ channelTotalId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_TOTAL_ID} attribute.
@@ -333,13 +333,14 @@ public abstract class MappedChannel {
         this.channelTotalId = channelTotalId;
     }
 
-    // ---------------------------------------------------------------------------------------------------------------
-    // ---------------------------------------------------------------------------------------------------------------
-    // ---------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @NotNull
     @Id
-    @Column(name = COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = COLUMN_NAME_CHANNEL_ID, nullable = false, insertable = true, updatable = false,
+            comment = "primary key column")
     private Long channelId;
 
     @Size(max = SIZE_MAX_CHANNEL_DESC)
@@ -349,7 +350,8 @@ public abstract class MappedChannel {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CHANNEL_DESC
+            length = COLUMN_LENGTH_CHANNEL_DESC,
+            comment = "e.g. telesales, internet, catalog"
     )
     private String channelDesc;
 
@@ -360,7 +362,8 @@ public abstract class MappedChannel {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CHANNEL_CLASS
+            length = COLUMN_LENGTH_CHANNEL_CLASS,
+            comment = "e.g. direct, indirect"
     )
     private String channelClass;
 

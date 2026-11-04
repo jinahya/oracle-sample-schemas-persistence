@@ -56,11 +56,12 @@ import jakarta.persistence.Table;
                     FROM Time e"""
 )
 @Entity
-@Table(name = MappedTime.TABLE_NAME)
+@Table(name = MappedTime.TABLE_NAME,
+       comment = "Time dimension table to support multiple hierarchies and materialized views")
 public class Time
         extends MappedTime {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.

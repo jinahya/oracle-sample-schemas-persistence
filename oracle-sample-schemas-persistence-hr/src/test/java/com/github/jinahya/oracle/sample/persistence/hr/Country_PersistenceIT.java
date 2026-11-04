@@ -31,8 +31,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static com.github.jinahya.oracle.sample.persistence.hr.__PersistenceIT_Utils.applyEntityManagerFactory;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -43,7 +43,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class Country_PersistenceIT
         extends _Entity_PersistenceIT<Country> {
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     private static final Comparator<Country> COUNTRY_NAME_ASC =
             Comparator.comparing(Country::getCountryName,
                                  Comparator.nullsLast(Comparator.naturalOrder()));
@@ -51,12 +51,12 @@ class Country_PersistenceIT
     private static final Comparator<Country> COUNTRY_ID_ASC =
             Comparator.comparing(Country::getCountryId);
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     Country_PersistenceIT() {
         super(Country.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Returns some ids of the regions the installed table holds countries of.
@@ -117,7 +117,7 @@ class Country_PersistenceIT
         }));
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Tests {@code Country.selectListByRegionOrderByCountryNameAsc}.
@@ -202,7 +202,8 @@ class Country_PersistenceIT
         void __NamedQuery(final Long regionId) {
             applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
                 final var found = entityManager
-                        .createNamedQuery("Country.selectListByRegionOrderByCountryIdAsc", targetClass)
+                        .createNamedQuery("Country.selectListByRegionOrderByCountryIdAsc",
+                                          targetClass)
                         .setParameter("region", entityManager.getReference(Region.class, regionId))
                         .getResultList();
                 verifyByRegion(regionId, found, COUNTRY_ID_ASC);

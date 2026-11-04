@@ -60,7 +60,7 @@ import jakarta.persistence.Table;
 public class CalMonthSalesMv
         extends MappedCalMonthSalesMv {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.

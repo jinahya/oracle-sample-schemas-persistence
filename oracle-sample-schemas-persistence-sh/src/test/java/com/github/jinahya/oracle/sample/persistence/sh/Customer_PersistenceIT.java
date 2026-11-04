@@ -30,8 +30,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static com.github.jinahya.oracle.sample.persistence.sh.__PersistenceIT_Utils.applyEntityManagerFactory;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -46,7 +46,7 @@ class Customer_PersistenceIT
         super(Customer.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Tests {@code Customer.selectListPromotedByCustCityOrderByCustLastNameAsc}, which answers
@@ -107,8 +107,9 @@ class Customer_PersistenceIT
         void __NamedQuery(final String custCity) {
             applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
                 final var found = entityManager
-                        .createNamedQuery("Customer.selectListPromotedByCustCityOrderByCustLastNameAsc",
-                                          targetClass)
+                        .createNamedQuery(
+                                "Customer.selectListPromotedByCustCityOrderByCustLastNameAsc",
+                                targetClass)
                         .setParameter("custCity", custCity)
                         .getResultList();
                 verify(custCity, found);

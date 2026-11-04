@@ -37,7 +37,7 @@ class Store_Persister
         super(Store.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @Override
     public Store apply(final EntityManager entityManager, final Store entityInstance) {

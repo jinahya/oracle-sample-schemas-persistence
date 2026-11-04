@@ -34,10 +34,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.github.jinahya.persistence.test.util.EntityPersisterUtils.newPersistedInstanceOf;
-import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
-import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static com.github.jinahya.oracle.sample.persistence.hr.__PersistenceIT_Utils.applyEntityManagerFactory;
+import static com.github.jinahya.persistence.test.util.EntityPersisterUtils.newPersistedInstanceOf;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -52,7 +52,7 @@ class Employee_PersistenceIT
         super(Employee.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nested
     class JobHistory_Test {
 
@@ -82,25 +82,28 @@ class Employee_PersistenceIT
          */
         @Test
         void _NewJobHistoryPopulated_JobChanged() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var e = newPersistedInstanceOf(em, targetClass);
-                // the INSERT, on its own; otherwise EclipseLink writes the new value into it,
-                // and no UPDATE fires
-                em.flush();
-                final var oldJob = e.getJob();
-                final var oldDepartment = e.getDepartment();
-                e.setJob(EntityPersisterUtils.newPersistedInstanceOf(em, Job.class));
-                em.flush();
-                assertThat(selectJobHistories(em, e))
-                        .isNotEmpty()
-                        // every row records the job and the department the employee had before
-                        // the change
-                        .allSatisfy(h -> {
-                            assertThat(h.getJob()).isEqualTo(oldJob);
-                            assertThat(h.getDepartment()).isEqualTo(oldDepartment);
-                        });
-                return null;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var e = newPersistedInstanceOf(em, targetClass);
+                        // the INSERT, on its own; otherwise EclipseLink writes the new value
+                        // into it,
+                        // and no UPDATE fires
+                        em.flush();
+                        final var oldJob = e.getJob();
+                        final var oldDepartment = e.getDepartment();
+                        e.setJob(EntityPersisterUtils.newPersistedInstanceOf(em, Job.class));
+                        em.flush();
+                        assertThat(selectJobHistories(em, e))
+                                .isNotEmpty()
+                                // every row records the job and the department the employee had
+                                // before
+                                // the change
+                                .allSatisfy(h -> {
+                                    assertThat(h.getJob()).isEqualTo(oldJob);
+                                    assertThat(h.getDepartment()).isEqualTo(oldDepartment);
+                                });
+                        return null;
+                    })));
         }
 
         /**
@@ -110,25 +113,29 @@ class Employee_PersistenceIT
          */
         @Test
         void _NewJobHistoryPopulated_DepartmentChanged() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var e = newPersistedInstanceOf(em, targetClass);
-                // the INSERT, on its own; otherwise EclipseLink writes the new value into it,
-                // and no UPDATE fires
-                em.flush();
-                final var oldJob = e.getJob();
-                final var oldDepartment = e.getDepartment();
-                e.setDepartment(EntityPersisterUtils.newPersistedInstanceOf(em, Department.class));
-                em.flush();
-                assertThat(selectJobHistories(em, e))
-                        .isNotEmpty()
-                        // every row records the job and the department the employee had before
-                        // the change
-                        .allSatisfy(h -> {
-                            assertThat(h.getJob()).isEqualTo(oldJob);
-                            assertThat(h.getDepartment()).isEqualTo(oldDepartment);
-                        });
-                return null;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var e = newPersistedInstanceOf(em, targetClass);
+                        // the INSERT, on its own; otherwise EclipseLink writes the new value
+                        // into it,
+                        // and no UPDATE fires
+                        em.flush();
+                        final var oldJob = e.getJob();
+                        final var oldDepartment = e.getDepartment();
+                        e.setDepartment(
+                                EntityPersisterUtils.newPersistedInstanceOf(em, Department.class));
+                        em.flush();
+                        assertThat(selectJobHistories(em, e))
+                                .isNotEmpty()
+                                // every row records the job and the department the employee had
+                                // before
+                                // the change
+                                .allSatisfy(h -> {
+                                    assertThat(h.getJob()).isEqualTo(oldJob);
+                                    assertThat(h.getDepartment()).isEqualTo(oldDepartment);
+                                });
+                        return null;
+                    })));
         }
 
         /**
@@ -143,26 +150,30 @@ class Employee_PersistenceIT
          */
         @Test
         void _NewJobHistoryPopulated_BothChanged() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                final var e = newPersistedInstanceOf(em, targetClass);
-                // the INSERT, on its own; otherwise EclipseLink writes the new value into it,
-                // and no UPDATE fires
-                em.flush();
-                final var oldJob = e.getJob();
-                final var oldDepartment = e.getDepartment();
-                e.setJob(EntityPersisterUtils.newPersistedInstanceOf(em, Job.class));
-                e.setDepartment(EntityPersisterUtils.newPersistedInstanceOf(em, Department.class));
-                em.flush();
-                assertThat(selectJobHistories(em, e))
-                        .isNotEmpty()
-                        // every row records the job and the department the employee had before
-                        // the change
-                        .allSatisfy(h -> {
-                            assertThat(h.getJob()).isEqualTo(oldJob);
-                            assertThat(h.getDepartment()).isEqualTo(oldDepartment);
-                        });
-                return null;
-            })));
+            applyEntityManagerFactory(
+                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
+                        final var e = newPersistedInstanceOf(em, targetClass);
+                        // the INSERT, on its own; otherwise EclipseLink writes the new value
+                        // into it,
+                        // and no UPDATE fires
+                        em.flush();
+                        final var oldJob = e.getJob();
+                        final var oldDepartment = e.getDepartment();
+                        e.setJob(EntityPersisterUtils.newPersistedInstanceOf(em, Job.class));
+                        e.setDepartment(
+                                EntityPersisterUtils.newPersistedInstanceOf(em, Department.class));
+                        em.flush();
+                        assertThat(selectJobHistories(em, e))
+                                .isNotEmpty()
+                                // every row records the job and the department the employee had
+                                // before
+                                // the change
+                                .allSatisfy(h -> {
+                                    assertThat(h.getJob()).isEqualTo(oldJob);
+                                    assertThat(h.getDepartment()).isEqualTo(oldDepartment);
+                                });
+                        return null;
+                    })));
         }
     }
 
@@ -213,7 +224,8 @@ class Employee_PersistenceIT
                         .isNotEmpty()
                         .hasSize(count.intValue())
                         .allSatisfy(
-                                e -> assertThat(e.getManager().getManager().getEmployeeId()).isEqualTo(
+                                e -> assertThat(
+                                        e.getManager().getManager().getEmployeeId()).isEqualTo(
                                         managerId))
                         .isSortedAccordingTo(Comparator.comparing(Employee::getLastName));
                 return null;

@@ -57,8 +57,7 @@ import java.util.Objects;
 public class PromotionTotalId
         extends PromotionNamedId<Long> {
 
-    // ------------------------------------------------------------------------------------------
-    // STATIC_FACTORY_METHODS
+    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified name and id.
@@ -73,7 +72,7 @@ public class PromotionTotalId
         return of(PromotionTotalId::new, promotionTotal, promotionTotalId);
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -82,7 +81,7 @@ public class PromotionTotalId
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     /**
      * {@inheritDoc}
@@ -120,7 +119,7 @@ public class PromotionTotalId
         return Objects.hash(getPromoTotal(), getPromoTotalId());
     }
 
-    // ------------------------------------------------------------------------------------------------------ promoTotal
+    // ---------------------------------------------------------------------------------- promoTotal
 
     /**
      * Returns current value of the {@value PromotionNamedId#ATTRIBUTE_NAME_NAME} attribute, the
@@ -144,7 +143,7 @@ public class PromotionTotalId
         setName(promoTotal);
     }
 
-    // ---------------------------------------------------------------------------------------------------- promoTotalId
+    // -------------------------------------------------------------------------------- promoTotalId
 
     /**
      * Returns current value of the {@value PromotionNamedId#ATTRIBUTE_NAME_ID} attribute, the

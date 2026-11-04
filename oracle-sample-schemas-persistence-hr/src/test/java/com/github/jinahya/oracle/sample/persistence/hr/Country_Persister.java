@@ -62,7 +62,7 @@ class Country_Persister
         super(Country.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Country apply(final EntityManager entityManager, final Country entityInstance) {
         entityInstance.setRegion(

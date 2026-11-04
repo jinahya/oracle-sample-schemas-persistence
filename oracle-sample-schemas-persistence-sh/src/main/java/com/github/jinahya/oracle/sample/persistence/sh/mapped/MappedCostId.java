@@ -45,7 +45,7 @@ public abstract class MappedCostId {
      */
     public static final String TABLE_NAME = MappedCost.TABLE_NAME;
 
-    // --------------------------------------------------------------------------------------------------------- PROD_ID
+    // ------------------------------------------------------------------------------------- PROD_ID
 
     /**
      * The name of the attribute which maps the {@value MappedCost#COLUMN_NAME_PROD_ID} column. The
@@ -53,7 +53,7 @@ public abstract class MappedCostId {
      */
     public static final String ATTRIBUTE_NAME_PROD_ID = "prodId";
 
-    // --------------------------------------------------------------------------------------------------------- TIME_ID
+    // ------------------------------------------------------------------------------------- TIME_ID
 
     /**
      * The name of the attribute which maps the {@value MappedCost#COLUMN_NAME_TIME_ID} column. The
@@ -61,7 +61,7 @@ public abstract class MappedCostId {
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
-    // -------------------------------------------------------------------------------------------------------- PROMO_ID
+    // ------------------------------------------------------------------------------------ PROMO_ID
 
     /**
      * The name of the attribute which maps the {@value MappedCost#COLUMN_NAME_PROMO_ID} column. The
@@ -69,7 +69,7 @@ public abstract class MappedCostId {
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
-    // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
+    // ---------------------------------------------------------------------------------- CHANNEL_ID
 
     /**
      * The name of the attribute which maps the {@value MappedCost#COLUMN_NAME_CHANNEL_ID} column.
@@ -77,8 +77,7 @@ public abstract class MappedCostId {
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
-    // ------------------------------------------------------------------------------------------
-    // STATIC_FACTORY_METHODS
+    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance of a subclass, with the specified column values.
@@ -107,7 +106,7 @@ public abstract class MappedCostId {
         return instance;
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -116,7 +115,7 @@ public abstract class MappedCostId {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -161,7 +160,7 @@ public abstract class MappedCostId {
         return Objects.hash(prodId, timeId, promoId, channelId);
     }
 
-    // ---------------------------------------------------------------------------------------------------------- prodId
+    // -------------------------------------------------------------------------------------- prodId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
@@ -182,7 +181,7 @@ public abstract class MappedCostId {
         this.prodId = prodId;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- timeId
+    // -------------------------------------------------------------------------------------- timeId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
@@ -203,7 +202,7 @@ public abstract class MappedCostId {
         this.timeId = timeId;
     }
 
-    // --------------------------------------------------------------------------------------------------------- promoId
+    // ------------------------------------------------------------------------------------- promoId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
@@ -224,7 +223,7 @@ public abstract class MappedCostId {
         this.promoId = promoId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- channelId
+    // ----------------------------------------------------------------------------------- channelId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
@@ -245,7 +244,7 @@ public abstract class MappedCostId {
         this.channelId = channelId;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @NotNull
     @Basic(optional = false)

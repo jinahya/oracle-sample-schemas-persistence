@@ -56,11 +56,11 @@ import jakarta.persistence.Table;
                     FROM Channel e"""
 )
 @Entity
-@Table(name = MappedChannel.TABLE_NAME)
+@Table(name = MappedChannel.TABLE_NAME, comment = "small dimension table")
 public class Channel
         extends MappedChannel {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.

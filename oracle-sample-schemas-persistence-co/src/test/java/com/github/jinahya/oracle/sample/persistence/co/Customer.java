@@ -77,11 +77,11 @@ import java.util.List;
                     FROM Customer e"""
 )
 @Entity
-@Table(name = MappedCustomer.TABLE_NAME)
+@Table(name = MappedCustomer.TABLE_NAME, comment = "Details of the people placing orders")
 public class Customer
         extends MappedCustomer {
 
-    // ---------------------------------------------------------------------------------------------------------- ORDERS
+    // -------------------------------------------------------------------------------------- ORDERS
 
     /**
      * The name of the attribute which maps the orders placed by this customer. The value is
@@ -91,7 +91,7 @@ public class Customer
      */
     public static final String ATTRIBUTE_NAME_ORDERS = "orders";
 
-    // ------------------------------------------------------------------------------------------------------- SHIPMENTS
+    // ----------------------------------------------------------------------------------- SHIPMENTS
 
     /**
      * The name of the attribute which maps the shipments dispatched to this customer. The value is
@@ -101,7 +101,7 @@ public class Customer
      */
     public static final String ATTRIBUTE_NAME_SHIPMENTS = "shipments";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -110,7 +110,7 @@ public class Customer
         super();
     }
 
-    // ---------------------------------------------------------------------------------------------------------- orders
+    // -------------------------------------------------------------------------------------- orders
 
     /**
      * Returns the orders placed by this customer.
@@ -130,7 +130,7 @@ public class Customer
         this.orders = orders;
     }
 
-    // ------------------------------------------------------------------------------------------------------- shipments
+    // ----------------------------------------------------------------------------------- shipments
 
     /**
      * Returns the shipments dispatched to this customer.
@@ -150,7 +150,7 @@ public class Customer
         this.shipments = shipments;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = Order.ATTRIBUTE_NAME_CUSTOMER,
                fetch = FetchType.LAZY,
                cascade = {

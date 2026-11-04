@@ -45,7 +45,7 @@ final class __PersistenceIT_Utils {
      */
     static final String PERSISTENCE_UNIT_NAME = "sh-it";
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Applies the specified function to the factory of the {@value #PERSISTENCE_UNIT_NAME} unit,
@@ -64,7 +64,7 @@ final class __PersistenceIT_Utils {
         );
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     private __PersistenceIT_Utils() {
         throw new AssertionError("instantiation is not allowed");

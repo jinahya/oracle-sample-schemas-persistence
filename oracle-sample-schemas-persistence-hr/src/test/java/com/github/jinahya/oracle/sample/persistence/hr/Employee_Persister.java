@@ -41,7 +41,7 @@ class Employee_Persister
         super(Employee.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Employee apply(final EntityManager entityManager, final Employee entityInstance) {
         entityInstance.setJob(

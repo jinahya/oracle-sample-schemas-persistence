@@ -44,7 +44,7 @@ public abstract class MappedCalMonthSalesMv {
      */
     public static final String TABLE_NAME = "CAL_MONTH_SALES_MV";
 
-    // --------------------------------------------------------------------------------------------- CALENDAR_MONTH_DESC
+    // ------------------------------------------------------------------------- CALENDAR_MONTH_DESC
 
     /**
      * The name of the materialized view column to which the
@@ -69,7 +69,7 @@ public abstract class MappedCalMonthSalesMv {
      */
     public static final String ATTRIBUTE_NAME_CALENDAR_MONTH_DESC = "calendarMonthDesc";
 
-    // --------------------------------------------------------------------------------------------------------- DOLLARS
+    // ------------------------------------------------------------------------------------- DOLLARS
 
     /**
      * The name of the materialized view column to which the {@value #ATTRIBUTE_NAME_DOLLARS}
@@ -83,7 +83,7 @@ public abstract class MappedCalMonthSalesMv {
      */
     public static final String ATTRIBUTE_NAME_DOLLARS = "dollars";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -92,7 +92,7 @@ public abstract class MappedCalMonthSalesMv {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -128,7 +128,7 @@ public abstract class MappedCalMonthSalesMv {
         return Objects.hashCode(calendarMonthDesc);
     }
 
-    // ----------------------------------------------------------------------------------------------- calendarMonthDesc
+    // --------------------------------------------------------------------------- calendarMonthDesc
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute.
@@ -139,7 +139,7 @@ public abstract class MappedCalMonthSalesMv {
         return calendarMonthDesc;
     }
 
-    // --------------------------------------------------------------------------------------------------------- dollars
+    // ------------------------------------------------------------------------------------- dollars
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DOLLARS} attribute.
@@ -150,7 +150,7 @@ public abstract class MappedCalMonthSalesMv {
         return dollars;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * The calendar month this row aggregates, as the {@code uuuu-MM} text
@@ -169,19 +169,14 @@ public abstract class MappedCalMonthSalesMv {
      * Convert annotation will not be portable.
      * </blockquote>
      *
-     * @see <a
-     *         href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3
-     *         .2.html#a2999">3.9.
-     *         Type Conversion of Basic Attributes</a> (Jakarta Persistence 3.2 Specification
-     *         Document)
-     * @see <a
-     *         href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3
-     *         .2.html#a14398">11.1.10.
-     *         Convert Annotation</a> (Jakarta Persistence 3.2 Specification Document)
-     * @see <a
-     *         href="https://github.com/oracle-samples/db-sample-schemas/blob/main/sales_history
-     *         /sh_create.sql">
-     *         {@code sh_create.sql}</a>
+     * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3
+     *         .2.html#a2999">3.9. Type Conversion of Basic Attributes</a> (Jakarta Persistence 3.2
+     *         Specification Document)
+     * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3
+     *         .2.html#a14398">11.1.10. Convert Annotation</a> (Jakarta Persistence 3.2
+     *         Specification Document)
+     * @see <a href="https://github.com/oracle-samples/db-sample-schemas/blob/main/sales_history
+     *         /sh_create.sql"> {@code sh_create.sql}</a>
      *         ({@code COMMENT ON COLUMN times.calendar_month_desc IS 'e.g. 1998-01, CORRECT
      *         ORDER'})
      */
@@ -196,7 +191,7 @@ public abstract class MappedCalMonthSalesMv {
             length = COLUMN_LENGTH_CALENDAR_MONTH_DESC)
     private String calendarMonthDesc;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Basic(optional = true)
     @Column(name = COLUMN_NAME_DOLLARS, nullable = true, insertable = false, updatable = false)
     private BigDecimal dollars;

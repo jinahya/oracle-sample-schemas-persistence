@@ -36,7 +36,7 @@ class JobHistory_PersistenceIT
         super(JobHistory.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Does nothing; rows of {@value JobHistory#TABLE_NAME} are written by the database's

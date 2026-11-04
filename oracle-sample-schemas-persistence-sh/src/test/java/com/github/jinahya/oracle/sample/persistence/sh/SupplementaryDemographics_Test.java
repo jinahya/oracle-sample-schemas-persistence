@@ -35,7 +35,7 @@ class SupplementaryDemographics_Test
         super(SupplementaryDemographics.class);
     }
 
-    // ------------------------------------------------------------------------------------------------- equals/hashCode
+    // ----------------------------------------------------------------------------- equals/hashCode
 
     /**
      * {@inheritDoc}

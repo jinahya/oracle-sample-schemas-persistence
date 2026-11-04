@@ -34,7 +34,7 @@ class StoreOrder_Test
         super(StoreOrder.class);
     }
 
-    // ------------------------------------------------------------------------------------------------- equals/hashCode
+    // ----------------------------------------------------------------------------- equals/hashCode
 
     /**
      * Does nothing; {@link StoreOrder} declares no {@code equals(Object)}, so there is no value

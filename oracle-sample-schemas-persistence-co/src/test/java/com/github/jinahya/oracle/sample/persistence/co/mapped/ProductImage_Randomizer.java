@@ -20,7 +20,6 @@ package com.github.jinahya.oracle.sample.persistence.co.mapped;
  * #L%
  */
 
-import com.github.jinahya.object.randomizer.PodamObjectRandomizer;
 import uk.co.jemos.podam.api.ClassInfoStrategy;
 import uk.co.jemos.podam.api.DataProviderStrategy;
 import uk.co.jemos.podam.api.PodamFactory;
@@ -36,13 +35,14 @@ import java.util.List;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class ProductImage_Randomizer
-        extends PodamObjectRandomizer<ProductImage> {
+        extends MappedBinary_Randomizer<ProductImage> {
 
     ProductImage_Randomizer() {
         super(ProductImage.class, List.of());
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();

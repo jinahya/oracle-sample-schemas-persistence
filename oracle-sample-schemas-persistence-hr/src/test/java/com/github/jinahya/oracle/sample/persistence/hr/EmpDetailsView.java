@@ -61,7 +61,7 @@ import jakarta.persistence.Table;
 public class EmpDetailsView
         extends MappedEmpDetailsView {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.

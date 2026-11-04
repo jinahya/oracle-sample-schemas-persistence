@@ -28,8 +28,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceIT_Utils.applyEntityManagerFactory;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -40,12 +40,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 class Store_PersistenceIT
         extends _Entity_PersistenceIT<Store> {
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     Store_PersistenceIT() {
         super(Store.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     class SelectSingleByStoreName_Test {

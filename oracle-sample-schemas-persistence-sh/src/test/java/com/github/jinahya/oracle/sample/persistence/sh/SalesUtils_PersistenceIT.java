@@ -61,8 +61,7 @@ class SalesUtils_PersistenceIT {
         assumeTrue(countAll() > 0L, () -> Sales.TABLE_NAME + " holds no row");
     }
 
-    // -----------------------------------------------------------------------------------------
-    // quantitySold/statistics
+    // --------------------------------------------------------------------- quantitySold/statistics
 
     @DisplayName("getQuantitySoldStatistics(entityManager, where)")
     @Nested
@@ -108,7 +107,7 @@ class SalesUtils_PersistenceIT {
         }
     }
 
-    // ------------------------------------------------------------------------------------------- amountSold/statistics
+    // ----------------------------------------------------------------------- amountSold/statistics
 
     @DisplayName("getAmountSoldStatistics(entityManager, where)")
     @Nested
@@ -145,7 +144,7 @@ class SalesUtils_PersistenceIT {
         entityManager.close();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     private final EntityManager entityManager =
             __PersistenceIT_Utils.applyEntityManagerFactory(
                     EntityManagerFactory::createEntityManager);

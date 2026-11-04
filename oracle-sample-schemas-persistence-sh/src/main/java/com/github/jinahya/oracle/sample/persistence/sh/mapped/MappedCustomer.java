@@ -56,7 +56,7 @@ public abstract class MappedCustomer {
      */
     public static final String TABLE_NAME = "CUSTOMERS";
 
-    // -------------------------------------------------------------------------------------------------------- CUST_ID
+    // ------------------------------------------------------------------------------------- CUST_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_ID} attribute maps.
@@ -70,7 +70,7 @@ public abstract class MappedCustomer {
      */
     public static final String ATTRIBUTE_NAME_CUST_ID = "custId";
 
-    // ------------------------------------------------------------------------------------------------ CUST_FIRST_NAME
+    // ----------------------------------------------------------------------------- CUST_FIRST_NAME
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_FIRST_NAME} attribute
@@ -95,7 +95,7 @@ public abstract class MappedCustomer {
      */
     public static final int SIZE_MAX_CUST_FIRST_NAME = COLUMN_LENGTH_CUST_FIRST_NAME;
 
-    // ------------------------------------------------------------------------------------------------- CUST_LAST_NAME
+    // ------------------------------------------------------------------------------ CUST_LAST_NAME
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_LAST_NAME} attribute
@@ -120,7 +120,7 @@ public abstract class MappedCustomer {
      */
     public static final int SIZE_MAX_CUST_LAST_NAME = COLUMN_LENGTH_CUST_LAST_NAME;
 
-    // ---------------------------------------------------------------------------------------------------- CUST_GENDER
+    // --------------------------------------------------------------------------------- CUST_GENDER
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_GENDER} attribute
@@ -145,7 +145,7 @@ public abstract class MappedCustomer {
      */
     public static final int SIZE_MAX_CUST_GENDER = COLUMN_LENGTH_CUST_GENDER;
 
-    // --------------------------------------------------------------------------------------------- CUST_YEAR_OF_BIRTH
+    // -------------------------------------------------------------------------- CUST_YEAR_OF_BIRTH
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH}
@@ -193,7 +193,7 @@ public abstract class MappedCustomer {
      */
     public static final int ATTRIBUTE_MAX_CUST_YEAR_OF_BIRTH = COLUMN_MAX_CUST_YEAR_OF_BIRTH;
 
-    // -------------------------------------------------------------------------------------------- CUST_MARITAL_STATUS
+    // ------------------------------------------------------------------------- CUST_MARITAL_STATUS
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_MARITAL_STATUS}
@@ -218,7 +218,7 @@ public abstract class MappedCustomer {
      */
     public static final int SIZE_MAX_CUST_MARITAL_STATUS = COLUMN_LENGTH_CUST_MARITAL_STATUS;
 
-    // -------------------------------------------------------------------------------------------- CUST_STREET_ADDRESS
+    // ------------------------------------------------------------------------- CUST_STREET_ADDRESS
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_STREET_ADDRESS}
@@ -243,7 +243,7 @@ public abstract class MappedCustomer {
      */
     public static final int SIZE_MAX_CUST_STREET_ADDRESS = COLUMN_LENGTH_CUST_STREET_ADDRESS;
 
-    // ----------------------------------------------------------------------------------------------- CUST_POSTAL_CODE
+    // ---------------------------------------------------------------------------- CUST_POSTAL_CODE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_POSTAL_CODE} attribute
@@ -268,7 +268,7 @@ public abstract class MappedCustomer {
      */
     public static final int SIZE_MAX_CUST_POSTAL_CODE = COLUMN_LENGTH_CUST_POSTAL_CODE;
 
-    // ------------------------------------------------------------------------------------------------------ CUST_CITY
+    // ----------------------------------------------------------------------------------- CUST_CITY
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_CITY} attribute maps.
@@ -292,7 +292,7 @@ public abstract class MappedCustomer {
      */
     public static final int SIZE_MAX_CUST_CITY = COLUMN_LENGTH_CUST_CITY;
 
-    // --------------------------------------------------------------------------------------------------- CUST_CITY_ID
+    // -------------------------------------------------------------------------------- CUST_CITY_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_CITY_ID} attribute
@@ -306,7 +306,7 @@ public abstract class MappedCustomer {
      */
     public static final String ATTRIBUTE_NAME_CUST_CITY_ID = "custCityId";
 
-    // -------------------------------------------------------------------------------------------- CUST_STATE_PROVINCE
+    // ------------------------------------------------------------------------- CUST_STATE_PROVINCE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE}
@@ -331,8 +331,7 @@ public abstract class MappedCustomer {
      */
     public static final int SIZE_MAX_CUST_STATE_PROVINCE = COLUMN_LENGTH_CUST_STATE_PROVINCE;
 
-    // -----------------------------------------------------------------------------------------
-    // CUST_STATE_PROVINCE_ID
+    // ---------------------------------------------------------------------- CUST_STATE_PROVINCE_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE_ID}
@@ -346,7 +345,7 @@ public abstract class MappedCustomer {
      */
     public static final String ATTRIBUTE_NAME_CUST_STATE_PROVINCE_ID = "custStateProvinceId";
 
-    // ----------------------------------------------------------------------------------------------------- COUNTRY_ID
+    // ---------------------------------------------------------------------------------- COUNTRY_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute maps.
@@ -360,8 +359,7 @@ public abstract class MappedCustomer {
      */
     public static final String ATTRIBUTE_NAME_COUNTRY_ID = "countryId";
 
-    // -----------------------------------------------------------------------------------------
-    // CUST_MAIN_PHONE_NUMBER
+    // ---------------------------------------------------------------------- CUST_MAIN_PHONE_NUMBER
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_MAIN_PHONE_NUMBER}
@@ -387,7 +385,7 @@ public abstract class MappedCustomer {
      */
     public static final int SIZE_MAX_CUST_MAIN_PHONE_NUMBER = COLUMN_LENGTH_CUST_MAIN_PHONE_NUMBER;
 
-    // ---------------------------------------------------------------------------------------------- CUST_INCOME_LEVEL
+    // --------------------------------------------------------------------------- CUST_INCOME_LEVEL
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_INCOME_LEVEL}
@@ -412,7 +410,7 @@ public abstract class MappedCustomer {
      */
     public static final int SIZE_MAX_CUST_INCOME_LEVEL = COLUMN_LENGTH_CUST_INCOME_LEVEL;
 
-    // ---------------------------------------------------------------------------------------------- CUST_CREDIT_LIMIT
+    // --------------------------------------------------------------------------- CUST_CREDIT_LIMIT
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_CREDIT_LIMIT}
@@ -426,7 +424,7 @@ public abstract class MappedCustomer {
      */
     public static final String ATTRIBUTE_NAME_CUST_CREDIT_LIMIT = "custCreditLimit";
 
-    // ----------------------------------------------------------------------------------------------------- CUST_EMAIL
+    // ---------------------------------------------------------------------------------- CUST_EMAIL
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_EMAIL} attribute maps.
@@ -451,7 +449,7 @@ public abstract class MappedCustomer {
      */
     public static final int SIZE_MAX_CUST_EMAIL = COLUMN_LENGTH_CUST_EMAIL;
 
-    // ----------------------------------------------------------------------------------------------------- CUST_TOTAL
+    // ---------------------------------------------------------------------------------- CUST_TOTAL
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_TOTAL} attribute maps.
@@ -476,7 +474,7 @@ public abstract class MappedCustomer {
      */
     public static final int SIZE_MAX_CUST_TOTAL = COLUMN_LENGTH_CUST_TOTAL;
 
-    // -------------------------------------------------------------------------------------------------- CUST_TOTAL_ID
+    // ------------------------------------------------------------------------------- CUST_TOTAL_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_TOTAL_ID} attribute
@@ -490,7 +488,7 @@ public abstract class MappedCustomer {
      */
     public static final String ATTRIBUTE_NAME_CUST_TOTAL_ID = "custTotalId";
 
-    // ---------------------------------------------------------------------------------------------------- CUST_SRC_ID
+    // --------------------------------------------------------------------------------- CUST_SRC_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_SRC_ID} attribute
@@ -504,7 +502,7 @@ public abstract class MappedCustomer {
      */
     public static final String ATTRIBUTE_NAME_CUST_SRC_ID = "custSrcId";
 
-    // -------------------------------------------------------------------------------------------------- CUST_EFF_FROM
+    // ------------------------------------------------------------------------------- CUST_EFF_FROM
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_EFF_FROM} attribute
@@ -518,7 +516,7 @@ public abstract class MappedCustomer {
      */
     public static final String ATTRIBUTE_NAME_CUST_EFF_FROM = "custEffFrom";
 
-    // ---------------------------------------------------------------------------------------------------- CUST_EFF_TO
+    // --------------------------------------------------------------------------------- CUST_EFF_TO
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_EFF_TO} attribute
@@ -532,7 +530,7 @@ public abstract class MappedCustomer {
      */
     public static final String ATTRIBUTE_NAME_CUST_EFF_TO = "custEffTo";
 
-    // ----------------------------------------------------------------------------------------------------- CUST_VALID
+    // ---------------------------------------------------------------------------------- CUST_VALID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUST_VALID} attribute maps.
@@ -557,7 +555,7 @@ public abstract class MappedCustomer {
      */
     public static final int SIZE_MAX_CUST_VALID = COLUMN_LENGTH_CUST_VALID;
 
-    // --------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -566,7 +564,7 @@ public abstract class MappedCustomer {
         super();
     }
 
-    // ----------------------------------------------------------------------------------------------- java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -622,7 +620,7 @@ public abstract class MappedCustomer {
     public final int hashCode() {
         return Objects.hashCode(getCustId());
     }
-    // --------------------------------------------------------------------------------------------------------- custId
+    // -------------------------------------------------------------------------------------- custId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute.
@@ -643,7 +641,7 @@ public abstract class MappedCustomer {
         this.custId = custId;
     }
 
-    // -------------------------------------------------------------------------------------------------- custFirstName
+    // ------------------------------------------------------------------------------- custFirstName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_FIRST_NAME} attribute.
@@ -664,7 +662,7 @@ public abstract class MappedCustomer {
         this.custFirstName = custFirstName;
     }
 
-    // --------------------------------------------------------------------------------------------------- custLastName
+    // -------------------------------------------------------------------------------- custLastName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_LAST_NAME} attribute.
@@ -685,7 +683,7 @@ public abstract class MappedCustomer {
         this.custLastName = custLastName;
     }
 
-    // ----------------------------------------------------------------------------------------------------- custGender
+    // ---------------------------------------------------------------------------------- custGender
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_GENDER} attribute.
@@ -706,7 +704,7 @@ public abstract class MappedCustomer {
         this.custGender = custGender;
     }
 
-    // ------------------------------------------------------------------------------------------------ custYearOfBirth
+    // ----------------------------------------------------------------------------- custYearOfBirth
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_YEAR_OF_BIRTH} attribute.
@@ -727,7 +725,7 @@ public abstract class MappedCustomer {
         this.custYearOfBirth = custYearOfBirth;
     }
 
-    // ---------------------------------------------------------------------------------------------- custMaritalStatus
+    // --------------------------------------------------------------------------- custMaritalStatus
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_MARITAL_STATUS} attribute.
@@ -749,7 +747,7 @@ public abstract class MappedCustomer {
         this.custMaritalStatus = custMaritalStatus;
     }
 
-    // ---------------------------------------------------------------------------------------------- custStreetAddress
+    // --------------------------------------------------------------------------- custStreetAddress
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_STREET_ADDRESS} attribute.
@@ -771,7 +769,7 @@ public abstract class MappedCustomer {
         this.custStreetAddress = custStreetAddress;
     }
 
-    // ------------------------------------------------------------------------------------------------- custPostalCode
+    // ------------------------------------------------------------------------------ custPostalCode
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_POSTAL_CODE} attribute.
@@ -792,7 +790,7 @@ public abstract class MappedCustomer {
         this.custPostalCode = custPostalCode;
     }
 
-    // ------------------------------------------------------------------------------------------------------- custCity
+    // ------------------------------------------------------------------------------------ custCity
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_CITY} attribute.
@@ -813,7 +811,7 @@ public abstract class MappedCustomer {
         this.custCity = custCity;
     }
 
-    // ----------------------------------------------------------------------------------------------------- custCityId
+    // ---------------------------------------------------------------------------------- custCityId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_CITY_ID} attribute.
@@ -834,7 +832,7 @@ public abstract class MappedCustomer {
         this.custCityId = custCityId;
     }
 
-    // ---------------------------------------------------------------------------------------------- custStateProvince
+    // --------------------------------------------------------------------------- custStateProvince
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE} attribute.
@@ -856,7 +854,7 @@ public abstract class MappedCustomer {
         this.custStateProvince = custStateProvince;
     }
 
-    // -------------------------------------------------------------------------------------------- custStateProvinceId
+    // ------------------------------------------------------------------------- custStateProvinceId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_STATE_PROVINCE_ID} attribute.
@@ -878,7 +876,7 @@ public abstract class MappedCustomer {
         this.custStateProvinceId = custStateProvinceId;
     }
 
-    // ------------------------------------------------------------------------------------------------------ countryId
+    // ----------------------------------------------------------------------------------- countryId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COUNTRY_ID} attribute.
@@ -900,7 +898,7 @@ public abstract class MappedCustomer {
         this.countryId = countryId;
     }
 
-    // -------------------------------------------------------------------------------------------- custMainPhoneNumber
+    // ------------------------------------------------------------------------- custMainPhoneNumber
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_MAIN_PHONE_NUMBER} attribute.
@@ -922,7 +920,7 @@ public abstract class MappedCustomer {
         this.custMainPhoneNumber = custMainPhoneNumber;
     }
 
-    // ------------------------------------------------------------------------------------------------ custIncomeLevel
+    // ----------------------------------------------------------------------------- custIncomeLevel
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_INCOME_LEVEL} attribute.
@@ -943,7 +941,7 @@ public abstract class MappedCustomer {
         this.custIncomeLevel = custIncomeLevel;
     }
 
-    // ------------------------------------------------------------------------------------------------ custCreditLimit
+    // ----------------------------------------------------------------------------- custCreditLimit
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_CREDIT_LIMIT} attribute.
@@ -964,7 +962,7 @@ public abstract class MappedCustomer {
         this.custCreditLimit = custCreditLimit;
     }
 
-    // ------------------------------------------------------------------------------------------------------ custEmail
+    // ----------------------------------------------------------------------------------- custEmail
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_EMAIL} attribute.
@@ -985,7 +983,7 @@ public abstract class MappedCustomer {
         this.custEmail = custEmail;
     }
 
-    // ------------------------------------------------------------------------------------------------------ custTotal
+    // ----------------------------------------------------------------------------------- custTotal
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_TOTAL} attribute.
@@ -1006,7 +1004,7 @@ public abstract class MappedCustomer {
         this.custTotal = custTotal;
     }
 
-    // ---------------------------------------------------------------------------------------------------- custTotalId
+    // --------------------------------------------------------------------------------- custTotalId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_TOTAL_ID} attribute.
@@ -1027,7 +1025,7 @@ public abstract class MappedCustomer {
         this.custTotalId = custTotalId;
     }
 
-    // ------------------------------------------------------------------------------------------------------ custSrcId
+    // ----------------------------------------------------------------------------------- custSrcId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_SRC_ID} attribute.
@@ -1048,7 +1046,7 @@ public abstract class MappedCustomer {
         this.custSrcId = custSrcId;
     }
 
-    // ---------------------------------------------------------------------------------------------------- custEffFrom
+    // --------------------------------------------------------------------------------- custEffFrom
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_EFF_FROM} attribute.
@@ -1069,7 +1067,7 @@ public abstract class MappedCustomer {
         this.custEffFrom = custEffFrom;
     }
 
-    // ------------------------------------------------------------------------------------------------------ custEffTo
+    // ----------------------------------------------------------------------------------- custEffTo
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_EFF_TO} attribute.
@@ -1090,7 +1088,7 @@ public abstract class MappedCustomer {
         this.custEffTo = custEffTo;
     }
 
-    // ------------------------------------------------------------------------------------------------------ custValid
+    // ----------------------------------------------------------------------------------- custValid
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_VALID} attribute.
@@ -1111,13 +1109,14 @@ public abstract class MappedCustomer {
         this.custValid = custValid;
     }
 
-    // ---------------------------------------------------------------------------------------------------------------
-    // ---------------------------------------------------------------------------------------------------------------
-    // ---------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @NotNull
     @Id
-    @Column(name = COLUMN_NAME_CUST_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = COLUMN_NAME_CUST_ID, nullable = false, insertable = true, updatable = false,
+            comment = "primary key")
     private Long custId;
 
     @Size(max = SIZE_MAX_CUST_FIRST_NAME)
@@ -1127,7 +1126,8 @@ public abstract class MappedCustomer {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CUST_FIRST_NAME
+            length = COLUMN_LENGTH_CUST_FIRST_NAME,
+            comment = "first name of the customer"
     )
     private String custFirstName;
 
@@ -1138,7 +1138,8 @@ public abstract class MappedCustomer {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CUST_LAST_NAME
+            length = COLUMN_LENGTH_CUST_LAST_NAME,
+            comment = "last name of the customer"
     )
     private String custLastName;
 
@@ -1149,7 +1150,8 @@ public abstract class MappedCustomer {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CUST_GENDER
+            length = COLUMN_LENGTH_CUST_GENDER,
+            comment = "gender; low cardinality attribute"
     )
     private String custGender;
 
@@ -1160,7 +1162,8 @@ public abstract class MappedCustomer {
     @Column(name = COLUMN_NAME_CUST_YEAR_OF_BIRTH,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "customer year of birth"
     )
     private Integer custYearOfBirth;
 
@@ -1170,7 +1173,8 @@ public abstract class MappedCustomer {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CUST_MARITAL_STATUS
+            length = COLUMN_LENGTH_CUST_MARITAL_STATUS,
+            comment = "customer marital status; low cardinality attribute"
     )
     private String custMaritalStatus;
 
@@ -1181,7 +1185,8 @@ public abstract class MappedCustomer {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CUST_STREET_ADDRESS
+            length = COLUMN_LENGTH_CUST_STREET_ADDRESS,
+            comment = "customer street address"
     )
     private String custStreetAddress;
 
@@ -1192,7 +1197,8 @@ public abstract class MappedCustomer {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CUST_POSTAL_CODE
+            length = COLUMN_LENGTH_CUST_POSTAL_CODE,
+            comment = "postal code of the customer"
     )
     private String custPostalCode;
 
@@ -1203,7 +1209,8 @@ public abstract class MappedCustomer {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CUST_CITY
+            length = COLUMN_LENGTH_CUST_CITY,
+            comment = "city where the customer lives"
     )
     private String custCity;
 
@@ -1223,7 +1230,8 @@ public abstract class MappedCustomer {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CUST_STATE_PROVINCE
+            length = COLUMN_LENGTH_CUST_STATE_PROVINCE,
+            comment = "customer geography: state or province"
     )
     private String custStateProvince;
 
@@ -1240,7 +1248,8 @@ public abstract class MappedCustomer {
     // documentation
     @NotNull
     @Basic(optional = false)
-    @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = false, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_COUNTRY_ID, nullable = false, insertable = false, updatable = false,
+            comment = "foreign key to the countries table (snowflake)")
     private Long countryId;
 
     @Size(max = SIZE_MAX_CUST_MAIN_PHONE_NUMBER)
@@ -1250,7 +1259,8 @@ public abstract class MappedCustomer {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CUST_MAIN_PHONE_NUMBER
+            length = COLUMN_LENGTH_CUST_MAIN_PHONE_NUMBER,
+            comment = "customer main phone number"
     )
     private String custMainPhoneNumber;
 
@@ -1260,7 +1270,8 @@ public abstract class MappedCustomer {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CUST_INCOME_LEVEL
+            length = COLUMN_LENGTH_CUST_INCOME_LEVEL,
+            comment = "customer income level"
     )
     private String custIncomeLevel;
 
@@ -1268,7 +1279,8 @@ public abstract class MappedCustomer {
     @Column(name = COLUMN_NAME_CUST_CREDIT_LIMIT,
             nullable = true,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "customer credit limit"
     )
     private Long custCreditLimit;
 
@@ -1278,7 +1290,8 @@ public abstract class MappedCustomer {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_CUST_EMAIL
+            length = COLUMN_LENGTH_CUST_EMAIL,
+            comment = "customer email id"
     )
     private String custEmail;
 

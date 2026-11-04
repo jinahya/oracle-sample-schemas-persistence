@@ -35,8 +35,7 @@ import jakarta.persistence.Embeddable;
 public class OrderItemId
         extends MappedOrderItemId {
 
-    // ------------------------------------------------------------------------------------------
-    // STATIC_FACTORY_METHODS
+    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified order id and line item id.
@@ -52,7 +51,7 @@ public class OrderItemId
         return instance;
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -61,14 +60,14 @@ public class OrderItemId
         super();
     }
 
-    // --------------------------------------------------------------------------------------------------------- orderId
+    // ------------------------------------------------------------------------------------- orderId
 
     @Override
     protected void setOrderId(@Nonnull final Long orderId) {
         super.setOrderId(orderId);
     }
 
-    // ------------------------------------------------------------------------------------------------------ lineItemId
+    // ---------------------------------------------------------------------------------- lineItemId
 
     @Override
     protected void setLineItemId(@Nonnull final Long lineItemId) {

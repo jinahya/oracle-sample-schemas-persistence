@@ -35,7 +35,7 @@ class SupplementaryDemographics_Persister
         super(SupplementaryDemographics.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public SupplementaryDemographics apply(final EntityManager entityManager,
                                            final SupplementaryDemographics entityInstance) {

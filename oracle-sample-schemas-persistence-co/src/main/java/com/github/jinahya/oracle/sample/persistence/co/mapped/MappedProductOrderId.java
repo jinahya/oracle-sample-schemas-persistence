@@ -44,7 +44,7 @@ public abstract class MappedProductOrderId {
      */
     public static final String TABLE_NAME = MappedProductOrder.TABLE_NAME;
 
-    // ---------------------------------------------------------------------------------------------------- PRODUCT_NAME
+    // -------------------------------------------------------------------------------- PRODUCT_NAME
 
     /**
      * The name of the attribute which maps the {@value MappedProductOrder#COLUMN_NAME_PRODUCT_NAME}
@@ -52,7 +52,7 @@ public abstract class MappedProductOrderId {
      */
     public static final String ATTRIBUTE_NAME_PRODUCT_NAME = "productName";
 
-    // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
+    // -------------------------------------------------------------------------------- ORDER_STATUS
 
     /**
      * The name of the attribute which maps the {@value MappedProductOrder#COLUMN_NAME_ORDER_STATUS}
@@ -60,7 +60,7 @@ public abstract class MappedProductOrderId {
      */
     public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -69,7 +69,7 @@ public abstract class MappedProductOrderId {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -108,7 +108,7 @@ public abstract class MappedProductOrderId {
         return Objects.hash(productName, orderStatus);
     }
 
-    // ----------------------------------------------------------------------------------------------------- productName
+    // --------------------------------------------------------------------------------- productName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT_NAME} attribute.
@@ -129,7 +129,7 @@ public abstract class MappedProductOrderId {
         this.productName = productName;
     }
 
-    // ----------------------------------------------------------------------------------------------------- orderStatus
+    // --------------------------------------------------------------------------------- orderStatus
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
@@ -150,7 +150,7 @@ public abstract class MappedProductOrderId {
         this.orderStatus = orderStatus;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @Size(max = MappedProductOrder.SIZE_MAX_PRODUCT_NAME)
     @NotNull
@@ -159,7 +159,8 @@ public abstract class MappedProductOrderId {
             nullable = false,
             insertable = true,
             updatable = false,
-            length = MappedProductOrder.COLUMN_LENGTH_PRODUCT_NAME)
+            length = MappedProductOrder.COLUMN_LENGTH_PRODUCT_NAME,
+            comment = "What this product is called")
     private String productName;
 
     @Size(max = MappedProductOrder.SIZE_MAX_ORDER_STATUS)
@@ -169,6 +170,7 @@ public abstract class MappedProductOrderId {
             nullable = false,
             insertable = true,
             updatable = false,
-            length = MappedProductOrder.COLUMN_LENGTH_ORDER_STATUS)
+            length = MappedProductOrder.COLUMN_LENGTH_ORDER_STATUS,
+            comment = "The current state of these order")
     private String orderStatus;
 }

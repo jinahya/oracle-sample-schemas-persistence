@@ -35,7 +35,7 @@ import java.util.Optional;
  */
 public final class FweekPscatSalesMvUtils {
 
-    // ------------------------------------------------------------------------------------------------ id.weekEndingDay
+    // ---------------------------------------------------------------------------- id.weekEndingDay
 
     /**
      * Returns current value of the {@value FweekPscatSalesMv#ATTRIBUTE_PATH_ID_WEEK_ENDING_DAY}
@@ -53,7 +53,7 @@ public final class FweekPscatSalesMvUtils {
                 .map(FweekPscatSalesMvId::getWeekEndingDay).orElse(null);
     }
 
-    // ---------------------------------------------------------------------------------------------- id.prodSubcategory
+    // -------------------------------------------------------------------------- id.prodSubcategory
 
     /**
      * Returns current value of the {@value FweekPscatSalesMv#ATTRIBUTE_PATH_ID_PROD_SUBCATEGORY}
@@ -71,7 +71,7 @@ public final class FweekPscatSalesMvUtils {
                 .map(FweekPscatSalesMvId::getProdSubcategory).orElse(null);
     }
 
-    // ---------------------------------------------------------------------------------------------------- id.channelId
+    // -------------------------------------------------------------------------------- id.channelId
 
     /**
      * Returns current value of the {@value FweekPscatSalesMv#ATTRIBUTE_PATH_ID_CHANNEL_ID}
@@ -89,7 +89,7 @@ public final class FweekPscatSalesMvUtils {
                 .orElse(null);
     }
 
-    // ------------------------------------------------------------------------------------------------------ id.promoId
+    // ---------------------------------------------------------------------------------- id.promoId
 
     /**
      * Returns current value of the {@value FweekPscatSalesMv#ATTRIBUTE_PATH_ID_PROMO_ID} attribute
@@ -106,7 +106,7 @@ public final class FweekPscatSalesMvUtils {
                 .orElse(null);
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     private FweekPscatSalesMvUtils() {
         throw new AssertionError("instantiation is not allowed");

@@ -40,7 +40,7 @@ class Department_Persister
         super(Department.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Department apply(final EntityManager entityManager, final Department entityInstance) {
         entityInstance.setLocation(

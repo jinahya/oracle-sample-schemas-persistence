@@ -47,7 +47,8 @@ import java.time.LocalDateTime;
                 name = MappedStore.COLUMN_NAME_LOGO,
                 nullable = true,
                 insertable = true,
-                updatable = true
+                updatable = true,
+                comment = "An image used by this store"
         )
 )
 @AttributeOverride(
@@ -57,7 +58,8 @@ import java.time.LocalDateTime;
                 nullable = true,
                 insertable = true,
                 updatable = true,
-                length = MappedStore.COLUMN_LENGTH_LOGO_MIME_TYPE
+                length = MappedStore.COLUMN_LENGTH_LOGO_MIME_TYPE,
+                comment = "The mime-type of the store logo"
         )
 )
 @AttributeOverride(
@@ -67,7 +69,8 @@ import java.time.LocalDateTime;
                 nullable = true,
                 insertable = true,
                 updatable = true,
-                length = MappedStore.COLUMN_LENGTH_LOGO_FILENAME
+                length = MappedStore.COLUMN_LENGTH_LOGO_FILENAME,
+                comment = "The name of the file loaded in the image column"
         )
 )
 @AttributeOverride(
@@ -77,7 +80,8 @@ import java.time.LocalDateTime;
                 nullable = true,
                 insertable = true,
                 updatable = true,
-                length = MappedStore.COLUMN_LENGTH_LOGO_CHARSET
+                length = MappedStore.COLUMN_LENGTH_LOGO_CHARSET,
+                comment = "The character set used to encode the image"
         )
 )
 @AttributeOverride(
@@ -86,7 +90,8 @@ import java.time.LocalDateTime;
                 name = MappedStore.COLUMN_NAME_LOGO_LAST_UPDATED,
                 nullable = true,
                 insertable = true,
-                updatable = true
+                updatable = true,
+                comment = "The date the image was last changed"
         )
 )
 @SuppressWarnings({
@@ -95,7 +100,7 @@ import java.time.LocalDateTime;
 public class StoreLogo
         extends MappedBinary {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -104,7 +109,7 @@ public class StoreLogo
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------------------ LOGO
+    // ---------------------------------------------------------------------------------------- LOGO
 
     /**
      * Returns a copy of current value of {@value MappedStore#ATTRIBUTE_NAME_LOGO} attribute.
@@ -128,7 +133,7 @@ public class StoreLogo
         setBytes(logo);
     }
 
-    // -------------------------------------------------------------------------------------------------- LOGO_MIME_TYPE
+    // ------------------------------------------------------------------------------ LOGO_MIME_TYPE
 
     /**
      * Returns current value of {@value MappedStore#ATTRIBUTE_NAME_LOGO_MIME_TYPE} attribute.
@@ -151,7 +156,7 @@ public class StoreLogo
         setMimeType(logoMimeType);
     }
 
-    // --------------------------------------------------------------------------------------------------- LOGO_FILENAME
+    // ------------------------------------------------------------------------------- LOGO_FILENAME
 
     /**
      * Returns current value of {@value MappedStore#ATTRIBUTE_NAME_LOGO_FILENAME} attribute.
@@ -174,7 +179,7 @@ public class StoreLogo
         setFilename(logoFilename);
     }
 
-    // ---------------------------------------------------------------------------------------------------- LOGO_CHARSET
+    // -------------------------------------------------------------------------------- LOGO_CHARSET
 
     /**
      * Returns current value of {@value MappedStore#ATTRIBUTE_NAME_LOGO_CHARSET} attribute.
@@ -196,7 +201,7 @@ public class StoreLogo
         setCharset(logoCharset);
     }
 
-    // ----------------------------------------------------------------------------------------------- LOGO_LAST_UPDATED
+    // --------------------------------------------------------------------------- LOGO_LAST_UPDATED
 
     /**
      * Returns current value of {@value MappedStore#ATTRIBUTE_NAME_LOGO_LAST_UPDATED} attribute.

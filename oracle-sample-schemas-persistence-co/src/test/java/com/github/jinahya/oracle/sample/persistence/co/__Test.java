@@ -40,7 +40,7 @@ import java.util.Objects;
         "java:S101", // Class names should comply with a naming convention
         "java:S118"  // Abstract class names should comply with a naming convention
 })
-abstract class __Test<T> {
+public abstract class __Test<T> {
 
     /**
      * Creates a new instance for the specified target class.
@@ -52,7 +52,7 @@ abstract class __Test<T> {
         this.targetClass = Objects.requireNonNull(targetClass, "targetClass is null");
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Returns the class which this test targets.
@@ -83,7 +83,7 @@ abstract class __Test<T> {
                 .orElseThrow(() -> new IllegalStateException("no randomizer for " + targetClass));
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * The class which this test targets.

@@ -48,7 +48,7 @@ public abstract class MappedProduct {
      */
     public static final String TABLE_NAME = "PRODUCTS";
 
-    // -------------------------------------------------------------------------------------------------------- PROD_ID
+    // ------------------------------------------------------------------------------------- PROD_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps.
@@ -92,7 +92,7 @@ public abstract class MappedProduct {
      */
     public static final int ATTRIBUTE_MAX_PROD_ID = COLUMN_MAX_PROD_ID;
 
-    // ------------------------------------------------------------------------------------------------------ PROD_NAME
+    // ----------------------------------------------------------------------------------- PROD_NAME
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_NAME} attribute maps.
@@ -116,7 +116,7 @@ public abstract class MappedProduct {
      */
     public static final int SIZE_MAX_PROD_NAME = COLUMN_LENGTH_PROD_NAME;
 
-    // ------------------------------------------------------------------------------------------------------ PROD_DESC
+    // ----------------------------------------------------------------------------------- PROD_DESC
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_DESC} attribute maps.
@@ -140,7 +140,7 @@ public abstract class MappedProduct {
      */
     public static final int SIZE_MAX_PROD_DESC = COLUMN_LENGTH_PROD_DESC;
 
-    // ----------------------------------------------------------------------------------------------- PROD_SUBCATEGORY
+    // ---------------------------------------------------------------------------- PROD_SUBCATEGORY
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute
@@ -165,7 +165,7 @@ public abstract class MappedProduct {
      */
     public static final int SIZE_MAX_PROD_SUBCATEGORY = COLUMN_LENGTH_PROD_SUBCATEGORY;
 
-    // -------------------------------------------------------------------------------------------- PROD_SUBCATEGORY_ID
+    // ------------------------------------------------------------------------- PROD_SUBCATEGORY_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_ID}
@@ -179,8 +179,7 @@ public abstract class MappedProduct {
      */
     public static final String ATTRIBUTE_NAME_PROD_SUBCATEGORY_ID = "prodSubcategoryId";
 
-    // ------------------------------------------------------------------------------------------
-    // PROD_SUBCATEGORY_DESC
+    // ----------------------------------------------------------------------- PROD_SUBCATEGORY_DESC
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_DESC}
@@ -205,7 +204,7 @@ public abstract class MappedProduct {
      */
     public static final int SIZE_MAX_PROD_SUBCATEGORY_DESC = COLUMN_LENGTH_PROD_SUBCATEGORY_DESC;
 
-    // -------------------------------------------------------------------------------------------------- PROD_CATEGORY
+    // ------------------------------------------------------------------------------- PROD_CATEGORY
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_CATEGORY} attribute
@@ -230,7 +229,7 @@ public abstract class MappedProduct {
      */
     public static final int SIZE_MAX_PROD_CATEGORY = COLUMN_LENGTH_PROD_CATEGORY;
 
-    // ----------------------------------------------------------------------------------------------- PROD_CATEGORY_ID
+    // ---------------------------------------------------------------------------- PROD_CATEGORY_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_CATEGORY_ID} attribute
@@ -244,7 +243,7 @@ public abstract class MappedProduct {
      */
     public static final String ATTRIBUTE_NAME_PROD_CATEGORY_ID = "prodCategoryId";
 
-    // --------------------------------------------------------------------------------------------- PROD_CATEGORY_DESC
+    // -------------------------------------------------------------------------- PROD_CATEGORY_DESC
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_CATEGORY_DESC}
@@ -269,7 +268,7 @@ public abstract class MappedProduct {
      */
     public static final int SIZE_MAX_PROD_CATEGORY_DESC = COLUMN_LENGTH_PROD_CATEGORY_DESC;
 
-    // ---------------------------------------------------------------------------------------------- PROD_WEIGHT_CLASS
+    // --------------------------------------------------------------------------- PROD_WEIGHT_CLASS
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS}
@@ -317,7 +316,7 @@ public abstract class MappedProduct {
      */
     public static final int ATTRIBUTE_MAX_PROD_WEIGHT_CLASS = COLUMN_MAX_PROD_WEIGHT_CLASS;
 
-    // ------------------------------------------------------------------------------------------- PROD_UNIT_OF_MEASURE
+    // ------------------------------------------------------------------------ PROD_UNIT_OF_MEASURE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_UNIT_OF_MEASURE}
@@ -342,7 +341,7 @@ public abstract class MappedProduct {
      */
     public static final int SIZE_MAX_PROD_UNIT_OF_MEASURE = COLUMN_LENGTH_PROD_UNIT_OF_MEASURE;
 
-    // ------------------------------------------------------------------------------------------------- PROD_PACK_SIZE
+    // ------------------------------------------------------------------------------ PROD_PACK_SIZE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_PACK_SIZE} attribute
@@ -367,7 +366,7 @@ public abstract class MappedProduct {
      */
     public static final int SIZE_MAX_PROD_PACK_SIZE = COLUMN_LENGTH_PROD_PACK_SIZE;
 
-    // ---------------------------------------------------------------------------------------------------- SUPPLIER_ID
+    // --------------------------------------------------------------------------------- SUPPLIER_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute
@@ -413,7 +412,7 @@ public abstract class MappedProduct {
      */
     public static final int ATTRIBUTE_MAX_SUPPLIER_ID = COLUMN_MAX_SUPPLIER_ID;
 
-    // ---------------------------------------------------------------------------------------------------- PROD_STATUS
+    // --------------------------------------------------------------------------------- PROD_STATUS
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_STATUS} attribute
@@ -438,7 +437,7 @@ public abstract class MappedProduct {
      */
     public static final int SIZE_MAX_PROD_STATUS = COLUMN_LENGTH_PROD_STATUS;
 
-    // ------------------------------------------------------------------------------------------------ PROD_LIST_PRICE
+    // ----------------------------------------------------------------------------- PROD_LIST_PRICE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute
@@ -474,7 +473,7 @@ public abstract class MappedProduct {
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_PROD_LIST_PRICE = "+999999.99";
 
-    // ------------------------------------------------------------------------------------------------- PROD_MIN_PRICE
+    // ------------------------------------------------------------------------------ PROD_MIN_PRICE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute
@@ -510,7 +509,7 @@ public abstract class MappedProduct {
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_PROD_MIN_PRICE = "+999999.99";
 
-    // ----------------------------------------------------------------------------------------------------- PROD_TOTAL
+    // ---------------------------------------------------------------------------------- PROD_TOTAL
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_TOTAL} attribute maps.
@@ -535,7 +534,7 @@ public abstract class MappedProduct {
      */
     public static final int SIZE_MAX_PROD_TOTAL = COLUMN_LENGTH_PROD_TOTAL;
 
-    // -------------------------------------------------------------------------------------------------- PROD_TOTAL_ID
+    // ------------------------------------------------------------------------------- PROD_TOTAL_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_TOTAL_ID} attribute
@@ -549,7 +548,7 @@ public abstract class MappedProduct {
      */
     public static final String ATTRIBUTE_NAME_PROD_TOTAL_ID = "prodTotalId";
 
-    // ---------------------------------------------------------------------------------------------------- PROD_SRC_ID
+    // --------------------------------------------------------------------------------- PROD_SRC_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_SRC_ID} attribute
@@ -563,7 +562,7 @@ public abstract class MappedProduct {
      */
     public static final String ATTRIBUTE_NAME_PROD_SRC_ID = "prodSrcId";
 
-    // -------------------------------------------------------------------------------------------------- PROD_EFF_FROM
+    // ------------------------------------------------------------------------------- PROD_EFF_FROM
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_EFF_FROM} attribute
@@ -577,7 +576,7 @@ public abstract class MappedProduct {
      */
     public static final String ATTRIBUTE_NAME_PROD_EFF_FROM = "prodEffFrom";
 
-    // ---------------------------------------------------------------------------------------------------- PROD_EFF_TO
+    // --------------------------------------------------------------------------------- PROD_EFF_TO
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_EFF_TO} attribute
@@ -591,7 +590,7 @@ public abstract class MappedProduct {
      */
     public static final String ATTRIBUTE_NAME_PROD_EFF_TO = "prodEffTo";
 
-    // ----------------------------------------------------------------------------------------------------- PROD_VALID
+    // ---------------------------------------------------------------------------------- PROD_VALID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PROD_VALID} attribute maps.
@@ -615,7 +614,7 @@ public abstract class MappedProduct {
      * {@value}.
      */
     public static final int SIZE_MAX_PROD_VALID = COLUMN_LENGTH_PROD_VALID;
-    // --------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -624,7 +623,7 @@ public abstract class MappedProduct {
         super();
     }
 
-    // ----------------------------------------------------------------------------------------------- java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -679,7 +678,7 @@ public abstract class MappedProduct {
     public final int hashCode() {
         return Objects.hashCode(getProdId());
     }
-    // --------------------------------------------------------------------------------------------------------- prodId
+    // -------------------------------------------------------------------------------------- prodId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
@@ -700,7 +699,7 @@ public abstract class MappedProduct {
         this.prodId = prodId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- prodName
+    // ------------------------------------------------------------------------------------ prodName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_NAME} attribute.
@@ -721,7 +720,7 @@ public abstract class MappedProduct {
         this.prodName = prodName;
     }
 
-    // ------------------------------------------------------------------------------------------------------- prodDesc
+    // ------------------------------------------------------------------------------------ prodDesc
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_DESC} attribute.
@@ -742,7 +741,7 @@ public abstract class MappedProduct {
         this.prodDesc = prodDesc;
     }
 
-    // ------------------------------------------------------------------------------------------------ prodSubcategory
+    // ----------------------------------------------------------------------------- prodSubcategory
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute.
@@ -763,7 +762,7 @@ public abstract class MappedProduct {
         this.prodSubcategory = prodSubcategory;
     }
 
-    // ---------------------------------------------------------------------------------------------- prodSubcategoryId
+    // --------------------------------------------------------------------------- prodSubcategoryId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_ID} attribute.
@@ -785,7 +784,7 @@ public abstract class MappedProduct {
         this.prodSubcategoryId = prodSubcategoryId;
     }
 
-    // -------------------------------------------------------------------------------------------- prodSubcategoryDesc
+    // ------------------------------------------------------------------------- prodSubcategoryDesc
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY_DESC} attribute.
@@ -807,7 +806,7 @@ public abstract class MappedProduct {
         this.prodSubcategoryDesc = prodSubcategoryDesc;
     }
 
-    // --------------------------------------------------------------------------------------------------- prodCategory
+    // -------------------------------------------------------------------------------- prodCategory
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_CATEGORY} attribute.
@@ -828,7 +827,7 @@ public abstract class MappedProduct {
         this.prodCategory = prodCategory;
     }
 
-    // ------------------------------------------------------------------------------------------------- prodCategoryId
+    // ------------------------------------------------------------------------------ prodCategoryId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_CATEGORY_ID} attribute.
@@ -849,7 +848,7 @@ public abstract class MappedProduct {
         this.prodCategoryId = prodCategoryId;
     }
 
-    // ----------------------------------------------------------------------------------------------- prodCategoryDesc
+    // ---------------------------------------------------------------------------- prodCategoryDesc
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_CATEGORY_DESC} attribute.
@@ -870,7 +869,7 @@ public abstract class MappedProduct {
         this.prodCategoryDesc = prodCategoryDesc;
     }
 
-    // ------------------------------------------------------------------------------------------------ prodWeightClass
+    // ----------------------------------------------------------------------------- prodWeightClass
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_WEIGHT_CLASS} attribute.
@@ -891,7 +890,7 @@ public abstract class MappedProduct {
         this.prodWeightClass = prodWeightClass;
     }
 
-    // ---------------------------------------------------------------------------------------------- prodUnitOfMeasure
+    // --------------------------------------------------------------------------- prodUnitOfMeasure
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_UNIT_OF_MEASURE} attribute.
@@ -913,7 +912,7 @@ public abstract class MappedProduct {
         this.prodUnitOfMeasure = prodUnitOfMeasure;
     }
 
-    // --------------------------------------------------------------------------------------------------- prodPackSize
+    // -------------------------------------------------------------------------------- prodPackSize
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_PACK_SIZE} attribute.
@@ -934,7 +933,7 @@ public abstract class MappedProduct {
         this.prodPackSize = prodPackSize;
     }
 
-    // ----------------------------------------------------------------------------------------------------- supplierId
+    // ---------------------------------------------------------------------------------- supplierId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_SUPPLIER_ID} attribute.
@@ -955,7 +954,7 @@ public abstract class MappedProduct {
         this.supplierId = supplierId;
     }
 
-    // ----------------------------------------------------------------------------------------------------- prodStatus
+    // ---------------------------------------------------------------------------------- prodStatus
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_STATUS} attribute.
@@ -976,7 +975,7 @@ public abstract class MappedProduct {
         this.prodStatus = prodStatus;
     }
 
-    // -------------------------------------------------------------------------------------------------- prodListPrice
+    // ------------------------------------------------------------------------------- prodListPrice
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_LIST_PRICE} attribute.
@@ -997,7 +996,7 @@ public abstract class MappedProduct {
         this.prodListPrice = prodListPrice;
     }
 
-    // --------------------------------------------------------------------------------------------------- prodMinPrice
+    // -------------------------------------------------------------------------------- prodMinPrice
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_MIN_PRICE} attribute.
@@ -1018,7 +1017,7 @@ public abstract class MappedProduct {
         this.prodMinPrice = prodMinPrice;
     }
 
-    // ------------------------------------------------------------------------------------------------------ prodTotal
+    // ----------------------------------------------------------------------------------- prodTotal
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_TOTAL} attribute.
@@ -1039,7 +1038,7 @@ public abstract class MappedProduct {
         this.prodTotal = prodTotal;
     }
 
-    // ---------------------------------------------------------------------------------------------------- prodTotalId
+    // --------------------------------------------------------------------------------- prodTotalId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_TOTAL_ID} attribute.
@@ -1060,7 +1059,7 @@ public abstract class MappedProduct {
         this.prodTotalId = prodTotalId;
     }
 
-    // ------------------------------------------------------------------------------------------------------ prodSrcId
+    // ----------------------------------------------------------------------------------- prodSrcId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_SRC_ID} attribute.
@@ -1081,7 +1080,7 @@ public abstract class MappedProduct {
         this.prodSrcId = prodSrcId;
     }
 
-    // ---------------------------------------------------------------------------------------------------- prodEffFrom
+    // --------------------------------------------------------------------------------- prodEffFrom
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_EFF_FROM} attribute.
@@ -1102,7 +1101,7 @@ public abstract class MappedProduct {
         this.prodEffFrom = prodEffFrom;
     }
 
-    // ------------------------------------------------------------------------------------------------------ prodEffTo
+    // ----------------------------------------------------------------------------------- prodEffTo
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_EFF_TO} attribute.
@@ -1123,7 +1122,7 @@ public abstract class MappedProduct {
         this.prodEffTo = prodEffTo;
     }
 
-    // ------------------------------------------------------------------------------------------------------ prodValid
+    // ----------------------------------------------------------------------------------- prodValid
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_VALID} attribute.
@@ -1144,15 +1143,16 @@ public abstract class MappedProduct {
         this.prodValid = prodValid;
     }
 
-    // ---------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @NotNull
     @Id
     @Max(ATTRIBUTE_MAX_PROD_ID)
     @Min(ATTRIBUTE_MIN_PROD_ID)
-    @Column(name = COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false)
+    @Column(name = COLUMN_NAME_PROD_ID, nullable = false, insertable = true, updatable = false,
+            comment = "primary key")
     private Integer prodId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Size(max = SIZE_MAX_PROD_NAME)
     @NotNull
     @Basic(optional = false)
@@ -1160,7 +1160,8 @@ public abstract class MappedProduct {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_PROD_NAME
+            length = COLUMN_LENGTH_PROD_NAME,
+            comment = "product name"
     )
     private String prodName;
 
@@ -1171,11 +1172,12 @@ public abstract class MappedProduct {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_PROD_DESC
+            length = COLUMN_LENGTH_PROD_DESC,
+            comment = "product description"
     )
     private String prodDesc;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Size(max = SIZE_MAX_PROD_SUBCATEGORY)
     @NotNull
     @Basic(optional = false)
@@ -1183,7 +1185,8 @@ public abstract class MappedProduct {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_PROD_SUBCATEGORY
+            length = COLUMN_LENGTH_PROD_SUBCATEGORY,
+            comment = "product subcategory"
     )
     private String prodSubcategory;
 
@@ -1203,11 +1206,12 @@ public abstract class MappedProduct {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_PROD_SUBCATEGORY_DESC
+            length = COLUMN_LENGTH_PROD_SUBCATEGORY_DESC,
+            comment = "product subcategory description"
     )
     private String prodSubcategoryDesc;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Size(max = SIZE_MAX_PROD_CATEGORY)
     @NotNull
     @Basic(optional = false)
@@ -1215,7 +1219,8 @@ public abstract class MappedProduct {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_PROD_CATEGORY
+            length = COLUMN_LENGTH_PROD_CATEGORY,
+            comment = "product category"
     )
     private String prodCategory;
 
@@ -1235,11 +1240,12 @@ public abstract class MappedProduct {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_PROD_CATEGORY_DESC
+            length = COLUMN_LENGTH_PROD_CATEGORY_DESC,
+            comment = "product category description"
     )
     private String prodCategoryDesc;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @NotNull
     @Max(ATTRIBUTE_MAX_PROD_WEIGHT_CLASS)
     @Min(ATTRIBUTE_MIN_PROD_WEIGHT_CLASS)
@@ -1247,7 +1253,8 @@ public abstract class MappedProduct {
     @Column(name = COLUMN_NAME_PROD_WEIGHT_CLASS,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "product weight class"
     )
     private Integer prodWeightClass;
 
@@ -1257,7 +1264,8 @@ public abstract class MappedProduct {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_PROD_UNIT_OF_MEASURE
+            length = COLUMN_LENGTH_PROD_UNIT_OF_MEASURE,
+            comment = "product unit of measure"
     )
     private String prodUnitOfMeasure;
 
@@ -1268,7 +1276,8 @@ public abstract class MappedProduct {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_PROD_PACK_SIZE
+            length = COLUMN_LENGTH_PROD_PACK_SIZE,
+            comment = "product package size"
     )
     private String prodPackSize;
 
@@ -1279,7 +1288,8 @@ public abstract class MappedProduct {
     @Column(name = COLUMN_NAME_SUPPLIER_ID,
             nullable = false,
             insertable = true,
-            updatable = true
+            updatable = true,
+            comment = "this column"
     )
     private Integer supplierId;
 
@@ -1290,7 +1300,8 @@ public abstract class MappedProduct {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_PROD_STATUS
+            length = COLUMN_LENGTH_PROD_STATUS,
+            comment = "product status"
     )
     private String prodStatus;
 
@@ -1303,7 +1314,8 @@ public abstract class MappedProduct {
             insertable = true,
             updatable = true,
             precision = COLUMN_PRECISION_PROD_LIST_PRICE,
-            scale = COLUMN_SCALE_PROD_LIST_PRICE
+            scale = COLUMN_SCALE_PROD_LIST_PRICE,
+            comment = "product list price"
     )
     private BigDecimal prodListPrice;
 
@@ -1316,7 +1328,8 @@ public abstract class MappedProduct {
             insertable = true,
             updatable = true,
             precision = COLUMN_PRECISION_PROD_MIN_PRICE,
-            scale = COLUMN_SCALE_PROD_MIN_PRICE
+            scale = COLUMN_SCALE_PROD_MIN_PRICE,
+            comment = "product minimum price"
     )
     private BigDecimal prodMinPrice;
 

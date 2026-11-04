@@ -123,12 +123,13 @@ import java.util.Optional;
                                Inventory.COLUMN_NAME_PRODUCT_ID
                        }
                )
-       }
+       },
+       comment = "Details of the quantity of stock available for products at each location"
 )
 public class Inventory
         extends MappedInventory {
 
-    // -------------------------------------------------------------------------------------------------------- STORE_ID
+    // ------------------------------------------------------------------------------------ STORE_ID
 
     /**
      * The name of the {@link ManyToOne @ManyToOne} association which joins on the
@@ -136,7 +137,7 @@ public class Inventory
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
-    // ------------------------------------------------------------------------------------------------------ PRODUCT_ID
+    // ---------------------------------------------------------------------------------- PRODUCT_ID
 
     /**
      * The name of the {@link ManyToOne @ManyToOne} association which joins on the
@@ -144,7 +145,7 @@ public class Inventory
      */
     public static final String ATTRIBUTE_NAME_PRODUCT = "product";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -153,7 +154,7 @@ public class Inventory
         super();
     }
 
-    // ----------------------------------------------------------------------------------------------------------- store
+    // --------------------------------------------------------------------------------------- store
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_STORE} attribute.
@@ -177,7 +178,7 @@ public class Inventory
         setStoreId(Optional.ofNullable(store).map(Store::getStoreId).orElse(null));
     }
 
-    // --------------------------------------------------------------------------------------------------------- product
+    // ------------------------------------------------------------------------------------- product
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
@@ -201,7 +202,7 @@ public class Inventory
         setProductId(Optional.ofNullable(product).map(Product::getProductId).orElse(null));
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull

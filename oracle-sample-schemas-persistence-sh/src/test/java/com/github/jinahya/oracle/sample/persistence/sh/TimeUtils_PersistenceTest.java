@@ -62,7 +62,7 @@ class TimeUtils_PersistenceTest {
         return em.find(Time.class, persisted.getTimeId());
     }
 
-    // --------------------------------------------------------------------------------------------------------- dayName
+    // ------------------------------------------------------------------------------------- dayName
 
     @DisplayName("setDayNameFromDayOfWeek(time, dayOfWeek)")
     @Nested
@@ -80,7 +80,7 @@ class TimeUtils_PersistenceTest {
         }
     }
 
-    // ----------------------------------------------------------------------------------------------- calendarMonthDesc
+    // --------------------------------------------------------------------------- calendarMonthDesc
 
     @DisplayName("setCalendarMonthDescFromYearMonth(time, yearMonth)")
     @Nested
@@ -100,7 +100,7 @@ class TimeUtils_PersistenceTest {
         }
     }
 
-    // ------------------------------------------------------------------------------------------------- fiscalMonthDesc
+    // ----------------------------------------------------------------------------- fiscalMonthDesc
 
     @DisplayName("setFiscalMonthDescFromYearMonth(time, yearMonth)")
     @Nested
@@ -120,7 +120,7 @@ class TimeUtils_PersistenceTest {
         }
     }
 
-    // ----------------------------------------------------------------------------------------------- calendarMonthName
+    // --------------------------------------------------------------------------- calendarMonthName
 
     @DisplayName("setCalendarMonthNameFromMonth(time, month)")
     @Nested
@@ -139,7 +139,7 @@ class TimeUtils_PersistenceTest {
         }
     }
 
-    // ------------------------------------------------------------------------------------------------- fiscalMonthName
+    // ----------------------------------------------------------------------------- fiscalMonthName
 
     @DisplayName("setFiscalMonthNameFromMonth(time, month)")
     @Nested
@@ -162,7 +162,7 @@ class TimeUtils_PersistenceTest {
         entityManager.close();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     private final EntityManager entityManager =
             __PersistenceTest_Utils.applyEntityManagerFactory(
                     EntityManagerFactory::createEntityManager);

@@ -35,7 +35,7 @@ class Promotion_Persister
         super(Promotion.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Promotion apply(final EntityManager entityManager, final Promotion entityInstance) {
         return super.apply(entityManager, entityInstance);

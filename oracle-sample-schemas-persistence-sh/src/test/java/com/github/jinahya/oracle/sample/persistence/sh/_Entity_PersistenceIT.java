@@ -62,7 +62,7 @@ abstract class _Entity_PersistenceIT<T>
         super(targetClass);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Persists a new, randomized instance of {@link #targetClass}, through its persister, and
@@ -92,7 +92,7 @@ abstract class _Entity_PersistenceIT<T>
         // empty
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Selects a random instance of {@link #targetClass}, from the installed schema, and hands it to

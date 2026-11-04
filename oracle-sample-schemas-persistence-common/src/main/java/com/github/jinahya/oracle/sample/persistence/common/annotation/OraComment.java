@@ -27,15 +27,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Documents the {@code COMMENT} of the table, or view, the annotated class maps, or of the column the
- * annotated attribute maps.
+ * Documents the {@code COMMENT} of the table, or view, the annotated class maps, or of the column
+ * the annotated attribute maps.
  *
- * @deprecated Jakarta Persistence covers it; use {@link jakarta.persistence.Table#comment()
- *             @Table(comment = ...)} or {@link jakarta.persistence.Column#comment() @Column(comment = ...)}.
- *
- * @see <a href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/COMMENT.html">COMMENT</a>
- * @see <a href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/Table.html#comment()">jakarta.persistence.Table#comment()</a>
- * @see <a href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/Column.html#comment()">jakarta.persistence.Column#comment()</a>
+ * @see <a href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/COMMENT.html">
+ *         COMMENT</a>
+ * @see jakarta.persistence.Table#comment()
+ * @see jakarta.persistence.Column#comment()
+ * @deprecated Jakarta Persistence covers it; use
+ *         {@link jakarta.persistence.Table#comment() @Table(comment = ...)} or
+ *         {@link jakarta.persistence.Column#comment() @Column(comment = ...)}.
  */
 @Deprecated(forRemoval = true)
 @Documented

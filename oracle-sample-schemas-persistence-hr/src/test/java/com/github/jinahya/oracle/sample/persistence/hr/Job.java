@@ -73,11 +73,13 @@ import java.util.List;
                     FROM Job e"""
 )
 @Entity
-@Table(name = MappedJob.TABLE_NAME)
+@Table(name = MappedJob.TABLE_NAME,
+       comment = "jobs table with job titles and salary ranges.\n" +
+               "References with employees and job_history table.")
 public class Job
         extends MappedJob {
 
-    // ------------------------------------------------------------------------------------------------------- EMPLOYEES
+    // ----------------------------------------------------------------------------------- EMPLOYEES
 
     /**
      * The name of the attribute which maps the {@link Employee employee}s assigned to this job,
@@ -85,7 +87,7 @@ public class Job
      */
     public static final String ATTRIBUTE_NAME_EMPLOYEES = "employees";
 
-    // --------------------------------------------------------------------------------------------------- JOB_HISTORIES
+    // ------------------------------------------------------------------------------- JOB_HISTORIES
 
     /**
      * The name of the attribute which maps the past assignments to this job. The value is
@@ -95,7 +97,7 @@ public class Job
      */
     public static final String ATTRIBUTE_NAME_JOB_HISTORIES = "jobHistories";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -104,7 +106,7 @@ public class Job
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------------- employees
+    // ----------------------------------------------------------------------------------- employees
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_EMPLOYEES} attribute.
@@ -119,7 +121,7 @@ public class Job
         this.employees = employees;
     }
 
-    // ---------------------------------------------------------------------------------------------------- jobHistories
+    // -------------------------------------------------------------------------------- jobHistories
 
     /**
      * Returns the past assignments to this job.
@@ -139,7 +141,7 @@ public class Job
         this.jobHistories = jobHistories;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = Employee.ATTRIBUTE_NAME_JOB,
                fetch = FetchType.LAZY,
                cascade = {
@@ -148,7 +150,7 @@ public class Job
     )
     private List<@Valid @NotNull Employee> employees;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = JobHistory.ATTRIBUTE_NAME_JOB,
                fetch = FetchType.LAZY,
                cascade = {

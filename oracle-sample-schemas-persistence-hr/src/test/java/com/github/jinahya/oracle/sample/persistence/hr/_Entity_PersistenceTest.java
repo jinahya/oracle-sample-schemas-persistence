@@ -96,7 +96,7 @@ abstract class _Entity_PersistenceTest<T>
         super(targetClass);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Returns every {@code static final String} field, declared by {@link #targetClass} or
@@ -143,7 +143,9 @@ abstract class _Entity_PersistenceTest<T>
     @DisplayName("every ATTRIBUTE_NAME_* constant names a managed attribute, and vice versa")
     @Test
     protected void _SameValue_ATTRIBUTE_NAME_() {
-        final var managedType = applyEntityManagerFactory(EntityManagerFactory::getMetamodel).managedType(targetClass);
+        final var managedType =
+                applyEntityManagerFactory(EntityManagerFactory::getMetamodel).managedType(
+                        targetClass);
         final var constants = constantsPrefixed(ATTRIBUTE_NAME_CONSTANT_PREFIX);
         for (final var attribute : managedType.getAttributes()) {
             final var attributeName = attribute.getName();
@@ -176,7 +178,9 @@ abstract class _Entity_PersistenceTest<T>
     @DisplayName("every ATTRIBUTE_PATH_* constant resolves through the metamodel")
     @Test
     protected void _Resolvable_ATTRIBUTE_PATH_() {
-        final var managedType = applyEntityManagerFactory(EntityManagerFactory::getMetamodel).managedType(targetClass);
+        final var managedType =
+                applyEntityManagerFactory(EntityManagerFactory::getMetamodel).managedType(
+                        targetClass);
         constantsPrefixed(ATTRIBUTE_PATH_CONSTANT_PREFIX).forEach((constantName, path) -> {
             assertThat(path)
                     .as("%s.%s is a dotted path", targetClass.getSimpleName(), constantName)
@@ -190,7 +194,7 @@ abstract class _Entity_PersistenceTest<T>
         });
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Persists a new, randomized instance of {@link #targetClass}, through its persister, and hands
@@ -216,7 +220,7 @@ abstract class _Entity_PersistenceTest<T>
         // empty
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Selects a random instance of {@link #targetClass} and hands it to

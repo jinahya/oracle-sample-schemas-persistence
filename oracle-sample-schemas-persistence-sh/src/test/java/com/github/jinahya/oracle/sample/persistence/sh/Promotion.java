@@ -56,11 +56,13 @@ import jakarta.persistence.Table;
                     FROM Promotion e"""
 )
 @Entity
-@Table(name = MappedPromotion.TABLE_NAME)
+@Table(name = MappedPromotion.TABLE_NAME,
+       comment = "dimension table without a PK-FK relationship with the facts table, to show " +
+               "outer join functionality")
 public class Promotion
         extends MappedPromotion {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.

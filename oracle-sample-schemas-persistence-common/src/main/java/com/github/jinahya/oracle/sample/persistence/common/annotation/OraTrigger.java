@@ -32,8 +32,14 @@ import java.lang.annotation.Target;
  * <p>
  * Jakarta Persistence has no annotation for a trigger.
  *
- * @see <a href="https://docs.oracle.com/en/database/oracle/oracle-database/23/lnpls/CREATE-TRIGGER-statement.html">CREATE TRIGGER</a>
- * @see <a href="https://docs.oracle.com/en/database/oracle/oracle-database/23/lnpls/ALTER-TRIGGER-statement.html">ALTER TRIGGER</a>
+ * @see <a
+ *         href="https://docs.oracle.com/en/database/oracle/oracle-database/23/lnpls/CREATE
+ *         -TRIGGER-statement.html">CREATE
+ *         TRIGGER</a>
+ * @see <a
+ *         href="https://docs.oracle.com/en/database/oracle/oracle-database/23/lnpls/ALTER
+ *         -TRIGGER-statement.html">ALTER
+ *         TRIGGER</a>
  */
 @Documented
 @Target(ElementType.TYPE)
@@ -108,17 +114,17 @@ public @interface OraTrigger {
      * The columns of {@code UPDATE OF}, {@code job_id} and {@code department_id} say; empty if any
      * {@code UPDATE} fires the trigger.
      *
-     * @return the columns of {@code UPDATE OF}, {@code job_id} and {@code department_id} say; empty if
-     *         any {@code UPDATE} fires the trigger.
+     * @return the columns of {@code UPDATE OF}, {@code job_id} and {@code department_id} say; empty
+     *         if any {@code UPDATE} fires the trigger.
      */
     String[] columns() default {};
 
     /**
-     * Whether the trigger is a row trigger ({@code FOR EACH ROW}), fired once per affected row, rather
-     * than a statement trigger, fired once per statement.
+     * Whether the trigger is a row trigger ({@code FOR EACH ROW}), fired once per affected row,
+     * rather than a statement trigger, fired once per statement.
      *
-     * @return whether the trigger is a row trigger ({@code FOR EACH ROW}), fired once per affected row,
-     *         rather than a statement trigger, fired once per statement.
+     * @return whether the trigger is a row trigger ({@code FOR EACH ROW}), fired once per affected
+     *         row, rather than a statement trigger, fired once per statement.
      */
     boolean forEachRow() default false;
 

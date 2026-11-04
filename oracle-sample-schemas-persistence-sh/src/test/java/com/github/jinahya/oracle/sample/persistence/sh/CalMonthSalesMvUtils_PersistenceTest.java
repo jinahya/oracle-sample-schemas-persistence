@@ -81,7 +81,7 @@ class CalMonthSalesMvUtils_PersistenceTest {
         return em.find(CalMonthSalesMv.class, calendarMonthDesc);
     }
 
-    // ----------------------------------------------------------------------------------------------- calendarMonthDesc
+    // --------------------------------------------------------------------------- calendarMonthDesc
 
     @DisplayName("getCalendarMonthDescAsMapped(calMonthSalesMv, mapper)")
     @Nested
@@ -119,7 +119,7 @@ class CalMonthSalesMvUtils_PersistenceTest {
         entityManager.close();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     private final EntityManager entityManager =
             __PersistenceTest_Utils.applyEntityManagerFactory(
                     EntityManagerFactory::createEntityManager);

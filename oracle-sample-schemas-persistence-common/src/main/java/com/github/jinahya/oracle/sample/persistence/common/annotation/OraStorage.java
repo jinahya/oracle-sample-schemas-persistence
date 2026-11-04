@@ -30,10 +30,13 @@ import java.lang.annotation.Target;
  * Documents how the database stores the table the annotated class maps: its organization, its
  * partitioning, and its compression.
  * <p>
- * Jakarta Persistence has no annotation for storage; {@link jakarta.persistence.Table#options() options}
- * only carries DDL text.
+ * Jakarta Persistence has no annotation for storage;
+ * {@link jakarta.persistence.Table#options() options} only carries DDL text.
  *
- * @see <a href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/CREATE-TABLE.html">CREATE TABLE</a>
+ * @see <a
+ *         href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/CREATE-TABLE
+ *         .html">CREATE
+ *         TABLE</a>
  */
 @Documented
 @Target(ElementType.TYPE)
@@ -102,7 +105,8 @@ public @interface OraStorage {
     Partitioning partitioning() default Partitioning.NONE;
 
     /**
-     * The columns of the partitioning key, {@code time_id} say; empty if the table is not partitioned.
+     * The columns of the partitioning key, {@code time_id} say; empty if the table is not
+     * partitioned.
      *
      * @return the columns of the partitioning key, {@code time_id} say; empty if the table is not
      *         partitioned.
@@ -112,7 +116,8 @@ public @interface OraStorage {
     /**
      * The compression of the table, or of its partitions, {@code COMPRESS} say; empty if none.
      *
-     * @return the compression of the table, or of its partitions, {@code COMPRESS} say; empty if none.
+     * @return the compression of the table, or of its partitions, {@code COMPRESS} say; empty if
+     *         none.
      */
     String compression() default "";
 }

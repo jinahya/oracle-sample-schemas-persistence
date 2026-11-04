@@ -70,7 +70,7 @@ abstract class PromotionNamedId_Test<T extends PromotionNamedId<N>, N extends Nu
         return targetClass.cast(factory.invoke(null, name, id));
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Creates a new instance for the specified pair class and id type.
@@ -83,9 +83,9 @@ abstract class PromotionNamedId_Test<T extends PromotionNamedId<N>, N extends Nu
         this.idClass = Objects.requireNonNull(idClass, "idClass is null");
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
-    // -------------------------------------------------------------------------------------------------------------- of
+    // ------------------------------------------------------------------------------------------ of
 
     /**
      * Verifies that the pair class declares a public static factory {@code of(String, N)}, found
@@ -105,7 +105,7 @@ abstract class PromotionNamedId_Test<T extends PromotionNamedId<N>, N extends Nu
         assertThat(PromotionNamedId_TestAccess.getId(instance)).isEqualTo(id);
     }
 
-    // ------------------------------------------------------------------------------------------------- equals/hashCode
+    // ----------------------------------------------------------------------------- equals/hashCode
 
     /**
      * {@inheritDoc}
@@ -130,6 +130,6 @@ abstract class PromotionNamedId_Test<T extends PromotionNamedId<N>, N extends Nu
                 .withPrefabValuesForField(PromotionNamedId_TestAccess.ATTRIBUTE_NAME_ID, red, blue);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     final Class<N> idClass;
 }

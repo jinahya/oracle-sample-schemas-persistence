@@ -109,11 +109,11 @@ import java.util.Optional;
                     WHERE e.store = :store"""
 )
 @Entity
-@Table(name = MappedOrder.TABLE_NAME)
+@Table(name = MappedOrder.TABLE_NAME, comment = "Details of who made purchases where")
 public class Order
         extends MappedOrder {
 
-    // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
+    // --------------------------------------------------------------------------------- CUSTOMER_ID
 
     /**
      * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on
@@ -121,7 +121,7 @@ public class Order
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER = "customer";
 
-    // -------------------------------------------------------------------------------------------------------- STORE_ID
+    // ------------------------------------------------------------------------------------ STORE_ID
 
     /**
      * The name of the {@link jakarta.persistence.ManyToOne @ManyToOne} association which joins on
@@ -129,14 +129,14 @@ public class Order
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
-    // ----------------------------------------------------------------------------------------------------- ORDER_ITEMS
+    // --------------------------------------------------------------------------------- ORDER_ITEMS
 
     /**
      * The name of the attribute which maps the order items of this order. The value is {@value}.
      */
     public static final String ATTRIBUTE_NAME_ORDER_ITEMS = "orderItems";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -145,7 +145,7 @@ public class Order
         super();
     }
 
-    // -------------------------------------------------------------------------------------------------------- customer
+    // ------------------------------------------------------------------------------------ customer
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUSTOMER} attribute.
@@ -169,7 +169,7 @@ public class Order
         setCustomerId(Optional.ofNullable(customer).map(Customer::getCustomerId).orElse(null));
     }
 
-    // ----------------------------------------------------------------------------------------------------------- store
+    // --------------------------------------------------------------------------------------- store
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_STORE} attribute.
@@ -193,7 +193,7 @@ public class Order
         setStoreId(Optional.ofNullable(store).map(Store::getStoreId).orElse(null));
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Returns the total price of this order, summed over its order items.
@@ -251,7 +251,7 @@ public class Order
         return orderItems.remove(product);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull
@@ -260,7 +260,7 @@ public class Order
                 updatable = false)
     private Customer customer;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull
@@ -268,7 +268,7 @@ public class Order
     @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
     private Store store;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @MapKey(name = OrderItem.ATTRIBUTE_NAME_PRODUCT)
     @OneToMany(mappedBy = OrderItem.ATTRIBUTE_NAME_ORDER,
                fetch = FetchType.LAZY,

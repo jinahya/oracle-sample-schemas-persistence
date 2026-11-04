@@ -73,7 +73,7 @@ class ProductDetails_Json_Test {
         }
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Test
     void __() throws IOException {
         try (var resource = getClass().getResourceAsStream("PRODUCTS_PRODUCT_DETAILS_LIST.json")) {

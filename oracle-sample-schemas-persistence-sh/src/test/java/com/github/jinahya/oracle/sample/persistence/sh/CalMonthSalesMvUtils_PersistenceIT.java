@@ -53,7 +53,7 @@ class CalMonthSalesMvUtils_PersistenceIT {
                    () -> CalMonthSalesMv.TABLE_NAME + " holds no row; refresh it first");
     }
 
-    // ----------------------------------------------------------------------------------------------- calendarMonthDesc
+    // --------------------------------------------------------------------------- calendarMonthDesc
 
     @DisplayName("getCalendarMonthDescAsMapped(calMonthSalesMv, mapper)")
     @Nested
@@ -88,7 +88,7 @@ class CalMonthSalesMvUtils_PersistenceIT {
         entityManager.close();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     private final EntityManager entityManager =
             __PersistenceIT_Utils.applyEntityManagerFactory(
                     EntityManagerFactory::createEntityManager);

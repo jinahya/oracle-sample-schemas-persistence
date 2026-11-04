@@ -40,7 +40,7 @@ class Order_Persister
         super(Order.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Order apply(final EntityManager entityManager, final Order entityInstance) {
         final var customer =

@@ -44,7 +44,7 @@ public abstract class MappedCustomer {
      */
     public static final String TABLE_NAME = "CUSTOMERS";
 
-    // ----------------------------------------------------------------------------------------------------- CUSTOMER_ID
+    // --------------------------------------------------------------------------------- CUSTOMER_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute
@@ -58,7 +58,7 @@ public abstract class MappedCustomer {
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER_ID = "customerId";
 
-    // --------------------------------------------------------------------------------------------------- EMAIL_ADDRESS
+    // ------------------------------------------------------------------------------- EMAIL_ADDRESS
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute
@@ -89,7 +89,7 @@ public abstract class MappedCustomer {
      */
     public static final int SIZE_MAX_NAME_EMAIL_ADDRESS = COLUMN_LENGTH_NAME_EMAIL_ADDRESS;
 
-    // -------------------------------------------------------------------------------------------- FULL_NAME / fullName
+    // ------------------------------------------------------------------------ FULL_NAME / fullName
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_FULL_NAME} attribute maps.
@@ -118,7 +118,7 @@ public abstract class MappedCustomer {
      */
     public static final int SIZE_MAX_NAME_FULL_NAME = COLUMN_LENGTH_NAME_FULL_NAME;
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -127,7 +127,7 @@ public abstract class MappedCustomer {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -166,7 +166,7 @@ public abstract class MappedCustomer {
         return Objects.hashCode(getEmailAddress());
     }
 
-    // ------------------------------------------------------------------------------------------------------ customerId
+    // ---------------------------------------------------------------------------------- customerId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
@@ -187,7 +187,7 @@ public abstract class MappedCustomer {
         this.customerId = customerId;
     }
 
-    // ---------------------------------------------------------------------------------------------------- emailAddress
+    // -------------------------------------------------------------------------------- emailAddress
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute.
@@ -209,7 +209,7 @@ public abstract class MappedCustomer {
         this.emailAddress = emailAddress;
     }
 
-    // -------------------------------------------------------------------------------------------------------- fullName
+    // ------------------------------------------------------------------------------------ fullName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_FULL_NAME} attribute.
@@ -231,11 +231,7 @@ public abstract class MappedCustomer {
         this.fullName = fullName;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
-
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Id
     // TODO: remove; not constrained by the DDL -- CUSTOMERS.CUSTOMER_ID is an INTEGER identity
     //  with no check
@@ -251,15 +247,14 @@ public abstract class MappedCustomer {
             // fails descriptor initialisation with EclipseLink-46/EclipseLink-41. Verified on 5
             // .0.1.
             insertable = true,
-            updatable = false
+            updatable = false,
+            comment = "Auto-incrementing primary key"
     )
     private Long customerId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
-    // TODO: remove; not constrained by the DDL -- CUSTOMERS.EMAIL_ADDRESS is VARCHAR2(255 CHAR)
-    //  with no check
-//    @Email
+//    @jakarta.validation.constraints.Email
     @Size(min = SIZE_MIN_NAME_EMAIL_ADDRESS, max = SIZE_MAX_NAME_EMAIL_ADDRESS)
     @NotNull
     @Column(name = COLUMN_NAME_EMAIL_ADDRESS,
@@ -267,7 +262,8 @@ public abstract class MappedCustomer {
             insertable = true,
             updatable = true,
             length = COLUMN_LENGTH_NAME_EMAIL_ADDRESS,
-            unique = true
+            unique = true,
+            comment = "The email address the person uses to access the account"
     )
     private String emailAddress;
 
@@ -278,7 +274,8 @@ public abstract class MappedCustomer {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_NAME_FULL_NAME
+            length = COLUMN_LENGTH_NAME_FULL_NAME,
+            comment = "What this customer is called"
     )
     private String fullName;
 }

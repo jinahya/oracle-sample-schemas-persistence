@@ -66,8 +66,7 @@ class SalesUtils_PersistenceTest {
         return JinahyaEntityManagerUtils.applyInTransactionAndRollback(entityManager, function);
     }
 
-    // -----------------------------------------------------------------------------------------
-    // quantitySold/statistics
+    // --------------------------------------------------------------------- quantitySold/statistics
 
     @DisplayName("getQuantitySoldStatistics(entityManager, where)")
     @Nested
@@ -120,7 +119,7 @@ class SalesUtils_PersistenceTest {
         }
     }
 
-    // ------------------------------------------------------------------------------------------- amountSold/statistics
+    // ----------------------------------------------------------------------- amountSold/statistics
 
     @DisplayName("getAmountSoldStatistics(entityManager, where)")
     @Nested
@@ -170,7 +169,7 @@ class SalesUtils_PersistenceTest {
         entityManager.close();
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     private final EntityManager entityManager =
             __PersistenceTest_Utils.applyEntityManagerFactory(
                     EntityManagerFactory::createEntityManager);

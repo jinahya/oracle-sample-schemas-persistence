@@ -36,7 +36,7 @@ class CalMonthSalesMv_PersistenceTest
         super(CalMonthSalesMv.class);
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Does nothing; {@value CalMonthSalesMv#TABLE_NAME} is a materialized view, so there is nothing

@@ -37,7 +37,7 @@ class Customer_Persister
         super(Customer.class);
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     public Customer apply(final EntityManager entityManager, final Customer entityInstance) {
         return super.apply(entityManager, entityInstance);

@@ -80,11 +80,11 @@ import java.util.List;
                     FROM Product e"""
 )
 @Entity
-@Table(name = MappedProduct.TABLE_NAME)
+@Table(name = MappedProduct.TABLE_NAME, comment = "Details of goods that customers can purchase")
 public class Product
         extends MappedProduct {
 
-    // ----------------------------------------------------------------------------------------------------- ORDER_ITEMS
+    // --------------------------------------------------------------------------------- ORDER_ITEMS
 
     /**
      * The name of the attribute which maps the order items which order this product. The value is
@@ -94,7 +94,7 @@ public class Product
      */
     public static final String ATTRIBUTE_NAME_ORDER_ITEMS = "orderItems";
 
-    // ----------------------------------------------------------------------------------------------------- INVENTORIES
+    // --------------------------------------------------------------------------------- INVENTORIES
 
     /**
      * The name of the attribute which maps the inventories which hold this product. The value is
@@ -104,7 +104,7 @@ public class Product
      */
     public static final String ATTRIBUTE_NAME_INVENTORIES = "inventories";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -113,7 +113,7 @@ public class Product
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------------ orderItems
+    // ---------------------------------------------------------------------------------- orderItems
 
     /**
      * Returns the order items which order this product.
@@ -133,7 +133,7 @@ public class Product
         this.orderItems = orderItems;
     }
 
-    // ----------------------------------------------------------------------------------------------------- inventories
+    // --------------------------------------------------------------------------------- inventories
 
     /**
      * Returns the inventories which hold this product.
@@ -153,7 +153,7 @@ public class Product
         this.inventories = inventories;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = OrderItem.ATTRIBUTE_NAME_PRODUCT,
                fetch = FetchType.LAZY,
                cascade = {

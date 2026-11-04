@@ -36,7 +36,7 @@ class CustomerOrderProduct_PersistenceTest
         super(CustomerOrderProduct.class);
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Does nothing; {@value CustomerOrderProduct#TABLE_NAME} is a view, so there is nothing to

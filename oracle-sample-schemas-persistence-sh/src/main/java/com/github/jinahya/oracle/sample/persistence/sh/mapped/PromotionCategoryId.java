@@ -47,7 +47,8 @@ import java.util.Objects;
                                     nullable = false,
                                     insertable = true,
                                     updatable = true,
-                                    length = MappedPromotion.COLUMN_LENGTH_PROMO_CATEGORY))
+                                    length = MappedPromotion.COLUMN_LENGTH_PROMO_CATEGORY,
+                                    comment = "promotion category"))
 @AttributeOverride(name = PromotionNamedId.ATTRIBUTE_NAME_ID,
                    column = @Column(name = MappedPromotion.COLUMN_NAME_PROMO_CATEGORY_ID,
                                     nullable = false,
@@ -57,8 +58,7 @@ import java.util.Objects;
 public class PromotionCategoryId
         extends PromotionNamedId<Long> {
 
-    // ------------------------------------------------------------------------------------------
-    // STATIC_FACTORY_METHODS
+    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance with the specified name and id.
@@ -74,7 +74,7 @@ public class PromotionCategoryId
         return of(PromotionCategoryId::new, promotionCategory, promotionCategoryId);
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -83,7 +83,7 @@ public class PromotionCategoryId
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     /**
      * {@inheritDoc}
@@ -121,7 +121,7 @@ public class PromotionCategoryId
         return Objects.hash(getPromoCategory(), getPromoCategoryId());
     }
 
-    // --------------------------------------------------------------------------------------------------- promoCategory
+    // ------------------------------------------------------------------------------- promoCategory
 
     /**
      * Returns current value of the {@value PromotionNamedId#ATTRIBUTE_NAME_NAME} attribute, the
@@ -147,7 +147,7 @@ public class PromotionCategoryId
         setName(promoCategory);
     }
 
-    // ------------------------------------------------------------------------------------------------- promoCategoryId
+    // ----------------------------------------------------------------------------- promoCategoryId
 
     /**
      * Returns current value of the {@value PromotionNamedId#ATTRIBUTE_NAME_ID} attribute, the

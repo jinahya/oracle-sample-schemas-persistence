@@ -64,7 +64,7 @@ public abstract class MappedEmployee {
      */
     public static final String TABLE_NAME = "EMPLOYEES";
 
-    // ----------------------------------------------------------------------------------------------------- EMPLOYEE_ID
+    // --------------------------------------------------------------------------------- EMPLOYEE_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute
@@ -121,7 +121,7 @@ public abstract class MappedEmployee {
      */
     public static final long ATTRIBUTE_MAX_EMPLOYEE_ID = COLUMN_MAX_EMPLOYEE_ID;
 
-    // ------------------------------------------------------------------------------------------------------ FIRST_NAME
+    // ---------------------------------------------------------------------------------- FIRST_NAME
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute maps.
@@ -152,7 +152,7 @@ public abstract class MappedEmployee {
      */
     public static final int SIZE_MAX_FIRST_NAME = COLUMN_LENGTH_FIRST_NAME;
 
-    // ------------------------------------------------------------------------------------------------------- LAST_NAME
+    // ----------------------------------------------------------------------------------- LAST_NAME
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_LAST_NAME} attribute maps.
@@ -181,7 +181,7 @@ public abstract class MappedEmployee {
      */
     public static final int SIZE_MAX_LAST_NAME = COLUMN_LENGTH_LAST_NAME;
 
-    // ----------------------------------------------------------------------------------------------------------- EMAIL
+    // --------------------------------------------------------------------------------------- EMAIL
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_EMAIL} attribute maps. The
@@ -210,7 +210,7 @@ public abstract class MappedEmployee {
      */
     public static final int SIZE_MAX_EMAIL = COLUMN_LENGTH_EMAIL;
 
-    // ---------------------------------------------------------------------------------------------------- PHONE_NUMBER
+    // -------------------------------------------------------------------------------- PHONE_NUMBER
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_PHONE_NUMBER} attribute
@@ -241,7 +241,7 @@ public abstract class MappedEmployee {
      */
     public static final int SIZE_MAX_PHONE_NUMBER = COLUMN_LENGTH_PHONE_NUMBER;
 
-    // ------------------------------------------------------------------------------------------------------- HIRE_DATE
+    // ----------------------------------------------------------------------------------- HIRE_DATE
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute maps.
@@ -255,7 +255,7 @@ public abstract class MappedEmployee {
      */
     public static final String ATTRIBUTE_NAME_HIRE_DATE = "hireDate";
 
-    // ---------------------------------------------------------------------------------------------------------- JOB_ID
+    // -------------------------------------------------------------------------------------- JOB_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_JOB_ID} attribute maps. The
@@ -284,7 +284,7 @@ public abstract class MappedEmployee {
      */
     public static final String ATTRIBUTE_NAME_JOB_ID = "jobId";
 
-    // ---------------------------------------------------------------------------------------------------------- SALARY
+    // -------------------------------------------------------------------------------------- SALARY
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_SALARY} attribute maps. The
@@ -338,7 +338,7 @@ public abstract class MappedEmployee {
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_SALARY = "+999999.99";
 
-    // -------------------------------------------------------------------------------------------------- COMMISSION_PCT
+    // ------------------------------------------------------------------------------ COMMISSION_PCT
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute
@@ -384,7 +384,7 @@ public abstract class MappedEmployee {
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_COMMISSION_PCT = "+0.99";
 
-    // ------------------------------------------------------------------------------------------------------ MANAGER_ID
+    // ---------------------------------------------------------------------------------- MANAGER_ID
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute maps.
@@ -430,8 +430,7 @@ public abstract class MappedEmployee {
      */
     public static final String ATTRIBUTE_NAME_MANAGER_ID = "managerId";
 
-    // ------------------------------------------------------------------------------------
-    // DEPARTMENT_ID / departmentId
+    // ---------------------------------------------------------------- DEPARTMENT_ID / departmentId
 
     /**
      * The name of the table column to which the {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute
@@ -491,7 +490,7 @@ public abstract class MappedEmployee {
      */
     public static final String ATTRIBUTE_NAME_DEPARTMENT_ID = "departmentId";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -500,7 +499,7 @@ public abstract class MappedEmployee {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public final String toString() {
@@ -545,7 +544,7 @@ public abstract class MappedEmployee {
         return Objects.hashCode(getEmployeeId());
     }
 
-    // ------------------------------------------------------------------------------------------------- Bean-Validation
+    // ----------------------------------------------------------------------------- Bean-Validation
 
     /**
      * Tests whether current value of the {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute is
@@ -576,7 +575,7 @@ public abstract class MappedEmployee {
         return commissionPct.signum() >= 0;
     }
 
-    // ------------------------------------------------------------------------------------------------------ employeeId
+    // ---------------------------------------------------------------------------------- employeeId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
@@ -598,7 +597,7 @@ public abstract class MappedEmployee {
         this.employeeId = employeeId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- firstName
+    // ----------------------------------------------------------------------------------- firstName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_FIRST_NAME} attribute.
@@ -620,7 +619,7 @@ public abstract class MappedEmployee {
         this.firstName = firstName;
     }
 
-    // -------------------------------------------------------------------------------------------------------- lastName
+    // ------------------------------------------------------------------------------------ lastName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LAST_NAME} attribute.
@@ -642,7 +641,7 @@ public abstract class MappedEmployee {
         this.lastName = lastName;
     }
 
-    // ----------------------------------------------------------------------------------------------------------- email
+    // --------------------------------------------------------------------------------------- email
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_EMAIL} attribute.
@@ -663,7 +662,7 @@ public abstract class MappedEmployee {
         this.email = email;
     }
 
-    // ----------------------------------------------------------------------------------------------------- phoneNumber
+    // --------------------------------------------------------------------------------- phoneNumber
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PHONE_NUMBER} attribute.
@@ -685,7 +684,7 @@ public abstract class MappedEmployee {
         this.phoneNumber = phoneNumber;
     }
 
-    // -------------------------------------------------------------------------------------------------------- hireDate
+    // ------------------------------------------------------------------------------------ hireDate
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_HIRE_DATE} attribute -- the date when the
@@ -708,7 +707,7 @@ public abstract class MappedEmployee {
         this.hireDate = hireDate;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- salary
+    // -------------------------------------------------------------------------------------- salary
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_SALARY} attribute.
@@ -730,7 +729,7 @@ public abstract class MappedEmployee {
         this.salary = salary;
     }
 
-    // --------------------------------------------------------------------------------------------------- commissionPct
+    // ------------------------------------------------------------------------------- commissionPct
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_COMMISSION_PCT} attribute.
@@ -752,7 +751,7 @@ public abstract class MappedEmployee {
         this.commissionPct = commissionPct;
     }
 
-    // ----------------------------------------------------------------------------------------------------------- jobId
+    // --------------------------------------------------------------------------------------- jobId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_JOB_ID} attribute.
@@ -775,7 +774,7 @@ public abstract class MappedEmployee {
         this.jobId = jobId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- managerId
+    // ----------------------------------------------------------------------------------- managerId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_MANAGER_ID} attribute.
@@ -798,7 +797,7 @@ public abstract class MappedEmployee {
         this.managerId = managerId;
     }
 
-    // ---------------------------------------------------------------------------------------------------- departmentId
+    // -------------------------------------------------------------------------------- departmentId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_DEPARTMENT_ID} attribute.
@@ -821,11 +820,11 @@ public abstract class MappedEmployee {
         this.departmentId = departmentId;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Max(ATTRIBUTE_MAX_EMPLOYEE_ID)
     @Min(ATTRIBUTE_MIN_EMPLOYEE_ID)
@@ -836,11 +835,12 @@ public abstract class MappedEmployee {
             insertable = true,
             updatable = false,
             precision = COLUMN_PRECISION_EMPLOYEE_ID,
-            scale = COLUMN_SCALE_EMPLOYEE_ID
+            scale = COLUMN_SCALE_EMPLOYEE_ID,
+            comment = "Primary key of employees table."
     )
     private Integer employeeId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nullable
     @Size(min = SIZE_MIN_FIRST_NAME,
           max = SIZE_MAX_FIRST_NAME
@@ -850,7 +850,8 @@ public abstract class MappedEmployee {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_FIRST_NAME
+            length = COLUMN_LENGTH_FIRST_NAME,
+            comment = "First name of the employee. A not null column."
     )
     private String firstName;
 
@@ -864,7 +865,8 @@ public abstract class MappedEmployee {
             nullable = false,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_LAST_NAME
+            length = COLUMN_LENGTH_LAST_NAME,
+            comment = "Last name of the employee. A not null column."
     )
     private String lastName;
 
@@ -879,7 +881,8 @@ public abstract class MappedEmployee {
             insertable = true,
             updatable = true,
             length = COLUMN_LENGTH_EMAIL,
-            unique = true
+            unique = true,
+            comment = "Email id of the employee"
     )
     private String email;
 
@@ -890,7 +893,8 @@ public abstract class MappedEmployee {
             nullable = true,
             insertable = true,
             updatable = true,
-            length = COLUMN_LENGTH_PHONE_NUMBER
+            length = COLUMN_LENGTH_PHONE_NUMBER,
+            comment = "Phone number of the employee; includes country code and area code"
     )
     private String phoneNumber;
 
@@ -899,10 +903,11 @@ public abstract class MappedEmployee {
 //    @jakarta.validation.constraints.PastOrPresent // @@?
     @NotNull
     @Basic(optional = false, fetch = FetchType.EAGER)
-    @Column(name = COLUMN_NAME_HIRE_DATE, nullable = false, insertable = true, updatable = true)
+    @Column(name = COLUMN_NAME_HIRE_DATE, nullable = false, insertable = true, updatable = true,
+            comment = "Date when the employee started on this job. A not null column.")
     private LocalDateTime hireDate;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class
     // documentation
     @Nonnull
@@ -913,18 +918,22 @@ public abstract class MappedEmployee {
             nullable = false,
             insertable = false,
             updatable = false,
-            length = COLUMN_LENGTH_JOB_ID
+            length = COLUMN_LENGTH_JOB_ID,
+            comment = "Current job of the employee; foreign key to job_id column of the \n" +
+                    "jobs table. A not null column."
     )
     private String jobId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nullable
     @DecimalMax(value = ATTRIBUTE_DECIMAL_MAX_SALARY, inclusive = true)
     @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_SALARY_EXCLUSIVE, inclusive = false)
     // EMP_SALARY_MIN: CHECK (salary > 0)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_SALARY, nullable = true, insertable = true, updatable = true,
-            precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY)
+            precision = COLUMN_PRECISION_SALARY, scale = COLUMN_SCALE_SALARY,
+            comment = "Monthly salary of the employee. Must be greater \n" +
+                    "than zero (enforced by constraint emp_salary_min)")
     private BigDecimal salary;
 
     @Nullable
@@ -932,10 +941,12 @@ public abstract class MappedEmployee {
     @DecimalMin(value = ATTRIBUTE_DECIMAL_MIN_COMMISSION_PCT, inclusive = true)
     @Basic(optional = true, fetch = FetchType.EAGER)
     @Column(name = COLUMN_NAME_COMMISSION_PCT, nullable = true, insertable = true, updatable = true,
-            precision = COLUMN_PRECISION_COMMISSION_PCT, scale = COLUMN_SCALE_COMMISSION_PCT)
+            precision = COLUMN_PRECISION_COMMISSION_PCT, scale = COLUMN_SCALE_COMMISSION_PCT,
+            comment = "Commission percentage of the employee; Only employees in sales \n" +
+                    "department elgible for commission percentage")
     private BigDecimal commissionPct;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class
     // documentation
     @Nullable
@@ -947,11 +958,14 @@ public abstract class MappedEmployee {
             insertable = false,
             updatable = false,
             precision = COLUMN_PRECISION_MANAGER_ID,
-            scale = COLUMN_SCALE_MANAGER_ID
+            scale = COLUMN_SCALE_MANAGER_ID,
+            comment = "Manager id of the employee; has same domain as manager_id in \n" +
+                    "departments table. Foreign key to employee_id column of employees table. \n" +
+                    "(useful for reflexive joins and CONNECT BY query)"
     )
     private Integer managerId;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // read-only: the extending entity owns the writable mapping of this column; see the class
     // documentation
     @Nullable
@@ -963,7 +977,9 @@ public abstract class MappedEmployee {
             insertable = false,
             updatable = false,
             precision = COLUMN_PRECISION_DEPARTMENT_ID,
-            scale = COLUMN_SCALE_DEPARTMENT_ID
+            scale = COLUMN_SCALE_DEPARTMENT_ID,
+            comment = "Department id where employee works; foreign key to department_id \n" +
+                    "column of the departments table"
     )
     private Integer departmentId;
 }

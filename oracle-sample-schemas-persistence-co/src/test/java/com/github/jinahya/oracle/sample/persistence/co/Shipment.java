@@ -91,12 +91,12 @@ import java.util.Optional;
                     WHERE e.customer = :customer"""
 )
 @Entity
-@Table(name = MappedShipment.TABLE_NAME)
+@Table(name = MappedShipment.TABLE_NAME,
+       comment = "Details of where ordered goods will be delivered")
 public class Shipment
         extends MappedShipment {
 
-    // --------------------------------------------------------------------------------------
-    // STORE_ID / storeId / store
+    // ------------------------------------------------------------------ STORE_ID / storeId / store
 
     /**
      * The name of the {@link ManyToOne @ManyToOne} association which joins on the
@@ -104,8 +104,7 @@ public class Shipment
      */
     public static final String ATTRIBUTE_NAME_STORE = "store";
 
-    // ----------------------------------------------------------------------------- CUSTOMER_ID
-    // / customerId / customer
+    // --------------------------------------------------------- CUSTOMER_ID / customerId / customer
 
     /**
      * The name of the {@link ManyToOne @ManyToOne} association which joins on the
@@ -113,7 +112,7 @@ public class Shipment
      */
     public static final String ATTRIBUTE_NAME_CUSTOMER = "customer";
 
-    // ----------------------------------------------------------------------------------------------------- ORDER_ITEMS
+    // --------------------------------------------------------------------------------- ORDER_ITEMS
 
     /**
      * The name of the attribute which maps the order items carried by this shipment. The value is
@@ -123,7 +122,7 @@ public class Shipment
      */
     public static final String ATTRIBUTE_NAME_ORDER_ITEMS = "orderItems";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -132,7 +131,7 @@ public class Shipment
         super();
     }
 
-    // ----------------------------------------------------------------------------------------------------------- store
+    // --------------------------------------------------------------------------------------- store
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_STORE} attribute.
@@ -156,7 +155,7 @@ public class Shipment
         setStoreId(Optional.ofNullable(store).map(Store::getStoreId).orElse(null));
     }
 
-    // -------------------------------------------------------------------------------------------------------- customer
+    // ------------------------------------------------------------------------------------ customer
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUSTOMER} attribute.
@@ -180,7 +179,7 @@ public class Shipment
         setCustomerId(Optional.ofNullable(customer).map(Customer::getCustomerId).orElse(null));
     }
 
-    // ------------------------------------------------------------------------------------------------------ orderItems
+    // ---------------------------------------------------------------------------------- orderItems
 
     /**
      * Returns the order items carried by this shipment.
@@ -200,7 +199,7 @@ public class Shipment
         this.orderItems = orderItems;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull
@@ -208,7 +207,7 @@ public class Shipment
     @JoinColumn(name = COLUMN_NAME_STORE_ID, nullable = false, insertable = true, updatable = false)
     private Store store;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Nonnull
     @Valid
     @NotNull
@@ -217,7 +216,7 @@ public class Shipment
                 updatable = false)
     private Customer customer;
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @OneToMany(mappedBy = OrderItem.ATTRIBUTE_NAME_SHIPMENT,
                fetch = FetchType.LAZY,
                cascade = {

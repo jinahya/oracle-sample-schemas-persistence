@@ -49,7 +49,7 @@ public abstract class MappedProfit {
      */
     public static final String TABLE_NAME = "PROFITS";
 
-    // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
+    // ---------------------------------------------------------------------------------- CHANNEL_ID
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute maps.
@@ -95,7 +95,7 @@ public abstract class MappedProfit {
      */
     public static final int ATTRIBUTE_MAX_CHANNEL_ID = COLUMN_MAX_CHANNEL_ID;
 
-    // --------------------------------------------------------------------------------------------------------- CUST_ID
+    // ------------------------------------------------------------------------------------- CUST_ID
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_CUST_ID} attribute maps. The
@@ -109,7 +109,7 @@ public abstract class MappedProfit {
      */
     public static final String ATTRIBUTE_NAME_CUST_ID = "custId";
 
-    // --------------------------------------------------------------------------------------------------------- PROD_ID
+    // ------------------------------------------------------------------------------------- PROD_ID
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_PROD_ID} attribute maps. The
@@ -153,7 +153,7 @@ public abstract class MappedProfit {
      */
     public static final int ATTRIBUTE_MAX_PROD_ID = COLUMN_MAX_PROD_ID;
 
-    // -------------------------------------------------------------------------------------------------------- PROMO_ID
+    // ------------------------------------------------------------------------------------ PROMO_ID
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_PROMO_ID} attribute maps.
@@ -197,7 +197,7 @@ public abstract class MappedProfit {
      */
     public static final int ATTRIBUTE_MAX_PROMO_ID = COLUMN_MAX_PROMO_ID;
 
-    // --------------------------------------------------------------------------------------------------------- TIME_ID
+    // ------------------------------------------------------------------------------------- TIME_ID
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_TIME_ID} attribute maps. The
@@ -211,7 +211,7 @@ public abstract class MappedProfit {
      */
     public static final String ATTRIBUTE_NAME_TIME_ID = "timeId";
 
-    // ------------------------------------------------------------------------------------------------------- UNIT_COST
+    // ----------------------------------------------------------------------------------- UNIT_COST
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_UNIT_COST} attribute maps.
@@ -247,7 +247,7 @@ public abstract class MappedProfit {
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_UNIT_COST = "+99999999.99";
 
-    // ------------------------------------------------------------------------------------------------------ UNIT_PRICE
+    // ---------------------------------------------------------------------------------- UNIT_PRICE
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute maps.
@@ -283,7 +283,7 @@ public abstract class MappedProfit {
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_UNIT_PRICE = "+99999999.99";
 
-    // ----------------------------------------------------------------------------------------------------- AMOUNT_SOLD
+    // --------------------------------------------------------------------------------- AMOUNT_SOLD
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute maps.
@@ -319,7 +319,7 @@ public abstract class MappedProfit {
      */
     public static final String ATTRIBUTE_DECIMAL_MAX_AMOUNT_SOLD = "+99999999.99";
 
-    // --------------------------------------------------------------------------------------------------- QUANTITY_SOLD
+    // ------------------------------------------------------------------------------- QUANTITY_SOLD
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute
@@ -365,7 +365,7 @@ public abstract class MappedProfit {
      */
     public static final int ATTRIBUTE_MAX_QUANTITY_SOLD = COLUMN_MAX_QUANTITY_SOLD;
 
-    // ------------------------------------------------------------------------------------------------------ TOTAL_COST
+    // ---------------------------------------------------------------------------------- TOTAL_COST
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_TOTAL_COST} attribute maps.
@@ -379,7 +379,7 @@ public abstract class MappedProfit {
      */
     public static final String ATTRIBUTE_NAME_TOTAL_COST = "totalCost";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -388,7 +388,7 @@ public abstract class MappedProfit {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -437,7 +437,7 @@ public abstract class MappedProfit {
         return Objects.hash(channelId, custId, prodId, promoId, timeId);
     }
 
-    // ------------------------------------------------------------------------------------------------------- channelId
+    // ----------------------------------------------------------------------------------- channelId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
@@ -448,7 +448,7 @@ public abstract class MappedProfit {
         return channelId;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- custId
+    // -------------------------------------------------------------------------------------- custId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CUST_ID} attribute.
@@ -459,7 +459,7 @@ public abstract class MappedProfit {
         return custId;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- prodId
+    // -------------------------------------------------------------------------------------- prodId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
@@ -470,7 +470,7 @@ public abstract class MappedProfit {
         return prodId;
     }
 
-    // --------------------------------------------------------------------------------------------------------- promoId
+    // ------------------------------------------------------------------------------------- promoId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
@@ -481,7 +481,7 @@ public abstract class MappedProfit {
         return promoId;
     }
 
-    // ---------------------------------------------------------------------------------------------------------- timeId
+    // -------------------------------------------------------------------------------------- timeId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
@@ -492,7 +492,7 @@ public abstract class MappedProfit {
         return timeId;
     }
 
-    // -------------------------------------------------------------------------------------------------------- unitCost
+    // ------------------------------------------------------------------------------------ unitCost
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_UNIT_COST} attribute.
@@ -503,7 +503,7 @@ public abstract class MappedProfit {
         return unitCost;
     }
 
-    // ------------------------------------------------------------------------------------------------------- unitPrice
+    // ----------------------------------------------------------------------------------- unitPrice
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_UNIT_PRICE} attribute.
@@ -514,7 +514,7 @@ public abstract class MappedProfit {
         return unitPrice;
     }
 
-    // ------------------------------------------------------------------------------------------------------ amountSold
+    // ---------------------------------------------------------------------------------- amountSold
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_AMOUNT_SOLD} attribute.
@@ -525,7 +525,7 @@ public abstract class MappedProfit {
         return amountSold;
     }
 
-    // ---------------------------------------------------------------------------------------------------- quantitySold
+    // -------------------------------------------------------------------------------- quantitySold
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_QUANTITY_SOLD} attribute.
@@ -536,7 +536,7 @@ public abstract class MappedProfit {
         return quantitySold;
     }
 
-    // ------------------------------------------------------------------------------------------------------- totalCost
+    // ----------------------------------------------------------------------------------- totalCost
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_TOTAL_COST} attribute.
@@ -547,7 +547,7 @@ public abstract class MappedProfit {
         return totalCost;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     @Id
     @NotNull

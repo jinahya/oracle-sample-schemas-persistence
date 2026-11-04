@@ -36,7 +36,7 @@ import java.util.function.Function;
  */
 public final class CalMonthSalesMvUtils {
 
-    // ----------------------------------------------------------------------------------------------- calendarMonthDesc
+    // --------------------------------------------------------------------------- calendarMonthDesc
 
     /**
      * Returns current value of the {@value CalMonthSalesMv#ATTRIBUTE_NAME_CALENDAR_MONTH_DESC}
@@ -75,7 +75,7 @@ public final class CalMonthSalesMvUtils {
         return getCalendarMonthDescAsMapped(calMonthSalesMv, YearMonth::parse);
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     private CalMonthSalesMvUtils() {
         throw new AssertionError("instantiation is not allowed");

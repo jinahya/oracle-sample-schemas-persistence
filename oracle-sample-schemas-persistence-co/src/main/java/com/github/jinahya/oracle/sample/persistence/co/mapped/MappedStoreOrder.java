@@ -45,7 +45,7 @@ public abstract class MappedStoreOrder {
      */
     public static final String TABLE_NAME = "STORE_ORDERS";
 
-    // ----------------------------------------------------------------------------------------------------------- TOTAL
+    // --------------------------------------------------------------------------------------- TOTAL
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_TOTAL} attribute maps. The
@@ -69,7 +69,7 @@ public abstract class MappedStoreOrder {
      */
     public static final String ATTRIBUTE_NAME_TOTAL = "total";
 
-    // ------------------------------------------------------------------------------------------------------ STORE_NAME
+    // ---------------------------------------------------------------------------------- STORE_NAME
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_STORE_NAME} attribute maps.
@@ -94,7 +94,7 @@ public abstract class MappedStoreOrder {
      */
     public static final String ATTRIBUTE_NAME_STORE_NAME = "storeName";
 
-    // --------------------------------------------------------------------------------------------------------- ADDRESS
+    // ------------------------------------------------------------------------------------- ADDRESS
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_ADDRESS} attribute maps. The
@@ -118,7 +118,7 @@ public abstract class MappedStoreOrder {
      */
     public static final String ATTRIBUTE_NAME_ADDRESS = "address";
 
-    // -------------------------------------------------------------------------------------------------------- LATITUDE
+    // ------------------------------------------------------------------------------------ LATITUDE
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_LATITUDE} attribute maps.
@@ -144,7 +144,7 @@ public abstract class MappedStoreOrder {
      */
     public static final String ATTRIBUTE_NAME_LATITUDE = "latitude";
 
-    // ------------------------------------------------------------------------------------------------------- LONGITUDE
+    // ----------------------------------------------------------------------------------- LONGITUDE
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_LONGITUDE} attribute maps.
@@ -170,7 +170,7 @@ public abstract class MappedStoreOrder {
      */
     public static final String ATTRIBUTE_NAME_LONGITUDE = "longitude";
 
-    // ---------------------------------------------------------------------------------------------------- ORDER_STATUS
+    // -------------------------------------------------------------------------------- ORDER_STATUS
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute
@@ -195,7 +195,7 @@ public abstract class MappedStoreOrder {
      */
     public static final String ATTRIBUTE_NAME_ORDER_STATUS = "orderStatus";
 
-    // ----------------------------------------------------------------------------------------------------- ORDER_COUNT
+    // --------------------------------------------------------------------------------- ORDER_COUNT
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute maps.
@@ -209,7 +209,7 @@ public abstract class MappedStoreOrder {
      */
     public static final String ATTRIBUTE_NAME_ORDER_COUNT = "orderCount";
 
-    // ----------------------------------------------------------------------------------------------------- TOTAL_SALES
+    // --------------------------------------------------------------------------------- TOTAL_SALES
 
     /**
      * The name of the view column to which the {@value #ATTRIBUTE_NAME_TOTAL_SALES} attribute maps.
@@ -223,7 +223,7 @@ public abstract class MappedStoreOrder {
      */
     public static final String ATTRIBUTE_NAME_TOTAL_SALES = "totalSales";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -263,7 +263,7 @@ public abstract class MappedStoreOrder {
         this.totalSales = totalSales;
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -279,9 +279,9 @@ public abstract class MappedStoreOrder {
                '}';
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
-    // ----------------------------------------------------------------------------------------------------------- total
+    // --------------------------------------------------------------------------------------- total
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_TOTAL} attribute.
@@ -292,7 +292,7 @@ public abstract class MappedStoreOrder {
         return total;
     }
 
-    // ------------------------------------------------------------------------------------------------------- storeName
+    // ----------------------------------------------------------------------------------- storeName
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_STORE_NAME} attribute.
@@ -303,7 +303,7 @@ public abstract class MappedStoreOrder {
         return storeName;
     }
 
-    // --------------------------------------------------------------------------------------------------------- address
+    // ------------------------------------------------------------------------------------- address
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ADDRESS} attribute.
@@ -314,7 +314,7 @@ public abstract class MappedStoreOrder {
         return address;
     }
 
-    // -------------------------------------------------------------------------------------------------------- latitude
+    // ------------------------------------------------------------------------------------ latitude
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LATITUDE} attribute.
@@ -325,7 +325,7 @@ public abstract class MappedStoreOrder {
         return latitude;
     }
 
-    // ------------------------------------------------------------------------------------------------------- longitude
+    // ----------------------------------------------------------------------------------- longitude
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_LONGITUDE} attribute.
@@ -336,7 +336,7 @@ public abstract class MappedStoreOrder {
         return longitude;
     }
 
-    // ----------------------------------------------------------------------------------------------------- orderStatus
+    // --------------------------------------------------------------------------------- orderStatus
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_STATUS} attribute.
@@ -347,7 +347,7 @@ public abstract class MappedStoreOrder {
         return orderStatus;
     }
 
-    // ------------------------------------------------------------------------------------------------------ orderCount
+    // ---------------------------------------------------------------------------------- orderCount
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ORDER_COUNT} attribute.
@@ -358,7 +358,7 @@ public abstract class MappedStoreOrder {
         return orderCount;
     }
 
-    // ------------------------------------------------------------------------------------------------------ totalSales
+    // ---------------------------------------------------------------------------------- totalSales
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_TOTAL_SALES} attribute.
@@ -369,7 +369,7 @@ public abstract class MappedStoreOrder {
         return totalSales;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     // TODO: remove; not constrained by the DDL -- STORE_ORDERS.TOTAL is a computed CASE
     //  grouping_id(...) column
@@ -379,7 +379,9 @@ public abstract class MappedStoreOrder {
             nullable = true,
             insertable = false,
             updatable = false,
-            length = COLUMN_LENGTH_TOTAL)
+            length = COLUMN_LENGTH_TOTAL,
+            comment = "Indicates what type of total is displayed, including Store, Status, or " +
+                    "Grand Totals")
     private String total;
 
     @Size(max = SIZE_MAX_STORE_NAME)
@@ -388,7 +390,8 @@ public abstract class MappedStoreOrder {
             nullable = true,
             insertable = false,
             updatable = false,
-            length = COLUMN_LENGTH_STORE_NAME)
+            length = COLUMN_LENGTH_STORE_NAME,
+            comment = "What the store is called")
     private String storeName;
 
     // TODO: remove; not constrained by the DDL -- STORE_ORDERS.ADDRESS is a computed COALESCE
@@ -399,21 +402,24 @@ public abstract class MappedStoreOrder {
             nullable = true,
             insertable = false,
             updatable = false,
-            length = COLUMN_LENGTH_ADDRESS)
+            length = COLUMN_LENGTH_ADDRESS,
+            comment = "The physical or virtual location of this store")
     private String address;
 
     // STORES.LATITUDE NUMBER(9,6), projected as is
     @DecimalMax(value = COLUMN_MAX_LATITUDE, inclusive = true)
     @DecimalMin(value = COLUMN_MIN_LATITUDE, inclusive = true)
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_LATITUDE, nullable = true, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_LATITUDE, nullable = true, insertable = false, updatable = false,
+            comment = "The north-south position of a physical store")
     private BigDecimal latitude;
 
     // STORES.LONGITUDE NUMBER(9,6), projected as is
     @DecimalMax(value = COLUMN_MAX_LONGITUDE, inclusive = true)
     @DecimalMin(value = COLUMN_MIN_LONGITUDE, inclusive = true)
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_LONGITUDE, nullable = true, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_LONGITUDE, nullable = true, insertable = false, updatable = false,
+            comment = "The east-west position of a physical store")
     private BigDecimal longitude;
 
     @Size(max = SIZE_MAX_ORDER_STATUS)
@@ -422,14 +428,17 @@ public abstract class MappedStoreOrder {
             nullable = true,
             insertable = false,
             updatable = false,
-            length = COLUMN_LENGTH_ORDER_STATUS)
+            length = COLUMN_LENGTH_ORDER_STATUS,
+            comment = "The current state of this order")
     private String orderStatus;
 
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_ORDER_COUNT, nullable = true, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_ORDER_COUNT, nullable = true, insertable = false, updatable = false,
+            comment = "The total number of orders placed")
     private BigDecimal orderCount;
 
     @Basic(optional = true)
-    @Column(name = COLUMN_NAME_TOTAL_SALES, nullable = true, insertable = false, updatable = false)
+    @Column(name = COLUMN_NAME_TOTAL_SALES, nullable = true, insertable = false, updatable = false,
+            comment = "The total value of orders placed")
     private BigDecimal totalSales;
 }

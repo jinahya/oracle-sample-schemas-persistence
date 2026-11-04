@@ -54,11 +54,12 @@ import jakarta.validation.constraints.NotNull;
                     FROM ProductOrder e"""
 )
 @Entity
-@Table(name = MappedProductOrder.TABLE_NAME)
+@Table(name = MappedProductOrder.TABLE_NAME,
+       comment = "A summary of the state of the orders placed for each product")
 public class ProductOrder
         extends MappedProductOrder<ProductOrderId> {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -67,7 +68,7 @@ public class ProductOrder
         super();
     }
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------ id
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
@@ -79,7 +80,7 @@ public class ProductOrder
         return id;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Valid
     @NotNull
     @EmbeddedId

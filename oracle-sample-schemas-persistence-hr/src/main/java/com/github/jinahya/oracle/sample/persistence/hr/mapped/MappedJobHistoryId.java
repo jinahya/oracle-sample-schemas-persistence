@@ -60,7 +60,7 @@ public abstract class MappedJobHistoryId {
      */
     public static final String ATTRIBUTE_NAME_START_DATE = "startDate";
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -69,7 +69,7 @@ public abstract class MappedJobHistoryId {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public final String toString() {
@@ -108,7 +108,7 @@ public abstract class MappedJobHistoryId {
         return Objects.hash(employeeId, startDate);
     }
 
-    // ------------------------------------------------------------------------------------------------------ employeeId
+    // ---------------------------------------------------------------------------------- employeeId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
@@ -131,7 +131,7 @@ public abstract class MappedJobHistoryId {
         this.employeeId = employeeId;
     }
 
-    // ------------------------------------------------------------------------------------------------------- startDate
+    // ----------------------------------------------------------------------------------- startDate
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_START_DATE} attribute.
@@ -154,7 +154,7 @@ public abstract class MappedJobHistoryId {
         this.startDate = startDate;
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Max(MappedJobHistory.ATTRIBUTE_MAX_EMPLOYEE_ID)
     @Min(MappedJobHistory.ATTRIBUTE_MIN_EMPLOYEE_ID)
     @NotNull
@@ -165,7 +165,9 @@ public abstract class MappedJobHistoryId {
             insertable = true, // eclipselink
             updatable = false,
             precision = MappedJobHistory.COLUMN_PRECISION_EMPLOYEE_ID,
-            scale = MappedJobHistory.COLUMN_SCALE_EMPLOYEE_ID
+            scale = MappedJobHistory.COLUMN_SCALE_EMPLOYEE_ID,
+            comment = "A not null column in the complex primary key employee_id+start_date. \n" +
+                    "Foreign key to employee_id column of the employee table"
     )
     private Integer employeeId;
 
@@ -177,7 +179,10 @@ public abstract class MappedJobHistoryId {
             nullable = MappedJobHistory.COLUMN_NULLABLE_START_DATE,
 //                insertable = false,
             insertable = true, // eclipselink
-            updatable = false
+            updatable = false,
+            comment = "A not null column in the complex primary key employee_id+start_date. \n" +
+                    "Must be less than the end_date of the job_history table. (enforced by \n" +
+                    "constraint jhist_date_interval)"
     )
     private LocalDateTime startDate;
 }

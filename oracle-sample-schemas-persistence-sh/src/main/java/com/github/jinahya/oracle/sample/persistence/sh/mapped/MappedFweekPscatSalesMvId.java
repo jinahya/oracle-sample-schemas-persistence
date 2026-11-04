@@ -49,7 +49,7 @@ public abstract class MappedFweekPscatSalesMvId {
      */
     public static final String TABLE_NAME = MappedFweekPscatSalesMv.TABLE_NAME;
 
-    // ------------------------------------------------------------------------------------------------- WEEK_ENDING_DAY
+    // ----------------------------------------------------------------------------- WEEK_ENDING_DAY
 
     /**
      * The name of the attribute which maps the
@@ -57,7 +57,7 @@ public abstract class MappedFweekPscatSalesMvId {
      */
     public static final String ATTRIBUTE_NAME_WEEK_ENDING_DAY = "weekEndingDay";
 
-    // ------------------------------------------------------------------------------------------------ PROD_SUBCATEGORY
+    // ---------------------------------------------------------------------------- PROD_SUBCATEGORY
 
     /**
      * The name of the attribute which maps the
@@ -65,7 +65,7 @@ public abstract class MappedFweekPscatSalesMvId {
      */
     public static final String ATTRIBUTE_NAME_PROD_SUBCATEGORY = "prodSubcategory";
 
-    // ------------------------------------------------------------------------------------------------------ CHANNEL_ID
+    // ---------------------------------------------------------------------------------- CHANNEL_ID
 
     /**
      * The name of the attribute which maps the
@@ -73,7 +73,7 @@ public abstract class MappedFweekPscatSalesMvId {
      */
     public static final String ATTRIBUTE_NAME_CHANNEL_ID = "channelId";
 
-    // -------------------------------------------------------------------------------------------------------- PROMO_ID
+    // ------------------------------------------------------------------------------------ PROMO_ID
 
     /**
      * The name of the attribute which maps the
@@ -81,8 +81,7 @@ public abstract class MappedFweekPscatSalesMvId {
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
-    // ------------------------------------------------------------------------------------------
-    // STATIC_FACTORY_METHODS
+    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
 
     /**
      * Creates a new instance of a subclass, with the specified column values.
@@ -116,7 +115,7 @@ public abstract class MappedFweekPscatSalesMvId {
         return instance;
     }
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -125,7 +124,7 @@ public abstract class MappedFweekPscatSalesMvId {
         super();
     }
 
-    // ------------------------------------------------------------------------------------------------ java.lang.Object
+    // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
     public String toString() {
@@ -170,7 +169,7 @@ public abstract class MappedFweekPscatSalesMvId {
         return Objects.hash(weekEndingDay, prodSubcategory, channelId, promoId);
     }
 
-    // --------------------------------------------------------------------------------------------------- weekEndingDay
+    // ------------------------------------------------------------------------------- weekEndingDay
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute.
@@ -191,7 +190,7 @@ public abstract class MappedFweekPscatSalesMvId {
         this.weekEndingDay = weekEndingDay;
     }
 
-    // ------------------------------------------------------------------------------------------------- prodSubcategory
+    // ----------------------------------------------------------------------------- prodSubcategory
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute.
@@ -212,7 +211,7 @@ public abstract class MappedFweekPscatSalesMvId {
         this.prodSubcategory = prodSubcategory;
     }
 
-    // ------------------------------------------------------------------------------------------------------- channelId
+    // ----------------------------------------------------------------------------------- channelId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
@@ -233,7 +232,7 @@ public abstract class MappedFweekPscatSalesMvId {
         this.channelId = channelId;
     }
 
-    // --------------------------------------------------------------------------------------------------------- promoId
+    // ------------------------------------------------------------------------------------- promoId
 
     /**
      * Returns current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
@@ -254,7 +253,7 @@ public abstract class MappedFweekPscatSalesMvId {
         this.promoId = promoId;
     }
 
-    // ----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     // insertable=true is the JPA default; it is spelled out because EclipseLink rejects an
     // identifier with no
     // non-read-only mapping -- "There should be one non-read-only mapping defined for the

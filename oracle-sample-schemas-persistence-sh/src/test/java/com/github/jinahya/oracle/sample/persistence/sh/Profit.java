@@ -61,7 +61,7 @@ import jakarta.persistence.Table;
 public class Profit
         extends MappedProfit {
 
-    // ---------------------------------------------------------------------------------------------------- CONSTRUCTORS
+    // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
@@ -70,7 +70,7 @@ public class Profit
         super();
     }
 
-    // -------------------------------------------------------------------------------------------------------------- id
+    // ------------------------------------------------------------------------------------------ id
 
     /**
      * Returns a new {@link ProfitId} holding current values of the identifying attributes.

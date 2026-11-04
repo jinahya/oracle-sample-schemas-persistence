@@ -48,7 +48,7 @@ class Product_Randomizer
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     Product_Randomizer() {
         super(Product.class, List.of(
                 Product.ATTRIBUTE_NAME_PRODUCT_ID,
@@ -57,7 +57,7 @@ class Product_Randomizer
         ));
     }
 
-    // -----------------------------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     @Override
     protected DataProviderStrategy getDataProviderStrategy() {
         return super.getDataProviderStrategy();
