@@ -49,21 +49,21 @@ typed by an XML schema (see <<xml-schemas>>).
 | `OrderStatus`
 | `@Enumerated(STRING)`
 | 1
-| See <<enums-and-converters>>.
+| See <<enums>>.
 | `CO.ORDERS.ORDER_STATUS`
 
 | link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2`]
 | `ShipmentStatus`
 | `@Convert(ShipmentStatusConverter)`
 | 1
-| A nested `@Converter` of `MappedShipment`; see <<enums-and-converters>>.
+| A nested `@Converter` of `MappedShipment`; see <<enums>>.
 | `CO.SHIPMENTS.SHIPMENT_STATUS`
 
 | link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2`]
 | `String`
 | -
 | 94
-| `SH.TIMES.DAY_NAME` and the month names and descriptions stay `String`s; see <<enums-and-converters>>.
+| `SH.TIMES.DAY_NAME` and the month names and descriptions stay `String`s; see <<converters>>.
 | `CO.CUSTOMERS.EMAIL_ADDRESS`, `CO.CUSTOMERS.FULL_NAME`, `CO.CUSTOMER_ORDER_PRODUCTS.ORDER_STATUS`, `CO.CUSTOMER_ORDER_PRODUCTS.EMAIL_ADDRESS`, `CO.CUSTOMER_ORDER_PRODUCTS.FULL_NAME`, `CO.CUSTOMER_ORDER_PRODUCTS.ITEMS`, `CO.PRODUCTS.PRODUCT_NAME`, `CO.PRODUCTS.IMAGE_MIME_TYPE`, `CO.PRODUCTS.IMAGE_FILENAME`, `CO.PRODUCTS.IMAGE_CHARSET`, `CO.PRODUCT_REVIEWS.PRODUCT_NAME`, `CO.PRODUCT_REVIEWS.REVIEW`, `CO.SHIPMENTS.DELIVERY_ADDRESS`, `CO.STORES.STORE_NAME`, `CO.STORES.WEB_ADDRESS`, `CO.STORES.PHYSICAL_ADDRESS`, `CO.STORES.LOGO_MIME_TYPE`, `CO.STORES.LOGO_FILENAME`, `CO.STORES.LOGO_CHARSET`, `CO.STORE_ORDERS.TOTAL`, `CO.STORE_ORDERS.STORE_NAME`, `CO.STORE_ORDERS.ADDRESS`, `CO.STORE_ORDERS.ORDER_STATUS`, `CO.PRODUCT_ORDERS.PRODUCT_NAME`, `CO.PRODUCT_ORDERS.ORDER_STATUS`, `HR.COUNTRIES.COUNTRY_NAME`, `HR.DEPARTMENTS.DEPARTMENT_NAME`, `HR.EMP_DETAILS_VIEW.JOB_ID`, `HR.EMP_DETAILS_VIEW.FIRST_NAME`, `HR.EMP_DETAILS_VIEW.LAST_NAME`, `HR.EMP_DETAILS_VIEW.DEPARTMENT_NAME`, `HR.EMP_DETAILS_VIEW.JOB_TITLE`, `HR.EMP_DETAILS_VIEW.CITY`, `HR.EMP_DETAILS_VIEW.STATE_PROVINCE`, `HR.EMP_DETAILS_VIEW.COUNTRY_NAME`, `HR.EMP_DETAILS_VIEW.REGION_NAME`, `HR.EMPLOYEES.FIRST_NAME`, `HR.EMPLOYEES.LAST_NAME`, `HR.EMPLOYEES.EMAIL`, `HR.EMPLOYEES.PHONE_NUMBER`, `HR.EMPLOYEES.JOB_ID`, `HR.JOBS.JOB_ID`, `HR.JOBS.JOB_TITLE`, `HR.JOB_HISTORY.JOB_ID`, `HR.LOCATIONS.STREET_ADDRESS`, `HR.LOCATIONS.POSTAL_CODE`, `HR.LOCATIONS.CITY`, `HR.LOCATIONS.STATE_PROVINCE`, `HR.REGIONS.REGION_NAME`, `SH.FWEEK_PSCAT_SALES_MV.PROD_SUBCATEGORY`, `SH.CAL_MONTH_SALES_MV.CALENDAR_MONTH_DESC`, `SH.CHANNELS.CHANNEL_DESC`, `SH.CHANNELS.CHANNEL_CLASS`, `SH.CHANNELS.CHANNEL_TOTAL`, `SH.COUNTRIES.COUNTRY_NAME`, `SH.COUNTRIES.COUNTRY_SUBREGION`, `SH.COUNTRIES.COUNTRY_REGION`, `SH.COUNTRIES.COUNTRY_TOTAL`, `SH.CUSTOMERS.CUST_FIRST_NAME`, `SH.CUSTOMERS.CUST_LAST_NAME`, `SH.CUSTOMERS.CUST_MARITAL_STATUS`, `SH.CUSTOMERS.CUST_STREET_ADDRESS`, `SH.CUSTOMERS.CUST_POSTAL_CODE`, `SH.CUSTOMERS.CUST_CITY`, `SH.CUSTOMERS.CUST_STATE_PROVINCE`, `SH.CUSTOMERS.CUST_MAIN_PHONE_NUMBER`, `SH.CUSTOMERS.CUST_INCOME_LEVEL`, `SH.CUSTOMERS.CUST_EMAIL`, `SH.CUSTOMERS.CUST_TOTAL`, `SH.CUSTOMERS.CUST_VALID`, `SH.PRODUCTS.PROD_NAME`, `SH.PRODUCTS.PROD_DESC`, `SH.PRODUCTS.PROD_SUBCATEGORY`, `SH.PRODUCTS.PROD_SUBCATEGORY_DESC`, `SH.PRODUCTS.PROD_CATEGORY`, `SH.PRODUCTS.PROD_CATEGORY_DESC`, `SH.PRODUCTS.PROD_UNIT_OF_MEASURE`, `SH.PRODUCTS.PROD_PACK_SIZE`, `SH.PRODUCTS.PROD_STATUS`, `SH.PRODUCTS.PROD_TOTAL`, `SH.PRODUCTS.PROD_VALID`, `SH.PROMOTIONS.PROMO_NAME`, `SH.PROMOTIONS.PROMO_SUBCATEGORY`, `SH.PROMOTIONS.PROMO_CATEGORY`, `SH.PROMOTIONS.PROMO_TOTAL`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.EDUCATION`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.OCCUPATION`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.HOUSEHOLD_SIZE`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.COMMENTS`, `SH.TIMES.DAY_NAME`, `SH.TIMES.CALENDAR_MONTH_DESC`, `SH.TIMES.FISCAL_MONTH_DESC`, `SH.TIMES.CALENDAR_MONTH_NAME`, `SH.TIMES.FISCAL_MONTH_NAME`
 
 | link:{data-types}#GUID-85E0A0DD-9E90-4AE1-9AD5-93C89FDCFC49[`CHAR`]
@@ -246,49 +246,76 @@ None of these is embedded yet: each table maps the same columns as plain attribu
 
 |===
 
-[[enums-and-converters]]
-== Enums and converters
+[[enums]]
+== Enums
 
-[cols="2,2,3,3",options="header"]
+[cols="3,2,3,4",options="header"]
 |===
-| Column | Java type | Mapping | Applied
+| Column | Java type | Mapping | Note
 
 | `CO.ORDERS.ORDER_STATUS`
 | `MappedOrder.OrderStatus`
 | `@Enumerated(EnumType.STRING)`
-| yes
+| `VARCHAR2(10 CHAR)`; `orders_status_c` allows `CANCELLED`, `COMPLETE`, `OPEN`, `PAID`, `REFUNDED` and `SHIPPED`.
+Each value is a Java identifier, so `@Enumerated` reads the constant's name.
 
 | `CO.SHIPMENTS.SHIPMENT_STATUS`
 | `MappedShipment.ShipmentStatus`
-| `@Convert(converter = ShipmentStatusConverter.class)`, a nested `@Converter(autoApply = false)`
-| yes
+| `@Convert(converter = ShipmentStatusConverter.class)`
+| `VARCHAR2(100 CHAR)`; `shipment_status_c` allows `CREATED`, `SHIPPED`, `IN-TRANSIT` and `DELIVERED`.
+`IN-TRANSIT` is not a Java identifier, so no constant can be named after it, and `@Enumerated` cannot read it.
+The enum is an `AttributeEnum.OfString` whose attribute value is its `COLUMN_VALUE_SHIPMENT_STATUS_*` constant
+(`IN_TRANSIT` is `IN-TRANSIT`), and the converter, nested in `MappedShipment`, an
+`AttributeEnumConverter.OfString`, of `jinahya-persistence-more`.
+The converter redeclares `implements AttributeConverter<ShipmentStatus, String>`: EclipseLink 5.0 otherwise drops
+the `@Convert` without a word; see the book's `PERSISTENCE_PROVIDERS.asciidoc`.
 
-| `SH.TIMES.DAY_NAME`
-| `DayOfWeek`
-| `__TemporalAccessorTextStringAttributeConverters.OfDayOfWeek`
-| no, an exercise (issue #6)
-
-| `SH.TIMES.CALENDAR_MONTH_NAME`, `FISCAL_MONTH_NAME`
-| `Month`
-| `__TemporalAccessorTextStringAttributeConverters.OfMonth`
-| no, an exercise (issue #7)
-
-| `SH.TIMES.CALENDAR_MONTH_DESC`, `FISCAL_MONTH_DESC`
-| `YearMonth`
-| `__TemporalAccessorStringAttributeConverters.OfYearMonth`
-| no, an exercise (issue #8)
+| `CO.CUSTOMER_ORDER_PRODUCTS.ORDER_STATUS`, `CO.PRODUCT_ORDERS.ORDER_STATUS`, `CO.STORE_ORDERS.ORDER_STATUS`
+| `String`
+| -
+| The views' copies of `ORDERS.ORDER_STATUS`, mapped as `String`s; a view carries no check constraint.
+`OrderStatus` would read them too: the `STORE TOTAL` and `GRAND TOTAL` rows of `STORE_ORDERS`'s `GROUPING SETS`
+hold `NULL`, which an enum attribute reads as `null`.
 
 |===
 
-The three `SH` converters are `jinahya-persistence-more`'s, in
-`com.github.jinahya.persistence.more.converter.javatime`, and not the module's own: `OfDayOfWeek` and
-`OfMonth` write the full English name (`Monday`, `January`, `TextStyle.FULL_STANDALONE` in
-`Locale.ENGLISH`) and read it back ignoring case, and `OfYearMonth` writes and reads `uuuu-MM`
-(`2019-01`); a text which is neither fails with a `DateTimeParseException`. The module has the library
-at `test` scope only, so `MappedTime` (main) cannot name them, and keeps the columns as `String`s. Each
-unit of the test `persistence.xml` lists them (`...Converters$OfDayOfWeek`, ...), `TimeUtils` derives
-the `DayOfWeek`, `Month` or `YearMonth` through them, and `Time_AttributeConverters_Test` checks them
-against the form the columns hold. `SH.CAL_MONTH_SALES_MV.CALENDAR_MONTH_DESC` holds the same text as
-`TIMES.CALENDAR_MONTH_DESC`, but it is that view's `@Id`, which the specification excludes from
-attribute conversion.
+`ShipmentStatus`'s `Shipment_ShipmentStatus_Test` and its converter's `Shipment_ShipmentStatusConverter_Test` are
+`jinahya-persistence-more-test`'s `AttributeEnum_Test.OfStringTest` and `AttributeEnumConverter_Test.OfStringTest`;
+the first pins the column values to `shipment_status_c` through `expectedAttributeValues()`.
+
+[[converters]]
+== Converters
+
+Every converter which is not an enum's, with the attributes it converts:
+
+[cols="3,2,4,4",options="header"]
+|===
+| Converter | Java type | Columns | Note
+
+| `__TemporalAccessorTextStringAttributeConverters.OfDayOfWeek`
+| `DayOfWeek`
+| `SH.TIMES.DAY_NAME`
+| `jinahya-persistence-more`'s; `VARCHAR2(9)`, the full English name of the day (`Monday`), written in
+`TextStyle.FULL_STANDALONE` and `Locale.ENGLISH`, and read back ignoring case. No check limits the values.
+Listed by each unit of the test `persistence.xml`, but no attribute names it: `MappedTime` keeps the column as a
+`String`, and applying it is an exercise (issue #6).
+
+| `__TemporalAccessorTextStringAttributeConverters.OfMonth`
+| `Month`
+| `SH.TIMES.CALENDAR_MONTH_NAME`, `SH.TIMES.FISCAL_MONTH_NAME`
+| `jinahya-persistence-more`'s; `VARCHAR2(9)`, the full English name of the month (`January`). As `OfDayOfWeek`
+(issue #7).
+
+| `__TemporalAccessorStringAttributeConverters.OfYearMonth`
+| `YearMonth`
+| `SH.TIMES.CALENDAR_MONTH_DESC`, `SH.TIMES.FISCAL_MONTH_DESC`
+| `jinahya-persistence-more`'s; `VARCHAR2(8)`, the month as `uuuu-MM` (`2019-01`), which `YearMonth` parses and
+prints. As `OfDayOfWeek` (issue #8). `SH.CAL_MONTH_SALES_MV.CALENDAR_MONTH_DESC` holds the same text, but it is that
+view's `@Id`, which the specification excludes from attribute conversion.
+
+|===
+
+`TimeUtils` derives the `DayOfWeek`, `Month` and `YearMonth` of a `Time` through the three `SH` converters, and
+`Time_AttributeConverters_Test` and `TimeUtils_PersistenceIT`, over every row of `TIMES`, check them against the text
+the columns hold.
 
