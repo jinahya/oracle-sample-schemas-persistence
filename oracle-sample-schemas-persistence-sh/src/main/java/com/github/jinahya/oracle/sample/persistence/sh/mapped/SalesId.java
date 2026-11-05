@@ -22,25 +22,24 @@ package com.github.jinahya.oracle.sample.persistence.sh.mapped;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.function.Supplier;
 
 /**
- * A mapped superclass for the composite identifier of the {@value MappedSales#TABLE_NAME} table,
- * which an entity extending {@link MappedSales} maps with an
- * {@link jakarta.persistence.EmbeddedId @EmbeddedId}; a concrete identifier class extends this
- * class.
+ * The composite identifier of the {@value MappedSales#TABLE_NAME} table; the
+ * {@link jakarta.persistence.EmbeddedId @EmbeddedId} which {@link MappedSales} holds, every
+ * attribute of which an entity derives from an association with
+ * {@link jakarta.persistence.MapsId @MapsId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@MappedSuperclass
-public abstract class MappedSalesId {
+@Embeddable
+public class SalesId {
 
     /**
      * The name of the database table whose identifying columns this class maps. The value is
@@ -88,51 +87,19 @@ public abstract class MappedSalesId {
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
-    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
-
-    /**
-     * Creates a new instance of a subclass, with the specified column values.
-     *
-     * @param <T>          the type of the identifier.
-     * @param instantiator a supplier of a new, empty instance of {@code T}.
-     * @param prodId       the {@value MappedSales#COLUMN_NAME_PROD_ID} column value.
-     * @param custId       the {@value MappedSales#COLUMN_NAME_CUST_ID} column value.
-     * @param timeId       the {@value MappedSales#COLUMN_NAME_TIME_ID} column value.
-     * @param channelId    the {@value MappedSales#COLUMN_NAME_CHANNEL_ID} column value.
-     * @param promoId      the {@value MappedSales#COLUMN_NAME_PROMO_ID} column value.
-     * @return the instance supplied by {@code instantiator}, with its attributes set.
-     * @throws NullPointerException if {@code instantiator} is {@code null}, or it supplies
-     *                              {@code null}.
-     */
-    protected static <T extends MappedSalesId> T of(final Supplier<? extends T> instantiator,
-                                                    final Integer prodId,
-                                                    final Long custId,
-                                                    final LocalDateTime timeId,
-                                                    final Long channelId,
-                                                    final Integer promoId) {
-        Objects.requireNonNull(instantiator, "instantiator is null");
-        final T instance = Objects.requireNonNull(instantiator.get(), "instantiator.get() is null");
-        instance.setProdId(prodId);
-        instance.setCustId(custId);
-        instance.setTimeId(timeId);
-        instance.setChannelId(channelId);
-        instance.setPromoId(promoId);
-        return instance;
-    }
-
     // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
      */
-    protected MappedSalesId() {
+    public SalesId() {
         super();
     }
 
     // ---------------------------------------------------------------------------- java.lang.Object
 
     @Override
-    public final String toString() {
+    public String toString() {
         return super.toString() + '{' +
                "prodId=" + prodId +
                ",custId=" + custId +
@@ -153,14 +120,17 @@ public abstract class MappedSalesId {
      */
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedSalesId that)) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof SalesId that)) {
             return false;
         }
-        return Objects.equals(prodId, that.prodId)
-               && Objects.equals(custId, that.custId)
-               && Objects.equals(timeId, that.timeId)
-               && Objects.equals(channelId, that.channelId)
-               && Objects.equals(promoId, that.promoId);
+        return Objects.equals(getProdId(), that.getProdId())
+               && Objects.equals(getCustId(), that.getCustId())
+               && Objects.equals(getTimeId(), that.getTimeId())
+               && Objects.equals(getChannelId(), that.getChannelId())
+               && Objects.equals(getPromoId(), that.getPromoId());
     }
 
     /**
@@ -174,7 +144,7 @@ public abstract class MappedSalesId {
      */
     @Override
     public final int hashCode() {
-        return Objects.hash(prodId, custId, timeId, channelId, promoId);
+        return Objects.hash(getProdId(), getCustId(), getTimeId(), getChannelId(), getPromoId());
     }
 
     // -------------------------------------------------------------------------------------- prodId

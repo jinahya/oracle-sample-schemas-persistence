@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.persistence.sh;
+package com.github.jinahya.oracle.sample.persistence.sh.mapped;
 
 /*-
  * #%L
@@ -28,15 +28,15 @@ import uk.co.jemos.podam.api.PodamFactory;
 import java.util.List;
 
 /**
- * A randomizer which produces randomized {@link ProfitId} instances.
+ * A randomizer which produces randomized {@link FweekPscatSalesMvId} instances.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class ProfitId_Randomizer
-        extends PodamObjectRandomizer<ProfitId> {
+class FweekPscatSalesMvId_Randomizer
+        extends PodamObjectRandomizer<FweekPscatSalesMvId> {
 
-    ProfitId_Randomizer() {
-        super(ProfitId.class, List.of(
+    FweekPscatSalesMvId_Randomizer() {
+        super(FweekPscatSalesMvId.class, List.of(
 
         ));
     }
@@ -58,7 +58,7 @@ class ProfitId_Randomizer
     }
 
     @Override
-    public ProfitId get() {
+    public FweekPscatSalesMvId get() {
         return super.get();
     }
 }

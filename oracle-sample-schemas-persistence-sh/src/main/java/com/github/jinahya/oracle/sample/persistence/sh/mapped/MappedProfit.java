@@ -39,7 +39,7 @@ import java.util.Objects;
  * is mapped with an {@link jakarta.persistence.IdClass @IdClass}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see MappedProfitId
+ * @see ProfitId
  */
 @MappedSuperclass
 public abstract class MappedProfit {
@@ -418,11 +418,11 @@ public abstract class MappedProfit {
         if (!(obj instanceof MappedProfit that)) {
             return false;
         }
-        return Objects.equals(channelId, that.channelId)
-               && Objects.equals(custId, that.custId)
-               && Objects.equals(prodId, that.prodId)
-               && Objects.equals(promoId, that.promoId)
-               && Objects.equals(timeId, that.timeId);
+        return Objects.equals(getChannelId(), that.getChannelId())
+               && Objects.equals(getCustId(), that.getCustId())
+               && Objects.equals(getProdId(), that.getProdId())
+               && Objects.equals(getPromoId(), that.getPromoId())
+               && Objects.equals(getTimeId(), that.getTimeId());
     }
 
     /**
@@ -434,7 +434,7 @@ public abstract class MappedProfit {
      */
     @Override
     public final int hashCode() {
-        return Objects.hash(channelId, custId, prodId, promoId, timeId);
+        return Objects.hash(getChannelId(), getCustId(), getProdId(), getPromoId(), getTimeId());
     }
 
     // ----------------------------------------------------------------------------------- channelId

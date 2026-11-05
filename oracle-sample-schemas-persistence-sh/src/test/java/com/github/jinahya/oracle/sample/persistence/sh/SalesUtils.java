@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.SalesId;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
@@ -36,10 +37,10 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 
 /**
- * Utilities for {@link Sales}: readers of the components of its {@link Sales#getId() id}, kept out
- * of the entity so that they are not bean properties of it. There are no writers: a row gets its id
- * once, whole, through {@link SalesId#of(Integer, Long, java.time.LocalDateTime, Long, Integer)}
- * and {@link Sales#setId(SalesId)}.
+ * Utilities for {@link Sales}: readers of the components of its {@link Sales#getId_() id}, kept
+ * out of the entity so that they are not bean properties of it. There are no writers: the provider
+ * derives the id, whole, from the associations
+ * {@link Sales#of(Product, Customer, Time, Channel, Promotion)} sets, when the entity is persisted.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see Sales
@@ -80,7 +81,7 @@ public final class SalesUtils {
     /**
      * Returns current value of the {@value Sales#ATTRIBUTE_PATH_ID_PROD_ID} attribute of the
      * specified entity -- the {@value SalesId#ATTRIBUTE_NAME_PROD_ID} component of its
-     * {@link Sales#getId() id}.
+     * {@link Sales#getId_() id}.
      *
      * @param sales the entity.
      * @return the component; {@code null} when the id is {@code null}.
@@ -88,7 +89,7 @@ public final class SalesUtils {
      */
     public static Integer getIdProdId(final Sales sales) {
         Objects.requireNonNull(sales, "sales is null");
-        return Optional.ofNullable(sales.getId()).map(SalesId::getProdId).orElse(null);
+        return Optional.ofNullable(sales.getId_()).map(SalesId::getProdId).orElse(null);
     }
 
     // ----------------------------------------------------------------------------------- id.custId
@@ -96,7 +97,7 @@ public final class SalesUtils {
     /**
      * Returns current value of the {@value Sales#ATTRIBUTE_PATH_ID_CUST_ID} attribute of the
      * specified entity -- the {@value SalesId#ATTRIBUTE_NAME_CUST_ID} component of its
-     * {@link Sales#getId() id}.
+     * {@link Sales#getId_() id}.
      *
      * @param sales the entity.
      * @return the component; {@code null} when the id is {@code null}.
@@ -104,7 +105,7 @@ public final class SalesUtils {
      */
     public static Long getIdCustId(final Sales sales) {
         Objects.requireNonNull(sales, "sales is null");
-        return Optional.ofNullable(sales.getId()).map(SalesId::getCustId).orElse(null);
+        return Optional.ofNullable(sales.getId_()).map(SalesId::getCustId).orElse(null);
     }
 
     // ----------------------------------------------------------------------------------- id.timeId
@@ -112,7 +113,7 @@ public final class SalesUtils {
     /**
      * Returns current value of the {@value Sales#ATTRIBUTE_PATH_ID_TIME_ID} attribute of the
      * specified entity -- the {@value SalesId#ATTRIBUTE_NAME_TIME_ID} component of its
-     * {@link Sales#getId() id}.
+     * {@link Sales#getId_() id}.
      *
      * @param sales the entity.
      * @return the component; {@code null} when the id is {@code null}.
@@ -120,7 +121,7 @@ public final class SalesUtils {
      */
     public static LocalDateTime getIdTimeId(final Sales sales) {
         Objects.requireNonNull(sales, "sales is null");
-        return Optional.ofNullable(sales.getId()).map(SalesId::getTimeId).orElse(null);
+        return Optional.ofNullable(sales.getId_()).map(SalesId::getTimeId).orElse(null);
     }
 
     // -------------------------------------------------------------------------------- id.channelId
@@ -128,7 +129,7 @@ public final class SalesUtils {
     /**
      * Returns current value of the {@value Sales#ATTRIBUTE_PATH_ID_CHANNEL_ID} attribute of the
      * specified entity -- the {@value SalesId#ATTRIBUTE_NAME_CHANNEL_ID} component of its
-     * {@link Sales#getId() id}.
+     * {@link Sales#getId_() id}.
      *
      * @param sales the entity.
      * @return the component; {@code null} when the id is {@code null}.
@@ -136,7 +137,7 @@ public final class SalesUtils {
      */
     public static Long getIdChannelId(final Sales sales) {
         Objects.requireNonNull(sales, "sales is null");
-        return Optional.ofNullable(sales.getId()).map(SalesId::getChannelId).orElse(null);
+        return Optional.ofNullable(sales.getId_()).map(SalesId::getChannelId).orElse(null);
     }
 
     // ---------------------------------------------------------------------------------- id.promoId
@@ -144,7 +145,7 @@ public final class SalesUtils {
     /**
      * Returns current value of the {@value Sales#ATTRIBUTE_PATH_ID_PROMO_ID} attribute of the
      * specified entity -- the {@value SalesId#ATTRIBUTE_NAME_PROMO_ID} component of its
-     * {@link Sales#getId() id}.
+     * {@link Sales#getId_() id}.
      *
      * @param sales the entity.
      * @return the component; {@code null} when the id is {@code null}.
@@ -152,7 +153,7 @@ public final class SalesUtils {
      */
     public static Integer getIdPromoId(final Sales sales) {
         Objects.requireNonNull(sales, "sales is null");
-        return Optional.ofNullable(sales.getId()).map(SalesId::getPromoId).orElse(null);
+        return Optional.ofNullable(sales.getId_()).map(SalesId::getPromoId).orElse(null);
     }
 
     // -------------------------------------------------------------------------------- quantitySold

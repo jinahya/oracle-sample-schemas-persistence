@@ -23,20 +23,20 @@ package com.github.jinahya.oracle.sample.persistence.co.mapped;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
 /**
- * A mapped superclass for the identifier of the {@value MappedOrderItem#TABLE_NAME} table; the
+ * The composite identifier of the {@value MappedOrderItem#TABLE_NAME} table; the
  * {@link jakarta.persistence.EmbeddedId @EmbeddedId} of an entity which extends
  * {@link MappedOrderItem}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@MappedSuperclass
-public abstract class MappedOrderItemId {
+@Embeddable
+public class OrderItemId {
 
     /**
      * The name of the attribute which maps the {@value MappedOrderItem#COLUMN_NAME_ORDER_ID}
@@ -55,7 +55,7 @@ public abstract class MappedOrderItemId {
     /**
      * Creates a new instance.
      */
-    protected MappedOrderItemId() {
+    public OrderItemId() {
         super();
     }
 
@@ -79,11 +79,14 @@ public abstract class MappedOrderItemId {
      */
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedOrderItemId that)) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof OrderItemId that)) {
             return false;
         }
-        return Objects.equals(orderId, that.orderId)
-               && Objects.equals(lineItemId, that.lineItemId);
+        return Objects.equals(getOrderId(), that.getOrderId())
+               && Objects.equals(getLineItemId(), that.getLineItemId());
     }
 
     /**
@@ -95,7 +98,7 @@ public abstract class MappedOrderItemId {
      */
     @Override
     public final int hashCode() {
-        return Objects.hash(orderId, lineItemId);
+        return Objects.hash(getOrderId(), getLineItemId());
     }
 
     // ------------------------------------------------------------------------------------- orderId
@@ -116,7 +119,7 @@ public abstract class MappedOrderItemId {
      *
      * @param orderId new value for {@value #ATTRIBUTE_NAME_ORDER_ID} attribute.
      */
-    protected void setOrderId(@Nonnull final Long orderId) {
+    public void setOrderId(@Nonnull final Long orderId) {
         this.orderId = orderId;
     }
 
@@ -138,7 +141,7 @@ public abstract class MappedOrderItemId {
      *
      * @param lineItemId new value for {@value #ATTRIBUTE_NAME_LINE_ITEM_ID} attribute.
      */
-    protected void setLineItemId(@Nonnull final Long lineItemId) {
+    public void setLineItemId(@Nonnull final Long lineItemId) {
         this.lineItemId = lineItemId;
     }
 

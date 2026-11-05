@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.ProfitId;
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.MappedProfit;
 
 import jakarta.persistence.Entity;
@@ -68,16 +69,5 @@ public class Profit
      */
     protected Profit() {
         super();
-    }
-
-    // ------------------------------------------------------------------------------------------ id
-
-    /**
-     * Returns a new {@link ProfitId} holding current values of the identifying attributes.
-     *
-     * @return a new {@link ProfitId} holding current values of the identifying attributes.
-     */
-    public ProfitId getId() {
-        return ProfitId.of(getChannelId(), getCustId(), getProdId(), getPromoId(), getTimeId());
     }
 }

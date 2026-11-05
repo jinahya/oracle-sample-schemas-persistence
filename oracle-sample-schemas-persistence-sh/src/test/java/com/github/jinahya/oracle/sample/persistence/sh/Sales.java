@@ -21,20 +21,24 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  */
 
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.MappedSales;
-
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.SalesId;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Objects;
+
 /**
  * An entity class for mapping the {@value Sales#TABLE_NAME} table, whose composite identifier is
- * mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
+ * mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId} which each of its five
+ * associations writes, through {@link MapsId @MapsId}.
  * <p>
  * The table declares no primary key; the five dimension columns are its grain, and the
  * {@code CANDIDATE_KEYS} section of {@code src/test/sql/SALES.sql} is what measured them.
@@ -53,21 +57,21 @@ import jakarta.validation.constraints.NotNull;
             query = """
                     SELECT e
                     FROM Sales e
-                    WHERE e.id.prodId = :prodId
-                      AND e.id.custId = :custId
-                      AND e.id.timeId = :timeId
-                      AND e.id.channelId = :channelId
-                      AND e.id.promoId = :promoId"""
+                    WHERE e.id_.prodId = :prodId
+                      AND e.id_.custId = :custId
+                      AND e.id_.timeId = :timeId
+                      AND e.id_.channelId = :channelId
+                      AND e.id_.promoId = :promoId"""
 )
 @NamedQuery(name = "Sales.selectListOrderByProdIdAscCustIdAscTimeIdAscChannelIdAscPromoIdAsc",
             query = """
                     SELECT e
                     FROM Sales e
-                    ORDER BY e.id.prodId ASC,
-                             e.id.custId ASC,
-                             e.id.timeId ASC,
-                             e.id.channelId ASC,
-                             e.id.promoId ASC"""
+                    ORDER BY e.id_.prodId ASC,
+                             e.id_.custId ASC,
+                             e.id_.timeId ASC,
+                             e.id_.channelId ASC,
+                             e.id_.promoId ASC"""
 )
 @NamedQuery(name = "Sales.countAll",
             query = """
@@ -79,7 +83,10 @@ import jakarta.validation.constraints.NotNull;
                     SELECT e
                     FROM Sales e
                     WHERE e.product = :product
-                    ORDER BY e.id.custId ASC, e.id.timeId ASC, e.id.channelId ASC, e.id.promoId ASC"""
+                    ORDER BY e.id_.custId ASC,
+                             e.id_.timeId ASC,
+                             e.id_.channelId ASC,
+                             e.id_.promoId ASC"""
 )
 @NamedQuery(name = "Sales.countByProduct",
             query = """
@@ -92,7 +99,10 @@ import jakarta.validation.constraints.NotNull;
                     SELECT e
                     FROM Sales e
                     WHERE e.customer = :customer
-                    ORDER BY e.id.prodId ASC, e.id.timeId ASC, e.id.channelId ASC, e.id.promoId ASC"""
+                    ORDER BY e.id_.prodId ASC,
+                             e.id_.timeId ASC,
+                             e.id_.channelId ASC,
+                             e.id_.promoId ASC"""
 )
 @NamedQuery(name = "Sales.countByCustomer",
             query = """
@@ -105,7 +115,10 @@ import jakarta.validation.constraints.NotNull;
                     SELECT e
                     FROM Sales e
                     WHERE e.time = :time
-                    ORDER BY e.id.prodId ASC, e.id.custId ASC, e.id.channelId ASC, e.id.promoId ASC"""
+                    ORDER BY e.id_.prodId ASC,
+                             e.id_.custId ASC,
+                             e.id_.channelId ASC,
+                             e.id_.promoId ASC"""
 )
 @NamedQuery(name = "Sales.countByTime",
             query = """
@@ -118,7 +131,10 @@ import jakarta.validation.constraints.NotNull;
                     SELECT e
                     FROM Sales e
                     WHERE e.channel = :channel
-                    ORDER BY e.id.prodId ASC, e.id.custId ASC, e.id.timeId ASC, e.id.promoId ASC"""
+                    ORDER BY e.id_.prodId ASC,
+                             e.id_.custId ASC,
+                             e.id_.timeId ASC,
+                             e.id_.promoId ASC"""
 )
 @NamedQuery(name = "Sales.countByChannel",
             query = """
@@ -131,7 +147,10 @@ import jakarta.validation.constraints.NotNull;
                     SELECT e
                     FROM Sales e
                     WHERE e.promotion = :promotion
-                    ORDER BY e.id.prodId ASC, e.id.custId ASC, e.id.timeId ASC, e.id.channelId ASC"""
+                    ORDER BY e.id_.prodId ASC,
+                             e.id_.custId ASC,
+                             e.id_.timeId ASC,
+                             e.id_.channelId ASC"""
 )
 @NamedQuery(name = "Sales.countByPromotion",
             query = """
@@ -176,6 +195,34 @@ public class Sales
      */
     public static final String ATTRIBUTE_NAME_PROMOTION = "promotion";
 
+    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
+
+    /**
+     * Creates a new instance with the specified associations, which the identifier derives from.
+     *
+     * @param product   a value for the {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
+     * @param customer  a value for the {@value #ATTRIBUTE_NAME_CUSTOMER} attribute.
+     * @param time      a value for the {@value #ATTRIBUTE_NAME_TIME} attribute.
+     * @param channel   a value for the {@value #ATTRIBUTE_NAME_CHANNEL} attribute.
+     * @param promotion a value for the {@value #ATTRIBUTE_NAME_PROMOTION} attribute.
+     * @return a new instance; its identifier is {@code null} until it is persisted.
+     */
+    public static Sales of(final Product product, final Customer customer, final Time time,
+                           final Channel channel, final Promotion promotion) {
+        Objects.requireNonNull(product, "product is null");
+        Objects.requireNonNull(customer, "customer is null");
+        Objects.requireNonNull(time, "time is null");
+        Objects.requireNonNull(channel, "channel is null");
+        Objects.requireNonNull(promotion, "promotion is null");
+        final var instance = new Sales();
+        instance.product = product;
+        instance.customer = customer;
+        instance.time = time;
+        instance.channel = channel;
+        instance.promotion = promotion;
+        return instance;
+    }
+
     // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -185,25 +232,19 @@ public class Sales
         super();
     }
 
-    // ------------------------------------------------------------------------------------------ id
+    // ----------------------------------------------------------------------------------------- id_
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * {@inheritDoc}
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * @return {@inheritDoc}
+     * @implNote {@code public}, for {@link SalesUtils}, which reads the components of the
+     *         identifier. There is no setter: the provider derives the identifier from the
+     *         associations.
      */
     @Override
-    public SalesId getId() {
-        return id;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ID} attribute with the specified value.
-     *
-     * @param id new value for {@value #ATTRIBUTE_NAME_ID} attribute.
-     */
-    public void setId(final SalesId id) {
-        this.id = id;
+    public SalesId getId_() {
+        return id_;
     }
 
     // ------------------------------------------------------------------------------------- product
@@ -217,20 +258,6 @@ public class Sales
         return product;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute with the specified
-     * value.
-     * <p>
-     * The {@value #COLUMN_NAME_PROD_ID} column is written by the {@link #getId() id}, and this
-     * association only reads it back, so the new value changes what this instance refers to and
-     * nothing in the database; the id is what decides the row.
-     *
-     * @param product new value for {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
-     */
-    public void setProduct(final Product product) {
-        this.product = product;
-    }
-
     // ------------------------------------------------------------------------------------ customer
 
     /**
@@ -240,20 +267,6 @@ public class Sales
      */
     public Customer getCustomer() {
         return customer;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CUSTOMER} attribute with the specified
-     * value.
-     * <p>
-     * The {@value #COLUMN_NAME_CUST_ID} column is written by the {@link #getId() id}, and this
-     * association only reads it back, so the new value changes what this instance refers to and
-     * nothing in the database; the id is what decides the row.
-     *
-     * @param customer new value for {@value #ATTRIBUTE_NAME_CUSTOMER} attribute.
-     */
-    public void setCustomer(final Customer customer) {
-        this.customer = customer;
     }
 
     // ---------------------------------------------------------------------------------------- time
@@ -267,19 +280,6 @@ public class Sales
         return time;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_TIME} attribute with the specified value.
-     * <p>
-     * The {@value #COLUMN_NAME_TIME_ID} column is written by the {@link #getId() id}, and this
-     * association only reads it back, so the new value changes what this instance refers to and
-     * nothing in the database; the id is what decides the row.
-     *
-     * @param time new value for {@value #ATTRIBUTE_NAME_TIME} attribute.
-     */
-    public void setTime(final Time time) {
-        this.time = time;
-    }
-
     // ------------------------------------------------------------------------------------- channel
 
     /**
@@ -289,20 +289,6 @@ public class Sales
      */
     public Channel getChannel() {
         return channel;
-    }
-
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_CHANNEL} attribute with the specified
-     * value.
-     * <p>
-     * The {@value #COLUMN_NAME_CHANNEL_ID} column is written by the {@link #getId() id}, and this
-     * association only reads it back, so the new value changes what this instance refers to and
-     * nothing in the database; the id is what decides the row.
-     *
-     * @param channel new value for {@value #ATTRIBUTE_NAME_CHANNEL} attribute.
-     */
-    public void setChannel(final Channel channel) {
-        this.channel = channel;
     }
 
     // ----------------------------------------------------------------------------------- promotion
@@ -316,89 +302,71 @@ public class Sales
         return promotion;
     }
 
-    /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_PROMOTION} attribute with the specified
-     * value.
-     * <p>
-     * The {@value #COLUMN_NAME_PROMO_ID} column is written by the {@link #getId() id}, and this
-     * association only reads it back, so the new value changes what this instance refers to and
-     * nothing in the database; the id is what decides the row.
-     *
-     * @param promotion new value for {@value #ATTRIBUTE_NAME_PROMOTION} attribute.
-     */
-    public void setPromotion(final Promotion promotion) {
-        this.promotion = promotion;
-    }
+    // ---------------------------------------------------------------------------------------------
+    // no @NotNull: the provider fills it from the @MapsId associations at flush, later than the
+    // prePersist at which EclipseLink validates. Each of its attributes is still @NotNull, and the
+    // associations which write them are.
+    @Valid
+    @EmbeddedId
+    private SalesId id_;
 
     // ---------------------------------------------------------------------------------------------
-
     @Valid
     @NotNull
-    @EmbeddedId
-    private SalesId id;
-
-    @Valid
-    // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column
-    // stays NOT
-    // NULL, and @ManyToOne(optional = false) still says so to the provider.
+    @MapsId(SalesId.ATTRIBUTE_NAME_PROD_ID)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_PROD_ID,
                 referencedColumnName = Product.COLUMN_NAME_PROD_ID,
                 nullable = false,
-                insertable = false,
+                insertable = true,
                 updatable = false)
     private Product product;
 
+    // ---------------------------------------------------------------------------------------------
     @Valid
-    // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column
-    // stays NOT
-    // NULL, and @ManyToOne(optional = false) still says so to the provider.
+    @NotNull
+    @MapsId(SalesId.ATTRIBUTE_NAME_CUST_ID)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_CUST_ID,
                 referencedColumnName = Customer.COLUMN_NAME_CUST_ID,
                 nullable = false,
-                insertable = false,
+                insertable = true,
                 updatable = false)
     private Customer customer;
 
+    // ---------------------------------------------------------------------------------------------
     @Valid
-    // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column
-    // stays NOT
-    // NULL, and @ManyToOne(optional = false) still says so to the provider.
+    @NotNull
+    @MapsId(SalesId.ATTRIBUTE_NAME_TIME_ID)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_TIME_ID,
                 referencedColumnName = Time.COLUMN_NAME_TIME_ID,
                 nullable = false,
-                insertable = false,
+                insertable = true,
                 updatable = false)
     private Time time;
 
+    // ---------------------------------------------------------------------------------------------
     @Valid
-    // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column
-    // stays NOT
-    // NULL, and @ManyToOne(optional = false) still says so to the provider.
+    @NotNull
+    @MapsId(SalesId.ATTRIBUTE_NAME_CHANNEL_ID)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_CHANNEL_ID,
                 referencedColumnName = Channel.COLUMN_NAME_CHANNEL_ID,
                 nullable = false,
-                insertable = false,
+                insertable = true,
                 updatable = false)
     private Channel channel;
 
+    // ---------------------------------------------------------------------------------------------
     @Valid
-    // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column
-    // stays NOT
-    // NULL, and @ManyToOne(optional = false) still says so to the provider.
+    @NotNull
+    @MapsId(SalesId.ATTRIBUTE_NAME_PROMO_ID)
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_PROMO_ID,
                 referencedColumnName = Promotion.COLUMN_NAME_PROMO_ID,
                 nullable = false,
-                insertable = false,
+                insertable = true,
                 updatable = false)
     private Promotion promotion;
 }

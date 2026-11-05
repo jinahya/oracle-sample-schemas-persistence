@@ -27,10 +27,10 @@ import jakarta.persistence.EntityManager;
 import java.util.stream.LongStream;
 
 /**
- * A persister which persists {@link Sales} instances. Each instance is first given newly persisted
- * {@link Product}, {@link Customer}, {@link Time}, {@link Channel} and {@link Promotion} rows, and
- * their keys copied into the composite identifier, because every column of that identifier is a
- * foreign key.
+ * A persister which persists {@link Sales} instances. It persists a new {@link Product},
+ * {@link Customer}, {@link Time}, {@link Channel} and {@link Promotion}, creates an instance of
+ * them with {@link Sales#of(Product, Customer, Time, Channel, Promotion)}, whose identifier the
+ * provider derives from them, and copies into it what the randomizer filled.
  * <p>
  * The {@link Channel} is the exception: {@code CHANNELS.CHANNEL_ID} is an unbounded {@code NUMBER},
  * while the {@code SALES.CHANNEL_ID} referencing it holds
@@ -86,20 +86,19 @@ class Sales_Persister
      */
     @Override
     public Sales apply(final EntityManager entityManager, final Sales entityInstance) {
-        final var prodId = EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class)
-                .getProdId();
-        final var custId =
-                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Customer.class)
-                        .getCustId();
-        final var timeId =
-                Time_Persister.newPersistedInstanceBeforeEarliest(entityManager).getTimeId();
+        final var product =
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class);
+        final var customer =
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Customer.class);
+        final var time = Time_Persister.newPersistedInstanceBeforeEarliest(entityManager);
         final var channel = new Channel_Randomizer().get();
         channel.setChannelId(freeChannelId(entityManager));
-        final var channelId = new Channel_Persister().apply(entityManager, channel).getChannelId();
-        final var promoId =
-                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Promotion.class)
-                        .getPromoId();
-        entityInstance.setId(SalesId.of(prodId, custId, timeId, channelId, promoId));
-        return super.apply(entityManager, entityInstance);
+        new Channel_Persister().apply(entityManager, channel);
+        final var promotion =
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Promotion.class);
+        final var instance = Sales.of(product, customer, time, channel, promotion);
+        instance.setQuantitySold(entityInstance.getQuantitySold());
+        instance.setAmountSold(entityInstance.getAmountSold());
+        return super.apply(entityManager, instance);
     }
 }

@@ -42,7 +42,7 @@ import java.util.function.Function;
 /**
  * A mapped superclass which holds the mappings of the {@value MappedJobHistory#TABLE_NAME} table,
  * whose composite primary key an extending entity maps with an
- * {@link jakarta.persistence.IdClass @IdClass} of a subclass of {@link MappedJobHistoryId}.
+ * {@link jakarta.persistence.IdClass @IdClass}, a {@link JobHistoryId}.
  * <p>
  * Rows of the table are written by the database's {@code UPDATE_JOB_HISTORY} trigger, which fires
  * when an employee's job or department changes, with the employee's previous {@code HIRE_DATE} as
@@ -59,7 +59,7 @@ import java.util.function.Function;
  * {@value #COLUMN_NAME_EMPLOYEE_ID}, are mapped is the extending entity's decision.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see MappedJobHistoryId
+ * @see JobHistoryId
  */
 @MappedSuperclass
 @OraComment("Table that stores job history of the employees. If an employee\n" +
@@ -367,7 +367,7 @@ public abstract class MappedJobHistory {
      * @return current value of {@value #ATTRIBUTE_NAME_EMPLOYEE_ID} attribute.
      */
     @Nonnull
-    public Integer getEmployeeId() {
+    protected Integer getEmployeeId() {
         return employeeId;
     }
 

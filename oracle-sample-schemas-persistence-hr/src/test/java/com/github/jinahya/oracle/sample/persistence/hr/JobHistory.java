@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.hr.mapped.JobHistoryId;
 import com.github.jinahya.oracle.sample.persistence.hr.mapped.MappedJobHistory;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;

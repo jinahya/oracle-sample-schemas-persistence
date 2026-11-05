@@ -54,12 +54,14 @@ class OrderItem_Persister
         final Shipment shipment = ThreadLocalRandom.current().nextBoolean() ? null :
                 EntityPersisterUtils.newPersistedInstanceOf(entityManager, Shipment.class);
         entityManager.flush();
-        entityInstance.setOrder(order);
-        entityInstance.setProduct(product);
-        entityInstance.setShipment(shipment);
         // LINE_ITEM_ID is not generated -- it numbers the item within its order -- so nothing
         // but this assigns it.
-        entityInstance.getId().setLineItemId(ThreadLocalRandom.current().nextLong(1, 100));
-        return super.apply(entityManager, entityInstance);
+        final var instance =
+                OrderItem.of(order, ThreadLocalRandom.current().nextLong(1, 100));
+        instance.setProduct(product);
+        instance.setShipment(shipment);
+        instance.setUnitPrice(entityInstance.getUnitPrice());
+        instance.setQuantity(entityInstance.getQuantity());
+        return super.apply(entityManager, instance);
     }
 }

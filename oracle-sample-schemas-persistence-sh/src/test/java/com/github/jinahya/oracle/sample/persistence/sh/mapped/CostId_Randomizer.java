@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.persistence.hr;
+package com.github.jinahya.oracle.sample.persistence.sh.mapped;
 
 /*-
  * #%L
- * hr
+ * sh
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
@@ -28,18 +28,15 @@ import uk.co.jemos.podam.api.PodamFactory;
 import java.util.List;
 
 /**
- * A randomizer which produces randomized {@link JobHistoryId} instances.
- * <p>
- * Nothing is excluded from randomization: the class holds only the two columns of the composite
- * key.
+ * A randomizer which produces randomized {@link CostId} instances.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class JobHistoryId_Randomizer
-        extends PodamObjectRandomizer<JobHistoryId> {
+class CostId_Randomizer
+        extends PodamObjectRandomizer<CostId> {
 
-    JobHistoryId_Randomizer() {
-        super(JobHistoryId.class, List.of(
+    CostId_Randomizer() {
+        super(CostId.class, List.of(
 
         ));
     }
@@ -61,7 +58,7 @@ class JobHistoryId_Randomizer
     }
 
     @Override
-    public JobHistoryId get() {
+    public CostId get() {
         return super.get();
     }
 }

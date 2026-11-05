@@ -54,15 +54,14 @@ class Cost_Persister
      */
     @Override
     public Cost apply(final EntityManager entityManager, final Cost entityInstance) {
-        entityInstance.setId(CostId.of(
-                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class)
-                        .getProdId(),
-                Time_Persister.newPersistedInstanceBeforeEarliest(entityManager).getTimeId(),
-                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Promotion.class)
-                        .getPromoId(),
+        final var instance = Cost.of(
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Product.class),
+                Time_Persister.newPersistedInstanceBeforeEarliest(entityManager),
+                EntityPersisterUtils.newPersistedInstanceOf(entityManager, Promotion.class),
                 EntityPersisterUtils.newPersistedInstanceOf(entityManager, Channel.class)
-                        .getChannelId()
-        ));
-        return super.apply(entityManager, entityInstance);
+        );
+        instance.setUnitCost(entityInstance.getUnitCost());
+        instance.setUnitPrice(entityInstance.getUnitPrice());
+        return super.apply(entityManager, instance);
     }
 }

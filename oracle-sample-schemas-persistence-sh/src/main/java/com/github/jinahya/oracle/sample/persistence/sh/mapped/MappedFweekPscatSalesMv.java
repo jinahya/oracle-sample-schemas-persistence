@@ -32,7 +32,7 @@ import java.util.Objects;
  * whose composite identifier is mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see MappedFweekPscatSalesMvId
+ * @see FweekPscatSalesMvId
  */
 @MappedSuperclass
 public abstract class MappedFweekPscatSalesMv {
@@ -47,7 +47,7 @@ public abstract class MappedFweekPscatSalesMv {
 
     /**
      * The name of the materialized view column to which the
-     * {@value MappedFweekPscatSalesMvId#ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute maps. The value
+     * {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_WEEK_ENDING_DAY} attribute maps. The value
      * is {@value}.
      */
     public static final String COLUMN_NAME_WEEK_ENDING_DAY = "WEEK_ENDING_DAY";
@@ -57,13 +57,13 @@ public abstract class MappedFweekPscatSalesMv {
      * path into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
      * actually lives. The value is {@value}.
      */
-    public static final String ATTRIBUTE_PATH_ID_WEEK_ENDING_DAY = "id.weekEndingDay";
+    public static final String ATTRIBUTE_PATH_ID_WEEK_ENDING_DAY = "id_.weekEndingDay";
 
     // ---------------------------------------------------------------------------- PROD_SUBCATEGORY
 
     /**
      * The name of the materialized view column to which the
-     * {@value MappedFweekPscatSalesMvId#ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute maps. The value
+     * {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_PROD_SUBCATEGORY} attribute maps. The value
      * is {@value}.
      */
     public static final String COLUMN_NAME_PROD_SUBCATEGORY = "PROD_SUBCATEGORY";
@@ -74,7 +74,7 @@ public abstract class MappedFweekPscatSalesMv {
     public static final int COLUMN_LENGTH_PROD_SUBCATEGORY = 50;
 
     /**
-     * The maximum size of the {@value MappedFweekPscatSalesMvId#ATTRIBUTE_NAME_PROD_SUBCATEGORY}
+     * The maximum size of the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_PROD_SUBCATEGORY}
      * attribute. The value is {@value}.
      */
     public static final int SIZE_MAX_PROD_SUBCATEGORY = COLUMN_LENGTH_PROD_SUBCATEGORY;
@@ -84,7 +84,7 @@ public abstract class MappedFweekPscatSalesMv {
      * path into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
      * actually lives. The value is {@value}.
      */
-    public static final String ATTRIBUTE_PATH_ID_PROD_SUBCATEGORY = "id.prodSubcategory";
+    public static final String ATTRIBUTE_PATH_ID_PROD_SUBCATEGORY = "id_.prodSubcategory";
 
     // ------------------------------------------------------------------------------------- DOLLARS
 
@@ -104,7 +104,7 @@ public abstract class MappedFweekPscatSalesMv {
 
     /**
      * The name of the materialized view column to which the
-     * {@value MappedFweekPscatSalesMvId#ATTRIBUTE_NAME_CHANNEL_ID} attribute maps. The value is
+     * {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_CHANNEL_ID} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
@@ -114,7 +114,7 @@ public abstract class MappedFweekPscatSalesMv {
      * into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
      * actually lives. The value is {@value}.
      */
-    public static final String ATTRIBUTE_PATH_ID_CHANNEL_ID = "id.channelId";
+    public static final String ATTRIBUTE_PATH_ID_CHANNEL_ID = "id_.channelId";
 
     /**
      * The precision of the {@value #COLUMN_NAME_CHANNEL_ID} column. The value is {@value}.
@@ -137,13 +137,13 @@ public abstract class MappedFweekPscatSalesMv {
     public static final int COLUMN_MAX_CHANNEL_ID = +9;
 
     /**
-     * The minimum value of the {@value MappedFweekPscatSalesMvId#ATTRIBUTE_NAME_CHANNEL_ID}
+     * The minimum value of the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_CHANNEL_ID}
      * attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_CHANNEL_ID = COLUMN_MIN_CHANNEL_ID;
 
     /**
-     * The maximum value of the {@value MappedFweekPscatSalesMvId#ATTRIBUTE_NAME_CHANNEL_ID}
+     * The maximum value of the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_CHANNEL_ID}
      * attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_CHANNEL_ID = COLUMN_MAX_CHANNEL_ID;
@@ -152,7 +152,7 @@ public abstract class MappedFweekPscatSalesMv {
 
     /**
      * The name of the materialized view column to which the
-     * {@value MappedFweekPscatSalesMvId#ATTRIBUTE_NAME_PROMO_ID} attribute maps. The value is
+     * {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_PROMO_ID} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
@@ -162,7 +162,7 @@ public abstract class MappedFweekPscatSalesMv {
      * the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually
      * lives. The value is {@value}.
      */
-    public static final String ATTRIBUTE_PATH_ID_PROMO_ID = "id.promoId";
+    public static final String ATTRIBUTE_PATH_ID_PROMO_ID = "id_.promoId";
 
     /**
      * The precision of the {@value #COLUMN_NAME_PROMO_ID} column. The value is {@value}.
@@ -185,24 +185,24 @@ public abstract class MappedFweekPscatSalesMv {
     public static final int COLUMN_MAX_PROMO_ID = +999999;
 
     /**
-     * The minimum value of the {@value MappedFweekPscatSalesMvId#ATTRIBUTE_NAME_PROMO_ID}
+     * The minimum value of the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_PROMO_ID}
      * attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_PROMO_ID = COLUMN_MIN_PROMO_ID;
 
     /**
-     * The maximum value of the {@value MappedFweekPscatSalesMvId#ATTRIBUTE_NAME_PROMO_ID}
+     * The maximum value of the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_PROMO_ID}
      * attribute. The value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_PROMO_ID = COLUMN_MAX_PROMO_ID;
 
-    // ------------------------------------------------------------------------------------------ id
+    // ----------------------------------------------------------------------------------------- id_
 
     /**
      * The name of the attribute which maps the identifying columns, as an
      * {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value is {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID = "id";
+    public static final String ATTRIBUTE_NAME_ID_ = "id_";
 
     // -------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -218,7 +218,7 @@ public abstract class MappedFweekPscatSalesMv {
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + getId() +
+               "id_=" + getId_() +
                ",dollars=" + dollars +
                '}';
     }
@@ -228,14 +228,24 @@ public abstract class MappedFweekPscatSalesMv {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the {@code @Id} alone.
+     * @implSpec Equality is by the {@code @EmbeddedId} alone, and holds only once each of its
+     *         attributes is assigned.
      */
     @Override
     public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (!(obj instanceof MappedFweekPscatSalesMv that)) {
             return false;
         }
-        return Objects.equals(getId(), that.getId());
+        final var id = getId_();
+        return id != null
+               && id.getWeekEndingDay() != null
+               && id.getProdSubcategory() != null
+               && id.getChannelId() != null
+               && id.getPromoId() != null
+               && id.equals(that.getId_());
     }
 
     /**
@@ -246,20 +256,19 @@ public abstract class MappedFweekPscatSalesMv {
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(getId_());
     }
 
-    // ------------------------------------------------------------------------------------------ id
+    // ----------------------------------------------------------------------------------------- id_
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_ID_} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_ID_} attribute.
      * @implSpec The extending entity declares the
-     *         {@link jakarta.persistence.EmbeddedId @EmbeddedId} attribute, of a concrete subclass
-     *         of {@link MappedFweekPscatSalesMvId}, and returns it.
+     *         {@link jakarta.persistence.EmbeddedId @EmbeddedId} attribute, and returns it.
      */
-    public abstract MappedFweekPscatSalesMvId getId();
+    protected abstract FweekPscatSalesMvId getId_();
 
     // ------------------------------------------------------------------------------------- dollars
 

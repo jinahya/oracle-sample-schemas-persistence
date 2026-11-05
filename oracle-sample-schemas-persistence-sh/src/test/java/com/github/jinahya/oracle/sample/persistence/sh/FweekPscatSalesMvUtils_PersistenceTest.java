@@ -20,16 +20,18 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.object.randomizer.ObjectRandomizerUtils;
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.FweekPscatSalesMvId;
 import com.github.jinahya.persistence.util.JinahyaEntityManagerUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.function.Function;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
+
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,6 +44,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class FweekPscatSalesMvUtils_PersistenceTest {
+
+    private static FweekPscatSalesMvId randomizedId() {
+        return ObjectRandomizerUtils.newRandomizedInstanceOf(FweekPscatSalesMvId.class)
+                .orElseThrow();
+    }
+
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Sets the named field of the specified instance reflectively, for an entity which exposes no
@@ -72,8 +81,8 @@ class FweekPscatSalesMvUtils_PersistenceTest {
     }
 
     private static FweekPscatSalesMv persistAndReload(final EntityManager em) {
-        em.persist(withField(new FweekPscatSalesMv(), FweekPscatSalesMv.ATTRIBUTE_NAME_ID,
-                             new FweekPscatSalesMvId_Randomizer().get()));
+        em.persist(withField(new FweekPscatSalesMv(), FweekPscatSalesMv.ATTRIBUTE_NAME_ID_,
+                             randomizedId()));
         em.flush();
         em.clear();
         return em.createQuery("SELECT e FROM FweekPscatSalesMv e", FweekPscatSalesMv.class)
@@ -92,7 +101,7 @@ class FweekPscatSalesMvUtils_PersistenceTest {
             inRolledBackTransaction(em -> {
                 final var reloaded = persistAndReload(em);
                 assertThat(FweekPscatSalesMvUtils.getIdWeekEndingDay(reloaded))
-                        .isEqualTo(reloaded.getId().getWeekEndingDay());
+                        .isEqualTo(reloaded.getId_().getWeekEndingDay());
                 return null;
             });
         }
@@ -109,7 +118,7 @@ class FweekPscatSalesMvUtils_PersistenceTest {
             inRolledBackTransaction(em -> {
                 final var reloaded = persistAndReload(em);
                 assertThat(FweekPscatSalesMvUtils.getIdProdSubcategory(reloaded))
-                        .isEqualTo(reloaded.getId().getProdSubcategory());
+                        .isEqualTo(reloaded.getId_().getProdSubcategory());
                 return null;
             });
         }
@@ -126,7 +135,7 @@ class FweekPscatSalesMvUtils_PersistenceTest {
             inRolledBackTransaction(em -> {
                 final var reloaded = persistAndReload(em);
                 assertThat(FweekPscatSalesMvUtils.getIdChannelId(reloaded)).isEqualTo(
-                        reloaded.getId().getChannelId());
+                        reloaded.getId_().getChannelId());
                 return null;
             });
         }
@@ -143,7 +152,7 @@ class FweekPscatSalesMvUtils_PersistenceTest {
             inRolledBackTransaction(em -> {
                 final var reloaded = persistAndReload(em);
                 assertThat(FweekPscatSalesMvUtils.getIdPromoId(reloaded)).isEqualTo(
-                        reloaded.getId().getPromoId());
+                        reloaded.getId_().getPromoId());
                 return null;
             });
         }

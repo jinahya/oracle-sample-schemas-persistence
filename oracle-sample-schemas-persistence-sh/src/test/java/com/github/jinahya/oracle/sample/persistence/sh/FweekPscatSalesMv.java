@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.FweekPscatSalesMvId;
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.MappedFweekPscatSalesMv;
 
 import jakarta.persistence.EmbeddedId;
@@ -41,10 +42,10 @@ import jakarta.validation.constraints.NotNull;
         query = """
                 SELECT e
                 FROM FweekPscatSalesMv e
-                WHERE e.id.weekEndingDay = :weekEndingDay
-                  AND e.id.prodSubcategory = :prodSubcategory
-                  AND e.id.channelId = :channelId
-                  AND e.id.promoId = :promoId"""
+                WHERE e.id_.weekEndingDay = :weekEndingDay
+                  AND e.id_.prodSubcategory = :prodSubcategory
+                  AND e.id_.channelId = :channelId
+                  AND e.id_.promoId = :promoId"""
 )
 @NamedQuery(
         name = "FweekPscatSalesMv" +
@@ -52,10 +53,10 @@ import jakarta.validation.constraints.NotNull;
         query = """
                 SELECT e
                 FROM FweekPscatSalesMv e
-                ORDER BY e.id.weekEndingDay ASC,
-                         e.id.prodSubcategory ASC,
-                         e.id.channelId ASC,
-                         e.id.promoId ASC"""
+                ORDER BY e.id_.weekEndingDay ASC,
+                         e.id_.prodSubcategory ASC,
+                         e.id_.channelId ASC,
+                         e.id_.promoId ASC"""
 )
 @NamedQuery(name = "FweekPscatSalesMv.countAll",
             query = """
@@ -76,16 +77,16 @@ public class FweekPscatSalesMv
         super();
     }
 
-    // ------------------------------------------------------------------------------------------ id
+    // ----------------------------------------------------------------------------------------- id_
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_ID_} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_ID_} attribute.
      */
     @Override
-    public FweekPscatSalesMvId getId() {
-        return id;
+    public FweekPscatSalesMvId getId_() {
+        return id_;
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -93,5 +94,5 @@ public class FweekPscatSalesMv
     @Valid
     @NotNull
     @EmbeddedId
-    private FweekPscatSalesMvId id;
+    private FweekPscatSalesMvId id_;
 }

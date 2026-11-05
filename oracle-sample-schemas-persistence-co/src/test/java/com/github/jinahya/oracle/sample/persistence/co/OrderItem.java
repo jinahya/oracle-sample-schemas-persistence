@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.co.mapped.OrderItemId;
 import com.github.jinahya.oracle.sample.persistence.co.mapped.MappedOrderItem;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
@@ -35,6 +36,7 @@ import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -47,14 +49,14 @@ import java.util.Optional;
             query = """
                     SELECT e
                     FROM OrderItem e
-                    WHERE e.id.orderId = :orderId
-                      AND e.id.lineItemId = :lineItemId"""
+                    WHERE e.id_.orderId = :orderId
+                      AND e.id_.lineItemId = :lineItemId"""
 )
 @NamedQuery(name = "OrderItem.selectListOrderByOrderIdAscLineItemIdAsc",
             query = """
                     SELECT e
                     FROM OrderItem e
-                    ORDER BY e.id.orderId ASC, e.id.lineItemId ASC"""
+                    ORDER BY e.id_.orderId ASC, e.id_.lineItemId ASC"""
 )
 @NamedQuery(name = "OrderItem.countAll",
             query = """
@@ -66,7 +68,7 @@ import java.util.Optional;
                     SELECT e
                     FROM OrderItem e
                     WHERE e.order = :order
-                    ORDER BY e.id.lineItemId ASC"""
+                    ORDER BY e.id_.lineItemId ASC"""
 )
 @NamedQuery(name = "OrderItem.countByOrder",
             query = """
@@ -79,7 +81,7 @@ import java.util.Optional;
                     SELECT e
                     FROM OrderItem e
                     WHERE e.product = :product
-                    ORDER BY e.id.orderId ASC, e.id.lineItemId ASC"""
+                    ORDER BY e.id_.orderId ASC, e.id_.lineItemId ASC"""
 )
 @NamedQuery(name = "OrderItem.countByProduct",
             query = """
@@ -92,7 +94,7 @@ import java.util.Optional;
                     SELECT e
                     FROM OrderItem e
                     WHERE e.shipment = :shipment
-                    ORDER BY e.id.orderId ASC, e.id.lineItemId ASC"""
+                    ORDER BY e.id_.orderId ASC, e.id_.lineItemId ASC"""
 )
 @NamedQuery(name = "OrderItem.countByShipment",
             query = """
@@ -113,7 +115,7 @@ import java.util.Optional;
        comment = "Details of which products the customer has purchased in an order"
 )
 public class OrderItem
-        extends MappedOrderItem<OrderItemId> {
+        extends MappedOrderItem {
 
     // ------------------------------------------------------------------------------------ ORDER_ID
 
@@ -141,6 +143,28 @@ public class OrderItem
      */
     public static final String ATTRIBUTE_NAME_SHIPMENT = "shipment";
 
+    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
+
+    /**
+     * Creates a new instance with the specified values of its key, in key order: the order, whose
+     * identifier is the {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute through
+     * {@link jakarta.persistence.MapsId @MapsId}, and the {@value #ATTRIBUTE_PATH_ID_LINE_ITEM_ID}
+     * attribute, a value of the row's own.
+     *
+     * @param order      a value for the {@value #ATTRIBUTE_NAME_ORDER} attribute.
+     * @param lineItemId a value for the {@value #ATTRIBUTE_PATH_ID_LINE_ITEM_ID} attribute.
+     * @return a new instance.
+     */
+    public static OrderItem of(final Order order, final Long lineItemId) {
+        Objects.requireNonNull(order, "order is null");
+        Objects.requireNonNull(lineItemId, "lineItemId is null");
+        final var instance = new OrderItem();
+        instance.setId_(new OrderItemId());
+        instance.getId_().setLineItemId(lineItemId);
+        instance.setOrder(order);
+        return instance;
+    }
+
     // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -150,41 +174,41 @@ public class OrderItem
         super();
     }
 
-    // ------------------------------------------------------------------------------------------ id
+    // ----------------------------------------------------------------------------------------- id_
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_ID_} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_ID_} attribute.
      */
     @Override
-    public OrderItemId getId() {
-        return id;
+    public OrderItemId getId_() {
+        return id_;
     }
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ID_} attribute with the specified value.
      *
-     * @param id new value for {@value #ATTRIBUTE_NAME_ID} attribute.
+     * @param id_ new value for {@value #ATTRIBUTE_NAME_ID_} attribute.
      */
     @Override
-    protected void setId(final OrderItemId id) {
-        this.id = id;
+    protected void setId_(final OrderItemId id_) {
+        this.id_ = id_;
     }
 
     // ------------------------------------------------------------------------------------- orderId
 
     /**
      * Replaces current value of {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute with the specified
-     * value, creating the {@value #ATTRIBUTE_NAME_ID} attribute first when it is {@code null}.
+     * value, creating the {@value #ATTRIBUTE_NAME_ID_} attribute first when it is {@code null}.
      *
      * @param orderId new value for {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute.
      */
     protected void setOrderId(final Long orderId) {
-        Optional.ofNullable(getId())
+        Optional.ofNullable(getId_())
                 .orElseGet(() -> {
-                    setId(new OrderItemId());
-                    return getId();
+                    setId_(new OrderItemId());
+                    return getId_();
                 })
                 .setOrderId(orderId);
     }
@@ -266,7 +290,7 @@ public class OrderItem
     @Valid
     @NotNull
     @EmbeddedId
-    private OrderItemId id;
+    private OrderItemId id_;
 
     // ---------------------------------------------------------------------------------------------
     @Nonnull

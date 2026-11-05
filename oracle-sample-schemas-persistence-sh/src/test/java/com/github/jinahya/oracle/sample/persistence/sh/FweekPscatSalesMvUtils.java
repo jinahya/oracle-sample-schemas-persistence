@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.FweekPscatSalesMvId;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
@@ -49,7 +50,7 @@ public final class FweekPscatSalesMvUtils {
      */
     public static LocalDateTime getIdWeekEndingDay(final FweekPscatSalesMv fweekPscatSalesMv) {
         Objects.requireNonNull(fweekPscatSalesMv, "fweekPscatSalesMv is null");
-        return Optional.ofNullable(fweekPscatSalesMv.getId())
+        return Optional.ofNullable(fweekPscatSalesMv.getId_())
                 .map(FweekPscatSalesMvId::getWeekEndingDay).orElse(null);
     }
 
@@ -67,7 +68,7 @@ public final class FweekPscatSalesMvUtils {
      */
     public static String getIdProdSubcategory(final FweekPscatSalesMv fweekPscatSalesMv) {
         Objects.requireNonNull(fweekPscatSalesMv, "fweekPscatSalesMv is null");
-        return Optional.ofNullable(fweekPscatSalesMv.getId())
+        return Optional.ofNullable(fweekPscatSalesMv.getId_())
                 .map(FweekPscatSalesMvId::getProdSubcategory).orElse(null);
     }
 
@@ -85,7 +86,8 @@ public final class FweekPscatSalesMvUtils {
      */
     public static Long getIdChannelId(final FweekPscatSalesMv fweekPscatSalesMv) {
         Objects.requireNonNull(fweekPscatSalesMv, "fweekPscatSalesMv is null");
-        return Optional.ofNullable(fweekPscatSalesMv.getId()).map(FweekPscatSalesMvId::getChannelId)
+        return Optional.ofNullable(fweekPscatSalesMv.getId_())
+                .map(FweekPscatSalesMvId::getChannelId)
                 .orElse(null);
     }
 
@@ -102,7 +104,7 @@ public final class FweekPscatSalesMvUtils {
      */
     public static Integer getIdPromoId(final FweekPscatSalesMv fweekPscatSalesMv) {
         Objects.requireNonNull(fweekPscatSalesMv, "fweekPscatSalesMv is null");
-        return Optional.ofNullable(fweekPscatSalesMv.getId()).map(FweekPscatSalesMvId::getPromoId)
+        return Optional.ofNullable(fweekPscatSalesMv.getId_()).map(FweekPscatSalesMvId::getPromoId)
                 .orElse(null);
     }
 

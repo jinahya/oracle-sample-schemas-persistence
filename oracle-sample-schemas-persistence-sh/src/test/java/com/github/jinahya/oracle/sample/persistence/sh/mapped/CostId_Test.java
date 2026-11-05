@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.persistence.sh;
+package com.github.jinahya.oracle.sample.persistence.sh.mapped;
 
 /*-
  * #%L
@@ -20,19 +20,20 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.sh._NonEntity_Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
 /**
- * A class for testing the {@link ProfitId} id class.
+ * A class for testing the {@link CostId} id class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class ProfitId_Test
-        extends _NonEntity_Test<ProfitId> {
+class CostId_Test
+        extends _NonEntity_Test<CostId> {
 
-    ProfitId_Test() {
-        super(ProfitId.class);
+    CostId_Test() {
+        super(CostId.class);
     }
 
     // ----------------------------------------------------------------------------- equals/hashCode
@@ -40,11 +41,11 @@ class ProfitId_Test
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link ProfitId#equals(Object) equals} compares every attribute; each one
-     *         is a column of the composite key this class holds.
+     * @implNote {@link CostId#equals(Object) equals} compares every attribute; each one is
+     *         a column of the composite key this class holds.
      */
     @Override
-    public SingleTypeEqualsVerifierApi<ProfitId> equals_verifier_() {
+    public SingleTypeEqualsVerifierApi<CostId> equals_verifier_() {
         return super.equals_verifier_()
                 .suppress(Warning.SURROGATE_KEY);
     }

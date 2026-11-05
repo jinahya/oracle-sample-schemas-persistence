@@ -37,6 +37,7 @@ class Sales_Randomizer
 
     Sales_Randomizer() {
         super(Sales.class, List.of(
+                Sales.ATTRIBUTE_NAME_ID_,
                 Sales.ATTRIBUTE_NAME_PRODUCT,
                 Sales.ATTRIBUTE_NAME_CUSTOMER,
                 Sales.ATTRIBUTE_NAME_TIME,

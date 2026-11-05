@@ -20,8 +20,11 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.SalesId;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
+
+import java.time.LocalDateTime;
 
 /**
  * A class for testing the {@link Sales} entity class.
@@ -30,6 +33,18 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  */
 class Sales_Test
         extends _Entity_Test<Sales> {
+
+    private static SalesId id(final int value) {
+        final var id = new SalesId();
+        id.setProdId(value);
+        id.setCustId((long) value);
+        id.setTimeId(LocalDateTime.of(2000 + value, 1, 1, 0, 0));
+        id.setChannelId((long) value);
+        id.setPromoId(value);
+        return id;
+    }
+
+    // ---------------------------------------------------------------------------------------------
 
     Sales_Test() {
         super(Sales.class);
@@ -40,12 +55,15 @@ class Sales_Test
     /**
      * {@inheritDoc}
      *
-     * @implNote {@link Sales#equals(Object) equals} compares only the {@code @Id}, because
-     *         every other attribute is mutable state.
+     * @implNote {@link Sales#equals(Object) equals} compares only the {@code @EmbeddedId},
+     *         because every other attribute is mutable state, and {@link Sales#hashCode()
+     *         hashCode} is a constant, because the {@code @EmbeddedId} is assigned only on persist.
+     *         EqualsVerifier is given two identifiers, since it cannot mock {@link SalesId}.
      */
     @Override
     public SingleTypeEqualsVerifierApi<Sales> equals_verifier_() {
         return super.equals_verifier_()
-                .suppress(Warning.SURROGATE_KEY);
+                .withPrefabValuesForField(Sales.ATTRIBUTE_NAME_ID_, id(1), id(2))
+                .suppress(Warning.SURROGATE_KEY, Warning.STRICT_HASHCODE);
     }
 }

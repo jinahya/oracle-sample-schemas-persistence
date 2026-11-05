@@ -39,9 +39,9 @@ import java.util.Optional;
 /**
  * A mapped superclass for mapping the {@value MappedOrderItem#TABLE_NAME} table.
  * <p>
- * The composite primary key of the table is an {@link jakarta.persistence.EmbeddedId @EmbeddedId}
- * of a subclass of {@link MappedOrderItemId}, {@code T}. The extending entity declares the
- * attribute, and returns it from {@link #getId()}, which {@link #equals(Object)},
+ * The composite primary key of the table is an {@link jakarta.persistence.EmbeddedId @EmbeddedId},
+ * an {@link OrderItemId}. The extending entity declares the
+ * attribute, and returns it from {@link #getId_()}, which {@link #equals(Object)},
  * {@link #hashCode()} and {@link #toString()} read: an {@code @EmbeddedId} of a type variable,
  * declared here, is what EclipseLink does not resolve. The {@value #COLUMN_NAME_ORDER_ID} column
  * lives in the identifier; an extending entity which maps the order writes it through
@@ -57,12 +57,11 @@ import java.util.Optional;
  * extending entity, which sets them through their {@code protected} setters in step with the
  * associations which write the columns.
  *
- * @param <T> the type of the identifier.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
 @OraComment("Details of which products the customer has purchased in an order")
-public abstract class MappedOrderItem<T extends MappedOrderItemId> {
+public abstract class MappedOrderItem {
 
     /**
      * The name of the database table to which this class maps. The value is {@value}.
@@ -82,16 +81,23 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      * the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually
      * lives. The value is {@value}.
      */
-    public static final String ATTRIBUTE_PATH_ID_ORDER_ID = "id.orderId";
+    public static final String ATTRIBUTE_PATH_ID_ORDER_ID = "id_.orderId";
 
     // -------------------------------------------------------------------------------- LINE_ITEM_ID
 
     /**
      * The name of the table column to which the
-     * {@value MappedOrderItemId#ATTRIBUTE_NAME_LINE_ITEM_ID} attribute of {@link MappedOrderItemId}
+     * {@value OrderItemId#ATTRIBUTE_NAME_LINE_ITEM_ID} attribute of {@link OrderItemId}
      * maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_LINE_ITEM_ID = "LINE_ITEM_ID";
+
+    /**
+     * The name of the attribute which maps the {@value #COLUMN_NAME_LINE_ITEM_ID} column -- a path
+     * into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
+     * actually lives. The value is {@value}.
+     */
+    public static final String ATTRIBUTE_PATH_ID_LINE_ITEM_ID = "id_.lineItemId";
 
     // ---------------------------------------------------------------- ORDER_ID / LINE_ITEM_ID / id
 
@@ -100,7 +106,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      * {@value #COLUMN_NAME_LINE_ITEM_ID} columns, as an
      * {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value is {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID = "id";
+    public static final String ATTRIBUTE_NAME_ID_ = "id_";
 
     // ---------------------------------------------------------------------------------- PRODUCT_ID
 
@@ -194,7 +200,7 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + getId() +
+               "id_=" + getId_() +
                ", productId=" + productId +
                ", unitPrice=" + unitPrice +
                ", quantity=" + quantity +
@@ -207,14 +213,22 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the {@code @Id} alone.
+     * @implSpec Equality is by the {@code @EmbeddedId} alone, and holds only once each of its
+     *         attributes is assigned.
      */
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedOrderItem<?> that)) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof MappedOrderItem that)) {
             return false;
         }
-        return Objects.equals(getId(), that.getId());
+        final var id = getId_();
+        return id != null
+               && id.getOrderId() != null
+               && id.getLineItemId() != null
+               && id.equals(that.getId_());
     }
 
     /**
@@ -225,26 +239,26 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(getId_());
     }
 
     // ----------------------------------------------------------------------------- Bean-Validation
 
-    // ------------------------------------------------------------------------------------------ id
+    // ----------------------------------------------------------------------------------------- id_
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_ID_} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_ID_} attribute.
      */
-    public abstract T getId();
+    protected abstract OrderItemId getId_();
 
     /**
-     * Replaces current value of {@value #ATTRIBUTE_NAME_ID} attribute with the specified value.
+     * Replaces current value of {@value #ATTRIBUTE_NAME_ID_} attribute with the specified value.
      *
-     * @param id new value for {@value #ATTRIBUTE_NAME_ID} attribute.
+     * @param id_ new value for {@value #ATTRIBUTE_NAME_ID_} attribute.
      */
-    protected abstract void setId(T id);
+    protected abstract void setId_(OrderItemId id_);
 
     // ------------------------------------------------------------------------------------- orderId
 
@@ -252,11 +266,11 @@ public abstract class MappedOrderItem<T extends MappedOrderItemId> {
      * Returns current value of {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute.
      *
      * @return current value of {@value #ATTRIBUTE_PATH_ID_ORDER_ID} attribute; {@code null} when
-     *         {@value #ATTRIBUTE_NAME_ID} attribute is {@code null}.
+     *         {@value #ATTRIBUTE_NAME_ID_} attribute is {@code null}.
      */
     @Transient
     public Long getOrderId() {
-        return Optional.ofNullable(getId()).map(MappedOrderItemId::getOrderId).orElse(null);
+        return Optional.ofNullable(getId_()).map(OrderItemId::getOrderId).orElse(null);
     }
 
     // ----------------------------------------------------------------------------------- productId

@@ -20,8 +20,11 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.FweekPscatSalesMvId;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
+
+import java.time.LocalDateTime;
 
 /**
  * A class for testing the {@link FweekPscatSalesMv} entity class.
@@ -30,6 +33,17 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  */
 class FweekPscatSalesMv_Test
         extends _Entity_Test<FweekPscatSalesMv> {
+
+    private static FweekPscatSalesMvId id(final int value) {
+        final var id = new FweekPscatSalesMvId();
+        id.setWeekEndingDay(LocalDateTime.of(2000 + value, 1, 1, 0, 0));
+        id.setProdSubcategory("subcategory" + value);
+        id.setChannelId((long) value);
+        id.setPromoId(value);
+        return id;
+    }
+
+    // ---------------------------------------------------------------------------------------------
 
     FweekPscatSalesMv_Test() {
         super(FweekPscatSalesMv.class);
@@ -46,6 +60,7 @@ class FweekPscatSalesMv_Test
     @Override
     public SingleTypeEqualsVerifierApi<FweekPscatSalesMv> equals_verifier_() {
         return super.equals_verifier_()
+                .withPrefabValuesForField(FweekPscatSalesMv.ATTRIBUTE_NAME_ID_, id(1), id(2))
                 .suppress(Warning.SURROGATE_KEY);
     }
 }

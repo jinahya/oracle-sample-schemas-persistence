@@ -20,11 +20,13 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.object.randomizer.ObjectRandomizerUtils;
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.FweekPscatSalesMvId;
+import java.util.Arrays;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -35,6 +37,13 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class FweekPscatSalesMvUtils_Test {
+
+    private static FweekPscatSalesMvId randomizedId() {
+        return ObjectRandomizerUtils.newRandomizedInstanceOf(FweekPscatSalesMvId.class)
+                .orElseThrow();
+    }
+
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Sets the named field of the specified instance reflectively, for an entity which exposes no
@@ -60,7 +69,7 @@ class FweekPscatSalesMvUtils_Test {
     }
 
     private static FweekPscatSalesMv instanceOf(final FweekPscatSalesMvId id) {
-        return withField(new FweekPscatSalesMv(), FweekPscatSalesMv.ATTRIBUTE_NAME_ID, id);
+        return withField(new FweekPscatSalesMv(), FweekPscatSalesMv.ATTRIBUTE_NAME_ID_, id);
     }
 
     // ---------------------------------------------------------------------------- id.weekEndingDay
@@ -82,7 +91,7 @@ class FweekPscatSalesMvUtils_Test {
 
         @Test
         void _Component_() {
-            final var id = new FweekPscatSalesMvId_Randomizer().get();
+            final var id = randomizedId();
             assertThat(FweekPscatSalesMvUtils.getIdWeekEndingDay(instanceOf(id))).isEqualTo(
                     id.getWeekEndingDay());
         }
@@ -107,7 +116,7 @@ class FweekPscatSalesMvUtils_Test {
 
         @Test
         void _Component_() {
-            final var id = new FweekPscatSalesMvId_Randomizer().get();
+            final var id = randomizedId();
             assertThat(FweekPscatSalesMvUtils.getIdProdSubcategory(instanceOf(id))).isEqualTo(
                     id.getProdSubcategory());
         }
@@ -132,7 +141,7 @@ class FweekPscatSalesMvUtils_Test {
 
         @Test
         void _Component_() {
-            final var id = new FweekPscatSalesMvId_Randomizer().get();
+            final var id = randomizedId();
             assertThat(FweekPscatSalesMvUtils.getIdChannelId(instanceOf(id))).isEqualTo(
                     id.getChannelId());
         }
@@ -157,7 +166,7 @@ class FweekPscatSalesMvUtils_Test {
 
         @Test
         void _Component_() {
-            final var id = new FweekPscatSalesMvId_Randomizer().get();
+            final var id = randomizedId();
             assertThat(FweekPscatSalesMvUtils.getIdPromoId(instanceOf(id))).isEqualTo(
                     id.getPromoId());
         }

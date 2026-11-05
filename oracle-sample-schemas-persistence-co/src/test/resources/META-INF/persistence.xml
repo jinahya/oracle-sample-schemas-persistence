@@ -40,7 +40,7 @@
     <class>com.github.jinahya.oracle.sample.persistence.co.Store</class>
     <class>com.github.jinahya.oracle.sample.persistence.co.mapped.StoreLogo</class>
     <class>com.github.jinahya.oracle.sample.persistence.co.CustomerOrderProduct</class>
-    <class>com.github.jinahya.oracle.sample.persistence.co.ProductOrderId</class>
+    <class>com.github.jinahya.oracle.sample.persistence.co.mapped.ProductOrderId</class>
     <class>com.github.jinahya.oracle.sample.persistence.co.ProductOrder</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
@@ -88,7 +88,7 @@
     <class>com.github.jinahya.oracle.sample.persistence.co.Store</class>
     <class>com.github.jinahya.oracle.sample.persistence.co.mapped.StoreLogo</class>
     <class>com.github.jinahya.oracle.sample.persistence.co.CustomerOrderProduct</class>
-    <class>com.github.jinahya.oracle.sample.persistence.co.ProductOrderId</class>
+    <class>com.github.jinahya.oracle.sample.persistence.co.mapped.ProductOrderId</class>
     <class>com.github.jinahya.oracle.sample.persistence.co.ProductOrder</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>

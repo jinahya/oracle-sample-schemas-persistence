@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.persistence.co;
+package com.github.jinahya.oracle.sample.persistence.co.mapped;
 
 /*-
  * #%L
@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.co._NonEntity_Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 

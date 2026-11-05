@@ -63,9 +63,9 @@ class Customer_PersistenceTest
          */
         private Customer promotedCustomer(final EntityManager em) {
             final var sales = EntityPersisterUtils.newPersistedInstanceOf(em, Sales.class);
-            final var promotion = em.find(Promotion.class, sales.getId().getPromoId());
+            final var promotion = em.find(Promotion.class, sales.getId_().getPromoId());
             assertThat(promotion.getPromoCategory()).isNotEqualTo("NO PROMOTION");
-            return em.find(Customer.class, sales.getId().getCustId());
+            return em.find(Customer.class, sales.getId_().getCustId());
         }
 
         @DisplayName(

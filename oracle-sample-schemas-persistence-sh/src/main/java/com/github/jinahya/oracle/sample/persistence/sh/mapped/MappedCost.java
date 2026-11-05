@@ -40,7 +40,7 @@ import java.util.Objects;
  * {@code CANDIDATE_KEYS} section of {@code src/test/sql/COSTS.sql} is what measured them.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see MappedCostId
+ * @see CostId
  */
 @MappedSuperclass
 public abstract class MappedCost {
@@ -217,10 +217,10 @@ public abstract class MappedCost {
         if (!(obj instanceof MappedCost that)) {
             return false;
         }
-        return Objects.equals(prodId, that.prodId)
-               && Objects.equals(timeId, that.timeId)
-               && Objects.equals(promoId, that.promoId)
-               && Objects.equals(channelId, that.channelId);
+        return Objects.equals(getProdId(), that.getProdId())
+               && Objects.equals(getTimeId(), that.getTimeId())
+               && Objects.equals(getPromoId(), that.getPromoId())
+               && Objects.equals(getChannelId(), that.getChannelId());
     }
 
     /**
@@ -232,7 +232,7 @@ public abstract class MappedCost {
      */
     @Override
     public final int hashCode() {
-        return Objects.hash(prodId, timeId, promoId, channelId);
+        return Objects.hash(getProdId(), getTimeId(), getPromoId(), getChannelId());
     }
 
     // -------------------------------------------------------------------------------------- prodId
@@ -242,7 +242,7 @@ public abstract class MappedCost {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_PROD_ID} attribute.
      */
-    public Integer getProdId() {
+    protected Integer getProdId() {
         return prodId;
     }
 
@@ -263,7 +263,7 @@ public abstract class MappedCost {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_TIME_ID} attribute.
      */
-    public LocalDateTime getTimeId() {
+    protected LocalDateTime getTimeId() {
         return timeId;
     }
 
@@ -284,7 +284,7 @@ public abstract class MappedCost {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_PROMO_ID} attribute.
      */
-    public Integer getPromoId() {
+    protected Integer getPromoId() {
         return promoId;
     }
 
@@ -305,7 +305,7 @@ public abstract class MappedCost {
      *
      * @return current value of {@value #ATTRIBUTE_NAME_CHANNEL_ID} attribute.
      */
-    public Long getChannelId() {
+    protected Long getChannelId() {
         return channelId;
     }
 

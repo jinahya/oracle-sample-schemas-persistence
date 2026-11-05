@@ -40,7 +40,7 @@ public abstract class MappedWithEmbeddedId<T> {
     /**
      * The name of the attribute which embeds the key. The value is {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID = "id";
+    public static final String ATTRIBUTE_NAME_ID_ = "id_";
 
     // -------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -63,11 +63,11 @@ public abstract class MappedWithEmbeddedId<T> {
     @Override
     public String toString() {
         return super.toString() + "{"
-               + "id=" + getId()
+               + "id_=" + getId_()
                + "}";
     }
 
-    // ------------------------------------------------------------------------------------------ id
+    // ----------------------------------------------------------------------------------------- id_
 
     /**
      * Returns the key of this instance.
@@ -79,13 +79,13 @@ public abstract class MappedWithEmbeddedId<T> {
      *         package-private, since a proxy is a subclass in the package of the entity, and
      *         overrides only what that package sees.
      */
-    protected T getId() {
-        return id;
+    protected T getId_() {
+        return id_;
     }
 
     // ---------------------------------------------------------------------------------------------
     @Valid
     @NotNull
     @EmbeddedId
-    private T id;
+    private T id_;
 }

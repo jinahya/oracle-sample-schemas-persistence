@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.persistence.hr;
+package com.github.jinahya.oracle.sample.persistence.co.mapped;
 
 /*-
  * #%L
- * hr
+ * co
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
@@ -20,15 +20,16 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.co._NonEntity_Test;
 /**
- * A class for testing the {@link JobHistoryId} composite primary key class.
+ * A class for testing the {@link OrderItemId} id class.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class JobHistoryId_Test
-        extends _NonEntity_Test<JobHistoryId> {
+class OrderItemId_Test
+        extends _NonEntity_Test<OrderItemId> {
 
-    JobHistoryId_Test() {
-        super(JobHistoryId.class);
+    OrderItemId_Test() {
+        super(OrderItemId.class);
     }
 }

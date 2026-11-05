@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.CostId;
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.MappedCost;
 
 import jakarta.persistence.Entity;
@@ -30,7 +31,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -145,6 +148,32 @@ public class Cost
      */
     public static final String ATTRIBUTE_NAME_CHANNEL = "channel";
 
+    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
+
+    /**
+     * Creates a new instance with the specified associations, whose identifiers are the instance's
+     * {@code @Id} attributes.
+     *
+     * @param product   a value for the {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
+     * @param time      a value for the {@value #ATTRIBUTE_NAME_TIME} attribute.
+     * @param promotion a value for the {@value #ATTRIBUTE_NAME_PROMOTION} attribute.
+     * @param channel   a value for the {@value #ATTRIBUTE_NAME_CHANNEL} attribute.
+     * @return a new instance.
+     */
+    public static Cost of(final Product product, final Time time, final Promotion promotion,
+                          final Channel channel) {
+        Objects.requireNonNull(product, "product is null");
+        Objects.requireNonNull(time, "time is null");
+        Objects.requireNonNull(promotion, "promotion is null");
+        Objects.requireNonNull(channel, "channel is null");
+        final var instance = new Cost();
+        instance.setProduct(product);
+        instance.setTime(time);
+        instance.setPromotion(promotion);
+        instance.setChannel(channel);
+        return instance;
+    }
+
     // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
@@ -154,38 +183,74 @@ public class Cost
         super();
     }
 
-    // ------------------------------------------------------------------------------------------ id
+    // ------------------------------------------------------------------------------------- product
 
     /**
-     * Returns a new {@link CostId} holding current values of the identifying attributes.
+     * Returns current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
      *
-     * @return a new {@link CostId} holding current values of the identifying attributes.
+     * @return current value of {@value #ATTRIBUTE_NAME_PRODUCT} attribute.
      */
-    public CostId getId() {
-        return CostId.of(getProdId(), getTimeId(), getPromoId(), getChannelId());
+    public Product getProduct() {
+        return product;
     }
 
+    private void setProduct(final Product product) {
+        this.product = product;
+        setProdId(Optional.ofNullable(product).map(Product::getProdId).orElse(null));
+    }
+
+    // ---------------------------------------------------------------------------------------- time
+
     /**
-     * Replaces current values of the identifying attributes with those of the specified
-     * identifier.
+     * Returns current value of {@value #ATTRIBUTE_NAME_TIME} attribute.
      *
-     * @param id the identifier whose values are applied; may be {@code null}, which clears every
-     *           identifying attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_TIME} attribute.
      */
-    protected void setId(final CostId id) {
-        setProdId(Optional.ofNullable(id).map(CostId::getProdId).orElse(null));
-        setTimeId(Optional.ofNullable(id).map(CostId::getTimeId).orElse(null));
-        setPromoId(Optional.ofNullable(id).map(CostId::getPromoId).orElse(null));
-        setChannelId(Optional.ofNullable(id).map(CostId::getChannelId).orElse(null));
+    public Time getTime() {
+        return time;
+    }
+
+    private void setTime(final Time time) {
+        this.time = time;
+        setTimeId(Optional.ofNullable(time).map(Time::getTimeId).orElse(null));
+    }
+
+    // ----------------------------------------------------------------------------------- promotion
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_PROMOTION} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_PROMOTION} attribute.
+     */
+    public Promotion getPromotion() {
+        return promotion;
+    }
+
+    private void setPromotion(final Promotion promotion) {
+        this.promotion = promotion;
+        setPromoId(Optional.ofNullable(promotion).map(Promotion::getPromoId).orElse(null));
+    }
+
+    // ------------------------------------------------------------------------------------- channel
+
+    /**
+     * Returns current value of {@value #ATTRIBUTE_NAME_CHANNEL} attribute.
+     *
+     * @return current value of {@value #ATTRIBUTE_NAME_CHANNEL} attribute.
+     */
+    public Channel getChannel() {
+        return channel;
+    }
+
+    private void setChannel(final Channel channel) {
+        this.channel = channel;
+        setChannelId(Optional.ofNullable(channel).map(Channel::getChannelId).orElse(null));
     }
 
     // ---------------------------------------------------------------------------------------------
 
     @Valid
-    // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column
-    // stays NOT
-    // NULL, and @ManyToOne(optional = false) still says so to the provider.
+    @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_PROD_ID,
                 referencedColumnName = Product.COLUMN_NAME_PROD_ID,
@@ -195,10 +260,7 @@ public class Cost
     private Product product;
 
     @Valid
-    // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column
-    // stays NOT
-    // NULL, and @ManyToOne(optional = false) still says so to the provider.
+    @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_TIME_ID,
                 referencedColumnName = Time.COLUMN_NAME_TIME_ID,
@@ -208,10 +270,7 @@ public class Cost
     private Time time;
 
     @Valid
-    // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column
-    // stays NOT
-    // NULL, and @ManyToOne(optional = false) still says so to the provider.
+    @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_PROMO_ID,
                 referencedColumnName = Promotion.COLUMN_NAME_PROMO_ID,
@@ -221,10 +280,7 @@ public class Cost
     private Promotion promotion;
 
     @Valid
-    // no @NotNull: the column is written by the @Id, and this mapping only reads it back, so the
-    // association is still null at the prePersist at which the provider validates. The column
-    // stays NOT
-    // NULL, and @ManyToOne(optional = false) still says so to the provider.
+    @NotNull
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = COLUMN_NAME_CHANNEL_ID,
                 referencedColumnName = Channel.COLUMN_NAME_CHANNEL_ID,

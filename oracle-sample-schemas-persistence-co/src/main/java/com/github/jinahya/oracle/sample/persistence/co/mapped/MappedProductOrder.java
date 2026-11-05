@@ -32,18 +32,17 @@ import java.util.Optional;
 /**
  * A mapped superclass for mapping the {@value MappedProductOrder#TABLE_NAME} view.
  * <p>
- * The identifying columns are an {@link jakarta.persistence.EmbeddedId @EmbeddedId} of a subclass
- * of {@link MappedProductOrderId}, {@code T}. The extending entity declares the attribute, and
- * returns it from {@link #getId()}, which {@link #equals(Object)}, {@link #hashCode()} and
+ * The identifying columns are an {@link jakarta.persistence.EmbeddedId @EmbeddedId}, a
+ * {@link ProductOrderId}. The extending entity declares the attribute, and
+ * returns it from {@link #getId_()}, which {@link #equals(Object)}, {@link #hashCode()} and
  * {@link #toString()} read: an {@code @EmbeddedId} of a type variable, declared here, is what
  * EclipseLink does not resolve.
  *
- * @param <T> the type of the identifier.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @MappedSuperclass
 @OraComment("A summary of the state of the orders placed for each product")
-public abstract class MappedProductOrder<T extends MappedProductOrderId> {
+public abstract class MappedProductOrder {
 
     /**
      * The name of the database view to which this class maps. The value is {@value}.
@@ -54,7 +53,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
 
     /**
      * The name of the view column to which the
-     * {@value MappedProductOrderId#ATTRIBUTE_NAME_PRODUCT_NAME} attribute maps. The value is
+     * {@value ProductOrderId#ATTRIBUTE_NAME_PRODUCT_NAME} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_PRODUCT_NAME = "PRODUCT_NAME";
@@ -65,7 +64,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
     public static final int COLUMN_LENGTH_PRODUCT_NAME = 255;
 
     /**
-     * The maximum size of the {@value MappedProductOrderId#ATTRIBUTE_NAME_PRODUCT_NAME} attribute.
+     * The maximum size of the {@value ProductOrderId#ATTRIBUTE_NAME_PRODUCT_NAME} attribute.
      * The value is {@value}.
      */
     public static final int SIZE_MAX_PRODUCT_NAME = COLUMN_LENGTH_PRODUCT_NAME;
@@ -75,13 +74,13 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
      * into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
      * actually lives. The value is {@value}.
      */
-    public static final String ATTRIBUTE_PATH_ID_PRODUCT_NAME = "id.productName";
+    public static final String ATTRIBUTE_PATH_ID_PRODUCT_NAME = "id_.productName";
 
     // -------------------------------------------------------------------------------- ORDER_STATUS
 
     /**
      * The name of the view column to which the
-     * {@value MappedProductOrderId#ATTRIBUTE_NAME_ORDER_STATUS} attribute maps. The value is
+     * {@value ProductOrderId#ATTRIBUTE_NAME_ORDER_STATUS} attribute maps. The value is
      * {@value}.
      */
     public static final String COLUMN_NAME_ORDER_STATUS = "ORDER_STATUS";
@@ -92,7 +91,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
     public static final int COLUMN_LENGTH_ORDER_STATUS = 10;
 
     /**
-     * The maximum size of the {@value MappedProductOrderId#ATTRIBUTE_NAME_ORDER_STATUS} attribute.
+     * The maximum size of the {@value ProductOrderId#ATTRIBUTE_NAME_ORDER_STATUS} attribute.
      * The value is {@value}.
      */
     public static final int SIZE_MAX_ORDER_STATUS = COLUMN_LENGTH_ORDER_STATUS;
@@ -102,7 +101,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
      * into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
      * actually lives. The value is {@value}.
      */
-    public static final String ATTRIBUTE_PATH_ID_ORDER_STATUS = "id.orderStatus";
+    public static final String ATTRIBUTE_PATH_ID_ORDER_STATUS = "id_.orderStatus";
 
     // --------------------------------------------------------------------------------- TOTAL_SALES
 
@@ -132,13 +131,13 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
      */
     public static final String ATTRIBUTE_NAME_ORDER_COUNT = "orderCount";
 
-    // ------------------------------------------------------------------------------------------ id
+    // ----------------------------------------------------------------------------------------- id_
 
     /**
      * The name of the attribute which maps the identifying columns, as an
      * {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value is {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID = "id";
+    public static final String ATTRIBUTE_NAME_ID_ = "id_";
 
     // -------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -154,7 +153,7 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + getId() +
+               "id_=" + getId_() +
                ",totalSales=" + totalSales +
                ",orderCount=" + orderCount +
                '}';
@@ -165,14 +164,22 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the {@code @Id} alone.
+     * @implSpec Equality is by the {@code @EmbeddedId} alone, and holds only once each of its
+     *         attributes is assigned.
      */
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedProductOrder<?> that)) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof MappedProductOrder that)) {
             return false;
         }
-        return Objects.equals(getId(), that.getId());
+        final var id = getId_();
+        return id != null
+               && id.getProductName() != null
+               && id.getOrderStatus() != null
+               && id.equals(that.getId_());
     }
 
     /**
@@ -183,42 +190,42 @@ public abstract class MappedProductOrder<T extends MappedProductOrderId> {
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(getId());
+        return Objects.hashCode(getId_());
     }
 
-    // ------------------------------------------------------------------------------------------ id
+    // ----------------------------------------------------------------------------------------- id_
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_ID_} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_ID_} attribute.
      */
-    public abstract T getId();
+    protected abstract ProductOrderId getId_();
 
     // --------------------------------------------------------------------------------- productName
 
     /**
-     * Returns current value of {@value MappedProductOrderId#ATTRIBUTE_NAME_PRODUCT_NAME}
+     * Returns current value of {@value ProductOrderId#ATTRIBUTE_NAME_PRODUCT_NAME}
      * attribute.
      *
-     * @return current value of {@value MappedProductOrderId#ATTRIBUTE_NAME_PRODUCT_NAME} attribute;
-     *         {@code null} when {@value #ATTRIBUTE_NAME_ID} attribute is {@code null}.
+     * @return current value of {@value ProductOrderId#ATTRIBUTE_NAME_PRODUCT_NAME} attribute;
+     *         {@code null} when {@value #ATTRIBUTE_NAME_ID_} attribute is {@code null}.
      */
     public String getProductName() {
-        return Optional.ofNullable(getId()).map(MappedProductOrderId::getProductName).orElse(null);
+        return Optional.ofNullable(getId_()).map(ProductOrderId::getProductName).orElse(null);
     }
 
     // --------------------------------------------------------------------------------- orderStatus
 
     /**
-     * Returns current value of {@value MappedProductOrderId#ATTRIBUTE_NAME_ORDER_STATUS}
+     * Returns current value of {@value ProductOrderId#ATTRIBUTE_NAME_ORDER_STATUS}
      * attribute.
      *
-     * @return current value of {@value MappedProductOrderId#ATTRIBUTE_NAME_ORDER_STATUS} attribute;
-     *         {@code null} when {@value #ATTRIBUTE_NAME_ID} attribute is {@code null}.
+     * @return current value of {@value ProductOrderId#ATTRIBUTE_NAME_ORDER_STATUS} attribute;
+     *         {@code null} when {@value #ATTRIBUTE_NAME_ID_} attribute is {@code null}.
      */
     public String getOrderStatus() {
-        return Optional.ofNullable(getId()).map(MappedProductOrderId::getOrderStatus).orElse(null);
+        return Optional.ofNullable(getId_()).map(ProductOrderId::getOrderStatus).orElse(null);
     }
 
     // ---------------------------------------------------------------------------------- totalSales

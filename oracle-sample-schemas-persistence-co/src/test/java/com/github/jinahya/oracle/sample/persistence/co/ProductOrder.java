@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.co.mapped.ProductOrderId;
 import com.github.jinahya.oracle.sample.persistence.co.mapped.MappedProductOrder;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -39,14 +40,14 @@ import jakarta.validation.constraints.NotNull;
             query = """
                     SELECT e
                     FROM ProductOrder e
-                    WHERE e.id.productName = :productName
-                      AND e.id.orderStatus = :orderStatus"""
+                    WHERE e.id_.productName = :productName
+                      AND e.id_.orderStatus = :orderStatus"""
 )
 @NamedQuery(name = "ProductOrder.selectListOrderByProductNameAscOrderStatusAsc",
             query = """
                     SELECT e
                     FROM ProductOrder e
-                    ORDER BY e.id.productName ASC, e.id.orderStatus ASC"""
+                    ORDER BY e.id_.productName ASC, e.id_.orderStatus ASC"""
 )
 @NamedQuery(name = "ProductOrder.countAll",
             query = """
@@ -57,7 +58,7 @@ import jakarta.validation.constraints.NotNull;
 @Table(name = MappedProductOrder.TABLE_NAME,
        comment = "A summary of the state of the orders placed for each product")
 public class ProductOrder
-        extends MappedProductOrder<ProductOrderId> {
+        extends MappedProductOrder {
 
     // -------------------------------------------------------------------------------- CONSTRUCTORS
 
@@ -68,21 +69,21 @@ public class ProductOrder
         super();
     }
 
-    // ------------------------------------------------------------------------------------------ id
+    // ----------------------------------------------------------------------------------------- id_
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_ID_} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_ID_} attribute.
      */
     @Override
-    public ProductOrderId getId() {
-        return id;
+    public ProductOrderId getId_() {
+        return id_;
     }
 
     // ---------------------------------------------------------------------------------------------
     @Valid
     @NotNull
     @EmbeddedId
-    private ProductOrderId id;
+    private ProductOrderId id_;
 }

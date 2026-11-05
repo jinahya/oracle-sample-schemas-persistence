@@ -27,7 +27,7 @@ the mapping (`@OraTrigger`, `@OraStorage`, `@OraMaterializedView`, `@OraIdentity
 - **Main holds mapped superclasses; the entities are test code.** As in the sibling
   `postgresql-demodb-persistence`, each module's main sources are the package
   `<schema>.mapped` alone: one `@MappedSuperclass` `Mapped<Entity>` per table and view, one
-  `Mapped<X>Id` per composite identifier, and the embeddables and converters that carry no
+  `<Entity>Id` per composite identifier, and the embeddables and converters that carry no
   association. A mapped superclass holds what the schema says -- names, types, lengths,
   nullability, check constraints as validation constraints, `toString`/`equals`/`hashCode` --
   and nothing an application decides: no association, no fetch type, no cascade, no named
@@ -40,9 +40,25 @@ the mapping (`@OraTrigger`, `@OraStorage`, `@OraMaterializedView`, `@OraIdentity
 - **An `@EmbeddedId` is declared by the entity, not by the mapped superclass.** Unlike postgres's
   `MappedRoute<T>`, no mapped superclass here holds an `@EmbeddedId T id`: EclipseLink 5.0 reads
   the type variable as `String` (EclipseLink-7246), or fails predeploy with a
-  `ConcurrentModificationException`, depending on the unit's classes. The mapped superclass
-  declares an abstract `getId()` returning its `Mapped<X>Id`, which `equals`/`hashCode`/`toString`
-  use, and the entity declares the field.
+  `ConcurrentModificationException`, depending on the unit's classes -- so `common`'s
+  `MappedWithEmbeddedId<T>`, which the sibling `sqlserver-samples-persistence` extends, is not used
+  here. The mapped superclass declares an abstract `protected` `getId_()` returning its
+  `<Entity>Id`, which `equals`/`hashCode`/`toString` use, and the entity declares the field,
+  `id_`.
+- **An id class follows the sibling `sqlserver-samples-persistence`.** It is `<Entity>Id`, in
+  `<schema>.mapped` of main, with no `Mapped` prefix, and nothing extends it: for an `@EmbeddedId`
+  a plain `@Embeddable` which maps the key columns; for an `@IdClass` a plain class with no columns,
+  whose `@NotNull` attributes match the mapped superclass's `@Id` attributes by name and by type.
+  Its `equals`/`hashCode` are `final` and read through the getters. Its `<Entity>Id_Test` and
+  `<Entity>Id_Randomizer` are in `<schema>.mapped` of the tests. Where `@MapsId` derives the whole
+  key (`sh`'s `Sales`), the entity's `of(...)` takes the associations, the key is `null` until
+  persist, `id_` carries no `@NotNull` (EclipseLink validates at `prePersist`, before the
+  provider fills it), and `hashCode` is a constant. An `@IdClass` entity's `of(...)` takes the
+  associations, and each `private` setter copies its id into the `@Id` attribute. An `@Id`
+  attribute which is a foreign key is the exception to the read-only rule above: it writes its
+  column, and its getter is `protected`, as is its setter where it has one (`sh`'s `MappedCost`;
+  `hr`'s `MappedJobHistory`, which a trigger writes, has none); a value of the row's own keeps a
+  `public` getter.
 - **No shared superclass between tables.** Each `Mapped<Entity>` stands on its own: it holds
   its own column constants, fields, accessors, `toString`, and `equals`/`hashCode`. Do not add
   a common superclass to remove duplication between them -- the duplication keeps each mapping

@@ -1,4 +1,4 @@
-package com.github.jinahya.oracle.sample.persistence.co;
+package com.github.jinahya.oracle.sample.persistence.co.mapped;
 
 /*-
  * #%L
@@ -28,18 +28,19 @@ import uk.co.jemos.podam.api.PodamFactory;
 import java.util.List;
 
 /**
- * A randomizer which produces randomized {@link OrderItemId} instances.
+ * A randomizer which produces randomized {@link ProductOrderId} instances.
  * <p>
- * Nothing is excluded from randomization: the class holds only the two columns of the composite
- * key.
+ * Nothing is excluded from randomization: the class holds only the columns of the composite key.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-class OrderItemId_Randomizer
-        extends PodamObjectRandomizer<OrderItemId> {
+class ProductOrderId_Randomizer
+        extends PodamObjectRandomizer<ProductOrderId> {
 
-    OrderItemId_Randomizer() {
-        super(OrderItemId.class, List.of());
+    ProductOrderId_Randomizer() {
+        super(ProductOrderId.class, List.of(
+
+        ));
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -59,7 +60,7 @@ class OrderItemId_Randomizer
     }
 
     @Override
-    public OrderItemId get() {
+    public ProductOrderId get() {
         return super.get();
     }
 }

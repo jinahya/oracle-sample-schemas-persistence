@@ -31,11 +31,15 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 /**
  * A mapped superclass which holds the mappings of the {@value MappedSales#TABLE_NAME} table, whose
- * composite identifier is mapped with an {@link jakarta.persistence.EmbeddedId @EmbeddedId}.
+ * composite identifier is a {@link SalesId}, which the extending entity declares as its
+ * {@link jakarta.persistence.EmbeddedId @EmbeddedId} and returns from {@link #getId_()}: an
+ * {@code @EmbeddedId} of a type variable, declared in a mapped superclass, is what EclipseLink does
+ * not resolve. Every column of the identifier is a foreign key, so the entity derives the whole
+ * identifier from its associations with {@link jakarta.persistence.MapsId @MapsId}, and the
+ * provider fills it when the entity is persisted.
  * <p>
  * The table declares no primary key; the five dimension columns are its grain, and the
  * {@code CANDIDATE_KEYS} section of {@code src/test/sql/SALES.sql} is what measured them.
@@ -48,7 +52,7 @@ import java.util.Objects;
  * instance per identifier. Both providers behave so.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
- * @see MappedSalesId
+ * @see SalesId
  */
 @MappedSuperclass
 @OraComment("facts table, without a primary key; all rows are uniquely identified by the " +
@@ -60,53 +64,53 @@ public abstract class MappedSales {
      */
     public static final String TABLE_NAME = "SALES";
 
-    // ------------------------------------------------------------------------------------------ id
+    // ----------------------------------------------------------------------------------------- id_
 
     /**
      * The name of the attribute which maps the identifying columns, as an
      * {@link jakarta.persistence.EmbeddedId @EmbeddedId}. The value is {@value}.
      */
-    public static final String ATTRIBUTE_NAME_ID = "id";
+    public static final String ATTRIBUTE_NAME_ID_ = "id_";
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROD_ID} column -- a path into
      * the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually
      * lives. The value is {@value}.
      */
-    public static final String ATTRIBUTE_PATH_ID_PROD_ID = "id.prodId";
+    public static final String ATTRIBUTE_PATH_ID_PROD_ID = "id_.prodId";
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_CUST_ID} column -- a path into
      * the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually
      * lives. The value is {@value}.
      */
-    public static final String ATTRIBUTE_PATH_ID_CUST_ID = "id.custId";
+    public static final String ATTRIBUTE_PATH_ID_CUST_ID = "id_.custId";
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_TIME_ID} column -- a path into
      * the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually
      * lives. The value is {@value}.
      */
-    public static final String ATTRIBUTE_PATH_ID_TIME_ID = "id.timeId";
+    public static final String ATTRIBUTE_PATH_ID_TIME_ID = "id_.timeId";
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_CHANNEL_ID} column -- a path
      * into the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column
      * actually lives. The value is {@value}.
      */
-    public static final String ATTRIBUTE_PATH_ID_CHANNEL_ID = "id.channelId";
+    public static final String ATTRIBUTE_PATH_ID_CHANNEL_ID = "id_.channelId";
 
     /**
      * The name of the attribute which maps the {@value #COLUMN_NAME_PROMO_ID} column -- a path into
      * the {@link jakarta.persistence.EmbeddedId @EmbeddedId}, which is where the column actually
      * lives. The value is {@value}.
      */
-    public static final String ATTRIBUTE_PATH_ID_PROMO_ID = "id.promoId";
+    public static final String ATTRIBUTE_PATH_ID_PROMO_ID = "id_.promoId";
 
     // ------------------------------------------------------------------------------------- PROD_ID
 
     /**
-     * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_PROD_ID}
+     * The name of the table column to which the {@value SalesId#ATTRIBUTE_NAME_PROD_ID}
      * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROD_ID = "PROD_ID";
@@ -132,13 +136,13 @@ public abstract class MappedSales {
     public static final int COLUMN_MAX_PROD_ID = +999999;
 
     /**
-     * The minimum value of the {@value MappedSalesId#ATTRIBUTE_NAME_PROD_ID} attribute. The value
+     * The minimum value of the {@value SalesId#ATTRIBUTE_NAME_PROD_ID} attribute. The value
      * is {@value}.
      */
     public static final int ATTRIBUTE_MIN_PROD_ID = COLUMN_MIN_PROD_ID;
 
     /**
-     * The maximum value of the {@value MappedSalesId#ATTRIBUTE_NAME_PROD_ID} attribute. The value
+     * The maximum value of the {@value SalesId#ATTRIBUTE_NAME_PROD_ID} attribute. The value
      * is {@value}.
      */
     public static final int ATTRIBUTE_MAX_PROD_ID = COLUMN_MAX_PROD_ID;
@@ -146,7 +150,7 @@ public abstract class MappedSales {
     // ------------------------------------------------------------------------------------- CUST_ID
 
     /**
-     * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_CUST_ID}
+     * The name of the table column to which the {@value SalesId#ATTRIBUTE_NAME_CUST_ID}
      * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CUST_ID = "CUST_ID";
@@ -154,7 +158,7 @@ public abstract class MappedSales {
     // ------------------------------------------------------------------------------------- TIME_ID
 
     /**
-     * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_TIME_ID}
+     * The name of the table column to which the {@value SalesId#ATTRIBUTE_NAME_TIME_ID}
      * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_TIME_ID = "TIME_ID";
@@ -162,7 +166,7 @@ public abstract class MappedSales {
     // ---------------------------------------------------------------------------------- CHANNEL_ID
 
     /**
-     * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_CHANNEL_ID}
+     * The name of the table column to which the {@value SalesId#ATTRIBUTE_NAME_CHANNEL_ID}
      * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_CHANNEL_ID = "CHANNEL_ID";
@@ -188,13 +192,13 @@ public abstract class MappedSales {
     public static final int COLUMN_MAX_CHANNEL_ID = +9;
 
     /**
-     * The minimum value of the {@value MappedSalesId#ATTRIBUTE_NAME_CHANNEL_ID} attribute. The
+     * The minimum value of the {@value SalesId#ATTRIBUTE_NAME_CHANNEL_ID} attribute. The
      * value is {@value}.
      */
     public static final int ATTRIBUTE_MIN_CHANNEL_ID = COLUMN_MIN_CHANNEL_ID;
 
     /**
-     * The maximum value of the {@value MappedSalesId#ATTRIBUTE_NAME_CHANNEL_ID} attribute. The
+     * The maximum value of the {@value SalesId#ATTRIBUTE_NAME_CHANNEL_ID} attribute. The
      * value is {@value}.
      */
     public static final int ATTRIBUTE_MAX_CHANNEL_ID = COLUMN_MAX_CHANNEL_ID;
@@ -202,7 +206,7 @@ public abstract class MappedSales {
     // ------------------------------------------------------------------------------------ PROMO_ID
 
     /**
-     * The name of the table column to which the {@value MappedSalesId#ATTRIBUTE_NAME_PROMO_ID}
+     * The name of the table column to which the {@value SalesId#ATTRIBUTE_NAME_PROMO_ID}
      * attribute maps. The value is {@value}.
      */
     public static final String COLUMN_NAME_PROMO_ID = "PROMO_ID";
@@ -228,13 +232,13 @@ public abstract class MappedSales {
     public static final int COLUMN_MAX_PROMO_ID = +999999;
 
     /**
-     * The minimum value of the {@value MappedSalesId#ATTRIBUTE_NAME_PROMO_ID} attribute. The value
+     * The minimum value of the {@value SalesId#ATTRIBUTE_NAME_PROMO_ID} attribute. The value
      * is {@value}.
      */
     public static final int ATTRIBUTE_MIN_PROMO_ID = COLUMN_MIN_PROMO_ID;
 
     /**
-     * The maximum value of the {@value MappedSalesId#ATTRIBUTE_NAME_PROMO_ID} attribute. The value
+     * The maximum value of the {@value SalesId#ATTRIBUTE_NAME_PROMO_ID} attribute. The value
      * is {@value}.
      */
     public static final int ATTRIBUTE_MAX_PROMO_ID = COLUMN_MAX_PROMO_ID;
@@ -335,7 +339,7 @@ public abstract class MappedSales {
     @Override
     public String toString() {
         return super.toString() + '{' +
-               "id=" + getId() +
+               "id_=" + getId_() +
                ",quantitySold=" + quantitySold +
                ",amountSold=" + amountSold +
                '}';
@@ -346,38 +350,53 @@ public abstract class MappedSales {
      *
      * @param obj {@inheritDoc}
      * @return {@inheritDoc}
-     * @implSpec Equality is by the {@code @Id} alone.
+     * @implSpec Equality is by the {@code @EmbeddedId} alone, and holds only once each of its
+     *         attributes is assigned, which is on persist.
      */
     @Override
     public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (!(obj instanceof MappedSales that)) {
             return false;
         }
-        return Objects.equals(getId(), that.getId());
+        final var id = getId_();
+        return id != null
+               && id.getProdId() != null
+               && id.getCustId() != null
+               && id.getTimeId() != null
+               && id.getChannelId() != null
+               && id.getPromoId() != null
+               && id.equals(that.getId_());
     }
 
     /**
      * {@inheritDoc}
      *
      * @return {@inheritDoc}
-     * @implSpec The hash is over the {@code @Id}, consistent with {@link #equals(Object)}.
+     * @implSpec The same for every instance, since the {@code @EmbeddedId} is assigned only on
+     *         persist, and a hash must not change while the instance is in a hash-based collection.
      */
     @Override
     public final int hashCode() {
-        return Objects.hashCode(getId());
+        return MappedSales.class.hashCode();
     }
 
-    // ------------------------------------------------------------------------------------------ id
+    // ----------------------------------------------------------------------------------------- id_
 
     /**
-     * Returns current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * Returns current value of {@value #ATTRIBUTE_NAME_ID_} attribute.
      *
-     * @return current value of {@value #ATTRIBUTE_NAME_ID} attribute.
+     * @return current value of {@value #ATTRIBUTE_NAME_ID_} attribute; {@code null} until the
+     *         instance is persisted.
      * @implSpec The extending entity declares the
-     *         {@link jakarta.persistence.EmbeddedId @EmbeddedId} attribute, of a concrete subclass
-     *         of {@link MappedSalesId}, and returns it.
+     *         {@link jakarta.persistence.EmbeddedId @EmbeddedId} attribute, and returns it.
+     * @implNote {@link #equals(Object)} and {@link #hashCode()} read the identifier through this
+     *         method, not a field, so that a Hibernate proxy, whose own fields are unset, answers
+     *         with the identifier of the row it stands for.
      */
-    public abstract MappedSalesId getId();
+    protected abstract SalesId getId_();
 
     // -------------------------------------------------------------------------------- quantitySold
 

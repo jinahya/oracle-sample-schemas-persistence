@@ -22,21 +22,21 @@ package com.github.jinahya.oracle.sample.persistence.co.mapped;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
 /**
- * A mapped superclass for the composite identifier of the {@value MappedProductOrder#TABLE_NAME}
- * view; the {@link jakarta.persistence.EmbeddedId @EmbeddedId} of an entity which extends
+ * The composite identifier of the {@value MappedProductOrder#TABLE_NAME} table; the
+ * {@link jakarta.persistence.EmbeddedId @EmbeddedId} of an entity which extends
  * {@link MappedProductOrder}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@MappedSuperclass
-public abstract class MappedProductOrderId {
+@Embeddable
+public class ProductOrderId {
 
     /**
      * The name of the database view whose identifying columns this class maps. The value is
@@ -65,7 +65,7 @@ public abstract class MappedProductOrderId {
     /**
      * Creates a new instance.
      */
-    protected MappedProductOrderId() {
+    public ProductOrderId() {
         super();
     }
 
@@ -89,11 +89,14 @@ public abstract class MappedProductOrderId {
      */
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedProductOrderId that)) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof ProductOrderId that)) {
             return false;
         }
-        return Objects.equals(productName, that.productName)
-               && Objects.equals(orderStatus, that.orderStatus);
+        return Objects.equals(getProductName(), that.getProductName())
+               && Objects.equals(getOrderStatus(), that.getOrderStatus());
     }
 
     /**
@@ -105,7 +108,7 @@ public abstract class MappedProductOrderId {
      */
     @Override
     public final int hashCode() {
-        return Objects.hash(productName, orderStatus);
+        return Objects.hash(getProductName(), getOrderStatus());
     }
 
     // --------------------------------------------------------------------------------- productName

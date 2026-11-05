@@ -22,7 +22,7 @@ package com.github.jinahya.oracle.sample.persistence.sh.mapped;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -30,18 +30,16 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.function.Supplier;
 
 /**
- * A mapped superclass for the composite identifier of the
- * {@value MappedFweekPscatSalesMv#TABLE_NAME} table, which an entity extending
- * {@link MappedFweekPscatSalesMv} maps with an {@link jakarta.persistence.EmbeddedId @EmbeddedId};
- * a concrete identifier class extends this class.
+ * The composite identifier of the {@value MappedFweekPscatSalesMv#TABLE_NAME} table; the
+ * {@link jakarta.persistence.EmbeddedId @EmbeddedId} of an entity which extends
+ * {@link MappedFweekPscatSalesMv}.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@MappedSuperclass
-public abstract class MappedFweekPscatSalesMvId {
+@Embeddable
+public class FweekPscatSalesMvId {
 
     /**
      * The name of the database materialized view whose identifying columns this class maps. The
@@ -81,46 +79,12 @@ public abstract class MappedFweekPscatSalesMvId {
      */
     public static final String ATTRIBUTE_NAME_PROMO_ID = "promoId";
 
-    // ---------------------------------------------------------------------- STATIC_FACTORY_METHODS
-
-    /**
-     * Creates a new instance of a subclass, with the specified column values.
-     *
-     * @param <T>             the type of the identifier.
-     * @param instantiator    a supplier of a new, empty instance of {@code T}.
-     * @param weekEndingDay   the {@value MappedFweekPscatSalesMv#COLUMN_NAME_WEEK_ENDING_DAY}
-     *                        column value.
-     * @param prodSubcategory the {@value MappedFweekPscatSalesMv#COLUMN_NAME_PROD_SUBCATEGORY}
-     *                        column value.
-     * @param channelId       the {@value MappedFweekPscatSalesMv#COLUMN_NAME_CHANNEL_ID} column
-     *                        value.
-     * @param promoId         the {@value MappedFweekPscatSalesMv#COLUMN_NAME_PROMO_ID} column
-     *                        value.
-     * @return the instance supplied by {@code instantiator}, with its attributes set.
-     * @throws NullPointerException if {@code instantiator} is {@code null}, or it supplies
-     *                              {@code null}.
-     */
-    protected static <T extends MappedFweekPscatSalesMvId> T of(
-            final Supplier<? extends T> instantiator,
-            final LocalDateTime weekEndingDay,
-            final String prodSubcategory,
-            final Long channelId,
-            final Integer promoId) {
-        Objects.requireNonNull(instantiator, "instantiator is null");
-        final T instance = Objects.requireNonNull(instantiator.get(), "instantiator.get() is null");
-        instance.setWeekEndingDay(weekEndingDay);
-        instance.setProdSubcategory(prodSubcategory);
-        instance.setChannelId(channelId);
-        instance.setPromoId(promoId);
-        return instance;
-    }
-
     // -------------------------------------------------------------------------------- CONSTRUCTORS
 
     /**
      * Creates a new instance.
      */
-    protected MappedFweekPscatSalesMvId() {
+    public FweekPscatSalesMvId() {
         super();
     }
 
@@ -147,13 +111,16 @@ public abstract class MappedFweekPscatSalesMvId {
      */
     @Override
     public final boolean equals(final Object obj) {
-        if (!(obj instanceof MappedFweekPscatSalesMvId that)) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof FweekPscatSalesMvId that)) {
             return false;
         }
-        return Objects.equals(weekEndingDay, that.weekEndingDay)
-               && Objects.equals(prodSubcategory, that.prodSubcategory)
-               && Objects.equals(channelId, that.channelId)
-               && Objects.equals(promoId, that.promoId);
+        return Objects.equals(getWeekEndingDay(), that.getWeekEndingDay())
+               && Objects.equals(getProdSubcategory(), that.getProdSubcategory())
+               && Objects.equals(getChannelId(), that.getChannelId())
+               && Objects.equals(getPromoId(), that.getPromoId());
     }
 
     /**
@@ -166,7 +133,7 @@ public abstract class MappedFweekPscatSalesMvId {
      */
     @Override
     public final int hashCode() {
-        return Objects.hash(weekEndingDay, prodSubcategory, channelId, promoId);
+        return Objects.hash(getWeekEndingDay(), getProdSubcategory(), getChannelId(), getPromoId());
     }
 
     // ------------------------------------------------------------------------------- weekEndingDay

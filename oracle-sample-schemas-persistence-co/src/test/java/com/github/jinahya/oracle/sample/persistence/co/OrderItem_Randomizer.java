@@ -40,7 +40,7 @@ class OrderItem_Randomizer
 
     OrderItem_Randomizer() {
         super(OrderItem.class, List.of(
-                OrderItem.ATTRIBUTE_NAME_ID,
+                OrderItem.ATTRIBUTE_NAME_ID_,
                 OrderItem.ATTRIBUTE_NAME_ORDER,
                 OrderItem.ATTRIBUTE_NAME_PRODUCT,
                 OrderItem.ATTRIBUTE_NAME_SHIPMENT

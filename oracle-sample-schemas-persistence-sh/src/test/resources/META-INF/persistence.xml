@@ -41,13 +41,11 @@
     <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.TimeMonthNameAttributeConverter</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.TimeMonthDescAttributeConverter</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.CalMonthSalesMv</class>
-    <class>com.github.jinahya.oracle.sample.persistence.sh.CostId</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.Cost</class>
-    <class>com.github.jinahya.oracle.sample.persistence.sh.FweekPscatSalesMvId</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.FweekPscatSalesMvId</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.FweekPscatSalesMv</class>
-    <class>com.github.jinahya.oracle.sample.persistence.sh.ProfitId</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.Profit</class>
-    <class>com.github.jinahya.oracle.sample.persistence.sh.SalesId</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.SalesId</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.Sales</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
@@ -96,13 +94,11 @@
     <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.TimeMonthNameAttributeConverter</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.TimeMonthDescAttributeConverter</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.CalMonthSalesMv</class>
-    <class>com.github.jinahya.oracle.sample.persistence.sh.CostId</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.Cost</class>
-    <class>com.github.jinahya.oracle.sample.persistence.sh.FweekPscatSalesMvId</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.FweekPscatSalesMvId</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.FweekPscatSalesMv</class>
-    <class>com.github.jinahya.oracle.sample.persistence.sh.ProfitId</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.Profit</class>
-    <class>com.github.jinahya.oracle.sample.persistence.sh.SalesId</class>
+    <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.SalesId</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.Sales</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>

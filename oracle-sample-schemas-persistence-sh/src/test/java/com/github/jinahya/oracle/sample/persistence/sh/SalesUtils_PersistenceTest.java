@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.SalesId_;
 import com.github.jinahya.persistence.test.util.EntityPersisterUtils;
 import com.github.jinahya.persistence.util.JinahyaEntityManagerUtils;
 import jakarta.persistence.EntityManager;
@@ -111,7 +112,7 @@ class SalesUtils_PersistenceTest {
                         .mapToLong(Sales::getQuantitySold)
                         .summaryStatistics();
                 final var actual = SalesUtils.getQuantitySoldStatistics(
-                        em, (b, r) -> b.equal(r.get(Sales_.id).get(SalesId_.prodId), prodId));
+                        em, (b, r) -> b.equal(r.get(Sales_.id_).get(SalesId_.prodId), prodId));
                 assertThat(actual.getCount()).isEqualTo(expected.getCount()).isPositive();
                 assertThat(actual.getSum()).isEqualTo(expected.getSum());
                 return null;

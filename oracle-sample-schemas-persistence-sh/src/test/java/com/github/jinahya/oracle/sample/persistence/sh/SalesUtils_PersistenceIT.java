@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.SalesId_;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -51,7 +52,7 @@ class SalesUtils_PersistenceIT {
 
     private Integer anyProdId() {
         return entityManager
-                .createQuery("SELECT e.id.prodId FROM Sales e", Integer.class)
+                .createQuery("SELECT e.id_.prodId FROM Sales e", Integer.class)
                 .setMaxResults(1)
                 .getSingleResult();
     }
@@ -86,14 +87,14 @@ class SalesUtils_PersistenceIT {
         void _MatchesJpql_ByProdId() {
             final var prodId = anyProdId();
             final var expected = entityManager.createQuery(
-                            "SELECT COUNT(e), SUM(e.quantitySold) FROM Sales e WHERE e.id.prodId " +
-                            "= :prodId",
+                            "SELECT COUNT(e), SUM(e.quantitySold) FROM Sales e " +
+                            "WHERE e.id_.prodId = :prodId",
                             Object[].class)
                     .setParameter("prodId", prodId)
                     .getSingleResult();
             final var actual = SalesUtils.getQuantitySoldStatistics(
                     entityManager,
-                    (b, r) -> b.equal(r.get(Sales_.id).get(SalesId_.prodId), prodId));
+                    (b, r) -> b.equal(r.get(Sales_.id_).get(SalesId_.prodId), prodId));
             assertThat(actual.getCount()).isEqualTo(((Number) expected[0]).longValue())
                     .isPositive();
             assertThat(actual.getSum()).isEqualTo(((Number) expected[1]).longValue());

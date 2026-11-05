@@ -65,7 +65,7 @@ class FweekPscatSalesMvUtils_PersistenceIT {
         void _Component_EveryRow() {
             for (final var each : all) {
                 assertThat(FweekPscatSalesMvUtils.getIdWeekEndingDay(each)).isEqualTo(
-                        each.getId().getWeekEndingDay());
+                        each.getId_().getWeekEndingDay());
             }
         }
     }
@@ -80,7 +80,7 @@ class FweekPscatSalesMvUtils_PersistenceIT {
         void _Component_EveryRow() {
             for (final var each : all) {
                 assertThat(FweekPscatSalesMvUtils.getIdProdSubcategory(each))
-                        .isEqualTo(each.getId().getProdSubcategory());
+                        .isEqualTo(each.getId_().getProdSubcategory());
             }
         }
     }
@@ -95,7 +95,7 @@ class FweekPscatSalesMvUtils_PersistenceIT {
         void _Component_EveryRow() {
             for (final var each : all) {
                 assertThat(FweekPscatSalesMvUtils.getIdChannelId(each)).isEqualTo(
-                        each.getId().getChannelId());
+                        each.getId_().getChannelId());
             }
         }
     }
@@ -110,7 +110,7 @@ class FweekPscatSalesMvUtils_PersistenceIT {
         void _Component_EveryRow() {
             for (final var each : all) {
                 assertThat(FweekPscatSalesMvUtils.getIdPromoId(each)).isEqualTo(
-                        each.getId().getPromoId());
+                        each.getId_().getPromoId());
             }
         }
     }

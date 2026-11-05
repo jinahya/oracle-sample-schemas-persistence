@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.co.mapped.ProductOrderId;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
@@ -30,6 +31,15 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  */
 class ProductOrder_Test
         extends _Entity_Test<ProductOrder> {
+
+    private static ProductOrderId id(final int value) {
+        final var id = new ProductOrderId();
+        id.setProductName("product" + value);
+        id.setOrderStatus("status" + value);
+        return id;
+    }
+
+    // ---------------------------------------------------------------------------------------------
 
     ProductOrder_Test() {
         super(ProductOrder.class);
@@ -46,6 +56,7 @@ class ProductOrder_Test
     @Override
     public SingleTypeEqualsVerifierApi<ProductOrder> equals_verifier_() {
         return super.equals_verifier_()
+                .withPrefabValuesForField(ProductOrder.ATTRIBUTE_NAME_ID_, id(1), id(2))
                 .suppress(Warning.SURROGATE_KEY);
     }
 }
