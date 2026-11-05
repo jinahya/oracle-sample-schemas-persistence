@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.persistence.hr;
 
-
 /*-
  * #%L
  * hr
@@ -66,26 +65,6 @@ class Employee_PersistenceTest
             employee.setManager(manager);
             manager.setManager(managerOfManager);
             return managerOfManager;
-        }
-
-        @DisplayName(
-                "the named query selects the employee just persisted, by their manager's manager")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var v = newPersistedInstanceOf(em, targetClass);
-                        final var found = em
-                                .createNamedQuery(
-                                        "Employee.selectListByManagerOfManagerOrderByLastNameAsc",
-                                        targetClass)
-                                .setParameter("manager", managerOfManager(em, v))
-                                .getResultList();
-                        assertThat(found)
-                                .as("the employees two levels below the manager")
-                                .containsExactly(v);
-                        return found;
-                    })));
         }
 
         @DisplayName(

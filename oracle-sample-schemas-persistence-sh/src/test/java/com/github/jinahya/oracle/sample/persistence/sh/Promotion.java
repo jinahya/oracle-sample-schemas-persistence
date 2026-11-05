@@ -23,7 +23,6 @@ package com.github.jinahya.oracle.sample.persistence.sh;
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.MappedPromotion;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 /**
@@ -31,30 +30,6 @@ import jakarta.persistence.Table;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(name = "Promotion.selectOneByPromoId",
-            query = """
-                    SELECT e
-                    FROM Promotion e
-                    WHERE e.promoId = :promoId"""
-)
-@NamedQuery(name = "Promotion.selectListOrderByPromoIdAsc",
-            query = """
-                    SELECT e
-                    FROM Promotion e
-                    ORDER BY e.promoId ASC"""
-)
-@NamedQuery(name = "Promotion.selectListOrderByPromoIdAscPromoIdGt",
-            query = """
-                    SELECT e
-                    FROM Promotion e
-                    WHERE e.promoId > :promoIdMinExclusive
-                    ORDER BY e.promoId ASC"""
-)
-@NamedQuery(name = "Promotion.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Promotion e"""
-)
 @Entity
 @Table(name = MappedPromotion.TABLE_NAME,
        comment = "dimension table without a PK-FK relationship with the facts table, to show " +

@@ -29,7 +29,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
@@ -45,77 +44,6 @@ import jakarta.validation.constraints.NotNull;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see JobHistoryId
  */
-@NamedQuery(name = "JobHistory.selectList_WhereEmployeeEqualTo_OrderByStartDateDesc",
-            query = """
-                    SELECT e
-                    FROM JobHistory e
-                    WHERE e.employee = :employee
-                    ORDER BY e.startDate DESC"""
-)
-@NamedQuery(name = "JobHistory.selectList_WhereEmployeeIdEqualTo_OrderByStartDateDesc",
-            query = """
-                    SELECT e
-                    FROM JobHistory e
-                    WHERE e.employeeId = :employeeId
-                    ORDER BY e.startDate DESC"""
-)
-@NamedQuery(name = "JobHistory.selectOneByEmployeeIdAndStartDate",
-            query = """
-                    SELECT e
-                    FROM JobHistory e
-                    WHERE e.employeeId = :employeeId
-                      AND e.startDate = :startDate"""
-)
-@NamedQuery(name = "JobHistory.selectListOrderByEmployeeIdAscStartDateAsc",
-            query = """
-                    SELECT e
-                    FROM JobHistory e
-                    ORDER BY e.employeeId ASC, e.startDate ASC"""
-)
-@NamedQuery(name = "JobHistory.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM JobHistory e"""
-)
-@NamedQuery(name = "JobHistory.selectListByEmployeeOrderByStartDateAsc",
-            query = """
-                    SELECT e
-                    FROM JobHistory e
-                    WHERE e.employee = :employee
-                    ORDER BY e.startDate ASC"""
-)
-@NamedQuery(name = "JobHistory.countByEmployee",
-            query = """
-                    SELECT COUNT(e)
-                    FROM JobHistory e
-                    WHERE e.employee = :employee"""
-)
-@NamedQuery(name = "JobHistory.selectListByJobOrderByEmployeeIdAscStartDateAsc",
-            query = """
-                    SELECT e
-                    FROM JobHistory e
-                    WHERE e.job = :job
-                    ORDER BY e.employeeId ASC, e.startDate ASC"""
-)
-@NamedQuery(name = "JobHistory.countByJob",
-            query = """
-                    SELECT COUNT(e)
-                    FROM JobHistory e
-                    WHERE e.job = :job"""
-)
-@NamedQuery(name = "JobHistory.selectListByDepartmentOrderByEmployeeIdAscStartDateAsc",
-            query = """
-                    SELECT e
-                    FROM JobHistory e
-                    WHERE e.department = :department
-                    ORDER BY e.employeeId ASC, e.startDate ASC"""
-)
-@NamedQuery(name = "JobHistory.countByDepartment",
-            query = """
-                    SELECT COUNT(e)
-                    FROM JobHistory e
-                    WHERE e.department = :department"""
-)
 @Entity(name = JobHistory.ENTITY_NAME)
 @IdClass(JobHistoryId.class)
 @Table(name = MappedJobHistory.TABLE_NAME,

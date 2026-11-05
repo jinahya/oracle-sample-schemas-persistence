@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.persistence.co;
 
-
 /*-
  * #%L
  * co
@@ -54,22 +53,6 @@ class Customer_PersistenceIT
     // ---------------------------------------------------------------------------------------------
     @Nested
     class SelectListOrderByCustomerIdAsc_Test {
-
-        @DisplayName("the named query selects the installed customers, ordered by identifier")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var found = entityManager
-                        .createNamedQuery("Customer.selectListOrderByCustomerIdAsc", targetClass)
-                        .getResultList();
-                assertThat(found)
-                        .as("the customers ordered by %s", Customer_.customerId.getName())
-                        .isNotEmpty()
-                        .extracting(Customer::getCustomerId)
-                        .isSorted();
-                return null;
-            }));
-        }
 
         @DisplayName(
                 "a query-language query selects the installed customers, ordered by identifier")
@@ -128,26 +111,6 @@ class Customer_PersistenceIT
                     .hasSizeLessThanOrEqualTo(MAX_RESULTS)
                     .extracting(Customer::getCustomerId)
                     .isSorted();
-        }
-
-        @DisplayName(
-                "the named query selects all installed customers, page by page, ordered by " +
-                "identifier")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var query = entityManager
-                        .createNamedQuery("Customer.selectListOrderByCustomerIdAsc", targetClass)
-                        .setMaxResults(MAX_RESULTS);
-                for (var firstResult = 0; ; firstResult += MAX_RESULTS) {
-                    final var page = query.setFirstResult(firstResult).getResultList();
-                    verify(page);
-                    if (page.size() < MAX_RESULTS) {
-                        break;
-                    }
-                }
-                return null;
-            }));
         }
 
         @DisplayName(
@@ -238,23 +201,6 @@ class Customer_PersistenceIT
         }
 
         @DisplayName(
-                "the named query selects a page of the installed customers, after the previous one")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var customerIdMinExclusive = customerIdMinExclusive();
-                final var found = entityManager
-                        .createNamedQuery("Customer.selectListOrderByCustomerIdAscCustomerIdGt",
-                                          targetClass)
-                        .setParameter("customerIdMinExclusive", customerIdMinExclusive)
-                        .setMaxResults(MAX_RESULTS)
-                        .getResultList();
-                verify(found, customerIdMinExclusive);
-                return null;
-            }));
-        }
-
-        @DisplayName(
                 "a query-language query selects a page of the installed customers, after the " +
                 "previous one")
         @Test
@@ -328,23 +274,6 @@ class Customer_PersistenceIT
             }));
         }
 
-        @DisplayName("the named query selects the installed customer")
-        @MethodSource("emailAddresses")
-        @ParameterizedTest
-        void __NamedQuery(final String emailAddress) {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var found = entityManager
-                        .createNamedQuery("Customer.selectOneByEmailAddress", targetClass)
-                        .setParameter("emailAddress", emailAddress)
-                        .getSingleResult();
-                assertThat(found)
-                        .as("the customer selected by %s", emailAddress)
-                        .extracting(Customer::getEmailAddress)
-                        .isEqualTo(emailAddress);
-                return null;
-            }));
-        }
-
         @DisplayName("a query-language query selects the installed customer")
         @MethodSource("emailAddresses")
         @ParameterizedTest
@@ -390,22 +319,6 @@ class Customer_PersistenceIT
 
     @Nested
     class SelectListOrderByEmailAddress_Test {
-
-        @DisplayName("the named query selects the installed customers, ordered by email address")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var found = entityManager
-                        .createNamedQuery("Customer.selectListOrderByEmailAddressAsc", targetClass)
-                        .getResultList();
-                assertThat(found)
-                        .as("the customers ordered by %s", Customer_.emailAddress.getName())
-                        .isNotEmpty()
-                        .extracting(Customer::getEmailAddress)
-                        .isSorted();
-                return null;
-            }));
-        }
 
         @DisplayName(
                 "a query-language query selects the installed customers, ordered by email address")

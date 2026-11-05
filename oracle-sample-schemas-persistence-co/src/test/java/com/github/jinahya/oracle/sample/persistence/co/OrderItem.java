@@ -30,7 +30,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
@@ -45,63 +44,6 @@ import java.util.Optional;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(name = "OrderItem.selectOneByOrderIdAndLineItemId",
-            query = """
-                    SELECT e
-                    FROM OrderItem e
-                    WHERE e.id_.orderId = :orderId
-                      AND e.id_.lineItemId = :lineItemId"""
-)
-@NamedQuery(name = "OrderItem.selectListOrderByOrderIdAscLineItemIdAsc",
-            query = """
-                    SELECT e
-                    FROM OrderItem e
-                    ORDER BY e.id_.orderId ASC, e.id_.lineItemId ASC"""
-)
-@NamedQuery(name = "OrderItem.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM OrderItem e"""
-)
-@NamedQuery(name = "OrderItem.selectListByOrderOrderByLineItemIdAsc",
-            query = """
-                    SELECT e
-                    FROM OrderItem e
-                    WHERE e.order = :order
-                    ORDER BY e.id_.lineItemId ASC"""
-)
-@NamedQuery(name = "OrderItem.countByOrder",
-            query = """
-                    SELECT COUNT(e)
-                    FROM OrderItem e
-                    WHERE e.order = :order"""
-)
-@NamedQuery(name = "OrderItem.selectListByProductOrderByOrderIdAscLineItemIdAsc",
-            query = """
-                    SELECT e
-                    FROM OrderItem e
-                    WHERE e.product = :product
-                    ORDER BY e.id_.orderId ASC, e.id_.lineItemId ASC"""
-)
-@NamedQuery(name = "OrderItem.countByProduct",
-            query = """
-                    SELECT COUNT(e)
-                    FROM OrderItem e
-                    WHERE e.product = :product"""
-)
-@NamedQuery(name = "OrderItem.selectListByShipmentOrderByOrderIdAscLineItemIdAsc",
-            query = """
-                    SELECT e
-                    FROM OrderItem e
-                    WHERE e.shipment = :shipment
-                    ORDER BY e.id_.orderId ASC, e.id_.lineItemId ASC"""
-)
-@NamedQuery(name = "OrderItem.countByShipment",
-            query = """
-                    SELECT COUNT(e)
-                    FROM OrderItem e
-                    WHERE e.shipment = :shipment"""
-)
 @Entity
 @Table(name = MappedOrderItem.TABLE_NAME,
        uniqueConstraints = {

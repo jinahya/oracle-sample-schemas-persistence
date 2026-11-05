@@ -22,15 +22,19 @@ package com.github.jinahya.oracle.sample.persistence.co;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
 import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceIT_Utils.applyEntityManagerFactory;
+import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceIT_Utils.applyEntityManagerInTransactionAndRollback_;
 import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assumptions.assumeThat;
 
 /**
  * Verifies the mappings of {@link Store} against the installed {@code CO} schema.
@@ -68,23 +72,6 @@ class Store_PersistenceIT
                         .setMaxResults(5)
                         .getResultList()
                         .stream();
-            }));
-        }
-
-        @DisplayName("the named query selects the installed store")
-        @MethodSource("storeNames")
-        @ParameterizedTest
-        void __NamedQuery(final String storeName) {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var found = entityManager
-                        .createNamedQuery("Store.selectSingleByStoreName", targetClass)
-                        .setParameter("storeName", storeName)
-                        .getSingleResult();
-                assertThat(found)
-                        .as("the store selected by %s", storeName)
-                        .extracting(Store::getStoreName)
-                        .isEqualTo(storeName);
-                return null;
             }));
         }
 
@@ -128,6 +115,36 @@ class Store_PersistenceIT
                         .isEqualTo(storeName);
                 return null;
             }));
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    @DisplayName("LOGO")
+    @Nested
+    class LogoTest {
+
+        @DisplayName("a logo written reads back equal")
+        @Test
+        void __RoundTrip() {
+            final Long id;
+            {
+                final var optional = selectRandomEntityId_();
+                assumeThat(optional).isNotEmpty();
+                id = optional.get();
+            }
+            final var bytes = new byte[1024];
+            ThreadLocalRandom.current().nextBytes(bytes);
+            applyEntityManagerInTransactionAndRollback_(emf -> em -> {
+                final var store = em.find(targetClass, id);
+                store.setLogo(bytes);
+                store.setLogoMimeType("application/octet-stream");
+                em.flush();
+                em.clear();
+                final var read = em.find(targetClass, id);
+                assertThat(read.getLogo()).isEqualTo(bytes);
+                assertThat(read.getLogoMimeType()).isEqualTo("application/octet-stream");
+                return null;
+            });
         }
     }
 }

@@ -23,7 +23,6 @@ package com.github.jinahya.oracle.sample.persistence.hr;
 import com.github.jinahya.oracle.sample.persistence.hr.mapped.MappedRegion;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -36,58 +35,6 @@ import java.util.List;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(
-        name = "Region.selectListWhereRegionNameIsNull",
-        query = """
-                SELECT e
-                FROM Region AS e
-                WHERE e.regionName IS NULL"""
-)
-@NamedQuery(
-        name = "Region.selectListWhereRegionNameIsNotNull",
-        query = """
-                SELECT e
-                FROM Region AS e
-                WHERE e.regionName IS NOT NULL"""
-)
-@NamedQuery(
-        name = "Region.selectListWhereRegionNameLike",
-        query = """
-                SELECT e
-                FROM Region AS e
-                WHERE e.regionName LIKE :regionNamePattern"""
-)
-@NamedQuery(
-        name = "Region.selectListWhereRegionNameEqual",
-        query = """
-                SELECT e
-                FROM Region AS e
-                WHERE e.regionName = :regionName"""
-)
-@NamedQuery(name = "Region.selectOneByRegionId",
-            query = """
-                    SELECT e
-                    FROM Region e
-                    WHERE e.regionId = :regionId"""
-)
-@NamedQuery(name = "Region.selectListOrderByRegionIdAsc",
-            query = """
-                    SELECT e
-                    FROM Region e
-                    ORDER BY e.regionId ASC"""
-)
-@NamedQuery(name = "Region.selectListOrderByRegionIdAscRegionIdGt",
-            query = """
-                    SELECT e
-                    FROM Region e
-                    WHERE e.regionId > :regionIdMinExclusive
-                    ORDER BY e.regionId ASC"""
-)
-@NamedQuery(name = "Region.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Region e"""
-)
 @Entity
 @Table(name = MappedRegion.TABLE_NAME,
        comment = "Regions table that contains region numbers and names. references with the " +

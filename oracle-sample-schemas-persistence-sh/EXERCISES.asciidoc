@@ -1634,11 +1634,10 @@ WHERE c.custCity = :custCity
 ORDER BY c.custLastName ASC, c.custFirstName ASC, c.custId ASC
 ----
 
-The JPQL is the named query `Customer.selectListPromotedByCustCityOrderByCustLastNameAsc`. `EXISTS` is a semi-join:
-a customer with many promoted sales still appears once, which a plain join would need a `DISTINCT` for, and the
-database can stop at the first matching sale. Only four promotions ever sold anything, and 999, `NO PROMOTION`, carries
-almost all the sales, so the condition is selective: of the 932 customers of Los Angeles, 202 bought anything and 117
-bought under a promotion.
+In the JPQL, `EXISTS` is a semi-join: a customer with many promoted sales still appears once, which a plain join would
+need a `DISTINCT` for, and the database can stop at the first matching sale. Only four promotions ever sold anything,
+and 999, `NO PROMOTION`, carries almost all the sales, so the condition is selective: of the 932 customers of Los
+Angeles, 202 bought anything and 117 bought under a promotion.
 
 === Advanced
 

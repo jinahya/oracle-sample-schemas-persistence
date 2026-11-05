@@ -26,7 +26,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -40,81 +39,6 @@ import java.util.Optional;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(
-        name = "Location" +
-               ".select_WhereCountryIdEqualStateProvinceEqualCityEqual_OrderByStreetAddressAsc",
-        query = """
-                SELECT e
-                FROM Location e
-                WHERE e.country.countryId = :countryId
-                  AND e.stateProvince = :stateProvince
-                  AND e.city = :city
-                ORDER BY e.streetAddress ASC"""
-)
-@NamedQuery(
-        name = "Location.select_WhereCountryIdEqualCityEqual_OrderByStreetAddressAsc",
-        query = """
-                SELECT e
-                FROM Location e
-                WHERE e.country.countryId = :countryId
-                  AND e.city = :city
-                ORDER BY e.streetAddress ASC"""
-)
-@NamedQuery(
-        name = "Location.select_WhereCountryIdEqualStateProvinceEqual_OrderByStreetAddressAsc",
-        query = """
-                SELECT e
-                FROM Location e
-                WHERE e.country.countryId = :countryId
-                  AND e.stateProvince = :stateProvince
-                ORDER BY e.streetAddress ASC"""
-)
-@NamedQuery(
-        name = "Location.select_WhereCountryIdEqual_OrderByLocationIdAsc",
-        query = """
-                SELECT e
-                FROM Location e
-                WHERE e.country.countryId = :countryId
-                ORDER BY e.locationId ASC"""
-)
-@NamedQuery(
-        name = "Location.selectListOrderByLocationIdAsc",
-        query = """
-                SELECT e
-                FROM Location e
-                ORDER BY e.locationId ASC"""
-)
-@NamedQuery(name = "Location.selectOneByLocationId",
-            query = """
-                    SELECT e
-                    FROM Location e
-                    WHERE e.locationId = :locationId"""
-)
-@NamedQuery(name = "Location.selectListOrderByLocationIdAscLocationIdGt",
-            query = """
-                    SELECT e
-                    FROM Location e
-                    WHERE e.locationId > :locationIdMinExclusive
-                    ORDER BY e.locationId ASC"""
-)
-@NamedQuery(name = "Location.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Location e"""
-)
-@NamedQuery(name = "Location.selectListByCountryOrderByLocationIdAsc",
-            query = """
-                    SELECT e
-                    FROM Location e
-                    WHERE e.country = :country
-                    ORDER BY e.locationId ASC"""
-)
-@NamedQuery(name = "Location.countByCountry",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Location e
-                    WHERE e.country = :country"""
-)
 @Entity
 @Table(name = MappedLocation.TABLE_NAME,
        comment = "Locations table that contains specific address of a specific office,\n" +

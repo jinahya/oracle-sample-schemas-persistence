@@ -56,25 +56,6 @@ class Inventory_PersistenceTest
     @Nested
     class SelectOneByStoreAndProduct_Test {
 
-        @DisplayName("the named query selects the inventory just persisted")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var v = newPersistedInstanceOf(em, targetClass);
-                        final var found = em
-                                .createNamedQuery("Inventory.selectOneByStoreAndProduct",
-                                                  targetClass)
-                                .setParameter("store", v.getStore())
-                                .setParameter("product", v.getProduct())
-                                .getSingleResult();
-                        assertThat(found)
-                                .as("the inventory selected by its store and its product")
-                                .isSameAs(v);
-                        return found;
-                    })));
-        }
-
         @DisplayName("a query-language query selects the inventory just persisted")
         @Test
         void __QueryLanguage() {
@@ -128,25 +109,6 @@ class Inventory_PersistenceTest
      */
     @Nested
     class SelectOneByProductOrderByProductInventoryAsc_Test {
-
-        @DisplayName("the named query selects the inventory just persisted, by its product")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var v = newPersistedInstanceOf(em, targetClass);
-                        final var found = em
-                                .createNamedQuery(
-                                        "Inventory.selectOneByProductOrderByProductInventoryAsc",
-                                        targetClass)
-                                .setParameter("product", v.getProduct())
-                                .getResultList();
-                        assertThat(found)
-                                .as("the inventories of the product")
-                                .containsExactly(v);
-                        return found;
-                    })));
-        }
 
         @DisplayName("a query-language query selects the inventory just persisted, by its product")
         @Test
@@ -202,28 +164,6 @@ class Inventory_PersistenceTest
      */
     @Nested
     class SelectListUnsoldByStoreOrderByProductInventoryDesc_Test {
-
-        @DisplayName(
-                "the named query selects the inventory just persisted, never sold at its store")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var v = newPersistedInstanceOf(em, targetClass);
-                        v.setProductInventory(1L);
-                        final var found = em
-                                .createNamedQuery(
-                                        "Inventory" +
-                                        ".selectListUnsoldByStoreOrderByProductInventoryDesc",
-                                        targetClass)
-                                .setParameter("store", v.getStore())
-                                .getResultList();
-                        assertThat(found)
-                                .as("the unsold inventories of the store")
-                                .containsExactly(v);
-                        return found;
-                    })));
-        }
 
         @DisplayName(
                 "a query-language query selects the inventory just persisted, never sold at its " +
@@ -294,25 +234,5 @@ class Inventory_PersistenceTest
                     })));
         }
 
-        @DisplayName("the named query skips the inventory just persisted, once it holds no stock")
-        @Test
-        void __NamedQuery_NoStock() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var v = newPersistedInstanceOf(em, targetClass);
-                        v.setProductInventory(0L);
-                        final var found = em
-                                .createNamedQuery(
-                                        "Inventory" +
-                                        ".selectListUnsoldByStoreOrderByProductInventoryDesc",
-                                        targetClass)
-                                .setParameter("store", v.getStore())
-                                .getResultList();
-                        assertThat(found)
-                                .as("the unsold inventories of the store")
-                                .isEmpty();
-                        return found;
-                    })));
-        }
     }
 }

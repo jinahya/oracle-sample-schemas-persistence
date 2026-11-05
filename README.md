@@ -132,7 +132,7 @@ To install by hand instead, see [README_BAK.md](README_BAK.md).
 These are pure Jakarta Persistence modules with no persistence helper libraries. Each one
 publishes the package `<schema>.mapped`: one `@MappedSuperclass` per table and view, holding
 the schema's own facts and no association. The entities which extend them, and add the
-associations and named queries, are test code.
+associations, are test code.
 
 Jakarta EE 11 is the only supported platform generation. The spec versions come from
 `jakarta.platform:jakarta.jakartaee-bom`; the implementations are pinned to releases

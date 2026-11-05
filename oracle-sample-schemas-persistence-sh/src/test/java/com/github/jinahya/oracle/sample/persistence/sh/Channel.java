@@ -23,7 +23,6 @@ package com.github.jinahya.oracle.sample.persistence.sh;
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.MappedChannel;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 /**
@@ -31,30 +30,6 @@ import jakarta.persistence.Table;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(name = "Channel.selectOneByChannelId",
-            query = """
-                    SELECT e
-                    FROM Channel e
-                    WHERE e.channelId = :channelId"""
-)
-@NamedQuery(name = "Channel.selectListOrderByChannelIdAsc",
-            query = """
-                    SELECT e
-                    FROM Channel e
-                    ORDER BY e.channelId ASC"""
-)
-@NamedQuery(name = "Channel.selectListOrderByChannelIdAscChannelIdGt",
-            query = """
-                    SELECT e
-                    FROM Channel e
-                    WHERE e.channelId > :channelIdMinExclusive
-                    ORDER BY e.channelId ASC"""
-)
-@NamedQuery(name = "Channel.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Channel e"""
-)
 @Entity
 @Table(name = MappedChannel.TABLE_NAME, comment = "small dimension table")
 public class Channel

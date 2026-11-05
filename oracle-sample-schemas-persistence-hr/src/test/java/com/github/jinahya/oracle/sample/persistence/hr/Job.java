@@ -23,7 +23,6 @@ package com.github.jinahya.oracle.sample.persistence.hr;
 import com.github.jinahya.oracle.sample.persistence.hr.mapped.MappedJob;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -36,42 +35,6 @@ import java.util.List;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(name = "Job.Select__OrderByMaxSalaryDescNullsLast",
-            query = """
-                    SELECT e
-                    FROM Job e
-                    ORDER BY e.maxSalary DESC NULLS LAST"""
-)
-@NamedQuery(name = "Job.Select__OrderByMinSalaryAscNullsFirst",
-            query = """
-                    SELECT e
-                    FROM Job e
-                    ORDER BY e.minSalary ASC NULLS FIRST"""
-)
-@NamedQuery(name = "Job.selectOneByJobId",
-            query = """
-                    SELECT e
-                    FROM Job e
-                    WHERE e.jobId = :jobId"""
-)
-@NamedQuery(name = "Job.selectListOrderByJobIdAsc",
-            query = """
-                    SELECT e
-                    FROM Job e
-                    ORDER BY e.jobId ASC"""
-)
-@NamedQuery(name = "Job.selectListOrderByJobIdAscJobIdGt",
-            query = """
-                    SELECT e
-                    FROM Job e
-                    WHERE e.jobId > :jobIdMinExclusive
-                    ORDER BY e.jobId ASC"""
-)
-@NamedQuery(name = "Job.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Job e"""
-)
 @Entity
 @Table(name = MappedJob.TABLE_NAME,
        comment = "jobs table with job titles and salary ranges.\n" +

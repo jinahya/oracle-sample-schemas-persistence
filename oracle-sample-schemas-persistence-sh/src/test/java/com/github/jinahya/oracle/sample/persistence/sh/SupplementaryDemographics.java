@@ -23,7 +23,6 @@ package com.github.jinahya.oracle.sample.persistence.sh;
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.MappedSupplementaryDemographics;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 /**
@@ -31,30 +30,6 @@ import jakarta.persistence.Table;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(name = "SupplementaryDemographics.selectOneByCustId",
-            query = """
-                    SELECT e
-                    FROM SupplementaryDemographics e
-                    WHERE e.custId = :custId"""
-)
-@NamedQuery(name = "SupplementaryDemographics.selectListOrderByCustIdAsc",
-            query = """
-                    SELECT e
-                    FROM SupplementaryDemographics e
-                    ORDER BY e.custId ASC"""
-)
-@NamedQuery(name = "SupplementaryDemographics.selectListOrderByCustIdAscCustIdGt",
-            query = """
-                    SELECT e
-                    FROM SupplementaryDemographics e
-                    WHERE e.custId > :custIdMinExclusive
-                    ORDER BY e.custId ASC"""
-)
-@NamedQuery(name = "SupplementaryDemographics.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM SupplementaryDemographics e"""
-)
 @Entity
 @Table(name = MappedSupplementaryDemographics.TABLE_NAME)
 public class SupplementaryDemographics

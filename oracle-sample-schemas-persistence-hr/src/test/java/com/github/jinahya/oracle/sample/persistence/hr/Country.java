@@ -27,7 +27,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -42,56 +41,6 @@ import java.util.Optional;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(name = "Country.selectListByRegionOrderByCountryNameAsc",
-            query = """
-                    SELECT e
-                    FROM Country AS e
-                    WHERE e.region = :region
-                    ORDER BY e.countryName ASC"""
-)
-@NamedQuery(name = "Country.selectListByRegionOrderByCountryIdAsc",
-            query = """
-                    SELECT e
-                    FROM Country AS e
-                    WHERE e.region = :region
-                    ORDER BY e.countryId ASC"""
-)
-@NamedQuery(name = "Country.selectListOrderByCountryNameAsc",
-            query = """
-                    SELECT e
-                    FROM Country AS e
-                    ORDER BY e.countryName ASC"""
-)
-@NamedQuery(name = "Country.selectListOrderByCountryIdAsc",
-            query = """
-                    SELECT e
-                    FROM Country AS e
-                    ORDER BY e.countryId ASC"""
-)
-@NamedQuery(name = "Country.selectOneByCountryId",
-            query = """
-                    SELECT e
-                    FROM Country e
-                    WHERE e.countryId = :countryId"""
-)
-@NamedQuery(name = "Country.selectListOrderByCountryIdAscCountryIdGt",
-            query = """
-                    SELECT e
-                    FROM Country e
-                    WHERE e.countryId > :countryIdMinExclusive
-                    ORDER BY e.countryId ASC"""
-)
-@NamedQuery(name = "Country.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Country e"""
-)
-@NamedQuery(name = "Country.countByRegion",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Country e
-                    WHERE e.region = :region"""
-)
 @Entity
 @Table(name = MappedCountry.TABLE_NAME, comment = "country table. References with locations table.")
 public class Country

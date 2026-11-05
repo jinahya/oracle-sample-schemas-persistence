@@ -28,7 +28,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -53,111 +52,6 @@ import java.util.Objects;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see SalesId
  */
-@NamedQuery(name = "Sales.selectOneByProdIdAndCustIdAndTimeIdAndChannelIdAndPromoId",
-            query = """
-                    SELECT e
-                    FROM Sales e
-                    WHERE e.id_.prodId = :prodId
-                      AND e.id_.custId = :custId
-                      AND e.id_.timeId = :timeId
-                      AND e.id_.channelId = :channelId
-                      AND e.id_.promoId = :promoId"""
-)
-@NamedQuery(name = "Sales.selectListOrderByProdIdAscCustIdAscTimeIdAscChannelIdAscPromoIdAsc",
-            query = """
-                    SELECT e
-                    FROM Sales e
-                    ORDER BY e.id_.prodId ASC,
-                             e.id_.custId ASC,
-                             e.id_.timeId ASC,
-                             e.id_.channelId ASC,
-                             e.id_.promoId ASC"""
-)
-@NamedQuery(name = "Sales.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Sales e"""
-)
-@NamedQuery(name = "Sales.selectListByProductOrderByCustIdAscTimeIdAscChannelIdAscPromoIdAsc",
-            query = """
-                    SELECT e
-                    FROM Sales e
-                    WHERE e.product = :product
-                    ORDER BY e.id_.custId ASC,
-                             e.id_.timeId ASC,
-                             e.id_.channelId ASC,
-                             e.id_.promoId ASC"""
-)
-@NamedQuery(name = "Sales.countByProduct",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Sales e
-                    WHERE e.product = :product"""
-)
-@NamedQuery(name = "Sales.selectListByCustomerOrderByProdIdAscTimeIdAscChannelIdAscPromoIdAsc",
-            query = """
-                    SELECT e
-                    FROM Sales e
-                    WHERE e.customer = :customer
-                    ORDER BY e.id_.prodId ASC,
-                             e.id_.timeId ASC,
-                             e.id_.channelId ASC,
-                             e.id_.promoId ASC"""
-)
-@NamedQuery(name = "Sales.countByCustomer",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Sales e
-                    WHERE e.customer = :customer"""
-)
-@NamedQuery(name = "Sales.selectListByTimeOrderByProdIdAscCustIdAscChannelIdAscPromoIdAsc",
-            query = """
-                    SELECT e
-                    FROM Sales e
-                    WHERE e.time = :time
-                    ORDER BY e.id_.prodId ASC,
-                             e.id_.custId ASC,
-                             e.id_.channelId ASC,
-                             e.id_.promoId ASC"""
-)
-@NamedQuery(name = "Sales.countByTime",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Sales e
-                    WHERE e.time = :time"""
-)
-@NamedQuery(name = "Sales.selectListByChannelOrderByProdIdAscCustIdAscTimeIdAscPromoIdAsc",
-            query = """
-                    SELECT e
-                    FROM Sales e
-                    WHERE e.channel = :channel
-                    ORDER BY e.id_.prodId ASC,
-                             e.id_.custId ASC,
-                             e.id_.timeId ASC,
-                             e.id_.promoId ASC"""
-)
-@NamedQuery(name = "Sales.countByChannel",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Sales e
-                    WHERE e.channel = :channel"""
-)
-@NamedQuery(name = "Sales.selectListByPromotionOrderByProdIdAscCustIdAscTimeIdAscChannelIdAsc",
-            query = """
-                    SELECT e
-                    FROM Sales e
-                    WHERE e.promotion = :promotion
-                    ORDER BY e.id_.prodId ASC,
-                             e.id_.custId ASC,
-                             e.id_.timeId ASC,
-                             e.id_.channelId ASC"""
-)
-@NamedQuery(name = "Sales.countByPromotion",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Sales e
-                    WHERE e.promotion = :promotion"""
-)
 @Entity
 @Table(name = MappedSales.TABLE_NAME,
        comment = "facts table, without a primary key; all rows are uniquely identified by the " +

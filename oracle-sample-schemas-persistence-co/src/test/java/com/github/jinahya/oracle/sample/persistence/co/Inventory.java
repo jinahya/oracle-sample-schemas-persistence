@@ -26,7 +26,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.Valid;
@@ -39,81 +38,6 @@ import java.util.Optional;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(name = "Inventory.selectOneByProductOrderByProductInventoryAsc",
-            query = """
-                    SELECT e
-                    FROM Inventory AS e
-                    WHERE e.product = :product
-                    ORDER BY e.productInventory ASC"""
-)
-@NamedQuery(name = "Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc",
-            query = """
-                    SELECT e
-                    FROM Inventory AS e
-                    WHERE e.store = :store
-                      AND e.productInventory > 0
-                      AND NOT EXISTS (SELECT oi
-                                      FROM OrderItem oi
-                                      WHERE oi.product = e.product
-                                        AND oi.order.store = e.store)
-                    ORDER BY e.productInventory DESC, e.product.productName ASC"""
-)
-@NamedQuery(name = "Inventory.selectOneByStoreAndProduct",
-            query = """
-                    SELECT e
-                    FROM Inventory AS e
-                    WHERE e.store = :store AND e.product = :product"""
-)
-@NamedQuery(name = "Inventory.selectOneByInventoryId",
-            query = """
-                    SELECT e
-                    FROM Inventory e
-                    WHERE e.inventoryId = :inventoryId"""
-)
-@NamedQuery(name = "Inventory.selectListOrderByInventoryIdAsc",
-            query = """
-                    SELECT e
-                    FROM Inventory e
-                    ORDER BY e.inventoryId ASC"""
-)
-@NamedQuery(name = "Inventory.selectListOrderByInventoryIdAscInventoryIdGt",
-            query = """
-                    SELECT e
-                    FROM Inventory e
-                    WHERE e.inventoryId > :inventoryIdMinExclusive
-                    ORDER BY e.inventoryId ASC"""
-)
-@NamedQuery(name = "Inventory.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Inventory e"""
-)
-@NamedQuery(name = "Inventory.selectListByStoreOrderByInventoryIdAsc",
-            query = """
-                    SELECT e
-                    FROM Inventory e
-                    WHERE e.store = :store
-                    ORDER BY e.inventoryId ASC"""
-)
-@NamedQuery(name = "Inventory.countByStore",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Inventory e
-                    WHERE e.store = :store"""
-)
-@NamedQuery(name = "Inventory.selectListByProductOrderByInventoryIdAsc",
-            query = """
-                    SELECT e
-                    FROM Inventory e
-                    WHERE e.product = :product
-                    ORDER BY e.inventoryId ASC"""
-)
-@NamedQuery(name = "Inventory.countByProduct",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Inventory e
-                    WHERE e.product = :product"""
-)
 @Entity
 @Table(name = MappedInventory.TABLE_NAME,
        uniqueConstraints = {

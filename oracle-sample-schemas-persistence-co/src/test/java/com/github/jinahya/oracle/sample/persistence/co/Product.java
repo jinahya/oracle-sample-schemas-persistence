@@ -25,7 +25,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.NamedAttributeNode;
 import jakarta.persistence.NamedEntityGraph;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -45,49 +44,6 @@ import java.util.List;
 @NamedEntityGraph(
         name = Product.ENTITY_GRAPH_NAME_PRODUCT_IMAGE,
         attributeNodes = @NamedAttributeNode(MappedProduct.ATTRIBUTE_NAME_PRODUCT_IMAGE)
-)
-@NamedQuery(
-        name = "Product" +
-               ".selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
-        query = """
-                SELECT e
-                FROM Product e
-                WHERE e.unitPrice >= :unitPriceMinInclusive AND e.unitPrice < :unitPriceMaxExclusive
-                ORDER BY e.unitPrice ASC"""
-)
-@NamedQuery(
-        name = "Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc",
-        query = """
-                SELECT e
-                FROM Product e
-                WHERE e.unitPrice BETWEEN :unitPriceAfter AND :unitPriceBefore
-                ORDER BY e.unitPrice ASC"""
-)
-@NamedQuery(
-        name = "Product.selectListOrderByProductIdAscProductIdGt",
-        query = """
-                SELECT e
-                FROM Product e
-                WHERE e.productId > :productIdMinExclusive
-                ORDER BY e.productId ASC"""
-)
-@NamedQuery(
-        name = "Product.selectListOrderByProductIdAsc",
-        query = """
-                SELECT e
-                FROM Product e
-                ORDER BY e.productId ASC"""
-)
-@NamedQuery(name = "Product.selectOneByProductId",
-            query = """
-                    SELECT e
-                    FROM Product e
-                    WHERE e.productId = :productId"""
-)
-@NamedQuery(name = "Product.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Product e"""
 )
 @Entity
 @Table(name = MappedProduct.TABLE_NAME, comment = "Details of goods that customers can purchase")

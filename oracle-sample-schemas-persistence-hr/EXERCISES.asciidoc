@@ -654,10 +654,9 @@ WHERE e.manager.manager = :manager
 ORDER BY e.lastName ASC, e.firstName ASC
 ----
 
-The JPQL is the named query `Employee.selectListByManagerOfManagerOrderByLastNameAsc`. The path `e.manager.manager`
-is the self-join written as navigation: each step is an inner join, so an employee without a manager, or whose manager
-has none, cannot match. `e.getManager()` then gives the manager in between. For Neena Yang (`101`) the answer is the
-five accountants under Nancy Gruenberg and William Gietz under Shelley Higgins.
+In the JPQL, the path `e.manager.manager` is the self-join written as navigation: each step is an inner join, so an
+employee without a manager, or whose manager has none, cannot match. `e.getManager()` then gives the manager in between.
+For Neena Yang (`101`) the answer is the five accountants under Nancy Gruenberg and William Gietz under Shelley Higgins.
 
 === Advanced
 

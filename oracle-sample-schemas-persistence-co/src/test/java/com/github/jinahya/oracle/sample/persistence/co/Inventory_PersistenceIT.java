@@ -78,25 +78,6 @@ class Inventory_PersistenceIT
             }));
         }
 
-        @DisplayName("the named query selects the installed inventory")
-        @MethodSource("inventoryIds")
-        @ParameterizedTest
-        void __NamedQuery(final Long inventoryId) {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var expected = entityManager.find(targetClass, inventoryId);
-                final var found = entityManager
-                        .createNamedQuery("Inventory.selectOneByStoreAndProduct", targetClass)
-                        .setParameter("store", expected.getStore())
-                        .setParameter("product", expected.getProduct())
-                        .getSingleResult();
-                assertThat(found)
-                        .as("the inventory selected by the store and the product of %s",
-                            inventoryId)
-                        .isSameAs(expected);
-                return null;
-            }));
-        }
-
         @DisplayName("a query-language query selects the installed inventory")
         @MethodSource("inventoryIds")
         @ParameterizedTest
@@ -195,22 +176,6 @@ class Inventory_PersistenceIT
             }));
         }
 
-        @DisplayName("the named query selects the product's inventories, lowest stock first")
-        @MethodSource("productIds")
-        @ParameterizedTest
-        void __NamedQuery(final Long productId) {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var found = entityManager
-                        .createNamedQuery("Inventory.selectOneByProductOrderByProductInventoryAsc",
-                                          targetClass)
-                        .setParameter("product",
-                                      entityManager.getReference(Product.class, productId))
-                        .getResultList();
-                verify(productId, found);
-                return null;
-            }));
-        }
-
         @DisplayName("a query-language query selects the product's inventories, lowest stock first")
         @MethodSource("productIds")
         @ParameterizedTest
@@ -304,22 +269,6 @@ class Inventory_PersistenceIT
                         })
                         .isSortedAccordingTo(
                                 Comparator.comparing(Inventory::getProductInventory).reversed());
-                return null;
-            }));
-        }
-
-        @DisplayName("the named query selects the store's stock never sold there, largest first")
-        @MethodSource("storeIds")
-        @ParameterizedTest
-        void __NamedQuery(final Long storeId) {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var found = entityManager
-                        .createNamedQuery(
-                                "Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc",
-                                targetClass)
-                        .setParameter("store", entityManager.getReference(Store.class, storeId))
-                        .getResultList();
-                verify(storeId, found);
                 return null;
             }));
         }

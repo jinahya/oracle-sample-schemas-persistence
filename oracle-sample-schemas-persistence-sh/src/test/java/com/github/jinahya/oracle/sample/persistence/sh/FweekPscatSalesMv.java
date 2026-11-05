@@ -25,7 +25,6 @@ import com.github.jinahya.oracle.sample.persistence.sh.mapped.MappedFweekPscatSa
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -37,32 +36,6 @@ import jakarta.validation.constraints.NotNull;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see FweekPscatSalesMvId
  */
-@NamedQuery(
-        name = "FweekPscatSalesMv.selectOneByWeekEndingDayAndProdSubcategoryAndChannelIdAndPromoId",
-        query = """
-                SELECT e
-                FROM FweekPscatSalesMv e
-                WHERE e.id_.weekEndingDay = :weekEndingDay
-                  AND e.id_.prodSubcategory = :prodSubcategory
-                  AND e.id_.channelId = :channelId
-                  AND e.id_.promoId = :promoId"""
-)
-@NamedQuery(
-        name = "FweekPscatSalesMv" +
-               ".selectListOrderByWeekEndingDayAscProdSubcategoryAscChannelIdAscPromoIdAsc",
-        query = """
-                SELECT e
-                FROM FweekPscatSalesMv e
-                ORDER BY e.id_.weekEndingDay ASC,
-                         e.id_.prodSubcategory ASC,
-                         e.id_.channelId ASC,
-                         e.id_.promoId ASC"""
-)
-@NamedQuery(name = "FweekPscatSalesMv.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM FweekPscatSalesMv e"""
-)
 @Entity
 @Table(name = MappedFweekPscatSalesMv.TABLE_NAME)
 public class FweekPscatSalesMv

@@ -23,7 +23,6 @@ package com.github.jinahya.oracle.sample.persistence.sh;
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.MappedCalMonthSalesMv;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 /**
@@ -31,30 +30,6 @@ import jakarta.persistence.Table;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(name = "CalMonthSalesMv.selectOneByCalendarMonthDesc",
-            query = """
-                    SELECT e
-                    FROM CalMonthSalesMv e
-                    WHERE e.calendarMonthDesc = :calendarMonthDesc"""
-)
-@NamedQuery(name = "CalMonthSalesMv.selectListOrderByCalendarMonthDescAsc",
-            query = """
-                    SELECT e
-                    FROM CalMonthSalesMv e
-                    ORDER BY e.calendarMonthDesc ASC"""
-)
-@NamedQuery(name = "CalMonthSalesMv.selectListOrderByCalendarMonthDescAscCalendarMonthDescGt",
-            query = """
-                    SELECT e
-                    FROM CalMonthSalesMv e
-                    WHERE e.calendarMonthDesc > :calendarMonthDescMinExclusive
-                    ORDER BY e.calendarMonthDesc ASC"""
-)
-@NamedQuery(name = "CalMonthSalesMv.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM CalMonthSalesMv e"""
-)
 @Entity
 @Table(name = MappedCalMonthSalesMv.TABLE_NAME)
 public class CalMonthSalesMv

@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.persistence.co;
 
-
 /*-
  * #%L
  * co
@@ -24,6 +23,7 @@ package com.github.jinahya.oracle.sample.persistence.co;
 import com.github.jinahya.oracle.sample.persistence.co.mapped.ProductDetails;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.PersistenceException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -32,13 +32,17 @@ import org.junit.jupiter.api.TestInstance;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceIT_Utils.applyEntityManagerFactory;
 import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceIT_Utils.applyEntityManagerInTransactionAndRollback_;
+import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceIT_Utils.applyEntityManager_;
 import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assumptions.assumeThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -134,26 +138,6 @@ class Product_PersistenceIT
         }
 
         @DisplayName(
-                "the named query selects the installed products in a half-open unit price range")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var range = unitPriceRange();
-                final var found = entityManager
-                        .createNamedQuery(
-                                "Product" +
-                                ".selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
-                                targetClass
-                        )
-                        .setParameter("unitPriceMinInclusive", range[0])
-                        .setParameter("unitPriceMaxExclusive", range[1])
-                        .getResultList();
-                verify(found, range[0], range[1]);
-                return null;
-            }));
-        }
-
-        @DisplayName(
                 "a query-language query selects the installed products in a half-open unit price " +
                 "range")
         @Test
@@ -212,23 +196,6 @@ class Product_PersistenceIT
                     .extracting(Product::getUnitPrice)
                     .isSorted()
                     .allSatisfy(v -> assertThat(v).isBetween(unitPriceAfter, unitPriceBefore));
-        }
-
-        @DisplayName("the named query selects the installed products in a closed unit price range")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var range = unitPriceRange();
-                final var found = entityManager
-                        .createNamedQuery(
-                                "Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc",
-                                targetClass)
-                        .setParameter("unitPriceAfter", range[0])
-                        .setParameter("unitPriceBefore", range[1])
-                        .getResultList();
-                verify(found, range[0], range[1]);
-                return null;
-            }));
         }
 
         @DisplayName(
@@ -291,6 +258,31 @@ class Product_PersistenceIT
         );
     }
 
+    /**
+     * Selects the identifier of a random product, and aborts the test when there is none.
+     *
+     * @return the identifier of a random product.
+     */
+    private Long selectRandomEntityIdOrAbort_() {
+        final var optional = selectRandomEntityId_();
+        assumeThat(optional).isNotEmpty();
+        return optional.get();
+    }
+
+    /**
+     * Returns the messages of the specified throwable and of each of its causes, joined.
+     *
+     * @param throwable the throwable.
+     * @return the messages of the {@code throwable} and its causes.
+     */
+    private static String messages(final Throwable throwable) {
+        final var builder = new StringBuilder();
+        for (Throwable t = throwable; t != null; t = t.getCause()) {
+            builder.append(t.getMessage()).append('\n');
+        }
+        return builder.toString();
+    }
+
     // ---------------------------------------------------------------------------------------------
     @DisplayName("PRODUCT_DETAILS")
     @Nested
@@ -340,6 +332,92 @@ class Product_PersistenceIT
                 assertThat(jsonBinding).isNotNull();
             }
         }
+
+        @DisplayName(
+                "a ProductDetails written through setProductDetailsFromMapped reads back equal")
+        @Test
+        void __RoundTrip() {
+            final var id = selectRandomEntityIdOrAbort_();
+            applyEntityManagerInTransactionAndRollback_(emf -> em -> {
+                final var product = em.find(targetClass, id);
+                final var value = product.getProductDetailsAsMapped(
+                        b -> ___JsonBinding_TestUtils.fromJson(b, ProductDetails.class)
+                );
+                assumeTrue(value != null, "no product details for " + product);
+                value.setDescription("written by " + getClass().getSimpleName());
+                product.setProductDetailsFromMapped(value, ___JsonBinding_TestUtils::toJson);
+                em.flush();
+                em.clear();
+                final var read = em.find(targetClass, id).getProductDetailsAsMapped(
+                        b -> ___JsonBinding_TestUtils.fromJson(b, ProductDetails.class)
+                );
+                assertThat(read).isEqualTo(value);
+                return null;
+            });
+        }
+
+        @DisplayName("PRODUCTS_JSON_C rejects a PRODUCT_DETAILS which is not JSON")
+        @Test
+        void __NotJson_CheckConstraint() {
+            final var id = selectRandomEntityIdOrAbort_();
+            applyEntityManagerInTransactionAndRollback_(emf -> em -> {
+                final var product = em.find(targetClass, id);
+                product.setProductDetails("not a JSON document".getBytes(StandardCharsets.UTF_8));
+                assertThatThrownBy(em::flush)
+                        .isInstanceOf(PersistenceException.class)
+                        .satisfies(e -> assertThat(messages(e)).contains("PRODUCTS_JSON_C"));
+                return null;
+            });
+        }
+
+        @DisplayName("every installed PRODUCT_DETAILS binds alike with Jackson, JSON-B and JSON-P")
+        @Test
+        void __EveryRow() throws IOException {
+            // the columns, not the entities, so a lazy productDetails is selected all the same
+            final var rows = applyEntityManager_(emf -> em -> em.createQuery(
+                    """
+                            SELECT e.productId, e.productDetails
+                            FROM Product e
+                            ORDER BY e.productId ASC""",
+                    Object[].class
+            ).getResultList());
+            assumeThat(rows).isNotEmpty();
+            for (final var row : rows) {
+                final var bytes = (byte[]) row[1];
+                if (bytes == null) {
+                    continue;
+                }
+                final var jackson = ___Jackson_TestUtils.readValue(bytes, ProductDetails.class);
+                final var jsonBinding =
+                        ___JsonBinding_TestUtils.fromJson(bytes, ProductDetails.class);
+                assertThat(jsonBinding).as("product %s", row[0]).isEqualTo(jackson);
+                final var jsonProcessing = ___JsonProcessing_TestUtils.readObject(bytes);
+                assertThat(jsonProcessing.keySet())
+                        .as("product %s", row[0])
+                        .isSubsetOf("colour", "gender", "brand", "description", "sizes", "reviews");
+                if (jsonProcessing.containsKey("reviews")) {
+                    for (final var review : jsonProcessing.getJsonArray("reviews")) {
+                        assertThat(review.asJsonObject().keySet())
+                                .as("a review of product %s", row[0])
+                                .isSubsetOf("rating", "review");
+                    }
+                }
+            }
+        }
+
+        @DisplayName("without a graph, productDetails is loaded unless EclipseLink wove Product")
+        @Test
+        void __WithoutEntityGraph() {
+            final var id = selectRandomEntityIdOrAbort_();
+            final boolean loaded = applyEntityManager_(emf -> em -> {
+                final var product = em.find(targetClass, id);
+                return emf.getPersistenceUnitUtil()
+                        .isLoaded(product, Product_.productDetails.getName());
+            });
+            // woven, EclipseLink honours LAZY; unwoven, and Hibernate ORM without bytecode
+            // enhancement, read the attribute with the entity
+            assertThat(loaded).isEqualTo(!__Object_Test.isWovenByEclipseLink(targetClass));
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -376,6 +454,25 @@ class Product_PersistenceIT
             assumeTrue(productImage != null, "no product image for " + found);
             assertThat(productImage).isNotEmpty();
             assertThat(found.getImageMimeType()).isNotBlank();
+        }
+
+        @DisplayName("a productImage written reads back equal")
+        @Test
+        void __RoundTrip() {
+            final var id = selectRandomEntityIdOrAbort_();
+            final var bytes = new byte[1024];
+            ThreadLocalRandom.current().nextBytes(bytes);
+            applyEntityManagerInTransactionAndRollback_(emf -> em -> {
+                final var product = em.find(targetClass, id);
+                product.setProductImage(bytes);
+                product.setImageMimeType("application/octet-stream");
+                em.flush();
+                em.clear();
+                final var read = em.find(targetClass, id);
+                assertThat(read.getProductImage()).isEqualTo(bytes);
+                assertThat(read.getImageMimeType()).isEqualTo("application/octet-stream");
+                return null;
+            });
         }
     }
 }

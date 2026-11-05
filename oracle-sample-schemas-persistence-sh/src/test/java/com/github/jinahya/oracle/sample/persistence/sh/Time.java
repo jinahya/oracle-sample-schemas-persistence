@@ -23,7 +23,6 @@ package com.github.jinahya.oracle.sample.persistence.sh;
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.MappedTime;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 /**
@@ -31,30 +30,6 @@ import jakarta.persistence.Table;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(name = "Time.selectOneByTimeId",
-            query = """
-                    SELECT e
-                    FROM Time e
-                    WHERE e.timeId = :timeId"""
-)
-@NamedQuery(name = "Time.selectListOrderByTimeIdAsc",
-            query = """
-                    SELECT e
-                    FROM Time e
-                    ORDER BY e.timeId ASC"""
-)
-@NamedQuery(name = "Time.selectListOrderByTimeIdAscTimeIdGt",
-            query = """
-                    SELECT e
-                    FROM Time e
-                    WHERE e.timeId > :timeIdMinExclusive
-                    ORDER BY e.timeId ASC"""
-)
-@NamedQuery(name = "Time.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Time e"""
-)
 @Entity
 @Table(name = MappedTime.TABLE_NAME,
        comment = "Time dimension table to support multiple hierarchies and materialized views")

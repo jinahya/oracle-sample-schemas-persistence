@@ -24,7 +24,6 @@ import com.github.jinahya.oracle.sample.persistence.co.mapped.ProductOrderId;
 import com.github.jinahya.oracle.sample.persistence.co.mapped.MappedProductOrder;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -36,24 +35,6 @@ import jakarta.validation.constraints.NotNull;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see ProductOrderId
  */
-@NamedQuery(name = "ProductOrder.selectOneByProductNameAndOrderStatus",
-            query = """
-                    SELECT e
-                    FROM ProductOrder e
-                    WHERE e.id_.productName = :productName
-                      AND e.id_.orderStatus = :orderStatus"""
-)
-@NamedQuery(name = "ProductOrder.selectListOrderByProductNameAscOrderStatusAsc",
-            query = """
-                    SELECT e
-                    FROM ProductOrder e
-                    ORDER BY e.id_.productName ASC, e.id_.orderStatus ASC"""
-)
-@NamedQuery(name = "ProductOrder.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM ProductOrder e"""
-)
 @Entity
 @Table(name = MappedProductOrder.TABLE_NAME,
        comment = "A summary of the state of the orders placed for each product")

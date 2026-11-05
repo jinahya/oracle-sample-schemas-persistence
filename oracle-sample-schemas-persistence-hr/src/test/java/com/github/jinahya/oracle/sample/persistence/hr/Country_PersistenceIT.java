@@ -130,21 +130,6 @@ class Country_PersistenceIT
             return Country_PersistenceIT.this.regionIds();
         }
 
-        @DisplayName("the named query selects the region's countries, by name")
-        @MethodSource("regionIds")
-        @ParameterizedTest
-        void __NamedQuery(final Long regionId) {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var found = entityManager
-                        .createNamedQuery("Country.selectListByRegionOrderByCountryNameAsc",
-                                          targetClass)
-                        .setParameter("region", entityManager.getReference(Region.class, regionId))
-                        .getResultList();
-                verifyByRegion(regionId, found, COUNTRY_NAME_ASC);
-                return null;
-            }));
-        }
-
         @DisplayName("a query-language query selects the region's countries, by name")
         @MethodSource("regionIds")
         @ParameterizedTest
@@ -196,21 +181,6 @@ class Country_PersistenceIT
             return Country_PersistenceIT.this.regionIds();
         }
 
-        @DisplayName("the named query selects the region's countries, by id")
-        @MethodSource("regionIds")
-        @ParameterizedTest
-        void __NamedQuery(final Long regionId) {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var found = entityManager
-                        .createNamedQuery("Country.selectListByRegionOrderByCountryIdAsc",
-                                          targetClass)
-                        .setParameter("region", entityManager.getReference(Region.class, regionId))
-                        .getResultList();
-                verifyByRegion(regionId, found, COUNTRY_ID_ASC);
-                return null;
-            }));
-        }
-
         @DisplayName("a query-language query selects the region's countries, by id")
         @MethodSource("regionIds")
         @ParameterizedTest
@@ -257,18 +227,6 @@ class Country_PersistenceIT
     @Nested
     class SelectListOrderByCountryNameAsc_Test {
 
-        @DisplayName("the named query selects every country, by name")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var found = entityManager
-                        .createNamedQuery("Country.selectListOrderByCountryNameAsc", targetClass)
-                        .getResultList();
-                verifyAll(found, COUNTRY_NAME_ASC);
-                return null;
-            }));
-        }
-
         @DisplayName("a query-language query selects every country, by name")
         @Test
         void __QueryLanguage() {
@@ -308,18 +266,6 @@ class Country_PersistenceIT
      */
     @Nested
     class SelectListOrderByCountryIdAsc_Test {
-
-        @DisplayName("the named query selects every country, by id")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var found = entityManager
-                        .createNamedQuery("Country.selectListOrderByCountryIdAsc", targetClass)
-                        .getResultList();
-                verifyAll(found, COUNTRY_ID_ASC);
-                return null;
-            }));
-        }
 
         @DisplayName("a query-language query selects every country, by id")
         @Test

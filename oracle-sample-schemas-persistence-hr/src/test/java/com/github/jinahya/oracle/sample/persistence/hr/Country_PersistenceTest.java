@@ -55,24 +55,6 @@ class Country_PersistenceTest
     @Nested
     class SelectListByRegionOrderByCountryNameAsc_Test {
 
-        @DisplayName("the named query selects the country just persisted, by its region")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var v = newPersistedInstanceOf(em, targetClass);
-                        final var found = em
-                                .createNamedQuery("Country.selectListByRegionOrderByCountryNameAsc",
-                                                  targetClass)
-                                .setParameter("region", v.getRegion())
-                                .getResultList();
-                        assertThat(found)
-                                .as("the countries of the region")
-                                .containsExactly(v);
-                        return found;
-                    })));
-        }
-
         @DisplayName("a query-language query selects the country just persisted, by its region")
         @Test
         void __QueryLanguage() {
@@ -123,24 +105,6 @@ class Country_PersistenceTest
      */
     @Nested
     class SelectListByRegionOrderByCountryIdAsc_Test {
-
-        @DisplayName("the named query selects the country just persisted, by its region")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var v = newPersistedInstanceOf(em, targetClass);
-                        final var found = em
-                                .createNamedQuery("Country.selectListByRegionOrderByCountryIdAsc",
-                                                  targetClass)
-                                .setParameter("region", v.getRegion())
-                                .getResultList();
-                        assertThat(found)
-                                .as("the countries of the region")
-                                .containsExactly(v);
-                        return found;
-                    })));
-        }
 
         @DisplayName("a query-language query selects the country just persisted, by its region")
         @Test
@@ -197,23 +161,6 @@ class Country_PersistenceTest
     @Nested
     class SelectListOrderByCountryNameAsc_Test {
 
-        @DisplayName("the named query selects the country just persisted")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var v = newPersistedInstanceOf(em, targetClass);
-                        final var found = em
-                                .createNamedQuery("Country.selectListOrderByCountryNameAsc",
-                                                  targetClass)
-                                .getResultList();
-                        assertThat(found)
-                                .as("all countries")
-                                .contains(v);
-                        return found;
-                    })));
-        }
-
         @DisplayName("a query-language query selects the country just persisted")
         @Test
         void __QueryLanguage() {
@@ -261,23 +208,6 @@ class Country_PersistenceTest
      */
     @Nested
     class SelectListOrderByCountryIdAsc_Test {
-
-        @DisplayName("the named query selects the country just persisted")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var v = newPersistedInstanceOf(em, targetClass);
-                        final var found = em
-                                .createNamedQuery("Country.selectListOrderByCountryIdAsc",
-                                                  targetClass)
-                                .getResultList();
-                        assertThat(found)
-                                .as("all countries")
-                                .contains(v);
-                        return found;
-                    })));
-        }
 
         @DisplayName("a query-language query selects the country just persisted")
         @Test

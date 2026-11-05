@@ -22,7 +22,6 @@ package com.github.jinahya.oracle.sample.persistence.hr;
 
 import com.github.jinahya.oracle.sample.persistence.hr.mapped.MappedEmpDetailsView;
 import jakarta.persistence.Entity;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 /**
@@ -32,30 +31,6 @@ import jakarta.persistence.Table;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(name = "EmpDetailsView.selectOneByEmployeeId",
-            query = """
-                    SELECT e
-                    FROM EmpDetailsView e
-                    WHERE e.employeeId = :employeeId"""
-)
-@NamedQuery(name = "EmpDetailsView.selectListOrderByEmployeeIdAsc",
-            query = """
-                    SELECT e
-                    FROM EmpDetailsView e
-                    ORDER BY e.employeeId ASC"""
-)
-@NamedQuery(name = "EmpDetailsView.selectListOrderByEmployeeIdAscEmployeeIdGt",
-            query = """
-                    SELECT e
-                    FROM EmpDetailsView e
-                    WHERE e.employeeId > :employeeIdMinExclusive
-                    ORDER BY e.employeeId ASC"""
-)
-@NamedQuery(name = "EmpDetailsView.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM EmpDetailsView e"""
-)
 @Entity
 @Table(name = MappedEmpDetailsView.TABLE_NAME)
 public class EmpDetailsView

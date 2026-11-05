@@ -51,7 +51,7 @@ rules follow from that:
   nullability, check constraints as validation constraints, `toString`/`equals`/`hashCode` --
   and nothing an application decides: no association, no fetch type, no cascade, no named
   query. The entities (`Customer extends MappedCustomer`, ...) live in `src/test/java`, package
-  `<schema>`, and add `@Entity`, `@Table`, the named queries and the associations.
+  `<schema>`, and add `@Entity`, `@Table` and the associations; there are no named queries.
 - **A foreign-key column is read-only in the mapped superclass.** It is a basic attribute with
   `insertable = false, updatable = false`, a `public` getter and a `protected` setter; the
   entity owns its writable mapping through the association's `@JoinColumn`, and the

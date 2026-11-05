@@ -23,7 +23,6 @@ package com.github.jinahya.oracle.sample.persistence.co;
 import com.github.jinahya.oracle.sample.persistence.co.mapped.MappedStore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -36,35 +35,6 @@ import java.util.List;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(name = "Store.selectSingleByStoreName",
-            query = """
-                    SELECT e
-                    FROM Store AS e
-                    WHERE e.storeName = :storeName""")
-@NamedQuery(name = "Store.selectOneByStoreId",
-            query = """
-                    SELECT e
-                    FROM Store e
-                    WHERE e.storeId = :storeId"""
-)
-@NamedQuery(name = "Store.selectListOrderByStoreIdAsc",
-            query = """
-                    SELECT e
-                    FROM Store e
-                    ORDER BY e.storeId ASC"""
-)
-@NamedQuery(name = "Store.selectListOrderByStoreIdAscStoreIdGt",
-            query = """
-                    SELECT e
-                    FROM Store e
-                    WHERE e.storeId > :storeIdMinExclusive
-                    ORDER BY e.storeId ASC"""
-)
-@NamedQuery(name = "Store.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Store e"""
-)
 @Entity
 @Table(name = MappedStore.TABLE_NAME,
        comment = "Physical and virtual locations where people can purchase products")

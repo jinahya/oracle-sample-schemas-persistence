@@ -27,7 +27,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -42,76 +41,6 @@ import java.util.Optional;
  *
  * @author Jaehan Lim
  */
-@NamedQuery(name = "Employee.selectOneByEmployeeId",
-            query = """
-                    SELECT e
-                    FROM Employee e
-                    WHERE e.employeeId = :employeeId"""
-)
-@NamedQuery(name = "Employee.selectListOrderByEmployeeIdAsc",
-            query = """
-                    SELECT e
-                    FROM Employee e
-                    ORDER BY e.employeeId ASC"""
-)
-@NamedQuery(name = "Employee.selectListOrderByEmployeeIdAscEmployeeIdGt",
-            query = """
-                    SELECT e
-                    FROM Employee e
-                    WHERE e.employeeId > :employeeIdMinExclusive
-                    ORDER BY e.employeeId ASC"""
-)
-@NamedQuery(name = "Employee.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Employee e"""
-)
-@NamedQuery(name = "Employee.selectListByJobOrderByEmployeeIdAsc",
-            query = """
-                    SELECT e
-                    FROM Employee e
-                    WHERE e.job = :job
-                    ORDER BY e.employeeId ASC"""
-)
-@NamedQuery(name = "Employee.countByJob",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Employee e
-                    WHERE e.job = :job"""
-)
-@NamedQuery(name = "Employee.selectListByManagerOrderByEmployeeIdAsc",
-            query = """
-                    SELECT e
-                    FROM Employee e
-                    WHERE e.manager = :manager
-                    ORDER BY e.employeeId ASC"""
-)
-@NamedQuery(name = "Employee.countByManager",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Employee e
-                    WHERE e.manager = :manager"""
-)
-@NamedQuery(name = "Employee.selectListByManagerOfManagerOrderByLastNameAsc",
-            query = """
-                    SELECT e
-                    FROM Employee e
-                    WHERE e.manager.manager = :manager
-                    ORDER BY e.lastName ASC, e.firstName ASC"""
-)
-@NamedQuery(name = "Employee.selectListByDepartmentOrderByEmployeeIdAsc",
-            query = """
-                    SELECT e
-                    FROM Employee e
-                    WHERE e.department = :department
-                    ORDER BY e.employeeId ASC"""
-)
-@NamedQuery(name = "Employee.countByDepartment",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Employee e
-                    WHERE e.department = :department"""
-)
 @Entity
 @Table(name = MappedEmployee.TABLE_NAME,
        comment = "employees table. References with departments,\n" +

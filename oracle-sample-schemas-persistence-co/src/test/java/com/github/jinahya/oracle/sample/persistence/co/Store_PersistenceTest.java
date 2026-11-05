@@ -10,7 +10,6 @@ import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUti
 import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 /*-
  * #%L
  * co
@@ -47,23 +46,6 @@ class Store_PersistenceTest
     // ---------------------------------------------------------------------------------------------
     @Nested
     class SelectSingleByStoreName_Test {
-
-        @DisplayName("the named query selects the store just persisted")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var v = newPersistedInstanceOf(em, targetClass);
-                        final var found = em
-                                .createNamedQuery("Store.selectSingleByStoreName", targetClass)
-                                .setParameter("storeName", v.getStoreName())
-                                .getSingleResult();
-                        assertThat(found)
-                                .as("the store selected by %s", v.getStoreName())
-                                .isSameAs(v);
-                        return found;
-                    })));
-        }
 
         @DisplayName("a query-language query selects the store just persisted")
         @Test

@@ -8,9 +8,7 @@
 # carries each id as the anchor and the prefix of the exercise's heading, and the .sql file repeats it in the marker
 # above the statement.
 #
-# `sql` is the file that answers the exercise in SQL. `named-queries` lists the entity's @NamedQuery that answers the
-# exercise, by its name; the nested test class of that query, in the entity's *_PersistenceTest and
-# *_PersistenceIT, names the exercise id in its javadoc.
+# `sql` is the file that answers the exercise in SQL.
 
 # ---- countries
 
@@ -140,8 +138,6 @@
   tier: Intermediate
   title: "Skip-level meetings"
   sql: src/test/sql/exercises/employees_exercises_02_intermediate.sql
-  named-queries:
-    - Employee.selectListByManagerOfManagerOrderByLastNameAsc
 - id: HR_EMPLOYEES_A_01
   section: "EMPLOYEES"
   tier: Advanced

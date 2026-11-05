@@ -69,27 +69,6 @@ class Customer_PersistenceTest
         }
 
         @DisplayName(
-                "the named query selects the customer of the sale just persisted, by their city")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var customer = promotedCustomer(em);
-                        final var found = em
-                                .createNamedQuery(
-                                        "Customer" +
-                                        ".selectListPromotedByCustCityOrderByCustLastNameAsc",
-                                        targetClass)
-                                .setParameter("custCity", customer.getCustCity())
-                                .getResultList();
-                        assertThat(found)
-                                .as("the customers of the city who bought under a promotion")
-                                .containsExactly(customer);
-                        return found;
-                    })));
-        }
-
-        @DisplayName(
                 "a query-language query selects the customer of the sale just persisted, by their" +
                 " city")
         @Test
@@ -155,24 +134,5 @@ class Customer_PersistenceTest
                     })));
         }
 
-        @DisplayName("the named query skips the customer just persisted, who bought nothing")
-        @Test
-        void __NamedQuery_NoSales() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var v = newPersistedInstanceOf(em, targetClass);
-                        final var found = em
-                                .createNamedQuery(
-                                        "Customer" +
-                                        ".selectListPromotedByCustCityOrderByCustLastNameAsc",
-                                        targetClass)
-                                .setParameter("custCity", v.getCustCity())
-                                .getResultList();
-                        assertThat(found)
-                                .as("the customers of the city who bought under a promotion")
-                                .doesNotContain(v);
-                        return found;
-                    })));
-        }
     }
 }

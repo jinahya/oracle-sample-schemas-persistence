@@ -26,7 +26,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -38,54 +37,6 @@ import java.util.Optional;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(name = "Customer.selectOneByCustId",
-            query = """
-                    SELECT e
-                    FROM Customer e
-                    WHERE e.custId = :custId"""
-)
-@NamedQuery(name = "Customer.selectListOrderByCustIdAsc",
-            query = """
-                    SELECT e
-                    FROM Customer e
-                    ORDER BY e.custId ASC"""
-)
-@NamedQuery(name = "Customer.selectListOrderByCustIdAscCustIdGt",
-            query = """
-                    SELECT e
-                    FROM Customer e
-                    WHERE e.custId > :custIdMinExclusive
-                    ORDER BY e.custId ASC"""
-)
-@NamedQuery(name = "Customer.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Customer e"""
-)
-@NamedQuery(name = "Customer.selectListPromotedByCustCityOrderByCustLastNameAsc",
-            query = """
-                    SELECT c
-                    FROM Customer c
-                    WHERE c.custCity = :custCity
-                      AND EXISTS (SELECT s
-                                  FROM Sales s
-                                  WHERE s.customer = c
-                                    AND s.promotion.promoCategory <> 'NO PROMOTION')
-                    ORDER BY c.custLastName ASC, c.custFirstName ASC, c.custId ASC"""
-)
-@NamedQuery(name = "Customer.selectListByCountryOrderByCustIdAsc",
-            query = """
-                    SELECT e
-                    FROM Customer e
-                    WHERE e.country = :country
-                    ORDER BY e.custId ASC"""
-)
-@NamedQuery(name = "Customer.countByCountry",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Customer e
-                    WHERE e.country = :country"""
-)
 @Entity
 @Table(name = MappedCustomer.TABLE_NAME, comment = "dimension table")
 public class Customer

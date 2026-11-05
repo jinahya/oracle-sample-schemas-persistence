@@ -101,22 +101,6 @@ class Customer_PersistenceIT
             }));
         }
 
-        @DisplayName("the named query selects the city's customers who bought under a promotion")
-        @MethodSource("custCities")
-        @ParameterizedTest
-        void __NamedQuery(final String custCity) {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var found = entityManager
-                        .createNamedQuery(
-                                "Customer.selectListPromotedByCustCityOrderByCustLastNameAsc",
-                                targetClass)
-                        .setParameter("custCity", custCity)
-                        .getResultList();
-                verify(custCity, found);
-                return null;
-            }));
-        }
-
         @DisplayName(
                 "a query-language query selects the city's customers who bought under a promotion")
         @MethodSource("custCities")

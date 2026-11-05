@@ -23,7 +23,6 @@ package com.github.jinahya.oracle.sample.persistence.sh;
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.MappedCountry;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
 /**
@@ -31,30 +30,6 @@ import jakarta.persistence.Table;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(name = "Country.selectOneByCountryId",
-            query = """
-                    SELECT e
-                    FROM Country e
-                    WHERE e.countryId = :countryId"""
-)
-@NamedQuery(name = "Country.selectListOrderByCountryIdAsc",
-            query = """
-                    SELECT e
-                    FROM Country e
-                    ORDER BY e.countryId ASC"""
-)
-@NamedQuery(name = "Country.selectListOrderByCountryIdAscCountryIdGt",
-            query = """
-                    SELECT e
-                    FROM Country e
-                    WHERE e.countryId > :countryIdMinExclusive
-                    ORDER BY e.countryId ASC"""
-)
-@NamedQuery(name = "Country.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Country e"""
-)
 @Entity
 @Table(name = MappedCountry.TABLE_NAME, comment = "country dimension table (snowflake)")
 public class Country

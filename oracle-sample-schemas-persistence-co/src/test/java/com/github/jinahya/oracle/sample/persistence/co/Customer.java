@@ -23,7 +23,6 @@ package com.github.jinahya.oracle.sample.persistence.co;
 import com.github.jinahya.oracle.sample.persistence.co.mapped.MappedCustomer;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -36,46 +35,6 @@ import java.util.List;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(
-        name = "Customer.selectOneByEmailAddress",
-        query = """
-                SELECT e
-                FROM Customer e
-                WHERE e.emailAddress = :emailAddress"""
-)
-@NamedQuery(
-        name = "Customer.selectListOrderByEmailAddressAsc",
-        query = """
-                SELECT e
-                FROM Customer e
-                ORDER BY e.emailAddress ASC"""
-)
-@NamedQuery(
-        name = "Customer.selectListOrderByCustomerIdAscCustomerIdGt",
-        query = """
-                SELECT e
-                FROM Customer e
-                WHERE e.customerId > :customerIdMinExclusive
-                ORDER BY e.customerId ASC"""
-)
-@NamedQuery(
-        name = "Customer.selectListOrderByCustomerIdAsc",
-        query = """
-                SELECT e
-                FROM Customer e
-                ORDER BY e.customerId ASC"""
-)
-@NamedQuery(name = "Customer.selectOneByCustomerId",
-            query = """
-                    SELECT e
-                    FROM Customer e
-                    WHERE e.customerId = :customerId"""
-)
-@NamedQuery(name = "Customer.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Customer e"""
-)
 @Entity
 @Table(name = MappedCustomer.TABLE_NAME, comment = "Details of the people placing orders")
 public class Customer

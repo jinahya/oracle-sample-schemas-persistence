@@ -271,9 +271,8 @@ WHERE e.store = :store AND e.product = :product
 ----
 
 `+(STORE_ID, PRODUCT_ID)+` is unique, so there is at most one row. No row means the store does not stock the product at
-all, which is not the same as a stock of `0`. The second JPQL form is the named query
-`Inventory.selectOneByStoreAndProduct`; it takes the `Store` and the `Product` themselves and selects the whole
-`Inventory`.
+all, which is not the same as a stock of `0`. The second JPQL form takes the `Store` and the `Product` themselves and
+selects the whole `Inventory`.
 
 [[CO_INVENTORY_B_02]]
 ==== CO_INVENTORY_B_02: Where a product is running lowest
@@ -296,9 +295,8 @@ WHERE e.product = :product
 ORDER BY e.productInventory ASC
 ----
 
-The JPQL is the named query `Inventory.selectOneByProductOrderByProductInventoryAsc`. A product is stocked at many
-stores, so it returns a list -- one row per store -- despite the `selectOne` in its name. Stores with the same stock
-come back in no particular order; add `e.store.storeId` to the `ORDER BY` for a stable order.
+A product is stocked at many stores, so the JPQL returns a list -- one row per store. Stores with the same stock come
+back in no particular order; add `e.store.storeId` to the `ORDER BY` for a stable order.
 
 === Intermediate
 
@@ -2250,10 +2248,9 @@ WHERE e.store = :store
 ORDER BY e.productInventory DESC, e.product.productName ASC
 ----
 
-The JPQL is the named query `Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc`. The anti-join is
-correlated on two columns at once: a sale only counts when it is of the same product _and_ was made at the same store.
-A product the store sold even once is not dead stock, however long ago that was. For store 20 (`Mexico City`) the
-answer is `Women's Jacket (Black)`, 7 units, and `Boy's Shirt (White)`, 2 units.
+In the JPQL, the anti-join is correlated on two columns at once: a sale only counts when it is of the same product _and_
+was made at the same store. A product the store sold even once is not dead stock, however long ago that was. For store
+20 (`Mexico City`) the answer is `Women's Jacket (Black)`, 7 units, and `Boy's Shirt (White)`, 2 units.
 
 == References
 

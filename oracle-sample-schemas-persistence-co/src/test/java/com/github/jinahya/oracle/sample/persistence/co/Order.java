@@ -27,7 +27,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapKey;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -43,71 +42,6 @@ import java.util.Optional;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(name = "Order.selectListByCustomerOrderIdGtOrderByOrderTmsDesc",
-            query = """
-                    SELECT e
-                    FROM Order AS e
-                    WHERE e.customer = :customer
-                      AND e.orderId > :orderIdMinExclusive
-                    ORDER BY e.orderTms DESC"""
-)
-@NamedQuery(name = "Order.selectListByCustomerOrderByOrderTmsDesc",
-            query = """
-                    SELECT e
-                    FROM Order AS e
-                    WHERE e.customer = :customer
-                    ORDER BY e.orderTms DESC"""
-)
-@NamedQuery(name = "Order.countByCustomer",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Order AS e
-                    WHERE e.customer = :customer"""
-)
-@NamedQuery(name = "Order.selectOneByOrderId",
-            query = """
-                    SELECT e
-                    FROM Order e
-                    WHERE e.orderId = :orderId"""
-)
-@NamedQuery(name = "Order.selectListOrderByOrderIdAsc",
-            query = """
-                    SELECT e
-                    FROM Order e
-                    ORDER BY e.orderId ASC"""
-)
-@NamedQuery(name = "Order.selectListOrderByOrderIdAscOrderIdGt",
-            query = """
-                    SELECT e
-                    FROM Order e
-                    WHERE e.orderId > :orderIdMinExclusive
-                    ORDER BY e.orderId ASC"""
-)
-@NamedQuery(name = "Order.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Order e"""
-)
-@NamedQuery(name = "Order.selectListByCustomerOrderByOrderIdAsc",
-            query = """
-                    SELECT e
-                    FROM Order e
-                    WHERE e.customer = :customer
-                    ORDER BY e.orderId ASC"""
-)
-@NamedQuery(name = "Order.selectListByStoreOrderByOrderIdAsc",
-            query = """
-                    SELECT e
-                    FROM Order e
-                    WHERE e.store = :store
-                    ORDER BY e.orderId ASC"""
-)
-@NamedQuery(name = "Order.countByStore",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Order e
-                    WHERE e.store = :store"""
-)
 @Entity
 @Table(name = MappedOrder.TABLE_NAME, comment = "Details of who made purchases where")
 public class Order

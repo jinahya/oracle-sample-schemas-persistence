@@ -1,6 +1,5 @@
 package com.github.jinahya.oracle.sample.persistence.hr;
 
-
 /*-
  * #%L
  * hr
@@ -228,22 +227,6 @@ class Employee_PersistenceIT
                                         e.getManager().getManager().getEmployeeId()).isEqualTo(
                                         managerId))
                         .isSortedAccordingTo(Comparator.comparing(Employee::getLastName));
-                return null;
-            }));
-        }
-
-        @DisplayName("the named query selects the employees two levels below the manager, by name")
-        @MethodSource("managerIds")
-        @ParameterizedTest
-        void __NamedQuery(final Integer managerId) {
-            applyEntityManagerFactory(emf -> applyEntityManager(emf, entityManager -> {
-                final var found = entityManager
-                        .createNamedQuery("Employee.selectListByManagerOfManagerOrderByLastNameAsc",
-                                          targetClass)
-                        .setParameter("manager",
-                                      entityManager.getReference(Employee.class, managerId))
-                        .getResultList();
-                verify(managerId, found);
                 return null;
             }));
         }

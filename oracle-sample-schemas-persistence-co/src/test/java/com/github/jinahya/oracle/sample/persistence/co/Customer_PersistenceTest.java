@@ -49,36 +49,12 @@ class Customer_PersistenceTest
      * A class for testing the selection of every {@link Customer}, ordered by its
      * {@value Customer#ATTRIBUTE_NAME_CUSTOMER_ID} attribute.
      * <p>
-     * The same selection is written three ways -- as a query-language query, as the
-     * {@code Customer.selectListOrderByCustomerIdAsc} named query, and through the criteria API --
-     * and each asserts that what comes back contains the instances just persisted, in ascending
-     * order of identifier.
+     * The same selection is written two ways -- as a query-language query and through the criteria
+     * API -- and each asserts that what comes back contains the instances just persisted, in
+     * ascending order of identifier.
      */
     @Nested
     class SelectListOrderByCustomerIdAsc_Test {
-
-        @DisplayName("the named query selects the customers just persisted, ordered by identifier")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var persisted = List.of(
-                                EntityPersisterUtils.newPersistedInstanceOf(em, targetClass),
-                                EntityPersisterUtils.newPersistedInstanceOf(em, targetClass),
-                                EntityPersisterUtils.newPersistedInstanceOf(em, targetClass)
-                        );
-                        final var found = em
-                                .createNamedQuery("Customer.selectListOrderByCustomerIdAsc",
-                                                  targetClass)
-                                .getResultList();
-                        assertThat(found)
-                                .as("the customers ordered by %s", Customer_.customerId.getName())
-                                .containsAll(persisted)
-                                .extracting(Customer::getCustomerId)
-                                .isSorted();
-                        return found;
-                    })));
-        }
 
         @DisplayName(
                 "a query-language query selects the customers just persisted, ordered by " +
@@ -140,30 +116,12 @@ class Customer_PersistenceTest
      * A class for testing the selection of a single {@link Customer} by its
      * {@value Customer#ATTRIBUTE_NAME_EMAIL_ADDRESS} attribute.
      * <p>
-     * The same selection is written three ways -- as a query-language query, as the
-     * {@code Customer.selectOneByEmailAddress} named query, and through the criteria API -- and
-     * each asserts that what comes back is the very instance just persisted, which the persistence
-     * context still manages.
+     * The same selection is written two ways -- as a query-language query and through the criteria
+     * API -- and each asserts that what comes back is the very instance just persisted, which the
+     * persistence context still manages.
      */
     @Nested
     class SelectOneByEmailAddress_Test {
-
-        @DisplayName("the named query selects the customer just persisted")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var v = newPersistedInstanceOf(em, targetClass);
-                        final var found = em
-                                .createNamedQuery("Customer.selectOneByEmailAddress", targetClass)
-                                .setParameter("emailAddress", v.getEmailAddress())
-                                .getSingleResult();
-                        assertThat(found)
-                                .as("the customer selected by %s", v.getEmailAddress())
-                                .isSameAs(v);
-                        return found;
-                    })));
-        }
 
         @DisplayName("a query-language query selects the customer just persisted")
         @Test

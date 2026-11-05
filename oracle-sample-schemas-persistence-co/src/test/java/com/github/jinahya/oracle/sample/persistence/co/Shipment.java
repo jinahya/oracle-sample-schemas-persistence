@@ -26,7 +26,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -40,56 +39,6 @@ import java.util.Optional;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
-@NamedQuery(name = "Shipment.selectOneByShipmentId",
-            query = """
-                    SELECT e
-                    FROM Shipment e
-                    WHERE e.shipmentId = :shipmentId"""
-)
-@NamedQuery(name = "Shipment.selectListOrderByShipmentIdAsc",
-            query = """
-                    SELECT e
-                    FROM Shipment e
-                    ORDER BY e.shipmentId ASC"""
-)
-@NamedQuery(name = "Shipment.selectListOrderByShipmentIdAscShipmentIdGt",
-            query = """
-                    SELECT e
-                    FROM Shipment e
-                    WHERE e.shipmentId > :shipmentIdMinExclusive
-                    ORDER BY e.shipmentId ASC"""
-)
-@NamedQuery(name = "Shipment.countAll",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Shipment e"""
-)
-@NamedQuery(name = "Shipment.selectListByStoreOrderByShipmentIdAsc",
-            query = """
-                    SELECT e
-                    FROM Shipment e
-                    WHERE e.store = :store
-                    ORDER BY e.shipmentId ASC"""
-)
-@NamedQuery(name = "Shipment.countByStore",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Shipment e
-                    WHERE e.store = :store"""
-)
-@NamedQuery(name = "Shipment.selectListByCustomerOrderByShipmentIdAsc",
-            query = """
-                    SELECT e
-                    FROM Shipment e
-                    WHERE e.customer = :customer
-                    ORDER BY e.shipmentId ASC"""
-)
-@NamedQuery(name = "Shipment.countByCustomer",
-            query = """
-                    SELECT COUNT(e)
-                    FROM Shipment e
-                    WHERE e.customer = :customer"""
-)
 @Entity
 @Table(name = MappedShipment.TABLE_NAME,
        comment = "Details of where ordered goods will be delivered")

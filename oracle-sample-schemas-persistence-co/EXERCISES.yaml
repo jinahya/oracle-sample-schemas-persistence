@@ -8,9 +8,7 @@
 # carries each id as the anchor and the prefix of the exercise's heading, and the .sql file repeats it in the marker
 # above the statement.
 #
-# `sql` is the file that answers the exercise in SQL. `named-queries` lists the entity's @NamedQuery that answers the
-# exercise, by its name; the nested test class of that query, in the entity's *_PersistenceTest and
-# *_PersistenceIT, names the exercise id in its javadoc.
+# `sql` is the file that answers the exercise in SQL.
 
 # ---- customers
 
@@ -60,15 +58,11 @@
   tier: Basic
   title: "How many are on the shelf?"
   sql: src/test/sql/exercises/inventory_exercises_01_basic.sql
-  named-queries:
-    - Inventory.selectOneByStoreAndProduct
 - id: CO_INVENTORY_B_02
   section: "INVENTORY"
   tier: Basic
   title: "Where a product is running lowest"
   sql: src/test/sql/exercises/inventory_exercises_01_basic.sql
-  named-queries:
-    - Inventory.selectOneByProductOrderByProductInventoryAsc
 - id: CO_INVENTORY_B_03
   section: "INVENTORY"
   tier: Basic
@@ -411,5 +405,3 @@
   tier: Advanced
   title: "Stock a store has never sold"
   sql: src/test/sql/exercises/_schema_exercises_03_advanced.sql
-  named-queries:
-    - Inventory.selectListUnsoldByStoreOrderByProductInventoryDesc

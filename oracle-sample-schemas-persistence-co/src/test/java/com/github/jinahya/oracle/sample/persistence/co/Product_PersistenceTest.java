@@ -16,7 +16,6 @@ import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUti
 import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 /*-
  * #%L
  * co
@@ -126,28 +125,6 @@ class Product_PersistenceTest
         }
 
         @DisplayName(
-                "the named query selects the products just persisted, in a half-open unit price " +
-                "range")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var persisted = persistProducts(em);
-                        final var found = em
-                                .createNamedQuery(
-                                        "Product" +
-                                        ".selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
-                                        targetClass
-                                )
-                                .setParameter("unitPriceMinInclusive", UNIT_PRICE_MIN)
-                                .setParameter("unitPriceMaxExclusive", UNIT_PRICE_MAX)
-                                .getResultList();
-                        verify(persisted, found);
-                        return found;
-                    })));
-        }
-
-        @DisplayName(
                 "a query-language query selects the products just persisted, in a half-open unit " +
                 "price range")
         @Test
@@ -214,25 +191,6 @@ class Product_PersistenceTest
                     .extracting(Product::getUnitPrice)
                     .isSorted()
                     .allSatisfy(v -> assertThat(v).isBetween(UNIT_PRICE_MIN, UNIT_PRICE_MAX));
-        }
-
-        @DisplayName(
-                "the named query selects the products just persisted, in a closed unit price range")
-        @Test
-        void __NamedQuery() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var persisted = persistProducts(em);
-                        final var found = em
-                                .createNamedQuery(
-                                        "Product.selectListByUnitPriceBetweenOrderByUnitPricesAsc",
-                                        targetClass)
-                                .setParameter("unitPriceAfter", UNIT_PRICE_MIN)
-                                .setParameter("unitPriceBefore", UNIT_PRICE_MAX)
-                                .getResultList();
-                        verify(persisted, found);
-                        return found;
-                    })));
         }
 
         @DisplayName(
