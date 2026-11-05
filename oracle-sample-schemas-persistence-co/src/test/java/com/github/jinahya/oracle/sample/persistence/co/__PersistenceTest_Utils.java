@@ -21,10 +21,16 @@ package com.github.jinahya.oracle.sample.persistence.co;
  */
 
 import com.github.jinahya.persistence.test.util.JinahyaPersistenceTestUtils;
+import com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
 import java.util.Objects;
 import java.util.function.Function;
+
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManagerInTransactionAndCommit;
+import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManagerInTransactionAndRollback;
 
 /**
  * The helpers the unit tests share, on the in-memory database whose schema the provider generates,
@@ -60,6 +66,62 @@ final class __PersistenceTest_Utils {
         Objects.requireNonNull(function, "function is null");
         return JinahyaPersistenceTestUtils.applyCachedEntityManagerFactory(PERSISTENCE_UNIT_NAME,
                                                                            function);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Applies the specified function to a new entity manager of the {@value #PERSISTENCE_UNIT_NAME}
+     * unit, which is closed when the function returns, through
+     * {@link JinahyaEntityManagerFactoryUtils#applyEntityManager(EntityManagerFactory, Function)}.
+     *
+     * @param function the function to apply.
+     * @param <R>      the type of the result.
+     * @return the result of the {@code function}.
+     */
+    static <R> R applyEntityManager_(final Function<? super EntityManager, ? extends R> function) {
+        Objects.requireNonNull(function, "function is null");
+        return applyEntityManagerFactory(
+                f -> applyEntityManager(f, function)
+        );
+    }
+
+    /**
+     * Applies the specified function to a new entity manager of the {@value #PERSISTENCE_UNIT_NAME}
+     * unit, inside a transaction which is rolled back when the function returns, through
+     * {@link
+     * JinahyaEntityManagerFactoryUtils#applyEntityManagerInTransactionAndRollback(EntityManagerFactory,
+     * Function)}.
+     *
+     * @param function the function to apply.
+     * @param <R>      the type of the result.
+     * @return the result of the {@code function}.
+     */
+    static <R> R applyEntityManagerInTransactionAndRollback_(
+            final Function<? super EntityManager, ? extends R> function) {
+        Objects.requireNonNull(function, "function is null");
+        return applyEntityManagerFactory(
+                f -> applyEntityManagerInTransactionAndRollback(f, function)
+        );
+    }
+
+    /**
+     * Applies the specified function to a new entity manager of the {@value #PERSISTENCE_UNIT_NAME}
+     * unit, inside a transaction which is committed when the function returns, through
+     * {@link
+     * JinahyaEntityManagerFactoryUtils#applyEntityManagerInTransactionAndCommit(EntityManagerFactory,
+     * Function)}.
+     *
+     * @param function the function to apply.
+     * @param <R>      the type of the result.
+     * @return the result of the {@code function}.
+     */
+    static <R> R applyEntityManagerInTransactionAndCommit_(
+            final Function<? super EntityManager, ? extends R> function) {
+        Objects.requireNonNull(function, "function is null");
+        return applyEntityManagerFactory(
+                f -> applyEntityManagerInTransactionAndCommit(f, function)
+        );
     }
 
     // ---------------------------------------------------------------------------------------------

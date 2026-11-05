@@ -21,16 +21,21 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.jinahya.persistence.test.util.JinahyaEntityManagerTestUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.math.BigDecimal;
 import java.util.List;
 
 import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceIT_Utils.applyEntityManagerFactory;
+import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceIT_Utils.applyEntityManagerInTransactionAndRollback_;
 import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -249,6 +254,40 @@ class Product_PersistenceIT
                 verify(found, range[0], range[1]);
                 return null;
             }));
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    @DisplayName("PRODUCT_DETAILS")
+    @Nested
+    class ProductDetailsTest {
+
+        @DisplayName(
+                "an entity graph loads the lazy productDetails, which reads as a ProductDetails")
+        @Test
+        void __() {
+            final var found = applyEntityManagerInTransactionAndRollback_(em -> {
+                final var id = JinahyaEntityManagerTestUtils.<Product, Long>selectRandomEntityId(
+                        em,
+                        targetClass
+                );
+                assumeTrue(id.isPresent(), "no product to select");
+                em.clear();
+                // a JOIN FETCH takes an association only; a lazy basic attribute is fetched with
+                // an entity graph which names it
+                final var graph = em.createEntityGraph(targetClass);
+                graph.addAttributeNode(Product_.productDetails);
+                return em.find(graph, id.get());
+            });
+            // detached, for the entity manager is closed; the bytes are there only if loaded
+            assertThat(found).isNotNull();
+            final var bytes = found.getProductDetails();
+            assumeTrue(bytes != null, "no product details for " + found);
+            try {
+                assertThat(ProductDetails_TestUtils.from(bytes, new ObjectMapper())).isNotNull();
+            } catch (final IOException ioe) {
+                throw new UncheckedIOException(ioe);
+            }
         }
     }
 }

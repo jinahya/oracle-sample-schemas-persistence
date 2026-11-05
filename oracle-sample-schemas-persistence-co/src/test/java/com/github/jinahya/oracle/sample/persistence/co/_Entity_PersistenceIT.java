@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.persistence.test.util.JinahyaEntityManagerTestUtils;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Test;
 
@@ -38,9 +39,9 @@ import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.appl
  * connecting as {@code dmlonly}.
  * <p>
  * These run under the {@code failsafe} profile only, and require the container from
- * {@code compose.yaml} to be up. Generating a schema is disabled for this unit: the tables
- * are the ones Oracle's own installer created, and the mappings are verified against them rather
- * than the other way round.
+ * {@code compose.yaml} to be up. Generating a schema is disabled for this unit: the tables are the
+ * ones Oracle's own installer created, and the mappings are verified against them rather than the
+ * other way round.
  *
  * @param <T> the type of the entity under test.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
@@ -62,6 +63,12 @@ abstract class _Entity_PersistenceIT<T>
         super(targetClass);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+//    void selectRandomEntityId_() {
+//        return __PersistenceIT_Utils.applyEntityManager_(em -> {
+//            return JinahyaEntityManagerTestUtils.selectRandomEntityId(em, targetClass);
+//        });
+//    }
     // ---------------------------------------------------------------------------------------------
 
     /**

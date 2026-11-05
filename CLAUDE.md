@@ -224,7 +224,7 @@ applyEntityManagerFactory(emf -> applyEntityManager(emf, m -> applyInTransaction
 That is `JinahyaEntityManagerFactoryUtils.applyEntityManager`, then
 `JinahyaEntityManagerUtils.applyInTransactionAndRollback` when the work needs a transaction, and
 `EntityPersisterUtils.newPersistedInstanceOf` for a persisted, randomized instance. A test which only reads
-uses `applyEntityManager` alone, with the whole body inside the lambda, so the entity manager is still open
+uses `applyEntityManager_` alone, with the whole body inside the lambda, so the entity manager is still open
 for the assertions. Each base runs `persistRandomizedEntityInstance__` and `selectRandomEntityInstance__`,
 and hands the instance to the hooks `randomizedEntityInstancePersisted__` and
 `randomEntityInstanceSelected__(EntityManager, T)`, which a subclass overrides to assert what its entity
