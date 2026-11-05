@@ -52,7 +52,7 @@ a JRE -- there is no image to build or maintain.
 Use the wrapper, not `docker-compose up -d` directly:
 
 ```shell
-$ ./compose.sh
+$ ./_compose.sh
 ==> down -v (cleaning up any previous run) ...
 ==> up -d ...
 ==> waiting for the database to report healthy ...
@@ -76,10 +76,10 @@ from the container's own startup hook,
 `opt/oracle/scripts/startup/01_install_sample_schemas.sh`, which drives `sqlplus` inside the
 image; only `SH` needs SQLcl, and only because of `LOAD`.
 
-Everything uses the password `password`.
+Everything uses the password `Passw0rd!`.
 
 Installing takes a few minutes, on every run: the database lives in the container, which
-`compose.sh` removes. Only a container restarted without being removed finds the schemas
+`_compose.sh` removes. Only a container restarted without being removed finds the schemas
 already populated, and both the hook and the wrapper skip them:
 
 ```shell
@@ -94,9 +94,9 @@ you get a working database with those six `SH` tables empty, and the command to 
 
 The database's data directory, `/opt/oracle/oradata`, is not bound to the host; its line in
 `compose.yaml` is commented out. The database lives in the container, so `down` removes
-it, and every `compose.sh` run starts from an empty database.
+it, and every `_compose.sh` run starts from an empty database.
 
-`SH` installs only partially under SQL\*Plus, which is why `compose.sh` reinstalls
+`SH` installs only partially under SQL\*Plus, which is why `_compose.sh` reinstalls
 it with SQLcl. `sh_populate.sql` bulk-loads `costs`, `customers`, `promotions`, `sales`,
 `times` and `supplementary_demographics` with `LOAD`; SQL\*Plus reports `SP2-0158` on the
 preceding `SET LOAD` and skips all six. That is a client-side error, not a SQL one, so
@@ -123,9 +123,9 @@ To install by hand instead, see [README_BAK.md](README_BAK.md).
 
 | Schema | Host      | Port | Service  | Driver | User | Password   | JDBC URL                                    |
 |--------|-----------|------|----------|--------|------|------------|---------------------------------------------|
-| CO     | localhost | 1521 | freepdb1 | THIN   | `co` | `password` | jdbc:oracle:thin:@//localhost:1521/freepdb1 |
-| HR     |           |      |          |        | `hr` | `password` | jdbc:oracle:thin:@//localhost:1521/freepdb1 |
-| SH     |           |      |          |        | `sh` | `password` | jdbc:oracle:thin:@//localhost:1521/freepdb1 |
+| CO     | localhost | 1521 | freepdb1 | THIN   | `co` | `Passw0rd!` | jdbc:oracle:thin:@//localhost:1521/freepdb1 |
+| HR     |           |      |          |        | `hr` | `Passw0rd!` | jdbc:oracle:thin:@//localhost:1521/freepdb1 |
+| SH     |           |      |          |        | `sh` | `Passw0rd!` | jdbc:oracle:thin:@//localhost:1521/freepdb1 |
 
 ## Jakarta EE alignment
 
@@ -158,7 +158,7 @@ $ ./_mvn_jakarta_ee_11_test_eclipselink.sh
 
 The `_verify_` scripts of the same shape go the whole way -- package, javadoc, enforcer --
 and add the integration tests, which want a live Oracle at `localhost:1521/freepdb1`;
-`./compose.sh` brings one up. The `_verify_notests_` pair runs the same
+`./_compose.sh` brings one up. The `_verify_notests_` pair runs the same
 lifecycle with no test at all, for when there is no database to point at.
 
 Main sources target Java 17; tests target Java 25, so building the tests needs a

@@ -19,7 +19,7 @@ else
 fi
 
 CONTAINER="oracle-sample-schemas"
-DB_PASSWORD="${SAMPLE_SCHEMAS_PASSWORD:-password}"
+DB_PASSWORD="${SAMPLE_SCHEMAS_PASSWORD:-Passw0rd!}"
 DB_URL="//localhost:1521/freepdb1"
 # GNU parallel also ships a `sql`, and on Homebrew it wins the PATH, so name Oracle's
 # binary explicitly. Override SQLCL to point somewhere else.

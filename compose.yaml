@@ -6,7 +6,7 @@ services:
     ports:
       - "1521:1521"
     environment:
-      ORACLE_PWD: password
+      ORACLE_PWD: Passw0rd!
     volumes:
       - ./db-sample-schemas:/db-sample-schemas
       # not bound: the database lives in the container, which `down` removes, so every run installs the schemas afresh

@@ -1,6 +1,6 @@
 # Installing by hand
 
-Superseded by `compose.sh` and the startup hook -- see
+Superseded by `_compose.sh` and the startup hook -- see
 [README.md](README.md), where all of this happens for you. Kept here for when you want to
 re-run a single schema, watch an installer's prompts, or work against a database the hook
 did not set up.

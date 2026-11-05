@@ -380,7 +380,7 @@ leftovers.
 | unit tests and ITs | `_mvn_jakarta_ee_11_verify_hibernate_orm.sh` | `_mvn_jakarta_ee_11_verify_eclipselink.sh` |
 | no test, but still compiles them | `_mvn_jakarta_ee_11_verify_notests_hibernate_orm.sh` | `_mvn_jakarta_ee_11_verify_notests_eclipselink.sh` |
 
-The ITs want a live Oracle at `localhost:1521/freepdb1`; `./compose.sh` brings
+The ITs want a live Oracle at `localhost:1521/freepdb1`; `./_compose.sh` brings
 one up. The `_verify_notests_` pair is the one to reach for when there is no database.
 
 **EclipseLink woven.** `jakarta-ee-11-eclipselink-weaving` is an add-on to `jakarta-ee-11-eclipselink`, not a

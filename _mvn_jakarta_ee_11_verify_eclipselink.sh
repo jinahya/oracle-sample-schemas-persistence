@@ -3,7 +3,7 @@
 # enforcer -- with both the unit tests and the integration tests executed.
 #
 # The ITs talk to a real Oracle at localhost:1521/freepdb1, so bring it up with
-# ./compose.sh first; otherwise they fail on the connection rather than on a mapping.
+# ./_compose.sh first; otherwise they fail on the connection rather than on a mapping.
 #
 # `failsafe` is the profile that binds maven-failsafe-plugin, and naming any profile on the command
 # line deactivates the activeByDefault provider, so the two have to be named together.
