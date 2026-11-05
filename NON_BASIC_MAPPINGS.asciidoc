@@ -129,24 +129,30 @@ None of these is embedded yet: each table maps the same columns as plain attribu
 
 | `SH.TIMES.DAY_NAME`
 | `DayOfWeek`
-| `TimeDayNameAttributeConverter`
+| `__TemporalAccessorTextStringAttributeConverters.OfDayOfWeek`
 | no, an exercise (issue #6)
 
 | `SH.TIMES.CALENDAR_MONTH_NAME`, `FISCAL_MONTH_NAME`
 | `Month`
-| `TimeMonthNameAttributeConverter`
+| `__TemporalAccessorTextStringAttributeConverters.OfMonth`
 | no, an exercise (issue #7)
 
 | `SH.TIMES.CALENDAR_MONTH_DESC`, `FISCAL_MONTH_DESC`
 | `YearMonth`
-| `TimeMonthDescAttributeConverter`
+| `__TemporalAccessorStringAttributeConverters.OfYearMonth`
 | no, an exercise (issue #8)
 
 |===
 
-The three `SH` converters are `autoApply = false`, and listed in each unit of `persistence.xml`, but
-no attribute names them: `MappedTime` keeps the columns as `String`s, and `TimeUtils` derives the
-`DayOfWeek`, `Month` or `YearMonth` on demand. `SH.CAL_MONTH_SALES_MV.CALENDAR_MONTH_DESC` holds the
-same text as `TIMES.CALENDAR_MONTH_DESC`, but it is that view's `@Id`, which the specification
-excludes from attribute conversion.
+The three `SH` converters are `jinahya-persistence-more`'s, in
+`com.github.jinahya.persistence.more.converter.javatime`, and not the module's own: `OfDayOfWeek` and
+`OfMonth` write the full English name (`Monday`, `January`, `TextStyle.FULL_STANDALONE` in
+`Locale.ENGLISH`) and read it back ignoring case, and `OfYearMonth` writes and reads `uuuu-MM`
+(`2019-01`); a text which is neither fails with a `DateTimeParseException`. The module has the library
+at `test` scope only, so `MappedTime` (main) cannot name them, and keeps the columns as `String`s. Each
+unit of the test `persistence.xml` lists them (`...Converters$OfDayOfWeek`, ...), `TimeUtils` derives
+the `DayOfWeek`, `Month` or `YearMonth` through them, and `Time_AttributeConverters_Test` checks them
+against the form the columns hold. `SH.CAL_MONTH_SALES_MV.CALENDAR_MONTH_DESC` holds the same text as
+`TIMES.CALENDAR_MONTH_DESC`, but it is that view's `@Id`, which the specification excludes from
+attribute conversion.
 

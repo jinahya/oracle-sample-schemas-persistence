@@ -143,9 +143,9 @@ class TimeUtils_Test {
         }
 
         @Test
-        void _IllegalArgumentException_NotParsable() {
+        void _DateTimeParseException_NotParsable() {
             assertThatThrownBy(() -> TimeUtils.getDayNameAsDayOfWeek(timeOf("Smarch")))
-                    .isInstanceOf(IllegalArgumentException.class);
+                    .isInstanceOf(DateTimeParseException.class);
         }
     }
 
@@ -531,9 +531,9 @@ class TimeUtils_Test {
         }
 
         @Test
-        void _IllegalArgumentException_NotParsable() {
+        void _DateTimeParseException_NotParsable() {
             assertThatThrownBy(() -> TimeUtils.getCalendarMonthNameAsMonth(timeOf("Smarch")))
-                    .isInstanceOf(IllegalArgumentException.class);
+                    .isInstanceOf(DateTimeParseException.class);
         }
     }
 
@@ -658,9 +658,9 @@ class TimeUtils_Test {
         }
 
         @Test
-        void _IllegalArgumentException_NotParsable() {
+        void _DateTimeParseException_NotParsable() {
             assertThatThrownBy(() -> TimeUtils.getFiscalMonthNameAsMonth(timeOf("Smarch")))
-                    .isInstanceOf(IllegalArgumentException.class);
+                    .isInstanceOf(DateTimeParseException.class);
         }
     }
 

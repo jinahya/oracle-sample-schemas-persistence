@@ -20,11 +20,12 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.persistence.more.converter.javatime.__TemporalAccessorStringAttributeConverters;
+import com.github.jinahya.persistence.more.converter.javatime.__TemporalAccessorTextStringAttributeConverters;
+
 import java.time.DayOfWeek;
 import java.time.Month;
 import java.time.YearMonth;
-import java.time.format.TextStyle;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -37,6 +38,18 @@ import java.util.function.Function;
  * @see Time
  */
 public final class TimeUtils {
+
+    // ------------------------------------------------------------------------------- CONVERTERS
+
+    // the converters the units list for the columns; each is immutable, so one instance serves
+    private static final __TemporalAccessorTextStringAttributeConverters.OfDayOfWeek DAY_NAME =
+            new __TemporalAccessorTextStringAttributeConverters.OfDayOfWeek();
+
+    private static final __TemporalAccessorTextStringAttributeConverters.OfMonth MONTH_NAME =
+            new __TemporalAccessorTextStringAttributeConverters.OfMonth();
+
+    private static final __TemporalAccessorStringAttributeConverters.OfYearMonth MONTH_DESC =
+            new __TemporalAccessorStringAttributeConverters.OfYearMonth();
 
     // ------------------------------------------------------------------------------------- dayName
 
@@ -82,17 +95,18 @@ public final class TimeUtils {
      * entity, as a {@link DayOfWeek}.
      *
      * @param time the entity.
-     * @return the day of the week whose {@link DayOfWeek#name() name} equals current value of the
+     * @return the day of the week whose full English name equals current value of the
      *         {@value Time#ATTRIBUTE_NAME_DAY_NAME} attribute, ignoring case; {@code null} when the
      *         attribute is {@code null}.
      * @throws NullPointerException     if {@code time} is {@code null}.
-     * @throws IllegalArgumentException if the attribute is not the name of a {@link DayOfWeek}
-     *                                  constant, such as {@code Monday}.
+     * @throws java.time.format.DateTimeParseException if the attribute is not the full English
+     *                                                 name of a {@link DayOfWeek}, such as
+     *                                                 {@code Monday}.
      * @see #getDayNameAsMapped(Time, Function)
      * @see #setDayNameFromDayOfWeek(Time, DayOfWeek)
      */
     public static DayOfWeek getDayNameAsDayOfWeek(final Time time) {
-        return getDayNameAsMapped(time, v -> DayOfWeek.valueOf(v.toUpperCase(Locale.ENGLISH)));
+        return getDayNameAsMapped(time, DAY_NAME::convertToEntityAttribute);
     }
 
     /**
@@ -105,12 +119,11 @@ public final class TimeUtils {
      * @param dayOfWeek the day of the week; {@code null} sets the
      *                  {@value Time#ATTRIBUTE_NAME_DAY_NAME} attribute to {@code null}.
      * @throws NullPointerException if {@code time} is {@code null}.
-     * @see DayOfWeek#getDisplayName(TextStyle, Locale)
+     * @see __TemporalAccessorTextStringAttributeConverters.OfDayOfWeek
      * @see #getDayNameAsDayOfWeek(Time)
      */
     public static void setDayNameFromDayOfWeek(final Time time, final DayOfWeek dayOfWeek) {
-        setDayNameFromMapped(time, dayOfWeek,
-                             v -> v.getDisplayName(TextStyle.FULL_STANDALONE, Locale.ENGLISH));
+        setDayNameFromMapped(time, dayOfWeek, DAY_NAME::convertToDatabaseColumn);
     }
 
     // --------------------------------------------------------------------------- calendarMonthDesc
@@ -171,7 +184,7 @@ public final class TimeUtils {
      * @see #setCalendarMonthDescFromYearMonth(Time, YearMonth)
      */
     public static YearMonth getCalendarMonthDescAsYearMonth(final Time time) {
-        return getCalendarMonthDescAsMapped(time, YearMonth::parse);
+        return getCalendarMonthDescAsMapped(time, MONTH_DESC::convertToEntityAttribute);
     }
 
     /**
@@ -184,12 +197,13 @@ public final class TimeUtils {
      * @param yearMonth the year-month; {@code null} sets the
      *                  {@value Time#ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute to {@code null}.
      * @throws NullPointerException if {@code time} is {@code null}.
-     * @see YearMonth#parse(CharSequence)
+     * @see __TemporalAccessorStringAttributeConverters.OfYearMonth
      * @see #getCalendarMonthDescAsYearMonth(Time)
      */
     public static void setCalendarMonthDescFromYearMonth(final Time time,
                                                          final YearMonth yearMonth) {
-        setCalendarMonthDescFromMapped(time, yearMonth, YearMonth::toString);
+        setCalendarMonthDescFromMapped(time, yearMonth,
+                                       MONTH_DESC::convertToDatabaseColumn);
     }
 
     // ----------------------------------------------------------------------------- fiscalMonthDesc
@@ -249,7 +263,7 @@ public final class TimeUtils {
      * @see #setFiscalMonthDescFromYearMonth(Time, YearMonth)
      */
     public static YearMonth getFiscalMonthDescAsYearMonth(final Time time) {
-        return getFiscalMonthDescAsMapped(time, YearMonth::parse);
+        return getFiscalMonthDescAsMapped(time, MONTH_DESC::convertToEntityAttribute);
     }
 
     /**
@@ -262,11 +276,11 @@ public final class TimeUtils {
      * @param yearMonth the year-month; {@code null} sets the
      *                  {@value Time#ATTRIBUTE_NAME_FISCAL_MONTH_DESC} attribute to {@code null}.
      * @throws NullPointerException if {@code time} is {@code null}.
-     * @see YearMonth#parse(CharSequence)
+     * @see __TemporalAccessorStringAttributeConverters.OfYearMonth
      * @see #getFiscalMonthDescAsYearMonth(Time)
      */
     public static void setFiscalMonthDescFromYearMonth(final Time time, final YearMonth yearMonth) {
-        setFiscalMonthDescFromMapped(time, yearMonth, YearMonth::toString);
+        setFiscalMonthDescFromMapped(time, yearMonth, MONTH_DESC::convertToDatabaseColumn);
     }
 
     // --------------------------------------------------------------------------- calendarMonthName
@@ -316,17 +330,17 @@ public final class TimeUtils {
      * the specified entity, as a {@link Month}.
      *
      * @param time the entity.
-     * @return the month whose {@link Month#name() name} equals current value of the attribute,
+     * @return the month whose full English name equals current value of the attribute,
      *         ignoring case; {@code null} when the attribute is {@code null}.
      * @throws NullPointerException     if {@code time} is {@code null}.
-     * @throws IllegalArgumentException if the attribute is not the name of a {@link Month}
-     *                                  constant, such as {@code January}.
+     * @throws java.time.format.DateTimeParseException if the attribute is not the full English
+     *                                                 name of a {@link Month}, such as
+     *                                                 {@code January}.
      * @see #getCalendarMonthNameAsMapped(Time, Function)
      * @see #setCalendarMonthNameFromMonth(Time, Month)
      */
     public static Month getCalendarMonthNameAsMonth(final Time time) {
-        return getCalendarMonthNameAsMapped(time,
-                                            v -> Month.valueOf(v.toUpperCase(Locale.ENGLISH)));
+        return getCalendarMonthNameAsMapped(time, MONTH_NAME::convertToEntityAttribute);
     }
 
     /**
@@ -339,12 +353,11 @@ public final class TimeUtils {
      * @param month the month; {@code null} sets the
      *              {@value Time#ATTRIBUTE_NAME_CALENDAR_MONTH_NAME} attribute to {@code null}.
      * @throws NullPointerException if {@code time} is {@code null}.
-     * @see Month#getDisplayName(TextStyle, Locale)
+     * @see __TemporalAccessorTextStringAttributeConverters.OfMonth
      * @see #getCalendarMonthNameAsMonth(Time)
      */
     public static void setCalendarMonthNameFromMonth(final Time time, final Month month) {
-        setCalendarMonthNameFromMapped(time, month, v -> v.getDisplayName(TextStyle.FULL_STANDALONE,
-                                                                          Locale.ENGLISH));
+        setCalendarMonthNameFromMapped(time, month, MONTH_NAME::convertToDatabaseColumn);
     }
 
     // ----------------------------------------------------------------------------- fiscalMonthName
@@ -393,16 +406,17 @@ public final class TimeUtils {
      * specified entity, as a {@link Month}.
      *
      * @param time the entity.
-     * @return the month whose {@link Month#name() name} equals current value of the attribute,
+     * @return the month whose full English name equals current value of the attribute,
      *         ignoring case; {@code null} when the attribute is {@code null}.
      * @throws NullPointerException     if {@code time} is {@code null}.
-     * @throws IllegalArgumentException if the attribute is not the name of a {@link Month}
-     *                                  constant, such as {@code January}.
+     * @throws java.time.format.DateTimeParseException if the attribute is not the full English
+     *                                                 name of a {@link Month}, such as
+     *                                                 {@code January}.
      * @see #getFiscalMonthNameAsMapped(Time, Function)
      * @see #setFiscalMonthNameFromMonth(Time, Month)
      */
     public static Month getFiscalMonthNameAsMonth(final Time time) {
-        return getFiscalMonthNameAsMapped(time, v -> Month.valueOf(v.toUpperCase(Locale.ENGLISH)));
+        return getFiscalMonthNameAsMapped(time, MONTH_NAME::convertToEntityAttribute);
     }
 
     /**
@@ -415,12 +429,11 @@ public final class TimeUtils {
      * @param month the month; {@code null} sets the {@value Time#ATTRIBUTE_NAME_FISCAL_MONTH_NAME}
      *              attribute to {@code null}.
      * @throws NullPointerException if {@code time} is {@code null}.
-     * @see Month#getDisplayName(TextStyle, Locale)
+     * @see __TemporalAccessorTextStringAttributeConverters.OfMonth
      * @see #getFiscalMonthNameAsMonth(Time)
      */
     public static void setFiscalMonthNameFromMonth(final Time time, final Month month) {
-        setFiscalMonthNameFromMapped(time, month, v -> v.getDisplayName(TextStyle.FULL_STANDALONE,
-                                                                        Locale.ENGLISH));
+        setFiscalMonthNameFromMapped(time, month, MONTH_NAME::convertToDatabaseColumn);
     }
 
     // -------------------------------------------------------------------------------- CONSTRUCTORS
