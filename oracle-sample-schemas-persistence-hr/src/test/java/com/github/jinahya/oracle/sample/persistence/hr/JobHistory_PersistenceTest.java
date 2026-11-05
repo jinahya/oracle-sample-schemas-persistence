@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.hr.mapped.JobHistoryId;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -31,10 +32,10 @@ import org.junit.jupiter.api.Test;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class JobHistory_PersistenceTest
-        extends _Entity_PersistenceTest<JobHistory> {
+        extends _Entity_PersistenceTest<JobHistory, JobHistoryId> {
 
     JobHistory_PersistenceTest() {
-        super(JobHistory.class);
+        super(JobHistory.class, JobHistoryId.class);
     }
 
     // ---------------------------------------------------------------------------------------------

@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class ProductReview_Test
-        extends _Entity_Test<ProductReview> {
+        extends _Entity_Test<ProductReview, Void> {
 
     ProductReview_Test() {
-        super(ProductReview.class);
+        super(ProductReview.class, Void.class);
     }
 
     // ----------------------------------------------------------------------------- equals/hashCode

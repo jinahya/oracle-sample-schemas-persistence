@@ -187,11 +187,15 @@ extends another, plus one interface holding the checks:
 | `__Test<T>` | nothing itself | the root: the target class and its factories |
 | `__Object_Test<T>` (interface) | `toString`, `equals`/`hashCode`, accessors, as `@Test` default methods | mixed into the two bases below |
 | `_NonEntity_Test<T>` | `toString`, `equals`/`hashCode`, accessors | a class with no identity: an id class, an embeddable, a mapped JSON document |
-| `_Entity_Test<T>` | the same, and any check only such a class has | a class mapping a table or a view, keyless views included |
-| `_Entity_PersistenceTest<T>` | the mapping, against the `<schema>-test` unit | an entity |
-| `_Entity_PersistenceIT<T>` | the mapping, against the `<schema>-it` unit | an entity |
+| `_Entity_Test<T, U>` | the same, and any check only such a class has | a class mapping a table or a view, keyless views included |
+| `_Entity_PersistenceTest<T, U>` | the mapping, against the `<schema>-test` unit | an entity |
+| `_Entity_PersistenceIT<T, U>` | the mapping, against the `<schema>-it` unit | an entity |
 
 A class gets one of `_NonEntity_Test` / `_Entity_Test`, and an entity also gets the last two.
+
+The three `_Entity_*` bases take the class of the identifier too, as `U` and a constructor's
+`Class<U> idClass`: the id class (`JobHistoryId`), the `@EmbeddedId`'s type (`OrderItemId`), or the
+`@Id`'s (`Long`); a keyless view, which has none, passes `Void`.
 
 The checks live in `__Object_Test` as `@Test` default methods -- JUnit Jupiter discovers tests on
 an interface's default methods -- and `_NonEntity_Test` and `_Entity_Test` implement it;

@@ -40,11 +40,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Inventory_PersistenceIT
-        extends _Entity_PersistenceIT<Inventory> {
+        extends _Entity_PersistenceIT<Inventory, Long> {
 
     // ---------------------------------------------------------------------------------------------
     Inventory_PersistenceIT() {
-        super(Inventory.class);
+        super(Inventory.class, Long.class);
     }
 
     // ---------------------------------------------------------------------------------------------

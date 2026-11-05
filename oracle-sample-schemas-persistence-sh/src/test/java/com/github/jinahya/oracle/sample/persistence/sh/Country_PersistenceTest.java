@@ -28,9 +28,9 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Country_PersistenceTest
-        extends _Entity_PersistenceTest<Country> {
+        extends _Entity_PersistenceTest<Country, Long> {
 
     Country_PersistenceTest() {
-        super(Country.class);
+        super(Country.class, Long.class);
     }
 }

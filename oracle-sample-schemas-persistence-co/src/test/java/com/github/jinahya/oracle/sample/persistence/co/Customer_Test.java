@@ -28,10 +28,10 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Customer_Test
-        extends _Entity_Test<Customer> {
+        extends _Entity_Test<Customer, Long> {
 
     Customer_Test() {
-        super(Customer.class);
+        super(Customer.class, Long.class);
     }
 
     // ------------------------------------------------------------------------------------ toString

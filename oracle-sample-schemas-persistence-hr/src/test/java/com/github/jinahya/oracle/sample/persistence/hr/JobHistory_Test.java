@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.hr.mapped.JobHistoryId;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
@@ -29,10 +30,10 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class JobHistory_Test
-        extends _Entity_Test<JobHistory> {
+        extends _Entity_Test<JobHistory, JobHistoryId> {
 
     JobHistory_Test() {
-        super(JobHistory.class);
+        super(JobHistory.class, JobHistoryId.class);
     }
 
     // ----------------------------------------------------------------------------- equals/hashCode

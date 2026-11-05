@@ -44,11 +44,11 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class Customer_PersistenceIT
-        extends _Entity_PersistenceIT<Customer> {
+        extends _Entity_PersistenceIT<Customer, Long> {
 
     // ---------------------------------------------------------------------------------------------
     Customer_PersistenceIT() {
-        super(Customer.class);
+        super(Customer.class, Long.class);
     }
 
     // ---------------------------------------------------------------------------------------------

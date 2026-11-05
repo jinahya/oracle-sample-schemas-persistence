@@ -41,7 +41,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Country_PersistenceIT
-        extends _Entity_PersistenceIT<Country> {
+        extends _Entity_PersistenceIT<Country, String> {
 
     // ---------------------------------------------------------------------------------------------
     private static final Comparator<Country> COUNTRY_NAME_ASC =
@@ -53,7 +53,7 @@ class Country_PersistenceIT
 
     // ---------------------------------------------------------------------------------------------
     Country_PersistenceIT() {
-        super(Country.class);
+        super(Country.class, String.class);
     }
 
     // ---------------------------------------------------------------------------------------------

@@ -27,9 +27,9 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Region_PersistenceIT
-        extends _Entity_PersistenceIT<Region> {
+        extends _Entity_PersistenceIT<Region, Long> {
 
     Region_PersistenceIT() {
-        super(Region.class);
+        super(Region.class, Long.class);
     }
 }

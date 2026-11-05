@@ -29,10 +29,10 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Channel_Test
-        extends _Entity_Test<Channel> {
+        extends _Entity_Test<Channel, Long> {
 
     Channel_Test() {
-        super(Channel.class);
+        super(Channel.class, Long.class);
     }
 
     // ----------------------------------------------------------------------------- equals/hashCode

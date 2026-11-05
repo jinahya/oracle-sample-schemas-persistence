@@ -27,9 +27,9 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Promotion_PersistenceTest
-        extends _Entity_PersistenceTest<Promotion> {
+        extends _Entity_PersistenceTest<Promotion, Integer> {
 
     Promotion_PersistenceTest() {
-        super(Promotion.class);
+        super(Promotion.class, Integer.class);
     }
 }

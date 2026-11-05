@@ -45,7 +45,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class Product_PersistenceTest
-        extends _Entity_PersistenceTest<Product> {
+        extends _Entity_PersistenceTest<Product, Long> {
 
     private static BigDecimal unitPriceMin;
 
@@ -65,7 +65,7 @@ class Product_PersistenceTest
 
     // ---------------------------------------------------------------------------------------------
     Product_PersistenceTest() {
-        super(Product.class);
+        super(Product.class, Long.class);
     }
 
     // ---------------------------------------------------------------------------------------------

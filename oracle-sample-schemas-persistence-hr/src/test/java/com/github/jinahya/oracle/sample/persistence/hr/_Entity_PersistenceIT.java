@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  */
 
 import jakarta.persistence.EntityManager;
+import java.util.Objects;
 import org.junit.jupiter.api.Test;
 
 import static com.github.jinahya.oracle.sample.persistence.hr.__PersistenceIT_Utils.applyEntityManagerFactory;
@@ -43,6 +44,7 @@ import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.appl
  * than the other way round.
  *
  * @param <T> the type of the entity under test.
+ * @param <U> the type of the identifier of the entity, or of its id class.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see __PersistenceIT_Utils
  */
@@ -50,16 +52,18 @@ import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.appl
         "java:S101", // Class names should comply with a naming convention
         "java:S118"  // Abstract class names should comply with a naming convention
 })
-abstract class _Entity_PersistenceIT<T>
+abstract class _Entity_PersistenceIT<T, U>
         extends __Test<T> {
 
     /**
      * Creates a new instance for the specified persistence class.
      *
      * @param targetClass the class of the entity under test.
+     * @param idClass     the class of the identifier of the entity, or its id class.
      */
-    protected _Entity_PersistenceIT(final Class<T> targetClass) {
+    protected _Entity_PersistenceIT(final Class<T> targetClass, final Class<U> idClass) {
         super(targetClass);
+        this.idClass = Objects.requireNonNull(idClass, "idClass is null");
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -133,4 +137,12 @@ abstract class _Entity_PersistenceIT<T>
                                                   final T entityInstance) {
         // empty; overridden by a subclass which has something to assert
     }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * The class of the identifier of {@link #targetClass}; its id class, or the type of its
+     * {@code @Id} or {@code @EmbeddedId} attribute.
+     */
+    protected final Class<U> idClass;
 }

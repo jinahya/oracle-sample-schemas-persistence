@@ -28,9 +28,9 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Department_PersistenceTest
-        extends _Entity_PersistenceTest<Department> {
+        extends _Entity_PersistenceTest<Department, Integer> {
 
     Department_PersistenceTest() {
-        super(Department.class);
+        super(Department.class, Integer.class);
     }
 }

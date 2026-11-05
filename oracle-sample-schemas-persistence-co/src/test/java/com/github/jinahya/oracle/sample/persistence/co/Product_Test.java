@@ -29,10 +29,10 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Product_Test
-        extends _Entity_Test<Product> {
+        extends _Entity_Test<Product, Long> {
 
     Product_Test() {
-        super(Product.class);
+        super(Product.class, Long.class);
     }
 
     // ----------------------------------------------------------------------------- equals/hashCode

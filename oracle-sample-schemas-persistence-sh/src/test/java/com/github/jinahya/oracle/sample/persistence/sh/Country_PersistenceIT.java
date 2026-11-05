@@ -33,13 +33,13 @@ import java.util.Set;
  */
 @Slf4j
 class Country_PersistenceIT
-        extends _Entity_PersistenceIT<Country> {
+        extends _Entity_PersistenceIT<Country, Long> {
 
     private static final Set<String> LOCALE_COUNTRY_ISO_CODES = Set.of(Locale.getISOCountries());
 
     // ---------------------------------------------------------------------------------------------
     Country_PersistenceIT() {
-        super(Country.class);
+        super(Country.class, Long.class);
     }
 
     // ---------------------------------------------------------------------------------------------

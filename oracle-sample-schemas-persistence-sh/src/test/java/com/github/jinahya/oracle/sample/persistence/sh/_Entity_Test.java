@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import java.util.Objects;
+
 /**
  * An abstract base class for testing, without a persistence context, a class which maps a table or
  * a view.
@@ -28,13 +30,14 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * too; checks only such a class has to pass go here.
  *
  * @param <T> the type of the class.
+ * @param <U> the type of the identifier of the entity, or of its id class.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 @SuppressWarnings({
         "java:S101", // Class names should comply with a naming convention
         "java:S118"  // Abstract class names should comply with a naming convention
 })
-abstract class _Entity_Test<T>
+abstract class _Entity_Test<T, U>
         extends __Test<T>
         implements __Object_Test<T> {
 
@@ -42,8 +45,18 @@ abstract class _Entity_Test<T>
      * Creates a new instance for the specified target class.
      *
      * @param targetClass the class to test.
+     * @param idClass     the class of the identifier of the entity, or its id class.
      */
-    protected _Entity_Test(final Class<T> targetClass) {
+    protected _Entity_Test(final Class<T> targetClass, final Class<U> idClass) {
         super(targetClass);
+        this.idClass = Objects.requireNonNull(idClass, "idClass is null");
     }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * The class of the identifier of {@link #targetClass}; its id class, or the type of its
+     * {@code @Id} or {@code @EmbeddedId} attribute.
+     */
+    protected final Class<U> idClass;
 }
