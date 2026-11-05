@@ -285,8 +285,9 @@ artifacts:
   move the platform out from under the implementations.
 - **The persistence provider is the only implementation axis**, and it has exactly two
   profiles: `jakarta-ee-11-hibernate-orm` (`activeByDefault`) and
-  `jakarta-ee-11-eclipselink`. Every other spec has a single implementation here
-  (Hibernate Validator + Expressly for Jakarta Validation), pinned to
+  `jakarta-ee-11-eclipselink` (plus the add-on `jakarta-ee-11-eclipselink-weaving`, see
+  § Testing). Every other spec has a single implementation here
+  (Hibernate Validator + Expressly for Jakarta Validation, Parsson for Jakarta JSON Processing, Yasson for Jakarta JSON Binding), pinned to
   its EE 11 aligned release in `<properties>`; there is nothing to choose, so it gets
   no profile. Neither provider profile picks a *version* either — both versions live
   in `<properties>`; a profile decides only which provider is on the test classpath
@@ -320,6 +321,8 @@ Consequences:
 | Jakarta Persistence (`jakarta.persistence-api`) | EclipseLink (`org.eclipse.persistence:org.eclipse.persistence.jpa`) | `version.org.eclipse.persistence` |
 | Jakarta Validation (`jakarta.validation-api`) | Hibernate Validator | `version.org.hibernate.validator` |
 | Jakarta Expression Language (`jakarta.el-api`) | Expressly — required by Hibernate Validator | `version.org.glassfish.expressly` |
+| Jakarta JSON Processing (`jakarta.json-api`) | Parsson (`org.eclipse.parsson:parsson`) | `version.org.eclipse.parsson` |
+| Jakarta JSON Binding (`jakarta.json.bind-api`) | Yasson (`org.eclipse:yasson`) | `version.org.eclipse.yasson` |
 
 Rules:
 
@@ -332,6 +335,10 @@ Rules:
   against EclipseLink and vice versa.
 - Hibernate Validator and Expressly move together: validator 9 ↔ expressly 6. Never
   bump one without the other.
+- `jakarta.json-api` and `jakarta.json.bind-api` are `provided` in `common` and in each schema
+  module (a `provided` dependency is not transitive), and Parsson and Yasson are `test` in all four.
+  Their versions are the ones whose APIs are the umbrella BOM's (Parsson 1.1.7: `jakarta.json-api`
+  2.1.3; Yasson 3.0.4: `jakarta.json.bind-api` 3.0.1), and Parsson's is also the one Yasson takes.
 
 ### Java release
 
@@ -374,6 +381,16 @@ leftovers.
 
 The ITs want a live Oracle at `localhost:1521/freepdb1`; `./compose.sh` brings
 one up. The `_verify_notests_` pair is the one to reach for when there is no database.
+
+**EclipseLink woven.** `jakarta-ee-11-eclipselink-weaving` is an add-on to `jakarta-ee-11-eclipselink`, not a
+provider, and is named with it: `./mvnw -Pjakarta-ee-11-eclipselink,jakarta-ee-11-eclipselink-weaving clean test`
+(add `failsafe` for the ITs). It hands the EclipseLink jar to the test JVM as a `-javaagent` on `argLine`, and sets
+`eclipselink.woven` to `true` for surefire and failsafe; nothing on disk is rewritten, and the default build stays
+unwoven. Woven, EclipseLink honours `LAZY` on a basic attribute and takes an entity graph naming one; unwoven, it
+fails such a graph with `EclipseLink-6114`, so `co`'s `Product_PersistenceIT.ProductDetailsTest` /
+`ProductImageTest` skip under unwoven EclipseLink. A woven run skips `__Object_Test.equals_verify_` (and
+`Naive_Customer_Test.equals_verify`) for a woven class, which `__Object_Test.isWovenByEclipseLink` tells by
+name: EqualsVerifier fails on the woven getters. The book's `PERSISTENCE_PROVIDERS.asciidoc` (EclipseLink, Weaving) has the background.
 
 Which half of a `verify` run executes is chosen by two separate flags, because **as of
 maven-failsafe-plugin 3.6.0 failsafe no longer binds its own `skipTests` parameter to the

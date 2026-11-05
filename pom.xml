@@ -126,6 +126,12 @@
     <!-- https://eclipse.dev/eclipselink/releases/index.html -->
     <!-- https://central.sonatype.com/artifact/org.eclipse.persistence/org.eclipse.persistence.jpa/versions -->
     <version.org.eclipse.persistence>5.0.2</version.org.eclipse.persistence>
+    <!-- JSON Processing 2.1 (EE 11); 1.1.7 takes the BOM's json-api 2.1.3, and is the one Yasson 3.0.4 takes -->
+    <!-- https://central.sonatype.com/artifact/org.eclipse.parsson/parsson/versions -->
+    <version.org.eclipse.parsson>1.1.7</version.org.eclipse.parsson>
+    <!-- JSON Binding 3.0 (EE 11); 3.0.4 takes the BOM's json.bind-api 3.0.1 and json-api 2.1.3 -->
+    <!-- https://central.sonatype.com/artifact/org.eclipse/yasson/versions -->
+    <version.org.eclipse.yasson>3.0.4</version.org.eclipse.yasson>
     <!-- https://docs.jboss.org/hibernate/validator/9.1/reference/en-US/html_single/#validator-gettingstarted-uel -->
     <!-- hibernate-validator: 9 / expressly: 6 -->
     <!-- https://central.sonatype.com/artifact/org.glassfish.expressly/expressly/versions -->
@@ -213,6 +219,16 @@
         <groupId>org.eclipse.persistence</groupId>
         <artifactId>org.eclipse.persistence.jpa</artifactId>
         <version>${version.org.eclipse.persistence}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse</groupId>
+        <artifactId>yasson</artifactId>
+        <version>${version.org.eclipse.yasson}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.eclipse.parsson</groupId>
+        <artifactId>parsson</artifactId>
+        <version>${version.org.eclipse.parsson}</version>
       </dependency>
       <dependency>
         <groupId>org.glassfish.expressly</groupId>
@@ -727,6 +743,9 @@
                 <include>**/*IT.java</include>
               </includes>
               <skipAfterFailureCount>1</skipAfterFailureCount>
+              <systemPropertyVariables>
+                <eclipselink.woven>${eclipselink.woven}</eclipselink.woven>
+              </systemPropertyVariables>
               <trimStackTrace>false</trimStackTrace>
             </configuration>
           </plugin>
@@ -801,6 +820,19 @@
           <scope>test</scope>
         </dependency>
       </dependencies>
+    </profile>
+    <profile>
+      <id>jakarta-ee-11-eclipselink-weaving</id>
+      <!-- An add-on to jakarta-ee-11-eclipselink, not a provider: named alone, it hands the agent to a JVM with no
+           EclipseLink to run it. The EclipseLink jar is itself a Java agent (Premain-Class JavaSECMPInitializerAgent),
+           which weaves the entities as they are loaded, so EclipseLink honours LAZY on a basic attribute and on a
+           to-one association, and an entity graph naming one is accepted. Nothing on disk is rewritten; the classes
+           under target/ and the jars stay unwoven. jacoco:prepare-agent appends its own agent to the same argLine.
+           See the book's PERSISTENCE_PROVIDERS.asciidoc, EclipseLink, Weaving. -->
+      <properties>
+        <argLine>-javaagent:${settings.localRepository}/org/eclipse/persistence/org.eclipse.persistence.jpa/${version.org.eclipse.persistence}/org.eclipse.persistence.jpa-${version.org.eclipse.persistence}.jar</argLine>
+        <eclipselink.woven>true</eclipselink.woven>
+      </properties>
     </profile>
   </profiles>
 </project>

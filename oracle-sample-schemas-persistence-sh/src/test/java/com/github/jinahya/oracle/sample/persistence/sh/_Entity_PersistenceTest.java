@@ -24,18 +24,22 @@ import com.github.jinahya.persistence.metamodel.util.JinayaManagedTypeUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.metamodel.ManagedType;
-import java.util.Objects;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Modifier;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.TreeMap;
 
 import static com.github.jinahya.oracle.sample.persistence.sh.__PersistenceTest_Utils.applyEntityManagerFactory;
+import static com.github.jinahya.oracle.sample.persistence.sh.__PersistenceTest_Utils.applyEntityManager_;
 import static com.github.jinahya.oracle.sample.persistence.sh.___Persistence_TestUtils.selectRandomEntityInstance;
 import static com.github.jinahya.persistence.test.util.EntityPersisterUtils.newPersistedInstanceOf;
+import static com.github.jinahya.persistence.test.util.JinahyaEntityManagerTestUtils.selectRandomEntityId;
+import static com.github.jinahya.persistence.test.util.JinahyaEntityManagerTestUtils.selectRandomEntityReference;
 import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -98,6 +102,38 @@ abstract class _Entity_PersistenceTest<T, U>
     protected _Entity_PersistenceTest(final Class<T> targetClass, final Class<U> idClass) {
         super(targetClass);
         this.idClass = Objects.requireNonNull(idClass, "idClass is null");
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Selects a reference to a randomly chosen instance of {@link #targetClass}, with an entity
+     * manager of its own of the {@value __PersistenceTest_Utils#PERSISTENCE_UNIT_NAME} unit,
+     * through {@code JinahyaEntityManagerTestUtils.selectRandomEntityReference}.
+     *
+     * @return an optional of the reference selected; {@code empty} when there is no instance.
+     * @apiNote The entity manager is closed when this method returns, so the reference is
+     *         detached; only its identifier is safe to read, for its state may never have been
+     *         loaded.
+     */
+    Optional<T> selectRandomEntityReference_() {
+        return applyEntityManager_(
+                emf -> em -> selectRandomEntityReference(em, targetClass)
+        );
+    }
+
+    /**
+     * Selects the identifier of a randomly chosen instance of {@link #targetClass}, as an instance
+     * of {@link #idClass}, with an entity manager of its own of the
+     * {@value __PersistenceTest_Utils#PERSISTENCE_UNIT_NAME} unit, through
+     * {@code JinahyaEntityManagerTestUtils.selectRandomEntityId}.
+     *
+     * @return an optional of the identifier selected; {@code empty} when there is no instance.
+     */
+    Optional<U> selectRandomEntityId_() {
+        return applyEntityManager_(
+                emf -> em -> selectRandomEntityId(em, targetClass, idClass)
+        );
     }
 
     // ---------------------------------------------------------------------------------------------

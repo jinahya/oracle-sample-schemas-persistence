@@ -30,6 +30,7 @@ import java.beans.Introspector;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  * The checks a class has to pass on its own -- a usable {@code toString()}, an
@@ -48,6 +49,33 @@ import static org.assertj.core.api.Assertions.assertThatCode;
         "java:S114"  // Interface names should comply with a naming convention
 })
 public interface __Object_Test<T> {
+
+    /**
+     * The name of the interface which EclipseLink adds to a class it weaves. The value is {@value}.
+     */
+    String ECLIPSELINK_PERSISTENCE_WEAVED = "org.eclipse.persistence.internal.weaving.PersistenceWeaved";
+
+    /**
+     * Tells whether EclipseLink wove the specified class, or one of its superclasses.
+     *
+     * @param type the class to check.
+     * @return {@code true} when the {@code type}, or one of its superclasses, implements
+     *         {@value #ECLIPSELINK_PERSISTENCE_WEAVED}; {@code false} otherwise.
+     * @implNote The interface is matched by its name, so this compiles, and answers {@code false},
+     *         without EclipseLink on the class path.
+     */
+    static boolean isWovenByEclipseLink(final Class<?> type) {
+        for (Class<?> c = type; c != null; c = c.getSuperclass()) {
+            for (final var i : c.getInterfaces()) {
+                if (ECLIPSELINK_PERSISTENCE_WEAVED.equals(i.getName())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Returns the class which this test targets.
@@ -109,6 +137,9 @@ public interface __Object_Test<T> {
      */
     @Test
     default void equals_verify_() {
+        // woven, the getters equals reads go through EclipseLink, which fails on the instances
+        // EqualsVerifier builds; the unwoven runs verify the same methods
+        assumeFalse(isWovenByEclipseLink(targetClass()), "woven by EclipseLink");
         final var verifier = equals_verifier_();
         verifier.verify();
     }

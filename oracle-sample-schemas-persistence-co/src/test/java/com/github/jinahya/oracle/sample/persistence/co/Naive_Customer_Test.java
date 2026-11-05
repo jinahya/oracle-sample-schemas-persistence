@@ -26,6 +26,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  * A naive test of the {@link Customer} class, written out in full, with no test base.
@@ -57,6 +58,7 @@ class Naive_Customer_Test {
     @DisplayName("equals/hashCode compare by emailAddress only")
     @Test
     void equals_verify() {
+        assumeFalse(__Object_Test.isWovenByEclipseLink(Customer.class), "woven by EclipseLink");
         EqualsVerifier.simple().forClass(Customer.class)
                 .withOnlyTheseFields(Customer.ATTRIBUTE_NAME_EMAIL_ADDRESS)
                 .verify();

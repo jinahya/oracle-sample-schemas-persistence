@@ -21,8 +21,9 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.jinahya.persistence.test.util.JinahyaEntityManagerTestUtils;
+import com.github.jinahya.oracle.sample.persistence.co.mapped.ProductDetails;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -30,14 +31,15 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceIT_Utils.applyEntityManagerFactory;
 import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceIT_Utils.applyEntityManagerInTransactionAndRollback_;
 import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assumptions.assumeThat;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 /**
@@ -68,6 +70,20 @@ class Product_PersistenceIT
     // ---------------------------------------------------------------------------------------------
     Product_PersistenceIT() {
         super(Product.class, Long.class);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    @Override
+    void randomizedEntityInstancePersisted__(final EntityManager entityManager,
+                                             final Product entityInstance) {
+        super.randomizedEntityInstancePersisted__(entityManager, entityInstance);
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    @Override
+    protected void randomEntityInstanceSelected__(final EntityManager entityManager,
+                                                  final Product entityInstance) {
+        super.randomEntityInstanceSelected__(entityManager, entityInstance);
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -258,36 +274,108 @@ class Product_PersistenceIT
     }
 
     // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Assumes that the specified factory's provider can take an entity graph which names a basic
+     * attribute: EclipseLink takes one as a fetch group, which needs a fetch group manager, and
+     * has one only for a class it wove (it fails with {@code EclipseLink-6114} otherwise).
+     *
+     * @param entityManagerFactory the factory.
+     */
+    private void assumeEntityGraphOfBasicAttribute(final EntityManagerFactory entityManagerFactory) {
+        assumeTrue(
+                !entityManagerFactory.getClass().getName().startsWith("org.eclipse.persistence.")
+                || __Object_Test.isWovenByEclipseLink(targetClass),
+                "EclipseLink takes an entity graph only for a woven class; run it woven with " +
+                "-Pjakarta-ee-11-eclipselink,jakarta-ee-11-eclipselink-weaving"
+        );
+    }
+
+    // ---------------------------------------------------------------------------------------------
     @DisplayName("PRODUCT_DETAILS")
     @Nested
     class ProductDetailsTest {
 
         @DisplayName(
-                "an entity graph loads the lazy productDetails, which reads as a ProductDetails")
+                "the named entity graph loads the lazy productDetails, a ProductDetails document")
         @Test
-        void __() {
-            final var found = applyEntityManagerInTransactionAndRollback_(em -> {
-                final var id = JinahyaEntityManagerTestUtils.<Product, Long>selectRandomEntityId(
-                        em,
-                        targetClass
-                );
-                assumeTrue(id.isPresent(), "no product to select");
-                em.clear();
+        void __() throws IOException {
+            final Long id;
+            {
+                final var optional = selectRandomEntityId_();
+                assumeThat(optional).isNotEmpty();
+                id = optional.get();
+            }
+            final var found = applyEntityManagerInTransactionAndRollback_(emf -> em -> {
+                assumeEntityGraphOfBasicAttribute(emf);
                 // a JOIN FETCH takes an association only; a lazy basic attribute is fetched with
                 // an entity graph which names it
-                final var graph = em.createEntityGraph(targetClass);
-                graph.addAttributeNode(Product_.productDetails);
-                return em.find(graph, id.get());
+                final var properties = Map.<String, Object>of(
+                        "jakarta.persistence.fetchgraph",
+                        em.getEntityGraph(Product.ENTITY_GRAPH_NAME_PRODUCT_DETAILS)
+                );
+                final var product = em.find(targetClass, id, properties);
+                assertThat(product).isNotNull();
+                assertThat(emf.getPersistenceUnitUtil()
+                                   .isLoaded(product, Product_.productDetails.getName())
+                ).isTrue();
+                return product;
             });
-            // detached, for the entity manager is closed; the bytes are there only if loaded
-            assertThat(found).isNotNull();
-            final var bytes = found.getProductDetails();
-            assumeTrue(bytes != null, "no product details for " + found);
-            try {
-                assertThat(ProductDetails_TestUtils.from(bytes, new ObjectMapper())).isNotNull();
-            } catch (final IOException ioe) {
-                throw new UncheckedIOException(ioe);
+            final var productDetails = found.getProductDetails();
+            assumeTrue(productDetails != null, "no product details for " + found);
+            {
+                final var jsonProcessing = ___JsonProcessing_TestUtils.readObject(productDetails);
+                // the document holds the properties of a ProductDetails, and none else
+                assertThat(jsonProcessing.keySet())
+                        .isSubsetOf("colour", "gender", "brand", "description", "sizes", "reviews");
             }
+            {
+                final var jackson =
+                        ___Jackson_TestUtils.readValue(productDetails, ProductDetails.class);
+                assertThat(jackson).isNotNull();
+            }
+            {
+                final var jsonBinding =
+                        ___JsonBinding_TestUtils.fromJson(productDetails, ProductDetails.class);
+                assertThat(jsonBinding).isNotNull();
+            }
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    @DisplayName("PRODUCT_IMAGE")
+    @Nested
+    class ProductImageTest {
+
+        @DisplayName("the named entity graph loads the lazy productImage")
+        @Test
+        void __() {
+            final Long id;
+            {
+                final var optional = selectRandomEntityId_();
+                assumeThat(optional).isNotEmpty();
+                id = optional.get();
+            }
+            final var found = applyEntityManagerInTransactionAndRollback_(emf -> em -> {
+                assumeEntityGraphOfBasicAttribute(emf);
+                // a JOIN FETCH takes an association only; a lazy basic attribute is fetched with
+                // an entity graph which names it
+                final var properties = Map.<String, Object>of(
+                        "jakarta.persistence.fetchgraph",
+                        em.getEntityGraph(Product.ENTITY_GRAPH_NAME_PRODUCT_IMAGE)
+                );
+                final var product = em.find(targetClass, id, properties);
+                assertThat(product).isNotNull();
+                assertThat(emf.getPersistenceUnitUtil()
+                                   .isLoaded(product, Product_.productImage.getName())
+                ).isTrue();
+                return product;
+            });
+            // the installed rows carry no image, so this part runs only on a row which has one
+            final var productImage = found.getProductImage();
+            assumeTrue(productImage != null, "no product image for " + found);
+            assertThat(productImage).isNotEmpty();
+            assertThat(found.getImageMimeType()).isNotBlank();
         }
     }
 }

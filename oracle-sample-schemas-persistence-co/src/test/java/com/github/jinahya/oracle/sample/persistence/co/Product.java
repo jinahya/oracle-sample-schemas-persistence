@@ -23,6 +23,8 @@ package com.github.jinahya.oracle.sample.persistence.co;
 import com.github.jinahya.oracle.sample.persistence.co.mapped.MappedProduct;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.NamedAttributeNode;
+import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -36,6 +38,14 @@ import java.util.List;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@NamedEntityGraph(
+        name = Product.ENTITY_GRAPH_NAME_PRODUCT_DETAILS,
+        attributeNodes = @NamedAttributeNode(MappedProduct.ATTRIBUTE_NAME_PRODUCT_DETAILS)
+)
+@NamedEntityGraph(
+        name = Product.ENTITY_GRAPH_NAME_PRODUCT_IMAGE,
+        attributeNodes = @NamedAttributeNode(MappedProduct.ATTRIBUTE_NAME_PRODUCT_IMAGE)
+)
 @NamedQuery(
         name = "Product" +
                ".selectListByUnitPriceGreaterThanEqualAndUnitPriceLessThanOrderByUnitPricesAsc",
@@ -83,6 +93,20 @@ import java.util.List;
 @Table(name = MappedProduct.TABLE_NAME, comment = "Details of goods that customers can purchase")
 public class Product
         extends MappedProduct {
+
+    // -------------------------------------------------------------------------------- ENTITY_GRAPHS
+
+    /**
+     * The name of the entity graph which fetches the lazy
+     * {@value MappedProduct#ATTRIBUTE_NAME_PRODUCT_DETAILS} attribute. The value is {@value}.
+     */
+    public static final String ENTITY_GRAPH_NAME_PRODUCT_DETAILS = "Product.productDetails";
+
+    /**
+     * The name of the entity graph which fetches the lazy
+     * {@value MappedProduct#ATTRIBUTE_NAME_PRODUCT_IMAGE} attribute. The value is {@value}.
+     */
+    public static final String ENTITY_GRAPH_NAME_PRODUCT_IMAGE = "Product.productImage";
 
     // --------------------------------------------------------------------------------- ORDER_ITEMS
 

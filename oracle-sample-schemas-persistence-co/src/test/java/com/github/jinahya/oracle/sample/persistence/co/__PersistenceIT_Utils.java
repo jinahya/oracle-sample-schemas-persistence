@@ -73,56 +73,98 @@ final class __PersistenceIT_Utils {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Applies the specified function to a new entity manager of the {@value #PERSISTENCE_UNIT_NAME}
-     * unit, which is closed when the function returns, through
+     * Applies the specified function to the factory of the {@value #PERSISTENCE_UNIT_NAME} unit and
+     * a new entity manager of it, which is closed when the function returns, through
      * {@link JinahyaEntityManagerFactoryUtils#applyEntityManager(EntityManagerFactory, Function)}.
      *
-     * @param function the function to apply.
+     * @param function a function which takes the factory and returns the function to apply to the
+     *                 entity manager; the factory is there for what the entity manager does not
+     *                 give, such as its
+     *                 {@link EntityManagerFactory#getPersistenceUnitUtil() persistence unit util}.
      * @param <R>      the type of the result.
      * @return the result of the {@code function}.
      */
-    static <R> R applyEntityManager_(final Function<? super EntityManager, ? extends R> function) {
+    static <R> R applyEntityManager_(
+            final Function<
+                    ? super EntityManagerFactory,
+                    ? extends Function<
+                            ? super EntityManager,
+                            ? extends R
+                            >
+                    >
+                    function) {
         Objects.requireNonNull(function, "function is null");
         return applyEntityManagerFactory(
-                f -> applyEntityManager(f, function)
+                emf -> applyEntityManager(
+                        emf,
+                        em -> function.apply(emf).apply(em)
+                )
         );
     }
 
     /**
-     * Applies the specified function to a new entity manager of the {@value #PERSISTENCE_UNIT_NAME}
-     * unit, inside a transaction which is rolled back when the function returns, through
+     * Applies the specified function to the factory of the {@value #PERSISTENCE_UNIT_NAME} unit and
+     * a new entity manager of it, inside a transaction which is rolled back when the function
+     * returns, through
      * {@link
      * JinahyaEntityManagerFactoryUtils#applyEntityManagerInTransactionAndRollback(EntityManagerFactory,
      * Function)}.
      *
-     * @param function the function to apply.
+     * @param function a function which takes the factory and returns the function to apply to the
+     *                 entity manager; the factory is there for what the entity manager does not
+     *                 give, such as its
+     *                 {@link EntityManagerFactory#getPersistenceUnitUtil() persistence unit util}.
      * @param <R>      the type of the result.
      * @return the result of the {@code function}.
      */
     static <R> R applyEntityManagerInTransactionAndRollback_(
-            final Function<? super EntityManager, ? extends R> function) {
+            final Function<
+                    ? super EntityManagerFactory,
+                    ? extends Function<
+                            ? super EntityManager,
+                            ? extends R
+                            >
+                    >
+                    function) {
         Objects.requireNonNull(function, "function is null");
         return applyEntityManagerFactory(
-                f -> applyEntityManagerInTransactionAndRollback(f, function)
+                emf -> applyEntityManagerInTransactionAndRollback(
+                        emf,
+                        em -> function.apply(emf).apply(em)
+                )
         );
     }
 
     /**
-     * Applies the specified function to a new entity manager of the {@value #PERSISTENCE_UNIT_NAME}
-     * unit, inside a transaction which is committed when the function returns, through
+     * Applies the specified function to the factory of the {@value #PERSISTENCE_UNIT_NAME} unit and
+     * a new entity manager of it, inside a transaction which is committed when the function
+     * returns, through
      * {@link
      * JinahyaEntityManagerFactoryUtils#applyEntityManagerInTransactionAndCommit(EntityManagerFactory,
      * Function)}.
      *
-     * @param function the function to apply.
+     * @param function a function which takes the factory and returns the function to apply to the
+     *                 entity manager; the factory is there for what the entity manager does not
+     *                 give, such as its
+     *                 {@link EntityManagerFactory#getPersistenceUnitUtil() persistence unit util}.
      * @param <R>      the type of the result.
      * @return the result of the {@code function}.
      */
     static <R> R applyEntityManagerInTransactionAndCommit_(
-            final Function<? super EntityManager, ? extends R> function) {
+            final Function<
+                    ? super EntityManagerFactory,
+                    ? extends Function<
+                            ? super EntityManager,
+                            ? extends R
+                            >
+                    >
+                    function) {
         Objects.requireNonNull(function, "function is null");
         return applyEntityManagerFactory(
-                f -> applyEntityManagerInTransactionAndCommit(f, function)
+                emf -> applyEntityManagerInTransactionAndCommit(
+                        emf,
+                        em -> function.apply(emf).apply(em)
+                )
         );
     }
 
