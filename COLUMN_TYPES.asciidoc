@@ -1,6 +1,29 @@
 = Column Types
 :data-types: https://docs.oracle.com/en/database/oracle/oracle-database/26/sqlrf/Data-Types.html
 
+////
+AI: how this file is made -- for this project, and for its siblings (mysql-sakila-persistence,
+postgresql-demodb-persistence, sqlserver-samples-persistence, ...), each writing its own
+COLUMN_TYPES.asciidoc the same way.
+
+* Scope: every column of every table the schemas' DDL creates; a view adds no type of its own, and
+  is covered by the last section, Views.
+* Sections: those of the vendor's data-type reference (here Oracle's Data Types page: Oracle
+  Built-in, then its Character / Numeric / Datetime / LOB subsections, then ANSI, ...), in its order,
+  one subsection per type used; each section and subsection links its anchor on that page.
+* Each declared type is listed as the DDL declares it, length and all (`VARCHAR2(10 CHAR)`,
+  `NUMBER(8,2)`, `INTEGER IDENTITY`), one table row per declared type, linked to its anchor.
+* Columns: Declared as | Java type | Count | Columns; each column as `SCHEMA.TABLE.COLUMN`; the
+  counts add up to the columns stated in the introduction, per schema and in all.
+* Java type: the preferred type of an attribute mapping the column, the one the `Mapped*` classes
+  use: `java.time` for the datetime types, a wrapper type, never a primitive. A foreign-key column
+  takes the type of the key it refers to; say so where that differs from its own declaration.
+* Take the types from the DDL scripts, and check them against the live database's data dictionary
+  when it is up.
+* Name the types of the reference which no column uses, in the introduction.
+* End the file with two newlines.
+////
+
 Every column type the tables of `CO`, `HR` and `SH` declare, grouped by the sections of
 link:{data-types}[Data Types]
 in the Oracle Database 26 SQL Language Reference. Each type is listed as the DDL declares it --

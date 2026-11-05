@@ -1,0 +1,294 @@
+= Attribute Mappings
+:data-types: https://docs.oracle.com/en/database/oracle/oracle-database/26/sqlrf/Data-Types.html
+
+////
+AI: how this file is made -- for this project, and for its siblings (mysql-sakila-persistence,
+postgresql-demodb-persistence, sqlserver-samples-persistence, ...), each writing its own
+ATTRIBUTE_MAPPINGS.asciidoc the same way.
+
+* Scope: every attribute which maps a column -- each field carrying `@Column` in the main
+  `Mapped*` classes, and in the `@Embeddable` id classes -- over every table and view the project
+  maps. An association or an `@IdClass` id class maps no column of its own and is not listed.
+* Column type: from the live database's data dictionary (Oracle `ALL_TAB_COLUMNS`; elsewhere
+  `INFORMATION_SCHEMA.COLUMNS`), never from memory. Lengths are dropped, so `VARCHAR2(9)` and
+  `VARCHAR2(255)` are one `VARCHAR2`; a numeric type keeps its shape, which decides the Java type:
+  `NUMBER(p)` (scale 0), `NUMBER(p,s)`, `NUMBER` (no precision), `INTEGER` (no precision, scale 0).
+* Attribute type: the field's declared type. Converter: `@Convert(<converter>)`,
+  `@Enumerated(<type>)`, `@Lob`, or `-`.
+* One row per distinct (column type, attribute type, converter), with the count and every attribute
+  as `SCHEMA.TABLE.COLUMN`; the counts add up to all the attributes.
+* Resolve a column name through the constants, including one defined as another class's constant
+  and a quoted one (`'"' + COLUMN_NAME_X + '"'`).
+* Check the coverage: every column of every mapped table and view has an attribute; report what has
+  none, and the tables not mapped at all.
+* Note each row: what the columns are, and anything inconsistent (a column whose attribute type
+  differs from the others of its kind). Report an inconsistency here; do not change the code.
+* Link each column type to the vendor's data-type reference; see COLUMN_TYPES.asciidoc.
+* The sections after the table describe the rows which are more than a basic attribute.
+* End the file with two newlines.
+////
+
+Every attribute of `CO`, `HR` and `SH` which maps a column, grouped by its column type, its
+attribute type and its converter: 271 attributes over the 31 tables and views mapped (67 in `CO`, 51
+in `HR`, 153 in `SH`). The column type is the data dictionary's (`ALL_TAB_COLUMNS`), without the
+length; for the declared types, see link:COLUMN_TYPES.asciidoc[Column Types]. Every column of a mapped
+table or view has an attribute; the only tables not mapped are `SH`'s `DR$SUP_TEXT_IDX$*`, which
+Oracle Text owns.
+
+No column is XML, `JSON`, spatial or of any other Oracle-specific type: no `XMLType`, `JSON`,
+`SDO_GEOMETRY`, `ROWID` / `UROWID`, `INTERVAL`, `BFILE`, `VECTOR` or `BOOLEAN`, and so no document
+typed by an XML schema (see <<xml-schemas>>).
+
+== Mapping kinds
+
+[cols="2,2,2,1,4,6",options="header"]
+|===
+| Column type | Attribute type | Converter | Count | Note | Attributes
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2`]
+| `OrderStatus`
+| `@Enumerated(STRING)`
+| 1
+| See <<enums-and-converters>>.
+| `CO.ORDERS.ORDER_STATUS`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2`]
+| `ShipmentStatus`
+| `@Convert(ShipmentStatusConverter)`
+| 1
+| A nested `@Converter` of `MappedShipment`; see <<enums-and-converters>>.
+| `CO.SHIPMENTS.SHIPMENT_STATUS`
+
+| link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2`]
+| `String`
+| -
+| 94
+| `SH.TIMES.DAY_NAME` and the month names and descriptions stay `String`s; see <<enums-and-converters>>.
+| `CO.CUSTOMERS.EMAIL_ADDRESS`, `CO.CUSTOMERS.FULL_NAME`, `CO.CUSTOMER_ORDER_PRODUCTS.ORDER_STATUS`, `CO.CUSTOMER_ORDER_PRODUCTS.EMAIL_ADDRESS`, `CO.CUSTOMER_ORDER_PRODUCTS.FULL_NAME`, `CO.CUSTOMER_ORDER_PRODUCTS.ITEMS`, `CO.PRODUCTS.PRODUCT_NAME`, `CO.PRODUCTS.IMAGE_MIME_TYPE`, `CO.PRODUCTS.IMAGE_FILENAME`, `CO.PRODUCTS.IMAGE_CHARSET`, `CO.PRODUCT_REVIEWS.PRODUCT_NAME`, `CO.PRODUCT_REVIEWS.REVIEW`, `CO.SHIPMENTS.DELIVERY_ADDRESS`, `CO.STORES.STORE_NAME`, `CO.STORES.WEB_ADDRESS`, `CO.STORES.PHYSICAL_ADDRESS`, `CO.STORES.LOGO_MIME_TYPE`, `CO.STORES.LOGO_FILENAME`, `CO.STORES.LOGO_CHARSET`, `CO.STORE_ORDERS.TOTAL`, `CO.STORE_ORDERS.STORE_NAME`, `CO.STORE_ORDERS.ADDRESS`, `CO.STORE_ORDERS.ORDER_STATUS`, `CO.PRODUCT_ORDERS.PRODUCT_NAME`, `CO.PRODUCT_ORDERS.ORDER_STATUS`, `HR.COUNTRIES.COUNTRY_NAME`, `HR.DEPARTMENTS.DEPARTMENT_NAME`, `HR.EMP_DETAILS_VIEW.JOB_ID`, `HR.EMP_DETAILS_VIEW.FIRST_NAME`, `HR.EMP_DETAILS_VIEW.LAST_NAME`, `HR.EMP_DETAILS_VIEW.DEPARTMENT_NAME`, `HR.EMP_DETAILS_VIEW.JOB_TITLE`, `HR.EMP_DETAILS_VIEW.CITY`, `HR.EMP_DETAILS_VIEW.STATE_PROVINCE`, `HR.EMP_DETAILS_VIEW.COUNTRY_NAME`, `HR.EMP_DETAILS_VIEW.REGION_NAME`, `HR.EMPLOYEES.FIRST_NAME`, `HR.EMPLOYEES.LAST_NAME`, `HR.EMPLOYEES.EMAIL`, `HR.EMPLOYEES.PHONE_NUMBER`, `HR.EMPLOYEES.JOB_ID`, `HR.JOBS.JOB_ID`, `HR.JOBS.JOB_TITLE`, `HR.JOB_HISTORY.JOB_ID`, `HR.LOCATIONS.STREET_ADDRESS`, `HR.LOCATIONS.POSTAL_CODE`, `HR.LOCATIONS.CITY`, `HR.LOCATIONS.STATE_PROVINCE`, `HR.REGIONS.REGION_NAME`, `SH.FWEEK_PSCAT_SALES_MV.PROD_SUBCATEGORY`, `SH.CAL_MONTH_SALES_MV.CALENDAR_MONTH_DESC`, `SH.CHANNELS.CHANNEL_DESC`, `SH.CHANNELS.CHANNEL_CLASS`, `SH.CHANNELS.CHANNEL_TOTAL`, `SH.COUNTRIES.COUNTRY_NAME`, `SH.COUNTRIES.COUNTRY_SUBREGION`, `SH.COUNTRIES.COUNTRY_REGION`, `SH.COUNTRIES.COUNTRY_TOTAL`, `SH.CUSTOMERS.CUST_FIRST_NAME`, `SH.CUSTOMERS.CUST_LAST_NAME`, `SH.CUSTOMERS.CUST_MARITAL_STATUS`, `SH.CUSTOMERS.CUST_STREET_ADDRESS`, `SH.CUSTOMERS.CUST_POSTAL_CODE`, `SH.CUSTOMERS.CUST_CITY`, `SH.CUSTOMERS.CUST_STATE_PROVINCE`, `SH.CUSTOMERS.CUST_MAIN_PHONE_NUMBER`, `SH.CUSTOMERS.CUST_INCOME_LEVEL`, `SH.CUSTOMERS.CUST_EMAIL`, `SH.CUSTOMERS.CUST_TOTAL`, `SH.CUSTOMERS.CUST_VALID`, `SH.PRODUCTS.PROD_NAME`, `SH.PRODUCTS.PROD_DESC`, `SH.PRODUCTS.PROD_SUBCATEGORY`, `SH.PRODUCTS.PROD_SUBCATEGORY_DESC`, `SH.PRODUCTS.PROD_CATEGORY`, `SH.PRODUCTS.PROD_CATEGORY_DESC`, `SH.PRODUCTS.PROD_UNIT_OF_MEASURE`, `SH.PRODUCTS.PROD_PACK_SIZE`, `SH.PRODUCTS.PROD_STATUS`, `SH.PRODUCTS.PROD_TOTAL`, `SH.PRODUCTS.PROD_VALID`, `SH.PROMOTIONS.PROMO_NAME`, `SH.PROMOTIONS.PROMO_SUBCATEGORY`, `SH.PROMOTIONS.PROMO_CATEGORY`, `SH.PROMOTIONS.PROMO_TOTAL`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.EDUCATION`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.OCCUPATION`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.HOUSEHOLD_SIZE`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.COMMENTS`, `SH.TIMES.DAY_NAME`, `SH.TIMES.CALENDAR_MONTH_DESC`, `SH.TIMES.FISCAL_MONTH_DESC`, `SH.TIMES.CALENDAR_MONTH_NAME`, `SH.TIMES.FISCAL_MONTH_NAME`
+
+| link:{data-types}#GUID-85E0A0DD-9E90-4AE1-9AD5-93C89FDCFC49[`CHAR`]
+| `String`
+| -
+| 7
+| Blank-padded to its length on read.
+| `HR.COUNTRIES.COUNTRY_ID`, `HR.EMP_DETAILS_VIEW.COUNTRY_ID`, `HR.LOCATIONS.COUNTRY_ID`, `SH.COUNTRIES.COUNTRY_ISO_CODE`, `SH.CUSTOMERS.CUST_GENDER`, `SH.TIMES.CALENDAR_QUARTER_DESC`, `SH.TIMES.FISCAL_QUARTER_DESC`
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER(p)`]
+| `Integer`
+| -
+| 37
+| Precision 1 to 6.
+| `HR.DEPARTMENTS.DEPARTMENT_ID`, `HR.DEPARTMENTS.MANAGER_ID`, `HR.DEPARTMENTS.LOCATION_ID`, `HR.EMP_DETAILS_VIEW.EMPLOYEE_ID`, `HR.EMP_DETAILS_VIEW.MANAGER_ID`, `HR.EMP_DETAILS_VIEW.DEPARTMENT_ID`, `HR.EMP_DETAILS_VIEW.LOCATION_ID`, `HR.EMPLOYEES.EMPLOYEE_ID`, `HR.EMPLOYEES.MANAGER_ID`, `HR.EMPLOYEES.DEPARTMENT_ID`, `HR.JOBS.MIN_SALARY`, `HR.JOBS.MAX_SALARY`, `HR.JOB_HISTORY.EMPLOYEE_ID`, `HR.JOB_HISTORY.DEPARTMENT_ID`, `HR.LOCATIONS.LOCATION_ID`, `SH.FWEEK_PSCAT_SALES_MV.PROMO_ID`, `SH.CUSTOMERS.CUST_YEAR_OF_BIRTH`, `SH.PRODUCTS.PROD_ID`, `SH.PRODUCTS.PROD_WEIGHT_CLASS`, `SH.PRODUCTS.SUPPLIER_ID`, `SH.PROFITS.PROD_ID`, `SH.PROFITS.PROMO_ID`, `SH.PROFITS.QUANTITY_SOLD`, `SH.PROMOTIONS.PROMO_ID`, `SH.SALES.QUANTITY_SOLD`, `SH.TIMES.DAY_NUMBER_IN_WEEK`, `SH.TIMES.DAY_NUMBER_IN_MONTH`, `SH.TIMES.CALENDAR_WEEK_NUMBER`, `SH.TIMES.FISCAL_WEEK_NUMBER`, `SH.TIMES.CALENDAR_MONTH_NUMBER`, `SH.TIMES.FISCAL_MONTH_NUMBER`, `SH.TIMES.CALENDAR_QUARTER_NUMBER`, `SH.TIMES.FISCAL_QUARTER_NUMBER`, `SH.TIMES.CALENDAR_YEAR`, `SH.TIMES.FISCAL_YEAR`, `SH.SALES.PROD_ID`, `SH.SALES.PROMO_ID`
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER(p)`]
+| `Long`
+| -
+| 11
+| `NUMBER(10)`, and the `NUMBER(1)` copies of `SH.CHANNELS.CHANNEL_ID`, a `NUMBER` and so a `Long`.
+| `SH.FWEEK_PSCAT_SALES_MV.CHANNEL_ID`, `SH.PROFITS.CHANNEL_ID`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.AFFINITY_CARD`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.CRICKET`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.BASEBALL`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.TENNIS`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.SOCCER`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.GOLF`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.UNKNOWN`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.MISC`, `SH.SALES.CHANNEL_ID`
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER(p,s)`]
+| `BigDecimal`
+| -
+| 19
+| `NUMBER(10,2)`, `NUMBER(9,6)`, `NUMBER(8,2)` and `NUMBER(2,2)`.
+| `CO.ORDER_ITEMS.UNIT_PRICE`, `CO.PRODUCTS.UNIT_PRICE`, `CO.STORES.LATITUDE`, `CO.STORES.LONGITUDE`, `CO.STORE_ORDERS.LATITUDE`, `CO.STORE_ORDERS.LONGITUDE`, `HR.EMP_DETAILS_VIEW.SALARY`, `HR.EMP_DETAILS_VIEW.COMMISSION_PCT`, `HR.EMPLOYEES.SALARY`, `HR.EMPLOYEES.COMMISSION_PCT`, `SH.COSTS.UNIT_COST`, `SH.COSTS.UNIT_PRICE`, `SH.PRODUCTS.PROD_LIST_PRICE`, `SH.PRODUCTS.PROD_MIN_PRICE`, `SH.PROFITS.UNIT_COST`, `SH.PROFITS.UNIT_PRICE`, `SH.PROFITS.AMOUNT_SOLD`, `SH.PROMOTIONS.PROMO_COST`, `SH.SALES.AMOUNT_SOLD`
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER`]
+| `BigDecimal`
+| -
+| 8
+| Aggregates of the views (`SUM`, `AVG`, a product), which have no precision. `CO.STORE_ORDERS.ORDER_COUNT` is a `COUNT`, mapped as a `BigDecimal` where `CO.PRODUCT_ORDERS.ORDER_COUNT` is a `Long`.
+| `CO.CUSTOMER_ORDER_PRODUCTS.ORDER_TOTAL`, `CO.PRODUCT_ORDERS.TOTAL_SALES`, `CO.PRODUCT_REVIEWS.AVG_RATING`, `CO.STORE_ORDERS.ORDER_COUNT`, `CO.STORE_ORDERS.TOTAL_SALES`, `SH.CAL_MONTH_SALES_MV.DOLLARS`, `SH.FWEEK_PSCAT_SALES_MV.DOLLARS`, `SH.PROFITS.TOTAL_COST`
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER`]
+| `Integer`
+| -
+| 3
+| Each takes the type of the `NUMBER(6)` key it refers to (`SH.PRODUCTS.PROD_ID`, `SH.PROMOTIONS.PROMO_ID`); `RATING` is `JSON_TABLE`'s `INTEGER`.
+| `CO.PRODUCT_REVIEWS.RATING`, `SH.COSTS.PROD_ID`, `SH.COSTS.PROMO_ID`
+
+| link:{data-types}#GUID-75209AF6-476D-4C44-A5DC-5FA70D701B78[`NUMBER`]
+| `Long`
+| -
+| 42
+| `SH`'s keys, the foreign keys to them, and its counts, declared with no precision; `HR`'s `REGION_ID`.
+| `CO.PRODUCT_ORDERS.ORDER_COUNT`, `HR.COUNTRIES.REGION_ID`, `HR.REGIONS.REGION_ID`, `SH.CHANNELS.CHANNEL_ID`, `SH.CHANNELS.CHANNEL_CLASS_ID`, `SH.CHANNELS.CHANNEL_TOTAL_ID`, `SH.COSTS.CHANNEL_ID`, `SH.COUNTRIES.COUNTRY_ID`, `SH.COUNTRIES.COUNTRY_SUBREGION_ID`, `SH.COUNTRIES.COUNTRY_REGION_ID`, `SH.COUNTRIES.COUNTRY_TOTAL_ID`, `SH.CUSTOMERS.CUST_ID`, `SH.CUSTOMERS.CUST_CITY_ID`, `SH.CUSTOMERS.CUST_STATE_PROVINCE_ID`, `SH.CUSTOMERS.COUNTRY_ID`, `SH.CUSTOMERS.CUST_CREDIT_LIMIT`, `SH.CUSTOMERS.CUST_TOTAL_ID`, `SH.CUSTOMERS.CUST_SRC_ID`, `SH.PRODUCTS.PROD_SUBCATEGORY_ID`, `SH.PRODUCTS.PROD_CATEGORY_ID`, `SH.PRODUCTS.PROD_TOTAL_ID`, `SH.PRODUCTS.PROD_SRC_ID`, `SH.PROFITS.CUST_ID`, `SH.PROMOTIONS.PROMO_SUBCATEGORY_ID`, `SH.PROMOTIONS.PROMO_CATEGORY_ID`, `SH.PROMOTIONS.PROMO_TOTAL_ID`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.CUST_ID`, `SH.SUPPLEMENTARY_DEMOGRAPHICS.YRS_RESIDENCE`, `SH.TIMES.WEEK_ENDING_DAY_ID`, `SH.TIMES.CALENDAR_MONTH_ID`, `SH.TIMES.FISCAL_MONTH_ID`, `SH.TIMES.DAYS_IN_CAL_MONTH`, `SH.TIMES.DAYS_IN_FIS_MONTH`, `SH.TIMES.CALENDAR_QUARTER_ID`, `SH.TIMES.FISCAL_QUARTER_ID`, `SH.TIMES.DAYS_IN_CAL_QUARTER`, `SH.TIMES.DAYS_IN_FIS_QUARTER`, `SH.TIMES.CALENDAR_YEAR_ID`, `SH.TIMES.FISCAL_YEAR_ID`, `SH.TIMES.DAYS_IN_CAL_YEAR`, `SH.TIMES.DAYS_IN_FIS_YEAR`, `SH.SALES.CUST_ID`
+
+| link:{data-types}#GUID-0BC16006-32F1-42B1-B45E-F27A494963FF[`INTEGER`]
+| `Long`
+| -
+| 20
+| Oracle stores `INTEGER` as `NUMBER(38)`; the views' are their tables' columns.
+| `CO.CUSTOMERS.CUSTOMER_ID`, `CO.CUSTOMER_ORDER_PRODUCTS.ORDER_ID`, `CO.CUSTOMER_ORDER_PRODUCTS.CUSTOMER_ID`, `CO.INVENTORY.INVENTORY_ID`, `CO.INVENTORY.STORE_ID`, `CO.INVENTORY.PRODUCT_ID`, `CO.INVENTORY.PRODUCT_INVENTORY`, `CO.ORDERS.ORDER_ID`, `CO.ORDERS.CUSTOMER_ID`, `CO.ORDERS.STORE_ID`, `CO.ORDER_ITEMS.PRODUCT_ID`, `CO.ORDER_ITEMS.QUANTITY`, `CO.ORDER_ITEMS.SHIPMENT_ID`, `CO.PRODUCTS.PRODUCT_ID`, `CO.SHIPMENTS.SHIPMENT_ID`, `CO.SHIPMENTS.STORE_ID`, `CO.SHIPMENTS.CUSTOMER_ID`, `CO.STORES.STORE_ID`, `CO.ORDER_ITEMS.ORDER_ID`, `CO.ORDER_ITEMS.LINE_ITEM_ID`
+
+| link:{data-types}#GUID-5405B652-C30E-4F4F-9D33-9A4CB2110F1B[`DATE`]
+| `LocalDateTime`
+| -
+| 23
+| A date and a time to the second.
+| `CO.PRODUCTS.IMAGE_LAST_UPDATED`, `CO.STORES.LOGO_LAST_UPDATED`, `HR.EMPLOYEES.HIRE_DATE`, `HR.JOB_HISTORY.START_DATE`, `HR.JOB_HISTORY.END_DATE`, `SH.FWEEK_PSCAT_SALES_MV.WEEK_ENDING_DAY`, `SH.COSTS.TIME_ID`, `SH.CUSTOMERS.CUST_EFF_FROM`, `SH.CUSTOMERS.CUST_EFF_TO`, `SH.PRODUCTS.PROD_EFF_FROM`, `SH.PRODUCTS.PROD_EFF_TO`, `SH.PROFITS.TIME_ID`, `SH.PROMOTIONS.PROMO_BEGIN_DATE`, `SH.PROMOTIONS.PROMO_END_DATE`, `SH.TIMES.TIME_ID`, `SH.TIMES.WEEK_ENDING_DAY`, `SH.TIMES.END_OF_CAL_MONTH`, `SH.TIMES.END_OF_FIS_MONTH`, `SH.TIMES.END_OF_CAL_QUARTER`, `SH.TIMES.END_OF_FIS_QUARTER`, `SH.TIMES.END_OF_CAL_YEAR`, `SH.TIMES.END_OF_FIS_YEAR`, `SH.SALES.TIME_ID`
+
+| link:{data-types}#GUID-94A82966-D380-4583-9AF1-AEE681881E64[`TIMESTAMP`]
+| `LocalDateTime`
+| -
+| 2
+| `TIMESTAMP` with no precision (6 fractional digits).
+| `CO.CUSTOMER_ORDER_PRODUCTS.ORDER_TMS`, `CO.ORDERS.ORDER_TMS`
+
+| link:{data-types}#GUID-4570CDFD-8F91-44B9-BE7F-13076AA2AEBF[`BLOB`]
+| `byte[]`
+| `@Lob`
+| 3
+| `PRODUCT_DETAILS` holds JSON; see <<json>>.
+| `CO.PRODUCTS.PRODUCT_DETAILS`, `CO.PRODUCTS.PRODUCT_IMAGE`, `CO.STORES.LOGO`
+
+|===
+
+[[xml-schemas]]
+== XML schemas
+
+The sibling `sqlserver-samples-persistence` reads `XML` columns of AdventureWorks typed by XML schemas
+which Microsoft publishes under `http://schemas.microsoft.com/sqlserver/`, bound to Java by
+`io.github.jinahya:sqlserver-xml-schema-binding` -- `ContactInfo`, `IndividualSurvey`, `Resume`,
+`StoreSurvey`, ... for the sample data, and `showplan`, `eventdata`, ... for the product.
+
+Nothing of the kind applies here: `CO`, `HR` and `SH` declare no `XMLType` column, so no document of
+these schemas is typed by an XML schema. Oracle does supply XML schemas, but of two other kinds:
+
+* Oracle XML DB's own, listed in
+  link:https://docs.oracle.com/en/database/oracle/oracle-database/26/adxdb/oracle-supplied-XML-schemas-and-examples.html[Oracle-Supplied XML Schemas and Examples]
+  and registered in the database's repository under `/sys/schemas/PUBLIC/xmlns.oracle.com/xdb/`,
+  not published on a web site as Microsoft's are:
++
+[cols="2,4,4",options="header"]
+|===
+| Schema | `targetNamespace` | For
+
+| `XDBResource.xsd` | `http://xmlns.oracle.com/xdb/XDBResource.xsd` | a resource of Oracle XML DB Repository
+| `XDBResConfig.xsd` | `http://xmlns.oracle.com/xdb/XDBResConfig.xsd` | the configuration of repository resources
+| `acl.xsd` | `http://xmlns.oracle.com/xdb/acl.xsd` | an access control list
+| `xdbconfig.xsd` | `http://xmlns.oracle.com/xdb/xdbconfig.xsd` | the configuration of Oracle XML DB
+| `xdiff.xsd` | `http://xmlns.oracle.com/xdb/xdiff.xsd` | the `diffXML` of `DBMS_XMLSCHEMA.inPlaceEvolve`
+
+|===
++
+They describe the database's own repository, not application data, so no column of a sample schema
+holds them.
+* The sample data's own: `OE.PURCHASEORDER` holds `XMLType` documents conforming to
+  `purchaseOrder.xsd`, the purchase-order schema of the XML DB examples, and
+  `OE.WAREHOUSES.WAREHOUSE_SPEC` is an `XMLType` with no XML schema. `OE` (Order Entry) is archived
+  since the Oracle Database 23 release of `db-sample-schemas`, with `PM` (Product Media), and is not
+  mapped by this project.
+
+An Oracle counterpart of `sqlserver-xml-schema-binding` would therefore bind the XML DB schemas above,
+and, for the sample data, `purchaseOrder.xsd` -- only were `OE` mapped.
+
+== Large objects
+
+[cols="3,3,4",options="header"]
+|===
+| Column | Mapping | Note
+
+| `CO.PRODUCTS.PRODUCT_DETAILS`
+| `@Lob @Basic(fetch = LAZY) byte[] productDetails` in `MappedProduct`
+| JSON, see <<json>>
+
+| `CO.PRODUCTS.PRODUCT_IMAGE`
+| `@Lob @Basic(fetch = LAZY) byte[] productImage` in `MappedProduct`
+|
+
+| `CO.STORES.LOGO`
+| `@Lob @Basic(fetch = EAGER) byte[] logo` in `MappedStore`
+|
+
+|===
+
+[[json]]
+== JSON
+
+`CO.PRODUCTS.PRODUCT_DETAILS` holds JSON, but as a `BLOB` checked by `products_json_c`
+(`CHECK ( product_details is json )`), not as a `JSON` column. The mapping keeps the bytes, and the
+document is read outside of it:
+
+* `ProductDetails` (main, `co.mapped`) is a plain class for the document, with a nested `Review` for
+  each element of `$.reviews`; it is neither an entity nor an embeddable.
+* `MappedProduct.getProductDetailsAsMapped(Function)` and `setProductDetailsFromMapped(...)` take the
+  function which converts between the bytes and the document; the module chooses no JSON library.
+  The tests use Jackson (`ProductDetails_TestUtils`).
+* The view `CO.PRODUCT_REVIEWS` reads the same document with `JSON_TABLE` on the database side, and
+  declares `RATING INTEGER` and `REVIEW VARCHAR2(4000)`. Its mapping, `ProductReview` over
+  `MappedProductReview`, sees plain columns; being keyless, it is a class, not an entity.
+
+== Embeddables
+
+None of these is embedded yet: each table maps the same columns as plain attributes.
+
+[cols="2,3,5",options="header"]
+|===
+| Class | Columns | Note
+
+| `ProductImage` (`CO`)
+| `PRODUCTS.PRODUCT_IMAGE`, `IMAGE_MIME_TYPE`, `IMAGE_FILENAME`, `IMAGE_CHARSET`,
+  `IMAGE_LAST_UPDATED`
+| Extends `MappedBinary` (`@Lob byte[] bytes`, `mimeType`, `filename`, `charset`, `lastUpdated`),
+  and names the columns with `@AttributeOverride`s. `MappedProduct` maps them itself.
+
+| `StoreLogo` (`CO`)
+| `STORES.LOGO`, `LOGO_MIME_TYPE`, `LOGO_FILENAME`, `LOGO_CHARSET`, `LOGO_LAST_UPDATED`
+| The same, over `MappedBinary`. `MappedStore` maps them itself.
+
+| `CountrySection` (`SH`)
+| `COUNTRIES.COUNTRY_SUBREGION` / `COUNTRY_SUBREGION_ID`, `COUNTRY_REGION` / `COUNTRY_REGION_ID`,
+  `COUNTRY_TOTAL` / `COUNTRY_TOTAL_ID`
+| Declares no column names; an embedding entity would name both. `MappedCountry` maps each pair
+  itself.
+
+|===
+
+[[enums-and-converters]]
+== Enums and converters
+
+[cols="2,2,3,3",options="header"]
+|===
+| Column | Java type | Mapping | Applied
+
+| `CO.ORDERS.ORDER_STATUS`
+| `MappedOrder.OrderStatus`
+| `@Enumerated(EnumType.STRING)`
+| yes
+
+| `CO.SHIPMENTS.SHIPMENT_STATUS`
+| `MappedShipment.ShipmentStatus`
+| `@Convert(converter = ShipmentStatusConverter.class)`, a nested `@Converter(autoApply = false)`
+| yes
+
+| `SH.TIMES.DAY_NAME`
+| `DayOfWeek`
+| `__TemporalAccessorTextStringAttributeConverters.OfDayOfWeek`
+| no, an exercise (issue #6)
+
+| `SH.TIMES.CALENDAR_MONTH_NAME`, `FISCAL_MONTH_NAME`
+| `Month`
+| `__TemporalAccessorTextStringAttributeConverters.OfMonth`
+| no, an exercise (issue #7)
+
+| `SH.TIMES.CALENDAR_MONTH_DESC`, `FISCAL_MONTH_DESC`
+| `YearMonth`
+| `__TemporalAccessorStringAttributeConverters.OfYearMonth`
+| no, an exercise (issue #8)
+
+|===
+
+The three `SH` converters are `jinahya-persistence-more`'s, in
+`com.github.jinahya.persistence.more.converter.javatime`, and not the module's own: `OfDayOfWeek` and
+`OfMonth` write the full English name (`Monday`, `January`, `TextStyle.FULL_STANDALONE` in
+`Locale.ENGLISH`) and read it back ignoring case, and `OfYearMonth` writes and reads `uuuu-MM`
+(`2019-01`); a text which is neither fails with a `DateTimeParseException`. The module has the library
+at `test` scope only, so `MappedTime` (main) cannot name them, and keeps the columns as `String`s. Each
+unit of the test `persistence.xml` lists them (`...Converters$OfDayOfWeek`, ...), `TimeUtils` derives
+the `DayOfWeek`, `Month` or `YearMonth` through them, and `Time_AttributeConverters_Test` checks them
+against the form the columns hold. `SH.CAL_MONTH_SALES_MV.CALENDAR_MONTH_DESC` holds the same text as
+`TIMES.CALENDAR_MONTH_DESC`, but it is that view's `@Id`, which the specification excludes from
+attribute conversion.
+
