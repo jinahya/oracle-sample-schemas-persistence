@@ -32,14 +32,8 @@ import java.lang.annotation.Target;
  * <p>
  * Jakarta Persistence has no annotation for a trigger.
  *
- * @see <a
- *         href="https://docs.oracle.com/en/database/oracle/oracle-database/23/lnpls/CREATE
- *         -TRIGGER-statement.html">CREATE
- *         TRIGGER</a>
- * @see <a
- *         href="https://docs.oracle.com/en/database/oracle/oracle-database/23/lnpls/ALTER
- *         -TRIGGER-statement.html">ALTER
- *         TRIGGER</a>
+ * @see <a href="https://docs.oracle.com/en/database/oracle/oracle-database/23/lnpls/CREATE-TRIGGER-statement.html">CREATE TRIGGER</a>
+ * @see <a href="https://docs.oracle.com/en/database/oracle/oracle-database/23/lnpls/ALTER-TRIGGER-statement.html">ALTER TRIGGER</a>
  */
 @Documented
 @Target(ElementType.TYPE)

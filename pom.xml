@@ -375,8 +375,8 @@
             <!-- The exclusion above only keeps the metamodel off the list of files to document. With a -->
             <!-- module-info.java, javadoc runs in module mode and reads the whole module from the source -->
             <!-- path it is given, generated sources included, so the metamodel was linted all the -->
-            <!-- same, and its javadoc, which quotes each @NamedQuery verbatim, fails on a `<` as -->
-            <!-- malformed HTML. Without a source path javadoc reads the listed files only. `sourcepath` -->
+            <!-- same, and failed on its members, which have no main description. Without a source path -->
+            <!-- javadoc reads the listed files only. `sourcepath` -->
             <!-- cannot do this instead: javadoc and test-javadoc share it, so it would point both at -->
             <!-- the same directory. -->
             <disableSourcepathUsage>true</disableSourcepathUsage>
@@ -407,7 +407,7 @@
           <executions>
             <!-- Bound by io.github.jinahya:central-parent's `central` profile. In module mode the jar goal -->
             <!-- passes the generated sources in its patched module path whatever disableSourcepathUsage says, so the -->
-            <!-- metamodel, which quotes each @NamedQuery verbatim, fails on a `<` as malformed HTML. As the -->
+            <!-- metamodel, whose members have no main description, fails the lint. As the -->
             <!-- site's main reportSet does, narrow the source path to the hand-written sources; this -->
             <!-- execution runs the jar goal alone, so test-javadoc is not misdirected. -->
             <execution>
@@ -627,17 +627,14 @@
               <show>protected</show>
               <!-- The aggregate passes each module's generated sources to javadoc in its patched source -->
               <!-- path, whatever disableSourcepathUsage says, so the generated metamodel is linted with -->
-              <!-- the entities, and fails, having no main descriptions and quoting named queries -->
-              <!-- verbatim. Each module's own javadoc-no-fork report above already lints every one of -->
+              <!-- the entities, and fails, having no main descriptions. Each module's own -->
+              <!-- javadoc-no-fork report above already lints every one of -->
               <!-- its sources strictly, so the aggregate, which adds no source of its own, lints none. -->
               <!-- Both the plugin-level additionalOption and the plugin's own doclint parameter, which -->
               <!-- otherwise reads the ${doclint} property, pass javadoc an -Xdoclint; clear the one and -->
               <!-- turn the other off. -->
               <additionalOptions combine.self="override" />
               <doclint>none</doclint>
-              <!-- Even unlinted, javadoc warns of a named query's `<` quoted in the metamodel as invalid -->
-              <!-- HTML input, and that warning is the metamodel's, not ours. -->
-              <failOnWarnings>false</failOnWarnings>
             </configuration>
             <reports>
               <report>aggregate-no-fork</report>
@@ -682,10 +679,6 @@
                 <additionalOption>--add-reads com.github.jinahya.oracle.sample.persistence.hr=ALL-UNNAMED</additionalOption>
                 <additionalOption>--add-reads com.github.jinahya.oracle.sample.persistence.sh=ALL-UNNAMED</additionalOption>
               </additionalOptions>
-              <!-- The metamodel is patched in with the main sources, and javadoc warns of a named -->
-              <!-- query's `<` it quotes as invalid HTML input; each module's own test-javadoc-no-fork -->
-              <!-- report above still fails on a warning of the test sources. -->
-              <failOnWarnings>false</failOnWarnings>
             </configuration>
             <reports>
               <report>test-aggregate-no-fork</report>

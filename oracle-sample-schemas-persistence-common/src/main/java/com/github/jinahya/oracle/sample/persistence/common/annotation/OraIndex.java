@@ -30,15 +30,11 @@ import java.lang.annotation.Target;
 /**
  * Documents an index of the table the annotated class maps.
  *
- * @see <a
- *         href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/CREATE-INDEX
- *         .html">CREATE
- *         INDEX</a>
- * @see <a
- *         href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta
- *         .persistence/jakarta/persistence/Index.html">jakarta.persistence.Index</a>
  * @deprecated Jakarta Persistence covers it; use an {@link jakarta.persistence.Index @Index} in
- *         {@link jakarta.persistence.Table#indexes() @Table(indexes = ...)}.
+ *             {@link jakarta.persistence.Table#indexes() @Table(indexes = ...)}.
+ *
+ * @see <a href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/CREATE-INDEX.html">CREATE INDEX</a>
+ * @see <a href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/Index.html">jakarta.persistence.Index</a>
  */
 @Deprecated(forRemoval = true)
 @Documented

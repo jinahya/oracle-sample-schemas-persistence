@@ -27,7 +27,7 @@ import java.util.Optional;
 
 /**
  * Utilities for {@link FweekPscatSalesMv}: readers of the components of its
- * {@link FweekPscatSalesMv#getId() id}, kept out of the entity so that they are not bean properties
+ * {@link FweekPscatSalesMv#getId_() id}, kept out of the entity so that they are not bean properties
  * of it.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
@@ -42,7 +42,7 @@ public final class FweekPscatSalesMvUtils {
      * Returns current value of the {@value FweekPscatSalesMv#ATTRIBUTE_PATH_ID_WEEK_ENDING_DAY}
      * attribute of the specified entity -- the
      * {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_WEEK_ENDING_DAY} component of its
-     * {@link FweekPscatSalesMv#getId() id}.
+     * {@link FweekPscatSalesMv#getId_() id}.
      *
      * @param fweekPscatSalesMv the entity.
      * @return the component; {@code null} when the id is {@code null}.
@@ -60,7 +60,7 @@ public final class FweekPscatSalesMvUtils {
      * Returns current value of the {@value FweekPscatSalesMv#ATTRIBUTE_PATH_ID_PROD_SUBCATEGORY}
      * attribute of the specified entity -- the
      * {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_PROD_SUBCATEGORY} component of its
-     * {@link FweekPscatSalesMv#getId() id}.
+     * {@link FweekPscatSalesMv#getId_() id}.
      *
      * @param fweekPscatSalesMv the entity.
      * @return the component; {@code null} when the id is {@code null}.
@@ -78,7 +78,7 @@ public final class FweekPscatSalesMvUtils {
      * Returns current value of the {@value FweekPscatSalesMv#ATTRIBUTE_PATH_ID_CHANNEL_ID}
      * attribute of the specified entity -- the
      * {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_CHANNEL_ID} component of its
-     * {@link FweekPscatSalesMv#getId() id}.
+     * {@link FweekPscatSalesMv#getId_() id}.
      *
      * @param fweekPscatSalesMv the entity.
      * @return the component; {@code null} when the id is {@code null}.
@@ -96,7 +96,7 @@ public final class FweekPscatSalesMvUtils {
     /**
      * Returns current value of the {@value FweekPscatSalesMv#ATTRIBUTE_PATH_ID_PROMO_ID} attribute
      * of the specified entity -- the {@value FweekPscatSalesMvId#ATTRIBUTE_NAME_PROMO_ID} component
-     * of its {@link FweekPscatSalesMv#getId() id}.
+     * of its {@link FweekPscatSalesMv#getId_() id}.
      *
      * @param fweekPscatSalesMv the entity.
      * @return the component; {@code null} when the id is {@code null}.

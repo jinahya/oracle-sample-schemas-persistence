@@ -2,6 +2,11 @@ package com.github.jinahya.oracle.sample.persistence.common;
 
 import java.time.LocalDateTime;
 
+/**
+ * Constants of the Oracle database itself, which the schema modules share.
+ *
+ * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+ */
 public final class OracleConstants {
 
     // ---------------------------------------------------------------------------------------------

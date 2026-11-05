@@ -27,17 +27,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Documents that the column the annotated attribute maps is an identity column, and how the
- * database generates its value.
+ * Documents that the column the annotated attribute maps is an identity column, and how the database
+ * generates its value.
  * <p>
  * {@link jakarta.persistence.GeneratedValue @GeneratedValue(strategy = IDENTITY)} says that the
- * database generates the value; it does not say whether an {@code INSERT} may supply one, which is
- * what this annotation documents.
+ * database generates the value; it does not say whether an {@code INSERT} may supply one, which is what
+ * this annotation documents.
  *
- * @see <a
- *         href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/CREATE-TABLE
- *         .html">CREATE
- *         TABLE (identity_clause)</a>
+ * @see <a href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/CREATE-TABLE.html">CREATE TABLE (identity_clause)</a>
  */
 @Documented
 @Target(ElementType.FIELD)

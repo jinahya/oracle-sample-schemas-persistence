@@ -30,13 +30,10 @@ import java.lang.annotation.Target;
  * Documents how the database stores the table the annotated class maps: its organization, its
  * partitioning, and its compression.
  * <p>
- * Jakarta Persistence has no annotation for storage;
- * {@link jakarta.persistence.Table#options() options} only carries DDL text.
+ * Jakarta Persistence has no annotation for storage; {@link jakarta.persistence.Table#options() options}
+ * only carries DDL text.
  *
- * @see <a
- *         href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/CREATE-TABLE
- *         .html">CREATE
- *         TABLE</a>
+ * @see <a href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/CREATE-TABLE.html">CREATE TABLE</a>
  */
 @Documented
 @Target(ElementType.TYPE)

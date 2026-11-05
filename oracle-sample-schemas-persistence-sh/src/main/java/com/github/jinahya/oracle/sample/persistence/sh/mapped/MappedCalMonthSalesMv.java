@@ -169,14 +169,12 @@ public abstract class MappedCalMonthSalesMv {
      * Convert annotation will not be portable.
      * </blockquote>
      *
-     * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3
-     *         .2.html#a2999">3.9. Type Conversion of Basic Attributes</a> (Jakarta Persistence 3.2
-     *         Specification Document)
-     * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3
-     *         .2.html#a14398">11.1.10. Convert Annotation</a> (Jakarta Persistence 3.2
-     *         Specification Document)
-     * @see <a href="https://github.com/oracle-samples/db-sample-schemas/blob/main/sales_history
-     *         /sh_create.sql"> {@code sh_create.sql}</a>
+     * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2.html#a2999">3.9.
+     *         Type Conversion of Basic Attributes</a> (Jakarta Persistence 3.2 Specification Document)
+     * @see <a href="https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2.html#a14398">11.1.10.
+     *         Convert Annotation</a> (Jakarta Persistence 3.2 Specification Document)
+     * @see <a href="https://github.com/oracle-samples/db-sample-schemas/blob/main/sales_history/sh_create.sql">
+     *         {@code sh_create.sql}</a>
      *         ({@code COMMENT ON COLUMN times.calendar_month_desc IS 'e.g. 1998-01, CORRECT
      *         ORDER'})
      */

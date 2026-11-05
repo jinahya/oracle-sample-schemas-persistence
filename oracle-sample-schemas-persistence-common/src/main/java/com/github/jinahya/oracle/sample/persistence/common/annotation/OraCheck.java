@@ -31,16 +31,12 @@ import java.lang.annotation.Target;
  * Documents a {@code CHECK} constraint of the table the annotated class maps, or of the column the
  * annotated attribute maps.
  *
- * @CheckConstraint} in {@link jakarta.persistence.Table#check() @Table(check = ...)} or
- *         {@link jakarta.persistence.Column#check() @Column(check = ...)}.
- * @see <a
- *         href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/constraint
- *         .html">constraint</a>
- * @see <a
- *         href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta
- *         .persistence/jakarta/persistence/CheckConstraint.html">jakarta.persistence
- *         .CheckConstraint</a>
  * @deprecated Jakarta Persistence 3.2 covers it; use a {@link jakarta.persistence.CheckConstraint
+ *             @CheckConstraint} in {@link jakarta.persistence.Table#check() @Table(check = ...)} or
+ *             {@link jakarta.persistence.Column#check() @Column(check = ...)}.
+ *
+ * @see <a href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/constraint.html">constraint</a>
+ * @see <a href="https://jakarta.ee/specifications/persistence/3.2/apidocs/jakarta.persistence/jakarta/persistence/CheckConstraint.html">jakarta.persistence.CheckConstraint</a>
  */
 @Deprecated(forRemoval = true)
 @Documented

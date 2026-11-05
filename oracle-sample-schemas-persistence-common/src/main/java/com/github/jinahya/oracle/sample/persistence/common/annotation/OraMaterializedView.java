@@ -32,10 +32,7 @@ import java.lang.annotation.Target;
  * <p>
  * Jakarta Persistence has no annotation for a materialized view; it maps one as it maps a table.
  *
- * @see <a
- *         href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/CREATE
- *         -MATERIALIZED-VIEW.html">CREATE
- *         MATERIALIZED VIEW</a>
+ * @see <a href="https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/CREATE-MATERIALIZED-VIEW.html">CREATE MATERIALIZED VIEW</a>
  */
 @Documented
 @Target(ElementType.TYPE)
