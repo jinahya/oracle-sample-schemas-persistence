@@ -29,9 +29,9 @@ rules follow from that:
   `requires transitive com.github.jinahya.persistence.more`. No other persistence helper library
   is a main dependency; everything else the entities need comes from `jakarta.persistence`,
   `jakarta.validation` and `jakarta.annotation`. The root `<dependencyManagement>` manages the
-  versions of `jinahya-persistence-more`, `-utils` and `-test-utils` (`version.jinahya-persistence`),
+  versions of `jinahya-persistence-more`, `-utils`, `-test-utils` and `-more-test` (`version.jinahya-persistence`),
   and no module declares a version of its own; `-test-utils` is a `test` dependency of the three
-  schema modules only.
+  schema modules only, as is `-more-test`.
 - An enum attribute whose column values are all Java identifiers uses
   `@Enumerated(EnumType.STRING)`; one with a value which is not (`co`'s `IN-TRANSIT`) implements
   `AttributeEnum.OfString`, each constant passing its column value, and is mapped with a nested
@@ -39,7 +39,10 @@ rules follow from that:
   `MappedFlight.FlightStatus` is. The converter also redeclares
   `implements AttributeConverter<E, String>`: EclipseLink 5.0 reads the type arguments only from
   an interface the converter class itself declares, and otherwise drops the `@Convert` without a
-  word.
+  word. Its test extends `jinahya-persistence-more-test`'s
+  `AttributeEnumConverter_Test.OfStringTest`, which checks the enum and the converter, and adds
+  what is particular to the column (`co`'s `Shipment_ShipmentStatusConverter_Test`); the enum's own
+  test extends `AttributeEnum_Test.OfStringTest` (`Shipment_ShipmentStatus_Test`).
 - **Main holds mapped superclasses; the entities are test code.** As in the sibling
   `postgresql-demodb-persistence`, each module's main sources are the package
   `<schema>.mapped` alone: one `@MappedSuperclass` `Mapped<Entity>` per table and view, one
