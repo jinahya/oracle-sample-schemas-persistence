@@ -231,8 +231,9 @@ That is `JinahyaEntityManagerFactoryUtils.applyEntityManager`, then
 uses `applyEntityManager_` alone, with the whole body inside the lambda, so the entity manager is still open
 for the assertions. Each base runs `persistRandomizedEntityInstance__` and `selectRandomEntityInstance__`,
 and hands the instance to the hooks `randomizedEntityInstancePersisted__` and
-`randomEntityInstanceSelected__(EntityManager, T)`, which a subclass overrides to assert what its entity
-promises; a view's test overrides `persistRandomizedEntityInstance__` with a `@Disabled` one. A test class
+`randomEntityInstanceSelected__`, both `(EntityManagerFactory, EntityManager, T)`, which a subclass
+overrides to assert what its entity promises; a view's test overrides
+`persistRandomizedEntityInstance__` with a `@Disabled` one. A test class
 outside the bases (`sh`'s `*Utils_PersistenceTest` / `*Utils_PersistenceIT`) opens one entity manager per
 test instance, and closes it in an `@AfterEach`.
 

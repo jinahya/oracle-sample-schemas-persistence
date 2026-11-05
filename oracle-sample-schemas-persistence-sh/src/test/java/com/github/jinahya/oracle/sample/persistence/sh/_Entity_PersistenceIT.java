@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  */
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
@@ -122,13 +123,14 @@ abstract class _Entity_PersistenceIT<T, U>
                 m -> applyInTransactionAndRollback(m, em -> {
                     final var persisted = newPersistedInstanceOf(em, targetClass);
 //                    em.flush();
-                    randomizedEntityInstancePersisted__(em, persisted);
+                    randomizedEntityInstancePersisted__(emf, em, persisted);
                     return null;
                 })
         ));
     }
 
-    void randomizedEntityInstancePersisted__(final EntityManager entityManager,
+    void randomizedEntityInstancePersisted__(final EntityManagerFactory entityManagerFactory,
+                                             final EntityManager entityManager,
                                              final T entityInstance) {
         // empty
     }
@@ -137,16 +139,18 @@ abstract class _Entity_PersistenceIT<T, U>
 
     /**
      * Selects a random instance of {@link #targetClass}, from the installed schema, and hands it to
-     * {@link #randomEntityInstanceSelected__(EntityManager, Object)}.
+     * {@link #randomEntityInstanceSelected__(EntityManagerFactory, EntityManager, Object)}.
      *
      * @implNote The selection and the callback both run inside a transaction which is
-     *         rolled back, so the instance handed over is still managed -- a lazy association read
-     *         in {@link #randomEntityInstanceSelected__(EntityManager, Object)} resolves rather
-     *         than throwing -- and nothing the callback does reaches the sample data.
+     *         rolled back, so the instance handed over is still managed -- a lazy association
+     *         read in
+     *         {@link #randomEntityInstanceSelected__(EntityManagerFactory, EntityManager, Object)}
+     *         resolves rather than throwing -- and nothing the callback does reaches the sample
+     *         data.
      * @implSpec Selecting from an empty table is not a failure: the table's content is the
      *         installer's, not this test's, so
-     *         {@link #randomEntityInstanceSelected__(EntityManager, Object)} is simply not
-     *         invoked.
+     *         {@link #randomEntityInstanceSelected__(EntityManagerFactory, EntityManager, Object)}
+     *         is simply not invoked.
      */
     @Test
     protected void selectRandomEntityInstance__() {
@@ -155,7 +159,7 @@ abstract class _Entity_PersistenceIT<T, U>
                         emf,
                         targetClass,
                         (em, v) -> {
-                            randomEntityInstanceSelected__(em, v);
+                            randomEntityInstanceSelected__(emf, em, v);
                             return null;
                         }
                 )
@@ -166,11 +170,14 @@ abstract class _Entity_PersistenceIT<T, U>
      * Called with the instance {@link #selectRandomEntityInstance__()} selected, while it is still
      * managed.
      *
-     * @param entityInstance the randomly selected instance.
+     * @param entityManagerFactory the factory of the {@code entityManager}.
+     * @param entityManager        the entity manager which selected the instance.
+     * @param entityInstance       the randomly selected instance.
      * @implSpec This class does nothing with it; a subclass overrides this method to assert
      *         whatever its entity promises of a row which is actually in the database.
      */
-    protected void randomEntityInstanceSelected__(final EntityManager entityManager,
+    protected void randomEntityInstanceSelected__(final EntityManagerFactory entityManagerFactory,
+                                                  final EntityManager entityManager,
                                                   final T entityInstance) {
         // empty; overridden by a subclass which has something to assert
     }

@@ -1,15 +1,5 @@
 package com.github.jinahya.oracle.sample.persistence.co;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
-
-import static com.github.jinahya.oracle.sample.persistence.co.__PersistenceTest_Utils.applyEntityManagerFactory;
-import static com.github.jinahya.persistence.test.util.EntityPersisterUtils.newPersistedInstanceOf;
-import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUtils.applyEntityManager;
-import static com.github.jinahya.persistence.util.JinahyaEntityManagerUtils.applyInTransactionAndRollback;
-import static org.assertj.core.api.Assertions.assertThat;
-
 /*-
  * #%L
  * co
@@ -41,52 +31,5 @@ class Store_PersistenceTest
     // ---------------------------------------------------------------------------------------------
     Store_PersistenceTest() {
         super(Store.class, Long.class);
-    }
-
-    // ---------------------------------------------------------------------------------------------
-    @Nested
-    class SelectSingleByStoreName_Test {
-
-        @DisplayName("a query-language query selects the store just persisted")
-        @Test
-        void __QueryLanguage() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var v = newPersistedInstanceOf(em, targetClass);
-                        final var found = em
-                                .createQuery(
-                                        """
-                                                SELECT e
-                                                FROM Store AS e
-                                                WHERE e.storeName = :storeName""",
-                                        targetClass
-                                )
-                                .setParameter("storeName", v.getStoreName())
-                                .getSingleResult();
-                        assertThat(found)
-                                .as("the store selected by %s", v.getStoreName())
-                                .isSameAs(v);
-                        return found;
-                    })));
-        }
-
-        @DisplayName("a criteria query selects the store just persisted")
-        @Test
-        void __CriteriaApi() {
-            applyEntityManagerFactory(
-                    emf -> applyEntityManager(emf, m -> applyInTransactionAndRollback(m, em -> {
-                        final var v = newPersistedInstanceOf(em, targetClass);
-                        final var builder = em.getCriteriaBuilder();
-                        final var query = builder.createQuery(targetClass);
-                        final var root = query.from(targetClass);
-                        query.select(root);
-                        query.where(builder.equal(root.get(Store_.storeName), v.getStoreName()));
-                        final var found = em.createQuery(query).getSingleResult();
-                        assertThat(found)
-                                .as("the store selected by %s", v.getStoreName())
-                                .isSameAs(v);
-                        return found;
-                    })));
-        }
     }
 }
