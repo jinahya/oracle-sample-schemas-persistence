@@ -29,10 +29,10 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Promotion_Test
-        extends _Entity_Test<Promotion> {
+        extends _Entity_Test<Promotion, Integer> {
 
     Promotion_Test() {
-        super(Promotion.class);
+        super(Promotion.class, Integer.class);
     }
 
     // ----------------------------------------------------------------------------- equals/hashCode

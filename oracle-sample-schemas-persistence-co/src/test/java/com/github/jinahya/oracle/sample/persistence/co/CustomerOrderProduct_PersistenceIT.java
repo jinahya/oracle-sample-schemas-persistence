@@ -29,10 +29,10 @@ import org.junit.jupiter.api.Test;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class CustomerOrderProduct_PersistenceIT
-        extends _Entity_PersistenceIT<CustomerOrderProduct> {
+        extends _Entity_PersistenceIT<CustomerOrderProduct, Long> {
 
     CustomerOrderProduct_PersistenceIT() {
-        super(CustomerOrderProduct.class);
+        super(CustomerOrderProduct.class, Long.class);
     }
 
     // ---------------------------------------------------------------------------------------------

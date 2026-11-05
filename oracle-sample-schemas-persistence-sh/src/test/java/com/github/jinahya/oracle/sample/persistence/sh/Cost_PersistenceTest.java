@@ -20,15 +20,17 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.CostId;
+
 /**
  * Verifies the mappings of {@link Cost} against the schema generated into the in-memory database.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Cost_PersistenceTest
-        extends _Entity_PersistenceTest<Cost> {
+        extends _Entity_PersistenceTest<Cost, CostId> {
 
     Cost_PersistenceTest() {
-        super(Cost.class);
+        super(Cost.class, CostId.class);
     }
 }

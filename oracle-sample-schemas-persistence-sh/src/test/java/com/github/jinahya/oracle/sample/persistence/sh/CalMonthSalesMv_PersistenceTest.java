@@ -30,10 +30,10 @@ import org.junit.jupiter.api.Test;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class CalMonthSalesMv_PersistenceTest
-        extends _Entity_PersistenceTest<CalMonthSalesMv> {
+        extends _Entity_PersistenceTest<CalMonthSalesMv, String> {
 
     CalMonthSalesMv_PersistenceTest() {
-        super(CalMonthSalesMv.class);
+        super(CalMonthSalesMv.class, String.class);
     }
 
     // ---------------------------------------------------------------------------------------------

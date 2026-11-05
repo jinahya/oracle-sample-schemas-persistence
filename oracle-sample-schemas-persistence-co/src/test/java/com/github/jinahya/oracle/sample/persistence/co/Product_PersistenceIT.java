@@ -47,7 +47,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class Product_PersistenceIT
-        extends _Entity_PersistenceIT<Product> {
+        extends _Entity_PersistenceIT<Product, Long> {
 
     private static BigDecimal unitPriceMin;
 
@@ -67,7 +67,7 @@ class Product_PersistenceIT
 
     // ---------------------------------------------------------------------------------------------
     Product_PersistenceIT() {
-        super(Product.class);
+        super(Product.class, Long.class);
     }
 
     // ---------------------------------------------------------------------------------------------

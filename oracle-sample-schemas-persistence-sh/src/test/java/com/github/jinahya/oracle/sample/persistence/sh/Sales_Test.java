@@ -32,7 +32,7 @@ import java.time.LocalDateTime;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Sales_Test
-        extends _Entity_Test<Sales> {
+        extends _Entity_Test<Sales, SalesId> {
 
     private static SalesId id(final int value) {
         final var id = new SalesId();
@@ -47,7 +47,7 @@ class Sales_Test
     // ---------------------------------------------------------------------------------------------
 
     Sales_Test() {
-        super(Sales.class);
+        super(Sales.class, SalesId.class);
     }
 
     // ----------------------------------------------------------------------------- equals/hashCode

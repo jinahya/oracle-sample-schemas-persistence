@@ -40,11 +40,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Country_PersistenceTest
-        extends _Entity_PersistenceTest<Country> {
+        extends _Entity_PersistenceTest<Country, String> {
 
     // ---------------------------------------------------------------------------------------------
     Country_PersistenceTest() {
-        super(Country.class);
+        super(Country.class, String.class);
     }
 
     // ---------------------------------------------------------------------------------------------

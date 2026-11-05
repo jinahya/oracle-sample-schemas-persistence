@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.ProfitId;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
@@ -29,10 +30,10 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Profit_Test
-        extends _Entity_Test<Profit> {
+        extends _Entity_Test<Profit, ProfitId> {
 
     Profit_Test() {
-        super(Profit.class);
+        super(Profit.class, ProfitId.class);
     }
 
     // ----------------------------------------------------------------------------- equals/hashCode

@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.co.mapped.ProductOrderId;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -30,10 +31,10 @@ import org.junit.jupiter.api.Test;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class ProductOrder_PersistenceTest
-        extends _Entity_PersistenceTest<ProductOrder> {
+        extends _Entity_PersistenceTest<ProductOrder, ProductOrderId> {
 
     ProductOrder_PersistenceTest() {
-        super(ProductOrder.class);
+        super(ProductOrder.class, ProductOrderId.class);
     }
 
     // ---------------------------------------------------------------------------------------------

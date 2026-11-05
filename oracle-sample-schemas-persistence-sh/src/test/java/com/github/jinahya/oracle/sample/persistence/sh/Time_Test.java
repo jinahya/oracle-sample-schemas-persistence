@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import java.time.LocalDateTime;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 
@@ -29,10 +30,10 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Time_Test
-        extends _Entity_Test<Time> {
+        extends _Entity_Test<Time, LocalDateTime> {
 
     Time_Test() {
-        super(Time.class);
+        super(Time.class, LocalDateTime.class);
     }
 
     // ----------------------------------------------------------------------------- equals/hashCode

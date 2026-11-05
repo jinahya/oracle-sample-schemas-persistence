@@ -28,10 +28,10 @@ import org.junit.jupiter.api.Test;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class StoreOrder_Test
-        extends _Entity_Test<StoreOrder> {
+        extends _Entity_Test<StoreOrder, Void> {
 
     StoreOrder_Test() {
-        super(StoreOrder.class);
+        super(StoreOrder.class, Void.class);
     }
 
     // ----------------------------------------------------------------------------- equals/hashCode

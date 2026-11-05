@@ -32,7 +32,7 @@ import java.time.LocalDateTime;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class FweekPscatSalesMv_Test
-        extends _Entity_Test<FweekPscatSalesMv> {
+        extends _Entity_Test<FweekPscatSalesMv, FweekPscatSalesMvId> {
 
     private static FweekPscatSalesMvId id(final int value) {
         final var id = new FweekPscatSalesMvId();
@@ -46,7 +46,7 @@ class FweekPscatSalesMv_Test
     // ---------------------------------------------------------------------------------------------
 
     FweekPscatSalesMv_Test() {
-        super(FweekPscatSalesMv.class);
+        super(FweekPscatSalesMv.class, FweekPscatSalesMvId.class);
     }
 
     // ----------------------------------------------------------------------------- equals/hashCode

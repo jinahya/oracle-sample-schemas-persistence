@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.FweekPscatSalesMvId;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -30,10 +31,10 @@ import org.junit.jupiter.api.Test;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class FweekPscatSalesMv_PersistenceTest
-        extends _Entity_PersistenceTest<FweekPscatSalesMv> {
+        extends _Entity_PersistenceTest<FweekPscatSalesMv, FweekPscatSalesMvId> {
 
     FweekPscatSalesMv_PersistenceTest() {
-        super(FweekPscatSalesMv.class);
+        super(FweekPscatSalesMv.class, FweekPscatSalesMvId.class);
     }
 
     // ---------------------------------------------------------------------------------------------

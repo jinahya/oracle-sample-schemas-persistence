@@ -24,6 +24,7 @@ import com.github.jinahya.persistence.metamodel.util.JinayaManagedTypeUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.metamodel.ManagedType;
+import java.util.Objects;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -52,6 +53,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
  * surefire, runs it.
  *
  * @param <T> the type of the entity under test.
+ * @param <U> the type of the identifier of the entity, or of its id class.
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  * @see __PersistenceTest_Utils
  */
@@ -59,7 +61,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
         "java:S101", // Class names should comply with a naming convention
         "java:S118"  // Abstract class names should comply with a naming convention
 })
-abstract class _Entity_PersistenceTest<T>
+abstract class _Entity_PersistenceTest<T, U>
         extends __Test<T> {
 
     /**
@@ -91,9 +93,11 @@ abstract class _Entity_PersistenceTest<T>
      * Creates a new instance for the specified persistence class.
      *
      * @param targetClass the class of the entity under test.
+     * @param idClass     the class of the identifier of the entity, or its id class.
      */
-    protected _Entity_PersistenceTest(final Class<T> targetClass) {
+    protected _Entity_PersistenceTest(final Class<T> targetClass, final Class<U> idClass) {
         super(targetClass);
+        this.idClass = Objects.requireNonNull(idClass, "idClass is null");
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -259,4 +263,12 @@ abstract class _Entity_PersistenceTest<T>
                                                   final T entityInstance) {
         // empty; overridden by a subclass which has something to assert
     }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * The class of the identifier of {@link #targetClass}; its id class, or the type of its
+     * {@code @Id} or {@code @EmbeddedId} attribute.
+     */
+    protected final Class<U> idClass;
 }

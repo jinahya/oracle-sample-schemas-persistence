@@ -20,15 +20,17 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.SalesId;
+
 /**
  * Verifies the mappings of {@link Sales} against the installed {@code SH} schema.
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Sales_PersistenceIT
-        extends _Entity_PersistenceIT<Sales> {
+        extends _Entity_PersistenceIT<Sales, SalesId> {
 
     Sales_PersistenceIT() {
-        super(Sales.class);
+        super(Sales.class, SalesId.class);
     }
 }

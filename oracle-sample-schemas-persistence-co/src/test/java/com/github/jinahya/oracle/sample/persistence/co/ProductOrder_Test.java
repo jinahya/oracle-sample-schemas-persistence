@@ -30,7 +30,7 @@ import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class ProductOrder_Test
-        extends _Entity_Test<ProductOrder> {
+        extends _Entity_Test<ProductOrder, ProductOrderId> {
 
     private static ProductOrderId id(final int value) {
         final var id = new ProductOrderId();
@@ -42,7 +42,7 @@ class ProductOrder_Test
     // ---------------------------------------------------------------------------------------------
 
     ProductOrder_Test() {
-        super(ProductOrder.class);
+        super(ProductOrder.class, ProductOrderId.class);
     }
 
     // ----------------------------------------------------------------------------- equals/hashCode

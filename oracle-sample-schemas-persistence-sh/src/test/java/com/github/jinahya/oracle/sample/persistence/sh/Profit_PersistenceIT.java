@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.sh.mapped.ProfitId;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -29,10 +30,10 @@ import org.junit.jupiter.api.Test;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 class Profit_PersistenceIT
-        extends _Entity_PersistenceIT<Profit> {
+        extends _Entity_PersistenceIT<Profit, ProfitId> {
 
     Profit_PersistenceIT() {
-        super(Profit.class);
+        super(Profit.class, ProfitId.class);
     }
 
     // ---------------------------------------------------------------------------------------------
