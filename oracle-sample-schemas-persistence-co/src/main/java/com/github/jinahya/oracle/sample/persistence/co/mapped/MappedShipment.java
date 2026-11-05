@@ -21,6 +21,8 @@ package com.github.jinahya.oracle.sample.persistence.co.mapped;
  */
 
 import com.github.jinahya.oracle.sample.persistence.common.annotation.OraComment;
+import com.github.jinahya.persistence.more.AttributeEnum;
+import com.github.jinahya.persistence.more.converter.AttributeEnumConverter;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Basic;
@@ -181,25 +183,28 @@ public abstract class MappedShipment {
     public static final int SIZE_MAX_SHIPMENT_STATUS = COLUMN_LENGTH_SHIPMENT_STATUS;
 
     /**
-     * An enum for the {@value #COLUMN_NAME_SHIPMENT_STATUS} column.
+     * An enum for the {@value #COLUMN_NAME_SHIPMENT_STATUS} column; the values the
+     * {@code shipment_status_c} constraint allows.
      *
      * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
+     * @see ShipmentStatusConverter
      */
-    public enum ShipmentStatus {
+    public enum ShipmentStatus
+            implements AttributeEnum.OfString<ShipmentStatus> {
 
         /**
          * A constant for the {@value MappedShipment#COLUMN_VALUE_SHIPMENT_STATUS_CREATED} value,
          * for a shipment which has been created.
          */
         // 준비 중?
-        CREATED,
+        CREATED(COLUMN_VALUE_SHIPMENT_STATUS_CREATED),
 
         /**
          * A constant for the {@value MappedShipment#COLUMN_VALUE_SHIPMENT_STATUS_SHIPPED} value,
          * for a shipment which has been shipped.
          */
         // 발송/출고?
-        SHIPPED,
+        SHIPPED(COLUMN_VALUE_SHIPMENT_STATUS_SHIPPED),
 
         /**
          * A constant for the {@value MappedShipment#COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT} value,
@@ -214,88 +219,50 @@ public abstract class MappedShipment {
          * for a shipment which has been delivered.
          */
         // 배송 왼료?
-        DELIVERED;
+        DELIVERED(COLUMN_VALUE_SHIPMENT_STATUS_DELIVERED);
 
-        // -----------------------------------------------------------------------------------------
-        ShipmentStatus(final String columnValue) {
-            this.columnValue = columnValue;
+        ShipmentStatus(final String attributeValue) {
+            this.attributeValue = attributeValue;
         }
-
-        ShipmentStatus() {
-            this(null);
-        }
-
-        // ----------------------------------------------------------------------------- columnValue
 
         /**
          * Returns the value of the {@value MappedShipment#COLUMN_NAME_SHIPMENT_STATUS} column which
-         * this constant represents.
+         * this constant represents; not its {@link Enum#name() name()} for
+         * {@link #IN_TRANSIT}, whose column value is not a Java identifier.
          *
-         * @return the column value of this constant; the constant's {@link Enum#name() name} unless
-         *         it declares its own.
+         * @return the column value of this constant.
          */
-        public String columnValue() {
-            if (columnValue != null) {
-                return columnValue;
-            }
-            return name();
+        @Override
+        public String attributeValue() {
+            return attributeValue;
         }
 
-        // -----------------------------------------------------------------------------------------
-
-        /**
-         * The column value this constant declares; {@code null} for a constant whose column value
-         * is its {@link Enum#name() name}.
-         *
-         * @see #columnValue()
-         */
-        public final String columnValue;
+        private final String attributeValue;
     }
 
     /**
-     * A converter between {@link ShipmentStatus} and the {@value #COLUMN_NAME_SHIPMENT_STATUS}
-     * column, by {@link ShipmentStatus#columnValue()} rather than {@link Enum#name()}.
+     * Converts between a {@link ShipmentStatus} and its column value, its
+     * {@link ShipmentStatus#attributeValue() attributeValue()}, through
+     * {@link AttributeEnumConverter.OfString}, which looks a constant up by its value.
+     * <p>
+     * The converter is not {@link Converter#autoApply() auto-applied}; an attribute names it with
+     * {@link Convert @Convert}.
      *
      * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
      */
     @Converter(autoApply = false)
     public static class ShipmentStatusConverter
+            extends AttributeEnumConverter.OfString<ShipmentStatus>
+            // redeclared with its type arguments: EclipseLink 5.0 reads them only from an
+            // interface the converter class itself declares, and otherwise drops the @Convert
+            // silently, reading IN-TRANSIT as a ShipmentStatus by name and failing
             implements AttributeConverter<ShipmentStatus, String> {
 
         /**
          * Creates a new instance.
          */
         public ShipmentStatusConverter() {
-            super();
-        }
-
-        @Override
-        public String convertToDatabaseColumn(final ShipmentStatus attribute) {
-            if (attribute == null) {
-                return null;
-            }
-            return attribute.columnValue();
-        }
-
-        /**
-         * {@inheritDoc}
-         *
-         * @param dbData {@inheritDoc}
-         * @return {@inheritDoc}
-         * @throws IllegalArgumentException if {@code dbData} is the column value of no
-         *                                  {@link ShipmentStatus} constant.
-         */
-        @Override
-        public ShipmentStatus convertToEntityAttribute(final String dbData) {
-            if (dbData == null) {
-                return null;
-            }
-            for (final var value : ShipmentStatus.values()) {
-                if (value.columnValue().equals(dbData)) {
-                    return value;
-                }
-            }
-            throw new IllegalArgumentException("no shipment status for '" + dbData + "'");
+            super(ShipmentStatus.class);
         }
     }
 

@@ -29,17 +29,7 @@
     </dependency>
     <dependency>
       <groupId>io.github.jinahya</groupId>
-      <artifactId>jinahya-persistence-more</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.github.jinahya</groupId>
       <artifactId>jinahya-persistence-test-utils</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.github.jinahya</groupId>
-      <artifactId>jinahya-persistence-utils</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>

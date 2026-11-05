@@ -18,16 +18,28 @@ the mapping (`@OraTrigger`, `@OraStorage`, `@OraMaterializedView`, `@OraIdentity
 `requires static`. Those whose subject Jakarta Persistence covers (`@OraComment`, `@OraCheck`, `@OraIndex`,
 `@OraSequence`) are `@Deprecated(forRemoval = true)` and name the replacement, as the sibling's `Ms*` ones do.
 
-**These are pure Jakarta Persistence modules.** Two rules follow from that:
+**These are Jakarta Persistence modules, with `jinahya-persistence-more` their only helper.** These
+rules follow from that:
 
-- No main-scope dependency of `co`, `hr` or `sh` on `io.github.jinahya:jinahya-persistence-*`,
-  or on any other persistence helper library. Everything the entities need comes from
-  `jakarta.persistence`, `jakarta.validation` and `jakarta.annotation`. `common` is the
-  exception: it depends on `jinahya-persistence-more` and `-utils` at `compile` scope, and each
-  schema module redeclares both at `test` scope, which keeps them off its main classpath. The
-  root `<dependencyManagement>` manages the versions of `jinahya-persistence-more`, `-utils` and
-  `-test-utils` (`version.jinahya-persistence`), and no module declares a version of its own; `-test-utils` is a
-  `test` dependency of the three schema modules only.
+- The dependencies run root -> `common` -> `co` / `hr` / `sh`. `common` depends on
+  `jinahya-persistence-more` and `-utils` at `compile` scope, and the three schema modules take
+  both from it, at `compile`, without declaring them; a mapped superclass may use them (`co`'s
+  `MappedShipment.ShipmentStatus` is an `AttributeEnum.OfString`, its converter an
+  `AttributeEnumConverter.OfString`), and a schema module whose main code does so
+  `requires transitive com.github.jinahya.persistence.more`. No other persistence helper library
+  is a main dependency; everything else the entities need comes from `jakarta.persistence`,
+  `jakarta.validation` and `jakarta.annotation`. The root `<dependencyManagement>` manages the
+  versions of `jinahya-persistence-more`, `-utils` and `-test-utils` (`version.jinahya-persistence`),
+  and no module declares a version of its own; `-test-utils` is a `test` dependency of the three
+  schema modules only.
+- An enum attribute whose column values are all Java identifiers uses
+  `@Enumerated(EnumType.STRING)`; one with a value which is not (`co`'s `IN-TRANSIT`) implements
+  `AttributeEnum.OfString`, each constant passing its column value, and is mapped with a nested
+  `AttributeEnumConverter.OfString`, as the sibling `postgresql-demodb-persistence`'s
+  `MappedFlight.FlightStatus` is. The converter also redeclares
+  `implements AttributeConverter<E, String>`: EclipseLink 5.0 reads the type arguments only from
+  an interface the converter class itself declares, and otherwise drops the `@Convert` without a
+  word.
 - **Main holds mapped superclasses; the entities are test code.** As in the sibling
   `postgresql-demodb-persistence`, each module's main sources are the package
   `<schema>.mapped` alone: one `@MappedSuperclass` `Mapped<Entity>` per table and view, one
@@ -219,8 +231,8 @@ test instance, and closes it in an `@AfterEach`.
 
 `___Persistence_TestUtils` holds only what the library has no single call for:
 `selectRandomEntityInstance(EntityManagerFactory, Class, BiFunction)`, a random selection inside a
-rolled-back transaction. That needs `version.jinahya-persistence` 0.6.11 or later, and each module declares
-`jinahya-persistence-more`, `-utils` and `-test-utils` itself, at `test` scope. `___Validation_TestUtils`
+rolled-back transaction. That needs `version.jinahya-persistence` 0.6.11 or later; each module declares
+`jinahya-persistence-test-utils` itself, at `test` scope, and has `-more` and `-utils` from `common`. `___Validation_TestUtils`
 holds a validator factory, built once per run, and `validate` / `assertValid`; Hibernate Validator and
 Expressly are each module's own `test` dependencies, not the root's.
 

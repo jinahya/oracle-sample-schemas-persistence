@@ -26,6 +26,10 @@
  * reader of this module reads them too. So do the nullness annotations of
  * {@code jakarta.annotation}, but that one is also static: they are not needed at run time.
  * <p>
+ * {@code jinahya-persistence-more} is read transitively too: an attribute enum of a mapped
+ * superclass implements its {@code AttributeEnum}, and a converter extends its
+ * {@code AttributeEnumConverter}.
+ * <p>
  * The package is opened, not only exported, because a persistence provider and a validation
  * provider reach the mapped superclasses' private fields reflectively; neither can be named here,
  * since the provider is the consumer's choice.
@@ -35,6 +39,7 @@
 module com.github.jinahya.oracle.sample.persistence.co {
 
     requires static com.github.jinahya.oracle.sample.persistence.common;
+    requires transitive com.github.jinahya.persistence.more;
     requires static transitive jakarta.annotation;
     requires transitive jakarta.persistence;
     requires transitive jakarta.validation;
