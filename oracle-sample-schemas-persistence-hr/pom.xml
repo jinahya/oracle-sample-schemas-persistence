@@ -30,19 +30,16 @@
     <dependency>
       <groupId>io.github.jinahya</groupId>
       <artifactId>jinahya-persistence-more</artifactId>
-      <version>${version.jinahya-persistence}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>io.github.jinahya</groupId>
       <artifactId>jinahya-persistence-test-utils</artifactId>
-      <version>${version.jinahya-persistence}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>io.github.jinahya</groupId>
       <artifactId>jinahya-persistence-utils</artifactId>
-      <version>${version.jinahya-persistence}</version>
       <scope>test</scope>
     </dependency>
     <dependency>

@@ -20,10 +20,14 @@ the mapping (`@OraTrigger`, `@OraStorage`, `@OraMaterializedView`, `@OraIdentity
 
 **These are pure Jakarta Persistence modules.** Two rules follow from that:
 
-- No main-scope dependency on `io.github.jinahya:jinahya-persistence-*`, or on any
-  other persistence helper library. Everything the entities need comes from
-  `jakarta.persistence`, `jakarta.validation` and `jakarta.annotation`. Tests may
-  use `jinahya-persistence-*` (e.g. `jinahya-persistence-test-utils`, `test` scope).
+- No main-scope dependency of `co`, `hr` or `sh` on `io.github.jinahya:jinahya-persistence-*`,
+  or on any other persistence helper library. Everything the entities need comes from
+  `jakarta.persistence`, `jakarta.validation` and `jakarta.annotation`. `common` is the
+  exception: it depends on `jinahya-persistence-more` and `-utils` at `compile` scope, and each
+  schema module redeclares both at `test` scope, which keeps them off its main classpath. The
+  root `<dependencyManagement>` manages the versions of `jinahya-persistence-more`, `-utils` and
+  `-test-utils` (`version.jinahya-persistence`), and no module declares a version of its own; `-test-utils` is a
+  `test` dependency of the three schema modules only.
 - **Main holds mapped superclasses; the entities are test code.** As in the sibling
   `postgresql-demodb-persistence`, each module's main sources are the package
   `<schema>.mapped` alone: one `@MappedSuperclass` `Mapped<Entity>` per table and view, one
