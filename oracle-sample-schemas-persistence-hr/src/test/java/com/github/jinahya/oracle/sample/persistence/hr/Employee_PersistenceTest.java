@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceTest;
+
 /**
  * Verifies the mappings of {@link Employee} against the schema generated into the in-memory
  * database.
@@ -30,6 +32,6 @@ class Employee_PersistenceTest
         extends _Entity_PersistenceTest<Employee, Integer> {
 
     Employee_PersistenceTest() {
-        super(Employee.class, Integer.class);
+        super(Employee.class, Integer.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

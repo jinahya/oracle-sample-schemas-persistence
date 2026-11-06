@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceTest;
+
 /**
  * Verifies the mappings of {@link Promotion} against the schema generated into the in-memory
  * database.
@@ -30,6 +32,6 @@ class Promotion_PersistenceTest
         extends _Entity_PersistenceTest<Promotion, Integer> {
 
     Promotion_PersistenceTest() {
-        super(Promotion.class, Integer.class);
+        super(Promotion.class, Integer.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

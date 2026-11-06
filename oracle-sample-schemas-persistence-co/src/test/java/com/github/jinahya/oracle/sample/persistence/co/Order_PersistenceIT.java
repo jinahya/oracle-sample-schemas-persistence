@@ -21,6 +21,8 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
+
 /**
  * Verifies the mappings of {@link Order} against the installed {@code CO} schema.
  *
@@ -30,6 +32,6 @@ class Order_PersistenceIT
         extends _Entity_PersistenceIT<Order, Long> {
 
     Order_PersistenceIT() {
-        super(Order.class, Long.class);
+        super(Order.class, Long.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.persistence.sh;
+package com.github.jinahya.oracle.sample.persistence.shared;
 
 /*-
  * #%L
- * sh
+ * oracle-sample-schemas-persistence
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%

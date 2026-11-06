@@ -22,6 +22,7 @@ package com.github.jinahya.oracle.sample.persistence.co;
  */
 
 import com.github.jinahya.oracle.sample.persistence.co.mapped.OrderItemId;
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceTest;
 
 /**
  * Verifies the mappings of {@link OrderItem} against the schema generated into the in-memory
@@ -33,6 +34,6 @@ class OrderItem_PersistenceTest
         extends _Entity_PersistenceTest<OrderItem, OrderItemId> {
 
     OrderItem_PersistenceTest() {
-        super(OrderItem.class, OrderItemId.class);
+        super(OrderItem.class, OrderItemId.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

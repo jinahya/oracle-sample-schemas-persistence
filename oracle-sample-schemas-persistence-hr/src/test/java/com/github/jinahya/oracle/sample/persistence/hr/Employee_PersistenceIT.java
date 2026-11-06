@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
 import com.github.jinahya.persistence.test.util.EntityPersisterUtils;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.Nested;
@@ -42,7 +43,7 @@ class Employee_PersistenceIT
         extends _Entity_PersistenceIT<Employee, Integer> {
 
     Employee_PersistenceIT() {
-        super(Employee.class, Integer.class);
+        super(Employee.class, Integer.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 
     // ---------------------------------------------------------------------------------------------

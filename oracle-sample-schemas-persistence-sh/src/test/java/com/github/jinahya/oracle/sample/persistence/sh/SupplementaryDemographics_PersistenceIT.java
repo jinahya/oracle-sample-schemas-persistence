@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
+
 /**
  * Verifies the mappings of {@link SupplementaryDemographics} against the installed {@code SH}
  * schema.
@@ -30,6 +32,6 @@ class SupplementaryDemographics_PersistenceIT
         extends _Entity_PersistenceIT<SupplementaryDemographics, Long> {
 
     SupplementaryDemographics_PersistenceIT() {
-        super(SupplementaryDemographics.class, Long.class);
+        super(SupplementaryDemographics.class, Long.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

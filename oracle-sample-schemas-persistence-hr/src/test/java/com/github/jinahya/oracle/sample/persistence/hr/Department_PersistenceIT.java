@@ -21,6 +21,8 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
+
 /**
  * Verifies the mappings of {@link Department} against the installed {@code HR} schema.
  *
@@ -30,6 +32,6 @@ class Department_PersistenceIT
         extends _Entity_PersistenceIT<Department, Integer> {
 
     Department_PersistenceIT() {
-        super(Department.class, Integer.class);
+        super(Department.class, Integer.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceTest;
+
 /**
  * Verifies the mappings of {@link Country} against the schema generated into the in-memory
  * database.
@@ -34,6 +36,6 @@ class Country_PersistenceTest
 
     // ---------------------------------------------------------------------------------------------
     Country_PersistenceTest() {
-        super(Country.class, String.class);
+        super(Country.class, String.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

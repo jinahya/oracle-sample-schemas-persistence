@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.co;
  */
 
 import com.github.jinahya.oracle.sample.persistence.co.mapped.ProductOrderId;
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +34,7 @@ class ProductOrder_PersistenceIT
         extends _Entity_PersistenceIT<ProductOrder, ProductOrderId> {
 
     ProductOrder_PersistenceIT() {
-        super(ProductOrder.class, ProductOrderId.class);
+        super(ProductOrder.class, ProductOrderId.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 
     // ---------------------------------------------------------------------------------------------

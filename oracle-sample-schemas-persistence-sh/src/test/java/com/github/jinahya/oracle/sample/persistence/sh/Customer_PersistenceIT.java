@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
+
 /**
  * Verifies the mappings of {@link Customer} against the installed {@code SH} schema.
  *
@@ -29,6 +31,6 @@ class Customer_PersistenceIT
         extends _Entity_PersistenceIT<Customer, Long> {
 
     Customer_PersistenceIT() {
-        super(Customer.class, Long.class);
+        super(Customer.class, Long.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

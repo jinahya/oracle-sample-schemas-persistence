@@ -20,7 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.co.mapped;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.persistence.co._NonEntity_Test;
+import com.github.jinahya.oracle.sample.persistence.shared._NonEntity_Test;
 /**
  * A class for testing the {@link OrderItemId} id class.
  *

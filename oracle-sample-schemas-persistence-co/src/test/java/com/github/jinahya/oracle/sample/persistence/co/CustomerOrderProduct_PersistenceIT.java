@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +33,7 @@ class CustomerOrderProduct_PersistenceIT
         extends _Entity_PersistenceIT<CustomerOrderProduct, Long> {
 
     CustomerOrderProduct_PersistenceIT() {
-        super(CustomerOrderProduct.class, Long.class);
+        super(CustomerOrderProduct.class, Long.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 
     // ---------------------------------------------------------------------------------------------

@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
 import org.junit.jupiter.api.TestInstance;
 
 /**
@@ -33,6 +34,6 @@ class Customer_PersistenceIT
 
     // ---------------------------------------------------------------------------------------------
     Customer_PersistenceIT() {
-        super(Customer.class, Long.class);
+        super(Customer.class, Long.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  */
 
 import com.github.jinahya.oracle.sample.persistence.hr.mapped.JobHistoryId;
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 

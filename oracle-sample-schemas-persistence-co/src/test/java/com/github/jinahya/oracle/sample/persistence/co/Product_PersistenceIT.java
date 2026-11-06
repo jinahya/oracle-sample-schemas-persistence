@@ -21,6 +21,8 @@ package com.github.jinahya.oracle.sample.persistence.co;
  */
 
 import com.github.jinahya.oracle.sample.persistence.co.mapped.ProductDetails;
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
+import com.github.jinahya.oracle.sample.persistence.shared.__Object_Test;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceException;
@@ -50,14 +52,14 @@ class Product_PersistenceIT
 
     // ---------------------------------------------------------------------------------------------
     Product_PersistenceIT() {
-        super(Product.class, Long.class);
+        super(Product.class, Long.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 
     // ---------------------------------------------------------------------------------------------
     @Override
-    void randomizedEntityInstancePersisted__(final EntityManagerFactory entityManagerFactory,
-                                             final EntityManager entityManager,
-                                             final Product entityInstance) {
+    protected void randomizedEntityInstancePersisted__(
+            final EntityManagerFactory entityManagerFactory, final EntityManager entityManager,
+            final Product entityInstance) {
         super.randomizedEntityInstancePersisted__(entityManagerFactory, entityManager,
                                                   entityInstance);
     }

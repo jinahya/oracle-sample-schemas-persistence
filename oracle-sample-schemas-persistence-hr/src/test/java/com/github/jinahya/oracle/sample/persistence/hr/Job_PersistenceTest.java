@@ -21,6 +21,8 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceTest;
+
 /**
  * Verifies the mappings of {@link Job} against the schema generated into the in-memory database.
  *
@@ -30,6 +32,6 @@ class Job_PersistenceTest
         extends _Entity_PersistenceTest<Job, String> {
 
     Job_PersistenceTest() {
-        super(Job.class, String.class);
+        super(Job.class, String.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

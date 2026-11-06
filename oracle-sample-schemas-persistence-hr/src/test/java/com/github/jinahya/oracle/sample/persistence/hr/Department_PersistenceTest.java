@@ -21,6 +21,8 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceTest;
+
 /**
  * Verifies the mappings of {@link Department} against the schema generated into the in-memory
  * database.
@@ -31,6 +33,6 @@ class Department_PersistenceTest
         extends _Entity_PersistenceTest<Department, Integer> {
 
     Department_PersistenceTest() {
-        super(Department.class, Integer.class);
+        super(Department.class, Integer.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

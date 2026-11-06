@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  */
 
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.CountrySection;
+import com.github.jinahya.oracle.sample.persistence.shared._NonEntity_Test;
 
 /**
  * A class for testing the {@link CountrySection} embeddable class.

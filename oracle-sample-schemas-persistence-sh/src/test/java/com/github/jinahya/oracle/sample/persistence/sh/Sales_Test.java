@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  */
 
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.SalesId;
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_Test;
 import nl.jqno.equalsverifier.Warning;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 

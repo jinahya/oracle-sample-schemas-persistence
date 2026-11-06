@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceTest;
+
 /**
  * Verifies the mappings of {@link SupplementaryDemographics} against the schema generated into the
  * in-memory database.
@@ -30,6 +32,6 @@ class SupplementaryDemographics_PersistenceTest
         extends _Entity_PersistenceTest<SupplementaryDemographics, Long> {
 
     SupplementaryDemographics_PersistenceTest() {
-        super(SupplementaryDemographics.class, Long.class);
+        super(SupplementaryDemographics.class, Long.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  */
 
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.FweekPscatSalesMvId;
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +35,7 @@ class FweekPscatSalesMv_PersistenceTest
         extends _Entity_PersistenceTest<FweekPscatSalesMv, FweekPscatSalesMvId> {
 
     FweekPscatSalesMv_PersistenceTest() {
-        super(FweekPscatSalesMv.class, FweekPscatSalesMvId.class);
+        super(FweekPscatSalesMv.class, FweekPscatSalesMvId.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME);
     }
 
     // ---------------------------------------------------------------------------------------------

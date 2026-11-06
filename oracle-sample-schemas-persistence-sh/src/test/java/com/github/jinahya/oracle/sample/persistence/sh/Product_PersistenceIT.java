@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
+
 /**
  * Verifies the mappings of {@link Product} against the installed {@code SH} schema.
  *
@@ -29,6 +31,6 @@ class Product_PersistenceIT
         extends _Entity_PersistenceIT<Product, Integer> {
 
     Product_PersistenceIT() {
-        super(Product.class, Integer.class);
+        super(Product.class, Integer.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

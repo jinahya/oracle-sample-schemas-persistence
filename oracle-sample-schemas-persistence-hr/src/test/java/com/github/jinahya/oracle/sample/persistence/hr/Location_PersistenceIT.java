@@ -21,6 +21,8 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
+
 /**
  * Verifies the mappings of {@link Location} against the installed {@code HR} schema.
  *
@@ -30,6 +32,6 @@ class Location_PersistenceIT
         extends _Entity_PersistenceIT<Location, Integer> {
 
     Location_PersistenceIT() {
-        super(Location.class, Integer.class);
+        super(Location.class, Integer.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

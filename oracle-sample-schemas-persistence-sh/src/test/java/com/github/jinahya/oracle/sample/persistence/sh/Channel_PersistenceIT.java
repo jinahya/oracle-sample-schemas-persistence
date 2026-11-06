@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
+
 /**
  * Verifies the mappings of {@link Channel} against the installed {@code SH} schema.
  *
@@ -29,6 +31,6 @@ class Channel_PersistenceIT
         extends _Entity_PersistenceIT<Channel, Long> {
 
     Channel_PersistenceIT() {
-        super(Channel.class, Long.class);
+        super(Channel.class, Long.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

@@ -20,7 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.hr.mapped;
  * #L%
  */
 
-import com.github.jinahya.oracle.sample.persistence.hr._NonEntity_Test;
+import com.github.jinahya.oracle.sample.persistence.shared._NonEntity_Test;
 
 /**
  * A class for testing the {@link JobHistoryId} composite primary key class.

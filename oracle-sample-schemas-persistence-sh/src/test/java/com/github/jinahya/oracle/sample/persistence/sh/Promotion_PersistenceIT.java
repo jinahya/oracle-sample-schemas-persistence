@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
+
 /**
  * Verifies the mappings of {@link Promotion} against the installed {@code SH} schema.
  *
@@ -29,6 +31,6 @@ class Promotion_PersistenceIT
         extends _Entity_PersistenceIT<Promotion, Integer> {
 
     Promotion_PersistenceIT() {
-        super(Promotion.class, Integer.class);
+        super(Promotion.class, Integer.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

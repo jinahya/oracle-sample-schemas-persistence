@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +36,7 @@ class EmpDetailsView_PersistenceIT
         extends _Entity_PersistenceIT<EmpDetailsView, Integer> {
 
     EmpDetailsView_PersistenceIT() {
-        super(EmpDetailsView.class, Integer.class);
+        super(EmpDetailsView.class, Integer.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 
     // ---------------------------------------------------------------------------------------------

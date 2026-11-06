@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.persistence.sh;
+package com.github.jinahya.oracle.sample.persistence.shared;
 
 /*-
  * #%L
- * sh
+ * oracle-sample-schemas-persistence
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
@@ -37,7 +37,7 @@ import java.util.Objects;
         "java:S101", // Class names should comply with a naming convention
         "java:S118"  // Abstract class names should comply with a naming convention
 })
-abstract class _Entity_Test<T, U>
+public abstract class _Entity_Test<T, U>
         extends __Test<T>
         implements __Object_Test<T> {
 

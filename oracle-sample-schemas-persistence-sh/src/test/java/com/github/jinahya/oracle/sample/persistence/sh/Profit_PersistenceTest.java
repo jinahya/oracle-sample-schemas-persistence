@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  */
 
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.ProfitId;
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +35,7 @@ class Profit_PersistenceTest
         extends _Entity_PersistenceTest<Profit, ProfitId> {
 
     Profit_PersistenceTest() {
-        super(Profit.class, ProfitId.class);
+        super(Profit.class, ProfitId.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME);
     }
 
     // ---------------------------------------------------------------------------------------------

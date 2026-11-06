@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceTest;
+
 /**
  * Persists {@link Customer} instances against the in-memory database.
  *
@@ -29,6 +31,6 @@ class Customer_PersistenceTest
         extends _Entity_PersistenceTest<Customer, Long> {
 
     Customer_PersistenceTest() {
-        super(Customer.class, Long.class);
+        super(Customer.class, Long.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

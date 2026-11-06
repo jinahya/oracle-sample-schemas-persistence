@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
+
 /**
  * Verifies the mappings of {@link Inventory} against the installed {@code CO} schema.
  *
@@ -30,6 +32,6 @@ class Inventory_PersistenceIT
 
     // ---------------------------------------------------------------------------------------------
     Inventory_PersistenceIT() {
-        super(Inventory.class, Long.class);
+        super(Inventory.class, Long.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

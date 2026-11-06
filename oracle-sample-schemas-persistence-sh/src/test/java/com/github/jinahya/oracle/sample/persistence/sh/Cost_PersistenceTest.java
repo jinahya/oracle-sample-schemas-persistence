@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  */
 
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.CostId;
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceTest;
 
 /**
  * Verifies the mappings of {@link Cost} against the schema generated into the in-memory database.
@@ -31,6 +32,6 @@ class Cost_PersistenceTest
         extends _Entity_PersistenceTest<Cost, CostId> {
 
     Cost_PersistenceTest() {
-        super(Cost.class, CostId.class);
+        super(Cost.class, CostId.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

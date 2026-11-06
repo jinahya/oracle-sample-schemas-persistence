@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.co;
  */
 
 import com.github.jinahya.object.randomizer.ObjectRandomizerUtils;
+import com.github.jinahya.oracle.sample.persistence.shared.__Object_Test;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

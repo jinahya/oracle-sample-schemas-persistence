@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceTest;
 import java.time.LocalDateTime;
 
 /**
@@ -31,6 +32,6 @@ class Time_PersistenceTest
         extends _Entity_PersistenceTest<Time, LocalDateTime> {
 
     Time_PersistenceTest() {
-        super(Time.class, LocalDateTime.class);
+        super(Time.class, LocalDateTime.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

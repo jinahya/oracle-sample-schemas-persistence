@@ -20,6 +20,8 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceTest;
+
 /**
  * Verifies the mappings of {@link Product} against the schema generated into the in-memory
  * database.
@@ -30,6 +32,6 @@ class Product_PersistenceTest
         extends _Entity_PersistenceTest<Product, Integer> {
 
     Product_PersistenceTest() {
-        super(Product.class, Integer.class);
+        super(Product.class, Integer.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

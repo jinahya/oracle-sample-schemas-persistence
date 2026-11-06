@@ -21,6 +21,8 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
+
 /**
  * Verifies the mappings of {@link Shipment} against the installed {@code CO} schema.
  *
@@ -30,6 +32,6 @@ class Shipment_PersistenceIT
         extends _Entity_PersistenceIT<Shipment, Long> {
 
     Shipment_PersistenceIT() {
-        super(Shipment.class, Long.class);
+        super(Shipment.class, Long.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

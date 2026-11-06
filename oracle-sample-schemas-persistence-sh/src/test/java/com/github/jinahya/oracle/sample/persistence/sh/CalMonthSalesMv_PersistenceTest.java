@@ -20,6 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceTest;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +34,7 @@ class CalMonthSalesMv_PersistenceTest
         extends _Entity_PersistenceTest<CalMonthSalesMv, String> {
 
     CalMonthSalesMv_PersistenceTest() {
-        super(CalMonthSalesMv.class, String.class);
+        super(CalMonthSalesMv.class, String.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME);
     }
 
     // ---------------------------------------------------------------------------------------------

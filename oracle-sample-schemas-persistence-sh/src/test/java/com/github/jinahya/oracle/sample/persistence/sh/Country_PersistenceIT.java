@@ -1,5 +1,6 @@
 package com.github.jinahya.oracle.sample.persistence.sh;
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -40,7 +41,7 @@ class Country_PersistenceIT
 
     // ---------------------------------------------------------------------------------------------
     Country_PersistenceIT() {
-        super(Country.class, Long.class);
+        super(Country.class, Long.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 
     // ---------------------------------------------------------------------------------------------

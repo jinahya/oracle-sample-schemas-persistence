@@ -167,6 +167,29 @@
           </execution>
         </executions>
       </plugin>
+      <!--
+        The test bases every schema module shares, in the project root's src/test-shared/java; each module compiles
+        them into its own test classes. maven.multiModuleProjectDirectory is the directory holding .mvn, the
+        project root, wherever the build is started from.
+      -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-shared-test-source</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>${maven.multiModuleProjectDirectory}/src/test-shared/java</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 

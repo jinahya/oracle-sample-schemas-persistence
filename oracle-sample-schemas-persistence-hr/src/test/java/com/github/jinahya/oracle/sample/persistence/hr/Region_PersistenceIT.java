@@ -21,6 +21,8 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
+
 /**
  * Verifies the mappings of {@link Region} against the installed {@code HR} schema.
  *
@@ -30,6 +32,6 @@ class Region_PersistenceIT
         extends _Entity_PersistenceIT<Region, Long> {
 
     Region_PersistenceIT() {
-        super(Region.class, Long.class);
+        super(Region.class, Long.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.co;
  */
 
 import com.github.jinahya.oracle.sample.persistence.co.mapped.ProductDetails;
+import com.github.jinahya.oracle.sample.persistence.shared._NonEntity_Test;
 
 /**
  * A class for testing the {@link ProductDetails} class.

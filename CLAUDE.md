@@ -10,8 +10,8 @@ one Maven module per schema -- `oracle-sample-schemas-persistence-co`, `-hr` and
 directory of the same name and referred to below by its schema (`co`, `hr`, `sh`). The three depend on
 `oracle-sample-schemas-persistence-common`, which holds what they share (as in the sibling
 `sqlserver-samples-persistence`), and on nothing else of each other; its version is managed in the root
-`<dependencyManagement>` as `${project.version}`. Their tests stay independent: each carries its own test bases
-in its own test package.
+`<dependencyManagement>` as `${project.version}`. Their test bases are shared as sources, not as a module:
+see § Test bases, shared as sources.
 
 `common` holds, in `common.annotation`, `SOURCE`-retention annotations that document what the DDL declares beyond
 the mapping (`@OraTrigger`, `@OraStorage`, `@OraMaterializedView`, `@OraIdentity`), so the schema modules read it
@@ -175,11 +175,17 @@ module's `persistence.xml` names its own. Were all three at `META-INF/orm-it.xml
 resolve every unit's `<mapping-file>` to the first copy found, and two of the three modules' ITs
 would look for their tables in the wrong schema.
 
-### Test bases, one copy per module
+### Test bases, shared as sources
 
-There is no shared test module, and no CDI. Each module has, in its own test package, its own test
-bases and the helpers `__PersistenceTest_Utils` / `__PersistenceIT_Utils`, `___Persistence_TestUtils`
-and `___Validation_TestUtils`. The bases are one root and four siblings, none of which
+There is no shared test module, and no CDI. As in the sibling `jinahya-persistence`, the test bases and
+the helpers `___Persistence_TestUtils` and `___Validation_TestUtils` live once, in the project root's
+`src/test-shared/java`, package `com.github.jinahya.oracle.sample.persistence.shared`, and each schema
+module adds that directory as a test source root (`build-helper:add-test-source`, execution
+`add-shared-test-source`, on `${maven.multiModuleProjectDirectory}/src/test-shared/java`) and compiles it
+into its own test classes; `common` does not. What is particular to a module stays in its own test
+package: the helpers `__PersistenceTest_Utils` / `__PersistenceIT_Utils`, which hold its unit names, and
+`co`'s JSON and Jackson helpers. Since the modules' test classpaths can meet in one JVM, the shared
+sources hold nothing particular to a module. The bases are one root and four siblings, none of which
 extends another, plus one interface holding the checks:
 
 | base | tests | for |
@@ -195,7 +201,9 @@ A class gets one of `_NonEntity_Test` / `_Entity_Test`, and an entity also gets 
 
 The three `_Entity_*` bases take the class of the identifier too, as `U` and a constructor's
 `Class<U> idClass`: the id class (`JobHistoryId`), the `@EmbeddedId`'s type (`OrderItemId`), or the
-`@Id`'s (`Long`); a keyless view, which has none, passes `Void`.
+`@Id`'s (`Long`); a keyless view, which has none, passes `Void`. The two persistence bases also take
+the unit's name, which each subclass passes from its module's helper:
+`super(Customer.class, Long.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME)`.
 
 The checks live in `__Object_Test` as `@Test` default methods -- JUnit Jupiter discovers tests on
 an interface's default methods -- and `_NonEntity_Test` and `_Entity_Test` implement it;
@@ -214,8 +222,9 @@ takes the factory from `JinahyaPersistenceTestUtils.applyCachedEntityManagerFact
 whole run, closed when the virtual machine shuts down. The H2 schema of a `<schema>-test` unit is therefore
 generated once per run, not once per test class, so a row a test commits is seen by the tests after it.
 
-The persistence bases hold no entity manager, and no wrapper of their own. A test, in a base or in a
-subclass, takes the factory from its unit's helper and goes through the jinahya library directly, one
+The persistence bases hold no entity manager. A base takes the factory of the unit it was given, through
+a `private` `applyEntityManagerFactory` / `applyEntityManager_` of its own; a subclass takes it from its
+unit's helper. Either goes through the jinahya library directly, one
 entity manager per call:
 
 ```java
@@ -243,9 +252,6 @@ rolled-back transaction. That needs `version.jinahya-persistence` 0.6.11 or late
 `jinahya-persistence-test-utils` itself, at `test` scope, and has `-more` and `-utils` from `common`. `___Validation_TestUtils`
 holds a validator factory, built once per run, and `validate` / `assertValid`; Hibernate Validator and
 Expressly are each module's own `test` dependencies, not the root's.
-
-The copies are kept in step by hand: a fix to one module's test base is carried to the other two,
-unless it is specific to that module.
 
 Every persistence unit carries `<exclude-unlisted-classes>true</exclude-unlisted-classes>`,
 and it stays: the unit lists exactly the classes it means, and the flag keeps anything else out.

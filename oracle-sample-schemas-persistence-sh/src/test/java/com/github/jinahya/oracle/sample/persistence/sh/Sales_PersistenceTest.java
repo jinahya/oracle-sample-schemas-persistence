@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  */
 
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.SalesId;
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceTest;
 
 /**
  * Verifies the mappings of {@link Sales} against the schema generated into the in-memory database.
@@ -31,6 +32,6 @@ class Sales_PersistenceTest
         extends _Entity_PersistenceTest<Sales, SalesId> {
 
     Sales_PersistenceTest() {
-        super(Sales.class, SalesId.class);
+        super(Sales.class, SalesId.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

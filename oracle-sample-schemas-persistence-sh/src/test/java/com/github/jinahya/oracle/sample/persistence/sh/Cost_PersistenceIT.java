@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  */
 
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.CostId;
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
 
 /**
  * Verifies the mappings of {@link Cost} against the installed {@code SH} schema.
@@ -31,6 +32,6 @@ class Cost_PersistenceIT
         extends _Entity_PersistenceIT<Cost, CostId> {
 
     Cost_PersistenceIT() {
-        super(Cost.class, CostId.class);
+        super(Cost.class, CostId.class, __PersistenceIT_Utils.PERSISTENCE_UNIT_NAME);
     }
 }

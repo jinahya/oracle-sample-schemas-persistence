@@ -22,6 +22,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
 
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.PromotionNamedId;
 import com.github.jinahya.oracle.sample.persistence.sh.mapped.PromotionNamedId_TestAccess;
+import com.github.jinahya.oracle.sample.persistence.shared._NonEntity_Test;
 import nl.jqno.equalsverifier.api.SingleTypeEqualsVerifierApi;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

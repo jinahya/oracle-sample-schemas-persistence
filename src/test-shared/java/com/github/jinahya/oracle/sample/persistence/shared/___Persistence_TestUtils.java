@@ -1,8 +1,8 @@
-package com.github.jinahya.oracle.sample.persistence.co;
+package com.github.jinahya.oracle.sample.persistence.shared;
 
 /*-
  * #%L
- * co
+ * oracle-sample-schemas-persistence
  * %%
  * Copyright (C) 2024 - 2026 Jinahya, Inc.
  * %%
@@ -38,9 +38,9 @@ import static com.github.jinahya.persistence.util.JinahyaEntityManagerFactoryUti
         "java:S101", // Class names should comply with a naming convention
         "java:S1133" // Deprecated code should be removed
 })
-final class ___Persistence_TestUtils {
+public final class ___Persistence_TestUtils {
 
-    static <T, R> R selectRandomEntityInstance(
+    public static <T, R> R selectRandomEntityInstance(
             final EntityManagerFactory entityManagerFactory,
             final Class<T> entityClass,
             final BiFunction<? super EntityManager, ? super T, ? extends R> function) {

@@ -21,6 +21,8 @@ package com.github.jinahya.oracle.sample.persistence.hr;
  * #L%
  */
 
+import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceTest;
+
 /**
  * Verifies the mappings of {@link Region} against the schema generated into the in-memory
  * database.
@@ -31,6 +33,6 @@ class Region_PersistenceTest
         extends _Entity_PersistenceTest<Region, Long> {
 
     Region_PersistenceTest() {
-        super(Region.class, Long.class);
+        super(Region.class, Long.class, __PersistenceTest_Utils.PERSISTENCE_UNIT_NAME);
     }
 }
