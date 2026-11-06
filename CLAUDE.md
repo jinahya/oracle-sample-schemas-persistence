@@ -401,7 +401,7 @@ the weaving are told by `jinahya-persistence-test-utils`, not by hand: `JinahyaP
 (`isEclipseLink()`, `isHibernateOrm()`, `isWovenByEclipseLink(Class)`) where the test has to decide itself, and the
 JUnit conditions of its `condition` package (`@EnabledOnEclipseLink` / `@DisabledOnEclipseLink`,
 `@EnabledOnHibernateOrm` / `@DisabledOnHibernateOrm`, `@DisabledIfWovenByEclipseLink`,
-`@DisabledOnUnwovenEclipseLink`) where an annotation can. The book's `PERSISTENCE_PROVIDERS.asciidoc` (EclipseLink, Weaving) has the background.
+`@DisabledOnUnwovenEclipseLink`) where an annotation can. `../PERSISTENCE_PROVIDERS.asciidoc` (EclipseLink, Weaving) has the background.
 
 Which half of a `verify` run executes is chosen by two separate flags, because **as of
 maven-failsafe-plugin 3.6.0 failsafe no longer binds its own `skipTests` parameter to the

@@ -464,6 +464,26 @@
       </plugins>
     </pluginManagement>
     <plugins>
+      <!-- src/test/java-exercises holds the tests that answer the exercises of src/test/sql-exercises, a class per
+           .sql file; src/test/java keeps to the persistence tests. -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-exercises-test-source</id>
+            <phase>generate-test-sources</phase>
+            <goals>
+              <goal>add-test-source</goal>
+            </goals>
+            <configuration>
+              <sources>
+                <source>src/test/java-exercises</source>
+              </sources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -821,7 +841,7 @@
            which weaves the entities as they are loaded, so EclipseLink honours LAZY on a basic attribute and on a
            to-one association, and an entity graph naming one is accepted. Nothing on disk is rewritten; the classes
            under target/ and the jars stay unwoven. jacoco:prepare-agent appends its own agent to the same argLine.
-           See the book's PERSISTENCE_PROVIDERS.asciidoc, EclipseLink, Weaving. -->
+           See PERSISTENCE_PROVIDERS.asciidoc of jakarta-persistence-applied-book-projects, EclipseLink, Weaving. -->
       <properties>
         <argLine>-javaagent:${settings.localRepository}/org/eclipse/persistence/org.eclipse.persistence.jpa/${version.org.eclipse.persistence}/org.eclipse.persistence.jpa-${version.org.eclipse.persistence}.jar</argLine>
         <eclipselink.woven>true</eclipselink.woven>

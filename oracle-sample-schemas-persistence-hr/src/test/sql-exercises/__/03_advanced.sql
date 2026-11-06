@@ -1,0 +1,128 @@
+-- #%L
+-- hr
+-- %%
+-- Copyright (C) 2024 - 2026 Jinahya, Inc.
+-- %%
+-- Licensed under the Apache License, Version 2.0 (the "License");
+-- you may not use this file except in compliance with the License.
+-- You may obtain a copy of the License at
+--
+--      http://www.apache.org/licenses/LICENSE-2.0
+--
+-- Unless required by applicable law or agreed to in writing, software
+-- distributed under the License is distributed on an "AS IS" BASIS,
+-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-- See the License for the specific language governing permissions and
+-- limitations under the License.
+-- #L%
+---
+--
+-- Exercises on the whole schema, a problem per query that reads more than one table or view, at the advanced level.
+--
+-- These are the advanced SQL solutions of the 'Whole schema' section of EXERCISES.asciidoc, which also states each
+-- problem in full and gives its JPQL solutions and notes. Each problem below repeats the request it answers.
+--
+-- Parameters are bind variables (:name); the IDE or SQL*Plus prompts for them when a statement runs.
+--
+-- Problems that join, or subquery, more than one table.
+--
+
+
+-- ------------------------------------------------------------------------------------------------------ HR_SCHEMA_A_01
+-- Internal mobility wants every earlier position held in a department other than the employee's current one: who moved,
+-- from where, to where.
+SELECT h.EMPLOYEE_ID,
+       h.START_DATE,
+       h.END_DATE,
+       h.JOB_ID,
+       h.DEPARTMENT_ID AS FROM_DEPARTMENT,
+       e.DEPARTMENT_ID AS TO_DEPARTMENT
+FROM JOB_HISTORY h
+         JOIN EMPLOYEES e ON e.EMPLOYEE_ID = h.EMPLOYEE_ID
+WHERE h.DEPARTMENT_ID <> e.DEPARTMENT_ID
+ORDER BY h.EMPLOYEE_ID ASC, h.START_DATE ASC
+;
+
+
+-- ------------------------------------------------------------------------------------------------------ HR_SCHEMA_A_02
+-- An employee asks HR for their record: every position they have held, the current one included, in date order. The
+-- schema records no start for the current position, so the exercise infers one: the day after the last `END_DATE` of
+-- the history, which the trigger writes when the job changes, or `HIRE_DATE` if there is none; the current one, with no
+-- end, comes last on a tie.
+SELECT h.START_DATE, h.END_DATE, h.JOB_ID, j.JOB_TITLE, h.DEPARTMENT_ID
+FROM JOB_HISTORY h
+         JOIN JOBS j ON j.JOB_ID = h.JOB_ID
+WHERE h.EMPLOYEE_ID = :employeeId
+UNION ALL
+SELECT COALESCE((SELECT TRUNC(MAX(h2.END_DATE)) + 1 FROM JOB_HISTORY h2 WHERE h2.EMPLOYEE_ID = e.EMPLOYEE_ID), e.HIRE_DATE),
+       NULL,
+       e.JOB_ID,
+       j.JOB_TITLE,
+       e.DEPARTMENT_ID
+FROM EMPLOYEES e
+         JOIN JOBS j ON j.JOB_ID = e.JOB_ID
+WHERE e.EMPLOYEE_ID = :employeeId
+ORDER BY 1 ASC, 2 ASC NULLS LAST
+;
+
+
+-- ------------------------------------------------------------------------------------------------------ HR_SCHEMA_A_03
+-- HR wants the employees whose current job is one they held before — boomerangs within the company.
+SELECT EMPLOYEE_ID, JOB_ID
+FROM JOB_HISTORY
+INTERSECT
+SELECT EMPLOYEE_ID, JOB_ID
+FROM EMPLOYEES
+ORDER BY 1
+;
+
+
+-- ------------------------------------------------------------------------------------------------------ HR_SCHEMA_A_04
+-- Facilities is reviewing the property list: which locations host no department at all, by `LOCATION_ID`? `MINUS` takes
+-- away the rows of the second query; it promises no order, so the query states one.
+SELECT LOCATION_ID
+FROM LOCATIONS
+MINUS
+SELECT LOCATION_ID
+FROM DEPARTMENTS
+ORDER BY 1 ASC
+;
+
+
+-- ------------------------------------------------------------------------------------------------------ HR_SCHEMA_A_05
+-- The intranet's site page shows, for one location, each department and its staff, the empty departments included, the
+-- staff by last name, first name and `EMPLOYEE_ID`. Loading the departments and then each one's employees is the N+1
+-- problem; the page needs a single query, with each column named once.
+SELECT d.DEPARTMENT_ID, d.DEPARTMENT_NAME, e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, e.JOB_ID
+FROM DEPARTMENTS d
+         LEFT JOIN EMPLOYEES e ON e.DEPARTMENT_ID = d.DEPARTMENT_ID
+WHERE d.LOCATION_ID = :locationId
+ORDER BY d.DEPARTMENT_ID ASC, e.LAST_NAME ASC, e.FIRST_NAME ASC NULLS FIRST, e.EMPLOYEE_ID ASC
+;
+
+
+-- ------------------------------------------------------------------------------------------------------ HR_SCHEMA_A_06
+-- An employee's request for leave has to be approved all the way up. Given the employee, list them and every manager
+-- above them, with job titles, up to the president.
+SELECT LEVEL - 1 AS STEPS_UP, e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, j.JOB_TITLE
+FROM EMPLOYEES e
+         JOIN JOBS j ON j.JOB_ID = e.JOB_ID
+    START
+WITH e.EMPLOYEE_ID = :employeeId
+CONNECT BY e.EMPLOYEE_ID = PRIOR e.MANAGER_ID
+ORDER BY STEPS_UP ASC
+;
+
+
+-- ------------------------------------------------------------------------------------------------------ HR_SCHEMA_A_07
+-- The intranet's department index shows each department with its headcount and its staff's last names on one line,
+-- alphabetically. `LISTAGG ... WITHIN GROUP (ORDER BY ...)` joins the names in order.
+SELECT d.DEPARTMENT_ID,
+       d.DEPARTMENT_NAME,
+       COUNT(*)                                                                          AS HEADCOUNT,
+       LISTAGG(e.LAST_NAME, ', ') WITHIN GROUP (ORDER BY e.LAST_NAME, e.EMPLOYEE_ID) AS STAFF
+FROM DEPARTMENTS d
+         JOIN EMPLOYEES e ON e.DEPARTMENT_ID = d.DEPARTMENT_ID
+GROUP BY d.DEPARTMENT_ID, d.DEPARTMENT_NAME
+ORDER BY d.DEPARTMENT_ID ASC
+;
