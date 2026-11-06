@@ -268,7 +268,7 @@ The enum is an `AttributeEnum.OfString` whose attribute value is its `COLUMN_VAL
 (`IN_TRANSIT` is `IN-TRANSIT`), and the converter, nested in `MappedShipment`, an
 `AttributeEnumConverter.OfString`, of `jinahya-persistence-more`.
 The converter redeclares `implements AttributeConverter<ShipmentStatus, String>`: EclipseLink 5.0 otherwise drops
-the `@Convert` without a word; see the book's `PERSISTENCE_PROVIDERS.asciidoc`.
+the `@Convert` without a word; see `../PERSISTENCE_PROVIDERS.asciidoc`.
 
 | `CO.CUSTOMER_ORDER_PRODUCTS.ORDER_STATUS`, `CO.PRODUCT_ORDERS.ORDER_STATUS`, `CO.STORE_ORDERS.ORDER_STATUS`
 | `String`
@@ -281,7 +281,7 @@ hold `NULL`, which an enum attribute reads as `null`.
 
 `ShipmentStatus`'s `Shipment_ShipmentStatus_Test` and its converter's `Shipment_ShipmentStatusConverter_Test` are
 `jinahya-persistence-more-test`'s `AttributeEnum_Test.OfStringTest` and `AttributeEnumConverter_Test.OfStringTest`;
-the first pins the column values to `shipment_status_c` through `expectedAttributeValues()`.
+the first also pins the column values to the text of `shipment_status_c`.
 
 [[converters]]
 == Converters

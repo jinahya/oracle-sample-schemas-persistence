@@ -25,15 +25,12 @@ import com.github.jinahya.oracle.sample.persistence.co.mapped.MappedShipment.Shi
 import com.github.jinahya.persistence.more.test.AttributeEnum_Test;
 import org.junit.jupiter.api.Test;
 
-import java.util.Set;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests {@link ShipmentStatus}, the enum of the {@value MappedShipment#COLUMN_NAME_SHIPMENT_STATUS}
  * column, on the base of {@code jinahya-persistence-more-test}, which checks that no constant has a
- * {@code null} column value, that no two share one, that each is found by its own, and that they are
- * the {@link #expectedAttributeValues() expected ones}.
+ * {@code null} column value and that no two share one.
  */
 class Shipment_ShipmentStatus_Test
         extends AttributeEnum_Test.OfStringTest<ShipmentStatus> {
@@ -43,21 +40,7 @@ class Shipment_ShipmentStatus_Test
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * @return the values the {@code shipment_status_c} constraint allows.
-     */
-    @Override
-    protected Set<String> expectedAttributeValues() {
-        return Set.of(MappedShipment.COLUMN_VALUE_SHIPMENT_STATUS_CREATED,
-                      MappedShipment.COLUMN_VALUE_SHIPMENT_STATUS_SHIPPED,
-                      MappedShipment.COLUMN_VALUE_SHIPMENT_STATUS_IN_TRANSIT,
-                      MappedShipment.COLUMN_VALUE_SHIPMENT_STATUS_DELIVERED);
-    }
-
-    /**
-     * Verifies that the column values are the constraint's own text, not only the constants of
-     * {@link MappedShipment} which {@link #expectedAttributeValues()} names.
+     * Verifies that the column values are the constraint's own text.
      */
     @Test
     void attributeValue_ConstraintText_Each() {
