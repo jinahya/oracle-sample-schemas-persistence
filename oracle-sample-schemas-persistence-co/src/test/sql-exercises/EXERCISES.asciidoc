@@ -104,8 +104,6 @@ WHERE INSTR(email_address, '@') <= 1
 ORDER BY full_name, customer_id
 ----
 
-// NOT YET RUN
-
 [source,jpaql]
 ----
 SELECT c
@@ -308,8 +306,6 @@ FROM inventory
 WHERE product_inventory < 0
 ORDER BY product_inventory, store_id, product_id
 ----
-
-// NOT YET RUN
 
 
 === Intermediate
@@ -723,8 +719,6 @@ HAVING MIN(line_item_id) <> 1
 ORDER BY order_id
 ----
 
-// NOT YET RUN
-
 
 === Advanced
 
@@ -900,8 +894,6 @@ HAVING COUNT(*) > 1
 ORDER BY product_name
 ----
 
-// NOT YET RUN
-
 
 === Advanced
 
@@ -921,8 +913,6 @@ FROM (SELECT product_id, product_name, unit_price
       FETCH FIRST 10 ROWS WITH TIES)
 ORDER BY unit_price DESC, product_id
 ----
-
-// NOT YET RUN
 
 [source,jpaql]
 ----
@@ -1276,8 +1266,6 @@ FROM stores
 ORDER BY store_name
 ----
 
-// NOT YET RUN
-
 [source,jpaql]
 ----
 SELECT s.storeName, REPLACE(s.storeName, ' ', '-'), UPPER(RIGHT(s.storeName, 4))
@@ -1316,8 +1304,6 @@ FROM (SELECT d.*, RANK() OVER (PARTITION BY store_id ORDER BY km) AS rnk FROM di
 WHERE rnk = 1
 ORDER BY store_name, nearest_store
 ----
-
-// NOT YET RUN
 
 [source,jpaql]
 ----
@@ -1409,8 +1395,6 @@ WHERE st.total = 'STORE TOTAL'
 GROUP BY st.store_name
 ORDER BY pct_of_store DESC NULLS LAST, st.store_name
 ----
-
-// NOT YET RUN
 
 All three figures come from the one view: the detail rows, the store's `STORE TOTAL` row and the `GRAND TOTAL` row.
 `MAX` only carries the single store and chain totals through the `GROUP BY`. Each reference to the view computes its
@@ -1757,8 +1741,6 @@ GROUP BY o.order_id, o.order_status
 ORDER BY unshipped_lines DESC, o.order_id
 ----
 
-// NOT YET RUN
-
 [source,jpaql]
 ----
 SELECT o.orderId, o.orderStatus, COUNT(oi)
@@ -1786,8 +1768,6 @@ FROM orders o
 WHERE NOT EXISTS (SELECT 1 FROM order_items oi WHERE oi.order_id = o.order_id)
 ORDER BY o.order_tms DESC, o.order_id DESC
 ----
-
-// NOT YET RUN
 
 
 === Advanced
@@ -2188,8 +2168,6 @@ GROUP BY EXTRACT(MONTH FROM o.order_tms)
 ORDER BY order_month
 ----
 
-// NOT YET RUN
-
 [source,jpaql]
 ----
 SELECT o.orderId, o.orderTms, SUM(oi.unitPrice * oi.quantity)
@@ -2280,8 +2258,6 @@ SELECT store_id,
 FROM revenues
 ORDER BY revenue DESC, store_id
 ----
-
-// NOT YET RUN
 
 [source,jpaql]
 ----
@@ -2432,8 +2408,6 @@ FROM (SELECT TRUNC(o.order_tms, 'MM') AS order_month, SUM(oi.unit_price * oi.qua
 ORDER BY order_month
 ----
 
-// NOT YET RUN
-
 
 [[CO_SCHEMA_A_18]]
 ==== CO_SCHEMA_A_18: Shipments that carry nothing
@@ -2447,8 +2421,6 @@ FROM shipments sh
 WHERE NOT EXISTS (SELECT 1 FROM order_items oi WHERE oi.shipment_id = sh.shipment_id)
 ORDER BY sh.shipment_id
 ----
-
-// NOT YET RUN
 
 
 == References
