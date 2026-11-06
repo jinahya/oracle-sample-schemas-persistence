@@ -395,9 +395,13 @@ provider, and is named with it: `./mvnw -Pjakarta-ee-11-eclipselink,jakarta-ee-1
 `eclipselink.woven` to `true` for surefire and failsafe; nothing on disk is rewritten, and the default build stays
 unwoven. Woven, EclipseLink honours `LAZY` on a basic attribute and takes an entity graph naming one; unwoven, it
 fails such a graph with `EclipseLink-6114`, so `co`'s `Product_PersistenceIT.ProductDetailsTest` /
-`ProductImageTest` skip under unwoven EclipseLink. A woven run skips `__Object_Test.equals_verify_` (and
-`Naive_Customer_Test.equals_verify`) for a woven class, which `__Object_Test.isWovenByEclipseLink` tells by
-name: EqualsVerifier fails on the woven getters. The book's `PERSISTENCE_PROVIDERS.asciidoc` (EclipseLink, Weaving) has the background.
+`ProductImageTest` skip under unwoven EclipseLink (`@DisabledOnUnwovenEclipseLink`). A woven run skips `__Object_Test.equals_verify_` (and
+`Naive_Customer_Test.equals_verify`) for a woven class, as EqualsVerifier fails on the woven getters. The provider and
+the weaving are told by `jinahya-persistence-test-utils`, not by hand: `JinahyaPersistenceProviderTestUtils`
+(`isEclipseLink()`, `isHibernateOrm()`, `isWovenByEclipseLink(Class)`) where the test has to decide itself, and the
+JUnit conditions of its `condition` package (`@EnabledOnEclipseLink` / `@DisabledOnEclipseLink`,
+`@EnabledOnHibernateOrm` / `@DisabledOnHibernateOrm`, `@DisabledIfWovenByEclipseLink`,
+`@DisabledOnUnwovenEclipseLink`) where an annotation can. The book's `PERSISTENCE_PROVIDERS.asciidoc` (EclipseLink, Weaving) has the background.
 
 Which half of a `verify` run executes is chosen by two separate flags, because **as of
 maven-failsafe-plugin 3.6.0 failsafe no longer binds its own `skipTests` parameter to the

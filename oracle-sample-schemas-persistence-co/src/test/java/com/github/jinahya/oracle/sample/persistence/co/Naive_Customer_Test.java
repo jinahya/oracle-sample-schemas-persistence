@@ -21,13 +21,12 @@ package com.github.jinahya.oracle.sample.persistence.co;
  */
 
 import com.github.jinahya.object.randomizer.ObjectRandomizerUtils;
-import com.github.jinahya.oracle.sample.persistence.shared.__Object_Test;
+import com.github.jinahya.persistence.test.util.condition.DisabledIfWovenByEclipseLink;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 /**
  * A naive test of the {@link Customer} class, written out in full, with no test base.
@@ -56,10 +55,15 @@ class Naive_Customer_Test {
 
     // ----------------------------------------------------------------------------- equals/hashCode
 
+    // woven, the getters equals reads go through EclipseLink, which fails on the instances
+    // EqualsVerifier builds
+    @DisabledIfWovenByEclipseLink(
+            value = "com.github.jinahya.oracle.sample.persistence.co.Customer",
+            disabledReason = "EqualsVerifier fails on the woven getters"
+    )
     @DisplayName("equals/hashCode compare by emailAddress only")
     @Test
     void equals_verify() {
-        assumeFalse(__Object_Test.isWovenByEclipseLink(Customer.class), "woven by EclipseLink");
         EqualsVerifier.simple().forClass(Customer.class)
                 .withOnlyTheseFields(Customer.ATTRIBUTE_NAME_EMAIL_ADDRESS)
                 .verify();

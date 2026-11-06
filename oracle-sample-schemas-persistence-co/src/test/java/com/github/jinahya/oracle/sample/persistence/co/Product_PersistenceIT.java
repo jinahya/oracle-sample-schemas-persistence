@@ -22,7 +22,8 @@ package com.github.jinahya.oracle.sample.persistence.co;
 
 import com.github.jinahya.oracle.sample.persistence.co.mapped.ProductDetails;
 import com.github.jinahya.oracle.sample.persistence.shared._Entity_PersistenceIT;
-import com.github.jinahya.oracle.sample.persistence.shared.__Object_Test;
+import com.github.jinahya.persistence.test.util.JinahyaPersistenceProviderTestUtils;
+import com.github.jinahya.persistence.test.util.condition.DisabledOnUnwovenEclipseLink;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.PersistenceException;
@@ -75,22 +76,6 @@ class Product_PersistenceIT
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Assumes that the specified factory's provider can take an entity graph which names a basic
-     * attribute: EclipseLink takes one as a fetch group, which needs a fetch group manager, and
-     * has one only for a class it wove (it fails with {@code EclipseLink-6114} otherwise).
-     *
-     * @param entityManagerFactory the factory.
-     */
-    private void assumeEntityGraphOfBasicAttribute(final EntityManagerFactory entityManagerFactory) {
-        assumeTrue(
-                !entityManagerFactory.getClass().getName().startsWith("org.eclipse.persistence.")
-                || __Object_Test.isWovenByEclipseLink(targetClass),
-                "EclipseLink takes an entity graph only for a woven class; run it woven with " +
-                "-Pjakarta-ee-11-eclipselink,jakarta-ee-11-eclipselink-weaving"
-        );
-    }
-
-    /**
      * Selects the identifier of a random product, and aborts the test when there is none.
      *
      * @return the identifier of a random product.
@@ -120,6 +105,15 @@ class Product_PersistenceIT
     @Nested
     class ProductDetailsTest {
 
+        // EclipseLink takes an entity graph which names a basic attribute as a fetch group, which
+        // needs a fetch group manager, and has one only for a class it wove (it fails with
+        // EclipseLink-6114 otherwise)
+        @DisabledOnUnwovenEclipseLink(
+                value = "com.github.jinahya.oracle.sample.persistence.co.Product",
+                disabledReason = "EclipseLink takes an entity graph only for a woven class; run it" +
+                                 " woven with" +
+                                 " -Pjakarta-ee-11-eclipselink,jakarta-ee-11-eclipselink-weaving"
+        )
         @DisplayName(
                 "the named entity graph loads the lazy productDetails, a ProductDetails document")
         @Test
@@ -131,7 +125,6 @@ class Product_PersistenceIT
                 id = optional.get();
             }
             final var found = applyEntityManagerInTransactionAndRollback_(emf -> em -> {
-                assumeEntityGraphOfBasicAttribute(emf);
                 // a JOIN FETCH takes an association only; a lazy basic attribute is fetched with
                 // an entity graph which names it
                 final var properties = Map.<String, Object>of(
@@ -248,7 +241,8 @@ class Product_PersistenceIT
             });
             // woven, EclipseLink honours LAZY; unwoven, and Hibernate ORM without bytecode
             // enhancement, read the attribute with the entity
-            assertThat(loaded).isEqualTo(!__Object_Test.isWovenByEclipseLink(targetClass));
+            assertThat(loaded).isEqualTo(
+                    !JinahyaPersistenceProviderTestUtils.isWovenByEclipseLink(targetClass));
         }
     }
 
@@ -257,6 +251,15 @@ class Product_PersistenceIT
     @Nested
     class ProductImageTest {
 
+        // EclipseLink takes an entity graph which names a basic attribute as a fetch group, which
+        // needs a fetch group manager, and has one only for a class it wove (it fails with
+        // EclipseLink-6114 otherwise)
+        @DisabledOnUnwovenEclipseLink(
+                value = "com.github.jinahya.oracle.sample.persistence.co.Product",
+                disabledReason = "EclipseLink takes an entity graph only for a woven class; run it" +
+                                 " woven with" +
+                                 " -Pjakarta-ee-11-eclipselink,jakarta-ee-11-eclipselink-weaving"
+        )
         @DisplayName("the named entity graph loads the lazy productImage")
         @Test
         void __() {
@@ -267,7 +270,6 @@ class Product_PersistenceIT
                 id = optional.get();
             }
             final var found = applyEntityManagerInTransactionAndRollback_(emf -> em -> {
-                assumeEntityGraphOfBasicAttribute(emf);
                 // a JOIN FETCH takes an association only; a lazy basic attribute is fetched with
                 // an entity graph which names it
                 final var properties = Map.<String, Object>of(
