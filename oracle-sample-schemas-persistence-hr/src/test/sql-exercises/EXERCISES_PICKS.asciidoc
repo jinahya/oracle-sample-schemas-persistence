@@ -56,7 +56,7 @@ A few things to keep in mind while reading the JPQL:
 
 // AI: Pick HR_COUNTRIES_B_01: A string-identifier lookup.
 // AI: Copied from EXERCISES.asciidoc:34, anchor HR_COUNTRIES_B_01; retain the permanent ID when revising.
-// AI: Registry: section=COUNTRIES; tier=Basic; sql=src/test/sql-exercises/COUNTRIES/01_basic.sql; test=Countries_Exercises_01_Basic_PersistenceIT.HR_COUNTRIES_B_01_Test.
+// AI: Registry: section=COUNTRIES; tier=Basic; sql=src/test/sql-exercises/COUNTRIES/01_basic.sql; test=hr.countries.HR_COUNTRIES_B_01_PersistenceIT.
 [[HR_COUNTRIES_B_01]]
 ==== HR_COUNTRIES_B_01: Country by code
 
@@ -78,7 +78,7 @@ WHERE c.countryId = :countryId
 
 // AI: Pick HR_COUNTRIES_B_02: Filter countries by the region association.
 // AI: Copied from EXERCISES.asciidoc:53, anchor HR_COUNTRIES_B_02; retain the permanent ID when revising.
-// AI: Registry: section=COUNTRIES; tier=Basic; sql=src/test/sql-exercises/COUNTRIES/01_basic.sql; test=Countries_Exercises_01_Basic_PersistenceIT.HR_COUNTRIES_B_02_Test.
+// AI: Registry: section=COUNTRIES; tier=Basic; sql=src/test/sql-exercises/COUNTRIES/01_basic.sql; test=hr.countries.HR_COUNTRIES_B_02_PersistenceIT.
 [[HR_COUNTRIES_B_02]]
 ==== HR_COUNTRIES_B_02: Countries of a region
 
@@ -108,7 +108,7 @@ ORDER BY c.countryName ASC
 
 // AI: Pick HR_COUNTRIES_I_01: Group by a foreign-key role.
 // AI: Copied from EXERCISES.asciidoc:99, anchor HR_COUNTRIES_I_01; retain the permanent ID when revising.
-// AI: Registry: section=COUNTRIES; tier=Intermediate; sql=src/test/sql-exercises/COUNTRIES/02_intermediate.sql; test=Countries_Exercises_02_Intermediate_PersistenceIT.HR_COUNTRIES_I_01_Test.
+// AI: Registry: section=COUNTRIES; tier=Intermediate; sql=src/test/sql-exercises/COUNTRIES/02_intermediate.sql; test=hr.countries.HR_COUNTRIES_I_01_PersistenceIT.
 [[HR_COUNTRIES_I_01]]
 ==== HR_COUNTRIES_I_01: Countries per region
 
@@ -139,7 +139,7 @@ own, with a null id — none does in the installed data.
 
 // AI: Pick HR_COUNTRIES_A_01: HAVING compares group size with an aggregate subquery.
 // AI: Copied from EXERCISES.asciidoc:125, anchor HR_COUNTRIES_A_01; retain the permanent ID when revising.
-// AI: Registry: section=COUNTRIES; tier=Advanced; sql=src/test/sql-exercises/COUNTRIES/03_advanced.sql; test=Countries_Exercises_03_Advanced_PersistenceIT.HR_COUNTRIES_A_01_Test.
+// AI: Registry: section=COUNTRIES; tier=Advanced; sql=src/test/sql-exercises/COUNTRIES/03_advanced.sql; test=hr.countries.HR_COUNTRIES_A_01_PersistenceIT.
 [[HR_COUNTRIES_A_01]]
 ==== HR_COUNTRIES_A_01: Regions above the average size
 
@@ -176,7 +176,7 @@ Oracle's `+/+` never truncates.
 
 // AI: Pick HR_DEPARTMENTS_B_01: Filter departments by the location association.
 // AI: Copied from EXERCISES.asciidoc:156, anchor HR_DEPARTMENTS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=DEPARTMENTS; tier=Basic; sql=src/test/sql-exercises/DEPARTMENTS/01_basic.sql; test=Departments_Exercises_01_Basic_PersistenceIT.HR_DEPARTMENTS_B_01_Test.
+// AI: Registry: section=DEPARTMENTS; tier=Basic; sql=src/test/sql-exercises/DEPARTMENTS/01_basic.sql; test=hr.departments.HR_DEPARTMENTS_B_01_PersistenceIT.
 [[HR_DEPARTMENTS_B_01]]
 ==== HR_DEPARTMENTS_B_01: Departments in a building
 
@@ -208,7 +208,7 @@ ORDER BY d.departmentId ASC
 
 // AI: Pick HR_DEPARTMENTS_B_02: A nullable manager association.
 // AI: Copied from EXERCISES.asciidoc:185, anchor HR_DEPARTMENTS_B_02; retain the permanent ID when revising.
-// AI: Registry: section=DEPARTMENTS; tier=Basic; sql=src/test/sql-exercises/DEPARTMENTS/01_basic.sql; test=Departments_Exercises_01_Basic_PersistenceIT.HR_DEPARTMENTS_B_02_Test.
+// AI: Registry: section=DEPARTMENTS; tier=Basic; sql=src/test/sql-exercises/DEPARTMENTS/01_basic.sql; test=hr.departments.HR_DEPARTMENTS_B_02_PersistenceIT.
 [[HR_DEPARTMENTS_B_02]]
 ==== HR_DEPARTMENTS_B_02: Departments without a manager
 
@@ -241,7 +241,7 @@ under Whole schema).
 
 // AI: Pick HR_DEPARTMENTS_I_01: Count departments by location.
 // AI: Copied from EXERCISES.asciidoc:211, anchor HR_DEPARTMENTS_I_01; retain the permanent ID when revising.
-// AI: Registry: section=DEPARTMENTS; tier=Intermediate; sql=src/test/sql-exercises/DEPARTMENTS/02_intermediate.sql; test=Departments_Exercises_02_Intermediate_PersistenceIT.HR_DEPARTMENTS_I_01_Test.
+// AI: Registry: section=DEPARTMENTS; tier=Intermediate; sql=src/test/sql-exercises/DEPARTMENTS/02_intermediate.sql; test=hr.departments.HR_DEPARTMENTS_I_01_PersistenceIT.
 [[HR_DEPARTMENTS_I_01]]
 ==== HR_DEPARTMENTS_I_01: Departments per site
 
@@ -281,7 +281,7 @@ ORDER BY departments DESC, d.location.locationId ASC
 
 // AI: Pick HR_EMPLOYEES_B_01: A unique email lookup of an employee entity.
 // AI: Copied from EXERCISES.asciidoc:295, anchor HR_EMPLOYEES_B_01; retain the permanent ID when revising.
-// AI: Registry: section=EMPLOYEES; tier=Basic; sql=src/test/sql-exercises/EMPLOYEES/01_basic.sql; test=Employees_Exercises_01_Basic_PersistenceIT.HR_EMPLOYEES_B_01_Test.
+// AI: Registry: section=EMPLOYEES; tier=Basic; sql=src/test/sql-exercises/EMPLOYEES/01_basic.sql; test=hr.employees.HR_EMPLOYEES_B_01_PersistenceIT.
 [[HR_EMPLOYEES_B_01]]
 ==== HR_EMPLOYEES_B_01: Look up a colleague by e-mail
 
@@ -306,7 +306,7 @@ address).
 
 // AI: Pick HR_EMPLOYEES_B_02: Navigate the department association and sort a roster.
 // AI: Copied from EXERCISES.asciidoc:317, anchor HR_EMPLOYEES_B_02; retain the permanent ID when revising.
-// AI: Registry: section=EMPLOYEES; tier=Basic; sql=src/test/sql-exercises/EMPLOYEES/01_basic.sql; test=Employees_Exercises_01_Basic_PersistenceIT.HR_EMPLOYEES_B_02_Test.
+// AI: Registry: section=EMPLOYEES; tier=Basic; sql=src/test/sql-exercises/EMPLOYEES/01_basic.sql; test=hr.employees.HR_EMPLOYEES_B_02_PersistenceIT.
 [[HR_EMPLOYEES_B_02]]
 ==== HR_EMPLOYEES_B_02: A department's staff list
 
@@ -341,7 +341,7 @@ The first form takes the id; the second takes a `Department` the caller already 
 
 // AI: Pick HR_EMPLOYEES_B_04: IS NOT NULL on an optional commission value.
 // AI: Copied from EXERCISES.asciidoc:381, anchor HR_EMPLOYEES_B_04; retain the permanent ID when revising.
-// AI: Registry: section=EMPLOYEES; tier=Basic; sql=src/test/sql-exercises/EMPLOYEES/01_basic.sql; test=Employees_Exercises_01_Basic_PersistenceIT.HR_EMPLOYEES_B_04_Test.
+// AI: Registry: section=EMPLOYEES; tier=Basic; sql=src/test/sql-exercises/EMPLOYEES/01_basic.sql; test=hr.employees.HR_EMPLOYEES_B_04_PersistenceIT.
 [[HR_EMPLOYEES_B_04]]
 ==== HR_EMPLOYEES_B_04: Who is on commission
 
@@ -372,7 +372,7 @@ ORDER BY e.commissionPct DESC, e.lastName ASC
 
 // AI: Pick HR_EMPLOYEES_I_01: A scalar AVG subquery on the same entity type.
 // AI: Copied from EXERCISES.asciidoc:534, anchor HR_EMPLOYEES_I_01; retain the permanent ID when revising.
-// AI: Registry: section=EMPLOYEES; tier=Intermediate; sql=src/test/sql-exercises/EMPLOYEES/02_intermediate.sql; test=Employees_Exercises_02_Intermediate_PersistenceIT.HR_EMPLOYEES_I_01_Test.
+// AI: Registry: section=EMPLOYEES; tier=Intermediate; sql=src/test/sql-exercises/EMPLOYEES/02_intermediate.sql; test=hr.employees.HR_EMPLOYEES_I_01_PersistenceIT.
 // AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
 [[HR_EMPLOYEES_I_01]]
 ==== HR_EMPLOYEES_I_01: Above the company average
@@ -399,7 +399,7 @@ ORDER BY e.salary DESC
 
 // AI: Pick HR_EMPLOYEES_I_04: A self-referencing manager association compares two salaries.
 // AI: Copied from EXERCISES.asciidoc:621, anchor HR_EMPLOYEES_I_04; retain the permanent ID when revising.
-// AI: Registry: section=EMPLOYEES; tier=Intermediate; sql=src/test/sql-exercises/EMPLOYEES/02_intermediate.sql; test=Employees_Exercises_02_Intermediate_PersistenceIT.HR_EMPLOYEES_I_04_Test.
+// AI: Registry: section=EMPLOYEES; tier=Intermediate; sql=src/test/sql-exercises/EMPLOYEES/02_intermediate.sql; test=hr.employees.HR_EMPLOYEES_I_04_PersistenceIT.
 [[HR_EMPLOYEES_I_04]]
 ==== HR_EMPLOYEES_I_04: Earning more than the boss
 
@@ -423,7 +423,7 @@ WHERE e.salary > m.salary
 
 // AI: Pick HR_EMPLOYEES_I_05: Group the employee-to-manager association to count direct reports.
 // AI: Copied from EXERCISES.asciidoc:642, anchor HR_EMPLOYEES_I_05; retain the permanent ID when revising.
-// AI: Registry: section=EMPLOYEES; tier=Intermediate; sql=src/test/sql-exercises/EMPLOYEES/02_intermediate.sql; test=Employees_Exercises_02_Intermediate_PersistenceIT.HR_EMPLOYEES_I_05_Test.
+// AI: Registry: section=EMPLOYEES; tier=Intermediate; sql=src/test/sql-exercises/EMPLOYEES/02_intermediate.sql; test=hr.employees.HR_EMPLOYEES_I_05_PersistenceIT.
 [[HR_EMPLOYEES_I_05]]
 ==== HR_EMPLOYEES_I_05: Span of control
 
@@ -468,7 +468,7 @@ itself (`IS NOT EMPTY`, or `+SIZE(m.subordinates) > 0+`), or let the inner join 
 
 // AI: Pick HR_EMPLOYEES_A_04: ALL demonstrates quantified comparisons and their NULL/empty-set semantics.
 // AI: Copied from EXERCISES.asciidoc:831, anchor HR_EMPLOYEES_A_04; retain the permanent ID when revising.
-// AI: Registry: section=EMPLOYEES; tier=Advanced; sql=src/test/sql-exercises/EMPLOYEES/03_advanced.sql; test=Employees_Exercises_03_Advanced_PersistenceIT.HR_EMPLOYEES_A_04_Test.
+// AI: Registry: section=EMPLOYEES; tier=Advanced; sql=src/test/sql-exercises/EMPLOYEES/03_advanced.sql; test=hr.employees.HR_EMPLOYEES_A_04_PersistenceIT.
 // AI: Explain that ALL over an empty set is true and a NULL salary can make the predicate unknown.
 [[HR_EMPLOYEES_A_04]]
 ==== HR_EMPLOYEES_A_04: Out-earning a whole department
@@ -523,7 +523,7 @@ only. The view inner-joins all six tables, which leaves out the employee without
 
 // AI: Pick HR_EMP_DETAILS_VIEW_B_01: Filter a mapped reporting view by site.
 // AI: Copied from EXERCISES.asciidoc:985, anchor HR_EMP_DETAILS_VIEW_B_01; retain the permanent ID when revising.
-// AI: Registry: section=EMP_DETAILS_VIEW; tier=Basic; sql=src/test/sql-exercises/EMP_DETAILS_VIEW/01_basic.sql; test=EmpDetailsView_Exercises_01_Basic_PersistenceIT.HR_EMP_DETAILS_VIEW_B_01_Test.
+// AI: Registry: section=EMP_DETAILS_VIEW; tier=Basic; sql=src/test/sql-exercises/EMP_DETAILS_VIEW/01_basic.sql; test=hr.emp_details_view.HR_EMP_DETAILS_VIEW_B_01_PersistenceIT.
 [[HR_EMP_DETAILS_VIEW_B_01]]
 ==== HR_EMP_DETAILS_VIEW_B_01: Staff on a site
 
@@ -544,7 +544,7 @@ ORDER BY LAST_NAME ASC, FIRST_NAME ASC
 
 // AI: Pick HR_EMP_DETAILS_VIEW_I_01: Aggregate the reporting view across country and region.
 // AI: Copied from EXERCISES.asciidoc:1001, anchor HR_EMP_DETAILS_VIEW_I_01; retain the permanent ID when revising.
-// AI: Registry: section=EMP_DETAILS_VIEW; tier=Intermediate; sql=src/test/sql-exercises/EMP_DETAILS_VIEW/02_intermediate.sql; test=EmpDetailsView_Exercises_02_Intermediate_PersistenceIT.HR_EMP_DETAILS_VIEW_I_01_Test.
+// AI: Registry: section=EMP_DETAILS_VIEW; tier=Intermediate; sql=src/test/sql-exercises/EMP_DETAILS_VIEW/02_intermediate.sql; test=hr.emp_details_view.HR_EMP_DETAILS_VIEW_I_01_PersistenceIT.
 [[HR_EMP_DETAILS_VIEW_I_01]]
 ==== HR_EMP_DETAILS_VIEW_I_01: Payroll by country
 
@@ -576,7 +576,7 @@ done the five joins.
 
 // AI: Pick HR_JOBS_B_01: Explicit NULL ordering on a lookup entity.
 // AI: Copied from EXERCISES.asciidoc:1058, anchor HR_JOBS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=JOBS; tier=Basic; sql=src/test/sql-exercises/JOBS/01_basic.sql; test=Jobs_Exercises_01_Basic_PersistenceIT.HR_JOBS_B_01_Test.
+// AI: Registry: section=JOBS; tier=Basic; sql=src/test/sql-exercises/JOBS/01_basic.sql; test=hr.jobs.HR_JOBS_B_01_PersistenceIT.
 [[HR_JOBS_B_01]]
 ==== HR_JOBS_B_01: Salary bands, unset values flagged
 
@@ -629,7 +629,7 @@ explicit for the day a job is added without a band. Oracle sorts nulls last asce
 
 // AI: Pick HR_JOBS_B_02: LIKE with ESCAPE treats an underscore as a literal.
 // AI: Copied from EXERCISES.asciidoc:1108, anchor HR_JOBS_B_02; retain the permanent ID when revising.
-// AI: Registry: section=JOBS; tier=Basic; sql=src/test/sql-exercises/JOBS/01_basic.sql; test=Jobs_Exercises_01_Basic_PersistenceIT.HR_JOBS_B_02_Test.
+// AI: Registry: section=JOBS; tier=Basic; sql=src/test/sql-exercises/JOBS/01_basic.sql; test=hr.jobs.HR_JOBS_B_02_PersistenceIT.
 [[HR_JOBS_B_02]]
 ==== HR_JOBS_B_02: Clerical jobs
 
@@ -655,7 +655,7 @@ Without `ESCAPE`, the `+_+` is a single-character wildcard and would also match,
 
 // AI: Pick HR_JOBS_B_03: A parameter between two mapped salary-band attributes.
 // AI: Copied from EXERCISES.asciidoc:1131, anchor HR_JOBS_B_03; retain the permanent ID when revising.
-// AI: Registry: section=JOBS; tier=Basic; sql=src/test/sql-exercises/JOBS/01_basic.sql; test=Jobs_Exercises_01_Basic_PersistenceIT.HR_JOBS_B_03_Test.
+// AI: Registry: section=JOBS; tier=Basic; sql=src/test/sql-exercises/JOBS/01_basic.sql; test=hr.jobs.HR_JOBS_B_03_PersistenceIT.
 [[HR_JOBS_B_03]]
 ==== HR_JOBS_B_03: Jobs an offer fits
 
@@ -687,7 +687,7 @@ null bound is unknown.
 
 // AI: Pick HR_JOBS_I_01: Arithmetic expressions over two attributes.
 // AI: Copied from EXERCISES.asciidoc:1176, anchor HR_JOBS_I_01; retain the permanent ID when revising.
-// AI: Registry: section=JOBS; tier=Intermediate; sql=src/test/sql-exercises/JOBS/02_intermediate.sql; test=Jobs_Exercises_02_Intermediate_PersistenceIT.HR_JOBS_I_01_Test.
+// AI: Registry: section=JOBS; tier=Intermediate; sql=src/test/sql-exercises/JOBS/02_intermediate.sql; test=hr.jobs.HR_JOBS_I_01_PersistenceIT.
 [[HR_JOBS_I_01]]
 ==== HR_JOBS_I_01: Widest pay bands
 
@@ -720,7 +720,7 @@ providers, and every ratio here would come out as 2.
 
 // AI: Pick HR_JOBS_A_01: A range-containment self-join.
 // AI: Copied from EXERCISES.asciidoc:1226, anchor HR_JOBS_A_01; retain the permanent ID when revising.
-// AI: Registry: section=JOBS; tier=Advanced; sql=src/test/sql-exercises/JOBS/03_advanced.sql; test=Jobs_Exercises_03_Advanced_PersistenceIT.HR_JOBS_A_01_Test.
+// AI: Registry: section=JOBS; tier=Advanced; sql=src/test/sql-exercises/JOBS/03_advanced.sql; test=hr.jobs.HR_JOBS_A_01_PersistenceIT.
 [[HR_JOBS_A_01]]
 ==== HR_JOBS_A_01: Bands inside another band
 
@@ -760,7 +760,7 @@ lie within the other, so they appear in both directions.
 
 // AI: Pick HR_JOB_HISTORY_B_01: Filter an IdClass history entity through its employee association.
 // AI: Copied from EXERCISES.asciidoc:1286, anchor HR_JOB_HISTORY_B_01; retain the permanent ID when revising.
-// AI: Registry: section=JOB_HISTORY; tier=Basic; sql=src/test/sql-exercises/JOB_HISTORY/01_basic.sql; test=JobHistory_Exercises_01_Basic_PersistenceIT.HR_JOB_HISTORY_B_01_Test.
+// AI: Registry: section=JOB_HISTORY; tier=Basic; sql=src/test/sql-exercises/JOB_HISTORY/01_basic.sql; test=hr.job_history.HR_JOB_HISTORY_B_01_PersistenceIT.
 [[HR_JOB_HISTORY_B_01]]
 ==== HR_JOB_HISTORY_B_01: One employee's earlier positions
 
@@ -784,7 +784,7 @@ ORDER BY h.startDate ASC
 
 // AI: Pick HR_JOB_HISTORY_B_02: A date interval and deterministic ordering on the composite key.
 // AI: Copied from EXERCISES.asciidoc:1307, anchor HR_JOB_HISTORY_B_02; retain the permanent ID when revising.
-// AI: Registry: section=JOB_HISTORY; tier=Basic; sql=src/test/sql-exercises/JOB_HISTORY/01_basic.sql; test=JobHistory_Exercises_01_Basic_PersistenceIT.HR_JOB_HISTORY_B_02_Test.
+// AI: Registry: section=JOB_HISTORY; tier=Basic; sql=src/test/sql-exercises/JOB_HISTORY/01_basic.sql; test=hr.job_history.HR_JOB_HISTORY_B_02_PersistenceIT.
 // AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
 [[HR_JOB_HISTORY_B_02]]
 ==== HR_JOB_HISTORY_B_02: Positions closed in a period
@@ -820,7 +820,7 @@ ORDER BY h.endDate ASC, h.employeeId ASC
 
 // AI: Pick HR_JOB_HISTORY_I_01: COUNT and COUNT DISTINCT distinguish positions from people.
 // AI: Copied from EXERCISES.asciidoc:1334, anchor HR_JOB_HISTORY_I_01; retain the permanent ID when revising.
-// AI: Registry: section=JOB_HISTORY; tier=Intermediate; sql=src/test/sql-exercises/JOB_HISTORY/02_intermediate.sql; test=JobHistory_Exercises_02_Intermediate_PersistenceIT.HR_JOB_HISTORY_I_01_Test.
+// AI: Registry: section=JOB_HISTORY; tier=Intermediate; sql=src/test/sql-exercises/JOB_HISTORY/02_intermediate.sql; test=hr.job_history.HR_JOB_HISTORY_I_01_PersistenceIT.
 [[HR_JOB_HISTORY_I_01]]
 ==== HR_JOB_HISTORY_I_01: Turnover per job
 
@@ -847,7 +847,7 @@ Jobs nobody has left do not appear; listing them with zero needs `JOBS`.
 
 // AI: Pick HR_JOB_HISTORY_I_02: HAVING and date aggregates over repeated positions.
 // AI: Copied from EXERCISES.asciidoc:1358, anchor HR_JOB_HISTORY_I_02; retain the permanent ID when revising.
-// AI: Registry: section=JOB_HISTORY; tier=Intermediate; sql=src/test/sql-exercises/JOB_HISTORY/02_intermediate.sql; test=JobHistory_Exercises_02_Intermediate_PersistenceIT.HR_JOB_HISTORY_I_02_Test.
+// AI: Registry: section=JOB_HISTORY; tier=Intermediate; sql=src/test/sql-exercises/JOB_HISTORY/02_intermediate.sql; test=hr.job_history.HR_JOB_HISTORY_I_02_PersistenceIT.
 [[HR_JOB_HISTORY_I_02]]
 ==== HR_JOB_HISTORY_I_02: Moved more than once
 
@@ -886,7 +886,7 @@ ORDER BY h.employeeId ASC
 
 // AI: Pick HR_LOCATIONS_B_01: Filter a location through its country association.
 // AI: Copied from EXERCISES.asciidoc:1484, anchor HR_LOCATIONS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=LOCATIONS; tier=Basic; sql=src/test/sql-exercises/LOCATIONS/01_basic.sql; test=Locations_Exercises_01_Basic_PersistenceIT.HR_LOCATIONS_B_01_Test.
+// AI: Registry: section=LOCATIONS; tier=Basic; sql=src/test/sql-exercises/LOCATIONS/01_basic.sql; test=hr.locations.HR_LOCATIONS_B_01_PersistenceIT.
 [[HR_LOCATIONS_B_01]]
 ==== HR_LOCATIONS_B_01: Sites in a country
 
@@ -910,7 +910,7 @@ ORDER BY l.city ASC
 
 // AI: Pick HR_LOCATIONS_B_02: IS NULL on an optional postal code.
 // AI: Copied from EXERCISES.asciidoc:1505, anchor HR_LOCATIONS_B_02; retain the permanent ID when revising.
-// AI: Registry: section=LOCATIONS; tier=Basic; sql=src/test/sql-exercises/LOCATIONS/01_basic.sql; test=Locations_Exercises_01_Basic_PersistenceIT.HR_LOCATIONS_B_02_Test.
+// AI: Registry: section=LOCATIONS; tier=Basic; sql=src/test/sql-exercises/LOCATIONS/01_basic.sql; test=hr.locations.HR_LOCATIONS_B_02_PersistenceIT.
 [[HR_LOCATIONS_B_02]]
 ==== HR_LOCATIONS_B_02: Sites without a postal code
 
@@ -939,7 +939,7 @@ The installed data has one, the London office.
 
 // AI: Pick HR_LOCATIONS_I_01: Group locations by country.
 // AI: Copied from EXERCISES.asciidoc:1528, anchor HR_LOCATIONS_I_01; retain the permanent ID when revising.
-// AI: Registry: section=LOCATIONS; tier=Intermediate; sql=src/test/sql-exercises/LOCATIONS/02_intermediate.sql; test=Locations_Exercises_02_Intermediate_PersistenceIT.HR_LOCATIONS_I_01_Test.
+// AI: Registry: section=LOCATIONS; tier=Intermediate; sql=src/test/sql-exercises/LOCATIONS/02_intermediate.sql; test=hr.locations.HR_LOCATIONS_I_01_PersistenceIT.
 [[HR_LOCATIONS_I_01]]
 ==== HR_LOCATIONS_I_01: Sites per country
 
@@ -967,7 +967,7 @@ ORDER BY sites DESC, l.country.countryId ASC
 
 // AI: Pick HR_LOCATIONS_A_01: ALL compares aggregate group sizes and retains ties.
 // AI: Copied from EXERCISES.asciidoc:1581, anchor HR_LOCATIONS_A_01; retain the permanent ID when revising.
-// AI: Registry: section=LOCATIONS; tier=Advanced; sql=src/test/sql-exercises/LOCATIONS/03_advanced.sql; test=Locations_Exercises_03_Advanced_PersistenceIT.HR_LOCATIONS_A_01_Test.
+// AI: Registry: section=LOCATIONS; tier=Advanced; sql=src/test/sql-exercises/LOCATIONS/03_advanced.sql; test=hr.locations.HR_LOCATIONS_A_01_PersistenceIT.
 [[HR_LOCATIONS_A_01]]
 ==== HR_LOCATIONS_A_01: The country with the most sites
 
@@ -1001,7 +1001,7 @@ of them arbitrarily.
 
 // AI: Pick HR_REGIONS_B_01: A case-insensitive parameter lookup.
 // AI: Copied from EXERCISES.asciidoc:1609, anchor HR_REGIONS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=REGIONS; tier=Basic; sql=src/test/sql-exercises/REGIONS/01_basic.sql; test=Regions_Exercises_01_Basic_PersistenceIT.HR_REGIONS_B_01_Test.
+// AI: Registry: section=REGIONS; tier=Basic; sql=src/test/sql-exercises/REGIONS/01_basic.sql; test=hr.regions.HR_REGIONS_B_01_PersistenceIT.
 [[HR_REGIONS_B_01]]
 ==== HR_REGIONS_B_01: Region by name
 
@@ -1048,7 +1048,7 @@ Problems that join, or subquery, more than one table.
 
 // AI: Pick HR_SCHEMA_B_01: Follow the department's manager association.
 // AI: Copied from EXERCISES.asciidoc:1691, anchor HR_SCHEMA_B_01; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.HR_SCHEMA_B_01_Test.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=hr.schema.HR_SCHEMA_B_01_PersistenceIT.
 [[HR_SCHEMA_B_01]]
 ==== HR_SCHEMA_B_01: Who manages a department
 
@@ -1074,7 +1074,7 @@ A department with no manager gives no row; a `LEFT JOIN` would return the depart
 
 // AI: Pick HR_SCHEMA_B_02: Follow the employee's job association.
 // AI: Copied from EXERCISES.asciidoc:1714, anchor HR_SCHEMA_B_02; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.HR_SCHEMA_B_02_Test.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=hr.schema.HR_SCHEMA_B_02_PersistenceIT.
 [[HR_SCHEMA_B_02]]
 ==== HR_SCHEMA_B_02: An employee's job title
 
@@ -1100,7 +1100,7 @@ through `e.department` would lose the employee without one (see _Company directo
 
 // AI: Pick HR_SCHEMA_B_03: Filter countries through the region association.
 // AI: Copied from EXERCISES.asciidoc:1737, anchor HR_SCHEMA_B_03; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.HR_SCHEMA_B_03_Test.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=hr.schema.HR_SCHEMA_B_03_PersistenceIT.
 [[HR_SCHEMA_B_03]]
 ==== HR_SCHEMA_B_03: Countries of a region, by name
 
@@ -1133,7 +1133,7 @@ ORDER BY c.countryName ASC
 
 // AI: Pick HR_SCHEMA_I_01: An outer join retains departments with no employees.
 // AI: Copied from EXERCISES.asciidoc:1762, anchor HR_SCHEMA_I_01; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_01_Test.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=hr.schema.HR_SCHEMA_I_01_PersistenceIT.
 [[HR_SCHEMA_I_01]]
 ==== HR_SCHEMA_I_01: Headcount per department
 
@@ -1171,7 +1171,7 @@ an inner join and returns only the 11 departments that have staff. The `LEFT JOI
 
 // AI: Pick HR_SCHEMA_I_04: Mix mandatory and optional joins in an employee directory.
 // AI: Copied from EXERCISES.asciidoc:1836, anchor HR_SCHEMA_I_04; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_04_Test.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=hr.schema.HR_SCHEMA_I_04_PersistenceIT.
 [[HR_SCHEMA_I_04]]
 ==== HR_SCHEMA_I_04: Company directory
 
@@ -1204,7 +1204,7 @@ employee without a department. `+EMP_DETAILS_VIEW+` holds much the same columns,
 
 // AI: Pick HR_SCHEMA_I_07: NOT EXISTS locates genuinely empty departments.
 // AI: Copied from EXERCISES.asciidoc:1922, anchor HR_SCHEMA_I_07; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_07_Test.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=hr.schema.HR_SCHEMA_I_07_PersistenceIT.
 [[HR_SCHEMA_I_07]]
 ==== HR_SCHEMA_I_07: Departments with nobody in them
 
@@ -1239,7 +1239,7 @@ Sixteen of the twenty-seven departments are empty in the installed data, and non
 
 // AI: Pick HR_SCHEMA_A_03: A set intersection matches present jobs with historical jobs.
 // AI: Copied from EXERCISES.asciidoc:2130, anchor HR_SCHEMA_A_03; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=___Exercises_03_Advanced_PersistenceIT.HR_SCHEMA_A_03_Test.
+// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=hr.schema.HR_SCHEMA_A_03_PersistenceIT.
 [[HR_SCHEMA_A_03]]
 ==== HR_SCHEMA_A_03: Back in an earlier job
 
@@ -1276,7 +1276,7 @@ The `INTERSECT` form needs Jakarta Persistence 3.2; the join works with any vers
 
 // AI: Pick HR_SCHEMA_A_05: Collection fetching makes the N+1 lesson concrete.
 // AI: Copied from EXERCISES.asciidoc:2202, anchor HR_SCHEMA_A_05; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=___Exercises_03_Advanced_PersistenceIT.HR_SCHEMA_A_05_Test.
+// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=hr.schema.HR_SCHEMA_A_05_PersistenceIT.
 // AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
 [[HR_SCHEMA_A_05]]
 ==== HR_SCHEMA_A_05: Department roster in one round trip

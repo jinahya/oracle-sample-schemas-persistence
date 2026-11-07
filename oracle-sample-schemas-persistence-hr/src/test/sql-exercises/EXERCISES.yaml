@@ -17,31 +17,31 @@
   tier: Basic
   title: "Country by code"
   sql: src/test/sql-exercises/COUNTRIES/01_basic.sql
-  test: Countries_Exercises_01_Basic_PersistenceIT.HR_COUNTRIES_B_01_Test
+  test: hr.countries.HR_COUNTRIES_B_01_PersistenceIT
 - id: HR_COUNTRIES_B_02
   section: "COUNTRIES"
   tier: Basic
   title: "Countries of a region"
   sql: src/test/sql-exercises/COUNTRIES/01_basic.sql
-  test: Countries_Exercises_01_Basic_PersistenceIT.HR_COUNTRIES_B_02_Test
+  test: hr.countries.HR_COUNTRIES_B_02_PersistenceIT
 - id: HR_COUNTRIES_B_03
   section: "COUNTRIES"
   tier: Basic
   title: "Country names too long for a badge"
   sql: src/test/sql-exercises/COUNTRIES/01_basic.sql
-  test: Countries_Exercises_01_Basic_PersistenceIT.HR_COUNTRIES_B_03_Test
+  test: hr.countries.HR_COUNTRIES_B_03_PersistenceIT
 - id: HR_COUNTRIES_I_01
   section: "COUNTRIES"
   tier: Intermediate
   title: "Countries per region"
   sql: src/test/sql-exercises/COUNTRIES/02_intermediate.sql
-  test: Countries_Exercises_02_Intermediate_PersistenceIT.HR_COUNTRIES_I_01_Test
+  test: hr.countries.HR_COUNTRIES_I_01_PersistenceIT
 - id: HR_COUNTRIES_A_01
   section: "COUNTRIES"
   tier: Advanced
   title: "Regions above the average size"
   sql: src/test/sql-exercises/COUNTRIES/03_advanced.sql
-  test: Countries_Exercises_03_Advanced_PersistenceIT.HR_COUNTRIES_A_01_Test
+  test: hr.countries.HR_COUNTRIES_A_01_PersistenceIT
 
 # ---- departments
 
@@ -50,31 +50,31 @@
   tier: Basic
   title: "Departments in a building"
   sql: src/test/sql-exercises/DEPARTMENTS/01_basic.sql
-  test: Departments_Exercises_01_Basic_PersistenceIT.HR_DEPARTMENTS_B_01_Test
+  test: hr.departments.HR_DEPARTMENTS_B_01_PersistenceIT
 - id: HR_DEPARTMENTS_B_02
   section: "DEPARTMENTS"
   tier: Basic
   title: "Departments without a manager"
   sql: src/test/sql-exercises/DEPARTMENTS/01_basic.sql
-  test: Departments_Exercises_01_Basic_PersistenceIT.HR_DEPARTMENTS_B_02_Test
+  test: hr.departments.HR_DEPARTMENTS_B_02_PersistenceIT
 - id: HR_DEPARTMENTS_I_01
   section: "DEPARTMENTS"
   tier: Intermediate
   title: "Departments per site"
   sql: src/test/sql-exercises/DEPARTMENTS/02_intermediate.sql
-  test: Departments_Exercises_02_Intermediate_PersistenceIT.HR_DEPARTMENTS_I_01_Test
+  test: hr.departments.HR_DEPARTMENTS_I_01_PersistenceIT
 - id: HR_DEPARTMENTS_I_02
   section: "DEPARTMENTS"
   tier: Intermediate
   title: "Departments at a glance"
   sql: src/test/sql-exercises/DEPARTMENTS/02_intermediate.sql
-  test: Departments_Exercises_02_Intermediate_PersistenceIT.HR_DEPARTMENTS_I_02_Test
+  test: hr.departments.HR_DEPARTMENTS_I_02_PersistenceIT
 - id: HR_DEPARTMENTS_A_01
   section: "DEPARTMENTS"
   tier: Advanced
   title: "Next free department number"
   sql: src/test/sql-exercises/DEPARTMENTS/03_advanced.sql
-  test: Departments_Exercises_03_Advanced_PersistenceIT.HR_DEPARTMENTS_A_01_Test
+  test: hr.departments.HR_DEPARTMENTS_A_01_PersistenceIT
 
 # ---- employees
 
@@ -83,139 +83,139 @@
   tier: Basic
   title: "Look up a colleague by e-mail"
   sql: src/test/sql-exercises/EMPLOYEES/01_basic.sql
-  test: Employees_Exercises_01_Basic_PersistenceIT.HR_EMPLOYEES_B_01_Test
+  test: hr.employees.HR_EMPLOYEES_B_01_PersistenceIT
 - id: HR_EMPLOYEES_B_02
   section: "EMPLOYEES"
   tier: Basic
   title: "A department's staff list"
   sql: src/test/sql-exercises/EMPLOYEES/01_basic.sql
-  test: Employees_Exercises_01_Basic_PersistenceIT.HR_EMPLOYEES_B_02_Test
+  test: hr.employees.HR_EMPLOYEES_B_02_PersistenceIT
 - id: HR_EMPLOYEES_B_03
   section: "EMPLOYEES"
   tier: Basic
   title: "Seniority list for a job"
   sql: src/test/sql-exercises/EMPLOYEES/01_basic.sql
-  test: Employees_Exercises_01_Basic_PersistenceIT.HR_EMPLOYEES_B_03_Test
+  test: hr.employees.HR_EMPLOYEES_B_03_PersistenceIT
 - id: HR_EMPLOYEES_B_04
   section: "EMPLOYEES"
   tier: Basic
   title: "Who is on commission"
   sql: src/test/sql-exercises/EMPLOYEES/01_basic.sql
-  test: Employees_Exercises_01_Basic_PersistenceIT.HR_EMPLOYEES_B_04_Test
+  test: hr.employees.HR_EMPLOYEES_B_04_PersistenceIT
 - id: HR_EMPLOYEES_B_05
   section: "EMPLOYEES"
   tier: Basic
   title: "Staff with no department"
   sql: src/test/sql-exercises/EMPLOYEES/01_basic.sql
-  test: Employees_Exercises_01_Basic_PersistenceIT.HR_EMPLOYEES_B_05_Test
+  test: hr.employees.HR_EMPLOYEES_B_05_PersistenceIT
 - id: HR_EMPLOYEES_B_06
   section: "EMPLOYEES"
   tier: Basic
   title: "Hired in a period"
   sql: src/test/sql-exercises/EMPLOYEES/01_basic.sql
-  test: Employees_Exercises_01_Basic_PersistenceIT.HR_EMPLOYEES_B_06_Test
+  test: hr.employees.HR_EMPLOYEES_B_06_PersistenceIT
 - id: HR_EMPLOYEES_B_07
   section: "EMPLOYEES"
   tier: Basic
   title: "Name search at reception"
   sql: src/test/sql-exercises/EMPLOYEES/01_basic.sql
-  test: Employees_Exercises_01_Basic_PersistenceIT.HR_EMPLOYEES_B_07_Test
+  test: hr.employees.HR_EMPLOYEES_B_07_PersistenceIT
 - id: HR_EMPLOYEES_B_08
   section: "EMPLOYEES"
   tier: Basic
   title: "Staff of several departments"
   sql: src/test/sql-exercises/EMPLOYEES/01_basic.sql
-  test: Employees_Exercises_01_Basic_PersistenceIT.HR_EMPLOYEES_B_08_Test
+  test: hr.employees.HR_EMPLOYEES_B_08_PersistenceIT
 - id: HR_EMPLOYEES_B_09
   section: "EMPLOYEES"
   tier: Basic
   title: "Salaries not recorded"
   sql: src/test/sql-exercises/EMPLOYEES/01_basic.sql
-  test: Employees_Exercises_01_Basic_PersistenceIT.HR_EMPLOYEES_B_09_Test
+  test: hr.employees.HR_EMPLOYEES_B_09_PersistenceIT
 - id: HR_EMPLOYEES_B_10
   section: "EMPLOYEES"
   tier: Basic
   title: "The newest hires"
   sql: src/test/sql-exercises/EMPLOYEES/01_basic.sql
-  test: Employees_Exercises_01_Basic_PersistenceIT.HR_EMPLOYEES_B_10_Test
+  test: hr.employees.HR_EMPLOYEES_B_10_PersistenceIT
 - id: HR_EMPLOYEES_I_01
   section: "EMPLOYEES"
   tier: Intermediate
   title: "Above the company average"
   sql: src/test/sql-exercises/EMPLOYEES/02_intermediate.sql
-  test: Employees_Exercises_02_Intermediate_PersistenceIT.HR_EMPLOYEES_I_01_Test
+  test: hr.employees.HR_EMPLOYEES_I_01_PersistenceIT
 - id: HR_EMPLOYEES_I_02
   section: "EMPLOYEES"
   tier: Intermediate
   title: "Total monthly pay including commission"
   sql: src/test/sql-exercises/EMPLOYEES/02_intermediate.sql
-  test: Employees_Exercises_02_Intermediate_PersistenceIT.HR_EMPLOYEES_I_02_Test
+  test: hr.employees.HR_EMPLOYEES_I_02_PersistenceIT
 - id: HR_EMPLOYEES_I_03
   section: "EMPLOYEES"
   tier: Intermediate
   title: "Headcount per pay grade"
   sql: src/test/sql-exercises/EMPLOYEES/02_intermediate.sql
-  test: Employees_Exercises_02_Intermediate_PersistenceIT.HR_EMPLOYEES_I_03_Test
+  test: hr.employees.HR_EMPLOYEES_I_03_PersistenceIT
 - id: HR_EMPLOYEES_I_04
   section: "EMPLOYEES"
   tier: Intermediate
   title: "Earning more than the boss"
   sql: src/test/sql-exercises/EMPLOYEES/02_intermediate.sql
-  test: Employees_Exercises_02_Intermediate_PersistenceIT.HR_EMPLOYEES_I_04_Test
+  test: hr.employees.HR_EMPLOYEES_I_04_PersistenceIT
 - id: HR_EMPLOYEES_I_05
   section: "EMPLOYEES"
   tier: Intermediate
   title: "Span of control"
   sql: src/test/sql-exercises/EMPLOYEES/02_intermediate.sql
-  test: Employees_Exercises_02_Intermediate_PersistenceIT.HR_EMPLOYEES_I_05_Test
+  test: hr.employees.HR_EMPLOYEES_I_05_PersistenceIT
 - id: HR_EMPLOYEES_I_06
   section: "EMPLOYEES"
   tier: Intermediate
   title: "Skip-level meetings"
   sql: src/test/sql-exercises/EMPLOYEES/02_intermediate.sql
-  test: Employees_Exercises_02_Intermediate_PersistenceIT.HR_EMPLOYEES_I_06_Test
+  test: hr.employees.HR_EMPLOYEES_I_06_PersistenceIT
 - id: HR_EMPLOYEES_A_01
   section: "EMPLOYEES"
   tier: Advanced
   title: "Top earner of each department"
   sql: src/test/sql-exercises/EMPLOYEES/03_advanced.sql
-  test: Employees_Exercises_03_Advanced_PersistenceIT.HR_EMPLOYEES_A_01_Test
+  test: hr.employees.HR_EMPLOYEES_A_01_PersistenceIT
 - id: HR_EMPLOYEES_A_02
   section: "EMPLOYEES"
   tier: Advanced
   title: "Three best-paid per department"
   sql: src/test/sql-exercises/EMPLOYEES/03_advanced.sql
-  test: Employees_Exercises_03_Advanced_PersistenceIT.HR_EMPLOYEES_A_02_Test
+  test: hr.employees.HR_EMPLOYEES_A_02_PersistenceIT
 - id: HR_EMPLOYEES_A_03
   section: "EMPLOYEES"
   tier: Advanced
   title: "Everyone under a manager"
   sql: src/test/sql-exercises/EMPLOYEES/03_advanced.sql
-  test: Employees_Exercises_03_Advanced_PersistenceIT.HR_EMPLOYEES_A_03_Test
+  test: hr.employees.HR_EMPLOYEES_A_03_PersistenceIT
 - id: HR_EMPLOYEES_A_04
   section: "EMPLOYEES"
   tier: Advanced
   title: "Out-earning a whole department"
   sql: src/test/sql-exercises/EMPLOYEES/03_advanced.sql
-  test: Employees_Exercises_03_Advanced_PersistenceIT.HR_EMPLOYEES_A_04_Test
+  test: hr.employees.HR_EMPLOYEES_A_04_PersistenceIT
 - id: HR_EMPLOYEES_A_05
   section: "EMPLOYEES"
   tier: Advanced
   title: "Work anniversaries"
   sql: src/test/sql-exercises/EMPLOYEES/03_advanced.sql
-  test: Employees_Exercises_03_Advanced_PersistenceIT.HR_EMPLOYEES_A_05_Test
+  test: hr.employees.HR_EMPLOYEES_A_05_PersistenceIT
 - id: HR_EMPLOYEES_A_06
   section: "EMPLOYEES"
   tier: Advanced
   title: "Badges and e-mail migration"
   sql: src/test/sql-exercises/EMPLOYEES/03_advanced.sql
-  test: Employees_Exercises_03_Advanced_PersistenceIT.HR_EMPLOYEES_A_06_Test
+  test: hr.employees.HR_EMPLOYEES_A_06_PersistenceIT
 - id: HR_EMPLOYEES_A_07
   section: "EMPLOYEES"
   tier: Advanced
   title: "Pay against the department average"
   sql: src/test/sql-exercises/EMPLOYEES/03_advanced.sql
-  test: Employees_Exercises_03_Advanced_PersistenceIT.HR_EMPLOYEES_A_07_Test
+  test: hr.employees.HR_EMPLOYEES_A_07_PersistenceIT
 
 # ---- emp_details_view
 
@@ -224,26 +224,26 @@
   tier: Basic
   title: "Staff on a site"
   sql: src/test/sql-exercises/EMP_DETAILS_VIEW/01_basic.sql
-  test: EmpDetailsView_Exercises_01_Basic_PersistenceIT.HR_EMP_DETAILS_VIEW_B_01_Test
+  test: hr.emp_details_view.HR_EMP_DETAILS_VIEW_B_01_PersistenceIT
 - id: HR_EMP_DETAILS_VIEW_I_01
   section: "EMP_DETAILS_VIEW"
   tier: Intermediate
   title: "Payroll by country"
   sql: src/test/sql-exercises/EMP_DETAILS_VIEW/02_intermediate.sql
-  test: EmpDetailsView_Exercises_02_Intermediate_PersistenceIT.HR_EMP_DETAILS_VIEW_I_01_Test
+  test: hr.emp_details_view.HR_EMP_DETAILS_VIEW_I_01_PersistenceIT
 - id: HR_EMP_DETAILS_VIEW_A_01
   section: "EMP_DETAILS_VIEW"
   tier: Advanced
   title: "Best-paid in each region"
   sql: src/test/sql-exercises/EMP_DETAILS_VIEW/03_advanced.sql
-  test: EmpDetailsView_Exercises_03_Advanced_PersistenceIT.HR_EMP_DETAILS_VIEW_A_01_Test
+  test: hr.emp_details_view.HR_EMP_DETAILS_VIEW_A_01_PersistenceIT
 
 - id: HR_EMP_DETAILS_VIEW_A_02
   section: "EMP_DETAILS_VIEW"
   tier: Advanced
   title: "Payroll with subtotals"
   sql: src/test/sql-exercises/EMP_DETAILS_VIEW/03_advanced.sql
-  test: EmpDetailsView_Exercises_03_Advanced_PersistenceIT.HR_EMP_DETAILS_VIEW_A_02_Test
+  test: hr.emp_details_view.HR_EMP_DETAILS_VIEW_A_02_PersistenceIT
 # ---- jobs
 
 - id: HR_JOBS_B_01
@@ -251,49 +251,49 @@
   tier: Basic
   title: "Salary bands, unset values flagged"
   sql: src/test/sql-exercises/JOBS/01_basic.sql
-  test: Jobs_Exercises_01_Basic_PersistenceIT.HR_JOBS_B_01_Test
+  test: hr.jobs.HR_JOBS_B_01_PersistenceIT
 - id: HR_JOBS_B_02
   section: "JOBS"
   tier: Basic
   title: "Clerical jobs"
   sql: src/test/sql-exercises/JOBS/01_basic.sql
-  test: Jobs_Exercises_01_Basic_PersistenceIT.HR_JOBS_B_02_Test
+  test: hr.jobs.HR_JOBS_B_02_PersistenceIT
 - id: HR_JOBS_B_03
   section: "JOBS"
   tier: Basic
   title: "Jobs an offer fits"
   sql: src/test/sql-exercises/JOBS/01_basic.sql
-  test: Jobs_Exercises_01_Basic_PersistenceIT.HR_JOBS_B_03_Test
+  test: hr.jobs.HR_JOBS_B_03_PersistenceIT
 - id: HR_JOBS_B_04
   section: "JOBS"
   tier: Basic
   title: "Salary bands needing repair"
   sql: src/test/sql-exercises/JOBS/01_basic.sql
-  test: Jobs_Exercises_01_Basic_PersistenceIT.HR_JOBS_B_04_Test
+  test: hr.jobs.HR_JOBS_B_04_PersistenceIT
 - id: HR_JOBS_I_01
   section: "JOBS"
   tier: Intermediate
   title: "Widest pay bands"
   sql: src/test/sql-exercises/JOBS/02_intermediate.sql
-  test: Jobs_Exercises_02_Intermediate_PersistenceIT.HR_JOBS_I_01_Test
+  test: hr.jobs.HR_JOBS_I_01_PersistenceIT
 - id: HR_JOBS_I_02
   section: "JOBS"
   tier: Intermediate
   title: "The catalogue at a glance"
   sql: src/test/sql-exercises/JOBS/02_intermediate.sql
-  test: Jobs_Exercises_02_Intermediate_PersistenceIT.HR_JOBS_I_02_Test
+  test: hr.jobs.HR_JOBS_I_02_PersistenceIT
 - id: HR_JOBS_A_01
   section: "JOBS"
   tier: Advanced
   title: "Bands inside another band"
   sql: src/test/sql-exercises/JOBS/03_advanced.sql
-  test: Jobs_Exercises_03_Advanced_PersistenceIT.HR_JOBS_A_01_Test
+  test: hr.jobs.HR_JOBS_A_01_PersistenceIT
 - id: HR_JOBS_A_02
   section: "JOBS"
   tier: Advanced
   title: "The next step up"
   sql: src/test/sql-exercises/JOBS/03_advanced.sql
-  test: Jobs_Exercises_03_Advanced_PersistenceIT.HR_JOBS_A_02_Test
+  test: hr.jobs.HR_JOBS_A_02_PersistenceIT
 
 # ---- job_history
 
@@ -302,43 +302,43 @@
   tier: Basic
   title: "One employee's earlier positions"
   sql: src/test/sql-exercises/JOB_HISTORY/01_basic.sql
-  test: JobHistory_Exercises_01_Basic_PersistenceIT.HR_JOB_HISTORY_B_01_Test
+  test: hr.job_history.HR_JOB_HISTORY_B_01_PersistenceIT
 - id: HR_JOB_HISTORY_B_02
   section: "JOB_HISTORY"
   tier: Basic
   title: "Positions closed in a period"
   sql: src/test/sql-exercises/JOB_HISTORY/01_basic.sql
-  test: JobHistory_Exercises_01_Basic_PersistenceIT.HR_JOB_HISTORY_B_02_Test
+  test: hr.job_history.HR_JOB_HISTORY_B_02_PersistenceIT
 - id: HR_JOB_HISTORY_I_01
   section: "JOB_HISTORY"
   tier: Intermediate
   title: "Turnover per job"
   sql: src/test/sql-exercises/JOB_HISTORY/02_intermediate.sql
-  test: JobHistory_Exercises_02_Intermediate_PersistenceIT.HR_JOB_HISTORY_I_01_Test
+  test: hr.job_history.HR_JOB_HISTORY_I_01_PersistenceIT
 - id: HR_JOB_HISTORY_I_02
   section: "JOB_HISTORY"
   tier: Intermediate
   title: "Moved more than once"
   sql: src/test/sql-exercises/JOB_HISTORY/02_intermediate.sql
-  test: JobHistory_Exercises_02_Intermediate_PersistenceIT.HR_JOB_HISTORY_I_02_Test
+  test: hr.job_history.HR_JOB_HISTORY_I_02_PersistenceIT
 - id: HR_JOB_HISTORY_I_03
   section: "JOB_HISTORY"
   tier: Intermediate
   title: "How long earlier positions lasted"
   sql: src/test/sql-exercises/JOB_HISTORY/02_intermediate.sql
-  test: JobHistory_Exercises_02_Intermediate_PersistenceIT.HR_JOB_HISTORY_I_03_Test
+  test: hr.job_history.HR_JOB_HISTORY_I_03_PersistenceIT
 - id: HR_JOB_HISTORY_A_01
   section: "JOB_HISTORY"
   tier: Advanced
   title: "Consecutive moves"
   sql: src/test/sql-exercises/JOB_HISTORY/03_advanced.sql
-  test: JobHistory_Exercises_03_Advanced_PersistenceIT.HR_JOB_HISTORY_A_01_Test
+  test: hr.job_history.HR_JOB_HISTORY_A_01_PersistenceIT
 - id: HR_JOB_HISTORY_A_02
   section: "JOB_HISTORY"
   tier: Advanced
   title: "Overlapping positions"
   sql: src/test/sql-exercises/JOB_HISTORY/03_advanced.sql
-  test: JobHistory_Exercises_03_Advanced_PersistenceIT.HR_JOB_HISTORY_A_02_Test
+  test: hr.job_history.HR_JOB_HISTORY_A_02_PersistenceIT
 
 # ---- locations
 
@@ -347,31 +347,31 @@
   tier: Basic
   title: "Sites in a country"
   sql: src/test/sql-exercises/LOCATIONS/01_basic.sql
-  test: Locations_Exercises_01_Basic_PersistenceIT.HR_LOCATIONS_B_01_Test
+  test: hr.locations.HR_LOCATIONS_B_01_PersistenceIT
 - id: HR_LOCATIONS_B_02
   section: "LOCATIONS"
   tier: Basic
   title: "Sites without a postal code"
   sql: src/test/sql-exercises/LOCATIONS/01_basic.sql
-  test: Locations_Exercises_01_Basic_PersistenceIT.HR_LOCATIONS_B_02_Test
+  test: hr.locations.HR_LOCATIONS_B_02_PersistenceIT
 - id: HR_LOCATIONS_I_01
   section: "LOCATIONS"
   tier: Intermediate
   title: "Sites per country"
   sql: src/test/sql-exercises/LOCATIONS/02_intermediate.sql
-  test: Locations_Exercises_02_Intermediate_PersistenceIT.HR_LOCATIONS_I_01_Test
+  test: hr.locations.HR_LOCATIONS_I_01_PersistenceIT
 - id: HR_LOCATIONS_I_02
   section: "LOCATIONS"
   tier: Intermediate
   title: "Address labels"
   sql: src/test/sql-exercises/LOCATIONS/02_intermediate.sql
-  test: Locations_Exercises_02_Intermediate_PersistenceIT.HR_LOCATIONS_I_02_Test
+  test: hr.locations.HR_LOCATIONS_I_02_PersistenceIT
 - id: HR_LOCATIONS_A_01
   section: "LOCATIONS"
   tier: Advanced
   title: "The country with the most sites"
   sql: src/test/sql-exercises/LOCATIONS/03_advanced.sql
-  test: Locations_Exercises_03_Advanced_PersistenceIT.HR_LOCATIONS_A_01_Test
+  test: hr.locations.HR_LOCATIONS_A_01_PersistenceIT
 
 # ---- regions
 
@@ -380,7 +380,7 @@
   tier: Basic
   title: "Region by name"
   sql: src/test/sql-exercises/REGIONS/01_basic.sql
-  test: Regions_Exercises_01_Basic_PersistenceIT.HR_REGIONS_B_01_Test
+  test: hr.regions.HR_REGIONS_B_01_PersistenceIT
 - id: HR_REGIONS_B_02
   section: "REGIONS"
   tier: Basic
@@ -391,13 +391,13 @@
   tier: Intermediate
   title: "A number for a new region"
   sql: src/test/sql-exercises/REGIONS/02_intermediate.sql
-  test: Regions_Exercises_02_Intermediate_PersistenceIT.HR_REGIONS_I_01_Test
+  test: hr.regions.HR_REGIONS_I_01_PersistenceIT
 - id: HR_REGIONS_A_01
   section: "REGIONS"
   tier: Advanced
   title: "Initials that clash"
   sql: src/test/sql-exercises/REGIONS/03_advanced.sql
-  test: Regions_Exercises_03_Advanced_PersistenceIT.HR_REGIONS_A_01_Test
+  test: hr.regions.HR_REGIONS_A_01_PersistenceIT
 
 # ---- the schema
 
@@ -406,25 +406,25 @@
   tier: Basic
   title: "Who manages a department"
   sql: src/test/sql-exercises/__/01_basic.sql
-  test: ___Exercises_01_Basic_PersistenceIT.HR_SCHEMA_B_01_Test
+  test: hr.schema.HR_SCHEMA_B_01_PersistenceIT
 - id: HR_SCHEMA_B_02
   section: "SCHEMA"
   tier: Basic
   title: "An employee's job title"
   sql: src/test/sql-exercises/__/01_basic.sql
-  test: ___Exercises_01_Basic_PersistenceIT.HR_SCHEMA_B_02_Test
+  test: hr.schema.HR_SCHEMA_B_02_PersistenceIT
 - id: HR_SCHEMA_B_03
   section: "SCHEMA"
   tier: Basic
   title: "Countries of a region, by name"
   sql: src/test/sql-exercises/__/01_basic.sql
-  test: ___Exercises_01_Basic_PersistenceIT.HR_SCHEMA_B_03_Test
+  test: hr.schema.HR_SCHEMA_B_03_PersistenceIT
 - id: HR_SCHEMA_I_01
   section: "SCHEMA"
   tier: Intermediate
   title: "Headcount per department"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_01_Test
+  test: hr.schema.HR_SCHEMA_I_01_PersistenceIT
 - id: HR_SCHEMA_I_02
   section: "SCHEMA"
   tier: Intermediate
@@ -435,100 +435,100 @@
   tier: Intermediate
   title: "Departments above a size"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_03_Test
+  test: hr.schema.HR_SCHEMA_I_03_PersistenceIT
 - id: HR_SCHEMA_I_04
   section: "SCHEMA"
   tier: Intermediate
   title: "Company directory"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_04_Test
+  test: hr.schema.HR_SCHEMA_I_04_PersistenceIT
 - id: HR_SCHEMA_I_05
   section: "SCHEMA"
   tier: Intermediate
   title: "Actual pay against the band"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_05_Test
+  test: hr.schema.HR_SCHEMA_I_05_PersistenceIT
 - id: HR_SCHEMA_I_06
   section: "SCHEMA"
   tier: Intermediate
   title: "Due for a promotion conversation"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_06_Test
+  test: hr.schema.HR_SCHEMA_I_06_PersistenceIT
 - id: HR_SCHEMA_I_07
   section: "SCHEMA"
   tier: Intermediate
   title: "Departments with nobody in them"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_07_Test
+  test: hr.schema.HR_SCHEMA_I_07_PersistenceIT
 - id: HR_SCHEMA_I_08
   section: "SCHEMA"
   tier: Intermediate
   title: "Headcount by country and region"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_08_Test
+  test: hr.schema.HR_SCHEMA_I_08_PersistenceIT
 - id: HR_SCHEMA_I_09
   section: "SCHEMA"
   tier: Intermediate
   title: "Employees who have changed roles"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_09_Test
+  test: hr.schema.HR_SCHEMA_I_09_PersistenceIT
 - id: HR_SCHEMA_I_10
   section: "SCHEMA"
   tier: Intermediate
   title: "Never moved"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_10_Test
+  test: hr.schema.HR_SCHEMA_I_10_PersistenceIT
 - id: HR_SCHEMA_I_11
   section: "SCHEMA"
   tier: Intermediate
   title: "Managers outside their department"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_11_Test
+  test: hr.schema.HR_SCHEMA_I_11_PersistenceIT
 - id: HR_SCHEMA_I_12
   section: "SCHEMA"
   tier: Intermediate
   title: "Countries without a company site"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_12_Test
+  test: hr.schema.HR_SCHEMA_I_12_PersistenceIT
 - id: HR_SCHEMA_A_01
   section: "SCHEMA"
   tier: Advanced
   title: "Past positions in another department"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.HR_SCHEMA_A_01_Test
+  test: hr.schema.HR_SCHEMA_A_01_PersistenceIT
 - id: HR_SCHEMA_A_02
   section: "SCHEMA"
   tier: Advanced
   title: "Career timeline of one employee"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.HR_SCHEMA_A_02_Test
+  test: hr.schema.HR_SCHEMA_A_02_PersistenceIT
 - id: HR_SCHEMA_A_03
   section: "SCHEMA"
   tier: Advanced
   title: "Back in an earlier job"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.HR_SCHEMA_A_03_Test
+  test: hr.schema.HR_SCHEMA_A_03_PersistenceIT
 - id: HR_SCHEMA_A_04
   section: "SCHEMA"
   tier: Advanced
   title: "Offices with no department"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.HR_SCHEMA_A_04_Test
+  test: hr.schema.HR_SCHEMA_A_04_PersistenceIT
 - id: HR_SCHEMA_A_05
   section: "SCHEMA"
   tier: Advanced
   title: "Department roster in one round trip"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.HR_SCHEMA_A_05_Test
+  test: hr.schema.HR_SCHEMA_A_05_PersistenceIT
 - id: HR_SCHEMA_A_06
   section: "SCHEMA"
   tier: Advanced
   title: "An employee's chain of command"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.HR_SCHEMA_A_06_Test
+  test: hr.schema.HR_SCHEMA_A_06_PersistenceIT
 - id: HR_SCHEMA_A_07
   section: "SCHEMA"
   tier: Advanced
   title: "Each department's staff on one line"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.HR_SCHEMA_A_07_Test
+  test: hr.schema.HR_SCHEMA_A_07_PersistenceIT

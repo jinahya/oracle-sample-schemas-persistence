@@ -54,7 +54,7 @@ The installed data covers calendar years 2019 to 2022.
 
 // AI: Pick SH_CAL_MONTH_SALES_MV_B_01: Read a precomputed monthly revenue value from a materialized view.
 // AI: Copied from EXERCISES.asciidoc:33, anchor SH_CAL_MONTH_SALES_MV_B_01; retain the permanent ID when revising.
-// AI: Registry: section=CAL_MONTH_SALES_MV; tier=Basic; sql=src/test/sql-exercises/CAL_MONTH_SALES_MV/01_basic.sql; test=CalMonthSalesMv_Exercises_01_Basic_PersistenceIT.SH_CAL_MONTH_SALES_MV_B_01_Test.
+// AI: Registry: section=CAL_MONTH_SALES_MV; tier=Basic; sql=src/test/sql-exercises/CAL_MONTH_SALES_MV/01_basic.sql; test=sh.cal_month_sales_mv.SH_CAL_MONTH_SALES_MV_B_01_PersistenceIT.
 [[SH_CAL_MONTH_SALES_MV_B_01]]
 ==== SH_CAL_MONTH_SALES_MV_B_01: Monthly revenue at a glance
 
@@ -86,7 +86,7 @@ makes a string `BETWEEN` select whole months correctly.
 
 // AI: Pick SH_CAL_MONTH_SALES_MV_I_01: Compare a view row with AVG over the same bounded period.
 // AI: Copied from EXERCISES.asciidoc:60, anchor SH_CAL_MONTH_SALES_MV_I_01; retain the permanent ID when revising.
-// AI: Registry: section=CAL_MONTH_SALES_MV; tier=Intermediate; sql=src/test/sql-exercises/CAL_MONTH_SALES_MV/02_intermediate.sql; test=CalMonthSalesMv_Exercises_02_Intermediate_PersistenceIT.SH_CAL_MONTH_SALES_MV_I_01_Test.
+// AI: Registry: section=CAL_MONTH_SALES_MV; tier=Intermediate; sql=src/test/sql-exercises/CAL_MONTH_SALES_MV/02_intermediate.sql; test=sh.cal_month_sales_mv.SH_CAL_MONTH_SALES_MV_I_01_PersistenceIT.
 [[SH_CAL_MONTH_SALES_MV_I_01]]
 ==== SH_CAL_MONTH_SALES_MV_I_01: Months above the average
 
@@ -133,7 +133,7 @@ view.
 
 // AI: Pick SH_CHANNELS_B_01: Read a lookup entity with a two-attribute sort.
 // AI: Copied from EXERCISES.asciidoc:130, anchor SH_CHANNELS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=CHANNELS; tier=Basic; sql=src/test/sql-exercises/CHANNELS/01_basic.sql; test=Channels_Exercises_01_Basic_PersistenceIT.SH_CHANNELS_B_01_Test.
+// AI: Registry: section=CHANNELS; tier=Basic; sql=src/test/sql-exercises/CHANNELS/01_basic.sql; test=sh.channels.SH_CHANNELS_B_01_PersistenceIT.
 [[SH_CHANNELS_B_01]]
 ==== SH_CHANNELS_B_01: Routes to market
 
@@ -160,7 +160,7 @@ ORDER BY c.channelClass, c.channelDesc
 
 // AI: Pick SH_CHANNELS_I_01: Group channels by class.
 // AI: Copied from EXERCISES.asciidoc:152, anchor SH_CHANNELS_I_01; retain the permanent ID when revising.
-// AI: Registry: section=CHANNELS; tier=Intermediate; sql=src/test/sql-exercises/CHANNELS/02_intermediate.sql; test=Channels_Exercises_02_Intermediate_PersistenceIT.SH_CHANNELS_I_01_Test.
+// AI: Registry: section=CHANNELS; tier=Intermediate; sql=src/test/sql-exercises/CHANNELS/02_intermediate.sql; test=sh.channels.SH_CHANNELS_I_01_PersistenceIT.
 [[SH_CHANNELS_I_01]]
 ==== SH_CHANNELS_I_01: Channels per class
 
@@ -196,7 +196,7 @@ ORDER BY channels DESC, c.channelClass
 
 // AI: Pick SH_COSTS_B_01: Compare price and cost on an IdClass fact row in a date range.
 // AI: Copied from EXERCISES.asciidoc:209, anchor SH_COSTS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=COSTS; tier=Basic; sql=src/test/sql-exercises/COSTS/01_basic.sql; test=Costs_Exercises_01_Basic_PersistenceIT.SH_COSTS_B_01_Test.
+// AI: Registry: section=COSTS; tier=Basic; sql=src/test/sql-exercises/COSTS/01_basic.sql; test=sh.costs.SH_COSTS_B_01_PersistenceIT.
 // AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
 [[SH_COSTS_B_01]]
 ==== SH_COSTS_B_01: Prices below cost
@@ -232,7 +232,7 @@ ORDER BY c.time.timeId, c.product.prodId
 
 // AI: Pick SH_COSTS_I_01: Aggregate monetary values by product.
 // AI: Copied from EXERCISES.asciidoc:239, anchor SH_COSTS_I_01; retain the permanent ID when revising.
-// AI: Registry: section=COSTS; tier=Intermediate; sql=src/test/sql-exercises/COSTS/02_intermediate.sql; test=Costs_Exercises_02_Intermediate_PersistenceIT.SH_COSTS_I_01_Test.
+// AI: Registry: section=COSTS; tier=Intermediate; sql=src/test/sql-exercises/COSTS/02_intermediate.sql; test=sh.costs.SH_COSTS_I_01_PersistenceIT.
 [[SH_COSTS_I_01]]
 ==== SH_COSTS_I_01: Average unit margin per product
 
@@ -279,7 +279,7 @@ sold; a margin weighted by sales needs `SALES` as well (see _Gross margin by cat
 
 // AI: Pick SH_COUNTRIES_B_01: Filter by a sales-region attribute.
 // AI: Copied from EXERCISES.asciidoc:321, anchor SH_COUNTRIES_B_01; retain the permanent ID when revising.
-// AI: Registry: section=COUNTRIES; tier=Basic; sql=src/test/sql-exercises/COUNTRIES/01_basic.sql; test=Countries_Exercises_01_Basic_PersistenceIT.SH_COUNTRIES_B_01_Test.
+// AI: Registry: section=COUNTRIES; tier=Basic; sql=src/test/sql-exercises/COUNTRIES/01_basic.sql; test=sh.countries.SH_COUNTRIES_B_01_PersistenceIT.
 [[SH_COUNTRIES_B_01]]
 ==== SH_COUNTRIES_B_01: Countries of a sales region
 
@@ -308,7 +308,7 @@ ORDER BY c.countrySubregion, c.countryName
 
 // AI: Pick SH_COUNTRIES_I_01: Group by two geographic attributes.
 // AI: Copied from EXERCISES.asciidoc:344, anchor SH_COUNTRIES_I_01; retain the permanent ID when revising.
-// AI: Registry: section=COUNTRIES; tier=Intermediate; sql=src/test/sql-exercises/COUNTRIES/02_intermediate.sql; test=Countries_Exercises_02_Intermediate_PersistenceIT.SH_COUNTRIES_I_01_Test.
+// AI: Registry: section=COUNTRIES; tier=Intermediate; sql=src/test/sql-exercises/COUNTRIES/02_intermediate.sql; test=sh.countries.SH_COUNTRIES_I_01_PersistenceIT.
 [[SH_COUNTRIES_I_01]]
 ==== SH_COUNTRIES_I_01: Countries per subregion
 
@@ -347,7 +347,7 @@ ORDER BY c.countryRegion, c.countrySubregion
 
 // AI: Pick SH_CUSTOMERS_B_01: A parameterized surname-prefix search.
 // AI: Copied from EXERCISES.asciidoc:403, anchor SH_CUSTOMERS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=CUSTOMERS; tier=Basic; sql=src/test/sql-exercises/CUSTOMERS/01_basic.sql; test=Customers_Exercises_01_Basic_PersistenceIT.SH_CUSTOMERS_B_01_Test.
+// AI: Registry: section=CUSTOMERS; tier=Basic; sql=src/test/sql-exercises/CUSTOMERS/01_basic.sql; test=sh.customers.SH_CUSTOMERS_B_01_PersistenceIT.
 [[SH_CUSTOMERS_B_01]]
 ==== SH_CUSTOMERS_B_01: Look up a customer by surname
 
@@ -374,7 +374,7 @@ A prefix containing `+%+` or `+_+` would act as a wildcard; escape it (`+LIKE ..
 
 // AI: Pick SH_CUSTOMERS_B_04: Explicit NULL ordering over optional customer attributes.
 // AI: Copied from EXERCISES.asciidoc:475, anchor SH_CUSTOMERS_B_04; retain the permanent ID when revising.
-// AI: Registry: section=CUSTOMERS; tier=Basic; sql=src/test/sql-exercises/CUSTOMERS/01_basic.sql; test=Customers_Exercises_01_Basic_PersistenceIT.SH_CUSTOMERS_B_04_Test.
+// AI: Registry: section=CUSTOMERS; tier=Basic; sql=src/test/sql-exercises/CUSTOMERS/01_basic.sql; test=sh.customers.SH_CUSTOMERS_B_04_PersistenceIT.
 // AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
 [[SH_CUSTOMERS_B_04]]
 ==== SH_CUSTOMERS_B_04: Income bands, unknowns last
@@ -404,7 +404,7 @@ Oracle sorts `NULL` last for `ASC` anyway; `NULLS LAST` makes it independent of 
 
 // AI: Pick SH_CUSTOMERS_B_05: A valid-time predicate with nullable interval endpoints.
 // AI: Copied from EXERCISES.asciidoc:501, anchor SH_CUSTOMERS_B_05; retain the permanent ID when revising.
-// AI: Registry: section=CUSTOMERS; tier=Basic; sql=src/test/sql-exercises/CUSTOMERS/01_basic.sql; test=Customers_Exercises_01_Basic_PersistenceIT.SH_CUSTOMERS_B_05_Test.
+// AI: Registry: section=CUSTOMERS; tier=Basic; sql=src/test/sql-exercises/CUSTOMERS/01_basic.sql; test=sh.customers.SH_CUSTOMERS_B_05_PersistenceIT.
 [[SH_CUSTOMERS_B_05]]
 ==== SH_CUSTOMERS_B_05: Customer records in effect at a time
 
@@ -427,7 +427,7 @@ ORDER BY CUST_LAST_NAME, CUST_FIRST_NAME, CUST_ID
 
 // AI: Pick SH_CUSTOMERS_I_01: GROUP BY and HAVING on non-null email values.
 // AI: Copied from EXERCISES.asciidoc:519, anchor SH_CUSTOMERS_I_01; retain the permanent ID when revising.
-// AI: Registry: section=CUSTOMERS; tier=Intermediate; sql=src/test/sql-exercises/CUSTOMERS/02_intermediate.sql; test=Customers_Exercises_02_Intermediate_PersistenceIT.SH_CUSTOMERS_I_01_Test.
+// AI: Registry: section=CUSTOMERS; tier=Intermediate; sql=src/test/sql-exercises/CUSTOMERS/02_intermediate.sql; test=sh.customers.SH_CUSTOMERS_I_01_PersistenceIT.
 [[SH_CUSTOMERS_I_01]]
 ==== SH_CUSTOMERS_I_01: Email addresses shared by several customers
 
@@ -462,7 +462,7 @@ reported as sharing one. On the installed data several hundred addresses are sha
 
 // AI: Pick SH_CUSTOMERS_A_01: A correlated average within the customer's income band.
 // AI: Copied from EXERCISES.asciidoc:566, anchor SH_CUSTOMERS_A_01; retain the permanent ID when revising.
-// AI: Registry: section=CUSTOMERS; tier=Advanced; sql=src/test/sql-exercises/CUSTOMERS/03_advanced.sql; test=Customers_Exercises_03_Advanced_PersistenceIT.SH_CUSTOMERS_A_01_Test.
+// AI: Registry: section=CUSTOMERS; tier=Advanced; sql=src/test/sql-exercises/CUSTOMERS/03_advanced.sql; test=sh.customers.SH_CUSTOMERS_A_01_PersistenceIT.
 [[SH_CUSTOMERS_A_01]]
 ==== SH_CUSTOMERS_A_01: Credit limits above the band average
 
@@ -503,7 +503,7 @@ same average in one pass, but only before the city filter, so it needs an inline
 
 // AI: Pick SH_FWEEK_PSCAT_SALES_MV_B_01: Query a materialized view by components of its embedded identifier.
 // AI: Copied from EXERCISES.asciidoc:602, anchor SH_FWEEK_PSCAT_SALES_MV_B_01; retain the permanent ID when revising.
-// AI: Registry: section=FWEEK_PSCAT_SALES_MV; tier=Basic; sql=src/test/sql-exercises/FWEEK_PSCAT_SALES_MV/01_basic.sql; test=FweekPscatSalesMv_Exercises_01_Basic_PersistenceIT.SH_FWEEK_PSCAT_SALES_MV_B_01_Test.
+// AI: Registry: section=FWEEK_PSCAT_SALES_MV; tier=Basic; sql=src/test/sql-exercises/FWEEK_PSCAT_SALES_MV/01_basic.sql; test=sh.fweek_pscat_sales_mv.SH_FWEEK_PSCAT_SALES_MV_B_01_PersistenceIT.
 [[SH_FWEEK_PSCAT_SALES_MV_B_01]]
 ==== SH_FWEEK_PSCAT_SALES_MV_B_01: One week's sales by subcategory
 
@@ -534,7 +534,7 @@ ORDER BY f.dollars DESC NULLS LAST, f.id.prodSubcategory
 
 // AI: Pick SH_FWEEK_PSCAT_SALES_MV_I_01: Aggregate a materialized view over a bounded period.
 // AI: Copied from EXERCISES.asciidoc:628, anchor SH_FWEEK_PSCAT_SALES_MV_I_01; retain the permanent ID when revising.
-// AI: Registry: section=FWEEK_PSCAT_SALES_MV; tier=Intermediate; sql=src/test/sql-exercises/FWEEK_PSCAT_SALES_MV/02_intermediate.sql; test=FweekPscatSalesMv_Exercises_02_Intermediate_PersistenceIT.SH_FWEEK_PSCAT_SALES_MV_I_01_Test.
+// AI: Registry: section=FWEEK_PSCAT_SALES_MV; tier=Intermediate; sql=src/test/sql-exercises/FWEEK_PSCAT_SALES_MV/02_intermediate.sql; test=sh.fweek_pscat_sales_mv.SH_FWEEK_PSCAT_SALES_MV_I_01_PersistenceIT.
 [[SH_FWEEK_PSCAT_SALES_MV_I_01]]
 ==== SH_FWEEK_PSCAT_SALES_MV_I_01: Subcategory revenue over a period
 
@@ -577,7 +577,7 @@ Each row of the view is one promotion's revenue for the week, so a subcategory's
 
 // AI: Pick SH_PRODUCTS_B_01: Combine a category parameter and a monetary range.
 // AI: Copied from EXERCISES.asciidoc:702, anchor SH_PRODUCTS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=PRODUCTS; tier=Basic; sql=src/test/sql-exercises/PRODUCTS/01_basic.sql; test=Products_Exercises_01_Basic_PersistenceIT.SH_PRODUCTS_B_01_Test.
+// AI: Registry: section=PRODUCTS; tier=Basic; sql=src/test/sql-exercises/PRODUCTS/01_basic.sql; test=sh.products.SH_PRODUCTS_B_01_PersistenceIT.
 [[SH_PRODUCTS_B_01]]
 ==== SH_PRODUCTS_B_01: Products in a price band
 
@@ -609,7 +609,7 @@ ORDER BY p.prodListPrice DESC, p.prodName
 
 // AI: Pick SH_PRODUCTS_I_01: A scalar AVG subquery.
 // AI: Copied from EXERCISES.asciidoc:728, anchor SH_PRODUCTS_I_01; retain the permanent ID when revising.
-// AI: Registry: section=PRODUCTS; tier=Intermediate; sql=src/test/sql-exercises/PRODUCTS/02_intermediate.sql; test=Products_Exercises_02_Intermediate_PersistenceIT.SH_PRODUCTS_I_01_Test.
+// AI: Registry: section=PRODUCTS; tier=Intermediate; sql=src/test/sql-exercises/PRODUCTS/02_intermediate.sql; test=sh.products.SH_PRODUCTS_I_01_PersistenceIT.
 [[SH_PRODUCTS_I_01]]
 ==== SH_PRODUCTS_I_01: Products priced above the average
 
@@ -633,7 +633,7 @@ ORDER BY p.prodListPrice DESC
 
 // AI: Pick SH_PRODUCTS_I_03: COUNT DISTINCT and price bounds per supplier.
 // AI: Copied from EXERCISES.asciidoc:768, anchor SH_PRODUCTS_I_03; retain the permanent ID when revising.
-// AI: Registry: section=PRODUCTS; tier=Intermediate; sql=src/test/sql-exercises/PRODUCTS/02_intermediate.sql; test=Products_Exercises_02_Intermediate_PersistenceIT.SH_PRODUCTS_I_03_Test.
+// AI: Registry: section=PRODUCTS; tier=Intermediate; sql=src/test/sql-exercises/PRODUCTS/02_intermediate.sql; test=sh.products.SH_PRODUCTS_I_03_PersistenceIT.
 [[SH_PRODUCTS_I_03]]
 ==== SH_PRODUCTS_I_03: Supplier coverage of the catalogue
 
@@ -657,7 +657,7 @@ ORDER BY PRODUCTS DESC, SUPPLIER_ID
 
 // AI: Pick SH_PRODUCTS_A_01: A correlated maximum per subcategory that preserves ties.
 // AI: Copied from EXERCISES.asciidoc:788, anchor SH_PRODUCTS_A_01; retain the permanent ID when revising.
-// AI: Registry: section=PRODUCTS; tier=Advanced; sql=src/test/sql-exercises/PRODUCTS/03_advanced.sql; test=Products_Exercises_03_Advanced_PersistenceIT.SH_PRODUCTS_A_01_Test.
+// AI: Registry: section=PRODUCTS; tier=Advanced; sql=src/test/sql-exercises/PRODUCTS/03_advanced.sql; test=sh.products.SH_PRODUCTS_A_01_PersistenceIT.
 [[SH_PRODUCTS_A_01]]
 ==== SH_PRODUCTS_A_01: Most expensive product of each subcategory
 
@@ -695,7 +695,7 @@ SQL only.
 
 // AI: Pick SH_PROFITS_B_01: Compare revenue with computed cost through a mapped view.
 // AI: Copied from EXERCISES.asciidoc:821, anchor SH_PROFITS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=PROFITS; tier=Basic; sql=src/test/sql-exercises/PROFITS/01_basic.sql; test=Profits_Exercises_01_Basic_PersistenceIT.SH_PROFITS_B_01_Test.
+// AI: Registry: section=PROFITS; tier=Basic; sql=src/test/sql-exercises/PROFITS/01_basic.sql; test=sh.profits.SH_PROFITS_B_01_PersistenceIT.
 // AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
 [[SH_PROFITS_B_01]]
 ==== SH_PROFITS_B_01: Loss-making sales
@@ -728,7 +728,7 @@ ORDER BY pr.timeId, pr.prodId, pr.custId
 
 // AI: Pick SH_PROFITS_I_01: Aggregate margin with NULLIF to avoid division by zero.
 // AI: Copied from EXERCISES.asciidoc:848, anchor SH_PROFITS_I_01; retain the permanent ID when revising.
-// AI: Registry: section=PROFITS; tier=Intermediate; sql=src/test/sql-exercises/PROFITS/02_intermediate.sql; test=Profits_Exercises_02_Intermediate_PersistenceIT.SH_PROFITS_I_01_Test.
+// AI: Registry: section=PROFITS; tier=Intermediate; sql=src/test/sql-exercises/PROFITS/02_intermediate.sql; test=sh.profits.SH_PROFITS_I_01_PersistenceIT.
 // AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
 [[SH_PROFITS_I_01]]
 ==== SH_PROFITS_I_01: Thinnest margins
@@ -780,7 +780,7 @@ single sales did (see _Loss-making sales_).
 
 // AI: Pick SH_PROMOTIONS_B_01: A date parameter between two mapped attributes.
 // AI: Copied from EXERCISES.asciidoc:927, anchor SH_PROMOTIONS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=PROMOTIONS; tier=Basic; sql=src/test/sql-exercises/PROMOTIONS/01_basic.sql; test=Promotions_Exercises_01_Basic_PersistenceIT.SH_PROMOTIONS_B_01_Test.
+// AI: Registry: section=PROMOTIONS; tier=Basic; sql=src/test/sql-exercises/PROMOTIONS/01_basic.sql; test=sh.promotions.SH_PROMOTIONS_B_01_PersistenceIT.
 [[SH_PROMOTIONS_B_01]]
 ==== SH_PROMOTIONS_B_01: Promotions running on a day
 
@@ -806,7 +806,7 @@ ORDER BY p.promoEndDate, p.promoName
 
 // AI: Pick SH_PROMOTIONS_B_02: DISTINCT retrieves the promotion-category values.
 // AI: Copied from EXERCISES.asciidoc:950, anchor SH_PROMOTIONS_B_02; retain the permanent ID when revising.
-// AI: Registry: section=PROMOTIONS; tier=Basic; sql=src/test/sql-exercises/PROMOTIONS/01_basic.sql; test=Promotions_Exercises_01_Basic_PersistenceIT.SH_PROMOTIONS_B_02_Test.
+// AI: Registry: section=PROMOTIONS; tier=Basic; sql=src/test/sql-exercises/PROMOTIONS/01_basic.sql; test=sh.promotions.SH_PROMOTIONS_B_02_PersistenceIT.
 [[SH_PROMOTIONS_B_02]]
 ==== SH_PROMOTIONS_B_02: Kinds of promotion
 
@@ -833,7 +833,7 @@ ORDER BY p.promoCategory
 
 // AI: Pick SH_PROMOTIONS_I_01: SUM and AVG over a filtered group.
 // AI: Copied from EXERCISES.asciidoc:971, anchor SH_PROMOTIONS_I_01; retain the permanent ID when revising.
-// AI: Registry: section=PROMOTIONS; tier=Intermediate; sql=src/test/sql-exercises/PROMOTIONS/02_intermediate.sql; test=Promotions_Exercises_02_Intermediate_PersistenceIT.SH_PROMOTIONS_I_01_Test.
+// AI: Registry: section=PROMOTIONS; tier=Intermediate; sql=src/test/sql-exercises/PROMOTIONS/02_intermediate.sql; test=sh.promotions.SH_PROMOTIONS_I_01_PersistenceIT.
 [[SH_PROMOTIONS_I_01]]
 ==== SH_PROMOTIONS_I_01: Promotion spend by category
 
@@ -864,7 +864,7 @@ ORDER BY totalCost DESC
 
 // AI: Pick SH_PROMOTIONS_A_01: A real interval-overlap self-join with duplicate-pair suppression.
 // AI: Copied from EXERCISES.asciidoc:1030, anchor SH_PROMOTIONS_A_01; retain the permanent ID when revising.
-// AI: Registry: section=PROMOTIONS; tier=Advanced; sql=src/test/sql-exercises/PROMOTIONS/03_advanced.sql; test=Promotions_Exercises_03_Advanced_PersistenceIT.SH_PROMOTIONS_A_01_Test.
+// AI: Registry: section=PROMOTIONS; tier=Advanced; sql=src/test/sql-exercises/PROMOTIONS/03_advanced.sql; test=sh.promotions.SH_PROMOTIONS_A_01_PersistenceIT.
 [[SH_PROMOTIONS_A_01]]
 ==== SH_PROMOTIONS_A_01: Clashing promotions
 
@@ -913,7 +913,7 @@ pair once and keeps a promotion from clashing with itself.
 
 // AI: Pick SH_SALES_B_01: Filter a fact entity by components of its embedded identifier.
 // AI: Copied from EXERCISES.asciidoc:1074, anchor SH_SALES_B_01; retain the permanent ID when revising.
-// AI: Registry: section=SALES; tier=Basic; sql=src/test/sql-exercises/SALES/01_basic.sql; test=Sales_Exercises_01_Basic_PersistenceIT.SH_SALES_B_01_Test.
+// AI: Registry: section=SALES; tier=Basic; sql=src/test/sql-exercises/SALES/01_basic.sql; test=sh.sales.SH_SALES_B_01_PersistenceIT.
 // AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
 [[SH_SALES_B_01]]
 ==== SH_SALES_B_01: A day's takings through one channel
@@ -948,7 +948,7 @@ ORDER BY s.amountSold DESC
 
 // AI: Pick SH_SALES_I_01: Group sales by customer with deterministic top-n pagination.
 // AI: Copied from EXERCISES.asciidoc:1103, anchor SH_SALES_I_01; retain the permanent ID when revising.
-// AI: Registry: section=SALES; tier=Intermediate; sql=src/test/sql-exercises/SALES/02_intermediate.sql; test=Sales_Exercises_02_Intermediate_PersistenceIT.SH_SALES_I_01_Test.
+// AI: Registry: section=SALES; tier=Intermediate; sql=src/test/sql-exercises/SALES/02_intermediate.sql; test=sh.sales.SH_SALES_I_01_PersistenceIT.
 // AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
 [[SH_SALES_I_01]]
 ==== SH_SALES_I_01: Top spenders of a period
@@ -993,7 +993,7 @@ period does (see _Category revenue by quarter_, under Whole schema).
 
 // AI: Pick SH_SUPPLEMENTARY_DEMOGRAPHICS_B_01: Filter the mapped affinity-card flag and occupation.
 // AI: Copied from EXERCISES.asciidoc:1172, anchor SH_SUPPLEMENTARY_DEMOGRAPHICS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=SUPPLEMENTARY_DEMOGRAPHICS; tier=Basic; sql=src/test/sql-exercises/SUPPLEMENTARY_DEMOGRAPHICS/01_basic.sql; test=SupplementaryDemographics_Exercises_01_Basic_PersistenceIT.SH_SUPPLEMENTARY_DEMOGRAPHICS_B_01_Test.
+// AI: Registry: section=SUPPLEMENTARY_DEMOGRAPHICS; tier=Basic; sql=src/test/sql-exercises/SUPPLEMENTARY_DEMOGRAPHICS/01_basic.sql; test=sh.supplementary_demographics.SH_SUPPLEMENTARY_DEMOGRAPHICS_B_01_PersistenceIT.
 [[SH_SUPPLEMENTARY_DEMOGRAPHICS_B_01]]
 ==== SH_SUPPLEMENTARY_DEMOGRAPHICS_B_01: Card holders in an occupation
 
@@ -1025,7 +1025,7 @@ ORDER BY d.custId
 
 // AI: Pick SH_SUPPLEMENTARY_DEMOGRAPHICS_I_01: Aggregate a numeric flag by household size.
 // AI: Copied from EXERCISES.asciidoc:1198, anchor SH_SUPPLEMENTARY_DEMOGRAPHICS_I_01; retain the permanent ID when revising.
-// AI: Registry: section=SUPPLEMENTARY_DEMOGRAPHICS; tier=Intermediate; sql=src/test/sql-exercises/SUPPLEMENTARY_DEMOGRAPHICS/02_intermediate.sql; test=SupplementaryDemographics_Exercises_02_Intermediate_PersistenceIT.SH_SUPPLEMENTARY_DEMOGRAPHICS_I_01_Test.
+// AI: Registry: section=SUPPLEMENTARY_DEMOGRAPHICS; tier=Intermediate; sql=src/test/sql-exercises/SUPPLEMENTARY_DEMOGRAPHICS/02_intermediate.sql; test=sh.supplementary_demographics.SH_SUPPLEMENTARY_DEMOGRAPHICS_I_01_PersistenceIT.
 [[SH_SUPPLEMENTARY_DEMOGRAPHICS_I_01]]
 ==== SH_SUPPLEMENTARY_DEMOGRAPHICS_I_01: Card take-up by household size
 
@@ -1066,7 +1066,7 @@ ORDER BY d.householdSize
 
 // AI: Pick SH_TIMES_B_01: A date-identifier lookup reads fiscal and calendar attributes.
 // AI: Copied from EXERCISES.asciidoc:1273, anchor SH_TIMES_B_01; retain the permanent ID when revising.
-// AI: Registry: section=TIMES; tier=Basic; sql=src/test/sql-exercises/TIMES/01_basic.sql; test=Times_Exercises_01_Basic_PersistenceIT.SH_TIMES_B_01_Test.
+// AI: Registry: section=TIMES; tier=Basic; sql=src/test/sql-exercises/TIMES/01_basic.sql; test=sh.times.SH_TIMES_B_01_PersistenceIT.
 [[SH_TIMES_B_01]]
 ==== SH_TIMES_B_01: Which fiscal period is a day in?
 
@@ -1096,7 +1096,7 @@ WHERE t.timeId = :day
 
 // AI: Pick SH_TIMES_I_01: MIN, MAX, and COUNT derive fiscal-month boundaries.
 // AI: Copied from EXERCISES.asciidoc:1297, anchor SH_TIMES_I_01; retain the permanent ID when revising.
-// AI: Registry: section=TIMES; tier=Intermediate; sql=src/test/sql-exercises/TIMES/02_intermediate.sql; test=Times_Exercises_02_Intermediate_PersistenceIT.SH_TIMES_I_01_Test.
+// AI: Registry: section=TIMES; tier=Intermediate; sql=src/test/sql-exercises/TIMES/02_intermediate.sql; test=sh.times.SH_TIMES_I_01_PersistenceIT.
 [[SH_TIMES_I_01]]
 ==== SH_TIMES_I_01: Fiscal month boundaries
 
@@ -1139,7 +1139,7 @@ Problems that join or subquery more than one of the objects above.
 
 // AI: Pick SH_SCHEMA_B_01: Navigate sales-to-product and sales-to-channel associations.
 // AI: Copied from EXERCISES.asciidoc:1362, anchor SH_SCHEMA_B_01; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.SH_SCHEMA_B_01_Test.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=sh.schema.SH_SCHEMA_B_01_PersistenceIT.
 [[SH_SCHEMA_B_01]]
 ==== SH_SCHEMA_B_01: A customer's purchase history
 
@@ -1169,7 +1169,7 @@ ORDER BY t.timeId DESC, p.prodName
 
 // AI: Pick SH_SCHEMA_B_02: Fetch the customer's country in the same round trip.
 // AI: Copied from EXERCISES.asciidoc:1389, anchor SH_SCHEMA_B_02; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.SH_SCHEMA_B_02_Test.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=sh.schema.SH_SCHEMA_B_02_PersistenceIT.
 [[SH_SCHEMA_B_02]]
 ==== SH_SCHEMA_B_02: Customers with their country, in one round trip
 
@@ -1200,7 +1200,7 @@ through a separate join if you need one.
 
 // AI: Pick SH_SCHEMA_B_03: Group revenue over channel and time associations.
 // AI: Copied from EXERCISES.asciidoc:1417, anchor SH_SCHEMA_B_03; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.SH_SCHEMA_B_03_Test.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=sh.schema.SH_SCHEMA_B_03_PersistenceIT.
 [[SH_SCHEMA_B_03]]
 ==== SH_SCHEMA_B_03: Revenue by channel
 
@@ -1238,7 +1238,7 @@ ORDER BY revenue DESC
 
 // AI: Pick SH_SCHEMA_I_02: A top-n best-seller query across fact and dimension entities.
 // AI: Copied from EXERCISES.asciidoc:1475, anchor SH_SCHEMA_I_02; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.SH_SCHEMA_I_02_Test.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=sh.schema.SH_SCHEMA_I_02_PersistenceIT.
 // AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
 [[SH_SCHEMA_I_02]]
 ==== SH_SCHEMA_I_02: Ten best sellers
@@ -1275,7 +1275,7 @@ either way (`FETCH FIRST 10 ROWS WITH TIES` keeps them in Oracle SQL).
 
 // AI: Pick SH_SCHEMA_I_03: A multi-hop aggregate with a HAVING threshold.
 // AI: Copied from EXERCISES.asciidoc:1508, anchor SH_SCHEMA_I_03; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.SH_SCHEMA_I_03_Test.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=sh.schema.SH_SCHEMA_I_03_PersistenceIT.
 [[SH_SCHEMA_I_03]]
 ==== SH_SCHEMA_I_03: Countries above a revenue target
 
@@ -1309,7 +1309,7 @@ ORDER BY revenue DESC
 
 // AI: Pick SH_SCHEMA_I_10: A correlated EXISTS on purchases and promotions.
 // AI: Copied from EXERCISES.asciidoc:1713, anchor SH_SCHEMA_I_10; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.SH_SCHEMA_I_10_Test.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=sh.schema.SH_SCHEMA_I_10_PersistenceIT.
 [[SH_SCHEMA_I_10]]
 ==== SH_SCHEMA_I_10: Customers who bought on promotion
 
@@ -1357,7 +1357,7 @@ Angeles, 202 bought anything and 117 bought under a promotion.
 
 // AI: Pick SH_SCHEMA_A_02: Jakarta Persistence 3.2 set difference expresses customer lapse across periods.
 // AI: Copied from EXERCISES.asciidoc:1819, anchor SH_SCHEMA_A_02; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=___Exercises_03_Advanced_PersistenceIT.SH_SCHEMA_A_02_Test.
+// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=sh.schema.SH_SCHEMA_A_02_PersistenceIT.
 [[SH_SCHEMA_A_02]]
 ==== SH_SCHEMA_A_02: Lapsed customers
 
@@ -1404,7 +1404,7 @@ counterparts they remove duplicates. The `NOT EXISTS` form returns whole `Custom
 
 // AI: Pick SH_SCHEMA_A_03: A set intersection identifies customers who use both channels.
 // AI: Copied from EXERCISES.asciidoc:1863, anchor SH_SCHEMA_A_03; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=___Exercises_03_Advanced_PersistenceIT.SH_SCHEMA_A_03_Test.
+// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=sh.schema.SH_SCHEMA_A_03_PersistenceIT.
 [[SH_SCHEMA_A_03]]
 ==== SH_SCHEMA_A_03: Customers who buy through two channels
 

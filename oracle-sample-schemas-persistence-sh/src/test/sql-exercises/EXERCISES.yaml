@@ -17,19 +17,19 @@
   tier: Basic
   title: "Monthly revenue at a glance"
   sql: src/test/sql-exercises/CAL_MONTH_SALES_MV/01_basic.sql
-  test: CalMonthSalesMv_Exercises_01_Basic_PersistenceIT.SH_CAL_MONTH_SALES_MV_B_01_Test
+  test: sh.cal_month_sales_mv.SH_CAL_MONTH_SALES_MV_B_01_PersistenceIT
 - id: SH_CAL_MONTH_SALES_MV_I_01
   section: "CAL_MONTH_SALES_MV"
   tier: Intermediate
   title: "Months above the average"
   sql: src/test/sql-exercises/CAL_MONTH_SALES_MV/02_intermediate.sql
-  test: CalMonthSalesMv_Exercises_02_Intermediate_PersistenceIT.SH_CAL_MONTH_SALES_MV_I_01_Test
+  test: sh.cal_month_sales_mv.SH_CAL_MONTH_SALES_MV_I_01_PersistenceIT
 - id: SH_CAL_MONTH_SALES_MV_A_01
   section: "CAL_MONTH_SALES_MV"
   tier: Advanced
   title: "Running total of monthly revenue"
   sql: src/test/sql-exercises/CAL_MONTH_SALES_MV/03_advanced.sql
-  test: CalMonthSalesMv_Exercises_03_Advanced_PersistenceIT.SH_CAL_MONTH_SALES_MV_A_01_Test
+  test: sh.cal_month_sales_mv.SH_CAL_MONTH_SALES_MV_A_01_PersistenceIT
 
 # ---- channels
 
@@ -38,19 +38,19 @@
   tier: Basic
   title: "Routes to market"
   sql: src/test/sql-exercises/CHANNELS/01_basic.sql
-  test: Channels_Exercises_01_Basic_PersistenceIT.SH_CHANNELS_B_01_Test
+  test: sh.channels.SH_CHANNELS_B_01_PersistenceIT
 - id: SH_CHANNELS_I_01
   section: "CHANNELS"
   tier: Intermediate
   title: "Channels per class"
   sql: src/test/sql-exercises/CHANNELS/02_intermediate.sql
-  test: Channels_Exercises_02_Intermediate_PersistenceIT.SH_CHANNELS_I_01_Test
+  test: sh.channels.SH_CHANNELS_I_01_PersistenceIT
 - id: SH_CHANNELS_A_01
   section: "CHANNELS"
   tier: Advanced
   title: "Channel classes on one line"
   sql: src/test/sql-exercises/CHANNELS/03_advanced.sql
-  test: Channels_Exercises_03_Advanced_PersistenceIT.SH_CHANNELS_A_01_Test
+  test: sh.channels.SH_CHANNELS_A_01_PersistenceIT
 
 # ---- costs
 
@@ -59,19 +59,19 @@
   tier: Basic
   title: "Prices below cost"
   sql: src/test/sql-exercises/COSTS/01_basic.sql
-  test: Costs_Exercises_01_Basic_PersistenceIT.SH_COSTS_B_01_Test
+  test: sh.costs.SH_COSTS_B_01_PersistenceIT
 - id: SH_COSTS_I_01
   section: "COSTS"
   tier: Intermediate
   title: "Average unit margin per product"
   sql: src/test/sql-exercises/COSTS/02_intermediate.sql
-  test: Costs_Exercises_02_Intermediate_PersistenceIT.SH_COSTS_I_01_Test
+  test: sh.costs.SH_COSTS_I_01_PersistenceIT
 - id: SH_COSTS_A_01
   section: "COSTS"
   tier: Advanced
   title: "When did a price change?"
   sql: src/test/sql-exercises/COSTS/03_advanced.sql
-  test: Costs_Exercises_03_Advanced_PersistenceIT.SH_COSTS_A_01_Test
+  test: sh.costs.SH_COSTS_A_01_PersistenceIT
 
 # ---- countries
 
@@ -80,19 +80,19 @@
   tier: Basic
   title: "Countries of a sales region"
   sql: src/test/sql-exercises/COUNTRIES/01_basic.sql
-  test: Countries_Exercises_01_Basic_PersistenceIT.SH_COUNTRIES_B_01_Test
+  test: sh.countries.SH_COUNTRIES_B_01_PersistenceIT
 - id: SH_COUNTRIES_I_01
   section: "COUNTRIES"
   tier: Intermediate
   title: "Countries per subregion"
   sql: src/test/sql-exercises/COUNTRIES/02_intermediate.sql
-  test: Countries_Exercises_02_Intermediate_PersistenceIT.SH_COUNTRIES_I_01_Test
+  test: sh.countries.SH_COUNTRIES_I_01_PersistenceIT
 - id: SH_COUNTRIES_A_01
   section: "COUNTRIES"
   tier: Advanced
   title: "Is the geography hierarchy consistent?"
   sql: src/test/sql-exercises/COUNTRIES/03_advanced.sql
-  test: Countries_Exercises_03_Advanced_PersistenceIT.SH_COUNTRIES_A_01_Test
+  test: sh.countries.SH_COUNTRIES_A_01_PersistenceIT
 
 # ---- customers
 
@@ -101,49 +101,49 @@
   tier: Basic
   title: "Look up a customer by surname"
   sql: src/test/sql-exercises/CUSTOMERS/01_basic.sql
-  test: Customers_Exercises_01_Basic_PersistenceIT.SH_CUSTOMERS_B_01_Test
+  test: sh.customers.SH_CUSTOMERS_B_01_PersistenceIT
 - id: SH_CUSTOMERS_B_02
   section: "CUSTOMERS"
   tier: Basic
   title: "Customers in selected income bands"
   sql: src/test/sql-exercises/CUSTOMERS/01_basic.sql
-  test: Customers_Exercises_01_Basic_PersistenceIT.SH_CUSTOMERS_B_02_Test
+  test: sh.customers.SH_CUSTOMERS_B_02_PersistenceIT
 - id: SH_CUSTOMERS_B_03
   section: "CUSTOMERS"
   tier: Basic
   title: "Customers without a marital status"
   sql: src/test/sql-exercises/CUSTOMERS/01_basic.sql
-  test: Customers_Exercises_01_Basic_PersistenceIT.SH_CUSTOMERS_B_03_Test
+  test: sh.customers.SH_CUSTOMERS_B_03_PersistenceIT
 - id: SH_CUSTOMERS_B_04
   section: "CUSTOMERS"
   tier: Basic
   title: "Income bands, unknowns last"
   sql: src/test/sql-exercises/CUSTOMERS/01_basic.sql
-  test: Customers_Exercises_01_Basic_PersistenceIT.SH_CUSTOMERS_B_04_Test
+  test: sh.customers.SH_CUSTOMERS_B_04_PersistenceIT
 - id: SH_CUSTOMERS_B_05
   section: "CUSTOMERS"
   tier: Basic
   title: "Customer records in effect at a time"
   sql: src/test/sql-exercises/CUSTOMERS/01_basic.sql
-  test: Customers_Exercises_01_Basic_PersistenceIT.SH_CUSTOMERS_B_05_Test
+  test: sh.customers.SH_CUSTOMERS_B_05_PersistenceIT
 - id: SH_CUSTOMERS_I_01
   section: "CUSTOMERS"
   tier: Intermediate
   title: "Email addresses shared by several customers"
   sql: src/test/sql-exercises/CUSTOMERS/02_intermediate.sql
-  test: Customers_Exercises_02_Intermediate_PersistenceIT.SH_CUSTOMERS_I_01_Test
+  test: sh.customers.SH_CUSTOMERS_I_01_PersistenceIT
 - id: SH_CUSTOMERS_I_02
   section: "CUSTOMERS"
   tier: Intermediate
   title: "Customers by decade of birth"
   sql: src/test/sql-exercises/CUSTOMERS/02_intermediate.sql
-  test: Customers_Exercises_02_Intermediate_PersistenceIT.SH_CUSTOMERS_I_02_Test
+  test: sh.customers.SH_CUSTOMERS_I_02_PersistenceIT
 - id: SH_CUSTOMERS_A_01
   section: "CUSTOMERS"
   tier: Advanced
   title: "Credit limits above the band average"
   sql: src/test/sql-exercises/CUSTOMERS/03_advanced.sql
-  test: Customers_Exercises_03_Advanced_PersistenceIT.SH_CUSTOMERS_A_01_Test
+  test: sh.customers.SH_CUSTOMERS_A_01_PersistenceIT
 
 # ---- fweek_pscat_sales_mv
 
@@ -152,19 +152,19 @@
   tier: Basic
   title: "One week's sales by subcategory"
   sql: src/test/sql-exercises/FWEEK_PSCAT_SALES_MV/01_basic.sql
-  test: FweekPscatSalesMv_Exercises_01_Basic_PersistenceIT.SH_FWEEK_PSCAT_SALES_MV_B_01_Test
+  test: sh.fweek_pscat_sales_mv.SH_FWEEK_PSCAT_SALES_MV_B_01_PersistenceIT
 - id: SH_FWEEK_PSCAT_SALES_MV_I_01
   section: "FWEEK_PSCAT_SALES_MV"
   tier: Intermediate
   title: "Subcategory revenue over a period"
   sql: src/test/sql-exercises/FWEEK_PSCAT_SALES_MV/02_intermediate.sql
-  test: FweekPscatSalesMv_Exercises_02_Intermediate_PersistenceIT.SH_FWEEK_PSCAT_SALES_MV_I_01_Test
+  test: sh.fweek_pscat_sales_mv.SH_FWEEK_PSCAT_SALES_MV_I_01_PersistenceIT
 - id: SH_FWEEK_PSCAT_SALES_MV_A_01
   section: "FWEEK_PSCAT_SALES_MV"
   tier: Advanced
   title: "Best week of each subcategory"
   sql: src/test/sql-exercises/FWEEK_PSCAT_SALES_MV/03_advanced.sql
-  test: FweekPscatSalesMv_Exercises_03_Advanced_PersistenceIT.SH_FWEEK_PSCAT_SALES_MV_A_01_Test
+  test: sh.fweek_pscat_sales_mv.SH_FWEEK_PSCAT_SALES_MV_A_01_PersistenceIT
 
 # ---- products
 
@@ -173,31 +173,31 @@
   tier: Basic
   title: "Products in a price band"
   sql: src/test/sql-exercises/PRODUCTS/01_basic.sql
-  test: Products_Exercises_01_Basic_PersistenceIT.SH_PRODUCTS_B_01_Test
+  test: sh.products.SH_PRODUCTS_B_01_PersistenceIT
 - id: SH_PRODUCTS_I_01
   section: "PRODUCTS"
   tier: Intermediate
   title: "Products priced above the average"
   sql: src/test/sql-exercises/PRODUCTS/02_intermediate.sql
-  test: Products_Exercises_02_Intermediate_PersistenceIT.SH_PRODUCTS_I_01_Test
+  test: sh.products.SH_PRODUCTS_I_01_PersistenceIT
 - id: SH_PRODUCTS_I_02
   section: "PRODUCTS"
   tier: Intermediate
   title: "Discount headroom per subcategory"
   sql: src/test/sql-exercises/PRODUCTS/02_intermediate.sql
-  test: Products_Exercises_02_Intermediate_PersistenceIT.SH_PRODUCTS_I_02_Test
+  test: sh.products.SH_PRODUCTS_I_02_PersistenceIT
 - id: SH_PRODUCTS_I_03
   section: "PRODUCTS"
   tier: Intermediate
   title: "Supplier coverage of the catalogue"
   sql: src/test/sql-exercises/PRODUCTS/02_intermediate.sql
-  test: Products_Exercises_02_Intermediate_PersistenceIT.SH_PRODUCTS_I_03_Test
+  test: sh.products.SH_PRODUCTS_I_03_PersistenceIT
 - id: SH_PRODUCTS_A_01
   section: "PRODUCTS"
   tier: Advanced
   title: "Most expensive product of each subcategory"
   sql: src/test/sql-exercises/PRODUCTS/03_advanced.sql
-  test: Products_Exercises_03_Advanced_PersistenceIT.SH_PRODUCTS_A_01_Test
+  test: sh.products.SH_PRODUCTS_A_01_PersistenceIT
 
 # ---- profits
 
@@ -206,19 +206,19 @@
   tier: Basic
   title: "Loss-making sales"
   sql: src/test/sql-exercises/PROFITS/01_basic.sql
-  test: Profits_Exercises_01_Basic_PersistenceIT.SH_PROFITS_B_01_Test
+  test: sh.profits.SH_PROFITS_B_01_PersistenceIT
 - id: SH_PROFITS_I_01
   section: "PROFITS"
   tier: Intermediate
   title: "Thinnest margins"
   sql: src/test/sql-exercises/PROFITS/02_intermediate.sql
-  test: Profits_Exercises_02_Intermediate_PersistenceIT.SH_PROFITS_I_01_Test
+  test: sh.profits.SH_PROFITS_I_01_PersistenceIT
 - id: SH_PROFITS_A_01
   section: "PROFITS"
   tier: Advanced
   title: "Products whose margin shrank"
   sql: src/test/sql-exercises/PROFITS/03_advanced.sql
-  test: Profits_Exercises_03_Advanced_PersistenceIT.SH_PROFITS_A_01_Test
+  test: sh.profits.SH_PROFITS_A_01_PersistenceIT
 
 # ---- promotions
 
@@ -227,31 +227,31 @@
   tier: Basic
   title: "Promotions running on a day"
   sql: src/test/sql-exercises/PROMOTIONS/01_basic.sql
-  test: Promotions_Exercises_01_Basic_PersistenceIT.SH_PROMOTIONS_B_01_Test
+  test: sh.promotions.SH_PROMOTIONS_B_01_PersistenceIT
 - id: SH_PROMOTIONS_B_02
   section: "PROMOTIONS"
   tier: Basic
   title: "Kinds of promotion"
   sql: src/test/sql-exercises/PROMOTIONS/01_basic.sql
-  test: Promotions_Exercises_01_Basic_PersistenceIT.SH_PROMOTIONS_B_02_Test
+  test: sh.promotions.SH_PROMOTIONS_B_02_PersistenceIT
 - id: SH_PROMOTIONS_I_01
   section: "PROMOTIONS"
   tier: Intermediate
   title: "Promotion spend by category"
   sql: src/test/sql-exercises/PROMOTIONS/02_intermediate.sql
-  test: Promotions_Exercises_02_Intermediate_PersistenceIT.SH_PROMOTIONS_I_01_Test
+  test: sh.promotions.SH_PROMOTIONS_I_01_PersistenceIT
 - id: SH_PROMOTIONS_I_02
   section: "PROMOTIONS"
   tier: Intermediate
   title: "How long promotions run"
   sql: src/test/sql-exercises/PROMOTIONS/02_intermediate.sql
-  test: Promotions_Exercises_02_Intermediate_PersistenceIT.SH_PROMOTIONS_I_02_Test
+  test: sh.promotions.SH_PROMOTIONS_I_02_PersistenceIT
 - id: SH_PROMOTIONS_A_01
   section: "PROMOTIONS"
   tier: Advanced
   title: "Clashing promotions"
   sql: src/test/sql-exercises/PROMOTIONS/03_advanced.sql
-  test: Promotions_Exercises_03_Advanced_PersistenceIT.SH_PROMOTIONS_A_01_Test
+  test: sh.promotions.SH_PROMOTIONS_A_01_PersistenceIT
 
 # ---- sales
 
@@ -260,19 +260,19 @@
   tier: Basic
   title: "A day's takings through one channel"
   sql: src/test/sql-exercises/SALES/01_basic.sql
-  test: Sales_Exercises_01_Basic_PersistenceIT.SH_SALES_B_01_Test
+  test: sh.sales.SH_SALES_B_01_PersistenceIT
 - id: SH_SALES_I_01
   section: "SALES"
   tier: Intermediate
   title: "Top spenders of a period"
   sql: src/test/sql-exercises/SALES/02_intermediate.sql
-  test: Sales_Exercises_02_Intermediate_PersistenceIT.SH_SALES_I_01_Test
+  test: sh.sales.SH_SALES_I_01_PersistenceIT
 - id: SH_SALES_A_01
   section: "SALES"
   tier: Advanced
   title: "Days between a customer's purchases"
   sql: src/test/sql-exercises/SALES/03_advanced.sql
-  test: Sales_Exercises_03_Advanced_PersistenceIT.SH_SALES_A_01_Test
+  test: sh.sales.SH_SALES_A_01_PersistenceIT
 
 # ---- supplementary_demographics
 
@@ -281,25 +281,25 @@
   tier: Basic
   title: "Card holders in an occupation"
   sql: src/test/sql-exercises/SUPPLEMENTARY_DEMOGRAPHICS/01_basic.sql
-  test: SupplementaryDemographics_Exercises_01_Basic_PersistenceIT.SH_SUPPLEMENTARY_DEMOGRAPHICS_B_01_Test
+  test: sh.supplementary_demographics.SH_SUPPLEMENTARY_DEMOGRAPHICS_B_01_PersistenceIT
 - id: SH_SUPPLEMENTARY_DEMOGRAPHICS_I_01
   section: "SUPPLEMENTARY_DEMOGRAPHICS"
   tier: Intermediate
   title: "Card take-up by household size"
   sql: src/test/sql-exercises/SUPPLEMENTARY_DEMOGRAPHICS/02_intermediate.sql
-  test: SupplementaryDemographics_Exercises_02_Intermediate_PersistenceIT.SH_SUPPLEMENTARY_DEMOGRAPHICS_I_01_Test
+  test: sh.supplementary_demographics.SH_SUPPLEMENTARY_DEMOGRAPHICS_I_01_PersistenceIT
 - id: SH_SUPPLEMENTARY_DEMOGRAPHICS_I_02
   section: "SUPPLEMENTARY_DEMOGRAPHICS"
   tier: Intermediate
   title: "Affinity-card indicators that are not 0 or 1"
   sql: src/test/sql-exercises/SUPPLEMENTARY_DEMOGRAPHICS/02_intermediate.sql
-  test: SupplementaryDemographics_Exercises_02_Intermediate_PersistenceIT.SH_SUPPLEMENTARY_DEMOGRAPHICS_I_02_Test
+  test: sh.supplementary_demographics.SH_SUPPLEMENTARY_DEMOGRAPHICS_I_02_PersistenceIT
 - id: SH_SUPPLEMENTARY_DEMOGRAPHICS_A_01
   section: "SUPPLEMENTARY_DEMOGRAPHICS"
   tier: Advanced
   title: "Occupations ahead of the overall take-up"
   sql: src/test/sql-exercises/SUPPLEMENTARY_DEMOGRAPHICS/03_advanced.sql
-  test: SupplementaryDemographics_Exercises_03_Advanced_PersistenceIT.SH_SUPPLEMENTARY_DEMOGRAPHICS_A_01_Test
+  test: sh.supplementary_demographics.SH_SUPPLEMENTARY_DEMOGRAPHICS_A_01_PersistenceIT
 
 # ---- times
 
@@ -308,19 +308,19 @@
   tier: Basic
   title: "Which fiscal period is a day in?"
   sql: src/test/sql-exercises/TIMES/01_basic.sql
-  test: Times_Exercises_01_Basic_PersistenceIT.SH_TIMES_B_01_Test
+  test: sh.times.SH_TIMES_B_01_PersistenceIT
 - id: SH_TIMES_I_01
   section: "TIMES"
   tier: Intermediate
   title: "Fiscal month boundaries"
   sql: src/test/sql-exercises/TIMES/02_intermediate.sql
-  test: Times_Exercises_02_Intermediate_PersistenceIT.SH_TIMES_I_01_Test
+  test: sh.times.SH_TIMES_I_01_PersistenceIT
 - id: SH_TIMES_A_01
   section: "TIMES"
   tier: Advanced
   title: "Fiscal months that disagree with themselves"
   sql: src/test/sql-exercises/TIMES/03_advanced.sql
-  test: Times_Exercises_03_Advanced_PersistenceIT.SH_TIMES_A_01_Test
+  test: sh.times.SH_TIMES_A_01_PersistenceIT
 
 # ---- the schema
 
@@ -329,43 +329,43 @@
   tier: Basic
   title: "A customer's purchase history"
   sql: src/test/sql-exercises/__/01_basic.sql
-  test: ___Exercises_01_Basic_PersistenceIT.SH_SCHEMA_B_01_Test
+  test: sh.schema.SH_SCHEMA_B_01_PersistenceIT
 - id: SH_SCHEMA_B_02
   section: "SCHEMA"
   tier: Basic
   title: "Customers with their country, in one round trip"
   sql: src/test/sql-exercises/__/01_basic.sql
-  test: ___Exercises_01_Basic_PersistenceIT.SH_SCHEMA_B_02_Test
+  test: sh.schema.SH_SCHEMA_B_02_PersistenceIT
 - id: SH_SCHEMA_B_03
   section: "SCHEMA"
   tier: Basic
   title: "Revenue by channel"
   sql: src/test/sql-exercises/__/01_basic.sql
-  test: ___Exercises_01_Basic_PersistenceIT.SH_SCHEMA_B_03_Test
+  test: sh.schema.SH_SCHEMA_B_03_PersistenceIT
 - id: SH_SCHEMA_I_01
   section: "SCHEMA"
   tier: Intermediate
   title: "Category revenue by quarter"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.SH_SCHEMA_I_01_Test
+  test: sh.schema.SH_SCHEMA_I_01_PersistenceIT
 - id: SH_SCHEMA_I_02
   section: "SCHEMA"
   tier: Intermediate
   title: "Ten best sellers"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.SH_SCHEMA_I_02_Test
+  test: sh.schema.SH_SCHEMA_I_02_PersistenceIT
 - id: SH_SCHEMA_I_03
   section: "SCHEMA"
   tier: Intermediate
   title: "Countries above a revenue target"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.SH_SCHEMA_I_03_Test
+  test: sh.schema.SH_SCHEMA_I_03_PersistenceIT
 - id: SH_SCHEMA_I_04
   section: "SCHEMA"
   tier: Intermediate
   title: "Promotions that moved revenue"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.SH_SCHEMA_I_04_Test
+  test: sh.schema.SH_SCHEMA_I_04_PersistenceIT
 - id: SH_SCHEMA_I_05
   section: "SCHEMA"
   tier: Intermediate
@@ -376,106 +376,106 @@
   tier: Intermediate
   title: "Weekend versus weekday"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.SH_SCHEMA_I_06_Test
+  test: sh.schema.SH_SCHEMA_I_06_PersistenceIT
 - id: SH_SCHEMA_I_07
   section: "SCHEMA"
   tier: Intermediate
   title: "Revenue by gender and marital status"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.SH_SCHEMA_I_07_Test
+  test: sh.schema.SH_SCHEMA_I_07_PersistenceIT
 - id: SH_SCHEMA_I_08
   section: "SCHEMA"
   tier: Intermediate
   title: "Affinity-card holders by education"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.SH_SCHEMA_I_08_Test
+  test: sh.schema.SH_SCHEMA_I_08_PersistenceIT
 - id: SH_SCHEMA_I_09
   section: "SCHEMA"
   tier: Intermediate
   title: "Realised price against list price"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.SH_SCHEMA_I_09_Test
+  test: sh.schema.SH_SCHEMA_I_09_PersistenceIT
 - id: SH_SCHEMA_I_10
   section: "SCHEMA"
   tier: Intermediate
   title: "Customers who bought on promotion"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.SH_SCHEMA_I_10_Test
+  test: sh.schema.SH_SCHEMA_I_10_PersistenceIT
 - id: SH_SCHEMA_I_11
   section: "SCHEMA"
   tier: Intermediate
   title: "Promotions that never sold"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.SH_SCHEMA_I_11_Test
+  test: sh.schema.SH_SCHEMA_I_11_PersistenceIT
 - id: SH_SCHEMA_A_01
   section: "SCHEMA"
   tier: Advanced
   title: "Dormant products and customers"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.SH_SCHEMA_A_01_Test
+  test: sh.schema.SH_SCHEMA_A_01_PersistenceIT
 - id: SH_SCHEMA_A_02
   section: "SCHEMA"
   tier: Advanced
   title: "Lapsed customers"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.SH_SCHEMA_A_02_Test
+  test: sh.schema.SH_SCHEMA_A_02_PersistenceIT
 - id: SH_SCHEMA_A_03
   section: "SCHEMA"
   tier: Advanced
   title: "Customers who buy through two channels"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.SH_SCHEMA_A_03_Test
+  test: sh.schema.SH_SCHEMA_A_03_PersistenceIT
 - id: SH_SCHEMA_A_04
   section: "SCHEMA"
   tier: Advanced
   title: "Top three products of each category"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.SH_SCHEMA_A_04_Test
+  test: sh.schema.SH_SCHEMA_A_04_PersistenceIT
 - id: SH_SCHEMA_A_05
   section: "SCHEMA"
   tier: Advanced
   title: "Gross margin by category"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.SH_SCHEMA_A_05_Test
+  test: sh.schema.SH_SCHEMA_A_05_PersistenceIT
 - id: SH_SCHEMA_A_06
   section: "SCHEMA"
   tier: Advanced
   title: "Year-over-year growth by channel"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.SH_SCHEMA_A_06_Test
+  test: sh.schema.SH_SCHEMA_A_06_PersistenceIT
 - id: SH_SCHEMA_A_07
   section: "SCHEMA"
   tier: Advanced
   title: "Channel and quarter subtotals"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.SH_SCHEMA_A_07_Test
+  test: sh.schema.SH_SCHEMA_A_07_PersistenceIT
 - id: SH_SCHEMA_A_08
   section: "SCHEMA"
   tier: Advanced
   title: "Mailing labels"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.SH_SCHEMA_A_08_Test
+  test: sh.schema.SH_SCHEMA_A_08_PersistenceIT
 - id: SH_SCHEMA_A_09
   section: "SCHEMA"
   tier: Advanced
   title: "Reconcile sale dates with the calendar"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.SH_SCHEMA_A_09_Test
+  test: sh.schema.SH_SCHEMA_A_09_PersistenceIT
 - id: SH_SCHEMA_A_10
   section: "SCHEMA"
   tier: Advanced
   title: "Three-month moving average of revenue"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.SH_SCHEMA_A_10_Test
+  test: sh.schema.SH_SCHEMA_A_10_PersistenceIT
 - id: SH_SCHEMA_A_11
   section: "SCHEMA"
   tier: Advanced
   title: "Each country's share of its region"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.SH_SCHEMA_A_11_Test
+  test: sh.schema.SH_SCHEMA_A_11_PersistenceIT
 - id: SH_SCHEMA_A_12
   section: "SCHEMA"
   tier: Advanced
   title: "Duplicate sales and cost keys"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.SH_SCHEMA_A_12_Test
+  test: sh.schema.SH_SCHEMA_A_12_PersistenceIT

@@ -66,7 +66,7 @@ A few things about the mappings shape the JPQL below:
 
 // AI: Pick CO_CUSTOMERS_B_01: Unique email lookup introduces getSingleResult and its missing-row behavior.
 // AI: Copied from EXERCISES.asciidoc:44, anchor CO_CUSTOMERS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=CUSTOMERS; tier=Basic; sql=src/test/sql-exercises/CUSTOMERS/01_basic.sql; test=Customers_Exercises_01_Basic_PersistenceIT.CO_CUSTOMERS_B_01_Test.
+// AI: Registry: section=CUSTOMERS; tier=Basic; sql=src/test/sql-exercises/CUSTOMERS/01_basic.sql; test=co.customers.CO_CUSTOMERS_B_01_PersistenceIT.
 [[CO_CUSTOMERS_B_01]]
 ==== CO_CUSTOMERS_B_01: Pull up a customer by email address
 
@@ -90,7 +90,7 @@ WHERE c.emailAddress = :emailAddress
 
 // AI: Pick CO_CUSTOMERS_B_02: A parameterized case-insensitive name search.
 // AI: Copied from EXERCISES.asciidoc:65, anchor CO_CUSTOMERS_B_02; retain the permanent ID when revising.
-// AI: Registry: section=CUSTOMERS; tier=Basic; sql=src/test/sql-exercises/CUSTOMERS/01_basic.sql; test=Customers_Exercises_01_Basic_PersistenceIT.CO_CUSTOMERS_B_02_Test.
+// AI: Registry: section=CUSTOMERS; tier=Basic; sql=src/test/sql-exercises/CUSTOMERS/01_basic.sql; test=co.customers.CO_CUSTOMERS_B_02_PersistenceIT.
 [[CO_CUSTOMERS_B_02]]
 ==== CO_CUSTOMERS_B_02: Search customers by the start of their name
 
@@ -142,7 +142,7 @@ its product names in `ITEMS`. `CustomerOrderProduct` maps it as a read-only enti
 
 // AI: Pick CO_CUSTOMER_ORDER_PRODUCTS_B_02: Read completed baskets through a mapped view with deterministic ordering.
 // AI: Copied from EXERCISES.asciidoc:161, anchor CO_CUSTOMER_ORDER_PRODUCTS_B_02; retain the permanent ID when revising.
-// AI: Registry: section=CUSTOMER_ORDER_PRODUCTS; tier=Basic; sql=src/test/sql-exercises/CUSTOMER_ORDER_PRODUCTS/01_basic.sql; test=CustomerOrderProducts_Exercises_01_Basic_PersistenceIT.CO_CUSTOMER_ORDER_PRODUCTS_B_02_Test.
+// AI: Registry: section=CUSTOMER_ORDER_PRODUCTS; tier=Basic; sql=src/test/sql-exercises/CUSTOMER_ORDER_PRODUCTS/01_basic.sql; test=co.customer_order_products.CO_CUSTOMER_ORDER_PRODUCTS_B_02_PersistenceIT.
 [[CO_CUSTOMER_ORDER_PRODUCTS_B_02]]
 ==== CO_CUSTOMER_ORDER_PRODUCTS_B_02: Review a customer's completed baskets
 
@@ -163,7 +163,7 @@ ORDER BY order_tms DESC, order_id DESC
 
 // AI: Pick CO_CUSTOMER_ORDER_PRODUCTS_I_01: Aggregate a mapped view rather than repeating its base-table joins.
 // AI: Copied from EXERCISES.asciidoc:178, anchor CO_CUSTOMER_ORDER_PRODUCTS_I_01; retain the permanent ID when revising.
-// AI: Registry: section=CUSTOMER_ORDER_PRODUCTS; tier=Intermediate; sql=src/test/sql-exercises/CUSTOMER_ORDER_PRODUCTS/02_intermediate.sql; test=CustomerOrderProducts_Exercises_02_Intermediate_PersistenceIT.CO_CUSTOMER_ORDER_PRODUCTS_I_01_Test.
+// AI: Registry: section=CUSTOMER_ORDER_PRODUCTS; tier=Intermediate; sql=src/test/sql-exercises/CUSTOMER_ORDER_PRODUCTS/02_intermediate.sql; test=co.customer_order_products.CO_CUSTOMER_ORDER_PRODUCTS_I_01_PersistenceIT.
 [[CO_CUSTOMER_ORDER_PRODUCTS_I_01]]
 ==== CO_CUSTOMER_ORDER_PRODUCTS_I_01: Average basket per customer
 
@@ -206,7 +206,7 @@ The view's `orderStatus` is a `String`, so a string literal is right here, unlik
 
 // AI: Pick CO_INVENTORY_B_01: Identify stock by its store and product associations.
 // AI: Copied from EXERCISES.asciidoc:238, anchor CO_INVENTORY_B_01; retain the permanent ID when revising.
-// AI: Registry: section=INVENTORY; tier=Basic; sql=src/test/sql-exercises/INVENTORY/01_basic.sql; test=Inventory_Exercises_01_Basic_PersistenceIT.CO_INVENTORY_B_01_Test.
+// AI: Registry: section=INVENTORY; tier=Basic; sql=src/test/sql-exercises/INVENTORY/01_basic.sql; test=co.inventory.CO_INVENTORY_B_01_PersistenceIT.
 [[CO_INVENTORY_B_01]]
 ==== CO_INVENTORY_B_01: How many are on the shelf?
 
@@ -241,7 +241,7 @@ selects the whole `Inventory`.
 
 // AI: Pick CO_INVENTORY_B_02: Order a product's stock across stores.
 // AI: Copied from EXERCISES.asciidoc:270, anchor CO_INVENTORY_B_02; retain the permanent ID when revising.
-// AI: Registry: section=INVENTORY; tier=Basic; sql=src/test/sql-exercises/INVENTORY/01_basic.sql; test=Inventory_Exercises_01_Basic_PersistenceIT.CO_INVENTORY_B_02_Test.
+// AI: Registry: section=INVENTORY; tier=Basic; sql=src/test/sql-exercises/INVENTORY/01_basic.sql; test=co.inventory.CO_INVENTORY_B_02_PersistenceIT.
 // AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
 [[CO_INVENTORY_B_02]]
 ==== CO_INVENTORY_B_02: Where a product is running lowest
@@ -275,7 +275,7 @@ back in no particular order; add `e.store.storeId` to the `ORDER BY` for a stabl
 
 // AI: Pick CO_INVENTORY_I_01: Group stock by store and count zero-stock entries.
 // AI: Copied from EXERCISES.asciidoc:313, anchor CO_INVENTORY_I_01; retain the permanent ID when revising.
-// AI: Registry: section=INVENTORY; tier=Intermediate; sql=src/test/sql-exercises/INVENTORY/02_intermediate.sql; test=Inventory_Exercises_02_Intermediate_PersistenceIT.CO_INVENTORY_I_01_Test.
+// AI: Registry: section=INVENTORY; tier=Intermediate; sql=src/test/sql-exercises/INVENTORY/02_intermediate.sql; test=co.inventory.CO_INVENTORY_I_01_PersistenceIT.
 [[CO_INVENTORY_I_01]]
 ==== CO_INVENTORY_I_01: What each store holds
 
@@ -310,7 +310,7 @@ _Running low_). The 3.2 grammar gives `SUM` a path argument only; both providers
 
 // AI: Pick CO_INVENTORY_A_01: Double NOT EXISTS expresses coverage of another store's product set.
 // AI: Copied from EXERCISES.asciidoc:343, anchor CO_INVENTORY_A_01; retain the permanent ID when revising.
-// AI: Registry: section=INVENTORY; tier=Advanced; sql=src/test/sql-exercises/INVENTORY/03_advanced.sql; test=Inventory_Exercises_03_Advanced_PersistenceIT.CO_INVENTORY_A_01_Test.
+// AI: Registry: section=INVENTORY; tier=Advanced; sql=src/test/sql-exercises/INVENTORY/03_advanced.sql; test=co.inventory.CO_INVENTORY_A_01_PersistenceIT.
 [[CO_INVENTORY_A_01]]
 ==== CO_INVENTORY_A_01: Stores that carry everything another store carries
 
@@ -361,7 +361,7 @@ is stores 1, 4, 9, 10, 14 and 19.
 
 // AI: Pick CO_ORDERS_B_01: A customer association parameter with stable reverse chronological ordering.
 // AI: Copied from EXERCISES.asciidoc:388, anchor CO_ORDERS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=ORDERS; tier=Basic; sql=src/test/sql-exercises/ORDERS/01_basic.sql; test=Orders_Exercises_01_Basic_PersistenceIT.CO_ORDERS_B_01_Test.
+// AI: Registry: section=ORDERS; tier=Basic; sql=src/test/sql-exercises/ORDERS/01_basic.sql; test=co.orders.CO_ORDERS_B_01_PersistenceIT.
 // AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
 [[CO_ORDERS_B_01]]
 ==== CO_ORDERS_B_01: A customer's order history
@@ -399,7 +399,7 @@ ORDER BY o.orderTms DESC
 
 // AI: Pick CO_ORDERS_B_02: IN on mapped order-status enum values.
 // AI: Copied from EXERCISES.asciidoc:422, anchor CO_ORDERS_B_02; retain the permanent ID when revising.
-// AI: Registry: section=ORDERS; tier=Basic; sql=src/test/sql-exercises/ORDERS/01_basic.sql; test=Orders_Exercises_01_Basic_PersistenceIT.CO_ORDERS_B_02_Test.
+// AI: Registry: section=ORDERS; tier=Basic; sql=src/test/sql-exercises/ORDERS/01_basic.sql; test=co.orders.CO_ORDERS_B_02_PersistenceIT.
 [[CO_ORDERS_B_02]]
 ==== CO_ORDERS_B_02: Orders that went wrong
 
@@ -435,7 +435,7 @@ such as `+'CANCELLED'+` is not comparable with an enum attribute.
 
 // AI: Pick CO_ORDERS_B_03: A store parameter with a half-open timestamp interval.
 // AI: Copied from EXERCISES.asciidoc:455, anchor CO_ORDERS_B_03; retain the permanent ID when revising.
-// AI: Registry: section=ORDERS; tier=Basic; sql=src/test/sql-exercises/ORDERS/01_basic.sql; test=Orders_Exercises_01_Basic_PersistenceIT.CO_ORDERS_B_03_Test.
+// AI: Registry: section=ORDERS; tier=Basic; sql=src/test/sql-exercises/ORDERS/01_basic.sql; test=co.orders.CO_ORDERS_B_03_PersistenceIT.
 [[CO_ORDERS_B_03]]
 ==== CO_ORDERS_B_03: A store's orders for a period
 
@@ -470,7 +470,7 @@ overlapping; `BETWEEN` includes both ends, so an order at exactly `:toTms` would
 
 // AI: Pick CO_ORDERS_I_01: Group by the mapped order-status enum and compute date bounds.
 // AI: Copied from EXERCISES.asciidoc:501, anchor CO_ORDERS_I_01; retain the permanent ID when revising.
-// AI: Registry: section=ORDERS; tier=Intermediate; sql=src/test/sql-exercises/ORDERS/02_intermediate.sql; test=Orders_Exercises_02_Intermediate_PersistenceIT.CO_ORDERS_I_01_Test.
+// AI: Registry: section=ORDERS; tier=Intermediate; sql=src/test/sql-exercises/ORDERS/02_intermediate.sql; test=co.orders.CO_ORDERS_I_01_PersistenceIT.
 [[CO_ORDERS_I_01]]
 ==== CO_ORDERS_I_01: Where orders stand
 
@@ -503,7 +503,7 @@ all six with zeros, iterate `Order.OrderStatus.values()` in Java and fill in the
 
 // AI: Pick CO_ORDERS_A_01: Jakarta Persistence 3.2 set operations express customer-set overlap and difference.
 // AI: Copied from EXERCISES.asciidoc:527, anchor CO_ORDERS_A_01; retain the permanent ID when revising.
-// AI: Registry: section=ORDERS; tier=Advanced; sql=src/test/sql-exercises/ORDERS/03_advanced.sql; test=Orders_Exercises_03_Advanced_PersistenceIT.CO_ORDERS_A_01_Test.
+// AI: Registry: section=ORDERS; tier=Advanced; sql=src/test/sql-exercises/ORDERS/03_advanced.sql; test=co.orders.CO_ORDERS_A_01_PersistenceIT.
 // AI: Check both source SQL solutions: INTERSECT and MINUS map to JPQL INTERSECT and EXCEPT in 3.2.
 [[CO_ORDERS_A_01]]
 ==== CO_ORDERS_A_01: Customers of two stores, or of one only
@@ -567,7 +567,7 @@ line number are `oi.id.orderId` and `oi.id.lineItemId`.
 
 // AI: Pick CO_ORDER_ITEMS_B_01: Read the embedded-id order-line entity with a quantity predicate.
 // AI: Copied from EXERCISES.asciidoc:655, anchor CO_ORDER_ITEMS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=ORDER_ITEMS; tier=Basic; sql=src/test/sql-exercises/ORDER_ITEMS/01_basic.sql; test=OrderItems_Exercises_01_Basic_PersistenceIT.CO_ORDER_ITEMS_B_01_Test.
+// AI: Registry: section=ORDER_ITEMS; tier=Basic; sql=src/test/sql-exercises/ORDER_ITEMS/01_basic.sql; test=co.order_items.CO_ORDER_ITEMS_B_01_PersistenceIT.
 [[CO_ORDER_ITEMS_B_01]]
 ==== CO_ORDER_ITEMS_B_01: Bulk lines
 
@@ -598,7 +598,7 @@ No line of the installed data has more than five units.
 
 // AI: Pick CO_ORDER_ITEMS_I_01: Aggregate quantity times unit price and apply HAVING.
 // AI: Copied from EXERCISES.asciidoc:680, anchor CO_ORDER_ITEMS_I_01; retain the permanent ID when revising.
-// AI: Registry: section=ORDER_ITEMS; tier=Intermediate; sql=src/test/sql-exercises/ORDER_ITEMS/02_intermediate.sql; test=OrderItems_Exercises_02_Intermediate_PersistenceIT.CO_ORDER_ITEMS_I_01_Test.
+// AI: Registry: section=ORDER_ITEMS; tier=Intermediate; sql=src/test/sql-exercises/ORDER_ITEMS/02_intermediate.sql; test=co.order_items.CO_ORDER_ITEMS_I_01_PersistenceIT.
 [[CO_ORDER_ITEMS_I_01]]
 ==== CO_ORDER_ITEMS_I_01: Orders worth more than an amount
 
@@ -640,7 +640,7 @@ Grouping by `oi.id.orderId`, the key column, rather than by `oi.order` keeps the
 
 // AI: Pick CO_PRODUCTS_B_01: BETWEEN on a monetary attribute.
 // AI: Copied from EXERCISES.asciidoc:757, anchor CO_PRODUCTS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=PRODUCTS; tier=Basic; sql=src/test/sql-exercises/PRODUCTS/01_basic.sql; test=Products_Exercises_01_Basic_PersistenceIT.CO_PRODUCTS_B_01_Test.
+// AI: Registry: section=PRODUCTS; tier=Basic; sql=src/test/sql-exercises/PRODUCTS/01_basic.sql; test=co.products.CO_PRODUCTS_B_01_PersistenceIT.
 [[CO_PRODUCTS_B_01]]
 ==== CO_PRODUCTS_B_01: Gift ideas within a budget
 
@@ -665,7 +665,7 @@ ORDER BY p.unitPrice, p.productName
 
 // AI: Pick CO_PRODUCTS_B_03: IS NULL on an optional price.
 // AI: Copied from EXERCISES.asciidoc:801, anchor CO_PRODUCTS_B_03; retain the permanent ID when revising.
-// AI: Registry: section=PRODUCTS; tier=Basic; sql=src/test/sql-exercises/PRODUCTS/01_basic.sql; test=Products_Exercises_01_Basic_PersistenceIT.CO_PRODUCTS_B_03_Test.
+// AI: Registry: section=PRODUCTS; tier=Basic; sql=src/test/sql-exercises/PRODUCTS/01_basic.sql; test=co.products.CO_PRODUCTS_B_03_PersistenceIT.
 [[CO_PRODUCTS_B_03]]
 ==== CO_PRODUCTS_B_03: Products still waiting for a price
 
@@ -692,7 +692,7 @@ empty.
 
 // AI: Pick CO_PRODUCTS_B_04: A real LOB-availability use case with a timestamp predicate.
 // AI: Copied from EXERCISES.asciidoc:825, anchor CO_PRODUCTS_B_04; retain the permanent ID when revising.
-// AI: Registry: section=PRODUCTS; tier=Basic; sql=src/test/sql-exercises/PRODUCTS/01_basic.sql; test=Products_Exercises_01_Basic_PersistenceIT.CO_PRODUCTS_B_04_Test.
+// AI: Registry: section=PRODUCTS; tier=Basic; sql=src/test/sql-exercises/PRODUCTS/01_basic.sql; test=co.products.CO_PRODUCTS_B_04_PersistenceIT.
 [[CO_PRODUCTS_B_04]]
 ==== CO_PRODUCTS_B_04: Products missing a fresh picture
 
@@ -714,7 +714,7 @@ ORDER BY CASE WHEN product_image IS NULL THEN 0 ELSE 1 END, image_last_updated N
 
 // AI: Pick CO_PRODUCTS_I_01: A simple scalar subquery comparing price with AVG.
 // AI: Copied from EXERCISES.asciidoc:842, anchor CO_PRODUCTS_I_01; retain the permanent ID when revising.
-// AI: Registry: section=PRODUCTS; tier=Intermediate; sql=src/test/sql-exercises/PRODUCTS/02_intermediate.sql; test=Products_Exercises_02_Intermediate_PersistenceIT.CO_PRODUCTS_I_01_Test.
+// AI: Registry: section=PRODUCTS; tier=Intermediate; sql=src/test/sql-exercises/PRODUCTS/02_intermediate.sql; test=co.products.CO_PRODUCTS_I_01_PersistenceIT.
 [[CO_PRODUCTS_I_01]]
 ==== CO_PRODUCTS_I_01: Products priced above average
 
@@ -754,7 +754,7 @@ whose key is `v.id.productName` and `v.id.orderStatus`, both ``String``s.
 
 // AI: Pick CO_PRODUCT_ORDERS_B_01: Filter a view whose embedded key includes order status.
 // AI: Copied from EXERCISES.asciidoc:939, anchor CO_PRODUCT_ORDERS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=PRODUCT_ORDERS; tier=Basic; sql=src/test/sql-exercises/PRODUCT_ORDERS/01_basic.sql; test=ProductOrders_Exercises_01_Basic_PersistenceIT.CO_PRODUCT_ORDERS_B_01_Test.
+// AI: Registry: section=PRODUCT_ORDERS; tier=Basic; sql=src/test/sql-exercises/PRODUCT_ORDERS/01_basic.sql; test=co.product_orders.CO_PRODUCT_ORDERS_B_01_PersistenceIT.
 [[CO_PRODUCT_ORDERS_B_01]]
 ==== CO_PRODUCT_ORDERS_B_01: Which products get refunded?
 
@@ -785,7 +785,7 @@ ORDER BY v.totalSales DESC
 
 // AI: Pick CO_PRODUCT_ORDERS_I_01: Aggregate over the mapped product-order view.
 // AI: Copied from EXERCISES.asciidoc:965, anchor CO_PRODUCT_ORDERS_I_01; retain the permanent ID when revising.
-// AI: Registry: section=PRODUCT_ORDERS; tier=Intermediate; sql=src/test/sql-exercises/PRODUCT_ORDERS/02_intermediate.sql; test=ProductOrders_Exercises_02_Intermediate_PersistenceIT.CO_PRODUCT_ORDERS_I_01_Test.
+// AI: Registry: section=PRODUCT_ORDERS; tier=Intermediate; sql=src/test/sql-exercises/PRODUCT_ORDERS/02_intermediate.sql; test=co.product_orders.CO_PRODUCT_ORDERS_I_01_PersistenceIT.
 [[CO_PRODUCT_ORDERS_I_01]]
 ==== CO_PRODUCT_ORDERS_I_01: Sales per product, whatever happened to the order
 
@@ -815,7 +815,7 @@ An order has one status, so adding the counts over the statuses counts each orde
 
 // AI: Pick CO_PRODUCT_ORDERS_A_01: Conditional aggregation with HAVING over view results.
 // AI: Copied from EXERCISES.asciidoc:990, anchor CO_PRODUCT_ORDERS_A_01; retain the permanent ID when revising.
-// AI: Registry: section=PRODUCT_ORDERS; tier=Advanced; sql=src/test/sql-exercises/PRODUCT_ORDERS/03_advanced.sql; test=ProductOrders_Exercises_03_Advanced_PersistenceIT.CO_PRODUCT_ORDERS_A_01_Test.
+// AI: Registry: section=PRODUCT_ORDERS; tier=Advanced; sql=src/test/sql-exercises/PRODUCT_ORDERS/03_advanced.sql; test=co.product_orders.CO_PRODUCT_ORDERS_A_01_PersistenceIT.
 [[CO_PRODUCT_ORDERS_A_01]]
 ==== CO_PRODUCT_ORDERS_A_01: Products that are often cancelled or refunded
 
@@ -888,7 +888,7 @@ them as native queries. A product with no reviews has one row whose `RATING` and
 
 // AI: Pick CO_SHIPMENTS_B_01: Query the converted shipment-status enum rather than its database spelling.
 // AI: Copied from EXERCISES.asciidoc:1093, anchor CO_SHIPMENTS_B_01; retain the permanent ID when revising.
-// AI: Registry: section=SHIPMENTS; tier=Basic; sql=src/test/sql-exercises/SHIPMENTS/01_basic.sql; test=Shipments_Exercises_01_Basic_PersistenceIT.CO_SHIPMENTS_B_01_Test.
+// AI: Registry: section=SHIPMENTS; tier=Basic; sql=src/test/sql-exercises/SHIPMENTS/01_basic.sql; test=co.shipments.CO_SHIPMENTS_B_01_PersistenceIT.
 [[CO_SHIPMENTS_B_01]]
 ==== CO_SHIPMENTS_B_01: Shipments on the road
 
@@ -915,7 +915,7 @@ Bind `+Shipment.ShipmentStatus.IN_TRANSIT+`. The attribute goes through `Shipmen
 
 // AI: Pick CO_SHIPMENTS_B_02: A parameterized delivery-address search.
 // AI: Copied from EXERCISES.asciidoc:1117, anchor CO_SHIPMENTS_B_02; retain the permanent ID when revising.
-// AI: Registry: section=SHIPMENTS; tier=Basic; sql=src/test/sql-exercises/SHIPMENTS/01_basic.sql; test=Shipments_Exercises_01_Basic_PersistenceIT.CO_SHIPMENTS_B_02_Test.
+// AI: Registry: section=SHIPMENTS; tier=Basic; sql=src/test/sql-exercises/SHIPMENTS/01_basic.sql; test=co.shipments.CO_SHIPMENTS_B_02_PersistenceIT.
 [[CO_SHIPMENTS_B_02]]
 ==== CO_SHIPMENTS_B_02: Shipments to a town
 
@@ -945,7 +945,7 @@ Bind `+"%" + town + "%"+`, for instance `+%Jobstown%+`.
 
 // AI: Pick CO_SHIPMENTS_I_01: Group shipments by store and converted status.
 // AI: Copied from EXERCISES.asciidoc:1142, anchor CO_SHIPMENTS_I_01; retain the permanent ID when revising.
-// AI: Registry: section=SHIPMENTS; tier=Intermediate; sql=src/test/sql-exercises/SHIPMENTS/02_intermediate.sql; test=Shipments_Exercises_02_Intermediate_PersistenceIT.CO_SHIPMENTS_I_01_Test.
+// AI: Registry: section=SHIPMENTS; tier=Intermediate; sql=src/test/sql-exercises/SHIPMENTS/02_intermediate.sql; test=co.shipments.CO_SHIPMENTS_I_01_PersistenceIT.
 [[CO_SHIPMENTS_I_01]]
 ==== CO_SHIPMENTS_I_01: Open shipments per store
 
@@ -979,7 +979,7 @@ open shipment leaves from store 1, `Online`.
 
 // AI: Pick CO_SHIPMENTS_A_01: A purposeful self-join finds shipment pairs and suppresses reversed pairs.
 // AI: Copied from EXERCISES.asciidoc:1171, anchor CO_SHIPMENTS_A_01; retain the permanent ID when revising.
-// AI: Registry: section=SHIPMENTS; tier=Advanced; sql=src/test/sql-exercises/SHIPMENTS/03_advanced.sql; test=Shipments_Exercises_03_Advanced_PersistenceIT.CO_SHIPMENTS_A_01_Test.
+// AI: Registry: section=SHIPMENTS; tier=Advanced; sql=src/test/sql-exercises/SHIPMENTS/03_advanced.sql; test=co.shipments.CO_SHIPMENTS_A_01_PersistenceIT.
 [[CO_SHIPMENTS_A_01]]
 ==== CO_SHIPMENTS_A_01: Shipments that could travel together
 
@@ -1026,7 +1026,7 @@ groups instead.
 
 // AI: Pick CO_STORES_B_01: COALESCE chooses the available contact address.
 // AI: Copied from EXERCISES.asciidoc:1211, anchor CO_STORES_B_01; retain the permanent ID when revising.
-// AI: Registry: section=STORES; tier=Basic; sql=src/test/sql-exercises/STORES/01_basic.sql; test=Stores_Exercises_01_Basic_PersistenceIT.CO_STORES_B_01_Test.
+// AI: Registry: section=STORES; tier=Basic; sql=src/test/sql-exercises/STORES/01_basic.sql; test=co.stores.CO_STORES_B_01_PersistenceIT.
 [[CO_STORES_B_01]]
 ==== CO_STORES_B_01: One contact line per store
 
@@ -1104,7 +1104,7 @@ Problems that join, or subquery, more than one table or view.
 
 // AI: Pick CO_SCHEMA_B_01: Navigate order, customer, and store associations.
 // AI: Copied from EXERCISES.asciidoc:1409, anchor CO_SCHEMA_B_01; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.CO_SCHEMA_B_01_Test.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=co.schema.CO_SCHEMA_B_01_PersistenceIT.
 [[CO_SCHEMA_B_01]]
 ==== CO_SCHEMA_B_01: Who placed an order, and where
 
@@ -1133,7 +1133,7 @@ Selecting fields rather than the `Store` keeps its `logo` LOB out of the query.
 
 // AI: Pick CO_SCHEMA_B_02: Traverse the embedded-id order line to its product and calculate a line total.
 // AI: Copied from EXERCISES.asciidoc:1435, anchor CO_SCHEMA_B_02; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.CO_SCHEMA_B_02_Test.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=co.schema.CO_SCHEMA_B_02_PersistenceIT.
 [[CO_SCHEMA_B_02]]
 ==== CO_SCHEMA_B_02: Print a receipt
 
@@ -1164,7 +1164,7 @@ entity itself.
 
 // AI: Pick CO_SCHEMA_B_03: Use inventory associations to present low stock with store and product names.
 // AI: Copied from EXERCISES.asciidoc:1463, anchor CO_SCHEMA_B_03; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.CO_SCHEMA_B_03_Test.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=co.schema.CO_SCHEMA_B_03_PersistenceIT.
 [[CO_SCHEMA_B_03]]
 ==== CO_SCHEMA_B_03: Running low
 
@@ -1198,7 +1198,7 @@ ORDER BY i.productInventory, s.storeName, p.productName
 
 // AI: Pick CO_SCHEMA_I_02: A multi-entity revenue query with an enum predicate and HAVING.
 // AI: Copied from EXERCISES.asciidoc:1544, anchor CO_SCHEMA_I_02; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.CO_SCHEMA_I_02_Test.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=co.schema.CO_SCHEMA_I_02_PersistenceIT.
 [[CO_SCHEMA_I_02]]
 ==== CO_SCHEMA_I_02: Stores that pass a revenue target
 
@@ -1232,7 +1232,7 @@ Bind `Order.OrderStatus.COMPLETE`. A result variable (`revenue`) may be used in 
 
 // AI: Pick CO_SCHEMA_I_03: A best-seller query demonstrates aggregate ordering and result limits.
 // AI: Copied from EXERCISES.asciidoc:1575, anchor CO_SCHEMA_I_03; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.CO_SCHEMA_I_03_Test.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=co.schema.CO_SCHEMA_I_03_PersistenceIT.
 [[CO_SCHEMA_I_03]]
 ==== CO_SCHEMA_I_03: Best sellers
 
@@ -1266,7 +1266,7 @@ both.
 
 // AI: Pick CO_SCHEMA_I_06: An outer join and COALESCE retain products with no stock rows.
 // AI: Copied from EXERCISES.asciidoc:1663, anchor CO_SCHEMA_I_06; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.CO_SCHEMA_I_06_Test.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=co.schema.CO_SCHEMA_I_06_PersistenceIT.
 [[CO_SCHEMA_I_06]]
 ==== CO_SCHEMA_I_06: Out of stock everywhere
 
@@ -1305,7 +1305,7 @@ The outer join keeps the products with no `INVENTORY` row; `SUM` over nothing is
 
 // AI: Pick CO_SCHEMA_A_01: A business-facing NOT EXISTS query over customers and orders.
 // AI: Copied from EXERCISES.asciidoc:1775, anchor CO_SCHEMA_A_01; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_01_Test.
+// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=co.schema.CO_SCHEMA_A_01_PersistenceIT.
 [[CO_SCHEMA_A_01]]
 ==== CO_SCHEMA_A_01: Customers who never ordered
 
@@ -1339,7 +1339,7 @@ ORDER BY c.fullName
 
 // AI: Pick CO_SCHEMA_A_09: ANY introduces a quantified subquery over order lines.
 // AI: Copied from EXERCISES.asciidoc:2079, anchor CO_SCHEMA_A_09; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_09_Test.
+// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=co.schema.CO_SCHEMA_A_09_PersistenceIT.
 [[CO_SCHEMA_A_09]]
 ==== CO_SCHEMA_A_09: Orders with a premium line
 
@@ -1383,7 +1383,7 @@ ORDER BY p.productName
 
 // AI: Pick CO_SCHEMA_A_12: Fetch associated lines and products together to address N+1 queries.
 // AI: Copied from EXERCISES.asciidoc:2202, anchor CO_SCHEMA_A_12; retain the permanent ID when revising.
-// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_12_Test.
+// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=co.schema.CO_SCHEMA_A_12_PersistenceIT.
 [[CO_SCHEMA_A_12]]
 ==== CO_SCHEMA_A_12: Packing slips in one round trip
 

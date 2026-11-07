@@ -17,25 +17,25 @@
   tier: Basic
   title: "Pull up a customer by email address"
   sql: src/test/sql-exercises/CUSTOMERS/01_basic.sql
-  test: Customers_Exercises_01_Basic_PersistenceIT.CO_CUSTOMERS_B_01_Test
+  test: co.customers.CO_CUSTOMERS_B_01_PersistenceIT
 - id: CO_CUSTOMERS_B_02
   section: "CUSTOMERS"
   tier: Basic
   title: "Search customers by the start of their name"
   sql: src/test/sql-exercises/CUSTOMERS/01_basic.sql
-  test: Customers_Exercises_01_Basic_PersistenceIT.CO_CUSTOMERS_B_02_Test
+  test: co.customers.CO_CUSTOMERS_B_02_PersistenceIT
 - id: CO_CUSTOMERS_I_01
   section: "CUSTOMERS"
   tier: Intermediate
   title: "Email addresses that break the house style"
   sql: src/test/sql-exercises/CUSTOMERS/02_intermediate.sql
-  test: Customers_Exercises_02_Intermediate_PersistenceIT.CO_CUSTOMERS_I_01_Test
+  test: co.customers.CO_CUSTOMERS_I_01_PersistenceIT
 - id: CO_CUSTOMERS_A_01
   section: "CUSTOMERS"
   tier: Advanced
   title: "Possible duplicate accounts"
   sql: src/test/sql-exercises/CUSTOMERS/03_advanced.sql
-  test: Customers_Exercises_03_Advanced_PersistenceIT.CO_CUSTOMERS_A_01_Test
+  test: co.customers.CO_CUSTOMERS_A_01_PersistenceIT
 
 # ---- customer_order_products
 
@@ -50,19 +50,19 @@
   tier: Basic
   title: "Review a customer's completed baskets"
   sql: src/test/sql-exercises/CUSTOMER_ORDER_PRODUCTS/01_basic.sql
-  test: CustomerOrderProducts_Exercises_01_Basic_PersistenceIT.CO_CUSTOMER_ORDER_PRODUCTS_B_02_Test
+  test: co.customer_order_products.CO_CUSTOMER_ORDER_PRODUCTS_B_02_PersistenceIT
 - id: CO_CUSTOMER_ORDER_PRODUCTS_I_01
   section: "CUSTOMER_ORDER_PRODUCTS"
   tier: Intermediate
   title: "Average basket per customer"
   sql: src/test/sql-exercises/CUSTOMER_ORDER_PRODUCTS/02_intermediate.sql
-  test: CustomerOrderProducts_Exercises_02_Intermediate_PersistenceIT.CO_CUSTOMER_ORDER_PRODUCTS_I_01_Test
+  test: co.customer_order_products.CO_CUSTOMER_ORDER_PRODUCTS_I_01_PersistenceIT
 - id: CO_CUSTOMER_ORDER_PRODUCTS_A_01
   section: "CUSTOMER_ORDER_PRODUCTS"
   tier: Advanced
   title: "Each customer's biggest order"
   sql: src/test/sql-exercises/CUSTOMER_ORDER_PRODUCTS/03_advanced.sql
-  test: CustomerOrderProducts_Exercises_03_Advanced_PersistenceIT.CO_CUSTOMER_ORDER_PRODUCTS_A_01_Test
+  test: co.customer_order_products.CO_CUSTOMER_ORDER_PRODUCTS_A_01_PersistenceIT
 
 # ---- inventory
 
@@ -71,19 +71,19 @@
   tier: Basic
   title: "How many are on the shelf?"
   sql: src/test/sql-exercises/INVENTORY/01_basic.sql
-  test: Inventory_Exercises_01_Basic_PersistenceIT.CO_INVENTORY_B_01_Test
+  test: co.inventory.CO_INVENTORY_B_01_PersistenceIT
 - id: CO_INVENTORY_B_02
   section: "INVENTORY"
   tier: Basic
   title: "Where a product is running lowest"
   sql: src/test/sql-exercises/INVENTORY/01_basic.sql
-  test: Inventory_Exercises_01_Basic_PersistenceIT.CO_INVENTORY_B_02_Test
+  test: co.inventory.CO_INVENTORY_B_02_PersistenceIT
 - id: CO_INVENTORY_B_04
   section: "INVENTORY"
   tier: Basic
   title: "Negative stock"
   sql: src/test/sql-exercises/INVENTORY/01_basic.sql
-  test: Inventory_Exercises_01_Basic_PersistenceIT.CO_INVENTORY_B_04_Test
+  test: co.inventory.CO_INVENTORY_B_04_PersistenceIT
 - id: CO_INVENTORY_B_03
   section: "INVENTORY"
   tier: Basic
@@ -94,13 +94,13 @@
   tier: Intermediate
   title: "What each store holds"
   sql: src/test/sql-exercises/INVENTORY/02_intermediate.sql
-  test: Inventory_Exercises_02_Intermediate_PersistenceIT.CO_INVENTORY_I_01_Test
+  test: co.inventory.CO_INVENTORY_I_01_PersistenceIT
 - id: CO_INVENTORY_A_01
   section: "INVENTORY"
   tier: Advanced
   title: "Stores that carry everything another store carries"
   sql: src/test/sql-exercises/INVENTORY/03_advanced.sql
-  test: Inventory_Exercises_03_Advanced_PersistenceIT.CO_INVENTORY_A_01_Test
+  test: co.inventory.CO_INVENTORY_A_01_PersistenceIT
 
 # ---- orders
 
@@ -109,49 +109,49 @@
   tier: Basic
   title: "A customer's order history"
   sql: src/test/sql-exercises/ORDERS/01_basic.sql
-  test: Orders_Exercises_01_Basic_PersistenceIT.CO_ORDERS_B_01_Test
+  test: co.orders.CO_ORDERS_B_01_PersistenceIT
 - id: CO_ORDERS_B_02
   section: "ORDERS"
   tier: Basic
   title: "Orders that went wrong"
   sql: src/test/sql-exercises/ORDERS/01_basic.sql
-  test: Orders_Exercises_01_Basic_PersistenceIT.CO_ORDERS_B_02_Test
+  test: co.orders.CO_ORDERS_B_02_PersistenceIT
 - id: CO_ORDERS_B_03
   section: "ORDERS"
   tier: Basic
   title: "A store's orders for a period"
   sql: src/test/sql-exercises/ORDERS/01_basic.sql
-  test: Orders_Exercises_01_Basic_PersistenceIT.CO_ORDERS_B_03_Test
+  test: co.orders.CO_ORDERS_B_03_PersistenceIT
 - id: CO_ORDERS_B_04
   section: "ORDERS"
   tier: Basic
   title: "The next page of a customer's order history"
   sql: src/test/sql-exercises/ORDERS/01_basic.sql
-  test: Orders_Exercises_01_Basic_PersistenceIT.CO_ORDERS_B_04_Test
+  test: co.orders.CO_ORDERS_B_04_PersistenceIT
 - id: CO_ORDERS_I_01
   section: "ORDERS"
   tier: Intermediate
   title: "Where orders stand"
   sql: src/test/sql-exercises/ORDERS/02_intermediate.sql
-  test: Orders_Exercises_02_Intermediate_PersistenceIT.CO_ORDERS_I_01_Test
+  test: co.orders.CO_ORDERS_I_01_PersistenceIT
 - id: CO_ORDERS_A_01
   section: "ORDERS"
   tier: Advanced
   title: "Customers of two stores, or of one only"
   sql: src/test/sql-exercises/ORDERS/03_advanced.sql
-  test: Orders_Exercises_03_Advanced_PersistenceIT.CO_ORDERS_A_01_Test
+  test: co.orders.CO_ORDERS_A_01_PersistenceIT
 - id: CO_ORDERS_A_02
   section: "ORDERS"
   tier: Advanced
   title: "Time between a customer's orders"
   sql: src/test/sql-exercises/ORDERS/03_advanced.sql
-  test: Orders_Exercises_03_Advanced_PersistenceIT.CO_ORDERS_A_02_Test
+  test: co.orders.CO_ORDERS_A_02_PersistenceIT
 - id: CO_ORDERS_A_03
   section: "ORDERS"
   tier: Advanced
   title: "New and returning customers by month"
   sql: src/test/sql-exercises/ORDERS/03_advanced.sql
-  test: Orders_Exercises_03_Advanced_PersistenceIT.CO_ORDERS_A_03_Test
+  test: co.orders.CO_ORDERS_A_03_PersistenceIT
 
 # ---- order_items
 
@@ -160,25 +160,25 @@
   tier: Basic
   title: "Bulk lines"
   sql: src/test/sql-exercises/ORDER_ITEMS/01_basic.sql
-  test: OrderItems_Exercises_01_Basic_PersistenceIT.CO_ORDER_ITEMS_B_01_Test
+  test: co.order_items.CO_ORDER_ITEMS_B_01_PersistenceIT
 - id: CO_ORDER_ITEMS_I_01
   section: "ORDER_ITEMS"
   tier: Intermediate
   title: "Orders worth more than an amount"
   sql: src/test/sql-exercises/ORDER_ITEMS/02_intermediate.sql
-  test: OrderItems_Exercises_02_Intermediate_PersistenceIT.CO_ORDER_ITEMS_I_01_Test
+  test: co.order_items.CO_ORDER_ITEMS_I_01_PersistenceIT
 - id: CO_ORDER_ITEMS_I_02
   section: "ORDER_ITEMS"
   tier: Intermediate
   title: "Orders with gaps in their line numbers"
   sql: src/test/sql-exercises/ORDER_ITEMS/02_intermediate.sql
-  test: OrderItems_Exercises_02_Intermediate_PersistenceIT.CO_ORDER_ITEMS_I_02_Test
+  test: co.order_items.CO_ORDER_ITEMS_I_02_PersistenceIT
 - id: CO_ORDER_ITEMS_A_01
   section: "ORDER_ITEMS"
   tier: Advanced
   title: "Each order's main line"
   sql: src/test/sql-exercises/ORDER_ITEMS/03_advanced.sql
-  test: OrderItems_Exercises_03_Advanced_PersistenceIT.CO_ORDER_ITEMS_A_01_Test
+  test: co.order_items.CO_ORDER_ITEMS_A_01_PersistenceIT
 
 # ---- products
 
@@ -187,49 +187,49 @@
   tier: Basic
   title: "Gift ideas within a budget"
   sql: src/test/sql-exercises/PRODUCTS/01_basic.sql
-  test: Products_Exercises_01_Basic_PersistenceIT.CO_PRODUCTS_B_01_Test
+  test: co.products.CO_PRODUCTS_B_01_PersistenceIT
 - id: CO_PRODUCTS_B_02
   section: "PRODUCTS"
   tier: Basic
   title: "Price list, most expensive first"
   sql: src/test/sql-exercises/PRODUCTS/01_basic.sql
-  test: Products_Exercises_01_Basic_PersistenceIT.CO_PRODUCTS_B_02_Test
+  test: co.products.CO_PRODUCTS_B_02_PersistenceIT
 - id: CO_PRODUCTS_B_03
   section: "PRODUCTS"
   tier: Basic
   title: "Products still waiting for a price"
   sql: src/test/sql-exercises/PRODUCTS/01_basic.sql
-  test: Products_Exercises_01_Basic_PersistenceIT.CO_PRODUCTS_B_03_Test
+  test: co.products.CO_PRODUCTS_B_03_PersistenceIT
 - id: CO_PRODUCTS_B_04
   section: "PRODUCTS"
   tier: Basic
   title: "Products missing a fresh picture"
   sql: src/test/sql-exercises/PRODUCTS/01_basic.sql
-  test: Products_Exercises_01_Basic_PersistenceIT.CO_PRODUCTS_B_04_Test
+  test: co.products.CO_PRODUCTS_B_04_PersistenceIT
 - id: CO_PRODUCTS_I_01
   section: "PRODUCTS"
   tier: Intermediate
   title: "Products priced above average"
   sql: src/test/sql-exercises/PRODUCTS/02_intermediate.sql
-  test: Products_Exercises_02_Intermediate_PersistenceIT.CO_PRODUCTS_I_01_Test
+  test: co.products.CO_PRODUCTS_I_01_PersistenceIT
 - id: CO_PRODUCTS_I_02
   section: "PRODUCTS"
   tier: Intermediate
   title: "The range by department"
   sql: src/test/sql-exercises/PRODUCTS/02_intermediate.sql
-  test: Products_Exercises_02_Intermediate_PersistenceIT.CO_PRODUCTS_I_02_Test
+  test: co.products.CO_PRODUCTS_I_02_PersistenceIT
 - id: CO_PRODUCTS_I_03
   section: "PRODUCTS"
   tier: Intermediate
   title: "Product names that more than one product has"
   sql: src/test/sql-exercises/PRODUCTS/02_intermediate.sql
-  test: Products_Exercises_02_Intermediate_PersistenceIT.CO_PRODUCTS_I_03_Test
+  test: co.products.CO_PRODUCTS_I_03_PersistenceIT
 - id: CO_PRODUCTS_A_01
   section: "PRODUCTS"
   tier: Advanced
   title: "The ten most expensive products, ties included"
   sql: src/test/sql-exercises/PRODUCTS/03_advanced.sql
-  test: Products_Exercises_03_Advanced_PersistenceIT.CO_PRODUCTS_A_01_Test
+  test: co.products.CO_PRODUCTS_A_01_PersistenceIT
 
 # ---- product_orders
 
@@ -238,19 +238,19 @@
   tier: Basic
   title: "Which products get refunded?"
   sql: src/test/sql-exercises/PRODUCT_ORDERS/01_basic.sql
-  test: ProductOrders_Exercises_01_Basic_PersistenceIT.CO_PRODUCT_ORDERS_B_01_Test
+  test: co.product_orders.CO_PRODUCT_ORDERS_B_01_PersistenceIT
 - id: CO_PRODUCT_ORDERS_I_01
   section: "PRODUCT_ORDERS"
   tier: Intermediate
   title: "Sales per product, whatever happened to the order"
   sql: src/test/sql-exercises/PRODUCT_ORDERS/02_intermediate.sql
-  test: ProductOrders_Exercises_02_Intermediate_PersistenceIT.CO_PRODUCT_ORDERS_I_01_Test
+  test: co.product_orders.CO_PRODUCT_ORDERS_I_01_PersistenceIT
 - id: CO_PRODUCT_ORDERS_A_01
   section: "PRODUCT_ORDERS"
   tier: Advanced
   title: "Products that are often cancelled or refunded"
   sql: src/test/sql-exercises/PRODUCT_ORDERS/03_advanced.sql
-  test: ProductOrders_Exercises_03_Advanced_PersistenceIT.CO_PRODUCT_ORDERS_A_01_Test
+  test: co.product_orders.CO_PRODUCT_ORDERS_A_01_PersistenceIT
 
 # ---- product_reviews
 
@@ -259,19 +259,19 @@
   tier: Basic
   title: "Read a product's reviews"
   sql: src/test/sql-exercises/PRODUCT_REVIEWS/01_basic.sql
-  test: ProductReviews_Exercises_01_Basic_PersistenceIT.CO_PRODUCT_REVIEWS_B_01_Test
+  test: co.product_reviews.CO_PRODUCT_REVIEWS_B_01_PersistenceIT
 - id: CO_PRODUCT_REVIEWS_I_01
   section: "PRODUCT_REVIEWS"
   tier: Intermediate
   title: "Products with mostly poor reviews"
   sql: src/test/sql-exercises/PRODUCT_REVIEWS/02_intermediate.sql
-  test: ProductReviews_Exercises_02_Intermediate_PersistenceIT.CO_PRODUCT_REVIEWS_I_01_Test
+  test: co.product_reviews.CO_PRODUCT_REVIEWS_I_01_PersistenceIT
 - id: CO_PRODUCT_REVIEWS_A_01
   section: "PRODUCT_REVIEWS"
   tier: Advanced
   title: "Each product's harshest review"
   sql: src/test/sql-exercises/PRODUCT_REVIEWS/03_advanced.sql
-  test: ProductReviews_Exercises_03_Advanced_PersistenceIT.CO_PRODUCT_REVIEWS_A_01_Test
+  test: co.product_reviews.CO_PRODUCT_REVIEWS_A_01_PersistenceIT
 
 # ---- shipments
 
@@ -280,25 +280,25 @@
   tier: Basic
   title: "Shipments on the road"
   sql: src/test/sql-exercises/SHIPMENTS/01_basic.sql
-  test: Shipments_Exercises_01_Basic_PersistenceIT.CO_SHIPMENTS_B_01_Test
+  test: co.shipments.CO_SHIPMENTS_B_01_PersistenceIT
 - id: CO_SHIPMENTS_B_02
   section: "SHIPMENTS"
   tier: Basic
   title: "Shipments to a town"
   sql: src/test/sql-exercises/SHIPMENTS/01_basic.sql
-  test: Shipments_Exercises_01_Basic_PersistenceIT.CO_SHIPMENTS_B_02_Test
+  test: co.shipments.CO_SHIPMENTS_B_02_PersistenceIT
 - id: CO_SHIPMENTS_I_01
   section: "SHIPMENTS"
   tier: Intermediate
   title: "Open shipments per store"
   sql: src/test/sql-exercises/SHIPMENTS/02_intermediate.sql
-  test: Shipments_Exercises_02_Intermediate_PersistenceIT.CO_SHIPMENTS_I_01_Test
+  test: co.shipments.CO_SHIPMENTS_I_01_PersistenceIT
 - id: CO_SHIPMENTS_A_01
   section: "SHIPMENTS"
   tier: Advanced
   title: "Shipments that could travel together"
   sql: src/test/sql-exercises/SHIPMENTS/03_advanced.sql
-  test: Shipments_Exercises_03_Advanced_PersistenceIT.CO_SHIPMENTS_A_01_Test
+  test: co.shipments.CO_SHIPMENTS_A_01_PersistenceIT
 
 # ---- stores
 
@@ -307,25 +307,25 @@
   tier: Basic
   title: "One contact line per store"
   sql: src/test/sql-exercises/STORES/01_basic.sql
-  test: Stores_Exercises_01_Basic_PersistenceIT.CO_STORES_B_01_Test
+  test: co.stores.CO_STORES_B_01_PersistenceIT
 - id: CO_STORES_B_02
   section: "STORES"
   tier: Basic
   title: "Stores from north to south"
   sql: src/test/sql-exercises/STORES/01_basic.sql
-  test: Stores_Exercises_01_Basic_PersistenceIT.CO_STORES_B_02_Test
+  test: co.stores.CO_STORES_B_02_PersistenceIT
 - id: CO_STORES_I_01
   section: "STORES"
   tier: Intermediate
   title: "Tidy store names for a sign"
   sql: src/test/sql-exercises/STORES/02_intermediate.sql
-  test: Stores_Exercises_02_Intermediate_PersistenceIT.CO_STORES_I_01_Test
+  test: co.stores.CO_STORES_I_01_PersistenceIT
 - id: CO_STORES_A_01
   section: "STORES"
   tier: Advanced
   title: "Each store's nearest neighbour"
   sql: src/test/sql-exercises/STORES/03_advanced.sql
-  test: Stores_Exercises_03_Advanced_PersistenceIT.CO_STORES_A_01_Test
+  test: co.stores.CO_STORES_A_01_PersistenceIT
 
 # ---- store_orders
 
@@ -334,19 +334,19 @@
   tier: Basic
   title: "Store totals, best first"
   sql: src/test/sql-exercises/STORE_ORDERS/01_basic.sql
-  test: StoreOrders_Exercises_01_Basic_PersistenceIT.CO_STORE_ORDERS_B_01_Test
+  test: co.store_orders.CO_STORE_ORDERS_B_01_PersistenceIT
 - id: CO_STORE_ORDERS_I_01
   section: "STORE_ORDERS"
   tier: Intermediate
   title: "Stores that lose orders"
   sql: src/test/sql-exercises/STORE_ORDERS/02_intermediate.sql
-  test: StoreOrders_Exercises_02_Intermediate_PersistenceIT.CO_STORE_ORDERS_I_01_Test
+  test: co.store_orders.CO_STORE_ORDERS_I_01_PersistenceIT
 - id: CO_STORE_ORDERS_A_01
   section: "STORE_ORDERS"
   tier: Advanced
   title: "Each store's losses against its own sales and the chain's"
   sql: src/test/sql-exercises/STORE_ORDERS/03_advanced.sql
-  test: StoreOrders_Exercises_03_Advanced_PersistenceIT.CO_STORE_ORDERS_A_01_Test
+  test: co.store_orders.CO_STORE_ORDERS_A_01_PersistenceIT
 
 # ---- the schema
 
@@ -355,184 +355,184 @@
   tier: Basic
   title: "Who placed an order, and where"
   sql: src/test/sql-exercises/__/01_basic.sql
-  test: ___Exercises_01_Basic_PersistenceIT.CO_SCHEMA_B_01_Test
+  test: co.schema.CO_SCHEMA_B_01_PersistenceIT
 - id: CO_SCHEMA_B_02
   section: "SCHEMA"
   tier: Basic
   title: "Print a receipt"
   sql: src/test/sql-exercises/__/01_basic.sql
-  test: ___Exercises_01_Basic_PersistenceIT.CO_SCHEMA_B_02_Test
+  test: co.schema.CO_SCHEMA_B_02_PersistenceIT
 - id: CO_SCHEMA_B_03
   section: "SCHEMA"
   tier: Basic
   title: "Running low"
   sql: src/test/sql-exercises/__/01_basic.sql
-  test: ___Exercises_01_Basic_PersistenceIT.CO_SCHEMA_B_03_Test
+  test: co.schema.CO_SCHEMA_B_03_PersistenceIT
 - id: CO_SCHEMA_B_04
   section: "SCHEMA"
   tier: Basic
   title: "Contact the customers of a recalled product"
   sql: src/test/sql-exercises/__/01_basic.sql
-  test: ___Exercises_01_Basic_PersistenceIT.CO_SCHEMA_B_04_Test
+  test: co.schema.CO_SCHEMA_B_04_PersistenceIT
 - id: CO_SCHEMA_I_01
   section: "SCHEMA"
   tier: Intermediate
   title: "What each order came to"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.CO_SCHEMA_I_01_Test
+  test: co.schema.CO_SCHEMA_I_01_PersistenceIT
 - id: CO_SCHEMA_I_02
   section: "SCHEMA"
   tier: Intermediate
   title: "Stores that pass a revenue target"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.CO_SCHEMA_I_02_Test
+  test: co.schema.CO_SCHEMA_I_02_PersistenceIT
 - id: CO_SCHEMA_I_03
   section: "SCHEMA"
   tier: Intermediate
   title: "Best sellers"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.CO_SCHEMA_I_03_Test
+  test: co.schema.CO_SCHEMA_I_03_PersistenceIT
 - id: CO_SCHEMA_I_04
   section: "SCHEMA"
   tier: Intermediate
   title: "Regular customers"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.CO_SCHEMA_I_04_Test
+  test: co.schema.CO_SCHEMA_I_04_PersistenceIT
 - id: CO_SCHEMA_I_05
   section: "SCHEMA"
   tier: Intermediate
   title: "Has the price drifted?"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.CO_SCHEMA_I_05_Test
+  test: co.schema.CO_SCHEMA_I_05_PersistenceIT
 - id: CO_SCHEMA_I_06
   section: "SCHEMA"
   tier: Intermediate
   title: "Out of stock everywhere"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.CO_SCHEMA_I_06_Test
+  test: co.schema.CO_SCHEMA_I_06_PersistenceIT
 - id: CO_SCHEMA_I_07
   section: "SCHEMA"
   tier: Intermediate
   title: "Small, medium and large baskets"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.CO_SCHEMA_I_07_Test
+  test: co.schema.CO_SCHEMA_I_07_PersistenceIT
 - id: CO_SCHEMA_I_08
   section: "SCHEMA"
   tier: Intermediate
   title: "Orders not fully shipped"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.CO_SCHEMA_I_08_Test
+  test: co.schema.CO_SCHEMA_I_08_PersistenceIT
 - id: CO_SCHEMA_I_09
   section: "SCHEMA"
   tier: Intermediate
   title: "Orders without a line"
   sql: src/test/sql-exercises/__/02_intermediate.sql
-  test: ___Exercises_02_Intermediate_PersistenceIT.CO_SCHEMA_I_09_Test
+  test: co.schema.CO_SCHEMA_I_09_PersistenceIT
 - id: CO_SCHEMA_A_01
   section: "SCHEMA"
   tier: Advanced
   title: "Customers who never ordered"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_01_Test
+  test: co.schema.CO_SCHEMA_A_01_PersistenceIT
 - id: CO_SCHEMA_A_02
   section: "SCHEMA"
   tier: Advanced
   title: "Products nobody bought"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_02_Test
+  test: co.schema.CO_SCHEMA_A_02_PersistenceIT
 - id: CO_SCHEMA_A_03
   section: "SCHEMA"
   tier: Advanced
   title: "Win back lapsed customers"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_03_Test
+  test: co.schema.CO_SCHEMA_A_03_PersistenceIT
 - id: CO_SCHEMA_A_04
   section: "SCHEMA"
   tier: Advanced
   title: "Each store's best seller"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_04_Test
+  test: co.schema.CO_SCHEMA_A_04_PersistenceIT
 - id: CO_SCHEMA_A_05
   section: "SCHEMA"
   tier: Advanced
   title: "Rebalance stock between stores"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_05_Test
+  test: co.schema.CO_SCHEMA_A_05_PersistenceIT
 - id: CO_SCHEMA_A_06
   section: "SCHEMA"
   tier: Advanced
   title: "Customers who come back for the same product"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_06_Test
+  test: co.schema.CO_SCHEMA_A_06_PersistenceIT
 - id: CO_SCHEMA_A_07
   section: "SCHEMA"
   tier: Advanced
   title: "Shipments that do not match their orders"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_07_Test
+  test: co.schema.CO_SCHEMA_A_07_PersistenceIT
 - id: CO_SCHEMA_A_08
   section: "SCHEMA"
   tier: Advanced
   title: "Complete orders that were never delivered"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_08_Test
+  test: co.schema.CO_SCHEMA_A_08_PersistenceIT
 - id: CO_SCHEMA_A_09
   section: "SCHEMA"
   tier: Advanced
   title: "Orders with a premium line"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_09_Test
+  test: co.schema.CO_SCHEMA_A_09_PersistenceIT
 - id: CO_SCHEMA_A_10
   section: "SCHEMA"
   tier: Advanced
   title: "Masked contact details and order references"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_10_Test
+  test: co.schema.CO_SCHEMA_A_10_PersistenceIT
 - id: CO_SCHEMA_A_11
   section: "SCHEMA"
   tier: Advanced
   title: "This year's orders so far"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_11_Test
+  test: co.schema.CO_SCHEMA_A_11_PersistenceIT
 - id: CO_SCHEMA_A_12
   section: "SCHEMA"
   tier: Advanced
   title: "Packing slips in one round trip"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_12_Test
+  test: co.schema.CO_SCHEMA_A_12_PersistenceIT
 - id: CO_SCHEMA_A_13
   section: "SCHEMA"
   tier: Advanced
   title: "Store ranking and share of sales"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_13_Test
+  test: co.schema.CO_SCHEMA_A_13_PersistenceIT
 - id: CO_SCHEMA_A_14
   section: "SCHEMA"
   tier: Advanced
   title: "Brands and reviews from the product JSON"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_14_Test
+  test: co.schema.CO_SCHEMA_A_14_PersistenceIT
 - id: CO_SCHEMA_A_15
   section: "SCHEMA"
   tier: Advanced
   title: "Products often bought together"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_15_Test
+  test: co.schema.CO_SCHEMA_A_15_PersistenceIT
 - id: CO_SCHEMA_A_16
   section: "SCHEMA"
   tier: Advanced
   title: "Stock a store has never sold"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_16_Test
+  test: co.schema.CO_SCHEMA_A_16_PersistenceIT
 - id: CO_SCHEMA_A_17
   section: "SCHEMA"
   tier: Advanced
   title: "Month-over-month sales"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_17_Test
+  test: co.schema.CO_SCHEMA_A_17_PersistenceIT
 - id: CO_SCHEMA_A_18
   section: "SCHEMA"
   tier: Advanced
   title: "Shipments that carry nothing"
   sql: src/test/sql-exercises/__/03_advanced.sql
-  test: ___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_18_Test
+  test: co.schema.CO_SCHEMA_A_18_PersistenceIT
