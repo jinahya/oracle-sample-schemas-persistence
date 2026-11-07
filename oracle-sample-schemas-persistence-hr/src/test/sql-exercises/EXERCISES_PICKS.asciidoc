@@ -1,0 +1,1321 @@
+= Exercises picks
+:toc: left
+:toclevels: 3
+:sectanchors:
+:source-highlighter: rouge
+
+// AI: Editorial review dated 2026-11-08. Source: sibling EXERCISES.asciidoc and EXERCISES.yaml.
+// AI: Reviewed every exercise in this module against Jakarta Persistence Applied, master src/main/asciidoc/00_book.asciidoc.
+// AI: This is a candidate shortlist, not a change to the official PROJECTS_EXERCISES.asciidoc picks or the manuscript.
+// AI: Preserve source scope order, level classifications, permanent IDs, statements, SQL, JPQL, and existing answer blocks.
+// AI: At most three candidates per original scope and level; fewer or zero is intentional. Do not fill slots mechanically.
+// AI: Prefer mapped attributes, identifiers, enum/converter behavior, associations, joins, aggregates, subqueries, fetching, and paging.
+// AI: Omit contrived name/string puzzles, redundant integrity audits, arbitrary rankings, and unrelated SQL analytics.
+// AI: Native-only candidates are explicit chapter-specific exceptions, not permission to replace portable solutions elsewhere.
+// AI: Agent handoff: read each rationale and TODO, resolve the registry sql/test paths, inspect the mapped types and actual tests,
+// AI: reconcile stale solutions, and run the relevant database/provider tests before promoting any candidate to the book.
+// AI: Existing output blocks below are archival copies from the source, not fresh test results or verified publication output.
+// AI: For manuscript output, rerun the query, retain // AI: provenance, and use the current mappings and provider policy.
+// AI: Source SHA-256 at review: aab7ecd03a756e742e5a12fe6a5e33bd1fa0871c79cbdb902dee434b818a88a3.
+
+Selected exercises for a persistence-focused teaching sequence.
+The original scope and difficulty headings are retained; an empty level intentionally has no suitable pick.
+Statements and answers are copied from link:EXERCISES.asciidoc[the complete exercise collection].
+Selection is an editorial recommendation; implementation notes in the source comments identify follow-up work.
+
+// AI: Original source conventions below apply to the copied subset.
+Exercises for the `HR` sample schema. Each problem is a request that someone working for the company — an HR
+manager, payroll, a department head, facilities, an auditor — might bring to you; answer it with a query. Every
+solution is given twice: as Oracle SQL against the installed schema (see the link:../../../README.md[README] for its tables and
+columns), and as JPQL — the Jakarta Persistence 3.2 query language — against this module's entities.
+
+The problems are grouped by the table or view they read, in the order of the README, and within each by difficulty:
+Basic, Intermediate and Advanced. A problem that joins, or subqueries, more than one table is under Whole schema, the
+last section.
+
+A few things to keep in mind while reading the JPQL:
+
+* The entity names are the class names — `Region`, `Country`, `Location`, `Department`, `Employee`, `Job` — except
+  for `+JOB_HISTORY+`, mapped by `JobHistory`. It maps its composite key with an `+@IdClass+`, so the key attributes
+  are on the entity itself (`h.employeeId`, `h.startDate`).
+* A foreign key is mapped twice: as an association on the entity, and as a read-only attribute on its mapped
+  superclass, `Employee.departmentId` or `Department.locationId`. The answers below navigate the association, as
+  `e.department.departmentId` or `d.location.locationId`, or compare it with an entity parameter, as
+  `+e.department = :department+`; the read-only attribute gives the same key without the path.
+* `+EMP_DETAILS_VIEW+` is mapped by `EmpDetailsView`, which both persistence units list; its problems are solved in
+  SQL only.
+* Parameters are named (`:departmentId`). Bind them with `setParameter`; Oracle tools such as SQL{asterisk}Plus and SQLcl
+  prompt for, or take, the same names as bind variables.
+
+== COUNTRIES
+
+=== Basic
+
+// AI: Basic: selected 2 of 3 reviewed candidates in this original scope.
+// AI: Not selected: HR_COUNTRIES_B_03.
+
+// AI: Pick HR_COUNTRIES_B_01: A string-identifier lookup.
+// AI: Copied from EXERCISES.asciidoc:34, anchor HR_COUNTRIES_B_01; retain the permanent ID when revising.
+// AI: Registry: section=COUNTRIES; tier=Basic; sql=src/test/sql-exercises/COUNTRIES/01_basic.sql; test=Countries_Exercises_01_Basic_PersistenceIT.HR_COUNTRIES_B_01_Test.
+[[HR_COUNTRIES_B_01]]
+==== HR_COUNTRIES_B_01: Country by code
+
+The shipping form has a two-letter country code, such as `US`, and needs the country's name.
+
+[source,sql]
+----
+SELECT COUNTRY_NAME
+FROM COUNTRIES
+WHERE COUNTRY_ID = :countryId
+----
+
+[source,jpaql]
+----
+SELECT c.countryName
+FROM Country c
+WHERE c.countryId = :countryId
+----
+
+// AI: Pick HR_COUNTRIES_B_02: Filter countries by the region association.
+// AI: Copied from EXERCISES.asciidoc:53, anchor HR_COUNTRIES_B_02; retain the permanent ID when revising.
+// AI: Registry: section=COUNTRIES; tier=Basic; sql=src/test/sql-exercises/COUNTRIES/01_basic.sql; test=Countries_Exercises_01_Basic_PersistenceIT.HR_COUNTRIES_B_02_Test.
+[[HR_COUNTRIES_B_02]]
+==== HR_COUNTRIES_B_02: Countries of a region
+
+A regional director wants the countries of their region (given the region id), alphabetically.
+
+[source,sql]
+----
+SELECT COUNTRY_ID, COUNTRY_NAME
+FROM COUNTRIES
+WHERE REGION_ID = :regionId
+ORDER BY COUNTRY_NAME ASC
+----
+
+[source,jpaql]
+----
+SELECT c.countryId, c.countryName
+FROM Country c
+WHERE c.region.regionId = :regionId
+ORDER BY c.countryName ASC
+----
+
+`Region.regionId` is a `Long` (the column is an unconstrained `NUMBER`), so bind a `Long`, e.g. `10L`.
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick HR_COUNTRIES_I_01: Group by a foreign-key role.
+// AI: Copied from EXERCISES.asciidoc:99, anchor HR_COUNTRIES_I_01; retain the permanent ID when revising.
+// AI: Registry: section=COUNTRIES; tier=Intermediate; sql=src/test/sql-exercises/COUNTRIES/02_intermediate.sql; test=Countries_Exercises_02_Intermediate_PersistenceIT.HR_COUNTRIES_I_01_Test.
+[[HR_COUNTRIES_I_01]]
+==== HR_COUNTRIES_I_01: Countries per region
+
+The regional directors compare territories: how many countries each region covers, most first.
+
+[source,sql]
+----
+SELECT REGION_ID, COUNT(*) AS COUNTRIES
+FROM COUNTRIES
+GROUP BY REGION_ID
+ORDER BY COUNTRIES DESC, REGION_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT c.region.regionId, COUNT(c) AS countries
+FROM Country c
+GROUP BY c.region.regionId
+ORDER BY countries DESC, c.region.regionId ASC
+----
+
+The region's name is in `REGIONS`; this table has only its id. A country without a region would form a group of its
+own, with a null id — none does in the installed data.
+
+=== Advanced
+
+// AI: Advanced: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick HR_COUNTRIES_A_01: HAVING compares group size with an aggregate subquery.
+// AI: Copied from EXERCISES.asciidoc:125, anchor HR_COUNTRIES_A_01; retain the permanent ID when revising.
+// AI: Registry: section=COUNTRIES; tier=Advanced; sql=src/test/sql-exercises/COUNTRIES/03_advanced.sql; test=Countries_Exercises_03_Advanced_PersistenceIT.HR_COUNTRIES_A_01_Test.
+[[HR_COUNTRIES_A_01]]
+==== HR_COUNTRIES_A_01: Regions above the average size
+
+Head office wants the regions that cover more countries than a region does on average.
+
+[source,sql]
+----
+SELECT REGION_ID, COUNT(*) AS COUNTRIES
+FROM COUNTRIES
+GROUP BY REGION_ID
+HAVING COUNT(*) > (SELECT COUNT(*) / COUNT(DISTINCT REGION_ID) FROM COUNTRIES)
+ORDER BY COUNTRIES DESC
+----
+
+[source,jpaql]
+----
+SELECT c.region.regionId, COUNT(c) AS countries
+FROM Country c
+GROUP BY c.region.regionId
+HAVING COUNT(c) > (SELECT COUNT(x) * 1.0 / COUNT(DISTINCT x.region) FROM Country x)
+ORDER BY countries DESC
+----
+
+The average is the number of countries over the number of regions that have any. `COUNT` returns a `Long`, and in
+JPQL — as in Java — dividing one integer by another truncates, under both providers; `+* 1.0+` keeps the fraction.
+Oracle's `+/+` never truncates.
+
+== DEPARTMENTS
+
+=== Basic
+
+// AI: Basic: selected 2 of 2 reviewed candidates in this original scope.
+// AI: Selection boundary: Do not allocate identifiers by finding numerical gaps; teach the configured generator instead.
+
+// AI: Pick HR_DEPARTMENTS_B_01: Filter departments by the location association.
+// AI: Copied from EXERCISES.asciidoc:156, anchor HR_DEPARTMENTS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=DEPARTMENTS; tier=Basic; sql=src/test/sql-exercises/DEPARTMENTS/01_basic.sql; test=Departments_Exercises_01_Basic_PersistenceIT.HR_DEPARTMENTS_B_01_Test.
+[[HR_DEPARTMENTS_B_01]]
+==== HR_DEPARTMENTS_B_01: Departments in a building
+
+Facilities is planning work on one site (given the location) and needs the departments housed there.
+
+[source,sql]
+----
+SELECT *
+FROM DEPARTMENTS
+WHERE LOCATION_ID = :locationId
+ORDER BY DEPARTMENT_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT d
+FROM Department d
+WHERE d.location.locationId = :locationId
+ORDER BY d.departmentId ASC
+----
+
+[source,jpaql]
+----
+SELECT d
+FROM Department d
+WHERE d.location = :location
+ORDER BY d.departmentId ASC
+----
+
+// AI: Pick HR_DEPARTMENTS_B_02: A nullable manager association.
+// AI: Copied from EXERCISES.asciidoc:185, anchor HR_DEPARTMENTS_B_02; retain the permanent ID when revising.
+// AI: Registry: section=DEPARTMENTS; tier=Basic; sql=src/test/sql-exercises/DEPARTMENTS/01_basic.sql; test=Departments_Exercises_01_Basic_PersistenceIT.HR_DEPARTMENTS_B_02_Test.
+[[HR_DEPARTMENTS_B_02]]
+==== HR_DEPARTMENTS_B_02: Departments without a manager
+
+HR is filling vacant management posts and wants every department with no manager on record.
+
+[source,sql]
+----
+SELECT DEPARTMENT_ID, DEPARTMENT_NAME
+FROM DEPARTMENTS
+WHERE MANAGER_ID IS NULL
+ORDER BY DEPARTMENT_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT d.departmentId, d.departmentName
+FROM Department d
+WHERE d.manager IS NULL
+ORDER BY d.departmentId ASC
+----
+
+Sixteen departments in the installed data — the same sixteen that have no staff (see _Departments with nobody in them_
+under Whole schema).
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 2 reviewed candidates in this original scope.
+// AI: Selection boundary: Do not allocate identifiers by finding numerical gaps; teach the configured generator instead.
+// AI: Not selected: HR_DEPARTMENTS_I_02.
+
+// AI: Pick HR_DEPARTMENTS_I_01: Count departments by location.
+// AI: Copied from EXERCISES.asciidoc:211, anchor HR_DEPARTMENTS_I_01; retain the permanent ID when revising.
+// AI: Registry: section=DEPARTMENTS; tier=Intermediate; sql=src/test/sql-exercises/DEPARTMENTS/02_intermediate.sql; test=Departments_Exercises_02_Intermediate_PersistenceIT.HR_DEPARTMENTS_I_01_Test.
+[[HR_DEPARTMENTS_I_01]]
+==== HR_DEPARTMENTS_I_01: Departments per site
+
+Facilities sizes each site's reception by the number of departments it houses.
+
+[source,sql]
+----
+SELECT LOCATION_ID, COUNT(*) AS DEPARTMENTS
+FROM DEPARTMENTS
+GROUP BY LOCATION_ID
+ORDER BY DEPARTMENTS DESC, LOCATION_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT d.location.locationId, COUNT(d) AS departments
+FROM Department d
+GROUP BY d.location.locationId
+ORDER BY departments DESC, d.location.locationId ASC
+----
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: Do not allocate identifiers by finding numerical gaps; teach the configured generator instead.
+// AI: Not selected: HR_DEPARTMENTS_A_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== EMPLOYEES
+
+=== Basic
+
+// AI: Basic: selected 3 of 10 reviewed candidates in this original scope.
+// AI: Selection boundary: Do not present commission_pct as a guaranteed multiplier for total monthly pay without a documented business rule.
+// AI: Not selected: HR_EMPLOYEES_B_03, HR_EMPLOYEES_B_05, HR_EMPLOYEES_B_06, HR_EMPLOYEES_B_07, HR_EMPLOYEES_B_08, HR_EMPLOYEES_B_09, HR_EMPLOYEES_B_10.
+// AI: Deferred HR_EMPLOYEES_B_06: source SQL/JPQL synchronization is explicitly unfinished.
+
+// AI: Pick HR_EMPLOYEES_B_01: A unique email lookup of an employee entity.
+// AI: Copied from EXERCISES.asciidoc:295, anchor HR_EMPLOYEES_B_01; retain the permanent ID when revising.
+// AI: Registry: section=EMPLOYEES; tier=Basic; sql=src/test/sql-exercises/EMPLOYEES/01_basic.sql; test=Employees_Exercises_01_Basic_PersistenceIT.HR_EMPLOYEES_B_01_Test.
+[[HR_EMPLOYEES_B_01]]
+==== HR_EMPLOYEES_B_01: Look up a colleague by e-mail
+
+The service desk has an e-mail ID, such as `SKING`, from a ticket and needs the employee it belongs to.
+
+[source,sql]
+----
+SELECT *
+FROM EMPLOYEES
+WHERE EMAIL = :email
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Employee e
+WHERE e.email = :email
+----
+
+`EMAIL` is unique, so `getSingleResult()` fits. The column holds only the part before the `+@+` (`SKING`, not an
+address).
+
+// AI: Pick HR_EMPLOYEES_B_02: Navigate the department association and sort a roster.
+// AI: Copied from EXERCISES.asciidoc:317, anchor HR_EMPLOYEES_B_02; retain the permanent ID when revising.
+// AI: Registry: section=EMPLOYEES; tier=Basic; sql=src/test/sql-exercises/EMPLOYEES/01_basic.sql; test=Employees_Exercises_01_Basic_PersistenceIT.HR_EMPLOYEES_B_02_Test.
+[[HR_EMPLOYEES_B_02]]
+==== HR_EMPLOYEES_B_02: A department's staff list
+
+A department head wants everyone in their department (given the department), sorted by last name and then first
+name, with anyone whose first name is missing listed first.
+
+[source,sql]
+----
+SELECT *
+FROM EMPLOYEES
+WHERE DEPARTMENT_ID = :departmentId
+ORDER BY LAST_NAME ASC, FIRST_NAME ASC NULLS FIRST
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Employee e
+WHERE e.department.departmentId = :departmentId
+ORDER BY e.lastName ASC, e.firstName ASC NULLS FIRST
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Employee e
+WHERE e.department = :department
+ORDER BY e.lastName ASC, e.firstName ASC NULLS FIRST
+----
+
+The first form takes the id; the second takes a `Department` the caller already holds.
+
+// AI: Pick HR_EMPLOYEES_B_04: IS NOT NULL on an optional commission value.
+// AI: Copied from EXERCISES.asciidoc:381, anchor HR_EMPLOYEES_B_04; retain the permanent ID when revising.
+// AI: Registry: section=EMPLOYEES; tier=Basic; sql=src/test/sql-exercises/EMPLOYEES/01_basic.sql; test=Employees_Exercises_01_Basic_PersistenceIT.HR_EMPLOYEES_B_04_Test.
+[[HR_EMPLOYEES_B_04]]
+==== HR_EMPLOYEES_B_04: Who is on commission
+
+Sales operations wants the employees who earn a commission, highest rate first.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, COMMISSION_PCT
+FROM EMPLOYEES
+WHERE COMMISSION_PCT IS NOT NULL
+ORDER BY COMMISSION_PCT DESC, LAST_NAME ASC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.firstName, e.lastName, e.commissionPct
+FROM Employee e
+WHERE e.commissionPct IS NOT NULL
+ORDER BY e.commissionPct DESC, e.lastName ASC
+----
+
+=== Intermediate
+
+// AI: Intermediate: selected 3 of 6 reviewed candidates in this original scope.
+// AI: Selection boundary: Do not present commission_pct as a guaranteed multiplier for total monthly pay without a documented business rule.
+// AI: Not selected: HR_EMPLOYEES_I_02, HR_EMPLOYEES_I_03, HR_EMPLOYEES_I_06.
+// AI: Deferred HR_EMPLOYEES_I_03: source SQL/JPQL synchronization is explicitly unfinished.
+
+// AI: Pick HR_EMPLOYEES_I_01: A scalar AVG subquery on the same entity type.
+// AI: Copied from EXERCISES.asciidoc:534, anchor HR_EMPLOYEES_I_01; retain the permanent ID when revising.
+// AI: Registry: section=EMPLOYEES; tier=Intermediate; sql=src/test/sql-exercises/EMPLOYEES/02_intermediate.sql; test=Employees_Exercises_02_Intermediate_PersistenceIT.HR_EMPLOYEES_I_01_Test.
+// AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
+[[HR_EMPLOYEES_I_01]]
+==== HR_EMPLOYEES_I_01: Above the company average
+
+The board asks who earns more than the company-wide average salary, the highest first; people with the same salary are ordered by `EMPLOYEE_ID`.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, SALARY
+FROM EMPLOYEES
+WHERE SALARY > (SELECT AVG(SALARY) FROM EMPLOYEES)
+ORDER BY SALARY DESC, EMPLOYEE_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.firstName, e.lastName, e.salary
+FROM Employee e
+WHERE e.salary > (SELECT AVG(x.salary) FROM Employee x)
+ORDER BY e.salary DESC
+----
+
+// JPQL NOT YET UPDATED: the SQL above changed.
+
+// AI: Pick HR_EMPLOYEES_I_04: A self-referencing manager association compares two salaries.
+// AI: Copied from EXERCISES.asciidoc:621, anchor HR_EMPLOYEES_I_04; retain the permanent ID when revising.
+// AI: Registry: section=EMPLOYEES; tier=Intermediate; sql=src/test/sql-exercises/EMPLOYEES/02_intermediate.sql; test=Employees_Exercises_02_Intermediate_PersistenceIT.HR_EMPLOYEES_I_04_Test.
+[[HR_EMPLOYEES_I_04]]
+==== HR_EMPLOYEES_I_04: Earning more than the boss
+
+An auditor flags any employee paid more than their direct manager.
+
+[source,sql]
+----
+SELECT e.EMPLOYEE_ID, e.LAST_NAME, e.SALARY, m.EMPLOYEE_ID AS MANAGER_ID, m.LAST_NAME AS MANAGER, m.SALARY AS MANAGER_SALARY
+FROM EMPLOYEES e
+         JOIN EMPLOYEES m ON m.EMPLOYEE_ID = e.MANAGER_ID
+WHERE e.SALARY > m.SALARY
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.lastName, e.salary, m.employeeId, m.lastName, m.salary
+FROM Employee e
+         JOIN e.manager m
+WHERE e.salary > m.salary
+----
+
+// AI: Pick HR_EMPLOYEES_I_05: Group the employee-to-manager association to count direct reports.
+// AI: Copied from EXERCISES.asciidoc:642, anchor HR_EMPLOYEES_I_05; retain the permanent ID when revising.
+// AI: Registry: section=EMPLOYEES; tier=Intermediate; sql=src/test/sql-exercises/EMPLOYEES/02_intermediate.sql; test=Employees_Exercises_02_Intermediate_PersistenceIT.HR_EMPLOYEES_I_05_Test.
+[[HR_EMPLOYEES_I_05]]
+==== HR_EMPLOYEES_I_05: Span of control
+
+The COO wants every manager with the number of people reporting directly to them, most first.
+
+[source,sql]
+----
+SELECT m.EMPLOYEE_ID, m.FIRST_NAME, m.LAST_NAME, COUNT(*) AS DIRECT_REPORTS
+FROM EMPLOYEES m
+         JOIN EMPLOYEES e ON e.MANAGER_ID = m.EMPLOYEE_ID
+GROUP BY m.EMPLOYEE_ID, m.FIRST_NAME, m.LAST_NAME
+ORDER BY DIRECT_REPORTS DESC, m.EMPLOYEE_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT m.employeeId, m.firstName, m.lastName, COUNT(s) AS directReports
+FROM Employee m
+         JOIN m.subordinates s
+GROUP BY m.employeeId, m.firstName, m.lastName
+ORDER BY directReports DESC, m.employeeId ASC
+----
+
+[source,jpaql]
+----
+SELECT m, SIZE(m.subordinates) AS directReports
+FROM Employee m
+WHERE m.subordinates IS NOT EMPTY
+ORDER BY directReports DESC, m.employeeId ASC
+----
+
+A result variable cannot be filtered on in `WHERE` — `+WHERE directReports > 0+` is not JPQL. Filter on the collection
+itself (`IS NOT EMPTY`, or `+SIZE(m.subordinates) > 0+`), or let the inner join drop managers with nobody.
+
+=== Advanced
+
+// AI: Advanced: selected 1 of 7 reviewed candidates in this original scope.
+// AI: Selection boundary: Do not present commission_pct as a guaranteed multiplier for total monthly pay without a documented business rule.
+// AI: Not selected: HR_EMPLOYEES_A_01, HR_EMPLOYEES_A_02, HR_EMPLOYEES_A_03, HR_EMPLOYEES_A_05, HR_EMPLOYEES_A_06, HR_EMPLOYEES_A_07.
+// AI: Deferred HR_EMPLOYEES_A_01: source SQL/JPQL synchronization is explicitly unfinished.
+// AI: Deferred HR_EMPLOYEES_A_02: source SQL/JPQL synchronization is explicitly unfinished.
+
+// AI: Pick HR_EMPLOYEES_A_04: ALL demonstrates quantified comparisons and their NULL/empty-set semantics.
+// AI: Copied from EXERCISES.asciidoc:831, anchor HR_EMPLOYEES_A_04; retain the permanent ID when revising.
+// AI: Registry: section=EMPLOYEES; tier=Advanced; sql=src/test/sql-exercises/EMPLOYEES/03_advanced.sql; test=Employees_Exercises_03_Advanced_PersistenceIT.HR_EMPLOYEES_A_04_Test.
+// AI: Explain that ALL over an empty set is true and a NULL salary can make the predicate unknown.
+[[HR_EMPLOYEES_A_04]]
+==== HR_EMPLOYEES_A_04: Out-earning a whole department
+
+Before a salary benchmark, HR asks two things about a reference department (given its id): who earns more than
+_everyone_ in it, and who earns more than _at least one_ person in it.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, LAST_NAME, SALARY
+FROM EMPLOYEES
+WHERE SALARY > ALL (SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID = :departmentId)
+ORDER BY SALARY DESC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.lastName, e.salary
+FROM Employee e
+WHERE e.salary > ALL (SELECT x.salary FROM Employee x WHERE x.department.departmentId = :departmentId)
+ORDER BY e.salary DESC
+----
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, LAST_NAME, SALARY
+FROM EMPLOYEES
+WHERE SALARY > ANY (SELECT SALARY FROM EMPLOYEES WHERE DEPARTMENT_ID = :departmentId)
+ORDER BY SALARY DESC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.lastName, e.salary
+FROM Employee e
+WHERE e.salary > ANY (SELECT x.salary FROM Employee x WHERE x.department.departmentId = :departmentId)
+ORDER BY e.salary DESC
+----
+
+`SALARY` is nullable. A single null in the subquery makes `+> ALL+` unknown for every row — nobody qualifies — while
+`+> ANY+` just ignores it. No salary is null in the installed data. Also note that `+> ALL+` of an empty subquery (a
+department with no staff) is true for everyone.
+
+== EMP_DETAILS_VIEW
+
+`EmpDetailsView` maps this view, and both persistence units list it; the problems here are solved in SQL
+only. The view inner-joins all six tables, which leaves out the employee without a department.
+
+=== Basic
+
+// AI: Basic: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick HR_EMP_DETAILS_VIEW_B_01: Filter a mapped reporting view by site.
+// AI: Copied from EXERCISES.asciidoc:985, anchor HR_EMP_DETAILS_VIEW_B_01; retain the permanent ID when revising.
+// AI: Registry: section=EMP_DETAILS_VIEW; tier=Basic; sql=src/test/sql-exercises/EMP_DETAILS_VIEW/01_basic.sql; test=EmpDetailsView_Exercises_01_Basic_PersistenceIT.HR_EMP_DETAILS_VIEW_B_01_Test.
+[[HR_EMP_DETAILS_VIEW_B_01]]
+==== HR_EMP_DETAILS_VIEW_B_01: Staff on a site
+
+Reception at one site (given its city, such as `Seattle`) wants the staff who work there, with their job titles and
+departments.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, FIRST_NAME, LAST_NAME, JOB_TITLE, DEPARTMENT_NAME
+FROM EMP_DETAILS_VIEW
+WHERE CITY = :city
+ORDER BY LAST_NAME ASC, FIRST_NAME ASC
+----
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick HR_EMP_DETAILS_VIEW_I_01: Aggregate the reporting view across country and region.
+// AI: Copied from EXERCISES.asciidoc:1001, anchor HR_EMP_DETAILS_VIEW_I_01; retain the permanent ID when revising.
+// AI: Registry: section=EMP_DETAILS_VIEW; tier=Intermediate; sql=src/test/sql-exercises/EMP_DETAILS_VIEW/02_intermediate.sql; test=EmpDetailsView_Exercises_02_Intermediate_PersistenceIT.HR_EMP_DETAILS_VIEW_I_01_Test.
+[[HR_EMP_DETAILS_VIEW_I_01]]
+==== HR_EMP_DETAILS_VIEW_I_01: Payroll by country
+
+Finance books the monthly salary cost per country, grouped under its region.
+
+[source,sql]
+----
+SELECT REGION_NAME, COUNTRY_NAME, COUNT(*) AS HEADCOUNT, SUM(SALARY) AS MONTHLY_COST
+FROM EMP_DETAILS_VIEW
+GROUP BY REGION_NAME, COUNTRY_NAME
+ORDER BY REGION_NAME ASC, MONTHLY_COST DESC
+----
+
+The same question against the tables is _Headcount by country and region_, under Whole schema; the view has already
+done the five joins.
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 2 reviewed candidates in this original scope.
+// AI: Not selected: HR_EMP_DETAILS_VIEW_A_01, HR_EMP_DETAILS_VIEW_A_02.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== JOBS
+
+=== Basic
+
+// AI: Basic: selected 3 of 4 reviewed candidates in this original scope.
+// AI: Not selected: HR_JOBS_B_04.
+
+// AI: Pick HR_JOBS_B_01: Explicit NULL ordering on a lookup entity.
+// AI: Copied from EXERCISES.asciidoc:1058, anchor HR_JOBS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=JOBS; tier=Basic; sql=src/test/sql-exercises/JOBS/01_basic.sql; test=Jobs_Exercises_01_Basic_PersistenceIT.HR_JOBS_B_01_Test.
+[[HR_JOBS_B_01]]
+==== HR_JOBS_B_01: Salary bands, unset values flagged
+
+Compensation is reviewing the job catalogue. They want it twice: by minimum salary, lowest first, with any job that
+has no minimum listed first; and by maximum salary, highest first, with any job that has no maximum listed last.
+
+____
+https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a5587[4.10. ORDER BY Clause]
+
+The keyword `NULLS` specifies the ordering of null values, either `FIRST` or `LAST`.
+
+* `FIRST` means that results are sorted so that all null values occur before all non-null values.
+
+* `LAST` means that results are sorted so that all null values occur after all non-null values.
+
+If `NULLS` is not specified, the database determines whether null values occur first or last.
+____
+
+[source,sql]
+----
+SELECT *
+FROM JOBS
+ORDER BY MIN_SALARY ASC NULLS FIRST, JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT j
+FROM Job j
+ORDER BY j.minSalary ASC NULLS FIRST, j.jobId ASC
+----
+
+[source,sql]
+----
+SELECT *
+FROM JOBS
+ORDER BY MAX_SALARY DESC NULLS LAST, JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT j
+FROM Job j
+ORDER BY j.maxSalary DESC NULLS LAST, j.jobId ASC
+----
+
+Every job in the installed data has both values, so the `NULLS` clauses decide nothing yet; they make the order
+explicit for the day a job is added without a band. Oracle sorts nulls last ascending and first descending by default
+— the opposite of what was asked here.
+
+// AI: Pick HR_JOBS_B_02: LIKE with ESCAPE treats an underscore as a literal.
+// AI: Copied from EXERCISES.asciidoc:1108, anchor HR_JOBS_B_02; retain the permanent ID when revising.
+// AI: Registry: section=JOBS; tier=Basic; sql=src/test/sql-exercises/JOBS/01_basic.sql; test=Jobs_Exercises_01_Basic_PersistenceIT.HR_JOBS_B_02_Test.
+[[HR_JOBS_B_02]]
+==== HR_JOBS_B_02: Clerical jobs
+
+Workforce planning wants every clerk job in the catalogue; their ids all end in `+_CLERK+`.
+
+[source,sql]
+----
+SELECT *
+FROM JOBS
+WHERE JOB_ID LIKE '%\_CLERK' ESCAPE '\'
+ORDER BY JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT j
+FROM Job j
+WHERE j.jobId LIKE '%\_CLERK' ESCAPE '\'
+ORDER BY j.jobId ASC
+----
+
+Without `ESCAPE`, the `+_+` is a single-character wildcard and would also match, say, `XCLERK`.
+
+// AI: Pick HR_JOBS_B_03: A parameter between two mapped salary-band attributes.
+// AI: Copied from EXERCISES.asciidoc:1131, anchor HR_JOBS_B_03; retain the permanent ID when revising.
+// AI: Registry: section=JOBS; tier=Basic; sql=src/test/sql-exercises/JOBS/01_basic.sql; test=Jobs_Exercises_01_Basic_PersistenceIT.HR_JOBS_B_03_Test.
+[[HR_JOBS_B_03]]
+==== HR_JOBS_B_03: Jobs an offer fits
+
+A recruiter has a salary figure in mind and asks which jobs' bands it falls within.
+
+[source,sql]
+----
+SELECT JOB_ID, JOB_TITLE, MIN_SALARY, MAX_SALARY
+FROM JOBS
+WHERE :salary BETWEEN MIN_SALARY AND MAX_SALARY
+ORDER BY MIN_SALARY ASC, JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT j.jobId, j.jobTitle, j.minSalary, j.maxSalary
+FROM Job j
+WHERE :salary BETWEEN j.minSalary AND j.maxSalary
+ORDER BY j.minSalary ASC, j.jobId ASC
+----
+
+The bounds are ``Integer``s, so bind an `Integer`. A job with no minimum or no maximum never matches, as `BETWEEN` a
+null bound is unknown.
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 2 reviewed candidates in this original scope.
+// AI: Not selected: HR_JOBS_I_02.
+
+// AI: Pick HR_JOBS_I_01: Arithmetic expressions over two attributes.
+// AI: Copied from EXERCISES.asciidoc:1176, anchor HR_JOBS_I_01; retain the permanent ID when revising.
+// AI: Registry: section=JOBS; tier=Intermediate; sql=src/test/sql-exercises/JOBS/02_intermediate.sql; test=Jobs_Exercises_02_Intermediate_PersistenceIT.HR_JOBS_I_01_Test.
+[[HR_JOBS_I_01]]
+==== HR_JOBS_I_01: Widest pay bands
+
+Compensation suspects some bands are too loose. They want the jobs whose maximum is at least twice the minimum, with
+the band's width and that ratio, widest ratio first.
+
+[source,sql]
+----
+SELECT JOB_ID, JOB_TITLE, MAX_SALARY - MIN_SALARY AS WIDTH, ROUND(MAX_SALARY / MIN_SALARY, 2) AS RATIO
+FROM JOBS
+WHERE MAX_SALARY >= 2 * MIN_SALARY
+ORDER BY RATIO DESC, JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT j.jobId, j.jobTitle, j.maxSalary - j.minSalary, ROUND(j.maxSalary * 1.0 / j.minSalary, 2) AS ratio
+FROM Job j
+WHERE j.maxSalary >= 2 * j.minSalary
+ORDER BY ratio DESC, j.jobId ASC
+----
+
+Both salary attributes are ``Integer``s; without `+* 1.0+` the JPQL division is an integer division, under both
+providers, and every ratio here would come out as 2.
+
+=== Advanced
+
+// AI: Advanced: selected 1 of 2 reviewed candidates in this original scope.
+// AI: Not selected: HR_JOBS_A_02.
+
+// AI: Pick HR_JOBS_A_01: A range-containment self-join.
+// AI: Copied from EXERCISES.asciidoc:1226, anchor HR_JOBS_A_01; retain the permanent ID when revising.
+// AI: Registry: section=JOBS; tier=Advanced; sql=src/test/sql-exercises/JOBS/03_advanced.sql; test=Jobs_Exercises_03_Advanced_PersistenceIT.HR_JOBS_A_01_Test.
+[[HR_JOBS_A_01]]
+==== HR_JOBS_A_01: Bands inside another band
+
+Compensation suspects redundant grades: which jobs have a band that lies entirely within another job's band?
+
+[source,sql]
+----
+SELECT i.JOB_ID, i.MIN_SALARY, i.MAX_SALARY,
+       o.JOB_ID AS WITHIN_JOB, o.MIN_SALARY AS WITHIN_MIN, o.MAX_SALARY AS WITHIN_MAX
+FROM JOBS i
+         JOIN JOBS o ON o.JOB_ID <> i.JOB_ID
+    AND o.MIN_SALARY <= i.MIN_SALARY
+    AND i.MAX_SALARY <= o.MAX_SALARY
+ORDER BY i.JOB_ID ASC, o.JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT i.jobId, i.minSalary, i.maxSalary, o.jobId, o.minSalary, o.maxSalary
+FROM Job i,
+     Job o
+WHERE o <> i
+  AND o.minSalary <= i.minSalary
+  AND i.maxSalary <= o.maxSalary
+ORDER BY i.jobId ASC, o.jobId ASC
+----
+
+Jobs with identical bands — `+AC_ACCOUNT+` and `+FI_ACCOUNT+`, `+AC_MGR+` and `+FI_MGR+`, `+PU_CLERK+` and `+SH_CLERK+` — each
+lie within the other, so they appear in both directions.
+
+== JOB_HISTORY
+
+=== Basic
+
+// AI: Basic: selected 2 of 2 reviewed candidates in this original scope.
+// AI: Selection boundary: An overlap audit or a LEAD query adds little beyond the mapped history and association lessons selected here.
+
+// AI: Pick HR_JOB_HISTORY_B_01: Filter an IdClass history entity through its employee association.
+// AI: Copied from EXERCISES.asciidoc:1286, anchor HR_JOB_HISTORY_B_01; retain the permanent ID when revising.
+// AI: Registry: section=JOB_HISTORY; tier=Basic; sql=src/test/sql-exercises/JOB_HISTORY/01_basic.sql; test=JobHistory_Exercises_01_Basic_PersistenceIT.HR_JOB_HISTORY_B_01_Test.
+[[HR_JOB_HISTORY_B_01]]
+==== HR_JOB_HISTORY_B_01: One employee's earlier positions
+
+An employee asks HR for the positions they held before their current one (given the employee id), oldest first.
+
+[source,sql]
+----
+SELECT START_DATE, END_DATE, JOB_ID, DEPARTMENT_ID
+FROM JOB_HISTORY
+WHERE EMPLOYEE_ID = :employeeId
+ORDER BY START_DATE ASC
+----
+
+[source,jpaql]
+----
+SELECT h
+FROM JobHistory h
+WHERE h.employeeId = :employeeId
+ORDER BY h.startDate ASC
+----
+
+// AI: Pick HR_JOB_HISTORY_B_02: A date interval and deterministic ordering on the composite key.
+// AI: Copied from EXERCISES.asciidoc:1307, anchor HR_JOB_HISTORY_B_02; retain the permanent ID when revising.
+// AI: Registry: section=JOB_HISTORY; tier=Basic; sql=src/test/sql-exercises/JOB_HISTORY/01_basic.sql; test=JobHistory_Exercises_01_Basic_PersistenceIT.HR_JOB_HISTORY_B_02_Test.
+// AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
+[[HR_JOB_HISTORY_B_02]]
+==== HR_JOB_HISTORY_B_02: Positions closed in a period
+
+For an audit, HR wants every earlier position that ended within a given period, the from and to dates both included, the earliest endings first.
+The schema's trigger writes `END_DATE` as `SYSDATE`, which has a time of day, so the period runs up to, not including, the day after `:toDate`.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, START_DATE, END_DATE, JOB_ID, DEPARTMENT_ID
+FROM JOB_HISTORY
+WHERE END_DATE >= TRUNC(:fromDate)
+  AND END_DATE < TRUNC(:toDate) + 1
+ORDER BY END_DATE ASC, EMPLOYEE_ID ASC, START_DATE ASC
+----
+
+[source,jpaql]
+----
+SELECT h
+FROM JobHistory h
+WHERE h.endDate BETWEEN :fromDate AND :toDate
+ORDER BY h.endDate ASC, h.employeeId ASC
+----
+
+// JPQL NOT YET UPDATED: the SQL above changed.
+
+=== Intermediate
+
+// AI: Intermediate: selected 2 of 3 reviewed candidates in this original scope.
+// AI: Selection boundary: An overlap audit or a LEAD query adds little beyond the mapped history and association lessons selected here.
+// AI: Not selected: HR_JOB_HISTORY_I_03.
+// AI: Deferred HR_JOB_HISTORY_I_03: source SQL/JPQL synchronization is explicitly unfinished.
+
+// AI: Pick HR_JOB_HISTORY_I_01: COUNT and COUNT DISTINCT distinguish positions from people.
+// AI: Copied from EXERCISES.asciidoc:1334, anchor HR_JOB_HISTORY_I_01; retain the permanent ID when revising.
+// AI: Registry: section=JOB_HISTORY; tier=Intermediate; sql=src/test/sql-exercises/JOB_HISTORY/02_intermediate.sql; test=JobHistory_Exercises_02_Intermediate_PersistenceIT.HR_JOB_HISTORY_I_01_Test.
+[[HR_JOB_HISTORY_I_01]]
+==== HR_JOB_HISTORY_I_01: Turnover per job
+
+Workforce planning wants, per job, how many times someone has moved on from it, and how many different people that
+was.
+
+[source,sql]
+----
+SELECT JOB_ID, COUNT(*) AS POSITIONS, COUNT(DISTINCT EMPLOYEE_ID) AS PEOPLE
+FROM JOB_HISTORY
+GROUP BY JOB_ID
+ORDER BY POSITIONS DESC, JOB_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT h.job.jobId, COUNT(h) AS positions, COUNT(DISTINCT h.employeeId)
+FROM JobHistory h
+GROUP BY h.job.jobId
+ORDER BY positions DESC, h.job.jobId ASC
+----
+
+Jobs nobody has left do not appear; listing them with zero needs `JOBS`.
+
+// AI: Pick HR_JOB_HISTORY_I_02: HAVING and date aggregates over repeated positions.
+// AI: Copied from EXERCISES.asciidoc:1358, anchor HR_JOB_HISTORY_I_02; retain the permanent ID when revising.
+// AI: Registry: section=JOB_HISTORY; tier=Intermediate; sql=src/test/sql-exercises/JOB_HISTORY/02_intermediate.sql; test=JobHistory_Exercises_02_Intermediate_PersistenceIT.HR_JOB_HISTORY_I_02_Test.
+[[HR_JOB_HISTORY_I_02]]
+==== HR_JOB_HISTORY_I_02: Moved more than once
+
+HR wants the employees with more than one earlier position, with the first start and the last end on record.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, COUNT(*) AS POSITIONS, MIN(START_DATE) AS FIRST_START, MAX(END_DATE) AS LAST_END
+FROM JOB_HISTORY
+GROUP BY EMPLOYEE_ID
+HAVING COUNT(*) > 1
+ORDER BY EMPLOYEE_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT h.employeeId, COUNT(h), MIN(h.startDate), MAX(h.endDate)
+FROM JobHistory h
+GROUP BY h.employeeId
+HAVING COUNT(h) > 1
+ORDER BY h.employeeId ASC
+----
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 2 reviewed candidates in this original scope.
+// AI: Selection boundary: An overlap audit or a LEAD query adds little beyond the mapped history and association lessons selected here.
+// AI: Not selected: HR_JOB_HISTORY_A_01, HR_JOB_HISTORY_A_02.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== LOCATIONS
+
+=== Basic
+
+// AI: Basic: selected 2 of 2 reviewed candidates in this original scope.
+
+// AI: Pick HR_LOCATIONS_B_01: Filter a location through its country association.
+// AI: Copied from EXERCISES.asciidoc:1484, anchor HR_LOCATIONS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=LOCATIONS; tier=Basic; sql=src/test/sql-exercises/LOCATIONS/01_basic.sql; test=Locations_Exercises_01_Basic_PersistenceIT.HR_LOCATIONS_B_01_Test.
+[[HR_LOCATIONS_B_01]]
+==== HR_LOCATIONS_B_01: Sites in a country
+
+Facilities lists the company's sites in one country (given its code, such as `US`).
+
+[source,sql]
+----
+SELECT LOCATION_ID, STREET_ADDRESS, CITY, STATE_PROVINCE
+FROM LOCATIONS
+WHERE COUNTRY_ID = :countryId
+ORDER BY CITY ASC
+----
+
+[source,jpaql]
+----
+SELECT l.locationId, l.streetAddress, l.city, l.stateProvince
+FROM Location l
+WHERE l.country.countryId = :countryId
+ORDER BY l.city ASC
+----
+
+// AI: Pick HR_LOCATIONS_B_02: IS NULL on an optional postal code.
+// AI: Copied from EXERCISES.asciidoc:1505, anchor HR_LOCATIONS_B_02; retain the permanent ID when revising.
+// AI: Registry: section=LOCATIONS; tier=Basic; sql=src/test/sql-exercises/LOCATIONS/01_basic.sql; test=Locations_Exercises_01_Basic_PersistenceIT.HR_LOCATIONS_B_02_Test.
+[[HR_LOCATIONS_B_02]]
+==== HR_LOCATIONS_B_02: Sites without a postal code
+
+The mail room cannot send parcels to a site without a postal code. Which sites lack one?
+
+[source,sql]
+----
+SELECT LOCATION_ID, STREET_ADDRESS, CITY, COUNTRY_ID
+FROM LOCATIONS
+WHERE POSTAL_CODE IS NULL
+----
+
+[source,jpaql]
+----
+SELECT l.locationId, l.streetAddress, l.city, l.country.countryId
+FROM Location l
+WHERE l.postalCode IS NULL
+----
+
+The installed data has one, the London office.
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 2 reviewed candidates in this original scope.
+// AI: Not selected: HR_LOCATIONS_I_02.
+
+// AI: Pick HR_LOCATIONS_I_01: Group locations by country.
+// AI: Copied from EXERCISES.asciidoc:1528, anchor HR_LOCATIONS_I_01; retain the permanent ID when revising.
+// AI: Registry: section=LOCATIONS; tier=Intermediate; sql=src/test/sql-exercises/LOCATIONS/02_intermediate.sql; test=Locations_Exercises_02_Intermediate_PersistenceIT.HR_LOCATIONS_I_01_Test.
+[[HR_LOCATIONS_I_01]]
+==== HR_LOCATIONS_I_01: Sites per country
+
+Facilities reports how many sites the company has in each country, most first.
+
+[source,sql]
+----
+SELECT COUNTRY_ID, COUNT(*) AS SITES
+FROM LOCATIONS
+GROUP BY COUNTRY_ID
+ORDER BY SITES DESC, COUNTRY_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT l.country.countryId, COUNT(l) AS sites
+FROM Location l
+GROUP BY l.country.countryId
+ORDER BY sites DESC, l.country.countryId ASC
+----
+
+=== Advanced
+
+// AI: Advanced: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick HR_LOCATIONS_A_01: ALL compares aggregate group sizes and retains ties.
+// AI: Copied from EXERCISES.asciidoc:1581, anchor HR_LOCATIONS_A_01; retain the permanent ID when revising.
+// AI: Registry: section=LOCATIONS; tier=Advanced; sql=src/test/sql-exercises/LOCATIONS/03_advanced.sql; test=Locations_Exercises_03_Advanced_PersistenceIT.HR_LOCATIONS_A_01_Test.
+[[HR_LOCATIONS_A_01]]
+==== HR_LOCATIONS_A_01: The country with the most sites
+
+Facilities wants the country, or countries if tied, with the most sites.
+
+[source,sql]
+----
+SELECT COUNTRY_ID, COUNT(*) AS SITES
+FROM LOCATIONS
+GROUP BY COUNTRY_ID
+HAVING COUNT(*) >= ALL (SELECT COUNT(*) FROM LOCATIONS GROUP BY COUNTRY_ID)
+----
+
+[source,jpaql]
+----
+SELECT l.country.countryId, COUNT(l)
+FROM Location l
+GROUP BY l.country.countryId
+HAVING COUNT(l) >= ALL (SELECT COUNT(x) FROM Location x GROUP BY x.country.countryId)
+----
+
+`+>= ALL+` keeps ties. Sorting and taking the first row (`FETCH FIRST 1 ROW ONLY`, or `setMaxResults(1)`) would pick one
+of them arbitrarily.
+
+== REGIONS
+
+=== Basic
+
+// AI: Basic: selected 1 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: MAX(id) + 10 is unsafe identifier allocation; clashing initials have no meaningful persistence use case.
+
+// AI: Pick HR_REGIONS_B_01: A case-insensitive parameter lookup.
+// AI: Copied from EXERCISES.asciidoc:1609, anchor HR_REGIONS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=REGIONS; tier=Basic; sql=src/test/sql-exercises/REGIONS/01_basic.sql; test=Regions_Exercises_01_Basic_PersistenceIT.HR_REGIONS_B_01_Test.
+[[HR_REGIONS_B_01]]
+==== HR_REGIONS_B_01: Region by name
+
+A report parameter arrives as a region name typed by a user, in whatever case; the report needs the region.
+
+[source,sql]
+----
+SELECT REGION_ID, REGION_NAME
+FROM REGIONS
+WHERE UPPER(REGION_NAME) = UPPER(:regionName)
+----
+
+[source,jpaql]
+----
+SELECT r
+FROM Region r
+WHERE UPPER(r.regionName) = UPPER(:regionName)
+----
+
+Unlike the pattern of `LIKE` (see _Name search at reception_, under EMPLOYEES), an operand of `+=+` may be any string
+expression, so the query can upper-case the parameter itself.
+
+=== Intermediate
+
+// AI: Intermediate: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: MAX(id) + 10 is unsafe identifier allocation; clashing initials have no meaningful persistence use case.
+// AI: Not selected: HR_REGIONS_I_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: MAX(id) + 10 is unsafe identifier allocation; clashing initials have no meaningful persistence use case.
+// AI: Not selected: HR_REGIONS_A_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== Whole schema
+
+Problems that join, or subquery, more than one table.
+
+=== Basic
+
+// AI: Basic: selected 3 of 3 reviewed candidates in this original scope.
+
+// AI: Pick HR_SCHEMA_B_01: Follow the department's manager association.
+// AI: Copied from EXERCISES.asciidoc:1691, anchor HR_SCHEMA_B_01; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.HR_SCHEMA_B_01_Test.
+[[HR_SCHEMA_B_01]]
+==== HR_SCHEMA_B_01: Who manages a department
+
+A new starter asks who runs a department (given the department id).
+
+[source,sql]
+----
+SELECT d.DEPARTMENT_NAME, m.EMPLOYEE_ID, m.FIRST_NAME, m.LAST_NAME, m.EMAIL
+FROM DEPARTMENTS d
+         JOIN EMPLOYEES m ON m.EMPLOYEE_ID = d.MANAGER_ID
+WHERE d.DEPARTMENT_ID = :departmentId
+----
+
+[source,jpaql]
+----
+SELECT d.departmentName, m.employeeId, m.firstName, m.lastName, m.email
+FROM Department d
+         JOIN d.manager m
+WHERE d.departmentId = :departmentId
+----
+
+A department with no manager gives no row; a `LEFT JOIN` would return the department with an empty manager instead.
+
+// AI: Pick HR_SCHEMA_B_02: Follow the employee's job association.
+// AI: Copied from EXERCISES.asciidoc:1714, anchor HR_SCHEMA_B_02; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.HR_SCHEMA_B_02_Test.
+[[HR_SCHEMA_B_02]]
+==== HR_SCHEMA_B_02: An employee's job title
+
+The payslip shows the employee's job title, not the job id.
+
+[source,sql]
+----
+SELECT e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, j.JOB_TITLE
+FROM EMPLOYEES e
+         JOIN JOBS j ON j.JOB_ID = e.JOB_ID
+WHERE e.EMPLOYEE_ID = :employeeId
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.firstName, e.lastName, e.job.jobTitle
+FROM Employee e
+WHERE e.employeeId = :employeeId
+----
+
+`e.job.jobTitle` is an implicit inner join, which loses nobody because every employee has a job. The same shortcut
+through `e.department` would lose the employee without one (see _Company directory_).
+
+// AI: Pick HR_SCHEMA_B_03: Filter countries through the region association.
+// AI: Copied from EXERCISES.asciidoc:1737, anchor HR_SCHEMA_B_03; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.HR_SCHEMA_B_03_Test.
+[[HR_SCHEMA_B_03]]
+==== HR_SCHEMA_B_03: Countries of a region, by name
+
+A regional director knows their region by name, not by id, and wants its countries.
+
+[source,sql]
+----
+SELECT c.COUNTRY_ID, c.COUNTRY_NAME
+FROM COUNTRIES c
+         JOIN REGIONS r ON r.REGION_ID = c.REGION_ID
+WHERE r.REGION_NAME = :regionName
+ORDER BY c.COUNTRY_NAME ASC
+----
+
+[source,jpaql]
+----
+SELECT c.countryId, c.countryName
+FROM Country c
+         JOIN c.region r
+WHERE r.regionName = :regionName
+ORDER BY c.countryName ASC
+----
+
+=== Intermediate
+
+// AI: Intermediate: selected 3 of 11 reviewed candidates in this original scope.
+// AI: Not selected: HR_SCHEMA_I_03, HR_SCHEMA_I_05, HR_SCHEMA_I_06, HR_SCHEMA_I_08, HR_SCHEMA_I_09, HR_SCHEMA_I_10, HR_SCHEMA_I_11, HR_SCHEMA_I_12.
+// AI: Deferred HR_SCHEMA_I_03: source SQL/JPQL synchronization is explicitly unfinished.
+// AI: Deferred HR_SCHEMA_I_06: source SQL/JPQL synchronization is explicitly unfinished.
+
+// AI: Pick HR_SCHEMA_I_01: An outer join retains departments with no employees.
+// AI: Copied from EXERCISES.asciidoc:1762, anchor HR_SCHEMA_I_01; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_01_Test.
+[[HR_SCHEMA_I_01]]
+==== HR_SCHEMA_I_01: Headcount per department
+
+HR wants every department with its headcount, largest first, including departments that have nobody.
+
+[source,sql]
+----
+SELECT d.DEPARTMENT_ID, d.DEPARTMENT_NAME, COUNT(e.EMPLOYEE_ID) AS HEADCOUNT
+FROM DEPARTMENTS d
+         LEFT JOIN EMPLOYEES e ON e.DEPARTMENT_ID = d.DEPARTMENT_ID
+GROUP BY d.DEPARTMENT_ID, d.DEPARTMENT_NAME
+ORDER BY HEADCOUNT DESC, d.DEPARTMENT_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT d.departmentId, d.departmentName, COUNT(e) AS headcount
+FROM Department d
+         LEFT JOIN d.employees e
+GROUP BY d.departmentId, d.departmentName
+ORDER BY headcount DESC, d.departmentId ASC
+----
+
+[source,jpaql]
+----
+SELECT d, SIZE(d.employees) AS headcount
+FROM Department d
+ORDER BY headcount DESC, d.departmentId ASC
+----
+
+`+COUNT(e.EMPLOYEE_ID)+`, not `+COUNT(*)+`: an outer-joined department with no employees still produces one row, and
+`+COUNT(*)+` would count it as 1. The specification has `SIZE` return zero for an empty collection, and Hibernate ORM
+returns all 27 departments for the second JPQL; EclipseLink 5.0.1, however, translates `SIZE` in the select list into
+an inner join and returns only the 11 departments that have staff. The `LEFT JOIN` form gives 27 under both.
+
+// AI: Pick HR_SCHEMA_I_04: Mix mandatory and optional joins in an employee directory.
+// AI: Copied from EXERCISES.asciidoc:1836, anchor HR_SCHEMA_I_04; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_04_Test.
+[[HR_SCHEMA_I_04]]
+==== HR_SCHEMA_I_04: Company directory
+
+Internal communications is printing the directory: every employee with job title, department name and city. Staff
+with no department must still appear.
+
+[source,sql]
+----
+SELECT e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, j.JOB_TITLE, d.DEPARTMENT_NAME, l.CITY
+FROM EMPLOYEES e
+         JOIN JOBS j ON j.JOB_ID = e.JOB_ID
+         LEFT JOIN DEPARTMENTS d ON d.DEPARTMENT_ID = e.DEPARTMENT_ID
+         LEFT JOIN LOCATIONS l ON l.LOCATION_ID = d.LOCATION_ID
+ORDER BY e.LAST_NAME ASC, e.FIRST_NAME ASC
+----
+
+[source,jpaql]
+----
+SELECT e.employeeId, e.firstName, e.lastName, j.jobTitle, d.departmentName, l.city
+FROM Employee e
+         JOIN e.job j
+         LEFT JOIN e.department d
+         LEFT JOIN d.location l
+ORDER BY e.lastName ASC, e.firstName ASC
+----
+
+Writing `e.department.departmentName` in the select list instead would be an implicit inner join and lose the
+employee without a department. `+EMP_DETAILS_VIEW+` holds much the same columns, but joins with inner joins, so it has
+106 rows to ``EMPLOYEES``' 107.
+
+// AI: Pick HR_SCHEMA_I_07: NOT EXISTS locates genuinely empty departments.
+// AI: Copied from EXERCISES.asciidoc:1922, anchor HR_SCHEMA_I_07; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.HR_SCHEMA_I_07_Test.
+[[HR_SCHEMA_I_07]]
+==== HR_SCHEMA_I_07: Departments with nobody in them
+
+Facilities wants to reclaim space from departments that have no employees, and to know whether each still has a manager
+on record.
+
+[source,sql]
+----
+SELECT d.DEPARTMENT_ID, d.DEPARTMENT_NAME, d.MANAGER_ID
+FROM DEPARTMENTS d
+WHERE NOT EXISTS (SELECT 1 FROM EMPLOYEES e WHERE e.DEPARTMENT_ID = d.DEPARTMENT_ID)
+ORDER BY d.DEPARTMENT_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT d.departmentId, d.departmentName, m.employeeId
+FROM Department d
+         LEFT JOIN d.manager m
+WHERE d.employees IS EMPTY
+ORDER BY d.departmentId ASC
+----
+
+Sixteen of the twenty-seven departments are empty in the installed data, and none of those has a manager.
+
+=== Advanced
+
+// AI: Advanced: selected 2 of 7 reviewed candidates in this original scope.
+// AI: Not selected: HR_SCHEMA_A_01, HR_SCHEMA_A_02, HR_SCHEMA_A_04, HR_SCHEMA_A_06, HR_SCHEMA_A_07.
+// AI: Deferred HR_SCHEMA_A_02: source SQL/JPQL synchronization is explicitly unfinished.
+// AI: Deferred HR_SCHEMA_A_04: source SQL/JPQL synchronization is explicitly unfinished.
+
+// AI: Pick HR_SCHEMA_A_03: A set intersection matches present jobs with historical jobs.
+// AI: Copied from EXERCISES.asciidoc:2130, anchor HR_SCHEMA_A_03; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=___Exercises_03_Advanced_PersistenceIT.HR_SCHEMA_A_03_Test.
+[[HR_SCHEMA_A_03]]
+==== HR_SCHEMA_A_03: Back in an earlier job
+
+HR wants the employees whose current job is one they held before — boomerangs within the company.
+
+[source,sql]
+----
+SELECT EMPLOYEE_ID, JOB_ID
+FROM JOB_HISTORY
+INTERSECT
+SELECT EMPLOYEE_ID, JOB_ID
+FROM EMPLOYEES
+ORDER BY 1
+----
+
+[source,jpaql]
+----
+SELECT h.employeeId, h.job.jobId
+FROM JobHistory h
+INTERSECT
+SELECT e.employeeId, e.job.jobId
+FROM Employee e
+----
+
+[source,jpaql]
+----
+SELECT DISTINCT e.employeeId, e.job.jobId
+FROM Employee e
+         JOIN e.jobHistories h
+WHERE h.job = e.job
+----
+
+The `INTERSECT` form needs Jakarta Persistence 3.2; the join works with any version.
+
+// AI: Pick HR_SCHEMA_A_05: Collection fetching makes the N+1 lesson concrete.
+// AI: Copied from EXERCISES.asciidoc:2202, anchor HR_SCHEMA_A_05; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=___Exercises_03_Advanced_PersistenceIT.HR_SCHEMA_A_05_Test.
+// AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
+[[HR_SCHEMA_A_05]]
+==== HR_SCHEMA_A_05: Department roster in one round trip
+
+The intranet's site page shows, for one location, each department and its staff, the empty departments included, the staff by last name, first name and `EMPLOYEE_ID`.
+Loading the departments and then each one's employees is the N+1 problem; the page needs a single query, with each column named once.
+
+[source,sql]
+----
+SELECT d.DEPARTMENT_ID, d.DEPARTMENT_NAME, e.EMPLOYEE_ID, e.FIRST_NAME, e.LAST_NAME, e.JOB_ID
+FROM DEPARTMENTS d
+         LEFT JOIN EMPLOYEES e ON e.DEPARTMENT_ID = d.DEPARTMENT_ID
+WHERE d.LOCATION_ID = :locationId
+ORDER BY d.DEPARTMENT_ID ASC, e.LAST_NAME ASC, e.FIRST_NAME ASC NULLS FIRST, e.EMPLOYEE_ID ASC
+----
+
+[source,jpaql]
+----
+SELECT DISTINCT d
+FROM Department d
+         LEFT JOIN FETCH d.employees
+WHERE d.location.locationId = :locationId
+ORDER BY d.departmentId ASC
+----
+
+// JPQL NOT YET UPDATED: the SQL above changed.
+
+[source,jpaql]
+----
+SELECT e
+FROM Employee e
+         JOIN FETCH e.job
+         LEFT JOIN FETCH e.department
+WHERE e.department.departmentId = :departmentId
+ORDER BY e.lastName ASC
+----
+
+Every association here is `LAZY`, so without `FETCH` each `getEmployees()` or `getJob()` call outside the query would
+issue its own `SELECT`. `DISTINCT` removes the repeated `Department` the collection join produces. Do not combine a
+collection fetch join with `setMaxResults`: the limit applies to joined rows, so providers either paginate in memory
+or cut a department's staff list short.
+

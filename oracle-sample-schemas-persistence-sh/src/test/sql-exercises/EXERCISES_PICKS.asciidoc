@@ -1,0 +1,1452 @@
+= Exercises picks
+:toc: left
+:toclevels: 3
+:sectanchors:
+:source-highlighter: rouge
+
+// AI: Editorial review dated 2026-11-08. Source: sibling EXERCISES.asciidoc and EXERCISES.yaml.
+// AI: Reviewed every exercise in this module against Jakarta Persistence Applied, master src/main/asciidoc/00_book.asciidoc.
+// AI: This is a candidate shortlist, not a change to the official PROJECTS_EXERCISES.asciidoc picks or the manuscript.
+// AI: Preserve source scope order, level classifications, permanent IDs, statements, SQL, JPQL, and existing answer blocks.
+// AI: At most three candidates per original scope and level; fewer or zero is intentional. Do not fill slots mechanically.
+// AI: Prefer mapped attributes, identifiers, enum/converter behavior, associations, joins, aggregates, subqueries, fetching, and paging.
+// AI: Omit contrived name/string puzzles, redundant integrity audits, arbitrary rankings, and unrelated SQL analytics.
+// AI: Native-only candidates are explicit chapter-specific exceptions, not permission to replace portable solutions elsewhere.
+// AI: Agent handoff: read each rationale and TODO, resolve the registry sql/test paths, inspect the mapped types and actual tests,
+// AI: reconcile stale solutions, and run the relevant database/provider tests before promoting any candidate to the book.
+// AI: Existing output blocks below are archival copies from the source, not fresh test results or verified publication output.
+// AI: For manuscript output, rerun the query, retain // AI: provenance, and use the current mappings and provider policy.
+// AI: Source SHA-256 at review: fe8e7a508da2e409745e832042d9d365c619204cff0178bdecee961f43f19565.
+
+Selected exercises for a persistence-focused teaching sequence.
+The original scope and difficulty headings are retained; an empty level intentionally has no suitable pick.
+Statements and answers are copied from link:EXERCISES.asciidoc[the complete exercise collection].
+Selection is an editorial recommendation; implementation notes in the source comments identify follow-up work.
+
+// AI: Original source conventions below apply to the copied subset.
+Exercises for the Sales History (SH) schema: requests that the people running the business -- the sales director,
+the channel managers, the promotions team, finance, the product line managers -- would bring to an analyst, each
+followed by a query that answers it. Try each one before reading the solution.
+
+The problems are grouped by what they read. Each table, view and materialized view of the schema has a section of its
+own, in the order of the link:../../../README.md[module README], holding the problems that read that object alone; _Whole schema_,
+the last section, holds the ones that join or subquery several. Within a section the problems are split into Basic,
+Intermediate and Advanced.
+
+* *SQL* is Oracle SQL against the installed schema (`SH`). Parameters are written as bind variables (`:year`).
+* *JPQL* is Jakarta Persistence 3.2 against this module's entities. Parameters are named parameters (`:year`), bound
+  with `+Query#setParameter+`.
+
+The four composite keys are mapped two ways, one of each per kind of object. `Sales` and `FweekPscatSalesMv` map theirs
+with an `+@EmbeddedId+`, so a key column is reached through the identifier, `s.id.timeId`, `f.id.channelId`; `Cost` and
+`Profit` map theirs with an `+@IdClass+`, so it is an attribute of the entity itself, `c.timeId`, `pr.timeId`. Where
+possible the JPQL on `Sales` and `Cost` goes through their `+@ManyToOne+` associations instead (`s.product`,
+`s.customer`, `s.time`, `s.channel`, `s.promotion`). `Profit` and `FweekPscatSalesMv` have no associations; they are
+joined to the dimensions through their key attributes (`+p.prodId = pr.prodId+`).
+
+The installed data covers calendar years 2019 to 2022.
+
+== CAL_MONTH_SALES_MV
+
+=== Basic
+
+// AI: Basic: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_CAL_MONTH_SALES_MV_B_01: Read a precomputed monthly revenue value from a materialized view.
+// AI: Copied from EXERCISES.asciidoc:33, anchor SH_CAL_MONTH_SALES_MV_B_01; retain the permanent ID when revising.
+// AI: Registry: section=CAL_MONTH_SALES_MV; tier=Basic; sql=src/test/sql-exercises/CAL_MONTH_SALES_MV/01_basic.sql; test=CalMonthSalesMv_Exercises_01_Basic_PersistenceIT.SH_CAL_MONTH_SALES_MV_B_01_Test.
+[[SH_CAL_MONTH_SALES_MV_B_01]]
+==== SH_CAL_MONTH_SALES_MV_B_01: Monthly revenue at a glance
+
+The sales director wants total revenue for each month between `:fromMonth` and `:toMonth` (`+YYYY-MM+`, e.g. `+2021-01+`
+and `+2021-12+`), without waiting for a scan of the facts table.
+
+[source,sql]
+----
+SELECT CALENDAR_MONTH_DESC, DOLLARS
+FROM CAL_MONTH_SALES_MV
+WHERE CALENDAR_MONTH_DESC BETWEEN :fromMonth AND :toMonth
+ORDER BY CALENDAR_MONTH_DESC
+----
+
+[source,jpaql]
+----
+SELECT m
+FROM CalMonthSalesMv m
+WHERE m.calendarMonthDesc BETWEEN :fromMonth AND :toMonth
+ORDER BY m.calendarMonthDesc
+----
+
+`+CAL_MONTH_SALES_MV+` is a materialized view holding `+SUM(AMOUNT_SOLD)+` per calendar month, and the `+YYYY-MM+` format
+makes a string `BETWEEN` select whole months correctly.
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_CAL_MONTH_SALES_MV_I_01: Compare a view row with AVG over the same bounded period.
+// AI: Copied from EXERCISES.asciidoc:60, anchor SH_CAL_MONTH_SALES_MV_I_01; retain the permanent ID when revising.
+// AI: Registry: section=CAL_MONTH_SALES_MV; tier=Intermediate; sql=src/test/sql-exercises/CAL_MONTH_SALES_MV/02_intermediate.sql; test=CalMonthSalesMv_Exercises_02_Intermediate_PersistenceIT.SH_CAL_MONTH_SALES_MV_I_01_Test.
+[[SH_CAL_MONTH_SALES_MV_I_01]]
+==== SH_CAL_MONTH_SALES_MV_I_01: Months above the average
+
+The sales director wants the months between `:fromMonth` and `:toMonth` whose revenue beat the average month of that
+same period, best first.
+
+[source,sql]
+----
+SELECT CALENDAR_MONTH_DESC, DOLLARS
+FROM CAL_MONTH_SALES_MV
+WHERE CALENDAR_MONTH_DESC BETWEEN :fromMonth AND :toMonth
+  AND DOLLARS > (SELECT AVG(DOLLARS)
+                 FROM CAL_MONTH_SALES_MV
+                 WHERE CALENDAR_MONTH_DESC BETWEEN :fromMonth AND :toMonth)
+ORDER BY DOLLARS DESC
+----
+
+[source,jpaql]
+----
+SELECT m
+FROM CalMonthSalesMv m
+WHERE m.calendarMonthDesc BETWEEN :fromMonth AND :toMonth
+  AND m.dollars > (SELECT AVG(m2.dollars)
+                   FROM CalMonthSalesMv m2
+                   WHERE m2.calendarMonthDesc BETWEEN :fromMonth AND :toMonth)
+ORDER BY m.dollars DESC
+----
+
+The subquery repeats the period on purpose: the average has to be taken over the same months, not over the whole
+view.
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Not selected: SH_CAL_MONTH_SALES_MV_A_01.
+// AI: Deferred SH_CAL_MONTH_SALES_MV_A_01: source SQL/JPQL synchronization is explicitly unfinished.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== CHANNELS
+
+=== Basic
+
+// AI: Basic: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_CHANNELS_B_01: Read a lookup entity with a two-attribute sort.
+// AI: Copied from EXERCISES.asciidoc:130, anchor SH_CHANNELS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=CHANNELS; tier=Basic; sql=src/test/sql-exercises/CHANNELS/01_basic.sql; test=Channels_Exercises_01_Basic_PersistenceIT.SH_CHANNELS_B_01_Test.
+[[SH_CHANNELS_B_01]]
+==== SH_CHANNELS_B_01: Routes to market
+
+The sales operations team is drawing up an overview of the routes to market, and wants every sales channel listed
+under its channel class (Direct, Indirect, Others), alphabetically within each class.
+
+[source,sql]
+----
+SELECT CHANNEL_CLASS, CHANNEL_ID, CHANNEL_DESC
+FROM CHANNELS
+ORDER BY CHANNEL_CLASS, CHANNEL_DESC
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Channel c
+ORDER BY c.channelClass, c.channelDesc
+----
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_CHANNELS_I_01: Group channels by class.
+// AI: Copied from EXERCISES.asciidoc:152, anchor SH_CHANNELS_I_01; retain the permanent ID when revising.
+// AI: Registry: section=CHANNELS; tier=Intermediate; sql=src/test/sql-exercises/CHANNELS/02_intermediate.sql; test=Channels_Exercises_02_Intermediate_PersistenceIT.SH_CHANNELS_I_01_Test.
+[[SH_CHANNELS_I_01]]
+==== SH_CHANNELS_I_01: Channels per class
+
+The sales operations team wants to know how many channels each channel class has.
+
+[source,sql]
+----
+SELECT CHANNEL_CLASS, COUNT(*) AS CHANNELS
+FROM CHANNELS
+GROUP BY CHANNEL_CLASS
+ORDER BY CHANNELS DESC, CHANNEL_CLASS
+----
+
+[source,jpaql]
+----
+SELECT c.channelClass, COUNT(c) AS channels
+FROM Channel c
+GROUP BY c.channelClass
+ORDER BY channels DESC, c.channelClass
+----
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Not selected: SH_CHANNELS_A_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== COSTS
+
+=== Basic
+
+// AI: Basic: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_COSTS_B_01: Compare price and cost on an IdClass fact row in a date range.
+// AI: Copied from EXERCISES.asciidoc:209, anchor SH_COSTS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=COSTS; tier=Basic; sql=src/test/sql-exercises/COSTS/01_basic.sql; test=Costs_Exercises_01_Basic_PersistenceIT.SH_COSTS_B_01_Test.
+// AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
+[[SH_COSTS_B_01]]
+==== SH_COSTS_B_01: Prices below cost
+
+Finance wants every cost record between `:fromDay` and `:toDay` whose unit price is below its unit cost: a product
+priced at a loss on that day, through that channel, under that promotion.
+
+[source,sql]
+----
+SELECT TIME_ID, PROD_ID, CHANNEL_ID, PROMO_ID, UNIT_COST, UNIT_PRICE
+FROM COSTS
+WHERE TIME_ID BETWEEN :fromDay AND :toDay
+  AND UNIT_PRICE < UNIT_COST
+ORDER BY TIME_ID, PROD_ID, CHANNEL_ID, PROMO_ID
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Cost c
+WHERE c.time.timeId BETWEEN :fromDay AND :toDay
+  AND c.unitPrice < c.unitCost
+ORDER BY c.time.timeId, c.product.prodId
+----
+
+// JPQL NOT YET UPDATED: the SQL above changed.
+
+`c.time.timeId` names the same column as `c.timeId`, through the association.
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_COSTS_I_01: Aggregate monetary values by product.
+// AI: Copied from EXERCISES.asciidoc:239, anchor SH_COSTS_I_01; retain the permanent ID when revising.
+// AI: Registry: section=COSTS; tier=Intermediate; sql=src/test/sql-exercises/COSTS/02_intermediate.sql; test=Costs_Exercises_02_Intermediate_PersistenceIT.SH_COSTS_I_01_Test.
+[[SH_COSTS_I_01]]
+==== SH_COSTS_I_01: Average unit margin per product
+
+Pricing wants, for each product, its average unit cost, average unit price and average unit margin between `:fromDay`
+and `:toDay`, thinnest margin first.
+
+[source,sql]
+----
+SELECT PROD_ID,
+       AVG(UNIT_COST)              AS AVG_COST,
+       AVG(UNIT_PRICE)             AS AVG_PRICE,
+       AVG(UNIT_PRICE - UNIT_COST) AS AVG_MARGIN
+FROM COSTS
+WHERE TIME_ID BETWEEN :fromDay AND :toDay
+GROUP BY PROD_ID
+ORDER BY AVG_MARGIN
+----
+
+[source,jpaql]
+----
+SELECT c.product.prodId, AVG(c.unitCost), AVG(c.unitPrice), AVG(c.unitPrice - c.unitCost) AS avgMargin
+FROM Cost c
+WHERE c.time.timeId BETWEEN :fromDay AND :toDay
+GROUP BY c.product.prodId
+ORDER BY avgMargin
+----
+
+Each `COSTS` row is one day, channel and promotion, so this is an average per price record, not weighted by the units
+sold; a margin weighted by sales needs `SALES` as well (see _Gross margin by category_). JPQL's `AVG` returns a
+`Double` whatever it averages, so round it before showing money.
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Not selected: SH_COSTS_A_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== COUNTRIES
+
+=== Basic
+
+// AI: Basic: selected 1 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: Geographic-hierarchy consistency is an audit rather than a new mapping/query lesson.
+
+// AI: Pick SH_COUNTRIES_B_01: Filter by a sales-region attribute.
+// AI: Copied from EXERCISES.asciidoc:321, anchor SH_COUNTRIES_B_01; retain the permanent ID when revising.
+// AI: Registry: section=COUNTRIES; tier=Basic; sql=src/test/sql-exercises/COUNTRIES/01_basic.sql; test=Countries_Exercises_01_Basic_PersistenceIT.SH_COUNTRIES_B_01_Test.
+[[SH_COUNTRIES_B_01]]
+==== SH_COUNTRIES_B_01: Countries of a sales region
+
+The regional sales director for `:region` (e.g. `Europe`) wants the countries of that region, grouped by subregion.
+
+[source,sql]
+----
+SELECT COUNTRY_SUBREGION, COUNTRY_ISO_CODE, COUNTRY_NAME
+FROM COUNTRIES
+WHERE COUNTRY_REGION = :region
+ORDER BY COUNTRY_SUBREGION, COUNTRY_NAME
+----
+
+[source,jpaql]
+----
+SELECT c.countrySubregion, c.countryIsoCode, c.countryName
+FROM Country c
+WHERE c.countryRegion = :region
+ORDER BY c.countrySubregion, c.countryName
+----
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: Geographic-hierarchy consistency is an audit rather than a new mapping/query lesson.
+
+// AI: Pick SH_COUNTRIES_I_01: Group by two geographic attributes.
+// AI: Copied from EXERCISES.asciidoc:344, anchor SH_COUNTRIES_I_01; retain the permanent ID when revising.
+// AI: Registry: section=COUNTRIES; tier=Intermediate; sql=src/test/sql-exercises/COUNTRIES/02_intermediate.sql; test=Countries_Exercises_02_Intermediate_PersistenceIT.SH_COUNTRIES_I_01_Test.
+[[SH_COUNTRIES_I_01]]
+==== SH_COUNTRIES_I_01: Countries per subregion
+
+The regional directors want the number of countries in each region and subregion.
+
+[source,sql]
+----
+SELECT COUNTRY_REGION, COUNTRY_SUBREGION, COUNT(*) AS COUNTRIES
+FROM COUNTRIES
+GROUP BY COUNTRY_REGION, COUNTRY_SUBREGION
+ORDER BY COUNTRY_REGION, COUNTRY_SUBREGION
+----
+
+[source,jpaql]
+----
+SELECT c.countryRegion, c.countrySubregion, COUNT(c)
+FROM Country c
+GROUP BY c.countryRegion, c.countrySubregion
+ORDER BY c.countryRegion, c.countrySubregion
+----
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: Geographic-hierarchy consistency is an audit rather than a new mapping/query lesson.
+// AI: Not selected: SH_COUNTRIES_A_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== CUSTOMERS
+
+=== Basic
+
+// AI: Basic: selected 3 of 5 reviewed candidates in this original scope.
+// AI: Not selected: SH_CUSTOMERS_B_02, SH_CUSTOMERS_B_03.
+// AI: Deferred SH_CUSTOMERS_B_02: source SQL/JPQL synchronization is explicitly unfinished.
+
+// AI: Pick SH_CUSTOMERS_B_01: A parameterized surname-prefix search.
+// AI: Copied from EXERCISES.asciidoc:403, anchor SH_CUSTOMERS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=CUSTOMERS; tier=Basic; sql=src/test/sql-exercises/CUSTOMERS/01_basic.sql; test=Customers_Exercises_01_Basic_PersistenceIT.SH_CUSTOMERS_B_01_Test.
+[[SH_CUSTOMERS_B_01]]
+==== SH_CUSTOMERS_B_01: Look up a customer by surname
+
+A customer-service agent has the caller on the phone and types the first few letters of the surname, `:prefix`, in
+whatever case. Find the matching customers.
+
+[source,sql]
+----
+SELECT CUST_ID, CUST_FIRST_NAME, CUST_LAST_NAME, CUST_CITY, CUST_EMAIL
+FROM CUSTOMERS
+WHERE UPPER(CUST_LAST_NAME) LIKE UPPER(:prefix || '%')
+ORDER BY CUST_LAST_NAME, CUST_FIRST_NAME, CUST_ID
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE UPPER(c.custLastName) LIKE UPPER(:prefix || '%')
+ORDER BY c.custLastName, c.custFirstName, c.custId
+----
+
+A prefix containing `+%+` or `+_+` would act as a wildcard; escape it (`+LIKE ... ESCAPE '\'+`) if the input is not trusted.
+
+// AI: Pick SH_CUSTOMERS_B_04: Explicit NULL ordering over optional customer attributes.
+// AI: Copied from EXERCISES.asciidoc:475, anchor SH_CUSTOMERS_B_04; retain the permanent ID when revising.
+// AI: Registry: section=CUSTOMERS; tier=Basic; sql=src/test/sql-exercises/CUSTOMERS/01_basic.sql; test=Customers_Exercises_01_Basic_PersistenceIT.SH_CUSTOMERS_B_04_Test.
+// AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
+[[SH_CUSTOMERS_B_04]]
+==== SH_CUSTOMERS_B_04: Income bands, unknowns last
+
+The credit team wants the customers of `:city` ordered by income band, the unknown bands at the end, and within a band by credit limit, the highest first and the unknown limits last; `CUST_ID` breaks a tie.
+
+[source,sql]
+----
+SELECT CUST_ID, CUST_LAST_NAME, CUST_INCOME_LEVEL, CUST_CREDIT_LIMIT
+FROM CUSTOMERS
+WHERE CUST_CITY = :city
+ORDER BY CUST_INCOME_LEVEL ASC NULLS LAST, CUST_CREDIT_LIMIT DESC NULLS LAST, CUST_ID
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE c.custCity = :city
+ORDER BY c.custIncomeLevel ASC NULLS LAST, c.custCreditLimit DESC
+----
+
+// JPQL NOT YET UPDATED: the SQL above changed.
+
+Oracle sorts `NULL` last for `ASC` anyway; `NULLS LAST` makes it independent of the database. `NULLS FIRST` /
+`NULLS LAST` are new in Jakarta Persistence 3.2.
+
+// AI: Pick SH_CUSTOMERS_B_05: A valid-time predicate with nullable interval endpoints.
+// AI: Copied from EXERCISES.asciidoc:501, anchor SH_CUSTOMERS_B_05; retain the permanent ID when revising.
+// AI: Registry: section=CUSTOMERS; tier=Basic; sql=src/test/sql-exercises/CUSTOMERS/01_basic.sql; test=Customers_Exercises_01_Basic_PersistenceIT.SH_CUSTOMERS_B_05_Test.
+[[SH_CUSTOMERS_B_05]]
+==== SH_CUSTOMERS_B_05: Customer records in effect at a time
+
+The account-management team wants the customer records of `:city` in effect at `:asOf`: a record runs from `CUST_EFF_FROM`, included, up to `CUST_EFF_TO`, not included, and a missing date means no bound on that side.
+
+[source,sql]
+----
+SELECT CUST_ID, CUST_FIRST_NAME, CUST_LAST_NAME, CUST_EFF_FROM, CUST_EFF_TO, CUST_VALID
+FROM CUSTOMERS
+WHERE CUST_CITY = :city
+  AND (CUST_EFF_FROM IS NULL OR CUST_EFF_FROM <= :asOf)
+  AND (CUST_EFF_TO IS NULL OR :asOf < CUST_EFF_TO)
+ORDER BY CUST_LAST_NAME, CUST_FIRST_NAME, CUST_ID
+----
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 2 reviewed candidates in this original scope.
+// AI: Not selected: SH_CUSTOMERS_I_02.
+
+// AI: Pick SH_CUSTOMERS_I_01: GROUP BY and HAVING on non-null email values.
+// AI: Copied from EXERCISES.asciidoc:519, anchor SH_CUSTOMERS_I_01; retain the permanent ID when revising.
+// AI: Registry: section=CUSTOMERS; tier=Intermediate; sql=src/test/sql-exercises/CUSTOMERS/02_intermediate.sql; test=Customers_Exercises_02_Intermediate_PersistenceIT.SH_CUSTOMERS_I_01_Test.
+[[SH_CUSTOMERS_I_01]]
+==== SH_CUSTOMERS_I_01: Email addresses shared by several customers
+
+The data-quality team wants the e-mail addresses on file for more than one customer, most shared first.
+
+[source,sql]
+----
+SELECT CUST_EMAIL, COUNT(*) AS CUSTOMERS
+FROM CUSTOMERS
+WHERE CUST_EMAIL IS NOT NULL
+GROUP BY CUST_EMAIL
+HAVING COUNT(*) > 1
+ORDER BY CUSTOMERS DESC, CUST_EMAIL
+----
+
+[source,jpaql]
+----
+SELECT c.custEmail, COUNT(c) AS customers
+FROM Customer c
+WHERE c.custEmail IS NOT NULL
+GROUP BY c.custEmail
+HAVING COUNT(c) > 1
+ORDER BY customers DESC, c.custEmail
+----
+
+`GROUP BY` puts all the ``NULL``s in one group, so without the `IS NOT NULL` the customers with no address would be
+reported as sharing one. On the installed data several hundred addresses are shared.
+
+=== Advanced
+
+// AI: Advanced: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_CUSTOMERS_A_01: A correlated average within the customer's income band.
+// AI: Copied from EXERCISES.asciidoc:566, anchor SH_CUSTOMERS_A_01; retain the permanent ID when revising.
+// AI: Registry: section=CUSTOMERS; tier=Advanced; sql=src/test/sql-exercises/CUSTOMERS/03_advanced.sql; test=Customers_Exercises_03_Advanced_PersistenceIT.SH_CUSTOMERS_A_01_Test.
+[[SH_CUSTOMERS_A_01]]
+==== SH_CUSTOMERS_A_01: Credit limits above the band average
+
+The credit-risk team is reviewing `:city`, and wants its customers whose credit limit is above the average credit
+limit of their income band across the whole customer base, highest band first.
+
+[source,sql]
+----
+SELECT cu.CUST_ID, cu.CUST_LAST_NAME, cu.CUST_INCOME_LEVEL, cu.CUST_CREDIT_LIMIT
+FROM CUSTOMERS cu
+WHERE cu.CUST_CITY = :city
+  AND cu.CUST_CREDIT_LIMIT > (SELECT AVG(cu2.CUST_CREDIT_LIMIT)
+                              FROM CUSTOMERS cu2
+                              WHERE cu2.CUST_INCOME_LEVEL = cu.CUST_INCOME_LEVEL)
+ORDER BY cu.CUST_INCOME_LEVEL DESC, cu.CUST_CREDIT_LIMIT DESC
+----
+
+[source,jpaql]
+----
+SELECT cu
+FROM Customer cu
+WHERE cu.custCity = :city
+  AND cu.custCreditLimit > (SELECT AVG(cu2.custCreditLimit)
+                            FROM Customer cu2
+                            WHERE cu2.custIncomeLevel = cu.custIncomeLevel)
+ORDER BY cu.custIncomeLevel DESC, cu.custCreditLimit DESC
+----
+
+The subquery is correlated: it is evaluated per income band of the outer row, over every city. Customers with no income
+band drop out, since `+=+` never matches `NULL`. In SQL, `+AVG(...) OVER (PARTITION BY CUST_INCOME_LEVEL)+` computes the
+same average in one pass, but only before the city filter, so it needs an inline view; JPQL has neither.
+
+== FWEEK_PSCAT_SALES_MV
+
+=== Basic
+
+// AI: Basic: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_FWEEK_PSCAT_SALES_MV_B_01: Query a materialized view by components of its embedded identifier.
+// AI: Copied from EXERCISES.asciidoc:602, anchor SH_FWEEK_PSCAT_SALES_MV_B_01; retain the permanent ID when revising.
+// AI: Registry: section=FWEEK_PSCAT_SALES_MV; tier=Basic; sql=src/test/sql-exercises/FWEEK_PSCAT_SALES_MV/01_basic.sql; test=FweekPscatSalesMv_Exercises_01_Basic_PersistenceIT.SH_FWEEK_PSCAT_SALES_MV_B_01_Test.
+[[SH_FWEEK_PSCAT_SALES_MV_B_01]]
+==== SH_FWEEK_PSCAT_SALES_MV_B_01: One week's sales by subcategory
+
+The `:channelId` channel manager wants the sales of the week ending `:weekEndingDay` (a Sunday, e.g. `+2021-01-17+`)
+through that channel, by subcategory and promotion, best first.
+
+[source,sql]
+----
+SELECT PROD_SUBCATEGORY, PROMO_ID, DOLLARS
+FROM FWEEK_PSCAT_SALES_MV
+WHERE WEEK_ENDING_DAY = :weekEndingDay
+  AND CHANNEL_ID = :channelId
+ORDER BY DOLLARS DESC NULLS LAST, PROD_SUBCATEGORY
+----
+
+[source,jpaql]
+----
+SELECT f
+FROM FweekPscatSalesMv f
+WHERE f.id.weekEndingDay = :weekEndingDay
+  AND f.id.channelId = :channelId
+ORDER BY f.dollars DESC NULLS LAST, f.id.prodSubcategory
+----
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_FWEEK_PSCAT_SALES_MV_I_01: Aggregate a materialized view over a bounded period.
+// AI: Copied from EXERCISES.asciidoc:628, anchor SH_FWEEK_PSCAT_SALES_MV_I_01; retain the permanent ID when revising.
+// AI: Registry: section=FWEEK_PSCAT_SALES_MV; tier=Intermediate; sql=src/test/sql-exercises/FWEEK_PSCAT_SALES_MV/02_intermediate.sql; test=FweekPscatSalesMv_Exercises_02_Intermediate_PersistenceIT.SH_FWEEK_PSCAT_SALES_MV_I_01_Test.
+[[SH_FWEEK_PSCAT_SALES_MV_I_01]]
+==== SH_FWEEK_PSCAT_SALES_MV_I_01: Subcategory revenue over a period
+
+The `:channelId` channel manager wants each subcategory's revenue through that channel for the weeks ending between
+`:fromDay` and `:toDay`, across all promotions, biggest first.
+
+[source,sql]
+----
+SELECT PROD_SUBCATEGORY, SUM(DOLLARS) AS REVENUE
+FROM FWEEK_PSCAT_SALES_MV
+WHERE CHANNEL_ID = :channelId
+  AND WEEK_ENDING_DAY BETWEEN :fromDay AND :toDay
+GROUP BY PROD_SUBCATEGORY
+ORDER BY REVENUE DESC NULLS LAST
+----
+
+[source,jpaql]
+----
+SELECT f.id.prodSubcategory, SUM(f.dollars) AS revenue
+FROM FweekPscatSalesMv f
+WHERE f.id.channelId = :channelId
+  AND f.id.weekEndingDay BETWEEN :fromDay AND :toDay
+GROUP BY f.id.prodSubcategory
+ORDER BY revenue DESC NULLS LAST
+----
+
+Each row of the view is one promotion's revenue for the week, so a subcategory's total is the sum over its promotions.
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Not selected: SH_FWEEK_PSCAT_SALES_MV_A_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== PRODUCTS
+
+=== Basic
+
+// AI: Basic: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_PRODUCTS_B_01: Combine a category parameter and a monetary range.
+// AI: Copied from EXERCISES.asciidoc:702, anchor SH_PRODUCTS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=PRODUCTS; tier=Basic; sql=src/test/sql-exercises/PRODUCTS/01_basic.sql; test=Products_Exercises_01_Basic_PersistenceIT.SH_PRODUCTS_B_01_Test.
+[[SH_PRODUCTS_B_01]]
+==== SH_PRODUCTS_B_01: Products in a price band
+
+The product line manager for `:category` (e.g. `Golf`, `Tennis`) is reviewing the range between `:minPrice` and
+`:maxPrice` and wants those products, most expensive first.
+
+[source,sql]
+----
+SELECT PROD_ID, PROD_NAME, PROD_SUBCATEGORY, PROD_LIST_PRICE, PROD_MIN_PRICE
+FROM PRODUCTS
+WHERE PROD_CATEGORY = :category
+  AND PROD_LIST_PRICE BETWEEN :minPrice AND :maxPrice
+ORDER BY PROD_LIST_PRICE DESC, PROD_NAME
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE p.prodCategory = :category
+  AND p.prodListPrice BETWEEN :minPrice AND :maxPrice
+ORDER BY p.prodListPrice DESC, p.prodName
+----
+
+=== Intermediate
+
+// AI: Intermediate: selected 2 of 3 reviewed candidates in this original scope.
+// AI: Not selected: SH_PRODUCTS_I_02.
+
+// AI: Pick SH_PRODUCTS_I_01: A scalar AVG subquery.
+// AI: Copied from EXERCISES.asciidoc:728, anchor SH_PRODUCTS_I_01; retain the permanent ID when revising.
+// AI: Registry: section=PRODUCTS; tier=Intermediate; sql=src/test/sql-exercises/PRODUCTS/02_intermediate.sql; test=Products_Exercises_02_Intermediate_PersistenceIT.SH_PRODUCTS_I_01_Test.
+[[SH_PRODUCTS_I_01]]
+==== SH_PRODUCTS_I_01: Products priced above the average
+
+Pricing wants the products whose list price is above the average list price of the whole catalogue.
+
+[source,sql]
+----
+SELECT PROD_ID, PROD_NAME, PROD_CATEGORY, PROD_LIST_PRICE
+FROM PRODUCTS
+WHERE PROD_LIST_PRICE > (SELECT AVG(PROD_LIST_PRICE) FROM PRODUCTS)
+ORDER BY PROD_LIST_PRICE DESC
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE p.prodListPrice > (SELECT AVG(p2.prodListPrice) FROM Product p2)
+ORDER BY p.prodListPrice DESC
+----
+
+// AI: Pick SH_PRODUCTS_I_03: COUNT DISTINCT and price bounds per supplier.
+// AI: Copied from EXERCISES.asciidoc:768, anchor SH_PRODUCTS_I_03; retain the permanent ID when revising.
+// AI: Registry: section=PRODUCTS; tier=Intermediate; sql=src/test/sql-exercises/PRODUCTS/02_intermediate.sql; test=Products_Exercises_02_Intermediate_PersistenceIT.SH_PRODUCTS_I_03_Test.
+[[SH_PRODUCTS_I_03]]
+==== SH_PRODUCTS_I_03: Supplier coverage of the catalogue
+
+Purchasing wants, for each supplier, how many products and categories it supplies, and its lowest and highest list prices, the largest catalogue first.
+
+[source,sql]
+----
+SELECT SUPPLIER_ID,
+       COUNT(*)                         AS PRODUCTS,
+       COUNT(DISTINCT PROD_CATEGORY_ID) AS CATEGORIES,
+       MIN(PROD_LIST_PRICE)             AS LOWEST_PRICE,
+       MAX(PROD_LIST_PRICE)             AS HIGHEST_PRICE
+FROM PRODUCTS
+GROUP BY SUPPLIER_ID
+ORDER BY PRODUCTS DESC, SUPPLIER_ID
+----
+
+=== Advanced
+
+// AI: Advanced: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_PRODUCTS_A_01: A correlated maximum per subcategory that preserves ties.
+// AI: Copied from EXERCISES.asciidoc:788, anchor SH_PRODUCTS_A_01; retain the permanent ID when revising.
+// AI: Registry: section=PRODUCTS; tier=Advanced; sql=src/test/sql-exercises/PRODUCTS/03_advanced.sql; test=Products_Exercises_03_Advanced_PersistenceIT.SH_PRODUCTS_A_01_Test.
+[[SH_PRODUCTS_A_01]]
+==== SH_PRODUCTS_A_01: Most expensive product of each subcategory
+
+The product line managers want the most expensive product of every subcategory, by list price.
+
+[source,sql]
+----
+SELECT p.PROD_CATEGORY, p.PROD_SUBCATEGORY, p.PROD_ID, p.PROD_NAME, p.PROD_LIST_PRICE
+FROM PRODUCTS p
+WHERE p.PROD_LIST_PRICE = (SELECT MAX(p2.PROD_LIST_PRICE)
+                           FROM PRODUCTS p2
+                           WHERE p2.PROD_SUBCATEGORY_ID = p.PROD_SUBCATEGORY_ID)
+ORDER BY p.PROD_CATEGORY, p.PROD_SUBCATEGORY, p.PROD_ID
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE p.prodListPrice = (SELECT MAX(p2.prodListPrice)
+                         FROM Product p2
+                         WHERE p2.prodSubcategoryId = p.prodSubcategoryId)
+ORDER BY p.prodCategory, p.prodSubcategory, p.prodId
+----
+
+A subcategory with two products at the top price returns both. The window-function form,
+`+RANK() OVER (PARTITION BY PROD_SUBCATEGORY_ID ORDER BY PROD_LIST_PRICE DESC)+` in an inline view, keeps ties too and is
+SQL only.
+
+== PROFITS
+
+=== Basic
+
+// AI: Basic: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_PROFITS_B_01: Compare revenue with computed cost through a mapped view.
+// AI: Copied from EXERCISES.asciidoc:821, anchor SH_PROFITS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=PROFITS; tier=Basic; sql=src/test/sql-exercises/PROFITS/01_basic.sql; test=Profits_Exercises_01_Basic_PersistenceIT.SH_PROFITS_B_01_Test.
+// AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
+[[SH_PROFITS_B_01]]
+==== SH_PROFITS_B_01: Loss-making sales
+
+Finance wants the sales between `:fromDay` and `:toDay` whose invoiced amount was below what the goods cost.
+
+[source,sql]
+----
+SELECT TIME_ID, PROD_ID, CUST_ID, CHANNEL_ID, PROMO_ID, QUANTITY_SOLD, AMOUNT_SOLD, TOTAL_COST
+FROM PROFITS
+WHERE TIME_ID BETWEEN :fromDay AND :toDay
+  AND AMOUNT_SOLD < TOTAL_COST
+ORDER BY TIME_ID, PROD_ID, CUST_ID, CHANNEL_ID, PROMO_ID
+----
+
+[source,jpaql]
+----
+SELECT pr
+FROM Profit pr
+WHERE pr.timeId BETWEEN :fromDay AND :toDay
+  AND pr.amountSold < pr.totalCost
+ORDER BY pr.timeId, pr.prodId, pr.custId
+----
+
+// JPQL NOT YET UPDATED: the SQL above changed.
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_PROFITS_I_01: Aggregate margin with NULLIF to avoid division by zero.
+// AI: Copied from EXERCISES.asciidoc:848, anchor SH_PROFITS_I_01; retain the permanent ID when revising.
+// AI: Registry: section=PROFITS; tier=Intermediate; sql=src/test/sql-exercises/PROFITS/02_intermediate.sql; test=Profits_Exercises_02_Intermediate_PersistenceIT.SH_PROFITS_I_01_Test.
+// AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
+[[SH_PROFITS_I_01]]
+==== SH_PROFITS_I_01: Thinnest margins
+
+Finance wants the ten products with the lowest margin ratio between `:fromDay` and `:toDay`, with the revenue and margin behind it; a product whose revenue sums to `0` has no ratio and is left out, and `PROD_ID` breaks a tie.
+
+[source,sql]
+----
+SELECT PROD_ID,
+       SUM(AMOUNT_SOLD)                                            AS REVENUE,
+       SUM(AMOUNT_SOLD - TOTAL_COST)                               AS MARGIN,
+       SUM(AMOUNT_SOLD - TOTAL_COST) / NULLIF(SUM(AMOUNT_SOLD), 0) AS MARGIN_RATIO
+FROM PROFITS
+WHERE TIME_ID BETWEEN :fromDay AND :toDay
+GROUP BY PROD_ID
+HAVING SUM(AMOUNT_SOLD) <> 0
+ORDER BY MARGIN_RATIO, PROD_ID
+FETCH FIRST 10 ROWS ONLY
+----
+
+[source,jpaql]
+----
+SELECT pr.prodId,
+       SUM(pr.amountSold),
+       SUM(pr.amountSold - pr.totalCost),
+       SUM(pr.amountSold - pr.totalCost) / SUM(pr.amountSold) AS marginRatio
+FROM Profit pr
+WHERE pr.timeId BETWEEN :fromDay AND :toDay
+GROUP BY pr.prodId
+ORDER BY marginRatio
+----
+
+// JPQL NOT YET UPDATED: the SQL above changed.
+
+Limit the JPQL with `query.setMaxResults(10)`. No product lost money over 2021 as a whole, although over a thousand
+single sales did (see _Loss-making sales_).
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Not selected: SH_PROFITS_A_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== PROMOTIONS
+
+=== Basic
+
+// AI: Basic: selected 2 of 2 reviewed candidates in this original scope.
+
+// AI: Pick SH_PROMOTIONS_B_01: A date parameter between two mapped attributes.
+// AI: Copied from EXERCISES.asciidoc:927, anchor SH_PROMOTIONS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=PROMOTIONS; tier=Basic; sql=src/test/sql-exercises/PROMOTIONS/01_basic.sql; test=Promotions_Exercises_01_Basic_PersistenceIT.SH_PROMOTIONS_B_01_Test.
+[[SH_PROMOTIONS_B_01]]
+==== SH_PROMOTIONS_B_01: Promotions running on a day
+
+A store manager asks which promotions are running on `:day`, ending soonest first.
+
+[source,sql]
+----
+SELECT PROMO_ID, PROMO_NAME, PROMO_CATEGORY, PROMO_BEGIN_DATE, PROMO_END_DATE
+FROM PROMOTIONS
+WHERE :day BETWEEN PROMO_BEGIN_DATE AND PROMO_END_DATE
+ORDER BY PROMO_END_DATE, PROMO_NAME
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Promotion p
+WHERE :day BETWEEN p.promoBeginDate AND p.promoEndDate
+ORDER BY p.promoEndDate, p.promoName
+----
+
+`:day` is a `java.time.LocalDate`.
+
+// AI: Pick SH_PROMOTIONS_B_02: DISTINCT retrieves the promotion-category values.
+// AI: Copied from EXERCISES.asciidoc:950, anchor SH_PROMOTIONS_B_02; retain the permanent ID when revising.
+// AI: Registry: section=PROMOTIONS; tier=Basic; sql=src/test/sql-exercises/PROMOTIONS/01_basic.sql; test=Promotions_Exercises_01_Basic_PersistenceIT.SH_PROMOTIONS_B_02_Test.
+[[SH_PROMOTIONS_B_02]]
+==== SH_PROMOTIONS_B_02: Kinds of promotion
+
+The promotions team wants the distinct promotion categories it has run (TV, radio, internet, ...).
+
+[source,sql]
+----
+SELECT DISTINCT PROMO_CATEGORY
+FROM PROMOTIONS
+ORDER BY PROMO_CATEGORY
+----
+
+[source,jpaql]
+----
+SELECT DISTINCT p.promoCategory
+FROM Promotion p
+ORDER BY p.promoCategory
+----
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 2 reviewed candidates in this original scope.
+// AI: Not selected: SH_PROMOTIONS_I_02.
+
+// AI: Pick SH_PROMOTIONS_I_01: SUM and AVG over a filtered group.
+// AI: Copied from EXERCISES.asciidoc:971, anchor SH_PROMOTIONS_I_01; retain the permanent ID when revising.
+// AI: Registry: section=PROMOTIONS; tier=Intermediate; sql=src/test/sql-exercises/PROMOTIONS/02_intermediate.sql; test=Promotions_Exercises_02_Intermediate_PersistenceIT.SH_PROMOTIONS_I_01_Test.
+[[SH_PROMOTIONS_I_01]]
+==== SH_PROMOTIONS_I_01: Promotion spend by category
+
+The promotions team wants, for each promotion category, the number of promotions it has run and what they cost in
+total and on average, ignoring the `NO PROMOTION` placeholder.
+
+[source,sql]
+----
+SELECT PROMO_CATEGORY, COUNT(*) AS PROMOTIONS, SUM(PROMO_COST) AS TOTAL_COST, AVG(PROMO_COST) AS AVERAGE_COST
+FROM PROMOTIONS
+WHERE PROMO_CATEGORY <> 'NO PROMOTION'
+GROUP BY PROMO_CATEGORY
+ORDER BY TOTAL_COST DESC
+----
+
+[source,jpaql]
+----
+SELECT p.promoCategory, COUNT(p), SUM(p.promoCost) AS totalCost, AVG(p.promoCost)
+FROM Promotion p
+WHERE p.promoCategory <> 'NO PROMOTION'
+GROUP BY p.promoCategory
+ORDER BY totalCost DESC
+----
+
+=== Advanced
+
+// AI: Advanced: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_PROMOTIONS_A_01: A real interval-overlap self-join with duplicate-pair suppression.
+// AI: Copied from EXERCISES.asciidoc:1030, anchor SH_PROMOTIONS_A_01; retain the permanent ID when revising.
+// AI: Registry: section=PROMOTIONS; tier=Advanced; sql=src/test/sql-exercises/PROMOTIONS/03_advanced.sql; test=Promotions_Exercises_03_Advanced_PersistenceIT.SH_PROMOTIONS_A_01_Test.
+[[SH_PROMOTIONS_A_01]]
+==== SH_PROMOTIONS_A_01: Clashing promotions
+
+The promotions team suspects that promotions of the same subcategory run on top of each other and compete for the same
+customers. For category `:promoCategory` (e.g. `radio`), list every pair of promotions of one subcategory whose dates
+overlap.
+
+[source,sql]
+----
+SELECT a.PROMO_SUBCATEGORY,
+       a.PROMO_ID         AS FIRST_ID,
+       a.PROMO_BEGIN_DATE AS FIRST_BEGIN,
+       a.PROMO_END_DATE   AS FIRST_END,
+       b.PROMO_ID         AS SECOND_ID,
+       b.PROMO_BEGIN_DATE AS SECOND_BEGIN,
+       b.PROMO_END_DATE   AS SECOND_END
+FROM PROMOTIONS a
+         JOIN PROMOTIONS b ON b.PROMO_SUBCATEGORY_ID = a.PROMO_SUBCATEGORY_ID
+    AND b.PROMO_ID > a.PROMO_ID
+    AND b.PROMO_BEGIN_DATE <= a.PROMO_END_DATE
+    AND a.PROMO_BEGIN_DATE <= b.PROMO_END_DATE
+WHERE a.PROMO_CATEGORY = :promoCategory
+ORDER BY a.PROMO_SUBCATEGORY, a.PROMO_BEGIN_DATE, a.PROMO_ID, b.PROMO_ID
+----
+
+[source,jpaql]
+----
+SELECT a, b
+FROM Promotion a
+         JOIN Promotion b ON b.promoSubcategoryId = a.promoSubcategoryId
+    AND b.promoId > a.promoId
+    AND b.promoBeginDate <= a.promoEndDate
+    AND a.promoBeginDate <= b.promoEndDate
+WHERE a.promoCategory = :promoCategory
+ORDER BY a.promoSubcategory, a.promoBeginDate, a.promoId, b.promoId
+----
+
+Two date ranges overlap exactly when each begins no later than the other ends. `+b.PROMO_ID > a.PROMO_ID+` reports each
+pair once and keeps a promotion from clashing with itself.
+
+== SALES
+
+=== Basic
+
+// AI: Basic: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_SALES_B_01: Filter a fact entity by components of its embedded identifier.
+// AI: Copied from EXERCISES.asciidoc:1074, anchor SH_SALES_B_01; retain the permanent ID when revising.
+// AI: Registry: section=SALES; tier=Basic; sql=src/test/sql-exercises/SALES/01_basic.sql; test=Sales_Exercises_01_Basic_PersistenceIT.SH_SALES_B_01_Test.
+// AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
+[[SH_SALES_B_01]]
+==== SH_SALES_B_01: A day's takings through one channel
+
+Finance is checking the takings of `:day` through channel `:channelId`: every sales line, biggest amount first.
+
+[source,sql]
+----
+SELECT PROD_ID, CUST_ID, PROMO_ID, QUANTITY_SOLD, AMOUNT_SOLD
+FROM SALES
+WHERE TIME_ID = :day
+  AND CHANNEL_ID = :channelId
+ORDER BY AMOUNT_SOLD DESC, PROD_ID, CUST_ID, PROMO_ID
+----
+
+[source,jpaql]
+----
+SELECT s
+FROM Sales s
+WHERE s.time.timeId = :day
+  AND s.channel.channelId = :channelId
+ORDER BY s.amountSold DESC
+----
+
+// JPQL NOT YET UPDATED: the SQL above changed.
+
+`s.time.timeId` and `s.channel.channelId` name key columns through the associations.
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_SALES_I_01: Group sales by customer with deterministic top-n pagination.
+// AI: Copied from EXERCISES.asciidoc:1103, anchor SH_SALES_I_01; retain the permanent ID when revising.
+// AI: Registry: section=SALES; tier=Intermediate; sql=src/test/sql-exercises/SALES/02_intermediate.sql; test=Sales_Exercises_02_Intermediate_PersistenceIT.SH_SALES_I_01_Test.
+// AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
+[[SH_SALES_I_01]]
+==== SH_SALES_I_01: Top spenders of a period
+
+The loyalty programme wants the ten customers who spent the most between `:fromDay` and `:toDay`, with the number of sales lines and units behind it; `CUST_ID` breaks a tie.
+
+[source,sql]
+----
+SELECT CUST_ID, COUNT(*) AS LINES, SUM(QUANTITY_SOLD) AS UNITS, SUM(AMOUNT_SOLD) AS SPENT
+FROM SALES
+WHERE TIME_ID BETWEEN :fromDay AND :toDay
+GROUP BY CUST_ID
+ORDER BY SPENT DESC, CUST_ID
+FETCH FIRST 10 ROWS ONLY
+----
+
+[source,jpaql]
+----
+SELECT s.customer.custId, COUNT(s), SUM(s.quantitySold), SUM(s.amountSold) AS spent
+FROM Sales s
+WHERE s.time.timeId BETWEEN :fromDay AND :toDay
+GROUP BY s.customer.custId
+ORDER BY spent DESC
+----
+
+// JPQL NOT YET UPDATED: the SQL above changed.
+
+Limit the JPQL with `query.setMaxResults(10)`. A date range on `+TIME_ID+` needs no `TIMES` join; a calendar or fiscal
+period does (see _Category revenue by quarter_, under Whole schema).
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Not selected: SH_SALES_A_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== SUPPLEMENTARY_DEMOGRAPHICS
+
+=== Basic
+
+// AI: Basic: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick SH_SUPPLEMENTARY_DEMOGRAPHICS_B_01: Filter the mapped affinity-card flag and occupation.
+// AI: Copied from EXERCISES.asciidoc:1172, anchor SH_SUPPLEMENTARY_DEMOGRAPHICS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=SUPPLEMENTARY_DEMOGRAPHICS; tier=Basic; sql=src/test/sql-exercises/SUPPLEMENTARY_DEMOGRAPHICS/01_basic.sql; test=SupplementaryDemographics_Exercises_01_Basic_PersistenceIT.SH_SUPPLEMENTARY_DEMOGRAPHICS_B_01_Test.
+[[SH_SUPPLEMENTARY_DEMOGRAPHICS_B_01]]
+==== SH_SUPPLEMENTARY_DEMOGRAPHICS_B_01: Card holders in an occupation
+
+The loyalty programme is inviting its affinity-card holders of occupation `:occupation` (e.g. `Exec.`) to a focus group,
+and wants their customer ids with education, household size and years of residence.
+
+[source,sql]
+----
+SELECT CUST_ID, EDUCATION, HOUSEHOLD_SIZE, YRS_RESIDENCE
+FROM SUPPLEMENTARY_DEMOGRAPHICS
+WHERE OCCUPATION = :occupation
+  AND AFFINITY_CARD = 1
+ORDER BY CUST_ID
+----
+
+[source,jpaql]
+----
+SELECT d
+FROM SupplementaryDemographics d
+WHERE d.occupation = :occupation
+  AND d.affinityCard = 1
+ORDER BY d.custId
+----
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 2 reviewed candidates in this original scope.
+// AI: Not selected: SH_SUPPLEMENTARY_DEMOGRAPHICS_I_02.
+
+// AI: Pick SH_SUPPLEMENTARY_DEMOGRAPHICS_I_01: Aggregate a numeric flag by household size.
+// AI: Copied from EXERCISES.asciidoc:1198, anchor SH_SUPPLEMENTARY_DEMOGRAPHICS_I_01; retain the permanent ID when revising.
+// AI: Registry: section=SUPPLEMENTARY_DEMOGRAPHICS; tier=Intermediate; sql=src/test/sql-exercises/SUPPLEMENTARY_DEMOGRAPHICS/02_intermediate.sql; test=SupplementaryDemographics_Exercises_02_Intermediate_PersistenceIT.SH_SUPPLEMENTARY_DEMOGRAPHICS_I_01_Test.
+[[SH_SUPPLEMENTARY_DEMOGRAPHICS_I_01]]
+==== SH_SUPPLEMENTARY_DEMOGRAPHICS_I_01: Card take-up by household size
+
+The loyalty programme wants, for each household size, how many customers there are and how many of them hold an
+affinity card.
+
+[source,sql]
+----
+SELECT HOUSEHOLD_SIZE, COUNT(*) AS CUSTOMERS, SUM(AFFINITY_CARD) AS CARD_HOLDERS
+FROM SUPPLEMENTARY_DEMOGRAPHICS
+GROUP BY HOUSEHOLD_SIZE
+ORDER BY HOUSEHOLD_SIZE
+----
+
+[source,jpaql]
+----
+SELECT d.householdSize, COUNT(d), SUM(d.affinityCard)
+FROM SupplementaryDemographics d
+GROUP BY d.householdSize
+ORDER BY d.householdSize
+----
+
+`+AFFINITY_CARD+` is `0` or `1`, so summing it counts the holders.
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Not selected: SH_SUPPLEMENTARY_DEMOGRAPHICS_A_01.
+// AI: Deferred SH_SUPPLEMENTARY_DEMOGRAPHICS_A_01: source SQL/JPQL synchronization is explicitly unfinished.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== TIMES
+
+=== Basic
+
+// AI: Basic: selected 1 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: Calendar consistency is an audit; do not add it merely to fill the Advanced tier.
+
+// AI: Pick SH_TIMES_B_01: A date-identifier lookup reads fiscal and calendar attributes.
+// AI: Copied from EXERCISES.asciidoc:1273, anchor SH_TIMES_B_01; retain the permanent ID when revising.
+// AI: Registry: section=TIMES; tier=Basic; sql=src/test/sql-exercises/TIMES/01_basic.sql; test=Times_Exercises_01_Basic_PersistenceIT.SH_TIMES_B_01_Test.
+[[SH_TIMES_B_01]]
+==== SH_TIMES_B_01: Which fiscal period is a day in?
+
+Finance closes the books by fiscal period, which does not line up with the calendar. Given `:day`, which fiscal year,
+quarter and month, and which calendar month and quarter, does it fall in?
+
+[source,sql]
+----
+SELECT TIME_ID, FISCAL_YEAR, FISCAL_QUARTER_DESC, FISCAL_MONTH_DESC, CALENDAR_QUARTER_DESC, CALENDAR_MONTH_DESC
+FROM TIMES
+WHERE TIME_ID = :day
+----
+
+[source,jpaql]
+----
+SELECT t.timeId, t.fiscalYear, t.fiscalQuarterDesc, t.fiscalMonthDesc, t.calendarQuarterDesc, t.calendarMonthDesc
+FROM Time t
+WHERE t.timeId = :day
+----
+
+`+TIME_ID+` is the primary key, so `+EntityManager#find(Time.class, day)+` answers it too.
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: Calendar consistency is an audit; do not add it merely to fill the Advanced tier.
+
+// AI: Pick SH_TIMES_I_01: MIN, MAX, and COUNT derive fiscal-month boundaries.
+// AI: Copied from EXERCISES.asciidoc:1297, anchor SH_TIMES_I_01; retain the permanent ID when revising.
+// AI: Registry: section=TIMES; tier=Intermediate; sql=src/test/sql-exercises/TIMES/02_intermediate.sql; test=Times_Exercises_02_Intermediate_PersistenceIT.SH_TIMES_I_01_Test.
+[[SH_TIMES_I_01]]
+==== SH_TIMES_I_01: Fiscal month boundaries
+
+Finance wants the first and last day, and the number of days, of each fiscal month of fiscal year `:fiscalYear`.
+
+[source,sql]
+----
+SELECT FISCAL_MONTH_DESC, MIN(TIME_ID) AS FIRST_DAY, MAX(TIME_ID) AS LAST_DAY, COUNT(*) AS DAYS
+FROM TIMES
+WHERE FISCAL_YEAR = :fiscalYear
+GROUP BY FISCAL_MONTH_DESC
+ORDER BY FISCAL_MONTH_DESC
+----
+
+[source,jpaql]
+----
+SELECT t.fiscalMonthDesc, MIN(t.timeId), MAX(t.timeId), COUNT(t)
+FROM Time t
+WHERE t.fiscalYear = :fiscalYear
+GROUP BY t.fiscalMonthDesc
+ORDER BY t.fiscalMonthDesc
+----
+
+The fiscal year does not start on 1 January: fiscal 2021 runs from 27 December 2020, in months of five and four weeks.
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: Calendar consistency is an audit; do not add it merely to fill the Advanced tier.
+// AI: Not selected: SH_TIMES_A_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== Whole schema
+
+Problems that join or subquery more than one of the objects above.
+
+=== Basic
+
+// AI: Basic: selected 3 of 3 reviewed candidates in this original scope.
+
+// AI: Pick SH_SCHEMA_B_01: Navigate sales-to-product and sales-to-channel associations.
+// AI: Copied from EXERCISES.asciidoc:1362, anchor SH_SCHEMA_B_01; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.SH_SCHEMA_B_01_Test.
+[[SH_SCHEMA_B_01]]
+==== SH_SCHEMA_B_01: A customer's purchase history
+
+A customer-service agent needs the purchase history of customer `:custId`, newest first: day, product, channel,
+quantity and amount.
+
+[source,sql]
+----
+SELECT s.TIME_ID, p.PROD_NAME, ch.CHANNEL_DESC, s.QUANTITY_SOLD, s.AMOUNT_SOLD
+FROM SALES s
+         JOIN PRODUCTS p ON p.PROD_ID = s.PROD_ID
+         JOIN CHANNELS ch ON ch.CHANNEL_ID = s.CHANNEL_ID
+WHERE s.CUST_ID = :custId
+ORDER BY s.TIME_ID DESC, p.PROD_NAME
+----
+
+[source,jpaql]
+----
+SELECT t.timeId, p.prodName, ch.channelDesc, s.quantitySold, s.amountSold
+FROM Sales s
+         JOIN s.time t
+         JOIN s.product p
+         JOIN s.channel ch
+WHERE s.customer.custId = :custId
+ORDER BY t.timeId DESC, p.prodName
+----
+
+// AI: Pick SH_SCHEMA_B_02: Fetch the customer's country in the same round trip.
+// AI: Copied from EXERCISES.asciidoc:1389, anchor SH_SCHEMA_B_02; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.SH_SCHEMA_B_02_Test.
+[[SH_SCHEMA_B_02]]
+==== SH_SCHEMA_B_02: Customers with their country, in one round trip
+
+The account-management screen lists the customers of `:city` together with their country and region. ``Customer``'s
+`country` association is lazy, so listing them naively issues one more query per country. Load both in one query.
+
+[source,sql]
+----
+SELECT cu.CUST_ID, cu.CUST_FIRST_NAME, cu.CUST_LAST_NAME, co.COUNTRY_ID, co.COUNTRY_NAME, co.COUNTRY_REGION
+FROM CUSTOMERS cu
+         JOIN COUNTRIES co ON co.COUNTRY_ID = cu.COUNTRY_ID
+WHERE cu.CUST_CITY = :city
+ORDER BY cu.CUST_LAST_NAME, cu.CUST_FIRST_NAME
+----
+
+[source,jpaql]
+----
+SELECT cu
+FROM Customer cu
+         JOIN FETCH cu.country
+WHERE cu.custCity = :city
+ORDER BY cu.custLastName, cu.custFirstName
+----
+
+`JOIN FETCH` returns `Customer` entities whose `getCountry()` is already initialised. Both providers accept an
+identification variable on a fetch join (`JOIN FETCH cu.country co`), but the specification does not, so filter
+through a separate join if you need one.
+
+// AI: Pick SH_SCHEMA_B_03: Group revenue over channel and time associations.
+// AI: Copied from EXERCISES.asciidoc:1417, anchor SH_SCHEMA_B_03; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.SH_SCHEMA_B_03_Test.
+[[SH_SCHEMA_B_03]]
+==== SH_SCHEMA_B_03: Revenue by channel
+
+The sales director wants units sold and revenue per channel for calendar year `:year`, biggest channel first.
+
+[source,sql]
+----
+SELECT ch.CHANNEL_DESC,
+       SUM(s.QUANTITY_SOLD) AS UNITS,
+       SUM(s.AMOUNT_SOLD)   AS REVENUE
+FROM SALES s
+         JOIN CHANNELS ch ON ch.CHANNEL_ID = s.CHANNEL_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY ch.CHANNEL_DESC
+ORDER BY REVENUE DESC
+----
+
+[source,jpaql]
+----
+SELECT ch.channelDesc, SUM(s.quantitySold) AS units, SUM(s.amountSold) AS revenue
+FROM Sales s
+         JOIN s.channel ch
+         JOIN s.time t
+WHERE t.calendarYear = :year
+GROUP BY ch.channelDesc
+ORDER BY revenue DESC
+----
+
+=== Intermediate
+
+// AI: Intermediate: selected 3 of 10 reviewed candidates in this original scope.
+// AI: Not selected: SH_SCHEMA_I_01, SH_SCHEMA_I_04, SH_SCHEMA_I_06, SH_SCHEMA_I_07, SH_SCHEMA_I_08, SH_SCHEMA_I_09, SH_SCHEMA_I_11.
+// AI: Deferred SH_SCHEMA_I_09: source SQL/JPQL synchronization is explicitly unfinished.
+
+// AI: Pick SH_SCHEMA_I_02: A top-n best-seller query across fact and dimension entities.
+// AI: Copied from EXERCISES.asciidoc:1475, anchor SH_SCHEMA_I_02; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.SH_SCHEMA_I_02_Test.
+// AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
+[[SH_SCHEMA_I_02]]
+==== SH_SCHEMA_I_02: Ten best sellers
+
+Merchandising wants the ten products that sold the most units in `:year`, with the revenue they brought in; `PROD_ID` breaks a tie, and `WITH TIES` would keep them all instead.
+
+[source,sql]
+----
+SELECT p.PROD_ID, p.PROD_NAME, SUM(s.QUANTITY_SOLD) AS UNITS, SUM(s.AMOUNT_SOLD) AS REVENUE
+FROM SALES s
+         JOIN PRODUCTS p ON p.PROD_ID = s.PROD_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY p.PROD_ID, p.PROD_NAME
+ORDER BY UNITS DESC, p.PROD_ID
+FETCH FIRST 10 ROWS ONLY
+----
+
+[source,jpaql]
+----
+SELECT p.prodId, p.prodName, SUM(s.quantitySold) AS units, SUM(s.amountSold) AS revenue
+FROM Sales s
+         JOIN s.product p
+         JOIN s.time t
+WHERE t.calendarYear = :year
+GROUP BY p.prodId, p.prodName
+ORDER BY units DESC
+----
+
+// JPQL NOT YET UPDATED: the SQL above changed.
+
+JPQL has no `FETCH FIRST`; limit the result with `query.setMaxResults(10)`. Ties at tenth place are cut arbitrarily
+either way (`FETCH FIRST 10 ROWS WITH TIES` keeps them in Oracle SQL).
+
+// AI: Pick SH_SCHEMA_I_03: A multi-hop aggregate with a HAVING threshold.
+// AI: Copied from EXERCISES.asciidoc:1508, anchor SH_SCHEMA_I_03; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.SH_SCHEMA_I_03_Test.
+[[SH_SCHEMA_I_03]]
+==== SH_SCHEMA_I_03: Countries above a revenue target
+
+Finance wants the countries whose customers spent more than `:threshold` in `:year`.
+
+[source,sql]
+----
+SELECT co.COUNTRY_NAME, SUM(s.AMOUNT_SOLD) AS REVENUE
+FROM SALES s
+         JOIN CUSTOMERS cu ON cu.CUST_ID = s.CUST_ID
+         JOIN COUNTRIES co ON co.COUNTRY_ID = cu.COUNTRY_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+GROUP BY co.COUNTRY_NAME
+HAVING SUM(s.AMOUNT_SOLD) > :threshold
+ORDER BY REVENUE DESC
+----
+
+[source,jpaql]
+----
+SELECT co.countryName, SUM(s.amountSold) AS revenue
+FROM Sales s
+         JOIN s.customer cu
+         JOIN cu.country co
+         JOIN s.time t
+WHERE t.calendarYear = :year
+GROUP BY co.countryName
+HAVING SUM(s.amountSold) > :threshold
+ORDER BY revenue DESC
+----
+
+// AI: Pick SH_SCHEMA_I_10: A correlated EXISTS on purchases and promotions.
+// AI: Copied from EXERCISES.asciidoc:1713, anchor SH_SCHEMA_I_10; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.SH_SCHEMA_I_10_Test.
+[[SH_SCHEMA_I_10]]
+==== SH_SCHEMA_I_10: Customers who bought on promotion
+
+Marketing is inviting customers who respond to promotions to a preview evening in `:city` (e.g. Los Angeles). List the
+customers of the city who have bought at least once under a promotion, by name.
+
+[source,sql]
+----
+SELECT cu.CUST_ID, cu.CUST_FIRST_NAME, cu.CUST_LAST_NAME
+FROM CUSTOMERS cu
+WHERE cu.CUST_CITY = :city
+  AND EXISTS (SELECT 1
+              FROM SALES s
+                       JOIN PROMOTIONS pr ON pr.PROMO_ID = s.PROMO_ID
+              WHERE s.CUST_ID = cu.CUST_ID
+                AND pr.PROMO_CATEGORY <> 'NO PROMOTION')
+ORDER BY cu.CUST_LAST_NAME, cu.CUST_FIRST_NAME, cu.CUST_ID
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE c.custCity = :custCity
+  AND EXISTS (SELECT s
+              FROM Sales s
+              WHERE s.customer = c
+                AND s.promotion.promoCategory <> 'NO PROMOTION')
+ORDER BY c.custLastName ASC, c.custFirstName ASC, c.custId ASC
+----
+
+In the JPQL, `EXISTS` is a semi-join: a customer with many promoted sales still appears once, which a plain join would
+need a `DISTINCT` for, and the database can stop at the first matching sale. Only four promotions ever sold anything,
+and 999, `NO PROMOTION`, carries almost all the sales, so the condition is selective: of the 932 customers of Los
+Angeles, 202 bought anything and 117 bought under a promotion.
+
+=== Advanced
+
+// AI: Advanced: selected 2 of 12 reviewed candidates in this original scope.
+// AI: Not selected: SH_SCHEMA_A_01, SH_SCHEMA_A_04, SH_SCHEMA_A_05, SH_SCHEMA_A_06, SH_SCHEMA_A_07, SH_SCHEMA_A_08, SH_SCHEMA_A_09, SH_SCHEMA_A_10, SH_SCHEMA_A_11, SH_SCHEMA_A_12.
+// AI: Deferred SH_SCHEMA_A_04: source SQL/JPQL synchronization is explicitly unfinished.
+// AI: Deferred SH_SCHEMA_A_05: source SQL/JPQL synchronization is explicitly unfinished.
+// AI: Deferred SH_SCHEMA_A_10: source SQL/JPQL synchronization is explicitly unfinished.
+// AI: Deferred SH_SCHEMA_A_11: source SQL/JPQL synchronization is explicitly unfinished.
+
+// AI: Pick SH_SCHEMA_A_02: Jakarta Persistence 3.2 set difference expresses customer lapse across periods.
+// AI: Copied from EXERCISES.asciidoc:1819, anchor SH_SCHEMA_A_02; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=___Exercises_03_Advanced_PersistenceIT.SH_SCHEMA_A_02_Test.
+[[SH_SCHEMA_A_02]]
+==== SH_SCHEMA_A_02: Lapsed customers
+
+The retention team wants the customers who bought something in `:previousYear` but nothing in `:currentYear`.
+
+[source,sql]
+----
+SELECT s.CUST_ID
+FROM SALES s
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :previousYear
+MINUS
+SELECT s.CUST_ID
+FROM SALES s
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :currentYear
+----
+
+[source,jpaql]
+----
+SELECT s.customer.custId
+FROM Sales s
+WHERE s.time.calendarYear = :previousYear
+EXCEPT
+SELECT s2.customer.custId
+FROM Sales s2
+WHERE s2.time.calendarYear = :currentYear
+----
+
+[source,jpaql]
+----
+SELECT DISTINCT cu
+FROM Sales s
+         JOIN s.customer cu
+WHERE s.time.calendarYear = :previousYear
+  AND NOT EXISTS (SELECT s2
+                  FROM Sales s2
+                  WHERE s2.customer = cu
+                    AND s2.time.calendarYear = :currentYear)
+----
+
+`EXCEPT` (Oracle's `MINUS`), `UNION` and `INTERSECT` are new in Jakarta Persistence 3.2, and like their SQL
+counterparts they remove duplicates. The `NOT EXISTS` form returns whole `Customer` entities instead of ids.
+
+// AI: Pick SH_SCHEMA_A_03: A set intersection identifies customers who use both channels.
+// AI: Copied from EXERCISES.asciidoc:1863, anchor SH_SCHEMA_A_03; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=___Exercises_03_Advanced_PersistenceIT.SH_SCHEMA_A_03_Test.
+[[SH_SCHEMA_A_03]]
+==== SH_SCHEMA_A_03: Customers who buy through two channels
+
+The channel managers for `Internet` and `Direct Sales` want to know which customers bought through both of their
+channels in `:year`.
+
+[source,sql]
+----
+SELECT s.CUST_ID
+FROM SALES s
+         JOIN CHANNELS ch ON ch.CHANNEL_ID = s.CHANNEL_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+  AND ch.CHANNEL_DESC = :channelA
+INTERSECT
+SELECT s.CUST_ID
+FROM SALES s
+         JOIN CHANNELS ch ON ch.CHANNEL_ID = s.CHANNEL_ID
+         JOIN TIMES t ON t.TIME_ID = s.TIME_ID
+WHERE t.CALENDAR_YEAR = :year
+  AND ch.CHANNEL_DESC = :channelB
+----
+
+[source,jpaql]
+----
+SELECT s.customer.custId
+FROM Sales s
+WHERE s.time.calendarYear = :year
+  AND s.channel.channelDesc = :channelA
+INTERSECT
+SELECT s2.customer.custId
+FROM Sales s2
+WHERE s2.time.calendarYear = :year
+  AND s2.channel.channelDesc = :channelB
+----
+
+== References
+
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2[Jakarta Persistence 3.2 specification]
+  -- chapter 4, _Query Language_
+* https://jakarta.ee/specifications/persistence/3.2/[Jakarta Persistence 3.2 release] -- what is new in 3.2
+* https://github.com/oracle-samples/db-sample-schemas[Oracle Database Sample Schemas] -- `+sales_history+`
+* https://docs.oracle.com/en/database/oracle/oracle-database/23/sqlrf/[Oracle Database SQL Language Reference]
+* https://docs.oracle.com/en/database/oracle/oracle-database/23/dwhsg/sql-aggregation-data-warehouses.html[Oracle Database Data Warehousing Guide: SQL for Aggregation]
+

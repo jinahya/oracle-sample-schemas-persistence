@@ -1,0 +1,1443 @@
+= Exercises picks
+:toc: left
+:toclevels: 3
+:sectanchors:
+:source-highlighter: rouge
+
+// AI: Editorial review dated 2026-11-08. Source: sibling EXERCISES.asciidoc and EXERCISES.yaml.
+// AI: Reviewed every exercise in this module against Jakarta Persistence Applied, master src/main/asciidoc/00_book.asciidoc.
+// AI: This is a candidate shortlist, not a change to the official PROJECTS_EXERCISES.asciidoc picks or the manuscript.
+// AI: Preserve source scope order, level classifications, permanent IDs, statements, SQL, JPQL, and existing answer blocks.
+// AI: At most three candidates per original scope and level; fewer or zero is intentional. Do not fill slots mechanically.
+// AI: Prefer mapped attributes, identifiers, enum/converter behavior, associations, joins, aggregates, subqueries, fetching, and paging.
+// AI: Omit contrived name/string puzzles, redundant integrity audits, arbitrary rankings, and unrelated SQL analytics.
+// AI: Native-only candidates are explicit chapter-specific exceptions, not permission to replace portable solutions elsewhere.
+// AI: Agent handoff: read each rationale and TODO, resolve the registry sql/test paths, inspect the mapped types and actual tests,
+// AI: reconcile stale solutions, and run the relevant database/provider tests before promoting any candidate to the book.
+// AI: Existing output blocks below are archival copies from the source, not fresh test results or verified publication output.
+// AI: For manuscript output, rerun the query, retain // AI: provenance, and use the current mappings and provider policy.
+// AI: Source SHA-256 at review: ab6577b93c70831d7d42f0e11e79405ff119975e03b1bd5d9dde2d784bf921c4.
+
+Selected exercises for a persistence-focused teaching sequence.
+The original scope and difficulty headings are retained; an empty level intentionally has no suitable pick.
+Statements and answers are copied from link:EXERCISES.asciidoc[the complete exercise collection].
+Selection is an editorial recommendation; implementation notes in the source comments identify follow-up work.
+
+// AI: Original source conventions below apply to the copied subset.
+Exercises for the Customer Orders (CO) schema: business questions that a store manager, a merchandiser, logistics,
+marketing or finance would ask of a small retail chain, each answered with a query. Every problem is stated as a
+request, followed by one or more solutions. The `sql` blocks are Oracle SQL against the installed schema
+(see link:../../../README.md[README.md]), with `:name` bind variables. The `jpaql` blocks are Jakarta Persistence 3.2 query
+language against this module's entities -- `Customer`, `Store`, `Product`, `Order`, `OrderItem`,
+`Shipment`, `Inventory`, and the views `CustomerOrderProduct` and `ProductOrder` -- with named
+parameters of the same names.
+
+The problems are grouped by what they read. Each table and view of the schema has a section, in the order of
+link:../../../README.md[README.md], holding the problems whose SQL reads that one object -- a self-join or a subquery on it
+included. _Whole schema_, the last section, holds the problems that join or subquery more than one. Every section
+goes from Basic through Intermediate to Advanced.
+
+A few things about the mappings shape the JPQL below:
+
+* A foreign key is mapped twice: as an association on the entity, and as a read-only attribute on its mapped
+  superclass. `Order` has `customer` and `store`, and `customerId`/`storeId` from `MappedOrder`. The answers below
+  reach a key as `o.customer.customerId`, or compare the entity itself: `+o.customer = :customer+`.
+* `+ORDERS.ORDER_STATUS+` is `MappedOrder.OrderStatus`, mapped `+@Enumerated(EnumType.STRING)+`. Compare it with an
+  enum parameter or a fully qualified enum literal, never with a string. The literal names the class that declares the
+  enum, `+com.github.jinahya.oracle.sample.persistence.co.mapped.MappedOrder.OrderStatus+`, not `Order`.
+* `+SHIPMENTS.SHIPMENT_STATUS+` is `MappedShipment.ShipmentStatus`, mapped through `ShipmentStatusConverter`, because the
+  column holds `+IN-TRANSIT+` and the constant is `+IN_TRANSIT+`. Bind the enum as a parameter.
+* `Order.orderItems` is a `+Map<Product, OrderItem>+` keyed by each item's product,
+  `+@MapKey(name = OrderItem.ATTRIBUTE_NAME_PRODUCT)+`. The queries below start from `OrderItem` and navigate
+  `oi.order`, or join it to an order with a Jakarta Persistence 3.2 entity join, `+JOIN OrderItem oi ON oi.order = o+`.
+* `OrderItem` maps `+ORDER_ITEMS+` with an `+@EmbeddedId+`, `OrderItemId`, so its key is `oi.id.orderId` and
+  `oi.id.lineItemId`. `ProductOrder` maps `+PRODUCT_ORDERS+` with an `+@EmbeddedId+`, so its key is
+  `v.id.productName` and `v.id.orderStatus`.
+* `+STORE_ORDERS+` and `+PRODUCT_REVIEWS+` are not entities (`StoreOrder`, `ProductReview`), and
+  `+PRODUCTS.PRODUCT_DETAILS+` is a JSON document mapped as a `+byte[]+` LOB. Queries over them are SQL only, and the
+  note says how to approach them from Jakarta Persistence.
+
+== CUSTOMERS
+
+=== Basic
+
+// AI: Basic: selected 2 of 2 reviewed candidates in this original scope.
+// AI: Selection boundary: Do not assume a house-style email address or infer account identity from a shared local part.
+
+// AI: Pick CO_CUSTOMERS_B_01: Unique email lookup introduces getSingleResult and its missing-row behavior.
+// AI: Copied from EXERCISES.asciidoc:44, anchor CO_CUSTOMERS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=CUSTOMERS; tier=Basic; sql=src/test/sql-exercises/CUSTOMERS/01_basic.sql; test=Customers_Exercises_01_Basic_PersistenceIT.CO_CUSTOMERS_B_01_Test.
+[[CO_CUSTOMERS_B_01]]
+==== CO_CUSTOMERS_B_01: Pull up a customer by email address
+
+The support desk has a caller who gives their email address. Find the customer account for it.
+
+[source,sql]
+----
+SELECT customer_id, email_address, full_name
+FROM customers
+WHERE email_address = :emailAddress
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE c.emailAddress = :emailAddress
+----
+
+`+EMAIL_ADDRESS+` is unique, so `getSingleResult()` fits; it throws `NoResultException` for an unknown address.
+
+// AI: Pick CO_CUSTOMERS_B_02: A parameterized case-insensitive name search.
+// AI: Copied from EXERCISES.asciidoc:65, anchor CO_CUSTOMERS_B_02; retain the permanent ID when revising.
+// AI: Registry: section=CUSTOMERS; tier=Basic; sql=src/test/sql-exercises/CUSTOMERS/01_basic.sql; test=Customers_Exercises_01_Basic_PersistenceIT.CO_CUSTOMERS_B_02_Test.
+[[CO_CUSTOMERS_B_02]]
+==== CO_CUSTOMERS_B_02: Search customers by the start of their name
+
+The caller's name was only half heard. List the customers whose full name starts with the given text, ignoring case,
+in alphabetical order.
+
+[source,sql]
+----
+SELECT customer_id, full_name, email_address
+FROM customers
+WHERE UPPER(full_name) LIKE UPPER(:prefix) || '%'
+ORDER BY full_name
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE UPPER(c.fullName) LIKE :pattern
+ORDER BY c.fullName
+----
+
+A JPQL `LIKE` pattern must be a string literal or an input parameter, so the pattern is built in Java:
+`+prefix.toUpperCase() + "%"+`. Escape `+%+` and `+_+` in the prefix (with an `ESCAPE` clause) if users may type them.
+
+=== Intermediate
+
+// AI: Intermediate: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: Do not assume a house-style email address or infer account identity from a shared local part.
+// AI: Not selected: CO_CUSTOMERS_I_01.
+// AI: Deferred CO_CUSTOMERS_I_01: source SQL/JPQL synchronization is explicitly unfinished.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: Do not assume a house-style email address or infer account identity from a shared local part.
+// AI: Not selected: CO_CUSTOMERS_A_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== CUSTOMER_ORDER_PRODUCTS
+
+`+CUSTOMER_ORDER_PRODUCTS+` has one row per order, with the customer's name and email address, the order's total, and
+its product names in `ITEMS`. `CustomerOrderProduct` maps it as a read-only entity whose `orderStatus` is a `String`.
+
+=== Basic
+
+// AI: Basic: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick CO_CUSTOMER_ORDER_PRODUCTS_B_02: Read completed baskets through a mapped view with deterministic ordering.
+// AI: Copied from EXERCISES.asciidoc:161, anchor CO_CUSTOMER_ORDER_PRODUCTS_B_02; retain the permanent ID when revising.
+// AI: Registry: section=CUSTOMER_ORDER_PRODUCTS; tier=Basic; sql=src/test/sql-exercises/CUSTOMER_ORDER_PRODUCTS/01_basic.sql; test=CustomerOrderProducts_Exercises_01_Basic_PersistenceIT.CO_CUSTOMER_ORDER_PRODUCTS_B_02_Test.
+[[CO_CUSTOMER_ORDER_PRODUCTS_B_02]]
+==== CO_CUSTOMER_ORDER_PRODUCTS_B_02: Review a customer's completed baskets
+
+Customer care wants a customer's completed orders, each with its total and the summary of its products, the most recent first.
+
+[source,sql]
+----
+SELECT order_id, order_tms, order_total, items
+FROM customer_order_products
+WHERE customer_id = :customerId
+  AND order_status = 'COMPLETE'
+ORDER BY order_tms DESC, order_id DESC
+----
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick CO_CUSTOMER_ORDER_PRODUCTS_I_01: Aggregate a mapped view rather than repeating its base-table joins.
+// AI: Copied from EXERCISES.asciidoc:178, anchor CO_CUSTOMER_ORDER_PRODUCTS_I_01; retain the permanent ID when revising.
+// AI: Registry: section=CUSTOMER_ORDER_PRODUCTS; tier=Intermediate; sql=src/test/sql-exercises/CUSTOMER_ORDER_PRODUCTS/02_intermediate.sql; test=CustomerOrderProducts_Exercises_02_Intermediate_PersistenceIT.CO_CUSTOMER_ORDER_PRODUCTS_I_01_Test.
+[[CO_CUSTOMER_ORDER_PRODUCTS_I_01]]
+==== CO_CUSTOMER_ORDER_PRODUCTS_I_01: Average basket per customer
+
+Marketing wants, per customer, the number of completed orders, what they came to and the average order value, the
+biggest spenders first.
+
+[source,sql]
+----
+SELECT customer_id, full_name, COUNT(*) AS orders, SUM(order_total) AS total_spent,
+       ROUND(AVG(order_total), 2) AS average_order
+FROM customer_order_products
+WHERE order_status = 'COMPLETE'
+GROUP BY customer_id, full_name
+ORDER BY total_spent DESC, full_name
+----
+
+[source,jpaql]
+----
+SELECT v.customerId, v.fullName, COUNT(v), SUM(v.orderTotal), AVG(v.orderTotal)
+FROM CustomerOrderProduct v
+WHERE v.orderStatus = 'COMPLETE'
+GROUP BY v.customerId, v.fullName
+ORDER BY SUM(v.orderTotal) DESC, v.fullName
+----
+
+The view's `orderStatus` is a `String`, so a string literal is right here, unlike for `Order.orderStatus`.
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Not selected: CO_CUSTOMER_ORDER_PRODUCTS_A_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== INVENTORY
+
+=== Basic
+
+// AI: Basic: selected 2 of 3 reviewed candidates in this original scope.
+// AI: Not selected: CO_INVENTORY_B_04.
+
+// AI: Pick CO_INVENTORY_B_01: Identify stock by its store and product associations.
+// AI: Copied from EXERCISES.asciidoc:238, anchor CO_INVENTORY_B_01; retain the permanent ID when revising.
+// AI: Registry: section=INVENTORY; tier=Basic; sql=src/test/sql-exercises/INVENTORY/01_basic.sql; test=Inventory_Exercises_01_Basic_PersistenceIT.CO_INVENTORY_B_01_Test.
+[[CO_INVENTORY_B_01]]
+==== CO_INVENTORY_B_01: How many are on the shelf?
+
+A shop assistant asks how many units of a product their store holds.
+
+[source,sql]
+----
+SELECT product_inventory
+FROM inventory
+WHERE store_id = :storeId
+  AND product_id = :productId
+----
+
+[source,jpaql]
+----
+SELECT i.productInventory
+FROM Inventory i
+WHERE i.store.storeId = :storeId
+  AND i.product.productId = :productId
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Inventory AS e
+WHERE e.store = :store AND e.product = :product
+----
+
+`+(STORE_ID, PRODUCT_ID)+` is unique, so there is at most one row. No row means the store does not stock the product at
+all, which is not the same as a stock of `0`. The second JPQL form takes the `Store` and the `Product` themselves and
+selects the whole `Inventory`.
+
+// AI: Pick CO_INVENTORY_B_02: Order a product's stock across stores.
+// AI: Copied from EXERCISES.asciidoc:270, anchor CO_INVENTORY_B_02; retain the permanent ID when revising.
+// AI: Registry: section=INVENTORY; tier=Basic; sql=src/test/sql-exercises/INVENTORY/01_basic.sql; test=Inventory_Exercises_01_Basic_PersistenceIT.CO_INVENTORY_B_02_Test.
+// AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
+[[CO_INVENTORY_B_02]]
+==== CO_INVENTORY_B_02: Where a product is running lowest
+
+A merchandiser wants every store's stock of a product, lowest first, to see which stores need it replenished first; stores with the same stock are ordered by `store_id`.
+
+[source,sql]
+----
+SELECT store_id, product_inventory
+FROM inventory
+WHERE product_id = :productId
+ORDER BY product_inventory, store_id
+----
+
+[source,jpaql]
+----
+SELECT e
+FROM Inventory AS e
+WHERE e.product = :product
+ORDER BY e.productInventory ASC
+----
+
+// JPQL NOT YET UPDATED: the SQL above changed.
+
+A product is stocked at many stores, so the JPQL returns a list -- one row per store. Stores with the same stock come
+back in no particular order; add `e.store.storeId` to the `ORDER BY` for a stable order.
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick CO_INVENTORY_I_01: Group stock by store and count zero-stock entries.
+// AI: Copied from EXERCISES.asciidoc:313, anchor CO_INVENTORY_I_01; retain the permanent ID when revising.
+// AI: Registry: section=INVENTORY; tier=Intermediate; sql=src/test/sql-exercises/INVENTORY/02_intermediate.sql; test=Inventory_Exercises_02_Intermediate_PersistenceIT.CO_INVENTORY_I_01_Test.
+[[CO_INVENTORY_I_01]]
+==== CO_INVENTORY_I_01: What each store holds
+
+The regional manager wants, per store, how many products it stocks, how many units it holds in all, and how many of its
+products are down to zero.
+
+[source,sql]
+----
+SELECT store_id, COUNT(*) AS products, SUM(product_inventory) AS units,
+       COUNT(CASE WHEN product_inventory = 0 THEN 1 END) AS empty_shelves
+FROM inventory
+GROUP BY store_id
+ORDER BY store_id
+----
+
+[source,jpaql]
+----
+SELECT i.store.storeId, COUNT(i), SUM(i.productInventory),
+       SUM(CASE WHEN i.productInventory = 0 THEN 1 ELSE 0 END)
+FROM Inventory i
+GROUP BY i.store.storeId
+ORDER BY i.store.storeId
+----
+
+`i.store.storeId` is the foreign key itself, so no join to `STORES` is needed; the store's name does need one (see
+_Running low_). The 3.2 grammar gives `SUM` a path argument only; both providers accept an expression, as they do for
+`+unitPrice * quantity+` elsewhere in this file.
+
+=== Advanced
+
+// AI: Advanced: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick CO_INVENTORY_A_01: Double NOT EXISTS expresses coverage of another store's product set.
+// AI: Copied from EXERCISES.asciidoc:343, anchor CO_INVENTORY_A_01; retain the permanent ID when revising.
+// AI: Registry: section=INVENTORY; tier=Advanced; sql=src/test/sql-exercises/INVENTORY/03_advanced.sql; test=Inventory_Exercises_03_Advanced_PersistenceIT.CO_INVENTORY_A_01_Test.
+[[CO_INVENTORY_A_01]]
+==== CO_INVENTORY_A_01: Stores that carry everything another store carries
+
+A store is closing for a refit. The regional manager wants the stores that carry every product it carries, to send its
+customers to.
+
+[source,sql]
+----
+SELECT DISTINCT i.store_id
+FROM inventory i
+WHERE i.store_id <> :storeId
+  AND NOT EXISTS (SELECT 1
+                  FROM inventory r
+                  WHERE r.store_id = :storeId
+                    AND NOT EXISTS (SELECT 1
+                                    FROM inventory x
+                                    WHERE x.store_id = i.store_id
+                                      AND x.product_id = r.product_id))
+ORDER BY i.store_id
+----
+
+[source,jpaql]
+----
+SELECT DISTINCT i.store.storeId
+FROM Inventory i
+WHERE i.store.storeId <> :storeId
+  AND NOT EXISTS (SELECT r
+                  FROM Inventory r
+                  WHERE r.store.storeId = :storeId
+                    AND NOT EXISTS (SELECT x
+                                    FROM Inventory x
+                                    WHERE x.store = i.store
+                                      AND x.product = r.product))
+ORDER BY i.store.storeId
+----
+
+This is relational division, written as a double negative: a store qualifies when there is no product of the closing
+store that it lacks. A row counts as "carried" even at a stock of `0`; add `+AND x.productInventory > 0+` to require stock
+on the shelf. Store 1 (`Online`) carries all 46 products, so no other store qualifies for it; for store 20 the answer
+is stores 1, 4, 9, 10, 14 and 19.
+
+== ORDERS
+
+=== Basic
+
+// AI: Basic: selected 3 of 4 reviewed candidates in this original scope.
+// AI: Not selected: CO_ORDERS_B_04.
+
+// AI: Pick CO_ORDERS_B_01: A customer association parameter with stable reverse chronological ordering.
+// AI: Copied from EXERCISES.asciidoc:388, anchor CO_ORDERS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=ORDERS; tier=Basic; sql=src/test/sql-exercises/ORDERS/01_basic.sql; test=Orders_Exercises_01_Basic_PersistenceIT.CO_ORDERS_B_01_Test.
+// AI: TODO before manuscript use: source explicitly marks JPQL NOT YET UPDATED; reconcile SQL, JPQL, Criteria API, and tests.
+[[CO_ORDERS_B_01]]
+==== CO_ORDERS_B_01: A customer's order history
+
+Show all of a customer's orders, the most recent first; orders placed at the same moment are ordered by `order_id`, the highest first.
+
+[source,sql]
+----
+SELECT order_id, order_tms, order_status, store_id
+FROM orders
+WHERE customer_id = :customerId
+ORDER BY order_tms DESC, order_id DESC
+----
+
+[source,jpaql]
+----
+SELECT o
+FROM Order o
+WHERE o.customer.customerId = :customerId
+ORDER BY o.orderTms DESC
+----
+
+// JPQL NOT YET UPDATED: the SQL above changed.
+
+[source,jpaql]
+----
+SELECT o
+FROM Order o
+WHERE o.customer = :customer
+ORDER BY o.orderTms DESC
+----
+
+`o.customer.customerId` is the association's own key, so it needs no join to `CUSTOMERS`. The second form binds a
+`Customer` (a reference from `getReference` is enough).
+
+// AI: Pick CO_ORDERS_B_02: IN on mapped order-status enum values.
+// AI: Copied from EXERCISES.asciidoc:422, anchor CO_ORDERS_B_02; retain the permanent ID when revising.
+// AI: Registry: section=ORDERS; tier=Basic; sql=src/test/sql-exercises/ORDERS/01_basic.sql; test=Orders_Exercises_01_Basic_PersistenceIT.CO_ORDERS_B_02_Test.
+[[CO_ORDERS_B_02]]
+==== CO_ORDERS_B_02: Orders that went wrong
+
+Finance reviews every order that was cancelled or refunded, newest first.
+
+[source,sql]
+----
+SELECT order_id, order_tms, order_status, customer_id, store_id
+FROM orders
+WHERE order_status IN ('CANCELLED', 'REFUNDED')
+ORDER BY order_tms DESC
+----
+
+[source,jpaql]
+----
+SELECT o
+FROM Order o
+WHERE o.orderStatus IN :statuses
+ORDER BY o.orderTms DESC
+----
+
+[source,jpaql]
+----
+SELECT o
+FROM Order o
+WHERE o.orderStatus IN (com.github.jinahya.oracle.sample.persistence.co.mapped.MappedOrder.OrderStatus.CANCELLED,
+                        com.github.jinahya.oracle.sample.persistence.co.mapped.MappedOrder.OrderStatus.REFUNDED)
+ORDER BY o.orderTms DESC
+----
+
+`:statuses` is a `+List<Order.OrderStatus>+`. An enum literal in JPQL is the constant's fully qualified name; a string
+such as `+'CANCELLED'+` is not comparable with an enum attribute.
+
+// AI: Pick CO_ORDERS_B_03: A store parameter with a half-open timestamp interval.
+// AI: Copied from EXERCISES.asciidoc:455, anchor CO_ORDERS_B_03; retain the permanent ID when revising.
+// AI: Registry: section=ORDERS; tier=Basic; sql=src/test/sql-exercises/ORDERS/01_basic.sql; test=Orders_Exercises_01_Basic_PersistenceIT.CO_ORDERS_B_03_Test.
+[[CO_ORDERS_B_03]]
+==== CO_ORDERS_B_03: A store's orders for a period
+
+A store manager wants the orders taken at their store during a period: on or after `:fromTms`, and before `:toTms`.
+
+[source,sql]
+----
+SELECT order_id, order_tms, order_status, customer_id
+FROM orders
+WHERE store_id = :storeId
+  AND order_tms >= :fromTms
+  AND order_tms < :toTms
+ORDER BY order_tms
+----
+
+[source,jpaql]
+----
+SELECT o
+FROM Order o
+WHERE o.store.storeId = :storeId
+  AND o.orderTms >= :fromTms
+  AND o.orderTms < :toTms
+ORDER BY o.orderTms
+----
+
+`+ORDER_TMS+` is a `TIMESTAMP`, mapped as `LocalDateTime`. A half-open range lets consecutive periods meet without
+overlapping; `BETWEEN` includes both ends, so an order at exactly `:toTms` would be counted in two periods.
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick CO_ORDERS_I_01: Group by the mapped order-status enum and compute date bounds.
+// AI: Copied from EXERCISES.asciidoc:501, anchor CO_ORDERS_I_01; retain the permanent ID when revising.
+// AI: Registry: section=ORDERS; tier=Intermediate; sql=src/test/sql-exercises/ORDERS/02_intermediate.sql; test=Orders_Exercises_02_Intermediate_PersistenceIT.CO_ORDERS_I_01_Test.
+[[CO_ORDERS_I_01]]
+==== CO_ORDERS_I_01: Where orders stand
+
+Operations wants the number of orders in each status, with the first and the last order placed in it.
+
+[source,sql]
+----
+SELECT order_status, COUNT(*) AS orders, MIN(order_tms) AS first_order_tms, MAX(order_tms) AS last_order_tms
+FROM orders
+GROUP BY order_status
+ORDER BY orders DESC
+----
+
+[source,jpaql]
+----
+SELECT o.orderStatus, COUNT(o), MIN(o.orderTms), MAX(o.orderTms)
+FROM Order o
+GROUP BY o.orderStatus
+ORDER BY COUNT(o) DESC
+----
+
+Only the statuses that occur are returned: the installed orders are all `COMPLETE`, `CANCELLED` or `REFUNDED`. To show
+all six with zeros, iterate `Order.OrderStatus.values()` in Java and fill in the counts.
+
+=== Advanced
+
+// AI: Advanced: selected 1 of 3 reviewed candidates in this original scope.
+// AI: Not selected: CO_ORDERS_A_02, CO_ORDERS_A_03.
+// AI: Deferred CO_ORDERS_A_02: source SQL/JPQL synchronization is explicitly unfinished.
+
+// AI: Pick CO_ORDERS_A_01: Jakarta Persistence 3.2 set operations express customer-set overlap and difference.
+// AI: Copied from EXERCISES.asciidoc:527, anchor CO_ORDERS_A_01; retain the permanent ID when revising.
+// AI: Registry: section=ORDERS; tier=Advanced; sql=src/test/sql-exercises/ORDERS/03_advanced.sql; test=Orders_Exercises_03_Advanced_PersistenceIT.CO_ORDERS_A_01_Test.
+// AI: Check both source SQL solutions: INTERSECT and MINUS map to JPQL INTERSECT and EXCEPT in 3.2.
+[[CO_ORDERS_A_01]]
+==== CO_ORDERS_A_01: Customers of two stores, or of one only
+
+Two store managers plan a joint promotion. Marketing wants (a) the customers who have ordered from both stores,
+(b) those who ordered from the first store but never from the second, and (c) everyone who ordered from either.
+
+[source,sql]
+----
+SELECT customer_id FROM orders WHERE store_id = :storeA
+INTERSECT
+SELECT customer_id FROM orders WHERE store_id = :storeB
+----
+
+[source,jpaql]
+----
+SELECT o.customer.customerId FROM Order o WHERE o.store.storeId = :storeA
+INTERSECT
+SELECT o.customer.customerId FROM Order o WHERE o.store.storeId = :storeB
+----
+
+[source,sql]
+----
+SELECT customer_id FROM orders WHERE store_id = :storeA
+MINUS
+SELECT customer_id FROM orders WHERE store_id = :storeB
+----
+
+[source,jpaql]
+----
+SELECT o.customer.customerId FROM Order o WHERE o.store.storeId = :storeA
+EXCEPT
+SELECT o.customer.customerId FROM Order o WHERE o.store.storeId = :storeB
+----
+
+[source,sql]
+----
+SELECT customer_id FROM orders WHERE store_id = :storeA
+UNION
+SELECT customer_id FROM orders WHERE store_id = :storeB
+----
+
+[source,jpaql]
+----
+SELECT o.customer.customerId FROM Order o WHERE o.store.storeId = :storeA
+UNION
+SELECT o.customer.customerId FROM Order o WHERE o.store.storeId = :storeB
+----
+
+`UNION`, `INTERSECT` and `EXCEPT` are new in Jakarta Persistence 3.2. Oracle's traditional spelling of `EXCEPT` is
+`MINUS`; 21c and later accept `EXCEPT` as well. Without `ALL` they remove duplicates, as in SQL.
+
+== ORDER_ITEMS
+
+`+ORDER_ITEMS+` is queried through `OrderItem` (see the note on `Order.orderItems` above); its order and
+line number are `oi.id.orderId` and `oi.id.lineItemId`.
+
+=== Basic
+
+// AI: Basic: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick CO_ORDER_ITEMS_B_01: Read the embedded-id order-line entity with a quantity predicate.
+// AI: Copied from EXERCISES.asciidoc:655, anchor CO_ORDER_ITEMS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=ORDER_ITEMS; tier=Basic; sql=src/test/sql-exercises/ORDER_ITEMS/01_basic.sql; test=OrderItems_Exercises_01_Basic_PersistenceIT.CO_ORDER_ITEMS_B_01_Test.
+[[CO_ORDER_ITEMS_B_01]]
+==== CO_ORDER_ITEMS_B_01: Bulk lines
+
+Fraud prevention watches for bulk buying. List the order lines of `:minQuantity` units or more, the largest first.
+
+[source,sql]
+----
+SELECT order_id, line_item_id, product_id, unit_price, quantity
+FROM order_items
+WHERE quantity >= :minQuantity
+ORDER BY quantity DESC, order_id, line_item_id
+----
+
+[source,jpaql]
+----
+SELECT oi
+FROM OrderItem oi
+WHERE oi.quantity >= :minQuantity
+ORDER BY oi.quantity DESC, oi.id.orderId, oi.id.lineItemId
+----
+
+No line of the installed data has more than five units.
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 2 reviewed candidates in this original scope.
+// AI: Not selected: CO_ORDER_ITEMS_I_02.
+
+// AI: Pick CO_ORDER_ITEMS_I_01: Aggregate quantity times unit price and apply HAVING.
+// AI: Copied from EXERCISES.asciidoc:680, anchor CO_ORDER_ITEMS_I_01; retain the permanent ID when revising.
+// AI: Registry: section=ORDER_ITEMS; tier=Intermediate; sql=src/test/sql-exercises/ORDER_ITEMS/02_intermediate.sql; test=OrderItems_Exercises_02_Intermediate_PersistenceIT.CO_ORDER_ITEMS_I_01_Test.
+[[CO_ORDER_ITEMS_I_01]]
+==== CO_ORDER_ITEMS_I_01: Orders worth more than an amount
+
+Fraud prevention also reviews every order worth more than `:amount`, with its number of lines and units, from the
+lines alone.
+
+[source,sql]
+----
+SELECT order_id, COUNT(*) AS lines, SUM(quantity) AS units, SUM(unit_price * quantity) AS order_total
+FROM order_items
+GROUP BY order_id
+HAVING SUM(unit_price * quantity) > :amount
+ORDER BY order_total DESC
+----
+
+[source,jpaql]
+----
+SELECT oi.id.orderId, COUNT(oi), SUM(oi.quantity), SUM(oi.unitPrice * oi.quantity)
+FROM OrderItem oi
+GROUP BY oi.id.orderId
+HAVING SUM(oi.unitPrice * oi.quantity) > :amount
+ORDER BY SUM(oi.unitPrice * oi.quantity) DESC
+----
+
+Grouping by `oi.id.orderId`, the key column, rather than by `oi.order` keeps the query on `+ORDER_ITEMS+` alone.
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Not selected: CO_ORDER_ITEMS_A_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== PRODUCTS
+
+=== Basic
+
+// AI: Basic: selected 3 of 4 reviewed candidates in this original scope.
+// AI: Not selected: CO_PRODUCTS_B_02.
+
+// AI: Pick CO_PRODUCTS_B_01: BETWEEN on a monetary attribute.
+// AI: Copied from EXERCISES.asciidoc:757, anchor CO_PRODUCTS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=PRODUCTS; tier=Basic; sql=src/test/sql-exercises/PRODUCTS/01_basic.sql; test=Products_Exercises_01_Basic_PersistenceIT.CO_PRODUCTS_B_01_Test.
+[[CO_PRODUCTS_B_01]]
+==== CO_PRODUCTS_B_01: Gift ideas within a budget
+
+A merchandiser is building a "gifts between $X and $Y" page. List the products whose list price lies in the range,
+cheapest first, and by name where prices tie.
+
+[source,sql]
+----
+SELECT product_id, product_name, unit_price
+FROM products
+WHERE unit_price BETWEEN :minPrice AND :maxPrice
+ORDER BY unit_price, product_name
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE p.unitPrice BETWEEN :minPrice AND :maxPrice
+ORDER BY p.unitPrice, p.productName
+----
+
+// AI: Pick CO_PRODUCTS_B_03: IS NULL on an optional price.
+// AI: Copied from EXERCISES.asciidoc:801, anchor CO_PRODUCTS_B_03; retain the permanent ID when revising.
+// AI: Registry: section=PRODUCTS; tier=Basic; sql=src/test/sql-exercises/PRODUCTS/01_basic.sql; test=Products_Exercises_01_Basic_PersistenceIT.CO_PRODUCTS_B_03_Test.
+[[CO_PRODUCTS_B_03]]
+==== CO_PRODUCTS_B_03: Products still waiting for a price
+
+Before the catalogue goes to print, the merchandiser wants every product that has no list price.
+
+[source,sql]
+----
+SELECT product_id, product_name
+FROM products
+WHERE unit_price IS NULL
+ORDER BY product_name
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE p.unitPrice IS NULL
+ORDER BY p.productName
+----
+
+`+unit_price = NULL+` would never be true, in either language. The installed data has no such product, so the answer is
+empty.
+
+// AI: Pick CO_PRODUCTS_B_04: A real LOB-availability use case with a timestamp predicate.
+// AI: Copied from EXERCISES.asciidoc:825, anchor CO_PRODUCTS_B_04; retain the permanent ID when revising.
+// AI: Registry: section=PRODUCTS; tier=Basic; sql=src/test/sql-exercises/PRODUCTS/01_basic.sql; test=Products_Exercises_01_Basic_PersistenceIT.CO_PRODUCTS_B_04_Test.
+[[CO_PRODUCTS_B_04]]
+==== CO_PRODUCTS_B_04: Products missing a fresh picture
+
+The web team wants the products that have no picture, or whose picture was last changed before `:since`: those with no picture first, then the oldest picture first; products otherwise tied are ordered by name and `product_id`.
+
+[source,sql]
+----
+SELECT product_id, product_name, image_filename, image_last_updated
+FROM products
+WHERE product_image IS NULL
+   OR image_last_updated < :since
+ORDER BY CASE WHEN product_image IS NULL THEN 0 ELSE 1 END, image_last_updated NULLS FIRST, product_name, product_id
+----
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 3 reviewed candidates in this original scope.
+// AI: Not selected: CO_PRODUCTS_I_02, CO_PRODUCTS_I_03.
+
+// AI: Pick CO_PRODUCTS_I_01: A simple scalar subquery comparing price with AVG.
+// AI: Copied from EXERCISES.asciidoc:842, anchor CO_PRODUCTS_I_01; retain the permanent ID when revising.
+// AI: Registry: section=PRODUCTS; tier=Intermediate; sql=src/test/sql-exercises/PRODUCTS/02_intermediate.sql; test=Products_Exercises_02_Intermediate_PersistenceIT.CO_PRODUCTS_I_01_Test.
+[[CO_PRODUCTS_I_01]]
+==== CO_PRODUCTS_I_01: Products priced above average
+
+Merchandising wants the products whose list price is above the catalogue's average list price.
+
+[source,sql]
+----
+SELECT product_id, product_name, unit_price
+FROM products
+WHERE unit_price > (SELECT AVG(unit_price) FROM products)
+ORDER BY unit_price DESC
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE p.unitPrice > (SELECT AVG(p2.unitPrice) FROM Product p2)
+ORDER BY p.unitPrice DESC
+----
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Not selected: CO_PRODUCTS_A_01.
+// AI: Deferred CO_PRODUCTS_A_01: source SQL/JPQL synchronization is explicitly unfinished.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== PRODUCT_ORDERS
+
+`+PRODUCT_ORDERS+` has one row per product name and order status. It is queried through `ProductOrder`,
+whose key is `v.id.productName` and `v.id.orderStatus`, both ``String``s.
+
+=== Basic
+
+// AI: Basic: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick CO_PRODUCT_ORDERS_B_01: Filter a view whose embedded key includes order status.
+// AI: Copied from EXERCISES.asciidoc:939, anchor CO_PRODUCT_ORDERS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=PRODUCT_ORDERS; tier=Basic; sql=src/test/sql-exercises/PRODUCT_ORDERS/01_basic.sql; test=ProductOrders_Exercises_01_Basic_PersistenceIT.CO_PRODUCT_ORDERS_B_01_Test.
+[[CO_PRODUCT_ORDERS_B_01]]
+==== CO_PRODUCT_ORDERS_B_01: Which products get refunded?
+
+Customer care suspects a quality problem. For one order status (say `REFUNDED`), list the products with the value and
+number of such orders, the largest value first.
+
+[source,sql]
+----
+SELECT product_name, total_sales, order_count
+FROM product_orders
+WHERE order_status = :orderStatus
+ORDER BY total_sales DESC
+----
+
+[source,jpaql]
+----
+SELECT v
+FROM ProductOrder v
+WHERE v.id.orderStatus = :orderStatus
+ORDER BY v.totalSales DESC
+----
+
+`+PRODUCT_ORDERS+` is keyed by `+(PRODUCT_NAME, ORDER_STATUS)+`, and `orderStatus` is a `String` here: bind `+"REFUNDED"+`.
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick CO_PRODUCT_ORDERS_I_01: Aggregate over the mapped product-order view.
+// AI: Copied from EXERCISES.asciidoc:965, anchor CO_PRODUCT_ORDERS_I_01; retain the permanent ID when revising.
+// AI: Registry: section=PRODUCT_ORDERS; tier=Intermediate; sql=src/test/sql-exercises/PRODUCT_ORDERS/02_intermediate.sql; test=ProductOrders_Exercises_02_Intermediate_PersistenceIT.CO_PRODUCT_ORDERS_I_01_Test.
+[[CO_PRODUCT_ORDERS_I_01]]
+==== CO_PRODUCT_ORDERS_I_01: Sales per product, whatever happened to the order
+
+Merchandising wants each product's number of orders and their value, over every status, the largest value first.
+
+[source,sql]
+----
+SELECT product_name, SUM(order_count) AS orders, SUM(total_sales) AS sales
+FROM product_orders
+GROUP BY product_name
+ORDER BY sales DESC
+----
+
+[source,jpaql]
+----
+SELECT v.id.productName, SUM(v.orderCount), SUM(v.totalSales)
+FROM ProductOrder v
+GROUP BY v.id.productName
+ORDER BY SUM(v.totalSales) DESC
+----
+
+An order has one status, so adding the counts over the statuses counts each order once.
+
+=== Advanced
+
+// AI: Advanced: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick CO_PRODUCT_ORDERS_A_01: Conditional aggregation with HAVING over view results.
+// AI: Copied from EXERCISES.asciidoc:990, anchor CO_PRODUCT_ORDERS_A_01; retain the permanent ID when revising.
+// AI: Registry: section=PRODUCT_ORDERS; tier=Advanced; sql=src/test/sql-exercises/PRODUCT_ORDERS/03_advanced.sql; test=ProductOrders_Exercises_03_Advanced_PersistenceIT.CO_PRODUCT_ORDERS_A_01_Test.
+[[CO_PRODUCT_ORDERS_A_01]]
+==== CO_PRODUCT_ORDERS_A_01: Products that are often cancelled or refunded
+
+Quality assurance wants the products whose cancelled and refunded orders make up more than `:percent` per cent (say
+5) of all their orders, with both counts.
+
+[source,sql]
+----
+SELECT product_name,
+       SUM(order_count) AS orders,
+       SUM(CASE WHEN order_status IN ('CANCELLED', 'REFUNDED') THEN order_count ELSE 0 END) AS lost_orders,
+       ROUND(100 * SUM(CASE WHEN order_status IN ('CANCELLED', 'REFUNDED') THEN order_count ELSE 0 END)
+                 / SUM(order_count), 1) AS lost_pct
+FROM product_orders
+GROUP BY product_name
+HAVING SUM(CASE WHEN order_status IN ('CANCELLED', 'REFUNDED') THEN order_count ELSE 0 END)
+           * 100 > :percent * SUM(order_count)
+ORDER BY lost_pct DESC, product_name
+----
+
+[source,jpaql]
+----
+SELECT v.id.productName,
+       SUM(v.orderCount),
+       SUM(CASE WHEN v.id.orderStatus IN ('CANCELLED', 'REFUNDED') THEN v.orderCount ELSE 0 END)
+FROM ProductOrder v
+GROUP BY v.id.productName
+HAVING SUM(CASE WHEN v.id.orderStatus IN ('CANCELLED', 'REFUNDED') THEN v.orderCount ELSE 0 END)
+           * 100 > :percent * SUM(v.orderCount)
+ORDER BY v.id.productName
+----
+
+A `CASE` inside `SUM` counts a subset of the rows of a group, which `WHERE` cannot do without losing the total. The 3.2
+grammar gives `SUM` a path argument only; both providers accept the `CASE`. Work out the percentage in Java. The
+comparison is kept in whole numbers: Hibernate types `:percent` after `SUM(v.orderCount)`, a `Long`, and refuses a
+fractional share such as `0.05`.
+
+== PRODUCT_REVIEWS
+
+`+PRODUCT_REVIEWS+` turns the `reviews` array of each product's JSON into rows. `ProductReview` is a plain class, not an
+entity, and is not in the persistence unit, so the problems in this section are SQL only; from Jakarta Persistence, run
+them as native queries. A product with no reviews has one row whose `RATING` and `REVIEW` are null.
+
+=== Basic
+
+// AI: Basic: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: This view is not an entity in the source introduction; keep JSON review analytics out of the core query sequence.
+// AI: Not selected: CO_PRODUCT_REVIEWS_B_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+=== Intermediate
+
+// AI: Intermediate: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: This view is not an entity in the source introduction; keep JSON review analytics out of the core query sequence.
+// AI: Not selected: CO_PRODUCT_REVIEWS_I_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: This view is not an entity in the source introduction; keep JSON review analytics out of the core query sequence.
+// AI: Not selected: CO_PRODUCT_REVIEWS_A_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== SHIPMENTS
+
+=== Basic
+
+// AI: Basic: selected 2 of 2 reviewed candidates in this original scope.
+
+// AI: Pick CO_SHIPMENTS_B_01: Query the converted shipment-status enum rather than its database spelling.
+// AI: Copied from EXERCISES.asciidoc:1093, anchor CO_SHIPMENTS_B_01; retain the permanent ID when revising.
+// AI: Registry: section=SHIPMENTS; tier=Basic; sql=src/test/sql-exercises/SHIPMENTS/01_basic.sql; test=Shipments_Exercises_01_Basic_PersistenceIT.CO_SHIPMENTS_B_01_Test.
+[[CO_SHIPMENTS_B_01]]
+==== CO_SHIPMENTS_B_01: Shipments on the road
+
+Logistics wants every shipment that is currently in transit, with the address it is heading to.
+
+[source,sql]
+----
+SELECT shipment_id, store_id, customer_id, delivery_address
+FROM shipments
+WHERE shipment_status = 'IN-TRANSIT'
+ORDER BY shipment_id
+----
+
+[source,jpaql]
+----
+SELECT s
+FROM Shipment s
+WHERE s.shipmentStatus = :shipmentStatus
+ORDER BY s.shipmentId
+----
+
+Bind `+Shipment.ShipmentStatus.IN_TRANSIT+`. The attribute goes through `ShipmentStatusConverter`, which writes
+`+IN-TRANSIT+`; whether a converter is applied to a literal in a query is not something to rely on, so use a parameter.
+
+// AI: Pick CO_SHIPMENTS_B_02: A parameterized delivery-address search.
+// AI: Copied from EXERCISES.asciidoc:1117, anchor CO_SHIPMENTS_B_02; retain the permanent ID when revising.
+// AI: Registry: section=SHIPMENTS; tier=Basic; sql=src/test/sql-exercises/SHIPMENTS/01_basic.sql; test=Shipments_Exercises_01_Basic_PersistenceIT.CO_SHIPMENTS_B_02_Test.
+[[CO_SHIPMENTS_B_02]]
+==== CO_SHIPMENTS_B_02: Shipments to a town
+
+A courier reports a road closure around one town. Find the shipments whose delivery address mentions it.
+
+[source,sql]
+----
+SELECT shipment_id, delivery_address, shipment_status
+FROM shipments
+WHERE delivery_address LIKE '%' || :town || '%'
+ORDER BY shipment_id
+----
+
+[source,jpaql]
+----
+SELECT s
+FROM Shipment s
+WHERE s.deliveryAddress LIKE :pattern
+ORDER BY s.shipmentId
+----
+
+Bind `+"%" + town + "%"+`, for instance `+%Jobstown%+`.
+
+=== Intermediate
+
+// AI: Intermediate: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick CO_SHIPMENTS_I_01: Group shipments by store and converted status.
+// AI: Copied from EXERCISES.asciidoc:1142, anchor CO_SHIPMENTS_I_01; retain the permanent ID when revising.
+// AI: Registry: section=SHIPMENTS; tier=Intermediate; sql=src/test/sql-exercises/SHIPMENTS/02_intermediate.sql; test=Shipments_Exercises_02_Intermediate_PersistenceIT.CO_SHIPMENTS_I_01_Test.
+[[CO_SHIPMENTS_I_01]]
+==== CO_SHIPMENTS_I_01: Open shipments per store
+
+Logistics wants, per store, the number of shipments in each status other than `DELIVERED`.
+
+[source,sql]
+----
+SELECT store_id, shipment_status, COUNT(*) AS shipments
+FROM shipments
+WHERE shipment_status <> 'DELIVERED'
+GROUP BY store_id, shipment_status
+ORDER BY store_id, shipment_status
+----
+
+[source,jpaql]
+----
+SELECT s.store.storeId, s.shipmentStatus, COUNT(s)
+FROM Shipment s
+WHERE s.shipmentStatus <> :delivered
+GROUP BY s.store.storeId, s.shipmentStatus
+ORDER BY s.store.storeId, s.shipmentStatus
+----
+
+Bind `Shipment.ShipmentStatus.DELIVERED`. The result holds `Shipment.ShipmentStatus` constants, converted back from the
+column; the order is that of the column's text, `CREATED`, `+IN-TRANSIT+`, `SHIPPED`. On the installed data every
+open shipment leaves from store 1, `Online`.
+
+=== Advanced
+
+// AI: Advanced: selected 1 of 1 reviewed candidates in this original scope.
+
+// AI: Pick CO_SHIPMENTS_A_01: A purposeful self-join finds shipment pairs and suppresses reversed pairs.
+// AI: Copied from EXERCISES.asciidoc:1171, anchor CO_SHIPMENTS_A_01; retain the permanent ID when revising.
+// AI: Registry: section=SHIPMENTS; tier=Advanced; sql=src/test/sql-exercises/SHIPMENTS/03_advanced.sql; test=Shipments_Exercises_03_Advanced_PersistenceIT.CO_SHIPMENTS_A_01_Test.
+[[CO_SHIPMENTS_A_01]]
+==== CO_SHIPMENTS_A_01: Shipments that could travel together
+
+Before dispatch, logistics wants to merge shipments that are still `CREATED` and go from the same store to the same
+customer at the same address. List them in pairs.
+
+[source,sql]
+----
+SELECT a.shipment_id, b.shipment_id AS other_shipment_id, a.store_id, a.customer_id, a.delivery_address
+FROM shipments a
+         JOIN shipments b ON b.store_id = a.store_id
+                         AND b.customer_id = a.customer_id
+                         AND b.delivery_address = a.delivery_address
+                         AND b.shipment_id > a.shipment_id
+WHERE a.shipment_status = 'CREATED'
+  AND b.shipment_status = 'CREATED'
+ORDER BY a.shipment_id, b.shipment_id
+----
+
+[source,jpaql]
+----
+SELECT a.shipmentId, b.shipmentId, a.store.storeId, a.customer.customerId, a.deliveryAddress
+FROM Shipment a
+         JOIN Shipment b ON b.store = a.store
+                        AND b.customer = a.customer
+                        AND b.deliveryAddress = a.deliveryAddress
+                        AND b.shipmentId > a.shipmentId
+WHERE a.shipmentStatus = :created
+  AND b.shipmentStatus = :created
+ORDER BY a.shipmentId, b.shipmentId
+----
+
+Bind `Shipment.ShipmentStatus.CREATED`. A self-join with `+b.shipment_id > a.shipment_id+` lists each pair once; three
+mergeable shipments give three pairs. `+GROUP BY store_id, customer_id, delivery_address HAVING COUNT(*) > 1+` lists the
+groups instead.
+
+== STORES
+
+=== Basic
+
+// AI: Basic: selected 1 of 2 reviewed candidates in this original scope.
+// AI: Selection boundary: Generated slugs, arbitrary short codes, and spherical-distance formulae distract from entity mapping.
+// AI: Not selected: CO_STORES_B_02.
+
+// AI: Pick CO_STORES_B_01: COALESCE chooses the available contact address.
+// AI: Copied from EXERCISES.asciidoc:1211, anchor CO_STORES_B_01; retain the permanent ID when revising.
+// AI: Registry: section=STORES; tier=Basic; sql=src/test/sql-exercises/STORES/01_basic.sql; test=Stores_Exercises_01_Basic_PersistenceIT.CO_STORES_B_01_Test.
+[[CO_STORES_B_01]]
+==== CO_STORES_B_01: One contact line per store
+
+Customer service wants a store list with a single address for each: the web address of the online store, and the
+postal address of every other one.
+
+[source,sql]
+----
+SELECT store_name, COALESCE(web_address, physical_address) AS address
+FROM stores
+ORDER BY store_name
+----
+
+[source,jpaql]
+----
+SELECT s.storeName, COALESCE(s.webAddress, s.physicalAddress)
+FROM Store s
+ORDER BY s.storeName
+----
+
+A check constraint guarantees that at least one of the two addresses is present, so the result is never null.
+
+=== Intermediate
+
+// AI: Intermediate: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: Generated slugs, arbitrary short codes, and spherical-distance formulae distract from entity mapping.
+// AI: Not selected: CO_STORES_I_01.
+// AI: Deferred CO_STORES_I_01: source SQL/JPQL synchronization is explicitly unfinished.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: Generated slugs, arbitrary short codes, and spherical-distance formulae distract from entity mapping.
+// AI: Not selected: CO_STORES_A_01.
+// AI: Deferred CO_STORES_A_01: source SQL/JPQL synchronization is explicitly unfinished.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== STORE_ORDERS
+
+`+STORE_ORDERS+` aggregates the orders with `GROUPING SETS`. `TOTAL` tells the rows apart: it is null on a row per store
+and status, `STORE TOTAL` on a row per store, `STATUS TOTAL` on a row per status, and `GRAND TOTAL` on the one row for
+the chain. `StoreOrder` is a plain class, not an entity, and is not in the persistence unit, so the problems in this
+section are SQL only; from Jakarta Persistence, run them as native queries.
+
+=== Basic
+
+// AI: Basic: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: This view is not an entity in the source introduction; subtotal-marker analytics are not a core entity exercise.
+// AI: Not selected: CO_STORE_ORDERS_B_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+=== Intermediate
+
+// AI: Intermediate: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: This view is not an entity in the source introduction; subtotal-marker analytics are not a core entity exercise.
+// AI: Not selected: CO_STORE_ORDERS_I_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+=== Advanced
+
+// AI: Advanced: selected 0 of 1 reviewed candidates in this original scope.
+// AI: Selection boundary: This view is not an entity in the source introduction; subtotal-marker analytics are not a core entity exercise.
+// AI: Not selected: CO_STORE_ORDERS_A_01.
+// AI: No pick: the available exercises add peripheral SQL, fragile assumptions, audits, or repeat lessons selected elsewhere.
+
+== Whole schema
+
+Problems that join, or subquery, more than one table or view.
+
+=== Basic
+
+// AI: Basic: selected 3 of 4 reviewed candidates in this original scope.
+// AI: Not selected: CO_SCHEMA_B_04.
+
+// AI: Pick CO_SCHEMA_B_01: Navigate order, customer, and store associations.
+// AI: Copied from EXERCISES.asciidoc:1409, anchor CO_SCHEMA_B_01; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.CO_SCHEMA_B_01_Test.
+[[CO_SCHEMA_B_01]]
+==== CO_SCHEMA_B_01: Who placed an order, and where
+
+Customer care has an order number. Show the order with the customer's name and email address and the store it was
+placed at.
+
+[source,sql]
+----
+SELECT o.order_id, o.order_tms, o.order_status, c.full_name, c.email_address, s.store_name
+FROM orders o
+         JOIN customers c ON c.customer_id = o.customer_id
+         JOIN stores s ON s.store_id = o.store_id
+WHERE o.order_id = :orderId
+----
+
+[source,jpaql]
+----
+SELECT o.orderId, o.orderTms, o.orderStatus, c.fullName, c.emailAddress, s.storeName
+FROM Order o
+         JOIN o.customer c
+         JOIN o.store s
+WHERE o.orderId = :orderId
+----
+
+Selecting fields rather than the `Store` keeps its `logo` LOB out of the query.
+
+// AI: Pick CO_SCHEMA_B_02: Traverse the embedded-id order line to its product and calculate a line total.
+// AI: Copied from EXERCISES.asciidoc:1435, anchor CO_SCHEMA_B_02; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.CO_SCHEMA_B_02_Test.
+[[CO_SCHEMA_B_02]]
+==== CO_SCHEMA_B_02: Print a receipt
+
+A customer asks for a receipt. List the lines of one order: line number, product, unit price, quantity and line
+total.
+
+[source,sql]
+----
+SELECT oi.line_item_id, p.product_name, oi.unit_price, oi.quantity,
+       oi.unit_price * oi.quantity AS line_total
+FROM order_items oi
+         JOIN products p ON p.product_id = oi.product_id
+WHERE oi.order_id = :orderId
+ORDER BY oi.line_item_id
+----
+
+[source,jpaql]
+----
+SELECT oi.id.lineItemId, p.productName, oi.unitPrice, oi.quantity, oi.unitPrice * oi.quantity
+FROM OrderItem oi
+         JOIN oi.product p
+WHERE oi.id.orderId = :orderId
+ORDER BY oi.id.lineItemId
+----
+
+`+@EmbeddedId+` puts the key columns under `oi.id`. `hr`'s `JobHistory`, mapped with an `+@IdClass+`, has them on the
+entity itself.
+
+// AI: Pick CO_SCHEMA_B_03: Use inventory associations to present low stock with store and product names.
+// AI: Copied from EXERCISES.asciidoc:1463, anchor CO_SCHEMA_B_03; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Basic; sql=src/test/sql-exercises/__/01_basic.sql; test=___Exercises_01_Basic_PersistenceIT.CO_SCHEMA_B_03_Test.
+[[CO_SCHEMA_B_03]]
+==== CO_SCHEMA_B_03: Running low
+
+The warehouse wants every store and product whose stock is below `:threshold`, the emptiest shelves first.
+
+[source,sql]
+----
+SELECT s.store_name, p.product_name, i.product_inventory
+FROM inventory i
+         JOIN stores s ON s.store_id = i.store_id
+         JOIN products p ON p.product_id = i.product_id
+WHERE i.product_inventory < :threshold
+ORDER BY i.product_inventory, s.store_name, p.product_name
+----
+
+[source,jpaql]
+----
+SELECT s.storeName, p.productName, i.productInventory
+FROM Inventory i
+         JOIN i.store s
+         JOIN i.product p
+WHERE i.productInventory < :threshold
+ORDER BY i.productInventory, s.storeName, p.productName
+----
+
+=== Intermediate
+
+// AI: Intermediate: selected 3 of 9 reviewed candidates in this original scope.
+// AI: Not selected: CO_SCHEMA_I_01, CO_SCHEMA_I_04, CO_SCHEMA_I_05, CO_SCHEMA_I_07, CO_SCHEMA_I_08, CO_SCHEMA_I_09.
+// AI: Deferred CO_SCHEMA_I_08: source SQL/JPQL synchronization is explicitly unfinished.
+
+// AI: Pick CO_SCHEMA_I_02: A multi-entity revenue query with an enum predicate and HAVING.
+// AI: Copied from EXERCISES.asciidoc:1544, anchor CO_SCHEMA_I_02; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.CO_SCHEMA_I_02_Test.
+[[CO_SCHEMA_I_02]]
+==== CO_SCHEMA_I_02: Stores that pass a revenue target
+
+Finance wants the revenue of completed orders per store, keeping only the stores above a target, best first.
+
+[source,sql]
+----
+SELECT s.store_id, s.store_name, SUM(oi.unit_price * oi.quantity) AS revenue
+FROM stores s
+         JOIN orders o ON o.store_id = s.store_id
+         JOIN order_items oi ON oi.order_id = o.order_id
+WHERE o.order_status = 'COMPLETE'
+GROUP BY s.store_id, s.store_name
+HAVING SUM(oi.unit_price * oi.quantity) > :target
+ORDER BY revenue DESC
+----
+
+[source,jpaql]
+----
+SELECT s.storeId, s.storeName, SUM(oi.unitPrice * oi.quantity) AS revenue
+FROM OrderItem oi
+         JOIN oi.order o
+         JOIN o.store s
+WHERE o.orderStatus = :status
+GROUP BY s.storeId, s.storeName
+HAVING SUM(oi.unitPrice * oi.quantity) > :target
+ORDER BY revenue DESC
+----
+
+Bind `Order.OrderStatus.COMPLETE`. A result variable (`revenue`) may be used in `ORDER BY`, but not in `HAVING`.
+
+// AI: Pick CO_SCHEMA_I_03: A best-seller query demonstrates aggregate ordering and result limits.
+// AI: Copied from EXERCISES.asciidoc:1575, anchor CO_SCHEMA_I_03; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.CO_SCHEMA_I_03_Test.
+[[CO_SCHEMA_I_03]]
+==== CO_SCHEMA_I_03: Best sellers
+
+Merchandising wants the ten products that sold the most units, counting completed orders only.
+
+[source,sql]
+----
+SELECT p.product_id, p.product_name, SUM(oi.quantity) AS units_sold
+FROM products p
+         JOIN order_items oi ON oi.product_id = p.product_id
+         JOIN orders o ON o.order_id = oi.order_id
+WHERE o.order_status = 'COMPLETE'
+GROUP BY p.product_id, p.product_name
+ORDER BY units_sold DESC, p.product_name
+FETCH FIRST 10 ROWS ONLY
+----
+
+[source,jpaql]
+----
+SELECT p.productId, p.productName, SUM(oi.quantity) AS unitsSold
+FROM OrderItem oi
+         JOIN oi.product p
+         JOIN oi.order o
+WHERE o.orderStatus = :status
+GROUP BY p.productId, p.productName
+ORDER BY unitsSold DESC, p.productName
+----
+
+JPQL has no row-limiting clause; call `setMaxResults(10)` on the query. Ties at the tenth place are cut arbitrarily in
+both.
+
+// AI: Pick CO_SCHEMA_I_06: An outer join and COALESCE retain products with no stock rows.
+// AI: Copied from EXERCISES.asciidoc:1663, anchor CO_SCHEMA_I_06; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Intermediate; sql=src/test/sql-exercises/__/02_intermediate.sql; test=___Exercises_02_Intermediate_PersistenceIT.CO_SCHEMA_I_06_Test.
+[[CO_SCHEMA_I_06]]
+==== CO_SCHEMA_I_06: Out of stock everywhere
+
+Purchasing wants the products that cannot be bought anywhere: the total stock across all stores is zero, or no store
+carries them at all.
+
+[source,sql]
+----
+SELECT p.product_id, p.product_name, COALESCE(SUM(i.product_inventory), 0) AS total_stock
+FROM products p
+         LEFT JOIN inventory i ON i.product_id = p.product_id
+GROUP BY p.product_id, p.product_name
+HAVING COALESCE(SUM(i.product_inventory), 0) = 0
+ORDER BY p.product_name
+----
+
+[source,jpaql]
+----
+SELECT p.productId, p.productName, COALESCE(SUM(i.productInventory), 0)
+FROM Product p
+         LEFT JOIN p.inventories i
+GROUP BY p.productId, p.productName
+HAVING COALESCE(SUM(i.productInventory), 0) = 0
+ORDER BY p.productName
+----
+
+The outer join keeps the products with no `INVENTORY` row; `SUM` over nothing is null, hence the `COALESCE`.
+
+=== Advanced
+
+// AI: Advanced: selected 3 of 18 reviewed candidates in this original scope.
+// AI: Not selected: CO_SCHEMA_A_02, CO_SCHEMA_A_03, CO_SCHEMA_A_04, CO_SCHEMA_A_05, CO_SCHEMA_A_06, CO_SCHEMA_A_07, CO_SCHEMA_A_08, CO_SCHEMA_A_10, CO_SCHEMA_A_11, CO_SCHEMA_A_13, CO_SCHEMA_A_14, CO_SCHEMA_A_15, CO_SCHEMA_A_16, CO_SCHEMA_A_17, CO_SCHEMA_A_18.
+// AI: Deferred CO_SCHEMA_A_05: source SQL/JPQL synchronization is explicitly unfinished.
+// AI: Deferred CO_SCHEMA_A_11: source SQL/JPQL synchronization is explicitly unfinished.
+// AI: Deferred CO_SCHEMA_A_13: source SQL/JPQL synchronization is explicitly unfinished.
+
+// AI: Pick CO_SCHEMA_A_01: A business-facing NOT EXISTS query over customers and orders.
+// AI: Copied from EXERCISES.asciidoc:1775, anchor CO_SCHEMA_A_01; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_01_Test.
+[[CO_SCHEMA_A_01]]
+==== CO_SCHEMA_A_01: Customers who never ordered
+
+Marketing wants to send a first-purchase voucher to every registered customer who has never placed an order.
+
+[source,sql]
+----
+SELECT c.customer_id, c.full_name, c.email_address
+FROM customers c
+WHERE NOT EXISTS (SELECT 1 FROM orders o WHERE o.customer_id = c.customer_id)
+ORDER BY c.full_name
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE NOT EXISTS (SELECT o FROM Order o WHERE o.customer = c)
+ORDER BY c.fullName
+----
+
+[source,jpaql]
+----
+SELECT c
+FROM Customer c
+WHERE c.orders IS EMPTY
+ORDER BY c.fullName
+----
+
+`IS EMPTY` reads the inverse side, `Customer.orders`, and providers translate it to the same `NOT EXISTS`.
+
+// AI: Pick CO_SCHEMA_A_09: ANY introduces a quantified subquery over order lines.
+// AI: Copied from EXERCISES.asciidoc:2079, anchor CO_SCHEMA_A_09; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_09_Test.
+[[CO_SCHEMA_A_09]]
+==== CO_SCHEMA_A_09: Orders with a premium line
+
+Finance wants the orders containing at least one line charged above `:price` per unit.
+
+[source,sql]
+----
+SELECT o.order_id, o.order_tms
+FROM orders o
+WHERE :price < ANY (SELECT oi.unit_price FROM order_items oi WHERE oi.order_id = o.order_id)
+ORDER BY o.order_id
+----
+
+[source,jpaql]
+----
+SELECT o
+FROM Order o
+WHERE :price < ANY (SELECT oi.unitPrice FROM OrderItem oi WHERE oi.order = o)
+ORDER BY o.orderId
+----
+
+[source,sql]
+----
+SELECT p.product_id, p.product_name, p.unit_price
+FROM products p
+WHERE p.unit_price > ALL (SELECT oi.unit_price FROM order_items oi WHERE oi.product_id = p.product_id)
+  AND EXISTS (SELECT 1 FROM order_items oi WHERE oi.product_id = p.product_id)
+ORDER BY p.product_name
+----
+
+[source,jpaql]
+----
+SELECT p
+FROM Product p
+WHERE p.unitPrice > ALL (SELECT oi.unitPrice FROM OrderItem oi WHERE oi.product = p)
+  AND p.orderItems IS NOT EMPTY
+ORDER BY p.productName
+----
+
+`+> ALL+` over an empty subquery is true, which is why products never sold are excluded explicitly.
+
+// AI: Pick CO_SCHEMA_A_12: Fetch associated lines and products together to address N+1 queries.
+// AI: Copied from EXERCISES.asciidoc:2202, anchor CO_SCHEMA_A_12; retain the permanent ID when revising.
+// AI: Registry: section=SCHEMA; tier=Advanced; sql=src/test/sql-exercises/__/03_advanced.sql; test=___Exercises_03_Advanced_PersistenceIT.CO_SCHEMA_A_12_Test.
+[[CO_SCHEMA_A_12]]
+==== CO_SCHEMA_A_12: Packing slips in one round trip
+
+The warehouse prints a packing slip for each shipment: the lines it carries and each line's product. Loading the items
+and then each product lazily costs one query per line; load them together.
+
+[source,sql]
+----
+SELECT oi.order_id, oi.line_item_id, p.product_name, oi.quantity, sh.delivery_address
+FROM shipments sh
+         JOIN order_items oi ON oi.shipment_id = sh.shipment_id
+         JOIN products p ON p.product_id = oi.product_id
+WHERE sh.shipment_id = :shipmentId
+ORDER BY oi.order_id, oi.line_item_id
+----
+
+[source,jpaql]
+----
+SELECT oi
+FROM OrderItem oi
+         JOIN FETCH oi.product
+         JOIN FETCH oi.shipment
+WHERE oi.shipment.shipmentId = :shipmentId
+ORDER BY oi.id.orderId, oi.id.lineItemId
+----
+
+[source,jpaql]
+----
+SELECT o
+FROM Order o
+         JOIN FETCH o.customer
+         JOIN FETCH o.store
+WHERE o.orderId = :orderId
+----
+
+A fetch join takes no identification variable in the specification, so a chain such as shipment → items → product is
+written from the many side, as above; going the other way needs an entity graph (`jakarta.persistence.fetchgraph`).
+
+== References
+
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a4665[Jakarta Persistence 3.2, chapter 4: Query Language]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#set-operators-in-select-statements[4.2.1.1. Set Operators in Select Statements]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a4931[4.4.5.3. Fetch Joins]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#like-expressions[4.6.6. Like Expressions]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a5139[4.6.8. Empty Collection Comparison Expressions]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#exists-expressions[4.6.10. Exists Expressions]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#all-or-any-expressions[4.6.11. All or Any Expressions]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#literals[4.7.1. Literals]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#string-concatenation-operator[4.7.6. String concatenation operator]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#built-in-string-arithmetic-and-datetime-functional-expressions[4.7.7. Built-in String, Arithmetic, and Datetime Functional Expressions]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#typecasts[4.7.8. Typecasts]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#case-expressions[4.7.10. Case Expressions]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a5410[4.8. GROUP BY, HAVING]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#a5587[4.10. ORDER BY Clause]
+* https://jakarta.ee/specifications/persistence/3.2/jakarta-persistence-spec-3.2#bnf[4.12. BNF]
+* https://github.com/oracle-samples/db-sample-schemas/tree/main/customer_orders[Oracle Database Sample Schemas: Customer Orders]
+
