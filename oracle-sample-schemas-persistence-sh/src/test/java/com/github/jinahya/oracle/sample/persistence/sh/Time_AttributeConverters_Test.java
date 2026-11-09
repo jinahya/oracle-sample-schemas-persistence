@@ -20,7 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.persistence.more.converter.javatime.__TemporalAccessorStringAttributeConverters;
+import com.github.jinahya.persistence.more.converter.javatime.YearMonthConverter;
 import com.github.jinahya.persistence.more.converter.javatime.__TemporalAccessorTextStringAttributeConverters;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -135,8 +135,8 @@ class Time_AttributeConverters_Test {
     @Nested
     class OfYearMonth_Test {
 
-        private final __TemporalAccessorStringAttributeConverters.OfYearMonth converter =
-                new __TemporalAccessorStringAttributeConverters.OfYearMonth();
+        private final YearMonthConverter.OfString converter =
+                new YearMonthConverter.OfString();
 
         @Test
         void convertToDatabaseColumn_Null_Null() {

@@ -54,9 +54,9 @@ typed by an XML schema (see <<xml-schemas>>).
 
 | link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2`]
 | `ShipmentStatus`
-| `@Convert(ShipmentStatusConverter)`
+| `@Enumerated(STRING)`
 | 1
-| A nested `@Converter` of `MappedShipment`; see <<enums>>.
+| An enum nested in `MappedShipment`; see <<enums>>.
 | `CO.SHIPMENTS.SHIPMENT_STATUS`
 
 | link:{data-types}#GUID-0DC7FFAA-F03F-4448-8487-F2592496A510[`VARCHAR2`]
@@ -261,14 +261,12 @@ Each value is a Java identifier, so `@Enumerated` reads the constant's name.
 
 | `CO.SHIPMENTS.SHIPMENT_STATUS`
 | `MappedShipment.ShipmentStatus`
-| `@Convert(converter = ShipmentStatusConverter.class)`
+| `@Enumerated(EnumType.STRING)`
 | `VARCHAR2(100 CHAR)`; `shipment_status_c` allows `CREATED`, `SHIPPED`, `IN-TRANSIT` and `DELIVERED`.
-`IN-TRANSIT` is not a Java identifier, so no constant can be named after it, and `@Enumerated` cannot read it.
-The enum is an `AttributeEnum.OfString` whose attribute value is its `COLUMN_VALUE_SHIPMENT_STATUS_*` constant
-(`IN_TRANSIT` is `IN-TRANSIT`), and the converter, nested in `MappedShipment`, an
-`AttributeEnumConverter.OfString`, of `jinahya-persistence-more`.
-The converter redeclares `implements AttributeConverter<ShipmentStatus, String>`: EclipseLink 5.0 otherwise drops
-the `@Convert` without a word; see `PERSISTENCE_PROVIDERS.asciidoc` of the book's repository.
+`IN-TRANSIT` is not a Java identifier, so no constant can be named after it. Each constant carries its
+`COLUMN_VALUE_SHIPMENT_STATUS_*` constant in an `@EnumeratedValue` `String` field, `columnValue` (`IN_TRANSIT` is
+`IN-TRANSIT`). The specification infers `STRING` from that field without `@Enumerated`; Hibernate ORM 7 does not
+(HHH-20410), so `@Enumerated(EnumType.STRING)` is stated. No converter.
 
 | `CO.CUSTOMER_ORDER_PRODUCTS.ORDER_STATUS`, `CO.PRODUCT_ORDERS.ORDER_STATUS`, `CO.STORE_ORDERS.ORDER_STATUS`
 | `String`
@@ -279,9 +277,8 @@ hold `NULL`, which an enum attribute reads as `null`.
 
 |===
 
-`ShipmentStatus`'s `Shipment_ShipmentStatus_Test` and its converter's `Shipment_ShipmentStatusConverter_Test` are
-`jinahya-persistence-more-test`'s `AttributeEnum_Test.OfStringTest` and `AttributeEnumConverter_Test.OfStringTest`;
-the first also pins the column values to the text of `shipment_status_c`.
+`ShipmentStatus`'s `Shipment_ShipmentStatus_Test` pins the column values to the text of `shipment_status_c`, and
+checks that `valueOfColumnValue` finds each constant and rejects the near misses.
 
 [[converters]]
 == Converters

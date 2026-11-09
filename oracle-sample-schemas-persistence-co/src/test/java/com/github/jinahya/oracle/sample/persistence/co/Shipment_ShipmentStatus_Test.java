@@ -22,41 +22,66 @@ package com.github.jinahya.oracle.sample.persistence.co;
 
 import com.github.jinahya.oracle.sample.persistence.co.mapped.MappedShipment;
 import com.github.jinahya.oracle.sample.persistence.co.mapped.MappedShipment.ShipmentStatus;
-import com.github.jinahya.persistence.more.test.AttributeEnum_Test;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Tests {@link ShipmentStatus}, the enum of the {@value MappedShipment#COLUMN_NAME_SHIPMENT_STATUS}
- * column, on the base of {@code jinahya-persistence-more-test}, which checks that no constant has a
- * {@code null} column value and that no two share one.
+ * column.
  */
-class Shipment_ShipmentStatus_Test
-        extends AttributeEnum_Test.OfStringTest<ShipmentStatus> {
-
-    Shipment_ShipmentStatus_Test() {
-        super(ShipmentStatus.class);
-    }
+class Shipment_ShipmentStatus_Test {
 
     /**
      * Verifies that the column values are the constraint's own text.
      */
     @Test
-    void attributeValue_ConstraintText_Each() {
-        assertThat(ShipmentStatus.CREATED.attributeValue()).isEqualTo("CREATED");
-        assertThat(ShipmentStatus.SHIPPED.attributeValue()).isEqualTo("SHIPPED");
-        assertThat(ShipmentStatus.IN_TRANSIT.attributeValue()).isEqualTo("IN-TRANSIT");
-        assertThat(ShipmentStatus.DELIVERED.attributeValue()).isEqualTo("DELIVERED");
+    void columnValue_ConstraintText_Each() {
+        assertThat(ShipmentStatus.CREATED.columnValue()).isEqualTo("CREATED");
+        assertThat(ShipmentStatus.SHIPPED.columnValue()).isEqualTo("SHIPPED");
+        assertThat(ShipmentStatus.IN_TRANSIT.columnValue()).isEqualTo("IN-TRANSIT");
+        assertThat(ShipmentStatus.DELIVERED.columnValue()).isEqualTo("DELIVERED");
     }
 
     /**
      * Verifies that {@link ShipmentStatus#IN_TRANSIT}'s column value is not its name, which is why
-     * the enum is mapped with a converter rather than {@code @Enumerated(EnumType.STRING)}.
+     * each constant carries its column value as an {@code @EnumeratedValue}.
      */
     @Test
-    void attributeValue_NotName_InTransit() {
-        assertThat(ShipmentStatus.IN_TRANSIT.attributeValue())
+    void columnValue_NotName_InTransit() {
+        assertThat(ShipmentStatus.IN_TRANSIT.columnValue())
                 .isNotEqualTo(ShipmentStatus.IN_TRANSIT.name());
+    }
+
+    /**
+     * Verifies that no two constants share a column value.
+     */
+    @Test
+    void columnValue_Distinct_Constants() {
+        assertThat(Arrays.stream(ShipmentStatus.values()).map(ShipmentStatus::columnValue))
+                .doesNotHaveDuplicates();
+    }
+
+    @ParameterizedTest
+    @EnumSource(ShipmentStatus.class)
+    void valueOfColumnValue_Same_ColumnValue(final ShipmentStatus constant) {
+        assertThat(ShipmentStatus.valueOfColumnValue(constant.columnValue())).isSameAs(constant);
+    }
+
+    /**
+     * Verifies that the near misses of this column are rejected: the constant's name for a value
+     * which is not it, another case, and an empty text.
+     */
+    @ParameterizedTest
+    @ValueSource(strings = {"IN_TRANSIT", "in-transit", "Delivered", ""})
+    void valueOfColumnValue_IllegalArgumentException_Unknown(final String columnValue) {
+        assertThatThrownBy(() -> ShipmentStatus.valueOfColumnValue(columnValue))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }

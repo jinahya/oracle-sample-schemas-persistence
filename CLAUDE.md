@@ -23,26 +23,22 @@ rules follow from that:
 
 - The dependencies run root -> `common` -> `co` / `hr` / `sh`. `common` depends on
   `jinahya-persistence-more` and `-utils` at `compile` scope, and the three schema modules take
-  both from it, at `compile`, without declaring them; a mapped superclass may use them (`co`'s
-  `MappedShipment.ShipmentStatus` is an `AttributeEnum.OfString`, its converter an
-  `AttributeEnumConverter.OfString`), and a schema module whose main code does so
-  `requires transitive com.github.jinahya.persistence.more`. No other persistence helper library
+  both from it, at `compile`, without declaring them; a mapped superclass may use them, and a
+  schema module whose main code does so `requires transitive com.github.jinahya.persistence.more`
+  (none does now). No other persistence helper library
   is a main dependency; everything else the entities need comes from `jakarta.persistence`,
   `jakarta.validation` and `jakarta.annotation`. The root `<dependencyManagement>` manages the
   versions of `jinahya-persistence-more`, `-utils`, `-test-utils` and `-more-test` (`version.jinahya-persistence`),
   and no module declares a version of its own; `-test-utils` is a `test` dependency of the three
   schema modules only, as is `-more-test`.
 - An enum attribute whose column values are all Java identifiers uses
-  `@Enumerated(EnumType.STRING)`; one with a value which is not (`co`'s `IN-TRANSIT`) implements
-  `AttributeEnum.OfString`, each constant passing its column value, and is mapped with a nested
-  `AttributeEnumConverter.OfString`, as the sibling `postgresql-demodb-persistence`'s
-  `MappedFlight.FlightStatus` is. The converter also redeclares
-  `implements AttributeConverter<E, String>`: EclipseLink 5.0 reads the type arguments only from
-  an interface the converter class itself declares, and otherwise drops the `@Convert` without a
-  word. Its test extends `jinahya-persistence-more-test`'s
-  `AttributeEnumConverter_Test.OfStringTest`, which checks the enum and the converter, and adds
-  what is particular to the column (`co`'s `Shipment_ShipmentStatusConverter_Test`); the enum's own
-  test extends `AttributeEnum_Test.OfStringTest` (`Shipment_ShipmentStatus_Test`).
+  `@Enumerated(EnumType.STRING)`; one with a value which is not (`co`'s `IN-TRANSIT`) is a plain
+  enum whose constants carry their column values in an `@EnumeratedValue` `String` field,
+  `columnValue`, with `valueOfColumnValue(String)` for the reverse, as the sibling
+  `mysql-sakila-persistence`'s `Film.Rating` is, and is mapped with `@Enumerated(EnumType.STRING)`
+  all the same: the specification infers `STRING` from the field, Hibernate ORM 7 does not
+  (HHH-20410). No `AttributeEnum`, and no converter. The enum's test checks its column values
+  (`co`'s `Shipment_ShipmentStatus_Test`).
 - **Main holds mapped superclasses; the entities are test code.** As in the sibling
   `postgresql-demodb-persistence`, each module's main sources are the package
   `<schema>.mapped` alone: one `@MappedSuperclass` `Mapped<Entity>` per table and view, one

@@ -20,7 +20,7 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
-import com.github.jinahya.persistence.more.converter.javatime.__TemporalAccessorStringAttributeConverters;
+import com.github.jinahya.persistence.more.converter.javatime.YearMonthConverter;
 import com.github.jinahya.persistence.more.converter.javatime.__TemporalAccessorTextStringAttributeConverters;
 
 import java.time.DayOfWeek;
@@ -48,8 +48,8 @@ public final class TimeUtils {
     private static final __TemporalAccessorTextStringAttributeConverters.OfMonth MONTH_NAME =
             new __TemporalAccessorTextStringAttributeConverters.OfMonth();
 
-    private static final __TemporalAccessorStringAttributeConverters.OfYearMonth MONTH_DESC =
-            new __TemporalAccessorStringAttributeConverters.OfYearMonth();
+    private static final YearMonthConverter.OfString MONTH_DESC =
+            new YearMonthConverter.OfString();
 
     // ------------------------------------------------------------------------------------- dayName
 
@@ -197,7 +197,7 @@ public final class TimeUtils {
      * @param yearMonth the year-month; {@code null} sets the
      *                  {@value Time#ATTRIBUTE_NAME_CALENDAR_MONTH_DESC} attribute to {@code null}.
      * @throws NullPointerException if {@code time} is {@code null}.
-     * @see __TemporalAccessorStringAttributeConverters.OfYearMonth
+     * @see YearMonthConverter.OfString
      * @see #getCalendarMonthDescAsYearMonth(Time)
      */
     public static void setCalendarMonthDescFromYearMonth(final Time time,
@@ -276,7 +276,7 @@ public final class TimeUtils {
      * @param yearMonth the year-month; {@code null} sets the
      *                  {@value Time#ATTRIBUTE_NAME_FISCAL_MONTH_DESC} attribute to {@code null}.
      * @throws NullPointerException if {@code time} is {@code null}.
-     * @see __TemporalAccessorStringAttributeConverters.OfYearMonth
+     * @see YearMonthConverter.OfString
      * @see #getFiscalMonthDescAsYearMonth(Time)
      */
     public static void setFiscalMonthDescFromYearMonth(final Time time, final YearMonth yearMonth) {

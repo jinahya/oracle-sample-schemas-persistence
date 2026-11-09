@@ -25,8 +25,9 @@ A few things about the mappings shape the JPQL below:
 * `+ORDERS.ORDER_STATUS+` is `MappedOrder.OrderStatus`, mapped `+@Enumerated(EnumType.STRING)+`. Compare it with an
   enum parameter or a fully qualified enum literal, never with a string. The literal names the class that declares the
   enum, `+com.github.jinahya.oracle.sample.persistence.co.mapped.MappedOrder.OrderStatus+`, not `Order`.
-* `+SHIPMENTS.SHIPMENT_STATUS+` is `MappedShipment.ShipmentStatus`, mapped through `ShipmentStatusConverter`, because the
-  column holds `+IN-TRANSIT+` and the constant is `+IN_TRANSIT+`. Bind the enum as a parameter.
+* `+SHIPMENTS.SHIPMENT_STATUS+` is `MappedShipment.ShipmentStatus`, whose constants carry their column values as
+  `@EnumeratedValue` strings, because the column holds `+IN-TRANSIT+` and the constant is `+IN_TRANSIT+`. Bind the
+  enum as a parameter.
 * `Order.orderItems` is a `+Map<Product, OrderItem>+` keyed by each item's product,
   `+@MapKey(name = OrderItem.ATTRIBUTE_NAME_PRODUCT)+`. The queries below start from `OrderItem` and navigate
   `oi.order`, or join it to an order with a Jakarta Persistence 3.2 entity join, `+JOIN OrderItem oi ON oi.order = o+`.
@@ -1111,8 +1112,8 @@ WHERE s.shipmentStatus = :shipmentStatus
 ORDER BY s.shipmentId
 ----
 
-Bind `+Shipment.ShipmentStatus.IN_TRANSIT+`. The attribute goes through `ShipmentStatusConverter`, which writes
-`+IN-TRANSIT+`; whether a converter is applied to a literal in a query is not something to rely on, so use a parameter.
+Bind `+Shipment.ShipmentStatus.IN_TRANSIT+`. The attribute is written as its `@EnumeratedValue`, `+IN-TRANSIT+`;
+a literal in a query would name the constant, not the column value, so use a parameter.
 
 [[CO_SHIPMENTS_B_02]]
 ==== CO_SHIPMENTS_B_02: Shipments to a town
