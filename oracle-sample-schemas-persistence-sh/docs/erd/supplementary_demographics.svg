@@ -5,20 +5,20 @@
  -->
 <!-- Title: erd Pages: 1 -->
 <!-- sh.supplementary_demographics: the table, the tables it references and the tables referencing it -->
-<svg width="165pt" height="65pt"
- viewBox="0.00 0.00 165.00 65.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(7.2 58.2)">
+<svg width="142pt" height="56pt"
+ viewBox="0.00 0.00 142.00 56.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(7.2 48.7)">
 <title>erd</title>
 <!-- supplementary_demographics -->
 <g id="node1" class="node">
 <title>supplementary_demographics</title>
-<polygon fill="#1f4e79" stroke="none" points="0,-25.5 0,-51 150.75,-51 150.75,-25.5 0,-25.5"/>
-<polygon fill="none" stroke="#000000" points="0,-25.5 0,-51 150.75,-51 150.75,-25.5 0,-25.5"/>
-<text xml:space="preserve" text-anchor="start" x="6" y="-37.45" font-family="Noto Sans KR" font-weight="bold" font-size="9.00" fill="#ffffff">supplementary_demographics</text>
-<polygon fill="none" stroke="#000000" points="0,0 0,-25.5 84.38,-25.5 84.38,0 0,0"/>
-<text xml:space="preserve" text-anchor="start" x="6" y="-11.95" font-family="Noto Sans KR" text-decoration="underline" font-size="9.00">cust_id</text>
-<polygon fill="none" stroke="#000000" points="84.38,0 84.38,-25.5 150.75,-25.5 150.75,0 84.38,0"/>
-<text xml:space="preserve" text-anchor="start" x="90.38" y="-9" font-family="Noto Sans KR" font-size="9.00" fill="#555555">PK</text>
+<polygon fill="#1f4e79" stroke="none" points="0,-20.75 0,-41.5 127.25,-41.5 127.25,-20.75 0,-20.75"/>
+<polygon fill="none" stroke="#000000" points="0,-20.75 0,-41.5 127.25,-41.5 127.25,-20.75 0,-20.75"/>
+<text xml:space="preserve" text-anchor="start" x="4" y="-30.9" font-family="Noto Sans KR" font-weight="bold" font-size="8.00" fill="#ffffff">supplementary_demographics</text>
+<polygon fill="none" stroke="#000000" points="0,0 0,-20.75 71.88,-20.75 71.88,0 0,0"/>
+<text xml:space="preserve" text-anchor="start" x="4" y="-10.15" font-family="Noto Sans KR" text-decoration="underline" font-size="8.00">cust_id</text>
+<polygon fill="none" stroke="#000000" points="71.88,0 71.88,-20.75 127.25,-20.75 127.25,0 71.88,0"/>
+<text xml:space="preserve" text-anchor="start" x="75.88" y="-7" font-family="Noto Sans KR" font-size="8.00" fill="#555555">PK</text>
 </g>
 </g>
 </svg>

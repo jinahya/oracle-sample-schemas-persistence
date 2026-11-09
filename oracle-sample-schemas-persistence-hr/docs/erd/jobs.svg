@@ -5,88 +5,88 @@
  -->
 <!-- Title: erd Pages: 1 -->
 <!-- hr.jobs: the table, the tables it references and the tables referencing it -->
-<svg width="232pt" height="299pt"
- viewBox="0.00 0.00 232.00 299.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(7.2 291.7)">
+<svg width="203pt" height="251pt"
+ viewBox="0.00 0.00 203.00 251.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(7.2 243.95)">
 <title>erd</title>
 <!-- jobs -->
 <g id="node1" class="node">
 <title>jobs</title>
-<polygon fill="#1f4e79" stroke="none" points="156.25,-129.75 156.25,-155.25 217.75,-155.25 217.75,-129.75 156.25,-129.75"/>
-<polygon fill="none" stroke="#000000" points="156.25,-129.75 156.25,-155.25 217.75,-155.25 217.75,-129.75 156.25,-129.75"/>
-<text xml:space="preserve" text-anchor="start" x="177.25" y="-141.7" font-family="Noto Sans KR" font-weight="bold" font-size="9.00" fill="#ffffff">jobs</text>
-<polygon fill="none" stroke="#000000" points="156.25,-104.25 156.25,-129.75 193.75,-129.75 193.75,-104.25 156.25,-104.25"/>
-<text xml:space="preserve" text-anchor="start" x="162.25" y="-116.2" font-family="Noto Sans KR" text-decoration="underline" font-size="9.00">job_id</text>
-<polygon fill="none" stroke="#000000" points="193.75,-104.25 193.75,-129.75 217.75,-129.75 217.75,-104.25 193.75,-104.25"/>
-<text xml:space="preserve" text-anchor="start" x="199.75" y="-113.25" font-family="Noto Sans KR" font-size="9.00" fill="#555555">PK</text>
+<polygon fill="#1f4e79" stroke="none" points="138.5,-107.88 138.5,-128.62 189,-128.62 189,-107.88 138.5,-107.88"/>
+<polygon fill="none" stroke="#000000" points="138.5,-107.88 138.5,-128.62 189,-128.62 189,-107.88 138.5,-107.88"/>
+<text xml:space="preserve" text-anchor="start" x="155.5" y="-118.03" font-family="Noto Sans KR" font-weight="bold" font-size="8.00" fill="#ffffff">jobs</text>
+<polygon fill="none" stroke="#000000" points="138.5,-87.12 138.5,-107.88 170.5,-107.88 170.5,-87.12 138.5,-87.12"/>
+<text xml:space="preserve" text-anchor="start" x="142.5" y="-97.28" font-family="Noto Sans KR" text-decoration="underline" font-size="8.00">job_id</text>
+<polygon fill="none" stroke="#000000" points="170.5,-87.12 170.5,-107.88 189,-107.88 189,-87.12 170.5,-87.12"/>
+<text xml:space="preserve" text-anchor="start" x="174.5" y="-94.12" font-family="Noto Sans KR" font-size="8.00" fill="#555555">PK</text>
 </g>
 <!-- employees -->
 <g id="node2" class="node">
 <title>employees</title>
-<polygon fill="#d9e2ec" stroke="none" points="6.75,-259 6.75,-284.5 106.5,-284.5 106.5,-259 6.75,-259"/>
-<polygon fill="none" stroke="#000000" points="6.75,-259 6.75,-284.5 106.5,-284.5 106.5,-259 6.75,-259"/>
-<text xml:space="preserve" text-anchor="start" x="32.25" y="-270.95" font-family="Noto Sans KR" font-weight="bold" font-size="9.00" fill="#000000">employees</text>
-<polygon fill="none" stroke="#000000" points="6.75,-233.5 6.75,-259 82.5,-259 82.5,-233.5 6.75,-233.5"/>
-<text xml:space="preserve" text-anchor="start" x="12.75" y="-245.45" font-family="Noto Sans KR" text-decoration="underline" font-size="9.00">employee_id</text>
-<polygon fill="none" stroke="#000000" points="82.5,-233.5 82.5,-259 106.5,-259 106.5,-233.5 82.5,-233.5"/>
-<text xml:space="preserve" text-anchor="start" x="88.5" y="-242.5" font-family="Noto Sans KR" font-size="9.00" fill="#555555">PK</text>
-<polygon fill="none" stroke="#000000" points="6.75,-208 6.75,-233.5 82.5,-233.5 82.5,-208 6.75,-208"/>
-<text xml:space="preserve" text-anchor="start" x="12.75" y="-219.95" font-family="Noto Sans KR" font-style="italic" font-size="9.00">department_id</text>
-<polygon fill="none" stroke="#000000" points="82.5,-208 82.5,-233.5 106.5,-233.5 106.5,-208 82.5,-208"/>
-<text xml:space="preserve" text-anchor="start" x="88.5" y="-217" font-family="Noto Sans KR" font-size="9.00" fill="#555555">FK</text>
-<polygon fill="none" stroke="#000000" points="6.75,-182.5 6.75,-208 82.5,-208 82.5,-182.5 6.75,-182.5"/>
-<text xml:space="preserve" text-anchor="start" x="12.75" y="-191.5" font-family="Noto Sans KR" font-size="9.00">job_id</text>
-<polygon fill="none" stroke="#000000" points="82.5,-182.5 82.5,-208 106.5,-208 106.5,-182.5 82.5,-182.5"/>
-<text xml:space="preserve" text-anchor="start" x="88.5" y="-191.5" font-family="Noto Sans KR" font-size="9.00" fill="#555555">FK</text>
-<polygon fill="none" stroke="#000000" points="6.75,-157 6.75,-182.5 82.5,-182.5 82.5,-157 6.75,-157"/>
-<text xml:space="preserve" text-anchor="start" x="12.75" y="-168.95" font-family="Noto Sans KR" font-style="italic" font-size="9.00">manager_id</text>
-<polygon fill="none" stroke="#000000" points="82.5,-157 82.5,-182.5 106.5,-182.5 106.5,-157 82.5,-157"/>
-<text xml:space="preserve" text-anchor="start" x="88.5" y="-166" font-family="Noto Sans KR" font-size="9.00" fill="#555555">FK</text>
+<polygon fill="#d9e2ec" stroke="none" points="6,-216 6,-236.75 89.5,-236.75 89.5,-216 6,-216"/>
+<polygon fill="none" stroke="#000000" points="6,-216 6,-236.75 89.5,-236.75 89.5,-216 6,-216"/>
+<text xml:space="preserve" text-anchor="start" x="26.75" y="-226.15" font-family="Noto Sans KR" font-weight="bold" font-size="8.00" fill="#000000">employees</text>
+<polygon fill="none" stroke="#000000" points="6,-195.25 6,-216 71,-216 71,-195.25 6,-195.25"/>
+<text xml:space="preserve" text-anchor="start" x="10" y="-205.4" font-family="Noto Sans KR" text-decoration="underline" font-size="8.00">employee_id</text>
+<polygon fill="none" stroke="#000000" points="71,-195.25 71,-216 89.5,-216 89.5,-195.25 71,-195.25"/>
+<text xml:space="preserve" text-anchor="start" x="75" y="-202.25" font-family="Noto Sans KR" font-size="8.00" fill="#555555">PK</text>
+<polygon fill="none" stroke="#000000" points="6,-174.5 6,-195.25 71,-195.25 71,-174.5 6,-174.5"/>
+<text xml:space="preserve" text-anchor="start" x="10" y="-184.65" font-family="Noto Sans KR" font-style="italic" font-size="8.00">department_id</text>
+<polygon fill="none" stroke="#000000" points="71,-174.5 71,-195.25 89.5,-195.25 89.5,-174.5 71,-174.5"/>
+<text xml:space="preserve" text-anchor="start" x="75" y="-181.5" font-family="Noto Sans KR" font-size="8.00" fill="#555555">FK</text>
+<polygon fill="none" stroke="#000000" points="6,-153.75 6,-174.5 71,-174.5 71,-153.75 6,-153.75"/>
+<text xml:space="preserve" text-anchor="start" x="10" y="-160.75" font-family="Noto Sans KR" font-size="8.00">job_id</text>
+<polygon fill="none" stroke="#000000" points="71,-153.75 71,-174.5 89.5,-174.5 89.5,-153.75 71,-153.75"/>
+<text xml:space="preserve" text-anchor="start" x="75" y="-160.75" font-family="Noto Sans KR" font-size="8.00" fill="#555555">FK</text>
+<polygon fill="none" stroke="#000000" points="6,-133 6,-153.75 71,-153.75 71,-133 6,-133"/>
+<text xml:space="preserve" text-anchor="start" x="10" y="-143.15" font-family="Noto Sans KR" font-style="italic" font-size="8.00">manager_id</text>
+<polygon fill="none" stroke="#000000" points="71,-133 71,-153.75 89.5,-153.75 89.5,-133 71,-133"/>
+<text xml:space="preserve" text-anchor="start" x="75" y="-140" font-family="Noto Sans KR" font-size="8.00" fill="#555555">FK</text>
 </g>
 <!-- employees&#45;&gt;jobs -->
 <g id="edge1" class="edge">
 <title>employees:e&#45;&gt;jobs:w</title>
-<path fill="none" stroke="#8a8a8a" stroke-width="1.2" d="M122.33,-189.62C138.1,-173.22 124.76,-126.13 148.51,-118.15"/>
-<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="115.36,-192.27 106.6,-191.74 111.24,-193.83 108.25,-194.97 108.25,-194.97 108.25,-194.97 111.24,-193.83 109.15,-198.47 115.36,-192.27"/>
-<ellipse fill="none" stroke="#8a8a8a" stroke-width="1.2" cx="120.27" cy="-190.4" rx="3.2" ry="3.2"/>
-<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="154.87,-113.16 156.05,-121.07 154.47,-121.31 153.29,-113.4 154.87,-113.16"/>
-<polyline fill="none" stroke="#8a8a8a" stroke-width="1.2" points="156.25,-117 152.29,-117.59"/>
-<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="150.91,-113.75 152.09,-121.66 150.51,-121.9 149.33,-113.99 150.91,-113.75"/>
-<polyline fill="none" stroke="#8a8a8a" stroke-width="1.2" points="152.29,-117.59 148.34,-118.18"/>
+<path fill="none" stroke="#8a8a8a" stroke-width="1.2" d="M105.35,-157.98C118.32,-143.16 110.81,-106.15 130.65,-98.79"/>
+<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="98.26,-160.91 89.49,-160.65 94.2,-162.6 91.24,-163.82 91.24,-163.82 91.24,-163.82 94.2,-162.6 92.25,-167.3 98.26,-160.91"/>
+<ellipse fill="none" stroke="#8a8a8a" stroke-width="1.2" cx="103.12" cy="-158.9" rx="3.2" ry="3.2"/>
+<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="137.06,-93.68 138.36,-101.58 136.78,-101.84 135.48,-93.94 137.06,-93.68"/>
+<polyline fill="none" stroke="#8a8a8a" stroke-width="1.2" points="138.5,-97.5 134.55,-98.15"/>
+<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="133.12,-94.33 134.41,-102.22 132.83,-102.48 131.54,-94.59 133.12,-94.33"/>
+<polyline fill="none" stroke="#8a8a8a" stroke-width="1.2" points="134.55,-98.15 130.61,-98.79"/>
 </g>
 <!-- job_history -->
 <g id="node3" class="node">
 <title>job_history</title>
-<polygon fill="#d9e2ec" stroke="none" points="0,-102 0,-127.5 113.25,-127.5 113.25,-102 0,-102"/>
-<polygon fill="none" stroke="#000000" points="0,-102 0,-127.5 113.25,-127.5 113.25,-102 0,-102"/>
-<text xml:space="preserve" text-anchor="start" x="30.38" y="-113.95" font-family="Noto Sans KR" font-weight="bold" font-size="9.00" fill="#000000">job_history</text>
-<polygon fill="none" stroke="#000000" points="0,-76.5 0,-102 75.75,-102 75.75,-76.5 0,-76.5"/>
-<text xml:space="preserve" text-anchor="start" x="6" y="-88.45" font-family="Noto Sans KR" text-decoration="underline" font-size="9.00">employee_id</text>
-<polygon fill="none" stroke="#000000" points="75.75,-76.5 75.75,-102 113.25,-102 113.25,-76.5 75.75,-76.5"/>
-<text xml:space="preserve" text-anchor="start" x="81.75" y="-85.5" font-family="Noto Sans KR" font-size="9.00" fill="#555555">PK,FK</text>
-<polygon fill="none" stroke="#000000" points="0,-51 0,-76.5 75.75,-76.5 75.75,-51 0,-51"/>
-<text xml:space="preserve" text-anchor="start" x="6" y="-62.95" font-family="Noto Sans KR" text-decoration="underline" font-size="9.00">start_date</text>
-<polygon fill="none" stroke="#000000" points="75.75,-51 75.75,-76.5 113.25,-76.5 113.25,-51 75.75,-51"/>
-<text xml:space="preserve" text-anchor="start" x="81.75" y="-60" font-family="Noto Sans KR" font-size="9.00" fill="#555555">PK</text>
-<polygon fill="none" stroke="#000000" points="0,-25.5 0,-51 75.75,-51 75.75,-25.5 0,-25.5"/>
-<text xml:space="preserve" text-anchor="start" x="6" y="-34.5" font-family="Noto Sans KR" font-size="9.00">job_id</text>
-<polygon fill="none" stroke="#000000" points="75.75,-25.5 75.75,-51 113.25,-51 113.25,-25.5 75.75,-25.5"/>
-<text xml:space="preserve" text-anchor="start" x="81.75" y="-34.5" font-family="Noto Sans KR" font-size="9.00" fill="#555555">FK</text>
-<polygon fill="none" stroke="#000000" points="0,0 0,-25.5 75.75,-25.5 75.75,0 0,0"/>
-<text xml:space="preserve" text-anchor="start" x="6" y="-11.95" font-family="Noto Sans KR" font-style="italic" font-size="9.00">department_id</text>
-<polygon fill="none" stroke="#000000" points="75.75,0 75.75,-25.5 113.25,-25.5 113.25,0 75.75,0"/>
-<text xml:space="preserve" text-anchor="start" x="81.75" y="-9" font-family="Noto Sans KR" font-size="9.00" fill="#555555">FK</text>
+<polygon fill="#d9e2ec" stroke="none" points="0,-83 0,-103.75 95.5,-103.75 95.5,-83 0,-83"/>
+<polygon fill="none" stroke="#000000" points="0,-83 0,-103.75 95.5,-103.75 95.5,-83 0,-83"/>
+<text xml:space="preserve" text-anchor="start" x="25.25" y="-93.15" font-family="Noto Sans KR" font-weight="bold" font-size="8.00" fill="#000000">job_history</text>
+<polygon fill="none" stroke="#000000" points="0,-62.25 0,-83 65,-83 65,-62.25 0,-62.25"/>
+<text xml:space="preserve" text-anchor="start" x="4" y="-72.4" font-family="Noto Sans KR" text-decoration="underline" font-size="8.00">employee_id</text>
+<polygon fill="none" stroke="#000000" points="65,-62.25 65,-83 95.5,-83 95.5,-62.25 65,-62.25"/>
+<text xml:space="preserve" text-anchor="start" x="69" y="-69.25" font-family="Noto Sans KR" font-size="8.00" fill="#555555">PK,FK</text>
+<polygon fill="none" stroke="#000000" points="0,-41.5 0,-62.25 65,-62.25 65,-41.5 0,-41.5"/>
+<text xml:space="preserve" text-anchor="start" x="4" y="-51.65" font-family="Noto Sans KR" text-decoration="underline" font-size="8.00">start_date</text>
+<polygon fill="none" stroke="#000000" points="65,-41.5 65,-62.25 95.5,-62.25 95.5,-41.5 65,-41.5"/>
+<text xml:space="preserve" text-anchor="start" x="69" y="-48.5" font-family="Noto Sans KR" font-size="8.00" fill="#555555">PK</text>
+<polygon fill="none" stroke="#000000" points="0,-20.75 0,-41.5 65,-41.5 65,-20.75 0,-20.75"/>
+<text xml:space="preserve" text-anchor="start" x="4" y="-27.75" font-family="Noto Sans KR" font-size="8.00">job_id</text>
+<polygon fill="none" stroke="#000000" points="65,-20.75 65,-41.5 95.5,-41.5 95.5,-20.75 65,-20.75"/>
+<text xml:space="preserve" text-anchor="start" x="69" y="-27.75" font-family="Noto Sans KR" font-size="8.00" fill="#555555">FK</text>
+<polygon fill="none" stroke="#000000" points="0,0 0,-20.75 65,-20.75 65,0 0,0"/>
+<text xml:space="preserve" text-anchor="start" x="4" y="-10.15" font-family="Noto Sans KR" font-style="italic" font-size="8.00">department_id</text>
+<polygon fill="none" stroke="#000000" points="65,0 65,-20.75 95.5,-20.75 95.5,0 65,0"/>
+<text xml:space="preserve" text-anchor="start" x="69" y="-7" font-family="Noto Sans KR" font-size="8.00" fill="#555555">FK</text>
 </g>
 <!-- job_history&#45;&gt;jobs -->
 <g id="edge2" class="edge">
 <title>job_history:e&#45;&gt;jobs:w</title>
-<path fill="none" stroke="#8a8a8a" stroke-width="1.2" d="M128.01,-44.69C141.27,-61.81 126.56,-107.67 148.59,-115.77"/>
-<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="120.95,-41.61 115.06,-35.11 116.92,-39.85 113.99,-38.57 113.99,-38.57 113.99,-38.57 116.92,-39.85 112.18,-41.71 120.95,-41.61"/>
-<ellipse fill="none" stroke="#8a8a8a" stroke-width="1.2" cx="125.77" cy="-43.72" rx="3.2" ry="3.2"/>
-<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="156.1,-112.92 154.83,-120.82 153.25,-120.57 154.52,-112.67 156.1,-112.92"/>
-<polyline fill="none" stroke="#8a8a8a" stroke-width="1.2" points="156.25,-117 152.3,-116.37"/>
-<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="152.15,-112.29 150.88,-120.19 149.3,-119.93 150.57,-112.03 152.15,-112.29"/>
-<polyline fill="none" stroke="#8a8a8a" stroke-width="1.2" points="152.3,-116.37 148.35,-115.73"/>
+<path fill="none" stroke="#8a8a8a" stroke-width="1.2" d="M109.88,-37.73C121.1,-52.82 112.43,-89.04 131.07,-96.24"/>
+<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="103.13,-34.63 97.37,-28.02 99.13,-32.8 96.23,-31.46 96.23,-31.46 96.23,-31.46 99.13,-32.8 94.36,-34.56 103.13,-34.63"/>
+<ellipse fill="none" stroke="#8a8a8a" stroke-width="1.2" cx="107.92" cy="-36.83" rx="3.2" ry="3.2"/>
+<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="138.38,-93.42 137.04,-101.31 135.47,-101.04 136.8,-93.16 138.38,-93.42"/>
+<polyline fill="none" stroke="#8a8a8a" stroke-width="1.2" points="138.5,-97.5 134.56,-96.83"/>
+<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="134.43,-92.76 133.1,-100.64 131.52,-100.38 132.86,-92.49 134.43,-92.76"/>
+<polyline fill="none" stroke="#8a8a8a" stroke-width="1.2" points="134.56,-96.83 130.61,-96.17"/>
 </g>
 </g>
 </svg>

@@ -32,7 +32,7 @@ from pathlib import Path
 FONT = "Noto Sans KR"
 # 9pt comes out at 8.1pt at the book's svg-scale of 0.9, a little under its 9pt body text; every text of every diagram,
 # names and badges alike, is set in this one size
-FONT_SIZE = 9
+FONT_SIZE = 8
 BADGE_SIZE = FONT_SIZE
 INK = "#000000"
 MUTED = "#555555"
@@ -95,7 +95,7 @@ def node(obj, subject):
     head_bg, head_ink = (SUBJECT, SUBJECT_INK) if subject else (HEADER, INK)
     if isinstance(obj, View):
         tag = "MATERIALIZED VIEW" if obj.kind == "materialized view" else "VIEW"
-        return (f'<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" STYLE="dashed" COLOR="{INK}">'
+        return (f'<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" STYLE="dashed" COLOR="{INK}">'
                 f'<TR><TD BGCOLOR="{head_bg}"><FONT COLOR="{head_ink}" POINT-SIZE="{FONT_SIZE}"><B>'
                 f'{html.escape(obj.name)}</B></FONT></TD></TR>'
                 f'<TR><TD><FONT COLOR="{MUTED}" POINT-SIZE="{BADGE_SIZE}">{tag}</FONT></TD></TR></TABLE>>')
@@ -109,7 +109,7 @@ def node(obj, subject):
         badge = f'<FONT COLOR="{MUTED}" POINT-SIZE="{BADGE_SIZE}">{obj.badges[c]}</FONT>' if obj.badges[c] else " "
         rows.append(f'<TR><TD ALIGN="LEFT" PORT="{port(c, 'w')}">{text}</TD>'
                     f'<TD ALIGN="LEFT" PORT="{port(c, 'e')}">{badge}</TD></TR>')
-    return (f'<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="5" COLOR="{INK}">'
+    return (f'<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="3" COLOR="{INK}">'
             f'<TR><TD COLSPAN="2" BGCOLOR="{head_bg}"><FONT COLOR="{head_ink}"><B>{html.escape(obj.name)}</B></FONT></TD></TR>'
             + "".join(rows) + '</TABLE>>')
 

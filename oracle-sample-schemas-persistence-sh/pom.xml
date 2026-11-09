@@ -195,7 +195,7 @@
 
   <profiles>
     <profile>
-      <id>jakarta-ee-11-eclipselink</id>
+      <id>jakartaee-11-eclipselink</id>
       <build>
         <plugins>
           <!-- src/test/java-eclipselink holds test code written against EclipseLink's own API, which is on the test

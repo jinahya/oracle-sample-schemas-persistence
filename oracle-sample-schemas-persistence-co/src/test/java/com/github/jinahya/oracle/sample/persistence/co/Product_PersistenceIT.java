@@ -112,7 +112,7 @@ class Product_PersistenceIT
                 value = "com.github.jinahya.oracle.sample.persistence.co.Product",
                 disabledReason = "EclipseLink takes an entity graph only for a woven class; run it" +
                                  " woven with" +
-                                 " -Pjakarta-ee-11-eclipselink,jakarta-ee-11-eclipselink-weaving"
+                                 " -Pjakartaee-11-eclipselink,jakartaee-11-eclipselink-weaving"
         )
         @DisplayName(
                 "the named entity graph loads the lazy productDetails, a ProductDetails document")
@@ -258,7 +258,7 @@ class Product_PersistenceIT
                 value = "com.github.jinahya.oracle.sample.persistence.co.Product",
                 disabledReason = "EclipseLink takes an entity graph only for a woven class; run it" +
                                  " woven with" +
-                                 " -Pjakarta-ee-11-eclipselink,jakarta-ee-11-eclipselink-weaving"
+                                 " -Pjakartaee-11-eclipselink,jakartaee-11-eclipselink-weaving"
         )
         @DisplayName("the named entity graph loads the lazy productImage")
         @Test

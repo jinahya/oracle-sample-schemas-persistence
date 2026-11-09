@@ -291,8 +291,8 @@ artifacts:
   `persistence.schemaLocation` — deliberately *not* in a profile, so no profile can
   move the platform out from under the implementations.
 - **The persistence provider is the only implementation axis**, and it has exactly two
-  profiles: `jakarta-ee-11-hibernate-orm` (`activeByDefault`) and
-  `jakarta-ee-11-eclipselink` (plus the add-on `jakarta-ee-11-eclipselink-weaving`, see
+  profiles: `jakartaee-11-hibernate-orm` (`activeByDefault`) and
+  `jakartaee-11-eclipselink` (plus the add-on `jakartaee-11-eclipselink-weaving`, see
   § Testing). Every other spec has a single implementation here
   (Hibernate Validator + Expressly for Jakarta Validation, Parsson for Jakarta JSON Processing, Yasson for Jakarta JSON Binding), pinned to
   its EE 11 aligned release in `<properties>`; there is nothing to choose, so it gets
@@ -301,7 +301,7 @@ artifacts:
   and which metamodel generator the annotation processor path uses.
 - Do not add a profile to test a second version of anything. Varying Hibernate
   Validator or Expressly tests those projects, not this one. Any profile that
-  is added must carry the `jakarta-ee-11-` prefix and actually be certified for that
+  is added must carry the `jakartaee-11-` prefix and actually be certified for that
   generation.
 
 Consequences:
@@ -313,10 +313,10 @@ Consequences:
 - When a provider drags in a `jakarta.*` API newer or older than the umbrella BOM,
   align the provider with the platform generation — do not override the API version.
 - Check convergence against both providers, not just the default:
-  `./mvnw -q -Pjakarta-ee-11-hibernate-orm enforcer:enforce -Drules=dependencyConvergence`,
-  then the same with `-Pjakarta-ee-11-eclipselink`.
+  `./mvnw -q -Pjakartaee-11-hibernate-orm enforcer:enforce -Drules=dependencyConvergence`,
+  then the same with `-Pjakartaee-11-eclipselink`.
 - Naming any profile on the command line deactivates every `activeByDefault` profile.
-  Harmless while the provider is the only axis — `-Pjakarta-ee-11-eclipselink` names
+  Harmless while the provider is the only axis — `-Pjakartaee-11-eclipselink` names
   everything that had to be chosen — but it is why a second axis must not be added
   casually.
 
@@ -335,7 +335,7 @@ Rules:
 
 - The persistence provider is never hard-coded: `persistence-unit.provider` and
   `metamodel.generator.groupId/artifactId/version` default to Hibernate in
-  `<properties>` and are overridden by `jakarta-ee-11-eclipselink`;
+  `<properties>` and are overridden by `jakartaee-11-eclipselink`;
   `persistence.xml` and the annotation processor path read them. Change the profile,
   not the literal provider class.
 - Both providers must stay buildable. A change made for Hibernate has to be checked
@@ -389,8 +389,8 @@ leftovers.
 The ITs want a live Oracle at `localhost:1521/freepdb1`; `./_compose.sh` brings
 one up. The `_verify_notests_` pair is the one to reach for when there is no database.
 
-**EclipseLink woven.** `jakarta-ee-11-eclipselink-weaving` is an add-on to `jakarta-ee-11-eclipselink`, not a
-provider, and is named with it: `./mvnw -Pjakarta-ee-11-eclipselink,jakarta-ee-11-eclipselink-weaving clean test`
+**EclipseLink woven.** `jakartaee-11-eclipselink-weaving` is an add-on to `jakartaee-11-eclipselink`, not a
+provider, and is named with it: `./mvnw -Pjakartaee-11-eclipselink,jakartaee-11-eclipselink-weaving clean test`
 (add `failsafe` for the ITs). It hands the EclipseLink jar to the test JVM as a `-javaagent` on `argLine`, and sets
 `eclipselink.woven` to `true` for surefire and failsafe; nothing on disk is rewritten, and the default build stays
 unwoven. Woven, EclipseLink honours `LAZY` on a basic attribute and takes an entity graph naming one; unwoven, it

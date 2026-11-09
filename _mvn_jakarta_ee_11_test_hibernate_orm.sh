@@ -12,4 +12,4 @@
 # For both providers in one go: ./_mvn_jakarta_ee_11.sh test
 cd "$(dirname "$0")" || exit 1
 
-exec ./mvnw -Pjakarta-ee-11-hibernate-orm clean test "$@"
+exec ./mvnw -Pjakartaee-11-hibernate-orm clean test "$@"

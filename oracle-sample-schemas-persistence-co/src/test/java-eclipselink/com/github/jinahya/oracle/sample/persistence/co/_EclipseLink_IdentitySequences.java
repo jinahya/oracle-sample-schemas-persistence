@@ -20,11 +20,6 @@ package com.github.jinahya.oracle.sample.persistence.co;
  * #L%
  */
 
-import org.eclipse.persistence.sequencing.NativeSequence;
-import org.eclipse.persistence.sessions.DatabaseLogin;
-import org.eclipse.persistence.sessions.Session;
-import org.eclipse.persistence.sessions.SessionCustomizer;
-
 import java.sql.Connection;
 import java.util.HashMap;
 
@@ -49,7 +44,7 @@ import java.util.HashMap;
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
 public class _EclipseLink_IdentitySequences
-        implements SessionCustomizer {
+        implements org.eclipse.persistence.sessions.SessionCustomizer {
 
     /**
      * Creates a new instance.
@@ -59,11 +54,13 @@ public class _EclipseLink_IdentitySequences
     }
 
     @Override
-    public void customize(final Session session) throws Exception {
+    public void customize(final org.eclipse.persistence.sessions.Session session)
+            throws Exception {
         // the session is not logged in yet; read the backing sequences through a connection of
         // our own, opened by the
         // login itself, which holds the password encrypted
-        final var login = (DatabaseLogin) session.getDatasourceLogin();
+        final var login =
+                (org.eclipse.persistence.sessions.DatabaseLogin) session.getDatasourceLogin();
         final var sequences = new HashMap<String, String>(); // OWNER.TABLE -> backing sequence name
         try (var connection = (Connection) login.connectToDatasource(null, session);
              var statement = connection.prepareStatement(
@@ -82,7 +79,8 @@ public class _EclipseLink_IdentitySequences
             if (name == null) {
                 continue;
             }
-            login.addSequence(new NativeSequence(name, 1, false));
+            login.addSequence(
+                    new org.eclipse.persistence.sequencing.NativeSequence(name, 1, false));
             descriptor.setSequenceNumberName(name);
         }
     }

@@ -19,4 +19,4 @@
 # about its cause and reads exactly like the profiles being broken, which they are not.
 cd "$(dirname "$0")" || exit 1
 
-exec ./mvnw -Pfailsafe,jakarta-ee-11-eclipselink clean verify -DskipTests -DskipITs "$@"
+exec ./mvnw -Pfailsafe,jakartaee-11-eclipselink clean verify -DskipTests -DskipITs "$@"

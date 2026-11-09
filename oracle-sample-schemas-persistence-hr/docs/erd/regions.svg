@@ -5,45 +5,45 @@
  -->
 <!-- Title: erd Pages: 1 -->
 <!-- hr.regions: the table, the tables it references and the tables referencing it -->
-<svg width="213pt" height="91pt"
- viewBox="0.00 0.00 213.00 91.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(7.2 83.7)">
+<svg width="187pt" height="77pt"
+ viewBox="0.00 0.00 187.00 77.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(7.2 69.45)">
 <title>erd</title>
 <!-- regions -->
 <g id="node1" class="node">
 <title>regions</title>
-<polygon fill="#1f4e79" stroke="none" points="124,-26.25 124,-51.75 198.25,-51.75 198.25,-26.25 124,-26.25"/>
-<polygon fill="none" stroke="#000000" points="124,-26.25 124,-51.75 198.25,-51.75 198.25,-26.25 124,-26.25"/>
-<text xml:space="preserve" text-anchor="start" x="144.25" y="-38.2" font-family="Noto Sans KR" font-weight="bold" font-size="9.00" fill="#ffffff">regions</text>
-<polygon fill="none" stroke="#000000" points="124,-0.75 124,-26.25 174.25,-26.25 174.25,-0.75 124,-0.75"/>
-<text xml:space="preserve" text-anchor="start" x="130" y="-12.7" font-family="Noto Sans KR" text-decoration="underline" font-size="9.00">region_id</text>
-<polygon fill="none" stroke="#000000" points="174.25,-0.75 174.25,-26.25 198.25,-26.25 198.25,-0.75 174.25,-0.75"/>
-<text xml:space="preserve" text-anchor="start" x="180.25" y="-9.75" font-family="Noto Sans KR" font-size="9.00" fill="#555555">PK</text>
+<polygon fill="#1f4e79" stroke="none" points="110,-21.12 110,-41.88 172.5,-41.88 172.5,-21.12 110,-21.12"/>
+<polygon fill="none" stroke="#000000" points="110,-21.12 110,-41.88 172.5,-41.88 172.5,-21.12 110,-21.12"/>
+<text xml:space="preserve" text-anchor="start" x="127" y="-31.27" font-family="Noto Sans KR" font-weight="bold" font-size="8.00" fill="#ffffff">regions</text>
+<polygon fill="none" stroke="#000000" points="110,-0.38 110,-21.12 154,-21.12 154,-0.38 110,-0.38"/>
+<text xml:space="preserve" text-anchor="start" x="114" y="-10.53" font-family="Noto Sans KR" text-decoration="underline" font-size="8.00">region_id</text>
+<polygon fill="none" stroke="#000000" points="154,-0.38 154,-21.12 172.5,-21.12 172.5,-0.38 154,-0.38"/>
+<text xml:space="preserve" text-anchor="start" x="158" y="-7.38" font-family="Noto Sans KR" font-size="8.00" fill="#555555">PK</text>
 </g>
 <!-- countries -->
 <g id="node2" class="node">
 <title>countries</title>
-<polygon fill="#d9e2ec" stroke="none" points="0,-51 0,-76.5 81,-76.5 81,-51 0,-51"/>
-<polygon fill="none" stroke="#000000" points="0,-51 0,-76.5 81,-76.5 81,-51 0,-51"/>
-<text xml:space="preserve" text-anchor="start" x="19.12" y="-62.95" font-family="Noto Sans KR" font-weight="bold" font-size="9.00" fill="#000000">countries</text>
-<polygon fill="none" stroke="#000000" points="0,-25.5 0,-51 57,-51 57,-25.5 0,-25.5"/>
-<text xml:space="preserve" text-anchor="start" x="6" y="-37.45" font-family="Noto Sans KR" text-decoration="underline" font-size="9.00">country_id</text>
-<polygon fill="none" stroke="#000000" points="57,-25.5 57,-51 81,-51 81,-25.5 57,-25.5"/>
-<text xml:space="preserve" text-anchor="start" x="63" y="-34.5" font-family="Noto Sans KR" font-size="9.00" fill="#555555">PK</text>
-<polygon fill="none" stroke="#000000" points="0,0 0,-25.5 57,-25.5 57,0 0,0"/>
-<text xml:space="preserve" text-anchor="start" x="6" y="-11.95" font-family="Noto Sans KR" font-style="italic" font-size="9.00">region_id</text>
-<polygon fill="none" stroke="#000000" points="57,0 57,-25.5 81,-25.5 81,0 57,0"/>
-<text xml:space="preserve" text-anchor="start" x="63" y="-9" font-family="Noto Sans KR" font-size="9.00" fill="#555555">FK</text>
+<polygon fill="#d9e2ec" stroke="none" points="0,-41.5 0,-62.25 67,-62.25 67,-41.5 0,-41.5"/>
+<polygon fill="none" stroke="#000000" points="0,-41.5 0,-62.25 67,-62.25 67,-41.5 0,-41.5"/>
+<text xml:space="preserve" text-anchor="start" x="15.12" y="-51.65" font-family="Noto Sans KR" font-weight="bold" font-size="8.00" fill="#000000">countries</text>
+<polygon fill="none" stroke="#000000" points="0,-20.75 0,-41.5 48.5,-41.5 48.5,-20.75 0,-20.75"/>
+<text xml:space="preserve" text-anchor="start" x="4" y="-30.9" font-family="Noto Sans KR" text-decoration="underline" font-size="8.00">country_id</text>
+<polygon fill="none" stroke="#000000" points="48.5,-20.75 48.5,-41.5 67,-41.5 67,-20.75 48.5,-20.75"/>
+<text xml:space="preserve" text-anchor="start" x="52.5" y="-27.75" font-family="Noto Sans KR" font-size="8.00" fill="#555555">PK</text>
+<polygon fill="none" stroke="#000000" points="0,0 0,-20.75 48.5,-20.75 48.5,0 0,0"/>
+<text xml:space="preserve" text-anchor="start" x="4" y="-10.15" font-family="Noto Sans KR" font-style="italic" font-size="8.00">region_id</text>
+<polygon fill="none" stroke="#000000" points="48.5,0 48.5,-20.75 67,-20.75 67,0 48.5,0"/>
+<text xml:space="preserve" text-anchor="start" x="52.5" y="-7" font-family="Noto Sans KR" font-size="8.00" fill="#555555">FK</text>
 </g>
 <!-- countries&#45;&gt;regions -->
 <g id="edge1" class="edge">
 <title>countries:e&#45;&gt;regions:w</title>
-<path fill="none" stroke="#8a8a8a" stroke-width="1.2" d="M97.09,-12.96C102.31,-13.1 106.8,-13.29 112.61,-13.4"/>
-<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="89.4,-12.86 81.45,-9.16 85,-12.8 81.8,-12.76 81.8,-12.76 81.8,-12.76 85,-12.8 81.35,-16.35 89.4,-12.86"/>
-<ellipse fill="none" stroke="#8a8a8a" stroke-width="1.2" cx="94.66" cy="-12.93" rx="3.2" ry="3.2"/>
-<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="123.24,-9.49 123.16,-17.49 121.56,-17.48 121.64,-9.48 123.24,-9.49"/>
-<polyline fill="none" stroke="#8a8a8a" stroke-width="1.2" points="124,-13.5 120,-13.46"/>
-<ellipse fill="none" stroke="#8a8a8a" stroke-width="1.2" cx="116.2" cy="-13.43" rx="3.2" ry="3.2"/>
+<path fill="none" stroke="#8a8a8a" stroke-width="1.2" d="M83.09,-10.48C88.31,-10.55 92.8,-10.64 98.61,-10.7"/>
+<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="75.4,-10.43 67.43,-6.78 71,-10.4 67.8,-10.38 67.8,-10.38 67.8,-10.38 71,-10.4 67.38,-13.98 75.4,-10.43"/>
+<ellipse fill="none" stroke="#8a8a8a" stroke-width="1.2" cx="80.66" cy="-10.47" rx="3.2" ry="3.2"/>
+<polygon fill="#8a8a8a" stroke="#8a8a8a" stroke-width="1.2" points="109.22,-6.75 109.18,-14.75 107.58,-14.74 107.62,-6.74 109.22,-6.75"/>
+<polyline fill="none" stroke="#8a8a8a" stroke-width="1.2" points="110,-10.75 106,-10.73"/>
+<ellipse fill="none" stroke="#8a8a8a" stroke-width="1.2" cx="102.2" cy="-10.71" rx="3.2" ry="3.2"/>
 </g>
 </g>
 </svg>
