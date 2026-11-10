@@ -34,6 +34,13 @@ jobs:
         java-version: '25'
         distribution: 'temurin'
         cache: maven
+    # version.jinahya-persistence may be a -SNAPSHOT, which no remote repository serves; build
+    # jinahya-persistence's develop and install it into the local repository first. Cloned outside
+    # the workspace, so this project's own build never sees it.
+    - name: Install jinahya-persistence
+      run: |
+        git clone --depth 1 --branch develop https://github.com/jinahya/jinahya-persistence.git "$RUNNER_TEMP/jinahya-persistence"
+        mvn -B install -DskipTests --file "$RUNNER_TEMP/jinahya-persistence/pom.xml"
     # `verify`, not `package`: it runs everything bound up to and including verify -- the unit
     # tests against each module's <module>-test persistence unit (H2, in-memory, schema generated
     # from the mappings), jacoco and the licence check -- so a green run here means that path is
@@ -95,6 +102,11 @@ jobs:
         java-version: '25'
         distribution: 'temurin'
         cache: maven
+    # see the same step in the `build` job above
+    - name: Install jinahya-persistence
+      run: |
+        git clone --depth 1 --branch develop https://github.com/jinahya/jinahya-persistence.git "$RUNNER_TEMP/jinahya-persistence"
+        mvn -B install -DskipTests --file "$RUNNER_TEMP/jinahya-persistence/pom.xml"
     - name: Test
       run: >
         mvn -B test
