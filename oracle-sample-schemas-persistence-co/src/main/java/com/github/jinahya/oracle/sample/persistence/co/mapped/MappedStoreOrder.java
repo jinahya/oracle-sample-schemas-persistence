@@ -23,6 +23,7 @@ package com.github.jinahya.oracle.sample.persistence.co.mapped;
 import com.github.jinahya.oracle.sample.persistence.common.annotation.OraComment;
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Size;
@@ -39,6 +40,7 @@ import java.math.BigDecimal;
  *
  * @author Jin Kwon &lt;onacit_at_gmail.com&gt;
  */
+@MappedSuperclass
 @OraComment("A summary of what was purchased at each location, including summaries each store, " +
             "order status and overall total")
 public abstract class MappedStoreOrder {

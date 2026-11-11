@@ -21,6 +21,7 @@ package com.github.jinahya.oracle.sample.persistence.co;
  */
 
 import com.github.jinahya.oracle.sample.persistence.shared._Entity_Test;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -37,10 +38,7 @@ class ProductReview_Test
 
     // ----------------------------------------------------------------------------- equals/hashCode
 
-    /**
-     * Does nothing; {@link ProductReview} declares no {@code equals(Object)}, so there is no value
-     * equality to verify.
-     */
+    @Disabled("a view with no key: no equals(Object) of its own; identity equality")
     @Override
     @Test
     public void equals_verify_() {
