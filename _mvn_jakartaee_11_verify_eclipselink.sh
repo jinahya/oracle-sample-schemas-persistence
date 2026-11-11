@@ -1,5 +1,5 @@
 #!/bin/sh
-# Runs `verify` against hibernate-orm only: the whole lifecycle -- compile, package, javadoc,
+# Runs `verify` against eclipselink only: the whole lifecycle -- compile, package, javadoc,
 # enforcer -- with both the unit tests and the integration tests executed.
 #
 # The ITs talk to a real Oracle at localhost:1521/freepdb1, so bring it up with
@@ -12,9 +12,9 @@
 # so the two halves are selected separately -- and that is a property of ${version.maven-failsafe};
 # under 3.5.x and earlier -DskipTests reached both:
 #
-#     ./_mvn_jakarta_ee_11_verify_hibernate_orm.sh -DskipTests   # the ITs alone
-#     ./_mvn_jakarta_ee_11_verify_hibernate_orm.sh -DskipITs     # the unit tests alone
-#     ./_mvn_jakarta_ee_11_verify_notests_hibernate_orm.sh       # neither
+#     ./_mvn_jakartaee_11_verify_eclipselink.sh -DskipTests   # the ITs alone
+#     ./_mvn_jakartaee_11_verify_eclipselink.sh -DskipITs     # the unit tests alone
+#     ./_mvn_jakartaee_11_verify_notests_eclipselink.sh       # neither
 #
 # `clean` is not optional. The annotation processor writes a metamodel per provider, and the two do
 # not generate the same one; without a clean in between, a run compiles against the other provider's
@@ -22,4 +22,4 @@
 # about its cause and reads exactly like the profiles being broken, which they are not.
 cd "$(dirname "$0")" || exit 1
 
-exec ./mvnw -Pfailsafe,jakartaee-11-hibernate-orm clean verify "$@"
+exec ./mvnw -Pfailsafe,jakartaee-11-eclipselink clean verify "$@"

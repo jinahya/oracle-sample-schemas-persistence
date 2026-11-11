@@ -378,9 +378,9 @@ leftovers.
 
 | runs | Hibernate ORM | EclipseLink |
 | --- | --- | --- |
-| unit tests | `_mvn_jakarta_ee_11_test_hibernate_orm.sh` | `_mvn_jakarta_ee_11_test_eclipselink.sh` |
-| unit tests and ITs | `_mvn_jakarta_ee_11_verify_hibernate_orm.sh` | `_mvn_jakarta_ee_11_verify_eclipselink.sh` |
-| no test, but still compiles them | `_mvn_jakarta_ee_11_verify_notests_hibernate_orm.sh` | `_mvn_jakarta_ee_11_verify_notests_eclipselink.sh` |
+| unit tests | `_mvn_jakartaee_11_test_hibernate_orm.sh` | `_mvn_jakartaee_11_test_eclipselink.sh` |
+| unit tests and ITs | `_mvn_jakartaee_11_verify_hibernate_orm.sh` | `_mvn_jakartaee_11_verify_eclipselink.sh` |
+| no test, but still compiles them | `_mvn_jakartaee_11_verify_notests_hibernate_orm.sh` | `_mvn_jakartaee_11_verify_notests_eclipselink.sh` |
 
 The ITs want a live Oracle at `localhost:1521/freepdb1`; `./_compose.sh` brings
 one up. The `_verify_notests_` pair is the one to reach for when there is no database.

@@ -152,8 +152,8 @@ there is nothing to choose and no profile for it. Run the unit tests against eac
 provider:
 
 ```shell
-$ ./_mvn_jakarta_ee_11_test_hibernate_orm.sh
-$ ./_mvn_jakarta_ee_11_test_eclipselink.sh
+$ ./_mvn_jakartaee_11_test_hibernate_orm.sh
+$ ./_mvn_jakartaee_11_test_eclipselink.sh
 ```
 
 The `_verify_` scripts of the same shape go the whole way -- package, javadoc, enforcer --

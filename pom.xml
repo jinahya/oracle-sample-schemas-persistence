@@ -550,7 +550,7 @@
           <execution>
             <!-- a -P naming a profile that does not exist is silently ignored by Maven; this turns
                  that into a build failure. The provider profile ids are named from
-                 _mvn_jakarta_ee_11.sh and from the CI matrix, so a rename that misses one of them
+                 _mvn_jakartaee_11.sh and from the CI matrix, so a rename that misses one of them
                  would otherwise just run the default provider twice and look green. -->
             <id>enforce-require-profile-ids-exist</id>
             <goals>

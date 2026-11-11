@@ -9,7 +9,7 @@
 # leftovers and fails with "cannot find symbol" on generated classes -- a failure that is silent
 # about its cause and reads exactly like the profiles being broken, which they are not.
 #
-# For both providers in one go: ./_mvn_jakarta_ee_11.sh test
+# For both providers in one go: ./_mvn_jakartaee_11.sh test
 cd "$(dirname "$0")" || exit 1
 
 exec ./mvnw -Pjakartaee-11-hibernate-orm clean test "$@"
