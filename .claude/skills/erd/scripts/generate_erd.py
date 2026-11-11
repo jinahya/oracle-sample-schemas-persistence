@@ -21,6 +21,7 @@ The script is the same file in every project; change it in one, copy it to the o
 """
 
 import html
+import re
 import shutil
 import subprocess
 import sys
@@ -30,9 +31,9 @@ from pathlib import Path
 # the sans-serif the book's PDF draws SVG text in (its theme's svg fallback font), so Graphviz sizes every cell for the
 # text that will be in it
 FONT = "Noto Sans KR"
-# 9pt comes out at 8.1pt at the book's svg-scale of 0.9, a little under its 9pt body text; every text of every diagram,
-# names and badges alike, is set in this one size
-FONT_SIZE = 8
+# 7pt, a little under the book's 8pt body text; every text of every diagram, names and badges alike, is set in this one
+# size
+FONT_SIZE = 7
 BADGE_SIZE = FONT_SIZE
 INK = "#000000"
 MUTED = "#555555"
@@ -95,7 +96,7 @@ def node(obj, subject):
     head_bg, head_ink = (SUBJECT, SUBJECT_INK) if subject else (HEADER, INK)
     if isinstance(obj, View):
         tag = "MATERIALIZED VIEW" if obj.kind == "materialized view" else "VIEW"
-        return (f'<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" STYLE="dashed" COLOR="{INK}">'
+        return (f'<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="2" STYLE="dashed" COLOR="{INK}">'
                 f'<TR><TD BGCOLOR="{head_bg}"><FONT COLOR="{head_ink}" POINT-SIZE="{FONT_SIZE}"><B>'
                 f'{html.escape(obj.name)}</B></FONT></TD></TR>'
                 f'<TR><TD><FONT COLOR="{MUTED}" POINT-SIZE="{BADGE_SIZE}">{tag}</FONT></TD></TR></TABLE>>')
@@ -109,7 +110,7 @@ def node(obj, subject):
         badge = f'<FONT COLOR="{MUTED}" POINT-SIZE="{BADGE_SIZE}">{obj.badges[c]}</FONT>' if obj.badges[c] else " "
         rows.append(f'<TR><TD ALIGN="LEFT" PORT="{port(c, 'w')}">{text}</TD>'
                     f'<TD ALIGN="LEFT" PORT="{port(c, 'e')}">{badge}</TD></TR>')
-    return (f'<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="3" COLOR="{INK}">'
+    return (f'<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="2" COLOR="{INK}">'
             f'<TR><TD COLSPAN="2" BGCOLOR="{head_bg}"><FONT COLOR="{head_ink}"><B>{html.escape(obj.name)}</B></FONT></TD></TR>'
             + "".join(rows) + '</TABLE>>')
 
@@ -154,8 +155,38 @@ def graph(model, objects, subject, rankdir, views_of=None):
     return "\n".join(lines) + "\n"
 
 
+# Graphviz centres plain text in its cell, its baseline 0.43 em under the cell's middle, but sets bold, underlined
+# and italic text higher; this puts every such text on the same baseline as the plain text beside it
+TEXT = re.compile(r'<text ([^>]*?)y="(-?[\d.]+)"([^>]*)>')
+CELL = re.compile(r'<polygon [^>]*points="([^"]+)"')
+
+
+def centre_text(svg):
+    cells = []
+    for m in CELL.finditer(svg):
+        ys = [float(p.split(",")[1]) for p in m.group(1).split()]
+        xs = [float(p.split(",")[0]) for p in m.group(1).split()]
+        cells.append((min(xs), max(xs), min(ys), max(ys)))
+
+    def fix(m):
+        attrs = m.group(1) + m.group(3)
+        if not re.search(r'font-weight="bold"|text-decoration="underline"|font-style="italic"', attrs):
+            return m.group(0)
+        x = float(re.search(r'x="(-?[\d.]+)"', attrs).group(1))
+        y = float(m.group(2))
+        size = float(re.search(r'font-size="([\d.]+)"', attrs).group(1))
+        inside = [c for c in cells if c[0] <= x <= c[1] and c[2] < y < c[3]]
+        if not inside:
+            return m.group(0)
+        x0, x1, y0, y1 = min(inside, key=lambda c: (c[1] - c[0]) * (c[3] - c[2]))
+        return f'<text {m.group(1)}y="{(y0 + y1) / 2 + 0.43 * size:.2f}"{m.group(3)}>'
+
+    return TEXT.sub(fix, svg)
+
+
 def render(dot_source, comment, path):
-    svg = subprocess.run(["dot", "-Tsvg"], input=dot_source, capture_output=True, text=True, check=True).stdout
+    svg = centre_text(subprocess.run(["dot", "-Tsvg"], input=dot_source, capture_output=True, text=True,
+                                     check=True).stdout)
     # the comment goes after the XML declaration and the doctype, ahead of the <svg> element
     i = svg.index("<svg")
     svg = svg[:i] + f"<!-- {html.escape(comment, quote=False).replace('--', '- -')} -->\n" + svg[i:]
