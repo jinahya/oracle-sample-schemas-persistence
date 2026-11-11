@@ -37,9 +37,9 @@
     <class>com.github.jinahya.oracle.sample.persistence.sh.Promotion</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.SupplementaryDemographics</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.Time</class>
-    <class>com.github.jinahya.persistence.more.converter.javatime.__TemporalAccessorTextStringAttributeConverters$OfDayOfWeek</class>
-    <class>com.github.jinahya.persistence.more.converter.javatime.__TemporalAccessorTextStringAttributeConverters$OfMonth</class>
-    <class>com.github.jinahya.persistence.more.converter.javatime.__TemporalAccessorStringAttributeConverters$OfYearMonth</class>
+    <class>com.github.jinahya.persistence.more.converter.javatime.DayOfWeekConverter$OfString</class>
+    <class>com.github.jinahya.persistence.more.converter.javatime.MonthConverter$OfString</class>
+    <class>com.github.jinahya.persistence.more.converter.javatime.YearMonthConverter$OfString</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.CalMonthSalesMv</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.Cost</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.FweekPscatSalesMvId</class>
@@ -90,9 +90,9 @@
     <class>com.github.jinahya.oracle.sample.persistence.sh.Promotion</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.SupplementaryDemographics</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.Time</class>
-    <class>com.github.jinahya.persistence.more.converter.javatime.__TemporalAccessorTextStringAttributeConverters$OfDayOfWeek</class>
-    <class>com.github.jinahya.persistence.more.converter.javatime.__TemporalAccessorTextStringAttributeConverters$OfMonth</class>
-    <class>com.github.jinahya.persistence.more.converter.javatime.__TemporalAccessorStringAttributeConverters$OfYearMonth</class>
+    <class>com.github.jinahya.persistence.more.converter.javatime.DayOfWeekConverter$OfString</class>
+    <class>com.github.jinahya.persistence.more.converter.javatime.MonthConverter$OfString</class>
+    <class>com.github.jinahya.persistence.more.converter.javatime.YearMonthConverter$OfString</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.CalMonthSalesMv</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.Cost</class>
     <class>com.github.jinahya.oracle.sample.persistence.sh.mapped.FweekPscatSalesMvId</class>

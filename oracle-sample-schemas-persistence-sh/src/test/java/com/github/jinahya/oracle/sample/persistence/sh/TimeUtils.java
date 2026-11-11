@@ -20,8 +20,9 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.persistence.more.converter.javatime.DayOfWeekConverter;
+import com.github.jinahya.persistence.more.converter.javatime.MonthConverter;
 import com.github.jinahya.persistence.more.converter.javatime.YearMonthConverter;
-import com.github.jinahya.persistence.more.converter.javatime.__TemporalAccessorTextStringAttributeConverters;
 
 import java.time.DayOfWeek;
 import java.time.Month;
@@ -42,14 +43,11 @@ public final class TimeUtils {
     // ------------------------------------------------------------------------------- CONVERTERS
 
     // the converters the units list for the columns; each is immutable, so one instance serves
-    private static final __TemporalAccessorTextStringAttributeConverters.OfDayOfWeek DAY_NAME =
-            new __TemporalAccessorTextStringAttributeConverters.OfDayOfWeek();
+    private static final DayOfWeekConverter.OfString DAY_NAME = new DayOfWeekConverter.OfString();
 
-    private static final __TemporalAccessorTextStringAttributeConverters.OfMonth MONTH_NAME =
-            new __TemporalAccessorTextStringAttributeConverters.OfMonth();
+    private static final MonthConverter.OfString MONTH_NAME = new MonthConverter.OfString();
 
-    private static final YearMonthConverter.OfString MONTH_DESC =
-            new YearMonthConverter.OfString();
+    private static final YearMonthConverter.OfString MONTH_DESC = new YearMonthConverter.OfString();
 
     // ------------------------------------------------------------------------------------- dayName
 
@@ -119,7 +117,7 @@ public final class TimeUtils {
      * @param dayOfWeek the day of the week; {@code null} sets the
      *                  {@value Time#ATTRIBUTE_NAME_DAY_NAME} attribute to {@code null}.
      * @throws NullPointerException if {@code time} is {@code null}.
-     * @see __TemporalAccessorTextStringAttributeConverters.OfDayOfWeek
+     * @see DayOfWeekConverter.OfString
      * @see #getDayNameAsDayOfWeek(Time)
      */
     public static void setDayNameFromDayOfWeek(final Time time, final DayOfWeek dayOfWeek) {
@@ -353,7 +351,7 @@ public final class TimeUtils {
      * @param month the month; {@code null} sets the
      *              {@value Time#ATTRIBUTE_NAME_CALENDAR_MONTH_NAME} attribute to {@code null}.
      * @throws NullPointerException if {@code time} is {@code null}.
-     * @see __TemporalAccessorTextStringAttributeConverters.OfMonth
+     * @see MonthConverter.OfString
      * @see #getCalendarMonthNameAsMonth(Time)
      */
     public static void setCalendarMonthNameFromMonth(final Time time, final Month month) {
@@ -429,7 +427,7 @@ public final class TimeUtils {
      * @param month the month; {@code null} sets the {@value Time#ATTRIBUTE_NAME_FISCAL_MONTH_NAME}
      *              attribute to {@code null}.
      * @throws NullPointerException if {@code time} is {@code null}.
-     * @see __TemporalAccessorTextStringAttributeConverters.OfMonth
+     * @see MonthConverter.OfString
      * @see #getFiscalMonthNameAsMonth(Time)
      */
     public static void setFiscalMonthNameFromMonth(final Time time, final Month month) {

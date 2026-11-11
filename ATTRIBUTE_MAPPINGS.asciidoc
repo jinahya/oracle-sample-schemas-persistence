@@ -289,7 +289,7 @@ Every converter which is not an enum's, with the attributes it converts:
 |===
 | Converter | Java type | Columns | Note
 
-| `__TemporalAccessorTextStringAttributeConverters.OfDayOfWeek`
+| `DayOfWeekConverter.OfString`
 | `DayOfWeek`
 | `SH.TIMES.DAY_NAME`
 | `jinahya-persistence-more`'s; `VARCHAR2(9)`, the full English name of the day (`Monday`), written in
@@ -297,13 +297,13 @@ Every converter which is not an enum's, with the attributes it converts:
 Listed by each unit of the test `persistence.xml`, but no attribute names it: `MappedTime` keeps the column as a
 `String`, and applying it is an exercise (issue #6).
 
-| `__TemporalAccessorTextStringAttributeConverters.OfMonth`
+| `MonthConverter.OfString`
 | `Month`
 | `SH.TIMES.CALENDAR_MONTH_NAME`, `SH.TIMES.FISCAL_MONTH_NAME`
 | `jinahya-persistence-more`'s; `VARCHAR2(9)`, the full English name of the month (`January`). As `OfDayOfWeek`
 (issue #7).
 
-| `__TemporalAccessorStringAttributeConverters.OfYearMonth`
+| `YearMonthConverter.OfString`
 | `YearMonth`
 | `SH.TIMES.CALENDAR_MONTH_DESC`, `SH.TIMES.FISCAL_MONTH_DESC`
 | `jinahya-persistence-more`'s; `VARCHAR2(8)`, the month as `uuuu-MM` (`2019-01`), which `YearMonth` parses and

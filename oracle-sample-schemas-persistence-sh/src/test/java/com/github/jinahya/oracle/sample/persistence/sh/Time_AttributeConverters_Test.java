@@ -20,8 +20,9 @@ package com.github.jinahya.oracle.sample.persistence.sh;
  * #L%
  */
 
+import com.github.jinahya.persistence.more.converter.javatime.DayOfWeekConverter;
+import com.github.jinahya.persistence.more.converter.javatime.MonthConverter;
 import com.github.jinahya.persistence.more.converter.javatime.YearMonthConverter;
-import com.github.jinahya.persistence.more.converter.javatime.__TemporalAccessorTextStringAttributeConverters;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -48,8 +49,7 @@ class Time_AttributeConverters_Test {
     @Nested
     class OfDayOfWeek_Test {
 
-        private final __TemporalAccessorTextStringAttributeConverters.OfDayOfWeek converter =
-                new __TemporalAccessorTextStringAttributeConverters.OfDayOfWeek();
+        private final DayOfWeekConverter.OfString converter = new DayOfWeekConverter.OfString();
 
         @Test
         void convertToDatabaseColumn_Null_Null() {
@@ -91,8 +91,7 @@ class Time_AttributeConverters_Test {
     @Nested
     class OfMonth_Test {
 
-        private final __TemporalAccessorTextStringAttributeConverters.OfMonth converter =
-                new __TemporalAccessorTextStringAttributeConverters.OfMonth();
+        private final MonthConverter.OfString converter = new MonthConverter.OfString();
 
         @Test
         void convertToDatabaseColumn_Null_Null() {
@@ -135,8 +134,7 @@ class Time_AttributeConverters_Test {
     @Nested
     class OfYearMonth_Test {
 
-        private final YearMonthConverter.OfString converter =
-                new YearMonthConverter.OfString();
+        private final YearMonthConverter.OfString converter = new YearMonthConverter.OfString();
 
         @Test
         void convertToDatabaseColumn_Null_Null() {
