@@ -161,7 +161,7 @@ and add the integration tests, which want a live Oracle at `localhost:1521/freep
 `./_compose.sh` brings one up. The `_verify_notests_` pair runs the same
 lifecycle with no test at all, for when there is no database to point at.
 
-Main sources target Java 17; tests target Java 25, so building the tests needs a
+Main sources target Java 21; tests target Java 25, so building the tests needs a
 JDK 25 or newer.
 
 ## Oracle

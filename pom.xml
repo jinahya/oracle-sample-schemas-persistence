@@ -79,7 +79,7 @@
 
   <properties>
     <!-- https://endoflife.date/eclipse-temurin -->
-    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.source>21</maven.compiler.source>
     <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     <maven.compiler.release>${maven.compiler.target}</maven.compiler.release>
     <!-- Keep constructor parameter names in the class files, so that name-based row mappers (e.g., Spring's -->
@@ -529,7 +529,7 @@
             <configuration>
               <rules>
                 <requireJavaVersion>
-                  <version>[21.0.0,)</version>
+                  <version>[25,)</version>
                 </requireJavaVersion>
               </rules>
             </configuration>
